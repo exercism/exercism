@@ -38,5 +38,20 @@ class CurriculumTest < MiniTest::Unit::TestCase
     assert_equal './test/fixtures/nong/one', assignment.path
   end
 
+  # Do I want an actual language object, or just the string
+  # representing the language?
+  def test_identify_language_from_filename
+    filename = 'one.fp'
+    femp = Language.new('femp', 'fp', 'fpt')
+    curriculum.add(femp, %w(one two))
+    assert_equal 'femp', curriculum.identify_language('femp.fp')
+  end
+
+  def test_unknown_language
+    assert_raises UnknownLanguage do
+      curriculum.identify_language('femp.fp')
+    end
+  end
+
 end
 
