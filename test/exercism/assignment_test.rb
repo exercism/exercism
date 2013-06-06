@@ -1,14 +1,14 @@
 require './test/test_helper'
 
 require 'yaml'
-require './lib/exercism/language'
+require './lib/exercism/locale'
 require './lib/exercism/assignment'
 
 class AssignmentTest < MiniTest::Unit::TestCase
 
   attr_reader :assignment
   def setup
-    nong = Language.new('nong', 'no', 'not')
+    nong = Locale.new('nong', 'no', 'not')
     @assignment = Assignment.new(nong, 'one', './test/fixtures')
   end
 
@@ -17,7 +17,7 @@ class AssignmentTest < MiniTest::Unit::TestCase
   end
 
   def test_compound_name
-    nong = Language.new('nong', 'no', 'not')
+    nong = Locale.new('nong', 'no', 'not')
     assignment = Assignment.new(nong, 'one-more', './test/fixtures')
     assert_equal 'One More', assignment.name
   end

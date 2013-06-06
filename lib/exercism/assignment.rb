@@ -1,10 +1,10 @@
 class Assignment
 
-  attr_reader :path, :language, :slug
-  def initialize(language, slug, path)
-    @language = language
+  attr_reader :path, :locale, :slug
+  def initialize(locale, slug, path)
+    @locale = locale
     @slug = slug
-    @path = File.join(path, language.to_s, slug)
+    @path = File.join(path, locale.to_s, slug)
   end
 
   def name
@@ -16,7 +16,7 @@ class Assignment
   end
 
   def test_file
-    "test.#{language.test_extension}"
+    "test.#{locale.test_extension}"
   end
 
   def example
@@ -24,7 +24,7 @@ class Assignment
   end
 
   def example_file
-    "example.#{language.code_extension}"
+    "example.#{locale.code_extension}"
   end
 
   def blurb

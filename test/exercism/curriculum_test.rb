@@ -1,7 +1,7 @@
 require './test/test_helper'
 
 require './lib/exercism/curriculum'
-require './lib/exercism/language'
+require './lib/exercism/locale'
 require './lib/exercism/trail'
 require './lib/exercism/exercise'
 require './lib/exercism/assignment'
@@ -13,7 +13,7 @@ class CurriculumTest < MiniTest::Unit::TestCase
   attr_reader :curriculum
   def setup
     @curriculum = Curriculum.new('./test/fixtures')
-    nong = Language.new('nong', 'no', 'not')
+    nong = Locale.new('nong', 'no', 'not')
     curriculum.add(nong, %w(one two))
   end
 
@@ -38,11 +38,10 @@ class CurriculumTest < MiniTest::Unit::TestCase
     assert_equal './test/fixtures/nong/one', assignment.path
   end
 
-  # Do I want an actual language object, or just the string
-  # representing the language?
+  # Do I want an actual locale object, or just the language?
   def test_identify_language_from_filename
     filename = 'one.fp'
-    femp = Language.new('femp', 'fp', 'fpt')
+    femp = Locale.new('femp', 'fp', 'fpt')
     curriculum.add(femp, %w(one two))
     assert_equal 'femp', curriculum.identify_language('femp.fp')
   end
@@ -54,8 +53,8 @@ class CurriculumTest < MiniTest::Unit::TestCase
   end
 
   def test_unstarted_trails
-    femp = Language.new('femp', 'fp', 'fpt')
-    turq = Language.new('turq', 'tq', 'tqt')
+    femp = Locale.new('femp', 'fp', 'fpt')
+    turq = Locale.new('turq', 'tq', 'tqt')
     curriculum.add(femp, %w(one two))
     curriculum.add(turq, %w(one two))
     languages = curriculum.unstarted_trails(['femp'])

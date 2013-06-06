@@ -1,16 +1,16 @@
 class UnknownLanguage < RuntimeError; end
 class Curriculum
 
-  attr_reader :path, :trails, :languages
+  attr_reader :path, :trails, :locales
   def initialize(path)
     @path = path
-    @languages = []
+    @locales = []
     @trails = {}
   end
 
-  def add(language, slugs)
-    @trails[language.to_sym] = Trail.new(language, slugs, path)
-    @languages << language
+  def add(locale, slugs)
+    @trails[locale.to_sym] = Trail.new(locale, slugs, path)
+    @locales << locale
   end
 
   def in(language)
@@ -23,9 +23,9 @@ class Curriculum
 
   def identify_language(filename)
     ext = filename.gsub(/\A[^\.]+\./,  '')
-    lang = languages.find {|lang| lang.code_extension == ext}
-    if lang
-      lang.name
+    locale = locales.find {|lang| lang.code_extension == ext}
+    if locale
+      locale.language
     else
       raise UnknownLanguage.new("Uknown language for file extension #{ext}")
     end
@@ -38,7 +38,7 @@ class Curriculum
   private
 
   def available_languages
-    languages.map(&:name)
+    locales.map(&:language)
   end
 
 end
