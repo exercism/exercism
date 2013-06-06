@@ -1,0 +1,20 @@
+---
+production:
+  sessions:
+    default:
+      uri: <%= ENV['MONGOHQ_URL'] %>
+      options:
+        skip_version_check: true
+        safe: true
+development:
+  sessions:
+    default:
+      database: exercism
+      hosts:
+        - localhost:27017
+test:
+  sessions:
+    default:
+      database: exercism_test
+      hosts:
+        - localhost:27017
