@@ -1,5 +1,5 @@
-require 'minitest/autorun'
-require 'minitest/pride'
+require './test/test_helper'
+
 require './lib/exercism/curriculum'
 require './lib/exercism/language'
 require './lib/exercism/trail'
