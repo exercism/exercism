@@ -15,4 +15,8 @@ class Trail
     Assignment.new(language, slug, path)
   end
 
+  def after(exercise)
+    exercises[exercises.index(exercise)+1]
+  end
+
 end
