@@ -32,5 +32,11 @@ class CurriculumTest < MiniTest::Unit::TestCase
     assert_equal path, assignment.path
   end
 
+  def test_get_assignment_from_exercise
+    exercise = Exercise.new('nong', 'one')
+    assignment = curriculum.assign(exercise)
+    assert_equal './test/fixtures/nong/one', assignment.path
+  end
+
 end
 
