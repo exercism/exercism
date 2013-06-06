@@ -6,6 +6,12 @@ class User
   field :u, as: :username, type: String
   field :cur, as: :current, type: Hash, default: {}
 
+  has_many :submissions
+
+  def submissions_on(exercise)
+    submissions.where(language: exercise.language, slug: exercise.slug)
+  end
+
   def do!(exercise)
     self.current[exercise.language] = exercise.slug
     save
@@ -17,6 +23,10 @@ class User
 
   def current_exercises
     current.to_a.map {|cur| Exercise.new(*cur)}
+  end
+
+  def current_on(language)
+    current_exercises.find {|ex| ex.language == language}
   end
 
   def ==(other)

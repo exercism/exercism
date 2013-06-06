@@ -41,5 +41,11 @@ class UserTest < MiniTest::Unit::TestCase
     assert !user.doing?('femp')
   end
 
+  def test_user_finds_current_exercise_for_a_language
+    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
+
+    assert_equal Exercise.new('femp', 'two'), user.current_on('femp')
+  end
+
 end
 
