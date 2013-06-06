@@ -7,12 +7,20 @@ class Trail
     @path = path
   end
 
+  def language
+    locale.language
+  end
+
   def find(slug)
     exercises.find {|ex| ex.slug == slug}
   end
 
   def assign(slug)
     Assignment.new(locale, slug, path)
+  end
+
+  def first
+    exercises.first
   end
 
   def after(exercise)

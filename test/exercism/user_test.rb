@@ -31,5 +31,15 @@ class UserTest < MiniTest::Unit::TestCase
     assert_equal [ex1, ex2], user.current_exercises
   end
 
+  def test_user_knows_what_they_are_doing
+    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
+    assert user.doing?('femp')
+  end
+
+  def test_user_knows_what_they_are_not_doing
+    user = User.new(current: {'nong' => 'one'})
+    assert !user.doing?('femp')
+  end
+
 end
 
