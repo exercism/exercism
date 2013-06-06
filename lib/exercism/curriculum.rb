@@ -31,4 +31,14 @@ class Curriculum
     end
   end
 
+  def unstarted_trails(started)
+    available_languages - started
+  end
+
+  private
+
+  def available_languages
+    languages.map(&:name)
+  end
+
 end

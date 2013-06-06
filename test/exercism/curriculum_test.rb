@@ -53,5 +53,14 @@ class CurriculumTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_unstarted_trails
+    femp = Language.new('femp', 'fp', 'fpt')
+    turq = Language.new('turq', 'tq', 'tqt')
+    curriculum.add(femp, %w(one two))
+    curriculum.add(turq, %w(one two))
+    languages = curriculum.unstarted_trails(['femp'])
+    assert_equal %w(nong turq), languages
+  end
+
 end
 
