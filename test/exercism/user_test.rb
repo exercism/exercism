@@ -1,6 +1,9 @@
 require './test/mongo_helper'
 require 'exercism/user'
 require 'exercism/exercise'
+require 'exercism/locale'
+require 'exercism/trail'
+require 'exercism/submission'
 
 class UserTest < MiniTest::Unit::TestCase
 
@@ -45,6 +48,18 @@ class UserTest < MiniTest::Unit::TestCase
     user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
 
     assert_equal Exercise.new('femp', 'two'), user.current_on('femp')
+  end
+
+  def test_user_completes_an_exercise
+    user = User.new(current: {'nong' => 'one'})
+    nong = Locale.new('nong', 'no', 'not')
+    trail = Trail.new(nong, ['one', 'two'], '/tmp')
+
+    one = Exercise.new('nong', 'one')
+    two = Exercise.new('nong', 'two')
+    user.complete!(one, on: trail)
+    assert user.completed?(one), 'Expected to have completed nong:one'
+    assert_equal [two], user.current_exercises
   end
 
 end

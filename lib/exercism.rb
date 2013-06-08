@@ -6,4 +6,5 @@ require 'exercism/exercise'
 require 'exercism/curriculum'
 require 'exercism/locale'
 require 'exercism/trail'
+require 'exercism/approval'
 
