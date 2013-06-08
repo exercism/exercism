@@ -28,24 +28,12 @@ class Submission
     save
   end
 
-  def approved!(approver, trail)
-    self.state = 'approved'
-    self.approved_at = Time.now.utc
-    self.approved_by = approver.github_id
-    user.complete! exercise, on: trail
-    save
-  end
-
   def approved?
     state == 'approved'
   end
 
   def pending?
     state == 'pending'
-  end
-
-  def exercise
-    @exercise ||= Exercise.new(language, slug)
   end
 
 end

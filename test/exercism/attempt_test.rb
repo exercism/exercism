@@ -23,7 +23,8 @@ class AttemptTest < MiniTest::Unit::TestCase
 
     assert_equal 1, Submission.count
     submission = Submission.first
-    assert_equal Exercise.new('nong', 'one'), submission.exercise
+    assert_equal 'nong', submission.language
+    assert_equal 'one', submission.slug
     assert_equal user, submission.user
   end
 
@@ -34,7 +35,8 @@ class AttemptTest < MiniTest::Unit::TestCase
 
     assert_equal 1, Submission.count
     submission = Submission.first
-    assert_equal Exercise.new('femp', 'one'), submission.exercise
+    assert_equal 'femp', submission.language
+    assert_equal 'one', submission.slug
     assert_equal user, submission.user
   end
 
