@@ -1,3 +1,5 @@
+require 'exercism'
+
 require 'app/client'
 require 'app/api'
 
