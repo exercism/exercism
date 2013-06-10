@@ -7,13 +7,16 @@ class ApiTest < MiniTest::Unit::TestCase
     ExercismApp
   end
 
+  attr_reader :alice
+  def setup
+    @alice = User.create(github_id: 1, current: {'ruby' => 'word-count', 'javascript' => 'anagram'})
+  end
+
   def teardown
     Mongoid.reset
   end
 
   def test_api_returns_current_assignment_data
-    alice = User.create(github_id: 1, current: {'ruby' => 'word-count', 'javascript' => 'anagram'})
-
     get '/api/v1/user/assignments/current', {key: alice.key}
 
     output = last_response.body
@@ -24,6 +27,14 @@ class ApiTest < MiniTest::Unit::TestCase
   def test_api_complains_if_no_key_is_submitted
     get '/api/v1/user/assignments/current'
     assert_equal 401, last_response.status
+  end
+
+  def test_api_accepts_submission_attempt
+    post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', filename: 'code.rb'}.to_json
+
+    submission = Submission.first
+    ex = Exercise.new('ruby', 'word-count')
+    assert_equal ex, submission.exercise
   end
 
 end

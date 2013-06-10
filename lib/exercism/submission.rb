@@ -19,6 +19,10 @@ class Submission
     submission
   end
 
+  def exercise
+    @exercise ||= Exercise.new(language, slug)
+  end
+
   def on(exercise)
     self.language = exercise.language
 
