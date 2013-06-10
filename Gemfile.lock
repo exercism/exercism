@@ -24,6 +24,9 @@ GEM
     puma (2.0.1)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
+    rack-flash3 (1.0.3)
+      rack
+      rack
     rack-protection (1.5.0)
       rack
     sinatra (1.4.2)
@@ -41,4 +44,5 @@ DEPENDENCIES
   approvals
   mongoid
   puma
+  rack-flash3
   sinatra

@@ -1,3 +1,49 @@
-in layout
-<%= yield %>
-in layout again
+<!DOCTYPE html>
+<html lang='en'>
+  <head>
+    <meta charset='utf-8'>
+    <title>exercism.io</title>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+    <meta content='' name='description'>
+    <meta content='' name='author'>
+    <link href='/ico/favicon.png' rel='shortcut icon'>
+    <link href='/css/bootstrap.min.css' rel='stylesheet'>
+    <link href='/css/pygments.css' rel='stylesheet'>
+  </head>
+  <body>
+    <div class='navbar navbar-top'>
+      <div class='navbar-inner'>
+        <a class='brand' href='/'>exercism.io</a>
+        <ul class="nav pull-right">
+          <% if current_user.guest? %>
+            <li><a href="/login">log in with github</a></li>
+          <% else %>
+            <li><a href="/account">hi, <%= current_user.username %></a></li>
+            <li><a href="/logout">log out</a></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+    <% [:notice, :error, :alert].each do |level| %>
+      <% unless flash[level].blank? %>
+        <div class="alert <%= level.to_s %>">
+          <a class="close" href="#">×</a>
+          <p><%= flash[level] %></p>
+        </div>
+      <% end %>
+    <% end %>
+
+    <div class='container'>
+      <%= yield %>
+    </div>
+    <div class='container'>
+      <hr>
+      <footer>
+        <p>&copy; Katrina Owen</p>
+      </footer>
+    </div>
+    <script src='/js/jquery.js'></script>
+    <script src='/js/bootstrap.min.js'></script>
+  </body>
+</html>

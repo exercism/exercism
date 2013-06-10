@@ -15,6 +15,10 @@ class User
     submissions.where(language: exercise.language, slug: exercise.slug)
   end
 
+  def guest?
+    false
+  end
+
   def do!(exercise)
     self.current[exercise.language] = exercise.slug
     save
