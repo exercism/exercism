@@ -11,6 +11,8 @@ require 'exercism/use_cases/approval'
 require 'exercism/use_cases/nitpick'
 require 'exercism/use_cases/assignments'
 
+Mongoid.load!("./config/mongoid.yml")
+
 class Exercism
 
   def self.current_curriculum
