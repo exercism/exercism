@@ -1,7 +1,5 @@
 require './test/test_helper'
 
-ENV['RACK_ENV'] = 'test'
-
 require 'mongoid'
 
 Mongoid.load!("./config/mongoid.yml")
