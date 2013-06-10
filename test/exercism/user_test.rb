@@ -62,5 +62,31 @@ class UserTest < MiniTest::Unit::TestCase
     assert_equal [two], user.current_exercises
   end
 
+  def test_admin_may_nitpick_stuff
+    admin = User.new(username: 'burtlo')
+    assert admin.may_nitpick?(Exercise.new('lang', 'exercise'))
+  end
+
+  def test_user_may_nitpick_an_exercise_they_completed
+    user = User.new(current: {'nong' => 'one'})
+    nong = Locale.new('nong', 'no', 'not')
+    trail = Trail.new(nong, ['one', 'two'], '/tmp')
+
+    one = Exercise.new('nong', 'one')
+    user.complete!(one, on: trail)
+    assert user.may_nitpick?(one)
+  end
+
+  def test_user_may_not_nitpick_uncompleted_assignments
+    user = User.new(current: {'nong' => 'one'})
+    nong = Locale.new('nong', 'no', 'not')
+    trail = Trail.new(nong, ['one', 'two'], '/tmp')
+
+    one = Exercise.new('nong', 'one')
+    two = Exercise.new('nong', 'two')
+    assert !user.may_nitpick?(one)
+    assert !user.may_nitpick?(two)
+  end
+
 end
 

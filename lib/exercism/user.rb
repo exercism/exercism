@@ -56,5 +56,18 @@ class User
     username == other.username && current == other.current
   end
 
+  def may_nitpick?(exercise)
+    admin? || completed?(exercise)
+  end
+
+  def admin?
+    admin_users.include?(username)
+  end
+
+  private
+
+  def admin_users
+    %w(burtlo jcasimir kytrinyx)
+  end
 end
 
