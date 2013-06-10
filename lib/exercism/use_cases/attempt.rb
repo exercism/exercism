@@ -11,7 +11,9 @@ class Attempt
     user.submissions_on(exercise).each do |sub|
       sub.supercede!
     end
-    user.submissions << Submission.on(exercise)
+    submission = Submission.on(exercise)
+    submission.code = code
+    user.submissions << submission
     user.save
   end
 

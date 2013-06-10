@@ -56,5 +56,10 @@ class AttemptTest < MiniTest::Unit::TestCase
     assert_equal 'pending', two.reload.state
   end
 
+  def test_an_attempt_includes_the_code_in_the_submission
+    Attempt.new(user, 'CODE 123', 'one.no', curriculum).save
+    assert_equal 'CODE 123', user.submissions.first.reload.code
+  end
+
 end
 
