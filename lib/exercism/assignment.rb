@@ -7,6 +7,10 @@ class Assignment
     @path = File.join(path, locale.to_s, slug)
   end
 
+  def language
+    locale.language
+  end
+
   def name
     slug.split('-').map(&:capitalize).join(' ')
   end

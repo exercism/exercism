@@ -6,6 +6,8 @@ class User
   field :u, as: :username, type: String
   field :cur, as: :current, type: Hash, default: {}
   field :comp, as: :completed, type: Hash, default: {}
+  field :g_id, as: :github_id, type: Integer
+  field :key, type: String, default: ->{ create_key }
 
   has_many :submissions
 
@@ -68,6 +70,14 @@ class User
 
   def admin_users
     %w(burtlo jcasimir kytrinyx)
+  end
+
+  def create_key
+    Digest::SHA1.hexdigest(secret)
+  end
+
+  def secret
+    "There is solemn satisfaction in doing the best you can for #{github_id} billion people."
   end
 end
 
