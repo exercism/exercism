@@ -29,7 +29,7 @@ class ExercismApp < Sinatra::Base
     user = User.find_by(key: data['key'])
     halt 401, "Unable to identify user" unless user
 
-    attempt = Attempt.new(user, data['code'], data['filename']).save
+    attempt = Attempt.new(user, data['code'], data['path']).save
 
     result = {
       status: "saved",
