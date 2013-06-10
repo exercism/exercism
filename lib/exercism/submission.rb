@@ -10,10 +10,12 @@ class Submission
   field :a_by, as: :approved_by, type: Integer
 
   belongs_to :user
+  embeds_many :nits
 
   def self.on(exercise)
     submission = new
     submission.on exercise
+    submission.save
     submission
   end
 
