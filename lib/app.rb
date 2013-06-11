@@ -1,7 +1,8 @@
 require 'exercism'
 
-require 'app/client'
 require 'app/api'
+require 'app/auth'
+require 'app/client'
 
 class ExercismApp < Sinatra::Base
 
@@ -12,6 +13,16 @@ class ExercismApp < Sinatra::Base
   use Rack::Flash
 
   helpers do
+
+    def login(user)
+      session[:github_id] = user.github_id
+    end
+
+    def logout
+      session[:github_id] = nil
+      @current_user = nil
+    end
+
     def current_user
       return @current_user if @current_user
 
@@ -21,6 +32,7 @@ class ExercismApp < Sinatra::Base
         @current_user = Guest.new
       end
     end
+
   end
 
 end

@@ -17,6 +17,8 @@
         <ul class="nav pull-right">
           <% if current_user.guest? %>
             <li><a href="/login">log in with github</a></li>
+            <li><a href="/backdoor?id=276834">be admin</a></li>
+            <li><a href="/backdoor?id=-1">be alice</a></li>
           <% else %>
             <li><a href="/account">hi, <%= current_user.username %></a></li>
             <li><a href="/logout">log out</a></li>

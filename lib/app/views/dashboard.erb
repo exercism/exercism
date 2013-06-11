@@ -1,0 +1,6 @@
+<h1>participant dashboard</h1>
+<ul>
+<% current_user.current_exercises.each do |exercise| %>
+  <li><%= exercise.language%>: <%= exercise.slug %></li>
+<% end %>
+</ul>
