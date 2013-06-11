@@ -22,7 +22,7 @@ class Exercism
 
       rb = Locale.new('ruby', 'rb', 'rb')
       rb_slugs = %w(
-        bob word-count anagram
+        bob word-count anagram beer-song
       )
       @curriculum.add(rb, rb_slugs)
 
