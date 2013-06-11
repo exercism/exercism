@@ -11,6 +11,12 @@ class User
 
   has_many :submissions
 
+  def current_submissions
+    current_exercises.map do |exercise|
+      submissions_on(exercise).find_by(state: 'pending')
+    end
+  end
+
   def submissions_on(exercise)
     submissions.where(language: exercise.language, slug: exercise.slug)
   end

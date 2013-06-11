@@ -3,6 +3,7 @@ require 'exercism'
 require 'app/api'
 require 'app/auth'
 require 'app/client'
+require 'app/submissions'
 
 class ExercismApp < Sinatra::Base
 

@@ -1,6 +1,5 @@
-<h1>participant dashboard</h1>
-<ul>
-<% current_user.current_exercises.each do |exercise| %>
-  <li><%= exercise.language%>: <%= exercise.slug %></li>
+<% current_user.current_submissions.each do |submission| %>
+  <div class="span4">
+    <%= submission.language %>: <%= submission.slug %> (<%= submission.nits.count %>) <a href="/user/submissions/<%= submission.id %>">view</a>
+  </div>
 <% end %>
-</ul>
