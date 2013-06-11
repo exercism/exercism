@@ -1,0 +1,4 @@
+---
+blurb: "Write a program that can calculate the Hamming difference between two DNA strands."
+source: "The Calculating Point Mutations problem at Rosalind"
+source_url: "http://rosalind.info/problems/hamm/"
