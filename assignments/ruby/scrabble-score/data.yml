@@ -1,0 +1,4 @@
+---
+blurb: "Write a program that, given a word, computes the scrabble score for that word."
+source: "Inspired by the Extreme Startup game"
+source_url: "https://github.com/rchatley/extreme_startup"
