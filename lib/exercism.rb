@@ -26,7 +26,7 @@ class Exercism
         rna-transcription point-mutations phone-number
         grade-school leap etl space-age grains gigasecond
         triangle scrabble-score roman-numerals binary
-        prime-factors
+        prime-factors raindrops
       )
       @curriculum.add(rb, rb_slugs)
 
