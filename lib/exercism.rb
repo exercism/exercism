@@ -24,7 +24,7 @@ class Exercism
       rb_slugs = %w(
         bob word-count anagram beer-song nucleotide-count
         rna-transcription point-mutations phone-number
-        grade-school leap etl
+        grade-school leap etl space-age
       )
       @curriculum.add(rb, rb_slugs)
 
