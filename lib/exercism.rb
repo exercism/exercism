@@ -25,7 +25,7 @@ class Exercism
         bob word-count anagram beer-song nucleotide-count
         rna-transcription point-mutations phone-number
         grade-school leap etl space-age grains gigasecond
-        triangle scrabble-score roman-numerals
+        triangle scrabble-score roman-numerals binary
       )
       @curriculum.add(rb, rb_slugs)
 
