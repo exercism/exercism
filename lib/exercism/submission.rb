@@ -19,6 +19,10 @@ class Submission
     submission
   end
 
+  def submitted?
+    true
+  end
+
   def exercise
     @exercise ||= Exercise.new(language, slug)
   end

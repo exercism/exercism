@@ -1,6 +1,11 @@
-<% current_user.current_submissions.each do |submission| %>
+<% current_user.ongoing.each do |work| %>
   <div class="span4">
-    <%= submission.language %>: <%= submission.slug %> (<%= submission.nits.count %>) <a href="/user/submissions/<%= submission.id %>">view</a>
+    <%= work.language %>: <%= work.slug %>
+    <% if work.submitted? %>
+      (<%= work.nits.count %>) <a href="/user/submissions/<%= work.id %>">view</a>
+    <% else %>
+      You haven't submitted anything on this yet.
+    <% end %>
   </div>
 <% end %>
 <% unstarted = Exercism.current_curriculum.unstarted_trails(current_user.current_languages) %>

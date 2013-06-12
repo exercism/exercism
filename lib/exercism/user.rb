@@ -11,10 +11,14 @@ class User
 
   has_many :submissions
 
-  def current_submissions
-    current_exercises.map do |exercise|
-      submissions_on(exercise).where(state: 'pending').last
+  def ongoing
+    @ongoing ||= current_exercises.map do |exercise|
+      latest_submission_on(exercise) || NullSubmission.new(exercise)
     end
+  end
+
+  def latest_submission_on(exercise)
+    submissions_on(exercise).where(state: 'pending').last
   end
 
   def submissions_on(exercise)
