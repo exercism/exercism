@@ -27,18 +27,16 @@ The warmup exercises are collected from all over the web.
 * Fetch and submit assignments via the API
 * Nitpick
 * Level up
-
-## Version 1
-
 * Peers can nitpick
 * Support multiple simultaneous tracks.
 
-## Version 2
+## Later
 
-* Get Design.
+* Get Design
+* Notifications
 * Nitpickers can comment on and delete peer comments.
 
-## Later Feature Ideas
+## Maybe
 
 * implement oauth for improved api security
 * admin, to make people nitpickers
