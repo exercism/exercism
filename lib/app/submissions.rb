@@ -1,7 +1,7 @@
 class ExercismApp < Sinatra::Base
 
   get '/user/submissions/:id' do |id|
-    "this will be the assignment"
+    erb :current_submission, locals: {submission: Submission.find(id)}
   end
 
 end
