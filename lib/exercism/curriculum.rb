@@ -1,4 +1,3 @@
-class UnknownLanguage < RuntimeError; end
 class Curriculum
 
   attr_reader :path, :trails, :locales
@@ -27,12 +26,16 @@ class Curriculum
     if locale
       locale.language
     else
-      raise UnknownLanguage.new("Uknown language for file extension #{ext}")
+      raise Exercism::UnknownLanguage.new("Uknown language for file extension #{ext}")
     end
   end
 
   def unstarted_trails(started)
     available_languages - started
+  end
+
+  def available?(language)
+    available_languages.include?(language)
   end
 
   private

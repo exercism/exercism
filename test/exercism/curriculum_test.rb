@@ -47,7 +47,7 @@ class CurriculumTest < MiniTest::Unit::TestCase
   end
 
   def test_unknown_language
-    assert_raises UnknownLanguage do
+    assert_raises Exercism::UnknownLanguage do
       curriculum.identify_language('femp.fp')
     end
   end

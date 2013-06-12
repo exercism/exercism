@@ -11,10 +11,12 @@ require 'exercism/use_cases/attempt'
 require 'exercism/use_cases/approval'
 require 'exercism/use_cases/nitpick'
 require 'exercism/use_cases/assignments'
+require 'exercism/use_cases/launch'
 
 Mongoid.load!("./config/mongoid.yml")
 
 class Exercism
+  class UnknownLanguage < StandardError; end
 
   def self.current_curriculum
     unless @curriculum
