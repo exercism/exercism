@@ -13,7 +13,7 @@ class User
 
   def current_submissions
     current_exercises.map do |exercise|
-      submissions_on(exercise).find_by(state: 'pending')
+      submissions_on(exercise).where(state: 'pending').last
     end
   end
 
@@ -54,6 +54,10 @@ class User
       end
     end
     @completed_exercises
+  end
+
+  def current_languages
+    current.keys
   end
 
   def current_exercises
