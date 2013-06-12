@@ -10,4 +10,8 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  get '/account' do
+    erb :account
+  end
+
 end

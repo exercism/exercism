@@ -1,0 +1,27 @@
+<h2>Get the gem</h2>
+<pre>
+  $ gem install exercism
+</pre>
+
+<h3>Login</h3>
+
+<p>Your credentials get saved in a config file in your home directory: <kbd>.exercism</kbd>.</p>
+
+<pre>
+  $ exercism login
+  Your GitHub username: <%= current_user.username %>
+  Your exercism.io API key: <%= current_user.key %>
+</pre>
+
+<h3>Get the code</h3>
+
+<pre>
+  $ cd projects/exercises # or whatever
+  $ exercism fetch
+</pre>
+
+<h3>Submit the assignment</h3>
+
+<pre>
+  $ exercism submit yourcode.rb
+</pre>
