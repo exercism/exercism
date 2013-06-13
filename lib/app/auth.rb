@@ -5,9 +5,11 @@ class ExercismApp < Sinatra::Base
     redirect '/'
   end
 
-  get '/backdoor' do
-    session[:github_id] = params[:id]
-    redirect '/'
+  if ENV['RACK_ENV'] == 'development'
+    get '/backdoor' do
+      session[:github_id] = params[:id]
+      redirect '/'
+    end
   end
 
   get '/login' do
