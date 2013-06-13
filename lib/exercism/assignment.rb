@@ -1,9 +1,10 @@
 class Assignment
 
-  attr_reader :path, :locale, :slug
+  attr_reader :path, :locale, :slug, :data_dir
   def initialize(locale, slug, path)
     @locale = locale
     @slug = slug
+    @data_dir = path
     @path = File.join(path, locale.to_s, slug)
   end
 
@@ -64,7 +65,11 @@ README
   private
 
   def data
-    @data ||= YAML.load(read('data.yml'))
+    @data ||= YAML.load(data_file)
+  end
+
+  def data_file
+    File.read(File.join(data_dir, 'shared', "#{slug}.yml"))
   end
 
   def read(file)
