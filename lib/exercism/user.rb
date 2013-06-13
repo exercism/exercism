@@ -8,8 +8,15 @@ class User
   field :comp, as: :completed, type: Hash, default: {}
   field :g_id, as: :github_id, type: Integer
   field :key, type: String, default: ->{ create_key }
+  field :j_at, type: Time, default: ->{ Time.now.utc }
 
   has_many :submissions
+
+  def self.from_github(id, username, email)
+    user = User.where(github_id: id).first
+    user ||= User.create(username: username, github_id: id, email: email)
+    user
+  end
 
   def ongoing
     @ongoing ||= current_exercises.map do |exercise|

@@ -11,6 +11,8 @@ GEM
       nokogiri
       thor
     builder (3.0.4)
+    faraday (0.8.7)
+      multipart-post (~> 1.1)
     i18n (0.6.1)
     mongoid (3.1.4)
       activemodel (~> 3.2)
@@ -19,6 +21,7 @@ GEM
       tzinfo (~> 0.3.22)
     moped (1.5.0)
     multi_json (1.7.5)
+    multipart-post (1.2.0)
     nokogiri (1.5.9)
     origin (1.1.0)
     puma (2.0.1)
@@ -45,6 +48,7 @@ PLATFORMS
 
 DEPENDENCIES
   approvals
+  faraday
   mongoid
   puma
   rack-flash3
