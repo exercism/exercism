@@ -1,7 +1,7 @@
 class Approval
 
   attr_reader :id, :approver, :curriculum
-  def initialize(id, approver, curriculum)
+  def initialize(id, approver, curriculum = Exercism.current_curriculum)
     @id = id
     @approver = approver
     @curriculum = curriculum
