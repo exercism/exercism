@@ -29,6 +29,9 @@ GEM
       rack
     rack-protection (1.5.0)
       rack
+    redcarpet (2.3.0)
+    rouge (0.3.2)
+      thor
     sinatra (1.4.2)
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
@@ -45,4 +48,6 @@ DEPENDENCIES
   mongoid
   puma
   rack-flash3
+  redcarpet
+  rouge
   sinatra

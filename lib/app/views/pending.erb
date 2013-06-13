@@ -1,0 +1,13 @@
+<% unless pending.empty? %>
+  <h2>Needs Nitpicking</h2>
+  <ul>
+    <% pending.each do |submission| %>
+      <li>
+        <a href="/submissions/<%= submission.id %>"><%= submission.language %>
+          <%= submission.slug %>
+        </a>
+        by <%= submission.user.username %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

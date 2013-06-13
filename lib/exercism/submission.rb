@@ -12,6 +12,10 @@ class Submission
   belongs_to :user
   embeds_many :nits
 
+  def self.pending
+    where(state: 'pending')
+  end
+
   def self.on(exercise)
     submission = new
     submission.on exercise
