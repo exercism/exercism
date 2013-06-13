@@ -45,7 +45,7 @@ class Assignment
   end
 
   def instructions
-    @instructions ||= read('details.md')
+    @instructions ||= read_shared("#{slug}.md")
   end
 
   def readme
@@ -69,7 +69,11 @@ README
   end
 
   def data_file
-    File.read(File.join(data_dir, 'shared', "#{slug}.yml"))
+    read_shared("#{slug}.yml")
+  end
+
+  def read_shared(file)
+    File.read(File.join(data_dir, 'shared', file))
   end
 
   def read(file)
