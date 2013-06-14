@@ -36,6 +36,7 @@ class Exercism
         binary prime-factors raindrops allergies strain
         atbash-cipher accumulate crypto-square trinary
         sieve simple-cipher-1 simple-cipher-2 simple-cipher-3
+        octal
       )
       @curriculum.add(rb, rb_slugs)
 
