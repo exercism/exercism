@@ -38,7 +38,7 @@ class Exercism
         sieve simple-cipher-1 simple-cipher-2 simple-cipher-3
         octal luhn pig-latin pythagorean-triplet series
         difference-of-squares secret-handshake linked-list-1
-        linked-list-2
+        linked-list-2 wordy-1 wordy-2 wordy-3 wordy-4
       )
       @curriculum.add(rb, rb_slugs)
 
