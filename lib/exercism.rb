@@ -34,7 +34,7 @@ class Exercism
         grade-school robot-name leap etl space-age grains
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies strain
-        atbash-cipher
+        atbash-cipher accumulate crypto-square
       )
       @curriculum.add(rb, rb_slugs)
 
