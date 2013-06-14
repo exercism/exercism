@@ -53,5 +53,61 @@ The warmup exercises are collected from all over the web.
   * URL: http://localhost:9292
   * Callback url: http://localhost:9292/github/callback
 4. Start server with: `EXERCISM_GITHUB_CLIENT_ID=xxx EXERCISM_GITHUB_CLIENT_SECRET=xxx rackup`
+   You can also export these in your .bash_profile:
+   export EXERCISM_GITHUB_CLIENT_ID=xxx
+   export EXERCISM_GITHUB_CLIENT_SECRET=xxx
+   Then you can start the server with just `rackup`.
 5. Login at http://localhost:9292.
 6. Add yourself to the admin_users method in user.rb
+
+## Seed
+
+Here's a basic seed script that I've used/tweaked per whatever I need:
+
+```ruby
+$:.unshift File.expand_path("../lib", __FILE__)
+require 'bundler'
+Bundler.require
+require 'exercism'
+
+def reset
+  Mongoid.default_session.collections.each do |coll|
+    unless coll.name == 'system.indexes'
+      puts "Removing collection: #{coll.name}"
+      coll.drop
+    end
+  end
+end
+
+reset
+
+alice_data = {
+  username: 'alice',
+  github_id: -1,
+  email: "alice@example.com",
+  current: {'ruby' => 'nucleotide-count'},
+  completed: {'ruby' => %w(bob word-count anagram beer-song)}
+}
+alice = User.create(alice_data)
+
+bob_data = {
+  username: 'bob',
+  github_id: -2,
+  email: "bob@example.com",
+  current: {'ruby' => 'bob'},
+}
+bob = User.create(bob_data)
+
+admin = User.create(username: 'kytrinyx', github_id: 276834, email: "katrina.owen@gmail.com")
+
+attempt = Attempt.new(alice, 'puts "hello world"', 'nucleotide_count.rb').save
+attempt = Attempt.new(bob, "def bark\n  \"woof\"\nend", 'bob.rb').save
+Nitpick.new(attempt.submission.id, admin, 'Not enough code.').save
+Nitpick.new(attempt.submission.id, admin, 'I like the method name.').save
+
+[alice, bob, admin].each do |user|
+  puts
+  puts "Created: #{user.username}"
+  puts "API Key: #{user.key}"
+end
+```
