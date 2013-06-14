@@ -37,7 +37,7 @@ class Exercism
         atbash-cipher accumulate crypto-square trinary
         sieve simple-cipher-1 simple-cipher-2 simple-cipher-3
         octal luhn pig-latin pythagorean-triplet series
-        difference-of-squares
+        difference-of-squares secret-handshake
       )
       @curriculum.add(rb, rb_slugs)
 
