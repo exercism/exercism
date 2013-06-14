@@ -1,0 +1,4 @@
+---
+blurb: "Implement an instance method on Array called `accumulate` which lets you perform an operation on each element in the array and returns a new array with the result of the operation."
+source: "Conversation with James Edward Gray II"
+source_url: "https://twitter.com/jeg2"
