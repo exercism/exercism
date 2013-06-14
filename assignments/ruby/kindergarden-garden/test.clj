@@ -1,0 +1,31 @@
+(load-file "garden.clj")
+
+(assert (= [:radishes :clover :grass :grass] (:alice (garden "RC\nGG"))))
+(assert (= [:violets :clover :radishes :clover] (:alice (garden "VC\nRC"))))
+
+(def small-garden (garden "VVCG\nVVRC"))
+(assert (= [:clover :grass :radishes :clover] (:bob small-garden)))
+
+(def medium-garden (garden "VVCCGG\nVVCCGG"))
+(assert (= [:clover :clover :clover :clover] (:bob medium-garden)))
+(assert (= [:grass :grass :grass :grass] (:charlie medium-garden)))
+
+(def full-garden (garden "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"))
+(assert (= [:violets  :radishes :violets  :radishes] (:alice   full-garden)))
+(assert (= [:clover   :grass    :clover   :clover]   (:bob     full-garden)))
+(assert (= [:violets  :violets  :clover   :grass]    (:charlie full-garden)))
+(assert (= [:radishes :violets  :clover   :radishes] (:david   full-garden)))
+(assert (= [:clover   :grass    :radishes :grass]    (:eve     full-garden)))
+(assert (= [:grass    :clover   :violets  :clover]   (:fred    full-garden)))
+(assert (= [:clover   :grass    :grass    :clover]   (:ginny   full-garden)))
+(assert (= [:violets  :radishes :radishes :violets]  (:harriet full-garden)))
+(assert (= [:grass    :clover   :violets  :clover]   (:ileana  full-garden)))
+(assert (= [:violets  :clover   :violets  :grass]    (:joseph  full-garden)))
+(assert (= [:grass    :clover   :clover   :grass]    (:kincaid full-garden)))
+(assert (= [:grass    :violets  :clover   :violets]  (:larry   full-garden)))
+
+(def surprise-garden (garden "VCRRGVRG\nRVGCCGCV" ["Samantha" "Patricia" "Xander" "Roger"]))
+(assert (= [:violets  :clover   :radishes :violets] (:patricia surprise-garden)))
+(assert (= [:radishes :radishes :grass    :clover]  (:roger    surprise-garden)))
+(assert (= [:grass    :violets  :clover   :grass]   (:samantha surprise-garden)))
+(assert (= [:radishes :grass    :clover   :violets] (:xander   surprise-garden)))
