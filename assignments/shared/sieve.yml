@@ -1,0 +1,4 @@
+---
+blurb: "Write a program that uses the Sieve of Eratosthenes to find all the primes from 2 up to a given number."
+source: "Sieve of Eratosthenes at Wikipedia"
+source_url: "http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes"

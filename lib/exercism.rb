@@ -35,6 +35,7 @@ class Exercism
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies strain
         atbash-cipher accumulate crypto-square trinary
+        sieve
       )
       @curriculum.add(rb, rb_slugs)
 
