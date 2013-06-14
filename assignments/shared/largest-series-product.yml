@@ -1,0 +1,4 @@
+---
+blurb: "Write a program that, when given a string of digits, can calculate the largest product for a series of consecutive digits of length n."
+source: "A variation on Problem 8 at Project Euler"
+source_url: "http://projecteuler.net/problem=8"
