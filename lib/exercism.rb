@@ -39,6 +39,7 @@ class Exercism
         octal luhn pig-latin pythagorean-triplet series
         difference-of-squares secret-handshake linked-list-1
         linked-list-2 wordy-1 wordy-2 wordy-3 wordy-4
+        hexadecimal
       )
       @curriculum.add(rb, rb_slugs)
 
