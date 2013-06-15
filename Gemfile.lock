@@ -14,6 +14,9 @@ GEM
     faraday (0.8.7)
       multipart-post (~> 1.1)
     i18n (0.6.1)
+    metaclass (0.0.1)
+    mocha (0.14.0)
+      metaclass (~> 0.0.1)
     mongoid (3.1.4)
       activemodel (~> 3.2)
       moped (~> 1.4)
@@ -32,6 +35,8 @@ GEM
       rack
     rack-protection (1.5.0)
       rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
     redcarpet (2.3.0)
     rouge (0.3.2)
       thor
@@ -49,9 +54,11 @@ PLATFORMS
 DEPENDENCIES
   approvals
   faraday
+  mocha
   mongoid
   puma
   rack-flash3
+  rack-test
   redcarpet
   rouge
   sinatra
