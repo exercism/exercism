@@ -44,6 +44,7 @@ class Exercism
         robot-movement robot-pivots robot-simulator nth-prime
         palindrome-products pascals-triangle say-1 say-2 say-3
         say-4 sum-of-multiples queen-attack saddle-points
+        ocr-numbers-1 ocr-numbers-2
       )
       @curriculum.add(rb, rb_slugs)
 

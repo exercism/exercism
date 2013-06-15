@@ -1,0 +1,4 @@
+---
+blurb: "Write a program that can convert this grid-based font into a string representing regulary binary (e.g. \"1011010010\")."
+source: "Inspired by the Bank OCR kata"
+source_url: "http://codingdojo.org/cgi-bin/wiki.pl?KataBankOCR"
