@@ -40,7 +40,7 @@ class Exercism
         difference-of-squares secret-handshake linked-list-1
         linked-list-2 wordy-1 wordy-2 wordy-3 wordy-4
         hexadecimal largest-series-product kindergarden-garden
-        binary-search-tree-1 binary-search-tree-2
+        binary-search-tree-1 binary-search-tree-2 matrix
       )
       @curriculum.add(rb, rb_slugs)
 
