@@ -42,7 +42,7 @@ class Exercism
         hexadecimal largest-series-product kindergarden-garden
         binary-search-tree-1 binary-search-tree-2 matrix
         robot-movement robot-pivots robot-simulator nth-prime
-        palindrome-products
+        palindrome-products pascals-triangle
       )
       @curriculum.add(rb, rb_slugs)
 
