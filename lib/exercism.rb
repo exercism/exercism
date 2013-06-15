@@ -41,7 +41,7 @@ class Exercism
         linked-list-2 wordy-1 wordy-2 wordy-3 wordy-4
         hexadecimal largest-series-product kindergarden-garden
         binary-search-tree-1 binary-search-tree-2 matrix
-        robot-movement robot-pivots robot-simulator
+        robot-movement robot-pivots robot-simulator nth-prime
       )
       @curriculum.add(rb, rb_slugs)
 
