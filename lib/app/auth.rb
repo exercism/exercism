@@ -16,6 +16,9 @@ class ExercismApp < Sinatra::Base
     redirect "https://github.com/login/oauth/authorize?client_id=#{ENV.fetch('EXERCISM_GITHUB_CLIENT_ID')}"
   end
 
+  # Callback from github. This will include a temp code from Github that
+  # we use to authenticate other requests. This code indicates whether
+  # the user has said okay or not.
   get '/github/callback' do
     user = Authentication.perform(params[:code])
     login(user)

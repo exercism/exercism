@@ -12,4 +12,7 @@ gem 'sinatra', require: 'sinatra/base'
 
 group :test, :development do
   gem 'approvals'
+  gem 'pry'
+  gem 'rack-test'
+  gem 'mocha', require: false
 end

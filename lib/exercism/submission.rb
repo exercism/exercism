@@ -31,6 +31,10 @@ class Submission
     @exercise ||= Exercise.new(language, slug)
   end
 
+  def assignment
+    @assignment ||= trail.assign(slug)
+  end
+
   def on(exercise)
     self.language = exercise.language
 
@@ -48,6 +52,12 @@ class Submission
 
   def pending?
     state == 'pending'
+  end
+
+  private
+
+  def trail
+    Exercism.current_curriculum.trails[language]
   end
 
 end

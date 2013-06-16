@@ -24,6 +24,14 @@ class User
     end
   end
 
+  def submitted
+    @submitted ||= completed_exercises.map do |lang, exercises|
+      exercises.map do |exercise|
+        submissions_on(exercise).last || NullSubmission.new(exercise)
+      end
+    end.flatten
+  end
+
   def latest_submission_on(exercise)
     submissions_on(exercise).where(state: 'pending').last
   end
