@@ -1,20 +1,46 @@
-<% current_user.ongoing.each do |work| %>
+<div class="row">
+  <% if (ongoing = current_user.ongoing) %>
   <div class="span4">
-    <%= work.language %>: <%= work.slug %>
-    <% if work.submitted? %>
-      (<%= work.nits.count %>) <a href="/user/submissions/<%= work.id %>">view</a>
-    <% else %>
-      You haven't submitted anything on this yet.
+    <h2>Pending Work</h2>
+    <% ongoing.each do |work| %>
+      <div>
+        <%= work.language %>: <%= work.slug %>
+        <% if work.submitted? %>
+          (<%= work.nits.count %>) <a href="/user/submissions/<%= work.id %>">view</a>
+        <% else %>
+          You haven't submitted anything on this yet.
+        <% end %>
+      </div>
     <% end %>
   </div>
-<% end %>
-<% unstarted = Exercism.current_curriculum.unstarted_trails(current_user.current_languages) %>
-<% unstarted.each do |language| %>
-<form action="/user/<%= language %>/start" method="POST">
-  <input type="submit" value="start <%= language %>" />
-</form>
-<% end %>
+  <% end %>
+  <% if (submitted = current_user.submitted) %>
+    <div class="span4">
+      <h2>Completed Work</h2>
+      <% submitted.each do |work| %>
+        <div>
+          <%= work.language %>: <%= work.slug %>
+          <% if work.submitted? %>
+            (<%= work.nits.count %>) <a href="/user/submissions/<%= work.id %>">view</a>
+          <% else %>
+            You haven't submitted anything on this yet.
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless unstarted.empty? %>
+    <div class="span4">
+      <h2>Unstarted Trails</h2>
+      <% unstarted.each do |language| %>
+        <form action="/user/<%= language %>/start" method="POST">
+          <input type="submit" value="start <%= language %>" />
+        </form>
+      <% end %>
+    </div>
+  <% end %>
 
-<div class="span3">
-  <%= erb :pending, locals: {pending: pending} %>
+  <div class="span4">
+    <%= erb :pending, locals: {pending: pending} %>
+  </div>
 </div>

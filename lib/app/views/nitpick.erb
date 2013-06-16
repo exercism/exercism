@@ -18,10 +18,6 @@
   <div class="span6">
     <h2>Code</h2>
     <%= Markdown.render("```#{submission.language}\n#{submission.code}\n```") %>
-    <% if current_user.completed?(submission.exercise) %>
-      <h2>Example</h2>
-      <%= Markdown.render("```#{submission.language}\n#{Exercism.current_curriculum.in(submission.language).assign(submission.slug).example}\n```") %>
-    <% end %>
   </div>
 
   <div class="span6">
