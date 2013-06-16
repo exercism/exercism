@@ -5,6 +5,8 @@ class Github
       c.use Faraday::Adapter::NetHttp
     end
 
+    # Now that we know we're okay to connect, we have to request a bearer
+    # token which is needed to request details as a user.
     options = {
       client_id: ENV.fetch('EXERCISM_GITHUB_CLIENT_ID'),
       client_secret: ENV.fetch('EXERCISM_GITHUB_CLIENT_SECRET'),
@@ -24,6 +26,9 @@ class Github
       c.use Faraday::Adapter::NetHttp
     end
 
+    # Now that we have a code and a bearer token, we can finally ask for
+    # more details about the user. This will give us access to their
+    # github id, their username, and their email.
     response = conn.get do |req|
       req.url '/user'
       req.headers['User-Agent'] = 'exercism v0.0.1.pre-alpha'
