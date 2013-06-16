@@ -35,16 +35,12 @@ class Exercism
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies strain
         atbash-cipher accumulate crypto-square trinary
-        sieve simple-cipher-1 simple-cipher-2 simple-cipher-3
-        octal luhn pig-latin pythagorean-triplet series
-        difference-of-squares secret-handshake linked-list-1
-        linked-list-2 wordy-1 wordy-2 wordy-3 wordy-4
+        sieve simple-cipher octal luhn pig-latin pythagorean-triplet
+        series difference-of-squares secret-handshake linked-list wordy
         hexadecimal largest-series-product kindergarden-garden
-        binary-search-tree-1 binary-search-tree-2 matrix
-        robot-movement robot-pivots robot-simulator nth-prime
-        palindrome-products pascals-triangle say-1 say-2 say-3
-        say-4 sum-of-multiples queen-attack saddle-points
-        ocr-numbers-1 ocr-numbers-2
+        binary-search-tree matrix robot nth-prime
+        palindrome-products pascals-triangle say
+        sum-of-multiples queen-attack saddle-points ocr-numbers
       )
       @curriculum.add(rb, rb_slugs)
 
