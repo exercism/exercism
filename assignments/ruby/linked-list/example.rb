@@ -1,24 +1,3 @@
-# Step 1
-
-def linked_list(ary)
-  head = nil
-  tail = nil
-
-  ary.each do |datum|
-    current_tail = tail
-    tail = Element.new(datum)
-    current_tail.next = tail unless current_tail.nil?
-
-    if head.nil?
-      head = tail
-    end
-  end
-
-  return head
-end
-
-# Step 2
-
 class LinkedList
   attr_reader :head, :tail
 
