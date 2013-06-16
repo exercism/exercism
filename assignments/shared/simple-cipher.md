@@ -39,3 +39,9 @@ If the key submitted has capital letters or numbers, throw an ArgumentError with
 Some examples:
     @cipher = Cipher.new
     @cipher.key #=> "duxrceqyaimciuucnelkeoxjhdyduucpmrxmaivacmybmsdrzwqxvbxsygzsabdjmdjabeorttiwinfrpmpogvabiofqexnohrqu"
+
+## Extensions
+
+Shift ciphers work by making the text slightly odd, but are vulnerable to frequency analysis. Substitution ciphers help that, but are still very vulnerable when the key is short or if spaces are preserved. Later on you'll see one solution to this problem in the exercise "crypto-square".
+
+If you want to go farther in this field, the questions begin to be about how we can exchange keys in a secure way. Take a look at [Diffie-Hellman on Wikipedia](http://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange) for one of the first implementations of this scheme.
