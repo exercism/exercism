@@ -2,7 +2,7 @@ class Bob
 
   def hey(something)
     if silent?(something)
-      'Fine, be that way.'
+      'Fine. Be that way.'
     elsif question?(something)
       'Sure.'
     elsif shouting?(something)

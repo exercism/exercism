@@ -40,7 +40,7 @@ class BobTest < MiniTest::Unit::TestCase
 
   def test_silence
     skip
-    assert_equal 'Fine, be that way.', bob.hey('')
+    assert_equal 'Fine. Be that way.', bob.hey('')
   end
 
 end
