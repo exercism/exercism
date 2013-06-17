@@ -37,4 +37,12 @@ class ApiTest < MiniTest::Unit::TestCase
     assert_equal ex, submission.exercise
   end
 
+  def test_submit_beyond_end_of_trail
+    bob = User.create(github_id: 2, current: {'ruby' => 'word-count'})
+    trail = Exercism.current_curriculum.in('ruby')
+    bob.complete! trail.exercises.last, on: trail
+    get '/api/v1/user/assignments/current', {key: bob.key}
+    assert_equal 200, last_response.status
+  end
+
 end

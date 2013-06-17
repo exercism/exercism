@@ -29,5 +29,6 @@ class Approval
     submission.approved_by = approver.github_id
     submission.user.complete! exercise, on: trail
     submission.save
+    self
   end
 end

@@ -7,6 +7,8 @@
         <%= work.language %>: <%= work.slug %>
         <% if work.submitted? %>
           (<%= work.nits.count %>) <a href="/user/submissions/<%= work.id %>">view</a>
+        <% elsif work.slug == 'congratulations' %>
+          That's it. No more assignments on <%= work.language %>.
         <% else %>
           You haven't submitted anything on this yet.
         <% end %>

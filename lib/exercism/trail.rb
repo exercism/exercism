@@ -24,7 +24,7 @@ class Trail
   end
 
   def after(exercise)
-    exercises[exercises.index(exercise)+1]
+    exercises[exercises.index(exercise)+1] || CompletedExercise.new(language)
   end
 
 end

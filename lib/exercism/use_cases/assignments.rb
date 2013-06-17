@@ -17,7 +17,9 @@ class Assignments
 
   def assigned_exercises
     user.current_exercises.map do |exercise|
-      Exercism.current_curriculum.assign(exercise)
-    end
+      unless exercise.slug == 'congratulations'
+        Exercism.current_curriculum.assign(exercise)
+      end
+    end.compact
   end
 end

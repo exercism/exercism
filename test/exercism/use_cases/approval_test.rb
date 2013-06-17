@@ -9,7 +9,7 @@ class ApprovalTest < MiniTest::Unit::TestCase
     @curriculum.add(nong, ['one', 'two'])
     @user = User.create(username: 'allison', current: {'nong' => 'one'})
 
-    attempt = Attempt.new(user, 'CODE', 'nong.no', curriculum).save
+    attempt = Attempt.new(user, 'CODE', 'one.no', curriculum).save
     @submission = Submission.first
     @admin = User.create(username: 'burtlo', github_id: 2)
   end
@@ -41,6 +41,14 @@ class ApprovalTest < MiniTest::Unit::TestCase
     user.reload
     done = {'nong' => ['one']}
     assert_equal done, user.completed
+  end
+
+  def test_approve_last_submission_on_trail_gives_a_dummy_assignment
+    Approval.new(submission.id, admin, curriculum).save
+    attempt = Attempt.new(user, 'CODE', 'two.no', curriculum).save
+    submission = Submission.last
+    approval = Approval.new(submission.id, admin, curriculum).save
+    assert_equal 'congratulations', approval.submitter.current_on('nong').slug
   end
 end
 
