@@ -6,7 +6,9 @@
         <a href="/submissions/<%= submission.id %>"><%= submission.language %>
           <%= submission.slug %>
         </a>
+        (<%= submission.nits.count %>)
         by <%= submission.user.username %>
+        at <%= submission.at %>
       </li>
     <% end %>
   </ul>
