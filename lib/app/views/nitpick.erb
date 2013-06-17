@@ -17,13 +17,13 @@
 <div class="row">
   <div class="span6">
     <h2>Code</h2>
-    <%= Markdown.render("```#{submission.language}\n#{submission.code}\n```") %>
+    <%= md(submission.code, submission.language) %>
   </div>
 
   <div class="span6">
     <h2>Nitpicks</h2>
     <% submission.nits.each do |nit| %>
-    <blockquote><%= Markdown.render(nit.comment) %></blockquote>
+    <blockquote><%= md(nit.comment) %></blockquote>
     <p><cite>by <em><%= nit.user.username %></em>, at <%= nit.at %></cite></p>
     <% end %>
     <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nitpick" method="POST">

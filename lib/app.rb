@@ -35,6 +35,14 @@ class ExercismApp < Sinatra::Base
       end
     end
 
+    def md(text, language = nil)
+      if language
+        Markdown.render("```#{language}\n#{text}\n```")
+      else
+        Markdown.render(text)
+      end
+    end
+
   end
 
 end

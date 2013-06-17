@@ -3,10 +3,10 @@
 <div class="row">
 <div class="span6">
   <h2>Code</h2>
-  <%= Markdown.render("```#{submission.language}\n#{submission.code}\n```") %>
+  <%= md(submission.code, submission.language) %>
   <% if submission.approved? %>
     <h2>Example</h2>
-    <%= Markdown.render("```#{submission.language}\n#{Exercism.current_curriculum.in(submission.language).assign(submission.slug).example}\n```") %>
+    <%= md(Exercism.current_curriculum.in(submission.language).assign(submission.slug).example, submission.language) %>
   <% end %>
 </div>
 
