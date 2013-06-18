@@ -1,6 +1,9 @@
 class ExercismApp < Sinatra::Base
 
   post '/user/:trail/start' do |language|
+    if current_user.guest?
+      halt 403, 'You must log in to start a trail.'
+    end
     begin
       Launch.new(current_user, language).start
       if current_user.submissions.count == 0

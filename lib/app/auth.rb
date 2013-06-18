@@ -17,9 +17,12 @@ class ExercismApp < Sinatra::Base
   end
 
   # Callback from github. This will include a temp code from Github that
-  # we use to authenticate other requests. This code indicates whether
-  # the user has said okay or not.
+  # we use to authenticate other requests.
+  # If we get a code, the user has said okay.
   get '/github/callback' do
+    unless params[:code]
+      halt 400, "Must provide parameter 'code'"
+    end
     user = Authentication.perform(params[:code])
     login(user)
     redirect "/"

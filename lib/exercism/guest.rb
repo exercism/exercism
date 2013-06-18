@@ -6,4 +6,8 @@ class Guest
   def admin?
     false
   end
+
+  def may_nitpick?(submission)
+    false
+  end
 end
