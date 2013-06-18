@@ -17,7 +17,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/account' do
-    unless current_user.guest?
+    if current_user.guest?
       flash[:error] = 'You must log in to go there.'
       redirect '/'
     end
