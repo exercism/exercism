@@ -5,6 +5,7 @@ require 'app/auth'
 require 'app/client'
 require 'app/submissions'
 require 'app/trails'
+require 'app/helpers/fuzzy_time_helper'
 
 class ExercismApp < Sinatra::Base
 
@@ -13,6 +14,8 @@ class ExercismApp < Sinatra::Base
 
   enable :sessions
   use Rack::Flash
+
+  helpers Sinatra::FuzzyTimeHelper
 
   helpers do
 

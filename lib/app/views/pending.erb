@@ -8,7 +8,7 @@
         </a>
         (<%= submission.nits.count %>)
         by <%= submission.user.username %>
-        at <%= submission.at %>
+        <%= ago(submission.at) %>
       </li>
     <% end %>
   </ul>

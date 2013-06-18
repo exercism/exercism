@@ -2,7 +2,7 @@
   <div class="span6">
     <h1><%= submission.slug %></h1>
     <p>by <%= submission.user.username %> in <%= submission.language %></p>
-    <p>submitted at <%= submission.at %>
+    <p>submitted <%= ago(submission.at) %>
   </div>
   <div class="span6">
     <% if current_user.admin? %>
@@ -24,7 +24,7 @@
     <h2>Nitpicks</h2>
     <% submission.nits.each do |nit| %>
     <blockquote><%= md(nit.comment) %></blockquote>
-    <p><cite>by <em><%= nit.user.username %></em>, at <%= nit.at %></cite></p>
+    <p><cite>by <em><%= nit.user.username %></em>, <%= ago(nit.at) %></cite></p>
     <% end %>
     <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nitpick" method="POST">
       <textarea name="comment" class="span6" rows="20"></textarea>
