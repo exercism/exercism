@@ -18,6 +18,15 @@ Both nitpickers and practitioners who have successfully completed an assignment 
 
 ## The Data
 
+We are currently working on assignments in:
+
+* ruby
+* javascript
+* coffeescript
+* clojure
+
+Only ruby currently has been approached systematically.
+
 The warmup exercises are collected from all over the web.
 
 The common data for assignments are in
@@ -27,6 +36,8 @@ assignments/shared
 ```
 
 This includes some metadata that gets sewn into a README, as well as a blurb that can be shown on the website.
+
+Not all assignments will be appropriate for all languages.
 
 The actual assignment consists of
 
