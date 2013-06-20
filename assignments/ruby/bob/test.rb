@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'teenager'
+require_relative 'example'
 
 class TeenagerTest < MiniTest::Unit::TestCase
   attr_reader :teenager
@@ -36,6 +36,16 @@ class TeenagerTest < MiniTest::Unit::TestCase
   def test_shouting_with_special_characters
     skip
     assert_equal 'Woah, chill out!', teenager.hey('ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!')
+  end
+
+  def test_shouting_with_no_exclamation_mark
+    skip
+    assert_equal 'Woah, chill out!', teenager.hey('I HATE YOU')
+  end
+
+  def test_statement_containing_question_mark
+    skip
+    assert_equal 'Whatever.', teenager.hey('Ending with ? means a question.')
   end
 
   def test_silence
