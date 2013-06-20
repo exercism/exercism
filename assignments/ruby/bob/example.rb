@@ -13,7 +13,7 @@ end
 class AnswerQuestion
 
   def self.handles?(input)
-    input.include?('?')
+    input.end_with?('?')
   end
 
   def reply
