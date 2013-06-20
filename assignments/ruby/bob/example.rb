@@ -1,3 +1,69 @@
+class AnswerSilence
+
+  def self.handles?(input)
+    input.empty?
+  end
+
+  def reply
+    'Fine. Be that way.'
+  end
+
+end
+
+class AnswerQuestion
+
+  def self.handles?(input)
+    input.include?('?')
+  end
+
+  def reply
+    'Sure.'
+  end
+
+end
+
+class AnswerShout
+
+  def self.handles?(input)
+    input == input.upcase
+  end
+
+  def reply
+    'Woah, chill out!'
+  end
+
+end
+
+class AnswerDefault
+
+  def self.handles?(input)
+    true
+  end
+
+  def reply
+    'Whatever.'
+  end
+
+end
+
+class Alice
+
+  def hey(input)
+    answerer(input).reply
+  end
+
+  private
+
+  def answerer(input)
+    handlers.find {|answer| answer.handles?(input)}.new
+  end
+
+  def handlers
+    [AnswerSilence, AnswerQuestion, AnswerShout, AnswerDefault]
+  end
+
+end
+
 class Bob
 
   def hey(something)
@@ -27,3 +93,4 @@ class Bob
   end
 
 end
+
