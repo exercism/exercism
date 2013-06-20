@@ -20,29 +20,42 @@ Both nitpickers and practitioners who have successfully completed an assignment 
 
 The warmup exercises are collected from all over the web.
 
-## MVP
+The common data for assignments are in
 
-* No design.
-* Admins are hard-coded.
-* Fetch and submit assignments via the API
-* Nitpick
-* Level up
-* Peers can nitpick
-* Support multiple simultaneous tracks.
+```bash
+assignments/shared
+```
 
-## Later
+This includes some metadata that gets sewn into a README, as well as a blurb that can be shown on the website.
 
-* Get Design
-* Notifications
-* Nitpickers can comment on and delete peer comments.
+The actual assignment consists of
 
-## Maybe
+* a test suite, where all test are `skip`ped except the first one
+* a sample solution that passes the test suite
 
-* implement oauth for improved api security
-* admin, to make people nitpickers
-* public assignment log (opt in) - handle and latest submission on which assignment
-* badges
-* a track might hold a tree of sets of assignments
+Each language is configured with a test extension and a code extension.
+
+For ruby, both of these are 'rb', so the test suite is named:
+
+```bash
+test.rb
+```
+
+and the sample solution is called
+
+```bash
+example.rb
+```
+
+For JavaScript, the test extension is `spec.js`, and the code extension is `js`, giving `test.spec.js` and `example.js`.
+
+The extensions are also used to detect which language a user is submitting an assignment to via the API (they may be on several trails simultaneously).
+
+The languages/trails are configured in `lib/exercism.rb`.
+
+The list of assignments is just a really big array of assignment slugs in the order that they will be assigned.
+
+Different languages/trails do not need to have the same assignments or the same order.
 
 ## Setup
 
