@@ -13,7 +13,7 @@ class Submission
   embeds_many :nits
 
   def self.pending
-    where(state: 'pending')
+    where(state: 'pending').order_by([:at, :desc])
   end
 
   def self.on(exercise)
