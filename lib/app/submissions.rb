@@ -36,4 +36,25 @@ class ExercismApp < Sinatra::Base
     redirect '/'
   end
 
+  post '/submissions/:id/nits/:nit_id/argue' do |id, nit_id|
+    if current_user.guest?
+      flash[:error] = 'You are not authorized to argue about this.'
+      redirect '/'
+    end
+
+    data = {
+      submission_id: id,
+      nit_id: nit_id,
+      user: current_user,
+      comment: params[:comment]
+    }
+    argument = Argument.new(data).save
+
+    if argument.submission.user == current_user
+      redirect "/user/submissions/#{id}"
+    else
+      redirect "/submissions/#{id}"
+    end
+  end
+
 end

@@ -1,10 +1,9 @@
-class Nit
+class Comment
   include Mongoid::Document
 
   field :at, type: Time, default: ->{ Time.now.utc }
-  field :c, as: :comment, type: String
+  field :body, type: String
 
   belongs_to :user
-  embedded_in :submission
-  embeds_many :comments
+  embedded_in :nit
 end
