@@ -1,0 +1,37 @@
+<h1><%= submission.language %>: <%= submission.slug %></h1>
+
+<div class="row">
+<div class="span6">
+  <h2>Code</h2>
+  <%= md(submission.code, submission.language) %>
+  <% if submission.approved? %>
+    <h2>Example</h2>
+    <%= md(Exercism.current_curriculum.in(submission.language).assign(submission.slug).example, submission.language) %>
+  <% end %>
+</div>
+
+  <div class="span6">
+    <% if submission.approved? %>
+      <h2>Approved</h2>
+      <p>by <%= submission.approver.username %> <%= ago(submission.approved_at) %></p>
+      <% if submission.approval_comment %>
+        <blockquote>
+          <%= submission.approval_comment %>
+        </blockquote>
+      <% end %>
+    <% end %>
+
+    <% unless submission.nits.empty? %>
+      <h2>Nits</h2>
+    <% end %>
+    <% submission.nits.each do |nit| %>
+      <blockquote>
+        <%= nit.comment %>
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <cite><em><%= nit.user.username %></em></cite>
+      </blockquote>
+    <% end %>
+  </div>
+</div>
+

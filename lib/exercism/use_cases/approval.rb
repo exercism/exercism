@@ -1,9 +1,10 @@
 class Approval
 
-  attr_reader :id, :approver, :curriculum
-  def initialize(id, approver, curriculum = Exercism.current_curriculum)
+  attr_reader :id, :approver, :comment, :curriculum
+  def initialize(id, approver, comment = nil, curriculum = Exercism.current_curriculum)
     @id = id
     @approver = approver
+    @comment = comment
     @curriculum = curriculum
   end
 
@@ -27,6 +28,7 @@ class Approval
     submission.state = 'approved'
     submission.approved_at = Time.now.utc
     submission.approved_by = approver.github_id
+    submission.approval_comment = comment
     submission.user.complete! exercise, on: trail
     submission.save
     self

@@ -4,14 +4,6 @@
     <p>by <%= submission.user.username %> in <%= submission.language %></p>
     <p>submitted <%= ago(submission.at) %>
   </div>
-  <div class="span6">
-    <% if current_user.admin? %>
-      <h2>Actions</h2>
-      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/approve" method="POST">
-        <button type="submit" class="btn btn-primary">Approve</button>
-      </form>
-    <% end %>
-  </div>
 </div>
 
 <div class="row">
@@ -21,14 +13,22 @@
   </div>
 
   <div class="span6">
-    <h2>Nitpicks</h2>
+    <% if submission.nits.empty? %>
+      <h2>Provide Feedback</h2>
+    <% else %>
+      <h2>Nitpicks</h2>
+    <% end %>
     <% submission.nits.each do |nit| %>
     <blockquote><%= md(nit.comment) %></blockquote>
     <p><cite>by <em><%= nit.user.username %></em>, <%= ago(nit.at) %></cite></p>
     <% end %>
-    <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nitpick" method="POST">
+    <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
       <textarea name="comment" class="span6" rows="20"></textarea>
-      <button type="submit" class="btn">Nitpick</button>
+      <% if current_user.admin? %>
+        <button type="submit" name="approve" class="btn">Approve</button>
+        <button type="submit" name="approve" class="btn">Comment &amp; Approve</button>
+      <% end %>
+      <button type="submit" name="nitpick" class="btn btn-primary">Nitpick</button>
     </form>
   </div>
 </div>
