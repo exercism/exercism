@@ -25,8 +25,13 @@
       <h2>Nitpicks</h2>
     <% end %>
     <% submission.nits.each do |nit| %>
-    <blockquote><%= md(nit.comment) %></blockquote>
-    <p><cite>by <em><%= nit.user.username %></em>, <%= ago(nit.at) %></cite></p>
+      <blockquote><%= md(nit.comment) %></blockquote>
+      <p>
+        <cite>by
+          <%= gravatar_tag nit.user.email, :size => 20 %>
+          <em><%= nit.user.username %></em>, <%= ago(nit.at) %>
+        </cite>
+      </p>
     <% end %>
     <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
       <textarea name="comment" class="span6" rows="20"></textarea>
