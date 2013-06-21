@@ -1,4 +1,5 @@
 require './test/integration_helper'
+require 'gravatarify'
 
 require 'sinatra/base'
 require 'rack/test'
