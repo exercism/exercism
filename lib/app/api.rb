@@ -39,4 +39,22 @@ class ExercismApp < Sinatra::Base
     halt 201, result.to_json
   end
 
+  get '/api/v1/user/assignments/next' do
+    unless params[:key]
+      halt 401, {error: "Please provide API key"}.to_json
+    end
+
+    assignments = Assignments.new(params[:key])
+
+    data = assignments.next.map do |assignment|
+      {
+        track: assignment.language,
+        slug: assignment.slug,
+        readme: assignment.readme,
+        test_file: assignment.test_file,
+        tests: assignment.tests
+      }
+    end
+    {assignments: data}.to_json
+  end
 end
