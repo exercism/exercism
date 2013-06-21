@@ -7,7 +7,9 @@
           <%= submission.slug %>
         </a>
         (<%= submission.nits.count %>)
-        by <%= submission.user.username %>
+        by
+        <%= gravatar_tag submission.user.email, :size => 20 %>
+        <%= submission.user.username %>
         <%= ago(submission.at) %>
       </li>
     <% end %>
