@@ -19,7 +19,12 @@
             <li><a href="/login">log in with github</a></li>
             <%= erb :backdoor %>
           <% else %>
-            <li><a href="/account">hi, <%= current_user.username %></a></li>
+            <li>
+              <a href="/account">
+                <%= gravatar_tag current_user.email, :size => 20 %>
+                hi, <%= current_user.username %>
+              </a>
+            </li>
             <li><a href="/logout">log out</a></li>
           <% end %>
         </ul>
