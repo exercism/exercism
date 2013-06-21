@@ -6,7 +6,12 @@ class Markdown < Redcarpet::Render::XHTML
   include Rouge::Plugins::Redcarpet
 
   def self.render(content)
-    options = {
+    markdown = Redcarpet::Markdown.new(Markdown, options)
+    markdown.render(content)
+  end
+
+  def self.options
+    {
       fenced_code_blocks: true,
       no_intra_emphasis: true,
       autolink: true,
@@ -19,8 +24,6 @@ class Markdown < Redcarpet::Render::XHTML
       hard_wrap: true,
       xhtml: true
     }
-    markdown = Redcarpet::Markdown.new(Markdown, options)
-    markdown.render(content)
   end
 end
 
