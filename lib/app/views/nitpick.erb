@@ -1,7 +1,13 @@
 <div class="row">
   <div class="span6">
-    <h1><%= submission.slug %></h1>
-    <p>by <%= submission.user.username %> in <%= submission.language %></p>
+    <h1>
+      <%= submission.slug %>
+      <small>in <%= submission.language %></small>
+    </h1>
+    <p>
+      by <%= gravatar_tag submission.user.email, :size => 20 %>
+      <%= submission.user.username %>
+    </p>
     <p>submitted <%= ago(submission.at) %>
   </div>
 </div>
