@@ -1,2 +1,0 @@
-Write a program that given a string can count the occurrences of each word in that string.
-
