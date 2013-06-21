@@ -1,0 +1,4 @@
+collection assignments: assignments do |assignment|
+  node track: assignment.language
+  attributes :slug, :readme, :test_file, :tests
+end

@@ -1,4 +1,5 @@
 require 'exercism'
+require 'sinatra/petroglyph'
 
 require 'app/api'
 require 'app/auth'

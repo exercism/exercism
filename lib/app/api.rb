@@ -7,16 +7,7 @@ class ExercismApp < Sinatra::Base
 
     assignments = Assignments.new(params[:key])
 
-    data = assignments.current.map do |assignment|
-      {
-        track: assignment.language,
-        slug: assignment.slug,
-        readme: assignment.readme,
-        test_file: assignment.test_file,
-        tests: assignment.tests
-      }
-    end
-    {assignments: data}.to_json
+    pg :assignments, locals: {assignments: assignments.current}
   end
 
   post '/api/v1/user/assignments' do
@@ -46,15 +37,6 @@ class ExercismApp < Sinatra::Base
 
     assignments = Assignments.new(params[:key])
 
-    data = assignments.next.map do |assignment|
-      {
-        track: assignment.language,
-        slug: assignment.slug,
-        readme: assignment.readme,
-        test_file: assignment.test_file,
-        tests: assignment.tests
-      }
-    end
-    {assignments: data}.to_json
+    pg :assignments, locals: {assignments: assignments.current}
   end
 end
