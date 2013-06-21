@@ -17,6 +17,8 @@ class ExercismApp < Sinatra::Base
 
   helpers Sinatra::FuzzyTimeHelper
 
+  helpers Gravatarify::Helper
+
   helpers do
 
     def login(user)

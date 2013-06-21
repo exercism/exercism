@@ -14,6 +14,7 @@ GEM
     coderay (1.0.9)
     faraday (0.8.7)
       multipart-post (~> 1.1)
+    gravatarify (3.1.0)
     i18n (0.6.1)
     metaclass (0.0.1)
     method_source (0.8.1)
@@ -61,6 +62,7 @@ PLATFORMS
 DEPENDENCIES
   approvals
   faraday
+  gravatarify
   mocha
   mongoid
   pry
