@@ -1,14 +1,13 @@
 class Anagram
 
-  attr_reader :subject, :letters
+  attr_reader :letters
   def initialize(subject)
-    @subject = subject
     @letters = decompose subject
   end
 
-  def match(words)
-    words.select do |word|
-      decompose(word) == letters
+  def match(candidates)
+    candidates.select do |candidate|
+      decompose(candidate) == letters
     end
   end
 
