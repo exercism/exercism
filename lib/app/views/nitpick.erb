@@ -25,16 +25,35 @@
       <h2>Nitpicks</h2>
     <% end %>
     <% submission.nits.each do |nit| %>
-      <blockquote><%= md(nit.comment) %></blockquote>
+    <blockquote><%= md(nit.comment) %>
       <p>
         <cite>by
           <%= gravatar_tag nit.user.email, :size => 20 %>
           <em><%= nit.user.username %></em>, <%= ago(nit.at) %>
         </cite>
       </p>
+    </blockquote>
+
+      <% unless nit.comments.empty? %>
+        <ul>
+        <% nit.comments.each do |comment| %>
+          <li>
+            <%= gravatar_tag comment.user.email, :size => 20 %>
+            <%= comment.body %>
+            &mdash; <em><%= comment.user.username %></em>, <%= ago(comment.at) %>
+          </li>
+        <% end %>
+        </ul>
+      <% end %>
+
+      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nits/<%= nit.id %>/argue" method="POST">
+        <textarea name="comment" class="span6" rows="3"></textarea>
+        <button type="submit" class="btn">Discuss Nit</button>
+      </form>
+
     <% end %>
     <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
-      <textarea name="comment" class="span6" rows="20"></textarea>
+      <textarea name="comment" class="span6" rows="10"></textarea>
       <% if current_user.admin? %>
         <button type="submit" name="approve" class="btn">Approve</button>
         <button type="submit" name="approve" class="btn">Comment &amp; Approve</button>
