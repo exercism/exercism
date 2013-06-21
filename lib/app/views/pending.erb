@@ -3,12 +3,12 @@
   <ul>
     <% pending.each do |submission| %>
       <li>
+        <%= gravatar_tag submission.user.email, :size => 20 %>
         <a href="/submissions/<%= submission.id %>"><%= submission.language %>
           <%= submission.slug %>
         </a>
         (<%= submission.nits.count %>)
         by
-        <%= gravatar_tag submission.user.email, :size => 20 %>
         <%= submission.user.username %>
         <%= ago(submission.at) %>
       </li>
