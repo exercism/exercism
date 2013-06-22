@@ -33,6 +33,10 @@ class Submission
     @approver
   end
 
+  def argument_count
+    nits.map {|nit| nit.comments.count}.inject(0, :+)
+  end
+
   def submitted?
     true
   end

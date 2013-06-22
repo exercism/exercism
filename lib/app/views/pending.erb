@@ -7,7 +7,7 @@
         <a href="/submissions/<%= submission.id %>"><%= submission.language %>
           <%= submission.slug %>
         </a>
-        (<%= submission.nits.count %>)
+        (<%= submission.nits.count %>:<%= submission.argument_count %>)
         by
         <%= submission.user.username %>
         <%= ago(submission.at) %>
