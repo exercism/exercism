@@ -20,6 +20,10 @@
   overflow:auto;
 }
 
+td.gutter {
+    white-space: nowrap;
+}
+
 .highlight .lineno { padding-right: 10px; color: #999; }
 
 /* Pygments coloring */
