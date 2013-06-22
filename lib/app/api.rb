@@ -22,12 +22,8 @@ class ExercismApp < Sinatra::Base
 
     attempt = Attempt.new(user, data['code'], data['path']).save
 
-    result = {
-      status: "saved",
-      language: attempt.submission.language,
-      exercise: attempt.submission.slug
-    }
-    halt 201, result.to_json
+    status 201
+    pg :attempt, locals: {submission: attempt.submission}
   end
 
   get '/api/v1/user/assignments/next' do

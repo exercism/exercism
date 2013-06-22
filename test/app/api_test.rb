@@ -35,6 +35,10 @@ class ApiTest < MiniTest::Unit::TestCase
     submission = Submission.first
     ex = Exercise.new('ruby', 'word-count')
     assert_equal ex, submission.exercise
+    assert_equal 201, last_response.status
+
+    options = {format: :json, :name => 'api_submission_accepted'}
+    Approvals.verify(last_response.body, options)
   end
 
   def test_submit_beyond_end_of_trail
