@@ -31,6 +31,26 @@
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <cite><em><%= nit.user.username %></em></cite>
       </blockquote>
+
+      <% unless nit.comments.empty? %>
+        <ul>
+        <% nit.comments.each do |comment| %>
+          <li>
+            <%= gravatar_tag comment.user.email, :size => 20 %>
+            <%= comment.body %>
+            &mdash; <em><%= comment.user.username %></em>, <%= ago(comment.at) %>
+          </li>
+        <% end %>
+        </ul>
+      <% end %>
+
+
+      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nits/<%= nit.id %>/argue" method="POST">
+        <textarea name="comment" class="span6" rows="3"></textarea>
+        <button type="submit" class="btn">Discuss Nit</button>
+      </form>
+
+
     <% end %>
   </div>
 </div>

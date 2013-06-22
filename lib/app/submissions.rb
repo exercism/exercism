@@ -67,15 +67,20 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    data = {
-      submission_id: id,
-      nit_id: nit_id,
-      user: current_user,
-      comment: params[:comment]
-    }
-    argument = Argument.new(data).save
+    if params[:comment].empty?
+      submission = Submission.find_by(id: id)
+    else
+      data = {
+        submission_id: id,
+        nit_id: nit_id,
+        user: current_user,
+        comment: params[:comment]
+      }
+      argument = Argument.new(data).save
+      submission = argument.submission
+    end
 
-    if argument.submission.user == current_user
+    if submission.user == current_user
       redirect "/user/submissions/#{id}"
     else
       redirect "/submissions/#{id}"
