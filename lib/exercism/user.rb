@@ -102,7 +102,7 @@ class User
   private
 
   def admin_users
-    %w(burtlo jcasimir kytrinyx vosechu)
+    %w(burtlo jcasimir kytrinyx vosechu theotherzach steveklabnik)
   end
 
   def create_key
