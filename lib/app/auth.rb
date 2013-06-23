@@ -8,7 +8,12 @@ class ExercismApp < Sinatra::Base
   if ENV['RACK_ENV'] == 'development'
     get '/backdoor' do
       session[:github_id] = params[:id]
-      redirect '/'
+
+      if !current_user.admin? && current_user.submissions.count == 0
+        redirect "/account"
+      else
+        redirect "/"
+      end
     end
   end
 
@@ -25,7 +30,12 @@ class ExercismApp < Sinatra::Base
     end
     user = Authentication.perform(params[:code])
     login(user)
-    redirect "/"
+
+    if !current_user.admin? && current_user.submissions.count == 0
+      redirect "/account"
+    else
+      redirect "/"
+    end
   end
 
 end
