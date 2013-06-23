@@ -24,8 +24,8 @@ class User
     end
   end
 
-  def submitted
-    @submitted ||= completed_exercises.map do |lang, exercises|
+  def completed
+    @completed ||= completed_exercises.map do |lang, exercises|
       exercises.map do |exercise|
         submissions_on(exercise).last || NullSubmission.new(exercise)
       end

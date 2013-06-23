@@ -1,20 +1,20 @@
-<div class="pending-submission span11"
+<div class="pending-submission span8"
   data-language="<%= submission.language %>"
   data-nits="<%= submission.nits.count %>"
   data-arguments="<%= submission.argument_count %>"
   data-url="/submissions/<%= submission.id %>">
 
-  <h3 class="span11">
+  <h3 class="span8">
     <a href="/submissions/<%= submission.id %>"><%= submission.slug %></a>
   </h3>
 
-  <div class="user span7">
+  <div class="user span5">
     <h3>
       <small>
       <%= gravatar_tag submission.user.email, :size => 30 %>
       &nbsp;
       <%= submission.user.username %>
-      completed this exercise <%= ago(submission.at) %>
+      submitted this exercise <%= ago(submission.at) %>
       </small>
     </h3>
   </div>

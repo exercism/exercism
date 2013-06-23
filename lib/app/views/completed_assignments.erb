@@ -1,0 +1,7 @@
+<% if completed && !completed.empty? %>
+  <h2>Completed Work</h2>
+  <% completed.each do |work| %>
+    <%= erb :work, locals: {work: work} %>
+  <% end %>
+<% end %>
+
