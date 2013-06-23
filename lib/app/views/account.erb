@@ -14,6 +14,44 @@
   <% end %>
 <% end %>
 
+<h2>Setup</h2>
+
+<h3>Ruby</h3>
+
+<ul>
+  <li>Install ruby. (Should we suggest `ruby-build`? `rvm`?)</li>
+</ul>
+
+<p>Execute the tests with:</p>
+
+<pre>
+  $ ruby test.rb
+</pre>
+
+<h3>JavaScript</h3>
+
+<ul>
+  <li>Install <a href="http://nodejs.org/">Node.js</a></li>
+  <li>Install <a href="https://github.com/mhevery/jasmine-node">jasmine-node</a></li>
+</ul>
+
+<pre>
+  $ brew install node
+  $ npm install jasmine-node -g
+</pre>
+
+<p>Update the `~/.bash_profile` to include NPM binary files on the PATH:</p>
+
+<pre>
+  $ export PATH=/usr/local/share/npm/bin:$PATH
+</pre>
+
+<p>Execute the tests with:</p>
+
+<pre>
+  $ jasmine-node test.spec.js
+</pre>
+
 <h2>Get the gem</h2>
 <pre>
   $ gem install exercism
