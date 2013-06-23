@@ -4,6 +4,7 @@ class User
   include Mongoid::Document
 
   field :u, as: :username, type: String
+  field :img, as: :avatar_url, type: String
   field :cur, as: :current, type: Hash, default: {}
   field :comp, as: :completed, type: Hash, default: {}
   field :g_id, as: :github_id, type: Integer
@@ -12,9 +13,13 @@ class User
 
   has_many :submissions
 
-  def self.from_github(id, username, email)
+  def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first
-    user ||= User.create(username: username, github_id: id, email: email)
+    user ||= User.create(username: username, github_id: id, email: email, avatar_url: avatar_url)
+    if user.avatar_url.nil?
+      user.avatar_url = avatar_url
+      user.save
+    end
     user
   end
 
