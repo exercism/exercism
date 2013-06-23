@@ -1,7 +1,7 @@
 <div class="row">
   <div class="span4">
     <%= erb :ongoing_assignments, locals: {ongoing: current_user.ongoing} %>
-    <%= erb :completed_assignments, locals: {completed: current_user.completed } %>
+    <%= erb :completed_assignments, locals: {completed: current_user.done } %>
   </div>
   <div class="span8">
     <%= erb :pending, locals: {pending: pending} %>
