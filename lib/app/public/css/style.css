@@ -1,0 +1,56 @@
+.pending-submission {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.pending-submission.hover {
+  cursor: pointer;
+  background: #EEE;
+  border-radius: 5px;
+}
+
+.pending-submission h3 {
+  font-size: 30px;
+  line-height: 0px;
+}
+
+.circle {
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 20px;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
+.pending-submission .user {
+  padding-top: 4px;
+}
+
+.pending-submission .language {
+  text-align: center;
+  line-height: 30px;
+
+  background: #ffcf8c;
+  background-position: center center;
+  background-size: 20px 20px;
+  background-repeat:no-repeat;
+}
+
+.pending-submission .ruby {
+  background-image: url('/img/ruby.png');
+}
+
+.pending-submission .nits {
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  background: #da4f49;
+}
+
+.pending-submission .arguments {
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  background: #49afcd;
+}
