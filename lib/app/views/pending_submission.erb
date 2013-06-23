@@ -8,11 +8,12 @@
     <a href="/submissions/<%= submission.id %>"><%= submission.slug %></a>
   </h3>
 
-  <div class="user span5">
+  <div class="user span4">
     <h3>
       <small>
-      <%= gravatar_tag submission.user.email, :size => 30 %>
-      &nbsp;
+        <div class="avatar">
+        <%= gravatar_tag submission.user.email, size: 30 %>
+        </div>
       <%= submission.user.username %>
       submitted this exercise <%= ago(submission.at) %>
       </small>

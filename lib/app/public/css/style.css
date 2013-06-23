@@ -25,6 +25,11 @@
 
 .pending-submission .user {
   padding-top: 4px;
+  height: 50px;
+}
+.pending-submission .user .avatar {
+  float: left;
+  padding-right: 10px;
 }
 
 .pending-submission .language {
