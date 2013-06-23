@@ -1,5 +1,13 @@
 <p>Update your <%= gravatar_tag current_user.email, :size => 20 %> <a href="http://www.gravatar.com/">Gravatar</a></p>
 
+<% unless unstarted.empty? %>
+  <h2>Unstarted Trails</h2>
+  <% unstarted.each do |language| %>
+    <form action="/user/<%= language %>/start" method="POST">
+      <input type="submit" value="start <%= language %>" />
+    </form>
+  <% end %>
+<% end %>
 <h2>Get the gem</h2>
 <pre>
   $ gem install exercism
