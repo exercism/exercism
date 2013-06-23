@@ -1,7 +1,12 @@
-<p>Update your <%= gravatar_tag current_user.email, :size => 20 %> <a href="http://www.gravatar.com/">Gravatar</a></p>
+<h1>Your Account</h1>
+
+<p>You can always get back to this page by clicking your username in the navigation bar.</p>
+
+<p>You can update your <%= gravatar_tag current_user.email, :size => 20 %> Gravatar on <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
 
 <% unless unstarted.empty? %>
   <h2>Unstarted Trails</h2>
+  <p>Warning: The JavaScript trail is basically a placeholder to prove to ourselves that we can do multiple trails simultaneously. It currently only has a single exercise in it. If you do the exercise we'll start you on the next one at that time.</p>
   <% unstarted.each do |language| %>
     <form action="/user/<%= language %>/start" method="POST">
       <input type="submit" value="start <%= language %>" />
