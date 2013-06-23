@@ -13,6 +13,7 @@ gem 'sinatra', require: 'sinatra/base'
 gem 'gravatarify'
 
 group :test, :development do
+  gem 'minitest', '~> 4.0'
   gem 'approvals'
   gem 'pry'
   gem 'rack-test'
