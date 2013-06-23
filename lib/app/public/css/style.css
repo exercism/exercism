@@ -59,3 +59,6 @@
   color: #fff;
   background: #49afcd;
 }
+
+.code .btn { float: right; }
+.code br { clear: both; }

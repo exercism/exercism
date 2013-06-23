@@ -34,7 +34,7 @@ bob = User.create(bob_data)
 admin = User.create(username: 'kytrinyx', github_id: 276834, email: "katrina.owen@gmail.com")
 
 attempt = Attempt.new(alice, 'puts "hello world"', 'nucleotide_count.rb').save
-attempt = Attempt.new(bob, "def bark\n  \"woof\"\nend", 'bob.rb').save
+attempt = Attempt.new(bob, "def bark_along_little_doggie_when_the_moon_is_full_in_the_sky\n  \"woof\"\nend", 'bob.rb').save
 Nitpick.new(attempt.submission.id, admin, 'Not enough code.').save
 Nitpick.new(attempt.submission.id, admin, 'I like the method name.').save
 
