@@ -1,8 +1,8 @@
 class Words
 
-  attr_reader :words
+  attr_reader :phrase
   def initialize(text)
-    @words = text.downcase.gsub(/[^a-z0-9\s]/, '').split(' ')
+    @phrase = text.downcase.gsub(/[^a-z0-9\s]/, '').split(' ')
   end
 
   def count
@@ -16,7 +16,7 @@ class Words
   private
 
   def each_word
-    words.each do |word|
+    phrase.each do |word|
       yield word
     end
   end
