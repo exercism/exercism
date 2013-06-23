@@ -1,23 +1,15 @@
-.highlight {
-  -moz-border-radius:3px;
-  -webkit-border-radius:3px;
-  background:transparent;
-}
-
-.highlight pre {
+pre.highlight  {
   background-color:#f8f8f8;
   border-radius:3px;
   border:1px solid #ccc;
 
-  padding:6px 10px;
-  margin-bottom: 20px;
-
   font: 'Bitstream Vera Sans Mono','Courier', monospace;
   font-size:14px;
-  color: black;
 
+  overflow-x: scroll;
+  overflow-y: hidden;
+  white-space: pre;
   line-height:26px;
-  overflow:auto;
 }
 
 td.gutter {
