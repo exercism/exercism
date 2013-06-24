@@ -46,6 +46,10 @@
   background-image: url('/img/ruby.png');
 }
 
+.pending-submission .javascript {
+  background-image: url('/img/javascript.png');
+}
+
 .pending-submission .nits {
   text-align: center;
   line-height: 30px;
