@@ -21,7 +21,7 @@ class Assignment
   end
 
   def test_file
-    "test.#{locale.test_extension}"
+    "#{slug}_test.#{locale.test_extension}"
   end
 
   def example
