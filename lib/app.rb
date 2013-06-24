@@ -7,6 +7,7 @@ require 'app/client'
 require 'app/submissions'
 require 'app/trails'
 require 'app/helpers/fuzzy_time_helper'
+require 'app/helpers/gravatar_helper'
 
 class ExercismApp < Sinatra::Base
 
@@ -17,8 +18,7 @@ class ExercismApp < Sinatra::Base
   use Rack::Flash
 
   helpers Sinatra::FuzzyTimeHelper
-
-  helpers Gravatarify::Helper
+  helpers Sinatra::GravatarHelper
 
   helpers do
 

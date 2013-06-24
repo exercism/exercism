@@ -17,7 +17,7 @@ class User
     user = User.where(github_id: id).first
     user ||= User.create(username: username, github_id: id, email: email, avatar_url: avatar_url)
     if user.avatar_url.nil?
-      user.avatar_url = avatar_url
+      user.avatar_url = avatar_url.gsub(/\?.+$/, '')
       user.save
     end
     user

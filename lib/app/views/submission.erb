@@ -36,7 +36,7 @@
         <ul>
         <% nit.comments.each do |comment| %>
           <li>
-            <%= gravatar_tag comment.user.email, :size => 20 %>
+            <%= gravatar_tag comment.user.avatar_url %>
             <%= comment.body %>
             &mdash; <em><%= comment.user.username %></em>, <%= ago(comment.at) %>
           </li>

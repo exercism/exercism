@@ -12,7 +12,7 @@
     <h3>
       <small>
         <div class="avatar">
-        <%= gravatar_tag submission.user.email, size: 30 %>
+        <%= gravatar_tag submission.user.avatar_url, size: 30 %>
         </div>
       <%= submission.user.username %>
       submitted this exercise <%= ago(submission.at) %>
