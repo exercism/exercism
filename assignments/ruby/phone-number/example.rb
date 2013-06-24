@@ -26,21 +26,21 @@ class Phone
 
   def clean(number)
     number = number.gsub(/[^0-9]/, "")
-    normalized(number)
+    normalize(number)
   end
 
-  def normalized(number)
+  def normalize(number)
     if valid?(number)
-      return number[/(\d{10})\z/, 1]
+      number[/(\d{10})\z/, 1]
     else
-      return "0000000000"
+      "0" * 10
     end
   end
 
   def valid?(number)
     return true if number.length == 10
     return true if number.length == 11 && number.start_with?("1")
-    return false
+    false
   end
 
 end
