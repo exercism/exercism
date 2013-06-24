@@ -28,6 +28,24 @@ class Bob
 
 end
 
+class Alice
+
+  def hey(input)
+    answerer(input).reply
+  end
+
+  private
+
+  def answerer(input)
+    handlers.find {|answer| answer.handles?(input)}.new
+  end
+
+  def handlers
+    [AnswerSilence, AnswerQuestion, AnswerShout, AnswerDefault]
+  end
+
+end
+
 class AnswerSilence
 
   def self.handles?(input)
@@ -72,24 +90,6 @@ class AnswerDefault
 
   def reply
     'Whatever.'
-  end
-
-end
-
-class Alice
-
-  def hey(input)
-    answerer(input).reply
-  end
-
-  private
-
-  def answerer(input)
-    handlers.find {|answer| answer.handles?(input)}.new
-  end
-
-  def handlers
-    [AnswerSilence, AnswerQuestion, AnswerShout, AnswerDefault]
   end
 
 end
