@@ -23,6 +23,7 @@ class ExercismApp < Sinatra::Base
     submission = Submission.find(id)
     unless current_user == submission.user
       flash[:error] = 'That is not your submission.'
+      redirect '/'
     end
     erb :submission, locals: {submission: Submission.find(id)}
   end
