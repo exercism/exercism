@@ -12,13 +12,7 @@
 
   <div class="span6">
     <% if submission.approved? %>
-      <h2>Approved</h2>
-      <p>by <%= submission.approver.username %> <%= ago(submission.approved_at) %></p>
-      <% if submission.approval_comment %>
-        <blockquote>
-          <%= submission.approval_comment %>
-        </blockquote>
-      <% end %>
+      <p><%= gravatar_tag submission.approver.avatar_url %> Approved by <%= submission.approver.username %> <%= ago(submission.approved_at) %></p>
     <% end %>
 
     <% unless submission.nits.empty? %>

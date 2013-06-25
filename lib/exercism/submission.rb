@@ -8,7 +8,6 @@ class Submission
   field :at, type: Time, default: ->{ Time.now.utc }
   field :a_at, as: :approved_at, type: Time
   field :a_by, as: :approved_by, type: Integer
-  field :a_c, as: :approval_comment, type: String
 
   belongs_to :user
   embeds_many :nits
