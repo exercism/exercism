@@ -2,21 +2,22 @@ package bob
 
 import "strings"
 
-func Hey(drivel string) string {
+func Hey(drivel string) (reply string) {
+	reply = "Whatever."
 	if silent(drivel) {
-		return "Fine. Be that way."
+		reply = "Fine. Be that way."
 	}
 	if yelling(drivel) {
-		return "Woah, chill out!"
+		reply = "Woah, chill out!"
 	}
 	if asking(drivel) {
-		return "Sure."
+		reply = "Sure."
 	}
-	return "Whatever."
+	return
 }
 
 func yelling(drivel string) bool {
-	return strings.ToUpper(drivel) == drivel
+	return len(drivel) > 0 && strings.ToUpper(drivel) == drivel
 }
 
 func asking(drivel string) bool {

@@ -2,45 +2,52 @@ package bob
 
 import "testing"
 
-func assertHey(in string, out string, t *testing.T) {
+func assertReply(t *testing.T, in string, out string) {
 	if reply := Hey(in); reply != out {
 		t.Errorf("Hey(\"%v\"): Got \"%v\", expected \"%v\"", in, reply, out)
 	}
 }
 
 func TestBobStatement(t *testing.T) {
-	assertHey("Tom-ay-to, tom-aaaah-to.", "Whatever.", t)
+	assertReply(t, "Tom-ay-to, tom-aaaah-to.", "Whatever.")
 }
 
 func TestShouting(t *testing.T) {
-	assertHey("WATCH OUT!", "Woah, chill out!", t)
+	t.SkipNow()
+	assertReply(t, "WATCH OUT!", "Woah, chill out!")
 }
 
 func TestExclaiming(t *testing.T) {
-	assertHey("Let's go make out behind the gym!", "Whatever.", t)
+	t.SkipNow()
+	assertReply(t, "Let's go make out behind the gym!", "Whatever.")
 }
 
 func TestAsking(t *testing.T) {
-	assertHey("Does this cryogenic chamber make me look fat?", "Sure.", t)
+	t.SkipNow()
+	assertReply(t, "Does this cryogenic chamber make me look fat?", "Sure.")
 }
 
 func TestShoutNumbers(t *testing.T) {
-	assertHey("1, 2, 3 GO!", "Woah, chill out!", t)
+	t.SkipNow()
+	assertReply(t, "1, 2, 3 GO!", "Woah, chill out!")
 }
 
 func TestShoutWeirdCharacters(t *testing.T) {
-	assertHey("ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!", "Woah, chill out!", t)
+	t.SkipNow()
+	assertReply(t, "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!", "Woah, chill out!")
 }
 
 func TestShoutWithoutPunctuation(t *testing.T) {
-	assertHey("I HATE YOU", "Woah, chill out!", t)
+	t.SkipNow()
+	assertReply(t, "I HATE YOU", "Woah, chill out!")
 }
 
 func TestStatementWithQuestionMark(t *testing.T) {
-	assertHey("Ending with ? means a question.", "Whatever.", t)
+	t.SkipNow()
+	assertReply(t, "Ending with ? means a question.", "Whatever.")
 }
 
 func TestSilentTreatment(t *testing.T) {
-	assertHey("", "Fine. Be that way.", t)
+	t.SkipNow()
+	assertReply(t, "", "Fine. Be that way.")
 }
-
