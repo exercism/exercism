@@ -2,7 +2,7 @@ class Words
 
   attr_reader :phrase
   def initialize(text)
-    @phrase = text.downcase.gsub(/[^a-z0-9\s]/, '').split(' ')
+    @phrase = normalize(text)
   end
 
   def count
@@ -19,6 +19,10 @@ class Words
     phrase.each do |word|
       yield word
     end
+  end
+
+  def normalize(text)
+    text.downcase.gsub(/\W/, ' ').split(' ')
   end
 
 end
