@@ -39,7 +39,7 @@ class ApprovalTest < MiniTest::Unit::TestCase
   def test_approve_submission_saves_comment
     Approval.new(submission.id, admin, 'very nice', curriculum).save
     submission.reload
-    assert_equal 'very nice', submission.approval_comment
+    assert_equal 'very nice', submission.nits.first.comment
   end
 
   def test_approve_submission_sets_completed_assignments
