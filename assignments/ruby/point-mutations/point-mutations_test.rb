@@ -33,14 +33,21 @@ class DNATest < MiniTest::Unit::TestCase
     assert_equal 2, DNA.new('ACCAGGG').hamming_distance('ACTATGG')
   end
 
-  def test_shortens_other_strand_when_longer
+  def test_ignores_extra_length_on_other_strand_when_longer
     skip
     assert_equal 3, DNA.new('AAACTAGGGG').hamming_distance('AGGCTAGCGGTAGGAC')
   end
 
-  def test_shortens_original_strand_when_longer
+  def test_ignores_extra_length_on_original_strand_when_longer
     skip
     assert_equal 5, DNA.new('GACTACGGACAGGGTAGGGAAT').hamming_distance('GACATCGCACACC')
+  end
+
+  def test_does_not_actually_shorten_original_strand
+    skip
+    assert_equal 1, DNA.new('AGACAACAGCCAGCCGCCGGATT').hamming_distance('AGGCAA')
+    assert_equal 4, DNA.new('AGACAACAGCCAGCCGCCGGATT').hamming_distance('AGACATCTTTCAGCCGCCGGATTAGGCAA')
+    assert_equal 1, DNA.new('AGACAACAGCCAGCCGCCGGATT').hamming_distance('AGG')
   end
 
 end
