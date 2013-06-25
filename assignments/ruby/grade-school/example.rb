@@ -1,14 +1,12 @@
 class School
 
+  attr_reader :name, :db
   def initialize(name)
-  end
-
-  def db
-    @db ||= {}
+    @name = name
+    @db ||= Hash.new { |students, grade| students[grade] = [] }
   end
 
   def add(student, grade)
-    db[grade] ||= []
     db[grade] << student
   end
 
@@ -17,10 +15,7 @@ class School
   end
 
   def sort
-    sorted = {}
-    db.keys.sort.each do |level|
-      sorted[level] = grade(level).sort
-    end
-    sorted
+    sorted = db.map { |grade, students| [ grade, students.sort ] }
+    Hash[sorted]
   end
 end
