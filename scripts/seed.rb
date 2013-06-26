@@ -29,7 +29,7 @@ attempt = Attempt.new(alice, "class Bob\nend", "bob.rb").save
 Nitpick.new(attempt.submission.id, admin, "It is missing `hey`.").save
 attempt = Attempt.new(alice, "class Bob\ndef hey\nend\nend", "bob.rb").save
 Nitpick.new(attempt.submission.id, admin, "The formatting is off. Reindent.").save
-attempt = Attempt.new(alice, "class Bob\n  def\n  hey\n  end\nend", "bob.rb").save
+attempt = Attempt.new(alice, "class Bob\n  def  hey\n  end\nend", "bob.rb").save
 Approval.new(attempt.submission.id, admin, 'very nice').save
 alice.reload
 
