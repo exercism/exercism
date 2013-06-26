@@ -7,8 +7,8 @@ class Submission
   field :c, as: :code, type: String
   field :at, type: Time, default: ->{ Time.now.utc }
   field :a_at, as: :approved_at, type: Time
-  field :a_by, as: :approved_by, type: Integer
 
+  belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
   embeds_many :nits
 
@@ -21,15 +21,6 @@ class Submission
     submission.on exercise
     submission.save
     submission
-  end
-
-  # FIXME: We really need to ditch MongoDB
-  def approver
-    return @approver if @approver
-    if approved?
-      @approver = User.find_by(github_id: approved_by)
-    end
-    @approver
   end
 
   def argument_count

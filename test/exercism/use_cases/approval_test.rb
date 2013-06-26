@@ -30,10 +30,10 @@ class ApprovalTest < MiniTest::Unit::TestCase
     assert !submission.approved_at.nil?
   end
 
-  def test_approve_submission_sets_approved_by
+  def test_approve_submission_sets_approver
     Approval.new(submission.id, admin, nil, curriculum).save
     submission.reload
-    assert_equal 2, submission.approved_by
+    assert_equal admin, submission.approver
   end
 
   def test_approve_submission_saves_comment

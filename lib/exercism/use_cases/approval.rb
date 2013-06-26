@@ -27,7 +27,7 @@ class Approval
   def save
     submission.state = 'approved'
     submission.approved_at = Time.now.utc
-    submission.approved_by = approver.github_id
+    submission.approver = approver
     submission.nits << Nit.new(user: approver, comment: comment)
     submission.user.complete! exercise, on: trail
     submission.save
