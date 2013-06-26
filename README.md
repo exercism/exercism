@@ -87,6 +87,10 @@ Copy the export values from `scripts/boot.sh.example` into your `~/.bash_profile
 or
 Copy bootrunner `cp scripts/boot.sh.example scripts/boot.sh`
 
+## Console
+
+There's a script in `bin/console` that will load irb with the exercism environment loaded.
+
 ## Testing
 
 Run tests with: `rake test`
