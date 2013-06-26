@@ -45,5 +45,10 @@ class PhoneTest < MiniTest::Unit::TestCase
     assert_equal "(123) 456-7890", number.to_s
   end
 
+  def test_pretty_print_with_full_us_phone_number
+    number = Phone.new("11234567890").number
+    assert_equal "(123) 456-7890", number.to_s
+  end
+
 end
 
