@@ -24,19 +24,28 @@ alice_data = {
 }
 alice = User.create(alice_data)
 
-# Bob
 attempt = Attempt.new(alice, "class Bob\nend", "bob.rb").save
+attempt.submission.at = Time.now.utc - 10
+attempt.submission.save
+
 Nitpick.new(attempt.submission.id, admin, "It is missing `hey`.").save
 attempt = Attempt.new(alice, "class Bob\ndef hey\nend\nend", "bob.rb").save
+attempt.submission.at = Time.now.utc - 8
+attempt.submission.save
 Nitpick.new(attempt.submission.id, admin, "The formatting is off. Reindent.").save
 attempt = Attempt.new(alice, "class Bob\n  def  hey\n  end\nend", "bob.rb").save
+attempt.submission.at = Time.now.utc - 6
+attempt.submission.save
 Approval.new(attempt.submission.id, admin, 'very nice').save
 alice.reload
 
-# Word Count
 attempt = Attempt.new(alice, "class Words\nend", "words.rb").save
+attempt.submission.at = Time.now.utc - 4
+attempt.submission.save
 Nitpick.new(attempt.submission.id, admin, "Initialize takes an argument").save
 attempt = Attempt.new(alice, "class Words\n  def initialize(words)\n  end\nend", "words.rb").save
+attempt.submission.at = Time.now.utc - 2
+attempt.submission.save
 Nitpick.new(attempt.submission.id, admin, "`words.words` is so echo-y.").save
 attempt = Attempt.new(alice, "class Words\n  def initialize(phrase)\n  end\nend", "words.rb").save
 Approval.new(attempt.submission.id, admin, 'better').save
