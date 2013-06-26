@@ -12,9 +12,9 @@ gem 'rouge'
 gem 'sinatra', require: 'sinatra/base'
 
 group :test, :development do
-  gem 'minitest', '~> 4.0'
-  gem 'approvals'
-  gem 'pry'
-  gem 'rack-test'
+  gem 'minitest', '~> 4.0', require: false
+  gem 'approvals', require: false
+  gem 'pry', require: false
+  gem 'rack-test', require: false
   gem 'mocha', require: false
 end
