@@ -32,17 +32,21 @@ class User
   def done
     @done ||= completed_exercises.map do |lang, exercises|
       exercises.map do |exercise|
-        submissions_on(exercise).last || NullSubmission.new(exercise)
+        latest_submission_on(exercise) || NullSubmission.new(exercise)
       end
     end.flatten
   end
 
   def latest_submission_on(exercise)
-    submissions_on(exercise).where(state: 'pending').last
+    submissions_on(exercise).first
+  end
+
+  def first_submission_on(exercise)
+    submissions_on(exercise).last
   end
 
   def submissions_on(exercise)
-    submissions.where(language: exercise.language, slug: exercise.slug)
+    submissions.order_by(at: :desc).where(language: exercise.language, slug: exercise.slug)
   end
 
   def guest?
