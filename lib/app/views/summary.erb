@@ -1,0 +1,33 @@
+<h1><%= exercise.language %>: <%= exercise.slug %></h1>
+
+<% if after.approved? %>
+  <p><%= gravatar_tag after.approver.avatar_url %> Approved by <%= after.approver.username %> <%= ago(after.approved_at) %></p>
+<% else %>
+  <p>This exercise is still in progress.</p>
+<% end %>
+
+<div class="row">
+  <div class="span8">
+    <h2>Before</h2>
+    <%= md(before.code, before.language) %>
+
+    <h2>After</h2>
+    <%= md(after.code, after.language) %>
+
+    <% if after.approved? %>
+      <h2>Example</h2>
+      <%= md(Exercism.current_curriculum.in(after.language).assign(after.slug).example, after.language) %>
+    <% end %>
+  </div>
+  <div class="span4">
+    <h2><%= iterations.count %> <%= iterations.count == 1 ? "Iteration" : "Iterations" %></h2>
+    <ul>
+      <% iterations.each do |iteration| %>
+      <li>
+      <a href="/user/submissions/<%= iteration.id %>"><%= ago(iteration.at) %></a> (<%= iteration.nits.count %>:<%= iteration.argument_count %>)
+      </li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+
