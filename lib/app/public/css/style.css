@@ -69,3 +69,5 @@
 
 
 .comments p { display: inline; }
+
+#code-timeline a.selected { background-color: #fcf8e3; }
