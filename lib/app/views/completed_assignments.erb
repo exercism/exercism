@@ -5,9 +5,9 @@
       <% if work.submitted? %>
         <a href="/user/<%= work.language %>/<%= work.slug %>">
           <h4 style="display: inline"><%= work.slug %></h4></a>
-        <div class="language circle <%= work.language %>-icon">&nbsp;</div>
+        <%= language_icon(work.language) %>
       <% elsif work.slug == 'congratulations' %>
-        <div class="language circle <%= work.language %>-icon">&nbsp;</div>
+        <%= language_icon(work.language) %>
         <span class="label label-info">No more Assignments</span>
       <% end %>
     </div>

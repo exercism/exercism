@@ -20,10 +20,7 @@
     </h3>
   </div>
 
-  <div class="language circle span1 <%= submission.language %>-icon">
-    &nbsp;
-  </div>
-
+  <%= language_icon(submission.language, class: "span1") %>
   <div class="nits circle span1">
     <%= submission.nits.count %>
   </div>
