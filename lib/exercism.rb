@@ -52,7 +52,14 @@ class Exercism
         anagram
       )
       @curriculum.add(js, js_slugs)
+
+      elixir = Locale.new('elixir', 'exs', 'exs')
+      elixir_slugs = %w(
+        bob
+      )
+      @curriculum.add(elixir, elixir_slugs)
     end
+
     @curriculum
   end
 
