@@ -1,13 +1,13 @@
-require 'time'
-require 'date'
-
 class Gigasecond
-  attr_reader :date_of_birth
+
+  attr_reader :born_at
   def initialize(date_of_birth)
-    @date_of_birth = date_of_birth
+    @born_at = date_of_birth.to_time
   end
 
   def date
-    (date_of_birth.to_time + 1_000_000_000).to_date
+    (born_at + 1_000_000_000).to_date
   end
+
 end
+
