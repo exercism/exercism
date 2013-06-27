@@ -24,6 +24,7 @@ We are currently working on assignments in:
 * javascript
 * coffeescript
 * clojure
+* elixir
 
 Only ruby currently has been approached systematically.
 
