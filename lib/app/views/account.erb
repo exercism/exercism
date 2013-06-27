@@ -52,6 +52,31 @@
   $ jasmine-node bob_test.spec.js
 </pre>
 
+<h3>Elixir</h3>
+
+<h4>Installation:</h4>
+
+<ul>
+  <li>
+    Homebrew for Mac OS X
+    <ul>
+      <li>Since Elixir requires Erlang R16B, first call <code>brew tap homebrew/versions</code> and then <code>brew install erlang-r16</code></li>
+      <li>If you have a previous Erlang version installed, unlink it with <code>brew uninstall erlang</code> and link the new one with <code>brew link erlang-r16</code></li>
+      <li>Update your homebrew to latest: <code>brew update</code></li>
+      <li>Install Elixir: <code>brew install elixir</code></li>
+    </ul>
+  </li>
+  <li>Fedora 17+ and Fedora Rawhide: <code>sudo yum -y install elixir</code></li>
+  <li>Arch Linux : Elixir is available on AUR via <code>yaourt -S elixir</code></li>
+  <li>Other:  Get <a href="http://www.erlang.org/download.html">Erlang R16B</a>, then download a <a href="http://elixir-lang.org/packages.html">precompiled package</a></li>
+</ul>
+
+<h4>Running tests:</h4>
+
+<pre>
+  $ elixir bob_test.exs
+</pre>
+
 <h2>Get the gem</h2>
 <pre>
   $ gem install exercism
