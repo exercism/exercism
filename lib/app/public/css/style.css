@@ -41,11 +41,11 @@
   background-repeat:no-repeat;
 }
 
-.ruby {
+.ruby-icon {
   background-image: url('/img/ruby.png');
 }
 
-.pending-submission .javascript {
+.javascript-icon {
   background-image: url('/img/javascript.png');
 }
 
