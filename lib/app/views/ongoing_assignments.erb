@@ -1,5 +1,5 @@
 <% if ongoing && !ongoing.empty? %>
-  <h2>Pending Work</h2>
+  <h2>Pending</h2>
   <% ongoing.each do |work| %>
     <%= erb :work, locals: {work: work} %>
   <% end %>
