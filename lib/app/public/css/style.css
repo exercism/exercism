@@ -17,7 +17,6 @@
 .circle {
   border-radius: 50%;
   display: inline-block;
-  margin-right: 20px;
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -32,7 +31,7 @@
   padding-right: 10px;
 }
 
-.pending-submission .language {
+.language {
   text-align: center;
   line-height: 30px;
 
@@ -42,7 +41,7 @@
   background-repeat:no-repeat;
 }
 
-.pending-submission .ruby {
+.ruby {
   background-image: url('/img/ruby.png');
 }
 
@@ -50,14 +49,14 @@
   background-image: url('/img/javascript.png');
 }
 
-.pending-submission .nits {
+.nits {
   text-align: center;
   line-height: 30px;
   color: #fff;
   background: #da4f49;
 }
 
-.pending-submission .arguments {
+.arguments {
   text-align: center;
   line-height: 30px;
   color: #fff;
