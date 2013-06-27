@@ -10,7 +10,7 @@
     <% end %>
   </div>
 
-  <div class="span6">
+  <div class="comments span6">
     <% if submission.approved? %>
       <p><%= gravatar_tag submission.approver.avatar_url %> Approved by <%= submission.approver.username %> <%= ago(submission.approved_at) %></p>
     <% end %>

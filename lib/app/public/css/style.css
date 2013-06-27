@@ -66,3 +66,6 @@
 
 .code .btn { float: right; }
 .code br { clear: both; }
+
+
+.comments p { display: inline; }
