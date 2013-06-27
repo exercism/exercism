@@ -1,11 +1,11 @@
 class Bob
 
-  def hey(something)
-    if silent?(something)
+  def hey(drivel)
+    if silent?(drivel)
       'Fine. Be that way.'
-    elsif question?(something)
+    elsif question?(drivel)
       'Sure.'
-    elsif shouting?(something)
+    elsif shouting?(drivel)
       'Woah, chill out!'
     else
       'Whatever.'
@@ -30,14 +30,14 @@ end
 
 class Alice
 
-  def hey(input)
-    answerer(input).reply
+  def hey(drivel)
+    answerer(drivel).reply
   end
 
   private
 
-  def answerer(input)
-    handlers.find {|answer| answer.handles?(input)}.new
+  def answerer(drivel)
+    handlers.find {|answer| answer.handles?(drivel)}.new
   end
 
   def handlers
