@@ -1,33 +1,61 @@
 <h1><%= exercise.language %>: <%= exercise.slug %></h1>
 
 <% if after.approved? %>
-  <p><%= gravatar_tag after.approver.avatar_url %> Approved by <%= after.approver.username %> <%= ago(after.approved_at) %></p>
+  <p><strong>Approved</strong> by <%= gravatar_tag after.approver.avatar_url %> <%= after.approver.username %> <%= ago(after.approved_at) %></p>
 <% else %>
   <p>This exercise is still in progress.</p>
 <% end %>
 
-<div class="row">
-  <div class="span8">
-    <h2>Before</h2>
-    <%= md(before.code, before.language) %>
-
-    <h2>After</h2>
-    <%= md(after.code, after.language) %>
-
+<div id="code-timeline" class="pagination pagination-large pagination-centered">
+  <ul>
+    <li><a data-revision="0" class="selected">Start</a></li>
+    <li><a data-revision="1">Rev 1</a></li>
+    <li><a data-revision="2">Rev 2</a></li>
+    <li><a data-revision="3">Rev 3</a></li>
+    <li><a data-revision="4" class="selected">Approved</a></li>
     <% if after.approved? %>
+      <li><a data-revision="example">Example</a></li>
+    <% end %>
+  </ul>
+</div>
+
+
+
+<div class="row">
+  <div id="revision-0" class="span6">
+    <h2>Start</h2>
+    <%= md(before.code, before.language) %>
+  </div>
+
+  <% iterations.each_with_index do |iteration,index| %>
+    <div id="revision-<%= index + 1 %>" class="span6" style="display: none;">
+      <h2>
+        <a href="/user/submissions/<%= iteration.id %>">
+          Revision <%= index + 1 %>
+        </a>
+        <div style="float: right;">
+        <span class="badge badge-important"><%= iteration.nits.count %>
+        </span>
+        <span class="badge badge-info"><%= iteration.argument_count %>
+        </span>
+        </div>
+      </h2>
+      <h3><small>Submitted <%= ago(iteration.at) %></small></h3>
+
+      <%= md(iteration.code,iteration.language) %>
+    </div>
+  <% end %>
+
+  <div id="revision-<%= iterations.count + 1 %>" class="span6">
+    <h2>Approved</h2>
+    <%= md(after.code, after.language) %>
+  </div>
+
+  <% if after.approved? %>
+    <div id="revision-example" class="span6" style="display:none;">
       <h2>Example</h2>
       <%= md(Exercism.current_curriculum.in(after.language).assign(after.slug).example, after.language) %>
-    <% end %>
-  </div>
-  <div class="span4">
-    <h2><%= iterations.count %> <%= iterations.count == 1 ? "Iteration" : "Iterations" %></h2>
-    <ul>
-      <% iterations.each do |iteration| %>
-      <li>
-      <a href="/user/submissions/<%= iteration.id %>"><%= ago(iteration.at) %></a> (<%= iteration.nits.count %>:<%= iteration.argument_count %>)
-      </li>
-      <% end %>
-    </ul>
-  </div>
+    </div>
+  <% end %>
 </div>
 
