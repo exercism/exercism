@@ -6,12 +6,12 @@
   <p>This exercise is still in progress.</p>
 <% end %>
 
-<div id="code-timeline" class="pagination pagination-large pagination-centered">
+<div id="code-timeline" class="pagination pagination-centered">
   <ul>
     <li><a data-revision="start" class="selected">Start</a></li>
-    <li><a data-revision="1">Rev 1</a></li>
-    <li><a data-revision="2">Rev 2</a></li>
-    <li><a data-revision="3">Rev 3</a></li>
+    <% iterations.each_with_index do |iteration,index| %>
+      <li><a data-revision="<%= index + 1 %>">Rev <%= index + 1 %></a></li>
+    <% end %>
     <li><a data-revision="approved" class="selected">Approved</a></li>
     <% if after.approved? %>
       <li><a data-revision="example">Example</a></li>
@@ -44,4 +44,3 @@
       language: after.language } %>
   <% end %>
 </div>
-
