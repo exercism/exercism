@@ -21,24 +21,24 @@
 
 <div class="row">
 
-  <%= erb :code, locals: { title: "Start",
+  <%= erb :"code/submission", locals: { title: "Start",
     html: { id: "revision-start" },
     submission: before } %>
 
   <% iterations.each_with_index do |iteration,index| %>
 
-    <%= erb :code, locals: { title: "Revision #{index + 1}",
+    <%= erb :"code/submission", locals: { title: "Revision #{index + 1}",
       html: { id: "revision-#{index + 1}", style: "display: none;" },
       submission: iteration } %>
 
   <% end %>
 
-  <%= erb :code, locals: { title: "Approved",
+  <%= erb :"code/submission", locals: { title: "Approved",
     html: { id: "revision-approved" },
     submission: after } %>
 
   <% if after.approved? %>
-    <%= erb :simple_code, locals: { title: "Example",
+    <%= erb :"code/simple", locals: { title: "Example",
       html: { id: "revision-example", style: "display: none;" },
       code: Exercism.current_curriculum.in(after.language).assign(after.slug).example,
       language: after.language } %>

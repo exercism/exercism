@@ -14,7 +14,7 @@
 
 <div class="row">
 
-  <%= erb :simple_code, locals: { title: "Code",
+  <%= erb :"code/simple", locals: { title: "Code",
     html: { id: "current-submission" },
     code: submission.code,
     language: submission.language } %>
