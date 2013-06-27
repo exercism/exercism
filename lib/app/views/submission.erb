@@ -20,7 +20,7 @@
     <% end %>
     <% submission.nits.each do |nit| %>
       <blockquote>
-        <%= nit.comment %>
+        <%= md(nit.comment) %>
         <br />
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <cite><em><%= nit.user.username %></em></cite>
@@ -30,8 +30,8 @@
         <ul>
         <% nit.comments.each do |comment| %>
           <li>
-            <%= gravatar_tag comment.user.avatar_url %>
-            <%= comment.body %>
+            <%= gravatar_tag comment.user.avatar_url, size: 20 %>
+            <%= md(comment.body) %>
             &mdash; <em><%= comment.user.username %></em>, <%= ago(comment.at) %>
           </li>
         <% end %>

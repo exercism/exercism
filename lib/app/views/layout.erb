@@ -22,7 +22,7 @@
           <% else %>
             <li>
               <a href="/account">
-                <%= gravatar_tag current_user.avatar_url %>
+                <%= gravatar_tag current_user.avatar_url, size: 30 %>
                 hi, <%= current_user.username %>
               </a>
             </li>

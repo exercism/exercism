@@ -5,7 +5,7 @@
       <small>in <%= submission.language %></small>
     </h1>
     <p>
-      by <%= gravatar_tag submission.user.avatar_url %>
+      by <%= gravatar_tag submission.user.avatar_url, size: 30 %>
       <%= submission.user.username %>
     </p>
     <p>submitted <%= ago(submission.at) %>
@@ -40,7 +40,7 @@
     <blockquote><%= md(nit.comment) %>
       <p>
         <cite>by
-          <%= gravatar_tag nit.user.avatar_url %>
+          <%= gravatar_tag nit.user.avatar_url, size: 20 %>
           <em><%= nit.user.username %></em>, <%= ago(nit.at) %>
         </cite>
       </p>
@@ -50,8 +50,8 @@
         <ul>
         <% nit.comments.each do |comment| %>
           <li>
-            <%= gravatar_tag comment.user.avatar_url %>
-            <%= comment.body %>
+            <%= gravatar_tag comment.user.avatar_url, size: 20 %>
+            <%= md(comment.body) %>
             &mdash; <em><%= comment.user.username %></em>, <%= ago(comment.at) %>
           </li>
         <% end %>
