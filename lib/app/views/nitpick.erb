@@ -14,21 +14,10 @@
 
 <div class="row">
 
-  <div class="code span6">
-    <h2>Code</h2>
-    <div class"btn-group">
-      <a class="btn" data-action="enlarge">
-        <i class="icon-resize-full"></i>
-      </a>
-      <a style="display: none;" class="btn" data-action="shrink">
-        <i class="icon-resize-small"></i>
-      </a>
-      <br />
-    </div>
-    <div style="padding-top: 2px;">
-      <%= md(submission.code, submission.language) %>
-    </div>
-  </div>
+  <%= erb :simple_code, locals: { title: "Code",
+    html: { id: "current-submission" },
+    code: submission.code,
+    language: submission.language } %>
 
   <div class="comments span6">
     <% if submission.nits.empty? %>
