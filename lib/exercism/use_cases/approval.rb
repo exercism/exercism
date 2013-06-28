@@ -28,7 +28,9 @@ class Approval
     submission.state = 'approved'
     submission.approved_at = Time.now.utc
     submission.approver = approver
-    submission.nits << Nit.new(user: approver, comment: comment)
+    if comment
+      submission.nits << Nit.new(user: approver, comment: comment)
+    end
     submission.user.complete! exercise, on: trail
     submission.save
     self
