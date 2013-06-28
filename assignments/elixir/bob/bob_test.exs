@@ -2,7 +2,8 @@ Code.load_file("bob.exs")
 ExUnit.start
 
 defmodule TeenagerTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
+  doctest Teenager
 
   test "stating something" do
     assert Teenager.hey("Tom-ay-to, tom-aaaah-to.") == "Whatever."
