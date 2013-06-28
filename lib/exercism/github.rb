@@ -12,12 +12,17 @@ class Github
       client_secret: ENV.fetch('EXERCISM_GITHUB_CLIENT_SECRET'),
       code: code
     }
+
+    # FIXME: delete this when github can take application/json again
+    options = options.map {|k,v| "#{k}=#{v}"}.join('&')
+
     response = conn.post do |req|
       req.url '/login/oauth/access_token'
-      req.headers['Content-Type'] = 'application/json'
+    # req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = 'application/json'
       req.headers['User-Agent'] = user_agent
-      req.body = options.to_json
+      req.body = options
+      #req.body = options.to_json
     end
     access_token = JSON.parse(response.body)['access_token']
 
