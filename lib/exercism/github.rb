@@ -16,7 +16,7 @@ class Github
       req.url '/login/oauth/access_token'
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = 'application/json'
-      req.headers['User-Agent'] = 'exercism v0.0.1.pre-alpha'
+      req.headers['User-Agent'] = user_agent
       req.body = options.to_json
     end
     access_token = JSON.parse(response.body)['access_token']
@@ -31,10 +31,14 @@ class Github
     # github id, their username, and their email.
     response = conn.get do |req|
       req.url '/user'
-      req.headers['User-Agent'] = 'exercism v0.0.1.pre-alpha'
+      req.headers['User-Agent'] = user_agent
       req.params['access_token'] = access_token
     end
     result = JSON.parse(response.body)
     [result['id'], result['login'], result['email'], result['avatar_url']]
+  end
+
+  def user_agent
+    'github.com:kytrinyx/exercism.io'
   end
 end
