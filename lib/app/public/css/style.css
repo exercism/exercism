@@ -1,3 +1,41 @@
+/*HOME*/
+
+div.home {
+  background: url(http://www.pptbackgrounds.net/uploads/blackboard-backgrounds-wallpapers.jpg) repeat center center;
+  min-height: 300px;
+  min-width: 100%;
+  padding: 60px 5px 10px;
+}
+
+h1.home {
+  color: white;
+  font-size: 4em;
+  letter-spacing: -.05em;
+  margin: 30px 0px;
+  opacity: 0.8;
+  text-align: center;
+  line-height: 1em;
+}
+
+.lead.home {
+  color: white;
+  margin: 30px 0px;
+  opacity: 0.8;
+  text-align: center;
+}
+
+.btn-large.home {
+  display: block;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 30px;
+  width: 200px;
+}
+
+/*APPLICATION*/
+
 .pending-submission {
   padding-top: 10px;
   padding-bottom: 10px;
