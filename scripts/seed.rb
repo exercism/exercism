@@ -52,6 +52,8 @@ Approval.new(attempt.submission.id, admin, 'better').save
 alice.reload
 
 attempt = Attempt.new(alice, "class Anagram\nend", "anagram.rb").save
+long_comment = "I really like that you thought to check for nil. I also like that you put all of your answers in the same place and I like that you're hiding the implementation details of your if statement behind those methods that end with a question mark. \r\n\r\nI would rather see a .fetch to access your hash so we don't return nil by mistake. Alternatively, you could use a struct or a very small class to store your answers if you want the more concise dot syntax. @answers.fetch(:fine) vs @answers.fine\r\n\r\nLet's explore that nil check. It is currently in the fine? method which suggests that receiving a nil is a natural state of the system. I would rather see that nil check in a guard method at the top of hey rather than buried in fine?. I would also just blow up and raise an exception because if the Bob object receives nil then something has gone wrong. Zooming out even farther, if I were building this as an app I would put that nil check wherever we first got the input so that way the rest of the system doesn't need to check for it. From that perspective we don't even need a nil check in Bob at all.\r\n\r\nSummary: My suggestions are to either .fetch from your hash or create a struct or object instead. I would also not check for nil at all, assuming that it gets handled at the system input. If I did need to check for nil, I would do it at the top of hey and I would throw an error."
+Nitpick.new(attempt.submission.id, admin, long_comment).save
 
 bob_data = {
   username: 'bob',
