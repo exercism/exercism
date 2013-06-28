@@ -41,7 +41,7 @@ class Github
     [result['id'], result['login'], result['email'], result['avatar_url']]
   end
 
-  def user_agent
+  def self.user_agent
     'github.com:kytrinyx/exercism.io'
   end
 end
