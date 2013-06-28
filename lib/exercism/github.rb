@@ -35,6 +35,9 @@ class Github
       req.params['access_token'] = access_token
     end
     result = JSON.parse(response.body)
+    puts '*'*20
+    puts result
+    puts '*'*20
     [result['id'], result['login'], result['email'], result['avatar_url']]
   end
 
