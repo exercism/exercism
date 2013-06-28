@@ -1,0 +1,33 @@
+<h1>How To Nitpick</h1>
+<p><b>(A practical guide to providing better feedback on solutions to exercises.)</b></p>
+
+<p>When reviewing exercism submissions, it is possible to share advice and insight on the style and approach of a given implmentation.</p>
+
+<p>However, it is important to remember that this does not mean crying "YOU'RE DOING IT WRONG!" and subsequently pointing out why the code was obviously written by a hopeless mouth-breathing maladroit n00b with no chance of ever becoming a "real" developer.</p>
+<p>Nitpicking is about providing positive constructive critisicm, and subtly nudging a coder along down the path they're already taken. The key is in the subtlety. Not necessarily suggesting an altogether different implementation, but instead giving suggestions of small adjustments that can be made to refactor and improve the design and style of the existing code.</p>
+<p>For example, with Bob (in Ruby) people often:</p>
+
+<ul>
+  <li>
+    Use a regex to figure out if the string ends with a question mark.
+    <br>A good nitpick response to this might be something like <em>"Have you considered using String#end_with? instead?"</em>
+  </li>
+  <li>
+    Use a complicated regex to figure out if the input is "shouting".
+    <br>
+    An appropriate nitpick might be to encourage them to think about upcasing the input and checking it against the original.
+  </li>
+  <li>
+  Leave all the fiddly implementation details for deciding how to respond in plain sight.
+    <br>
+  You might suggest that they create clearly named private methods to hide the implementation details, and tell us about what's actually happening, like asking or yelling.
+  </li>
+</ul>
+<p>Our goal is to collect a set of explanations for why a given solution might be more desirable (or undesirable, in this context), and share them where appropriate. Ultimately, we hope to converge on sets of theoretically ideal implementations to a given exercise, and provide justification for why it is an exemplary approach in a particular context. For example, we might have a "most readable" implementation, a "simplest" implementation, and a "fastest" implementation, along with explanations for when each would be preferable.</p>
+
+<p>When leaving nitpicks, please consider that beginners do not always have the same confidence level as more experienced or advanced developers. It is, therefore, important to be courteous and considerate, and perhaps even to err on the side of over-explanation while making an effort to avoid condescension.</p>
+
+<blockquote>
+A rising tide lifts all the boats.
+<cite>- Unknown</cite>
+</blockquote>

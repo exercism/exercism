@@ -3,6 +3,10 @@ class Guest
     true
   end
 
+  def nitpicker?
+    false
+  end
+
   def admin?
     false
   end

@@ -108,6 +108,10 @@ class User
     admin? || completed?(exercise)
   end
 
+  def nitpicker?
+    admin? || completed.size > 0
+  end
+
   def admin?
     admin_users.include?(username)
   end
