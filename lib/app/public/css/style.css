@@ -1,7 +1,7 @@
 /*HOME*/
 
 div.home {
-  background: url(http://www.pptbackgrounds.net/uploads/blackboard-backgrounds-wallpapers.jpg) repeat center center;
+  background: url('/img/blackboard.jpg') repeat center center;
   min-height: 300px;
   min-width: 100%;
   padding: 60px 5px 10px;
