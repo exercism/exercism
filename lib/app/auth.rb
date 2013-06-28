@@ -31,7 +31,10 @@ class ExercismApp < Sinatra::Base
     user = Authentication.perform(params[:code])
     login(user)
 
-    if !current_user.admin? && current_user.submissions.count == 0
+    if current_user.guest?
+      flash[:error] = "We're having trouble with logins right now. Please come back later"
+      redirect '/'
+    elsif !current_user.admin? && current_user.submissions.count == 0
       redirect "/account"
     else
       redirect "/"
