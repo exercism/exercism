@@ -16,7 +16,7 @@ class User
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first
     user ||= User.create(username: username, github_id: id, email: email, avatar_url: avatar_url)
-    if user.avatar_url.nil?
+    if avatar_url && !user.avatar_url
       user.avatar_url = avatar_url.gsub(/\?.+$/, '')
       user.save
     end
