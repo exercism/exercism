@@ -55,7 +55,7 @@ class Exercism
 
       elixir = Locale.new('elixir', 'exs', 'exs')
       elixir_slugs = %w(
-        bob word-count
+        bob word-count anagram
       )
       @curriculum.add(elixir, elixir_slugs)
     end
