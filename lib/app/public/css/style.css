@@ -87,6 +87,22 @@ h1.home {
   background-image: url('/img/javascript.png');
 }
 
+.elixir-icon {
+  background-image: url('/img/elixir.png');
+}
+
+.clojure-icon {
+  background-image: url('/img/clojure.png');
+}
+
+.coffeescript-icon {
+  background-image: url('/img/coffeescript.png');
+}
+
+.golang-icon {
+  background-image: url('/img/golang.png');
+}
+
 .nits {
   text-align: center;
   line-height: 30px;
