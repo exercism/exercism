@@ -1,12 +1,14 @@
 <% if completed && !completed.empty? %>
-  <h2>Completed Work</h2>
+  <h2>Completed</h2>
   <% completed.each do |work| %>
     <div>
-      <%= work.language %>: <%= work.slug %>
       <% if work.submitted? %>
-        <a href="/user/<%= work.language %>/<%= work.slug %>">view</a>
+        <a href="/user/<%= work.language %>/<%= work.slug %>">
+          <h4 style="display: inline"><%= work.slug %></h4></a>
+        <%= language_icon(work.language) %>
       <% elsif work.slug == 'congratulations' %>
-        That's it. No more assignments on <%= work.language %>.
+        <%= language_icon(work.language) %>
+        <span class="label label-info">No more Assignments</span>
       <% end %>
     </div>
   <% end %>

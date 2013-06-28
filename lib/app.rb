@@ -50,6 +50,10 @@ class ExercismApp < Sinatra::Base
       end
     end
 
+    def language_icon(language,html={})
+      %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
+    end
+
   end
 
 end
