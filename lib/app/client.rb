@@ -9,9 +9,11 @@ class ExercismApp < Sinatra::Base
       end
 
       users = pending.map { |s| s.user.username }.uniq.sort
+      exercises = pending.map { |s| s.slug }.uniq.sort
       languages = pending.map { |s| s.language }.uniq.sort
 
-      erb :dashboard, locals: {pending: pending, users: users, languages: languages}
+      erb :dashboard, locals: {pending: pending, users: users,
+                               exercises: exercises, languages: languages}
     end
   end
 
