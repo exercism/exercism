@@ -22,7 +22,7 @@ class Words
   end
 
   def normalize(text)
-    text.downcase.gsub(/\W/, ' ').split(' ')
+    text.downcase.split(/\W+/)
   end
 
 end
