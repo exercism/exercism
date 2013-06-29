@@ -9,6 +9,7 @@
     <%= erb :filter_pending, locals: { label: 'Exercise', options: exercises } %>
     <%= erb :filter_pending, locals: { label: 'Language', options: languages } %>
 
+    <hr/>
     <% pending.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
