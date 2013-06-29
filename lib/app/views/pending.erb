@@ -6,6 +6,7 @@
   <div class="pending-submissions">
 
     <%= erb :filter_pending, locals: { label: 'User', options: users } %>
+    <%= erb :filter_pending, locals: { label: 'Exercise', options: exercises } %>
     <%= erb :filter_pending, locals: { label: 'Language', options: languages } %>
 
     <% pending.each do |submission| %>
