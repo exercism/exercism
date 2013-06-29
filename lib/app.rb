@@ -8,6 +8,7 @@ require 'app/submissions'
 require 'app/exercises'
 require 'app/trails'
 require 'app/nitpick'
+require 'app/notifications'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 
