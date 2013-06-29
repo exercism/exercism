@@ -7,7 +7,11 @@ class ExercismApp < Sinatra::Base
       pending = Submission.pending.select do |submission|
         current_user.may_nitpick?(submission.exercise)
       end
-      erb :dashboard, locals: {pending: pending}
+
+      users = pending.map { |s| s.user.username }.uniq.sort
+      languages = pending.map { |s| s.language }.uniq.sort
+
+      erb :dashboard, locals: {pending: pending, users: users, languages: languages}
     end
   end
 

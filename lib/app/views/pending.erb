@@ -5,6 +5,9 @@
   <h2>Needs Nitpicking</h2>
   <div class="pending-submissions">
 
+    <%= erb :filter_pending, locals: { label: 'User', options: users } %>
+    <%= erb :filter_pending, locals: { label: 'Language', options: languages } %>
+
     <% pending.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
