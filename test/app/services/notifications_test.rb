@@ -1,9 +1,5 @@
-require_relative "../integration_helper"
+require_relative "../../integration_helper"
 require 'pry'
-
-class Email
-  def self.ship(*args);end
-end
 
 class NotificationsTest < MiniTest::Unit::TestCase
 
@@ -16,7 +12,7 @@ class NotificationsTest < MiniTest::Unit::TestCase
     submission = Submission.on(exercise)
     submission.user = User.create(
       github_id: 84274928,
-      email: "bobguy1998@aol.com",
+      email: "bobguy1998@example.com",
       username: "AwesomeBob",
     )
     submission.save
@@ -27,11 +23,7 @@ class NotificationsTest < MiniTest::Unit::TestCase
     )
     nitpick = Nitpick.new(submission.id, current_user, "Needs more monads")
     nitpick.save
-    Email.expects(:ship).with({
-      to: submission.user.email,
-      name: submission.user.username,
-      subject: "New Nitpick From #{current_user.username}",
-    })
+    Email.any_instance.expects(:ship)
     Notifications.new_nitpick({ submitter: submission.user, nitpick: nitpick })
   end
 end

@@ -10,6 +10,7 @@ gem 'rack-flash3', require: 'rack-flash'
 gem 'redcarpet'
 gem 'rouge'
 gem 'sinatra', require: 'sinatra/base'
+gem 'pony'
 
 group :test, :development do
   gem 'minitest', '~> 4.0', require: false
