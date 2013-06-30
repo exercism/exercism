@@ -3,7 +3,7 @@ require('./secret_handshake');
 describe("Secret Handshake", function() {
   it("1 is a wink", function() {
     var handshake = new SecretHandshake(1);
-    expect(handshake.commands()).toEqual(["wink"])
+    expect(handshake.commands()).toEqual(["wink"]);
   });
 
   it("10 is a double blink", function() {

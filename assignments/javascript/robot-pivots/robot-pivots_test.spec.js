@@ -8,7 +8,7 @@ describe("Robot", function() {
 
     for (var i = 0; i < directions.length; i++) {
       var currentDirection = directions[i];
-      robot.orient(currentDirection)
+      robot.orient(currentDirection);
       expect(robot.bearing).toEqual(currentDirection);
     };
   });
@@ -17,7 +17,7 @@ describe("Robot", function() {
     try {
       robot.orient("crood");
     } catch(exception) {
-      expect(exception).toEqual("Invalid Robot Bearing")
+      expect(exception).toEqual("Invalid Robot Bearing");
     }
   });
 
