@@ -26,6 +26,8 @@ class DispatchTest < MiniTest::Unit::TestCase
   end
 
   def test_send_email_upon_nitpick
-    Dispatch.new_nitpick(submitter: @submission.user, nitpick: @nitpick)
+    user = @submission.user
+    dispatch = Dispatch.new_nitpick(submitter: user, nitpick: @nitpick)
+    assert_equal dispatch.name, user.username
   end
 end

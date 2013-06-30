@@ -1,14 +1,17 @@
 class Dispatch
+  attr_reader :to, :name, :from, :submission
   def self.new_nitpick options
     new options
   end
 
   private
   def initialize options
-    @to = options.fetch(:submitter).email
-    @name = options.fetch(:submitter).username
-    @from = options.fetch(:nitpick).nitpicker.username
-    @submission = options.fetch(:nitpick).submission
+    submitter = options.fetch(:submitter)
+    nitpick = options.fetch(:nitpick)
+    @to = submitter.email
+    @name = submitter.username
+    @from = nitpick.nitpicker.username
+    @submission = nitpick.submission
     make_with_the_email
   end
 
