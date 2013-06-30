@@ -1,44 +1,27 @@
-DNA = function DNA(options){
-  var nucleotideCounts, nucleotidMatcher, validNucleotides;
+DNA = function DNA(dnaString){
+  var dnaLength = dnaString.length,
+      splitDNA = dnaString.split('');
 
-  nucleotideMatcher = /A+|C+|G+|T+/g;
-  validNucleotides = 'ACGTU';
+  function _countAll(count, nucleotide) {
+    count[nucleotide] = count[nucleotide]+1
+    return count;
+  };
 
-  function _initialize(dnaString){
-    var groupedNucleotides = dnaString.match(nucleotideMatcher);
+  this.nucleotideCounts = {'A': 0, 'T': 0, 'C': 0, 'G': 0};
+  this.validNucleotides = 'ATCGU';
 
-    nucleotideCounts = {'A': 0, 'T': 0, 'C': 0, 'G': 0}
+  this.isValidNucleotide = function isValidNucleotide(nucleotide) {
+    return this.validNucleotides.indexOf(nucleotide) >= 0
+  };
 
-    if(groupedNucleotides){
-      nucleotideCounts = groupedNucleotides.reduce(_countAll, nucleotideCounts);
-    }
+  splitDNA.reduce(_countAll, this.nucleotideCounts);
 
+}
+
+DNA.prototype.count = function count(nucleotide) {
+  if(this.isValidNucleotide(nucleotide)) {
+    return this.nucleotideCounts[nucleotide] || 0
+  } else {
+    throw new Error("Invalid Nucleotide");
   }
-
-  function _countAll(hash, subNucleotides){
-    var letter = subNucleotides.charAt(0);
-    hash[letter] = hash[letter]+subNucleotides.length;
-    return hash;
-  }
-
-  function _isInvalidNucleotide(nucleotide){
-    return validNucleotides.indexOf(nucleotide) < 0;
-  }
-
-  function _count(nucleotide) {
-    if(_isInvalidNucleotide(nucleotide)) {
-      throw new Error('Invalid Nucleotide');
-    }
-    return nucleotideCounts[nucleotide] || 0;
-  }
-
-  _initialize(options);
-
-  var API = {
-    count: _count,
-    nucleotideCounts: nucleotideCounts
-  }
-
-  return API;
-
 }
