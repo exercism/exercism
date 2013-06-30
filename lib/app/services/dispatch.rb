@@ -8,6 +8,7 @@ class Dispatch
     @to = options.fetch(:submitter).email
     @name = options.fetch(:submitter).username
     @from = options.fetch(:nitpick).nitpicker.username
+    @submission = options.fetch(:nitpick).submission
     make_with_the_email
   end
 
@@ -28,7 +29,11 @@ class Dispatch
   def body
     <<-eos
       Hi #{@name},
-      Your submission has recived feedback from #{@from}! Visit exercism.io to find out more.
+      Your submission has recived feedback from #{@from}! Visit #{submission_url} to find out more.
     eos
+  end
+
+  def submission_url
+    "http://exercism.io/user/submissions/#{@submission.id}"
   end
 end

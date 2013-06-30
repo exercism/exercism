@@ -18,6 +18,7 @@ class DispatchTest < MiniTest::Unit::TestCase
     )
     @nitpick = Nitpick.new(@submission.id, current_user, "Needs more monads")
     @nitpick.save
+    Email.any_instance.expects(:ship)
   end
 
   def teardown
@@ -25,7 +26,6 @@ class DispatchTest < MiniTest::Unit::TestCase
   end
 
   def test_send_email_upon_nitpick
-    Email.any_instance.expects(:ship)
     Dispatch.new_nitpick(submitter: @submission.user, nitpick: @nitpick)
   end
 end
