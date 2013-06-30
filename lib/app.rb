@@ -57,6 +57,9 @@ class ExercismApp < Sinatra::Base
       %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
     end
 
+    def development_mode?
+      ENV['RACK_ENV'] == "development"
+    end
   end
 
 end

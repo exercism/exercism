@@ -37,6 +37,18 @@ class Dispatch
   end
 
   def submission_url
-    "http://exercism.io/user/submissions/#{@submission.id}"
+    "#{site_root}/user/submissions/#{@submission.id}"
+  end
+
+  def site_root
+    if development_mode?
+      "http://localhost:4567"
+    else
+      "http://exercism.io"
+    end
+  end
+
+  def development_mode?
+    ENV['RACK_ENV'] == "development"
   end
 end
