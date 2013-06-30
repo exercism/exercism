@@ -1,7 +1,7 @@
 require_relative "../../integration_helper"
 require 'pry'
 
-class NotificationsTest < MiniTest::Unit::TestCase
+class DispatchTest < MiniTest::Unit::TestCase
 
   def teardown
     Mongoid.reset
@@ -24,6 +24,6 @@ class NotificationsTest < MiniTest::Unit::TestCase
     nitpick = Nitpick.new(submission.id, current_user, "Needs more monads")
     nitpick.save
     Email.any_instance.expects(:ship)
-    Notifications.new_nitpick({ submitter: submission.user, nitpick: nitpick })
+    Dispatch.new_nitpick({ submitter: submission.user, nitpick: nitpick })
   end
 end

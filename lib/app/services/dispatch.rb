@@ -1,4 +1,4 @@
-class Notifications
+class Dispatch
   def self.new_nitpick options
     new options
   end
