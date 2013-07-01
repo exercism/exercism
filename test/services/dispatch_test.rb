@@ -1,4 +1,4 @@
-require_relative "../../integration_helper"
+require_relative "../integration_helper"
 require 'pry'
 
 class DispatchTest < MiniTest::Unit::TestCase

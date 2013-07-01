@@ -8,8 +8,8 @@ require 'app/submissions'
 require 'app/exercises'
 require 'app/trails'
 require 'app/nitpick'
-require 'app/services/dispatch'
-require 'app/services/email'
+require 'services/dispatch'
+require 'services/email'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 
@@ -57,9 +57,6 @@ class ExercismApp < Sinatra::Base
       %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
     end
 
-    def development_mode?
-      ENV['RACK_ENV'] == "development"
-    end
   end
 
 end
