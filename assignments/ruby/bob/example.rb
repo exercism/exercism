@@ -19,7 +19,7 @@ class Bob
   end
 
   def silent?(s)
-    s.empty?
+    s.nil? || s.empty?
   end
 
   def shouting?(s)
@@ -49,7 +49,7 @@ end
 class AnswerSilence
 
   def self.handles?(input)
-    input.empty?
+    input.nil? || input.empty?
   end
 
   def reply
