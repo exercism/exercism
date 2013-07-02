@@ -1,8 +1,8 @@
 require './test/test_helper'
 
 require 'yaml'
-require './lib/exercism/locale'
-require './lib/exercism/assignment'
+require 'exercism/locale'
+require 'exercism/assignment'
 
 class AssignmentTest < MiniTest::Unit::TestCase
 

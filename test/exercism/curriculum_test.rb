@@ -1,10 +1,10 @@
 require './test/test_helper'
 
-require './lib/exercism/curriculum'
-require './lib/exercism/locale'
-require './lib/exercism/trail'
-require './lib/exercism/exercise'
-require './lib/exercism/assignment'
+require 'exercism/curriculum'
+require 'exercism/locale'
+require 'exercism/trail'
+require 'exercism/exercise'
+require 'exercism/assignment'
 
 # Integration tests.
 # This is the entry point into the app.
