@@ -56,7 +56,7 @@ class Exercism
       elixir = Locale.new('elixir', 'exs', 'exs')
       elixir_slugs = %w(
         bob word-count anagram beer-song nucleotide-count
-        rna-transcription
+        rna-transcription point-mutations
       )
       @curriculum.add(elixir, elixir_slugs)
     end
