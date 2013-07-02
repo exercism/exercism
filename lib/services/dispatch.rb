@@ -1,19 +1,23 @@
 class Dispatch
 
   def self.new_nitpick(options)
-    { intercept_emails: false }.merge!(options)
+    nitpick = options[:nitpick]
+    options = {
+      intercept_emails: false,
+      submission: nitpick.submission,
+      from: nitpick.nitpicker.username
+    }.merge(options)
     new(options).ship
   end
 
   attr_reader :to, :name, :from, :submission, :site_root
 
   def initialize options
-    submitter = options.fetch(:submitter)
-    nitpick = options.fetch(:nitpick)
+    @submission = options.fetch(:submission)
+    submitter = submission.user
     @to = submitter.email
     @name = submitter.username
-    @from = nitpick.nitpicker.username
-    @submission = nitpick.submission
+    @from = options.fetch(:from)
     @intercept_emails = options.fetch(:intercept_emails)
     @site_root = options.fetch(:site_root)
   end
