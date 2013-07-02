@@ -7,4 +7,8 @@ class Nit
   belongs_to :user
   embedded_in :submission
   embeds_many :comments
+
+  def nitpicker
+    user
+  end
 end

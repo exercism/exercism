@@ -6,7 +6,7 @@ class Dispatch
       intercept_emails: false,
       submission: nitpick.submission,
       from: nitpick.nitpicker.username,
-      regarding: 'Nitpick'
+      regarding: 'nitpick'
     }.merge(options)
     new(options).ship
   end
@@ -36,14 +36,17 @@ class Dispatch
   end
 
   def subject
-    "[exercism.io] New #{regarding} From #{@from}"
+    "[exercism.io] New #{regarding} from #{@from}"
   end
 
   #TODO erb
   def body
     <<-BODY
-      Hi #{@name},
-      Your submission has recived feedback from #{@from}! Visit #{submission_url} to find out more.
+    Hi #{@name},
+
+    Your submission on #{@submission.exercise.name} in #{@submission.language} has recived feedback from #{@from}!
+
+    Visit #{submission_url} to find out more.
     BODY
   end
 
