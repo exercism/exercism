@@ -77,7 +77,7 @@ Different languages/trails do not need to have the same assignments or the same 
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-4. Add yourself to the admin_users method in user.rb
+4. Add yourself to the admin_users method in lib/exercism/user.rb
 5. Run the seeds with `ruby scripts/seed.rb`
 6. Start server with: `EXERCISM_GITHUB_CLIENT_ID=xxx EXERCISM_GITHUB_CLIENT_SECRET=xxx rackup -p 4567`
 7. Login at http://localhost:4567.
