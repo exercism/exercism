@@ -9,6 +9,16 @@
     <%= erb :filter_pending, locals: { label: 'Exercise', options: exercises } %>
     <%= erb :filter_pending, locals: { label: 'Language', options: languages } %>
 
+    <label class="checkbox">
+      <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" />
+      I only want to see submissions without nits
+    </label>
+
+    <label class="checkbox">
+      <input type="checkbox" data-action="set-filter" data-filter="arguments" data-selected="All" />
+      I only want to see submissions without arguments
+    </label>
+
     <hr/>
     <% pending.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
