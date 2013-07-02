@@ -26,30 +26,30 @@ class Dispatch
 
   def ship
     Email.new(
-      to: to,
+      to: @to,
       subject: subject,
       body: body,
-      intercept_emails: intercept_emails,
+      intercept_emails: @intercept_emails,
     ).ship
     self
   end
 
   def subject
-    "[exercism.io] New #{regarding} from #{from}"
+    "[exercism.io] New #{regarding} from #{@from}"
   end
 
   #TODO erb
   def body
     <<-BODY
-    Hi #{name},
+    Hi #{@name},
 
-    Your submission on #{submission.exercise.name} in #{submission.language} has recived feedback from #{from}!
+    Your submission on #{@submission.exercise.name} in #{@submission.language} has recived feedback from #{@from}!
 
     Visit #{submission_url} to find out more.
     BODY
   end
 
   def submission_url
-    "#{site_root}/user/submissions/#{submission.id}"
+    "#{site_root}/user/submissions/#{@submission.id}"
   end
 end
