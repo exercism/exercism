@@ -13,7 +13,11 @@ class Assignment
   end
 
   def name
-    slug.split('-').map(&:capitalize).join(' ')
+    exercise.name
+  end
+
+  def exercise
+    @exercise ||= Exercise.new(language, slug)
   end
 
   def tests
