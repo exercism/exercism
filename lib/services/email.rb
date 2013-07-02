@@ -3,7 +3,6 @@ require 'pony'
 class Email
   def initialize options
     @to = options.fetch(:to)
-    @name = options.fetch(:name)
     @subject = options.fetch(:subject)
     @body = options.fetch(:body)
     @intercept_emails = options.fetch(:intercept_emails)
@@ -14,6 +13,7 @@ class Email
   end
 
   private
+
   def params
     if @intercept_emails
       options_for_mailcatcher

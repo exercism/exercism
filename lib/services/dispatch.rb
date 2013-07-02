@@ -27,7 +27,6 @@ class Dispatch
   def ship
     Email.new(
       to: @to,
-      name: @name,
       subject: subject,
       body: body,
       intercept_emails: @intercept_emails,
