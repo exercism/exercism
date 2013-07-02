@@ -1,4 +1,5 @@
 require './test/test_helper'
+
 require 'exercism/locale'
 require 'exercism/exercise'
 require 'exercism/trail'

@@ -1,4 +1,5 @@
 require './test/mongo_helper'
+
 require 'exercism/user'
 require 'exercism/exercise'
 require 'exercism/locale'
