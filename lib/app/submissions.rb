@@ -10,7 +10,11 @@ class ExercismApp < Sinatra::Base
 
       nitpick = Nitpick.new(id, current_user, params[:comment])
       nitpick.save
-      Dispatch.new_nitpick(submitter: submission.user, nitpick: nitpick)
+      Dispatch.new_nitpick(
+        submitter: submission.user,
+        nitpick: nitpick,
+        site_root: site_root
+      )
     end
 
     def approve(id)

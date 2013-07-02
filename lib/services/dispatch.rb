@@ -1,9 +1,11 @@
 class Dispatch
-  attr_reader :to, :name, :from, :submission
+
   def self.new_nitpick(options)
     { intercept_emails: false }.merge!(options)
     new(options).ship
   end
+
+  attr_reader :to, :name, :from, :submission, :site_root
 
   def initialize options
     submitter = options.fetch(:submitter)
@@ -13,6 +15,7 @@ class Dispatch
     @from = nitpick.nitpicker.username
     @submission = nitpick.submission
     @intercept_emails = options.fetch(:intercept_emails)
+    @site_root = options.fetch(:site_root)
   end
 
   def ship
@@ -40,17 +43,5 @@ class Dispatch
 
   def submission_url
     "#{site_root}/user/submissions/#{@submission.id}"
-  end
-
-  def site_root
-    if development_mode?
-      "http://localhost:4567"
-    else
-      "http://exercism.io"
-    end
-  end
-
-  def development_mode?
-    ENV['RACK_ENV'] == "development"
   end
 end

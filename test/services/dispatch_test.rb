@@ -1,5 +1,4 @@
 require_relative "../integration_helper"
-require 'pry'
 
 require 'services/email'
 require 'services/dispatch'
@@ -32,8 +31,11 @@ class DispatchTest < MiniTest::Unit::TestCase
     dispatch = Dispatch.new_nitpick(
       submitter: user,
       nitpick: @nitpick,
-      intercept_emails: true
+      intercept_emails: true,
+      site_root: 'http://test.exercism.io'
     )
     assert_equal dispatch.name, user.username
+    url = "http://test.exercism.io/user/submissions/#{@submission.id}"
+    assert_equal url, dispatch.submission_url
   end
 end
