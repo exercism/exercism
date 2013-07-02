@@ -14,7 +14,14 @@ end
 
 reset
 
-admin = User.create(username: 'kytrinyx', github_id: 276834, email: "katrina.owen@gmail.com")
+admin_data = {
+  username: 'kytrinyx',
+  github_id: 276834,
+  email: "katrina.owen@gmail.com",
+  current: {'ruby' => 'bob'}
+}
+admin = User.create(admin_data)
+attempt = Attempt.new(admin, "class Bob\nend", "bob.rb").save
 
 alice_data = {
   username: 'alice',

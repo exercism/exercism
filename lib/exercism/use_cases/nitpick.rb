@@ -14,5 +14,6 @@ class Nitpick
   def save
     submission.nits << Nit.new(user: nitpicker, comment: comment)
     submission.save
+    self
   end
 end

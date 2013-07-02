@@ -8,7 +8,17 @@ class ExercismApp < Sinatra::Base
         halt 403, "You do not have permission to nitpick that exercise."
       end
 
-      Nitpick.new(id, current_user, params[:comment]).save
+      nitpick = Nitpick.new(id, current_user, params[:comment])
+      nitpick.save
+      begin
+        Dispatch.new_nitpick(
+          submitter: submission.user,
+          nitpick: nitpick,
+          site_root: site_root
+        )
+      rescue => e
+        puts "Failed to send email. #{e.message}."
+      end
     end
 
     def approve(id)

@@ -8,6 +8,8 @@ require 'app/submissions'
 require 'app/exercises'
 require 'app/trails'
 require 'app/nitpick'
+require 'services/dispatch'
+require 'services/email'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 
@@ -23,6 +25,14 @@ class ExercismApp < Sinatra::Base
   helpers Sinatra::GravatarHelper
 
   helpers do
+
+    def site_root
+      if ENV['RACK_ENV'].to_sym == :production
+        'http://exercism.io'
+      else
+        'http://localhost:4567'
+      end
+    end
 
     def login(user)
       session[:github_id] = user.github_id
