@@ -6,6 +6,7 @@ class Email
     @name = options.fetch(:name)
     @subject = options.fetch(:subject)
     @body = options.fetch(:body)
+    @intercept_emails = options.fetch(:intercept_emails)
   end
 
   def ship
@@ -14,10 +15,10 @@ class Email
 
   private
   def params
-    if production_mode?
-      send_to_human
+    if @intercept_emails
+      options_for_mail_catcher
     else
-      send_to_mail_catcher
+      options_for_human
     end
   end
 
@@ -30,15 +31,7 @@ class Email
     }
   end
 
-  def settings
-    if production_mode?
-      send_to_mail_catcher
-    else
-      send_to_humans
-    end
-  end
-
-  def send_to_mail_catcher
+  def options_for_mail_catcher
     base_options.merge(
       via: :smtp,
       via_options: {
@@ -48,11 +41,7 @@ class Email
     )
   end
 
-  def send_to_humans
+  def options_for_humans
     base_options
-  end
-
-  def production_mode?
-    !%w{development test}.include? ENV['RACK_ENV']
   end
 end

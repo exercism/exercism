@@ -1,10 +1,10 @@
 class Dispatch
   attr_reader :to, :name, :from, :submission
-  def self.new_nitpick options
-    new options
+  def self.new_nitpick(options)
+    { intercept_emails: false }.merge!(options)
+    new(options).ship
   end
 
-  private
   def initialize options
     submitter = options.fetch(:submitter)
     nitpick = options.fetch(:nitpick)
@@ -12,16 +12,18 @@ class Dispatch
     @name = submitter.username
     @from = nitpick.nitpicker.username
     @submission = nitpick.submission
-    make_with_the_email
+    @intercept_emails = options.fetch(:intercept_emails)
   end
 
-  def make_with_the_email
+  def ship
     Email.new(
       to: @to,
       name: @name,
       subject: subject,
       body: body,
+      intercept_emails: @intercept_emails,
     ).ship
+    self
   end
 
   def subject regarding = "Nitpick"
@@ -30,10 +32,10 @@ class Dispatch
 
   #TODO erb
   def body
-    <<-eos
+    <<-BODY
       Hi #{@name},
       Your submission has recived feedback from #{@from}! Visit #{submission_url} to find out more.
-    eos
+    BODY
   end
 
   def submission_url

@@ -1,6 +1,9 @@
 require_relative "../integration_helper"
 require 'pry'
 
+require 'services/email'
+require 'services/dispatch'
+
 class DispatchTest < MiniTest::Unit::TestCase
   def setup
     exercise = Exercise.new('nong', 'one')
@@ -18,7 +21,6 @@ class DispatchTest < MiniTest::Unit::TestCase
     )
     @nitpick = Nitpick.new(@submission.id, current_user, "Needs more monads")
     @nitpick.save
-    Email.any_instance.expects(:ship)
   end
 
   def teardown
@@ -27,7 +29,11 @@ class DispatchTest < MiniTest::Unit::TestCase
 
   def test_send_email_upon_nitpick
     user = @submission.user
-    dispatch = Dispatch.new_nitpick(submitter: user, nitpick: @nitpick)
+    dispatch = Dispatch.new_nitpick(
+      submitter: user,
+      nitpick: @nitpick,
+      intercept_emails: true
+    )
     assert_equal dispatch.name, user.username
   end
 end
