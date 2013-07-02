@@ -1,6 +1,8 @@
 require 'pony'
 
 class Email
+  attr_reader :to, :subject, :body, :intercept_emails
+
   def initialize options
     @to = options.fetch(:to)
     @subject = options.fetch(:subject)
@@ -15,7 +17,7 @@ class Email
   private
 
   def params
-    if @intercept_emails
+    if intercept_emails
       options_for_mailcatcher
     else
       options_for_humans
@@ -24,10 +26,10 @@ class Email
 
   def base_options
     {
-      to: @to,
+      to: to,
       from: "noreply@exercism.io",
-      subject: @subject,
-      body: @body
+      subject: subject,
+      body: body
     }
   end
 
