@@ -10,11 +10,15 @@ class ExercismApp < Sinatra::Base
 
       nitpick = Nitpick.new(id, current_user, params[:comment])
       nitpick.save
-      Dispatch.new_nitpick(
-        submitter: submission.user,
-        nitpick: nitpick,
-        site_root: site_root
-      )
+      begin
+        Dispatch.new_nitpick(
+          submitter: submission.user,
+          nitpick: nitpick,
+          site_root: site_root
+        )
+      rescue => e
+        puts "Failed to send email. #{e.message}."
+      end
     end
 
     def approve(id)

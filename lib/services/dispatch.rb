@@ -5,12 +5,13 @@ class Dispatch
     options = {
       intercept_emails: false,
       submission: nitpick.submission,
-      from: nitpick.nitpicker.username
+      from: nitpick.nitpicker.username,
+      regarding: 'Nitpick'
     }.merge(options)
     new(options).ship
   end
 
-  attr_reader :to, :name, :from, :submission, :site_root
+  attr_reader :to, :name, :from, :submission, :site_root, :regarding
 
   def initialize options
     @submission = options.fetch(:submission)
@@ -20,6 +21,7 @@ class Dispatch
     @from = options.fetch(:from)
     @intercept_emails = options.fetch(:intercept_emails)
     @site_root = options.fetch(:site_root)
+    @regarding = options.fetch(:regarding)
   end
 
   def ship
@@ -33,8 +35,8 @@ class Dispatch
     self
   end
 
-  def subject regarding = "Nitpick"
-    "New #{regarding} From #{@from}"
+  def subject
+    "[exercism.io] New #{regarding} From #{@from}"
   end
 
   #TODO erb

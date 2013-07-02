@@ -16,9 +16,9 @@ class Email
   private
   def params
     if @intercept_emails
-      options_for_mail_catcher
+      options_for_mailcatcher
     else
-      options_for_human
+      options_for_humans
     end
   end
 
@@ -31,7 +31,7 @@ class Email
     }
   end
 
-  def options_for_mail_catcher
+  def options_for_mailcatcher
     base_options.merge(
       via: :smtp,
       via_options: {
@@ -42,6 +42,17 @@ class Email
   end
 
   def options_for_humans
-    base_options
+    base_options.merge(
+      :via => :smtp,
+      :via_options => {
+        :address => ENV.fetch('EMAIL_SMTP_ADDRESS'),
+        :port => ENV.fetch('EMAIL_SMTP_PORT'),
+        :domain => ENV.fetch('EMAIL_DOMAIN'),
+        :user_name => ENV.fetch('EMAIL_USERNAME'),
+        :password => ENV.fetch('EMAIL_PASSWORD'),
+        :authentication => :plain,
+        :enable_starttls_auto => true
+      }
+    )
   end
 end

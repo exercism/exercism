@@ -1,7 +1,6 @@
 require_relative "../integration_helper"
 
-require 'services/email'
-require 'services/dispatch'
+require 'services'
 
 class DispatchTest < MiniTest::Unit::TestCase
   def setup
@@ -18,8 +17,7 @@ class DispatchTest < MiniTest::Unit::TestCase
       email: "self@alice.com",
       username: "l@@kinggl@ss",
     )
-    @nitpick = Nitpick.new(@submission.id, current_user, "Needs more monads")
-    @nitpick.save
+    @nitpick = Nitpick.new(@submission.id, current_user, "Needs more monads").save
   end
 
   def teardown
@@ -27,15 +25,15 @@ class DispatchTest < MiniTest::Unit::TestCase
   end
 
   def test_send_email_upon_nitpick
-    user = @submission.user
     dispatch = Dispatch.new_nitpick(
-      submitter: user,
       nitpick: @nitpick,
       intercept_emails: true,
       site_root: 'http://test.exercism.io'
     )
+    user = @submission.user
     assert_equal dispatch.name, user.username
     url = "http://test.exercism.io/user/submissions/#{@submission.id}"
     assert_equal url, dispatch.submission_url
+    assert /Nitpick/ =~ dispatch.subject, "Expected subject to match /Nitpick/"
   end
 end

@@ -83,6 +83,14 @@ Different languages/trails do not need to have the same assignments or the same 
 7. Login at http://localhost:4567.
 8. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`.
 
+If you want to send actual emails, you will need to export the following environment variables:
+
+* `EMAIL_USERNAME`
+* `EMAIL_PASSWORD`
+* `EMAIL_DOMAIN`
+* `EMAIL_SMTP_ADDRESS`
+* `EMAIL_SMTP_PORT`
+
 #### Optional steps
 
 Copy the export values from `scripts/boot.sh.example` into your `~/.bash_profile` or `~/.zshrc`
