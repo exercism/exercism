@@ -81,7 +81,7 @@ Different languages/trails do not need to have the same assignments or the same 
 5. Run the seeds with `ruby scripts/seed.rb`
 6. Start server with: `EXERCISM_GITHUB_CLIENT_ID=xxx EXERCISM_GITHUB_CLIENT_SECRET=xxx rackup -p 4567`
 7. Login at http://localhost:4567.
-8. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`.
+8. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
 
 If you want to send actual emails, you will need to export the following environment variables:
 
