@@ -12,9 +12,11 @@
     <% iterations.each_with_index do |iteration,index| %>
       <li><a data-revision="<%= index + 1 %>">Rev <%= index + 1 %></a></li>
     <% end %>
-    <li><a data-revision="approved" class="selected">Approved</a></li>
     <% if after.approved? %>
+      <li><a data-revision="latest" class="selected">Approved</a></li>
       <li><a data-revision="example">Example</a></li>
+    <% else %>
+      <li><a data-revision="latest" class="selected">Latest</a></li>
     <% end %>
   </ul>
 </div>
@@ -33,11 +35,12 @@
 
   <% end %>
 
-  <%= erb :"code/submission", locals: { title: "Approved",
-    html: { id: "revision-approved" },
+  <%= erb :"code/submission", locals: { title: after.approved? ? "Approved" : "Latest",
+    html: { id: "revision-latest" },
     submission: after } %>
 
   <% if after.approved? %>
+
     <%= erb :"code/simple", locals: { title: "Example",
       html: { id: "revision-example", style: "display: none;" },
       code: Exercism.current_curriculum.in(after.language).assign(after.slug).example,
