@@ -2,7 +2,22 @@ require_relative "../integration_helper"
 
 require 'services'
 
-class DispatchTest < MiniTest::Unit::TestCase
+class FakeMessage < Message
+
+  def subject
+    "Fake message to #{recipient.username} from #{from}"
+  end
+
+  # override the ERB stuff.
+  # We can test that directly on
+  # each email without involving smtp
+  def body
+    "A clever man commits no minor blunders."
+  end
+
+end
+
+class MessageTest < MiniTest::Unit::TestCase
   attr_reader :submission, :admin
   def setup
     exercise = Exercise.new('nong', 'one')
@@ -25,15 +40,13 @@ class DispatchTest < MiniTest::Unit::TestCase
     Mongoid.reset
   end
 
-  def test_send_email_upon_nitpick
-    nitpick = Nitpick.new(@submission.id, admin, "Needs more monads").save
-    dispatch = Dispatch.new_nitpick(
-      nitpick: nitpick,
+  def test_send_nitpick_email
+    dispatch = FakeMessage.new(
+      instigator: admin,
+      submission: submission,
       intercept_emails: true,
       site_root: 'http://test.exercism.io'
-    )
-    assert_equal dispatch.name, submission.user.username
-    url = "http://test.exercism.io/user/submissions/#{submission.id}"
-    assert /nitpick/ =~ dispatch.subject, "Expected subject to match /nitpick/"
+    ).ship
+    # Integration test. Go look in mailcatcher to make sure you're happy with this
   end
 end
