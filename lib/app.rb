@@ -8,10 +8,10 @@ require 'app/submissions'
 require 'app/exercises'
 require 'app/trails'
 require 'app/nitpick'
-require 'services/dispatch'
-require 'services/email'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
+
+require 'services'
 
 class ExercismApp < Sinatra::Base
 
