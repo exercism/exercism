@@ -1,8 +1,9 @@
+For example for the input `"olly olly in come free"`
 
-```ruby
-words = Words.new("olly olly in come free")
-words.count
-# => {"olly" => 2, "in" => 1, "come" => 1, "free" => 1}
+```plain
+olly: 2
+in: 1
+come: 1
+free: 1
 ```
-
 
