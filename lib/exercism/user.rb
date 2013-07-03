@@ -119,7 +119,7 @@ class User
   private
 
   def admin_users
-    %w(burtlo jcasimir kytrinyx vosechu theotherzach steveklabnik rubysolo keighty seeflanigan splattael)
+    %w(burtlo jcasimir kytrinyx vosechu theotherzach steveklabnik rubysolo seeflanigan splattael)
   end
 
   def create_key
