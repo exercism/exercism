@@ -25,6 +25,15 @@ class ExercismApp < Sinatra::Base
       unless current_user.admin?
         halt 403, "You do not have permission to approve that exercise."
       end
+      begin
+        ApprovalMessage.new(
+          instigator: current_user,
+          submission: Submission.find(id),
+          site_root: site_root
+        ).ship
+      rescue => e
+        puts "Failed to send email. #{e.message}."
+      end
       Approval.new(id, current_user, params[:comment]).save
     end
   end

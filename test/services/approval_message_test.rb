@@ -1,11 +1,11 @@
 require './test/approval_helper'
 
 require 'services/message'
-require 'services/nitpick_message'
+require 'services/approval_message'
 require 'exercism/exercise'
 
 
-class NitpickMessageTest < MiniTest::Unit::TestCase
+class ApprovalMessageTest < MiniTest::Unit::TestCase
 
   FakeUser = Struct.new(:username, :email)
   FakeSubmission = Struct.new(:id, :user, :exercise)
@@ -23,7 +23,7 @@ class NitpickMessageTest < MiniTest::Unit::TestCase
   end
 
   def dispatch
-    @dispatch ||= NitpickMessage.new(
+    @dispatch ||= ApprovalMessage.new(
       instigator: alice,
       submission: submission,
       site_root: "http://example.com"
@@ -31,11 +31,11 @@ class NitpickMessageTest < MiniTest::Unit::TestCase
   end
 
   def test_subject
-    assert_equal "New nitpick from alice", dispatch.subject
+    assert_equal "Word Count in ruby was approved by alice", dispatch.subject
   end
 
   def test_body
-    Approvals.verify(dispatch.body, name: 'nitpick_email_body')
+    Approvals.verify(dispatch.body, name: 'approval_email_body')
   end
 
 end
