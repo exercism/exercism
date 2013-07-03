@@ -11,6 +11,10 @@ class Message
     @intercept_emails = options.fetch(:intercept_emails) { false }
   end
 
+  def exercise
+    submission.exercise
+  end
+
   def recipient
     submission.user
   end
