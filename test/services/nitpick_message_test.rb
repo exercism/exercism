@@ -4,7 +4,6 @@ require 'services/message'
 require 'services/nitpick_message'
 require 'exercism/exercise'
 
-
 class NitpickMessageTest < MiniTest::Unit::TestCase
 
   FakeUser = Struct.new(:username, :email)
