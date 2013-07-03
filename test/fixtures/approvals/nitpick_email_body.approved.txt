@@ -1,0 +1,5 @@
+Hi bob,
+
+Your submission on Word Count in ruby has recived feedback from alice!
+
+Visit http://example.com/user/submissions/SUBMISSION_ID to find out more.

@@ -1,3 +1,4 @@
+require 'erb'
 class Message
   class SubclassMustOverride < StandardError; end
 
