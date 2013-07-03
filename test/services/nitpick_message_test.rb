@@ -4,35 +4,22 @@ require 'services/message'
 require 'services/nitpick_message'
 require 'exercism/exercise'
 
+
 class NitpickMessageTest < MiniTest::Unit::TestCase
 
+  FakeUser = Struct.new(:username, :email)
+  FakeSubmission = Struct.new(:id, :user, :exercise)
+
   attr_reader :alice, :submission
-  # Oh, gawd. Can we have simpler stubs?
+
   def setup
-    @alice = Object.new
-    def @alice.username
-      'alice'
-    end
+    @alice = FakeUser.new('alice', 'alice@example.com')
 
-    @submission = Object.new
-    def @submission.user
-      bob = Object.new
-      def bob.username
-        'bob'
-      end
-      def bob.email
-        'bob@example.com'
-      end
-      bob
-    end
-
-    def @submission.exercise
+    @submission = FakeSubmission.new(
+      'ID',
+      FakeUser.new('bob', 'bob@example.com'),
       Exercise.new('ruby', 'word-count')
-    end
-
-    def @submission.id
-      'SUBMISSION_ID'
-    end
+    )
   end
 
   def dispatch
