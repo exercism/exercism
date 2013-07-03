@@ -2,6 +2,21 @@ require_relative "../integration_helper"
 
 require 'services'
 
+class FakeMessage < Message
+
+  def subject
+    "Fake message to #{recipient.username} from #{from}"
+  end
+
+  # override the ERB stuff.
+  # We can test that directly on
+  # each email without involving smtp
+  def body
+    "A clever man commits no minor blunders."
+  end
+
+end
+
 class MessageTest < MiniTest::Unit::TestCase
   attr_reader :submission, :admin
   def setup
@@ -26,10 +41,9 @@ class MessageTest < MiniTest::Unit::TestCase
   end
 
   def test_send_nitpick_email
-    nitpick = Nitpick.new(@submission.id, admin, "Needs more monads").save
-    dispatch = NitpickMessage.new(
-      instigator: nitpick.nitpicker,
-      submission: nitpick.submission,
+    dispatch = FakeMessage.new(
+      instigator: admin,
+      submission: submission,
       intercept_emails: true,
       site_root: 'http://test.exercism.io'
     ).ship
