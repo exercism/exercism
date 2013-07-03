@@ -41,8 +41,4 @@ class Dispatch
   def template(name)
     File.read("./lib/services/email/#{name}.erb")
   end
-
-  def submission_url
-    "#{site_root}/user/submissions/#{submission.id}"
-  end
 end

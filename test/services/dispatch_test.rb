@@ -34,7 +34,6 @@ class DispatchTest < MiniTest::Unit::TestCase
     )
     assert_equal dispatch.name, submission.user.username
     url = "http://test.exercism.io/user/submissions/#{submission.id}"
-    assert_equal url, dispatch.submission_url
     assert /nitpick/ =~ dispatch.subject, "Expected subject to match /nitpick/"
   end
 end
