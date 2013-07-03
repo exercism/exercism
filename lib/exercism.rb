@@ -59,6 +59,12 @@ class Exercism
         rna-transcription point-mutations
       )
       @curriculum.add(elixir, elixir_slugs)
+
+      clojure = Locale.new('clojure', 'clj', 'clj')
+      clojure_slugs = %w(
+        kindergarden-garden queen-attack robot-simulator
+      )
+      @curriculum.add(clojure, clojure_slugs)
     end
 
     @curriculum
