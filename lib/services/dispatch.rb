@@ -38,15 +38,12 @@ class Dispatch
     "[exercism.io] New #{regarding} from #{from}"
   end
 
-  #TODO erb
   def body
-    <<-BODY
-Hi #{name},
+    ERB.new(template('nitpick')).result binding
+  end
 
-Your submission on #{submission.exercise.name} in #{submission.language} has recived feedback from #{from}!
-
-Visit #{submission_url} to find out more.
-BODY
+  def template(name)
+    File.read("./lib/services/email/#{name}.erb")
   end
 
   def submission_url
