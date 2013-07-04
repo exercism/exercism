@@ -104,3 +104,10 @@ There's a script in `bin/console` that will load irb with the exercism environme
 ## Testing
 
 Run tests with: `rake test`
+
+## Deployment
+
+Let Heroku know that Lineman will be building our assets. From the command line:
+```
+heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-lineman-ruby.git
+```
