@@ -34,20 +34,33 @@ type tallyTest struct {
 
 var tallyTests = []tallyTest{
 	{"", "A", 0},
-	{"", "A", 0},
 	{"CCCCC", "C", 5},
 	{"GGGGGTAACCCGG", "T", 1},
-	{"GATTACA", "U", 0},
 }
 
 func TestNucleotideCounts(t *testing.T) {
-	var dna = DNA{""}
-	var count int
 	for _, test := range tallyTests {
-		dna = DNA{test.Strand}
-		count, _ = dna.Count(test.Candidate)
+		dna := DNA{test.Strand}
+		count, _ := dna.Count(test.Candidate)
 		assertEqual(t, test.Expected, count)
 	}
+}
+
+func TestHasErrorForInvalidNucleotides(t *testing.T) {
+	dna := DNA{"GATTACA"}
+	count, err := dna.Count("X")
+	assertEqual(t, 0, count)
+	if err == nil {
+		t.Errorf("X is an invalid nucleotide, but no error was raised")
+	}
+}
+
+// Not sure why this test is here as Count is a query method.
+func TestCountingDoesntChangeCount(t *testing.T) {
+	dna := DNA{"CGATTGGG"}
+	dna.Count("T")
+	count, _ := dna.Count("T")
+	assertEqual(t, 2, count)
 }
 
 type histogramTest struct {
@@ -76,21 +89,5 @@ func TestSequenceHistograms(t *testing.T) {
 		if !dna.Counts().Equal(test.Expected) {
 			t.Errorf("DNA{ \"%v\" }: Got \"%v\", expected \"%v\"", test.Strand, dna.Counts(), test.Expected)
 		}
-	}
-}
-
-func TestCountingDoesntChangeCount(t *testing.T) {
-	dna := DNA{"CGATTGGG"}
-	dna.Count("T")
-	count, _ := dna.Count("T")
-	assertEqual(t, 2, count)
-}
-
-func TestHasErrorForInvalidNucleotides(t *testing.T) {
-	dna := DNA{"GATTACA"}
-	count, err := dna.Count("X")
-	assertEqual(t, 0, count)
-	if err == nil {
-		t.Errorf("X is an invalid nucleotide, but no error was raised")
 	}
 }

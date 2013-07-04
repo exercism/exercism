@@ -12,18 +12,12 @@ type DNA struct {
 }
 
 func (dna DNA) Count(nucleotide string) (count int, err error) {
-	found := false
-	for _, nc := range []string{"A", "C", "G", "T", "U"} {
-		if nucleotide == nc {
-			found = true
-		}
+	validNucleotides := "ACGTU"
+	if (!strings.Contains(validNucleotides, nucleotide)) {
+		return 0, errors.New("dna: invalid nucleotide " + nucleotide)
 	}
-	if found {
-		count = strings.Count(dna.Strand, nucleotide)
-	} else {
-		err = errors.New("dna: invalid nucleotide " + nucleotide)
-	}
-	return
+
+	return strings.Count(dna.Strand, nucleotide), nil
 }
 
 func (dna DNA) Counts() Histogram {
