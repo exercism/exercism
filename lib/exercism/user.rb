@@ -116,6 +116,10 @@ class User
     admin_users.include?(username)
   end
 
+  def new?
+    !admin? && submissions.count == 0
+  end
+
   private
 
   def admin_users

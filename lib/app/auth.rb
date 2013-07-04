@@ -28,21 +28,22 @@ class ExercismApp < Sinatra::Base
     unless params[:code]
       halt 400, "Must provide parameter 'code'"
     end
+
     begin
       user = Authentication.perform(params[:code])
       login(user)
     rescue => e
       flash[:error] = "We're having trouble with logins right now. Please come back later"
-      redirect '/'
     end
 
     if current_user.guest?
       flash[:error] = "We're having trouble with logins right now. Please come back later"
-      redirect '/'
-    elsif !current_user.admin? && current_user.submissions.count == 0
+    end
+
+    if current_user.new?
       redirect "/account"
     else
-      redirect "/"
+      redirect '/'
     end
   end
 
