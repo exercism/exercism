@@ -49,7 +49,7 @@ class Exercism
 
       js = Locale.new('javascript', 'js', 'spec.js')
       js_slugs = %w(
-        anagram
+        bob anagram
       )
       @curriculum.add(js, js_slugs)
 
