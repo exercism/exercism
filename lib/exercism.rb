@@ -57,6 +57,7 @@ class Exercism
       elixir_slugs = %w(
         bob word-count anagram beer-song nucleotide-count
         rna-transcription point-mutations phone-number
+        grade-school
       )
       @curriculum.add(elixir, elixir_slugs)
 
