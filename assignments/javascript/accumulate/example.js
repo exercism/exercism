@@ -3,12 +3,11 @@ Array.prototype.accumulate = function(accumulator) {
     return this.map(accumulator);
   }
 
-  var idx = 0;
   var out = [];
   var end = this.length;
 
-  for (; idx < end; ++idx) {
-    out.push(accumulator(this[idx]));
+  for (var i = 0; i < end; i++) {
+    out.push(accumulator(this[i]));
   }
 
   return out;
