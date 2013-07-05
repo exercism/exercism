@@ -17,12 +17,7 @@ class Atbash
   private
 
   def convert(s)
-    cipher = ""
-    s.chars.each do |char|
-      i = alphabet.index(char)
-      cipher << (i ? key[i] : char)
-    end
-    cipher
+    s.tr(alphabet, key)
   end
 
   def chunk(s)
