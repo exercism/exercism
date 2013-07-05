@@ -3,6 +3,8 @@ class Bob
   def hey(drivel)
     if silent?(drivel)
       'Fine. Be that way.'
+    elsif l33t?(drivel)
+      l33tify(drivel)
     elsif question?(drivel)
       'Sure.'
     elsif shouting?(drivel)
@@ -13,6 +15,14 @@ class Bob
   end
 
   private
+
+  def l33t?(s)
+    s.start_with?('Bro, ')
+  end
+
+  def l33tify(s)
+    s.gsub(/\ABro\,\ /, '').tr('aeio', '4310')
+  end
 
   def question?(s)
     s.end_with?('?')
