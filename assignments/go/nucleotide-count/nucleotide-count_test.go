@@ -55,7 +55,18 @@ func TestHasErrorForInvalidNucleotides(t *testing.T) {
 	}
 }
 
-// Not sure why this test is here as Count is a query method.
+func TestUracilIsAValidNucleotide(t *testing.T) {
+	dna := DNA{"GATTACA"}
+	count, err := dna.Count("U")
+	assertEqual(t, 0, count)
+	if err != nil {
+		t.Errorf("U is a valid nucleotide that never occurs in DNA.")
+	}
+}
+
+// In most cases, this test is pointless.
+// Very occasionally it matters.
+// Just roll with it.
 func TestCountingDoesntChangeCount(t *testing.T) {
 	dna := DNA{"CGATTGGG"}
 	dna.Count("T")
