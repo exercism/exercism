@@ -1,27 +1,43 @@
 class Atbash
 
   def self.encode(plaintext)
-    cipher = ""
-    normalize(plaintext).chars.each do |char|
-      i = alphabet.index(char)
-      if i
-        cipher << key[i]
-      else
-        cipher << char
-      end
-    end
-    cipher.scan(/.{1,5}/).join(' ')
+    new(plaintext).encode
   end
 
-  def self.normalize(s)
+  attr_reader :plaintext
+
+  def initialize(plaintext)
+    @plaintext = plaintext
+  end
+
+  def encode
+    chunk convert(normalize(plaintext))
+  end
+
+  private
+
+  def convert(s)
+    cipher = ""
+    s.chars.each do |char|
+      i = alphabet.index(char)
+      cipher << (i ? key[i] : char)
+    end
+    cipher
+  end
+
+  def chunk(s)
+    s.scan(/.{1,5}/).join(' ')
+  end
+
+  def normalize(s)
     s.downcase.gsub(/[^a-z0-9]/, '')
   end
 
-  def self.alphabet
+  def alphabet
     "abcdefghijklmnopqrstuvwxyz"
   end
 
-  def self.key
+  def key
     alphabet.reverse
   end
 
