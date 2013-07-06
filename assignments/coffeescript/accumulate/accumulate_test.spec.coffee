@@ -6,7 +6,6 @@ describe '[].accumulate()', ->
     accumulator = (e) -> e * e
     expect([]).toEqual [].accumulate(accumulator)
 
-
   it 'accumulate squares', ->
     accumulator = (number) -> number * number
     expect([1, 4, 9]).toEqual [1, 2, 3].accumulate accumulator
