@@ -1,4 +1,8 @@
 class Github
+  def self.login_url
+    "https://github.com/login/oauth/authorize?client_id=#{ENV.fetch('EXERCISM_GITHUB_CLIENT_ID')}"
+  end
+
   def self.authenticate(code)
     conn = Faraday.new(:url => 'https://github.com') do |c|
       c.use Faraday::Response::Logger

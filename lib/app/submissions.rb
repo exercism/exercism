@@ -40,7 +40,9 @@ class ExercismApp < Sinatra::Base
 
   get '/user/submissions/:id' do |id|
     submission = Submission.find(id)
-    unless current_user == submission.user
+    if current_user.guest?
+      redirect login_url("/user/submissions/#{id}")
+    elsif current_user != submission.user
       flash[:error] = 'That is not your submission.'
       redirect '/'
     end

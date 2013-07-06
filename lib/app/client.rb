@@ -19,8 +19,7 @@ class ExercismApp < Sinatra::Base
 
   get '/account' do
     if current_user.guest?
-      flash[:error] = 'You must log in to go there.'
-      redirect '/'
+      redirect login_url("/account")
     end
     unstarted = Exercism.current_curriculum.unstarted_trails(current_user.current_languages)
     erb :account, locals: {unstarted: unstarted}
