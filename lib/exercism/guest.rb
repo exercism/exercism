@@ -3,6 +3,10 @@ class Guest
     true
   end
 
+  def new?
+    false
+  end
+
   def nitpicker?
     false
   end

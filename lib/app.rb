@@ -34,6 +34,14 @@ class ExercismApp < Sinatra::Base
       end
     end
 
+    def login_url(return_path = nil)
+      url = Github.login_url
+      if return_path
+        url << "&redirect_uri=#{site_root}/github/callback#{return_path}"
+      end
+      url
+    end
+
     def login(user)
       session[:github_id] = user.github_id
     end

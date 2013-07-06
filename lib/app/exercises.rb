@@ -2,8 +2,7 @@ class ExercismApp < Sinatra::Base
 
   get '/user/:language/:slug' do |language, slug|
     if current_user.guest?
-      flash[:error] = 'Please log in.'
-      redirect '/'
+      redirect login_url("/user/#{language}/#{slug}")
     end
     exercise = Exercise.new(language, slug)
     unless current_user.submitted?(exercise)
