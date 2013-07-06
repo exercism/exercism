@@ -1,4 +1,4 @@
-/* globals DNA */
+/* globals DNA, xit */
 require('./nucleotide');
 
 describe('DNA', function() {
@@ -9,46 +9,46 @@ describe('DNA', function() {
     expect(dna.nucleotideCounts).toEqual(expected);
   });
 
-  it('has no adenosine', function(){
+  xit('has no adenosine', function(){
     var dna = new DNA('');
     expect(dna.count('A')).toEqual(0);
   });
 
-  it('repetitive cytidine gets counts', function(){
+  xit('repetitive cytidine gets counts', function(){
     var dna = new DNA('CCCCC');
     expect(dna.count('C')).toEqual(5);
   });
 
-  it('repetitive sequence has only guanosine', function(){
+  xit('repetitive sequence has only guanosine', function(){
     var dna = new DNA('GGGGGGGG'),
         expected = { A : 0, T : 0, C : 0, G : 8 };
     expect(dna.nucleotideCounts).toEqual(expected);
   });
 
-  it('counts only thymidine', function(){
+  xit('counts only thymidine', function(){
     var dna = new DNA('GGGGTAACCCGG');
     expect(dna.count('T')).toEqual(1);
   });
 
-  it('counts a nucleotide only once', function(){
+  xit('counts a nucleotide only once', function(){
     var dna = new DNA('GGTTGG');
     dna.count('T');
     expect(dna.count('T')).toEqual(2);
   });
 
-  it('has no uracil', function(){
+  xit('has no uracil', function(){
     var dna = new DNA('GGTTGG');
     expect(dna.count('U')).toEqual(0);
   });
 
-  it('validates nucleotides', function(){
+  xit('validates nucleotides', function(){
     var dna = new DNA('GGTTGG');
     expect(function(){
       dna.count('X');
     }).toThrow(new Error("Invalid Nucleotide"));
   });
 
-  it('counts all nucleotides', function(){
+  xit('counts all nucleotides', function(){
     var dna = new DNA("AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"),
         expected = { A : 20, T : 21, G : 17, C : 12 };
     expect(dna.nucleotideCounts).toEqual(expected);
