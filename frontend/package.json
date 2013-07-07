@@ -1,0 +1,17 @@
+{
+  "name": "frontend",
+  "title": "An HTML/JS/CSS app",
+  "version": "0.0.1",
+  "private": true,
+  "author": {
+    "name": "John Doe",
+    "company": "ACME, Inc."
+  },
+  "dependencies": {
+    "lineman": "~0.10.1"
+  },
+  "engines": {
+    "node": "~>0.10.5",
+    "npm": "~>1.2.18"
+  }
+}

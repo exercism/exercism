@@ -7,9 +7,11 @@
     <meta content='' name='description'>
     <meta content='' name='author'>
     <link href='/ico/favicon.png' rel='shortcut icon'>
-    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
-    <link href='/css/pygments.css' rel='stylesheet'>
-    <link href='/css/style.css' rel='stylesheet'>
+    <% if ENV['RACK_ENV'].to_sym == :production %>
+        <link href='/css/app.min.css' rel='stylesheet'>
+    <% else %>
+        <link href='/css/app.css' rel='stylesheet'>
+    <% end %>
   </head>
   <body>
     <div class='navbar navbar-top'>
@@ -50,8 +52,10 @@
         <p>&copy; Katrina Owen</p>
       </footer>
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
-    <script src="/js/script.js"></script>
+    <% if ENV['RACK_ENV'].to_sym == :production %>
+      <script src="/js/app.min.js"></script>
+    <% else %>
+      <script src="/js/app.js"></script>
+    <% end %>
   </body>
 </html>
