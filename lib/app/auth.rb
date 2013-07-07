@@ -6,6 +6,10 @@ class ExercismApp < Sinatra::Base
   end
 
   if ENV['RACK_ENV'] == 'development'
+    if User.count == 0
+      flash[:error] = "You'll want to run the seed script: `ruby scripts/seed.rb``"
+      redirect '/'
+    end
     get '/backdoor' do
       session[:github_id] = params[:id]
 

@@ -12,6 +12,8 @@ class User
   field :j_at, type: Time, default: ->{ Time.now.utc }
   field :adm, as: :is_admin, type: Boolean, default: false
 
+  alias_method :admin?, :is_admin
+
   has_many :submissions
 
   def self.from_github(id, username, email, avatar_url)
@@ -113,19 +115,11 @@ class User
     admin? || completed.size > 0
   end
 
-  def admin?
-    admin_users.include?(username)
-  end
-
   def new?
     !admin? && submissions.count == 0
   end
 
   private
-
-  def admin_users
-    %w(burtlo jcasimir kytrinyx vosechu theotherzach steveklabnik rubysolo seeflanigan splattael)
-  end
 
   def create_key
     Digest::SHA1.hexdigest(secret)
