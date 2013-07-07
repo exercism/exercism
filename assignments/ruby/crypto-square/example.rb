@@ -5,7 +5,7 @@ class Crypto
   end
 
   def normalize_plaintext
-    @normalized ||= plaintext.downcase.scan(/[a-z0-9]/).join
+    @normalized ||= plaintext.downcase.gsub(/\W/, '')
   end
 
   def size
@@ -13,21 +13,22 @@ class Crypto
   end
 
   def plaintext_segments
-    normalize_plaintext.scan(/.{1,#{size}}/)
+    chunk(normalize_plaintext, size)
   end
 
   def ciphertext
-    cipher_chunks = []
-    plaintext_segments.each do |segment|
-      segment.chars.each_with_index do |letter, i|
-        cipher_chunks[i] ||= []
-        cipher_chunks[i] << letter
-      end
-    end
-    cipher_chunks.map {|chunk| chunk.join}.join
+    plaintext_segments.map do |segment|
+      # There has to be a better way to make sure that
+      # the last segment is as long as the others!
+      segment.split('').fill("", segment.length..size-1)
+    end.transpose.flatten.join
   end
 
   def normalize_ciphertext
-    ciphertext.scan(/.{1,5}/).join(" ")
+    chunk(ciphertext, 5).join(" ")
+  end
+
+  def chunk(s, size)
+    s.scan(/.{1,#{size}}/)
   end
 end
