@@ -83,6 +83,11 @@ Different languages/trails do not need to have the same assignments or the same 
 7. Login at http://localhost:4567.
 8. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
 
+## Frontend development setup
+1. Install node and npm (see instructions at [exercism.io](http://exercism.io/account))
+2. Install lineman via `npm install -g lineman`
+3. `cd frontend` and start lineman with `lineman run`
+
 If you want to send actual emails, you will need to export the following environment variables:
 
 * `EMAIL_USERNAME`
@@ -109,5 +114,5 @@ Run tests with: `rake test`
 
 Let Heroku know that Lineman will be building our assets. From the command line:
 ```
-heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-lineman-ruby.git
+heroku config:set BUILDPACK_URL=https://github.com/theotherzach/heroku-buildpack-lineman-ruby.git
 ```
