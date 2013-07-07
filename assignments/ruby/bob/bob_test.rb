@@ -59,21 +59,6 @@ begin
       skip
       assert_equal 'Fine. Be that way.', teenager.hey(nil)
     end
-
-    # Bob, Inspired by the 90s, is bringing back a very
-    # basic form of "l33t sp34k", and he'll teach you how to do it.
-    # Start any sentence with "Bro, ", and he'll translate
-    # the rest of it into l33t sp34k for you.
-    def test_most_vowels_are_replaced_with_numerical_equivalents
-      skip
-      assert_equal 'y0u t0t4lly crush3d 1t!', teenager.hey("Bro, you totally crushed it!")
-    end
-
-    def test_only_strip_first_bro
-      skip
-      assert_equal "Br0, Br0!\nBr0, Br0, Br0!", teenager.hey("Bro, Bro, Bro!\nBro, Bro, Bro!")
-    end
-
   end
 
 rescue LoadError => e
