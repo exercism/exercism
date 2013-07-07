@@ -10,6 +10,7 @@ class User
   field :g_id, as: :github_id, type: Integer
   field :key, type: String, default: ->{ create_key }
   field :j_at, type: Time, default: ->{ Time.now.utc }
+  field :adm, as: :is_admin, type: Boolean, default: false
 
   has_many :submissions
 
