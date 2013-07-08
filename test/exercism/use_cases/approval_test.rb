@@ -1,12 +1,21 @@
 require './test/integration_helper'
 
+class NongCurriculum
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    Locale.new('nong', 'no', 'not')
+  end
+end
+
 class ApprovalTest < MiniTest::Unit::TestCase
 
   attr_reader :submission, :admin, :user, :curriculum
   def setup
     @curriculum = Curriculum.new('/tmp')
-    nong = Locale.new('nong', 'no', 'not')
-    @curriculum.add(nong, ['one', 'two'])
+    @curriculum.add NongCurriculum.new
     @user = User.create(username: 'allison', current: {'nong' => 'one'})
 
     attempt = Attempt.new(user, 'CODE', 'one.no', curriculum).save
