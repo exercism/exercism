@@ -1,15 +1,33 @@
 require './test/integration_helper'
 
+class NongCurriculum
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    Locale.new('nong', 'no', 'not')
+  end
+end
+
+class FempCurriculum
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    Locale.new('femp', 'fp', 'fpt')
+  end
+end
+
 class AttemptTest < MiniTest::Unit::TestCase
 
   attr_reader :user, :curriculum
   def setup
     @user = User.create(current: {'nong' => 'one', 'femp' => 'one'})
     @curriculum = Curriculum.new('/tmp')
-    nong = Locale.new('nong', 'no', 'not')
-    femp = Locale.new('femp', 'fp', 'fpt')
-    @curriculum.add(nong, ['one'])
-    @curriculum.add(femp, ['one'])
+    @curriculum.add NongCurriculum.new
+    @curriculum.add FempCurriculum.new
   end
 
   def teardown
