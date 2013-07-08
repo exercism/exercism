@@ -1,0 +1,9 @@
+{
+  "linemanApps": [
+    {
+      "type": "file",
+      "location": "frontend",
+      "installToPath": "lib/app/public"
+    }
+  ]
+}

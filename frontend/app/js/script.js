@@ -30,22 +30,22 @@ $(function() {
           value = $(this).data('selected');
       selectedOptions[key] = value;
 
-      if (this.tagName == "BUTTON") {
-        if (value == "All") {
+      if (this.tagName === "BUTTON") {
+        if (value === "All") {
           $(this).find('span.filter-label').text($(this).data('label'));
           $('#all-' + key).hide();
         } else {
           $(this).find('span.filter-label').text(value);
           $('#all-' + key).show();
         }
-      };
+      }
     });
 
     $('.pending-submission').each(function() {
       var $submission = $(this);
       display = true;
       $.each(selectedOptions, function(key, value) {
-        display = display && (value == "All" || $submission.data(key) == value);
+        display = display && (value === "All" || $submission.data(key) === value);
       });
       $submission.toggle(display);
     });
