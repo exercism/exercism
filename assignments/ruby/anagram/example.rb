@@ -1,20 +1,30 @@
 class Anagram
 
-  attr_reader :letters
-  def initialize(subject)
-    @letters = decompose subject
+  attr_reader :target
+  def initialize(word)
+    @target = AnagramWord.new(word)
   end
 
   def match(candidates)
     candidates.select do |candidate|
-      decompose(candidate) == letters
+      target.anagram? candidate
     end
   end
+end
 
-  private
+class AnagramWord < String
 
-  def decompose(s)
-    s.chars.sort
+  def anagram?(word)
+    canonical_representation == canonicalize(word)
   end
+
+  def canonicalize(word)
+    word.chars.sort
+  end
+
+  def canonical_representation
+    @canonical_representation ||= canonicalize(self)
+  end
+
 end
 
