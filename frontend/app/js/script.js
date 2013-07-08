@@ -1,3 +1,4 @@
+//TODO move all variable declaration to the tops of functions.
 $(function() {
   $(".pending-submission").each(function(index,element) {
     var elem = $(element);
@@ -23,6 +24,8 @@ $(function() {
     $(".arguments",elem).tooltip({ title: argumentCount + " Responses" });
   });
 
+  //FIXME move filterPending into a namespaced app object to minimize global
+  //pollution.
   function filterPending() {
     var selectedOptions = {};
     $('button[data-filter], input[data-filter]').each(function() {
@@ -44,6 +47,9 @@ $(function() {
     $('.pending-submission').each(function() {
       var $submission = $(this);
       display = true;
+      //FIXME Looping through selectedOptions while looping through each submission
+      //FIXME Last minute toString(). This is brittle and will bite us.
+      //TODO Use JavaScript looping functionality instead of $.each
       $.each(selectedOptions, function(key, value) {
         display = display && (value === "All" || $submission.data(key).toString() === value);
       });
