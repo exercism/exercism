@@ -31,6 +31,39 @@ end
 class Alice
 
   def hey(drivel)
+    respond_to Phrase.new(drivel.to_s)
+  end
+
+  def respond_to(phrase)
+    if phrase.silent?
+      'Fine. Be that way.'
+    elsif phrase.question?
+      'Sure.'
+    elsif phrase.shouting?
+      'Woah, chill out!'
+    else
+      'Whatever.'
+    end
+  end
+end
+
+class Phrase < String
+
+  alias_method :silent?, :empty?
+
+  def question?
+    end_with?('?')
+  end
+
+  def shouting?
+    upcase == self
+  end
+
+end
+
+class Charlie
+
+  def hey(drivel)
     answerer(drivel).reply
   end
 
