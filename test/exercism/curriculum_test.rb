@@ -6,6 +6,26 @@ require 'exercism/trail'
 require 'exercism/exercise'
 require 'exercism/assignment'
 
+class NongCurriculum
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    Locale.new('nong', 'no', 'not')
+  end
+end
+
+class FempCurriculum
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    Locale.new('femp', 'fp', 'fpt')
+  end
+end
+
 # Integration tests.
 # This is the entry point into the app.
 class CurriculumTest < MiniTest::Unit::TestCase
@@ -13,8 +33,7 @@ class CurriculumTest < MiniTest::Unit::TestCase
   attr_reader :curriculum
   def setup
     @curriculum = Curriculum.new('./test/fixtures')
-    nong = Locale.new('nong', 'no', 'not')
-    curriculum.add(nong, %w(one two))
+    curriculum.add NongCurriculum.new
   end
 
   def test_curriculum_takes_a_path
@@ -40,10 +59,8 @@ class CurriculumTest < MiniTest::Unit::TestCase
 
   # Do I want an actual locale object, or just the language?
   def test_identify_language_from_filename
-    filename = 'one.fp'
-    femp = Locale.new('femp', 'fp', 'fpt')
-    curriculum.add(femp, %w(one two))
-    assert_equal 'femp', curriculum.identify_language('femp.fp')
+    curriculum.add FempCurriculum.new
+    assert_equal 'femp', curriculum.identify_language('one.fp')
   end
 
   def test_unknown_language
@@ -53,12 +70,9 @@ class CurriculumTest < MiniTest::Unit::TestCase
   end
 
   def test_unstarted_trails
-    femp = Locale.new('femp', 'fp', 'fpt')
-    turq = Locale.new('turq', 'tq', 'tqt')
-    curriculum.add(femp, %w(one two))
-    curriculum.add(turq, %w(one two))
+    curriculum.add FempCurriculum.new
     languages = curriculum.unstarted_trails(['femp'])
-    assert_equal %w(nong turq), languages
+    assert_equal ['nong'], languages
   end
 
 end

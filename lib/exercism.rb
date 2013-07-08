@@ -21,51 +21,25 @@ require 'exercism/use_cases/argument'
 require 'exercism/use_cases/assignments'
 require 'exercism/use_cases/launch'
 
+require 'exercism/curriculum/ruby'
+require 'exercism/curriculum/javascript'
+require 'exercism/curriculum/coffeescript'
+require 'exercism/curriculum/elixir'
+require 'exercism/curriculum/clojure'
+require 'exercism/curriculum/go'
+
 Mongoid.load!("./config/mongoid.yml")
 
 class Exercism
-  class UnknownLanguage < StandardError; end
 
   def self.current_curriculum
     unless @curriculum
       @curriculum = Curriculum.new('./assignments')
 
-      rb = Locale.new('ruby', 'rb', 'rb')
-      rb_slugs = %w(
-        bob word-count anagram beer-song nucleotide-count
-        rna-transcription point-mutations phone-number
-        grade-school robot-name leap etl meetup space-age grains
-        gigasecond triangle scrabble-score roman-numerals
-        binary prime-factors raindrops allergies strain
-        atbash-cipher accumulate crypto-square trinary
-        sieve simple-cipher octal luhn pig-latin pythagorean-triplet
-        series difference-of-squares secret-handshake linked-list wordy
-        hexadecimal largest-series-product kindergarden-garden
-        binary-search-tree matrix robot nth-prime
-        palindrome-products pascals-triangle say
-        sum-of-multiples queen-attack saddle-points ocr-numbers
-      )
-      @curriculum.add(rb, rb_slugs)
-
-      js = Locale.new('javascript', 'js', 'spec.js')
-      js_slugs = %w(
-        bob anagram
-      )
-      @curriculum.add(js, js_slugs)
-
-      elixir = Locale.new('elixir', 'exs', 'exs')
-      elixir_slugs = %w(
-        bob word-count anagram beer-song nucleotide-count
-        rna-transcription point-mutations phone-number
-        grade-school leap
-      )
-      @curriculum.add(elixir, elixir_slugs)
-
-      clojure = Locale.new('clojure', 'clj', 'clj')
-      clojure_slugs = %w(
-        kindergarden-garden queen-attack robot-simulator
-      )
-      @curriculum.add(clojure, clojure_slugs)
+      @curriculum.add RubyCurriculum.new
+      @curriculum.add JavascriptCurriculum.new
+      @curriculum.add ElixirCurriculum.new
+      @curriculum.add ClojureCurriculum.new
     end
 
     @curriculum

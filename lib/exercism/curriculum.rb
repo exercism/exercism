@@ -1,3 +1,7 @@
+class Exercism
+  class UnknownLanguage < StandardError; end
+end
+
 class Curriculum
 
   attr_reader :path, :trails, :locales
@@ -7,9 +11,9 @@ class Curriculum
     @trails = {}
   end
 
-  def add(locale, slugs)
-    @trails[locale.to_sym] = Trail.new(locale, slugs, path)
-    @locales << locale
+  def add(curriculum)
+    @trails[curriculum.locale.to_sym] = Trail.new(curriculum.locale, curriculum.slugs, path)
+    @locales << curriculum.locale
   end
 
   def in(language)
