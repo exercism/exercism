@@ -88,6 +88,8 @@ Different languages/trails do not need to have the same assignments or the same 
 2. Install lineman via `npm install -g lineman`
 3. `cd frontend` and start lineman with `lineman run`
 
+## Sending Emails
+
 If you want to send actual emails, you will need to export the following environment variables:
 
 * `EMAIL_USERNAME`
