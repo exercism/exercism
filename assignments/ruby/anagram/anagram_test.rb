@@ -23,6 +23,12 @@ class AnagramTest < MiniTest::Unit::TestCase
     assert_equal ['abc', 'bac'], anagrams
   end
 
+  def test_does_not_confuse_different_duplicates
+    skip
+    detector = Anagram.new('abb')
+    assert_equal [], detector.match(['baa'])
+  end
+
   def test_detect_anagram
     skip
     detector = Anagram.new('listen')
