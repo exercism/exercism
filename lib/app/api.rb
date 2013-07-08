@@ -33,6 +33,6 @@ class ExercismApp < Sinatra::Base
 
     assignments = Assignments.new(params[:key])
 
-    pg :assignments, locals: {assignments: assignments.current}
+    pg :assignments, locals: {assignments: assignments.next}
   end
 end
