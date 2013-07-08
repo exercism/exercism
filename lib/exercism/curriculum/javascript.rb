@@ -2,7 +2,9 @@ class Exercism
   class JavascriptCurriculum
     def slugs
       %w(
-        bob anagram
+        bob word-count anagram beer-song nucleotide-count
+        rna-transcription point-mutations phone-number
+        grade-school
       )
     end
 
