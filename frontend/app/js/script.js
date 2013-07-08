@@ -45,7 +45,7 @@ $(function() {
       var $submission = $(this);
       display = true;
       $.each(selectedOptions, function(key, value) {
-        display = display && (value === "All" || $submission.data(key) === value);
+        display = display && (value === "All" || $submission.data(key).toString() === value);
       });
       $submission.toggle(display);
     });
