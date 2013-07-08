@@ -3,9 +3,9 @@
   <% completed.each do |work| %>
     <div>
       <% if work.submitted? %>
+        <%= language_icon(work.language) %>
         <a href="/user/<%= work.language %>/<%= work.slug %>">
           <h4 style="display: inline"><%= work.slug %></h4></a>
-        <%= language_icon(work.language) %>
       <% elsif work.slug == 'congratulations' %>
         <%= language_icon(work.language) %>
         <span class="label label-info">No more Assignments</span>
