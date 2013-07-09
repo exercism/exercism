@@ -1,4 +1,4 @@
 <% if ENV['RACK_ENV'].to_sym == :development %>
-<li><a href="/backdoor?id=<%= ENV.fetch('EXERCISM_ADMIN_ID') { 276834 } %>">be admin</a></li>
+  <li><a href="/backdoor?id=0">be admin</a></li>
   <li><a href="/backdoor?id=-1">be alice</a></li>
 <% end %>
