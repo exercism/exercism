@@ -2,7 +2,8 @@ class Exercism
   class ClojureCurriculum
     def slugs
       %w(
-        kindergarden-garden queen-attack robot-simulator
+        bob robot-name leap triangle scrabble-score
+        crypto-square kindergarden-garden robot-simulator queen-attack
       )
     end
 
