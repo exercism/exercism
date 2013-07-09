@@ -39,6 +39,7 @@ class Exercism
       @curriculum.add RubyCurriculum.new
       @curriculum.add JavascriptCurriculum.new
       @curriculum.add ElixirCurriculum.new
+      @curriculum.add ClojureCurriculum.new
     end
 
     @curriculum
