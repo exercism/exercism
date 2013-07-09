@@ -1,0 +1,5 @@
+(load-file "bob.clj")
+(assert (= "Woah, chill out!"   (bob/response-for "SHOUTING")))
+(assert (= "Sure."              (bob/response-for "A question?")))
+(assert (= "Whatever."          (bob/response-for "A statement.")))
+(assert (= "Fine, be that way." (bob/response-for "")))
