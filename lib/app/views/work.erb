@@ -1,16 +1,14 @@
 <div>
+  <%= language_icon(work.language) %>
   <% if work.submitted? %>
-    <%= language_icon(work.language) %>
     <a href="/user/submissions/<%= work.id %>">
       <h4 style="display: inline"><%= work.slug %></h4></a>
     <div class="nits circle"><%= work.nits.count %></div>
     <div class="arguments circle"><%= work.argument_count %></div>
   <% elsif work.slug == 'congratulations' %>
-    <%= language_icon(work.language) %>
     <span class="label label-info">No more Assignments</span>
   <% else %>
     <h4 style="display: inline"><%= work.slug %></h4>
-    <%= language_icon(work.language) %>
     <span class="label label-info">Not Started</span>
   <% end %>
 </div>
