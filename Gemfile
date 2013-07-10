@@ -11,11 +11,11 @@ gem 'redcarpet'
 gem 'rouge'
 gem 'sinatra', require: 'sinatra/base'
 gem 'pony'
+gem 'pry', require: false
 
 group :test, :development do
   gem 'minitest', '~> 4.0', require: false
   gem 'approvals', require: false
-  gem 'pry', require: false
   gem 'rack-test', require: false
   gem 'mocha', require: false
   gem 'mailcatcher'
