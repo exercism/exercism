@@ -71,22 +71,25 @@ Different languages/trails do not need to have the same assignments or the same 
 
 ## Setup
 
-1. Install mongodb with: `brew install mongodb` then follow instructions to load the server at startup. Ensure that server is running
-2. Install gems with: `bundle`
-3. Get a client id/secret from Github at https://github.com/settings/applications/new.
+1. Install mongodb with: `brew install mongodb` or `apt-get install mongodb`
+2. Get it running: follow instructions to load the server at startup. Ensure that server is currently running
+3. Install gems with: `bundle`
+4. Get a client id/secret from Github at https://github.com/settings/applications/new.
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-4. Add yourself to the admin_users method in lib/exercism/user.rb
-5. Run the seeds with `ruby scripts/seed.rb`
-6. Start server with: `EXERCISM_GITHUB_CLIENT_ID=xxx EXERCISM_GITHUB_CLIENT_SECRET=xxx rackup -p 4567`
-7. Login at http://localhost:4567.
-8. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
+6. Run the database seed with `ruby scripts/seed.rb`
+7. Start server with: `EXERCISM_GITHUB_CLIENT_ID=xxx EXERCISM_GITHUB_CLIENT_SECRET=xxx rackup -p 4567`
+8. Login at http://localhost:4567.
+9. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
 
 ## Frontend development setup
-1. Install node and npm (see instructions at [exercism.io](http://exercism.io/account))
-2. Install lineman via `npm install -g lineman`
+1. Install node and npm
+  * osx: brew install node
+  * others see: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
+2. Install lineman via `sudo npm install -g lineman`
 3. `cd frontend` and start lineman with `lineman run`
+  * note lineman watches for file changes and compiles them automatically, it is not required to be running for the server to run
 
 ## Sending Emails
 
