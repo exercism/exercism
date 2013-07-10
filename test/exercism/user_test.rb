@@ -64,7 +64,7 @@ class UserTest < MiniTest::Unit::TestCase
   end
 
   def test_admin_may_nitpick_stuff
-    admin = User.new(username: 'burtlo')
+    admin = User.new(username: 'burtlo', is_admin: true)
     assert admin.may_nitpick?(Exercise.new('lang', 'exercise'))
   end
 
