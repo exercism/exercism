@@ -2,6 +2,7 @@ source "http://rubygems.org"
 
 ruby "1.9.3"
 
+gem 'rake'
 gem 'faraday'
 gem 'mongoid'
 gem 'petroglyph'
