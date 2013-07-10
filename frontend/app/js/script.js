@@ -29,7 +29,7 @@ exercism.checkClick = function () {
   if ($(this).is(':checked')) {
     var filter = $(this).attr('data-filter');
     $('.pending-submission').hide();
-    $('div[data-' + filter + '!=0]').show();
+    $('div[data-' + filter + '=0]').show();
 
   } else {
     $('.pending-submission').show();
