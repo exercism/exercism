@@ -1,0 +1,7 @@
+(load-file "scrabble.clj")
+(assert (= 1 (score-letter "a")))
+(assert (= 1 (score-letter "A")))
+(assert (= 2 (score-word "at")))
+(assert (= 6 (score-word "street")))
+(assert (= 22 (score-word "quirky")))
+(assert (= 20 (score-word "MULTIBILLIONAIRE")))
