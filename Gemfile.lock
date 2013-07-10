@@ -68,6 +68,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    rake (10.1.0)
     redcarpet (2.3.0)
     rouge (0.3.2)
       thor
@@ -107,6 +108,7 @@ DEPENDENCIES
   puma
   rack-flash3
   rack-test
+  rake
   redcarpet
   rouge
   sinatra
