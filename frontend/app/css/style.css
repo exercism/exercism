@@ -42,7 +42,7 @@ h1.home {
   margin-left: 0px;
 }
 
-.pending-submission.hover {
+.pending-submission:hover {
   cursor: pointer;
   background: #EEE;
   border-radius: 5px;
