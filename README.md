@@ -115,6 +115,8 @@ There's a script in `bin/console` that will load irb with the exercism environme
 
 Run tests with: `rake test`
 
+Make sure that `mailcatcher` is running.
+
 ## Deployment
 
 Let Heroku know that Lineman will be building our assets. From the command line:
