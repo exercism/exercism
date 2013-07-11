@@ -1,90 +1,23 @@
-<h1>Your Account</h1>
+<div class="row">
+  <div class="span8">
 
-<p>You can always get back to this page by clicking your username in the navigation bar.</p>
+    <h1>Your Account</h1>
 
-<p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
+    <p>You can always get back to this page by clicking your username in the navigation bar.</p>
 
-<% unless unstarted.empty? %>
-  <h2>Unstarted Trails</h2>
-  <p>Warning: The JavaScript trail is basically a placeholder to prove to ourselves that we can do multiple trails simultaneously. It currently only has a single exercise in it. If you do the exercise we'll start you on the next one at that time.</p>
-  <% unstarted.each do |language| %>
-    <form action="/user/<%= language %>/start" method="POST">
-      <input type="submit" value="start <%= language %>" />
-    </form>
-  <% end %>
-<% end %>
+    <p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
 
-<h2>Setup</h2>
 
-<h3>Ruby</h3>
 
-<ul>
-  <li>Install ruby. (Should we suggest `ruby-build`? `rvm`?)</li>
-</ul>
+    <h2>Setup</h2>
 
-<p>Execute the tests with:</p>
-
-<pre>
-  $ ruby bob_test.rb
-</pre>
-
-<h3>JavaScript</h3>
-
-<ul>
-  <li>Install <a href="http://nodejs.org/">Node.js</a></li>
-  <li>Install <a href="https://github.com/mhevery/jasmine-node">jasmine-node</a></li>
-</ul>
-
-<pre>
-  $ brew install node
-  $ npm install jasmine-node -g
-</pre>
-
-<p>Update the `~/.bash_profile` to include NPM binary files on the PATH:</p>
-
-<pre>
-  $ export PATH=/usr/local/share/npm/bin:$PATH
-</pre>
-
-<p>Execute the tests with:</p>
-
-<pre>
-  $ jasmine-node bob_test.spec.js
-</pre>
-
-<h3>Elixir</h3>
-
-<h4>Installation:</h4>
-
-<ul>
-  <li>
-    Homebrew for Mac OS X
-    <ul>
-      <li>Since Elixir requires Erlang R16B, first call <code>brew tap homebrew/versions</code> and then <code>brew install erlang-r16</code></li>
-      <li>If you have a previous Erlang version installed, unlink it with <code>brew uninstall erlang</code> and link the new one with <code>brew link erlang-r16</code></li>
-      <li>Update your homebrew to latest: <code>brew update</code></li>
-      <li>Install Elixir: <code>brew install elixir</code></li>
-    </ul>
-  </li>
-  <li>Fedora 17+ and Fedora Rawhide: <code>sudo yum -y install elixir</code></li>
-  <li>Arch Linux : Elixir is available on AUR via <code>yaourt -S elixir</code></li>
-  <li>Other:  Get <a href="http://www.erlang.org/download.html">Erlang R16B</a>, then download a <a href="http://elixir-lang.org/packages.html">precompiled package</a></li>
-</ul>
-
-<h4>Running tests:</h4>
-
-<pre>
-  $ elixir bob_test.exs
-</pre>
-
-<h2>Get the gem</h2>
 <pre>
   $ gem install exercism
 </pre>
 
-<h3>Login</h3>
+    <h3>Login</h3>
 
-<p>Your credentials get saved in a config file in your home directory: <kbd>.exercism</kbd>.</p>
+    <p>Your credentials get saved in a config file in your home directory: <kbd>.exercism</kbd>.</p>
 
 <pre>
   $ exercism login
@@ -93,19 +26,101 @@
   What is your exercism project_path? (/your/project/path)
 </pre>
 
-<p>If the path in parentheses is a good project path, just hit enter. It uses the current directory as the default suggestion.</p>
+    <p>If the path in parentheses is a good project path, just hit enter. It uses the current directory as the default suggestion.</p>
 
-<p>If you mess up your login, you can either edit the config file at <kbd>~/.exercism</kbd> or say <kbd>exercism logout</kbd> and then try again.</p>
+    <p>If you mess up your login, you can either edit the config file at <kbd>~/.exercism</kbd> or say <kbd>exercism logout</kbd> and then try again.</p>
 
-<h3>Get the code</h3>
+    <h3>Get the code</h3>
 
 <pre>
   $ cd projects/exercises # or whatever
   $ exercism fetch
 </pre>
 
-<h3>Submit the assignment</h3>
+    <h3>Submit the assignment</h3>
 
 <pre>
   $ exercism submit yourcode.rb
 </pre>
+
+    <h2>Language-specific Setup</h2>
+
+    <h3>Ruby</h3>
+
+    <ul>
+      <li>Install ruby. (Should we suggest `ruby-build`? `rvm`?)</li>
+    </ul>
+
+    <p>Execute the tests with:</p>
+
+<pre>
+  $ ruby bob_test.rb
+</pre>
+
+    <h3>JavaScript</h3>
+
+    <ul>
+      <li>Install <a href="http://nodejs.org/">Node.js</a></li>
+      <li>Install <a href="https://github.com/mhevery/jasmine-node">jasmine-node</a></li>
+    </ul>
+
+<pre>
+  $ brew install node
+  $ npm install jasmine-node -g
+</pre>
+
+    <p>Update the `~/.bash_profile` to include NPM binary files on the PATH:</p>
+
+<pre>
+  $ export PATH=/usr/local/share/npm/bin:$PATH
+</pre>
+
+    <p>Execute the tests with:</p>
+
+<pre>
+  $ jasmine-node bob_test.spec.js
+</pre>
+
+    <h3>Elixir</h3>
+
+    <h4>Installation:</h4>
+
+    <ul>
+      <li>
+      Homebrew for Mac OS X
+      <ul>
+        <li>Since Elixir requires Erlang R16B, first call <code>brew tap homebrew/versions</code> and then <code>brew install erlang-r16</code></li>
+        <li>If you have a previous Erlang version installed, unlink it with <code>brew uninstall erlang</code> and link the new one with <code>brew link erlang-r16</code></li>
+        <li>Update your homebrew to latest: <code>brew update</code></li>
+        <li>Install Elixir: <code>brew install elixir</code></li>
+      </ul>
+      </li>
+      <li>Fedora 17+ and Fedora Rawhide: <code>sudo yum -y install elixir</code></li>
+      <li>Arch Linux : Elixir is available on AUR via <code>yaourt -S elixir</code></li>
+      <li>Other:  Get <a href="http://www.erlang.org/download.html">Erlang R16B</a>, then download a <a href="http://elixir-lang.org/packages.html">precompiled package</a></li>
+    </ul>
+
+    <h4>Running tests:</h4>
+
+<pre>
+  $ elixir bob_test.exs
+</pre>
+
+    </div>
+
+    <div class="span4">
+      <dl>
+        <dt>Api key:</dt>
+        <dd><%= current_user.key %></dd>
+      </dl>
+
+      <% unless unstarted.empty? %>
+      <h2>Unstarted Trails</h2>
+      <% unstarted.each do |language| %>
+      <form action="/user/<%= language %>/start" method="POST">
+        <input type="submit" value="start <%= language %>" />
+      </form>
+      <% end %>
+      <% end %>
+    </div>
+  </div>
