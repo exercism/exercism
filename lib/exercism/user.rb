@@ -107,6 +107,10 @@ class User
     username == other.username && current == other.current
   end
 
+  def is?(handle)
+    username == handle
+  end
+
   def may_nitpick?(exercise)
     admin? || completed?(exercise)
   end

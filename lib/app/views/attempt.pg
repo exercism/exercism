@@ -1,4 +1,4 @@
 node status: 'saved'
 node language: submission.language
 node exercise: submission.slug
-node submission_path: "/user/#{submission.language}/#{submission.slug}"
+node submission_path: "/#{submission.user.username}/#{submission.language}/#{submission.slug}"

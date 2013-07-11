@@ -4,16 +4,37 @@ class ExercismApp < Sinatra::Base
     if current_user.guest?
       redirect login_url("/user/#{language}/#{slug}")
     end
+    redirect "/#{current_user.username}/#{language}/#{slug}"
+  end
+
+  get '/:username/:language/:slug' do |username, language, slug|
+    if current_user.guest?
+      redirect login_url("/#{username}/#{language}/#{slug}")
+    end
+
     exercise = Exercise.new(language, slug)
-    unless current_user.submitted?(exercise)
-      flash[:error] = "You haven't submitted anything on this yet."
+
+    unless current_user.is?(username) || current_user.may_nitpick?(exercise)
+      flash[:error] = "You can't go there yet. Sorry."
       redirect '/'
     end
+
+    user = current_user if current_user.is?(username)
+    user ||= User.where(username: username).first
+
+    unless user
+      flash[:error] = "We don't know anything about #{username}."
+      redirect '/'
+    end
+
+    submissions = user.submissions_on(exercise)
+
     locals = {
       exercise: exercise,
-      before: current_user.first_submission_on(exercise),
-      after: current_user.latest_submission_on(exercise),
-      iterations: current_user.submissions_on(exercise)
+      user: user,
+      before: submissions.last,
+      after: submissions.first,
+      iterations: submissions
     }
     erb :summary, locals: locals
   end

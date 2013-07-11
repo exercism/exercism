@@ -4,7 +4,7 @@
     <div>
       <% if work.submitted? %>
         <%= language_icon(work.language) %>
-        <a href="/user/<%= work.language %>/<%= work.slug %>">
+        <a href="/<%= current_user.username %>/<%= work.language %>/<%= work.slug %>">
           <h4 style="display: inline"><%= work.slug %></h4></a>
       <% elsif work.slug == 'congratulations' %>
         <%= language_icon(work.language) %>
