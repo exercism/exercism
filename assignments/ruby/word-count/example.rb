@@ -1,9 +1,4 @@
-class Words
-
-  attr_reader :phrase
-  def initialize(text)
-    @phrase = normalize(text)
-  end
+class Words < String
 
   def count
     data = Hash.new(0)
@@ -16,13 +11,9 @@ class Words
   private
 
   def each_word
-    phrase.each do |word|
+    downcase.split(/\W+/).each do |word|
       yield word
     end
-  end
-
-  def normalize(text)
-    text.downcase.split(/\W+/)
   end
 
 end
