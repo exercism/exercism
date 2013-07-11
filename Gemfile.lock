@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/splattael/rouge.git
+  revision: 156e89010f3ec9f5492645e2b0cbf4d8fd628555
+  ref: elixir
+  specs:
+    rouge (0.3.8)
+      thor
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -70,8 +78,6 @@ GEM
       rack (>= 1.0)
     rake (10.1.0)
     redcarpet (2.3.0)
-    rouge (0.3.2)
-      thor
     sinatra (1.4.2)
       rack (~> 1.5, >= 1.5.2)
       rack-protection (~> 1.4)
@@ -110,5 +116,5 @@ DEPENDENCIES
   rack-test
   rake
   redcarpet
-  rouge
+  rouge!
   sinatra
