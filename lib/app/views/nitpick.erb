@@ -1,13 +1,6 @@
 <div class="row">
   <div class="span6">
-    <h1>
-      <%= submission.slug %>
-      <small>in <%= submission.language %></small>
-    </h1>
-    <p>
-      by <%= gravatar_tag submission.user.avatar_url, size: 30 %>
-      <%= submission.user.username %>
-    </p>
+    <%= erb :byline, locals: {exercise: submission.exercise, user: submission.user} %>
     <p>submitted <%= ago(submission.at) %>
   </div>
 </div>

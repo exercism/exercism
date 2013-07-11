@@ -1,49 +1,58 @@
-<h1><%= exercise.language %>: <%= exercise.slug %></h1>
+<%= erb :byline, locals: {exercise: exercise, user: user} %>
 
-<% if after.approved? %>
-  <p><strong>Approved</strong> by <%= gravatar_tag after.approver.avatar_url %> <%= after.approver.username %> <%= ago(after.approved_at) %></p>
-<% else %>
-  <p>This exercise is still in progress.</p>
-<% end %>
-
-<div id="code-timeline" class="pagination pagination-centered">
-  <ul>
-    <li><a data-revision="start" class="selected">Start</a></li>
-    <% iterations.each_with_index do |iteration,index| %>
-      <li><a data-revision="<%= index + 1 %>">Rev <%= index + 1 %></a></li>
-    <% end %>
-    <% if after.approved? %>
-      <li><a data-revision="latest" class="selected">Approved</a></li>
-      <li><a data-revision="example">Example</a></li>
-    <% else %>
-      <li><a data-revision="latest" class="selected">Latest</a></li>
-    <% end %>
-  </ul>
-</div>
-
-<div class="row">
-
-  <%= erb :"code/submission", locals: { title: "Start",
-    html: { id: "revision-start" },
-    submission: before } %>
-
-  <% iterations.each_with_index do |iteration,index| %>
-
-    <%= erb :"code/submission", locals: { title: "Revision #{index + 1}",
-      html: { id: "revision-#{index + 1}", style: "display: none;" },
-      submission: iteration } %>
-
+<% if iterations.empty? %>
+  <% if current_user.is?(user.username) %>
+    <p>You have not submitted anything on this assignment yet.</p>
+  <% else %>
+    <p><%= user.username %> has not submitted anything on this assignment yet.</p>
   <% end %>
-
-  <%= erb :"code/submission", locals: { title: after.approved? ? "Approved" : "Latest",
-    html: { id: "revision-latest" },
-    submission: after } %>
+<% else %>
 
   <% if after.approved? %>
-
-    <%= erb :"code/simple", locals: { title: "Example",
-      html: { id: "revision-example", style: "display: none;" },
-      code: Exercism.current_curriculum.in(after.language).assign(after.slug).example,
-      language: after.language } %>
+    <p><strong>Approved</strong> by <%= gravatar_tag after.approver.avatar_url %> <%= after.approver.username %> <%= ago(after.approved_at) %></p>
+  <% else %>
+    <p>This exercise is still in progress.</p>
   <% end %>
-</div>
+
+  <div id="code-timeline" class="pagination pagination-centered">
+    <ul>
+      <li><a data-revision="start" class="selected">Start</a></li>
+      <% iterations.each_with_index do |iteration,index| %>
+        <li><a data-revision="<%= index + 1 %>">Rev <%= index + 1 %></a></li>
+      <% end %>
+      <% if after.approved? %>
+        <li><a data-revision="latest" class="selected">Approved</a></li>
+        <li><a data-revision="example">Example</a></li>
+      <% else %>
+        <li><a data-revision="latest" class="selected">Latest</a></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="row">
+
+    <%= erb :"code/submission", locals: { title: "Start",
+        html: { id: "revision-start" },
+        submission: before } %>
+
+    <% iterations.each_with_index do |iteration,index| %>
+
+      <%= erb :"code/submission", locals: { title: "Revision #{index + 1}",
+          html: { id: "revision-#{index + 1}", style: "display: none;" },
+          submission: iteration } %>
+
+    <% end %>
+
+    <%= erb :"code/submission", locals: { title: after.approved? ? "Approved" : "Latest",
+        html: { id: "revision-latest" },
+        submission: after } %>
+
+    <% if after.approved? %>
+
+      <%= erb :"code/simple", locals: { title: "Example",
+        html: { id: "revision-example", style: "display: none;" },
+        code: Exercism.current_curriculum.in(after.language).assign(after.slug).example,
+        language: after.language } %>
+    <% end %>
+  </div>
+<% end %>

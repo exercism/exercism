@@ -9,7 +9,7 @@ class ApiTest < MiniTest::Unit::TestCase
 
   attr_reader :alice
   def setup
-    @alice = User.create(github_id: 1, current: {'ruby' => 'word-count', 'javascript' => 'anagram'})
+    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'word-count', 'javascript' => 'anagram'})
   end
 
   def teardown
