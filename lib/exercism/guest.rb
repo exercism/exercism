@@ -3,6 +3,10 @@ class Guest
     true
   end
 
+  def is?(username)
+    false
+  end
+
   def new?
     false
   end
