@@ -110,7 +110,7 @@ describe("Meetup", function() {
     expect(meetup.saturteenth()).toEqual(expectedDate);
   });
 
-  xit("sunteenth of map 2013",function() {
+  xit("sunteenth of may 2013",function() {
     var meetup = new Meetup(4,2013);
     var expectedDate = new Date(2013, 4, 19);
     expect(meetup.sunteenth()).toEqual(expectedDate);
