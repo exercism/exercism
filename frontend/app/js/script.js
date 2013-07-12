@@ -1,9 +1,26 @@
 window.exercism = {};
 
+window.exercism.SelectFilter = Backbone.Model.extend({
+  defaults: {
+    user: $(".dropdown-toggle[data-filter=user]").attr("data-selected"),
+    exercise: $(".dropdown-toggle[data-filter=exercise]").attr("data-selected"),
+    language: $(".dropdown-toggle[data-filter=language]").attr("data-selected"),
+    nits: $("input[type=checkbox][data-filter=nits]").attr("data-selected"),
+    arguments: $("input[type=checkbox][data-filter=arguments]").attr("data-selected")
+  },
+
+  setCheck: function (attribute, value) {
+    this.set(attribute, value ? "0" : "All" );
+  }
+});
+
 exercism.filter = function (filter, value) {
-  $('.pending-submission').hide();
-  $('div[data-' + filter + '=' + value + ']').show();
+  $('div[data-' + filter + '][' + 'data-' + filter + '!=' + value + ']').hide();
   $('a#all-' + filter).show();
+};
+
+exercism.showAll = function () {
+  $('.pending-submission').show();
 };
 
 exercism.unfilter = function (filter) {
@@ -13,33 +30,40 @@ exercism.unfilter = function (filter) {
   $('a#all-' + filter).hide();
 };
 
+exercism.filters = function (element, index, list) {
+  if (element === "All") {
+    exercism.unfilter(element);
+  } else {
+    exercism.filter(index, element);
+  }
+};
+
+exercism.renderFilters = function () {
+  exercism.showAll();
+  _.each(exercism.selectFilter.attributes, exercism.filters);
+};
+
 exercism.filterClick = function () {
   var value = $(this).html().trim();
   var target = $(this).attr('data-target');
   var filter = $(target).attr('data-filter');
+  exercism.selectFilter.set(filter, value);
   $(target + '>span').first().html(value);
-  if (value === "All") {
-    exercism.unfilter(filter);
-  } else {
-    exercism.filter(filter, value);
-  }
+  exercism.renderFilters();
 };
 
 exercism.checkClick = function () {
-  if ($(this).is(':checked')) {
     var filter = $(this).attr('data-filter');
-    $('.pending-submission').hide();
-    $('div[data-' + filter + '=0]').show();
-
-  } else {
-    $('.pending-submission').show();
-  }
+    exercism.selectFilter.setCheck(filter, $(this).is(':checked'));
+    exercism.renderFilters();
 };
 
 $(function() {
   $('.dropdown-toggle').dropdown();
   $('a[data-action=set-filter]').click(exercism.filterClick);
   $('input[data-action=set-filter]').click(exercism.checkClick);
+  window.exercism.selectFilter = new exercism.SelectFilter();
+  exercism.renderFilters();
 });
 
 //TODO move all variable declaration to the tops of functions.
