@@ -2,6 +2,7 @@
   <div class="span6">
     <%= erb :byline, locals: {exercise: submission.exercise, user: submission.user} %>
     <p>submitted <%= ago(submission.at) %>
+    <p>&laquo; <a href="/<%= [submission.user.username, submission.language, submission.slug].join('/') %>">Summary</a></p>
   </div>
 </div>
 
