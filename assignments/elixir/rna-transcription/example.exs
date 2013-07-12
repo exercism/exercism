@@ -12,6 +12,6 @@ defmodule DNA do
   end
 
   # T -> U
-  defp transcribe(84), do: 85
+  defp transcribe(?T), do: ?U
   defp transcribe(n),  do: n
 end
