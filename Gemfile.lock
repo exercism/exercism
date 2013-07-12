@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/splattael/rouge.git
-  revision: 1e6fa7fbbb6385dab0cde3b35c725215be44d0b0
+  revision: 8cf0b111a00ffbbb4793ad66fdacb49b4a95bf5b
   ref: elixir
   specs:
     rouge (0.3.8)
