@@ -1,5 +1,7 @@
 module.exports = Trinary;
 
+var BASE = 3;
+
 function Trinary(decimal) {
   this.digits = decimal.split('').reverse().map(Number);
 }
@@ -10,5 +12,5 @@ Trinary.prototype.toDecimal = function() {
 };
 
 Trinary.prototype.accumulator = function(decimal, digit, index) {
-  return decimal += digit * Math.pow(3, index);
+  return decimal += digit * Math.pow(BASE, index);
 };
