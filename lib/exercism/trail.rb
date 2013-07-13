@@ -27,4 +27,10 @@ class Trail
     exercises[exercises.index(exercise)+1] || CompletedExercise.new(language)
   end
 
+  def after(exercise, completed)
+    exercises.find do |ex|
+      !completed.include?(ex.slug)
+    end
+  end
+
 end
