@@ -1,4 +1,6 @@
 class DNA
+  THYMIDINE = 'T'
+  URACIL = 'U'
 
   attr_reader :strand
   def initialize(strand)
@@ -6,7 +8,7 @@ class DNA
   end
 
   def to_rna
-    strand.gsub('T', 'U')
+    strand.tr THYMIDINE, URACIL
   end
-
 end
+
