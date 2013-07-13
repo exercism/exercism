@@ -69,7 +69,7 @@ class User
     trail = options[:on]
     self.completed[exercise.language] ||= []
     self.completed[exercise.language] << exercise.slug
-    self.current[exercise.language] = trail.after(exercise).slug
+    self.current[exercise.language] = trail.successor(exercise).slug
     save
   end
 

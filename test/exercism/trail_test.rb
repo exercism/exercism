@@ -23,7 +23,7 @@ class TrailTest < MiniTest::Unit::TestCase
   end
 
   def test_successive_exercises
-    assert_equal two, trail.after(one)
+    assert_equal two, trail.successor(one)
   end
 
 end
