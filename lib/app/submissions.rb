@@ -4,6 +4,10 @@ class ExercismApp < Sinatra::Base
     def nitpick(id)
       submission = Submission.find(id)
 
+      if current_user.guest?
+        halt 403, "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
+      end
+
       unless current_user.may_nitpick?(submission.exercise)
         halt 403, "You do not have permission to nitpick that exercise."
       end
@@ -22,6 +26,10 @@ class ExercismApp < Sinatra::Base
     end
 
     def approve(id)
+      if current_user.guest?
+        halt 403, "You're not logged in right now, so I can't let you do that. Sorry."
+      end
+
       unless current_user.admin?
         halt 403, "You do not have permission to approve that exercise."
       end
@@ -50,11 +58,17 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/submissions/:id' do |id|
+    if current_user.guest?
+      redirect login_url("/submissions/#{id}")
+    end
+
     submission = Submission.find(id)
+
     unless current_user.may_nitpick?(submission.exercise)
       flash[:error] = "You do not have permission to nitpick that exercise."
       redirect '/'
     end
+
     erb :nitpick, locals: {submission: submission}
   end
 
