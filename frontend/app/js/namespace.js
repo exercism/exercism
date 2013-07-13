@@ -1,0 +1,4 @@
+window.exercism = {
+  views: {},
+  models: {}
+};
