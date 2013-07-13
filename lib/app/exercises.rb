@@ -27,13 +27,13 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    submissions = user.submissions_on(exercise)
+    submissions = user.submissions_on(exercise).reverse
 
     locals = {
       exercise: exercise,
       user: user,
-      before: submissions.last,
-      after: submissions.first,
+      before: submissions.first,
+      after: submissions.last,
       iterations: submissions
     }
     erb :summary, locals: locals
