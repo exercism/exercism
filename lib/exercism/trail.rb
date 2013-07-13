@@ -30,7 +30,7 @@ class Trail
   def after(exercise, completed)
     exercises.find do |ex|
       !completed.include?(ex.slug)
-    end
+    end || CompletedExercise.new(language)
   end
 
 end
