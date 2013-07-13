@@ -45,8 +45,8 @@ class Submission
     self.slug = exercise.slug
   end
 
-  def supercede!
-    self.state = 'superceded' if pending?
+  def supersede!
+    self.state = 'superseded' if pending?
     save
   end
 

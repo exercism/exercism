@@ -13,7 +13,7 @@ class Attempt
 
   def save
     user.submissions_on(exercise).each do |sub|
-      sub.supercede!
+      sub.supersede!
     end
     submission.code = code
     user.submissions << submission

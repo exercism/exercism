@@ -4,15 +4,15 @@ require "mocha/setup"
 
 class SubmissionTest < MiniTest::Unit::TestCase
 
-  def test_supercede_pending_submission
+  def test_supersede_pending_submission
     submission = Submission.new(state: 'pending')
-    submission.supercede!
-    assert_equal 'superceded', submission.reload.state
+    submission.supersede!
+    assert_equal 'superseded', submission.reload.state
   end
 
-  def test_do_not_supercede_approved_submissions
+  def test_do_not_supersede_approved_submissions
     submission = Submission.new(state: 'approved')
-    submission.supercede!
+    submission.supersede!
     assert_equal 'approved', submission.state
   end
 

@@ -58,15 +58,15 @@ class AttemptTest < MiniTest::Unit::TestCase
     assert_equal user, submission.user
   end
 
-  def test_a_new_attempt_supercedes_the_previous_one
+  def test_a_new_attempt_supersedes_the_previous_one
     Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
     Attempt.new(user, 'CODE 2', 'one.fp', curriculum).save
     one, two = user.submissions
-    assert_equal 'superceded', one.reload.state
+    assert_equal 'superseded', one.reload.state
     assert_equal 'pending', two.reload.state
   end
 
-  def test_an_attempt_does_not_supercede_other_languages
+  def test_an_attempt_does_not_supersede_other_languages
     Attempt.new(user, 'CODE', 'one.no', curriculum).save
     Attempt.new(user, 'CODE', 'one.fp', curriculum).save
     one, two = user.submissions
