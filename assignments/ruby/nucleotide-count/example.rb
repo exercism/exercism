@@ -1,27 +1,32 @@
 class DNA
 
-  attr_reader :strand
+  attr_reader :nucleotides
   def initialize(strand)
-    @strand = strand
+    @nucleotides = strand.chars
   end
 
-  def count(nucleotide)
-    unless valid_nucleotide?(nucleotide)
-      raise ArgumentError.new("#{nucleotide} is not a nucleotide.")
-    end
-    strand.scan(nucleotide).count
+  def count(abbreviation)
+    validate!(abbreviation)
+    nucleotides.count(abbreviation)
   end
 
   def nucleotide_counts
-    counts = {}
-    %w(A T C G).each do |letter|
-      counts[letter] = count(letter)
-    end
-    counts
+    {
+      'A' => count('A'),
+      'T' => count('T'),
+      'G' => count('G'),
+      'C' => count('C')
+    }
   end
 
-  def valid_nucleotide?(nucleotide)
-    %w(A T C G U).include?(nucleotide)
+  def validate!(abbreviation)
+    unless nucleotide?(abbreviation)
+      raise ArgumentError.new("#{abbreviation} is not a nucleotide.")
+    end
+  end
+
+  def nucleotide?(abbreviation)
+    %w(A T C G U).include?(abbreviation)
   end
 
 end
