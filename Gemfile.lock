@@ -1,7 +1,7 @@
 GIT
-  remote: https://github.com/splattael/rouge.git
-  revision: 8cf0b111a00ffbbb4793ad66fdacb49b4a95bf5b
-  ref: elixir
+  remote: https://github.com/jayferd/rouge.git
+  revision: 8076772cb0b07a2db22d7cb35f2c90f13fbf5c37
+  ref: master
   specs:
     rouge (0.3.8)
       thor
