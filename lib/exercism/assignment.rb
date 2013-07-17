@@ -28,12 +28,28 @@ class Assignment
     "#{slug}_test.#{locale.test_extension}"
   end
 
+  def test_file_path
+    full_path(test_file)
+  end
+
+  def test_file_exists?
+    File.exists?(test_file_path)
+  end
+
   def example
     @example ||= read(example_file)
   end
 
   def example_file
     "example.#{locale.code_extension}"
+  end
+
+  def example_file_path
+    full_path(example_file)
+  end
+
+  def example_file_exists?
+    File.exists?(example_file_path)
   end
 
   def blurb
@@ -81,7 +97,11 @@ README
   end
 
   def read(file)
-    File.read(File.join(path, file))
+    File.read(full_path(file))
+  end
+
+  def full_path(file)
+    File.join(path, file)
   end
 
 end

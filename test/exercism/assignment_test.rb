@@ -55,5 +55,19 @@ class AssignmentTest < MiniTest::Unit::TestCase
     assert_equal readme, assignment.readme
   end
 
+  def test_validate_test_file
+    piet = Locale.new('piet', 'png', 'png')
+    assignment = Assignment.new(piet, 'one', './test/fixtures')
+    refute assignment.test_file_exists?
+    assert @assignment.test_file_exists?
+  end
+
+  def test_validate_example_file
+    piet = Locale.new('piet', 'png', 'png')
+    assignment = Assignment.new(piet, 'one', './test/fixtures')
+    refute assignment.example_file_exists?
+    assert @assignment.example_file_exists?
+  end
+
 end
 
