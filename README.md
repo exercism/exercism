@@ -117,6 +117,14 @@ Run tests with: `rake test`
 
 Make sure that `mailcatcher` is running.
 
+### Code coverage
+
+To enable code coverage run:
+
+    COVERAGE=1 rake test
+
+Browser the results located in `coverage/index.html`
+
 ## Deployment
 
 Let Heroku know that Lineman will be building our assets. From the command line:
