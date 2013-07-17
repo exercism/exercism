@@ -1,3 +1,4 @@
+Dir.glob("lib/tasks/*.rake").each { |r| import r }
 require 'rake/testtask'
 
 Rake::TestTask.new do |t|
