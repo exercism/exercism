@@ -5,7 +5,7 @@ Exercise = Struct.new(:language, :slug) do
   end
 
   def to_s
-    "#<Exercise #{language}:#{slug}"
+    "#<Exercise #{language}:#{slug}>"
   end
 
 end
