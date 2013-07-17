@@ -23,8 +23,14 @@ class Trail
     exercises.first
   end
 
-  def after(exercise)
+  def successor(exercise)
     exercises[exercises.index(exercise)+1] || CompletedExercise.new(language)
+  end
+
+  def after(exercise, completed)
+    exercises.find do |ex|
+      !completed.include?(ex.slug)
+    end || CompletedExercise.new(language)
   end
 
 end

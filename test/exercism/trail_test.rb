@@ -23,8 +23,17 @@ class TrailTest < MiniTest::Unit::TestCase
   end
 
   def test_successive_exercises
-    assert_equal two, trail.after(one)
+    assert_equal two, trail.successor(one)
   end
 
+  def test_level_up
+    ruby = Locale.new('ruby', 'rb', 'rb')
+    slugs = %w(bob phrase rna garden cake banana)
+    trail = Trail.new(ruby, slugs, '/tmp')
+
+    cake = Exercise.new('ruby', 'cake')
+    exercise = trail.after(cake, %w(bob phrase garden))
+    assert_equal Exercise.new('ruby', 'rna'), exercise
+  end
 end
 

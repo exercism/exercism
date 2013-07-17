@@ -52,15 +52,17 @@ class UserTest < MiniTest::Unit::TestCase
   end
 
   def test_user_completes_an_exercise
-    user = User.new(current: {'nong' => 'one'})
     nong = Locale.new('nong', 'no', 'not')
-    trail = Trail.new(nong, ['one', 'two'], '/tmp')
+    trail = Trail.new(nong, %w(one two three), '/tmp')
+
+    user = User.new(current: {'nong' => 'two'})
 
     one = Exercise.new('nong', 'one')
     two = Exercise.new('nong', 'two')
-    user.complete!(one, on: trail)
-    assert user.completed?(one), 'Expected to have completed nong:one'
-    assert_equal [two], user.current_exercises
+    user.complete!(two, on: trail)
+
+    assert user.completed?(two), 'Expected to have completed nong:two'
+    assert_equal [one], user.current_exercises
   end
 
   def test_admin_may_nitpick_stuff
