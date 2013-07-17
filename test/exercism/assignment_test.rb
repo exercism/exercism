@@ -2,6 +2,7 @@ require './test/test_helper'
 
 require 'yaml'
 require 'exercism/locale'
+require 'exercism/exercise'
 require 'exercism/assignment'
 
 class AssignmentTest < MiniTest::Unit::TestCase

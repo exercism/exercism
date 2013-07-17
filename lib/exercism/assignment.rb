@@ -49,7 +49,7 @@ class Assignment
   end
 
   def instructions
-    @instructions ||= read_shared("#{slug}.md")
+    @instructions ||= read_shared instructions_file
   end
 
   def readme
@@ -69,15 +69,15 @@ README
   private
 
   def data
-    @data ||= YAML.load(data_file)
+    @data ||= YAML.load read_shared data_file
   end
 
   def data_file
-    read_shared("#{slug}.yml")
+    "#{slug}.yml"
   end
 
-  def read_shared(file)
-    File.read(File.join(data_dir, 'shared', file))
+  def instructions_file
+    "#{slug}.md"
   end
 
   def read(file)
@@ -88,4 +88,13 @@ README
     File.join(path, file)
   end
 
+  def read_shared(file)
+    File.read path_to_shared(file)
+  end
+
+  def path_to_shared(file)
+    File.join(data_dir, 'shared', file)
+  end
+
 end
+
