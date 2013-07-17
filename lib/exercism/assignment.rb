@@ -81,7 +81,11 @@ README
   end
 
   def read(file)
-    File.read(File.join(path, file))
+    File.read path_to(file)
+  end
+
+  def path_to(file)
+    File.join(path, file)
   end
 
 end
