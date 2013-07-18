@@ -2,9 +2,11 @@ $(function() {
   $('.dropdown-toggle').dropdown();
   exercism.models.selectFilter = new exercism.models.SelectFilter();
   exercism.views.selectFilter = new exercism.views.SelectFilter({ model: exercism.models.selectFilter });
-
   exercism.routers.application = new exercism.routers.Application();
   Backbone.history.start();
+  exercism.views.toggleNotifications = new exercism.views.ToggleNotifications({
+    el: $("#notifications")[0]
+  });
 });
 
 //TODO move all variable declaration to the tops of functions.
