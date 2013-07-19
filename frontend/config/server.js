@@ -14,8 +14,22 @@
 
 module.exports = {
   drawRoutes: function(app) {
-    // app.get('/api/greeting/:message', function(req, res){
-    //   res.json({ message: "OK, "+req.params.message });
-    // });
+    // notifications require user to be logged in
+    // or be using a cli with a valid key
+
+    // get all
+    app.get('/api/v1/notifications', function(req, res){
+      res.json({ message: "OK, "+req.params.message });
+    });
+
+    // mark a notification as read
+    app.put('/api/v1/notifications/:id', function(req, res){
+      res.json({ message: "OK, "+req.params.message });
+    });
+
+    // delete notification
+    app.delete('/api/v1/notifications/:id', function(req, res){
+      res.json({ message: "OK, "+req.params.message });
+    });
   }
 };
