@@ -8,12 +8,12 @@ class WordProblem
     if too_complicated?
       raise ArgumentError.new("I don't understand the question")
     end
+
     unless @answer
       @answer = n1.send(operation, n2)
-      if chain?
-        @answer = @answer.send(operation2, n3)
-      end
+      @answer = @answer.send(operation2, n3) if chain?
     end
+
     @answer
   end
 
