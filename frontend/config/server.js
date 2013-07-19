@@ -19,7 +19,18 @@ module.exports = {
 
     // get all
     app.get('/api/v1/notifications', function(req, res){
-      res.json({ message: "OK, "+req.params.message });
+      res.json([
+        {
+          "_id" : "51dcb40d4a31e7a3cb000011",
+          subject: "New comment",
+          body: "stuff and things"
+        },
+        {
+          "_id" : "51dcb40d4a31e7a3cb000012",
+          subject: "New reply",
+          body: "stuff and things"
+        },
+      ]);
     });
 
     // mark a notification as read
