@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require_relative 'word_problem'
+require_relative 'example'
 
 class WordProblemTest < MiniTest::Unit::TestCase
   def test_add_1
@@ -14,7 +14,7 @@ class WordProblemTest < MiniTest::Unit::TestCase
 
   def test_add_negative_numbers
     skip
-    assert_equal -11, @calculator.ask('What is -1 plus -10?')
+    assert_equal(-11, WordProblem.new('What is -1 plus -10?').answer)
   end
 
   def test_add_more_digits
@@ -29,12 +29,12 @@ class WordProblemTest < MiniTest::Unit::TestCase
 
   def test_multiply
     skip
-    assert_equal -75, WordProblem.new('What is -3 multiplied by 25?').answer
+    assert_equal(-75, WordProblem.new('What is -3 multiplied by 25?').answer)
   end
 
   def test_divide
     skip
-    assert_equal -11, WordProblem.new('What is 33 divided by -3?').answer
+    assert_equal(-11, WordProblem.new('What is 33 divided by -3?').answer)
   end
 
   def test_add_twice
@@ -64,13 +64,13 @@ class WordProblemTest < MiniTest::Unit::TestCase
   def test_multiply_twice
     skip
     question = 'What is 2 multiplied by -2 multiplied by 3?'
-    assert_equal -12, WordProblem.new(question).answer
+    assert_equal(-12, WordProblem.new(question).answer)
   end
 
   def test_add_then_multiply
     skip
     question = 'What is -3 plus 7 multiplied by -2?'
-    assert_equal -8, WordProblem.new(question).answer
+    assert_equal(-8, WordProblem.new(question).answer)
   end
 
   def test_divide_twice
