@@ -9,7 +9,7 @@ gem 'petroglyph'
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'redcarpet'
-gem 'rouge', git: 'https://github.com/jayferd/rouge.git', ref: 'master'
+gem 'rouge'
 gem 'sinatra', require: 'sinatra/base'
 gem 'pony'
 gem 'pry', require: false
