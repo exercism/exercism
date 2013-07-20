@@ -10,8 +10,8 @@ class WordProblem
     end
 
     unless @answer
-      @answer = n1.send(operation, n2)
-      @answer = @answer.send(operation2, n3) if chain?
+      @answer = n1.send(operation(2), n2)
+      @answer = @answer.send(operation(5), n3) if chain?
     end
 
     @answer
@@ -32,17 +32,8 @@ class WordProblem
     /What is (-?\d+) #{operations} (-?\d+)( #{operations} (-?\d+))?\?/
   end
 
-  def operation
-    case matches[2]
-    when 'plus' then :+
-    when 'minus' then :-
-    when 'multiplied by' then :*
-    when 'divided by' then :/
-    end
-  end
-
-  def operation2
-    case matches[5]
+  def operation index
+    case matches[index]
     when 'plus' then :+
     when 'minus' then :-
     when 'multiplied by' then :*
