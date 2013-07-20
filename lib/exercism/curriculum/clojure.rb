@@ -3,6 +3,7 @@ class Exercism
     def slugs
       %w(
         bob word-count anagram beer-song nucleotide-count rna-transcription
+        point-mutations
         robot-name leap triangle scrabble-score
         crypto-square kindergarden-garden robot-simulator queen-attack
       )
