@@ -6,7 +6,6 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
   template: JST["app/templates/toggle_notifications.us"],
 
   initialize: function() {
-    _.bindAll(this);
     this.listNotifications = new exercism.views.ListNotifications({
       collection: this.collection,
       el: $("#list-notifications")
