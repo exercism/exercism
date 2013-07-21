@@ -1,2 +1,3 @@
-<div class="notification-subject"><%= subject %></div>
-<div class="notification-body"><%= body %></div>
+<div class="notification message unread-<%= unread %>">
+  New <a href="<%= link %>"><%= type %></a> from <%= from %>.
+</div>

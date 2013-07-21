@@ -1,5 +1,5 @@
 exercism.views.ListNotifications = Backbone.View.extend({
-  template: JST["app/templates/notifications.us"],
+  template: JST["app/templates/list_notifications.us"],
 
   id: "list-notifications",
 

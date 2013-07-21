@@ -21,14 +21,25 @@ module.exports = {
     app.get('/api/v1/notifications', function(req, res){
       res.json([
         {
-          "_id" : "51dcb40d4a31e7a3cb000011",
-          subject: "New comment",
-          body: "stuff and things"
+          "_id" : "51dcb40d4a31e7a3cb000010",
+          type: "argument",
+          unread: true,
+          link: "http://localhost:8000/submissions/51dcb40d4a31e7a3cb000011",
+          from: "Bob",
+        },
+        {
+          "_id" : "51dcb40d4a31e7a3cb000031",
+          type: "nitpick",
+          unread: true,
+          link: "http://localhost:8000/submissions/51dcb40d4a31e7a3cb00000f",
+          from: "Alice",
         },
         {
           "_id" : "51dcb40d4a31e7a3cb000012",
-          subject: "New reply",
-          body: "stuff and things"
+          type: "argument",
+          unread: false,
+          link:  "http://localhost:8000/submissions/51dcb40d4a31e7a3cb00000f",
+          from: "Bob"
         },
       ]);
     });
