@@ -28,7 +28,7 @@ class Approval
     submission.state = 'approved'
     submission.approved_at = Time.now.utc
     submission.approver = approver
-    if comment
+    if comment && !comment.empty?
       submission.nits << Nit.new(user: approver, comment: comment)
     end
     submission.user.complete! exercise, on: trail

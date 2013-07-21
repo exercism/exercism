@@ -51,6 +51,12 @@ class ApprovalTest < MiniTest::Unit::TestCase
     assert_equal 'very nice', submission.nits.first.comment
   end
 
+  def test_approve_submission_with_empty_comment_leaves_comment_off
+    Approval.new(submission.id, admin, '', curriculum).save
+    submission.reload
+    assert_equal [], submission.nits
+  end
+
   def test_approve_submission_sets_completed_assignments
     Approval.new(submission.id, admin, nil, curriculum).save
     user.reload
