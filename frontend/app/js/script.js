@@ -8,7 +8,7 @@ $(function() {
     model: notification
   });
   exercism.views.toggleNotifications = new exercism.views.ToggleNotifications({
-    el: $("#notifications")[0]
+    el: $("#notifications")
   });
   Backbone.history.start();
 });

@@ -5,7 +5,9 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
 
   initialize: function() {
     _.bindAll(this);
-    this.listNotifications = new exercism.views.ListNotifications();
+    this.listNotifications = new exercism.views.ListNotifications({
+      collection: exercism.collections.notificationsList
+    });
   },
 
   // TODO update notification badge

@@ -1,0 +1,2 @@
+<div class="notification-subject"><%= subject %></div>
+<div class="notification-body"><%= body %></div>
