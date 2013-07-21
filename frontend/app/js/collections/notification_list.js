@@ -8,15 +8,13 @@ window.exercism.collections.NotificationList = Backbone.Collection.extend({
   updateUnread: function() {
     var oldUnread = this.unread || 0;
     this.unread = this.countUnread();
-    if (this.unread > oldUnread) {
-      this.trigger("notification:new");
-    } else if (this.unread < oldUnread) {
-      this.trigger("notification:read");
+    if (this.unread !== oldUnread) {
+      this.trigger("notification");
     }
     return this;
   },
 
-  countUnread: function(){
+  countUnread: function() {
     return this.reduce(function(memo, model) {
       if (model.attributes.unread) {
         return memo + 1;
@@ -24,5 +22,13 @@ window.exercism.collections.NotificationList = Backbone.Collection.extend({
         return memo + 0;
       }
     }, 0);
+  },
+
+  hasUnread: function() {
+    if (this.countUnread() > 0) {
+      return true;
+    } else {
+      return false;
+    }
   },
 });

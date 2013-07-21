@@ -1,1 +1,1 @@
-<button class="btn"><span id="count-notifications"></span> notifications</button>
+<button class="btn <%= style %>"><span id="count-notifications"></span> notifications</button>
