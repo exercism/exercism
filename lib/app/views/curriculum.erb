@@ -1,0 +1,18 @@
+<h1>Curriculum</h1>
+
+<ul class="nav nav-tabs">
+  <% languages.each do |language| %>
+    <% css_class = (language == trail.locale.language.to_sym ? 'active' : '') %>
+    <li class="<%= css_class %>">
+      <a href="/curriculum/<%= language %>"><%= language %></a>
+    </li>
+  <% end %>
+</ul>
+
+<h2>Exercises</h2>
+
+<ol>
+<% trail.exercises.each do |exercise| %>
+  <li><%= exercise.slug %></li>
+<% end %>
+</ol>
