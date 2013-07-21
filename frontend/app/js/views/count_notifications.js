@@ -4,7 +4,6 @@ exercism.views.CountNotifications = Backbone.View.extend({
   tag: "span",
 
   initialize: function() {
-    console.log("am I real")
     this.listenTo(this.collection, "add", this.render);
   },
 

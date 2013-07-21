@@ -8,8 +8,10 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
   initialize: function() {
     _.bindAll(this);
     this.listNotifications = new exercism.views.ListNotifications({
-      collection: this.collection
-    });
+      collection: this.collection,
+      el: $("#list-notifications")
+    }).render();
+    this.toggle();
     this.countNotifications = new exercism.views.CountNotifications({
       collection: this.collection
     });
@@ -22,7 +24,6 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
   render: function() {
     this.$el.html(this.template());
     this.countNotifications.setElement(this.$('#count-notifications')).render();
-    this.listNotifications.setElement(this.$('#list-notifications')).render();
     return this;
   }
 });
