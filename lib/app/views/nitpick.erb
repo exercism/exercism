@@ -1,7 +1,14 @@
 <div class="row">
   <div class="span6">
     <%= erb :byline, locals: {exercise: submission.exercise, user: submission.user} %>
-    <p>submitted <%= ago(submission.at) %>
+    <p>Submitted <%= ago(submission.at) %>
+
+    <% if submission.approved? %>
+      <p>
+        Approved by <%= gravatar_tag submission.approver.avatar_url, size: 30 %>
+        <%= submission.approver.username %>
+      </p>
+    <% end %>
     <p>&laquo; <a href="/<%= [submission.user.username, submission.language, submission.slug].join('/') %>">Summary</a></p>
   </div>
 </div>
