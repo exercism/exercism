@@ -4,12 +4,11 @@ exercism.views.ListNotifications = Backbone.View.extend({
   id: "list-notifications",
 
   initialize: function(options) {
-    // this.listenTo(this.collection, 'add', this.addOne);
+    this.listenTo(this.collection, 'add', this.addOne);
   },
 
   render: function() {
     this.$el.html(this.template());
-    this.addAll();
     return this;
   },
 

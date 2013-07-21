@@ -3,13 +3,16 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
     "click": "toggle"
   },
 
+  template: JST["app/templates/toggle_notifications.us"],
+
   initialize: function() {
     _.bindAll(this);
-    this.listenTo(this.collection, "add", this.render);
     this.listNotifications = new exercism.views.ListNotifications({
       collection: this.collection
     });
-    this.collection.fetch();
+    this.countNotifications = new exercism.views.CountNotifications({
+      collection: this.collection
+    });
   },
 
   toggle: function() {
@@ -17,9 +20,8 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
   },
 
   render: function() {
-    var size = this.collection.size();
-    this.$el.html(size + ' notifications');
-    this.$el.append(this.listNotifications.el);
+    this.$el.html(this.template());
+    this.countNotifications.setElement(this.$('#count-notifications')).render();
     this.listNotifications.setElement(this.$('#list-notifications')).render();
     return this;
   }

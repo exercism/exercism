@@ -12,10 +12,12 @@ $(function() {
   });
   exercism.views.countNotifications = new exercism.views.CountNotifications({
   exercism.views.toggleNotifications = new exercism.views.ToggleNotifications({
-    el: $("#notifications"),
+    el: $("#toggle-notifications"),
     collection: notificationList
   });
   Backbone.history.start();
+  exercism.views.toggleNotifications.render();
+  notificationList.fetch();
 });
 
 //TODO move all variable declaration to the tops of functions.
