@@ -1,4 +1,4 @@
-exercism.views.ToggleNotifications = Backbone.View.extend({
+exercism.views.CountNotifications = Backbone.View.extend({
   events: {
     "click": "render"
   },

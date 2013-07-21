@@ -7,7 +7,7 @@ $(function() {
   exercism.collections.notificationsList = new exercism.collections.NotificationList({
     model: notification
   });
-  exercism.views.toggleNotifications = new exercism.views.ToggleNotifications({
+  exercism.views.countNotifications = new exercism.views.CountNotifications({
     el: $("#notifications")
   });
   Backbone.history.start();
