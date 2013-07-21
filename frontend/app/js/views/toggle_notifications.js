@@ -1,4 +1,4 @@
-exercism.views.CountNotifications = Backbone.View.extend({
+exercism.views.ToggleNotifications = Backbone.View.extend({
   events: {
     "click": "toggle"
   },
@@ -9,12 +9,10 @@ exercism.views.CountNotifications = Backbone.View.extend({
     this.listNotifications = new exercism.views.ListNotifications({
       collection: this.collection
     });
-    this.$el.append(this.listNotifications.el);
-    this.toggle();
+    this.collection.fetch();
   },
 
   toggle: function() {
-    console.log("count-toggle");
     this.listNotifications.toggle();
   },
 

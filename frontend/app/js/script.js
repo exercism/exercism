@@ -11,6 +11,7 @@ $(function() {
     model: notification
   });
   exercism.views.countNotifications = new exercism.views.CountNotifications({
+  exercism.views.toggleNotifications = new exercism.views.ToggleNotifications({
     el: $("#notifications"),
     collection: notificationList
   });

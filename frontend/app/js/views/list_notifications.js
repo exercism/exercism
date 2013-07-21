@@ -4,8 +4,7 @@ exercism.views.ListNotifications = Backbone.View.extend({
   id: "list-notifications",
 
   initialize: function(options) {
-    this.listenTo(this.collection, 'add', this.addOne);
-    this.collection.fetch();
+    // this.listenTo(this.collection, 'add', this.addOne);
   },
 
   render: function() {
@@ -15,6 +14,7 @@ exercism.views.ListNotifications = Backbone.View.extend({
   },
 
   toggle: function() {
+    console.log("toggle");
     this.$el.toggle();
   },
 
