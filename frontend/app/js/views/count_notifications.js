@@ -1,19 +1,28 @@
 exercism.views.CountNotifications = Backbone.View.extend({
   events: {
-    "click": "render"
+    "click": "toggle"
   },
 
   initialize: function() {
     _.bindAll(this);
+    this.listenTo(this.collection, "add", this.render);
     this.listNotifications = new exercism.views.ListNotifications({
-      collection: exercism.collections.notificationsList
+      collection: this.collection
     });
+    this.$el.append(this.listNotifications.el);
+    this.toggle();
   },
 
-  // TODO update notification badge
+  toggle: function() {
+    console.log("count-toggle");
+    this.listNotifications.toggle();
+  },
 
   render: function() {
-    this.$el.append(this.listNotifications.render().el);
+    var size = this.collection.size();
+    this.$el.html(size + ' notifications');
+    this.$el.append(this.listNotifications.el);
+    this.listNotifications.setElement(this.$('#list-notifications')).render();
     return this;
   }
 });

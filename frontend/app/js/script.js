@@ -1,6 +1,9 @@
 $(function() {
+  var notification = new exercism.models.Notification(),
+      notificationList = new exercism.collections.NotificationList({
+    model: notification
+  });
   $('.dropdown-toggle').dropdown();
-  var notification = new exercism.models.Notification()
   exercism.models.selectFilter = new exercism.models.SelectFilter();
   exercism.views.selectFilter = new exercism.views.SelectFilter({ model: exercism.models.selectFilter });
   exercism.routers.application = new exercism.routers.Application();
@@ -8,7 +11,8 @@ $(function() {
     model: notification
   });
   exercism.views.countNotifications = new exercism.views.CountNotifications({
-    el: $("#notifications")
+    el: $("#notifications"),
+    collection: notificationList
   });
   Backbone.history.start();
 });
