@@ -21,21 +21,21 @@ module.exports = {
     app.get('/api/v1/notifications', function(req, res){
       res.json([
         {
-          "_id" : "51dcb40d4a31e7a3cb000010",
+          id : "51dcb40d4a31e7a3cb000010",
           type: "argument",
           unread: true,
           link: "http://localhost:8000/submissions/51dcb40d4a31e7a3cb000011",
           from: "Bob",
         },
         {
-          "_id" : "51dcb40d4a31e7a3cb000031",
+          id : "51dcb40d4a31e7a3cb000031",
           type: "nitpick",
           unread: true,
           link: "http://localhost:8000/submissions/51dcb40d4a31e7a3cb00000f",
           from: "Alice",
         },
         {
-          "_id" : "51dcb40d4a31e7a3cb000012",
+          id : "51dcb40d4a31e7a3cb000012",
           type: "argument",
           unread: false,
           link:  "http://localhost:8000/submissions/51dcb40d4a31e7a3cb00000f",
@@ -46,12 +46,12 @@ module.exports = {
 
     // mark a notification as read
     app.put('/api/v1/notifications/:id', function(req, res){
-      res.json({ message: "OK, "+req.params.message });
+      res.json({ message: "OK, "+req.params });
     });
 
     // delete notification
     app.delete('/api/v1/notifications/:id', function(req, res){
-      res.json({ message: "OK, "+req.params.message });
+      res.json({ message: "OK, "+req.params });
     });
   }
 };
