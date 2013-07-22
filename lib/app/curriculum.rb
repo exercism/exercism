@@ -5,9 +5,8 @@ class ExercismApp < Sinatra::Base
       map = %q{
         function() {
           var nits = this.nits || [],
-              summary = { nits: nits.length, pending: 0, superseded: 0, approved: 0 },
-              state = this.state;
-          if (typeof(state) === 'undefined') { state = 'pending'; }
+              state = this.state || 'pending',
+              summary = { nits: nits.length, pending: 0, superseded: 0, approved: 0 };
           summary[state] = 1;
           emit(this.s, summary);
         }
