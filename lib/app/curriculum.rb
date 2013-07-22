@@ -4,9 +4,9 @@ class ExercismApp < Sinatra::Base
     def progress(language)
       map = %q{
         function() {
-          var summary = { nits: this.nits.length, pending: 0, superseded: 0, approved: 0 },
-              state = this.state;
-          if (typeof(state) === 'undefined') { state = 'pending'; }
+          var nits = this.nits || [],
+              state = this.state || 'pending',
+              summary = { nits: nits.length, pending: 0, superseded: 0, approved: 0 };
           summary[state] = 1;
           emit(this.s, summary);
         }
