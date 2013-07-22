@@ -2,9 +2,10 @@ class Exercism
   class ClojureCurriculum
     def slugs
       %w(
-        bob word-count anagram beer-song nucleotide-count rna-transcription
-        point-mutations phone-number grade-school
-        robot-name leap triangle scrabble-score
+        bob rna-transcription word-count anagram beer-song
+        nucleotide-count point-mutations phone-number
+        grade-school robot-name leap etl
+        triangle scrabble-score
         crypto-square kindergarden-garden robot-simulator queen-attack
       )
     end
