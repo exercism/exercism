@@ -6,8 +6,8 @@ class DNA
   end
 
   def hamming_distance(other_strand)
-    strand.chars.zip(other_strand.chars).reject do |a, b|
-      a == b || b.nil?
-    end.size
+    strand.chars.zip(other_strand.chars).count do |a, b|
+      b && a != b
+    end
   end
 end
