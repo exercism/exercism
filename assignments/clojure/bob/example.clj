@@ -1,12 +1,13 @@
-(ns bob)
+(ns bob
+  (require [clojure.string :as str]))
 
-(def question  (partial re-matcher #"\?$"))
-(def statement (partial re-matcher #"\.$"))
+(defn- silence?  [msg] (= msg ""))
+(defn- shouting? [msg] (= msg (str/upper-case msg)))
+(defn- question? [msg] (= \? (last msg)))
 
 (defn response-for [input]
   (cond
-    (= input "")                   "Fine, be that way."
-    (= input (.toUpperCase input)) "Woah, chill out!"
-    (re-find (question input))     "Sure."
-    (re-find (statement input))    "Whatever."
-  ))
+    (silence?  input) "Fine, be that way."
+    (shouting? input) "Woah, chill out!"
+    (question? input) "Sure."
+    :else             "Whatever."))
