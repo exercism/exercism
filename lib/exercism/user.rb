@@ -40,14 +40,6 @@ class User
     end.flatten
   end
 
-  def latest_submission_on(exercise)
-    submissions_on(exercise).first
-  end
-
-  def first_submission_on(exercise)
-    submissions_on(exercise).last
-  end
-
   def submissions_on(exercise)
     submissions.order_by(at: :desc).where(language: exercise.language, slug: exercise.slug)
   end
@@ -124,6 +116,14 @@ class User
   end
 
   private
+
+  def latest_submission_on(exercise)
+    submissions_on(exercise).first
+  end
+
+  def first_submission_on(exercise)
+    submissions_on(exercise).last
+  end
 
   def create_key
     Digest::SHA1.hexdigest(secret)
