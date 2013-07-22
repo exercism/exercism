@@ -26,6 +26,10 @@ module.exports = {
           unread: true,
           link: "http://localhost:8000/submissions/51dcb40d4a31e7a3cb000011",
           from: "Bob",
+          // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+          // Of our options, the Unix date string seems the most sane.
+          date: 1374453860654,
+          humanReadableDate: "10 minutes ago",
         },
         {
           id : "51dcb40d4a31e7a3cb000031",
@@ -33,13 +37,17 @@ module.exports = {
           unread: true,
           link: "http://localhost:8000/submissions/51dcb40d4a31e7a3cb00000f",
           from: "Alice",
+          date: 1374453865190,
+          humanReadableDate: "about 12 hours ago",
         },
         {
           id : "51dcb40d4a31e7a3cb000012",
           type: "argument",
           unread: false,
           link:  "http://localhost:8000/submissions/51dcb40d4a31e7a3cb00000f",
-          from: "Bob"
+          from: "Bob",
+          date: 1374453866182,
+          humanReadableDate: "about a day ago"
         },
       ]);
     });
