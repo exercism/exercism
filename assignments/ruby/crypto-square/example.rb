@@ -20,7 +20,7 @@ class Crypto
     plaintext_segments.map do |segment|
       # There has to be a better way to make sure that
       # the last segment is as long as the others!
-      segment.split('').fill("", segment.length..size-1)
+      segment.split('').fill('', segment.length...size)
     end.transpose.flatten.join
   end
 
