@@ -10,7 +10,6 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
       collection: this.collection,
       el: $("#list-notifications")
     }).render();
-    this.toggle();
     this.countNotifications = new exercism.views.CountNotifications({
       collection: this.collection
     });
@@ -29,7 +28,7 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
 
   buttonStyle: function() {
     if (this.collection.hasUnread()) {
-      return " btn-warning";
+      return " new";
     } else {
       return "";
     }

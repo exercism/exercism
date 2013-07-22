@@ -14,7 +14,8 @@ exercism.views.ListNotifications = Backbone.View.extend({
 
   toggle: function() {
     console.log("toggle");
-    this.$el.toggle();
+    this.$el.toggleClass("reveal-notifications");
+    $("body").toggleClass("reveal-notifications");
   },
 
   addAll: function() {
