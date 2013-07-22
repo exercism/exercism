@@ -11,8 +11,26 @@
 
 <h2>Exercises</h2>
 
-<ol>
-<% trail.exercises.each do |exercise| %>
-  <li><%= exercise.slug %></li>
-<% end %>
-</ol>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Pending Submissions</th>
+      <th>Superseded Submissions</th>
+      <th>Approved Submissions</th>
+      <th>Nitpicks</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% trail.exercises.each do |exercise| %>
+    <% summary = progress[exercise.slug.to_s] || {} %>
+    <tr>
+      <td><%= exercise.slug %></td>
+      <td><%= quantify summary['pending'] %></td>
+      <td><%= quantify summary['superseded'] %></td>
+      <td><%= quantify summary['approved'] %></td>
+      <td><%= quantify summary['nits'] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
