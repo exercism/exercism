@@ -69,10 +69,6 @@ class User
     completed_exercises.any? {|_, exercises| exercises.include?(exercise) }
   end
 
-  def submitted?(exercise)
-    submissions_on(exercise).count > 0
-  end
-
   def completed_exercises
     unless @completed_exercises
       @completed_exercises = {}
@@ -119,10 +115,6 @@ class User
 
   def latest_submission_on(exercise)
     submissions_on(exercise).first
-  end
-
-  def first_submission_on(exercise)
-    submissions_on(exercise).last
   end
 
   def create_key
