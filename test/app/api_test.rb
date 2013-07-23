@@ -49,21 +49,4 @@ class ApiTest < MiniTest::Unit::TestCase
     assert_equal 200, last_response.status
   end
 
-  def test_submit_comment_on_nit
-    bob = User.create(github_id: 2)
-
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
-    submission = Submission.first
-    nit = Nit.new(user: bob, comment: "ok")
-    submission.nits << nit
-    submission.save
-
-    url = "/submissions/#{submission.id}/nits/#{nit.id}/argue"
-    post url, {comment: "idk"}, {'rack.session' => {github_id: 2}}
-
-    nit = submission.reload.nits.find_by(id: nit.id)
-    text = nit.comments.first.body
-    assert_equal 'idk', text
-  end
-
 end
