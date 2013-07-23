@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'phrase'
 
 class PhraseTest < MiniTest::Unit::TestCase
@@ -45,4 +44,3 @@ class PhraseTest < MiniTest::Unit::TestCase
     assert_equal counts, phrase.word_count
   end
 end
-

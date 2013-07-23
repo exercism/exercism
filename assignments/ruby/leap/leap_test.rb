@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'year'
 
 class YearTest < MiniTest::Unit::TestCase
@@ -63,4 +62,3 @@ class FixnumTest < MiniTest::Unit::TestCase
   end
 
 end
-

@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'phone'
 
 class PhoneTest < MiniTest::Unit::TestCase
@@ -52,4 +51,3 @@ class PhoneTest < MiniTest::Unit::TestCase
   end
 
 end
-

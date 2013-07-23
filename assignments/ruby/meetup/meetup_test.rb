@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require 'date'
 require_relative 'meetup'
 
@@ -460,4 +459,3 @@ class MeetupTest < MiniTest::Unit::TestCase
   end
 
 end
-

@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 
 begin
   require_relative 'bob'

@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'simulator'
 
 class RobotTurningTest < MiniTest::Unit::TestCase
@@ -184,4 +183,3 @@ class RobotSimulatorTest < MiniTest::Unit::TestCase
     assert_equal :north, robot3.bearing
   end
 end
-

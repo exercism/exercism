@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'luhn'
 
 class LuhnTest < MiniTest::Unit::TestCase
@@ -58,4 +57,3 @@ class LuhnTest < MiniTest::Unit::TestCase
   end
 
 end
-

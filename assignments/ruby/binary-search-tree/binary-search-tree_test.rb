@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'bst'
 
 class BstTest < MiniTest::Unit::TestCase

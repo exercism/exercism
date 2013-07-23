@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'triangle'
 
 class TriangeTest < MiniTest::Unit::TestCase
@@ -88,4 +87,3 @@ class TriangeTest < MiniTest::Unit::TestCase
   end
 
 end
-

@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'triangle'
 
 class TriangleTest < MiniTest::Unit::TestCase
@@ -40,4 +39,3 @@ class TriangleTest < MiniTest::Unit::TestCase
     assert_equal expected, triangle.rows.last
   end
 end
-

@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'anagram'
 
 class AnagramTest < MiniTest::Unit::TestCase
@@ -43,4 +42,3 @@ class AnagramTest < MiniTest::Unit::TestCase
     assert_equal ['gallery', 'regally', 'largely'], anagrams
   end
 end
-

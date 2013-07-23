@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'triplet'
 
 class TripletTest < MiniTest::Unit::TestCase
@@ -43,4 +42,3 @@ class TripletTest < MiniTest::Unit::TestCase
     assert_equal [118080, 168480, 202500], products
   end
 end
-

@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require 'date'
 require 'time'
 require_relative 'gigasecond'

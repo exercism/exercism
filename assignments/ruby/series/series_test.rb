@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'series'
 
 class SeriesTest < MiniTest::Unit::TestCase
@@ -118,4 +117,3 @@ class SeriesTest < MiniTest::Unit::TestCase
     end
   end
 end
-

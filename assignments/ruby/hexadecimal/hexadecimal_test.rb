@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'hexadecimal'
 
 class HexadecimalTest < MiniTest::Unit::TestCase

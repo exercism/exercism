@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'school'
 
 class SchoolTest < MiniTest::Unit::TestCase
@@ -64,4 +63,3 @@ class SchoolTest < MiniTest::Unit::TestCase
     assert_equal sorted, school.sort
   end
 end
-

@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'beer'
 
 class BeerTest < MiniTest::Unit::TestCase
@@ -44,4 +43,3 @@ class BeerTest < MiniTest::Unit::TestCase
     assert_equal expected, beer.sing(3)
   end
 end
-

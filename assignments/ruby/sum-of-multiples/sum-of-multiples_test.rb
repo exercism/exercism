@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'sum'
 
 class SumTest < MiniTest::Unit::TestCase

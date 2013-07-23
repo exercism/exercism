@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'ocr'
 
 class OCRTest < MiniTest::Unit::TestCase

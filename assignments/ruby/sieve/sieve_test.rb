@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'sieve'
 
 class SieveTest < MiniTest::Unit::TestCase
@@ -15,4 +14,3 @@ class SieveTest < MiniTest::Unit::TestCase
   end
 
 end
-

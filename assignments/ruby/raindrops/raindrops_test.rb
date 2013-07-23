@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'raindrops'
 
 class RaindropsTest < MiniTest::Unit::TestCase
@@ -77,4 +76,3 @@ class RaindropsTest < MiniTest::Unit::TestCase
   end
 
 end
-

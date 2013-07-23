@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'garden'
 
 class GardenTest < MiniTest::Unit::TestCase
@@ -134,4 +133,3 @@ class SurpriseTest < MiniTest::Unit::TestCase
   end
 
 end
-

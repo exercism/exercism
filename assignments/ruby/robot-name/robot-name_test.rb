@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'robot'
 
 class RobotTest < MiniTest::Unit::TestCase
@@ -29,4 +28,3 @@ class RobotTest < MiniTest::Unit::TestCase
     assert_match /\w{2}\d{3}/, name2
   end
 end
-

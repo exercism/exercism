@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'secret_handshake'
 
 class SecretHandshakeTest < MiniTest::Unit::TestCase

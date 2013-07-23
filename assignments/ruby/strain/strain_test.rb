@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'array'
 
 class ArrayTest < MiniTest::Unit::TestCase
@@ -88,4 +87,3 @@ class ArrayTest < MiniTest::Unit::TestCase
   end
 
 end
-

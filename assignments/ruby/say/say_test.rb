@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'say'
 
 class SayTest < MiniTest::Unit::TestCase
@@ -97,4 +96,3 @@ class SayTest < MiniTest::Unit::TestCase
     end
   end
 end
-

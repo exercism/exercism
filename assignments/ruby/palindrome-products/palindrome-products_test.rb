@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'palindromes'
 
 class PalindromesTest < MiniTest::Unit::TestCase

@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-require 'minitest/pride'
 require_relative 'space_age'
 
 class SpaceAgeTest < MiniTest::Unit::TestCase
