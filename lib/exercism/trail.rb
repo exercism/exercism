@@ -23,6 +23,10 @@ class Trail
     exercises.first
   end
 
+  def first_assignment
+    assign(first.slug)
+  end
+
   def successor(exercise)
     exercises[exercises.index(exercise)+1] || CompletedExercise.new(language)
   end

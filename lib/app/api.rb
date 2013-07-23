@@ -1,5 +1,12 @@
 class ExercismApp < Sinatra::Base
 
+  get '/api/v1/assignments/demo' do
+    assignments = Exercism.trails.map do |trail|
+      trail.first_assignment
+    end
+    pg :assignments, locals: {assignments: assignments}
+  end
+
   get '/api/v1/user/assignments/current' do
     unless params[:key]
       halt 401, {error: "Please provide API key"}.to_json

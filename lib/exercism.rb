@@ -45,4 +45,8 @@ class Exercism
     @curriculum
   end
 
+  def self.trails
+    @trails ||= current_curriculum.trails.values
+  end
+
 end

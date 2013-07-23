@@ -49,4 +49,12 @@ class ApiTest < MiniTest::Unit::TestCase
     assert_equal 200, last_response.status
   end
 
+  def test_fetch_demo
+    get '/api/v1/assignments/demo'
+    assert_equal 200, last_response.status
+
+    options = {format: :json, :name => 'api_demo'}
+    Approvals.verify(last_response.body, options)
+  end
+
 end
