@@ -61,6 +61,7 @@ $(function() {
     var $this = $(this);
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
+
   $('.work-slug').popover({
     trigger: 'hover',
     placement: 'right',

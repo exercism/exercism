@@ -76,10 +76,32 @@
         </ul>
       <% end %>
 
-      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nits/<%= nit.id %>/argue" method="POST">
-        <textarea name="comment" class="span6" rows="3"></textarea>
-        <button type="submit" class="btn">Discuss Nit</button>
-      </form>
+        <div class="comment-form">
+          <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nits/<%= nit.id %>/argue" method="POST">
+            <ul class="nav">
+              <li class="nav-write">
+                <a href="#write_comment_<%= submission.id %>" data-comment="comment_<%= submission.id %>" class="current">Write</a>
+              </li>
+              <li class="nav-preview last">
+                <a href="#preview_comment_<%= submission.id %>" data-comment="comment_<%= submission.id %>">Preview</a>
+              </li>
+            </ul>
+
+            <div class="list-wrap">
+              <ul id="write_comment_<%= submission.id %>">
+                <li class="element-wrap">
+                  <textarea name="comment" class="span6 js-comment-field" rows="3"></textarea>
+                </li>
+              </ul>
+              <ul id="preview_comment_<%= submission.id %>" class="preview">
+                <li class="element-wrap">
+
+                </li>
+              </ul>
+            </div>
+            <button type="submit" class="btn">Discuss Nit</button>
+          </form>
+        </div>
 
     <% end %>
 
