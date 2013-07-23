@@ -1,4 +1,5 @@
 window.exercism = {
   views: {},
-  models: {}
+  models: {},
+  routers: {}
 };
