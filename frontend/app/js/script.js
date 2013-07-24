@@ -12,11 +12,6 @@ $(function() {
   $(".pending-submission").each(function(index,element) {
     var elem = $(element);
 
-    elem.on("click",function() {
-      var submissionURL = $(this).data('url');
-      window.location = submissionURL;
-    });
-
     var language = elem.data('language');
     $(".language",elem).tooltip({ title: language });
 
