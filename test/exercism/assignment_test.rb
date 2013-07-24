@@ -5,7 +5,7 @@ require 'exercism/locale'
 require 'exercism/exercise'
 require 'exercism/assignment'
 
-class AssignmentTest < MiniTest::Unit::TestCase
+class AssignmentTest < Minitest::Test
 
   attr_reader :assignment
   def setup

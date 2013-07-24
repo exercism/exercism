@@ -6,7 +6,7 @@ require 'exercism/locale'
 require 'exercism/trail'
 require 'exercism/exercise'
 
-class SignupTest < MiniTest::Unit::TestCase
+class SignupTest < Minitest::Test
 
   attr_reader :user, :trail
   def setup

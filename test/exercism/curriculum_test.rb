@@ -28,7 +28,7 @@ end
 
 # Integration tests.
 # This is the entry point into the app.
-class CurriculumTest < MiniTest::Unit::TestCase
+class CurriculumTest < Minitest::Test
 
   attr_reader :curriculum
   def setup

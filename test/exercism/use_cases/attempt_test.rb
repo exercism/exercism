@@ -20,7 +20,7 @@ class FempCurriculum
   end
 end
 
-class AttemptTest < MiniTest::Unit::TestCase
+class AttemptTest < Minitest::Test
 
   attr_reader :user, :curriculum
   def setup

@@ -4,7 +4,7 @@ require 'exercism/locale'
 require 'exercism/exercise'
 require 'exercism/trail'
 
-class TrailTest < MiniTest::Unit::TestCase
+class TrailTest < Minitest::Test
 
   attr_reader :trail, :one, :two
   def setup

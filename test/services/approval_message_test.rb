@@ -5,7 +5,7 @@ require 'services/approval_message'
 require 'exercism/exercise'
 
 
-class ApprovalMessageTest < MiniTest::Unit::TestCase
+class ApprovalMessageTest < Minitest::Test
 
   FakeUser = Struct.new(:username, :email)
   FakeSubmission = Struct.new(:id, :user, :exercise)

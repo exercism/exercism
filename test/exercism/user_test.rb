@@ -8,7 +8,7 @@ require 'exercism/trail'
 require 'exercism/submission'
 require 'exercism/nit'
 
-class UserTest < MiniTest::Unit::TestCase
+class UserTest < Minitest::Test
 
   def teardown
     Mongoid.reset

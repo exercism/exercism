@@ -1,6 +1,6 @@
 require './test/integration_helper'
 
-class LaunchTrailTest < MiniTest::Unit::TestCase
+class LaunchTrailTest < Minitest::Test
 
   def test_start_existing_trail
     user = User.new

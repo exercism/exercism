@@ -35,7 +35,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.23)
     mini_portile (0.5.0)
-    minitest (4.7.5)
+    minitest (5.0.5)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
     mongoid (3.1.4)
@@ -103,7 +103,7 @@ DEPENDENCIES
   approvals
   faraday
   mailcatcher
-  minitest (~> 4.0)
+  minitest (~> 5.0)
   mocha
   mongoid
   petroglyph

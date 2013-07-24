@@ -17,7 +17,7 @@ class FakeMessage < Message
 
 end
 
-class MessageTest < MiniTest::Unit::TestCase
+class MessageTest < Minitest::Test
   attr_reader :submission, :admin
   def setup
     exercise = Exercise.new('nong', 'one')

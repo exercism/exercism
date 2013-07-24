@@ -2,7 +2,7 @@ require './test/test_helper'
 
 require 'exercism/guest'
 
-class GuestTest < MiniTest::Unit::TestCase
+class GuestTest < Minitest::Test
 
   def test_guest_is_guest
     assert guest.guest?

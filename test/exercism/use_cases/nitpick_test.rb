@@ -1,6 +1,6 @@
 require './test/integration_helper'
 
-class NitpickTest < MiniTest::Unit::TestCase
+class NitpickTest < Minitest::Test
 
   def teardown
     Mongoid.reset

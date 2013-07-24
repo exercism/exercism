@@ -2,7 +2,7 @@ require './test/mongo_helper'
 require 'exercism/submission'
 require "mocha/setup"
 
-class SubmissionTest < MiniTest::Unit::TestCase
+class SubmissionTest < Minitest::Test
 
   def teardown
     Mongoid.reset

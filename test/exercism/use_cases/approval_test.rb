@@ -10,13 +10,13 @@ class NongCurriculum
   end
 end
 
-class ApprovalTest < MiniTest::Unit::TestCase
+class ApprovalTest < Minitest::Test
 
   attr_reader :submission, :admin, :user, :curriculum
   def setup
     @curriculum = Curriculum.new('/tmp')
     @curriculum.add NongCurriculum.new
-    @user = User.create(username: 'allison', current: {'nong' => 'one'})
+    @user = User.create(username: 'allison', current: {'nong' => 'one'}, github_id: 1)
 
     attempt = Attempt.new(user, 'CODE', 'one.no', curriculum).save
     @submission = Submission.first
