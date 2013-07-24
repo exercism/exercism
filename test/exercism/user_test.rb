@@ -73,7 +73,7 @@ class UserTest < Minitest::Test
   end
 
   def test_admin_may_nitpick_stuff
-    admin = User.new(username: 'burtlo', is_admin: true)
+    admin = User.new(username: 'alice', is_admin: true)
     assert admin.may_nitpick?(Exercise.new('lang', 'exercise'))
   end
 
@@ -109,9 +109,9 @@ class UserTest < Minitest::Test
   end
 
   def test_user_is?
-    user = User.new(username: 'burtlo')
-    assert user.is?('burtlo')
-    refute user.is?('alice')
+    user = User.new(username: 'alice')
+    assert user.is?('alice')
+    refute user.is?('bob')
   end
 
   def test_user_without_submissions_is_new

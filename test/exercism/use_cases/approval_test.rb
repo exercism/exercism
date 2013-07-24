@@ -16,11 +16,11 @@ class ApprovalTest < Minitest::Test
   def setup
     @curriculum = Curriculum.new('/tmp')
     @curriculum.add NongCurriculum.new
-    @user = User.create(username: 'allison', current: {'nong' => 'one'}, github_id: 1)
+    @admin = User.create(username: 'alice', github_id: 1, is_admin: true)
+    @user = User.create(username: 'bob', current: {'nong' => 'one'}, github_id: 2)
 
     attempt = Attempt.new(user, 'CODE', 'one.no', curriculum).save
     @submission = Submission.first
-    @admin = User.create(username: 'burtlo', github_id: 2)
   end
 
   def teardown
