@@ -4,6 +4,10 @@ require "mocha/setup"
 
 class SubmissionTest < MiniTest::Unit::TestCase
 
+  def teardown
+    Mongoid.reset
+  end
+
   def test_supersede_pending_submission
     submission = Submission.new(state: 'pending')
     submission.supersede!
