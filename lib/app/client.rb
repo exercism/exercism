@@ -25,4 +25,14 @@ class ExercismApp < Sinatra::Base
     erb :account, locals: {unstarted: unstarted}
   end
 
+  put '/account/email' do
+    if current_user.guest?
+      redirect login_url("/account")
+    else
+      current_user.email = params[:email]
+      current_user.save
+      redirect '/account'
+    end
+  end
+
 end
