@@ -80,3 +80,6 @@ td.gutter {
 .highlight .vi{color:#008080;}
 .highlight .il{color:#099;}
 
+.highlight.javascript .kd{color:#039;font-weight:bold;}
+.highlight.javascript .k{color:#008080;font-weight:bold;}
+.highlight.javascript .na{color:#777;font-weight:bold;}
