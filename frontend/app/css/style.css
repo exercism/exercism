@@ -43,7 +43,6 @@ h1.home {
 }
 
 .pending-submission:hover {
-  cursor: pointer;
   background: #EEE;
   border-radius: 5px;
 }
