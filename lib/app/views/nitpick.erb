@@ -59,6 +59,8 @@
       <% if current_user.admin? %>
         <button type="submit" name="approve" class="btn">Approve</button>
         <button type="submit" name="approve" class="btn">Comment &amp; Approve</button>
+      <% else %>
+        <button type="submit" name="approvable" class="btn">I think this is ready for approval</button>
       <% end %>
       <button type="submit" name="nitpick" class="btn btn-primary">Nitpick</button>
     </form>

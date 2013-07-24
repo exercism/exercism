@@ -12,7 +12,7 @@ class ExercismApp < Sinatra::Base
         halt 403, "You do not have permission to nitpick that exercise."
       end
 
-      nitpick = Nitpick.new(id, current_user, params[:comment])
+      nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
       nitpick.save
       begin
         NitpickMessage.new(

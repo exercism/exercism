@@ -7,6 +7,8 @@ class Submission
   field :c, as: :code, type: String
   field :at, type: Time, default: ->{ Time.now.utc }
   field :a_at, as: :approved_at, type: Time
+  field :apr, as: :is_approvable, type: Boolean, default: false
+  field :apr_by, as: :flagged_by, type: Array, default: []
 
   belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
@@ -27,10 +29,6 @@ class Submission
     nits.map {|nit| nit.comments.count}.inject(0, :+)
   end
 
-  def submitted?
-    true
-  end
-
   def exercise
     @exercise ||= Exercise.new(language, slug)
   end
@@ -48,6 +46,14 @@ class Submission
   def supersede!
     self.state = 'superseded' if pending?
     save
+  end
+
+  def submitted?
+    true
+  end
+
+  def approvable?
+    is_approvable
   end
 
   def approved?
