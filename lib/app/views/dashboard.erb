@@ -4,6 +4,6 @@
     <%= erb :completed_assignments, locals: {completed: current_user.done } %>
   </div>
   <div class="span8">
-    <%= erb :pending, locals: {pending: pending, users: users, exercises: exercises, languages: languages} %>
+    <%= erb :pending, locals: {submissions: submissions, filters: filters} %>
   </div>
 </div>
