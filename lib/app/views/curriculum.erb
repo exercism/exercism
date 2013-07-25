@@ -25,7 +25,9 @@
   <% trail.exercises.each do |exercise| %>
     <% summary = progress[exercise.slug.to_s] || {} %>
     <tr>
-      <td><%= exercise.slug %></td>
+      <td>
+        <a href="/submissions/<%= trail.locale.language %>/<%= exercise.slug %>"><%= exercise.slug %></a>
+      </td>
       <td><%= quantify summary['pending'] %></td>
       <td><%= quantify summary['superseded'] %></td>
       <td><%= quantify summary['approved'] %></td>
