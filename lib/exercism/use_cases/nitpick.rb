@@ -6,6 +6,11 @@ class Nitpick
     @nitpicker = nitpicker
     @comment = comment.to_s
     @approvable = options.fetch(:approvable) { false }
+    @nitpicked = false
+  end
+
+  def nitpicked?
+    @nitpicked
   end
 
   def submission
@@ -13,8 +18,9 @@ class Nitpick
   end
 
   def save
-    return false if comment.empty?
+    return self if comment.empty?
     submission.nits << Nit.new(user: nitpicker, comment: comment)
+    @nitpicked = true
     if @approvable
       # Total hack.
       # I don't think we will need this once we have notifications

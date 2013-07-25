@@ -14,14 +14,16 @@ class ExercismApp < Sinatra::Base
 
       nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
       nitpick.save
-      begin
-        NitpickMessage.new(
-          instigator: nitpick.nitpicker,
-          submission: nitpick.submission,
-          site_root: site_root
-        ).ship
-      rescue => e
-        puts "Failed to send email. #{e.message}."
+      if nitpick.nitpicked?
+        begin
+          NitpickMessage.new(
+            instigator: nitpick.nitpicker,
+            submission: nitpick.submission,
+            site_root: site_root
+          ).ship
+        rescue => e
+          puts "Failed to send email. #{e.message}."
+        end
       end
     end
 

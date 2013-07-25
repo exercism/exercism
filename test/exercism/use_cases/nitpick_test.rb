@@ -21,7 +21,8 @@ class NitpickTest < Minitest::Test
     exercise = Exercise.new('nong', 'one')
     submission = Submission.on(exercise)
     nitpicker = User.new(username: 'alice')
-    Nitpick.new(submission.id, nitpicker, 'Too many variables', approvable: true).save
+    nitpick = Nitpick.new(submission.id, nitpicker, 'Too many variables', approvable: true).save
+    assert nitpick.nitpicked?
     submission = submission.reload
     assert submission.approvable?
     assert_equal ['alice'], submission.flagged_by
@@ -32,7 +33,8 @@ class NitpickTest < Minitest::Test
     exercise = Exercise.new('nong', 'one')
     submission = Submission.on(exercise)
     nitpicker = User.new(username: 'alice')
-    Nitpick.new(submission.id, nitpicker, '').save
+    nitpick = Nitpick.new(submission.id, nitpicker, '').save
+    assert !nitpick.nitpicked?
     assert_equal 0, submission.reload.nits.count
   end
 
