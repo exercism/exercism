@@ -126,6 +126,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/submissions/:language/:assignment' do |language, assignment|
+    redirect login_url("/submissions/#{language}/#{assignment}") unless current_user.admin?
     submissions = Submission.where(l: language, s: assignment)
                             .in(state: ["pending", "approved"])
                             .includes(:user)
