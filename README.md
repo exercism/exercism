@@ -131,3 +131,11 @@ Let Heroku know that Lineman will be building our assets. From the command line:
 ```
 heroku config:set BUILDPACK_URL=https://github.com/theotherzach/heroku-buildpack-lineman-ruby.git
 ```
+
+## Contributing
+
+This is a really weird request, but as long as this is a private repo every time someone forks it,
+all the collaborators get added to the fork as collaborators, which seems a bit excessive.
+
+I'd be delighted if you just worked on branches on the main repo and submit pull requests from there,
+until we get to a place where we know where this is going, and can open source the thing, at which point we can use the usual GitHub flow with forks etc.
