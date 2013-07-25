@@ -27,4 +27,13 @@ class NitpickTest < Minitest::Test
     assert_equal ['alice'], submission.flagged_by
     assert submission.pending?
   end
+
+  def test_empty_nit_does_not_get_saved
+    exercise = Exercise.new('nong', 'one')
+    submission = Submission.on(exercise)
+    nitpicker = User.new(username: 'alice')
+    Nitpick.new(submission.id, nitpicker, '').save
+    assert_equal 0, submission.reload.nits.count
+  end
+
 end

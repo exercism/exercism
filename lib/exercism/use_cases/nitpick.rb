@@ -4,7 +4,7 @@ class Nitpick
   def initialize(submission_id, nitpicker, comment, options = {})
     @id = submission_id
     @nitpicker = nitpicker
-    @comment = comment
+    @comment = comment.to_s
     @approvable = options.fetch(:approvable) { false }
   end
 
@@ -13,6 +13,7 @@ class Nitpick
   end
 
   def save
+    return false if comment.empty?
     submission.nits << Nit.new(user: nitpicker, comment: comment)
     if @approvable
       # Total hack.
