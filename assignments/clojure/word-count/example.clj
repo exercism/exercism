@@ -7,6 +7,5 @@
   (->> (split input #"\W+")
        (map lower-case)
        (group-by identity)
-       (reduce (fn [acc pair]
-                 (assoc acc (first pair)
-                            (count (second pair)))) {})))
+       (reduce (fn [acc [word occurrences]]
+                 (assoc acc word (count occurrences))) {})))
