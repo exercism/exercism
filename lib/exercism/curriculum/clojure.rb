@@ -4,7 +4,7 @@ class Exercism
       %w(
         bob rna-transcription word-count anagram beer-song
         nucleotide-count point-mutations phone-number
-        grade-school robot-name leap etl
+        grade-school robot-name leap etl meetup
         triangle scrabble-score
         crypto-square kindergarden-garden robot-simulator queen-attack
       )
