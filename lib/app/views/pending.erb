@@ -1,14 +1,16 @@
-<% if current_user.nitpicker? %>
-<p>Read about <a href="/nitpick">how to nitpick</a></p>
 <p>Read about <a href="/cycle">the feedback cycle</a>.</p>
+
+<% if current_user.nitpicker? %>
+  <p>Read about <a href="/nitpick">how to nitpick</a></p>
 <% end %>
-<% unless pending.empty? %>
+
+<% if submissions.any? %>
   <h2>Needs Nitpicking</h2>
   <div class="pending-submissions">
 
-    <%= erb :filter_pending, locals: { label: 'User', options: users } %>
-    <%= erb :filter_pending, locals: { label: 'Exercise', options: exercises } %>
-    <%= erb :filter_pending, locals: { label: 'Language', options: languages } %>
+    <%= erb :filter_pending, locals: { label: 'User', options: filters.users } %>
+    <%= erb :filter_pending, locals: { label: 'Exercise', options: filters.exercises } %>
+    <%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %>
 
     <label class="checkbox">
       <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" />
@@ -21,7 +23,15 @@
     </label>
 
     <hr/>
-    <% pending.each do |submission| %>
+    <% submissions.flagged_for_approval.each do |submission| %>
+      <%= erb :pending_submission, locals: { submission: submission } %>
+    <% end %>
+
+    <% submissions.without_nits.each do |submission| %>
+      <%= erb :pending_submission, locals: { submission: submission } %>
+    <% end %>
+
+    <% submissions.with_nits.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
 

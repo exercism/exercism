@@ -1,19 +1,17 @@
+require 'app/presenters/dashboard'
 class ExercismApp < Sinatra::Base
 
   get '/' do
     if current_user.guest?
       erb :index
     else
-      pending = Submission.pending.select do |submission|
-        current_user.may_nitpick?(submission.exercise)
-      end
+      dashboard = Dashboard.new(current_user, Submission.pending)
 
-      users = pending.map { |s| s.user.username }.uniq.sort
-      exercises = pending.map { |s| s.slug }.uniq.sort
-      languages = pending.map { |s| s.language }.uniq.sort
-
-      erb :dashboard, locals: {pending: pending, users: users,
-                               exercises: exercises, languages: languages}
+      locals = {
+        submissions: dashboard.submissions,
+        filters: dashboard.filters
+      }
+      erb :dashboard, locals: locals
     end
   end
 
