@@ -49,10 +49,4 @@ class MessageTest < MiniTest::Unit::TestCase
     ).ship
     # Integration test. Go look in mailcatcher to make sure you're happy with this
   end
-
-  def test_changed_email
-    submission.user.email = "updated@email.com"
-    test_send_nitpick_email
-    # Integration test. Check in mailcatcher to make sure the new email was used
-  end
 end
