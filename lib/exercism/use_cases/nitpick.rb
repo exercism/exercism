@@ -4,7 +4,7 @@ class Nitpick
   def initialize(submission_id, nitpicker, comment)
     @id = submission_id
     @nitpicker = nitpicker
-    @comment = comment
+    @comment = comment.to_s
   end
 
   def submission
@@ -12,8 +12,10 @@ class Nitpick
   end
 
   def save
-    submission.nits << Nit.new(user: nitpicker, comment: comment)
-    submission.save
+    unless comment.empty?
+      submission.nits << Nit.new(user: nitpicker, comment: comment)
+      submission.save
+    end
     self
   end
 end
