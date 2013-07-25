@@ -123,4 +123,14 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  get '/submissions/:language/:assignment' do |language, assignment|
+    submissions = Submission.where(l: language, s: assignment)
+                            .in(state: ["pending", "approved"])
+                            .includes(:user)
+                            .desc(:at).to_a
+
+    erb :submissions_for_assignment, locals: { submissions: submissions,
+                                                  language: language,
+                                                assignment: assignment }
+  end
 end
