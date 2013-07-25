@@ -72,10 +72,15 @@ class Dashboard
   end
 
   def submissions
+    return @submissions if @submissions
+
     if user.admin?
       @submissions ||= AdminSubmissions.new(all_submissions)
     else
-      @submissions ||= Submissions.new(all_submissions)
+      submissions = all_submissions.select do |sub|
+        user.may_nitpick?(sub.exercise)
+      end
+      @submissions ||= Submissions.new(submissions)
     end
   end
 
