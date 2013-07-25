@@ -14,4 +14,4 @@
         n)))
 
 (defn reset-name [robot]
-  (swap! (:name robot) (fn [x] "")))
+  (swap! (:name robot) (fn [_] "")))

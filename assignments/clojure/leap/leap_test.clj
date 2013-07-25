@@ -1,6 +1,16 @@
+(ns leap.test (:use clojure.test))
 (load-file "leap_year.clj")
 
-(assert (leap-year 1996))
-(assert (not (leap-year 1997)))
-(assert (not (leap-year 1900)))
-(assert (leap-year 2000))
+(deftest vanilla-leap-year
+  (is (leap-year 1996)))
+
+(deftest any-old-year
+  (is (not (leap-year 1997))))
+
+(deftest century
+  (is (not (leap-year 1900))))
+
+(deftest exceptional-century
+  (is (leap-year 2000)))
+
+(run-tests)
