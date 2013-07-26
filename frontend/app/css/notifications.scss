@@ -29,18 +29,19 @@
 }
 
 #list-notifications {
-    position: absolute;
+    position: relative;
     top: 5em;
     opacity: 0;
     right: -15em;
     width: 15em;
-    transition: all .3s ease-in-out;
+    // transition: all .3s ease-in-out;
 }
 
 .hide-notifications {
 }
 
 #list-notifications.reveal-notifications {
+    position: absolute;
     opacity: 1;
     right: 0em;
     transition: all .3s ease-in-out;
