@@ -1,4 +1,4 @@
-require('./bob');
+var Bob = require('./bob');
 
 describe("Bob", function() {
   var bob = new Bob();
