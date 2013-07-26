@@ -43,7 +43,6 @@ class YearTest < MiniTest::Unit::TestCase
 
 end
 
-require_relative './fixnum'
 class FixnumTest < MiniTest::Unit::TestCase
   def test_vanilla_leap_year
     assert 1996.leap_year?

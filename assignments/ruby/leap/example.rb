@@ -6,20 +6,20 @@ class Year
   end
 
   def leap?
-    by4 && (!by100 || by400)
+    (by4? && !by100?) || by400?
   end
 
   private
 
-  def by4
+  def by4?
     (year % 4) == 0
   end
 
-  def by100
+  def by100?
     (year % 100) == 0
   end
 
-  def by400
+  def by400?
     (year % 400) == 0
   end
 
