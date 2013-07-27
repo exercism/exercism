@@ -1,5 +1,5 @@
 .toggle-notifications {
-  position: fixed;
+  position: absolute;
   right:0;
   top: 0em;
   width:2.2em;
@@ -30,10 +30,11 @@
 
 #list-notifications {
   position: relative;
-  top: 5em;
   opacity: 0;
   right: -15em;
   width: 15em;
+  height: 0;
+  overflow: hidden;
 }
 
 ul#contains-notifications {
@@ -56,9 +57,17 @@ li.unread-true {
   position: absolute;
   opacity: 1;
   right: 0em;
+  top: 3em;
   transition: all .3s ease-in-out;
   box-shadow: 30em 0 0 30em rgba(0, 0, 0, .3);
   transition: all .3s ease-in-out;
+  overflow-y: auto;
+  height: auto;
+  min-height: 5em;
+  max-height: 75%;
+}
+
+#list-notifications {
 }
 
 body {
