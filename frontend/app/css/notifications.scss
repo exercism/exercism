@@ -1,40 +1,40 @@
 .toggle-notifications {
-    position: fixed;
-    right:0;
-    top: 0em;
-    width:2.2em;
-    height:2.2em;
-    border-width: 0;
-    padding:.35em;
-    font-size:1.4em;
-    font-weight:600;
-    color:#fff;
-    cursor: pointer;
-    user-select:none;
-    margin:0;
-    background:rgba(0, 0, 0, .4);
-    transition-duration: .3s;
-    transition-timing-function: ease-in-out;
-    transition-property: box-shadow, color, opacity, padding-left;
+  position: fixed;
+  right:0;
+  top: 0em;
+  width:2.2em;
+  height:2.2em;
+  border-width: 0;
+  padding:.35em;
+  font-size:1.4em;
+  font-weight:600;
+  color:#fff;
+  cursor: pointer;
+  user-select:none;
+  margin:0;
+  background:rgba(0, 0, 0, .4);
+  transition-duration: .3s;
+  transition-timing-function: ease-in-out;
+  transition-property: box-shadow, color, opacity, padding-left;
 }
 
 .new {
-    color: black;
-    opacity: 1;
-    background:hsla(44, 94%, 50%, .65);
+  color: black;
+  opacity: 1;
+  background:hsla(44, 94%, 50%, .65);
 }
 
 .new:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 #list-notifications {
-    position: relative;
-    top: 5em;
-    opacity: 0;
-    right: -15em;
-    width: 15em;
-    // transition: all .3s ease-in-out;
+  position: relative;
+  top: 5em;
+  opacity: 0;
+  right: -15em;
+  width: 15em;
+  // transition: all .3s ease-in-out;
 }
 
 .notification {
@@ -45,25 +45,25 @@
 }
 
 #list-notifications.reveal-notifications {
-    position: absolute;
-    opacity: 1;
-    right: 0em;
-    transition: all .3s ease-in-out;
-    // background: grey;
-    box-shadow: 30em 0 0 30em rgba(0, 0, 0, .3);
-    transition: all .3s ease-in-out;
+  position: absolute;
+  opacity: 1;
+  right: 0em;
+  transition: all .3s ease-in-out;
+  // background: grey;
+  box-shadow: 30em 0 0 30em rgba(0, 0, 0, .3);
+  transition: all .3s ease-in-out;
 }
 
 body {
-    transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
 }
 
 body.reveal-notifications {
-    margin-right: 15em;
-    margin-left: -15em;
-    transition: all .3s ease-in-out;
+  margin-right: 15em;
+  margin-left: -15em;
+  transition: all .3s ease-in-out;
 }
 
 .unread-true {
-    font-weight: 600;
+  font-weight: 600;
 }
