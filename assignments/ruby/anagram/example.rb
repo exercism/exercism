@@ -7,14 +7,14 @@ class Anagram
 
   def match(candidates)
     candidates.select do |candidate|
-      target.anagram? candidate
+      target.anagram_of? candidate
     end
   end
 end
 
 class AnagramWord < String
 
-  def anagram?(word)
+  def anagram_of?(word)
     canonical_representation == canonicalize(word)
   end
 
