@@ -41,4 +41,11 @@ class AnagramTest < MiniTest::Unit::TestCase
     anagrams = detector.match %w(gallery ballerina regally clergy largely leading)
     assert_equal ['gallery', 'regally', 'largely'], anagrams
   end
+
+  def test_anagrams_are_case_insensitive
+    skip
+    detector = Anagram.new('Orchestra')
+    anagrams = detector.match %w(cashregister carthorse radishes)
+    assert_equal ['carthorse'], anagrams
+  end
 end

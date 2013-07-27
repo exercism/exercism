@@ -19,7 +19,7 @@ class AnagramWord < String
   end
 
   def canonicalize(word)
-    word.chars.sort
+    word.downcase.chars.sort
   end
 
   def canonical_representation
