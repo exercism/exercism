@@ -20,6 +20,7 @@ require 'exercism/use_cases/nitpick'
 require 'exercism/use_cases/argument'
 require 'exercism/use_cases/assignments'
 require 'exercism/use_cases/launch'
+require 'exercism/use_cases/notification'
 
 require 'exercism/curriculum/ruby'
 require 'exercism/curriculum/javascript'

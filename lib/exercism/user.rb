@@ -15,6 +15,7 @@ class User
   alias_method :admin?, :is_admin
 
   has_many :submissions
+  has_many :notifications
 
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first
