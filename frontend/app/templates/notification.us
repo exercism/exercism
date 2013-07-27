@@ -1,3 +1,2 @@
 New <a href="<%= link %>"><%= type %></a> from <%= from %>.
 <div class="notifation date"><%= humanReadableDate %></div>
-<hr>

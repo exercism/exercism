@@ -34,14 +34,22 @@
   opacity: 0;
   right: -15em;
   width: 15em;
-  // transition: all .3s ease-in-out;
 }
 
-.notification {
-
+ul#contains-notifications {
+  margin: 0;
 }
 
-.hide-notifications {
+li.notification {
+  background-color: #333333;
+  color: #858585;
+  list-style: none;
+  padding: 1em;
+  margin-bottom: .125em;
+}
+
+li.unread-true {
+  color: #fff;
 }
 
 #list-notifications.reveal-notifications {
@@ -49,7 +57,6 @@
   opacity: 1;
   right: 0em;
   transition: all .3s ease-in-out;
-  // background: grey;
   box-shadow: 30em 0 0 30em rgba(0, 0, 0, .3);
   transition: all .3s ease-in-out;
 }
@@ -62,8 +69,4 @@ body.reveal-notifications {
   margin-right: 15em;
   margin-left: -15em;
   transition: all .3s ease-in-out;
-}
-
-.unread-true {
-  font-weight: 600;
 }
