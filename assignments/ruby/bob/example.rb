@@ -1,11 +1,11 @@
 class Bob
 
   def hey(drivel)
-    if silent?(drivel)
+    if taciturn?(drivel)
       'Fine. Be that way.'
-    elsif question?(drivel)
+    elsif curious?(drivel)
       'Sure.'
-    elsif shouting?(drivel)
+    elsif forceful?(drivel)
       'Woah, chill out!'
     else
       'Whatever.'
@@ -14,15 +14,15 @@ class Bob
 
   private
 
-  def question?(s)
-    s.end_with?('?')
-  end
-
-  def silent?(s)
+  def taciturn?(s)
     s.nil? || s.empty?
   end
 
-  def shouting?(s)
+  def curious?(s)
+    s.end_with?('?')
+  end
+
+  def forceful?(s)
     s.upcase == s
   end
 
@@ -37,9 +37,9 @@ class Alice
   def respond_to(phrase)
     if phrase.silent?
       'Fine. Be that way.'
-    elsif phrase.question?
+    elsif phrase.quizzical?
       'Sure.'
-    elsif phrase.shouting?
+    elsif phrase.loud?
       'Woah, chill out!'
     else
       'Whatever.'
@@ -51,11 +51,11 @@ class Phrase < String
 
   alias_method :silent?, :empty?
 
-  def question?
+  def quizzical?
     end_with?('?')
   end
 
-  def shouting?
+  def loud?
     upcase == self
   end
 
