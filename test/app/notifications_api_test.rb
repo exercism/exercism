@@ -33,7 +33,7 @@ class NotificationsApiTest < Minitest::Test
 
   def test_get_notifications_when_not_logged_in
     get '/api/v1/notifications', {}, 'rack.session' => not_logged_in
-    assert last_response.body.empty?
+    assert_equal 401, last_response.status
   end
 
   def test_get_notifications_from_cli
