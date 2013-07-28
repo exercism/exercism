@@ -16,7 +16,7 @@ class NotificationsPresenter
     notifications.map { |notification|
       {
         id: notification.id,
-        kind: notification.kind,
+        regarding: notification.regarding,
         read: notification.read,
         link: notification.link,
         from: notification.from,
