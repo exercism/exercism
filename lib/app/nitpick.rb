@@ -4,4 +4,8 @@ class ExercismApp < Sinatra::Base
     erb :"about/nitpick"
   end
 
+  post '/preview' do
+    md(params[:comment])
+  end
+
 end

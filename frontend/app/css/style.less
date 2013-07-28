@@ -12,3 +12,67 @@
     display: block;
   }
 }
+
+.comment-form {
+  padding: 10px;
+  margin: 0 0 15px 0;
+  .nav {
+    overflow: hidden;
+    margin: 0 0 10px 0;
+  }
+  .nav li {
+    width: 97px;
+    float: left;
+    margin: 0 10px 0 0;
+  }
+  .nav li.last {
+    margin-right: 0;
+  }
+  .nav li a {
+    display: block;
+    padding: 5px;
+    background: #959290;
+    color: white;
+    font-size: 10px;
+    text-align: center;
+    border: 0;
+  }
+  .nav li a:hover {
+    background-color: #111;
+  }
+
+  ul {
+    margin: 0;
+    li.element-wrap {
+      list-style: none;
+      a {
+        display: block;
+        border-bottom: 1px solid #666;
+        padding: 4px;
+        color: #666;
+      }
+      a:hover, .comment-form ul li a:focus {
+        background: #fe4902;
+        color: white;
+      }
+      :last-child a {
+        border: none;
+      }
+    }
+  }
+
+  li.nav-write a.current, ul.featured li a:hover {
+    background-color: #0575f4;
+    color: white;
+  }
+  li.nav-preview a.current, ul.core li a:hover {
+    background-color: #d30000;
+    color: white;
+  }
+}
+
+.hide {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
