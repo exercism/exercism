@@ -122,6 +122,7 @@ class ExercismApp < Sinatra::Base
       }
       argument = Argument.new(data).save
       submission = argument.submission
+      Notify.everyone(submission, current_user, 'comment')
     end
 
     if submission.user == current_user

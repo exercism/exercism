@@ -41,5 +41,6 @@ class Notify
       submission.id
     ].join("/")
   end
+  alias_method :comment_link, :nitpick_link
 
 end
