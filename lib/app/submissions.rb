@@ -19,7 +19,7 @@ class ExercismApp < Sinatra::Base
         Notification.create({
           user: submission.user,
           from: current_user.username,
-          kind: "nitpick",
+          regarding: "nitpick",
           link: "submissions/#{id}"
         })
         begin
