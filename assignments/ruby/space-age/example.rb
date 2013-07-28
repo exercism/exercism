@@ -2,24 +2,24 @@ class SpaceAge
   attr_reader :seconds
 
   def initialize(seconds)
-    @seconds = seconds.to_f
+    @seconds = seconds
   end
 
-  EARTH_YEAR = 31_557_600
+  ORBITAL_PERIODS = {
+    :mercury => 7600530.24,
+    :venus   => 19413907.2,
+    :earth   => 31558149.76,
+    :mars    => 59354294.4,
+    :jupiter => 374335776.0,
+    :saturn  => 929596608.0,
+    :uranus  => 2661041808.0,
+    :neptune => 5200418592.0
+  }
 
-  {
-    "mercury" => EARTH_YEAR * 0.2408467,
-    "earth"   => EARTH_YEAR,
-    "venus"   => EARTH_YEAR * 0.61519726,
-    "mars"    => EARTH_YEAR * 1.8808158,
-    "jupiter" => EARTH_YEAR * 11.862615,
-    "saturn"  => EARTH_YEAR * 29.447498,
-    "uranus"  => EARTH_YEAR * 84.016846,
-    "neptune" => EARTH_YEAR * 164.79132
-  }.each do |planet, seconds_per_year|
+  ORBITAL_PERIODS.each do |planet, period|
 
     define_method("on_#{planet}") do
-      (seconds / seconds_per_year).round(2)
+      (seconds / period).round(2)
     end
 
   end
