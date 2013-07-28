@@ -27,7 +27,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/login' do
-    redirect login_url
+    redirect Github.login_url
   end
 
   # Callback from github. This will include a temp code from Github that
