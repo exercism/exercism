@@ -1,7 +1,7 @@
 <div>
   <%= language_icon(work.language) %>
   <% if work.submitted? %>
-    <a href="/user/submissions/<%= work.id %>">
+    <a href="/submissions/<%= work.id %>">
       <h4 style="display: inline"><%= work.slug %></h4></a>
     <div class="nits circle"><%= work.nits.count %></div>
     <div class="arguments circle"><%= work.argument_count %></div>
