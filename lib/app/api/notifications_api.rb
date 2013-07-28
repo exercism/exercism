@@ -7,7 +7,7 @@ class ExercismApp < Sinatra::Base
   private
   def notification_user
     if params[:key]
-      User.find_by(:key, params[:key])
+      User.find_by(key: params[:key])
     elsif session[:github_id]
       current_user
     else

@@ -36,6 +36,10 @@ class NotificationsApiTest < Minitest::Test
     { github_id: nil }
   end
 
+  def cli_params
+    { key: @alice.key }
+  end
+
   def test_get_notifications_when_logged_in
     get '/api/v1/notifications', {}, 'rack.session' => logged_in
     assert last_response.body.include?("Bob")
@@ -48,8 +52,7 @@ class NotificationsApiTest < Minitest::Test
   end
 
   def test_get_notifications_from_cli
-    skip
-    get '/api/v1/notifications', @alice.key
+    get '/api/v1/notifications', cli_params
     assert last_response.body.include?("just now")
   end
 
