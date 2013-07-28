@@ -53,9 +53,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/submissions/:id' do |id|
-    if current_user.guest?
-      redirect login_url("/submissions/#{id}")
-    end
+    please_login "/submissions/#{id}"
 
     submission = Submission.find(id)
 
@@ -119,7 +117,13 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/submissions/:language/:assignment' do |language, assignment|
-    redirect login_url("/submissions/#{language}/#{assignment}") unless current_user.admin?
+    please_login "/submissions/#{language}/#{assignment}"
+
+    unless current_user.admin?
+      flash[:notice] = "Sorry, need to know only."
+      redirect '/'
+    end
+
     submissions = Submission.where(l: language, s: assignment)
                             .in(state: ["pending", "approved"])
                             .includes(:user)

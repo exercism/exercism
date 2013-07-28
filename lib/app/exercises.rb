@@ -1,16 +1,13 @@
 class ExercismApp < Sinatra::Base
 
   get '/user/:language/:slug' do |language, slug|
-    if current_user.guest?
-      redirect login_url("/user/#{language}/#{slug}")
-    end
+    please_login "/user/#{language}/#{slug}"
+
     redirect "/#{current_user.username}/#{language}/#{slug}"
   end
 
   get '/:username/:language/:slug' do |username, language, slug|
-    if current_user.guest?
-      redirect login_url("/#{username}/#{language}/#{slug}")
-    end
+    please_login "/#{username}/#{language}/#{slug}"
 
     exercise = Exercise.new(language, slug)
 
