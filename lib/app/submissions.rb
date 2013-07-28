@@ -42,6 +42,14 @@ class ExercismApp < Sinatra::Base
       unless current_user.admin?
         halt 403, "You do not have permission to approve that exercise."
       end
+      submission = Submission.find(id)
+
+      Notification.create({
+        user: submission.user,
+        from: current_user.username,
+        regarding: "approval",
+        link: "#{submission.user.username}/#{submission.language}/#{submission.slug}"
+      })
       begin
         ApprovalMessage.new(
           instigator: current_user,
