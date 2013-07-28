@@ -17,6 +17,6 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
       host: 'localhost'
       port: 4567
 
-  enableSass: true
+  # enableSass: true
 
 })
