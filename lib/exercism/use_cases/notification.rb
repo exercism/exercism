@@ -12,5 +12,9 @@ class Notification
   def self.recent_for_user(user)
     where(user: user).limit(100).descending(:at)
   end
+
+  def self.mark_read(user, id)
+    where(user: user).and(_id: id)
+  end
 end
 

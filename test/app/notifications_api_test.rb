@@ -14,7 +14,7 @@ class NotificationsApiTest < Minitest::Test
       github_id: 1,
       current: {'ruby' => 'word-count', 'javascript' => 'anagram'}
     })
-    Notification.create({
+    @notification = Notification.create({
       user: @alice,
       unread: true,
       from: "Bob",
@@ -57,7 +57,8 @@ class NotificationsApiTest < Minitest::Test
   end
 
   def test_mark_notification_read_when_logged_in
-    skip
+    post "/api/v1/notifications/#{@notification.id}", {}, 'rack.session' => logged_in
+    assert_equal 200, last_response.status
   end
 
   def test_mark_notification_read_when_not_logged_in

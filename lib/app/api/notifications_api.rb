@@ -4,6 +4,10 @@ class ExercismApp < Sinatra::Base
     NotificationsPresenter.new(notifications).to_json
   end
 
+  post '/api/v1/notifications/:id' do |id|
+    Notification.mark_read(notification_user, id).to_json
+  end
+
   private
   def notification_user
     if params[:key]
