@@ -58,7 +58,8 @@ class NotificationsApiTest < Minitest::Test
 
   def test_mark_notification_read_when_logged_in
     post "/api/v1/notifications/#{@notification.id}", {}, 'rack.session' => logged_in
-    assert_equal 200, last_response.status
+    @notification.reload
+    assert @notification.read
   end
 
   def test_mark_notification_read_when_not_logged_in

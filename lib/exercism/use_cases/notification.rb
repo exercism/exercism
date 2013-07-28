@@ -14,7 +14,9 @@ class Notification
   end
 
   def self.mark_read(user, id)
-    where(user: user).and(_id: id)
+    notification = where(user: user).and(_id: id).first
+    notification.update_attributes(read: true)
+    notification
   end
 end
 
