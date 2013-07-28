@@ -1,6 +1,6 @@
 class ExercismApp < Sinatra::Base
   get '/api/v1/notifications' do
-    notifications = Dispatch.notifications_for_user(notification_user)
+    notifications = Notification.recent_for_user(notification_user)
     NotificationsPresenter.new(notifications).to_json
   end
 
