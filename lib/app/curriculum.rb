@@ -44,7 +44,13 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/curriculum/:id' do |id|
-    redirect login_url("/curriculum/#{id}") unless current_user.admin?
+    please_login("/curriculum/#{id}")
+
+    unless current_user.admin?
+      flash[:notice] = "Sorry, need to know only."
+      redirect '/'
+    end
+
     trail = Exercism.current_curriculum.trails[id.to_sym]
     languages = Exercism.current_curriculum.trails.keys
     progress = progress(id)
