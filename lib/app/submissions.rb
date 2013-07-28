@@ -49,14 +49,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/user/submissions/:id' do |id|
-    submission = Submission.find(id)
-    if current_user.guest?
-      redirect login_url("/user/submissions/#{id}")
-    elsif current_user != submission.user
-      flash[:error] = 'That is not your submission.'
-      redirect '/'
-    end
-    erb :submission, locals: {submission: Submission.find(id)}
+    redirect "/submissions/#{id}"
   end
 
   get '/submissions/:id' do |id|
@@ -66,12 +59,16 @@ class ExercismApp < Sinatra::Base
 
     submission = Submission.find(id)
 
-    unless current_user.may_nitpick?(submission.exercise)
-      flash[:error] = "You do not have permission to nitpick that exercise."
-      redirect '/'
-    end
+    if current_user == submission.user
+      erb :submission, locals: {submission: submission}
+    else
+      unless current_user.may_nitpick?(submission.exercise)
+        flash[:error] = "You do not have permission to nitpick that exercise."
+        redirect '/'
+      end
 
-    erb :nitpick, locals: {submission: submission}
+      erb :nitpick, locals: {submission: submission}
+    end
   end
 
   # TODO: Write javascript to submit form here
@@ -118,11 +115,7 @@ class ExercismApp < Sinatra::Base
       submission = argument.submission
     end
 
-    if submission.user == current_user
-      redirect "/user/submissions/#{id}"
-    else
-      redirect "/submissions/#{id}"
-    end
+    redirect "/submissions/#{id}"
   end
 
   get '/submissions/:language/:assignment' do |language, assignment|
