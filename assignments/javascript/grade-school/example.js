@@ -1,21 +1,29 @@
-School = function(name) {
-  this.db = {};
+(function() {
+  'use strict';
 
-  this.add = function(studentName,grade) {
+  function School() {
+    this.db = {};
+  }
+
+  School.prototype.add = function(studentName,grade) {
     var currentGrade = this.db[grade] || [];
     currentGrade.push(studentName);
     this.db[grade] = currentGrade;
   };
 
-  this.grade = function(level) {
+  School.prototype.grade = function(level) {
     return this.db[level] || [];
-  }
+  };
 
-  this.sort = function() {
+  School.prototype.sort = function() {
     var currentDb = this.db;
     for (var grade in currentDb) {
-      currentDb[grade].sort();
+      if (currentDb.hasOwnProperty(grade)) {
+        currentDb[grade].sort();
+      }
     }
     return currentDb;
   };
-};
+
+  module.exports = School;
+})();

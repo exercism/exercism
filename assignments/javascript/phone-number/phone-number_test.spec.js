@@ -1,4 +1,4 @@
-require('./phone_number');
+var Phone = require('./phone_number');
 
 describe("PhoneNumber", function() {
 

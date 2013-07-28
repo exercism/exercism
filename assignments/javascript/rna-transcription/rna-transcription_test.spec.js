@@ -1,4 +1,4 @@
-require('./dna');
+var DNA = require('./dna');
 
 describe("DNA", function() {
   it("transcribes cytidine unchanged", function() {

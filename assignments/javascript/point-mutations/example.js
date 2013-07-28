@@ -1,8 +1,11 @@
-DNA = function(nucleotides) {
+(function() {
+  'use strict';
 
-  this.nucleotides = nucleotides;
+  function DNA(nucleotides) {
+    this.nucleotides = nucleotides;
+  }
 
-  this.hammingDistance = function(comparison) {
+  DNA.prototype.hammingDistance = function(comparison) {
     var distance = 0;
     var calculationDistance = Math.min(this.nucleotides.length,comparison.length);
 
@@ -10,9 +13,11 @@ DNA = function(nucleotides) {
       var currentNucleotide = this.nucleotides[i];
       var comparisonNucleotide = comparison[i];
 
-      if (currentNucleotide != comparisonNucleotide) { distance++; }
-    };
+      if (currentNucleotide !== comparisonNucleotide) { distance++; }
+    }
 
     return distance;
   };
-};
+
+  module.exports = DNA;
+})();

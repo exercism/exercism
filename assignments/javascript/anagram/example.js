@@ -1,9 +1,11 @@
-Anagram = function Anagram(word) {
-  this.word = word;
-};
+(function() {
+  'use strict';
 
-Anagram.prototype = {
-  match: function(words) {
+  function Anagram(word) {
+    this.word = word;
+  }
+
+  Anagram.prototype.match = function(words) {
     var matches = [];
 
     for(var i = 0; i < words.length; i++) {
@@ -26,5 +28,7 @@ Anagram.prototype = {
 
     }
     return matches;
-  }
-};
+  };
+
+  module.exports = Anagram;
+})();
