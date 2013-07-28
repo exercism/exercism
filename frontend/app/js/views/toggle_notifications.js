@@ -27,7 +27,7 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
   },
 
   buttonStyle: function() {
-    if (this.collection.hasUnread()) {
+    if (this.collection.hasNew()) {
       return " new";
     } else {
       return "";

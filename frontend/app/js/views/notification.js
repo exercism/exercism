@@ -22,12 +22,12 @@ exercism.views.Notification = Backbone.View.extend({
 
   read: function() {
     console.log("model marked read");
-    if (this.model.get("unread")) {
-      this.model.save("unread", false);
+    if (!(this.model.get("read"))) {
+      this.model.save("read", true);
     }
   },
 
   readStatus: function() {
-    this.$el.toggleClass("unread-true", this.model.get("unread"));
+    this.$el.toggleClass("new-notification", !(this.model.get("read")));
   },
 });

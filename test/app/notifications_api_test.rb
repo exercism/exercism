@@ -57,18 +57,18 @@ class NotificationsApiTest < Minitest::Test
   end
 
   def test_mark_notification_read_when_logged_in
-    post "/api/v1/notifications/#{@notification.id}", {}, 'rack.session' => logged_in
+    put "/api/v1/notifications/#{@notification.id}", {}, 'rack.session' => logged_in
     @notification.reload
     assert @notification.read
   end
 
   def test_mark_notification_read_when_not_logged_in
-    post "/api/v1/notifications/#{@notification.id}", {}, 'rack.session' => not_logged_in
+    put "/api/v1/notifications/#{@notification.id}", {}, 'rack.session' => not_logged_in
     assert_equal 401, last_response.status
   end
 
   def test_mark_notification_from_cli
-    post "/api/v1/notifications/#{@notification.id}", cli_params
+    put "/api/v1/notifications/#{@notification.id}", cli_params
     @notification.reload
     assert @notification.read
   end
