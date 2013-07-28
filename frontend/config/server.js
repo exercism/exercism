@@ -22,9 +22,9 @@ module.exports = {
       res.json([
         {
           id : "51dcb40d4a31e7a3cb000010",
-          type: "argument",
-          unread: true,
-          link: "http://localhost:8000/submissions/51dcb40d4a31e7a3cb000011",
+          kind: "argument",
+          read: true,
+          link: "submissions/51dcb40d4a31e7a3cb000011",
           from: "Bob",
           // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
           // Of our options, the Unix date string seems the most sane.
@@ -33,8 +33,8 @@ module.exports = {
         },
         {
           id : "51dcb40d4a31e7a3cb000031",
-          type: "nitpick",
-          unread: true,
+          kind: "nitpick",
+          read: true,
           link: "http://localhost:8000/submissions/51dcb40d4a31e7a3cb00000f",
           from: "Alice",
           date: 1374453865190,
@@ -42,8 +42,8 @@ module.exports = {
         },
         {
           id : "51dcb40d4a31e7a3cb000012",
-          type: "argument",
-          unread: false,
+          kind: "argument",
+          read: false,
           link:  "http://localhost:8000/submissions/51dcb40d4a31e7a3cb00000f",
           from: "Bob",
           date: 1374453866182,

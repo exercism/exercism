@@ -9,8 +9,19 @@ class NotificationsApiTest < Minitest::Test
 
   attr_reader :alice
   def setup
-    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'word-count', 'javascript' => 'anagram'})
-    Notification.create(user: @alice ,unread: true, from: "Bob", type: "argument")
+    @alice = User.create({
+      username: 'alice',
+      github_id: 1,
+      current: {'ruby' => 'word-count', 'javascript' => 'anagram'}
+    })
+    Notification.create({
+      user: @alice,
+      unread: true,
+      from: "Bob",
+      type: "argument",
+      kind: "Nitpick",
+      link: "a/link/to/a/thing",
+    })
   end
 
   def teardown
@@ -26,9 +37,9 @@ class NotificationsApiTest < Minitest::Test
   end
 
   def test_get_notifications_when_logged_in
-    skip
     get '/api/v1/notifications', {}, 'rack.session' => logged_in
     assert last_response.body.include?("Bob")
+    assert last_response.body.include?("just now")
   end
 
   def test_get_notifications_when_not_logged_in
@@ -37,15 +48,21 @@ class NotificationsApiTest < Minitest::Test
   end
 
   def test_get_notifications_from_cli
+    skip
+    get '/api/v1/notifications', @alice.key
+    assert last_response.body.include?("just now")
   end
 
   def test_mark_notification_read_when_logged_in
+    skip
   end
 
   def test_mark_notification_read_when_not_logged_in
+    skip
   end
 
   def test_mark_notification_from_cli
+    skip
   end
 end
 

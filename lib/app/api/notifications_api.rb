@@ -1,6 +1,7 @@
 class ExercismApp < Sinatra::Base
   get '/api/v1/notifications' do
-    notification_user
+    notifications = Dispatch.notifications_for_user(notification_user)
+    NotificationsPresenter.new(notifications).to_json
   end
 
   private
@@ -8,7 +9,7 @@ class ExercismApp < Sinatra::Base
     if params[:key]
       User.find_by(:key, params[:key])
     elsif session[:github_id]
-      @current_user
+      current_user
     else
       no_user_error
     end
