@@ -1,4 +1,6 @@
-Words = function(input) {
+function Words(input) {
+  'use strict';
+
   var words = input.match(/\b[a-z0-9]+\b/gi);
   var counts = {};
 
@@ -11,7 +13,9 @@ Words = function(input) {
 
     counts[currentWord] += 1;
 
-  };
+  }
 
   this.count = counts;
 }
+
+module.exports = Words;

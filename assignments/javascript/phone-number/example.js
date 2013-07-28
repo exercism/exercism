@@ -1,10 +1,12 @@
-Phone = function Phone(number) {
-  this.rawNumber = number
-  this.cleanedNumber = this.cleanNumber(number);
-};
+(function() {
+  'use strict';
 
-Phone.prototype = {
-  cleanNumber: function(number) {
+  function Phone(number) {
+    this.rawNumber = number;
+    this.cleanedNumber = this.cleanNumber(number);
+  }
+
+  Phone.prototype.cleanNumber = function(number) {
     var num = number.replace(/\D/g,'');
 
     if (num.length === 10) {
@@ -14,21 +16,27 @@ Phone.prototype = {
     } else {
       return "0000000000";
     }
-  },
-  number: function() {
-    return this.cleanedNumber;
-  },
-  areaCode: function() {
-    return this.number().substr(0,3);
-  },
-  numberPrefix: function() {
-    return this.number().substr(3,3);
-  },
-  numberSuffix: function() {
-    return this.number().substr(6,4);
-  },
-  toString: function() {
-    return "(" + this.areaCode() + ") " + this.numberPrefix() + "-" + this.numberSuffix();
-  }
+  };
 
-};
+  Phone.prototype.number = function() {
+    return this.cleanedNumber;
+  };
+
+  Phone.prototype.areaCode = function() {
+    return this.number().substr(0,3);
+  };
+
+  Phone.prototype.exchangeCode = function() {
+    return this.number().substr(3,3);
+  };
+
+  Phone.prototype.subscriberNumber = function() {
+    return this.number().substr(6,4);
+  };
+
+  Phone.prototype.toString = function() {
+    return "(" + this.areaCode() + ") " + this.exchangeCode() + "-" + this.subscriberNumber();
+  };
+
+  module.exports = Phone;
+})();

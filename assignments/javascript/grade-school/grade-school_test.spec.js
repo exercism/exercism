@@ -1,4 +1,4 @@
-require('./school');
+var School = require('./school');
 
 describe("School", function() {
   var school;
@@ -54,7 +54,7 @@ describe("School", function() {
       3 : ["Kyle"],
       4 : ["Christopher", "Jennifer"],
       6 : ["Kareem"]
-    }
+    };
     expect(school.sort()).toEqual(sorted);
   });
 
