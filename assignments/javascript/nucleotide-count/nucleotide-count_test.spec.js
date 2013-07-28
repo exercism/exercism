@@ -1,5 +1,4 @@
-/* globals DNA, xit */
-require('./nucleotide');
+var DNA = require('./nucleotide');
 
 describe('DNA', function() {
 

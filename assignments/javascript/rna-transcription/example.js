@@ -1,7 +1,13 @@
-DNA = function(nucleotides) {
-  this.nucleotides = nucleotides;
+(function() {
+  'use strict';
 
-  this.toRNA = function() {
+  function DNA(nucleotides) {
+    this.nucleotides = nucleotides;
+  }
+
+  DNA.prototype.toRNA = function() {
     return this.nucleotides.replace(/T/g,'U');
   };
-}
+
+  module.exports = DNA;
+})();

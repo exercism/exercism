@@ -1,4 +1,4 @@
-require('./words');
+var Words = require('./words');
 
 describe("Words", function() {
 
