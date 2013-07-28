@@ -25,6 +25,18 @@ class Submission
     submission
   end
 
+  def participants
+    return @participants if @participants
+
+    participants = Set.new
+    participants.add user
+    nits.each do |nit|
+      participants.add nit.nitpicker
+      participants.merge nit.comments.map(&:commenter)
+    end
+    @participants = participants
+  end
+
   def argument_count
     nits.map {|nit| nit.comments.count}.inject(0, :+)
   end

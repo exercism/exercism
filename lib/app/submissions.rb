@@ -16,12 +16,7 @@ class ExercismApp < Sinatra::Base
       nitpick.save
       if nitpick.nitpicked?
         #TODO - create emails from notifications
-        Notification.create({
-          user: submission.user,
-          from: current_user.username,
-          regarding: "nitpick",
-          link: "submissions/#{id}"
-        })
+        Notify.everyone(submission, current_user, 'nitpick')
         begin
           NitpickMessage.new(
             instigator: nitpick.nitpicker,
@@ -44,12 +39,8 @@ class ExercismApp < Sinatra::Base
       end
       submission = Submission.find(id)
 
-      Notification.create({
-        user: submission.user,
-        from: current_user.username,
-        regarding: "approval",
-        link: "#{submission.user.username}/#{submission.language}/#{submission.slug}"
-      })
+      Notify.source(submission, current_user, 'approval')
+
       begin
         ApprovalMessage.new(
           instigator: current_user,
