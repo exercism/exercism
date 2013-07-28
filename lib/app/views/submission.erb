@@ -48,6 +48,17 @@
 
 
     <% end %>
+
+    <% unless submission.approved? %>
+
+      <% if submission.approvable? %>
+        <p>Your submission has been nominated for approval.</p>
+      <% else %>
+        <p>Your submission is under review.</p>
+      <% end %>
+
+      <p>Read about <a href="/cycle">the feedback cycle</a>.</p>
+    <% end %>
   </div>
 </div>
 
