@@ -1,9 +1,8 @@
-An RNA string is a string formed from the alphabet containing 'A', 'C', 'G', and 'U'.
+Both DNA and RNA strands are a sequence of nucleotides.
 
-Given a DNA string t corresponding to a coding strand, its transcribed RNA string u is formed by replacing all occurrences of 'T' in t with 'U' in u.
+The four nucleotides found in DNA are adenine (**A**), cytosine (**C**), guanine (**G**) and thymine (**T**).
 
+The four nucleotides found in RNA are adenine (**A**), cytosine (**C**), guanine (**G**) and uracil (**U**).
 
-```ruby
-dna = DNA.new("GATGGAACTTGACTACGTAAATT").to_rna
-# => "GAUGGAACUUGACUACGUAAAUU"
-```
+Given a DNA strand, its transcribed RNA strand is formed by replacing all occurrences of thymine with uracil.
+

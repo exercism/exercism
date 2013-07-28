@@ -22,8 +22,12 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  get '/please-login' do
+    erb :please_login, locals: {return_path: params[:return_path]}
+  end
+
   get '/login' do
-    redirect login_url
+    redirect Github.login_url
   end
 
   # Callback from github. This will include a temp code from Github that

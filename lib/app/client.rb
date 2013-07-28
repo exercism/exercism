@@ -16,21 +16,20 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/account' do
-    if current_user.guest?
-      redirect login_url("/account")
-    end
+    please_login("/account")
+
     unstarted = Exercism.current_curriculum.unstarted_trails(current_user.current_languages)
     erb :account, locals: {unstarted: unstarted}
   end
 
   put '/account/email' do
     if current_user.guest?
-      redirect login_url("/account")
-    else
-      current_user.email = params[:email]
-      current_user.save
-      redirect '/account'
+      halt 403, "You must be logged in to edit your email settings"
     end
+
+    current_user.email = params[:email]
+    current_user.save
+    redirect '/account'
   end
 
 end
