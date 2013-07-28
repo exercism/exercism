@@ -37,6 +37,12 @@ class ExercismApp < Sinatra::Base
       end
     end
 
+    def please_login(return_path = nil)
+      if current_user.guest?
+        redirect "/please-login?return_path=#{return_path}"
+      end
+    end
+
     def login_url(return_path = nil)
       url = Github.login_url
       if return_path
