@@ -29,7 +29,7 @@
     <% submission.nits.each do |nit| %>
     <blockquote><%= md(nit.comment) %>
       <p>
-        <cite>by
+        <cite>
           <%= gravatar_tag nit.user.avatar_url, size: 20 %>
           <em><%= nit.user.username %></em>, <%= ago(nit.at) %>
         </cite>
