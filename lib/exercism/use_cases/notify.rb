@@ -6,7 +6,7 @@ class Notify
   end
 
   def self.source(submission, from, about)
-    new(submission, to, from, about).save
+    new(submission, submission.user, from, about).save
   end
 
   attr_reader :submission, :to, :from, :about
