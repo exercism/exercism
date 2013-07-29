@@ -23,10 +23,13 @@ class Notify
       user: to,
       from: from.username,
       regarding: about,
-      link: send("#{about}_link".to_sym)
+      link: link(about)
     })
   end
 
+  def link(about)
+    "/" + send("#{about}_link".to_sym)
+  end
   def approval_link
     [
       submission.user.username,
