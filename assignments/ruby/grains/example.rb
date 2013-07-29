@@ -5,7 +5,7 @@ class Grains
   end
 
   def total
-    (1..64).inject(0) do |sum, number|
+    @total ||= (1..64).inject(0) do |sum, number|
       sum + square(number)
     end
   end
