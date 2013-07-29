@@ -24,6 +24,7 @@ class ExercismApp < Sinatra::Base
   set :method_override, true
 
   enable :sessions
+  set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
 
   helpers Sinatra::FuzzyTimeHelper
