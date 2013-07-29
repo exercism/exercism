@@ -102,9 +102,9 @@ class ExercismApp < Sinatra::Base
 
   post '/submissions/:id/nits/:nit_id/argue' do |id, nit_id|
     if current_user.guest?
-      flash[:error] = 'You are not authorized to argue about this.'
-      redirect '/'
+      flash[:error] = 'We may have just redeployed, which logged you out. Sorry about that! Hit the back button and save the comment you just wrote, and try again after logging in. Deploying without invalidating sessions is on the list!'
     end
+    please_login("/submissions/#{id}/nits/#{nit_id}/argue")
 
     if params[:comment].empty?
       submission = Submission.find_by(id: id)
