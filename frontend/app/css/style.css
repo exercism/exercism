@@ -126,6 +126,6 @@ h1.home {
 .code br { clear: both; }
 
 
-.comments p { display: inline; }
+.comments p { padding: 5px 0; }
 
 #code-timeline a.selected { background-color: #fcf8e3; }
