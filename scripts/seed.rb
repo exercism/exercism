@@ -59,6 +59,7 @@ Nitpick.new(attempt.submission.id, admin, "`words.words` is so echo-y.").save
 Notify.everyone(attempt.submission, admin, 'nitpick')
 attempt = Attempt.new(alice, "class Words\n  def initialize(phrase)\n  end\nend", "words.rb").save
 Approval.new(attempt.submission.id, admin, 'better').save
+Notify.everyone(attempt.submission, admin, 'approval')
 alice.reload
 
 attempt = Attempt.new(alice, "class Anagram\nend", "anagram.rb").save
