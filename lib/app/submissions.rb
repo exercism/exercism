@@ -15,6 +15,8 @@ class ExercismApp < Sinatra::Base
       nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
       nitpick.save
       if nitpick.nitpicked?
+        #TODO - create emails from notifications
+        Notify.everyone(submission, current_user, 'nitpick')
         begin
           NitpickMessage.new(
             instigator: nitpick.nitpicker,
@@ -35,6 +37,10 @@ class ExercismApp < Sinatra::Base
       unless current_user.admin?
         halt 403, "You do not have permission to approve that exercise."
       end
+      submission = Submission.find(id)
+
+      Notify.source(submission, current_user, 'approval')
+
       begin
         ApprovalMessage.new(
           instigator: current_user,
@@ -111,6 +117,7 @@ class ExercismApp < Sinatra::Base
       }
       argument = Argument.new(data).save
       submission = argument.submission
+      Notify.everyone(submission, current_user, 'comment')
     end
 
     redirect "/submissions/#{id}"

@@ -1,10 +1,22 @@
 $(function() {
+  var notification = new exercism.models.Notification(),
+      notificationList = new exercism.collections.NotificationList({
+    model: notification
+  });
   $('.dropdown-toggle').dropdown();
   exercism.models.selectFilter = new exercism.models.SelectFilter();
   exercism.views.selectFilter = new exercism.views.SelectFilter({ model: exercism.models.selectFilter });
-
   exercism.routers.application = new exercism.routers.Application();
+  exercism.collections.notificationsList = new exercism.collections.NotificationList({
+    model: notification
+  });
+  exercism.views.toggleNotifications = new exercism.views.ToggleNotifications({
+    el: $("#toggle-notifications"),
+    collection: notificationList
+  });
   Backbone.history.start();
+  exercism.views.toggleNotifications.render();
+  notificationList.fetch();
 });
 
 //TODO move all variable declaration to the tops of functions.

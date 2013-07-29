@@ -6,4 +6,8 @@ class Comment
 
   belongs_to :user
   embedded_in :nit
+
+  def commenter
+    user
+  end
 end

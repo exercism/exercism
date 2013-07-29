@@ -8,9 +8,15 @@
 
 module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application', {
   removeTasks:
-    common: ["pages:dev", "webfonts:dev", "images:dev"]
+    common: [ "webfonts:dev", "images:dev"]
     dist: ["images:dist", "webfonts:dist", "pages:dist"]
 
-  #  enableSass: false
+  server:
+    apiProxy:
+      enabled: true
+      host: 'localhost'
+      port: 4567
+
+  # enableSass: true
 
 })

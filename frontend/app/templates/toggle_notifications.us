@@ -1,0 +1,3 @@
+<button class="toggle-notifications <%= style %>">
+  <span id="count-notifications"></span>
+</button>
