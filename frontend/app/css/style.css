@@ -1,5 +1,10 @@
 /*HOME*/
 
+div.navbar-inner {
+  padding-right: 3em;
+  padding-left: 3em;
+}
+
 div.home {
   background: url('/img/blackboard.jpg') repeat center center;
   min-height: 300px;

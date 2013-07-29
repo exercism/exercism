@@ -1,0 +1,81 @@
+.toggle-notifications {
+  position: absolute;
+  right:0;
+  top: 0em;
+  width:2.2em;
+  height:2.2em;
+  border-width: 0;
+  padding:.35em;
+  font-size:1.4em;
+  font-weight:600;
+  color:#fff;
+  cursor: pointer;
+  user-select:none;
+  margin:0;
+  background:rgba(0, 0, 0, .4);
+  transition-duration: .3s;
+  transition-timing-function: ease-in-out;
+  transition-property: box-shadow, color, opacity, padding-left;
+}
+
+.new {
+  color: black;
+  opacity: 1;
+  background:hsla(44, 94%, 50%, .65);
+}
+
+.new:hover {
+  opacity: 1;
+}
+
+#list-notifications {
+  position: relative;
+  opacity: 0;
+  right: -15em;
+  width: 15em;
+  height: 0;
+  overflow: hidden;
+}
+
+ul#contains-notifications {
+  margin: 0;
+}
+
+li.notification {
+  background-color: #333333;
+  color: #858585;
+  list-style: none;
+  padding: 1em;
+  margin-bottom: .125em;
+}
+
+li.new-notification {
+  color: #fff;
+}
+
+#list-notifications.reveal-notifications {
+  position: absolute;
+  opacity: 1;
+  right: 0em;
+  top: 3em;
+  transition: all .3s ease-in-out;
+  box-shadow: 30em 0 0 30em rgba(0, 0, 0, .3);
+  transition: all .3s ease-in-out;
+  overflow-y: auto;
+  height: auto;
+  min-height: 5em;
+  max-height: 75%;
+}
+
+#list-notifications {
+}
+
+body {
+  transition: all .3s ease-in-out;
+}
+
+body.reveal-notifications {
+  margin-right: 15em;
+  margin-left: -15em;
+  transition: all .3s ease-in-out;
+}

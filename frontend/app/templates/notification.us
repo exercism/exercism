@@ -1,0 +1,2 @@
+New <a href="<%= link %>"><%= regarding %></a> from <%= from %>.
+<div class="notifation date"><%= humanReadableDate %></div>

@@ -14,6 +14,7 @@
     <% end %>
   </head>
   <body>
+    <div id="toggle-notifications"></div>
     <div class='navbar navbar-top'>
       <div class='navbar-inner'>
         <a class='brand' href='/'>exercism.io</a>
@@ -52,6 +53,7 @@
       <p>&copy; <%= Date.today.year %> Katrina Owen</p>
       </footer>
     </div>
+    <div id="list-notifications"></div>
     <% if ENV['RACK_ENV'].to_sym == :production %>
       <script src="/js/app.min.js"></script>
     <% else %>
