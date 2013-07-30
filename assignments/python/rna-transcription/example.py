@@ -1,12 +1,10 @@
+from string import maketrans
+
 class DNA(object):
-    thymidine = 'T'
-    uracil = 'U'
+    rna_translation = maketrans('AGCT', 'AGCU')
 
     def __init__(self, strand):
         self.strand = strand
 
     def to_rna(self):
-        return self.strand.replace(
-            self.thymidine,
-            self.uracil
-        )
+        return self.strand.translate(self.rna_translation)
