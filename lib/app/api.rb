@@ -7,6 +7,16 @@ class ExercismApp < Sinatra::Base
     pg :assignments, locals: {assignments: assignments}
   end
 
+  get '/api/v1/user/assignments/completed' do
+    unless params[:key]
+      halt 401, {error: "Please provide API key"}.to_json
+    end
+
+    assignments = Assignments.new(params[:key])
+
+    {assignments: assignments.completed}.to_json
+  end
+
   get '/api/v1/user/assignments/current' do
     unless params[:key]
       halt 401, {error: "Please provide API key"}.to_json

@@ -29,6 +29,11 @@ class ApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
+  def test_api_complains_if_no_key_is_submitted_for_completed_assignments
+    get '/api/v1/user/assignments/completed'
+    assert_equal 401, last_response.status
+  end
+
   def test_api_accepts_submission_attempt
     post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
 
@@ -57,4 +62,23 @@ class ApiTest < Minitest::Test
     Approvals.verify(last_response.body, options)
   end
 
+  def test_completed_sends_back_empty_list_for_new_user
+    new_user = User.create(github_id: 2)
+
+    get '/api/v1/user/assignments/completed', {key: new_user.key}
+
+    assert_equal({"assignments" => []}, JSON::parse(last_response.body))
+  end
+
+  def test_completed_returns_the_names_of_completed_assignments
+    user = User.create(github_id: 2, current: {'ruby' => 'bob'})
+    trail = Exercism.current_curriculum.in('ruby')
+    exercises = trail.exercises.each
+    user.complete! exercises.next, on: trail
+    user.complete! exercises.next, on: trail
+
+    get '/api/v1/user/assignments/completed', {key: user.key}
+
+    assert_equal({"assignments" => ['bob', 'rna-transcription']}, JSON::parse(last_response.body))
+  end
 end

@@ -18,6 +18,10 @@ class Assignments
     @next ||= upcoming_exercises
   end
 
+  def completed
+    @available ||= completed_exercises
+  end
+
   private
 
   def assigned_exercises
@@ -34,6 +38,12 @@ class Assignments
       exercise = curriculum.in(exercise.language).successor(exercise)
       next if exercise.slug == 'congratulations'
       curriculum.assign(exercise)
+    end
+  end
+
+  def completed_exercises
+    user.done.map do |exercise|
+      curriculum.assign(exercise).slug
     end
   end
 end
