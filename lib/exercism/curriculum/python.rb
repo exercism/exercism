@@ -1,7 +1,7 @@
 class Exercism
   class PythonCurriculum
     def slugs
-      %w(bob rna-transcription word-count)
+      %w(bob rna-transcription word-count anagram)
     end
 
     def locale
