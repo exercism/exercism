@@ -2,7 +2,7 @@ class Bob
 
   def hey(drivel)
     if taciturn?(drivel)
-      'Fine. Be that way.'
+      'Fine. Be that way!'
     elsif curious?(drivel)
       'Sure.'
     elsif forceful?(drivel)
@@ -36,7 +36,7 @@ class Alice
 
   def respond_to(phrase)
     if phrase.silent?
-      'Fine. Be that way.'
+      'Fine. Be that way!'
     elsif phrase.quizzical?
       'Sure.'
     elsif phrase.loud?
@@ -86,7 +86,7 @@ class AnswerSilence
   end
 
   def reply
-    'Fine. Be that way.'
+    'Fine. Be that way!'
   end
 
 end

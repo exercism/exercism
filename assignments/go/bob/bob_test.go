@@ -49,5 +49,5 @@ func TestStatementWithQuestionMark(t *testing.T) {
 
 func TestSilentTreatment(t *testing.T) {
 	t.SkipNow()
-	assertReply(t, "", "Fine. Be that way.")
+	assertReply(t, "", "Fine. Be that way!")
 }
