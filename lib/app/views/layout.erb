@@ -14,7 +14,9 @@
     <% end %>
   </head>
   <body>
-    <div id="toggle-notifications"></div>
+    <% unless current_user.guest? %>
+      <div id="toggle-notifications"></div>
+    <% end %>
     <div class='navbar navbar-top'>
       <div class='navbar-inner'>
         <a class='brand' href='/'>exercism.io</a>
