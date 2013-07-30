@@ -58,6 +58,15 @@
       <% end %>
 
       <p>Read about <a href="/cycle">the feedback cycle</a>.</p>
+
+      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
+        <% if current_user.admin? %>
+          <button type="submit" name="approve" class="btn">Unlock Next.</button>
+        <% elsif !submission.approvable? %>
+          <button type="submit" name="approvable" class="btn">I think this is done. Unlock the next assignment?</button>
+        <% end %>
+      </form>
+
     <% end %>
   </div>
 </div>
