@@ -6,7 +6,7 @@ exercism.views.Notification = Backbone.View.extend({
   className: "notification message",
 
   events: {
-    "click a": "read"
+    "click .check": "toggleRead"
   },
 
   initialize: function(options) {
@@ -20,11 +20,9 @@ exercism.views.Notification = Backbone.View.extend({
     return this;
   },
 
-  read: function() {
+  toggleRead: function() {
     console.log("model marked read");
-    if (!(this.model.get("read"))) {
-      this.model.save("read", true);
-    }
+      this.model.save("read", !(this.model.get("read")));
   },
 
   readStatus: function() {

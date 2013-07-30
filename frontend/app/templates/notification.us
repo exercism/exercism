@@ -1,2 +1,2 @@
-New <a href="<%= link %>"><%= regarding %></a> from <%= from %>.
+<span class="check"></span><a href="<%= link %>"><%= regarding %></a> from <%= from %>.
 <div class="notifation date"><%= humanReadableDate %></div>
