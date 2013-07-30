@@ -12,7 +12,7 @@ spec/reports
 test/tmp
 test/version_tmp
 tmp
-.ruby_version
+.ruby-version
 
 # ENV vars
 scripts/boot.sh
