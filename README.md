@@ -3,30 +3,41 @@
 Application to support working through sequential programming problems, with
 crowd-sourced code reviews.
 
-Supports two types of users
-- admin/nitpicker
-- practitioner
+## WARNING
 
-Supports multiple tracks, e.g.
-- ruby
-- javascript
-- go
+This an early-stage experiment. In other words: Shield your eyes, children,
+the code is bolted on.
 
-A practitioner starts a trail, and is given the first assignment, then follows several rounds of code review until an instructor accepts the assignment.
+We welcome contributions as we work to figure out what this beast is.
 
-Both nitpickers and practitioners who have successfully completed an assignment can provide code reviews / feedback / comments on an assignment.
+Features may be here today, gone tomorrow.
+
+### What we think we know
+
+The discussions are the most important thing in the application. That
+and the evolution of the code. It's not about getting code perfect or
+right, but using the pieces of code to talk about the little details of
+what makes code expressive.
+
+Each code submission seems very ephemeral right now. You submit. You
+resubmit, the old submission goes into hiding along with the discussion
+about it.
+
+There are excellent discussions, and it would be great to be able to extract
+the learning from these discussions, perhaps into blog posts, perhaps into
+checklists to help teach nitpicking.
+
+We believe that there's learning in doing the exercises and receiving feedback,
+and there's also learning in reading other people's code and providing feedback.
+
+It would be great if there were a way to have meta-discussions about providing
+feedback.
+
+The messaging right now is a disaster. The site is confusing, the process is
+opaque, and it's hard to figure out where you need to look to figure stuff
+out.
 
 ## The Data
-
-We are currently working on assignments in:
-
-* ruby
-* javascript
-* coffeescript
-* clojure
-* elixir
-
-Only ruby currently has been approached systematically.
 
 The warmup exercises are collected from all over the web.
 
@@ -36,13 +47,14 @@ The common data for assignments are in
 assignments/shared
 ```
 
-This includes some metadata that gets sewn into a README, as well as a blurb that can be shown on the website.
+This includes some metadata that gets sewn into a README, as well as a blurb
+that can be shown on the website.
 
 Not all assignments will be appropriate for all languages.
 
 The actual assignment consists of
 
-* a test suite, where all test are `skip`ped except the first one
+* a test suite, where all test are pending except the first one
 * a sample solution that passes the test suite
 
 Each language is configured with a test extension and a code extension.
@@ -50,7 +62,7 @@ Each language is configured with a test extension and a code extension.
 For ruby, both of these are 'rb', so the test suite is named:
 
 ```bash
-test.rb
+SLUG_test.rb
 ```
 
 and the sample solution is called
@@ -59,11 +71,9 @@ and the sample solution is called
 example.rb
 ```
 
-For JavaScript, the test extension is `spec.js`, and the code extension is `js`, giving `test.spec.js` and `example.js`.
-
 The extensions are also used to detect which language a user is submitting an assignment to via the API (they may be on several trails simultaneously).
 
-The languages/trails are configured in `lib/exercism.rb`.
+The languages/trails are configured in `lib/exercism/curriculum/LANGUAGE.rb`.
 
 The list of assignments is just a really big array of assignment slugs in the order that they will be assigned.
 
@@ -134,8 +144,6 @@ heroku config:set BUILDPACK_URL=https://github.com/theotherzach/heroku-buildpack
 
 ## Contributing
 
-This is a really weird request, but as long as this is a private repo every time someone forks it,
-all the collaborators get added to the fork as collaborators, which seems a bit excessive.
+Fork and clone. Hack hack hack.
+Submit a pull request and tell us why your idea is awesome.
 
-I'd be delighted if you just worked on branches on the main repo and submit pull requests from there,
-until we get to a place where we know where this is going, and can open source the thing, at which point we can use the usual GitHub flow with forks etc.
