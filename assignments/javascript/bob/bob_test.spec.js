@@ -5,7 +5,7 @@ describe("Bob", function() {
 
   it("stating something", function() {
     var result = bob.hey('Tom-ay-to, tom-aaaah-to.');
-    expect(result).toEqual('Whatever');
+    expect(result).toEqual('Whatever.');
   });
 
   xit("shouting", function() {
@@ -15,12 +15,12 @@ describe("Bob", function() {
 
   xit("asking a question", function() {
     var result = bob.hey('Does this cryogenic chamber make me look fat?');
-    expect(result).toEqual('Sure');
+    expect(result).toEqual('Sure.');
   });
 
   xit("talking forcefully", function() {
     var result = bob.hey("Let's go make out behind the gym!");
-    expect(result).toEqual('Whatever');
+    expect(result).toEqual('Whatever.');
   });
 
   xit("shouting numbers", function() {
@@ -35,7 +35,7 @@ describe("Bob", function() {
 
   xit("silence", function() {
     var result = bob.hey('');
-    expect(result).toEqual('Fine, be that way.');
+    expect(result).toEqual('Fine, be that way!');
   });
 
 });
