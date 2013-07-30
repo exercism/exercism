@@ -15,13 +15,13 @@ function Bob() {
 
   this.hey = function(message) {
     if (isSilence(message)) {
-      return "Fine, be that way.";
+      return "Fine, be that way!";
     } else if (isShouting(message)) {
       return "Woah, chill out!";
     } else if (isAQuestion(message)) {
-      return "Sure";
+      return "Sure.";
     } else {
-      return 'Whatever';
+      return 'Whatever.';
     }
   };
 }
