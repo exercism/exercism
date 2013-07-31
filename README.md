@@ -1,5 +1,7 @@
 # exercism.io
 
+[![Build Status](https://travis-ci.org/kytrinyx/exercism.io.png?branch=master)](https://travis-ci.org/kytrinyx/exercism.io)
+
 Application to support working through sequential programming problems, with
 crowd-sourced code reviews.
 
