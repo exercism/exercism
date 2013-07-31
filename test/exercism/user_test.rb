@@ -139,6 +139,12 @@ class UserTest < Minitest::Test
     assert_equal 'avatar_url', user.avatar_url
   end
 
+  def test_update_username_from_github
+    User.create(github_id: 23)
+    user = User.from_github(23, 'bob', nil, nil).reload
+    assert_equal 'bob', user.username
+  end
+
   def test_sets_avatar_url_unless_present
     User.create(github_id: 23)
     user = User.from_github(23, nil, nil, 'new?1234').reload
