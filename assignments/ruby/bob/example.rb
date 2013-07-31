@@ -1,3 +1,5 @@
+### Example 1 ###
+
 class Bob
 
   def hey(drivel)
@@ -27,6 +29,8 @@ class Bob
   end
 
 end
+
+### Example 2 ###
 
 class Alice
 
@@ -60,6 +64,8 @@ class Phrase < String
   end
 
 end
+
+### Example 3 ###
 
 class Charlie
 
@@ -127,3 +133,31 @@ class AnswerDefault
 
 end
 
+### Example 4 ###
+
+class David
+  Handler = Struct.new(:response, :pattern)
+
+  HANDLERS = {
+    :question  => Handler.new("Sure.",              ->(i) { i.end_with?("?") }),
+    :yell      => Handler.new("Whoa, chill out!",   ->(i) { i.eql?(i.upcase) }),
+    :nothing   => Handler.new("Fine. Be that way!", ->(i) { i.nil? || i.empty? }),
+    :statement => Handler.new("Whatever.",          ->(i) { true })
+  }
+
+  def hey(input)
+    respond!(select_handler(input))
+  end
+
+  def respond(handler)
+    handler.response
+  end
+
+  def select_handler(input)
+    handlers.values.find { |r| r.pattern.call(input) }
+  end
+
+  def handlers
+    HANDLERS
+  end
+end
