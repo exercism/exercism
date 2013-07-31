@@ -1,13 +1,11 @@
 <div class="row">
-  <div class="span6">
+  <div class="span12">
     <%= erb :byline, locals: {exercise: submission.exercise, user: submission.user} %>
-    <p>Submitted <%= ago(submission.at) %>
-
-    <% if submission.approved? %>
-      <p>
-        Approved by <%= gravatar_tag submission.approver.avatar_url, size: 30 %>
-        <%= submission.approver.username %>
-      </p>
+    <p>Submitted <%= ago(submission.at) %>.</p>
+    <% if submission.user.completed?(submission.exercise) %>
+      <p>This exercise has been thoroughly bikeshedded, and <b><%= submission.user.username %></b> has moved on.</p>
+    <% else %>
+      <p>This exercise is still in progress.</p>
     <% end %>
     <p>&laquo; <a href="/<%= [submission.user.username, submission.language, submission.slug].join('/') %>">Submission history</a></p>
   </div>
@@ -15,14 +13,22 @@
 
 <div class="row">
 
-  <%= erb :"code/simple", locals: { title: "Code",
-    html: { id: "current-submission" },
-    code: submission.code,
-    language: submission.language } %>
+  <%= erb :"code/simple", locals: {
+      title: "Code",
+      html: { id: "current-submission" },
+      code: submission.code,
+      language: submission.language
+    }
+  %>
 
   <div class="comments span6">
     <% if submission.nits.empty? %>
-      <h2>Provide Feedback</h2>
+      <% if current_user.is?(submission.user.username) %>
+        <h2>Initial Thoughts</h2>
+        <p>Feel free to expound on trade-offs or choices or thoughts about your code.</p>
+      <% else %>
+        <h2>Provide Feedback</h2>
+      <% end %>
     <% else %>
       <h2>Nitpicks</h2>
     <% end %>
@@ -54,15 +60,40 @@
       </form>
 
     <% end %>
-    <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
-      <textarea name="comment" class="span6" rows="10"></textarea>
-      <% if current_user.admin? %>
-        <button type="submit" name="approve" class="btn">Unlock Next</button>
-        <button type="submit" name="approve" class="btn">Comment &amp; Unlock Next</button>
-      <% else %>
-        <button type="submit" name="approvable" class="btn">I think this is done. Unlock the next one!</button>
+
+    <% if submission.user.completed?(submission.exercise) %>
+
+      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
+        <textarea name="comment" class="span6" rows="10"></textarea>
+        <button type="submit" name="nitpick" class="btn btn-primary">Comment</button>
+      </form>
+
+    <% else %>
+
+      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
+        <textarea name="comment" class="span6" rows="10"></textarea>
+        <% if current_user.admin? %>
+          <button type="submit" name="approve" class="btn">Unlock Next</button>
+          <button type="submit" name="approve" class="btn">Comment &amp; Unlock Next</button>
+        <% else %>
+          <% unless current_user.is?(submission.user.username) %>
+            <button type="submit" name="approvable" class="btn">I think this is done. Unlock the next one!</button>
+          <% end %>
+        <% end %>
+        <button type="submit" name="nitpick" class="btn btn-primary">Nitpick</button>
+      </form>
+
+      <% if current_user.is?(submission.user.username) %>
+        <% if submission.approvable? %>
+          <p>Your submission has been nominated for approval.</p>
+        <% else %>
+          <p>Your submission is under review.</p>
+        <% end %>
+
+        <p>Read about <a href="/cycle">the feedback cycle</a>.</p>
       <% end %>
-      <button type="submit" name="nitpick" class="btn btn-primary">Nitpick</button>
-    </form>
+
+    <% end %>
   </div>
 </div>
+

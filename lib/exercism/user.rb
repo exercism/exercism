@@ -112,6 +112,10 @@ class User
     !admin? && submissions.count == 0
   end
 
+  def owns?(submission)
+    self == submission.user
+  end
+
   private
 
   def latest_submission_on(exercise)

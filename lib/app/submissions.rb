@@ -63,16 +63,12 @@ class ExercismApp < Sinatra::Base
 
     submission = Submission.find(id)
 
-    if current_user == submission.user
-      erb :submission, locals: {submission: submission}
-    else
-      unless current_user.may_nitpick?(submission.exercise)
-        flash[:error] = "You do not have permission to nitpick that exercise."
-        redirect '/'
-      end
-
-      erb :nitpick, locals: {submission: submission}
+    unless current_user.owns?(submission) || current_user.may_nitpick?(submission.exercise)
+      flash[:error] = "You do not have permission to nitpick that exercise."
+      redirect '/'
     end
+
+    erb :nitpick, locals: {submission: submission}
   end
 
   # TODO: Write javascript to submit form here
