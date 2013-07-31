@@ -8,7 +8,7 @@ class ExercismApp < Sinatra::Base
         halt 403, "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
       end
 
-      unless current_user.may_nitpick?(submission.exercise)
+      unless current_user.owns?(submission) || current_user.may_nitpick?(submission.exercise)
         halt 403, "You do not have permission to nitpick that exercise."
       end
 
