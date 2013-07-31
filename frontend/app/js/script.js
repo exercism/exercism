@@ -48,7 +48,7 @@ $(function() {
     $("a[data-action='enlarge']",codeDiv).show();
   });
 
-  $("#code-timeline").on("click",function() {
+  $("#code-timeline").on("click",function(event) {
     var revisionId = $(event.target).data("revision");
     $(event.target).toggleClass("selected");
     $('#revision-' + revisionId).toggle();
