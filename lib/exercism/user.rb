@@ -4,6 +4,7 @@ class User
   include Mongoid::Document
 
   field :u, as: :username, type: String
+  field :email, type: String
   field :img, as: :avatar_url, type: String
   field :cur, as: :current, type: Hash, default: {}
   field :comp, as: :completed, type: Hash, default: {}
