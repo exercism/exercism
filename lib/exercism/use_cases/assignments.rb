@@ -34,7 +34,6 @@ class Assignments
 
   def upcoming_exercises
     user.current_exercises.map do |exercise|
-      next if exercise.slug == 'congratulations'
       exercise = curriculum.in(exercise.language).successor(exercise)
       next if exercise.slug == 'congratulations'
       curriculum.assign(exercise)
