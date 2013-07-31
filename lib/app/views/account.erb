@@ -65,39 +65,47 @@
 
     <h3>Ruby</h3>
 
+    <h4>Installation: </h4>
     <ul>
       <li>Install ruby. (Should we suggest `ruby-build`? `rvm`?)</li>
     </ul>
 
+    <h4>Running Tests: </h4>
     <p>Execute the tests with:</p>
 
-    <pre>
-      $ ruby bob_test.rb
-    </pre>
+    <pre>$ ruby bob_test.rb</pre>
 
     <h3>JavaScript</h3>
 
+    <h4>Installation: </h4>
+
     <ul>
-      <li>Install <a href="http://nodejs.org/">Node.js</a></li>
-      <li>Install <a href="https://github.com/mhevery/jasmine-node">jasmine-node</a></li>
+      <li>
+        Install <a href="http://nodejs.org/">Node.js</a>
+        <ul>
+          <li>
+            Homebrew for Mac OS X
+            <ul>
+              <li>Install node with <code>brew install node</code></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+
+      <li>
+        Install <a href="https://github.com/mhevery/jasmine-node">jasmine-node</a> with
+        <code>npm install jasmine-node</code>
+      </li>
     </ul>
 
-    <pre>
-      $ brew install node
-      $ npm install jasmine-node -g
-    </pre>
+    <p>Update the <code>~/.bash_profile</code> to include NPM binary files on the PATH:</p>
 
-    <p>Update the `~/.bash_profile` to include NPM binary files on the PATH:</p>
+    <pre>$ export PATH=/usr/local/share/npm/bin:$PATH</pre>
 
-    <pre>
-      $ export PATH=/usr/local/share/npm/bin:$PATH
-    </pre>
-
+    <h4>Running tests: </h4>
     <p>Execute the tests with:</p>
 
-    <pre>
-      $ jasmine-node bob_test.spec.js
-    </pre>
+    <pre>$ jasmine-node bob_test.spec.js</pre>
 
     <h3>Elixir</h3>
 
@@ -123,10 +131,34 @@
 
     <h4>Running tests:</h4>
 
-    <pre>
-      $ elixir bob_test.exs
-    </pre>
+    <pre>$ elixir bob_test.exs</pre>
 
+    <h3>Clojure</h3>
+
+    <h4>Installation:</h4>
+
+    <ul>
+      <li>
+        Homebrew for Mac OS X
+        <ul>
+          <li>Update your homebrew to latest: <code>brew update</code></li>
+          <li>Install Clojure: <code>brew install clojure</code></li>
+        </ul>
+      </li>
+      <li>
+        Other
+        <ul>
+          <li>Download the latest table release jar file <a href="http://clojure.org/downloads">Clojure-1.5.1</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <h4>Running tests:</h4>
+    <p>If installed with homebrew: </p>
+    <pre>$ clj bob_test.clj</pre>
+
+    <p>If jar file downloaded, assuming <code>clojure-1.5.1.jar</code></p>
+    <pre>$ java -cp clojure-1.5.1.jar clojure.main bob_test.clj</pre>
   </div>
 
   <div class="span4">
