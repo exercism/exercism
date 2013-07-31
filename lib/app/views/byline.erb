@@ -4,5 +4,5 @@
 </h1>
 <p>
   <%= gravatar_tag user.avatar_url, size: 30 %>
-  <%= user.username %>
+  <%= github_profile_link(user) %>
 </p>

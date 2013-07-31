@@ -37,7 +37,7 @@
       <p>
         <cite>
           <%= gravatar_tag nit.user.avatar_url, size: 20 %>
-          <em><%= nit.user.username %></em>, <%= ago(nit.at) %>
+          <em><%= github_profile_link(nit.user) %></em>, <%= ago(nit.at) %>
         </cite>
       </p>
     </blockquote>
@@ -48,7 +48,7 @@
           <li>
             <%= gravatar_tag comment.user.avatar_url, size: 20 %>
             <%= md(comment.body) %>
-            &mdash; <em><%= comment.user.username %></em>, <%= ago(comment.at) %>
+            &mdash; <em><%= github_profile_link(comment.user) %></em>, <%= ago(comment.at) %>
           </li>
         <% end %>
         </ul>
