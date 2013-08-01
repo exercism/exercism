@@ -125,6 +125,7 @@ h1.home {
 .code .btn { float: right; }
 .code br { clear: both; }
 
+pre { white-space: pre-line; }
 
 .comments p { padding: 5px 0; }
 
