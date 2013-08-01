@@ -93,7 +93,7 @@ class ExercismApp < Sinatra::Base
     else
       nitpick(id)
     end
-    redirect '/'
+    redirect "/submissions/#{id}"
   end
 
   post '/submissions/:id/nits/:nit_id/argue' do |id, nit_id|
