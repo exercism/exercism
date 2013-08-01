@@ -31,7 +31,9 @@ class ApiTest < Minitest::Test
     submission = Submission.first
 
     url = "/submissions/#{submission.id}/respond"
-    post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
+    Message.stub(:ship, nil) do
+      post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
+    end
     assert_equal 1, submission.reload.nits.count
   end
 
@@ -40,7 +42,9 @@ class ApiTest < Minitest::Test
     submission = Submission.first
 
     url = "/submissions/#{submission.id}/respond"
-    post url, {comment: "good"}, {'rack.session' => {github_id: 1}}
+    Message.stub(:ship, nil) do
+      post url, {comment: "good"}, {'rack.session' => {github_id: 1}}
+    end
     assert_equal 1, submission.reload.nits.count
   end
 

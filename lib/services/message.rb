@@ -1,5 +1,10 @@
 require 'erb'
 class Message
+
+  def self.ship(options)
+    new(options).ship
+  end
+
   class SubclassMustOverride < StandardError; end
 
   attr_reader :instigator, :submission, :site_root
