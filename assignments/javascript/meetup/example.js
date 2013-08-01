@@ -1,4 +1,6 @@
-Meetup = function(month,year) {
+function Meetup(month,year) {
+  'use strict';
+
   var meetup = {};
 
   meetup.startingDate = new Date(year,month,1);
@@ -23,7 +25,7 @@ Meetup = function(month,year) {
     var lastDayOfMonth = new Date(year,month + 1,0).getDate() - 1;
     meetup["last" + currentDay] = generateWeekdayFunctionEndingAt(weekDayIndex,lastDayOfMonth);
 
-  };
+  }
 
   function generateWeekdayFunctionStartingAt(weekDayIndex,offset) {
     return function() {
@@ -34,7 +36,7 @@ Meetup = function(month,year) {
 
       return this.startingDate;
     };
-  };
+  }
 
   function generateWeekdayFunctionEndingAt(weekDayIndex,offset) {
     return function() {
@@ -45,8 +47,10 @@ Meetup = function(month,year) {
 
       return this.startingDate;
     };
-  };
+  }
 
   return meetup;
+  
+}
 
-};
+module.exports = Meetup;
