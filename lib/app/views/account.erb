@@ -10,14 +10,14 @@
 
     <p>
       The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
-    <form action="/account/email" method="post">
-      <input type="hidden" name="_method" value="put" />
-      <div class="input-append">
-        <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
-        <input type="submit" name="update" value="Update" class="btn" />
-      </div>
-    </form>
-  </p>
+      <form action="/account/email" method="post">
+        <input type="hidden" name="_method" value="put" />
+        <div class="input-append">
+          <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
+          <input type="submit" name="update" value="Update" class="btn" />
+        </div>
+      </form>
+    </p>
 
     <h2>Setup</h2>
 
