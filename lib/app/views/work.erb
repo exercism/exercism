@@ -8,7 +8,9 @@
   <% elsif work.slug == 'congratulations' %>
     <span class="label label-info">No more Assignments</span>
   <% else %>
-    <h4 style="display: inline" class="work-slug"><%= work.slug %></h4>
-    <span class="label label-info">Not Started</span>
+    <span class="work-slug">
+      <h4 style="display: inline"><%= work.slug %></h4>
+      <span class="label label-info">Not Started</span>
+    </span>
   <% end %>
 </div>
