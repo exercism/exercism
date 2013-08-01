@@ -1,4 +1,4 @@
-require('./transform');
+var ETL = require('./transform');
 
 describe("Transform", function() {
 
