@@ -141,7 +141,7 @@ Browse the results located in `coverage/index.html`
 
 Let Heroku know that Lineman will be building our assets. From the command line:
 ```
-heroku config:set BUILDPACK_URL=https://github.com/theotherzach/heroku-buildpack-lineman-ruby.git
+heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-lineman-ruby.git
 ```
 
 ## Contributing
