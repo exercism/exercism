@@ -146,7 +146,7 @@ class David
   }
 
   def hey(input)
-    respond!(select_handler(input))
+    respond(select_handler(input))
   end
 
   def respond(handler)

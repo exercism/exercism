@@ -1,5 +1,7 @@
 # exercism.io
 
+[![Build Status](https://travis-ci.org/kytrinyx/exercism.io.png?branch=master)](https://travis-ci.org/kytrinyx/exercism.io)
+
 Application to support working through sequential programming problems, with
 crowd-sourced code reviews.
 
@@ -146,4 +148,20 @@ heroku config:set BUILDPACK_URL=https://github.com/theotherzach/heroku-buildpack
 
 Fork and clone. Hack hack hack.
 Submit a pull request and tell us why your idea is awesome.
+
+## License
+
+GNU Affero General Public License
+
+Copyright (C) 2013 Katrina Owen, _@kytrinyx.com
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
 
