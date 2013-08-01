@@ -5,10 +5,10 @@ class Bob
   def hey(drivel)
     if taciturn?(drivel)
       'Fine. Be that way!'
-    elsif curious?(drivel)
-      'Sure.'
     elsif forceful?(drivel)
       'Woah, chill out!'
+    elsif curious?(drivel)
+      'Sure.'
     else
       'Whatever.'
     end
@@ -41,10 +41,10 @@ class Alice
   def respond_to(phrase)
     if phrase.silent?
       'Fine. Be that way!'
-    elsif phrase.quizzical?
-      'Sure.'
     elsif phrase.loud?
       'Woah, chill out!'
+    elsif phrase.quizzical?
+      'Sure.'
     else
       'Whatever.'
     end
@@ -80,7 +80,7 @@ class Charlie
   end
 
   def handlers
-    [AnswerSilence, AnswerQuestion, AnswerShout, AnswerDefault]
+    [AnswerSilence, AnswerShout, AnswerQuestion, AnswerDefault]
   end
 
 end
@@ -139,9 +139,9 @@ class David
   Handler = Struct.new(:response, :pattern)
 
   HANDLERS = {
-    :question  => Handler.new("Sure.",              ->(i) { i.end_with?("?") }),
-    :yell      => Handler.new("Whoa, chill out!",   ->(i) { i.eql?(i.upcase) }),
     :nothing   => Handler.new("Fine. Be that way!", ->(i) { i.nil? || i.empty? }),
+    :yell      => Handler.new("Woah, chill out!",   ->(i) { i.eql?(i.upcase) }),
+    :question  => Handler.new("Sure.",              ->(i) { i.end_with?("?") }),
     :statement => Handler.new("Whatever.",          ->(i) { true })
   }
 

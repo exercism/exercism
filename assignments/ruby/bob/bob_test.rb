@@ -59,6 +59,11 @@ begin
       assert_equal 'Whatever.', teenager.hey('Ending with ? means a question.')
     end
 
+    def test_prattling_on
+      skip
+      assert_equal 'Sure.', teenager.hey("Wait! Hang on. Are you going to be OK?")
+    end
+
     def test_silence
       skip
       assert_equal 'Fine. Be that way!', teenager.hey('')
