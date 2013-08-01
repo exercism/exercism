@@ -58,4 +58,14 @@ $(function() {
     var $this = $(this);
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
+  $('.work-slug').popover({
+    trigger: 'hover',
+    placement: 'right',
+    html: true,
+    delay: {
+      show: 600,
+      hide: 100
+    },
+    content: 'use the command <code>exercism fetch</code> to add this assignment to your exercism directory'
+  });
 });
