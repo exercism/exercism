@@ -74,22 +74,22 @@ describe("Meetup", function() {
     expect(meetup.thursteenth()).toEqual(expectedDate);
   });
 
-  xit("frxiteenth of april 2013",function() {
+  xit("friteenth of april 2013",function() {
     var meetup = new Meetup(3,2013);
     var expectedDate = new Date(2013, 3, 19);
-    expect(meetup.frxiteenth()).toEqual(expectedDate);
+    expect(meetup.friteenth()).toEqual(expectedDate);
   });
 
-  xit("frxiteenth of august 2013",function() {
+  xit("friteenth of august 2013",function() {
     var meetup = new Meetup(7,2013);
     var expectedDate = new Date(2013, 7, 16);
-    expect(meetup.frxiteenth()).toEqual(expectedDate);
+    expect(meetup.friteenth()).toEqual(expectedDate);
   });
 
-  xit("frxiteenth of september 2013",function() {
+  xit("friteenth of september 2013",function() {
     var meetup = new Meetup(8,2013);
     var expectedDate = new Date(2013, 8, 13);
-    expect(meetup.frxiteenth()).toEqual(expectedDate);
+    expect(meetup.friteenth()).toEqual(expectedDate);
   });
 
   xit("saturteenth of february 2013",function() {
