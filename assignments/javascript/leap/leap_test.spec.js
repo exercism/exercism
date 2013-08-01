@@ -1,4 +1,4 @@
-require('./year');
+var Year = require('./year');
 
 describe("Year", function() {
 

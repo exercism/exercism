@@ -4,7 +4,9 @@ class Exercism
       %w(
         bob word-count anagram beer-song nucleotide-count
         rna-transcription point-mutations phone-number
-        grade-school
+        grade-school robot-name leap etl space-age grains
+        gigasecond triangle scrabble-score
+        meetup
       )
       # always put meetup last. It's crazy in javascript.
     end

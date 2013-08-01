@@ -1,4 +1,4 @@
-require('./meetup');
+var Meetup = require('./meetup');
 
 describe("Meetup", function() {
 

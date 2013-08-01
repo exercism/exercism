@@ -1,15 +1,21 @@
-ETL = {
-  transform : function(input) {
-    var transformedObject = {};
+(function () {
+  'use strict';
 
-    for (var key in input) {
-      var currentValues = input[key];
+  var ETL = {
+    transform : function(input) {
+      var transformedObject = {};
 
-      for (var i = 0; i < currentValues.length; i++) {
-        var currentValue = currentValues[i].toLowerCase();
-        transformedObject[currentValue] = key;
-      };
+      for (var key in input) {
+        var currentValues = input[key];
+
+        for (var i = 0; i < currentValues.length; i++) {
+          var currentValue = currentValues[i].toLowerCase();
+          transformedObject[currentValue] = key;
+        }
+      }
+      return transformedObject;
     }
-    return transformedObject;
-  }
-};
+  };
+
+  module.exports = ETL;
+})();

@@ -1,4 +1,4 @@
-require('./gigasecond');
+var Gigasecond = require('./gigasecond');
 
 describe("Gigasecond", function() {
 

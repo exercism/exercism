@@ -1,4 +1,6 @@
-Gigasecond = function(dateOfBirth) {
+function Gigasecond(dateOfBirth) {
+  'use strict';
+
   this.dateOfBirth = dateOfBirth;
 
   this.date = function() {
@@ -12,4 +14,6 @@ Gigasecond = function(dateOfBirth) {
     date.setSeconds(0);
     return date;
   };
-};
+}
+
+module.exports = Gigasecond;

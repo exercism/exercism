@@ -1,4 +1,4 @@
-require('./spaceAge');
+var SpaceAge = require('./spaceAge');
 
 describe("Space Age", function() {
 
