@@ -7,7 +7,7 @@ begin
     attr_reader :teenager
 
     def setup
-      @teenager = Bob.new
+      @teenager = ::Bob.new
     end
 
     def test_stating_something
