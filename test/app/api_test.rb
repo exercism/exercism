@@ -81,4 +81,14 @@ class ApiTest < Minitest::Test
 
     assert_equal({"assignments" => ['bob', 'rna-transcription']}, JSON::parse(last_response.body))
   end
+
+  def test_peek_returns_assignments_for_all_trails
+    user = User.create(github_id: 2, current: {'ruby' => 'bob', 'clojure' => 'rna-transcription'})
+
+    get '/api/v1/user/assignments/next', {key: user.key}
+
+    output = last_response.body
+    options = {format: :json, name: 'api_peek_on_two_incomplete_trails'}
+    Approvals.verify(output, options)
+  end
 end
