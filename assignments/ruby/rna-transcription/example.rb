@@ -1,16 +1,3 @@
-# In general, inheriting from Ruby core classes
-# is dangerous and confusing.
-# http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
-# In this case it works out with no surprises.
-class DNA < String
-  THYMIDINE = 'T'
-  URACIL = 'U'
-
-  def to_rna
-    tr THYMIDINE, URACIL
-  end
-end
-
 class DeoxyribonucleicAcid
   THYMIDINE = 'T'
   URACIL = 'U'
