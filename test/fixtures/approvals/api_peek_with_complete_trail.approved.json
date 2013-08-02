@@ -1,0 +1,11 @@
+{
+  "assignments": [
+    {
+      "track": "clojure",
+      "slug": "rna-transcription",
+      "readme": "# Rna Transcription\n\nWrite a program that can translate a given DNA string to the transcribed RNA string corresponding to it.\n\nBoth DNA and RNA strands are a sequence of nucleotides.\n\nThe four nucleotides found in DNA are adenine (**A**), cytosine (**C**), guanine (**G**) and thymine (**T**).\n\nThe four nucleotides found in RNA are adenine (**A**), cytosine (**C**), guanine (**G**) and uracil (**U**).\n\nGiven a DNA strand, its transcribed RNA strand is formed by replacing all occurrences of thymine with uracil.\n\n\n\n## Source\n\nRosalind [view source](http://rosalind.info/problems/rna)\n",
+      "test_file": "rna-transcription_test.clj",
+      "tests": "(ns rna-transcription.test (:use clojure.test))\n(load-file \"dna.clj\")\n\n(deftest transcribes-cytidine-unchanged\n  (is (= \"C\" (dna/to-rna \"C\"))))\n\n(deftest transcribes-guanosine-unchanged\n  (is (= \"G\" (dna/to-rna \"G\"))))\n\n(deftest transcribes-adenosine-unchanged\n  (is (= \"A\" (dna/to-rna \"A\"))))\n\n(deftest it-transcribes-thymidine-to-uracil\n  (is (= \"U\" (dna/to-rna \"T\"))))\n\n(deftest it-transcribes-all-occurrences-of-thymidine-to-uracil\n  (is (= \"ACGUGGUCUUAA\" (dna/to-rna \"ACGTGGTCTTAA\"))))\n\n(run-tests)\n"
+    }
+  ]
+}

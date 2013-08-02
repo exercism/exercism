@@ -1,0 +1,18 @@
+{
+  "assignments": [
+    {
+      "track": "ruby",
+      "slug": "rna-transcription",
+      "readme": "# Rna Transcription\n\nWrite a program that can translate a given DNA string to the transcribed RNA string corresponding to it.\n\nBoth DNA and RNA strands are a sequence of nucleotides.\n\nThe four nucleotides found in DNA are adenine (**A**), cytosine (**C**), guanine (**G**) and thymine (**T**).\n\nThe four nucleotides found in RNA are adenine (**A**), cytosine (**C**), guanine (**G**) and uracil (**U**).\n\nGiven a DNA strand, its transcribed RNA strand is formed by replacing all occurrences of thymine with uracil.\n\n\n\n## Source\n\nRosalind [view source](http://rosalind.info/problems/rna)\n",
+      "test_file": "rna-transcription_test.rb",
+      "tests": "require 'minitest/autorun'\nrequire_relative 'dna'\n\nclass DNATest < MiniTest::Unit::TestCase\n\n  def test_transcribes_cytidine_unchanged\n    assert_equal 'C', DNA.new(\"C\").to_rna\n  end\n\n  def test_transcribes_guanosine_unchanged\n    skip\n    assert_equal 'G', DNA.new(\"G\").to_rna\n  end\n\n  def test_transcribes_adenosine_unchanged\n    skip\n    assert_equal 'A', DNA.new(\"A\").to_rna\n  end\n\n  def test_it_transcribes_thymidine_to_uracil\n    skip\n    assert_equal 'U', DNA.new(\"T\").to_rna\n  end\n\n  def test_it_transcribes_all_occurrences_of_thymidine_to_uracil\n    skip\n    assert_equal 'ACGUGGUCUUAA', DNA.new('ACGTGGTCTTAA').to_rna\n  end\n\nend\n"
+    },
+    {
+      "track": "clojure",
+      "slug": "word-count",
+      "readme": "# Word Count\n\nWrite a program that given a phrase can count the occurrences of each word in that phrase.\n\nFor example for the input `\"olly olly in come free\"`\n\n```plain\nolly: 2\nin: 1\ncome: 1\nfree: 1\n```\n\n\n\n## Source\n\nThe golang tour [view source](http://tour.golang.org)\n",
+      "test_file": "word-count_test.clj",
+      "tests": "(ns word-count.test (:use clojure.test))\n(load-file \"word_count.clj\")\n\n(deftest count-one-word\n  (is (= {\"word\" 1}\n         (phrase/word-count \"word\"))))\n\n(deftest count-one-of-each\n  (is (= {\"one\" 1 \"of\" 1 \"each\" 1}\n         (phrase/word-count \"one of each\"))))\n\n(deftest count-multiple-occurrences\n  (is (= {\"one\" 1 \"fish\" 4 \"two\" 1 \"red\" 1 \"blue\" 1}\n         (phrase/word-count \"one fish two fish red fish blue fish\"))))\n\n(deftest ignore-punctuation\n  (is (= {\"car\" 1, \"carpet\" 1 \"as\" 1 \"java\" 1 \"javascript\" 1}\n         (phrase/word-count \"car : carpet as java : javascript!!&@$%^&\"))))\n\n(deftest include-numbers\n  (is (= {\"testing\" 2 \"1\" 1 \"2\" 1}\n         (phrase/word-count \"testing, 1, 2 testing\"))))\n\n(deftest normalize-case\n  (is (= {\"go\" 3}\n         (phrase/word-count \"go Go GO\"))))\n\n(run-tests)\n"
+    }
+  ]
+}
