@@ -18,11 +18,13 @@ class ExercismApp < Sinatra::Base
         #TODO - create emails from notifications
         Notify.everyone(submission, current_user, 'nitpick')
         begin
-          NitpickMessage.ship(
-            instigator: nitpick.nitpicker,
-            submission: nitpick.submission,
-            site_root: site_root
-          )
+          unless nitpick.nitpicker == nitpick.submission.user
+            NitpickMessage.ship(
+              instigator: nitpick.nitpicker,
+              submission: nitpick.submission,
+              site_root: site_root
+            )
+          end
         rescue => e
           puts "Failed to send email. #{e.message}."
         end
@@ -42,11 +44,13 @@ class ExercismApp < Sinatra::Base
       Notify.source(submission, current_user, 'approval')
 
       begin
-        ApprovalMessage.ship(
-          instigator: current_user,
-          submission: Submission.find(id),
-          site_root: site_root
-        )
+        unless current_user == submission.user
+          ApprovalMessage.ship(
+            instigator: current_user,
+            submission: submission,
+            site_root: site_root
+          )
+        end
       rescue => e
         puts "Failed to send email. #{e.message}."
       end
