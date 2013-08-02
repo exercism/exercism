@@ -1,4 +1,4 @@
-class DeoxyribonucleicAcid
+class NucleicAcid
   THYMIDINE = 'T'
   URACIL = 'U'
 
@@ -7,8 +7,16 @@ class DeoxyribonucleicAcid
     @strand = strand
   end
 
-  def to_rna
-    strand.tr THYMIDINE, URACIL
-  end
+  require 'forwardable'
+  extend Forwardable
+  def_delegators :strand, :to_str, :to_s, :==
 end
 
+class RibonucleicAcid < NucleicAcid
+end
+
+class DeoxyribonucleicAcid < NucleicAcid
+  def to_rna
+    RibonucleicAcid.new(strand.tr THYMIDINE, URACIL)
+  end
+end
