@@ -91,4 +91,25 @@ class ApiTest < Minitest::Test
     options = {format: :json, name: 'api_peek_on_two_incomplete_trails'}
     Approvals.verify(output, options)
   end
+
+  def test_peek_behind_complete_trail
+    user = User.create(github_id: 2, current: {'ruby' => 'congratulations'})
+
+    get '/api/v1/user/assignments/next', {key: user.key}
+
+    assert_equal 404, last_response.status
+    assert_equal "No more assignments!", last_response.body
+  end
+
+  def test_peek_returns_assignments_for_incomplete_trails
+    user = User.create(github_id: 2, current: {'ruby' => 'congratulations', 'clojure' => 'bob'})
+
+    get '/api/v1/user/assignments/next', {key: user.key}
+
+    assert_equal 200, last_response.status
+
+    output = last_response.body
+    options = {format: :json, name: 'api_peek_with_complete_trail'}
+    Approvals.verify(output, options)
+  end
 end

@@ -48,8 +48,10 @@ class ExercismApp < Sinatra::Base
       halt 401, {error: "Please provide API key"}.to_json
     end
 
-    assignments = Assignments.new(params[:key])
+    assignments = Assignments.new(params[:key]).next
 
-    pg :assignments, locals: {assignments: assignments.next}
+    halt 404, 'No more assignments!' if assignments.empty?
+
+    pg :assignments, locals: {assignments: assignments}
   end
 end
