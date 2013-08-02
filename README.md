@@ -90,8 +90,9 @@ Different languages/trails do not need to have the same assignments or the same 
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-6. Run the database seed with `ruby scripts/seed.rb`
-7. Start server with: `EXERCISM_GITHUB_CLIENT_ID=xxx EXERCISM_GITHUB_CLIENT_SECRET=xxx rackup -p 4567`
+5. Run the database seed with `ruby scripts/seed.rb`
+6. Copy `.env.example` to `.env` and fill in your GitHub details
+7. Start server with `foreman start`
 8. Login at http://localhost:4567.
 9. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
 
@@ -105,7 +106,7 @@ Different languages/trails do not need to have the same assignments or the same 
 
 ## Sending Emails
 
-If you want to send actual emails, you will need to export the following environment variables:
+If you want to send actual emails, you will need supply the following environment variables in `.env`:
 
 * `EMAIL_USERNAME`
 * `EMAIL_PASSWORD`
