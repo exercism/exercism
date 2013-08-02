@@ -1,5 +1,5 @@
 module Sinatra
-  module ApplicationHelper
+  module SiteTitleHelper
 
     def title(value = nil)
       @title = value if value

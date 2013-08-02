@@ -1,12 +1,12 @@
 require './test/test_helper'
-require 'app/helpers/application_helper'
+require 'app/helpers/site_title_helper'
 
-class ApplicationHelperTest < Minitest::Test
+class SiteTitleHelperTest < Minitest::Test
 
   def helper
     return @helper if @helper
     @helper = Object.new
-    @helper.extend(Sinatra::ApplicationHelper)
+    @helper.extend(Sinatra::SiteTitleHelper)
     @helper
   end
 

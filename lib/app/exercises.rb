@@ -7,7 +7,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/:username/:language/:slug' do |username, language, slug|
-    title(slug)
+    title(slug + " in " + language + " by " + username)
 
     please_login "/#{username}/#{language}/#{slug}"
 
