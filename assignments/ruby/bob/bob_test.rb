@@ -73,6 +73,11 @@ begin
       skip
       assert_equal 'Fine. Be that way!', teenager.hey(nil)
     end
+
+    def test_prolonged_silence
+      skip
+      assert_equal 'Fine. Be that way!', teenager.hey('    ')
+    end
   end
 
 rescue LoadError => e
