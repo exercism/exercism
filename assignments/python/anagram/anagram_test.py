@@ -1,7 +1,7 @@
 try:
     from anagram import Anagram
 except ImportError:
-    quit("I couldn't find anagram.py. Create it and try again.")
+    raise SystemExit('Could not find anagram.py. Does it exist?')
 
 import unittest
 

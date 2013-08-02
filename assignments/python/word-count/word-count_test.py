@@ -1,7 +1,7 @@
 try:
     from wordcount import Phrase
 except ImportError:
-    quit("Hey, I can't find wordcount.py. Create it please?")
+    raise SystemExit('Could not find wordcount.py. Does it exist?')
 
 import unittest
 

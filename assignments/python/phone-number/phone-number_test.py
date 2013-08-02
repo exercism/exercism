@@ -1,7 +1,7 @@
 try:
     from phone import Phone
 except ImportError:
-    quit('Could not find phone.py. Does it exist?')
+    raise SystemExit('Could not find phone.py. Does it exist?')
 
 import unittest
 

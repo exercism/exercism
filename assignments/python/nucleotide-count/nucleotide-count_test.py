@@ -1,7 +1,7 @@
 try:
     from dna import DNA
 except ImportError:
-    quit('Could not find dna.py. Does it exist?')
+    raise SystemExit('Could not find dna.py. Does it exist?')
 
 import unittest
 

@@ -1,10 +1,7 @@
 try:
     import bob
 except ImportError:
-    quit("Hey, I can't find bob.py. Create it please?")
-
-if not hasattr(bob, 'Bob'):
-    quit("Don't freak out, but I can't find a class named Bob in `bob.py`. Are you sure it's here?")
+    raise SystemExit('Could not find bob.py. Does it exist?')
 
 import unittest
 

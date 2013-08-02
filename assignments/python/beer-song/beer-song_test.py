@@ -1,7 +1,7 @@
 try:
     from beer import Beer
 except ImportError:
-    quit("I couldn't find beer.py. Does it exist?")
+    raise SystemExit('Could not find beer.py. Does it exist?')
 
 import unittest
 

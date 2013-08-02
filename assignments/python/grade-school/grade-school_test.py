@@ -1,7 +1,7 @@
 try:
     from school import School
 except ImportError:
-    quit('Could not find schoo.py. Does it exist?')
+    raise SystemExit('Could not find school.py. Does it exist?')
 
 import unittest
 
