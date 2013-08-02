@@ -16,32 +16,4 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
       enabled: true
       host: 'localhost'
       port: 4567
-
-  # enableSass: true
-
-  # task override configuration
-  prependTasks:
-    common: ["ngtemplates"]  # ngtemplates runs in dist and dev
-
-  
-  # configuration for grunt-angular-templates
-  ngtemplates:
-    exorcism: # "exorcism" matches the name of the angular module defined in app.js
-      options:
-        base: "app/templates"
-      src: "app/templates/**/*.html",
-      # puts angular templates in a different spot than lineman looks for other templates in order not to conflict with the watch process
-      dest: "generated/angular/template-cache.js"
-  
-  # configures grunt-watch-nospawn to listen for changes to
-  # and recompile angular templates
-  watch:
-    ngtemplates:
-      files: "app/templates/**/*.html",
-      tasks: ["ngtemplates"]
-    jsSpecs:
-      files: ["<%= files.js.specHelpers %>", "<%= files.js.spec %>"],
-    coffeeSpecs:
-      files: ["<%= files.coffee.specHelpers %>", "<%= files.coffee.spec %>"],
-      tasks: ["coffee"]
 })

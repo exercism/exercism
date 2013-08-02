@@ -24,6 +24,9 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('files', {
       "app/js/namespace.js",
       "app/js/**/*.js"
     ]
+    spec: [
+      "spec/**/*.js"
+    ]
 
   coffee:
     app: [
