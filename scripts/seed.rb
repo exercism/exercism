@@ -14,12 +14,7 @@ end
 
 reset
 
-(1..60).each do |n|
-  user = User.create(username: n, github_id: n, email: "#{n}_coder@example.com", current: { "ruby" => "bob" })
-  attempt = Attempt.new(user, "class Bob\nend", "bob.rb").save
-  attempt.submission.at = Time.now.utc - n.to_i * 3600
-  attempt.submission.save
-end
+
 
 admin_data = {
   username: 'admin',
@@ -28,6 +23,23 @@ admin_data = {
   is_admin: true
 }
 admin = User.create(admin_data)
+
+{
+  "ruby" => "rb",
+  "clojure" => "clj",
+  "javascript" => "js",
+  "elixir" => "exs",
+}.each do |language,exe|
+  (1..60).each do |n|
+    index = "#{language}#{n}"
+    user = User.create(username: index, github_id: index, email: "#{index}_coder@example.com", current: { language => "bob" })
+    attempt = Attempt.new(user, "class Bob\nend", "bob.#{exe}").save
+    attempt.submission.at = Time.now.utc - n.to_i * 3600
+    attempt.submission.save
+    Nitpick.new(attempt.submission.id, admin, "It is missing `hey`.").save if n.even?
+    print exe, " "
+  end
+end
 
 alice_data = {
   username: 'alice',
