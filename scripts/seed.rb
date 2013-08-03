@@ -14,6 +14,13 @@ end
 
 reset
 
+(1..60).each do |n|
+  user = User.create(username: n, github_id: n, email: "#{n}_coder@example.com", current: { "ruby" => "bob" })
+  attempt = Attempt.new(user, "class Bob\nend", "bob.rb").save
+  attempt.submission.at = Time.now.utc - n.to_i * 3600
+  attempt.submission.save
+end
+
 admin_data = {
   username: 'admin',
   github_id: 0,

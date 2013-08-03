@@ -10,7 +10,7 @@
 
     <%= erb :filter_pending, locals: { label: 'User', options: filters.users } %>
     <%= erb :filter_pending, locals: { label: 'Exercise', options: filters.exercises } %>
-    <%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %>
+    <span class="hidden"><%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %></span>
 
     <label class="checkbox">
       <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" />

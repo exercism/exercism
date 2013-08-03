@@ -14,8 +14,27 @@ class Submission
   belongs_to :user
   embeds_many :nits
 
+  def self.filter(params={})
+    pending.
+      and(language: params[:language].downcase)
+  end
+
+  def self.date(params={})
+    date = (params[:date] || Date.today)
+    end_date = (date + 1).to_time.utc
+    start_date = date.to_time.utc
+    gte(at: start_date).
+      lt(at: end_date)
+  end
+
+  def self.nitless
+    pending.
+      or({ :'nits._id'.exists =>  false },
+         { :'nits._id' => :user })
+  end
+
   def self.pending
-    where(state: 'pending').order_by([:at, :desc])
+    where(state: 'pending').desc(:at)
   end
 
   def self.on(exercise)

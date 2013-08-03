@@ -8,6 +8,7 @@ require 'app/client'
 require 'app/curriculum'
 require 'app/submissions'
 require 'app/exercises'
+require 'app/dashboard'
 require 'app/trails'
 require 'app/about'
 require 'app/presenters/notifications_presenter'
@@ -87,6 +88,11 @@ class ExercismApp < Sinatra::Base
       %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
     end
 
+    def dashboard_nav_li(location, html={})
+      path = location.downcase == "featured" ? "/" : "/dashboard/#{location.downcase}"
+      active = path == request.path_info ? "active" : ""
+      %{<li class="#{active} #{html[:class]}"><a href="#{path}">#{location}</a></li>}
+    end
   end
 
 end
