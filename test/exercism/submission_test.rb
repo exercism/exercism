@@ -1,6 +1,10 @@
 require './test/mongo_helper'
+require 'exercism/nit'
 require 'exercism/submission'
 require "mocha/setup"
+
+module Exercism
+end
 
 class SubmissionTest < Minitest::Test
 
