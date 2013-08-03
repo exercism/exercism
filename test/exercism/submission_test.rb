@@ -1,5 +1,7 @@
 require './test/mongo_helper'
+require 'exercism/exercise'
 require 'exercism/nit'
+require 'exercism/user'
 require 'exercism/submission'
 require "mocha/setup"
 
@@ -33,6 +35,21 @@ class SubmissionTest < Minitest::Test
 
     submission = Submission.new(slug: 'bob', language: 'ruby')
     assert_equal("say 'one'", submission.assignment.example)
+  end
+
+  def test_iteration_counts
+    alice = User.new(username: 'alice')
+    s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
+    s2 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
+    s3 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
+
+    [s1, s2, s3].each do |submission|
+      assert_equal 3, submission.versions_count
+    end
+
+    assert_equal 1, s1.version
+    assert_equal 2, s2.version
+    assert_equal 3, s3.version
   end
 
 end

@@ -19,6 +19,11 @@ class Submission
       and(language: language.downcase)
   end
 
+  def self.related(submission)
+    order_by(at: :asc).
+      where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
+  end
+
   def self.nitless
     pending.
       or({ :'nits._id'.exists =>  false },
@@ -61,8 +66,16 @@ class Submission
   end # triggered only when user has participated in a discussion, implicitly a return receipt on the feedback
 
   def versions_count
-    @versions_count ||= user.submissions.select { |s| s.language == self.language and s.slug == self.slug }.count
-  end # clumsy but I'm not sure a cleaner way
+    @versions_count ||= related_submissions.count
+  end
+
+  def version
+    @version ||= related_submissions.index(self) + 1
+  end
+
+  def related_submissions
+    @related_submissions ||= Submission.related(self).to_a
+  end
 
   def exercise
     @exercise ||= Exercise.new(language, slug)

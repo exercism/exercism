@@ -2,11 +2,14 @@
   <div class="span12">
     <%= erb :byline, locals: {exercise: submission.exercise, user: submission.user} %>
     <p>Submitted <%= ago(submission.at) %>.</p>
-    <% if submission.user.completed?(submission.exercise) %>
-      <p>This exercise has been thoroughly bikeshedded, and <b><%= submission.user.username %></b> has moved on.</p>
-    <% else %>
-      <p>This exercise is still in progress.</p>
-    <% end %>
+    <p>
+      Iteration <b><%= submission.version %></b> of <b><%= submission.versions_count %></b>.
+      <% if submission.user.completed?(submission.exercise) %>
+        This exercise has been thoroughly bikeshedded, and <b><%= submission.user.username %></b> has moved on.
+      <% else %>
+        This exercise is still in progress.
+      <% end %>
+    </p>
     <p>&laquo; <a href="/<%= [submission.user.username, submission.language, submission.slug].join('/') %>">Submission history</a></p>
   </div>
 </div>
