@@ -51,16 +51,24 @@ class Alice
   end
 end
 
-class Phrase < String
+class Phrase
 
-  alias_method :silent?, :empty?
+  attr_reader :phrase
+
+  def initialize(drivel)
+    @phrase = drivel
+  end
 
   def quizzical?
-    end_with?('?')
+    phrase.end_with?('?')
   end
 
   def loud?
-    upcase == self
+    phrase.upcase == phrase
+  end
+
+  def silent?
+    phrase.empty?
   end
 
 end
