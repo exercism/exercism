@@ -5,6 +5,7 @@ class Exercism
         bob word-count anagram beer-song nucleotide-count
         rna-transcription point-mutations phone-number
         grade-school leap etl meetup space-age grains
+        gigasecond
       )
     end
 
