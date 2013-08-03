@@ -40,4 +40,12 @@ defmodule TeenagerTest do
   test "silence" do
     # assert Teenager.hey("") == "Fine. Be that way!"
   end
+
+  test "empty silence" do
+    # assert Teenager.hey(nil) == "Fine. Be that way!"
+  end
+
+  test "prolonged silence" do
+    # assert Teenager.hey("  ") == "Fine. Be that way!"
+  end
 end
