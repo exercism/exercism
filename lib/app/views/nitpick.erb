@@ -10,6 +10,16 @@
         This exercise is still in progress.
       <% end %>
     </p>
+    <p> View iteration:
+      <% submission.related_submissions.each do |related| %>
+        <% if related == submission %>
+          <%= related.version %>
+        <% else %>
+          <a href="/submissions/<%= related.id %>"> <%= related.version %></a>
+        <% end %>
+      <% end %>
+
+    </p>
     <p>&laquo; <a href="/<%= [submission.user.username, submission.language, submission.slug].join('/') %>">Submission history</a></p>
   </div>
 </div>
