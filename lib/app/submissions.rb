@@ -66,6 +66,9 @@ class ExercismApp < Sinatra::Base
     please_login "/submissions/#{id}"
 
     submission = Submission.find(id)
+    
+    title(submission.slug + " in " + submission.language + " by " + submission.user.username)
+
 
     unless current_user.owns?(submission) || current_user.may_nitpick?(submission.exercise)
       flash[:error] = "You do not have permission to nitpick that exercise."
