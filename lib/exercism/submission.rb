@@ -14,8 +14,19 @@ class Submission
   belongs_to :user
   embeds_many :nits
 
+  def self.pending_for_language(language)
+    pending.
+      and(language: language.downcase)
+  end
+
+  def self.nitless
+    pending.
+      or({ :'nits._id'.exists =>  false },
+         { :'nits._id' => :user })
+  end
+
   def self.pending
-    where(state: 'pending').order_by([:at, :desc])
+    where(state: 'pending').desc(:at)
   end
 
   def self.on(exercise)
