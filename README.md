@@ -92,9 +92,10 @@ Different languages/trails do not need to have the same assignments or the same 
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
 7. Run the database seed with `ruby scripts/seed.rb`
-8. Start server with: `EXERCISM_GITHUB_CLIENT_ID=xxx EXERCISM_GITHUB_CLIENT_SECRET=xxx rackup -p 4567`
-9. Login at http://localhost:4567.
-10. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
+8. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
+9. Start the server with `./scripts/boot.sh`
+10. Login at http://localhost:4567.
+11. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
 
 ## Frontend development setup
 1. Install node and npm
@@ -114,11 +115,7 @@ If you want to send actual emails, you will need to export the following environ
 * `EMAIL_SMTP_ADDRESS`
 * `EMAIL_SMTP_PORT`
 
-#### Optional steps
-
-Copy the export values from `scripts/boot.sh.example` into your `~/.bash_profile` or `~/.zshrc`
-or
-Copy bootrunner `cp scripts/boot.sh.example scripts/boot.sh`
+You can do this in `scripts/boot.sh` for development.
 
 ## Console
 
