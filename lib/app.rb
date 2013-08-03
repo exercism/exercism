@@ -12,6 +12,7 @@ require 'app/trails'
 require 'app/about'
 require 'app/presenters/notifications_presenter'
 require 'app/nitpick'
+require 'app/helpers/site_title_helper'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/github_link_helper'
@@ -28,6 +29,7 @@ class ExercismApp < Sinatra::Base
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
 
+  helpers Sinatra::SiteTitleHelper
   helpers Sinatra::FuzzyTimeHelper
   helpers Sinatra::GravatarHelper
   helpers Sinatra::GithubLinkHelper
