@@ -3,7 +3,7 @@ require 'exercism/nit'
 require 'exercism/submission'
 require "mocha/setup"
 
-module Exercism
+class Exercism
 end
 
 class SubmissionTest < Minitest::Test
