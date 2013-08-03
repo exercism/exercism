@@ -63,6 +63,7 @@ h1.home {
   border-radius: 50%;
   width: 30px;
   height: 30px;
+  cursor: default;
 }
 
 .pending-submission .user {
@@ -137,3 +138,7 @@ pre { white-space: pre-line; }
 .comments p { padding: 5px 0; }
 
 #code-timeline a.selected { background-color: #fcf8e3; }
+
+.pagination > ul > li {
+  cursor: pointer;
+}
