@@ -53,22 +53,22 @@ end
 
 class Phrase
 
-  attr_reader :phrase
+  attr_reader :source
 
   def initialize(drivel)
-    @phrase = drivel
+    @source = drivel
   end
 
   def quizzical?
-    phrase.end_with?('?')
+    source.end_with?('?')
   end
 
   def loud?
-    phrase.upcase == phrase
+    source.upcase == source
   end
 
   def silent?
-    phrase.empty?
+    source.empty?
   end
 
 end
