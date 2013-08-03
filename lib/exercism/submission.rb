@@ -14,17 +14,9 @@ class Submission
   belongs_to :user
   embeds_many :nits
 
-  def self.filter(params={})
+  def self.pending_for_language(language)
     pending.
-      and(language: params[:language].downcase)
-  end
-
-  def self.date(params={})
-    date = (params[:date] || Date.today)
-    end_date = (date + 1).to_time.utc
-    start_date = date.to_time.utc
-    gte(at: start_date).
-      lt(at: end_date)
+      and(language: language.downcase)
   end
 
   def self.nitless
