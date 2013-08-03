@@ -20,5 +20,6 @@ group :test, :development do
   gem 'rack-test', require: false
   gem 'mocha', require: false
   gem 'mailcatcher'
+  gem 'foreman'
   gem 'simplecov', require: false
 end
