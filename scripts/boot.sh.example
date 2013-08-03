@@ -1,9 +1,20 @@
 #!/bin/sh
+
 # These can also be exported in your ~/.bash_profile or ~/.zshrc
 export EXERCISM_GITHUB_CLIENT_ID=xxx
 export EXERCISM_GITHUB_CLIENT_SECRET=xxx
+
+# If you want to send actual emails, export the following environment variables
+# export EMAIL_USERNAME=xxx
+# export EMAIL_PASSWORD=xxx
+# export EMAIL_DOMAIN=xxx
+# export EMAIL_SMTP_ADDRESS=xxx
+# export EMAIL_SMTP_PORT=xxx
+
 # This is the github id of your admin account if you want your admin to work
 # via the 'login via github' link on the homepage. If you want this you'll
 # need to edit the seeds file to change Katrina's user details to your own
 # export EXERCISM_ADMIN_ID=xxx
+
 rackup -p 4567
+
