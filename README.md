@@ -85,15 +85,16 @@ Different languages/trails do not need to have the same assignments or the same 
 
 1. Install mongodb with: `brew install mongodb` or `apt-get install mongodb`
 2. Get it running: follow instructions to load the server at startup. Ensure that server is currently running
-3. Install gems with: `bundle`
-4. Get a client id/secret from Github at https://github.com/settings/applications/new.
+3. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
+4. Install gems with: `bundle`
+5. Get a client id/secret from Github at https://github.com/settings/applications/new.
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-6. Run the database seed with `ruby scripts/seed.rb`
-7. Start server with: `EXERCISM_GITHUB_CLIENT_ID=xxx EXERCISM_GITHUB_CLIENT_SECRET=xxx rackup -p 4567`
-8. Login at http://localhost:4567.
-9. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
+7. Run the database seed with `ruby scripts/seed.rb`
+8. Start server with: `EXERCISM_GITHUB_CLIENT_ID=xxx EXERCISM_GITHUB_CLIENT_SECRET=xxx rackup -p 4567`
+9. Login at http://localhost:4567.
+10. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
 
 ## Frontend development setup
 1. Install node and npm
