@@ -122,6 +122,13 @@ h1.home {
   background: #49afcd;
 }
 
+.versions {
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  background: #717979;
+}
+
 .code .btn { float: right; }
 .code br { clear: both; }
 

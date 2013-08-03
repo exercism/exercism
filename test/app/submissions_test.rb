@@ -35,17 +35,21 @@ class ApiTest < Minitest::Test
       post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
     end
     assert_equal 1, submission.reload.nits.count
+    assert_equal 1, submission.reload.nits_by_others_count
   end
 
   def test_nitpick_own_assignment
     Attempt.new(alice, 'CODE', 'path/to/file.rb').save
     submission = Submission.first
+    assert_equal 1, submission.versions_count
 
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
       post url, {comment: "good"}, {'rack.session' => {github_id: 1}}
     end
     assert_equal 1, submission.reload.nits.count
+    assert_equal 0, submission.reload.nits_by_others_count
+    assert_equal 1, submission.versions_count
   end
 
   def test_submit_comment_on_nit
@@ -63,6 +67,33 @@ class ApiTest < Minitest::Test
     nit = submission.reload.nits.find_by(id: nit.id)
     text = nit.comments.first.body
     assert_equal 'idk', text
+    assert_equal 0, submission.discussions_involving_user_count 
+
+    url = "/submissions/#{submission.id}/nits/#{nit.id}/argue"
+    post url, {comment: "self portrait"}, {'rack.session' => {github_id: 1}}
+
+    nit = submission.reload.nits.find_by(id: nit.id)
+    text = nit.comments.last.body
+    assert_equal 'self portrait', text
+    assert_equal 1, submission.discussions_involving_user_count 
+  end
+
+  def test_multiple_versions
+    bob = User.create(github_id: 2, email: "bob@example.com", is_admin: true)
+    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    submission = Submission.first
+    assert_equal 1, submission.versions_count
+
+    # not changed by a nit being added
+    url = "/submissions/#{submission.id}/respond"
+    Message.stub(:ship, nil) do
+      post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
+    end
+    assert_equal 1, submission.versions_count
+    
+    # is changed by a new submission
+    Attempt.new(alice, 'CODE REVISED', 'path/to/file.rb').save
+    submission = Submission.first
+    assert_equal 2, submission.versions_count
   end
 end
-
