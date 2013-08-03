@@ -20,6 +20,15 @@
     <div class='navbar navbar-top'>
       <div class='navbar-inner'>
         <a class='brand' href='/'>exercism.io</a>
+        <% unless current_user.guest? %>
+          <ul class="nav">
+            <%= dashboard_nav_li "Featured" %>
+            <%= dashboard_nav_li "Clojure" %>
+            <%= dashboard_nav_li "Elixir" %>
+            <%= dashboard_nav_li "JavaScript" %>
+            <%= dashboard_nav_li "Ruby" %>
+          </ul>
+        <% end %>
         <ul class="nav pull-right">
           <% if current_user.guest? %>
             <li><a href="/login">log in with github</a></li>
