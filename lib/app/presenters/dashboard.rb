@@ -39,11 +39,11 @@ class Dashboard
     end
 
     def without_nits
-      @without_nits ||= pending.select { |sub| sub.nits.count.zero? }.reverse
+      @without_nits ||= pending.select { |sub| sub.nits_by_others_count.zero? }.reverse
     end
 
     def with_nits
-      @with_nits ||= pending.select { |sub| !sub.nits.count.zero? }
+      @with_nits ||= pending.select { |sub| !sub.nits_by_others_count.zero? }
     end
 
     def flagged_for_approval

@@ -41,6 +41,18 @@ class Submission
     nits.map {|nit| nit.comments.count}.inject(0, :+)
   end
 
+  def nits_by_others_count
+    nits.select {|nit| nit.user != self.user }.count
+  end
+
+  def discussions_involving_user_count
+    nits.flat_map {|nit| nit.comments.select { |comment| comment.commenter == self.user } }.count
+  end # triggered only when user has participated in a discussion, implicitly a return receipt on the feedback
+
+  def versions_count
+    @versions_count ||= user.submissions.select { |s| s.language == self.language and s.slug == self.slug }.count
+  end # clumsy but I'm not sure a cleaner way
+
   def exercise
     @exercise ||= Exercise.new(language, slug)
   end
