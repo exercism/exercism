@@ -13,9 +13,9 @@
     <p> View iteration:
       <% submission.related_submissions.each do |related| %>
         <% if related == submission %>
-          <%= related.version %>
+          <span style="padding: 10px;"><%= related.version %></span>
         <% else %>
-          <a href="/submissions/<%= related.id %>"> <%= related.version %></a>
+          <a class="btn btn-default" href="/submissions/<%= related.id %>"> <%= related.version %></a>
         <% end %>
       <% end %>
 
