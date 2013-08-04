@@ -81,7 +81,7 @@ class ApiTest < Minitest::Test
 
     get '/api/v1/user/assignments/completed', {key: user.key}
 
-    assert_equal({"assignments" => ['bob', 'rna-transcription']}, JSON::parse(last_response.body))
+    assert_equal({"assignments" => ['bob', 'word-count']}, JSON::parse(last_response.body))
   end
 
   def test_peek_returns_assignments_for_all_trails
