@@ -77,6 +77,22 @@ class Submission
     @related_submissions ||= Submission.related(self).to_a
   end
 
+  def no_version_has_nits?
+    @no_previous_nits ||= related_submissions.find_index { |v| v.nits_by_others_count > 0 }.nil?
+  end
+
+  def some_version_has_nits?
+    !no_version_has_nits?
+  end
+
+  def this_version_has_nits?
+    nits_by_others_count > 0
+  end
+
+  def no_nits_yet?
+    !this_version_has_nits
+  end
+
   def exercise
     @exercise ||= Exercise.new(language, slug)
   end
