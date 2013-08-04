@@ -45,6 +45,9 @@
     <% else %>
       <h2>Nitpicks</h2>
     <% end %>
+
+    <p>Nitpicks and comments are parsed with <a href="https://help.github.com/articles/github-flavored-markdown">GitHub Flavoured Markdown</a></p>
+
     <% submission.nits.each do |nit| %>
     <blockquote><%= md(nit.comment) %>
       <p>
