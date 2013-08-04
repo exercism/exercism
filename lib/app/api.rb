@@ -38,6 +38,7 @@ class ExercismApp < Sinatra::Base
     halt 401, "Unable to identify user" unless user
 
     attempt = Attempt.new(user, data['code'], data['path']).save
+    Notify.everyone(attempt.previous_submission, user, 'new_attempt')
 
     status 201
     pg :attempt, locals: {submission: attempt.submission}
