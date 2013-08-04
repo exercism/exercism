@@ -35,7 +35,9 @@ class ApiTest < Minitest::Test
   end
 
   def test_api_accepts_submission_attempt
-    post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    Notify.stub(:everyone, nil) do
+      post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    end
 
     submission = Submission.first
     ex = Exercise.new('ruby', 'word-count')

@@ -79,5 +79,29 @@ class AttemptTest < Minitest::Test
     assert_equal 'CODE 123', user.submissions.first.reload.code
   end
 
+  def test_previous_submission_after_first_attempt
+    attempt = Attempt.new(user, 'CODE', 'one.fp', curriculum).save
+    assert_equal attempt.previous_submission.class, NullSubmission
+  end
+
+  def test_previous_submission_after_first_attempt_in_new_language
+    Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
+    attempt = Attempt.new(user, 'CODE 2', 'one.no', curriculum).save
+    assert_equal attempt.previous_submission.language, "nong"
+  end
+
+  def test_previous_submission_after_superseding
+    Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
+    attempt = Attempt.new(user, 'CODE 2', 'one.fp', curriculum).save
+    one = user.submissions.first
+    assert_equal attempt.previous_submission, one
+  end
+
+  def test_previous_submission_with_new_language_sandwich
+    Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
+    Attempt.new(user, 'CODE 2', 'one.no', curriculum).save
+    attempt = Attempt.new(user, 'CODE 3', 'one.fp', curriculum).save
+    assert_equal attempt.previous_submission, user.submissions.first
+  end
 end
 
