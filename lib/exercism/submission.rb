@@ -90,7 +90,7 @@ class Submission
   end
 
   def no_nits_yet?
-    !this_version_has_nits
+    !this_version_has_nits?
   end
 
   def exercise
