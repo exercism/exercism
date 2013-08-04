@@ -21,6 +21,9 @@ class Attempt
     self
   end
 
+  def previous_submission
+    user.submissions_on(exercise)[1] || NullSubmission.new(@exercise)
+  end
   private
 
   def exercise

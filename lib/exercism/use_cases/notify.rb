@@ -37,6 +37,7 @@ class Notify
       submission.slug
     ].join("/")
   end
+  alias_method :new_attempt_link, :approval_link
 
   def nitpick_link
     [
