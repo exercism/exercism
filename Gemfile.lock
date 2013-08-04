@@ -1,8 +1,8 @@
 GIT
-  remote: https://github.com/splattael/rouge.git
-  revision: da93e52e0dbf6aa6bfa3a42f5e5cb9b5fb6a95e3
+  remote: https://github.com/jayferd/rouge.git
+  revision: b166babcb0f519f7a3ce4734653d895a963f0c8e
   specs:
-    rouge (0.3.9)
+    rouge (0.3.10)
       thor
 
 GEM
