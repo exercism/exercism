@@ -54,6 +54,7 @@
         <cite>
           <%= gravatar_tag nit.user.avatar_url, size: 20 %>
           <em><%= github_profile_link(nit.user) %></em>, <%= ago(nit.at) %>
+          <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit"><i class="icon-pencil"></i></a>
         </cite>
       </p>
     </blockquote>

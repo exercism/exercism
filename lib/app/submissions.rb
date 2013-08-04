@@ -126,6 +126,22 @@ class ExercismApp < Sinatra::Base
     redirect "/submissions/#{id}"
   end
 
+  get '/submissions/:submission_id/nits/:nit_id/edit' do |submission_id, nit_id|
+    @submission_id, @nit_id = submission_id, nit_id
+    @nit = Argument.new(params).nit
+    erb :edit_nit
+  end
+
+  post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
+    data = {
+      submission_id: id,
+      nit_id: nit_id,
+      user: current_user
+    }
+    Argument.new(data).nit.update_attributes(comment: params['comment'])
+    redirect "/submissions/#{id}"
+  end
+
   get '/submissions/:language/:assignment' do |language, assignment|
     please_login "/submissions/#{language}/#{assignment}"
 
