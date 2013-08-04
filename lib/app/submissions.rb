@@ -129,6 +129,7 @@ class ExercismApp < Sinatra::Base
   get '/submissions/:submission_id/nits/:nit_id/edit' do |submission_id, nit_id|
     @submission_id, @nit_id = submission_id, nit_id
     @nit = Argument.new(params).nit
+    redirect "/submissions/#{submission_id}" unless current_user == @nit.nitpicker
     erb :edit_nit
   end
 
