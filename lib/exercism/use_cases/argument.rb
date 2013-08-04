@@ -1,9 +1,10 @@
 class Argument
 
-  attr_reader :submission_id, :nit_id, :comment, :user
+  attr_reader :submission_id, :nit_id, :comment_id, :comment, :user
   def initialize(data)
     @submission_id = data[:submission_id]
     @nit_id = data[:nit_id]
+    @comment_id = data[:comment_id]
     @comment = data[:comment]
     @user = data[:user]
   end
@@ -20,5 +21,9 @@ class Argument
 
   def nit
     @nit ||= submission.nits.where(id: nit_id).first
+  end
+
+  def comment
+    @comment ||= nit.comments.where(id: comment_id).first
   end
 end

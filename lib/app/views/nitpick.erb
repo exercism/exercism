@@ -68,6 +68,9 @@
             <%= gravatar_tag comment.user.avatar_url, size: 20 %>
             <%= md(comment.body) %>
             &mdash; <em><%= github_profile_link(comment.user) %></em>, <%= ago(comment.at) %>
+            <% if current_user == comment.user %>
+              <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/comments/<%= comment.id %>/edit"><i class="icon-pencil"></i></a>
+            <% end %>
           </li>
         <% end %>
         </ul>
