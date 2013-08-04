@@ -17,20 +17,6 @@ $(function() {
   Backbone.history.start();
 });
 
-var exercismModule = angular.module('exercismModule', ['ui.bootstrap']);
-
-var MarkdownCtrl = function($scope, $http) {
-  $scope.data = {};
-  $scope.preview = function(){
-    $http.post(
-        "/preview",
-        $.param( { "comment": $scope.data.comment }),
-        { headers: { "Content-Type": 'application/x-www-form-urlencoded' } })
-    .success(function(data, status, headers) {
-      $scope.data.preview = data;
-    });
-  };
-};
 //
 //TODO move all variable declaration to the tops of functions.
 $(function() {
