@@ -50,6 +50,7 @@ class ApiTest < Minitest::Test
     assert_equal 1, submission.reload.nits.count
     assert_equal 0, submission.reload.nits_by_others_count
     assert_equal 1, submission.versions_count
+    assert_equal true, submission.no_version_has_nits?
   end
 
   def test_submit_comment_on_nit
@@ -83,6 +84,9 @@ class ApiTest < Minitest::Test
     Attempt.new(alice, 'CODE', 'path/to/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count
+    assert_equal 0, submission.nits.count
+    assert_equal true, submission.no_version_has_nits?
+    assert_equal false, submission.this_version_has_nits?
 
     # not changed by a nit being added
     url = "/submissions/#{submission.id}/respond"
@@ -90,10 +94,22 @@ class ApiTest < Minitest::Test
       post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
     end
     assert_equal 1, submission.versions_count
+    assert_equal true, submission.no_version_has_nits?
+    assert_equal false, submission.this_version_has_nits?
+
+    # not changed by nit being added by another user
+    nit = Nit.new(user: bob, comment: "ok")
+    submission.nits << nit
+    submission.save
+    assert_equal 1, submission.versions_count
+    assert_equal true, submission.no_version_has_nits?
+    assert_equal true, submission.this_version_has_nits?
     
     # is changed by a new submission
     Attempt.new(alice, 'CODE REVISED', 'path/to/file.rb').save
-    submission = Submission.first
-    assert_equal 2, submission.versions_count
+    new_submission = Submission.where(:slug => submission.slug).last
+    assert_equal 2, new_submission.versions_count
+    assert_equal false, new_submission.no_version_has_nits?
+    assert_equal true, new_submission.some_version_has_nits?
   end
 end
