@@ -8,10 +8,6 @@
     "company": "ACME, Inc."
   },
   "dependencies": {
-    "grunt-angular-templates": "0.3.8",
-    "grunt-ngmin": "~0.0.2",
-    "protractor": "~0.6.1",
-    "grunt": "~0.4.1",
     "lineman": "~>0"
   },
   "engines": {
