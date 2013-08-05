@@ -17,7 +17,6 @@ $(function() {
   Backbone.history.start();
 });
 
-//
 //TODO move all variable declaration to the tops of functions.
 $(function() {
   $(".pending-submission").each(function(index,element) {
@@ -62,7 +61,6 @@ $(function() {
     var $this = $(this);
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
-
   $('.work-slug').popover({
     trigger: 'hover',
     placement: 'right',
