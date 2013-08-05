@@ -10,9 +10,7 @@ fn is_silence(message: &str) -> bool {
 }
 
 fn is_yelling(message: &str) -> bool {
-    let upcase_message: &[Ascii] = message.to_ascii().to_upper();
-    let ascii_message: &[Ascii] = message.to_ascii();
-    upcase_message == ascii_message
+    message.iter().all(|char| !char.is_lowercase())
 }
 
 fn is_question(message: &str) -> bool {
