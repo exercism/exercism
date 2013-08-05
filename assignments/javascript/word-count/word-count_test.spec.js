@@ -20,7 +20,7 @@ describe("Words", function() {
     expect(words.count).toEqual(expectedCounts);
   });
 
-  xit("ignores punctation", function() {
+  xit("ignores punctuation", function() {
     var words = new Words("car : carpet as java : javascript!!&@$%^&");
     var expectedCounts = { "car" : 1, "carpet" : 1, "as" : 1, "java" : 1, "javascript" : 1 };
     expect(words.count).toEqual(expectedCounts);
