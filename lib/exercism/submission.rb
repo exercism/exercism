@@ -50,6 +50,7 @@ class Submission
       participants.add nit.nitpicker
       participants.merge nit.comments.map(&:commenter)
     end
+    participants.add approver if approver.present?
     @participants = participants
   end
 
