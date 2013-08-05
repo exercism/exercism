@@ -1,4 +1,6 @@
-toRoman = function(number) {
+'use strict';
+
+exports.toRoman = function(number) {
   var result = '';
   var mappings = [
     {arabic: 1000, roman: 'M'},
@@ -25,4 +27,4 @@ toRoman = function(number) {
   }
 
   return result;
-}
+};
