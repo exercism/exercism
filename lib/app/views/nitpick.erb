@@ -54,6 +54,9 @@
         <cite>
           <%= gravatar_tag nit.user.avatar_url, size: 20 %>
           <em><%= github_profile_link(nit.user) %></em>, <%= ago(nit.at) %>
+          <% if current_user == nit.nitpicker %>
+            <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit"><i class="icon-pencil"></i></a>
+          <% end %>
         </cite>
       </p>
     </blockquote>
@@ -62,9 +65,12 @@
         <ul>
         <% nit.comments.each do |comment| %>
           <li>
-            <%= gravatar_tag comment.user.avatar_url, size: 20 %>
             <%= md(comment.body) %>
-            &mdash; <em><%= github_profile_link(comment.user) %></em>, <%= ago(comment.at) %>
+            &mdash; <%= gravatar_tag comment.user.avatar_url, size: 20 %>
+            <em><%= github_profile_link(comment.user) %></em>, <%= ago(comment.at) %>
+            <% if current_user == comment.user %>
+              <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/comments/<%= comment.id %>/edit"><i class="icon-pencil"></i></a>
+            <% end %>
           </li>
         <% end %>
         </ul>
