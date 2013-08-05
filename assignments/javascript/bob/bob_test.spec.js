@@ -23,6 +23,16 @@ describe("Bob", function() {
     expect(result).toEqual('Whatever.');
   });
 
+  xit("using acronyms in regular speech", function() {
+    var result = bob.hey("It's OK if you don't want to go to the DMV.");
+    expect(result).toEqual('Whatever.');
+  });
+
+  xit("forceful questions", function() {
+    var result = bob.hey('WHAT THE HELL WERE YOU THINKING?');
+    expect(result).toEqual('Woah, chill out!')
+  });
+
   xit("shouting numbers", function() {
     var result = bob.hey('1, 2, 3 GO!');
     expect(result).toEqual('Woah, chill out!');
@@ -33,9 +43,23 @@ describe("Bob", function() {
     expect(result).toEqual('Woah, chill out!');
   });
 
-  xit("silence", function() {
+  xit("shouting with no exclamation mark", function () {
+    var result = bob.hey('I HATE YOU');
+    expect(result).toEqual('Woah, chill out!');
+  });
+
+  xit("statement containing question mark", function() {
+    var result = bob.hey('Ending with a ? means a question.');
+    expect(result).toEqual('Whatever.');
+  });
+
+  xit("prattling on", function () {
+    var result = bob.hey('Wait! Hang on.  Are you going to be OK?');
+    expect(result).toEqual('Sure.');
+  });
+
+  xit("silence", function () {
     var result = bob.hey('');
     expect(result).toEqual('Fine, be that way!');
   });
-
 });
