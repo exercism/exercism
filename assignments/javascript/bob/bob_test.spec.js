@@ -60,16 +60,6 @@ describe("Bob", function() {
 
   xit("silence", function () {
     var result = bob.hey('');
-    expect(result).toEqual('Fine. Be that way!');
-  });
-
-  xit("more silence", function () {
-    var result = bob.hey(null);
-    expect(result).toEqual('Fine. Be that way!');
-  });
-
-  xit("more silence", function () {
-    var result = bob.hey('    ');
-    expect(result).toEqual('Fine. Be that way!');
+    expect(result).toEqual('Fine, be that way!');
   });
 });
