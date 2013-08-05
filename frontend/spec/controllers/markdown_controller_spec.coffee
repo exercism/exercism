@@ -1,4 +1,4 @@
-describe "works from js", ->
+describe "MarkdownCtrl", ->
   beforeEach ->
     module("exercism")
 
