@@ -54,5 +54,9 @@ class TeenagerTest(unittest.TestCase):
     def test_more_silence(self):
         self.assertEqual('Fine. Be that way!', self.teenager.hey(None))
 
+    @unittest.skip("Unskip once you are ready.")
+    def test_long_silence(self):
+        self.assertEqual('Fine. Be that way!', self.teenager.hey('        '))
+
 if __name__ == '__main__':
         unittest.main()
