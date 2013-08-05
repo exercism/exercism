@@ -3,3 +3,4 @@ rvm:
   - 1.9.3
 services: mongodb
 before_script: bundle exec mailcatcher
+script: 'lineman spec-ci'
