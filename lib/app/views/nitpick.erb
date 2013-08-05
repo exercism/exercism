@@ -76,19 +76,9 @@
         </ul>
       <% end %>
 
-      <div ng-app="exercismModule">
+      <div>
         <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nits/<%= nit.id %>/argue" method="POST">
-          <div ng-controller="MarkdownCtrl">
-            <tabset>
-              <tab heading="Write">
-                  <textarea name="comment" class="span6" rows="3" ng-model="data.comment"></textarea>
-              </tab>
-              <tab heading="Preview" select="preview()">
-                <div class="preview" ng-bind-html-unsafe="data.preview">
-                </div>
-              </tab>
-            </tabset>
-          </div>
+          <%= erb :comment %>
           <button type="submit" class="btn">Discuss Nit</button>
         </form>
       </div>
@@ -97,14 +87,14 @@
     <% if submission.user.completed?(submission.exercise) %>
 
       <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
-        <textarea name="comment" class="span6" rows="10"></textarea>
+        <%= erb :comment %>
         <button type="submit" name="nitpick" class="btn btn-primary">Comment</button>
       </form>
 
     <% else %>
 
       <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
-        <textarea name="comment" class="span6" rows="10"></textarea>
+        <%= erb :comment %>
         <% if current_user.admin? %>
           <button type="submit" name="approve" class="btn">Unlock Next</button>
           <button type="submit" name="approve" class="btn">Comment &amp; Unlock Next</button>

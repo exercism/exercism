@@ -1,5 +1,5 @@
 angular.module('exercism').controller "MarkdownCtrl", ($scope, $http) ->
-  $scope.data = {}
+  $scope.data ||= {}
   $scope.preview = ->
     $http.post "/preview",
         $.param({ "comment": $scope.data.comment }),
