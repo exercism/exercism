@@ -17,6 +17,7 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('files', {
     vendor: [
       "vendor/js/**/*jquery*",
       "vendor/js/**/underscore.js",
+      "vendor/js/**/angular.js",
       "vendor/js/**/*.js",
     ]
     app: [
