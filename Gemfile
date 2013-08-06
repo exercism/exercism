@@ -12,6 +12,7 @@ gem 'redcarpet'
 gem 'rouge', git: 'https://github.com/jayferd/rouge.git'
 gem 'sinatra', require: 'sinatra/base'
 gem 'pony'
+gem 'sanitize'
 gem 'pry', require: false
 
 group :test, :development do

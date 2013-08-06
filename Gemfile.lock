@@ -77,6 +77,8 @@ GEM
       rack (>= 1.0)
     rake (10.1.0)
     redcarpet (2.3.0)
+    sanitize (2.0.6)
+      nokogiri (>= 1.4.4)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -120,5 +122,6 @@ DEPENDENCIES
   rake
   redcarpet
   rouge!
+  sanitize
   simplecov
   sinatra

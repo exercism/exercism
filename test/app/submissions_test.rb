@@ -68,7 +68,7 @@ class ApiTest < Minitest::Test
     nit = submission.reload.nits.find_by(id: nit.id)
     text = nit.comments.first.body
     assert_equal 'idk', text
-    assert_equal 0, submission.discussions_involving_user_count 
+    assert_equal 0, submission.discussions_involving_user_count
 
     url = "/submissions/#{submission.id}/nits/#{nit.id}/argue"
     post url, {comment: "self portrait"}, {'rack.session' => {github_id: 1}}
@@ -76,7 +76,42 @@ class ApiTest < Minitest::Test
     nit = submission.reload.nits.find_by(id: nit.id)
     text = nit.comments.last.body
     assert_equal 'self portrait', text
-    assert_equal 1, submission.discussions_involving_user_count 
+    assert_equal 1, submission.discussions_involving_user_count
+  end
+
+  def test_input_sanitation
+    bob = User.create(github_id: 2, is_admin: true)
+
+    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    submission = Submission.first
+    nit = Nit.new(user: bob, comment: "ok")
+    submission.nits << nit
+    submission.save
+
+    # sanitizes argument
+    url = "/submissions/#{submission.id}/nits/#{nit.id}/argue"
+    post url, {comment: "<script type=\"text/javascript\">alert('You have been taken over, puny human.')</script>valid content <a href=\"foo.html\" onclick=\"alert('Now twice as effective')\">here</a>"}, {'rack.session' => {github_id: 1}}
+
+    nit = submission.reload.nits.find_by(id: nit.id)
+    text = nit.comments.last.body
+    assert_equal "alert('You have been taken over, puny human.')valid content <a href=\"foo.html\">here</a>", text
+
+    # sanitizes response
+    url = "/submissions/#{submission.id}/respond"
+    Message.stub(:ship, nil) do
+      post url, {comment: "<script type=\"text/javascript\">bad();</script>good"}, {'rack.session' => {github_id: 2}}
+    end
+
+    nit = submission.reload.nits.last
+    assert_equal "bad();good", nit.comment
+
+    # sanitizes approval
+    url = "/submissions/#{submission.id}/approve"
+    Message.stub(:ship, nil) do
+      post url, {comment: "<script type=\"text/javascript\">awful();</script><a href=\"bad.html\" onblur=\"foo();\">good</a>"}, {'rack.session' => {github_id: 2}}
+    end
+    nit = submission.reload.nits.last
+    assert_equal "awful();<a href=\"bad.html\">good</a>", nit.comment
   end
 
   def test_multiple_versions
@@ -104,7 +139,7 @@ class ApiTest < Minitest::Test
     assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
     assert_equal true, submission.this_version_has_nits?
-    
+
     # is changed by a new submission
     Attempt.new(alice, 'CODE REVISED', 'path/to/file.rb').save
     new_submission = Submission.where(:slug => submission.slug).last
