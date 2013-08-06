@@ -1,11 +1,13 @@
 class Argument
 
+  include InputSanitation
+
   attr_reader :submission_id, :nit_id, :comment_id, :comment, :user
   def initialize(data)
     @submission_id = data[:submission_id]
     @nit_id = data[:nit_id]
     @comment_id = data[:comment_id]
-    @comment = data[:comment]
+    @comment = sanitize(data[:comment])
     @user = data[:user]
   end
 
