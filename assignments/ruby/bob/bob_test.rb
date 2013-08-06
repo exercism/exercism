@@ -26,7 +26,7 @@ begin
 
     def test_asking_a_numeric_question
       skip
-      assert_equal 'Sure.', teenager.hey('Is 42 the answer?')
+      assert_equal 'Sure.', teenager.hey('You are, what, like 15?')
     end
 
     def test_talking_forcefully
