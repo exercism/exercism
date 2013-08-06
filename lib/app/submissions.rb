@@ -66,7 +66,7 @@ class ExercismApp < Sinatra::Base
     please_login "/submissions/#{id}"
 
     submission = Submission.find(id)
-    
+
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
 
 
