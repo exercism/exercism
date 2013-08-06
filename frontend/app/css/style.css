@@ -150,9 +150,8 @@ pre { white-space: pre-line; }
 }
 
 button.edit-text {
-  font-size: 1.25em;
+  font-size: 1.2em;
 }
-
 [data-icon]:before {
   content: attr(data-icon);
   speak: none;
