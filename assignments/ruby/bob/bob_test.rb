@@ -56,9 +56,9 @@ begin
       assert_equal 'Woah, chill out!', teenager.hey('I HATE YOU')
     end
 
-    def test_shouting_with_european_characters
+    def test_a_german_question
       skip
-      assert_equal 'Whatever.', teenager.hey('Hä!')
+      assert_equal 'Sure.', teenager.hey('Hä?')
     end
 
     def test_statement_containing_question_mark
