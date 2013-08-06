@@ -34,6 +34,15 @@ class ApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
+
+  def test_api_complains_if_no_trail_has_been_started
+    bob = User.create(username: 'bob', github_id: 2, current: {})
+    post '/api/v1/user/assignments', {key: bob.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    assert_equal 400, last_response.status
+    message = JSON.parse(last_response.body)["error"]
+    assert_equal "Please start the trail before submitting.", message
+  end
+
   def test_api_accepts_submission_attempt
     Notify.stub(:everyone, nil) do
       post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json

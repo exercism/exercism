@@ -35,9 +35,17 @@ class ExercismApp < Sinatra::Base
     end
     data = JSON.parse(data)
     user = User.find_by(key: data['key'])
-    halt 401, "Unable to identify user" unless user
+    unless user
+      halt 401, {:error => "Unable to identify user"}.to_json
+    end
 
-    attempt = Attempt.new(user, data['code'], data['path']).save
+    attempt = Attempt.new(user, data['code'], data['path'])
+
+    unless attempt.on_started_trail?
+      halt 400, {:error => "Please start the trail before submitting."}.to_json
+    end
+
+    attempt.save
     Notify.everyone(attempt.previous_submission, user, 'new_attempt')
 
     status 201
