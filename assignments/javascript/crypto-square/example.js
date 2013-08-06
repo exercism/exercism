@@ -1,4 +1,4 @@
-Crypto = function(input) {
+module.exports = function(input) {
 	this.input = input
 
 	this.normalizePlaintext = function() {
