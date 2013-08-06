@@ -22,6 +22,12 @@ h1.home {
   line-height: 1em;
 }
 
+.screen-reader-text {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
 .lead.home {
   color: white;
   margin: 30px 0px;
@@ -141,4 +147,13 @@ pre { white-space: pre-line; }
 
 .pagination > ul > li {
   cursor: pointer;
+}
+
+button.edit-text {
+  font-size: 1.25em;
+}
+
+[data-icon]:before {
+  content: attr(data-icon);
+  speak: none;
 }

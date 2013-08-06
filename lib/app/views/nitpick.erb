@@ -55,7 +55,12 @@
           <%= gravatar_tag nit.user.avatar_url, size: 20 %>
           <em><%= github_profile_link(nit.user) %></em>, <%= ago(nit.at) %>
           <% if current_user == nit.nitpicker %>
-            <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit"><i class="icon-pencil"></i></a>
+            <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit">
+              <button class="btn edit-text">
+                <span aria-hidden="true" data-icon="✎"></span>
+                <span class="screen-reader-text">Edit</span>
+              </button>
+            </a>
           <% end %>
         </cite>
       </p>
