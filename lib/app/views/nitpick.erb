@@ -96,13 +96,16 @@
 
     <% if current_user.owns?(submission) && submission.discussions_involving_user_count > 0 %>
       <p>
-        <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/opinions/toggle" method="POST">
+        
         <% if submission.wants_opinions? %>
-          <button type="submit" class="btn">This is clear now. No more opinions necessary.</button>
+          <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/opinions/disable" method="POST">
+            <button type="submit" class="btn">This is clear now. No more opinions necessary.</button>
+          </form>
         <% else %>
-          <strong>Disagree with a nitpick?</strong> <button type="submit" class="btn">Ask for more opinions.</button>
+          <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/opinions/enable" method="POST">
+            <strong>Disagree with a nitpick?</strong> <button type="submit" class="btn">Ask for more opinions.</button>
+          </form>
         <% end %>
-        </form>
       </p>
     <% end %>
 

@@ -134,8 +134,14 @@ class Submission
     wants_opinions
   end
 
-  def toggle_opinions
-    self.wants_opinions = !wants_opinions?
+  def enable_opinions!
+    self.wants_opinions = true
+    self.save
+  end
+
+  def disable_opinions!
+    self.wants_opinions = false
+    self.save
   end
 
   private

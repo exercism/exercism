@@ -56,6 +56,23 @@ class ExercismApp < Sinatra::Base
       end
       Approval.new(id, current_user, params[:comment]).save
     end
+
+    def toggle_opinions(id, state)
+      submission = Submission.find(id)
+
+      unless current_user.owns?(submission)
+        flash[:error] = "You do not have permission to do that."
+        redirect '/'
+      end
+      
+      submission.send("#{state}_opinions!")
+
+      flash[:notice] =  if submission.wants_opinions?
+                          "Your request for more opinions has been made! You can disable this below when all is clear."
+                        else
+                          "Your request for more opinions has been disabled!"
+                        end
+    end
   end
 
   get '/user/submissions/:id' do |id|
@@ -103,25 +120,15 @@ class ExercismApp < Sinatra::Base
     redirect "/submissions/#{id}"
   end
 
-  post '/submissions/:id/opinions/toggle' do |id|
-    please_login "/submissions/#{id}/opinions/toggle"
+  post '/submissions/:id/opinions/enable' do |id|
+    please_login "/submissions/#{id}/opinions/enable"
+    toggle_opinions(id, :enable)
+    redirect "/submissions/#{id}"
+  end
 
-    submission = Submission.find(id)
-
-    unless current_user.owns?(submission)
-      flash[:error] = "You do not have permission to do that."
-      redirect '/'
-    end
-    
-    submission.toggle_opinions
-    submission.save
-
-    flash[:notice] =  if submission.wants_opinions?
-                        "Your request for more opinions has been made! You can disable this below when all is clear."
-                      else
-                        "Your request for more opinions has been disabled!"
-                      end
-
+  post '/submissions/:id/opinions/disable' do |id|
+    please_login "/submissions/#{id}/opinions/disable"
+    toggle_opinions(id, :disable)
     redirect "/submissions/#{id}"
   end
 
