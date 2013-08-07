@@ -17,6 +17,7 @@ class ExercismApp < Sinatra::Base
       if nitpick.nitpicked?
         #TODO - create emails from notifications
         Notify.everyone(submission, current_user, 'nitpick')
+        flash[:success] = 'This submission has been nominated for approval' if nitpick.approvable?
         begin
           unless nitpick.nitpicker == nitpick.submission.user
             NitpickMessage.ship(
