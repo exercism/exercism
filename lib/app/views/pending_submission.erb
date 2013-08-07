@@ -28,9 +28,15 @@
     <%= submission.nits_by_others_count %>
   </div>
 
-  <div class="arguments circle span1">
-    <%= submission.discussions_involving_user_count %>
-  </div>
+  <% if submission.wants_opinions? %>
+    <div class="arguments opinions circle span1">
+      <i class="icon-bullhorn"></i>
+    </div>
+  <% else %>
+    <div class="arguments circle span1">
+      <%= submission.discussions_involving_user_count %>
+    </div>
+  <% end %>
 
   <div class="versions circle span1">
     <%= submission.versions_count %>
