@@ -117,7 +117,7 @@ rescue LoadError => e
   explain "After that, it tells you the name of the method where the error is occurring.\n\n\n\tin `require_relative'."
   explain "Next, it tells you exactly what the error is.\n\n\n\tcannot load such file"
   explain "Finally, it tells you which file is missing.\n\n\n\t/path/to/your/code/ruby/bob/bob"
-  explain "So the error is that on line 5. What's on line 5?\n\n\n\trequire_relative 'bob'"
+  explain "So the error is that on line 4. What's on line 4?\n\n\n\trequire_relative 'bob'"
   explain "Essentially, when we try to require the file, it says it's not there. You can fix the problem by creating an empty file named bob.rb inside of the ruby/bob directory."
   explain "Take another look at the error message.\nDoes it make more sense?\n\n\n#{e.backtrace.first} #{e.message}"
   explain "Now your mission is to get all the tests to pass. All but the first test are pending. Once the first test passes, delete the `skip` from the next test, and so on. Check out the README for more details."
