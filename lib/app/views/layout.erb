@@ -43,11 +43,11 @@
       </div>
     </div>
 
-    <% [:notice, :error, :alert].each do |level| %>
+    <% [:notice, :error, :alert, :success].each do |level| %>
       <% unless flash[level].blank? %>
-        <div class="alert <%= level.to_s %>">
-          <a class="close" href="#">×</a>
-          <p><%= flash[level] %></p>
+        <div class="alert alert-<%= level.to_s %> alert--fixed-width">
+          <a class="close" href="#" data-dismiss="alert">×</a>
+          <%= flash[level] %>
         </div>
       <% end %>
     <% end %>

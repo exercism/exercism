@@ -15,6 +15,10 @@ class Nitpick
     @nitpicked
   end
 
+  def approvable?
+    @approvable
+  end
+
   def submission
     @submission ||= Submission.find(id)
   end
