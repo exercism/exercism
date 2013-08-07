@@ -9,6 +9,7 @@ class Submission
   field :a_at, as: :approved_at, type: Time
   field :apr, as: :is_approvable, type: Boolean, default: false
   field :apr_by, as: :flagged_by, type: Array, default: []
+  field :op, as: :wants_opinions, type: Boolean, default: false
 
   belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
@@ -127,6 +128,20 @@ class Submission
 
   def pending?
     state == 'pending'
+  end
+
+  def wants_opinions?
+    wants_opinions
+  end
+
+  def enable_opinions!
+    self.wants_opinions = true
+    self.save
+  end
+
+  def disable_opinions!
+    self.wants_opinions = false
+    self.save
   end
 
   private
