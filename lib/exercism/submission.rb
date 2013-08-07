@@ -14,8 +14,24 @@ class Submission
   belongs_to :user
   embeds_many :nits
 
+  def self.pending_for_language(language)
+    pending.
+      and(language: language.downcase)
+  end
+
+  def self.related(submission)
+    order_by(at: :asc).
+      where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
+  end
+
+  def self.nitless
+    pending.
+      or({ :'nits._id'.exists =>  false },
+         { :'nits._id' => :user })
+  end
+
   def self.pending
-    where(state: 'pending').order_by([:at, :desc])
+    where(state: 'pending').desc(:at)
   end
 
   def self.on(exercise)
@@ -34,11 +50,48 @@ class Submission
       participants.add nit.nitpicker
       participants.merge nit.comments.map(&:commenter)
     end
+    participants.add approver if approver.present?
     @participants = participants
   end
 
   def argument_count
     nits.map {|nit| nit.comments.count}.inject(0, :+)
+  end
+
+  def nits_by_others_count
+    nits.select {|nit| nit.user != self.user }.count
+  end
+
+  def discussions_involving_user_count
+    nits.flat_map {|nit| nit.comments.select { |comment| comment.commenter == self.user } }.count
+  end # triggered only when user has participated in a discussion, implicitly a return receipt on the feedback
+
+  def versions_count
+    @versions_count ||= related_submissions.count
+  end
+
+  def version
+    @version ||= related_submissions.index(self) + 1
+  end
+
+  def related_submissions
+    @related_submissions ||= Submission.related(self).to_a
+  end
+
+  def no_version_has_nits?
+    @no_previous_nits ||= related_submissions.find_index { |v| v.nits_by_others_count > 0 }.nil?
+  end
+
+  def some_version_has_nits?
+    !no_version_has_nits?
+  end
+
+  def this_version_has_nits?
+    nits_by_others_count > 0
+  end
+
+  def no_nits_yet?
+    !this_version_has_nits?
   end
 
   def exercise

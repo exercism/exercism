@@ -1,17 +1,4 @@
-# In general, inheriting from Ruby core classes
-# is dangerous and confusing.
-# http://words.steveklabnik.com/beware-subclassing-ruby-core-classes
-# In this case it works out with no surprises.
-class DNA < String
-  THYMIDINE = 'T'
-  URACIL = 'U'
-
-  def to_rna
-    tr THYMIDINE, URACIL
-  end
-end
-
-class DeoxyribonucleicAcid
+class NucleicAcid
   THYMIDINE = 'T'
   URACIL = 'U'
 
@@ -20,8 +7,16 @@ class DeoxyribonucleicAcid
     @strand = strand
   end
 
-  def to_rna
-    strand.tr THYMIDINE, URACIL
-  end
+  require 'forwardable'
+  extend Forwardable
+  def_delegators :strand, :to_str, :to_s, :==
 end
 
+class RibonucleicAcid < NucleicAcid
+end
+
+class DeoxyribonucleicAcid < NucleicAcid
+  def to_rna
+    RibonucleicAcid.new(strand.tr THYMIDINE, URACIL)
+  end
+end

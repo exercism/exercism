@@ -30,6 +30,9 @@ $(function() {
 
     var argumentCount = elem.data('arguments');
     $(".arguments",elem).tooltip({ title: argumentCount + " Responses" });
+
+    var versionCount = elem.data('versions');
+    $(".versions",elem).tooltip({ title: "Iteration " + versionCount });
   });
 
   $(".code a[data-action='enlarge']").on("click",function() {

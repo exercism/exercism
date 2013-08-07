@@ -1,10 +1,12 @@
 class Approval
 
+  include InputSanitation
+
   attr_reader :id, :approver, :comment, :curriculum
   def initialize(id, approver, comment = nil, curriculum = Exercism.current_curriculum)
     @id = id
     @approver = approver
-    @comment = comment
+    @comment = sanitize(comment)
     @curriculum = curriculum
   end
 

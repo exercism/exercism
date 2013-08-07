@@ -7,6 +7,10 @@ class Attempt
     @language = curriculum.identify_language(filename)
   end
 
+  def on_started_trail?
+    !!user.current[language]
+  end
+
   def submission
     @submission ||= Submission.on(exercise)
   end
@@ -21,6 +25,9 @@ class Attempt
     self
   end
 
+  def previous_submission
+    user.submissions_on(exercise)[1] || NullSubmission.new(@exercise)
+  end
   private
 
   def exercise

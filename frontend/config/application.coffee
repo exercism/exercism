@@ -9,7 +9,7 @@
 module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application', {
   removeTasks:
     common: [ "webfonts:dev", "images:dev"]
-    dist: ["images:dist", "webfonts:dist", "pages:dist"]
+    dist: ["uglify", "images:dist", "webfonts:dist", "pages:dist"]
 
   server:
     apiProxy:
@@ -19,4 +19,17 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
 
   # enableSass: true
 
+  # configure lineman to load additional angular related npm tasks
+  loadNpmTasks: [ "grunt-ngmin" ]
+  # task override configuration
+  prependTasks:
+    dist: ["ngmin"]         # ngmin should run in dist only
+
+  # configuration for grunt-ngmin, this happens _after_ concat once, which is the ngmin ideal :)
+  ngmin: {
+    js: {
+      src: "<%= files.js.concatenated %>",
+      dest: "<%= files.js.concatenated %>"
+    }
+  },
 })

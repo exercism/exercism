@@ -4,6 +4,7 @@
   data-language="<%= submission.language %>"
   data-nits="<%= submission.nits.count %>"
   data-arguments="<%= submission.argument_count %>"
+  data-versions="<%= submission.versions_count %>"
   data-url="/submissions/<%= submission.id %>">
 
   <h3 class="span8">
@@ -24,11 +25,14 @@
 
   <%= language_icon(submission.language, class: "span1") %>
   <div class="nits circle span1">
-    <%= submission.nits.count %>
+    <%= submission.nits_by_others_count %>
   </div>
 
   <div class="arguments circle span1">
-    <%= submission.argument_count %>
+    <%= submission.discussions_involving_user_count %>
   </div>
 
+  <div class="versions circle span1">
+    <%= submission.versions_count %>
+  </div>
 </div>

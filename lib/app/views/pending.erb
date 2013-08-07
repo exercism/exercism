@@ -10,7 +10,7 @@
 
     <%= erb :filter_pending, locals: { label: 'User', options: filters.users } %>
     <%= erb :filter_pending, locals: { label: 'Exercise', options: filters.exercises } %>
-    <%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %>
+    <span class="hidden"><%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %></span>
 
     <label class="checkbox">
       <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" />
@@ -19,7 +19,7 @@
 
     <label class="checkbox">
       <input type="checkbox" data-action="set-filter" data-filter="arguments" data-selected="All" />
-      I only want to see submissions without arguments
+      I only want to see submissions without discussion threads 
     </label>
 
     <hr/>
@@ -27,7 +27,11 @@
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
 
-    <% submissions.without_nits.each do |submission| %>
+    <% submissions.never_been_nitted.each do |submission| %>
+      <%= erb :pending_submission, locals: { submission: submission } %>
+    <% end %>
+
+    <% submissions.nits_before_but_not_on_this_iteration.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
 

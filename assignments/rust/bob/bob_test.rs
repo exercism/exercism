@@ -6,6 +6,7 @@ extern mod std;
 mod bob;
 
 #[test]
+#[should_fail]
 fn test_statement() {
     assert_eq!("Whatever.", bob::reply("Tom-ay-to, tom-aaaah-to."));
 }

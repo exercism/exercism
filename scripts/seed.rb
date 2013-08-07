@@ -14,6 +14,8 @@ end
 
 reset
 
+
+
 admin_data = {
   username: 'admin',
   github_id: 0,
@@ -21,6 +23,25 @@ admin_data = {
   is_admin: true
 }
 admin = User.create(admin_data)
+
+{
+  "ruby" => "rb",
+  "clojure" => "clj",
+  "javascript" => "js",
+  "elixir" => "exs",
+}.each do |language,exe|
+  (1..60).each do |n|
+    index = "#{language}#{n}"
+    user = User.create(username: index, github_id: index, email: "#{index}_coder@example.com", current: { language => "bob" })
+    rand(1..5).times do |i|
+      attempt = Attempt.new(user, "class Bob\nend", "bob.#{exe}").save
+      attempt.submission.at = Time.now.utc - n.to_i * 3600
+      attempt.submission.save
+      Nitpick.new(attempt.submission.id, admin, "It is missing `hey` in iteration #{i}.").save if n.even?
+    end
+    print exe, " "
+  end
+end
 
 alice_data = {
   username: 'alice',

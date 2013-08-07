@@ -38,12 +38,24 @@ class Dashboard
       submissions
     end
 
+    def no_nits_on_this_iteration
+      @not_recently_nitted ||= pending.select { |sub| sub.no_nits_yet? }.reverse
+    end
+
+    def never_been_nitted
+      @never_nitted ||= no_nits_on_this_iteration.select { |sub| sub.no_version_has_nits? }
+    end # must be a strict subset of those without nits on this iteration...
+
+    def nits_before_but_not_on_this_iteration
+      @nits_before ||= (no_nits_on_this_iteration - never_been_nitted)
+    end
+
     def without_nits
-      @without_nits ||= pending.select { |sub| sub.nits.count.zero? }.reverse
+      no_nits_on_this_iteration
     end
 
     def with_nits
-      @with_nits ||= pending.select { |sub| !sub.nits.count.zero? }
+      @with_nits ||= pending.select { |sub| sub.this_version_has_nits? }
     end
 
     def flagged_for_approval

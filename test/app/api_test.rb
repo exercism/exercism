@@ -34,8 +34,19 @@ class ApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
+
+  def test_api_complains_if_no_trail_has_been_started
+    bob = User.create(username: 'bob', github_id: 2, current: {})
+    post '/api/v1/user/assignments', {key: bob.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    assert_equal 400, last_response.status
+    message = JSON.parse(last_response.body)["error"]
+    assert_equal "Please start the trail before submitting.", message
+  end
+
   def test_api_accepts_submission_attempt
-    post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    Notify.stub(:everyone, nil) do
+      post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    end
 
     submission = Submission.first
     ex = Exercise.new('ruby', 'word-count')
@@ -79,7 +90,7 @@ class ApiTest < Minitest::Test
 
     get '/api/v1/user/assignments/completed', {key: user.key}
 
-    assert_equal({"assignments" => ['bob', 'rna-transcription']}, JSON::parse(last_response.body))
+    assert_equal({"assignments" => ['bob', 'word-count']}, JSON::parse(last_response.body))
   end
 
   def test_peek_returns_assignments_for_all_trails

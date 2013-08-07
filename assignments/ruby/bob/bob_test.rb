@@ -3,11 +3,9 @@ require 'minitest/autorun'
 begin
   require_relative 'bob'
 rescue LoadError => e
-
   puts eval("\"#{DATA.read}\n\"")
   exit!
 end
-
 
 class TeenagerTest < MiniTest::Unit::TestCase
   attr_reader :teenager
@@ -26,6 +24,10 @@ class TeenagerTest < MiniTest::Unit::TestCase
 
   def test_asking_a_question
     assert_equal 'Sure.', teenager.hey('Does this cryogenic chamber make me look fat?')
+  end
+
+  def test_asking_a_numeric_question
+    assert_equal 'Sure.', teenager.hey('You are, what, like 15?')
   end
 
   def test_talking_forcefully
@@ -66,6 +68,10 @@ class TeenagerTest < MiniTest::Unit::TestCase
 
   def test_more_silence
     assert_equal 'Fine. Be that way!', teenager.hey(nil)
+  end
+
+  def test_prolonged_silence
+    assert_equal 'Fine. Be that way!', teenager.hey('    ')
   end
 end
 

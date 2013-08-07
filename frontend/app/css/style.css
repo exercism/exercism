@@ -22,6 +22,12 @@ h1.home {
   line-height: 1em;
 }
 
+.screen-reader-text {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
 .lead.home {
   color: white;
   margin: 30px 0px;
@@ -63,6 +69,7 @@ h1.home {
   border-radius: 50%;
   width: 30px;
   height: 30px;
+  cursor: default;
 }
 
 .pending-submission .user {
@@ -122,6 +129,13 @@ h1.home {
   background: #49afcd;
 }
 
+.versions {
+  text-align: center;
+  line-height: 30px;
+  color: #fff;
+  background: #717979;
+}
+
 .code .btn { float: right; }
 .code br { clear: both; }
 
@@ -130,3 +144,15 @@ pre { white-space: pre-line; }
 .comments p { padding: 5px 0; }
 
 #code-timeline a.selected { background-color: #fcf8e3; }
+
+.pagination > ul > li {
+  cursor: pointer;
+}
+
+button.edit-text {
+  font-size: 1.2em;
+}
+[data-icon]:before {
+  content: attr(data-icon);
+  speak: none;
+}
