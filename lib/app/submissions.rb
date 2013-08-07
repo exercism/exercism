@@ -103,6 +103,28 @@ class ExercismApp < Sinatra::Base
     redirect "/submissions/#{id}"
   end
 
+  post '/submissions/:id/opinions/toggle' do |id|
+    please_login "/submissions/#{id}/opinions/toggle"
+
+    submission = Submission.find(id)
+
+    unless current_user.owns?(submission)
+      flash[:error] = "You do not have permission to do that."
+      redirect '/'
+    end
+    
+    submission.toggle_opinions
+    submission.save
+
+    flash[:notice] =  if submission.wants_opinions?
+                        "Your request for more opinions has been made! You can disable this below when all is clear."
+                      else
+                        "Your request for more opinions has been disabled!"
+                      end
+
+    redirect "/submissions/#{id}"
+  end
+
   post '/submissions/:id/nits/:nit_id/argue' do |id, nit_id|
     if current_user.guest?
       flash[:error] = 'We may have just redeployed, which logged you out. Sorry about that! Hit the back button and save the comment you just wrote, and try again after logging in. Deploying without invalidating sessions is on the list!'

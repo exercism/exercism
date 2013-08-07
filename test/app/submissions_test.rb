@@ -16,9 +16,21 @@ class ApiTest < Minitest::Test
     }
   end
 
+  def generate_attempt(code = 'CODE')
+    Attempt.new(@alice, code, 'path/to/file.rb').save
+  end
+
   attr_reader :alice
   def setup
     @alice = User.create(alice_attributes)
+  end
+
+  def logged_in
+    { github_id: @alice.github_id }
+  end
+
+  def not_logged_in
+    { github_id: nil }
   end
 
   def teardown
@@ -146,5 +158,24 @@ class ApiTest < Minitest::Test
     assert_equal 2, new_submission.versions_count
     assert_equal false, new_submission.no_version_has_nits?
     assert_equal true, new_submission.some_version_has_nits?
+  end
+
+  def test_toggle_opinions
+    submission = generate_attempt.submission
+    assert_equal false, submission.wants_opinions?
+
+    [true, false].each do |state|
+      Message.stub(:ship, nil) do
+        post "/submissions/#{submission.id}/opinions/toggle", {}, 'rack.session' => logged_in
+      end
+      assert_equal state, submission.reload.wants_opinions?
+    end
+  end
+
+  def test_toggle_options_when_not_logged_in
+    submission = generate_attempt.submission
+    post "/submissions/#{submission.id}/opinions/toggle", {}, 'rack.session' => not_logged_in
+    assert_equal 302, last_response.status
+    assert_equal false, submission.reload.wants_opinions?
   end
 end
