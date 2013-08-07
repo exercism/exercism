@@ -161,3 +161,9 @@ button.edit-text {
   content: attr(data-icon);
   speak: none;
 }
+
+.alert--fixed-width {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
