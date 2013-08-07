@@ -4,56 +4,7 @@ begin
   require_relative 'bob'
 rescue LoadError => e
 
-  puts <<-ERROR
-
-######## ########  ########   #######  ########
-##       ##     ## ##     ## ##     ## ##     ##
-##       ##     ## ##     ## ##     ## ##     ##
-######   ########  ########  ##     ## ########
-##       ##   ##   ##   ##   ##     ## ##   ##
-##       ##    ##  ##    ##  ##     ## ##    ##
-######## ##     ## ##     ##  #######  ##     ##
-
-#{e.backtrace.first} #{e.message}
-
-Welcome to your first ruby Exercism exercise!  This is your first error message.
-
-First it tells you the name of the file where the error is occurring:
-
-    bob_test.rb
-
-Then it tells you which line that error is on:
-
-    bob_test.rb:4
-
-After that, it tells you the name of the method where the error is occurring:
-
-    in `require_relative'
-
-Next, it tells you exactly what the error is:
-
-    #{e.message.split('--').first}
-
-Finally, it tells you which file is missing:
-
-    #{e.message.split('--').last}
-
-So the error is there on line 4 of this file (bob_test.rb).  What's on line 4?
-
-    require_relative 'bob'"
-
-We are trying to require the file, and it isn't there.
-
-You can fix the problem by creating an empty file named bob.rb inside
-of the ruby/bob directory.
-
-Then run the test again (ruby bob_test.rb).  Make all the tests pass,
-and submit your solution (exercism submit bob.rb).
-
-More instructions are in README.md in this directory. Good luck!
-
-ERROR
-
+  puts eval("\"#{DATA.read}\n\"")
   exit!
 end
 
@@ -117,3 +68,51 @@ class TeenagerTest < MiniTest::Unit::TestCase
     assert_equal 'Fine. Be that way!', teenager.hey(nil)
   end
 end
+
+__END__
+
+######## ########  ########   #######  ########
+##       ##     ## ##     ## ##     ## ##     ##
+##       ##     ## ##     ## ##     ## ##     ##
+######   ########  ########  ##     ## ########
+##       ##   ##   ##   ##   ##     ## ##   ##
+##       ##    ##  ##    ##  ##     ## ##    ##
+######## ##     ## ##     ##  #######  ##     ##
+
+#{e.backtrace.first} #{e.message}
+
+Welcome to your first ruby Exercism exercise!  This is your first error message.
+
+First it tells you the name of the file where the error is occurring:
+
+    bob_test.rb
+
+Then it tells you which line that error is on:
+
+    bob_test.rb:4
+
+After that, it tells you the name of the method where the error is occurring:
+
+    in `require_relative'
+
+Next, it tells you exactly what the error is:
+
+    #{e.message.split('--').first}
+
+Finally, it tells you which file is missing:
+
+    #{e.message.split('--').last}
+
+So the error is there on line 4 of this file (bob_test.rb).  What's on line 4?
+
+    require_relative 'bob'
+
+We are trying to require the file, and it isn't there.
+
+You can fix the problem by creating an empty file named bob.rb inside
+of the ruby/bob directory.
+
+Then run the test again (ruby bob_test.rb).  Make all the tests pass,
+and submit your solution (exercism submit bob.rb).
+
+More instructions are in README.md in this directory. Good luck!
