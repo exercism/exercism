@@ -1,4 +1,4 @@
-require('./queens');
+var Queens = require('./queens');
 
 
 describe("Queens", function() {

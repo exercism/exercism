@@ -1,4 +1,4 @@
-var Binary = require('./example');
+var Binary = require('./binary');
 
 describe('binary', function() {
 

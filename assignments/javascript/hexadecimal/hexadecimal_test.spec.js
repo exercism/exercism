@@ -1,4 +1,4 @@
-require('./hexadecimal');
+var Hexadecimal = require('./hexadecimal');
 
 describe("Hexadecimal", function() {
 
