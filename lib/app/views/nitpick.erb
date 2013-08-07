@@ -110,7 +110,7 @@
           <button type="submit" name="approve" class="btn">Comment &amp; Unlock Next</button>
         <% else %>
           <% unless current_user.is?(submission.user.username) %>
-            <button type="submit" name="approvable" class="btn">I think this is done. Unlock the next one!</button>
+            <button type="submit" name="approvable" class="btn btn-success" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
           <% end %>
         <% end %>
         <button type="submit" name="nitpick" class="btn btn-primary">Nitpick</button>
