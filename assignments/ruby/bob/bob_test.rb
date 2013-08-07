@@ -112,7 +112,7 @@ rescue LoadError => e
   explain "Seriously, don't freak out. It's not that bad."
   explain "OK, this is it:\n\n#{e.backtrace.first} #{e.message}"
   explain "First it tells you the name of the file where the error is occurring.\n\n\n\tbob_test.rb"
-  explain "Then it tells you which line that error is on.\n\n\n\tbob_test.rb:5"
+  explain "Then it tells you which line that error is on.\n\n\n\tbob_test.rb:4"
 
   explain "After that, it tells you the name of the method where the error is occurring.\n\n\n\tin `require_relative'."
   explain "Next, it tells you exactly what the error is.\n\n\n\tcannot load such file"
