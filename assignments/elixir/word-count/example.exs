@@ -13,6 +13,6 @@ defmodule Words do
   end
 
   defp add_count(word, counts) do
-    HashDict.merge counts, [{word, 1}], fn(_k, old_count, new_count) -> (old_count || 0) + new_count end
+    HashDict.update counts, word, 1, &1 + 1
   end
 end
