@@ -187,7 +187,8 @@ class ExercismApp < Sinatra::Base
       comment_id: comment_id,
       user: current_user
     }
-    Argument.new(data).comment.update_attributes(body: params['body'])
+    edited_body = params['body'].strip
+    Argument.new(data).comment.update_attributes(body: edited_body) unless edited_body.empty?
     redirect "/submissions/#{id}"
   end
 
