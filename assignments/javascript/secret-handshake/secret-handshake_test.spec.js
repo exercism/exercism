@@ -1,4 +1,4 @@
-require('./secret_handshake');
+var SecretHandshake = require('./secrethandshake');
 
 describe("Secret Handshake", function() {
   it("1 is a wink", function() {
@@ -36,8 +36,9 @@ describe("Secret Handshake", function() {
     expect(handshake.commands()).toEqual(["jump","close your eyes","double blink","wink"]);
   });
 
-  // xit("text is an invalid secret handshake", function() {
-  //   var handshake = new SecretHandshake("piggies");
-  //   expect(handshake.commands()).toThrow("Error");
-  // });
+  xit("text is an invalid secret handshake", function() {
+    expect( function () {
+      var handshake = new SecretHandshake("piggies");
+    }).toThrow(new Error("Handshake must be a number"));
+  });
 });

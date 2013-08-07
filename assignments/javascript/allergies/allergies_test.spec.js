@@ -1,4 +1,4 @@
-require('./allergies');
+var Allergies = require('./allergies');
 
 describe('Allergies',function() {
 

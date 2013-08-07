@@ -1,4 +1,6 @@
-Allergies = function Allergies(allergenIndex) {
+'use strict';
+
+function Allergies(allergenIndex) {
   this.allergenIndex = allergenIndex;
 }
 
@@ -16,7 +18,7 @@ Allergies.prototype = {
       if (this.allergenIndex & Math.pow(2,i)) {
         allergicTo.push(allergy);
       }
-    };
+    }
     return allergicTo;
   },
   allergicTo: function(food) {
@@ -32,4 +34,6 @@ Allergies.prototype = {
 
     return isAllergic;
   }
-}
+};
+
+module.exports = Allergies;
