@@ -114,6 +114,13 @@
           <% end %>
         <% end %>
         <button type="submit" name="nitpick" class="btn btn-primary">Nitpick</button>
+        <% if submission.approvable? %>
+          <% if (approvers_count = submission.flagged_by.count) > 1 %>
+            <p><%= approvers_count %> people think this looks great</p>
+          <% else %>
+            <p>1 person thinks this looks great</p>
+          <% end %>
+        <% end %>
       </form>
 
       <% if current_user.is?(submission.user.username) %>
