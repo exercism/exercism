@@ -8,11 +8,7 @@
     <meta content='' name='author'>
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href='/ico/favicon.png' rel='shortcut icon'>
-    <% if ENV['RACK_ENV'].to_sym == :production %>
-        <link href='/css/app.min.css' rel='stylesheet'>
-    <% else %>
-        <link href='/css/app.css' rel='stylesheet'>
-    <% end %>
+    <link href='/css/app.css' rel='stylesheet'>
   </head>
   <body>
     <% unless current_user.guest? %>
