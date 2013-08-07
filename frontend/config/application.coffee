@@ -9,7 +9,7 @@
 module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application', {
   removeTasks:
     common: [ "webfonts:dev", "images:dev"]
-    dist: ["uglify", "images:dist", "webfonts:dist", "pages:dist"]
+    dist: ["images:dist", "webfonts:dist", "pages:dist"]
 
   server:
     apiProxy:

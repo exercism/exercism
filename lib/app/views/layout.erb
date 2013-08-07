@@ -67,11 +67,6 @@
       </footer>
     </div>
     <div id="list-notifications"></div>
-    <% if ENV['RACK_ENV'].to_sym == :production %>
-      <script src="/js/app.js"></script>
-      <%# <script src="/js/app.min.js"></script> %>
-    <% else %>
-      <script src="/js/app.js"></script>
-    <% end %>
+    <script src="/js/app.js"></script>
   </body>
 </html>
