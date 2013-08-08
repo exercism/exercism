@@ -103,7 +103,15 @@ class User
   end
 
   def may_nitpick?(exercise)
+    nitpicker_on?(exercise) || working_on?(exercise)
+  end
+
+  def nitpicker_on?(exercise)
     admin? || completed?(exercise)
+  end
+
+  def working_on?(exercise)
+    current_exercises.any? {|ex| ex == exercise}
   end
 
   def nitpicker?

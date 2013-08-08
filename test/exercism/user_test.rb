@@ -6,6 +6,7 @@ require 'exercism/exercise'
 require 'exercism/locale'
 require 'exercism/trail'
 require 'exercism/submission'
+require 'exercism/notification'
 require 'exercism/nit'
 
 class UserTest < Minitest::Test
@@ -58,6 +59,14 @@ class UserTest < Minitest::Test
     assert_equal Exercise.new('femp', 'two'), user.current_on('femp')
   end
 
+  def test_is_working_on_exercise
+    one = Exercise.new('nong', 'one')
+    two = Exercise.new('nong', 'two')
+    user = User.new(current: {'nong' => 'one'})
+    assert user.working_on?(one)
+    refute user.working_on?(two)
+  end
+
   def test_user_completes_an_exercise
     nong = Locale.new('nong', 'no', 'not')
     trail = Trail.new(nong, %w(one two three), '/tmp')
@@ -72,9 +81,26 @@ class UserTest < Minitest::Test
     assert_equal [one], user.current_exercises
   end
 
+  def test_admin_is_nitpicker_on_anything
+    admin = User.new(username: 'alice', is_admin: true)
+    assert admin.nitpicker_on?(Exercise.new('lang', 'exercise'))
+  end
+
   def test_admin_may_nitpick_stuff
     admin = User.new(username: 'alice', is_admin: true)
     assert admin.may_nitpick?(Exercise.new('lang', 'exercise'))
+  end
+
+  def test_user_is_nitpicker_on_completed_assignment
+    user = User.new(current: {'nong' => 'two'}, completed: {'nong' => ['one']})
+    one = Exercise.new('nong', 'one')
+    assert user.nitpicker_on?(one)
+  end
+
+  def test_user_is_not_nitpicker_on_current_assignment
+    user = User.new(current: {'nong' => 'one'})
+    one = Exercise.new('nong', 'one')
+    refute user.nitpicker_on?(one)
   end
 
   def test_user_may_nitpick_an_exercise_they_completed
@@ -87,15 +113,19 @@ class UserTest < Minitest::Test
     assert user.may_nitpick?(one)
   end
 
-  def test_user_may_not_nitpick_uncompleted_assignments
+  def test_user_may_not_nitpick_future_assignments
     user = User.new(current: {'nong' => 'one'})
     nong = Locale.new('nong', 'no', 'not')
     trail = Trail.new(nong, ['one', 'two'], '/tmp')
 
-    one = Exercise.new('nong', 'one')
     two = Exercise.new('nong', 'two')
-    assert !user.may_nitpick?(one)
-    assert !user.may_nitpick?(two)
+    refute user.may_nitpick?(two)
+  end
+
+  def test_user_may_nitpick_current_assignments
+    user = User.new(current: {'nong' => 'one'})
+    one = Exercise.new('nong', 'one')
+    assert user.may_nitpick?(one)
   end
 
   def test_user_not_a_guest

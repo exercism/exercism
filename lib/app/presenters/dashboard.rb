@@ -90,7 +90,7 @@ class Dashboard
       @submissions ||= AdminSubmissions.new(all_submissions)
     else
       submissions = all_submissions.select do |sub|
-        user.may_nitpick?(sub.exercise)
+        user.nitpicker_on?(sub.exercise)
       end
       @submissions ||= Submissions.new(submissions)
     end
