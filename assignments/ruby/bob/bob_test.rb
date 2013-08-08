@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 require 'minitest/autorun'
 
 begin
@@ -57,6 +59,11 @@ begin
     def test_shouting_with_no_exclamation_mark
       skip
       assert_equal 'Woah, chill out!', teenager.hey('I HATE YOU')
+    end
+
+    def test_a_german_question
+      skip
+      assert_equal 'Sure.', teenager.hey('Hä?')
     end
 
     def test_statement_containing_question_mark
