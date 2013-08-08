@@ -100,7 +100,7 @@ class TestFullGarden < MiniTest::Unit::TestCase
   end
 end
 
-class SurpriseTest < MiniTest::Unit::TestCase
+class DisorderedTest < MiniTest::Unit::TestCase
 
   def setup
     diagram = "VCRRGVRG\nRVGCCGCV"
