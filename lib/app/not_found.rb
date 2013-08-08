@@ -1,5 +1,8 @@
 class ExercismApp < Sinatra::Base
   [:get, :post, :put, :delete].each do |verb|
-    send(verb, '*') { erb :not_found }
+    send(verb, '*') do
+      status 404
+      erb :not_found
+    end
   end
 end
