@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+  - 1.9.3
+services: mongodb
+before_script: 'bundle exec mailcatcher'
+script:
+  - rake
+  - 'cd frontend && npm install && lineman spec-ci'

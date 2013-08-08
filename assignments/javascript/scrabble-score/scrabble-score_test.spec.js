@@ -1,4 +1,4 @@
-require('./scrabble');
+var Scrabble = require('./scrabble');
 
 describe('Scrabble', function() {
   it("scores an empty word as zero",function() {

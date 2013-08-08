@@ -1,4 +1,4 @@
-require('./robot');
+var Robot = require('./robot');
 
 describe("Robot", function() {
 

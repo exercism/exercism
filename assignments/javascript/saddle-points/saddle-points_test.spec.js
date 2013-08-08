@@ -1,4 +1,4 @@
-require("./matrix");
+var Matrix = require("./matrix");
 
 describe("Matrix", function() {
 

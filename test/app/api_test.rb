@@ -29,8 +29,24 @@ class ApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
+  def test_api_complains_if_no_key_is_submitted_for_completed_assignments
+    get '/api/v1/user/assignments/completed'
+    assert_equal 401, last_response.status
+  end
+
+
+  def test_api_complains_if_no_trail_has_been_started
+    bob = User.create(username: 'bob', github_id: 2, current: {})
+    post '/api/v1/user/assignments', {key: bob.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    assert_equal 400, last_response.status
+    message = JSON.parse(last_response.body)["error"]
+    assert_equal "Please start the trail before submitting.", message
+  end
+
   def test_api_accepts_submission_attempt
-    post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    Notify.stub(:everyone, nil) do
+      post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    end
 
     submission = Submission.first
     ex = Exercise.new('ruby', 'word-count')
@@ -57,4 +73,54 @@ class ApiTest < Minitest::Test
     Approvals.verify(last_response.body, options)
   end
 
+  def test_completed_sends_back_empty_list_for_new_user
+    new_user = User.create(github_id: 2)
+
+    get '/api/v1/user/assignments/completed', {key: new_user.key}
+
+    assert_equal({"assignments" => []}, JSON::parse(last_response.body))
+  end
+
+  def test_completed_returns_the_names_of_completed_assignments
+    user = User.create(github_id: 2, current: {'ruby' => 'bob'})
+    trail = Exercism.current_curriculum.in('ruby')
+    exercises = trail.exercises.each
+    user.complete! exercises.next, on: trail
+    user.complete! exercises.next, on: trail
+
+    get '/api/v1/user/assignments/completed', {key: user.key}
+
+    assert_equal({"assignments" => ['bob', 'word-count']}, JSON::parse(last_response.body))
+  end
+
+  def test_peek_returns_assignments_for_all_trails
+    user = User.create(github_id: 2, current: {'ruby' => 'bob', 'clojure' => 'rna-transcription'})
+
+    get '/api/v1/user/assignments/next', {key: user.key}
+
+    output = last_response.body
+    options = {format: :json, name: 'api_peek_on_two_incomplete_trails'}
+    Approvals.verify(output, options)
+  end
+
+  def test_peek_behind_complete_trail
+    user = User.create(github_id: 2, current: {'ruby' => 'congratulations'})
+
+    get '/api/v1/user/assignments/next', {key: user.key}
+
+    assert_equal 404, last_response.status
+    assert_equal "No more assignments!", last_response.body
+  end
+
+  def test_peek_returns_assignments_for_incomplete_trails
+    user = User.create(github_id: 2, current: {'ruby' => 'congratulations', 'clojure' => 'bob'})
+
+    get '/api/v1/user/assignments/next', {key: user.key}
+
+    assert_equal 200, last_response.status
+
+    output = last_response.body
+    options = {format: :json, name: 'api_peek_with_complete_trail'}
+    Approvals.verify(output, options)
+  end
 end

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = Binary;
 
 function Binary(binary) {

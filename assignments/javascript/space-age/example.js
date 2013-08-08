@@ -1,4 +1,6 @@
-SpaceAge = function(seconds) {
+function SpaceAge(seconds) {
+  'use strict';
+
   this.seconds = seconds;
   this.earthYears = seconds / 31557600;
 
@@ -16,7 +18,7 @@ SpaceAge = function(seconds) {
   this.yearsOnPlanet = function(planet) {
     var years = this.earthYears / this.earthToOtherPlanets[planet];
     return parseFloat(years.toFixed(2));
-  }
+  };
 
   this.onMercury = function() {
     return this.yearsOnPlanet("mercury");
@@ -50,4 +52,6 @@ SpaceAge = function(seconds) {
     return this.yearsOnPlanet("neptune");
   };
 
-};
+}
+
+module.exports = SpaceAge;

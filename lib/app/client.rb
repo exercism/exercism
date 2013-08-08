@@ -5,7 +5,7 @@ class ExercismApp < Sinatra::Base
     if current_user.guest?
       erb :index
     else
-      dashboard = Dashboard.new(current_user, Submission.pending)
+      dashboard = Dashboard.new(current_user, Submission.nitless)
 
       locals = {
         submissions: dashboard.submissions,

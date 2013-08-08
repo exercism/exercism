@@ -8,12 +8,17 @@ require 'app/client'
 require 'app/curriculum'
 require 'app/submissions'
 require 'app/exercises'
+require 'app/dashboard'
 require 'app/trails'
 require 'app/about'
 require 'app/presenters/notifications_presenter'
 require 'app/nitpick'
+require 'app/not_found' # always include last
+
+require 'app/helpers/site_title_helper'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
+require 'app/helpers/github_link_helper'
 
 require 'services'
 
@@ -27,8 +32,10 @@ class ExercismApp < Sinatra::Base
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
 
+  helpers Sinatra::SiteTitleHelper
   helpers Sinatra::FuzzyTimeHelper
   helpers Sinatra::GravatarHelper
+  helpers Sinatra::GithubLinkHelper
 
   helpers do
 
@@ -85,6 +92,11 @@ class ExercismApp < Sinatra::Base
       %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
     end
 
+    def dashboard_nav_li(location, html={})
+      path = location.downcase == "featured" ? "/" : "/dashboard/#{location.downcase}"
+      active = path == request.path_info ? "active" : ""
+      %{<li class="#{active} #{html[:class]}"><a href="#{path}">#{location}</a></li>}
+    end
   end
 
 end

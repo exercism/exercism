@@ -1,9 +1,14 @@
 <div class="row">
+
   <div class="span4">
     <%= erb :ongoing_assignments, locals: {ongoing: current_user.ongoing} %>
     <%= erb :completed_assignments, locals: {completed: current_user.done } %>
   </div>
-  <div class="span8">
-    <%= erb :pending, locals: {submissions: submissions, filters: filters} %>
+  <div id="pending-submissions" class="span8">
+    <% if !current_user.admin? && current_user.completed.empty? %>
+      <%= erb :about %>
+    <% else %>
+      <%= erb :pending, locals: {submissions: submissions, filters: filters} %>
+    <% end %>
   </div>
 </div>

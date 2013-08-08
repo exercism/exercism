@@ -1,4 +1,6 @@
-Year = function(number) {
+function Year(number) {
+  'use strict';
+
   this.year = number;
 
   this.isLeapYear = function() {
@@ -8,9 +10,11 @@ Year = function(number) {
 
   this.yearDivisibleBy = function(divisor) {
     return this.divisibleBy(this.year,divisor);
-  }
+  };
 
   this.divisibleBy = function(number,divisor) {
-    return number % divisor == 0;
-  }
-};
+    return number % divisor === 0;
+  };
+}
+
+module.exports = Year;

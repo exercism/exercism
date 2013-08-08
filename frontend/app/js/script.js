@@ -15,13 +15,11 @@ $(function() {
     collection: notificationList
   });
   Backbone.history.start();
-  exercism.views.toggleNotifications.render();
-  notificationList.fetch();
 });
 
 //TODO move all variable declaration to the tops of functions.
 $(function() {
-  $(".pending-submission").each(function(index,element) {
+  $(".pending-submission, .work").each(function(index,element) {
     var elem = $(element);
 
     var language = elem.data('language');
@@ -32,6 +30,9 @@ $(function() {
 
     var argumentCount = elem.data('arguments');
     $(".arguments",elem).tooltip({ title: argumentCount + " Responses" });
+
+    var versionCount = elem.data('versions');
+    $(".versions",elem).tooltip({ title: "Iteration " + versionCount });
   });
 
   $(".code a[data-action='enlarge']").on("click",function() {
@@ -50,7 +51,7 @@ $(function() {
     $("a[data-action='enlarge']",codeDiv).show();
   });
 
-  $("#code-timeline").on("click",function() {
+  $("#code-timeline").on("click",function(event) {
     var revisionId = $(event.target).data("revision");
     $(event.target).toggleClass("selected");
     $('#revision-' + revisionId).toggle();
@@ -59,5 +60,15 @@ $(function() {
   $('form input[type=submit], form button[type=submit]').on('click', function() {
     var $this = $(this);
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
+  });
+  $('.work-slug').popover({
+    trigger: 'hover',
+    placement: 'right',
+    html: true,
+    delay: {
+      show: 600,
+      hide: 100
+    },
+    content: 'use the command <code>exercism fetch</code> to add this assignment to your exercism directory'
   });
 });

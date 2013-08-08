@@ -4,6 +4,7 @@ class User
   include Mongoid::Document
 
   field :u, as: :username, type: String
+  field :email, type: String
   field :img, as: :avatar_url, type: String
   field :cur, as: :current, type: Hash, default: {}
   field :comp, as: :completed, type: Hash, default: {}
@@ -19,11 +20,12 @@ class User
 
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first
-    user ||= User.create(username: username, github_id: id, email: email, avatar_url: avatar_url)
+    user ||= User.new(username: username, github_id: id, email: email, avatar_url: avatar_url)
     if avatar_url && !user.avatar_url
       user.avatar_url = avatar_url.gsub(/\?.+$/, '')
-      user.save
     end
+    user.username = username
+    user.save
     user
   end
 
@@ -101,7 +103,15 @@ class User
   end
 
   def may_nitpick?(exercise)
+    nitpicker_on?(exercise) || working_on?(exercise)
+  end
+
+  def nitpicker_on?(exercise)
     admin? || completed?(exercise)
+  end
+
+  def working_on?(exercise)
+    current_exercises.any? {|ex| ex == exercise}
   end
 
   def nitpicker?
@@ -110,6 +120,10 @@ class User
 
   def new?
     !admin? && submissions.count == 0
+  end
+
+  def owns?(submission)
+    self == submission.user
   end
 
   private

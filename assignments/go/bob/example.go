@@ -5,7 +5,7 @@ import "strings"
 func Hey(drivel string) (reply string) {
 	reply = "Whatever."
 	if silent(drivel) {
-		reply = "Fine. Be that way."
+		reply = "Fine. Be that way!"
 	}
 	if yelling(drivel) {
 		reply = "Woah, chill out!"

@@ -1,4 +1,9 @@
-<div>
+<div class="work"
+  data-language="<%= work.language %>"
+  <% if work.submitted? %>
+    data-nits="<%= work.nits.count %>"
+    data-arguments="<%= work.argument_count %>"
+  <% end %>>
   <%= language_icon(work.language) %>
   <% if work.submitted? %>
     <a href="/submissions/<%= work.id %>">
@@ -8,7 +13,9 @@
   <% elsif work.slug == 'congratulations' %>
     <span class="label label-info">No more Assignments</span>
   <% else %>
-    <h4 style="display: inline"><%= work.slug %></h4>
-    <span class="label label-info">Not Started</span>
+    <span class="work-slug">
+      <h4 style="display: inline"><%= work.slug %></h4>
+      <span class="label label-info">Not Started</span>
+    </span>
   <% end %>
 </div>

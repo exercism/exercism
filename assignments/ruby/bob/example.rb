@@ -1,12 +1,14 @@
-class Bob
+### Example 1 ###
 
+class Bob
   def hey(drivel)
-    if taciturn?(drivel)
-      'Fine. Be that way.'
-    elsif curious?(drivel)
-      'Sure.'
-    elsif forceful?(drivel)
+    case
+    when taciturn?(drivel)
+      'Fine. Be that way!'
+    when forceful?(drivel)
       'Woah, chill out!'
+    when curious?(drivel)
+      'Sure.'
     else
       'Whatever.'
     end
@@ -15,7 +17,7 @@ class Bob
   private
 
   def taciturn?(s)
-    s.nil? || s.empty?
+    s.nil? || s.strip.empty?
   end
 
   def curious?(s)
@@ -25,41 +27,50 @@ class Bob
   def forceful?(s)
     s.upcase == s
   end
-
 end
 
-class Alice
+### Example 2 ###
 
+class Alice
   def hey(drivel)
-    respond_to Phrase.new(drivel.to_s)
+    respond_to Phrase.new(drivel)
   end
 
   def respond_to(phrase)
-    if phrase.silent?
-      'Fine. Be that way.'
-    elsif phrase.quizzical?
-      'Sure.'
-    elsif phrase.loud?
+    case
+    when phrase.silent?
+      'Fine. Be that way!'
+    when phrase.loud?
       'Woah, chill out!'
+    when phrase.quizzical?
+      'Sure.'
     else
       'Whatever.'
     end
   end
 end
 
-class Phrase < String
+class Phrase
 
-  alias_method :silent?, :empty?
+  attr_reader :source
+  def initialize(drivel)
+    @source = drivel.to_s.strip
+  end
 
   def quizzical?
-    end_with?('?')
+    source.end_with?('?')
   end
 
   def loud?
-    upcase == self
+    source.upcase == source
   end
 
+  def silent?
+    source.empty?
+  end
 end
+
+### Example 3 ###
 
 class Charlie
 
@@ -74,7 +85,7 @@ class Charlie
   end
 
   def handlers
-    [AnswerSilence, AnswerQuestion, AnswerShout, AnswerDefault]
+    [AnswerSilence, AnswerShout, AnswerQuestion, AnswerDefault]
   end
 
 end
@@ -82,11 +93,11 @@ end
 class AnswerSilence
 
   def self.handles?(input)
-    input.nil? || input.empty?
+    input.nil? || input.strip.empty?
   end
 
   def reply
-    'Fine. Be that way.'
+    'Fine. Be that way!'
   end
 
 end
@@ -127,3 +138,31 @@ class AnswerDefault
 
 end
 
+### Example 4 ###
+
+class David
+  Handler = Struct.new(:response, :pattern)
+
+  HANDLERS = {
+    :nothing   => Handler.new("Fine. Be that way!", ->(i) { i.nil? || i.strip.empty? }),
+    :yell      => Handler.new("Woah, chill out!",   ->(i) { i.eql?(i.upcase) }),
+    :question  => Handler.new("Sure.",              ->(i) { i.end_with?("?") }),
+    :statement => Handler.new("Whatever.",          ->(i) { true })
+  }
+
+  def hey(input)
+    respond(select_handler(input))
+  end
+
+  def respond(handler)
+    handler.response
+  end
+
+  def select_handler(input)
+    handlers.values.find { |r| r.pattern.call(input) }
+  end
+
+  def handlers
+    HANDLERS
+  end
+end

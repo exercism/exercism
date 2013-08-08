@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/jayferd/rouge.git
+  revision: b166babcb0f519f7a3ce4734653d895a963f0c8e
+  specs:
+    rouge (0.3.10)
+      thor
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -70,8 +77,8 @@ GEM
       rack (>= 1.0)
     rake (10.1.0)
     redcarpet (2.3.0)
-    rouge (0.3.9)
-      thor
+    sanitize (2.0.6)
+      nokogiri (>= 1.4.4)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -114,6 +121,7 @@ DEPENDENCIES
   rack-test
   rake
   redcarpet
-  rouge
+  rouge!
+  sanitize
   simplecov
   sinatra

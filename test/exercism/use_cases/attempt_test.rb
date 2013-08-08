@@ -79,5 +79,49 @@ class AttemptTest < Minitest::Test
     assert_equal 'CODE 123', user.submissions.first.reload.code
   end
 
+  def test_previous_submission_after_first_attempt
+    attempt = Attempt.new(user, 'CODE', 'one.fp', curriculum).save
+    assert_equal attempt.previous_submission.class, NullSubmission
+  end
+
+  def test_previous_submission_after_first_attempt_in_new_language
+    Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
+    attempt = Attempt.new(user, 'CODE 2', 'one.no', curriculum).save
+    assert_equal attempt.previous_submission.language, "nong"
+  end
+
+  def test_previous_submission_after_superseding
+    Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
+    attempt = Attempt.new(user, 'CODE 2', 'one.fp', curriculum).save
+    one = user.submissions.first
+    assert_equal attempt.previous_submission, one
+  end
+
+  def test_previous_submission_with_new_language_sandwich
+    Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
+    Attempt.new(user, 'CODE 2', 'one.no', curriculum).save
+    attempt = Attempt.new(user, 'CODE 3', 'one.fp', curriculum).save
+    assert_equal attempt.previous_submission, user.submissions.first
+  end
+
+  def test_a_new_attempt_is_flagged_if_the_previous_one_was
+    bob = User.create(username: 'bob')
+    Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
+    one = user.submissions.first
+    one.is_approvable = true
+    one.flagged_by << bob.username
+    one.save
+
+    Attempt.new(user, 'CODE 2', 'one.fp', curriculum).save
+    two = user.submissions.last
+    assert two.approvable?, "'Looks Great!' should have persisted."
+    assert_equal [], two.flagged_by
+  end
+
+  def test_newlines_are_removed_at_the_end_of_the_file
+    Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one.fp', curriculum).save
+    assert_equal "\nCODE1\n\nCODE2", user.submissions.first.code
+  end
+
 end
 

@@ -1,3 +1,5 @@
+'use strict';
+
 function BinarySearchTree(data) {
   this.data  = data;
   this.left  = undefined;
