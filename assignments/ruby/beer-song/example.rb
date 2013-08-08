@@ -21,7 +21,7 @@ class Beer
   end
 
   def action(current_verse)
-    if current_verse == 0
+    if current_verse.zero?
       "Go to the store and buy some more, "
     else
       "Take #{current_verse == 1 ? "it" : "one"} down and pass it around, "
@@ -29,11 +29,11 @@ class Beer
   end
 
   def next_verse(current_verse)
-    current_verse == 0 ? 99 : (current_verse - 1)
+    current_verse.zero? ? 99 : (current_verse - 1)
   end
 
   def bottles(number)
-    if number == 0
+    if number.zero?
       "no more bottles"
     elsif number == 1
       "1 bottle"
