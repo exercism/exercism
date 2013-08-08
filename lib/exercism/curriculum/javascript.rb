@@ -8,7 +8,7 @@ class Exercism
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies strain
         atbash-cipher accumulate crypto-square trinary
-        sieve simple-cipher octal luhn
+        sieve simple-cipher octal luhn pig-latin
         meetup
       )
       # always put meetup last. It's crazy in javascript.
