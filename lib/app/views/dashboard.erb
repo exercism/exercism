@@ -4,7 +4,7 @@
     <%= erb :ongoing_assignments, locals: {ongoing: current_user.ongoing} %>
     <%= erb :completed_assignments, locals: {completed: current_user.done } %>
   </div>
-  <div class="span8">
+  <div id="pending-submissions" class="span8">
     <% if !current_user.admin? && current_user.completed.empty? %>
       <%= erb :about %>
     <% else %>
