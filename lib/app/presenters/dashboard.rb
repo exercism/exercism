@@ -27,15 +27,13 @@ class Dashboard
       @languages = languages
     end
 
-    def assignments
-      order_slugs_by_quantity(slugs_by_language).
-        flatten.
-        uniq
+    def exercises
+      slugs_by_language.flatten
     end
 
     private
     def slugs_by_language
-      languages.map { |language| slugs(language) }
+      languages.map { |language| p slugs(language) }
     end
 
     def order_slugs_by_quantity(all_slugs)
@@ -43,7 +41,7 @@ class Dashboard
     end
 
     def slugs(language)
-      Exercism.const_get("#{language}_curriculum".classify).new.slugs
+      Exercism.current_curriculum.trails[language.to_sym].exercises
     end
   end
 

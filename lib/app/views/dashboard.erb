@@ -3,8 +3,11 @@
   <aside class="span4">
     <nav>
       <ul class="nav nav-tabs nav-stacked">
-        <% curriculum.assignments.each do |assignment| %>
-          <%= dashboard_assignment_nav("ruby", assignment) %>
+        <% if language %>
+          <%= dashboard_assignment_nav(language) %>
+          <% exercises_available_for(language).each do |exercise| %>
+            <%= dashboard_assignment_nav(language, exercise.slug) %>
+          <% end %>
         <% end %>
       </ul>
     </nav>
@@ -20,11 +23,11 @@
     </div>
 
   </aside>
-  <content class="span8">
+  <main class="span8">
     <% if !current_user.admin? && current_user.completed.empty? %>
       <%= erb :about %>
     <% else %>
-      <%= erb :pending, locals: {submissions: submissions, filters: filters} %>
+      <%= erb :pending, locals: {submissions: submissions, filters: filters, exercise: exercise} %>
     <% end %>
-  </content>
+  </main>
 </div>
