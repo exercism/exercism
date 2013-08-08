@@ -118,5 +118,10 @@ class AttemptTest < Minitest::Test
     assert_equal [], two.flagged_by
   end
 
+  def test_newlines_are_removed_at_the_end_of_the_file
+    Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one.fp', curriculum).save
+    assert_equal "\nCODE1\n\nCODE2", user.submissions.first.code
+  end
+
 end
 
