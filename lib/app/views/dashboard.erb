@@ -1,6 +1,11 @@
 <div class="row">
 
-  <div class="span4">
+  <aside class="span4">
+    <nav>
+      <ul class="nav nav-tabs nav-stacked">
+        <%= curriculum.assignments %>
+      </ul>
+    </nav>
     <%= erb :ongoing_assignments, locals: {ongoing: current_user.ongoing} %>
     <%= erb :completed_assignments, locals: {completed: current_user.done } %>
   </div>
