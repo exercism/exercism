@@ -9,7 +9,8 @@ class ExercismApp < Sinatra::Base
 
       locals = {
         submissions: dashboard.submissions,
-        filters: dashboard.filters
+        filters: dashboard.filters,
+        curriculum: dashboard.curriculum
       }
       erb :dashboard, locals: locals
     end
