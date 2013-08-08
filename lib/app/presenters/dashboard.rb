@@ -22,18 +22,26 @@ class Dashboard
 
   class Curriculum
 
-    attr_reader :filters
-    def initialize(filters)
-      @filters = filters
+    attr_reader :languages
+    def initialize(languages)
+      @languages = languages
     end
 
     def assignments
-      @filters.languages.map { |language|
-        slugs(language)
-      }.flatten.uniq
+      order_slugs_by_quantity(slugs_by_language).
+        flatten.
+        uniq
     end
 
     private
+    def slugs_by_language
+      languages.map { |language| slugs(language) }
+    end
+
+    def order_slugs_by_quantity(all_slugs)
+      all_slugs.sort_by { |slugs| slugs.length }
+    end
+
     def slugs(language)
       Exercism.const_get("#{language}_curriculum".classify).new.slugs
     end
@@ -120,7 +128,7 @@ class Dashboard
   end
 
   def curriculum
-    @curriculum ||= Curriculum.new(filters)
+    @curriculum ||= Curriculum.new(filters.languages)
   end
 end
 
