@@ -83,6 +83,11 @@ begin
       skip
       assert_equal 'Fine. Be that way!', teenager.hey('    ')
     end
+    
+    def test_didnt_understand
+      skip
+      assert_equal 'No comprendo.', teenager.hey(' Aaa   ')
+    end  
   end
 
 rescue LoadError => e
