@@ -1,7 +1,8 @@
 <% unless completed.empty? %>
   <h2>Completed</h2>
   <% completed.each do |work| %>
-    <div>
+    <div class="work"
+      data-language="<%= work.language %>" >
       <% if work.submitted? %>
         <%= language_icon(work.language) %>
         <a href="/<%= current_user.username %>/<%= work.language %>/<%= work.slug %>">
