@@ -8,12 +8,21 @@
     </nav>
     <%= erb :ongoing_assignments, locals: {ongoing: current_user.ongoing} %>
     <%= erb :completed_assignments, locals: {completed: current_user.done } %>
-  </div>
-  <div id="pending-submissions" class="span8">
+    </br>
+    <div class="sidebar-panel">
+      <p>Read about <a href="/cycle">the feedback cycle</a>.</p>
+
+      <% if current_user.nitpicker? %>
+        <p>Read about <a href="/nitpick">how to nitpick</a></p>
+      <% end %>
+    </div>
+
+  </aside>
+  <content class="span8">
     <% if !current_user.admin? && current_user.completed.empty? %>
       <%= erb :about %>
     <% else %>
       <%= erb :pending, locals: {submissions: submissions, filters: filters} %>
     <% end %>
-  </div>
+  </content>
 </div>
