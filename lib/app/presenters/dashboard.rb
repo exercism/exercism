@@ -20,6 +20,25 @@ class Dashboard
     end
   end
 
+  class Curriculum
+
+    attr_reader :filters
+    def initialize(filters)
+      @filters = filters
+    end
+
+    def assignments
+      @filters.languages.map { |language|
+        slugs(language)
+      }.flatten.uniq
+    end
+
+    private
+    def slugs(language)
+      Exercism.const_get("#{language}_curriculum".classify).new.slugs
+    end
+  end
+
   class Submissions
     attr_reader :submissions
     def initialize(submissions)
@@ -98,6 +117,10 @@ class Dashboard
 
   def filters
     @filters ||= Filters.new(submissions.all)
+  end
+
+  def curriculum
+    @curriculum ||= Curriculum.new(filters)
   end
 end
 
