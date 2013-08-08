@@ -19,7 +19,7 @@ $(function() {
 
 //TODO move all variable declaration to the tops of functions.
 $(function() {
-  $(".pending-submission").each(function(index,element) {
+  $(".pending-submission, .work").each(function(index,element) {
     var elem = $(element);
 
     var language = elem.data('language');

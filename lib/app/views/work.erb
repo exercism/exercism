@@ -1,4 +1,9 @@
-<div>
+<div class="work"
+  data-language="<%= work.language %>"
+  <% if work.submitted? %>
+    data-nits="<%= work.nits.count %>"
+    data-arguments="<%= work.argument_count %>"
+  <% end %>>
   <%= language_icon(work.language) %>
   <% if work.submitted? %>
     <a href="/submissions/<%= work.id %>">
