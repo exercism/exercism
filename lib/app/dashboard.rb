@@ -5,7 +5,8 @@ class ExercismApp < Sinatra::Base
     if current_user.guest?
       erb :index
     else
-      dashboard = Dashboard.new(current_user, Submission.pending_for_language(language))
+      exercise = params[:exercise]
+      dashboard = Dashboard.new(current_user, Submission.pending_for(language, exercise))
 
       locals = {
         submissions: dashboard.submissions,

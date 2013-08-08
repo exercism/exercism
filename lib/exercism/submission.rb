@@ -15,9 +15,15 @@ class Submission
   belongs_to :user
   embeds_many :nits
 
-  def self.pending_for_language(language)
-    pending.
-      and(language: language.downcase)
+  def self.pending_for(language, exercise=nil)
+    if exercise
+      pending.
+        and(language: language.downcase).
+        and(slug: exercise.downcase)
+    else
+      pending.
+        and(language: language.downcase)
+    end
   end
 
   def self.related(submission)
