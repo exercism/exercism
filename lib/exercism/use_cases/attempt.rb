@@ -20,14 +20,22 @@ class Attempt
       sub.supersede!
     end
     submission.code = code
+    if previous_submission.approvable?
+      submission.is_approvable = true
+    end
     user.submissions << submission
     user.save
     self
   end
 
-  def previous_submission
-    user.submissions_on(exercise)[1] || NullSubmission.new(@exercise)
+  def previous_submissions
+    @previous_submissions ||= user.submissions_on(exercise).reject {|s| s == submission}
   end
+
+  def previous_submission
+    @previous_submission ||= previous_submissions.first || NullSubmission.new(exercise)
+  end
+
   private
 
   def exercise

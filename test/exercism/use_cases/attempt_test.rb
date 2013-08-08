@@ -103,5 +103,20 @@ class AttemptTest < Minitest::Test
     attempt = Attempt.new(user, 'CODE 3', 'one.fp', curriculum).save
     assert_equal attempt.previous_submission, user.submissions.first
   end
+
+  def test_a_new_attempt_is_flagged_if_the_previous_one_was
+    bob = User.create(username: 'bob')
+    Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
+    one = user.submissions.first
+    one.is_approvable = true
+    one.flagged_by << bob.username
+    one.save
+
+    Attempt.new(user, 'CODE 2', 'one.fp', curriculum).save
+    two = user.submissions.last
+    assert two.approvable?, "'Looks Great!' should have persisted."
+    assert_equal [], two.flagged_by
+  end
+
 end
 
