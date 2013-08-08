@@ -13,6 +13,8 @@ require 'app/trails'
 require 'app/about'
 require 'app/presenters/notifications_presenter'
 require 'app/nitpick'
+require 'app/not_found' # always include last
+
 require 'app/helpers/site_title_helper'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
@@ -95,10 +97,6 @@ class ExercismApp < Sinatra::Base
       active = path == request.path_info ? "active" : ""
       %{<li class="#{active} #{html[:class]}"><a href="#{path}">#{location}</a></li>}
     end
-  end
-
-  not_found do
-    erb :not_found
   end
 
 end
