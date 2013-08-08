@@ -24,13 +24,12 @@ class Nitpick
   end
 
   def save
-    return self if comment.empty?
-
-    submission.nits << Nit.new(user: nitpicker, comment: comment)
-    @nitpicked = true
+    unless comment.empty?
+      @nitpicked = true
+      submission.nits << Nit.new(user: nitpicker, comment: comment)
+    end
     if @approvable
       # Total hack.
-      # I don't think we will need this once we have notifications
       submission.is_approvable = true
       submission.flagged_by << nitpicker.username
     end
