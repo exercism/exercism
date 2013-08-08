@@ -3,7 +3,9 @@
   <aside class="span4">
     <nav>
       <ul class="nav nav-tabs nav-stacked">
-        <%= curriculum.assignments %>
+        <% curriculum.assignments.each do |assignment| %>
+          <%= dashboard_assignment_nav("ruby", assignment) %>
+        <% end %>
       </ul>
     </nav>
     <%= erb :ongoing_assignments, locals: {ongoing: current_user.ongoing} %>

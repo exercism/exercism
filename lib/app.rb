@@ -95,10 +95,30 @@ class ExercismApp < Sinatra::Base
       %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
     end
 
+    def path_for(location)
+      if location.downcase == "featured"
+        "/"
+      else
+        "/dashboard/#{location.downcase}"
+      end
+    end
+
+    def active_nav(path)
+      if path == request.path_info
+        "active"
+      else
+        ""
+      end
+    end
+
     def dashboard_nav_li(location, html={})
-      path = location.downcase == "featured" ? "/" : "/dashboard/#{location.downcase}"
-      active = path == request.path_info ? "active" : ""
-      %{<li class="#{active} #{html[:class]}"><a href="#{path}">#{location}</a></li>}
+      path = path_for(location)
+      %{<li class="#{active_nav(path)} #{html[:class]}"><a href="#{path}">#{location}</a></li>}
+    end
+
+    def dashboard_assignment_nav(location, assignment, html={})
+      path = "#{path_for(location)}/#{assignment}/"
+      %{<li class="#{active_nav(path)} #{html[:class]}"><a href="#{path}">#{assignment}</a></li>}
     end
   end
 
