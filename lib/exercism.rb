@@ -29,6 +29,7 @@ require 'exercism/curriculum/coffeescript'
 require 'exercism/curriculum/elixir'
 require 'exercism/curriculum/clojure'
 require 'exercism/curriculum/go'
+require 'exercism/curriculum/python'
 
 Mongoid.load!("./config/mongoid.yml")
 
@@ -42,6 +43,7 @@ class Exercism
       @curriculum.add JavascriptCurriculum.new
       @curriculum.add ElixirCurriculum.new
       @curriculum.add ClojureCurriculum.new
+      @curriculum.add PythonCurriculum.new
     end
 
     @curriculum
