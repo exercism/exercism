@@ -137,7 +137,9 @@ class ExercismApp < Sinatra::Base
     end
 
     def exercises_available_for(language)
-      Exercism.current_curriculum.trails[language.to_sym].exercises
+      Exercism.current_curriculum.in(language).exercises.select {|exercise|
+        current_user.nitpicker_on?(exercise)
+      }
     end
   end
 
