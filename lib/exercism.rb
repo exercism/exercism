@@ -55,4 +55,8 @@ class Exercism
     @trails ||= current_curriculum.trails.values
   end
 
+  def self.languages
+    @languages ||= current_curriculum.trails.keys.sort
+  end
+
 end
