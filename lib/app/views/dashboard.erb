@@ -24,10 +24,10 @@
 
   </aside>
   <main id="pending-submissions" class="span8">
-    <% if !current_user.admin? && current_user.completed.empty? %>
-      <%= erb :about %>
-    <% else %>
+    <% if current_user.nitpicker? %>
       <%= erb :pending, locals: {submissions: submissions, filters: filters, exercise: exercise} %>
+    <% else %>
+      <%= erb :about %>
     <% end %>
   </main>
 </div>

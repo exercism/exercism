@@ -17,8 +17,6 @@ class User
   field :jm, as: :journeymans_ticket, type: Array, default: []
   field :aptc, as: :apprenticeship, type: Hash, default: {}
 
-  alias_method :admin?, :is_admin
-
   has_many :submissions
   has_many :notifications
 
@@ -111,7 +109,7 @@ class User
   end
 
   def nitpicker_on?(exercise)
-    admin? || completed?(exercise)
+    unlocks?(exercise) || completed?(exercise)
   end
 
   def working_on?(exercise)
@@ -119,11 +117,11 @@ class User
   end
 
   def nitpicker?
-    admin? || completed.size > 0
+    locksmith? || completed.size > 0
   end
 
   def new?
-    !admin? && submissions.count == 0
+    !locksmith? && submissions.count == 0
   end
 
   def owns?(submission)

@@ -120,7 +120,7 @@
 
       <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
         <%= erb :comment %>
-        <% if current_user.admin? %>
+        <% if current_user.unlocks?(submission.exercise) %>
           <button type="submit" name="approve" class="btn">Unlock Next</button>
           <button type="submit" name="approve" class="btn">Comment &amp; Unlock Next</button>
         <% else %>

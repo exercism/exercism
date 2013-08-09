@@ -18,7 +18,7 @@ class FakeMessage < Message
 end
 
 class MessageTest < Minitest::Test
-  attr_reader :submission, :admin
+  attr_reader :submission, :locksmith
   def setup
     exercise = Exercise.new('nong', 'one')
     @submission = Submission.on(exercise)
@@ -29,10 +29,10 @@ class MessageTest < Minitest::Test
     )
     @submission.save
 
-    @admin = User.create(
+    @locksmith = User.create(
       github_id: 1337,
-      email: "admin@example.com",
-      username: "kytrinyx",
+      email: "locksmith@example.com",
+      username: "locksmith",
     )
   end
 
@@ -42,7 +42,7 @@ class MessageTest < Minitest::Test
 
   def test_send_nitpick_email
     dispatch = FakeMessage.new(
-      instigator: admin,
+      instigator: locksmith,
       submission: submission,
       intercept_emails: true,
       site_root: 'http://test.exercism.io'
