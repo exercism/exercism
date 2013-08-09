@@ -7,13 +7,13 @@ class NotificationsPresenter
   def initialize(notifications)
     @notifications = transform(notifications)
   end
-  
+
   def to_json
     @notifications.to_json
   end
 
   def transform(notifications)
-    notifications.map { |notification|
+    notifications.map do |notification|
       {
         id: notification.id,
         regarding: notification.regarding,
@@ -23,6 +23,6 @@ class NotificationsPresenter
         date: notification.at.to_time.to_i,
         humanReadableDate: ago(notification.at),
       }
-    }
+    end
   end
 end
