@@ -20,31 +20,6 @@ class Dashboard
     end
   end
 
-  class Curriculum
-
-    attr_reader :languages
-    def initialize(languages)
-      @languages = languages
-    end
-
-    def exercises
-      slugs_by_language.flatten
-    end
-
-    private
-    def slugs_by_language
-      languages.map { |language| p slugs(language) }
-    end
-
-    def order_slugs_by_quantity(all_slugs)
-      all_slugs.sort_by { |slugs| slugs.length }
-    end
-
-    def slugs(language)
-      Exercism.current_curriculum.trails[language.to_sym].exercises
-    end
-  end
-
   class Submissions
     attr_reader :submissions
     def initialize(submissions)
@@ -125,8 +100,5 @@ class Dashboard
     @filters ||= Filters.new(submissions.all)
   end
 
-  def curriculum
-    @curriculum ||= Curriculum.new(filters.languages)
-  end
 end
 
