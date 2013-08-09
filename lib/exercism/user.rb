@@ -2,6 +2,7 @@ require 'digest/sha1'
 
 class User
   include Mongoid::Document
+  include Locksmith
 
   field :u, as: :username, type: String
   field :email, type: String
