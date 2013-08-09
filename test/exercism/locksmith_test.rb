@@ -37,6 +37,10 @@ class MasterLocksmithTest < Minitest::Test
     exercise = Exercise.new('python', 'whatever')
     refute master.unlocks?(exercise), "Cannot unlock python exercises"
   end
+
+  def test_is_locksmith
+    assert master.locksmith?, "Should be locksmith"
+  end
 end
 
 class JourneymanLocksmithTest < Minitest::Test
@@ -69,6 +73,10 @@ class JourneymanLocksmithTest < Minitest::Test
   def test_cannot_unlock_incomplete_exercise_in_own_field
     exercise = Exercise.new('ruby', 'whatever')
     refute journeyman.unlocks?(exercise), "Expected NOT to unlock incomplete ruby exercise"
+  end
+
+  def test_is_locksmith
+    assert journeyman.locksmith?, "Should be locksmith."
   end
 end
 
@@ -105,6 +113,10 @@ class ApprenticeLocksmithTest < Minitest::Test
 
   def test_does_not_unlock_completed_assignment_in_other_field
     refute apprentice.unlocks?(bobpy), "Expected NOT to unlock python:bob"
+  end
+
+  def test_is_locksmith
+    assert apprentice.locksmith?, "Should be locksmith"
   end
 end
 

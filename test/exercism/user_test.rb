@@ -1,5 +1,6 @@
 require './test/mongo_helper'
 
+require 'exercism/locksmith'
 require 'exercism/user'
 require 'exercism/null_submission'
 require 'exercism/exercise'
@@ -248,6 +249,10 @@ class UserTest < Minitest::Test
 
     user.do!(exercise)
     assert_equal({'nong' => 'one'}, user.reload.current)
+  end
+
+  def test_user_is_not_locksmith_by_default
+    refute User.new.locksmith?
   end
 
   private

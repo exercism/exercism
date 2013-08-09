@@ -14,4 +14,8 @@ module Locksmith
   def apprenticed?(exercise)
     apprenticeship[exercise.language] && apprenticeship[exercise.language].include?(exercise.slug)
   end
+
+  def locksmith?
+    !(mastery.empty? && journeymans_ticket.empty? && apprenticeship.empty?)
+  end
 end

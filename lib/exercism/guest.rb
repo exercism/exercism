@@ -3,6 +3,14 @@ class Guest
     true
   end
 
+  def unlocks?(exercise)
+    false
+  end
+
+  def locksmith?
+    false
+  end
+
   def is?(username)
     false
   end
