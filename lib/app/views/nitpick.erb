@@ -46,7 +46,17 @@
       <h2>Nitpicks</h2>
     <% end %>
 
-    <p>Nitpicks and comments are parsed with <a href="https://help.github.com/articles/github-flavored-markdown">GitHub Flavoured Markdown</a></p>
+    <p><a href="http://exercism.io/nitpick" target="_blank">Nitpicks</a> and comments are parsed with <a href="https://help.github.com/articles/github-flavored-markdown">GitHub Flavoured Markdown</a></p>
+
+    <p>
+      Things to keep in mind:
+      <ul>
+        <li>How does the code make use of <%= submission.language %>?</li>
+        <li>Does the code make appropriate use Object-Oriented or Functional principles?</li>
+        <li>How readable is the code? How well does it tell its story?</li>
+        <li>What software design patterns or principles (could) inform the code?</li>
+      </ul>
+    </p>
 
     <% submission.nits.each do |nit| %>
     <blockquote><%= md(nit.comment) %>
