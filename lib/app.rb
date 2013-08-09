@@ -95,10 +95,49 @@ class ExercismApp < Sinatra::Base
       %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
     end
 
-    def dashboard_nav_li(location, html={})
-      path = location.downcase == "featured" ? "/" : "/dashboard/#{location.downcase}"
-      active = path == request.path_info ? "active" : ""
-      %{<li class="#{active} #{html[:class]}"><a href="#{path}">#{location}</a></li>}
+    def path_for(language=nil)
+      if language
+        "/dashboard/#{language.downcase}"
+      else
+        "/"
+      end
+    end
+
+    def active_nav(path)
+      if path == request.path_info
+        "active"
+      else
+        ""
+      end
+    end
+
+    def active_top_nav(path=nil)
+      if path == "/"
+        active_nav(path)
+      elsif request.path_info.match(/#{path}/)
+        "active"
+      else
+        ""
+      end
+    end
+
+    def nav_text(slug=nil)
+      (slug || "featured").split("-").map(&:capitalize).join(" ")
+    end
+
+    def dashboard_nav_li(language=nil, html={})
+      path = path_for(language)
+      %{<li class="#{active_top_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(language)}</a></li>}
+    end
+
+    def dashboard_assignment_nav(language, exercise=nil, html={})
+      path = path_for(language)
+      path += "/#{exercise}/" if exercise
+      %{<li class="#{active_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(exercise)}</a></li>}
+    end
+
+    def exercises_available_for(language)
+      Exercism.current_curriculum.trails[language.to_sym].exercises
     end
   end
 
