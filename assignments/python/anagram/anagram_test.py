@@ -14,20 +14,20 @@ class AnagramTests(unittest.TestCase):
 
     def test_detect_simple_anagram(self):
         self.assertEqual(
-            ['ab'],
-            Anagram('ab').match('ab abc bac'.split())
+            ['ant'],
+            Anagram('tan').match('tan stand at'.split())
         )
 
     def test_detect_multiple_anagrams(self):
         self.assertEqual(
-            ['abc', 'bac'],
-            Anagram('abc').match('ab abc bac'.split())
+            ['stream', 'maters'],
+            Anagram('master').match('stream pigeon maters'.split())
         )
 
     def test_does_not_confuse_different_duplicates(self):
         self.assertEqual(
             [],
-            Anagram('abb').match(['baa'])
+            Anagram('galea').match(['eagle'])
         )
 
     def test_detect_anagram(self):

@@ -10,28 +10,28 @@ class AnagramTest < MiniTest::Unit::TestCase
 
   def test_detect_simple_anagram
     skip
-    detector = Anagram.new('ba')
-    anagrams = detector.match(['ab', 'abc', 'bac'])
-    assert_equal ['ab'], anagrams
+    detector = Anagram.new('ant')
+    anagrams = detector.match(['tan', 'stand', 'at'])
+    assert_equal ['tan'], anagrams
   end
 
   def test_detect_multiple_anagrams
     skip
-    detector = Anagram.new('abc')
-    anagrams = detector.match(['ab', 'abc', 'bac'])
-    assert_equal ['abc', 'bac'], anagrams
+    detector = Anagram.new('master')
+    anagrams = detector.match(['stream', 'pigeon', 'maters'])
+    assert_equal ['stream', 'maters'], anagrams
   end
 
   def test_does_not_confuse_different_duplicates
     skip
-    detector = Anagram.new('abb')
-    assert_equal [], detector.match(['aab'])
+    detector = Anagram.new('galea')
+    assert_equal [], detector.match(['eagle'])
   end
 
   def test_eliminate_anagrams_with_same_checksum
     skip
-    detector = Anagram.new('abb')
-    assert_equal [], detector.match(['aac'])
+    detector = Anagram.new('mass')
+    assert_equal [], detector.match(['last'])
   end
 
   def test_detect_anagram
