@@ -1,23 +1,24 @@
 <% if submissions.any? %>
   <h2>Needs Nitpicking</h2>
+
   <div class="label">Quick-Filters</div>
+  <span class="hidden"><%= erb :filter_pending, locals: { label: 'User', options: filters.users } %></span>
+  <span class="hidden"><%= erb :filter_pending, locals: { label: 'Exercise', options: filters.exercises } %></span>
+  <span class="hidden"><%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %></span>
+
+  <label class="checkbox">
+    <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" />
+    Submissions without nits
+  </label>
+
+  <label class="checkbox">
+    <input type="checkbox" data-action="set-filter" data-filter="arguments" data-selected="All" />
+    Submissions without discussion threads
+  </label>
+
+  <hr/>
+
   <div class="pending-submissions">
-
-    <span class="hidden"><%= erb :filter_pending, locals: { label: 'User', options: filters.users } %></span>
-    <span class="hidden"><%= erb :filter_pending, locals: { label: 'Exercise', options: filters.exercises } %></span>
-    <span class="hidden"><%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %></span>
-
-    <label class="checkbox">
-      <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" />
-      Submissions without nits
-    </label>
-
-    <label class="checkbox">
-      <input type="checkbox" data-action="set-filter" data-filter="arguments" data-selected="All" />
-      Submissions without discussion threads
-    </label>
-
-    <hr/>
     <% submissions.flagged_for_approval.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
