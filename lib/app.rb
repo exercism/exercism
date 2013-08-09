@@ -1,6 +1,8 @@
 require 'exercism'
 require 'sinatra/petroglyph'
 
+require 'app/about'
+require 'app/nitpick'
 require 'app/api'
 require 'app/api/notifications_api'
 require 'app/auth'
@@ -11,9 +13,7 @@ require 'app/exercises'
 require 'app/dashboard'
 require 'app/trails'
 require 'app/users'
-require 'app/about'
 require 'app/presenters/notifications_presenter'
-require 'app/nitpick'
 require 'app/not_found' # always include last
 
 require 'app/helpers/site_title_helper'
