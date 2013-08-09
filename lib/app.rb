@@ -10,6 +10,7 @@ require 'app/submissions'
 require 'app/exercises'
 require 'app/dashboard'
 require 'app/trails'
+require 'app/users'
 require 'app/about'
 require 'app/presenters/notifications_presenter'
 require 'app/nitpick'
@@ -19,6 +20,7 @@ require 'app/helpers/site_title_helper'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/github_link_helper'
+require 'app/helpers/profile_helper'
 
 require 'services'
 
@@ -36,6 +38,7 @@ class ExercismApp < Sinatra::Base
   helpers Sinatra::FuzzyTimeHelper
   helpers Sinatra::GravatarHelper
   helpers Sinatra::GithubLinkHelper
+  helpers Sinatra::ProfileHelper
 
   helpers do
 

@@ -53,7 +53,7 @@
       <p>
         <cite>
           <%= gravatar_tag nit.user.avatar_url, size: 20 %>
-          <em><%= github_profile_link(nit.user) %></em>, <%= ago(nit.at) %>
+          <em><%= profile_link(nit.user) %></em>, <%= ago(nit.at) %>
           <% if current_user == nit.nitpicker %>
             <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit">
               <button class="btn btn-small edit-text">
@@ -72,7 +72,7 @@
           <li>
             <%= md(comment.body) %>
             &mdash; <%= gravatar_tag comment.user.avatar_url, size: 20 %>
-            <em><%= github_profile_link(comment.user) %></em>, <%= ago(comment.at) %>
+            <em><%= profile_link(comment.user) %></em>, <%= ago(comment.at) %>
             <% if current_user == comment.user %>
               <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/comments/<%= comment.id %>/edit">
                 <button class="btn btn-small edit-text">

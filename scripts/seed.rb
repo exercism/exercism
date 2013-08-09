@@ -24,6 +24,14 @@ admin_data = {
 }
 admin = User.create(admin_data)
 
+alice_data = {
+  username: 'alice',
+  github_id: -1,
+  email: "alice@example.com",
+  current: {'ruby' => 'bob'},
+}
+alice = User.create(alice_data)
+
 {
   "ruby" => "rb",
   "clojure" => "clj",
@@ -41,16 +49,13 @@ admin = User.create(admin_data)
     end
     print exe, " "
   end
+
+  alice.do! Exercism.current_curriculum.in(language).first
+  attempt = Attempt.new(alice, "class Bob\nend", "bob.#{exe}").save
+  Approval.new(attempt.submission.id, admin, 'very nice').save
+  alice.reload
+  attempt = Attempt.new(alice, "class Whatevs\nend", "whatevs.#{exe}").save
 end
-
-alice_data = {
-  username: 'alice',
-  github_id: -1,
-  email: "alice@example.com",
-  current: {'ruby' => 'bob'},
-}
-alice = User.create(alice_data)
-
 attempt = Attempt.new(alice, "class Bob\nend", "bob.rb").save
 attempt.submission.at = Time.now.utc - 10
 attempt.submission.save
