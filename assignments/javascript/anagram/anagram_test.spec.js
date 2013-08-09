@@ -9,21 +9,21 @@ describe('Anagram', function() {
   });
 
   xit("detects simple anagram",function() {
-    var detector = new Anagram("ba");
-    var matches = detector.match(['ab', 'abc', 'bac']);
-    expect(matches).toEqual(['ab']);
+    var detector = new Anagram("ant");
+    var matches = detector.match(['tan', 'stand', 'at']);
+    expect(matches).toEqual(['tan']);
   });
-  
+
   xit("does not detect false positives",function() {
-    var detector = new Anagram("bba");
-    var matches = detector.match(["aab"]);
+    var detector = new Anagram("galea");
+    var matches = detector.match(["eagle"]);
     expect(matches).toEqual([]);
   });
 
   xit("detects multiple anagrams",function() {
-    var detector = new Anagram("abc");
-    var matches = detector.match(['ab', 'abc', 'bac']);
-    expect(matches).toEqual(['abc', 'bac']);
+    var detector = new Anagram("master");
+    var matches = detector.match(['stream', 'pigeon', 'maters']);
+    expect(matches).toEqual(['stream', 'maters']);
   });
 
   xit("detects anagram",function() {
