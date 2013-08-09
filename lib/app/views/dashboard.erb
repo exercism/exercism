@@ -23,7 +23,7 @@
     </div>
 
   </aside>
-  <main class="span8">
+  <main id="pending-submissions" class="span8">
     <% if !current_user.admin? && current_user.completed.empty? %>
       <%= erb :about %>
     <% else %>
