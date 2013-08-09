@@ -12,6 +12,9 @@ class User
   field :key, type: String, default: ->{ create_key }
   field :j_at, type: Time, default: ->{ Time.now.utc }
   field :adm, as: :is_admin, type: Boolean, default: false
+  field :ms, as: :mastery, type: Array, default: []
+  field :jm, as: :journeymans_ticket, type: Array, default: []
+  field :aptc, as: :apprenticeship, type: Hash, default: {}
 
   alias_method :admin?, :is_admin
 
