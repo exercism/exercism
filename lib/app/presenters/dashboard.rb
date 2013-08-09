@@ -99,5 +99,6 @@ class Dashboard
   def filters
     @filters ||= Filters.new(submissions.all)
   end
+
 end
 

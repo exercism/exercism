@@ -1,25 +1,20 @@
-<p>Read about <a href="/cycle">the feedback cycle</a>.</p>
-
-<% if current_user.nitpicker? %>
-  <p>Read about <a href="/nitpick">how to nitpick</a></p>
-<% end %>
-
 <% if submissions.any? %>
   <h2>Needs Nitpicking</h2>
+  <div class="label">Quick-Filters</div>
   <div class="pending-submissions">
 
-    <%= erb :filter_pending, locals: { label: 'User', options: filters.users } %>
-    <%= erb :filter_pending, locals: { label: 'Exercise', options: filters.exercises } %>
+    <span class="hidden"><%= erb :filter_pending, locals: { label: 'User', options: filters.users } %></span>
+    <span class="hidden"><%= erb :filter_pending, locals: { label: 'Exercise', options: filters.exercises } %></span>
     <span class="hidden"><%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %></span>
 
     <label class="checkbox">
       <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" />
-      I only want to see submissions without nits
+      Submissions without nits
     </label>
 
     <label class="checkbox">
       <input type="checkbox" data-action="set-filter" data-filter="arguments" data-selected="All" />
-      I only want to see submissions without discussion threads 
+      Submissions without discussion threads
     </label>
 
     <hr/>
@@ -31,12 +26,14 @@
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
 
-    <% submissions.nits_before_but_not_on_this_iteration.each do |submission| %>
-      <%= erb :pending_submission, locals: { submission: submission } %>
-    <% end %>
+    <% if exercise %>
+      <% submissions.nits_before_but_not_on_this_iteration.each do |submission| %>
+        <%= erb :pending_submission, locals: { submission: submission } %>
+      <% end %>
 
-    <% submissions.with_nits.each do |submission| %>
-      <%= erb :pending_submission, locals: { submission: submission } %>
+      <% submissions.with_nits.each do |submission| %>
+        <%= erb :pending_submission, locals: { submission: submission } %>
+      <% end %>
     <% end %>
 
   </div>
