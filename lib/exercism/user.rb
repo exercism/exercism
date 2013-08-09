@@ -115,7 +115,7 @@ class User
   end
 
   def working_on?(exercise)
-    current_exercises.any? {|ex| ex == exercise}
+    current_exercises.include?(exercise)
   end
 
   def nitpicker?
