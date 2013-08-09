@@ -18,7 +18,7 @@ class AnagramTest < MiniTest::Unit::TestCase
   def test_detect_multiple_anagrams
     skip
     detector = Anagram.new('master')
-    anagrams = detector.match(['stream', 'pidgeon', 'maters'])
+    anagrams = detector.match(['stream', 'pigeon', 'maters'])
     assert_equal ['stream', 'maters'], anagrams
   end
 
