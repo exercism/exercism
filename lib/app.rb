@@ -111,13 +111,23 @@ class ExercismApp < Sinatra::Base
       end
     end
 
+    def active_top_nav(path=nil)
+      if path == "/"
+        active_nav(path)
+      elsif request.path_info.match(/#{path}/)
+        "active"
+      else
+        ""
+      end
+    end
+
     def nav_text(slug=nil)
       (slug || "featured").split("-").map(&:capitalize).join(" ")
     end
 
     def dashboard_nav_li(language=nil, html={})
       path = path_for(language)
-      %{<li class="#{active_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(language)}</a></li>}
+      %{<li class="#{active_top_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(language)}</a></li>}
     end
 
     def dashboard_assignment_nav(language, exercise=nil, html={})
