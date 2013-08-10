@@ -10,9 +10,9 @@
 
   <% if after.approved? %>
     <% if current_user.locksmith? %>
-      <p>This exercise has been declared <em>thoroughly bikeshedded</em> by <%= after.approver.username %>, and <b><%= submission.user.username %></b> has moved on.</p>
+      <p>This exercise has been declared <em>thoroughly bikeshedded</em> by <%= after.approver.username %>, and <b><%= user.username %></b> has moved on.</p>
     <% else %>
-      <p>This exercise has been thoroughly bikeshedded and <b><%= submission.user.username %></b> has moved on.</p>
+      <p>This exercise has been thoroughly bikeshedded and <b><%= user.username %></b> has moved on.</p>
     <% end %>
   <% else %>
     <p>This exercise is still in progress.</p>
