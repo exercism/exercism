@@ -65,31 +65,15 @@
     </blockquote>
 
       <% unless nit.comments.empty? %>
-        <ul>
-        <% nit.comments.each do |comment| %>
-          <li>
-            <%= md(comment.body) %>
-            &mdash; <%= gravatar_tag comment.user.avatar_url, size: 20 %>
-            <em><%= profile_link(comment.user) %></em>, <%= ago(comment.at) %>
-            <% if current_user == comment.user %>
-              <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/comments/<%= comment.id %>/edit">
-                <button class="btn btn-small edit-text">
-                  <span aria-hidden="true" data-icon="✎"></span>
-                  <span class="screen-reader-text">Edit</span>
-                </button>
-              </a>
-            <% end %>
-          </li>
-        <% end %>
-        </ul>
+        <blockquote><%= md(comment.body) %>
+          <p>
+            <cite>
+              <%= gravatar_tag comment.user.avatar_url, size: 20 %>
+              <em><%= profile_link(comment.user) %></em>, <%= ago(comment.at) %>
+            </cite>
+          </p>
+        </blockquote>
       <% end %>
-
-      <div>
-        <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nits/<%= nit.id %>/argue" method="POST">
-          <%= erb :small_comment %>
-          <button type="submit" class="btn">Discuss Nit</button>
-        </form>
-      </div>
     <% end %>
 
     <% if current_user.owns?(submission) && submission.discussions_involving_user_count > 0 %>
