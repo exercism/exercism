@@ -1,8 +1,9 @@
 <% if submissions.any? %>
   <h2>Needs Nitpicking</h2>
 
-  <div class="label">Quick-Filters</div>
+  <% if exercise %>
   <div id="submission-filters">
+    <div class="label">Quick-Filters</div>
     <label class="checkbox">
       <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" id="submission-filter-nits" class="submission-filter-check" />
       Submissions without nits
@@ -13,6 +14,7 @@
       Submissions without discussion threads
     </label>
   </div>
+  <% end %>
   <hr/>
 
   <div class="pending-submissions">
