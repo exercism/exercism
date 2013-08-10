@@ -27,10 +27,12 @@
 
   </aside>
   <main id="pending-submissions" class="span8">
-    <% if (language && current_user.nitpicks_trail?(language)) || (!language && current_user.nitpicker?) %>
-      <%= erb :pending, locals: {submissions: submissions, filters: filters, exercise: exercise} %>
-    <% else %>
-      <%= erb :about %>
-    <% end %>
+  <% if show_pending_submissions?(language) %>
+    <%= erb :pending, locals: {submissions: submissions, filters: filters, exercise: exercise} %>
+    <% elsif language && current_user.submissions.where(language: language).count > 0 %>
+    <%= erb :"about/welcome" %>
+  <% else %>
+    <%= erb :about, locals: {language: language, unstarted: unstarted_trails} %>
+  <% end %>
   </main>
 </div>

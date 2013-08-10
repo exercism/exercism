@@ -141,6 +141,14 @@ class ExercismApp < Sinatra::Base
         current_user.nitpicker_on?(exercise)
       }
     end
+
+    def unstarted_trails
+      @unstarted_trails ||= Exercism.current_curriculum.unstarted_trails(current_user.current_languages)
+    end
+
+    def show_pending_submissions?(language)
+      (!language && current_user.nitpicker?) || (language && current_user.nitpicks_trail?(language))
+    end
   end
 
 end

@@ -13,12 +13,7 @@ class ExercismApp < Sinatra::Base
       end
 
       session[:github_id] = params[:id]
-
-      if current_user.new?
-        redirect "/account"
-      else
-        redirect "/"
-      end
+      redirect "/"
     end
   end
 
@@ -49,13 +44,9 @@ class ExercismApp < Sinatra::Base
       flash[:error] = "We're having trouble with logins right now. Please come back later"
     end
 
-    if current_user.new?
-      redirect "/account"
-    else
-      # params[:splat] might be an empty array
-      # which suits us just fine.
-      redirect "/#{params[:splat].first}"
-    end
+    # params[:splat] might be an empty array
+    # which suits us just fine.
+    redirect "/#{params[:splat].first}"
   end
 
 end
