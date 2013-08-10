@@ -41,6 +41,14 @@ class MasterLocksmithTest < Minitest::Test
   def test_is_locksmith
     assert master.locksmith?, "Should be locksmith"
   end
+
+  def test_is_locksmith_in_ruby
+    assert master.locksmith_in?("ruby"), "Should be locksmith in Ruby"
+  end
+
+  def test_is_not_locksmith_in_python
+    refute master.locksmith_in?("python"), "Should not be locksmith in Python"
+  end
 end
 
 class JourneymanLocksmithTest < Minitest::Test
@@ -78,6 +86,14 @@ class JourneymanLocksmithTest < Minitest::Test
   def test_is_locksmith
     assert journeyman.locksmith?, "Should be locksmith."
   end
+
+  def test_is_locksmith_in_ruby
+    assert journeyman.locksmith_in?("ruby"), "Expected to be locksmith in Ruby"
+  end
+
+  def test_is_not_locksmith_in_python
+    refute journeyman.locksmith_in?("python"), "Expected not to be locksmith in Python"
+  end
 end
 
 class ApprenticeLocksmithTest < Minitest::Test
@@ -101,6 +117,14 @@ class ApprenticeLocksmithTest < Minitest::Test
       'ruby' => [bobrb, chickenrb],
       'python' => [bobpy]
     }
+  end
+
+  def test_is_locksmith_in_ruby
+    assert apprentice.locksmith_in?("ruby"), "Expected to be locksmith in Ruby"
+  end
+
+  def test_is_not_locksmith_in_python
+    refute apprentice.locksmith_in?("python"), "Expected NOT to be locksmith in Python"
   end
 
   def test_unlocks_apprenticed_exercise

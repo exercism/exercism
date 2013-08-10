@@ -27,7 +27,7 @@
 
   </aside>
   <main id="pending-submissions" class="span8">
-    <% if current_user.nitpicker? %>
+    <% if (language && current_user.nitpicks_trail?(language)) || current_user.nitpicker? %>
       <%= erb :pending, locals: {submissions: submissions, filters: filters, exercise: exercise} %>
     <% else %>
       <%= erb :about %>

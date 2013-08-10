@@ -18,4 +18,8 @@ module Locksmith
   def locksmith?
     !(mastery.empty? && journeymans_ticket.empty? && apprenticeship.empty?)
   end
+
+  def locksmith_in?(language)
+    mastery.include?(language) || journeymans_ticket.include?(language) || apprenticeship.has_key?(language)
+  end
 end

@@ -88,6 +88,10 @@ class User
     current.keys
   end
 
+  def nitpicks_trail?(language)
+    completed.keys.include?(language) || locksmith_in?(language)
+  end
+
   def current_exercises
     current.to_a.map {|cur| Exercise.new(*cur)}
   end
