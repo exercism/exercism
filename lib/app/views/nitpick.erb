@@ -65,14 +65,16 @@
     </blockquote>
 
       <% unless nit.comments.empty? %>
-        <blockquote><%= md(comment.body) %>
-          <p>
-            <cite>
-              <%= gravatar_tag comment.user.avatar_url, size: 20 %>
-              <em><%= profile_link(comment.user) %></em>, <%= ago(comment.at) %>
-            </cite>
-          </p>
-        </blockquote>
+      <% nit.comments.each do |comment| %>
+          <blockquote><%= md(comment.body) %>
+            <p>
+              <cite>
+                <%= gravatar_tag comment.user.avatar_url, size: 20 %>
+                <em><%= profile_link(comment.user) %></em>, <%= ago(comment.at) %>
+              </cite>
+            </p>
+          </blockquote>
+        <% end %>
       <% end %>
     <% end %>
 
