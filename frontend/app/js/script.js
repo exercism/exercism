@@ -1,12 +1,9 @@
 $(function() {
   var notification = new exercism.models.Notification(),
-      notificationList = new exercism.collections.NotificationList({
+  notificationList = new exercism.collections.NotificationList({
     model: notification
   });
   $('.dropdown-toggle').dropdown();
-  exercism.models.selectFilter = new exercism.models.SelectFilter();
-  exercism.views.selectFilter = new exercism.views.SelectFilter({ model: exercism.models.selectFilter });
-  exercism.routers.application = new exercism.routers.Application();
   exercism.collections.notificationsList = new exercism.collections.NotificationList({
     model: notification
   });
@@ -14,7 +11,13 @@ $(function() {
     el: $("#toggle-notifications"),
     collection: notificationList
   });
-  Backbone.history.start();
+
+  // Only initialize the javascript for the filters if there are filter
+  //   assets on the page.
+  if ($('#submission-filters').length !== 0) {
+    exercism.models.selectFilter = new exercism.models.SelectFilter();
+    exercism.views.selectFilter = new exercism.views.SelectFilter({ model: exercism.models.selectFilter });
+  }
 });
 
 //TODO move all variable declaration to the tops of functions.

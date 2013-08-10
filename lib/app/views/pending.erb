@@ -2,20 +2,17 @@
   <h2>Needs Nitpicking</h2>
 
   <div class="label">Quick-Filters</div>
-  <span class="hidden"><%= erb :filter_pending, locals: { label: 'User', options: filters.users } %></span>
-  <span class="hidden"><%= erb :filter_pending, locals: { label: 'Exercise', options: filters.exercises } %></span>
-  <span class="hidden"><%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %></span>
+  <div id="submission-filters">
+    <label class="checkbox">
+      <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" id="submission-filter-nits" class="submission-filter-check" />
+      Submissions without nits
+    </label>
 
-  <label class="checkbox">
-    <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" />
-    Submissions without nits
-  </label>
-
-  <label class="checkbox">
-    <input type="checkbox" data-action="set-filter" data-filter="arguments" data-selected="All" />
-    Submissions without discussion threads
-  </label>
-
+    <label class="checkbox">
+      <input type="checkbox" data-action="set-filter" data-filter="arguments" data-selected="All" id="submission-filter-arguments" class="submission-filter-check" />
+      Submissions without discussion threads
+    </label>
+  </div>
   <hr/>
 
   <div class="pending-submissions">
