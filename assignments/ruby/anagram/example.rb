@@ -15,7 +15,11 @@ end
 class AnagramWord < String
 
   def anagram_of?(word)
-    canonical_representation == canonicalize(word)
+    !duplicate?(word) && canonical_representation == canonicalize(word)
+  end
+
+  def duplicate?(word)
+    word.downcase == downcase
   end
 
   def canonicalize(word)

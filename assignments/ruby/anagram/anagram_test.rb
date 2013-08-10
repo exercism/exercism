@@ -28,6 +28,12 @@ class AnagramTest < MiniTest::Unit::TestCase
     assert_equal [], detector.match(['eagle'])
   end
 
+  def test_identical_word_is_not_anagram
+    detector = Anagram.new('corn')
+    anagrams = detector.match %w(corn dark Corn rank CORN crap)
+    assert_equal [], anagrams
+  end
+
   def test_eliminate_anagrams_with_same_checksum
     skip
     detector = Anagram.new('mass')
