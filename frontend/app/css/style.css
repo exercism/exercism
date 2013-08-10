@@ -167,3 +167,12 @@ button.edit-text {
   margin-left: auto;
   margin-right: auto;
 }
+
+/* nitpick and comment text */
+
+.tab-content {
+  overflow: visible;
+}
+
+textarea.comment {
+}
