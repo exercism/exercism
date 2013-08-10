@@ -5,7 +5,11 @@
     <p>
       Iteration <b><%= submission.version %></b> of <b><%= submission.versions_count %></b>.
       <% if submission.user.completed?(submission.exercise) %>
-        This exercise has been thoroughly bikeshedded, and <b><%= submission.user.username %></b> has moved on.
+        <% if current_user.locksmith? %>
+          This exercise has been declared <em>thoroughly bikeshedded</em> by <%= submission.approver.username %>, and <b><%= submission.user.username %></b> has moved on.
+        <% else %>
+          This exercise has been thoroughly bikeshedded and <b><%= submission.user.username %></b> has moved on.
+        <% end %>
       <% else %>
         This exercise is still in progress.
       <% end %>
