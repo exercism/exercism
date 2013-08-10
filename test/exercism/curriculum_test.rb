@@ -1,30 +1,10 @@
 require './test/test_helper'
+require './test/fixtures/fake_curricula'
 
-require 'exercism/locale'
 require 'exercism/exercise'
 require 'exercism/assignment'
 require 'exercism/trail'
 require 'exercism/curriculum'
-
-class FakeRubyCurriculum
-  def slugs
-    %w(one two)
-  end
-
-  def locale
-    Locale.new('ruby', 'rb', 'rb')
-  end
-end
-
-class FakeGoCurriculum
-  def slugs
-    %w(one two)
-  end
-
-  def locale
-    Locale.new('go', 'go', 'go')
-  end
-end
 
 # Integration tests.
 # This is the entry point into the app.
@@ -71,6 +51,31 @@ class CurriculumTest < Minitest::Test
     curriculum.add FakeGoCurriculum.new
     languages = curriculum.unstarted_trails(['go'])
     assert_equal ['ruby'], languages
+  end
+end
+
+class ConvenienceCurriculumTest < Minitest::Test
+  attr_reader :curriculum
+  def setup
+    @curriculum = Curriculum.new('./test/fixtures')
+    @curriculum.add FakeRubyCurriculum.new
+    @curriculum.add FakeGoCurriculum.new
+    Exercism.instance_variable_set(:@trails, nil)
+    Exercism.instance_variable_set(:@languages, nil)
+  end
+
+  def test_languages
+    Exercism.stub(:current_curriculum, curriculum) do
+      assert_equal [:go, :ruby], Exercism.languages
+    end
+  end
+
+  def test_trails
+    Exercism.stub(:current_curriculum, curriculum) do
+      ruby = Exercise.new('ruby', 'one')
+      go = Exercise.new('go', 'one')
+      assert_equal [ruby, go], Exercism.trails.map(&:first)
+    end
   end
 end
 

@@ -25,38 +25,8 @@ require 'exercism/use_cases/assignments'
 require 'exercism/use_cases/launch'
 require 'exercism/use_cases/notify'
 
-require 'exercism/curriculum/ruby'
-require 'exercism/curriculum/javascript'
-require 'exercism/curriculum/coffeescript'
-require 'exercism/curriculum/elixir'
-require 'exercism/curriculum/clojure'
-require 'exercism/curriculum/go'
-require 'exercism/curriculum/python'
-
 Mongoid.load!("./config/mongoid.yml")
 
 class Exercism
-
-  def self.current_curriculum
-    unless @curriculum
-      @curriculum = Curriculum.new('./assignments')
-
-      @curriculum.add RubyCurriculum.new
-      @curriculum.add JavascriptCurriculum.new
-      @curriculum.add ElixirCurriculum.new
-      @curriculum.add ClojureCurriculum.new
-      @curriculum.add PythonCurriculum.new
-    end
-
-    @curriculum
-  end
-
-  def self.trails
-    @trails ||= current_curriculum.trails.values
-  end
-
-  def self.languages
-    @languages ||= current_curriculum.trails.keys.sort
-  end
-
+  # See lib/exercism/curriculum.rb for default curriculum setup
 end
