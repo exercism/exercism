@@ -134,9 +134,10 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
-    @nit = Submission.find(id).nits.where(id: nit_id).first
-    redirect "/submissions/#{submission_id}" unless current_user == @nit.nitpicker
-    erb :edit_nit
+    submission = Submission.find(id)
+    nit = submission.nits.where(id: nit_id).first
+    redirect "/submissions/#{id}" unless current_user == nit.nitpicker
+    erb :edit_nit, locals: {submission: submission, nit: nit}
   end
 
   post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
