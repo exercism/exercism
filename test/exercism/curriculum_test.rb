@@ -64,6 +64,11 @@ class ConvenienceCurriculumTest < Minitest::Test
     Exercism.instance_variable_set(:@languages, nil)
   end
 
+  def teardown
+    Exercism.instance_variable_set(:@trails, nil)
+    Exercism.instance_variable_set(:@languages, nil)
+  end
+
   def test_languages
     Exercism.stub(:current_curriculum, curriculum) do
       assert_equal [:go, :ruby], Exercism.languages

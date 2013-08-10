@@ -20,3 +20,12 @@ class FakeGoCurriculum
   end
 end
 
+class FakeCurriculum
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    Locale.new('fake', 'ext', 'test')
+  end
+end
