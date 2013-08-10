@@ -82,16 +82,6 @@ class UserTest < Minitest::Test
     assert_equal [one], user.current_exercises
   end
 
-  def test_admin_is_nitpicker_on_anything
-    admin = User.new(username: 'alice', is_admin: true)
-    assert admin.nitpicker_on?(Exercise.new('lang', 'exercise'))
-  end
-
-  def test_admin_may_nitpick_stuff
-    admin = User.new(username: 'alice', is_admin: true)
-    assert admin.may_nitpick?(Exercise.new('lang', 'exercise'))
-  end
-
   def test_user_is_nitpicker_on_completed_assignment
     user = User.new(current: {'nong' => 'two'}, completed: {'nong' => ['one']})
     one = Exercise.new('nong', 'one')
@@ -156,9 +146,12 @@ class UserTest < Minitest::Test
     refute user.new?
   end
 
-  def test_admin_isnt_new
-    admin = User.new(is_admin: true)
-    refute admin.new?
+  def test_locksmith_isnt_new
+    locksmith = User.new
+    def locksmith.locksmith?
+      true
+    end
+    refute locksmith.new?
   end
 
   def test_create_user_from_github
@@ -188,9 +181,12 @@ class UserTest < Minitest::Test
     assert_equal 'old', user.avatar_url
   end
 
-  def test_admin_is_nitpicker
-    admin = User.new(is_admin: true)
-    assert admin.nitpicker?
+  def test_locksmith_is_nitpicker
+    locksmith = User.new
+    def locksmith.locksmith?
+      true
+    end
+    assert locksmith.nitpicker?
   end
 
   def test_user_with_completed_exercises_is_nitpicker

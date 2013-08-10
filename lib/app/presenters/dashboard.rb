@@ -86,14 +86,10 @@ class Dashboard
   def submissions
     return @submissions if @submissions
 
-    if user.admin?
-      @submissions ||= AdminSubmissions.new(all_submissions)
-    else
-      submissions = all_submissions.select do |sub|
-        user.nitpicker_on?(sub.exercise)
-      end
-      @submissions ||= Submissions.new(submissions)
+    submissions = all_submissions.select do |sub|
+      user.nitpicker_on?(sub.exercise)
     end
+    @submissions ||= Submissions.new(submissions)
   end
 
   def filters
