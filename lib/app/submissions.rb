@@ -37,10 +37,10 @@ class ExercismApp < Sinatra::Base
         halt 403, "You're not logged in right now, so I can't let you do that. Sorry."
       end
 
-      unless current_user.admin?
+      submission = Submission.find(id)
+      unless current_user.unlocks?(submission.exercise)
         halt 403, "You do not have permission to approve that exercise."
       end
-      submission = Submission.find(id)
 
       Notify.source(submission, current_user, 'approval')
 
@@ -195,7 +195,7 @@ class ExercismApp < Sinatra::Base
   get '/submissions/:language/:assignment' do |language, assignment|
     please_login "/submissions/#{language}/#{assignment}"
 
-    unless current_user.admin?
+    unless current_user.locksmith?
       flash[:notice] = "Sorry, need to know only."
       redirect '/'
     end

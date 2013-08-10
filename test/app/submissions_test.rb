@@ -38,7 +38,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_nitpick_assignment
-    bob = User.create(github_id: 2, email: "bob@example.com", is_admin: true)
+    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
     Attempt.new(alice, 'CODE', 'path/to/file.rb').save
     submission = Submission.first
 
@@ -92,7 +92,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_input_sanitation
-    bob = User.create(github_id: 2, is_admin: true)
+    bob = User.create(github_id: 2, mastery: ['ruby'])
 
     Attempt.new(alice, 'CODE', 'path/to/file.rb').save
     submission = Submission.first
@@ -127,7 +127,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_multiple_versions
-    bob = User.create(github_id: 2, email: "bob@example.com", is_admin: true)
+    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
     Attempt.new(alice, 'CODE', 'path/to/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count

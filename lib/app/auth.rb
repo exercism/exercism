@@ -14,7 +14,7 @@ class ExercismApp < Sinatra::Base
 
       session[:github_id] = params[:id]
 
-      if !current_user.admin? && current_user.submissions.count == 0
+      if current_user.new?
         redirect "/account"
       else
         redirect "/"
