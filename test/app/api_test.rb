@@ -1,4 +1,5 @@
 require './test/api_helper'
+require './test/fixtures/fake_curricula'
 
 class ApiTest < Minitest::Test
   include Rack::Test::Methods
@@ -7,21 +8,31 @@ class ApiTest < Minitest::Test
     ExercismApp
   end
 
-  attr_reader :alice
+  attr_reader :alice, :curriculum
   def setup
-    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'word-count', 'javascript' => 'anagram'})
+    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'one', 'go' => 'two'})
+    @curriculum = Curriculum.new('./test/fixtures')
+    @curriculum.add FakeCurriculum.new
+    @curriculum.add FakeRubyCurriculum.new
+    @curriculum.add FakeGoCurriculum.new
+    Exercism.instance_variable_set(:@trails, nil)
+    Exercism.instance_variable_set(:@languages, nil)
   end
 
   def teardown
     Mongoid.reset
+    Exercism.instance_variable_set(:@trails, nil)
+    Exercism.instance_variable_set(:@languages, nil)
   end
 
   def test_api_returns_current_assignment_data
-    get '/api/v1/user/assignments/current', {key: alice.key}
+    Exercism.stub(:current_curriculum, curriculum) do
+      get '/api/v1/user/assignments/current', {key: alice.key}
 
-    output = last_response.body
-    options = {format: :json, :name => 'api_current_assignment_data'}
-    Approvals.verify(output, options)
+      output = last_response.body
+      options = {format: :json, :name => 'api_current_assignment_data'}
+      Approvals.verify(output, options)
+    end
   end
 
   def test_api_complains_if_no_key_is_submitted
@@ -34,43 +45,50 @@ class ApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
-
   def test_api_complains_if_no_trail_has_been_started
-    bob = User.create(username: 'bob', github_id: 2, current: {})
-    post '/api/v1/user/assignments', {key: bob.key, code: 'THE CODE', path: 'code.rb'}.to_json
-    assert_equal 400, last_response.status
-    message = JSON.parse(last_response.body)["error"]
-    assert_equal "Please start the trail before submitting.", message
+    Exercism.stub(:current_curriculum, curriculum) do
+      bob = User.create(username: 'bob', github_id: 2, current: {})
+      post '/api/v1/user/assignments', {key: bob.key, code: 'THE CODE', path: 'code.rb'}.to_json
+      assert_equal 400, last_response.status
+      message = JSON.parse(last_response.body)["error"]
+      assert_equal "Please start the trail before submitting.", message
+    end
   end
 
   def test_api_accepts_submission_attempt
-    Notify.stub(:everyone, nil) do
-      post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+    Exercism.stub(:current_curriculum, curriculum) do
+      Notify.stub(:everyone, nil) do
+        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+      end
+
+      submission = Submission.first
+      ex = Exercise.new('ruby', 'one')
+      assert_equal ex, submission.exercise
+      assert_equal 201, last_response.status
+
+      options = {format: :json, :name => 'api_submission_accepted'}
+      Approvals.verify(last_response.body, options)
     end
-
-    submission = Submission.first
-    ex = Exercise.new('ruby', 'word-count')
-    assert_equal ex, submission.exercise
-    assert_equal 201, last_response.status
-
-    options = {format: :json, :name => 'api_submission_accepted'}
-    Approvals.verify(last_response.body, options)
   end
 
   def test_submit_beyond_end_of_trail
-    bob = User.create(github_id: 2, current: {'ruby' => 'word-count'})
-    trail = Exercism.current_curriculum.in('ruby')
-    bob.complete! trail.exercises.last, on: trail
-    get '/api/v1/user/assignments/current', {key: bob.key}
-    assert_equal 200, last_response.status
+    Exercism.stub(:current_curriculum, curriculum) do
+      bob = User.create(github_id: 2, current: {'ruby' => 'two'})
+      trail = Exercism.current_curriculum.in('ruby')
+      bob.complete! trail.exercises.last, on: trail
+      get '/api/v1/user/assignments/current', {key: bob.key}
+      assert_equal 200, last_response.status
+    end
   end
 
   def test_fetch_demo
-    get '/api/v1/assignments/demo'
-    assert_equal 200, last_response.status
+    Exercism.stub(:current_curriculum, curriculum) do
+      get '/api/v1/assignments/demo'
+      assert_equal 200, last_response.status
 
-    options = {format: :json, :name => 'api_demo'}
-    Approvals.verify(last_response.body, options)
+      options = {format: :json, :name => 'api_demo'}
+      Approvals.verify(last_response.body, options)
+    end
   end
 
   def test_completed_sends_back_empty_list_for_new_user
@@ -82,45 +100,53 @@ class ApiTest < Minitest::Test
   end
 
   def test_completed_returns_the_names_of_completed_assignments
-    user = User.create(github_id: 2, current: {'ruby' => 'bob'})
-    trail = Exercism.current_curriculum.in('ruby')
-    exercises = trail.exercises.each
-    user.complete! exercises.next, on: trail
-    user.complete! exercises.next, on: trail
+    Exercism.stub(:current_curriculum, curriculum) do
+      user = User.create(github_id: 2, current: {'ruby' => 'one'})
+      trail = curriculum.in('ruby')
+      exercises = trail.exercises.each
+      user.complete! exercises.next, on: trail
+      user.complete! exercises.next, on: trail
 
-    get '/api/v1/user/assignments/completed', {key: user.key}
+      get '/api/v1/user/assignments/completed', {key: user.key}
 
-    assert_equal({"assignments" => ['bob', 'word-count']}, JSON::parse(last_response.body))
+      assert_equal({"assignments" => ['one', 'two']}, JSON::parse(last_response.body))
+    end
   end
 
   def test_peek_returns_assignments_for_all_trails
-    user = User.create(github_id: 2, current: {'ruby' => 'bob', 'clojure' => 'rna-transcription'})
+    Exercism.stub(:current_curriculum, curriculum) do
+      user = User.create(github_id: 2, current: {'ruby' => 'one', 'go' => 'one'})
 
-    get '/api/v1/user/assignments/next', {key: user.key}
+      get '/api/v1/user/assignments/next', {key: user.key}
 
-    output = last_response.body
-    options = {format: :json, name: 'api_peek_on_two_incomplete_trails'}
-    Approvals.verify(output, options)
+      output = last_response.body
+      options = {format: :json, name: 'api_peek_on_two_incomplete_trails'}
+      Approvals.verify(output, options)
+    end
   end
 
   def test_peek_behind_complete_trail
-    user = User.create(github_id: 2, current: {'ruby' => 'congratulations'})
+    Exercism.stub(:current_curriculum, curriculum) do
+      user = User.create(github_id: 2, current: {'ruby' => 'congratulations'})
 
-    get '/api/v1/user/assignments/next', {key: user.key}
+      get '/api/v1/user/assignments/next', {key: user.key}
 
-    assert_equal 404, last_response.status
-    assert_equal "No more assignments!", last_response.body
+      assert_equal 404, last_response.status
+      assert_equal "No more assignments!", last_response.body
+    end
   end
 
   def test_peek_returns_assignments_for_incomplete_trails
-    user = User.create(github_id: 2, current: {'ruby' => 'congratulations', 'clojure' => 'bob'})
+    Exercism.stub(:current_curriculum, curriculum) do
+      user = User.create(github_id: 2, current: {'ruby' => 'congratulations', 'go' => 'one'})
 
-    get '/api/v1/user/assignments/next', {key: user.key}
+      get '/api/v1/user/assignments/next', {key: user.key}
 
-    assert_equal 200, last_response.status
+      assert_equal 200, last_response.status
 
-    output = last_response.body
-    options = {format: :json, name: 'api_peek_with_complete_trail'}
-    Approvals.verify(output, options)
+      output = last_response.body
+      options = {format: :json, name: 'api_peek_with_complete_trail'}
+      Approvals.verify(output, options)
+    end
   end
 end
