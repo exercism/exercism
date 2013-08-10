@@ -31,8 +31,8 @@ $(function() {
     var nitCount = elem.data('nits');
     $(".nits",elem).tooltip({ title: nitCount + " Nits" });
 
-    var argumentCount = elem.data('arguments');
-    $(".arguments",elem).tooltip({ title: argumentCount + " Responses" });
+    var versionCount = elem.data('opinions');
+    $(".opinions",elem).tooltip({ title: "More Opinions Desired" });
 
     var versionCount = elem.data('versions');
     $(".versions",elem).tooltip({ title: "Iteration " + versionCount });
