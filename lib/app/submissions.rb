@@ -133,62 +133,15 @@ class ExercismApp < Sinatra::Base
     redirect "/submissions/#{id}"
   end
 
-  post '/submissions/:id/nits/:nit_id/argue' do |id, nit_id|
-    if current_user.guest?
-      flash[:error] = 'We may have just redeployed, which logged you out. Sorry about that! Hit the back button and save the comment you just wrote, and try again after logging in. Deploying without invalidating sessions is on the list!'
-    end
-    please_login("/submissions/#{id}/nits/#{nit_id}/argue")
-
-    if params[:comment].empty?
-      submission = Submission.find_by(id: id)
-    else
-      data = {
-        submission_id: id,
-        nit_id: nit_id,
-        user: current_user,
-        comment: params[:comment]
-      }
-      argument = Argument.new(data).save
-      submission = argument.submission
-      Notify.everyone(submission, current_user, 'comment')
-    end
-
-    redirect "/submissions/#{id}"
-  end
-
-  get '/submissions/:submission_id/nits/:nit_id/edit' do |submission_id, nit_id|
-    @submission_id, @nit_id = submission_id, nit_id
-    @nit = Argument.new(params).nit
+  get '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
+    @nit = Submission.find(id).nits.where(id: nit_id).first
     redirect "/submissions/#{submission_id}" unless current_user == @nit.nitpicker
     erb :edit_nit
   end
 
   post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
-    data = {
-      submission_id: id,
-      nit_id: nit_id,
-      user: current_user
-    }
-    Argument.new(data).nit.update_attributes(comment: params['comment'])
-    redirect "/submissions/#{id}"
-  end
-
-  get '/submissions/:submission_id/nits/:nit_id/comments/:comment_id/edit' do |submission_id, nit_id, comment_id|
-    @submission_id, @nit_id, @comment_id = submission_id, nit_id, comment_id
-    @comment = Argument.new(params).comment
-    redirect "/submissions/#{submission_id}" unless current_user == @comment.user
-    erb :edit_comment
-  end
-
-  post '/submissions/:submission_id/nits/:nit_id/comments/:comment_id/edit' do |id, nit_id, comment_id|
-    data = {
-      submission_id: id,
-      nit_id: nit_id,
-      comment_id: comment_id,
-      user: current_user
-    }
-    edited_body = params['body'].strip
-    Argument.new(data).comment.update_attributes(body: edited_body) unless edited_body.empty?
+    nit = Submission.find(id).nits.where(id: nit_id).first
+    nit.sanitized_update(params['comment'])
     redirect "/submissions/#{id}"
   end
 

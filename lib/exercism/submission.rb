@@ -55,23 +55,22 @@ class Submission
     participants.add user
     nits.each do |nit|
       participants.add nit.nitpicker
-      participants.merge nit.comments.map(&:commenter)
     end
     participants.add approver if approver.present?
     @participants = participants
-  end
-
-  def argument_count
-    nits.map {|nit| nit.comments.count}.inject(0, :+)
   end
 
   def nits_by_others_count
     nits.select {|nit| nit.user != self.user }.count
   end
 
-  def discussions_involving_user_count
-    nits.flat_map {|nit| nit.comments.select { |comment| comment.commenter == self.user } }.count
-  end # triggered only when user has participated in a discussion, implicitly a return receipt on the feedback
+  def nits_by_self_count
+    nits.select {|nit| nit.user == self.user }.count
+  end
+
+  def discussion_involves_user?
+    [nits_by_self_count, nits_by_others_count].min > 0
+  end
 
   def versions_count
     @versions_count ||= related_submissions.count

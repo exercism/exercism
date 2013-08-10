@@ -47,38 +47,12 @@
     <% end %>
 
     <% submission.nits.each do |nit| %>
-    <blockquote><%= md(nit.comment) %>
-      <p>
-        <cite>
-          <%= gravatar_tag nit.user.avatar_url, size: 20 %>
-          <em><%= profile_link(nit.user) %></em>, <%= ago(nit.at) %>
-          <% if current_user == nit.nitpicker %>
-            <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit">
-              <button class="btn btn-small edit-text">
-                <span aria-hidden="true" data-icon="✎"></span>
-                <span class="screen-reader-text">Edit</span>
-              </button>
-            </a>
-          <% end %>
-        </cite>
-      </p>
-    </blockquote>
-
-      <% unless nit.comments.empty? %>
-      <% nit.comments.each do |comment| %>
-          <blockquote><%= md(comment.body) %>
-            <p>
-              <cite>
-                <%= gravatar_tag comment.user.avatar_url, size: 20 %>
-                <em><%= profile_link(comment.user) %></em>, <%= ago(comment.at) %>
-              </cite>
-            </p>
-          </blockquote>
-        <% end %>
-      <% end %>
+      <%= erb :nit, locals: {nit: nit, submission: submission} %>
     <% end %>
 
-    <% if current_user.owns?(submission) && submission.discussions_involving_user_count > 0 %>
+    <% if current_user.owns?(submission) && submission.discussion_involves_user? %>
+      <hr>
+
       <% if submission.wants_opinions? %>
         <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/opinions/disable" method="POST">
           <button type="submit" class="btn">This is clear now. No more opinions necessary.</button>
@@ -90,6 +64,8 @@
       <% end %>
     <% end %>
 
+    <hr>
+
     <% if submission.user.completed?(submission.exercise) %>
 
       <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
@@ -99,7 +75,7 @@
 
     <% else %>
 
-      <p><a href="http://exercism.io/nitpick" target="_blank">Nitpicks</a> and comments are parsed with <a href="https://help.github.com/articles/github-flavored-markdown">GitHub Flavoured Markdown</a></p>
+      <p><a href="http://exercism.io/nitpick" target="_blank">Nitpicks</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown">GitHub Flavoured Markdown</a></p>
 
       <p>Things to keep in mind:</p>
       <ul>
