@@ -20,6 +20,5 @@ group :test, :development do
   gem 'approvals', require: false
   gem 'rack-test', require: false
   gem 'mocha', require: false
-  gem 'mailcatcher'
   gem 'simplecov', require: false
 end
