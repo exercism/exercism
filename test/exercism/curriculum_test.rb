@@ -1,28 +1,28 @@
 require './test/test_helper'
 
-require 'exercism/curriculum'
 require 'exercism/locale'
-require 'exercism/trail'
 require 'exercism/exercise'
 require 'exercism/assignment'
+require 'exercism/trail'
+require 'exercism/curriculum'
 
-class NongCurriculum
+class FakeRubyCurriculum
   def slugs
     %w(one two)
   end
 
   def locale
-    Locale.new('nong', 'no', 'not')
+    Locale.new('ruby', 'rb', 'rb')
   end
 end
 
-class FempCurriculum
+class FakeGoCurriculum
   def slugs
     %w(one two)
   end
 
   def locale
-    Locale.new('femp', 'fp', 'fpt')
+    Locale.new('go', 'go', 'go')
   end
 end
 
@@ -33,7 +33,7 @@ class CurriculumTest < Minitest::Test
   attr_reader :curriculum
   def setup
     @curriculum = Curriculum.new('./test/fixtures')
-    curriculum.add NongCurriculum.new
+    curriculum.add FakeRubyCurriculum.new
   end
 
   def test_curriculum_takes_a_path
@@ -41,26 +41,24 @@ class CurriculumTest < Minitest::Test
   end
 
   def test_find_exercise_in_trail
-    ex = Exercise.new('nong', 'one')
-    assert_equal ex, curriculum.in('nong').find('one')
+    ex = Exercise.new('ruby', 'one')
+    assert_equal ex, curriculum.in('ruby').find('one')
   end
 
   def test_get_assignment_from_trail
-    path = './test/fixtures/nong/one'
-    assignment = curriculum.in('nong').assign('one')
-    assert_equal path, assignment.path
+    assignment = curriculum.in('ruby').assign('one')
+    assert_equal './test/fixtures/ruby/one', assignment.path
   end
 
-  def test_get_assignment_from_exercise
-    exercise = Exercise.new('nong', 'one')
+  def test_get_assignment_from_curriculum
+    exercise = Exercise.new('ruby', 'one')
     assignment = curriculum.assign(exercise)
-    assert_equal './test/fixtures/nong/one', assignment.path
+    assert_equal './test/fixtures/ruby/one', assignment.path
   end
 
-  # Do I want an actual locale object, or just the language?
   def test_identify_language_from_filename
-    curriculum.add FempCurriculum.new
-    assert_equal 'femp', curriculum.identify_language('one.fp')
+    curriculum.add FakeGoCurriculum.new
+    assert_equal 'go', curriculum.identify_language('one.go')
   end
 
   def test_unknown_language
@@ -70,10 +68,9 @@ class CurriculumTest < Minitest::Test
   end
 
   def test_unstarted_trails
-    curriculum.add FempCurriculum.new
-    languages = curriculum.unstarted_trails(['femp'])
-    assert_equal ['nong'], languages
+    curriculum.add FakeGoCurriculum.new
+    languages = curriculum.unstarted_trails(['go'])
+    assert_equal ['ruby'], languages
   end
-
 end
 

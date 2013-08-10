@@ -20,7 +20,7 @@ end
 class MessageTest < Minitest::Test
   attr_reader :submission, :admin
   def setup
-    exercise = Exercise.new('nong', 'one')
+    exercise = Exercise.new('fake', 'one')
     @submission = Submission.on(exercise)
     @submission.user = User.create(
       github_id: 1,
