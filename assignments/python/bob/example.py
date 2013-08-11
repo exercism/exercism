@@ -1,7 +1,7 @@
 class Bob(object):
     def hey(self, stimulus):
         if self._is_silence(stimulus):
-            return 'Fine, be that way.'
+            return 'Fine. Be that way.'
 
         elif self._is_shouting(stimulus):
             return 'Woah, chill out!'
