@@ -1,28 +1,39 @@
 exercism.views.SelectFilter = Backbone.View.extend({
   el: $('#pending-submissions'),
+
   events: {
-    "click .submission-filter-check": "checkClick"
+    "click #filter-nits": "nitHandler",
+    "click #filter-opinions": "opinionHandler",
   },
-  filter: function (filter, value) {
-    this.$('div[data-' + filter + '][' + 'data-' + filter + '!=' + value + ']').hide();
+
+  initialize: function(options) {
+    this.listenTo(this.model, "change", this.render);
   },
+
+  filterNits: function () {
+    this.$('div[data-nits][data-nits!=0]').toggle(!this.model.get("nits"));
+  },
+
+  filterOpinions: function () {
+    this.$('div[data-opinions][data-opinions!=1]').toggle(!this.model.get("opinions"));
+  },
+
   showAll: function () {
     this.$('.pending-submission').show();
   },
-  filters: function (element, index, list) {
-    if (element !== "All") {
-      this.filter(index, element);
-    }
-  },
-  renderFilters: function () {
+
+  render: function () {
     this.showAll();
-    _.each(this.model.attributes, this.filters, this);
+    this.filterNits();
+    this.filterOpinions();
   },
-  checkClick: function (event) {
-    var filter = this.$(event.currentTarget).attr('data-filter');
-    var checked = this.$(event.currentTarget).is(':checked');
-    this.model.setCheck(filter, checked);
-    this.renderFilters();
-  }
+
+  nitHandler: function (event) {
+    this.model.set("nits", $(event.currentTarget).is(':checked'));
+  },
+
+  opinionHandler: function (event) {
+    this.model.set("opinions", $(event.currentTarget).is(':checked'));
+  },
 });
 
