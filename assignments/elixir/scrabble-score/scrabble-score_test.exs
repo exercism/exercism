@@ -13,10 +13,6 @@ defmodule ScrabbleScoreTest do
     assert 0 == Scrabble.score(" \t\n")
   end
 
-  test "nil scores zero" do
-    assert 0 == Scrabble.score(nil)
-  end
-
   test "scores very short word" do
     assert 1 == Scrabble.score("a")
   end
