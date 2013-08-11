@@ -1,6 +1,6 @@
 defmodule Scrabble do
   def score(word) do
-    (word || "") |> letters |> summarize
+    word |> letters |> summarize
   end
 
   defp letters(word), do: word |> String.strip |> String.downcase |> String.codepoints
