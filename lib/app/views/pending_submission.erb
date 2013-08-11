@@ -41,4 +41,10 @@
       <i class="icon-bullhorn"></i>
     </div>
   <% end %>
+
+  <% if submission.approvable? %>
+    <div class="circle span1">
+      <i class="icon-ok"></i>
+    </div>
+  <% end %>
 </div>
