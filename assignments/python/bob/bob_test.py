@@ -33,7 +33,7 @@ class BobTests(unittest.TestCase):
     def test_silence(self):
         'Bob responds to silence'
         self.assertEqual(
-            'Fine, be that way.',
+            'Fine. Be that way.',
             self.bob.hey('')
         )
 
