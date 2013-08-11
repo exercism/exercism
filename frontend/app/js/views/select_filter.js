@@ -11,11 +11,11 @@ exercism.views.SelectFilter = Backbone.View.extend({
   },
 
   filterNits: function () {
-    this.$('div[data-nits][data-nits!=0]').toggle(!this.model.get("nits"));
+    if (this.model.get('nits')) { this.$('div[data-nits][data-nits!=0]').hide(); }
   },
 
   filterOpinions: function () {
-    this.$('div[data-opinions][data-opinions!=1]').toggle(!this.model.get("opinions"));
+    if (this.model.get('opinions')) { this.$('div[data-opinions][data-opinions!=1]').hide(); }
   },
 
   showAll: function () {
