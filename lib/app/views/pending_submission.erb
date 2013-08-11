@@ -4,6 +4,11 @@
   data-language="<%= submission.language %>"
   data-nits="<%= submission.nits.count %>"
   data-versions="<%= submission.versions_count %>"
+  <% if submission.wants_opinions? %>
+    data-opinions="1"
+  <% else %>
+    data-opinions="0"
+  <% end %>
   data-url="/submissions/<%= submission.id %>">
 
   <h3 class="span8">
