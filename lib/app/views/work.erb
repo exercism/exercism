@@ -1,13 +1,13 @@
 <div class="work"
   data-language="<%= work.language %>"
   <% if work.submitted? %>
-    data-nits="<%= work.nits.count %>"
+    data-nits="<%= work.nits_by_others_count %>"
   <% end %>>
   <%= language_icon(work.language) %>
   <% if work.submitted? %>
     <a href="/submissions/<%= work.id %>">
       <h4 style="display: inline"><%= work.slug %></h4></a>
-    <div class="nits circle"><%= work.nits.count %></div>
+    <div class="nits circle"><%= work.nits_by_others_count %></div>
     <div class="versions circle"><%= work.versions_count %></div>
   <% elsif work.slug == 'congratulations' %>
     <span class="label label-info">No more Assignments</span>
