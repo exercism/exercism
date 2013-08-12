@@ -46,7 +46,7 @@ class ExercismApp < Sinatra::Base
     end
 
     attempt.save
-    Notify.everyone(attempt.previous_submission, user, 'new_attempt')
+    Notify.everyone(attempt.previous_submission, 'code', except: user)
 
     status 201
     pg :attempt, locals: {submission: attempt.submission}

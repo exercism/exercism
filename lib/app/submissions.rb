@@ -15,8 +15,7 @@ class ExercismApp < Sinatra::Base
       nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
       nitpick.save
       if nitpick.nitpicked?
-        #TODO - create emails from notifications
-        Notify.everyone(submission, current_user, 'nitpick')
+        Notify.everyone(submission, 'nitpick', except: current_user)
         flash[:success] = 'This submission has been nominated for approval' if nitpick.approvable?
         begin
           unless nitpick.nitpicker == nitpick.submission.user
@@ -42,8 +41,6 @@ class ExercismApp < Sinatra::Base
         halt 403, "You do not have permission to approve that exercise."
       end
 
-      Notify.source(submission, current_user, 'approval')
-
       begin
         unless current_user == submission.user
           ApprovalMessage.ship(
@@ -55,7 +52,12 @@ class ExercismApp < Sinatra::Base
       rescue => e
         puts "Failed to send email. #{e.message}."
       end
-      Approval.new(id, current_user, params[:comment]).save
+      approval = Approval.new(id, current_user, params[:comment]).save
+
+      if approval.has_comment?
+        Notify.everyone(submission, 'nitpick', except: [current_user, submission.user])
+      end
+      Notify.source(submission, 'done', except: current_user)
     end
 
     def toggle_opinions(id, state)
