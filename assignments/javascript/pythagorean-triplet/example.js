@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = Triplet;
 
 function Triplet(a, b, c) {
@@ -7,9 +9,9 @@ function Triplet(a, b, c) {
 }
 
 function Triplets(conditions) {
-  this.min = conditions['minFactor'] || 1;
-  this.max = conditions['maxFactor'];
-  this.sum = conditions['sum'];
+  this.min = conditions.minFactor || 1;
+  this.max = conditions.maxFactor;
+  this.sum = conditions.sum;
 }
 
 Triplet.prototype.isPythagorean = function () {

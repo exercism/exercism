@@ -1,3 +1,5 @@
+'use strict';
+
 function Series(numberString) {
   this.numberString = numberString;
   this.digits = this.getDigits();
