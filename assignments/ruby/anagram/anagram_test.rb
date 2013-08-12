@@ -19,7 +19,7 @@ class AnagramTest < MiniTest::Unit::TestCase
     skip
     detector = Anagram.new('master')
     anagrams = detector.match(['stream', 'pigeon', 'maters'])
-    assert_equal ['stream', 'maters'], anagrams
+    assert_equal ['maters', 'stream'], anagrams.sort
   end
 
   def test_does_not_confuse_different_duplicates
@@ -52,7 +52,7 @@ class AnagramTest < MiniTest::Unit::TestCase
     skip
     detector = Anagram.new('allergy')
     anagrams = detector.match %w(gallery ballerina regally clergy largely leading)
-    assert_equal ['gallery', 'regally', 'largely'], anagrams
+    assert_equal ['gallery', 'largely', 'regally'], anagrams.sort
   end
 
   def test_anagrams_are_case_insensitive
