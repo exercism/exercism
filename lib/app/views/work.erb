@@ -2,6 +2,7 @@
   data-language="<%= work.language %>"
   <% if work.submitted? %>
     data-nits="<%= work.nits_by_others_count %>"
+    data-versions="<%= work.versions_count %>"
   <% end %>>
   <%= language_icon(work.language) %>
   <% if work.submitted? %>
