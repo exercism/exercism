@@ -9,37 +9,37 @@ function rangeArray(min, max) {
 }
 
 describe('LinkedList Proxy', function () {
-  var list = new LinkedList(rangeArray(0, 100));
+  var ll = new LinkedList(rangeArray(0, 100));
 
   it('head', function () {
-    expect(list.head).toBe(0);
+    expect(ll.head).toBe(0);
   });
 
   it('tail', function () {
-    expect(list.tail).toBe(100);
+    expect(ll.tail).toBe(100);
   });
 
   it('can add a new element', function () {
-    list.add(101);
-    expect(list.tail).toBe(101);
+    ll.add(101);
+    expect(ll.tail).toBe(101);
   });
 
   it('can access a specifict element', function () {
-    expect(list.valueAt(51)).toBe(51);
+    expect(ll.valueAt(51)).toBe(51);
   });
 
   it('first index', function () {
-    expect(list.valueAt(0)).toBe(list.head);
+    expect(ll.valueAt(0)).toBe(ll.head);
   });
 
   it('insert', function () {
-    list.insert(52, 52.5);
-    expect(list.valueAt(52)).toBe(52.5);
+    ll.insert(52, 52.5);
+    expect(ll.valueAt(52)).toBe(52.5);
   });
 
   it('delete', function () {
-    list.delete(52);
-    expect(list.valueAt(52)).toBe(52);
+    ll.delete(52);
+    expect(ll.valueAt(52)).toBe(52);
   });
 
 });

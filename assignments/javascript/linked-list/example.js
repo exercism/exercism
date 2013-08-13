@@ -1,55 +1,56 @@
 'use strict';
 
-module.exports = LinkedList;
+function elementAt(list, index) {
+  var current = list.head;
+  for (var i = 0; i < index; i++) {
+    current = current.next;
+  }
+  return current;
+}
+
+function populateInitial(value) {
+  /*jshint validthis:true */
+  var currentTail = this.tail;
+  this.tail = { value: value, next: null };
+  if (currentTail) {
+    currentTail.next = this.tail;
+  }
+
+  if (!this.head) {
+    this.head = this.tail;
+  }
+}
 
 function LinkedList(initialValues) {
-  var list = { head: null, tail: null };
-  initialValues.forEach(function (value) {
-    var currentTail = list.tail;
-    list.tail = { value: value, next: null };
-    if (currentTail) {
-      currentTail.next = list.tail;
-    }
-
-    if (!list.head) {
-      list.head = list.tail;
-    }
-  });
+  var list = { tail: null };
+  initialValues.forEach(populateInitial, list);
 
   return {
     list: list,
     get head() {
-      return this.list.head.value;
+      return list.head.value;
     },
     get tail() {
-      return this.list.tail.value;
+      return list.tail.value;
     },
     add: function (value) {
       var currentTail = this.list.tail;
       this.list.tail = { value: value, next: null };
       currentTail.next = this.list.tail;
     },
-    elementAt: function (index) {
-      var current = this.list.head;
-      for (var i = 0; i < index; i++) {
-        current = current.next;
-      }
-      return current;
-    },
     valueAt: function (index) {
-      return this.elementAt(index).value;
+      return elementAt(this.list, index).value;
     },
     insert: function (index, value) {
-      var previous = this.elementAt(index-1);
-      console.log('previous: ' + previous);
+      var previous = elementAt(this.list, index-1);
       var current = previous.next;
-      console.log('current: ' + current);
       previous.next = { value: value, next: current };
-      console.log('previous: ' + previous);
     },
     delete: function (index) {
-      var previous = this.elementAt(index-1);
+      var previous = elementAt(this.list, index-1);
       previous.next = previous.next.next;
     }
   };
 }
+
+module.exports = LinkedList;
