@@ -15,7 +15,7 @@ class AnagramTests(unittest.TestCase):
     def test_detect_simple_anagram(self):
         self.assertEqual(
             ['ant'],
-            Anagram('tan').match('tan stand at'.split())
+            Anagram('tan').match('ant stand at'.split())
         )
 
     def test_detect_multiple_anagrams(self):
