@@ -2,7 +2,7 @@
   data-user="<%= submission.user.username %>"
   data-exercise="<%= submission.slug %>"
   data-language="<%= submission.language %>"
-  data-nits="<%= submission.nits.count %>"
+  data-nits="<%= submission.nits_by_others_count %>"
   data-versions="<%= submission.versions_count %>"
   <% if submission.wants_opinions? %>
     data-opinions="1"
