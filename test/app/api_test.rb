@@ -149,4 +149,18 @@ class ApiTest < Minitest::Test
       Approvals.verify(output, options)
     end
   end
+
+  def test_api_rejects_duplicates
+    Exercism.stub(:current_curriculum, curriculum) do
+      Attempt.new(alice, 'THE CODE', 'code.rb').save
+      Notify.stub(:everyone, nil) do
+        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+      end
+
+      response_error = JSON.parse(last_response.body)['error']
+
+      assert_equal 406, last_response.status
+      assert_equal "This attempt is a duplicate of the previous one.", response_error
+    end
+  end
 end

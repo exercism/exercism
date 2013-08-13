@@ -45,6 +45,10 @@ class ExercismApp < Sinatra::Base
       halt 400, {:error => "Please start the trail before submitting."}.to_json
     end
 
+    if attempt.duplicate?
+      halt 400, {:error => "This attempt is a duplicate of the previous one."}.to_json
+    end
+
     attempt.save
     Notify.everyone(attempt.previous_submission, 'code', except: user)
 
