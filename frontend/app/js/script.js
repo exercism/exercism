@@ -29,7 +29,7 @@ $(function() {
     $(".language",elem).tooltip({ title: language });
 
     var nitCount = elem.data('nits');
-    $(".nits",elem).tooltip({ title: nitCount + " Nits" });
+    $(".nits",elem).tooltip({ title: nitCount + " Nits by Others" });
 
     $(".opinions",elem).tooltip({ title: "More Opinions Desired" });
 
