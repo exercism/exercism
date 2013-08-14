@@ -15,10 +15,12 @@ class BreakdownTest < Minitest::Test
 
     bob = Exercise.new('ruby', 'bob')
     word_count = Exercise.new('ruby', 'word-count')
+    whatever = Exercise.new('ruby', 'whatever')
 
     breakdown = Breakdown.of('ruby')
     assert_equal 2, breakdown[bob]
     assert_equal 1, breakdown[word_count]
+    assert_equal 0, breakdown[whatever]
   end
 
 end

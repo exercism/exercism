@@ -67,6 +67,21 @@ class PendingWorkloadTest < Minitest::Test
     assert_equal 6, pending.count
     refute pending.include?(s0)
     refute pending.include?(s2)
+
+    workload = Workload.for(alice, 'ruby')
+    pending = workload.pending
+    assert_equal 5, pending.count
+    refute pending.include?(s0)
+    refute pending.include?(s1)
+    refute pending.include?(s2)
+
+    workload = Workload.for(alice, 'ruby', 'bob')
+    pending = workload.pending
+    assert_equal 4, pending.count
+    refute pending.include?(s0)
+    refute pending.include?(s1)
+    refute pending.include?(s2)
+    refute pending.include?(s4)
   end
 
   def test_non_master_gets_completed_exercises

@@ -21,7 +21,7 @@ class Breakdown
   end
 
   def histogram
-    @histogram ||= aggregate.each_with_object({}) {|entry, counts|
+    @histogram ||= aggregate.each_with_object(Hash.new(0)) {|entry, counts|
       counts[exercise(entry["_id"])] = entry["count"]
     }
   end
