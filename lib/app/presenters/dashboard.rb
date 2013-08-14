@@ -1,60 +1,54 @@
 class Dashboard
-  class Submissions
-    attr_reader :submissions
-    def initialize(submissions)
-      @submissions = submissions
-    end
-
-    def all
-      pending
-    end
-
-    def any?
-      not all.empty?
-    end
-
-    def pending
-      submissions
-    end
-
-    def no_nits_on_this_iteration
-      @not_recently_nitted ||= pending.select { |sub| sub.no_nits_yet? }.reverse
-    end
-
-    def never_been_nitted
-      @never_nitted ||= no_nits_on_this_iteration.select { |sub| sub.no_version_has_nits? }
-    end # must be a strict subset of those without nits on this iteration...
-
-    def nits_before_but_not_on_this_iteration
-      @nits_before ||= (no_nits_on_this_iteration - never_been_nitted)
-    end
-
-    def without_nits
-      no_nits_on_this_iteration
-    end
-
-    def with_nits
-      @with_nits ||= pending.select { |sub| sub.this_version_has_nits? }
-    end
-
-    def flagged_for_approval
-      []
-    end
+  attr_reader :user, :language, :exercise
+  def initialize(user)
+    @user = user
   end
 
-  attr_reader :user, :all_submissions
-  def initialize(user, all_submissions)
-    @user = user
-    @all_submissions = all_submissions
+  def in(language)
+    @language = language
+    @workload = nil
+    self
+  end
+
+  def for(exercise)
+    @exercise = exercise
+    @workload = nil
+    self
+  end
+
+  def breakdown
+    @breakdown ||= Breakdown.of(language)
+  end
+
+  def exercises
+    return @exercises if @exercises
+
+    if language
+      @exercises = exercises_in(language).select {|exercise|
+        user.nitpicker_on?(exercise)
+      }
+    else
+      @exercises = []
+    end
+    @exercises
+  end
+
+  def exercises_in(language)
+    Exercism.current_curriculum.in(language).exercises
   end
 
   def submissions
-    return @submissions if @submissions
+    workload.submissions
+  end
 
-    submissions = all_submissions.select do |sub|
-      user.nitpicker_on?(sub.exercise)
-    end
-    @submissions ||= Submissions.new(submissions)
+  def featured
+    workload.featured
+  end
+
+  private
+
+  def workload
+    @workload ||= Workload.for(user, language, exercise)
   end
 end
 
