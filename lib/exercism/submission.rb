@@ -26,6 +26,17 @@ class Submission
     end
   end
 
+  def self.approved_for(language, exercise=nil)
+    if exercise
+      approved.
+        and(language: language.downcase).
+        and(slug: exercise.downcase)
+    else
+      approved.
+        and(language: language.downcase)
+    end
+  end
+
   def self.related(submission)
     order_by(at: :asc).
       where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
@@ -39,6 +50,10 @@ class Submission
 
   def self.pending
     where(state: 'pending').desc(:at)
+  end
+
+  def self.approved
+    where(state: 'approved').desc(:at)
   end
 
   def self.on(exercise)
