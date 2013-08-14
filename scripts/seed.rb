@@ -54,31 +54,47 @@ languages = {
   "elixir" => "exs",
 }
 
+users = []
+
 languages.each do |language,exe|
   (1..60).each do |n|
     index = "#{language}#{n}"
     user = User.create(username: index, github_id: index, email: "#{index}_coder@example.com", current: { language => "bob" })
+    users << user
     rand(1..5).times do |i|
       attempt = Attempt.new(user, "class Bob\nend", "bob.#{exe}").save
       attempt.submission.at = Time.now.utc - n.to_i * 3600
-      attempt.submission.save
+      submission = attempt.submission
+      submission.save
+      submission.reload
+
       if n.even?
-        Nitpick.new(attempt.submission.id, master, "It is missing `hey` in iteration #{i}.").save
+        Nitpick.new(submission.id, master, "It is missing `hey` in iteration #{i}.").save
       end
-      if rand(5) == 0
+      if rand(2) == 0
         locksmith = nil
-        if master.unlocks?(attempt.submission.exercise)
+        if master.unlocks?(submission.exercise)
           locksmith = master
-        elsif journeyman.unlocks?(attempt.submission.exercise)
+        elsif journeyman.unlocks?(submission.exercise)
           locksmith = journeyman
-        elsif apprentice.unlocks?(attempt.submission.exercise)
+        elsif apprentice.unlocks?(submission.exercise)
           locksmith = apprentice
         end
         if locksmith
-          Approval.new(attempt.submission.id, locksmith, 'very nice').save
-          Attempt.new(user, "class Bob\nend", "bob.#{exe}").save
+          Approval.new(submission.id, locksmith, 'very nice').save
+          Attempt.new(user.reload, "class Words\nend", "words.#{exe}").save
         end
       end
+
+      if rand(5) == 0
+        submission.is_approvable = true
+        submission.flagged_by = users.sample.username
+      end
+      if rand(5) == 0
+        submission.wants_opinions = true
+      end
+
+      submission.save
     end
     print exe, " "
   end
