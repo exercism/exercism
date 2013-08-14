@@ -11,9 +11,9 @@ class SubmissionApiTest < Minitest::Unit::TestCase
 
   def setup
     @alice = User.create({
-                             username: 'alice',
-                             github_id: 1,
-                             current: {'ruby' => 'word-count', 'javascript' => 'anagram'}
+                           username: 'alice',
+                           github_id: 1,
+                           current: {'ruby' => 'word-count', 'javascript' => 'anagram'}
                          })
 
   end
@@ -28,39 +28,39 @@ class SubmissionApiTest < Minitest::Unit::TestCase
 
   def expected_json_pattern
     {
-        user: {
-            is_admin: false
-        },
-        submission: {
-            id: wildcard_matcher,
-            is_exercise_completed: false,
-            is_submitter: true,
-            is_approvable: true,
-            nits: [
-                {
-                    nit:
-                        {
-                            id: wildcard_matcher,
-                            text: /.*<h3>test nit<\/h3>.*/,
-                            avatar_url: /<img.*gravatar.com.*/,
-                            github_link: /<a.*github.com.*/,
-                            timestamp: wildcard_matcher,
-                            is_nitpicker: true,
-                            comments: [
-                                {
-                                    comment: {
-                                        text: /.*<h2>test comment on nit<\/h2>/,
-                                        avatar_url: /<img.*gravatar.com.*/,
-                                        github_link: /<a.*github.com.*/,
-                                        timestamp: wildcard_matcher,
-                                        is_commenter: true,
-                                    }
-                                }
-                            ]
-                        }
-                }
-            ]
-        }
+      user: {
+        is_admin: false
+      },
+      submission: {
+        id: wildcard_matcher,
+        is_exercise_completed: false,
+        is_submitter: true,
+        is_approvable: true,
+        nits: [
+          {
+            nit:
+              {
+                id: wildcard_matcher,
+                text: /.*<h3>test nit<\/h3>.*/,
+                avatar_url: /<img.*gravatar.com.*/,
+                github_link: /<a.*github.com.*/,
+                timestamp: wildcard_matcher,
+                is_nitpicker: true,
+                comments: [
+                  {
+                    comment: {
+                      text: /.*<h2>test comment on nit<\/h2>/,
+                      avatar_url: /<img.*gravatar.com.*/,
+                      github_link: /<a.*github.com.*/,
+                      timestamp: wildcard_matcher,
+                      is_commenter: true,
+                    }
+                  }
+                ]
+              }
+          }
+        ]
+      }
     }
   end
 
