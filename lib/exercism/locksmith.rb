@@ -3,6 +3,10 @@ module Locksmith
     mastered?(exercise) || journeyed?(exercise) || apprenticed?(exercise)
   end
 
+  def master?
+    !mastery.empty?
+  end
+
   def mastered?(exercise)
     mastery.include?(exercise.language)
   end

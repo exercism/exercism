@@ -16,6 +16,7 @@ require 'exercism/markdown'
 require 'exercism/authentication'
 require 'exercism/github'
 require 'exercism/notification'
+require 'exercism/workload'
 require 'exercism/use_cases'
 
 Mongoid.load!("./config/mongoid.yml")
