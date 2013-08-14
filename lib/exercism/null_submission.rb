@@ -11,4 +11,8 @@ class NullSubmission < SimpleDelegator
   def participants
     []
   end
+
+  def code
+    ''
+  end
 end
