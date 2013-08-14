@@ -1,11 +1,10 @@
-node user: user do
-  node is_admin: user.admin?
-end
 node submission: submission do
   attributes :id
   node is_exercise_completed: submission.user.completed?(submission.exercise)
   node is_submitter: user.is?(submission.user.username)
   node is_approvable: submission.approvable?
+  node is_unlockable: !!user.unlocks?(submission.exercise)
+  node wants_opinion: submission.wants_opinions?
   collection nits: submission.nits do |nit|
     node nit: nit do
       attributes :id

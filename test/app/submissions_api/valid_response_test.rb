@@ -33,6 +33,8 @@ class SubmissionApiTest < Minitest::Unit::TestCase
         is_exercise_completed: false,
         is_submitter: true,
         is_approvable: true,
+        is_unlockable: false,
+        wants_opinion: false,
         nits: [
           {
             nit:
