@@ -57,10 +57,6 @@ class Dashboard
     @submissions ||= Submissions.new(submissions)
   end
 
-  def filters
-    @filters ||= Filters.new(submissions.all)
-  end
-
 
   private 
 
