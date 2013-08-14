@@ -123,5 +123,17 @@ class AttemptTest < Minitest::Test
     assert_equal "\nCODE1\n\nCODE2", user.submissions.first.code
   end
 
+  def test_rejects_duplicates
+    first_attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one.fp', curriculum).save
+    second_attempt =  Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one.fp', curriculum)
+
+    assert_equal true, second_attempt.duplicate?
+  end
+
+  def test_no_reject_without_previous
+    attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one.fp', curriculum)
+    assert_equal false, attempt.duplicate?
+  end
+
 end
 

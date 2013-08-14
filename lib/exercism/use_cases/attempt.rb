@@ -28,6 +28,10 @@ class Attempt
     self
   end
 
+  def duplicate?
+    previous_submission.code == code
+  end
+
   def previous_submissions
     @previous_submissions ||= user.submissions_on(exercise).reject {|s| s == submission}
   end
