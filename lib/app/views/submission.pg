@@ -14,15 +14,6 @@ node submission: submission do
       node github_link: github_profile_link(nit.user)
       node timestamp: ago(nit.at)
       node is_nitpicker: user == nit.nitpicker
-      collection comments: nit.comments do |comment|
-        node comment: comment do
-          node text: md(comment.body)
-          node avatar_url: gravatar_tag(comment.user.avatar_url)
-          node github_link: github_profile_link(comment.user)
-          node timestamp: ago(comment.at)
-          node is_commenter: user == comment.user
-        end
-      end
     end
   end
 end

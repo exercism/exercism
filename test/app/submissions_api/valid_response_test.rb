@@ -28,9 +28,6 @@ class SubmissionApiTest < Minitest::Unit::TestCase
 
   def expected_json_pattern
     {
-      user: {
-        is_admin: false
-      },
       submission: {
         id: wildcard_matcher,
         is_exercise_completed: false,
@@ -46,17 +43,6 @@ class SubmissionApiTest < Minitest::Unit::TestCase
                 github_link: /<a.*github.com.*/,
                 timestamp: wildcard_matcher,
                 is_nitpicker: true,
-                comments: [
-                  {
-                    comment: {
-                      text: /.*<h2>test comment on nit<\/h2>/,
-                      avatar_url: /<img.*gravatar.com.*/,
-                      github_link: /<a.*github.com.*/,
-                      timestamp: wildcard_matcher,
-                      is_commenter: true,
-                    }
-                  }
-                ]
               }
           }
         ]
@@ -70,7 +56,6 @@ class SubmissionApiTest < Minitest::Unit::TestCase
 
     Nitpick.new(submission.id, alice, '### test nit', approvable: true).save
     submission.reload
-    Argument.new(submission_id: submission.id, nit_id: submission.nits.first.id, comment: '## test comment on nit', user: alice).save
     get "/api/v1/submission/#{submission.id}", {}, 'rack.session' => logged_in
 
     assert_json_match expected_json_pattern, last_response.body
