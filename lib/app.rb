@@ -3,6 +3,7 @@ require 'sinatra/petroglyph'
 
 require 'app/api'
 require 'app/api/notifications_api'
+require 'app/api/submissions_api'
 require 'app/auth'
 require 'app/client'
 require 'app/curriculum'
