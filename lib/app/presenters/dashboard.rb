@@ -52,9 +52,21 @@ class Dashboard
     return @submissions if @submissions
 
     submissions = all_submissions.select do |sub|
-      user.nitpicker_on?(sub.exercise)
+      show_submission?(user, sub)
     end
     @submissions ||= Submissions.new(submissions)
   end
+
+  def filters
+    @filters ||= Filters.new(submissions.all)
+  end
+
+
+  private 
+
+  def show_submission?(user, submission)
+    user.nitpicker_on?(submission.exercise) && !submission.muted_by?(user.username)
+  end
+
 end
 

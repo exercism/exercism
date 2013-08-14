@@ -154,4 +154,55 @@ class SubmissionsTest < Minitest::Test
     assert_equal 302, last_response.status
     assert_equal false, submission.reload.wants_opinions?
   end
+
+  def test_mute_submission
+    submission = generate_attempt.submission
+
+    Message.stub(:ship, nil) do
+      post "/submissions/#{submission.id}/mute", {}, 'rack.session' => logged_in
+    end
+
+    assert_equal true, submission.reload.muted_by?(@alice.username)
+  end
+
+  def test_unmute_submission
+    submission = generate_attempt.submission
+
+    Message.stub(:ship, nil) do
+      post "/submissions/#{submission.id}/unmute", {}, 'rack.session' => logged_in
+    end
+
+    assert_equal false, submission.reload.muted_by?(@alice.username)
+  end
+
+  def test_unmute_all_on_new_nitpick
+    submission = generate_attempt.submission
+    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
+
+    url = "/submissions/#{submission.id}/respond"
+    Message.stub(:ship, nil) do
+      Submission.any_instance.expects(:unmute_all!)
+      post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
+    end
+  end
+
+  def test_unmute_all_on_approval
+    submission = generate_attempt.submission
+    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
+
+    url = "/submissions/#{submission.id}/approve"
+    Message.stub(:ship, nil) do
+      Submission.any_instance.expects(:unmute_all!)
+      post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
+    end
+  end
+
+  def test_unmute_all_on_enable_opinions
+    submission = generate_attempt.submission
+
+    Message.stub(:ship, nil) do
+      Submission.any_instance.expects(:unmute_all!)
+      post "/submissions/#{submission.id}/opinions/enable", {}, 'rack.session' => logged_in
+    end
+  end
 end

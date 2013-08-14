@@ -15,6 +15,7 @@ require 'app/trails'
 require 'app/users'
 require 'app/not_found' # always include last
 
+require 'app/helpers/submissions_helper'
 require 'app/helpers/site_title_helper'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
@@ -33,6 +34,7 @@ class ExercismApp < Sinatra::Base
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
 
+  helpers Sinatra::SubmissionsHelper
   helpers Sinatra::SiteTitleHelper
   helpers Sinatra::FuzzyTimeHelper
   helpers Sinatra::GravatarHelper
