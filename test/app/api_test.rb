@@ -159,7 +159,7 @@ class ApiTest < Minitest::Test
 
       response_error = JSON.parse(last_response.body)['error']
 
-      assert_equal 406, last_response.status
+      assert_equal 400, last_response.status
       assert_equal "This attempt is a duplicate of the previous one.", response_error
     end
   end
