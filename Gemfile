@@ -22,4 +22,5 @@ group :test, :development do
   gem 'mocha', require: false
   gem 'mailcatcher'
   gem 'simplecov', require: false
+  gem 'json_expressions'
 end
