@@ -63,7 +63,8 @@ languages.each do |language,exe|
     users << user
     rand(1..5).times do |i|
       attempt = Attempt.new(user, "class Bob\nend", "bob.#{exe}").save
-      attempt.submission.at = Time.now.utc - n.to_i * 3600
+      created_on = Date.today - rand(30)
+      attempt.submission.at = created_on.to_time - n.to_i * rand(3600)
       submission = attempt.submission
       submission.save
       submission.reload
@@ -86,11 +87,11 @@ languages.each do |language,exe|
         end
       end
 
-      if rand(5) == 0
+      if rand(10) == 0
         submission.is_approvable = true
         submission.flagged_by = users.sample.username
       end
-      if rand(5) == 0
+      if rand(10) == 0
         submission.wants_opinions = true
       end
 
