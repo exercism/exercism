@@ -10,13 +10,13 @@ defmodule AnagramTest do
   end
 
   test "detect simple anagram" do
-    # matches = Anagram.match "ba", ["ab", "abc", "bac"]
-    # assert matches == ["ab"]
+    # matches = Anagram.match "ant", ["tan", "stand", "at"]
+    # assert matches == ["tan"]
   end
 
   test "detect multiple anagrams" do
-    # matches = Anagram.match "abc", ["ab", "abc", "bac"]
-    # assert matches == ["abc", "bac"]
+    # matches = Anagram.match "master", ["stream", "pigeon", "maters"]
+    # assert matches == ["stream", "maters"]
   end
 
   test "detect anagram" do

@@ -1,4 +1,4 @@
-require('./example');
+require('./accumulate');
 
 describe('[].accumulate()', function() {
 

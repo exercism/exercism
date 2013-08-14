@@ -100,7 +100,7 @@ class TestFullGarden < MiniTest::Unit::TestCase
   end
 end
 
-class SurpriseTest < MiniTest::Unit::TestCase
+class DisorderedTest < MiniTest::Unit::TestCase
 
   def setup
     diagram = "VCRRGVRG\nRVGCCGCV"
@@ -132,4 +132,26 @@ class SurpriseTest < MiniTest::Unit::TestCase
     assert_equal [:radishes, :grass, :clover, :violets], garden.xander
   end
 
+end
+
+class TwoGardensDifferentStudents < MiniTest::Unit::TestCase
+ def diagram
+   "VCRRGVRG\nRVGCCGCV"
+ end
+
+ def garden_1
+   @garden_1 ||= Garden.new(diagram, ["Alice", "Bob", "Charlie", "Dan"])
+ end
+
+ def garden_2
+   @garden_2 ||= Garden.new(diagram, ["Bob", "Charlie", "Dan", "Erin"])
+ end
+
+ def test_bob_and_charlie_per_garden
+   skip
+   assert_equal [:radishes, :radishes, :grass, :clover], garden_1.bob
+   assert_equal [:violets, :clover, :radishes, :violets], garden_2.bob
+   assert_equal [:grass, :violets, :clover, :grass], garden_1.charlie
+   assert_equal [:radishes, :radishes, :grass, :clover], garden_2.charlie
+ end
 end

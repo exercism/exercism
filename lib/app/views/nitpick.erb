@@ -5,7 +5,7 @@
     <p>
       Iteration <b><%= submission.version %></b> of <b><%= submission.versions_count %></b>.
       <% if submission.user.completed?(submission.exercise) %>
-        This exercise has been thoroughly bikeshedded, and <b><%= submission.user.username %></b> has moved on.
+        This exercise has been thoroughly bikeshedded and <b><%= submission.user.username %></b> has moved on.
       <% else %>
         This exercise is still in progress.
       <% end %>
@@ -46,83 +46,62 @@
       <h2>Nitpicks</h2>
     <% end %>
 
-    <p>Nitpicks and comments are parsed with <a href="https://help.github.com/articles/github-flavored-markdown">GitHub Flavoured Markdown</a></p>
-
     <% submission.nits.each do |nit| %>
-    <blockquote><%= md(nit.comment) %>
-      <p>
-        <cite>
-          <%= gravatar_tag nit.user.avatar_url, size: 20 %>
-          <em><%= github_profile_link(nit.user) %></em>, <%= ago(nit.at) %>
-          <% if current_user == nit.nitpicker %>
-            <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit">
-              <button class="btn btn-small edit-text">
-                <span aria-hidden="true" data-icon="✎"></span>
-                <span class="screen-reader-text">Edit</span>
-              </button>
-            </a>
-          <% end %>
-        </cite>
-      </p>
-    </blockquote>
-
-      <% unless nit.comments.empty? %>
-        <ul>
-        <% nit.comments.each do |comment| %>
-          <li>
-            <%= md(comment.body) %>
-            &mdash; <%= gravatar_tag comment.user.avatar_url, size: 20 %>
-            <em><%= github_profile_link(comment.user) %></em>, <%= ago(comment.at) %>
-            <% if current_user == comment.user %>
-              <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/comments/<%= comment.id %>/edit">
-                <button class="btn btn-small edit-text">
-                  <span aria-hidden="true" data-icon="✎"></span>
-                  <span class="screen-reader-text">Edit</span>
-                </button>
-              </a>
-            <% end %>
-          </li>
-        <% end %>
-        </ul>
-      <% end %>
-
-      <div>
-        <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/nits/<%= nit.id %>/argue" method="POST">
-          <%= erb :comment %>
-          <button type="submit" class="btn">Discuss Nit</button>
-        </form>
-      </div>
+      <%= erb :nit, locals: {nit: nit, submission: submission} %>
     <% end %>
+
+    <% if current_user.owns?(submission) && submission.discussion_involves_user? %>
+      <hr>
+
+      <% if submission.wants_opinions? %>
+        <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/opinions/disable" method="POST">
+          <button type="submit" class="btn">This is clear now. No more opinions necessary.</button>
+        </form>
+      <% else %>
+        <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/opinions/enable" method="POST">
+          <strong>Disagree with a nitpick?</strong> <button type="submit" class="btn">Ask for more opinions.</button>
+        </form>
+      <% end %>
+    <% end %>
+
+    <hr>
 
     <% if submission.user.completed?(submission.exercise) %>
 
       <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
-        <%= erb :comment %>
+        <%= erb :small_comment %>
         <button type="submit" name="nitpick" class="btn btn-primary">Comment</button>
       </form>
 
     <% else %>
 
+      <p><a href="http://exercism.io/nitpick" target="_blank">Nitpicks</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown">GitHub Flavoured Markdown</a></p>
+
+      <p>Things to keep in mind:</p>
+      <ul>
+        <li>How does the code make use of <%= submission.language %>?</li>
+        <li>Does the code make appropriate use Object-Oriented or Functional principles?</li>
+        <li>How readable is the code? How well does it tell its story?</li>
+        <li>What software design patterns or principles (could) inform the code?</li>
+      </ul>
+
       <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
         <%= erb :comment %>
-        <% if current_user.admin? %>
+        <% if current_user.unlocks?(submission.exercise) %>
           <button type="submit" name="approve" class="btn">Unlock Next</button>
           <button type="submit" name="approve" class="btn">Comment &amp; Unlock Next</button>
         <% else %>
           <% unless current_user.is?(submission.user.username) %>
-            <button type="submit" name="approvable" class="btn">I think this is done. Unlock the next one!</button>
+            <button type="submit" name="approvable" class="btn btn-success" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
           <% end %>
         <% end %>
         <button type="submit" name="nitpick" class="btn btn-primary">Nitpick</button>
+        <% if submission.approvable? %>
+          <p><%= n_people_like_it(submission.flagged_by.count) %></p>
+        <% end %>
       </form>
 
       <% if current_user.is?(submission.user.username) %>
-        <% if submission.approvable? %>
-          <p>Your submission has been nominated for approval.</p>
-        <% else %>
-          <p>Your submission is under review.</p>
-        <% end %>
-
         <p>Read about <a href="/cycle">the feedback cycle</a>.</p>
       <% end %>
 

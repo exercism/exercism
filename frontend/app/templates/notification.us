@@ -1,2 +1,4 @@
-<span class="check"></span><a href="<%= link %>"><%= regarding %></a> from <%= from %>.
-<div class="notifation date"><%= humanReadableDate %></div>
+<span class="check"></span><a href="<%= link %>"><%= language %>: <%= slug %></a>
+&middot; <%= username %>
+(<%= count %>)
+<div class="notification date"><%= ago %></div>

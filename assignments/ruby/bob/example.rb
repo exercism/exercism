@@ -1,13 +1,13 @@
 ### Example 1 ###
 
 class Bob
-
   def hey(drivel)
-    if taciturn?(drivel)
+    case
+    when taciturn?(drivel)
       'Fine. Be that way!'
-    elsif forceful?(drivel)
+    when forceful?(drivel)
       'Woah, chill out!'
-    elsif curious?(drivel)
+    when curious?(drivel)
       'Sure.'
     else
       'Whatever.'
@@ -17,7 +17,7 @@ class Bob
   private
 
   def taciturn?(s)
-    s.nil? || s.empty?
+    s.strip.empty?
   end
 
   def curious?(s)
@@ -27,23 +27,22 @@ class Bob
   def forceful?(s)
     s.upcase == s
   end
-
 end
 
 ### Example 2 ###
 
 class Alice
-
   def hey(drivel)
-    respond_to Phrase.new(drivel.to_s)
+    respond_to Phrase.new(drivel)
   end
 
   def respond_to(phrase)
-    if phrase.silent?
+    case
+    when phrase.silent?
       'Fine. Be that way!'
-    elsif phrase.loud?
+    when phrase.loud?
       'Woah, chill out!'
-    elsif phrase.quizzical?
+    when phrase.quizzical?
       'Sure.'
     else
       'Whatever.'
@@ -54,9 +53,8 @@ end
 class Phrase
 
   attr_reader :source
-
   def initialize(drivel)
-    @source = drivel
+    @source = drivel.to_s.strip
   end
 
   def quizzical?
@@ -70,7 +68,6 @@ class Phrase
   def silent?
     source.empty?
   end
-
 end
 
 ### Example 3 ###
@@ -96,7 +93,7 @@ end
 class AnswerSilence
 
   def self.handles?(input)
-    input.nil? || input.empty?
+    input.strip.empty?
   end
 
   def reply
@@ -147,7 +144,7 @@ class David
   Handler = Struct.new(:response, :pattern)
 
   HANDLERS = {
-    :nothing   => Handler.new("Fine. Be that way!", ->(i) { i.nil? || i.empty? }),
+    :nothing   => Handler.new("Fine. Be that way!", ->(i) { i.strip.empty? }),
     :yell      => Handler.new("Woah, chill out!",   ->(i) { i.eql?(i.upcase) }),
     :question  => Handler.new("Sure.",              ->(i) { i.end_with?("?") }),
     :statement => Handler.new("Whatever.",          ->(i) { true })

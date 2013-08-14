@@ -6,16 +6,16 @@ require 'exercism/trail'
 
 class TrailTest < Minitest::Test
 
-  attr_reader :trail, :one, :two
+  attr_reader :trail, :one, :two, :go
   def setup
-    nong = Locale.new('nong', 'no', 'not')
-    @trail = Trail.new(nong, ['one', 'two'], '/tmp')
-    @one = Exercise.new('nong', 'one')
-    @two = Exercise.new('nong', 'two')
+    @go = Locale.new('go', 'go', 'go')
+    @trail = Trail.new(go, ['one', 'two'], '/tmp')
+    @one = Exercise.new('go', 'one')
+    @two = Exercise.new('go', 'two')
   end
 
   def test_language
-    assert_equal 'nong', trail.language
+    assert_equal 'go', trail.language
   end
 
   def test_first_exercise_on_trail
@@ -26,14 +26,12 @@ class TrailTest < Minitest::Test
     assert_equal two, trail.successor(one)
   end
 
-  def test_level_up
-    ruby = Locale.new('ruby', 'rb', 'rb')
-    slugs = %w(bob phrase rna garden cake banana)
-    trail = Trail.new(ruby, slugs, '/tmp')
+  def test_catch_up_missed_exercise
+    slugs = %w(chicken suit one garden two cake)
+    trail = Trail.new(go, slugs, '/tmp')
 
-    cake = Exercise.new('ruby', 'cake')
-    exercise = trail.after(cake, %w(bob phrase garden))
-    assert_equal Exercise.new('ruby', 'rna'), exercise
+    exercise = trail.after(two, %w(chicken suit garden))
+    assert_equal one, exercise
   end
 end
 

@@ -15,7 +15,7 @@ function Bob() {
 
   this.hey = function(message) {
     if (isSilence(message)) {
-      return "Fine, be that way!";
+      return "Fine. Be that way!";
     } else if (isShouting(message)) {
       return "Woah, chill out!";
     } else if (isAQuestion(message)) {

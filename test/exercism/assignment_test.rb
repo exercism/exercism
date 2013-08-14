@@ -7,20 +7,14 @@ require 'exercism/assignment'
 
 class AssignmentTest < Minitest::Test
 
-  attr_reader :assignment
+  attr_reader :assignment, :fake
   def setup
-    nong = Locale.new('nong', 'no', 'not')
-    @assignment = Assignment.new(nong, 'one', './test/fixtures')
+    @fake = Locale.new('fake', 'ext', 'test')
+    @assignment = Assignment.new(fake, 'one', './test/fixtures')
   end
 
   def test_name
     assert_equal 'One', assignment.name
-  end
-
-  def test_compound_name
-    nong = Locale.new('nong', 'no', 'not')
-    assignment = Assignment.new(nong, 'one-more', './test/fixtures')
-    assert_equal 'One More', assignment.name
   end
 
   def test_load_testsuite
@@ -55,6 +49,5 @@ class AssignmentTest < Minitest::Test
     readme = "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n"
     assert_equal readme, assignment.readme
   end
-
 end
 

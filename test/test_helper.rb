@@ -6,4 +6,4 @@ require 'simplecov' if ENV['COVERAGE']
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
-
+require 'pry'

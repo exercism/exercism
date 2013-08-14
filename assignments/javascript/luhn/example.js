@@ -1,4 +1,6 @@
-Luhn = function Luhn(number) {
+'use strict';
+
+function Luhn(number) {
   this.checkDigit = number % 10;
   this.addends = this.calculateAddends(number);
   this.checksum = this.calculateChecksum(this.addends);
@@ -15,9 +17,9 @@ Luhn.prototype = {
     for (var i = 0; i < numbers.length; i++) {
       var index = numbers.length - 1 - i;
 
-      var currentAddend = parseInt(numbers[index]);
+      var currentAddend = parseInt(numbers[index], 10);
 
-      if ((i + 1) % 2 == 0) {
+      if ((i + 1) % 2 === 0) {
         currentAddend = currentAddend * 2;
         if (currentAddend > 10) {
           currentAddend = currentAddend - 9;
@@ -33,15 +35,15 @@ Luhn.prototype = {
   calculateChecksum: function(numbers) {
     var sum = 0;
     for (var i = 0; i < numbers.length; i++) {
-      sum += numbers[i]
-    };
+      sum += numbers[i];
+    }
 
     return sum;
   },
   determineIfValid: function(sum) {
-    return (sum % 10 == 0);
+    return (sum % 10 === 0);
   }
-}
+};
 
 Luhn.create = function(number) {
   var finalNumber = number * 10;
@@ -56,4 +58,6 @@ Luhn.create = function(number) {
   }
 
   return finalNumber;
-}
+};
+
+module.exports = Luhn;

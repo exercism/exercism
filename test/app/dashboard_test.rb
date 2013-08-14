@@ -7,13 +7,13 @@ class DashboardTest < Minitest::Test
     ExercismApp
   end
 
-  attr_reader :admin
+  attr_reader :master
   def setup
-    @admin = User.create({
-      username: 'the_admin',
+    @master = User.create({
+      username: 'the_master',
       github_id: 0,
-      email: "admin@example.com",
-      is_admin: true
+      email: "master@example.com",
+      mastery: ['ruby', 'elixir', 'javascript', 'python', 'clojure']
     })
   end
 
@@ -32,16 +32,16 @@ class DashboardTest < Minitest::Test
   end
 
   def generate_nitpick(attempt)
-    Nitpick.new(attempt.submission.id, admin, "It is missing `hey`.").save
+    Nitpick.new(attempt.submission.id, master, "It is missing `hey`.").save
   end
 
   def logged_in
-    { github_id: admin.github_id }
+    { github_id: master.github_id }
   end
 
   def test_root_with_no_submissions
     get '/', {}, 'rack.session' => logged_in
-    assert last_response.body.include?("the_admin"), "visible username"
+    assert last_response.body.include?("the_master"), "visible username"
     assert !last_response.body.include?("bob"), "no visible submission"
     assert_equal last_response.status, 200
   end
@@ -49,7 +49,7 @@ class DashboardTest < Minitest::Test
   def test_root_with_submissions
     generate_submission("ruby", "rb")
     get '/', {}, 'rack.session' => logged_in
-    assert last_response.body.include?("the_admin"), "visible username"
+    assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200
   end
@@ -57,7 +57,7 @@ class DashboardTest < Minitest::Test
   def test_root_with_nitted_submissions
     generate_nitpick(generate_submission("ruby", "rb"))
     get '/', {}, 'rack.session' => logged_in
-    assert last_response.body.include?("the_admin"), "visible username"
+    assert last_response.body.include?("the_master"), "visible username"
     assert !last_response.body.include?("bob"), "no visible submission"
     assert_equal last_response.status, 200
   end
@@ -65,7 +65,7 @@ class DashboardTest < Minitest::Test
   def test_language_when_and_nitted_submission_present
     generate_nitpick(generate_submission("clojure", "clj"))
     get '/dashboard/clojure', {}, 'rack.session' => logged_in
-    assert last_response.body.include?("the_admin"), "visible username"
+    assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200
   end
@@ -73,7 +73,7 @@ class DashboardTest < Minitest::Test
   def test_language_when_and_submission_present
     generate_submission("clojure", "clj")
     get '/dashboard/clojure', {}, 'rack.session' => logged_in
-    assert last_response.body.include?("the_admin"), "visible username"
+    assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200
   end
@@ -81,7 +81,7 @@ class DashboardTest < Minitest::Test
   def test_language_when_and_nitted_submission_present
     generate_nitpick(generate_submission("clojure", "clj"))
     get '/dashboard/clojure', {}, 'rack.session' => logged_in
-    assert last_response.body.include?("the_admin"), "visible username"
+    assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200
   end

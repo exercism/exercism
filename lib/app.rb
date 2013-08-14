@@ -1,9 +1,11 @@
 require 'exercism'
 require 'sinatra/petroglyph'
 
+require 'app/about'
+require 'app/nitpick'
 require 'app/api'
-require 'app/api/notifications_api'
 require 'app/api/submissions_api'
+require 'app/api/notifications'
 require 'app/auth'
 require 'app/client'
 require 'app/curriculum'
@@ -11,13 +13,14 @@ require 'app/submissions'
 require 'app/exercises'
 require 'app/dashboard'
 require 'app/trails'
-require 'app/about'
-require 'app/presenters/notifications_presenter'
-require 'app/nitpick'
+require 'app/users'
+require 'app/not_found' # always include last
+
 require 'app/helpers/site_title_helper'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/github_link_helper'
+require 'app/helpers/profile_helper'
 
 require 'services'
 
@@ -35,6 +38,7 @@ class ExercismApp < Sinatra::Base
   helpers Sinatra::FuzzyTimeHelper
   helpers Sinatra::GravatarHelper
   helpers Sinatra::GithubLinkHelper
+  helpers Sinatra::ProfileHelper
 
   helpers do
 
@@ -91,10 +95,68 @@ class ExercismApp < Sinatra::Base
       %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
     end
 
-    def dashboard_nav_li(location, html={})
-      path = location.downcase == "featured" ? "/" : "/dashboard/#{location.downcase}"
-      active = path == request.path_info ? "active" : ""
-      %{<li class="#{active} #{html[:class]}"><a href="#{path}">#{location}</a></li>}
+    def path_for(language=nil)
+      if language
+        "/dashboard/#{language.downcase}"
+      else
+        "/"
+      end
+    end
+
+    def active_nav(path)
+      if path == request.path_info
+        "active"
+      else
+        ""
+      end
+    end
+
+    def active_top_nav(path=nil)
+      if path == "/"
+        active_nav(path)
+      elsif request.path_info.match(/#{path}/)
+        "active"
+      else
+        ""
+      end
+    end
+
+    def nav_text(slug=nil)
+      (slug || "featured").split("-").map(&:capitalize).join(" ")
+    end
+
+    def dashboard_nav_li(language=nil, html={})
+      path = path_for(language)
+      %{<li class="#{active_top_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(language)}</a></li>}
+    end
+
+    def dashboard_assignment_nav(language, exercise=nil, html={})
+      path = path_for(language)
+      path += "/#{exercise}/" if exercise
+      %{<li class="#{active_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(exercise)}</a></li>}
+    end
+
+    def exercises_available_for(language)
+      Exercism.current_curriculum.in(language).exercises.select {|exercise|
+        current_user.nitpicker_on?(exercise)
+      }
+    end
+
+    def unstarted_trails
+      @unstarted_trails ||= Exercism.current_curriculum.unstarted_trails(current_user.current_languages)
+    end
+
+    def show_pending_submissions?(language)
+      (!language && current_user.nitpicker?) || (language && current_user.nitpicks_trail?(language))
+    end
+
+    def n_people_like_it(n)
+      case n
+        when 0 then ""
+        when 1 then "1 person thinks this looks great"
+      else
+        "#{n} people think this looks great"
+      end
     end
   end
 

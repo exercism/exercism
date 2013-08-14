@@ -7,7 +7,7 @@ begin
     attr_reader :teenager
 
     def setup
-      @teenager = Bob.new
+      @teenager = ::Bob.new
     end
 
     def test_stating_something
@@ -22,6 +22,11 @@ begin
     def test_asking_a_question
       skip
       assert_equal 'Sure.', teenager.hey('Does this cryogenic chamber make me look fat?')
+    end
+
+    def test_asking_a_numeric_question
+      skip
+      assert_equal 'Sure.', teenager.hey('You are, what, like 15?')
     end
 
     def test_talking_forcefully
@@ -69,11 +74,6 @@ begin
       assert_equal 'Fine. Be that way!', teenager.hey('')
     end
 
-    def test_more_silence
-      skip
-      assert_equal 'Fine. Be that way!', teenager.hey(nil)
-    end
-
     def test_prolonged_silence
       skip
       assert_equal 'Fine. Be that way!', teenager.hey('    ')
@@ -107,12 +107,12 @@ rescue LoadError => e
   explain "Seriously, don't freak out. It's not that bad."
   explain "OK, this is it:\n\n#{e.backtrace.first} #{e.message}"
   explain "First it tells you the name of the file where the error is occurring.\n\n\n\tbob_test.rb"
-  explain "Then it tells you which line that error is on.\n\n\n\tbob_test.rb:5"
+  explain "Then it tells you which line that error is on.\n\n\n\tbob_test.rb:4"
 
   explain "After that, it tells you the name of the method where the error is occurring.\n\n\n\tin `require_relative'."
   explain "Next, it tells you exactly what the error is.\n\n\n\tcannot load such file"
   explain "Finally, it tells you which file is missing.\n\n\n\t/path/to/your/code/ruby/bob/bob"
-  explain "So the error is that on line 5. What's on line 5?\n\n\n\trequire_relative 'bob'"
+  explain "So the error is that on line 4. What's on line 4?\n\n\n\trequire_relative 'bob'"
   explain "Essentially, when we try to require the file, it says it's not there. You can fix the problem by creating an empty file named bob.rb inside of the ruby/bob directory."
   explain "Take another look at the error message.\nDoes it make more sense?\n\n\n#{e.backtrace.first} #{e.message}"
   explain "Now your mission is to get all the tests to pass. All but the first test are pending. Once the first test passes, delete the `skip` from the next test, and so on. Check out the README for more details."

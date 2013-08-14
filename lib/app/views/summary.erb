@@ -9,7 +9,11 @@
 <% else %>
 
   <% if after.approved? %>
-    <p><strong>Approved</strong> by <%= gravatar_tag after.approver.avatar_url %> <%= after.approver.username %> <%= ago(after.approved_at) %></p>
+    <% if current_user.locksmith? %>
+      <p>This exercise has been declared <em>thoroughly bikeshedded</em> by <%= after.approver.username %>, and <b><%= user.username %></b> has moved on.</p>
+    <% else %>
+      <p>This exercise has been thoroughly bikeshedded and <b><%= user.username %></b> has moved on.</p>
+    <% end %>
   <% else %>
     <p>This exercise is still in progress.</p>
   <% end %>

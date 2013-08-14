@@ -122,11 +122,11 @@ h1.home {
   background: #da4f49;
 }
 
-.arguments {
+.opinions {
   text-align: center;
   line-height: 30px;
-  color: #fff;
-  background: #49afcd;
+  color: #000;
+  background: rgba(247, 183, 8, 1);
 }
 
 .versions {
@@ -155,4 +155,19 @@ button.edit-text {
 [data-icon]:before {
   content: attr(data-icon);
   speak: none;
+}
+
+.alert--fixed-width {
+  width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* nitpick and comment text */
+
+.tab-content {
+  overflow: visible;
+}
+
+textarea.comment {
 }

@@ -10,6 +10,10 @@ class Approval
     @curriculum = curriculum
   end
 
+  def has_comment?
+    comment && !comment.empty?
+  end
+
   def submission
     @submission ||= Submission.find(id)
   end
@@ -30,7 +34,7 @@ class Approval
     submission.state = 'approved'
     submission.approved_at = Time.now.utc
     submission.approver = approver
-    if comment && !comment.empty?
+    if has_comment?
       submission.nits << Nit.new(user: approver, comment: comment)
     end
     submission.user.complete! exercise, on: trail

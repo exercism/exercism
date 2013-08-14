@@ -30,7 +30,7 @@ describe("Bob", function() {
 
   xit("forceful questions", function() {
     var result = bob.hey('WHAT THE HELL WERE YOU THINKING?');
-    expect(result).toEqual('Woah, chill out!')
+    expect(result).toEqual('Woah, chill out!');
   });
 
   xit("shouting numbers", function() {
@@ -60,6 +60,6 @@ describe("Bob", function() {
 
   xit("silence", function () {
     var result = bob.hey('');
-    expect(result).toEqual('Fine, be that way!');
+    expect(result).toEqual('Fine. Be that way!');
   });
 });

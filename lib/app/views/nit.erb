@@ -1,0 +1,16 @@
+<blockquote>
+  <%= md(nit.comment) %>
+  <cite>
+    <%= gravatar_tag nit.user.avatar_url, size: 20 %>
+    <em><%= profile_link(nit.user) %></em>, <%= ago(nit.at) %>
+  </cite>
+
+  <% if current_user == nit.nitpicker %>
+    <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit">
+      <button class="btn btn-small edit-text">
+        <span aria-hidden="true" data-icon="✎"></span>
+        <span class="screen-reader-text">Edit</span>
+      </button>
+    </a>
+  <% end %>
+</blockquote>

@@ -1,4 +1,4 @@
-require('./palindrome');
+var Palindromes = require('./palindrome');
 
 describe("Palindrome", function() {
 

@@ -1,25 +1,4 @@
 class Dashboard
-
-  class Filters
-    attr_reader :submissions
-
-    def initialize(submissions)
-      @submissions ||= submissions
-    end
-
-    def users
-      @users ||= submissions.map {|sub| sub.user.username}.uniq.sort
-    end
-
-    def exercises
-      @exercises ||= submissions.map(&:slug).uniq.sort
-    end
-
-    def languages
-      @languages ||= submissions.map(&:language).uniq.sort
-    end
-  end
-
   class Submissions
     attr_reader :submissions
     def initialize(submissions)
@@ -63,20 +42,6 @@ class Dashboard
     end
   end
 
-  class AdminSubmissions < Submissions
-    def all
-      submissions
-    end
-
-    def pending
-      @pending ||= submissions.select { |sub| !sub.approvable? }
-    end
-
-    def flagged_for_approval
-      @flagged_for_approval ||= submissions.select { |sub| sub.approvable? }
-    end
-  end
-
   attr_reader :user, :all_submissions
   def initialize(user, all_submissions)
     @user = user
@@ -86,18 +51,10 @@ class Dashboard
   def submissions
     return @submissions if @submissions
 
-    if user.admin?
-      @submissions ||= AdminSubmissions.new(all_submissions)
-    else
-      submissions = all_submissions.select do |sub|
-        user.may_nitpick?(sub.exercise)
-      end
-      @submissions ||= Submissions.new(submissions)
+    submissions = all_submissions.select do |sub|
+      user.nitpicker_on?(sub.exercise)
     end
-  end
-
-  def filters
-    @filters ||= Filters.new(submissions.all)
+    @submissions ||= Submissions.new(submissions)
   end
 end
 

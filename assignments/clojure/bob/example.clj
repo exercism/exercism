@@ -7,7 +7,7 @@
 
 (defn response-for [input]
   (cond
-    (silence?  input) "Fine, be that way."
+    (silence?  input) "Fine. Be that way."
     (shouting? input) "Woah, chill out!"
     (question? input) "Sure."
     :else             "Whatever."))

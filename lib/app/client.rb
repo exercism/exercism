@@ -9,7 +9,8 @@ class ExercismApp < Sinatra::Base
 
       locals = {
         submissions: dashboard.submissions,
-        filters: dashboard.filters
+        language: nil,
+        exercise: nil
       }
       erb :dashboard, locals: locals
     end
@@ -18,8 +19,7 @@ class ExercismApp < Sinatra::Base
   get '/account' do
     please_login("/account")
 
-    unstarted = Exercism.current_curriculum.unstarted_trails(current_user.current_languages)
-    erb :account, locals: {unstarted: unstarted}
+    erb :account
   end
 
   put '/account/email' do

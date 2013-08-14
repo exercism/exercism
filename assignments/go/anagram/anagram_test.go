@@ -26,8 +26,8 @@ func TestDetectAnagram(t *testing.T) {
 }
 
 func TestAnagramsHaveSameLength(t *testing.T) {
-	in := "ab"
-	possibleMatches := []string{"ba", "abc"}
+	in := "ant"
+	possibleMatches := []string{"tan", "stand"}
 
 	matches := Detect(in, possibleMatches)
 
@@ -35,7 +35,7 @@ func TestAnagramsHaveSameLength(t *testing.T) {
 		t.Errorf("Expected 1 element, got %d.", len(matches))
 	}
 
-	if matches[0] != "ba" {
-		t.Errorf("Expected ba, got %v.", matches[0:])
+	if matches[0] != "tan" {
+		t.Errorf("Expected tan, got %v.", matches[0:])
 	}
 }
