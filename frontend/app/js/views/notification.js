@@ -38,6 +38,6 @@ exercism.views.Notification = Backbone.View.extend({
   },
 
   isAtPath: function() {
-    return new RegExp(window.location.pathname).test(this.model.get("link"));
+    return (this.model.get("link") === window.location.pathname);
   },
 });
