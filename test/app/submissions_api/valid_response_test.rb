@@ -1,7 +1,13 @@
 require './test/api_helper'
 
-class SubmissionApiValidResponseTest < MiniTest::Unit::TestCase
+class SubmissionApiValidResponseTest < Minitest::Test
   include Rack::Test::Methods
+
+  WILDCARD_MATCHER = JsonExpressions::WILDCARD_MATCHER
+
+  def wildcard_matcher
+    ::JsonExpressions::WILDCARD_MATCHER
+  end
 
   def app
     ExercismApp
