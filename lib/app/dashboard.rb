@@ -1,16 +1,18 @@
 require 'app/presenters/dashboard'
 class ExercismApp < Sinatra::Base
 
-['/dashboard/:language/:exercise/', '/dashboard/:language/?'].each do |route|
+['/dashboard/:language/:exercise/?', '/dashboard/:language/?'].each do |route|
   get route do
-    language, exercise = params[:language], params[:exercise]
     if current_user.guest?
       erb :index
     else
-      dashboard = Dashboard.new(current_user, Submission.pending_for(language, exercise))
-
+      language, exercise = params[:language], params[:exercise]
+      dashboard = Dashboard.new(current_user).in(language).for(exercise)
       locals = {
+        featured: false,
         submissions: dashboard.submissions,
+        exercises: dashboard.exercises,
+        breakdown: dashboard.breakdown,
         language: language,
         exercise: exercise
       }

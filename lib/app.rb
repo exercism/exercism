@@ -130,10 +130,13 @@ class ExercismApp < Sinatra::Base
       %{<li class="#{active_top_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(language)}</a></li>}
     end
 
-    def dashboard_assignment_nav(language, exercise=nil, html={})
+    def dashboard_assignment_nav(language, exercise=nil, counts=nil)
+      return if counts && counts.zero?
+
       path = path_for(language)
       path += "/#{exercise}/" if exercise
-      %{<li class="#{active_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(exercise)}</a></li>}
+      tally = counts ? " (#{counts})" : ""
+      %{<li class="#{active_nav(path)}"><a href="#{path}">#{nav_text(exercise)} #{tally}</a></li>}
     end
 
     def exercises_available_for(language)
