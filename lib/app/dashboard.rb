@@ -5,14 +5,14 @@ class ExercismApp < Sinatra::Base
     please_login route
 
     language, exercise = params[:language], params[:exercise]
-    dashboard = Dashboard.new(current_user).in(language).for(exercise)
+    dashboard = Gallery.new(current_user, Submission.pending_for(language, exercise))
 
     locals = {
+      submissions: dashboard.submissions,
       language: language,
       exercise: exercise,
-      submissions: dashboard.submissions,
-      exercises: dashboard.exercises,
-      breakdown: dashboard.breakdown
+      exercises: exercises_available_for(language),
+      breakdown: Breakdown.of(language)
     }
     erb :dashboard, locals: locals
   end

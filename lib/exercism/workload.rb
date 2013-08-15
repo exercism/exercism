@@ -22,7 +22,7 @@ class Workload
     result.concat wants_opinions
     result.concat recent
     result.concat pending.reverse
-    @submissions = unmuted(result.uniq)
+    @submissions = result.uniq
   end
 
   def nitless
@@ -80,10 +80,6 @@ class Workload
       criteria << {l: language, slug: {"$in" => slugs}}
     end
     @default_criteria = criteria
-  end
-
-  def unmuted(submissions)
-    submissions.reject {|submission| submission.muted_by?(user.username)}
   end
 end
 

@@ -4,12 +4,12 @@ class ExercismApp < Sinatra::Base
     if current_user.guest?
       erb :index
     else
-      dashboard = Dashboard.new(current_user)
+      dashboard = Gallery.new(current_user, Submission.nitless)
 
       locals = {
-        submissions: dashboard.featured,
-        language: false,
-        exercise: false
+        submissions: dashboard.submissions,
+        language: nil,
+        exercise: nil
       }
       erb :dashboard, locals: locals
     end
