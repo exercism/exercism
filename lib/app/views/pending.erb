@@ -18,10 +18,6 @@
   <hr/>
 
   <div class="pending-submissions">
-    <% submissions.flagged_for_approval.each do |submission| %>
-      <%= erb :pending_submission, locals: { submission: submission } %>
-    <% end %>
-
     <% submissions.never_been_nitted.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>

@@ -36,10 +36,6 @@ class Dashboard
     def with_nits
       @with_nits ||= pending.select { |sub| sub.this_version_has_nits? }
     end
-
-    def flagged_for_approval
-      []
-    end
   end
 
   attr_reader :user, :all_submissions
