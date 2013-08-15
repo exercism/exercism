@@ -8,7 +8,7 @@
           <% if exercises.any? %>
             <%= dashboard_assignment_nav(language) %>
             <% exercises.each do |exercise| %>
-              <%= dashboard_assignment_nav(language, exercise.slug) %>
+              <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise]) %>
             <% end %>
           <% end %>
         <% end %>
