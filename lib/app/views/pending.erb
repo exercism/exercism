@@ -18,19 +18,8 @@
   <hr/>
 
   <div class="pending-submissions">
-    <% submissions.never_been_nitted.each do |submission| %>
+    <% submissions.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
-
-      <% submissions.nits_before_but_not_on_this_iteration.each do |submission| %>
-        <%= erb :pending_submission, locals: { submission: submission } %>
-      <% end %>
-
-    <% if exercise %>
-      <% submissions.with_nits.each do |submission| %>
-        <%= erb :pending_submission, locals: { submission: submission } %>
-      <% end %>
-    <% end %>
-
   </div>
 <% end %>
