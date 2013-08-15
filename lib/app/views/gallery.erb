@@ -1,0 +1,31 @@
+<div class="row">
+
+  <aside class="span4">
+    <nav>
+      <ul class="nav nav-tabs nav-stacked">
+        <% if language %>
+          <% exercises = exercises_available_for(language) %>
+          <% if exercises.any? %>
+            <%= gallery_assignment_nav(language) %>
+            <% exercises.each do |exercise| %>
+              <%= gallery_assignment_nav(language, exercise.slug) %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </ul>
+    </nav>
+
+    <%= erb :completed_assignments, locals: {completed: current_user.done } %>
+    </br>
+
+  </aside>
+  <main id="pending-submissions" class="span8">
+  <% if show_pending_submissions?(language) %>
+    <%= erb :approved, locals: {submissions: submissions, filters: filters, exercise: exercise} %>
+    <% elsif language && current_user.submissions.where(language: language).count > 0 %>
+    <%= erb :"about/welcome" %>
+  <% else %>
+    <%= erb :about, locals: {language: language, unstarted: unstarted_trails} %>
+  <% end %>
+  </main>
+</div>
