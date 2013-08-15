@@ -1,16 +1,15 @@
-require 'app/presenters/dashboard'
 class ExercismApp < Sinatra::Base
 
   get '/' do
     if current_user.guest?
       erb :index
     else
-      dashboard = Dashboard.new(current_user, Submission.nitless)
+      dashboard = Dashboard.new(current_user)
 
       locals = {
-        submissions: dashboard.submissions,
-        language: nil,
-        exercise: nil
+        submissions: dashboard.featured,
+        language: false,
+        exercise: false
       }
       erb :dashboard, locals: locals
     end
