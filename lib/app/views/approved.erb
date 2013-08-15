@@ -1,11 +1,13 @@
+<h2>Approved</h2>
+
+<hr/>
+
 <% if submissions.any? %>
-  <h2>Approved</h2>
-
-  <hr/>
-
   <div class="pending-submissions">
     <% submissions.all.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
   </div>
+<% else %>
+  <p><b>Select an exercise to view approved submissions</b></p>
 <% end %>
