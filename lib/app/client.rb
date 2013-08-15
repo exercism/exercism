@@ -1,11 +1,10 @@
-require 'app/presenters/dashboard'
 class ExercismApp < Sinatra::Base
 
   get '/' do
     if current_user.guest?
       erb :index
     else
-      dashboard = Dashboard.new(current_user, Submission.nitless)
+      dashboard = Gallery.new(current_user, Submission.nitless)
 
       locals = {
         submissions: dashboard.submissions,

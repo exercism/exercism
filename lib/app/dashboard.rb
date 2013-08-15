@@ -1,4 +1,3 @@
-require 'app/presenters/dashboard'
 class ExercismApp < Sinatra::Base
 
 ['/dashboard/:language/:exercise/?', '/dashboard/:language/?'].each do |route|
@@ -6,7 +5,7 @@ class ExercismApp < Sinatra::Base
     please_login route
 
     language, exercise = params[:language], params[:exercise]
-    dashboard = Dashboard.new(current_user, Submission.pending_for(language, exercise))
+    dashboard = Gallery.new(current_user, Submission.pending_for(language, exercise))
 
     locals = {
       submissions: dashboard.submissions,

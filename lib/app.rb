@@ -1,6 +1,8 @@
 require 'exercism'
 require 'sinatra/petroglyph'
 
+require 'app/presenters/gallery'
+
 require 'app/about'
 require 'app/nitpick'
 require 'app/api'
