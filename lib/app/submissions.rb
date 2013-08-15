@@ -29,6 +29,7 @@ class ExercismApp < Sinatra::Base
           puts "Failed to send email. #{e.message}."
         end
       end
+      submission.unmute_all!
     end
 
     def approve(id)
@@ -58,6 +59,7 @@ class ExercismApp < Sinatra::Base
         Notify.everyone(submission, 'nitpick', except: [current_user, submission.user])
       end
       Notify.source(submission, 'done', except: current_user)
+      submission.unmute_all!
     end
 
     def toggle_opinions(id, state)
@@ -69,6 +71,7 @@ class ExercismApp < Sinatra::Base
       end
       
       submission.send("#{state}_opinions!")
+      submission.unmute_all! if submission.wants_opinions?
 
       flash[:notice] =  if submission.wants_opinions?
                           "Your request for more opinions has been made! You can disable this below when all is clear."
@@ -133,6 +136,22 @@ class ExercismApp < Sinatra::Base
     please_login "/submissions/#{id}/opinions/disable"
     toggle_opinions(id, :disable)
     redirect "/submissions/#{id}"
+  end
+
+  post '/submissions/:id/mute' do |id|
+    please_login "/submissions/#{id}/mute"
+    submission = Submission.find(id)
+    submission.mute!(current_user.username)
+    flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
+    redirect '/'
+  end
+
+  post '/submissions/:id/unmute' do |id|
+    please_login "/submissions/#{id}/unmute"
+    submission = Submission.find(id)
+    submission.unmute!(current_user.username)
+    flash[:notice] = "The submission has been unmuted."
+    redirect '/'
   end
 
   get '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|

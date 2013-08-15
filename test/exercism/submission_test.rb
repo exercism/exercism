@@ -72,5 +72,15 @@ class SubmissionTest < Minitest::Test
     s1.reload; alice.reload
     assert_equal Set.new([alice, bob]), s1.participants
   end
+
+  def test_muted_by_when_muted
+    submission = Submission.new(state: 'pending', muted_by: ['alice'])
+    assert_equal true, submission.muted_by?('alice')
+  end
+
+  def test_muted_by_when_not_muted
+    submission = Submission.new(state: 'pending')
+    assert_equal false, submission.muted_by?('alice')
+  end
 end
 

@@ -73,4 +73,11 @@ $(function() {
     },
     content: 'use the command <code>exercism fetch</code> to add this assignment to your exercism directory'
   });
+
+  $(".mute").each(function(index, element) {
+    var elem = $(element);
+
+    $(".mute-btn",elem).tooltip({ placement: "bottom", title: "Mute this submission until there is further activity." });
+    $(".unmute-btn",elem).tooltip({ placement: "bottom", title: "Unmute this sumission." });
+  });
 });

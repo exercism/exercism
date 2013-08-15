@@ -10,6 +10,7 @@ class Submission
   field :apr, as: :is_approvable, type: Boolean, default: false
   field :apr_by, as: :flagged_by, type: Array, default: []
   field :op, as: :wants_opinions, type: Boolean, default: false
+  field :mt_by, as: :muted_by, type: Array, default: []
 
   belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
@@ -162,6 +163,25 @@ class Submission
   def disable_opinions!
     self.wants_opinions = false
     self.save
+  end
+
+  def muted_by?(username)
+    muted_by.include?(username)
+  end
+
+  def mute!(username)
+    muted_by << username
+    save
+  end
+
+  def unmute!(username)
+    muted_by.delete(username)
+    save
+  end
+
+  def unmute_all!
+    muted_by.clear
+    save
   end
 
   private
