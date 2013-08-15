@@ -101,10 +101,10 @@
           <button type="submit" name="approve" class="btn">Comment &amp; Unlock Next</button>
         <% else %>
           <% unless current_user.is?(submission.user.username) %>
-            <button type="submit" name="approvable" class="btn btn-success" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
+            <button type="submit" name="approvable" class="btn" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
           <% end %>
         <% end %>
-        <button type="submit" name="nitpick" class="btn btn-primary">Nitpick</button>
+        <button type="submit" name="nitpick" class="pull-right btn btn-primary">Nitpick</button>
         <% if submission.approvable? %>
           <p><%= n_people_like_it(submission.flagged_by.count) %></p>
         <% end %>
@@ -117,4 +117,3 @@
     <% end %>
   </div>
 </div>
-
