@@ -5,7 +5,8 @@ class ExercismApp < Sinatra::Base
   get route do
     please_login route
     language, exercise = params[:language], params[:exercise]
-    dashboard = Dashboard.new(current_user, Submission.approved_for(language, exercise))
+    dashboard = Dashboard.new(current_user,
+                              exercise ? Submission.approved_for(language, exercise).limit(50) : [] )
 
     locals = {
       submissions: dashboard.submissions,
