@@ -44,9 +44,7 @@ class Submission
   end
 
   def self.nitless
-    pending.
-      or({ :'nits._id'.exists =>  false },
-         { :'nits._id' => :user })
+    pending.where(:'nits._id'.exists => false)
   end
 
   def self.pending
