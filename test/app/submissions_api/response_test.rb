@@ -1,6 +1,6 @@
 require './test/api_helper'
 
-class SubmissionApiTest < Minitest::Unit::TestCase
+class SubmissionApiTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods
 
   def app

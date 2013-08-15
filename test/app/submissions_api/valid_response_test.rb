@@ -1,6 +1,6 @@
 require './test/api_helper'
 
-class SubmissionApiTest < Minitest::Unit::TestCase
+class SubmissionApiValidResponseTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods
 
   def app
@@ -11,10 +11,10 @@ class SubmissionApiTest < Minitest::Unit::TestCase
 
   def setup
     @alice = User.create({
-                           username: 'alice',
-                           github_id: 1,
-                           current: {'ruby' => 'word-count', 'javascript' => 'anagram'}
-                         })
+      username: 'alice',
+      github_id: 1,
+      current: {'ruby' => 'word-count', 'javascript' => 'anagram'}
+    })
 
   end
 
