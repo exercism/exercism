@@ -26,6 +26,7 @@ GEM
     haml (4.0.3)
       tilt
     i18n (0.6.1)
+    json_expressions (0.8.2)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -109,6 +110,7 @@ PLATFORMS
 DEPENDENCIES
   approvals
   faraday
+  json_expressions
   mailcatcher
   minitest (~> 5.0)
   mocha
