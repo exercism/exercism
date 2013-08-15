@@ -47,7 +47,6 @@ class Workload
     @featured = []
     @featured.concat liked if user.locksmith?
     @featured.concat nitless
-    @featured.concat wants_opinions
     unmuted @featured.uniq
   end
 
