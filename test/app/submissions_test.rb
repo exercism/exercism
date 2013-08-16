@@ -25,6 +25,10 @@ class SubmissionsTest < Minitest::Test
     @alice = User.create(alice_attributes)
   end
 
+  def assert_response_status(expected_status)
+    assert_equal expected_status, last_response.status
+  end
+
   def logged_in
     { github_id: @alice.github_id }
   end
@@ -90,6 +94,24 @@ class SubmissionsTest < Minitest::Test
     end
     nit = submission.reload.nits.last
     assert_equal "awful();<a href=\"bad.html\">good</a>", nit.comment
+  end
+
+  def test_guest_nitpicks
+    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    submission = Submission.first
+
+    post "/submissions/#{submission.id}/respond", {comment: "Could be better by ..."}
+
+    assert_response_status(403)
+  end
+
+  def test_guest_approves
+    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    submission = Submission.first
+
+    post "/submissions/#{submission.id}/approve", {comment: "Looks great!"}
+
+    assert_response_status(403)
   end
 
   def test_multiple_versions
