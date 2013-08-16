@@ -57,7 +57,7 @@ class Curriculum
     if locale
       locale.language
     else
-      raise Exercism::UnknownLanguage.new("Uknown language for file extension #{ext}")
+      raise Exercism::UnknownLanguage.new("Unknown language for file extension #{ext}")
     end
   end
 
