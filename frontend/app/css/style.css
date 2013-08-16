@@ -115,6 +115,10 @@ h1.home {
   background-image: url('/img/golang.png');
 }
 
+.python-icon {
+  background-image: url('/img/python.png');
+}
+
 .nits {
   text-align: center;
   line-height: 30px;
