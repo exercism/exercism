@@ -2,7 +2,7 @@ class ExercismApp < Sinatra::Base
 
 ['/dashboard/:language/:exercise/?', '/dashboard/:language/?'].each do |route|
   get route do
-    please_login request.path
+    please_login
 
     language, exercise = params[:language], params[:exercise]
     dashboard = Gallery.new(current_user, Submission.pending_for(language, exercise))

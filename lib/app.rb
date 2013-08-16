@@ -53,9 +53,9 @@ class ExercismApp < Sinatra::Base
       end
     end
 
-    def please_login(return_path = nil)
+    def please_login
       if current_user.guest?
-        redirect "/please-login?return_path=#{return_path}"
+        redirect "/please-login?return_path=#{request.path_info}"
       end
     end
 

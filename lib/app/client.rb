@@ -16,7 +16,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/account' do
-    please_login("/account")
+    please_login
 
     erb :account
   end

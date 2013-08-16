@@ -1,7 +1,7 @@
 class ExercismApp < Sinatra::Base
 
   get '/user/:language/:slug' do |language, slug|
-    please_login "/user/#{language}/#{slug}"
+    please_login
 
     redirect "/#{current_user.username}/#{language}/#{slug}"
   end
@@ -9,7 +9,7 @@ class ExercismApp < Sinatra::Base
   get '/:username/:language/:slug' do |username, language, slug|
     title(slug + " in " + language + " by " + username)
 
-    please_login "/#{username}/#{language}/#{slug}"
+    please_login
 
     exercise = Exercise.new(language, slug)
 

@@ -82,7 +82,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/submissions/:id' do |id|
-    please_login "/submissions/#{id}"
+    please_login
 
     submission = Submission.find(id)
 
@@ -117,19 +117,21 @@ class ExercismApp < Sinatra::Base
   end
 
   post '/submissions/:id/opinions/enable' do |id|
-    please_login "/submissions/#{id}/opinions/enable"
+    flash[:error] = "You have to be logged in to do that. Use the back button to copy any comment you were working on in order to not lose your work."
+    please_login
     toggle_opinions(id, :enable)
     redirect "/submissions/#{id}"
   end
 
   post '/submissions/:id/opinions/disable' do |id|
-    please_login "/submissions/#{id}/opinions/disable"
+    flash[:error] = "You have to be logged in to do that. Use the back button to copy any comment you were working on in order to not lose your work."
+    please_login
     toggle_opinions(id, :disable)
     redirect "/submissions/#{id}"
   end
 
   post '/submissions/:id/mute' do |id|
-    please_login "/submissions/#{id}/mute"
+    please_login
     submission = Submission.find(id)
     submission.mute!(current_user.username)
     flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
@@ -137,7 +139,7 @@ class ExercismApp < Sinatra::Base
   end
 
   post '/submissions/:id/unmute' do |id|
-    please_login "/submissions/#{id}/unmute"
+    please_login
     submission = Submission.find(id)
     submission.unmute!(current_user.username)
     flash[:notice] = "The submission has been unmuted."
@@ -158,7 +160,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/submissions/:language/:assignment' do |language, assignment|
-    please_login "/submissions/#{language}/#{assignment}"
+    please_login
 
     unless current_user.locksmith?
       flash[:notice] = "Sorry, need to know only."
