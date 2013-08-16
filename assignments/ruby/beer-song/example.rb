@@ -1,4 +1,4 @@
-class Beer
+class BeerSong
   def sing(first, last = 0)
     s = ""
     first.downto(last).each do |number|
