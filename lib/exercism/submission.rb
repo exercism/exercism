@@ -16,6 +16,8 @@ class Submission
   belongs_to :user
   embeds_many :nits
 
+  validates_presence_of :user
+
   def self.pending_for(language, exercise=nil)
     if exercise
       pending.
