@@ -155,7 +155,9 @@ class ExercismApp < Sinatra::Base
 
   post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
     nit = Submission.find(id).nits.where(id: nit_id).first
-    nit.sanitized_update(params['comment'])
+    if nit.nitpicker == current_user
+      nit.sanitized_update(params['comment'])
+    end
     redirect "/submissions/#{id}"
   end
 
