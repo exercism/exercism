@@ -39,7 +39,11 @@ class ExercismApp < Sinatra::Base
       halt 401, {:error => "Unable to identify user"}.to_json
     end
 
-    attempt = Attempt.new(user, data['code'], data['path'])
+    begin
+      attempt = Attempt.new(user, data['code'], data['path'])
+    rescue Exercism::UnknownLanguage => e
+      halt 400, {:error => e.message}.to_json
+    end
 
     unless attempt.on_started_trail?
       halt 400, {:error => "Please start the trail before submitting."}.to_json
