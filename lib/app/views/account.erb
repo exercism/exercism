@@ -23,10 +23,11 @@
 
     <h2>Language-specific Setup</h2>
 
-    <%= erb :"setup/ruby" %>
-    <%= erb :"setup/javascript" %>
-    <%= erb :"setup/elixir" %>
-    <%= erb :"setup/clojure" %>
+    <div class="accordion" id="setup_accordion">
+      <% [:ruby, :javascript, :elixir, :clojure, :python].each do |language| %>
+        <%= erb :"setup_accordion", locals: { language: language } %>
+      <% end %>
+    </div>
   </div>
 
   <div class="span4">
