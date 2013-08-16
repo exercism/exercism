@@ -97,8 +97,7 @@
       <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
         <%= erb :comment %>
         <% if current_user.unlocks?(submission.exercise) %>
-          <button type="submit" name="approve" class="btn">Unlock Next</button>
-          <button type="submit" name="approve" class="btn">Comment &amp; Unlock Next</button>
+          <button type="submit" name="approve" class="btn">Unlock Next (Comment optional)</button>
         <% else %>
           <% unless current_user.is?(submission.user.username) %>
             <button type="submit" name="approvable" class="btn" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
