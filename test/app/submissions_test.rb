@@ -25,9 +25,8 @@ class SubmissionsTest < Minitest::Test
     @alice = User.create(alice_attributes)
   end
 
-  def assert_response(expected_status, expected_body)
+  def assert_response_status(expected_status)
     assert_equal expected_status, last_response.status
-    assert_equal expected_body,   last_response.body
   end
 
   def logged_in
@@ -103,7 +102,7 @@ class SubmissionsTest < Minitest::Test
 
     post "/submissions/#{submission.id}/respond", {comment: "Could be better by ..."}
 
-    assert_response(403, "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that.")
+    assert_response_status(403)
   end
 
   def test_guest_approves
@@ -112,7 +111,7 @@ class SubmissionsTest < Minitest::Test
 
     post "/submissions/#{submission.id}/approve", {comment: "Looks great!"}
 
-    assert_response(403, "You're not logged in right now, so I can't let you do that. Sorry.")
+    assert_response_status(403)
   end
 
   def test_multiple_versions
