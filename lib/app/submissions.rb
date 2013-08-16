@@ -8,10 +8,6 @@ class ExercismApp < Sinatra::Base
         halt 403, "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
       end
 
-      unless current_user.owns?(submission) || current_user.may_nitpick?(submission.exercise)
-        halt 403, "You do not have permission to nitpick that exercise."
-      end
-
       nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
       nitpick.save
       if nitpick.nitpicked?
@@ -91,12 +87,6 @@ class ExercismApp < Sinatra::Base
     submission = Submission.find(id)
 
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
-
-
-    unless current_user.owns?(submission) || current_user.may_nitpick?(submission.exercise)
-      flash[:error] = "You do not have permission to nitpick that exercise."
-      redirect '/'
-    end
 
     erb :nitpick, locals: {submission: submission}
   end

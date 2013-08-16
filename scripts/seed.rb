@@ -83,7 +83,13 @@ languages.each do |language,exe|
         end
         if locksmith
           Approval.new(submission.id, locksmith, 'very nice').save
-          Attempt.new(user.reload, "class Words\nend", "words.#{exe}").save
+          Attempt.new(user.reload, "class Code \nend", "code.#{exe}").save
+
+          Approval.new(submission.id, locksmith, 'expressive').save
+          Attempt.new(user.reload, "class Code \nend", "code.#{exe}").save
+
+          Approval.new(submission.id, locksmith, 'short and sweet').save
+          Attempt.new(user.reload, "class Code \nend", "code.#{exe}").save
         end
       end
 

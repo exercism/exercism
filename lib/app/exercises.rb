@@ -13,7 +13,7 @@ class ExercismApp < Sinatra::Base
 
     exercise = Exercise.new(language, slug)
 
-    unless current_user.is?(username) || current_user.may_nitpick?(exercise)
+    unless current_user.is?(username) || current_user.nitpicker_on?(exercise)
       flash[:error] = "You can't go there yet. Sorry."
       redirect '/'
     end

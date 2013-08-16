@@ -5,7 +5,7 @@
 <ul>
   <% current.each do |exercise| %>
     <li>
-      <% if current_user.is?(user.username) || current_user.may_nitpick?(exercise) %>
+      <% if current_user.is?(user.username) || current_user.nitpicker_on?(exercise) %>
         <a href="<%= ['', user.username, exercise.language, exercise.slug].join('/') %>"><%= exercise.language.titleize %>: <%= exercise.name %></a>
       <% else %>
         <%= exercise.language.titleize %>: <%= exercise.name %>
@@ -26,7 +26,7 @@
     <ul>
       <% exercises.each do |exercise| %>
       <li>
-      <% if current_user.is?(user.username) || current_user.may_nitpick?(exercise) %>
+      <% if current_user.is?(user.username) || current_user.nitpicker_on?(exercise) %>
       <a href="<%= ['', user.username, exercise.language, exercise.slug].join('/') %>"><%= exercise.name %></a>
       <% else %>
       <%= exercise.name %>
