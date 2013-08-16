@@ -25,6 +25,11 @@ class SubmissionsTest < Minitest::Test
     @alice = User.create(alice_attributes)
   end
 
+  def assert_response(expected_status, expected_body)
+    assert_equal expected_status, last_response.status
+    assert_equal expected_body,   last_response.body
+  end
+
   def logged_in
     { github_id: @alice.github_id }
   end
@@ -90,6 +95,24 @@ class SubmissionsTest < Minitest::Test
     end
     nit = submission.reload.nits.last
     assert_equal "awful();<a href=\"bad.html\">good</a>", nit.comment
+  end
+
+  def test_guest_nitpicks
+    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    submission = Submission.first
+
+    post "/submissions/#{submission.id}/respond", {comment: "Could be better by ..."}
+
+    assert_response(403, "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that.")
+  end
+
+  def test_guest_approves
+    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    submission = Submission.first
+
+    post "/submissions/#{submission.id}/approve", {comment: "Looks great!"}
+
+    assert_response(403, "You're not logged in right now, so I can't let you do that. Sorry.")
   end
 
   def test_multiple_versions
