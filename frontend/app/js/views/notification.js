@@ -12,6 +12,13 @@ exercism.views.Notification = Backbone.View.extend({
   initialize: function(options) {
     this.listenTo(this.model, 'change', this.render);
     this.listenTo(this.model, 'destroy', this.remove);
+    this.markReadIfAtPath();
+  },
+
+  markReadIfAtPath: function() {
+    if(this.isAtPath()) {
+      this.toggleRead();
+    }
   },
 
   render: function() {
@@ -28,5 +35,9 @@ exercism.views.Notification = Backbone.View.extend({
 
   readStatus: function() {
     this.$el.toggleClass("new-notification", !(this.model.get("read")));
+  },
+
+  isAtPath: function() {
+    return (this.model.get("link") === window.location.pathname);
   },
 });

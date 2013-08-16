@@ -1,19 +1,26 @@
-class Bob:
-    def hey(self, message):
-        if self.is_silence(message):
-            return "Fine. Be that way!"
-        elif self.is_yelling(message):
-            return "Woah, chill out!"
-        elif self.is_question(message):
-            return "Sure."
-        else:
-            return "Whatever."
+class Bob(object):
+    def hey(self, stimulus):
+        if self._is_silence(stimulus):
+            return 'Fine. Be that way.'
 
-    def is_silence(self, message):
-        return not (message and message.strip())
+        elif self._is_shouting(stimulus):
+            return 'Woah, chill out!'
 
-    def is_yelling(self, message):
-        return message.strip and message == message.upper()
+        elif self._is_statement(stimulus):
+            return 'Whatever.'
 
-    def is_question(self, message):
-        return message.endswith("?")
+        elif self._is_question(stimulus):
+            return 'Sure.'
+
+    def _is_silence(self, stimulus):
+        return stimulus == ''
+
+    def _is_shouting(self, stimulus):
+        return stimulus == stimulus.upper()
+
+    def _is_statement(self, stimulus):
+        return stimulus.endswith('.')
+
+    def _is_question(self, stimulus):
+        return stimulus.endswith('?')
+

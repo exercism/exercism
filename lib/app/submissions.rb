@@ -15,8 +15,8 @@ class ExercismApp < Sinatra::Base
       nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
       nitpick.save
       if nitpick.nitpicked?
-        #TODO - create emails from notifications
-        Notify.everyone(submission, current_user, 'nitpick')
+        Notify.everyone(submission, 'nitpick', except: current_user)
+        flash[:success] = 'This submission has been nominated for approval' if nitpick.approvable?
         begin
           unless nitpick.nitpicker == nitpick.submission.user
             NitpickMessage.ship(
@@ -29,6 +29,7 @@ class ExercismApp < Sinatra::Base
           puts "Failed to send email. #{e.message}."
         end
       end
+      submission.unmute_all!
     end
 
     def approve(id)
@@ -36,12 +37,10 @@ class ExercismApp < Sinatra::Base
         halt 403, "You're not logged in right now, so I can't let you do that. Sorry."
       end
 
-      unless current_user.admin?
+      submission = Submission.find(id)
+      unless current_user.unlocks?(submission.exercise)
         halt 403, "You do not have permission to approve that exercise."
       end
-      submission = Submission.find(id)
-
-      Notify.source(submission, current_user, 'approval')
 
       begin
         unless current_user == submission.user
@@ -54,7 +53,31 @@ class ExercismApp < Sinatra::Base
       rescue => e
         puts "Failed to send email. #{e.message}."
       end
-      Approval.new(id, current_user, params[:comment]).save
+      approval = Approval.new(id, current_user, params[:comment]).save
+
+      if approval.has_comment?
+        Notify.everyone(submission, 'nitpick', except: [current_user, submission.user])
+      end
+      Notify.source(submission, 'done', except: current_user)
+      submission.unmute_all!
+    end
+
+    def toggle_opinions(id, state)
+      submission = Submission.find(id)
+
+      unless current_user.owns?(submission)
+        flash[:error] = "You do not have permission to do that."
+        redirect '/'
+      end
+      
+      submission.send("#{state}_opinions!")
+      submission.unmute_all! if submission.wants_opinions?
+
+      flash[:notice] =  if submission.wants_opinions?
+                          "Your request for more opinions has been made! You can disable this below when all is clear."
+                        else
+                          "Your request for more opinions has been disabled!"
+                        end
     end
   end
 
@@ -103,68 +126,51 @@ class ExercismApp < Sinatra::Base
     redirect "/submissions/#{id}"
   end
 
-  post '/submissions/:id/nits/:nit_id/argue' do |id, nit_id|
-    if current_user.guest?
-      flash[:error] = 'We may have just redeployed, which logged you out. Sorry about that! Hit the back button and save the comment you just wrote, and try again after logging in. Deploying without invalidating sessions is on the list!'
-    end
-    please_login("/submissions/#{id}/nits/#{nit_id}/argue")
-
-    if params[:comment].empty?
-      submission = Submission.find_by(id: id)
-    else
-      data = {
-        submission_id: id,
-        nit_id: nit_id,
-        user: current_user,
-        comment: params[:comment]
-      }
-      argument = Argument.new(data).save
-      submission = argument.submission
-      Notify.everyone(submission, current_user, 'comment')
-    end
-
+  post '/submissions/:id/opinions/enable' do |id|
+    please_login "/submissions/#{id}/opinions/enable"
+    toggle_opinions(id, :enable)
     redirect "/submissions/#{id}"
   end
 
-  get '/submissions/:submission_id/nits/:nit_id/edit' do |submission_id, nit_id|
-    @submission_id, @nit_id = submission_id, nit_id
-    @nit = Argument.new(params).nit
-    redirect "/submissions/#{submission_id}" unless current_user == @nit.nitpicker
-    erb :edit_nit
+  post '/submissions/:id/opinions/disable' do |id|
+    please_login "/submissions/#{id}/opinions/disable"
+    toggle_opinions(id, :disable)
+    redirect "/submissions/#{id}"
+  end
+
+  post '/submissions/:id/mute' do |id|
+    please_login "/submissions/#{id}/mute"
+    submission = Submission.find(id)
+    submission.mute!(current_user.username)
+    flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
+    redirect '/'
+  end
+
+  post '/submissions/:id/unmute' do |id|
+    please_login "/submissions/#{id}/unmute"
+    submission = Submission.find(id)
+    submission.unmute!(current_user.username)
+    flash[:notice] = "The submission has been unmuted."
+    redirect '/'
+  end
+
+  get '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
+    submission = Submission.find(id)
+    nit = submission.nits.where(id: nit_id).first
+    redirect "/submissions/#{id}" unless current_user == nit.nitpicker
+    erb :edit_nit, locals: {submission: submission, nit: nit}
   end
 
   post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
-    data = {
-      submission_id: id,
-      nit_id: nit_id,
-      user: current_user
-    }
-    Argument.new(data).nit.update_attributes(comment: params['comment'])
-    redirect "/submissions/#{id}"
-  end
-
-  get '/submissions/:submission_id/nits/:nit_id/comments/:comment_id/edit' do |submission_id, nit_id, comment_id|
-    @submission_id, @nit_id, @comment_id = submission_id, nit_id, comment_id
-    @comment = Argument.new(params).comment
-    redirect "/submissions/#{submission_id}" unless current_user == @comment.user
-    erb :edit_comment
-  end
-
-  post '/submissions/:submission_id/nits/:nit_id/comments/:comment_id/edit' do |id, nit_id, comment_id|
-    data = {
-      submission_id: id,
-      nit_id: nit_id,
-      comment_id: comment_id,
-      user: current_user
-    }
-    Argument.new(data).comment.update_attributes(body: params['body'])
+    nit = Submission.find(id).nits.where(id: nit_id).first
+    nit.sanitized_update(params['comment'])
     redirect "/submissions/#{id}"
   end
 
   get '/submissions/:language/:assignment' do |language, assignment|
     please_login "/submissions/#{language}/#{assignment}"
 
-    unless current_user.admin?
+    unless current_user.locksmith?
       flash[:notice] = "Sorry, need to know only."
       redirect '/'
     end

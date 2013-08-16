@@ -6,69 +6,51 @@ module Sinatra
   module FuzzyTimeHelper
 
     def ago(timestamp)
-      diff = (now - timestamp).to_i
-      case
-      when just_now?(diff) then "just now"
-      when minutes?(diff) then "about #{diff/60} minutes ago"
-      when an_hour?(diff) then "about an hour ago"
-      when an_hour_and_a_half?(diff) then "about an hour and a half ago"
-      when hours?(diff) then "about #{(diff/(60*60.0)).round} hours ago"
-      when a_day?(diff) then "about a day ago"
-      when days?(diff) then "about #{(diff/(24*60*60.0)).round} days ago"
-      when weeks?(diff) then "about #{(diff/(7*24*60*60.0)).round} weeks ago"
-      when months?(diff) then "about #{(diff/(30*24*60*60.0)).round} months ago"
-      when a_year?(diff) then "about a year ago"
-      else
-        "ages ago"
+      diff = (now - timestamp).to_i.to_f
+      case diff
+      when less_than(2*minutes)   then "just now"
+      when less_than(55*minutes)  then "about #{(diff/(1*minutes)).round} minutes ago"
+      when less_than(80*minutes)  then "about an hour ago"
+      when less_than(105*minutes) then "about an hour and a half ago"
+      when less_than(23.5*hours)  then "about #{(diff/(1*hours)).round} hours ago"
+      when less_than(36*hours)    then "about a day ago"
+      when less_than(20*days)     then "about #{(diff/(1*days)).round} days ago"
+      when less_than(11*weeks)    then "about #{(diff/(1*weeks)).round} weeks ago"
+      when less_than(11.5*months) then "about #{(diff/(1*months)).round} months ago"
+      when less_than(18*months)   then "about a year ago"
+      else                             "ages ago"
       end
     end
 
     private
 
+    def less_than timespan
+      ->(actual_timespan) { actual_timespan < timespan }
+    end
+
     def now
       Time.now.utc
     end
 
-    def just_now?(diff)
-      diff < 120
+    def minutes
+      60
     end
 
-    def minutes?(diff)
-      diff < 55*60
+    def hours
+      60*minutes
     end
 
-    def an_hour?(diff)
-      diff < 80*60
+    def days
+      24*hours
     end
 
-    def an_hour_and_a_half?(diff)
-      diff < 105*60
+    def weeks
+      7*days
     end
 
-    def hours?(diff)
-      diff < ((23*60*60) + (30*60))
+    def months
+      30*days
     end
-
-    def a_day?(diff)
-      diff <= (36*60*60)
-    end
-
-    def days?(diff)
-      diff < (20*24*60*60)
-    end
-
-    def weeks?(diff)
-      diff < (11*7*24*60*60)
-    end
-
-    def months?(diff)
-      diff <= (11*30*24*60*60) + (14*24*60*60)
-    end
-
-    def a_year?(diff)
-      diff < (18*30*24*60*60)
-    end
-
   end
 end
 

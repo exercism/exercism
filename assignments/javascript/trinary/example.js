@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = Trinary;
 
 var BASE = 3;

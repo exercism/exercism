@@ -2,13 +2,26 @@ require './test/integration_helper'
 
 class NitpickTest < Minitest::Test
 
+  def exercise
+    Exercise.new('nong', 'one')
+  end
+
+  def submission
+    return @submission if @submission
+
+    @submission = Submission.on(exercise)
+    @submission.user = User.create(username: 'bob')
+    @submission.save
+    @submission
+  end
+
   def teardown
     Mongoid.reset
+    @bob = nil
+    @submission = nil
   end
 
   def test_nitpicking_a_submission_saves_a_nit
-    exercise = Exercise.new('nong', 'one')
-    submission = Submission.on(exercise)
     nitpicker = User.new(username: 'alice')
     Nitpick.new(submission.id, nitpicker, 'Too many variables', approvable: nil).save
     nit = submission.reload.nits.first
@@ -17,25 +30,30 @@ class NitpickTest < Minitest::Test
     assert !submission.approvable?, "Should NOT be approvable"
   end
 
+  def test_empty_nit_does_not_get_saved
+    nitpicker = User.new(username: 'alice')
+    nitpick = Nitpick.new(submission.id, nitpicker, '').save
+    assert !nitpick.nitpicked?
+    assert_equal 0, submission.reload.nits.count
+  end
+
   def test_flag_a_submission_for_approval
-    exercise = Exercise.new('nong', 'one')
-    submission = Submission.on(exercise)
     nitpicker = User.new(username: 'alice')
     nitpick = Nitpick.new(submission.id, nitpicker, 'Too many variables', approvable: true).save
     assert nitpick.nitpicked?
-    submission = submission.reload
+    submission.reload
     assert submission.approvable?
     assert_equal ['alice'], submission.flagged_by
     assert submission.pending?
   end
 
-  def test_empty_nit_does_not_get_saved
-    exercise = Exercise.new('nong', 'one')
-    submission = Submission.on(exercise)
+  def test_can_flag_without_comment
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, '').save
-    assert !nitpick.nitpicked?
-    assert_equal 0, submission.reload.nits.count
+    nitpick = Nitpick.new(submission.id, nitpicker, '', approvable: true).save
+    submission.reload
+    assert submission.approvable?, "Expected assignment to be flagged"
+    assert_equal ['alice'], submission.flagged_by
+    assert submission.pending?
   end
 
 end

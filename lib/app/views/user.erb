@@ -1,0 +1,39 @@
+<h1><%= user.username %></h1>
+<p>GitHub Profile: <%= github_profile_link(user) %></p>
+
+<h4>Current</h4>
+<ul>
+  <% current.each do |exercise| %>
+    <li>
+      <% if current_user.is?(user.username) || current_user.may_nitpick?(exercise) %>
+        <a href="<%= ['', user.username, exercise.language, exercise.slug].join('/') %>"><%= exercise.language.titleize %>: <%= exercise.name %></a>
+      <% else %>
+        <%= exercise.language.titleize %>: <%= exercise.name %>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
+
+<div class="row">
+  <div class="span12">
+    <h4>Completed</h4>
+  </div>
+</div>
+<div class="row">
+  <% completed.each do |language, exercises| %>
+  <div class="span2">
+    <h5><%= language.titleize %></h5>
+    <ul>
+      <% exercises.each do |exercise| %>
+      <li>
+      <% if current_user.is?(user.username) || current_user.may_nitpick?(exercise) %>
+      <a href="<%= ['', user.username, exercise.language, exercise.slug].join('/') %>"><%= exercise.name %></a>
+      <% else %>
+      <%= exercise.name %>
+      <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+</div>

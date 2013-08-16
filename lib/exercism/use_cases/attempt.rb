@@ -3,7 +3,7 @@ class Attempt
   attr_reader :user, :code, :language
   def initialize(user, code, filename, curriculum = Exercism.current_curriculum)
     @user = user
-    @code = code
+    @code = sanitize(code)
     @language = curriculum.identify_language(filename)
   end
 
@@ -20,18 +20,34 @@ class Attempt
       sub.supersede!
     end
     submission.code = code
+    if previous_submission.approvable?
+      submission.is_approvable = true
+    end
     user.submissions << submission
     user.save
     self
   end
 
-  def previous_submission
-    user.submissions_on(exercise)[1] || NullSubmission.new(@exercise)
+  def duplicate?
+    previous_submission.code == code
   end
+
+  def previous_submissions
+    @previous_submissions ||= user.submissions_on(exercise).reject {|s| s == submission}
+  end
+
+  def previous_submission
+    @previous_submission ||= previous_submissions.first || NullSubmission.new(exercise)
+  end
+
   private
 
   def exercise
     @exercise ||= user.current_on(language)
+  end
+
+  def sanitize(code)
+    code.gsub(/\n*\z/, "")
   end
 
 end

@@ -1,5 +1,5 @@
-var WordProblem   = require('./example').WordProblem;
-var ArgumentError = require('./example').ArgumentError;
+var WordProblem   = require('./wordy').WordProblem;
+var ArgumentError = require('./wordy').ArgumentError;
 
 describe('Word Problem', function() {
 

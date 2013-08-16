@@ -17,7 +17,7 @@ class Bob
   private
 
   def taciturn?(s)
-    s.nil? || s.strip.empty?
+    s.strip.empty?
   end
 
   def curious?(s)
@@ -93,7 +93,7 @@ end
 class AnswerSilence
 
   def self.handles?(input)
-    input.nil? || input.strip.empty?
+    input.strip.empty?
   end
 
   def reply
@@ -144,7 +144,7 @@ class David
   Handler = Struct.new(:response, :pattern)
 
   HANDLERS = {
-    :nothing   => Handler.new("Fine. Be that way!", ->(i) { i.nil? || i.strip.empty? }),
+    :nothing   => Handler.new("Fine. Be that way!", ->(i) { i.strip.empty? }),
     :yell      => Handler.new("Woah, chill out!",   ->(i) { i.eql?(i.upcase) }),
     :question  => Handler.new("Sure.",              ->(i) { i.end_with?("?") }),
     :statement => Handler.new("Whatever.",          ->(i) { true })

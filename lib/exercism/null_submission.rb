@@ -1,5 +1,8 @@
 require 'delegate'
 class NullSubmission < SimpleDelegator
+  def approvable?
+    false
+  end
 
   def submitted?
     false
@@ -7,5 +10,9 @@ class NullSubmission < SimpleDelegator
 
   def participants
     []
+  end
+
+  def code
+    ''
   end
 end

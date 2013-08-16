@@ -9,14 +9,35 @@ class Submission
   field :a_at, as: :approved_at, type: Time
   field :apr, as: :is_approvable, type: Boolean, default: false
   field :apr_by, as: :flagged_by, type: Array, default: []
+  field :op, as: :wants_opinions, type: Boolean, default: false
+  field :mt_by, as: :muted_by, type: Array, default: []
 
   belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
   embeds_many :nits
 
-  def self.pending_for_language(language)
-    pending.
-      and(language: language.downcase)
+  validates_presence_of :user
+
+  def self.pending_for(language, exercise=nil)
+    if exercise
+      pending.
+        and(language: language.downcase).
+        and(slug: exercise.downcase)
+    else
+      pending.
+        and(language: language.downcase)
+    end
+  end
+
+  def self.approved_for(language, exercise=nil)
+    if exercise
+      approved.
+        and(language: language.downcase).
+        and(slug: exercise.downcase)
+    else
+      approved.
+        and(language: language.downcase)
+    end
   end
 
   def self.related(submission)
@@ -25,13 +46,15 @@ class Submission
   end
 
   def self.nitless
-    pending.
-      or({ :'nits._id'.exists =>  false },
-         { :'nits._id' => :user })
+    pending.where(:'nits._id'.exists => false)
   end
 
   def self.pending
     where(state: 'pending').desc(:at)
+  end
+
+  def self.approved
+    where(state: 'approved').desc(:at)
   end
 
   def self.on(exercise)
@@ -48,23 +71,22 @@ class Submission
     participants.add user
     nits.each do |nit|
       participants.add nit.nitpicker
-      participants.merge nit.comments.map(&:commenter)
     end
     participants.add approver if approver.present?
     @participants = participants
-  end
-
-  def argument_count
-    nits.map {|nit| nit.comments.count}.inject(0, :+)
   end
 
   def nits_by_others_count
     nits.select {|nit| nit.user != self.user }.count
   end
 
-  def discussions_involving_user_count
-    nits.flat_map {|nit| nit.comments.select { |comment| comment.commenter == self.user } }.count
-  end # triggered only when user has participated in a discussion, implicitly a return receipt on the feedback
+  def nits_by_self_count
+    nits.select {|nit| nit.user == self.user }.count
+  end
+
+  def discussion_involves_user?
+    [nits_by_self_count, nits_by_others_count].min > 0
+  end
 
   def versions_count
     @versions_count ||= related_submissions.count
@@ -127,6 +149,39 @@ class Submission
 
   def pending?
     state == 'pending'
+  end
+
+  def wants_opinions?
+    wants_opinions
+  end
+
+  def enable_opinions!
+    self.wants_opinions = true
+    self.save
+  end
+
+  def disable_opinions!
+    self.wants_opinions = false
+    self.save
+  end
+
+  def muted_by?(username)
+    muted_by.include?(username)
+  end
+
+  def mute!(username)
+    muted_by << username
+    save
+  end
+
+  def unmute!(username)
+    muted_by.delete(username)
+    save
+  end
+
+  def unmute_all!
+    muted_by.clear
+    save
   end
 
   private

@@ -1,3 +1,5 @@
+'use strict';
+
 exports.WordProblem   = WordProblem;
 exports.ArgumentError = ArgumentError;
 
@@ -35,7 +37,9 @@ WordProblem.prototype.tooComplicated = function() {
 };
 
 WordProblem.prototype.answer = function() {
-  if (this.tooComplicated()) throw new ArgumentError("I don't understand the question");
+  if (this.tooComplicated()) {
+    throw new ArgumentError("I don't understand the question");
+  }
   return this.evaluate();
 };
 

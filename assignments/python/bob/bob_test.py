@@ -1,62 +1,41 @@
+try:
+    import bob
+except ImportError:
+    raise SystemExit('Could not find bob.py. Does it exist?')
+
 import unittest
 
-from bob import Bob
-
-
-class TeenagerTest(unittest.TestCase):
+class BobTests(unittest.TestCase):
     def setUp(self):
-        self.teenager = Bob()
+        self.bob = bob.Bob()
 
-    def test_stating_something(self):
-        self.assertEqual('Whatever.', self.teenager.hey('Tom-ay-to, tom-aaaah-to.'))
+    def test_shouts(self):
+        'Bob responds to shouting'
+        self.assertEqual(
+            'Woah, chill out!',
+            self.bob.hey('SHOUTING')
+        )
 
-    @unittest.skip("Unskip once you are ready.")
-    def test_shouting(self):
-        self.assertEqual('Woah, chill out!', self.teenager.hey('WATCH OUT!'))
+    def test_questions(self):
+        'Bob responds to questions'
+        self.assertEqual(
+            'Sure.',
+            self.bob.hey('A question?')
+        )
 
-    @unittest.skip("Unskip once you are ready.")
-    def test_asking_a_question(self):
-        self.assertEqual('Sure.', self.teenager.hey('Does this cryogenic chamber make me look fat?'))
+    def test_statements(self):
+        'Bob responds to statements'
+        self.assertEqual(
+            'Whatever.',
+            self.bob.hey('A statement.')
+        )
 
-    @unittest.skip("Unskip once you are ready.")
-    def test_talking_forcefully(self):
-        self.assertEqual('Whatever.', self.teenager.hey("Let's go make out behind the gym!"))
-
-    @unittest.skip("Unskip once you are ready.")
-    def test_using_acronyms_in_regular_speech(self):
-        self.assertEqual('Whatever.', self.teenager.hey("It's OK if you don't want to go to the DMV."))
-
-    @unittest.skip("Unskip once you are ready.")
-    def test_forceful_questions(self):
-        self.assertEqual('Woah, chill out!', self.teenager.hey('WHAT THE HELL WERE YOU THINKING?'))
-
-    @unittest.skip("Unskip once you are ready.")
-    def test_shouting_numbers(self):
-        self.assertEqual('Woah, chill out!', self.teenager.hey('1, 2, 3 GO!'))
-
-    @unittest.skip("Unskip once you are ready.")
-    def test_shouting_with_special_characters(self):
-        self.assertEqual('Woah, chill out!', self.teenager.hey('ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!'))
-
-    @unittest.skip("Unskip once you are ready.")
-    def test_shouting_with_no_exclamation_mark(self):
-        self.assertEqual('Woah, chill out!', self.teenager.hey('I HATE YOU'))
-
-    @unittest.skip("Unskip once you are ready.")
-    def test_statement_containing_question_mark(self):
-        self.assertEqual('Whatever.', self.teenager.hey('ing with ? means a question.'))
-
-    @unittest.skip("Unskip once you are ready.")
     def test_silence(self):
-        self.assertEqual('Fine. Be that way!', self.teenager.hey(''))
-
-    @unittest.skip("Unskip once you are ready.")
-    def test_more_silence(self):
-        self.assertEqual('Fine. Be that way!', self.teenager.hey(None))
-
-    @unittest.skip("Unskip once you are ready.")
-    def test_long_silence(self):
-        self.assertEqual('Fine. Be that way!', self.teenager.hey('        '))
+        'Bob responds to silence'
+        self.assertEqual(
+            'Fine. Be that way.',
+            self.bob.hey('')
+        )
 
 if __name__ == '__main__':
-        unittest.main()
+    unittest.main()

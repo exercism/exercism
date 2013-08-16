@@ -1,15 +1,15 @@
-require 'app/presenters/dashboard'
 class ExercismApp < Sinatra::Base
 
   get '/' do
     if current_user.guest?
       erb :index
     else
-      dashboard = Dashboard.new(current_user, Submission.nitless)
+      dashboard = Gallery.new(current_user, Submission.nitless)
 
       locals = {
         submissions: dashboard.submissions,
-        filters: dashboard.filters
+        language: nil,
+        exercise: nil
       }
       erb :dashboard, locals: locals
     end
@@ -18,8 +18,7 @@ class ExercismApp < Sinatra::Base
   get '/account' do
     please_login("/account")
 
-    unstarted = Exercism.current_curriculum.unstarted_trails(current_user.current_languages)
-    erb :account, locals: {unstarted: unstarted}
+    erb :account
   end
 
   put '/account/email' do

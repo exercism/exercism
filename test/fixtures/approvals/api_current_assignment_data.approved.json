@@ -2,17 +2,17 @@
   "assignments": [
     {
       "track": "ruby",
-      "slug": "word-count",
-      "readme": "# Word Count\n\nWrite a program that given a phrase can count the occurrences of each word in that phrase.\n\nFor example for the input `\"olly olly in come free\"`\n\n```plain\nolly: 2\nin: 1\ncome: 1\nfree: 1\n```\n\n\n\n## Source\n\nThe golang tour [view source](http://tour.golang.org)\n",
-      "test_file": "word-count_test.rb",
-      "tests": "require 'minitest/autorun'\nrequire_relative 'phrase'\n\nclass PhraseTest < MiniTest::Unit::TestCase\n\n  def test_count_one_word\n    phrase = Phrase.new(\"word\")\n    counts = {\"word\" => 1}\n    assert_equal counts, phrase.word_count\n  end\n\n  def test_count_one_of_each\n    skip\n    phrase = Phrase.new(\"one of each\")\n    counts = {\"one\" => 1, \"of\" => 1, \"each\" => 1}\n    assert_equal counts, phrase.word_count\n  end\n\n  def test_count_multiple_occurrences\n    skip\n    phrase = Phrase.new(\"one fish two fish red fish blue fish\")\n    counts = {\"one\"=>1, \"fish\"=>4, \"two\"=>1, \"red\"=>1, \"blue\"=>1}\n    assert_equal counts, phrase.word_count\n  end\n\n  def test_count_everything_just_once\n    skip\n    phrase = Phrase.new(\"all the kings horses and all the kings men\")\n    phrase.word_count # count it an extra time\n    counts = {\n      \"all\"=>2, \"the\"=>2, \"kings\"=>2, \"horses\"=>1, \"and\"=>1, \"men\"=>1\n    }\n    assert_equal counts, phrase.word_count\n  end\n\n  def test_ignore_punctuation\n    skip\n    phrase = Phrase.new(\"car : carpet as java : javascript!!&@$%^&\")\n    counts = {\"car\"=>1, \"carpet\"=>1, \"as\"=>1, \"java\"=>1, \"javascript\"=>1}\n    assert_equal counts, phrase.word_count\n  end\n\n  def test_handles_cramped_lists\n    skip\n    phrase = Phrase.new(\"one,two,three\")\n    counts = {\"one\"=>1, \"two\"=>1, \"three\" => 1}\n    assert_equal counts, phrase.word_count\n  end\n\n  def test_include_numbers\n    skip\n    phrase = Phrase.new(\"testing, 1, 2 testing\")\n    counts = {\"testing\" => 2, \"1\" => 1, \"2\" => 1}\n    assert_equal counts, phrase.word_count\n  end\n\n  def test_normalize_case\n    skip\n    phrase = Phrase.new(\"go Go GO\")\n    counts = {\"go\" => 3}\n    assert_equal counts, phrase.word_count\n  end\nend\n"
+      "slug": "one",
+      "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
+      "test_file": "one_test.rb",
+      "tests": "require 'minitest/autorun'\nrequire_relative 'example'\nclass OneTest < Minitest::Test\n  def test_one\n    assert_equal 1, One.value\n  end\nend\n"
     },
     {
-      "track": "javascript",
-      "slug": "anagram",
-      "readme": "# Anagram\n\nWrite a program that, given a word and a list of possible anagrams, selects the correct one(s).\n\nGiven `\"listen\"` and `%w(enlists google inlets banana)` the program should return \"inlets\".\n\n\n## Source\n\nInspired by the Extreme Startup game [view source](https://github.com/rchatley/extreme_startup)\n",
-      "test_file": "anagram_test.spec.js",
-      "tests": "var Anagram = require('./anagram');\n\ndescribe('Anagram', function() {\n\n  it(\"no matches\",function() {\n    var detector = new Anagram(\"diaper\");\n    var matches = detector.match([ \"hello\", \"world\", \"zombies\", \"pants\"]);\n    expect(matches).toEqual([]);\n  });\n\n  xit(\"detects simple anagram\",function() {\n    var detector = new Anagram(\"ba\");\n    var matches = detector.match(['ab', 'abc', 'bac']);\n    expect(matches).toEqual(['ab']);\n  });\n  \n  xit(\"does not detect false positives\",function() {\n    var detector = new Anagram(\"bba\");\n    var matches = detector.match([\"aab\"]);\n    expect(matches).toEqual([]);\n  });\n\n  xit(\"detects multiple anagrams\",function() {\n    var detector = new Anagram(\"abc\");\n    var matches = detector.match(['ab', 'abc', 'bac']);\n    expect(matches).toEqual(['abc', 'bac']);\n  });\n\n  xit(\"detects anagram\",function() {\n    var detector = new Anagram(\"listen\");\n    var matches = detector.match(['enlists', 'google', 'inlets', 'banana']);\n    expect(matches).toEqual(['inlets']);\n  });\n\n  xit(\"detects multiple anagrams\",function() {\n    var detector = new Anagram(\"allergy\");\n    var matches = detector.match(['gallery', 'ballerina', 'regally', 'clergy', 'largely', 'leading']);\n    expect(matches).toEqual(['gallery', 'regally', 'largely']);\n  });\n});\n"
+      "track": "go",
+      "slug": "two",
+      "readme": "# Two\n\nThis is two.\n\n* two\n* two again\n\n\n## Source\n\nThe web. [view source](http://example.org)\n",
+      "test_file": "two_test.go",
+      "tests": "package two\n\nimport \"testing\"\n\nfunc TestTwo(t *testing.T) {\n\tif 2 != Due.Value {\n\t\tt.Errorf(\"Expected Due.Value to equal 2\")\n\t}\n}\n\n"
     }
   ]
 }

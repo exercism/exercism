@@ -1,4 +1,4 @@
-require('./luhn');
+var Luhn = require('./luhn');
 
 describe('Luhn',function() {
 

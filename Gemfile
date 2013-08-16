@@ -9,7 +9,7 @@ gem 'petroglyph'
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'redcarpet'
-gem 'rouge', git: 'https://github.com/jayferd/rouge.git'
+gem 'rouge'
 gem 'sinatra', require: 'sinatra/base'
 gem 'pony'
 gem 'sanitize'
@@ -20,6 +20,7 @@ group :test, :development do
   gem 'approvals', require: false
   gem 'rack-test', require: false
   gem 'mocha', require: false
-  gem 'mailcatcher'
   gem 'simplecov', require: false
+  gem 'json_expressions', require: false
+  gem 'mailcatcher', require: false # for Travis-CI
 end

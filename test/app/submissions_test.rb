@@ -1,6 +1,6 @@
 require './test/api_helper'
 
-class ApiTest < Minitest::Test
+class SubmissionsTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
@@ -16,9 +16,21 @@ class ApiTest < Minitest::Test
     }
   end
 
+  def generate_attempt(code = 'CODE')
+    Attempt.new(@alice, code, 'path/to/file.rb').save
+  end
+
   attr_reader :alice
   def setup
     @alice = User.create(alice_attributes)
+  end
+
+  def logged_in
+    { github_id: @alice.github_id }
+  end
+
+  def not_logged_in
+    { github_id: nil }
   end
 
   def teardown
@@ -26,7 +38,7 @@ class ApiTest < Minitest::Test
   end
 
   def test_nitpick_assignment
-    bob = User.create(github_id: 2, email: "bob@example.com", is_admin: true)
+    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
     Attempt.new(alice, 'CODE', 'path/to/file.rb').save
     submission = Submission.first
 
@@ -53,48 +65,14 @@ class ApiTest < Minitest::Test
     assert_equal true, submission.no_version_has_nits?
   end
 
-  def test_submit_comment_on_nit
-    bob = User.create(github_id: 2)
-
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
-    submission = Submission.first
-    nit = Nit.new(user: bob, comment: "ok")
-    submission.nits << nit
-    submission.save
-
-    url = "/submissions/#{submission.id}/nits/#{nit.id}/argue"
-    post url, {comment: "idk"}, {'rack.session' => {github_id: 2}}
-
-    nit = submission.reload.nits.find_by(id: nit.id)
-    text = nit.comments.first.body
-    assert_equal 'idk', text
-    assert_equal 0, submission.discussions_involving_user_count
-
-    url = "/submissions/#{submission.id}/nits/#{nit.id}/argue"
-    post url, {comment: "self portrait"}, {'rack.session' => {github_id: 1}}
-
-    nit = submission.reload.nits.find_by(id: nit.id)
-    text = nit.comments.last.body
-    assert_equal 'self portrait', text
-    assert_equal 1, submission.discussions_involving_user_count
-  end
-
   def test_input_sanitation
-    bob = User.create(github_id: 2, is_admin: true)
+    bob = User.create(github_id: 2, mastery: ['ruby'])
 
     Attempt.new(alice, 'CODE', 'path/to/file.rb').save
     submission = Submission.first
     nit = Nit.new(user: bob, comment: "ok")
     submission.nits << nit
     submission.save
-
-    # sanitizes argument
-    url = "/submissions/#{submission.id}/nits/#{nit.id}/argue"
-    post url, {comment: "<script type=\"text/javascript\">alert('You have been taken over, puny human.')</script>valid content <a href=\"foo.html\" onclick=\"alert('Now twice as effective')\">here</a>"}, {'rack.session' => {github_id: 1}}
-
-    nit = submission.reload.nits.find_by(id: nit.id)
-    text = nit.comments.last.body
-    assert_equal "alert('You have been taken over, puny human.')valid content <a href=\"foo.html\">here</a>", text
 
     # sanitizes response
     url = "/submissions/#{submission.id}/respond"
@@ -115,7 +93,7 @@ class ApiTest < Minitest::Test
   end
 
   def test_multiple_versions
-    bob = User.create(github_id: 2, email: "bob@example.com", is_admin: true)
+    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
     Attempt.new(alice, 'CODE', 'path/to/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count
@@ -146,5 +124,85 @@ class ApiTest < Minitest::Test
     assert_equal 2, new_submission.versions_count
     assert_equal false, new_submission.no_version_has_nits?
     assert_equal true, new_submission.some_version_has_nits?
+  end
+
+  def test_enable_opinions
+    submission = generate_attempt.submission
+
+    Message.stub(:ship, nil) do
+      post "/submissions/#{submission.id}/opinions/enable", {}, 'rack.session' => logged_in
+    end
+
+    assert_equal true, submission.reload.wants_opinions?
+  end
+
+  def test_disable_opinions
+    submission = generate_attempt.submission
+    submission.wants_opinions = true
+    submission.save
+
+    Message.stub(:ship, nil) do
+      post "/submissions/#{submission.id}/opinions/disable", {}, 'rack.session' => logged_in
+    end
+
+    assert_equal false, submission.reload.wants_opinions?
+  end
+
+  def test_change_opinions_when_not_logged_in
+    submission = generate_attempt.submission
+    post "/submissions/#{submission.id}/opinions/enable", {}, 'rack.session' => not_logged_in
+    assert_equal 302, last_response.status
+    assert_equal false, submission.reload.wants_opinions?
+  end
+
+  def test_mute_submission
+    submission = generate_attempt.submission
+
+    Message.stub(:ship, nil) do
+      post "/submissions/#{submission.id}/mute", {}, 'rack.session' => logged_in
+    end
+
+    assert_equal true, submission.reload.muted_by?(@alice.username)
+  end
+
+  def test_unmute_submission
+    submission = generate_attempt.submission
+
+    Message.stub(:ship, nil) do
+      post "/submissions/#{submission.id}/unmute", {}, 'rack.session' => logged_in
+    end
+
+    assert_equal false, submission.reload.muted_by?(@alice.username)
+  end
+
+  def test_unmute_all_on_new_nitpick
+    submission = generate_attempt.submission
+    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
+
+    url = "/submissions/#{submission.id}/respond"
+    Message.stub(:ship, nil) do
+      Submission.any_instance.expects(:unmute_all!)
+      post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
+    end
+  end
+
+  def test_unmute_all_on_approval
+    submission = generate_attempt.submission
+    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
+
+    url = "/submissions/#{submission.id}/approve"
+    Message.stub(:ship, nil) do
+      Submission.any_instance.expects(:unmute_all!)
+      post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
+    end
+  end
+
+  def test_unmute_all_on_enable_opinions
+    submission = generate_attempt.submission
+
+    Message.stub(:ship, nil) do
+      Submission.any_instance.expects(:unmute_all!)
+      post "/submissions/#{submission.id}/opinions/enable", {}, 'rack.session' => logged_in
+    end
   end
 end

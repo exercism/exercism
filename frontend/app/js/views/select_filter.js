@@ -1,67 +1,39 @@
 exercism.views.SelectFilter = Backbone.View.extend({
-  el: $('body'),
+  el: $('#pending-submissions'),
+
   events: {
-    "click a[data-action=set-filter]": "filterClick",
-    "click input[data-action=set-filter]": "checkClick"
+    "click #filter-nits": "nitHandler",
+    "click #filter-opinions": "opinionHandler",
   },
-  initialize: function() {
-    this.render();
+
+  initialize: function(options) {
+    this.listenTo(this.model, "change", this.render);
   },
-  filter: function (filter, value) {
-    $('div[data-' + filter + '][' + 'data-' + filter + '!=' + value + ']').hide();
-    $('a#all-' + filter).show();
+
+  filterNits: function () {
+    if (this.model.get('nits')) { this.$('div[data-nits][data-nits!=0]').hide(); }
   },
+
+  filterOpinions: function () {
+    if (this.model.get('opinions')) { this.$('div[data-opinions][data-opinions!=1]').hide(); }
+  },
+
   showAll: function () {
-    $('.pending-submission').show();
-  },
-  unfilter: function (filter) {
-    var label = $('button[data-filter=' + filter + ']').attr('data-label');
-    $('button[data-filter=' + filter + ']>span').first().html(label);
-    $('div[data-' + filter + ']').show();
-    $('a#all-' + filter).hide();
-  },
-  filters: function (element, index, list) {
-    if (element === "All") {
-      this.unfilter(element);
-    } else {
-      this.filter(index, element);
-    }
+    this.$('.pending-submission').show();
   },
 
-  renderFilters: function () {
+  render: function () {
     this.showAll();
-    _.each(this.model.attributes, this.filters, this);
+    this.filterNits();
+    this.filterOpinions();
   },
 
-  renderComponents: function() {
-    $('button[data-filter=user]>span').first().html((this.model.get('user') === "All") ? "User" : this.model.get('user'));
-    $('button[data-filter=exercise]>span').first().html((this.model.get('exercise') === "All") ? "Exercise" : this.model.get('exercise'));
-    $('button[data-filter=language]>span').first().html((this.model.get('language') === "All") ? "Language" : this.model.get('language'));
-    if (this.model.get('nits') !== 'All') {
-      $('input[data-filter=nits]').prop('checked', true);
-    }
-    if (this.model.get('arguments') !== 'All') {
-      $('input[data-filter=arguments]').prop('checked', true);
-    }
-
+  nitHandler: function (event) {
+    this.model.set("nits", $(event.currentTarget).is(':checked'));
   },
 
-  render: function() {
-    this.renderFilters();
-    this.renderComponents();
+  opinionHandler: function (event) {
+    this.model.set("opinions", $(event.currentTarget).is(':checked'));
   },
-  filterClick: function (event) {
-    event.preventDefault();
-    var value = $(event.currentTarget).html().trim();
-    var target = $(event.currentTarget).attr('data-target');
-    var filter = $(target).attr('data-filter');
-    this.model.set(filter, value);
-    exercism.routers.application.navigate(this.model.getRoute(), {trigger: true} );
-  },
-  checkClick: function (event) {
-    var filter = $(event.currentTarget).attr('data-filter');
-    this.model.setCheck(filter, $(event.currentTarget).is(':checked'));
-    exercism.routers.application.navigate(this.model.getRoute(), {trigger: true} );
-  }
 });
 

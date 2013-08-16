@@ -2,6 +2,7 @@ require 'digest/sha1'
 
 class User
   include Mongoid::Document
+  include Locksmith
 
   field :u, as: :username, type: String
   field :email, type: String
@@ -12,8 +13,9 @@ class User
   field :key, type: String, default: ->{ create_key }
   field :j_at, type: Time, default: ->{ Time.now.utc }
   field :adm, as: :is_admin, type: Boolean, default: false
-
-  alias_method :admin?, :is_admin
+  field :ms, as: :mastery, type: Array, default: []
+  field :jm, as: :journeymans_ticket, type: Array, default: []
+  field :aptc, as: :apprenticeship, type: Hash, default: {}
 
   has_many :submissions
   has_many :notifications
@@ -86,6 +88,10 @@ class User
     current.keys
   end
 
+  def nitpicks_trail?(language)
+    completed.keys.include?(language) || locksmith_in?(language)
+  end
+
   def current_exercises
     current.to_a.map {|cur| Exercise.new(*cur)}
   end
@@ -103,15 +109,23 @@ class User
   end
 
   def may_nitpick?(exercise)
-    admin? || completed?(exercise)
+    nitpicker_on?(exercise) || working_on?(exercise)
+  end
+
+  def nitpicker_on?(exercise)
+    unlocks?(exercise) || completed?(exercise)
+  end
+
+  def working_on?(exercise)
+    current_exercises.include?(exercise)
   end
 
   def nitpicker?
-    admin? || completed.size > 0
+    locksmith? || completed.size > 0
   end
 
   def new?
-    !admin? && submissions.count == 0
+    !locksmith? && submissions.count == 0
   end
 
   def owns?(submission)

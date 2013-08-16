@@ -103,5 +103,37 @@ class AttemptTest < Minitest::Test
     attempt = Attempt.new(user, 'CODE 3', 'one.fp', curriculum).save
     assert_equal attempt.previous_submission, user.submissions.first
   end
+
+  def test_a_new_attempt_is_flagged_if_the_previous_one_was
+    bob = User.create(username: 'bob')
+    Attempt.new(user, 'CODE 1', 'one.fp', curriculum).save
+    one = user.submissions.first
+    one.is_approvable = true
+    one.flagged_by << bob.username
+    one.save
+
+    Attempt.new(user, 'CODE 2', 'one.fp', curriculum).save
+    two = user.submissions.last
+    assert two.approvable?, "'Looks Great!' should have persisted."
+    assert_equal [], two.flagged_by
+  end
+
+  def test_newlines_are_removed_at_the_end_of_the_file
+    Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one.fp', curriculum).save
+    assert_equal "\nCODE1\n\nCODE2", user.submissions.first.code
+  end
+
+  def test_rejects_duplicates
+    first_attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one.fp', curriculum).save
+    second_attempt =  Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one.fp', curriculum)
+
+    assert_equal true, second_attempt.duplicate?
+  end
+
+  def test_no_reject_without_previous
+    attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one.fp', curriculum)
+    assert_equal false, attempt.duplicate?
+  end
+
 end
 

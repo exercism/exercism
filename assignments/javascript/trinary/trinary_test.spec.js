@@ -1,4 +1,4 @@
-var Trinary = require('./example');
+var Trinary = require('./trinary');
 
 describe('Trinary', function () {
 
