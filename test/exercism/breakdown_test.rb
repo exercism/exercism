@@ -4,14 +4,19 @@ class BreakdownTest < Minitest::Test
 
   def teardown
     Mongoid.reset
+    @alice = nil
+  end
+
+  def alice
+    @alice ||= User.create(username: 'alice')
   end
 
   def test_simple_breakdown
-    Submission.create(language: 'ruby', slug: 'bob')
-    Submission.create(language: 'ruby', slug: 'bob')
-    Submission.create(language: 'ruby', slug: 'word-count')
-    Submission.create(language: 'python', slug: 'bob')
-    Submission.create(language: 'python', slug: 'word-count')
+    Submission.create(user: alice, language: 'ruby', slug: 'bob')
+    Submission.create(user: alice, language: 'ruby', slug: 'bob')
+    Submission.create(user: alice, language: 'ruby', slug: 'word-count')
+    Submission.create(user: alice, language: 'python', slug: 'bob')
+    Submission.create(user: alice, language: 'python', slug: 'word-count')
 
     bob = Exercise.new('ruby', 'bob')
     word_count = Exercise.new('ruby', 'word-count')

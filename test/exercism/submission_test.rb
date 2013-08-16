@@ -1,27 +1,46 @@
-require './test/mongo_helper'
-require 'exercism/exercise'
-require 'exercism/nit'
-require 'exercism/user'
-require 'exercism/submission'
+require './test/integration_helper'
 require "mocha/setup"
 
-class Exercism
+class NongCurriculum
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    Locale.new('nong', 'no', 'not')
+  end
 end
 
 class SubmissionTest < Minitest::Test
 
+  def exercise
+    Exercise.new('nong', 'one')
+  end
+
+  def submission
+    return @submission if @submission
+
+    @submission = Submission.on(exercise)
+    @submission.user = User.create(username: 'charlie')
+    @submission.save
+    @submission
+  end
+
   def teardown
     Mongoid.reset
+    @submission = nil
   end
 
   def test_supersede_pending_submission
-    submission = Submission.new(state: 'pending')
+    assert_equal 'pending', submission.state
     submission.supersede!
-    assert_equal 'superseded', submission.reload.state
+    submission.reload
+    assert_equal 'superseded', submission.state
   end
 
   def test_do_not_supersede_approved_submissions
-    submission = Submission.new(state: 'approved')
+    submission.state = 'approved'
+    submission.save
     submission.supersede!
     assert_equal 'approved', submission.state
   end
