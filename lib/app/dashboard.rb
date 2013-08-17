@@ -8,6 +8,7 @@ class ExercismApp < Sinatra::Base
     dashboard = Dashboard.new(current_user, Submission.pending_for(language, exercise))
 
     locals = {
+      welcome: false,
       submissions: dashboard.submissions,
       language: language,
       exercise: exercise,
