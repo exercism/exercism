@@ -158,8 +158,8 @@ class Submission
     self.save
   end
 
-  def muted_by?(username)
-    muted_by.include?(username)
+  def muted_by?(user)
+    muted_by.include?(user.username)
   end
 
   def mute!(username)

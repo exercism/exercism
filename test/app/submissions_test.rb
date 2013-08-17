@@ -1,4 +1,5 @@
 require './test/api_helper'
+require 'mocha/setup'
 
 class SubmissionsTest < Minitest::Test
   include Rack::Test::Methods
@@ -184,7 +185,7 @@ class SubmissionsTest < Minitest::Test
       post "/submissions/#{submission.id}/mute", {}, 'rack.session' => logged_in
     end
 
-    assert_equal true, submission.reload.muted_by?(@alice.username)
+    assert submission.reload.muted_by?(alice)
   end
 
   def test_unmute_submission
@@ -194,7 +195,7 @@ class SubmissionsTest < Minitest::Test
       post "/submissions/#{submission.id}/unmute", {}, 'rack.session' => logged_in
     end
 
-    assert_equal false, submission.reload.muted_by?(@alice.username)
+    refute submission.reload.muted_by?(alice)
   end
 
   def test_unmute_all_on_new_nitpick

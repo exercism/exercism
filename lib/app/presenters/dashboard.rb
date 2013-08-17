@@ -57,7 +57,7 @@ class Dashboard
   private 
 
   def show_submission?(user, submission)
-    user.nitpicker_on?(submission.exercise) && !submission.muted_by?(user.username)
+    user.nitpicker_on?(submission.exercise) && !submission.muted_by?(user)
   end
 
 end
