@@ -19,7 +19,6 @@
         <a class='brand' href='/'>exercism.io</a>
         <% unless current_user.guest? %>
           <ul class="nav">
-            <%= dashboard_nav_li %>
             <% Exercism.languages.each do |language| %>
               <%= dashboard_nav_li language.to_s %>
             <% end %>

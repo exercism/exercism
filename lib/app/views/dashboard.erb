@@ -26,7 +26,9 @@
 
   </aside>
   <main id="pending-submissions" class="span8">
-  <% if show_pending_submissions?(language) %>
+  <% if welcome %>
+    <%= md(File.read('./lib/app/views/welcome.md')) %>
+  <% elsif show_pending_submissions?(language) %>
     <%= erb :pending, locals: {submissions: submissions, exercise: exercise} %>
     <% elsif language && current_user.submissions.where(language: language).count > 0 %>
     <%= erb :"about/welcome" %>
