@@ -20,4 +20,4 @@ At the moment, things have been pretty backed up, and I imagine that it can get 
 
 I would love to hear from you if you have ideas, or just want to share your thoughts about how things could be made better. What works, what doesn't, what would you hate to see change?
 
-Feel free to email me (my email address is on my github account), or open tickets on the repo. The link is in the footer.
+Feel free to email me (my email address is on [my github account](https://github.com/kytrinyx/)), or [open tickets](https://github.com/kytrinyx/exercism.io/issues) on the repo. The link is in the footer.
