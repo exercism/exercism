@@ -1,0 +1,1 @@
+node :code => stash.code

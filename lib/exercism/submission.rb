@@ -76,6 +76,10 @@ class Submission
     state == 'pending'
   end
 
+  def stashed?
+    state == 'stashed'
+  end
+
   private
 
   def trail
