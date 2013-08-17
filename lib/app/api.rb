@@ -70,7 +70,6 @@ class ExercismApp < Sinatra::Base
     unless params[:key]
       halt 401, {error: "Please provide API key"}.to_json
     end
-    code = ''
     user = User.find_by(key: params[:key]) 
     stash = user.submissions.select{ |submission| submission.stashed? }[0]
     pg :stash, locals: {stash: stash}
