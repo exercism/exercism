@@ -10,6 +10,9 @@
 (deftest does-not-confuse-different-duplicates
   (is (= [] (anagram/anagrams-for "galea" ["eagle"]))))
 
+(deftest eliminate-anagram-subsets
+  (is (= [] (anagram/anagrams-for "good" ["dog" "goody"]))))
+
 (deftest detect-anagram
   (is (= ["inlets"] (anagram/anagrams-for "listen" ["enlists" "google" "inlets" "banana"]))))
 
