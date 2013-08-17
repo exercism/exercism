@@ -1,5 +1,15 @@
 <div class="row">
   <div class="span11">
+    <% if submission.hibernating? %>
+      <div class="alert alert-notice alert--fixed-width">
+        <a class="close" href="#" data-dismiss="alert">×</a>
+        This submission has gone into hibernation because there has not been any activity on it for over a week.
+        <% if current_user.owns?(submission) %>
+        To take the submission back out of hibernation either respond to the nitpicks, or submit a new version.
+        <% end %>
+      </div>
+    <% end %>
+
     <%= erb :byline, locals: {exercise: submission.exercise, user: submission.user} %>
     <p>Submitted <%= ago(submission.at) %>.</p>
     <p>
