@@ -40,7 +40,7 @@
             <%= erb :backdoor %>
           <% else %>
             <li>
-              <a href="/account">
+              <a href="/<%= current_user.username %>">
                 <%= gravatar_tag current_user.avatar_url, size: 20 %>
                 hi, <%= current_user.username %>
               </a>

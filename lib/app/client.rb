@@ -15,12 +15,6 @@ class ExercismApp < Sinatra::Base
     end
   end
 
-  get '/account' do
-    please_login
-
-    erb :account
-  end
-
   put '/account/email' do
     if current_user.guest?
       halt 403, "You must be logged in to edit your email settings"
@@ -28,7 +22,7 @@ class ExercismApp < Sinatra::Base
 
     current_user.email = params[:email]
     current_user.save
-    redirect '/account'
+    redirect "/#{current_user.username}"
   end
 
 end

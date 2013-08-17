@@ -1,18 +1,46 @@
-<h1><%= user.username %></h1>
-<p>GitHub Profile: <%= github_profile_link(user) %></p>
+<div class="row">
+  <div class="span8">
+    <h1><%= user.username %></h1>
+    <p>GitHub Profile: <%= github_profile_link(user) %></p>
 
-<h4>Current</h4>
-<ul>
-  <% current.each do |exercise| %>
-    <li>
-      <% if current_user.is?(user.username) || current_user.nitpicker_on?(exercise) %>
-        <a href="<%= ['', user.username, exercise.language, exercise.slug].join('/') %>"><%= exercise.language.titleize %>: <%= exercise.name %></a>
-      <% else %>
-        <%= exercise.language.titleize %>: <%= exercise.name %>
+    <h4>Current</h4>
+    <ul>
+      <% current.each do |exercise| %>
+        <li>
+          <% if current_user.is?(user.username) || current_user.nitpicker_on?(exercise) %>
+            <a href="<%= ['', user.username, exercise.language, exercise.slug].join('/') %>"><%= exercise.language.titleize %>: <%= exercise.name %></a>
+          <% else %>
+            <%= exercise.language.titleize %>: <%= exercise.name %>
+          <% end %>
+        </li>
       <% end %>
-    </li>
-  <% end %>
-</ul>
+    </ul>
+  </div>
+  <div class="span4">
+    <% if current_user.is?(user.username) %>
+      <dl>
+        <dt>Api key:</dt>
+        <dd><%= current_user.key %></dd>
+      </dl>
+
+      <%= erb :"setup/unstarted_trails" %>
+
+    <p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on
+      <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
+
+    <p>
+      The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
+      <form action="/account/email" method="post">
+        <input type="hidden" name="_method" value="put" />
+        <div class="input-append">
+          <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
+          <input type="submit" name="update" value="Update" class="btn" />
+        </div>
+      </form>
+    </p>
+    <% end %>
+  </div>
+</div>
 
 <div class="row">
   <div class="span12">

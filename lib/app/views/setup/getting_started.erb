@@ -20,7 +20,7 @@
 
 <p>Your api key is: <b><%= current_user.key %></b></p>
 
-<p>You can always find your API key in <a href="/account">your account</a>.</p>
+<p>You can always find your API key in <a href="/#{current_user.username}">your account</a>.</p>
 
 <p>If you mess up your login, you can either edit the config file at
 <kbd>~/.exercism</kbd> or <kbd>~/.config/exercism</kbd>
