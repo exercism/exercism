@@ -29,3 +29,21 @@
 <p>Execute the tests with:</p>
 
 <pre>$ jasmine-node bob_test.spec.js</pre>
+
+
+<h4>Making your first node module: </h4>
+
+<p> 
+  To create a module that can be loaded with <code>var Bob = require(./bob);</code>, 
+  put this code in <code>bob.js</code>:
+</p>
+
+<pre>
+var Bob = function() {};
+module.exports = Bob;
+</pre>
+
+<p>
+  You can find more information about modules in the 
+  <a href="http://nodejs.org/api/modules.html#modules_module_exports">node documentation</a>.
+</p>
