@@ -40,11 +40,11 @@ class AnagramTest < MiniTest::Unit::TestCase
     detector = Anagram.new('mass')
     assert_equal [], detector.match(['last'])
   end
-  
+
   def test_eliminate_anagram_subsets
     skip
-    detector = Anagram.new('dog')
-    assert_equal [], detector.match(['good'])
+    detector = Anagram.new('good')
+    assert_equal [], detector.match(['dog', 'goody'])
   end
 
   def test_detect_anagram
