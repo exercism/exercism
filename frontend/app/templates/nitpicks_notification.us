@@ -1,0 +1,4 @@
+<span class="check"></span>
+<%= count %> new <%= count == 1 ? "nitpick" : "nitpicks" %> on your<br>
+<a href="<%= link %>"><%= language %>: <%= slug %></a>
+<div class="notification date"><%= ago %></div>

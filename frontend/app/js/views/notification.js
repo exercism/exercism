@@ -1,5 +1,6 @@
 exercism.views.Notification = Backbone.View.extend({
   defaultTemplate: JST["app/templates/notification.us"],
+  nitpicksTemplate: JST["app/templates/nitpicks_notification.us"],
   attemptTemplate: JST["app/templates/attempt_notification.us"],
   unlockedTemplate: JST["app/templates/unlocked_notification.us"],
 
@@ -35,6 +36,14 @@ exercism.views.Notification = Backbone.View.extend({
       case "done":
         this.$el.html(this.unlockedTemplate(this.model.toJSON()));
         break;
+        case "nitpick":
+          if (this.isSubmitter()) {
+            this.$el.html(this.nitpicksTemplate(this.model.toJSON()));
+          }
+          else {
+            this.$el.html(this.defaultTemplate(this.model.toJSON()));
+          }
+          break;
       default:
         this.$el.html(this.defaultTemplate(this.model.toJSON()));
         break;
@@ -56,4 +65,8 @@ exercism.views.Notification = Backbone.View.extend({
   isAtPath: function() {
     return (this.model.get("link") === window.location.pathname);
   },
+
+  isSubmitter: function() {
+    return (this.model.get("username") == this.model.get("recipient"))
+  }
 });
