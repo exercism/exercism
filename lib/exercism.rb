@@ -22,6 +22,7 @@ require 'exercism/use_cases/argument'
 require 'exercism/use_cases/assignments'
 require 'exercism/use_cases/launch'
 require 'exercism/use_cases/notify'
+require 'exercism/use_cases/stash'
 
 require 'exercism/curriculum/ruby'
 require 'exercism/curriculum/javascript'
