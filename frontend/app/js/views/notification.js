@@ -67,6 +67,6 @@ exercism.views.Notification = Backbone.View.extend({
   },
 
   isSubmitter: function() {
-    return (this.model.get("username") == this.model.get("recipient"))
+    return (this.model.get("username") === this.model.get("recipient"));
   }
 });
