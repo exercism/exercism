@@ -43,6 +43,10 @@ class Notification
     regarding == 'done'
   end
 
+  def hibernating?
+    regarding == 'hibernating'
+  end
+
   def recipient
     user
   end

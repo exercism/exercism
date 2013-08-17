@@ -8,9 +8,7 @@ class Mute
   def save
     if submission.pending?
       submission.muted_by << user.username
-      if hibernate?
-        submission.state = 'hibernating'
-      end
+      hibernate! if hibernate?
     end
     submission.save
   end
@@ -19,6 +17,11 @@ class Mute
 
   def hibernate?
     has_nits? && locksmith? && stale?
+  end
+
+  def hibernate!
+    submission.state = 'hibernating'
+    Notify.source(submission, 'hibernating')
   end
 
   def has_nits?

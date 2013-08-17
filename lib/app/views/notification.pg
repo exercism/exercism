@@ -3,7 +3,7 @@ node notification: notification do
   node recipient: recipient.username
   node date: notification.at.to_i
   node ago: ago(notification.at)
-  if notification.nitpick? || notification.done?
+  if notification.nitpick? || notification.done? || notification.hibernating?
     node link: "/submissions/#{notification.submission.id}"
   else
     node link: "/#{notification.username}/#{notification.language}/#{notification.slug}"

@@ -44,6 +44,8 @@ class MuteTest < Minitest::Test
     Mute.new(submission, alice).save
     submission.reload
     assert_equal 'hibernating', submission.state
+    note = submission.user.notifications.first
+    assert note.hibernating?
   end
 
   def test_do_not_hibernate_if_no_nits

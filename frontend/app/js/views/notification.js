@@ -3,6 +3,7 @@ exercism.views.Notification = Backbone.View.extend({
   nitpicksTemplate: JST["app/templates/nitpicks_notification.us"],
   attemptTemplate: JST["app/templates/attempt_notification.us"],
   unlockedTemplate: JST["app/templates/unlocked_notification.us"],
+  hibernatingTemplate: JST["app/templates/hibernating_notification.us"],
 
   tagName: "li",
 
@@ -36,7 +37,10 @@ exercism.views.Notification = Backbone.View.extend({
       case "done":
         this.$el.html(this.unlockedTemplate(this.model.toJSON()));
         break;
-        case "nitpick":
+      case "hibernating":
+        this.$el.html(this.hibernatingTemplate(this.model.toJSON()));
+        break;
+      case "nitpick":
           if (this.isSubmitter()) {
             this.$el.html(this.nitpicksTemplate(this.model.toJSON()));
           }
