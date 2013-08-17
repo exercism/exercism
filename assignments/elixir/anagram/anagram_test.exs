@@ -19,6 +19,11 @@ defmodule AnagramTest do
     # assert matches == ["stream", "maters"]
   end
 
+  test "do not detect anagram subsets" do
+    # matches = Anagram.match "good", %w(dog goody)
+    # assert matches == []
+  end
+
   test "detect anagram" do
     # matches = Anagram.match "listen", %w(enlists google inlets banana)
     # assert matches == ["inlets"]

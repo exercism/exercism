@@ -26,6 +26,12 @@ describe('Anagram', function() {
     expect(matches).toEqual(['stream', 'maters']);
   });
 
+  xit("does not detect anagram subsets",function() {
+    var detector = new Anagram("good");
+    var matches = detector.match(['dog', 'goody']);
+    expect(matches).toEqual([]);
+  });
+
   xit("detects anagram",function() {
     var detector = new Anagram("listen");
     var matches = detector.match(['enlists', 'google', 'inlets', 'banana']);
