@@ -1,0 +1,13 @@
+<% if nit_count.zero? %>
+  <p>Things to keep in mind:</p>
+<% else %>
+  <p>If you disagree with a nitpick, push back (politely).</p>
+<% end %>
+
+<ul>
+  <li>What trade-offs did you consider?</li>
+  <li>What drove you in the direction that you took?</li>
+  <% if version != 1 %>
+    <li>If you decided against incorporating feedback into your solution, what forces did you think about?</li>
+  <% end %>
+</ul>
