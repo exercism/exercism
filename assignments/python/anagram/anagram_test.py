@@ -30,6 +30,12 @@ class AnagramTests(unittest.TestCase):
             Anagram('galea').match(['eagle'])
         )
 
+    def test_eliminate_anagram_subsets(self):
+        self.assertEqual(
+            [],
+            Anagram('good').match('dog goody'.split())
+        )
+
     def test_detect_anagram(self):
         self.assertEqual(
             ['inlets'],

@@ -39,3 +39,11 @@ func TestAnagramsHaveSameLength(t *testing.T) {
 		t.Errorf("Expected tan, got %v.", matches[0:])
 	}
 }
+
+func TestEliminateAnagramSubsets(t *testing.T) {
+	in := "good"
+	possibleMatches := []string{"dog", "goody"}
+	if matches := Detect(in, possibleMatches); matches != nil {
+		t.Errorf("Expected empty slice, got %v.", matches)
+	}
+}
