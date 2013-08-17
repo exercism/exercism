@@ -62,4 +62,9 @@ describe("Bob", function() {
     var result = bob.hey('');
     expect(result).toEqual('Fine. Be that way!');
   });
+
+   xit("prolonged silence", function () {
+    var result = bob.hey('   ');
+    expect(result).toEqual('Fine. Be that way!');
+  });
 });

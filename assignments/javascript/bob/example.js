@@ -2,7 +2,7 @@ function Bob() {
   'use strict';
 
   function isSilence(message) {
-    return message === "";
+    return message.replace(/\s+/g, '') === "";
   }
 
   function isShouting(message) {
