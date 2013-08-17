@@ -2,7 +2,7 @@ class Exercism
   class RubyCurriculum
     def slugs
       %w(
-        bob word-count anagram beer-song
+        bob word-count anagram
         nucleotide-count point-mutations phone-number
         grade-school robot-name leap etl meetup space-age grains
         gigasecond triangle scrabble-score roman-numerals
@@ -12,7 +12,7 @@ class Exercism
         series difference-of-squares secret-handshake linked-list wordy
         hexadecimal largest-series-product kindergarden-garden
         binary-search-tree matrix robot-simulator nth-prime
-        palindrome-products pascals-triangle say
+        palindrome-products pascals-triangle say beer-song
         sum-of-multiples queen-attack saddle-points ocr-numbers
       )
     end
