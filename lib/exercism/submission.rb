@@ -29,15 +29,8 @@ class Submission
     end
   end
 
-  def self.approved_for(language, exercise=nil)
-    if exercise
-      approved.
-        and(language: language.downcase).
-        and(slug: exercise.downcase)
-    else
-      approved.
-        and(language: language.downcase)
-    end
+  def self.completed_for(language, slug)
+    approved.where(language: language, slug: slug)
   end
 
   def self.related(submission)

@@ -5,7 +5,7 @@ class ExercismApp < Sinatra::Base
     please_login
 
     language, exercise = params[:language], params[:exercise]
-    dashboard = Gallery.new(current_user, Submission.pending_for(language, exercise))
+    dashboard = Dashboard.new(current_user, Submission.pending_for(language, exercise))
 
     locals = {
       submissions: dashboard.submissions,

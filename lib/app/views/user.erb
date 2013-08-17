@@ -56,6 +56,8 @@
       <li>
       <% if current_user.is?(user.username) || current_user.nitpicker_on?(exercise) %>
       <a href="<%= ['', user.username, exercise.language, exercise.slug].join('/') %>"><%= exercise.name %></a>
+      <br>
+      <a href="<%= ['', 'completed', exercise.language, exercise.slug].join('/') %>">gallery &raquo;</a>
       <% else %>
       <%= exercise.name %>
       <% end %>

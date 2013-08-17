@@ -1,5 +1,21 @@
 class ExercismApp < Sinatra::Base
 
+  get '/completed/:language/:slug' do |language, slug|
+    please_login
+
+    language, slug = language.downcase, slug.downcase
+
+    exercise = Exercise.new(language, slug)
+
+    unless current_user.completed?(exercise)
+      flash[:notice] = "You'll have access to that page when you complete #{slug} in #{language}"
+      redirect '/'
+    end
+
+    submissions = Submission.completed_for(language, slug).limit(50)
+    erb :completed, locals: {submissions: submissions}
+  end
+
   get '/user/:language/:slug' do |language, slug|
     please_login
 

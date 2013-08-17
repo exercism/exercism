@@ -1,6 +1,4 @@
-# Deprecated.
-# This was the Dashboard, but got co-opted into also being a gallery.
-class Gallery
+class Dashboard
   class Submissions
     attr_reader :submissions
     def initialize(submissions)

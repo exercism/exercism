@@ -23,15 +23,6 @@
             <% Exercism.languages.each do |language| %>
               <%= dashboard_nav_li language.to_s %>
             <% end %>
-            <li class="dropdown">
-              <a href="#" data-toggle='dropdown' target='#'>Gallery</a>
-              <ul class="dropdown-menu">
-                <% Exercism.languages.each do |language| %>
-                  <%= gallery_nav_li language.to_s %>
-                <% end %>
-              </ul>
-
-            </li>
           </ul>
         <% end %>
         <ul class="nav pull-right">
