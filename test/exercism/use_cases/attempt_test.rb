@@ -66,6 +66,20 @@ class AttemptTest < Minitest::Test
     assert_equal 'pending', two.reload.state
   end
 
+  def test_a_new_attempt_supersedes_the_previous_hibernating_one
+    submission = Submission.create(user: user, language: 'femp', slug: 'one', at: Time.now, state: 'hibernating')
+    Attempt.new(user, 'CODE 2', 'one.fp', curriculum).save
+    one, two = user.reload.submissions
+    assert one.superseded?
+    assert two.pending?
+  end
+
+  def test_a_new_attempt_unmutes_previous_attempt
+    submission = Submission.create(user: user, language: 'femp', slug: 'one', at: Time.now, muted_by: %w(tom jerry))
+    Attempt.new(user, 'CODE 2', 'one.fp', curriculum).save
+    assert_equal [], submission.reload.muted_by
+  end
+
   def test_an_attempt_does_not_supersede_other_languages
     Attempt.new(user, 'CODE', 'one.no', curriculum).save
     Attempt.new(user, 'CODE', 'one.fp', curriculum).save

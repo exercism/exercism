@@ -27,6 +27,7 @@ class Nitpick
     unless comment.empty?
       @nitpicked = true
       submission.nits << Nit.new(user: nitpicker, comment: comment)
+      submission.state = 'pending' if submission.hibernating?
     end
     if @approvable
       # Total hack.

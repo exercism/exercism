@@ -18,6 +18,7 @@ class Attempt
   def save
     user.submissions_on(exercise).each do |sub|
       sub.supersede!
+      sub.unmute_all!
     end
     submission.code = code
     if previous_submission.approvable?

@@ -56,4 +56,30 @@ class NitpickTest < Minitest::Test
     assert submission.pending?
   end
 
+  def test_nitpicking_hibernating_exercise_sets_it_to_pending
+    submission.state = 'hibernating'
+    submission.save
+    nitpicker = User.new(username: 'alice')
+    nitpick = Nitpick.new(submission.id, nitpicker, 'a comment').save
+    submission.reload
+    assert submission.pending?
+  end
+
+  def test_do_not_change_state_of_approved_submission
+    submission.state = 'approved'
+    submission.save
+    nitpicker = User.new(username: 'alice')
+    nitpick = Nitpick.new(submission.id, nitpicker, 'a comment').save
+    submission.reload
+    assert submission.approved?
+  end
+
+  def test_do_not_change_state_of_superseded_submission
+    submission.state = 'superseded'
+    submission.save
+    nitpicker = User.new(username: 'alice')
+    nitpick = Nitpick.new(submission.id, nitpicker, 'a comment').save
+    submission.reload
+    assert submission.superseded?
+  end
 end

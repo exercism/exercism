@@ -70,7 +70,11 @@ class Submission
   end
 
   def nits_by_others_count
-    nits.select {|nit| nit.user != self.user }.count
+    nits_by_others.count
+  end
+
+  def nits_by_others
+    nits.select {|nit| nit.user != self.user }
   end
 
   def nits_by_self_count
@@ -124,7 +128,9 @@ class Submission
   end
 
   def supersede!
-    self.state = 'superseded' if pending?
+    if pending? || hibernating?
+      self.state = 'superseded'
+    end
     save
   end
 
@@ -142,6 +148,14 @@ class Submission
 
   def pending?
     state == 'pending'
+  end
+
+  def hibernating?
+    state == 'hibernating'
+  end
+
+  def superseded?
+    state == 'superseded'
   end
 
   def wants_opinions?
