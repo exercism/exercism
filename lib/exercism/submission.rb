@@ -167,8 +167,8 @@ class Submission
     save
   end
 
-  def unmute!(username)
-    muted_by.delete(username)
+  def unmute!(user)
+    muted_by.delete(user.username)
     save
   end
 

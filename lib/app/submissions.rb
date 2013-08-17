@@ -141,7 +141,7 @@ class ExercismApp < Sinatra::Base
   post '/submissions/:id/unmute' do |id|
     please_login
     submission = Submission.find(id)
-    submission.unmute!(current_user.username)
+    submission.unmute!(current_user)
     flash[:notice] = "The submission has been unmuted."
     redirect '/'
   end
