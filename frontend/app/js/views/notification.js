@@ -1,5 +1,7 @@
 exercism.views.Notification = Backbone.View.extend({
-  template: JST["app/templates/notification.us"],
+  defaultTemplate: JST["app/templates/notification.us"],
+  attemptTemplate: JST["app/templates/attempt_notification.us"],
+  unlockedTemplate: JST["app/templates/unlocked_notification.us"],
 
   tagName: "li",
 
@@ -21,8 +23,22 @@ exercism.views.Notification = Backbone.View.extend({
     }
   },
 
+  notificationType: function() {
+    return this.model.get("regarding");
+  },
+
   render: function() {
-    this.$el.html(this.template(this.model.toJSON()));
+    switch (this.notificationType()) {
+      case "code":
+        this.$el.html(this.attemptTemplate(this.model.toJSON()));
+        break;
+      case "done":
+        this.$el.html(this.unlockedTemplate(this.model.toJSON()));
+        break;
+      default:
+        this.$el.html(this.defaultTemplate(this.model.toJSON()));
+        break;
+    }
     this.readStatus();
     return this;
   },

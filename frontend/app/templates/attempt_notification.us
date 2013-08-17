@@ -1,0 +1,4 @@
+<span class="check"></span>
+<a href="<%= link %>">New submission</a><br>
+by <%= username %> on <%= language %>: <%= slug %>
+<div class="notification date"><%= ago %></div>

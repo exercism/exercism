@@ -115,6 +115,7 @@ attempt.submission.save
 Nitpick.new(attempt.submission.id, master, "It is missing `hey`.").save
 Notify.everyone(attempt.submission, 'nitpick')
 attempt = Attempt.new(alice, "class Bob\ndef hey\nend\nend", "bob.rb").save
+Notify.everyone(attempt.previous_submission, 'code', except: alice)
 attempt.submission.at = Time.now.utc - 8
 attempt.submission.save
 Nitpick.new(attempt.submission.id, master, "The formatting is off. Reindent.").save
@@ -137,7 +138,7 @@ Nitpick.new(attempt.submission.id, master, "`words.words` is so echo-y.").save
 Notify.everyone(attempt.submission, 'nitpick', except: master)
 attempt = Attempt.new(alice, "class Words\n  def initialize(phrase)\n  end\nend", "words.rb").save
 Approval.new(attempt.submission.id, master, 'better').save
-Notify.source(attempt.submission, 'approval')
+Notify.source(attempt.submission, 'done')
 alice.reload
 
 attempt = Attempt.new(alice, "class Anagram\nend", "anagram.rb").save
