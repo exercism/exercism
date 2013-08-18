@@ -2,12 +2,10 @@ class ExercismApp < Sinatra::Base
 
   helpers do
     def nitpick(id)
+      notice = "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
+      please_login(notice)
+
       submission = Submission.find(id)
-
-      if current_user.guest?
-        halt 403, "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
-      end
-
       nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
       nitpick.save
       if nitpick.nitpicked?
@@ -29,13 +27,12 @@ class ExercismApp < Sinatra::Base
     end
 
     def approve(id)
-      if current_user.guest?
-        halt 403, "You're not logged in right now, so I can't let you do that. Sorry."
-      end
+      please_login("You need to be logged in to do that. Sorry."
 
       submission = Submission.find(id)
       unless current_user.unlocks?(submission.exercise)
-        halt 403, "You do not have permission to approve that exercise."
+        flash[:notice] = "You do not have permission to mark that exercise as complete."
+        redirect '/'
       end
 
       begin
@@ -65,15 +62,15 @@ class ExercismApp < Sinatra::Base
         flash[:error] = "You do not have permission to do that."
         redirect '/'
       end
-      
+
       submission.send("#{state}_opinions!")
       submission.unmute_all! if submission.wants_opinions?
 
-      flash[:notice] =  if submission.wants_opinions?
-                          "Your request for more opinions has been made! You can disable this below when all is clear."
-                        else
-                          "Your request for more opinions has been disabled!"
-                        end
+      if submission.wants_opinions?
+        flash[:notice] = "Your request for more opinions has been made. You can disable this below when all is clear."
+      else
+        flash[:notice] = "Your request for more opinions has been disabled."
+      end
     end
   end
 
@@ -117,21 +114,19 @@ class ExercismApp < Sinatra::Base
   end
 
   post '/submissions/:id/opinions/enable' do |id|
-    flash[:error] = "You have to be logged in to do that. Use the back button to copy any comment you were working on in order to not lose your work."
-    please_login
+    please_login "You have to be logged in to do that."
     toggle_opinions(id, :enable)
     redirect "/submissions/#{id}"
   end
 
   post '/submissions/:id/opinions/disable' do |id|
-    flash[:error] = "You have to be logged in to do that. Use the back button to copy any comment you were working on in order to not lose your work."
-    please_login
+    please_login "You have to be logged in to do that."
     toggle_opinions(id, :disable)
     redirect "/submissions/#{id}"
   end
 
   post '/submissions/:id/mute' do |id|
-    please_login
+    please_login "You have to be logged in to do that."
     submission = Submission.find(id)
     submission.mute!(current_user.username)
     flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
@@ -139,7 +134,7 @@ class ExercismApp < Sinatra::Base
   end
 
   post '/submissions/:id/unmute' do |id|
-    please_login
+    please_login "You have to be logged in to do that."
     submission = Submission.find(id)
     submission.unmute!(current_user)
     flash[:notice] = "The submission has been unmuted."
@@ -147,17 +142,23 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
+    please_login("You have to be logged in to do that")
     submission = Submission.find(id)
     nit = submission.nits.where(id: nit_id).first
-    redirect "/submissions/#{id}" unless current_user == nit.nitpicker
+    unless current_user == nit.nitpicker
+      flash[:notice] = "Only the author may edit the text."
+      redirect "/submissions/#{id}"
+    end
     erb :edit_nit, locals: {submission: submission, nit: nit}
   end
 
   post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
     nit = Submission.find(id).nits.where(id: nit_id).first
-    if nit.nitpicker == current_user
-      nit.sanitized_update(params['comment'])
+    unless current_user == nit.nitpicker
+      flash[:notice] = "Only the author may edit the text."
     end
+
+    nit.sanitized_update(params['comment'])
     redirect "/submissions/#{id}"
   end
 
@@ -165,7 +166,7 @@ class ExercismApp < Sinatra::Base
     please_login
 
     unless current_user.locksmith?
-      flash[:notice] = "Sorry, need to know only."
+      flash[:notice] = "This is an admin-only area. Sorry."
       redirect '/'
     end
 

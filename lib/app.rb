@@ -52,8 +52,9 @@ class ExercismApp < Sinatra::Base
       end
     end
 
-    def please_login
+    def please_login(notice = nil)
       if current_user.guest?
+        flash[:notice] = notice if notice
         redirect "/please-login?return_path=#{request.path_info}"
       end
     end
