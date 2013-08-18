@@ -1,4 +1,4 @@
-(ns gigasecond.test (:use clojure.test))
+(ns gigasecond.test (:require [clojure.test :refer :all]))
 (load-file "gigasecond.clj")
 
 (deftest from-apr-25-2011

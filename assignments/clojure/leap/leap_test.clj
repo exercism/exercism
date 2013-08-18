@@ -1,4 +1,4 @@
-(ns leap.test (:use clojure.test))
+(ns leap.test (:require [clojure.test :refer :all]))
 (load-file "leap_year.clj")
 
 (deftest vanilla-leap-year
