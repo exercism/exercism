@@ -103,7 +103,7 @@ class SubmissionsTest < Minitest::Test
 
     post "/submissions/#{submission.id}/respond", {comment: "Could be better by ..."}
 
-    assert_response_status(403)
+    assert_response_status(302)
   end
 
   def test_guest_approves
@@ -112,7 +112,7 @@ class SubmissionsTest < Minitest::Test
 
     post "/submissions/#{submission.id}/approve", {comment: "Looks great!"}
 
-    assert_response_status(403)
+    assert_response_status(302)
   end
 
   def test_multiple_versions

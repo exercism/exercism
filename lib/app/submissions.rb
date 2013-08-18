@@ -27,7 +27,7 @@ class ExercismApp < Sinatra::Base
     end
 
     def approve(id)
-      please_login("You need to be logged in to do that. Sorry."
+      please_login("You need to be logged in to do that. Sorry.")
 
       submission = Submission.find(id)
       unless current_user.unlocks?(submission.exercise)
