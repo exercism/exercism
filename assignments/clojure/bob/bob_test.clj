@@ -1,4 +1,4 @@
-(ns bob.test (:use clojure.test))
+(ns bob.test (:require [clojure.test :refer :all]))
 (load-file "bob.clj")
 
 (deftest responds-to-something

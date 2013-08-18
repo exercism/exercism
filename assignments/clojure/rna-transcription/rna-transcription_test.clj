@@ -1,4 +1,4 @@
-(ns rna-transcription.test (:use clojure.test))
+(ns rna-transcription.test (:require [clojure.test :refer :all]))
 (load-file "dna.clj")
 
 (deftest transcribes-cytidine-unchanged

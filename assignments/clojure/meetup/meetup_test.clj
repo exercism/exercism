@@ -1,4 +1,4 @@
-(ns meetup.test (:use clojure.test))
+(ns meetup.test (:require [clojure.test :refer :all]))
 (load-file "meetup.clj")
 
 (deftest monteenth-of-may-2013

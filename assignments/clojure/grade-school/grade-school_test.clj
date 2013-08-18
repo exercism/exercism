@@ -1,4 +1,4 @@
-(ns grade-school.test (:use clojure.test))
+(ns grade-school.test (:require [clojure.test :refer :all]))
 (load-file "school.clj")
 
 (def db {})
