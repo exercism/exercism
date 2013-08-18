@@ -1,26 +1,21 @@
-(ns dna)
+(ns dna
+  (:refer-clojure :exclude [count]))
 
-(def dna-nucleotides ["A" "T" "C" "G"])
-(def rna-nucleotides ["U"])
-(def nucleotides (into dna-nucleotides rna-nucleotides))
+(def ^{:private :const} dna-nucleotide? #{\A \C \G \T})
+(def ^{:private :const} rna-nucleotide? #{\A \C \G \U})
 
-(defn- in?
-  "true if seq contains elm"
-  [seq elm]
-  (some #(= elm %) seq))
-
-(defn count
-  "count occurrences of nucleotide in strand"
-  [nucleotide strand]
-  (if (in? nucleotides nucleotide)
-    (->> (clojure.string/split strand #"")
-         (filter #(= nucleotide %1))
-         clojure.core/count)
-    (throw (Exception. (str "invalid nucleotide '" nucleotide "'")))))
+(def ^{:private :const} base-count
+  (apply hash-map (interleave dna-nucleotide? (repeat 0))))
 
 (defn nucleotide-counts
   "generate a map of counts per nucleotide in strand"
   [strand]
-  (reduce
-    #(assoc %1 %2 (count %2 strand))
-    {} dna-nucleotides))
+  (into base-count (frequencies strand)))
+
+(defn count
+  "count occurrences of nucleotide in strand"
+  [nucleotide strand]
+  (cond
+    (dna-nucleotide? nucleotide) ((nucleotide-counts strand) nucleotide)
+    (rna-nucleotide? nucleotide) 0
+    :else (throw (Exception. (str "invalid nucleotide '" nucleotide "'")))))
