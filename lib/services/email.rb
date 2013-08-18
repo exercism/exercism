@@ -3,6 +3,7 @@ require 'pony'
 class Email
   def initialize options
     @to = options.fetch(:to)
+    @from = options.fetch(:from)
     @subject = options.fetch(:subject)
     @body = options.fetch(:body)
     @intercept_emails = options.fetch(:intercept_emails)
@@ -25,7 +26,7 @@ class Email
   def base_options
     {
       to: @to,
-      from: "noreply@exercism.io",
+      from: @from,
       subject: @subject,
       body: @body
     }

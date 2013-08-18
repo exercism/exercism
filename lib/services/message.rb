@@ -40,6 +40,10 @@ class Message
     ERB.new(template(template_name)).result binding
   end
 
+  def from_email
+    'noreply@exercism.io'
+  end
+
   def template_name
     raise SubclassMustOverride
   end
@@ -55,6 +59,7 @@ class Message
   def ship
     Email.new(
       to: to,
+      from: from_email,
       subject: full_subject,
       body: body,
       intercept_emails: intercept_emails?,

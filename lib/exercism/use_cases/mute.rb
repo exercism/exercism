@@ -1,8 +1,10 @@
 class Mute
 
-  attr_reader :submission, :user
-  def initialize(submission, user)
-    @submission, @user = submission, user
+  attr_reader :submission, :user, :site_root
+  def initialize(submission, user, site_root = 'http://exercism.io')
+    @submission = submission
+    @user = user
+    @site_root = site_root
   end
 
   def save
@@ -22,6 +24,15 @@ class Mute
   def hibernate!
     submission.state = 'hibernating'
     Notify.source(submission, 'hibernating')
+    begin
+      HibernationMessage.ship(
+        instigator: user,
+        submission: submission,
+        site_root: site_root
+      )
+    rescue => e
+      puts "Failed to send email. #{e.message}."
+    end
   end
 
   def has_nits?
