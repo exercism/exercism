@@ -1,3 +1,26 @@
+class NullDashboard
+  attr_reader :user, :language, :slug
+  def initialize(user, language, slug)
+    @user, @language, @slug = user, language, slug
+  end
+
+  def breakdown
+    {}
+  end
+
+  def show_filters?
+    false
+  end
+
+  def submissions
+    []
+  end
+
+  def available_exercises
+    []
+  end
+end
+
 class Dashboard
   attr_reader :user, :language, :slug
   def initialize(user, language, slug)

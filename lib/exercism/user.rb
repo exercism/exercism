@@ -62,6 +62,10 @@ class User
     current.key?(language)
   end
 
+  def sees?(language)
+    doing?(language) || locksmith_in?(language)
+  end
+
   def complete!(exercise, options = {})
     trail = options[:on]
     self.completed[exercise.language] ||= []

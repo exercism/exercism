@@ -4,7 +4,8 @@ class ExercismApp < Sinatra::Base
   get route do
     please_login
 
-    dashboard = Dashboard.new(current_user, params[:language], params[:slug] || 'featured')
+    presenter = current_user.sees?(params[:language]) ? Dashboard : NullDashboard
+    dashboard = presenter.new(current_user, params[:language], params[:slug] || 'featured')
 
     locals = {
       welcome: false,
