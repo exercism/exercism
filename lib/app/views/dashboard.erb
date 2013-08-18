@@ -5,7 +5,9 @@
       <ul class="nav nav-tabs nav-stacked">
         <% if language %>
           <% if exercises.any? %>
-            <%= dashboard_assignment_nav(language) %>
+            <%= dashboard_assignment_nav(language, 'featured') %>
+            <%= dashboard_assignment_nav(language, 'opinions') %>
+            <%= dashboard_assignment_nav(language, 'looks-great') %>
             <% exercises.each do |exercise| %>
               <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise]) %>
             <% end %>
@@ -29,7 +31,7 @@
   <% if welcome %>
     <%= md(File.read('./lib/app/views/welcome.md')) %>
   <% elsif show_pending_submissions?(language) %>
-    <%= erb :pending, locals: {submissions: submissions, exercise: exercise} %>
+    <%= erb :pending, locals: {submissions: submissions, show_filters: show_filters} %>
     <% elsif language && current_user.submissions.where(language: language).count > 0 %>
     <%= erb :"about/welcome" %>
   <% else %>

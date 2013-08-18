@@ -1,19 +1,19 @@
 class ExercismApp < Sinatra::Base
 
-['/dashboard/:language/:exercise/?', '/dashboard/:language/?'].each do |route|
+['/dashboard/:language/:slug/?', '/dashboard/:language/?'].each do |route|
   get route do
     please_login
 
-    language, exercise = params[:language], params[:exercise]
-    dashboard = Dashboard.new(current_user, Submission.pending_for(language, exercise))
+    dashboard = Dashboard.new(current_user, params[:language], params[:slug] || 'featured')
 
     locals = {
       welcome: false,
+      show_filters: dashboard.show_filters?,
       submissions: dashboard.submissions,
-      language: language,
-      exercise: exercise,
-      exercises: exercises_available_for(language),
-      breakdown: Breakdown.of(language)
+      language: dashboard.language,
+      exercise: dashboard.slug,
+      exercises: dashboard.available_exercises,
+      breakdown: dashboard.breakdown
     }
     erb :dashboard, locals: locals
   end

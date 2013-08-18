@@ -10,8 +10,8 @@ require 'app/auth'
 require 'app/client'
 require 'app/curriculum'
 require 'app/submissions'
-require 'app/exercises'
 require 'app/dashboard'
+require 'app/exercises'
 require 'app/trails'
 require 'app/users'
 require 'app/not_found' # always include last
@@ -123,8 +123,11 @@ class ExercismApp < Sinatra::Base
       end
     end
 
-    def nav_text(slug=nil)
-      (slug || "featured").split("-").map(&:capitalize).join(" ")
+    def nav_text(slug)
+      if slug == 'opinions'
+        slug = 'wants second opinion'
+      end
+      slug.split("-").map(&:capitalize).join(" ")
     end
 
     def dashboard_nav_li(language=nil, html={})
@@ -132,19 +135,13 @@ class ExercismApp < Sinatra::Base
       %{<li class="#{active_top_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(language)}</a></li>}
     end
 
-    def dashboard_assignment_nav(language, exercise=nil, counts=nil)
+    def dashboard_assignment_nav(language, slug=nil, counts=nil)
       return if counts && counts.zero?
 
       path = path_for(language)
-      path += "/#{exercise}/" if exercise
+      path += "/#{slug}" if slug
       tally = counts ? " (#{counts})" : ""
-      %{<li class="#{active_nav(path)}"><a href="#{path}">#{nav_text(exercise)}#{tally}</a></li>}
-    end
-
-    def exercises_available_for(language)
-      Exercism.current_curriculum.in(language).exercises.select {|exercise|
-        current_user.nitpicker_on?(exercise)
-      }
+      %{<li class="#{active_nav(path)}"><a href="#{path}">#{nav_text(slug)}#{tally}</a></li>}
     end
 
     def unstarted_trails

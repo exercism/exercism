@@ -1,64 +1,56 @@
 class Dashboard
-  class Submissions
-    attr_reader :submissions
-    def initialize(submissions)
-      @submissions = submissions
-    end
-
-    def all
-      pending
-    end
-
-    def any?
-      not all.empty?
-    end
-
-    def pending
-      submissions
-    end
-
-    def no_nits_on_this_iteration
-      @not_recently_nitted ||= pending.select { |sub| sub.no_nits_yet? }.reverse
-    end
-
-    def never_been_nitted
-      @never_nitted ||= no_nits_on_this_iteration.select { |sub| sub.no_version_has_nits? }
-    end # must be a strict subset of those without nits on this iteration...
-
-    def nits_before_but_not_on_this_iteration
-      @nits_before ||= (no_nits_on_this_iteration - never_been_nitted)
-    end
-
-    def without_nits
-      no_nits_on_this_iteration
-    end
-
-    def with_nits
-      @with_nits ||= pending.select { |sub| sub.this_version_has_nits? }
-    end
+  attr_reader :user, :language, :slug
+  def initialize(user, language, slug)
+    @user = user
+    @language = language
+    @slug = slug
   end
 
-  attr_reader :user, :all_submissions
-  def initialize(user, all_submissions)
-    @user = user
-    @all_submissions = all_submissions
+  def breakdown
+    Breakdown.of(language)
+  end
+
+  def show_filters?
+    ![nil, 'featured', 'opinions'].include? slug
   end
 
   def submissions
     return @submissions if @submissions
 
-    submissions = all_submissions.select do |sub|
-      show_submission?(user, sub)
+    scope = pending
+    case slug
+    when 'looks-great'
+      scope = scope.and(is_approvable: true)
+    when 'opinions'
+      scope = scope.and(wants_opinions: true)
+    when 'featured'
+      scope = scope.select {|submission|
+        submission.no_nits_yet?
+      }
+    else
+      scope = scope.and(slug: slug)
     end
-    @submissions ||= Submissions.new(submissions)
+
+    submissions = scope.select do |submission|
+      show_submission?(user, submission)
+    end
+    @submissions = submissions
   end
 
+  def available_exercises
+    Exercism.current_curriculum.in(language).exercises.select {|exercise|
+      user.nitpicker_on?(exercise)
+    }
+  end
 
-  private 
+  private
+
+  def pending
+    @pending ||= Submission.where(language: language)
+  end
 
   def show_submission?(user, submission)
     user.nitpicker_on?(submission.exercise) && !submission.muted_by?(user)
   end
-
 end
 
