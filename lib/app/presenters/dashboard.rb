@@ -46,7 +46,7 @@ class Dashboard
   private
 
   def pending
-    @pending ||= Submission.where(language: language)
+    @pending ||= Submission.pending.where(language: language)
   end
 
   def show_submission?(user, submission)
