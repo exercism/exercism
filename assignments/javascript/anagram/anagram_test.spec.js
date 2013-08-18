@@ -43,4 +43,10 @@ describe('Anagram', function() {
     var matches = detector.match(['gallery', 'ballerina', 'regally', 'clergy', 'largely', 'leading']);
     expect(matches).toEqual(['gallery', 'regally', 'largely']);
   });
+
+  xit("detects anagrams case-insensitively",function() {
+    var detector = new Anagram("Orchestra");
+    var matches = detector.match(['cashregister', 'Carthorse', 'radishes']);
+    expect(matches).toEqual(['Carthorse']);
+  });
 });

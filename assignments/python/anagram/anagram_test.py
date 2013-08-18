@@ -50,8 +50,8 @@ class AnagramTests(unittest.TestCase):
 
     def test_anagrams_are_case_insensitive(self):
         self.assertEqual(
-            ['carthorse'],
-            Anagram('Orchestra').match('cashregister carthorse radishes'.split())
+            ['Carthorse'],
+            Anagram('Orchestra').match('cashregister Carthorse radishes'.split())
         )
 
 if __name__ == '__main__':
