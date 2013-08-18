@@ -1,4 +1,5 @@
-<span class="check"></span>
-<a href="<%= link %>">New submission</a><br>
-by <%= username %> on <%= language %>: <%= slug %>
-<div class="notification date"><%= ago %></div>
+<span class="icon-code"></span>
+<a href="<%= link %>"><%= language %>: <%= slug %></a>
+&middot; <%= username %>
+<br>
+new version <%= ago %>

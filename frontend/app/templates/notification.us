@@ -1,4 +1,4 @@
-<span class="check"></span><a href="<%= link %>"><%= language %>: <%= slug %></a>
-&middot; <%= username %>
-(<%= count %>)
+<span class="icon-comment<% count == 1 ? "" : "s" %>-alt"></span>
+<a href="<%= link %>"><%= language %>: <%= slug %></a>
+&middot; <%= username %> (<%= count %>)
 <div class="notification date"><%= ago %></div>

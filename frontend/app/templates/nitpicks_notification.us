@@ -1,4 +1,4 @@
-<span class="check"></span>
-<%= count %> new <%= count == 1 ? "nitpick" : "nitpicks" %> on your<br>
+<span class="icon-comment<% count == 1 ? "" : "s" %>"></span>
 <a href="<%= link %>"><%= language %>: <%= slug %></a>
-<div class="notification date"><%= ago %></div>
+<br>
+<%= count %> new <%= count == 1 ? "nitpick" : "nitpicks" %> <%= ago %>

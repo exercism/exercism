@@ -1,3 +1,4 @@
-<span class="check"></span>
-Your <a href="<%= link %>"><%= language %>: <%= slug %></a>
-submission went into hibernation <%= ago %>
+<span class="icon-moon"></span>
+<a href="<%= link %>"><%= language %>: <%= slug %></a>
+<br>
+hibernated <%= ago %>

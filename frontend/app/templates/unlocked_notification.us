@@ -1,4 +1,4 @@
-<span class="check"></span>
-your <%= language %>: <%= slug %><br>
-was <a href="<%= link %>">marked as complete</a>
-<div class="notification date"><%= ago %></div>
+<span class="icon-ok"></span>
+<a href="<%= link %>"><%= language %>: <%= slug %></a>
+<br>
+completed <%= ago %>
