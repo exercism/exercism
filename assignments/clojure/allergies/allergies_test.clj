@@ -1,4 +1,4 @@
-(ns allergies.test (:use clojure.test))
+(ns allergies.test (:require [clojure.test :refer :all]))
 (load-file "allergies.clj")
 
 (deftest no-allergies-at-all

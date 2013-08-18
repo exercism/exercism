@@ -1,4 +1,4 @@
-(ns point-mutations.test (:use clojure.test))
+(ns point-mutations.test (:require [clojure.test :refer :all]))
 (load-file "dna.clj")
 
 (deftest no-difference-between-empty-strands

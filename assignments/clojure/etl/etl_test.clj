@@ -1,4 +1,4 @@
-(ns etl.test (:use clojure.test))
+(ns etl.test (:require [clojure.test :refer :all]))
 (load-file "etl.clj")
 
 
