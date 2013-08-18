@@ -33,4 +33,9 @@ defmodule AnagramTest do
     # matches = Anagram.match "allergy", %w(gallery ballerina regally clergy largely leading)
     # assert matches == ["gallery", "regally", "largely"]
   end
+
+  test "detect anagrams case-insensitively" do
+    # matches = Anagram.match "Orchestra", %w(cashregister Carthorse radishes)
+    # assert matches == ["Carthorse"]
+  end
 end

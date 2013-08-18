@@ -20,4 +20,8 @@
   (is (= ["gallery" "regally" "largely"]
          (anagram/anagrams-for "allergy" ["gallery" "ballerina" "regally" "clergy" "largely" "leading"]))))
 
+(deftest case-insensitive-anagrams
+  (is (= ["Carthorse"]
+         (anagram/anagrams-for "Orchestra" ["cashregister" "Carthorse" "radishes"]))))
+
 (run-tests)

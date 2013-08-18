@@ -47,3 +47,18 @@ func TestEliminateAnagramSubsets(t *testing.T) {
 		t.Errorf("Expected empty slice, got %v.", matches)
 	}
 }
+
+func TestAnagramsAreCaseInsensitive(t *testing.T) {
+	in := "Orchestra"
+	possibleMatches := []string{"cashregister", "Carthorse", "radishes"}
+
+	matches := Detect(in, possibleMatches)
+
+	if len(matches) != 1 {
+		t.Errorf("Expected 1 element, got %d.", len(matches))
+	}
+
+	if matches[0] != "Carthorse" {
+		t.Errorf("Expected Carthorse, got %v.", matches[0:])
+	}
+}

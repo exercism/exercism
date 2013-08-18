@@ -64,7 +64,7 @@ class AnagramTest < MiniTest::Unit::TestCase
   def test_anagrams_are_case_insensitive
     skip
     detector = Anagram.new('Orchestra')
-    anagrams = detector.match %w(cashregister carthorse radishes)
-    assert_equal ['carthorse'], anagrams
+    anagrams = detector.match %w(cashregister Carthorse radishes)
+    assert_equal ['Carthorse'], anagrams
   end
 end
