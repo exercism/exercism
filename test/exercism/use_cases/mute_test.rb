@@ -41,7 +41,9 @@ class MuteTest < Minitest::Test
 
   def test_trigger_hibernation
     submission.nits << Nit.new(user: alice, at: Time.now - a_week)
-    Mute.new(submission, alice).save
+    Message.stub(:ship, nil) do
+      Mute.new(submission, alice).save
+    end
     submission.reload
     assert_equal 'hibernating', submission.state
     note = submission.user.notifications.first
