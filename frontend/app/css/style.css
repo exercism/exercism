@@ -179,3 +179,7 @@ textarea.comment {
 blockquote.submitter {
   border-left: 5px solid #0088cc;
 }
+
+a code {
+  color: #0088cc;
+}
