@@ -1,7 +1,7 @@
 require './test/api_helper'
 require './test/fixtures/fake_curricula'
 
-class ApiTest < Minitest::Test
+class AssignmentsApiTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
