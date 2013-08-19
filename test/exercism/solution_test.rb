@@ -30,6 +30,13 @@ class SolutionTest < Minitest::Test
     @alice = FakeUser.new
   end
 
+  def test_identify_current_exercise_with_missing_slug
+    exercise = Exercise.new('python', 'tissue')
+    code = Code.new('file.py', locales)
+    solution = Solution.new(alice, code)
+    assert_equal exercise, solution.exercise
+  end
+
   def test_identify_current_exercise
     exercise = Exercise.new('python', 'tissue')
     code = Code.new('/some/path/tissue/file.py', locales)
