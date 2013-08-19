@@ -5,6 +5,7 @@ require 'exercism/curriculum/elixir'
 require 'exercism/curriculum/clojure'
 require 'exercism/curriculum/go'
 require 'exercism/curriculum/python'
+require 'exercism/curriculum/haskell'
 
 class Exercism
   def self.current_curriculum
@@ -16,6 +17,7 @@ class Exercism
     @curriculum.add ElixirCurriculum.new
     @curriculum.add ClojureCurriculum.new
     @curriculum.add PythonCurriculum.new
+    @curriculum.add HaskellCurriculum.new
     @curriculum
   end
 
