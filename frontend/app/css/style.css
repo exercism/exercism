@@ -119,6 +119,10 @@ h1.home {
   background-image: url('/img/python.png');
 }
 
+.haskell-icon {
+  background-image: url('/img/haskell.png');
+}
+
 .nits {
   text-align: center;
   line-height: 30px;
