@@ -18,7 +18,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def generate_attempt(code = 'CODE')
-    Attempt.new(@alice, code, 'path/to/file.rb').save
+    Attempt.new(@alice, code, 'word-count/file.rb').save
   end
 
   attr_reader :alice
@@ -44,7 +44,7 @@ class SubmissionsTest < Minitest::Test
 
   def test_nitpick_assignment
     bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
     url = "/submissions/#{submission.id}/respond"
@@ -56,7 +56,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_nitpick_own_assignment
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count
 
@@ -73,7 +73,7 @@ class SubmissionsTest < Minitest::Test
   def test_input_sanitation
     bob = User.create(github_id: 2, mastery: ['ruby'])
 
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
     nit = Nit.new(user: bob, comment: "ok")
     submission.nits << nit
@@ -98,7 +98,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_guest_nitpicks
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
     post "/submissions/#{submission.id}/respond", {comment: "Could be better by ..."}
@@ -107,7 +107,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_guest_approves
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
     post "/submissions/#{submission.id}/approve", {comment: "Looks great!"}
@@ -117,7 +117,7 @@ class SubmissionsTest < Minitest::Test
 
   def test_multiple_versions
     bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count
     assert_equal 0, submission.nits.count
@@ -142,7 +142,7 @@ class SubmissionsTest < Minitest::Test
     assert_equal true, submission.this_version_has_nits?
 
     # is changed by a new submission
-    Attempt.new(alice, 'CODE REVISED', 'path/to/file.rb').save
+    Attempt.new(alice, 'CODE REVISED', 'word-count/file.rb').save
     new_submission = Submission.where(:slug => submission.slug).last
     assert_equal 2, new_submission.versions_count
     assert_equal false, new_submission.no_version_has_nits?

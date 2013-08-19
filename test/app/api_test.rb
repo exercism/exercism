@@ -48,7 +48,7 @@ class ApiTest < Minitest::Test
   def test_api_complains_if_no_trail_has_been_started
     Exercism.stub(:current_curriculum, curriculum) do
       bob = User.create(username: 'bob', github_id: 2, current: {})
-      post '/api/v1/user/assignments', {key: bob.key, code: 'THE CODE', path: 'code.rb'}.to_json
+      post '/api/v1/user/assignments', {key: bob.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
       assert_equal 400, last_response.status
       message = JSON.parse(last_response.body)["error"]
       assert_equal "Please start the trail before submitting.", message
@@ -58,7 +58,7 @@ class ApiTest < Minitest::Test
   def test_api_accepts_submission_attempt
     Exercism.stub(:current_curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
-        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
       end
 
       submission = Submission.first
@@ -152,9 +152,9 @@ class ApiTest < Minitest::Test
 
   def test_api_rejects_duplicates
     Exercism.stub(:current_curriculum, curriculum) do
-      Attempt.new(alice, 'THE CODE', 'code.rb').save
+      Attempt.new(alice, 'THE CODE', 'one/code.rb').save
       Notify.stub(:everyone, nil) do
-        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
       end
 
       response_error = JSON.parse(last_response.body)['error']

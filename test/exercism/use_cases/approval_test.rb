@@ -10,7 +10,7 @@ class ApprovalTest < Minitest::Test
     @locksmith = User.create(username: 'alice', github_id: 1, mastery: ['fake'])
     @user = User.create(username: 'bob', current: {'fake' => 'one'}, github_id: 2)
 
-    attempt = Attempt.new(user, 'CODE', 'one.ext', curriculum).save
+    attempt = Attempt.new(user, 'CODE', 'one/one.ext', curriculum).save
     @submission = Submission.first
   end
 
@@ -57,7 +57,7 @@ class ApprovalTest < Minitest::Test
 
   def test_approve_last_submission_on_trail_gives_a_dummy_assignment
     Approval.new(submission.id, locksmith, nil, curriculum).save
-    attempt = Attempt.new(user, 'CODE', 'two.ext', curriculum).save
+    attempt = Attempt.new(user.reload, 'CODE', 'two/two.ext', curriculum).save
     submission = Submission.last
     approval = Approval.new(submission.id, locksmith, nil, curriculum).save
     assert_equal 'congratulations', approval.submitter.current_in('fake').slug

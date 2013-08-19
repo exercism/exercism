@@ -29,7 +29,7 @@ class SubmissionApiTest < Minitest::Test
   end
 
   def test_get_submission_when_logged_in
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     get "/api/v1/submission/#{Submission.first.id}", {}, 'rack.session' => logged_in
     assert_equal 200, last_response.status
   end
@@ -105,7 +105,7 @@ class SubmissionApiValidResponseTest < Minitest::Test
   end
 
   def test_get_submission_valid_response
-    Attempt.new(alice, 'CODE', 'path/to/file.rb').save
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
     Nitpick.new(submission.id, alice, '### test nit', approvable: true).save

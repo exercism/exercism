@@ -28,7 +28,7 @@ class DashboardTest < Minitest::Test
       email: "#{language}_coder@example.com",
       current: { language => "bob" }
     })
-    attempt = Attempt.new(user, "class Bob\nend", "bob.#{exe}").save
+    attempt = Attempt.new(user, "class Bob\nend", "bob/bob.#{exe}").save
   end
 
   def generate_nitpick(attempt)
