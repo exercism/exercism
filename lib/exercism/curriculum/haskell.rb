@@ -4,7 +4,7 @@ class Exercism
       %w(
         bob rna-transcription word-count anagram beer-song
         nucleotide-count point-mutations phone-number
-        grade-school
+        grade-school robot-name
       )
     end
 
