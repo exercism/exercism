@@ -1,25 +1,16 @@
 require './test/integration_helper'
-
-class NongCurriculum
-  def slugs
-    %w(one two)
-  end
-
-  def locale
-    Locale.new('nong', 'no', 'not')
-  end
-end
+require './test/fixtures/fake_curricula'
 
 class ApprovalTest < Minitest::Test
 
   attr_reader :submission, :locksmith, :user, :curriculum
   def setup
     @curriculum = Curriculum.new('/tmp')
-    @curriculum.add NongCurriculum.new
-    @locksmith = User.create(username: 'alice', github_id: 1, mastery: ['nong'])
-    @user = User.create(username: 'bob', current: {'nong' => 'one'}, github_id: 2)
+    @curriculum.add FakeCurriculum.new
+    @locksmith = User.create(username: 'alice', github_id: 1, mastery: ['fake'])
+    @user = User.create(username: 'bob', current: {'fake' => 'one'}, github_id: 2)
 
-    attempt = Attempt.new(user, 'CODE', 'one.no', curriculum).save
+    attempt = Attempt.new(user, 'CODE', 'one.ext', curriculum).save
     @submission = Submission.first
   end
 
@@ -60,16 +51,16 @@ class ApprovalTest < Minitest::Test
   def test_approve_submission_sets_completed_assignments
     Approval.new(submission.id, locksmith, nil, curriculum).save
     user.reload
-    done = {'nong' => ['one']}
+    done = {'fake' => ['one']}
     assert_equal done, user.completed
   end
 
   def test_approve_last_submission_on_trail_gives_a_dummy_assignment
     Approval.new(submission.id, locksmith, nil, curriculum).save
-    attempt = Attempt.new(user, 'CODE', 'two.no', curriculum).save
+    attempt = Attempt.new(user, 'CODE', 'two.ext', curriculum).save
     submission = Submission.last
     approval = Approval.new(submission.id, locksmith, nil, curriculum).save
-    assert_equal 'congratulations', approval.submitter.current_on('nong').slug
+    assert_equal 'congratulations', approval.submitter.current_on('fake').slug
   end
 end
 
