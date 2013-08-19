@@ -2,7 +2,7 @@ class Exercism
   class HaskellCurriculum
     def slugs
       %w(
-        bob rna-transcription
+        bob rna-transcription word-count
       )
     end
 
