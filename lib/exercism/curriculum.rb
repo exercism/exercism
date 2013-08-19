@@ -7,8 +7,6 @@ require 'exercism/curriculum/go'
 require 'exercism/curriculum/python'
 
 class Exercism
-  class UnknownLanguage < StandardError; end
-
   def self.current_curriculum
     return @curriculum if @curriculum
 
@@ -49,16 +47,6 @@ class Curriculum
 
   def assign(exercise)
     self.in(exercise.language).assign(exercise.slug)
-  end
-
-  def identify_language(filename)
-    ext = filename.gsub(/\A[^\.]+\./,  '')
-    locale = locales.find {|lang| lang.code_extension == ext}
-    if locale
-      locale.language
-    else
-      raise Exercism::UnknownLanguage.new("Cannot determine which language `#{filename}` is in. Is `#{ext}` a valid file extension?")
-    end
   end
 
   def unstarted_trails(started)

@@ -36,17 +36,6 @@ class CurriculumTest < Minitest::Test
     assert_equal './test/fixtures/ruby/one', assignment.path
   end
 
-  def test_identify_language_from_filename
-    curriculum.add FakeGoCurriculum.new
-    assert_equal 'go', curriculum.identify_language('one.go')
-  end
-
-  def test_unknown_language
-    assert_raises Exercism::UnknownLanguage do
-      curriculum.identify_language('femp.fp')
-    end
-  end
-
   def test_unstarted_trails
     curriculum.add FakeGoCurriculum.new
     languages = curriculum.unstarted_trails(['go'])

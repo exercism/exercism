@@ -1,5 +1,6 @@
 require 'faraday'
 require 'exercism/locale'
+require 'exercism/code'
 require 'exercism/exercise'
 require 'exercism/trail'
 require 'exercism/assignment'

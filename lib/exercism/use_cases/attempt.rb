@@ -1,10 +1,14 @@
 class Attempt
 
-  attr_reader :user, :code, :language
-  def initialize(user, code, filename, curriculum = Exercism.current_curriculum)
+  attr_reader :user, :code, :file
+  def initialize(user, code, path, curriculum = Exercism.current_curriculum)
     @user = user
     @code = sanitize(code)
-    @language = curriculum.identify_language(filename)
+    @file = Code.new(path, curriculum.locales)
+  end
+
+  def language
+    file.language
   end
 
   def on_started_trail?
