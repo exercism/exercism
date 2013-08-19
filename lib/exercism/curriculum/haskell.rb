@@ -2,7 +2,7 @@ class Exercism
   class HaskellCurriculum
     def slugs
       %w(
-        bob
+        bob rna-transcription
       )
     end
 
