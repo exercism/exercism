@@ -128,7 +128,7 @@ class Submission
   end
 
   def supersede!
-    if pending? || hibernating?
+    if pending? || hibernating? || tweaked?
       self.state = 'superseded'
     end
     save
@@ -152,6 +152,10 @@ class Submission
 
   def hibernating?
     state == 'hibernating'
+  end
+
+  def tweaked?
+    state == 'tweaked'
   end
 
   def superseded?

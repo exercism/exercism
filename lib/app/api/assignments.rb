@@ -49,6 +49,13 @@ class ExercismApp < Sinatra::Base
       halt 400, {:error => "Please start the trail before submitting."}.to_json
     end
 
+    begin
+      # TODO: refactor to ask about validity
+      attempt.exercise
+    rescue Exercism::UnavailableExercise => e
+      halt 400, {:error => e.message}.to_json
+    end
+
     if attempt.duplicate?
       halt 400, {:error => "This attempt is a duplicate of the previous one."}.to_json
     end

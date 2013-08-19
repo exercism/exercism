@@ -24,6 +24,9 @@ class Attempt
       sub.supersede!
       sub.unmute_all!
     end
+    if user.completed?(exercise)
+      submission.state = 'tweaked'
+    end
     submission.code = code
     if previous_submission.approvable?
       submission.is_approvable = true
@@ -45,10 +48,14 @@ class Attempt
     @previous_submission ||= previous_submissions.first || NullSubmission.new(exercise)
   end
 
+  def exercise
+    @exercise ||= solution.exercise
+  end
+
   private
 
-  def exercise
-    @exercise ||= user.current_in(language)
+  def solution
+    @solution ||= Solution.new(user, file)
   end
 
   def sanitize(code)

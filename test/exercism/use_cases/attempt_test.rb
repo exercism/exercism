@@ -51,7 +51,7 @@ class AttemptTest < Minitest::Test
     assert_equal user, submission.user
   end
 
-  def test_attempt_is_created_for_correct_submission
+  def test_attempt_is_created_for_current_exercise
     assert_equal 0, Submission.count # guard
 
     Attempt.new(user, 'CODE', 'two/two.fp', curriculum).save
@@ -60,6 +60,20 @@ class AttemptTest < Minitest::Test
     submission = Submission.first
     assert_equal 'femp', submission.language
     assert_equal 'two', submission.slug
+    assert submission.pending?
+    assert_equal user, submission.user
+  end
+
+  def test_attempt_is_created_for_completed_exercise
+    assert_equal 0, Submission.count # guard
+
+    Attempt.new(user, 'CODE', 'one/one.fp', curriculum).save
+
+    assert_equal 1, Submission.count
+    submission = Submission.first
+    assert_equal 'femp', submission.language
+    assert_equal 'one', submission.slug
+    assert submission.tweaked?, 'tweaked'
     assert_equal user, submission.user
   end
 

@@ -10,7 +10,7 @@ class AssignmentsApiTest < Minitest::Test
 
   attr_reader :alice, :curriculum
   def setup
-    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'one', 'go' => 'two'})
+    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'one', 'go' => 'two'}, completed: {'ruby' => ['zero']})
     @curriculum = Curriculum.new('./test/fixtures')
     @curriculum.add FakeCurriculum.new
     @curriculum.add FakeRubyCurriculum.new
@@ -67,6 +67,35 @@ class AssignmentsApiTest < Minitest::Test
       assert_equal 201, last_response.status
 
       options = {format: :json, :name => 'api_submission_accepted'}
+      Approvals.verify(last_response.body, options)
+    end
+  end
+
+  def test_api_accepts_submission_on_completed_exercise
+    Exercism.stub(:current_curriculum, curriculum) do
+      Notify.stub(:everyone, nil) do
+        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'zero/code.rb'}.to_json
+      end
+
+      submission = Submission.first
+      ex = Exercise.new('ruby', 'zero')
+      assert_equal ex, submission.exercise
+      assert_equal 201, last_response.status
+
+      options = {format: :json, :name => 'api_submission_accepted_on_completed'}
+      Approvals.verify(last_response.body, options)
+    end
+  end
+
+  def test_api_rejects_submission_on_future_exercise
+    Exercism.stub(:current_curriculum, curriculum) do
+      Notify.stub(:everyone, nil) do
+        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'future/code.rb'}.to_json
+      end
+
+      assert_equal 400, last_response.status
+
+      options = {format: :json, :name => 'reject_future_exercises'}
       Approvals.verify(last_response.body, options)
     end
   end
