@@ -1,10 +1,4 @@
 <% unless unstarted_trails.empty? %>
-  <% if current_user.current_languages.empty? %>
-    <h3>Start a trail</h3>
-  <% else %>
-    <h3>Start another trail</h3>
-  <% end %>
-
   <% unstarted_trails.each do |language| %>
     <form action="/user/<%= language %>/start" method="POST">
       <input type="submit" value="start <%= language %>" class="btn btn-primary btn-success"/>
