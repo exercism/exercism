@@ -23,7 +23,7 @@ class Approval
   end
 
   def exercise
-    @exercise ||= submitter.current_on(submission.language)
+    @exercise ||= submitter.current_in(submission.language)
   end
 
   def trail

@@ -7,6 +7,10 @@ Exercise = Struct.new(:language, :slug) do
     "Exercise: #{slug} (#{namify(language)})"
   end
 
+  def in?(other_language)
+    language == other_language
+  end
+
   private
 
   def namify(s)

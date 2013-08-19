@@ -31,55 +31,10 @@ class UserTest < Minitest::Test
     assert_match %r{\A[a-z0-9]{40}\z}, user.key
   end
 
-  def test_user_on_a_single_trail
+  def test_user_has_a_problem_set
     user = User.new(current: {'nong' => 'one'})
     ex = Exercise.new('nong', 'one')
     assert_equal [ex], user.current_exercises
-  end
-
-  def test_user_on_multiple_trails
-    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
-    ex1 = Exercise.new('nong', 'one')
-    ex2 = Exercise.new('femp', 'two')
-    assert_equal [ex1, ex2], user.current_exercises
-  end
-
-  def test_user_knows_what_they_are_doing
-    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
-    assert user.doing?('femp')
-  end
-
-  def test_user_knows_what_they_are_not_doing
-    user = User.new(current: {'nong' => 'one'})
-    assert !user.doing?('femp')
-  end
-
-  def test_user_finds_current_exercise_for_a_language
-    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
-
-    assert_equal Exercise.new('femp', 'two'), user.current_on('femp')
-  end
-
-  def test_is_working_on_exercise
-    one = Exercise.new('nong', 'one')
-    two = Exercise.new('nong', 'two')
-    user = User.new(current: {'nong' => 'one'})
-    assert user.working_on?(one)
-    refute user.working_on?(two)
-  end
-
-  def test_user_completes_an_exercise
-    nong = Locale.new('nong', 'no', 'not')
-    trail = Trail.new(nong, %w(one two three), '/tmp')
-
-    user = User.new(current: {'nong' => 'two'})
-
-    one = Exercise.new('nong', 'one')
-    two = Exercise.new('nong', 'two')
-    user.complete!(two, on: trail)
-
-    assert user.completed?(two), 'Expected to have completed nong:two'
-    assert_equal [one], user.current_exercises
   end
 
   def test_user_is_nitpicker_on_completed_assignment
@@ -122,11 +77,6 @@ class UserTest < Minitest::Test
   def test_user_not_a_guest
     user = User.new
     refute user.guest?
-  end
-
-  def test_user_current_languages
-    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
-    assert_equal %w(nong femp).sort, user.current_languages.sort
   end
 
   def test_user_is?

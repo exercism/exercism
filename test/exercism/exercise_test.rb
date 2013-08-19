@@ -23,5 +23,11 @@ class ExerciseTest < Minitest::Test
     exercise = Exercise.new('go', 'one')
     assert_equal 'Exercise: one (Go)', exercise.to_s
   end
+
+  def test_exercise_in_p
+    exercise = Exercise.new('go', 'one')
+    assert exercise.in?('go')
+    refute exercise.in?('clojure')
+  end
 end
 

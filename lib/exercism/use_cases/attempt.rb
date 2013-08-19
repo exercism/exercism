@@ -48,7 +48,7 @@ class Attempt
   private
 
   def exercise
-    @exercise ||= user.current_on(language)
+    @exercise ||= user.current_in(language)
   end
 
   def sanitize(code)

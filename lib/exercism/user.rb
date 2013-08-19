@@ -3,6 +3,7 @@ require 'digest/sha1'
 class User
   include Mongoid::Document
   include Locksmith
+  include ProblemSet
 
   field :u, as: :username, type: String
   field :email, type: String
@@ -58,10 +59,6 @@ class User
     save
   end
 
-  def doing?(language)
-    current.key?(language)
-  end
-
   def sees?(language)
     doing?(language) || locksmith_in?(language)
   end
@@ -74,34 +71,12 @@ class User
     save
   end
 
-  def completed?(exercise)
-    completed_exercises.any? {|_, exercises| exercises.include?(exercise) }
-  end
-
-  def completed_exercises
-    unless @completed_exercises
-      @completed_exercises = {}
-      completed.map do |language, slugs|
-        @completed_exercises[language] = slugs.map {|slug| Exercise.new(language, slug)}
-      end
-    end
-    @completed_exercises
-  end
-
-  def current_languages
-    current.keys
-  end
-
   def nitpicks_trail?(language)
     completed.keys.include?(language) || locksmith_in?(language)
   end
 
   def current_exercises
     current.to_a.map {|cur| Exercise.new(*cur)}
-  end
-
-  def current_on(language)
-    current_exercises.find {|ex| ex.language == language}
   end
 
   def ==(other)
@@ -118,10 +93,6 @@ class User
 
   def nitpicker_on?(exercise)
     unlocks?(exercise) || completed?(exercise)
-  end
-
-  def working_on?(exercise)
-    current_exercises.include?(exercise)
   end
 
   def nitpicker?

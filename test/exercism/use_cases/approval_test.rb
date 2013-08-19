@@ -60,7 +60,7 @@ class ApprovalTest < Minitest::Test
     attempt = Attempt.new(user, 'CODE', 'two.ext', curriculum).save
     submission = Submission.last
     approval = Approval.new(submission.id, locksmith, nil, curriculum).save
-    assert_equal 'congratulations', approval.submitter.current_on('fake').slug
+    assert_equal 'congratulations', approval.submitter.current_in('fake').slug
   end
 end
 
