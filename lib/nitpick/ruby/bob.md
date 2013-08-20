@@ -76,6 +76,8 @@ If the submitter seems experienced, go ahead and point to the fact that the meth
 
 Supporting nitpicks at this stage is often about naming: They'll often have `shouting` or `yelling` and `question` or `asking`, and then the last one will be `empty`. Empty prattle is, to my mind, discussions about the weather, the local sports team, and Aunt Emma's gall bladder surgery. In other words: this is the same _implementation vs meaning_ discussion that we probably had back in round 1.
 
+Also, this is often where people have predicate methods that are named `isYelling` or `is_yelling` (with or without a question mark). If appropriate, talk about how the `is_` prefix is redundant because of the question-mark.
+
 ### Round 3: Completed
 
 At this point, they probably have a reasonable solution, and it's absolutely fine to leave them with some final remarks, and let them get on their way.
