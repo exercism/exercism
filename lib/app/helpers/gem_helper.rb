@@ -10,8 +10,10 @@ module Sinatra
     end
 
     def upgrade_gem?(user_agent)
-      v = gem_version(user_agent)
-      v.major == 0 && v.minor == 0 && v.patch < 25
+      if user_agent
+        v = gem_version(user_agent)
+        v.major == 0 && v.minor == 0 && v.patch < 25
+      end
     end
   end
 end
