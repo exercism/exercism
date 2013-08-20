@@ -28,6 +28,9 @@ class ExercismApp < Sinatra::Base
   end
 
   post '/api/v1/user/assignments' do
+    if upgrade_gem?(request.user_agent)
+      halt 400, {:error => "Please upgrade your exercism gem"}.to_json
+    end
     request.body.rewind
     data = request.body.read
     if data.empty?

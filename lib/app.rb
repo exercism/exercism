@@ -22,6 +22,7 @@ require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/github_link_helper'
 require 'app/helpers/profile_helper'
+require 'app/helpers/gem_helper'
 
 require 'services'
 
@@ -41,6 +42,7 @@ class ExercismApp < Sinatra::Base
   helpers Sinatra::GravatarHelper
   helpers Sinatra::GithubLinkHelper
   helpers Sinatra::ProfileHelper
+  helpers Sinatra::GemHelper
 
   helpers do
 
