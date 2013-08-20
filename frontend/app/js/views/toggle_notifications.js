@@ -9,6 +9,8 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
     if(this.isAuthorizedUser()) {
       this.startNotificationCenter();
     }
+    _.bindAll(this, 'close_on_esc');
+    $(document).keyup(this.close_on_esc);
   },
 
   render: function() {
@@ -36,6 +38,16 @@ exercism.views.ToggleNotifications = Backbone.View.extend({
 
   toggle: function() {
     this.listNotifications.toggle();
+  },
+
+  close_on_esc: function(event) {
+    var notificationsAreVisible = this.listNotifications.$el.hasClass('reveal-notifications');
+    var noInputHasFocus = $(':focus').length === 0;
+    var keyIsEsc = event.keyCode === 27;
+
+    if(notificationsAreVisible && noInputHasFocus && keyIsEsc) {
+      this.toggle();
+    }
   },
 
   buttonStyle: function() {
