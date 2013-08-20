@@ -28,9 +28,6 @@ class ExercismApp < Sinatra::Base
   end
 
   post '/api/v1/user/assignments' do
-    if upgrade_gem?(request.user_agent)
-      halt 400, {:error => "Please upgrade your exercism gem"}.to_json
-    end
     request.body.rewind
     data = request.body.read
     if data.empty?
@@ -65,6 +62,15 @@ class ExercismApp < Sinatra::Base
 
     attempt.save
     Notify.everyone(attempt.previous_submission, 'code', except: user)
+
+    if upgrade_gem?(request.user_agent)
+      options = {
+        user: User.find_by(username: 'exercism-daemon'),
+        comment: "Please upgrade your exercism gem, as there have been some significant improvements."
+      }
+      attempt.submission.nits << Nit.new(options)
+      attempt.submission.save
+    end
 
     status 201
     pg :attempt, locals: {submission: attempt.submission}
