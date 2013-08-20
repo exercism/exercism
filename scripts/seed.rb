@@ -14,6 +14,12 @@ end
 
 reset
 
+daemon_data = {
+  username: 'exercism-daemon',
+  github_id: 0
+}
+User.create(daemon_data)
+
 master_data = {
   username: 'master',
   github_id: -1,
