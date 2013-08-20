@@ -16,7 +16,7 @@
             <div class="avatar">
               <%= gravatar_tag submission.user.avatar_url, size: 30 %>
             </div>
-            <a href="/<%= submission.user.username %>"><%= submission.user.username %></a>
+            <%= profile_link(submission.user) %>
           </td>
 
           <td>
