@@ -192,4 +192,65 @@ class AssignmentsApiTest < Minitest::Test
       assert_equal "This attempt is a duplicate of the previous one.", response_error
     end
   end
+
+  def test_unsubmit_success
+    Exercism.stub(:current_curriculum, curriculum) do
+      unsubmit_object = stub()
+
+      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+      unsubmit_object.expects(:unsubmit)
+
+      delete '/api/v1/user/assignments', {key: alice.key}
+      assert_equal 204, last_response.status
+    end
+  end
+
+  def test_unsubmit_fails_no_submission
+    Exercism.stub(:current_curriculum, curriculum) do
+      unsubmit_object = stub()
+
+      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+      unsubmit_object.expects(:unsubmit).raises(Unsubmit::NothingToUnsubmit.new)
+
+      delete '/api/v1/user/assignments', {key: alice.key}
+      assert_equal 404, last_response.status
+    end
+  end
+
+  def test_unsubmit_fails_with_nits
+    Exercism.stub(:current_curriculum, curriculum) do
+      unsubmit_object = stub()
+
+      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+      unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionHasNits.new)
+
+      delete '/api/v1/user/assignments', {key: alice.key}
+      assert_equal 403, last_response.status
+    end
+  end
+
+  def test_unsubmit_fails_already_approved
+    Exercism.stub(:current_curriculum, curriculum) do
+      unsubmit_object = stub()
+
+      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+      unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionApproved.new)
+
+      delete '/api/v1/user/assignments', {key: alice.key}
+      assert_equal 403, last_response.status
+    end
+  end
+
+  def test_unsubmit_fails_too_old
+    Exercism.stub(:current_curriculum, curriculum) do
+      unsubmit_object = stub()
+
+      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+      unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionTooOld.new)
+
+      delete '/api/v1/user/assignments', {key: alice.key}
+      assert_equal 403, last_response.status
+    end
+  end
+
 end
