@@ -10,20 +10,12 @@ class Solution
 
   def exercise
     return @exercise if @exercise
-    exercise = Exercise.new(language, slug)
+    exercise = Exercise.new(code.language, code.slug)
     validate exercise
     @exercise = exercise
   end
 
   private
-
-  def slug
-    code.slug || user.current_in(language).slug
-  end
-
-  def language
-    code.language
-  end
 
   def validate(candidate)
     unless user.working_on?(candidate) || user.completed?(candidate)
