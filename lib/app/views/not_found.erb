@@ -4,6 +4,6 @@
   <p>We don't have that, but you could try
 <% else %>
   <p>We don't have that but we have some other really nice things.</p>
-  <p>Were you looking for instructions? We have some of those in your <a href="/account">account</a> area.</p>
+  <p>Were you looking for instructions? We have some of those in your <%= profile_link(current_user, "account") %> area.</p>
   <p>Or perhaps you were looking for some long-form explanations of <a href="/cycle">how the feedback cycle works</a> or <a href="/nitpick">how to nitpick</a>?</p>
 <% end %>
