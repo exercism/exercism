@@ -78,6 +78,8 @@ Supporting nitpicks at this stage is often about naming: They'll often have `sho
 
 Also, this is often where people have predicate methods that are named `isYelling` or `is_yelling` (with or without a question mark). If appropriate, talk about how the `is_` prefix is redundant because of the question-mark.
 
+One interesting approach that comes up every now and then is to extract methods that return lambdas. Some people name these methods as though they were predicate methods. It's worth having them experiment in IRB with `!!Proc.new{ false }` or something like that. I think the lambda approach is great, the methods just shouldn't be named with question-marks. It's a great place to have an in-depth discussion about expectations around predicate methods.
+
 ### Round 3: Completed
 
 At this point, they probably have a reasonable solution, and it's absolutely fine to leave them with some final remarks, and let them get on their way.
