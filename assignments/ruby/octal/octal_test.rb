@@ -21,9 +21,9 @@ class OctalTest < MiniTest::Unit::TestCase
     assert_equal 9, Octal.new("11").to_decimal
   end
 
-  def test_octal_128_is_decimal_88
+  def test_octal_130_is_decimal_88
     skip
-    assert_equal 88, Octal.new("128").to_decimal
+    assert_equal 88, Octal.new("130").to_decimal
   end
 
   def test_octal_2047_is_decimal_1063
