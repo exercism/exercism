@@ -1,6 +1,7 @@
 class ExercismApp < Sinatra::Base
 
   get '/:username' do |username|
+    please_login
     user = User.where(username: username).first
     halt 404 unless user
     title(user.username)
