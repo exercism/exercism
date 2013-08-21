@@ -50,6 +50,10 @@ class User
     submissions.order_by(at: :desc).where(language: exercise.language, slug: exercise.slug)
   end
 
+  def most_recent_submission
+    submissions.order_by(at: :asc).last
+  end
+
   def guest?
     false
   end
