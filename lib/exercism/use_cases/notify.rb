@@ -6,6 +6,15 @@ class Notify
     end
   end
 
+  def self.about(note, options)
+    data = {
+      note: note,
+      regarding: 'custom',
+      user: options[:to]
+    }
+    Notification.create(data)
+  end
+
   def self.source(submission, regarding, options = {})
     except = Array(options[:except])
     unless except.include?(submission.user)
