@@ -1,5 +1,7 @@
 require 'exercism'
 require 'sinatra/petroglyph'
+require 'will_paginate'
+require 'will_paginate/mongoid'
 
 require 'app/presenters/dashboard'
 
@@ -36,6 +38,7 @@ class ExercismApp < Sinatra::Base
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
 
+  helpers WillPaginate::Sinatra::Helpers
   helpers Sinatra::SubmissionsHelper
   helpers Sinatra::SiteTitleHelper
   helpers Sinatra::FuzzyTimeHelper
