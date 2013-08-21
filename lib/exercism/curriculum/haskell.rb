@@ -8,7 +8,7 @@ class Exercism
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies
         atbash-cipher
-        crypto-square
+        crypto-square kindergarden-garden
       )
     end
 
