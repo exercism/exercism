@@ -113,6 +113,10 @@ class Submission
     !this_version_has_nits?
   end
 
+  def older_than?(time)
+    self.at < (Time.now.utc - time)
+  end
+
   def exercise
     @exercise ||= Exercise.new(language, slug)
   end
