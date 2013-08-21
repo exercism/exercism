@@ -7,6 +7,8 @@ class Exercism
         grade-school robot-name leap etl meetup space-age grains
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies
+        atbash-cipher
+        crypto-square kindergarden-garden robot-simulator queen-attack
       )
     end
 
