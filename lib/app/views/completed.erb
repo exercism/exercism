@@ -30,9 +30,11 @@
       <% end %>
     </tbody>
   </table>
-  <p>Want to see more? <a href="https://github.com/kytrinyx/exercism.io/issues/532" target="_blank">Add pagination :)</a></p>
+  <p>
+    <%= will_paginate submissions, renderer: BootstrapPagination::Sinatra %>
+  </p>
 <% else %>
   <p>
-    <b>No recently approved submissions in <%= submission.language %>: <%= submission.slug %></b>
+    <b>No recently approved submissions in <%= language %>: <%= slug %></b>
   </p>
 <% end %>
