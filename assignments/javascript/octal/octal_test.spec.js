@@ -18,8 +18,8 @@ describe('octal', function() {
     expect(new Octal('11').toDecimal()).toEqual(9);
   });
 
-  xit('128 is decimal 88', function() {
-    expect(new Octal('128').toDecimal()).toEqual(88);
+  xit('130 is decimal 88', function() {
+    expect(new Octal('130').toDecimal()).toEqual(88);
   });
 
   xit('2047 is decimal 1063', function() {
