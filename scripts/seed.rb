@@ -100,7 +100,8 @@ Exercism.current_curriculum.trails.each do |_, trail|
 
       if rand(10) == 0
         submission.is_approvable = true
-        submission.flagged_by = users.sample.username
+        submission.flagged_by ||= []
+        submission.flagged_by << users.sample.username
       end
       if rand(10) == 0
         submission.wants_opinions = true
