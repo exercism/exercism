@@ -64,12 +64,7 @@ class ExercismApp < Sinatra::Base
     Notify.everyone(attempt.previous_submission, 'code', except: user)
 
     if upgrade_gem?(request.user_agent)
-      options = {
-        user: User.find_by(username: 'exercism-daemon'),
-        comment: "Please upgrade your exercism gem, as there have been some significant improvements."
-      }
-      attempt.submission.nits << Nit.new(options)
-      attempt.submission.save
+      Notify.about("Please upgrade your exercism gem, as there have been some significant improvements.", to: attempt.submission.user)
     end
 
     status 201
