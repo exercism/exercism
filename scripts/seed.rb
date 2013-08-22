@@ -78,24 +78,12 @@ Exercism.current_curriculum.trails.each do |_, trail|
         Nitpick.new(submission.id, master, "It is missing `hey` in iteration #{i}.").save
       end
       if rand(2) == 0
-        locksmith = nil
-        if master.unlocks?(exercise)
-          locksmith = master
-        elsif journeyman.unlocks?(exercise)
-          locksmith = journeyman
-        elsif apprentice.unlocks?(exercise)
-          locksmith = apprentice
-        end
-        if locksmith
-          Approval.new(submission.id, locksmith, 'very nice').save
-          Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
-
-          Approval.new(submission.id, locksmith, 'expressive').save
-          Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
-
-          Approval.new(submission.id, locksmith, 'short and sweet').save
-          Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
-        end
+        Completion.new(submission).save
+        Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
+        Completion.new(submission).save
+        Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
+        Completion.new(submission).save
+        Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
       end
 
       if rand(10) == 0
@@ -130,7 +118,7 @@ Notify.everyone(attempt.submission, 'nitpick', except: master)
 attempt = Attempt.new(alice.reload, "class Code \nend", "#{alice.current_in('ruby').slug}/code.rb").save
 attempt.submission.at = Time.now.utc - 6
 attempt.submission.save
-Approval.new(attempt.submission.id, master, 'very nice').save
+Completion.new(attempt.submission).save
 alice.reload
 
 attempt = Attempt.new(alice.reload, "class Code \nend", "#{alice.current_in('ruby').slug}/code.rb").save
@@ -144,7 +132,7 @@ attempt.submission.save
 Nitpick.new(attempt.submission.id, master, "`words.words` is so echo-y.").save
 Notify.everyone(attempt.submission, 'nitpick', except: master)
 attempt = Attempt.new(alice.reload, "class Code \nend", "#{alice.current_in('ruby').slug}/code.rb").save
-Approval.new(attempt.submission.id, master, 'better').save
+Completion.new(attempt.submission).save
 Notify.source(attempt.submission, 'done')
 alice.reload
 

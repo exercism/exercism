@@ -87,14 +87,6 @@ class SubmissionsTest < Minitest::Test
 
     nit = submission.reload.comments.last
     assert_equal "bad();good", nit.comment
-
-    # sanitizes approval
-    url = "/submissions/#{submission.id}/approve"
-    Message.stub(:ship, nil) do
-      post url, {comment: "<script type=\"text/javascript\">awful();</script><a href=\"bad.html\" onblur=\"foo();\">good</a>"}, {'rack.session' => {github_id: 2}}
-    end
-    nit = submission.reload.comments.last
-    assert_equal "awful();<a href=\"bad.html\">good</a>", nit.comment
   end
 
   def test_guest_nitpicks
@@ -102,15 +94,6 @@ class SubmissionsTest < Minitest::Test
     submission = Submission.first
 
     post "/submissions/#{submission.id}/respond", {comment: "Could be better by ..."}
-
-    assert_response_status(302)
-  end
-
-  def test_guest_approves
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
-    submission = Submission.first
-
-    post "/submissions/#{submission.id}/approve", {comment: "Looks great!"}
 
     assert_response_status(302)
   end
@@ -203,17 +186,6 @@ class SubmissionsTest < Minitest::Test
     bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
 
     url = "/submissions/#{submission.id}/respond"
-    Message.stub(:ship, nil) do
-      Submission.any_instance.expects(:unmute_all!)
-      post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
-    end
-  end
-
-  def test_unmute_all_on_approval
-    submission = generate_attempt.submission
-    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
-
-    url = "/submissions/#{submission.id}/approve"
     Message.stub(:ship, nil) do
       Submission.any_instance.expects(:unmute_all!)
       post url, {comment: "good"}, {'rack.session' => {github_id: 2}}

@@ -26,35 +26,6 @@ class ExercismApp < Sinatra::Base
       submission.unmute_all!
     end
 
-    def approve(id)
-      please_login("You need to be logged in to do that. Sorry.")
-
-      submission = Submission.find(id)
-      unless current_user.unlocks?(submission.exercise)
-        flash[:notice] = "You do not have permission to mark that exercise as complete."
-        redirect '/'
-      end
-
-      begin
-        unless current_user == submission.user
-          ApprovalMessage.ship(
-            instigator: current_user,
-            submission: submission,
-            site_root: site_root
-          )
-        end
-      rescue => e
-        puts "Failed to send email. #{e.message}."
-      end
-      approval = Approval.new(id, current_user, params[:comment]).save
-
-      if approval.has_comment?
-        Notify.everyone(submission, 'nitpick', except: [current_user, submission.user])
-      end
-      Notify.source(submission, 'done', except: current_user)
-      submission.unmute_all!
-    end
-
     def toggle_opinions(id, state)
       submission = Submission.find(id)
 
@@ -88,28 +59,14 @@ class ExercismApp < Sinatra::Base
     erb :nitpick, locals: {submission: submission}
   end
 
-  # TODO: Write javascript to submit form here
+  # TODO: Submit to this endpoint rather than the `respond` one.
   post '/submissions/:id/nitpick' do |id|
     nitpick(id)
-    redirect '/'
+    redirect "/submissions/#{id}"
   end
 
-  # TODO: Write javascript to submit form here
-  post '/submissions/:id/approve' do |id|
-    approve(id)
-    redirect '/'
-  end
-
-  # I don't like this, but I don't see how to make
-  # the front-end to be able to use the same textarea for two purposes
-  # without it. It seems like this is a necessary
-  # fallback even if we implement the javascript stuff.
   post '/submissions/:id/respond' do |id|
-    if params[:approve]
-      approve(id)
-    else
-      nitpick(id)
-    end
+    nitpick(id)
     redirect "/submissions/#{id}"
   end
 

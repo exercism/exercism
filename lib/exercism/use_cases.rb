@@ -1,5 +1,4 @@
 require 'exercism/use_cases/attempt'
-require 'exercism/use_cases/approval'
 require 'exercism/use_cases/completion'
 require 'exercism/use_cases/nitpick'
 require 'exercism/use_cases/assignments'
