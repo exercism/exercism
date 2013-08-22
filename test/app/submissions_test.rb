@@ -51,7 +51,7 @@ class SubmissionsTest < Minitest::Test
     Message.stub(:ship, nil) do
       post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
     end
-    assert_equal 1, submission.reload.nits.count
+    assert_equal 1, submission.reload.comments.count
     assert_equal 1, submission.reload.nits_by_others_count
   end
 
@@ -64,7 +64,7 @@ class SubmissionsTest < Minitest::Test
     Message.stub(:ship, nil) do
       post url, {comment: "good"}, {'rack.session' => {github_id: 1}}
     end
-    assert_equal 1, submission.reload.nits.count
+    assert_equal 1, submission.reload.comments.count
     assert_equal 0, submission.reload.nits_by_others_count
     assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
@@ -75,8 +75,8 @@ class SubmissionsTest < Minitest::Test
 
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
-    nit = Nit.new(user: bob, comment: "ok")
-    submission.nits << nit
+    nit = Comment.new(user: bob, comment: "ok")
+    submission.comments << nit
     submission.save
 
     # sanitizes response
@@ -85,7 +85,7 @@ class SubmissionsTest < Minitest::Test
       post url, {comment: "<script type=\"text/javascript\">bad();</script>good"}, {'rack.session' => {github_id: 2}}
     end
 
-    nit = submission.reload.nits.last
+    nit = submission.reload.comments.last
     assert_equal "bad();good", nit.comment
 
     # sanitizes approval
@@ -93,7 +93,7 @@ class SubmissionsTest < Minitest::Test
     Message.stub(:ship, nil) do
       post url, {comment: "<script type=\"text/javascript\">awful();</script><a href=\"bad.html\" onblur=\"foo();\">good</a>"}, {'rack.session' => {github_id: 2}}
     end
-    nit = submission.reload.nits.last
+    nit = submission.reload.comments.last
     assert_equal "awful();<a href=\"bad.html\">good</a>", nit.comment
   end
 
@@ -120,7 +120,7 @@ class SubmissionsTest < Minitest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count
-    assert_equal 0, submission.nits.count
+    assert_equal 0, submission.comments.count
     assert_equal true, submission.no_version_has_nits?
     assert_equal false, submission.this_version_has_nits?
 
@@ -134,8 +134,8 @@ class SubmissionsTest < Minitest::Test
     assert_equal false, submission.this_version_has_nits?
 
     # not changed by nit being added by another user
-    nit = Nit.new(user: bob, comment: "ok")
-    submission.nits << nit
+    nit = Comment.new(user: bob, comment: "ok")
+    submission.comments << nit
     submission.save
     assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?

@@ -5,7 +5,7 @@ node submission: submission do
   node is_approvable: submission.approvable?
   node is_unlockable: !!user.unlocks?(submission.exercise)
   node wants_opinion: submission.wants_opinions?
-  collection nits: submission.nits do |nit|
+  collection nits: submission.comments do |nit|
     node nit: nit do
       attributes :id
       node text: md(nit.comment)

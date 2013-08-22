@@ -2,16 +2,16 @@ class Approval
 
   include InputSanitation
 
-  attr_reader :id, :approver, :comment, :curriculum
-  def initialize(id, approver, comment = nil, curriculum = Exercism.current_curriculum)
+  attr_reader :id, :approver, :body, :curriculum
+  def initialize(id, approver, body = nil, curriculum = Exercism.current_curriculum)
     @id = id
     @approver = approver
-    @comment = sanitize(comment)
+    @body = sanitize(body)
     @curriculum = curriculum
   end
 
   def has_comment?
-    comment && !comment.empty?
+    body && !body.empty?
   end
 
   def submission
@@ -35,7 +35,7 @@ class Approval
     submission.approved_at = Time.now.utc
     submission.approver = approver
     if has_comment?
-      submission.nits << Nit.new(user: approver, comment: comment)
+      submission.comments << Comment.new(user: approver, comment: body)
     end
     submission.user.complete! exercise, on: trail
     submission.save
