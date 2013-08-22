@@ -30,12 +30,15 @@
             <%= erb :backdoor %>
           <% else %>
             <li>
-              <a href="/<%= current_user.username %>">
-                <%= gravatar_tag current_user.avatar_url, size: 20 %>
-                hi, <%= current_user.username %>
-              </a>
+            <a class="dropdown-toggle" href="#">
+              <%= gravatar_tag current_user.avatar_url, size: 20 %>
+              hi, <%= current_user.username %> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a tabindex="-1" href="/<%= current_user.username %>">dashboard</li>
+              <li><a tabindex="-1" href="/logout">log out</a></li>
+            </ul>
             </li>
-            <li><a href="/logout">log out</a></li>
           <% end %>
         </ul>
       </div>
