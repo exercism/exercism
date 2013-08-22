@@ -20,6 +20,7 @@ class User
 
   has_many :submissions
   has_many :notifications
+  has_many :comments
 
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first
