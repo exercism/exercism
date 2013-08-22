@@ -74,7 +74,7 @@ class Notification
   end
 
   def assignment_completed?
-    submission.ongoing? if submission
+    Submission.assignment_completed?(submission) if submission
   end
 end
 
