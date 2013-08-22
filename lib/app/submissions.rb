@@ -152,6 +152,18 @@ class ExercismApp < Sinatra::Base
     erb :edit_nit, locals: {submission: submission, nit: nit}
   end
 
+  post '/submissions/:id/done' do |id|
+    please_login("You have to be logged in to do that")
+    submission = Submission.find id
+    unless current_user.owns?(submission)
+      flash[:notice] = "Only the submitter may unlock the next exercise."
+      redirect "/submissions/#{id}"
+    end
+    Completion.new(submission).save
+    flash[:success] = "#{current_user.current_in(submission.language)} unlocked."
+    redirect "/"
+  end
+
   post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
     nit = Submission.find(id).comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
