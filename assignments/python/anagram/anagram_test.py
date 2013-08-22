@@ -54,5 +54,11 @@ class AnagramTests(unittest.TestCase):
             Anagram('Orchestra').match('cashregister Carthorse radishes'.split())
         )
 
+    def test_same_word_isnt_anagram(self):
+        self.assertEqual(
+            [],
+            Anagram('banana').match(['banana'])
+        )
+
 if __name__ == '__main__':
     unittest.main()

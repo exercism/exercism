@@ -24,4 +24,7 @@
   (is (= ["Carthorse"]
          (anagram/anagrams-for "Orchestra" ["cashregister" "Carthorse" "radishes"]))))
 
+(deftest word-is-not-own-anagram
+  (is (= [] (anagram/anagrams-for "banana" ["banana"]))))
+
 (run-tests)
