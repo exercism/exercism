@@ -40,7 +40,7 @@ class Mute
   end
 
   def locksmith?
-    user.unlocks?(submission.exercise)
+    user.locksmith?
   end
 
   def stale?

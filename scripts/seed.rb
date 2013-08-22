@@ -28,24 +28,6 @@ master_data = {
 }
 master = User.create(master_data)
 
-journeyman_data = {
-  username: 'journeyman',
-  github_id: -2,
-  email: "journeyman@example.com",
-  journeymans_ticket: ['javascript'],
-  completed: {'ruby' => ['bob'], 'javascript' => ['bob']}
-}
-journeyman = User.create(journeyman_data)
-
-apprentice_data = {
-  username: 'apprentice',
-  github_id: -3,
-  email: "apprentice@example.com",
-  apprenticeship: {"clojure" => ["bob"]},
-  completed: {'clojure' => ['bob'], 'javascript' => ['bob']}
-}
-apprentice = User.create(apprentice_data)
-
 alice_data = {
   username: 'alice',
   github_id: -4,
@@ -153,7 +135,7 @@ attempt = Attempt.new(bob, "def bark_along_little_doggie_when_the_moon_is_full_i
 Nitpick.new(attempt.submission.id, master, 'Not enough code.').save
 Nitpick.new(attempt.submission.id, master, 'I like the method name.').save
 
-[alice, bob, master, journeyman, apprentice].each do |user|
+[alice, bob, master].each do |user|
   puts
   puts "Created: #{user.username}"
   puts "API Key: #{user.key}"

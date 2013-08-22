@@ -29,10 +29,6 @@ class GuestTest < Minitest::Test
     refute guest.locksmith?
   end
 
-  def test_guest_does_not_unlock
-    refute guest.unlocks?(nil)
-  end
-
   private
 
   def guest
