@@ -1,14 +1,16 @@
 require './test/mongo_helper'
 
 require 'exercism/locksmith'
+require 'exercism/problem_set'
+require 'exercism/input_sanitation'
 require 'exercism/user'
 require 'exercism/null_submission'
 require 'exercism/exercise'
 require 'exercism/locale'
 require 'exercism/trail'
+require 'exercism/comment'
 require 'exercism/submission'
 require 'exercism/notification'
-require 'exercism/nit'
 
 class UserTest < Minitest::Test
 
