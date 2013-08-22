@@ -20,7 +20,6 @@ require 'exercism/markdown'
 require 'exercism/authentication'
 require 'exercism/github'
 require 'exercism/notification'
-require 'exercism/workload'
 require 'exercism/breakdown'
 require 'exercism/use_cases'
 
