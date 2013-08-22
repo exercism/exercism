@@ -15,6 +15,7 @@ class Submission
   belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
   embeds_many :nits
+  has_many :comments
 
   validates_presence_of :user
 
