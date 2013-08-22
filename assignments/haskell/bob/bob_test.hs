@@ -58,6 +58,10 @@ test_respondsToNonLettersWithQuestion :: Assertion
 test_respondsToNonLettersWithQuestion =
   "Sure." @=? responseFor ":) ?"
 
+test_respondsToMultipleLineQuestions :: Assertion
+test_respondsToMultipleLineQuestions =
+  "Whatever." @=? responseFor "\nDoes this cryogenic chamber make me look fat? \nno"
+
 respondsToTests :: [Test]
 respondsToTests =
   [ testCase "something" test_respondsToSomething
@@ -76,6 +80,8 @@ respondsToTests =
   , testCase "silence" test_respondsToSilence
   , testCase "prolonged silence" test_respondsToProlongedSilence
   , testCase "questioned nonsence" test_respondsToNonLettersWithQuestion
+  , testCase "multiple-line statement containing question mark"
+    test_respondsToMultipleLineQuestions
   ]
 
 main :: IO ()
