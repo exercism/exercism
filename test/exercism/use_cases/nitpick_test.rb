@@ -23,8 +23,8 @@ class NitpickTest < Minitest::Test
 
   def test_nitpicking_a_submission_saves_a_nit
     nitpicker = User.new(username: 'alice')
-    Nitpick.new(submission.id, nitpicker, 'Too many variables', approvable: nil).save
-    nit = submission.reload.nits.first
+    Nitpick.new(submission.id, nitpicker, 'Too many variables').save
+    nit = submission.reload.comments.first
     assert submission.pending?, "Should be pending"
     assert_equal 'Too many variables', nit.comment
     assert !submission.approvable?, "Should NOT be approvable"
@@ -34,7 +34,7 @@ class NitpickTest < Minitest::Test
     nitpicker = User.new(username: 'alice')
     nitpick = Nitpick.new(submission.id, nitpicker, '').save
     assert !nitpick.nitpicked?
-    assert_equal 0, submission.reload.nits.count
+    assert_equal 0, submission.reload.comments.count
   end
 
   def test_flag_a_submission_for_approval

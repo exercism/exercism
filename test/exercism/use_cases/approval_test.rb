@@ -39,13 +39,13 @@ class ApprovalTest < Minitest::Test
   def test_approve_submission_saves_comment
     Approval.new(submission.id, locksmith, 'very nice', curriculum).save
     submission.reload
-    assert_equal 'very nice', submission.nits.first.comment
+    assert_equal 'very nice', submission.comments.first.comment
   end
 
   def test_approve_submission_with_empty_comment_leaves_comment_off
     Approval.new(submission.id, locksmith, '', curriculum).save
     submission.reload
-    assert_equal [], submission.nits
+    assert_equal [], submission.comments
   end
 
   def test_approve_submission_sets_completed_assignments

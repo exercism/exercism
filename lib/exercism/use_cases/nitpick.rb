@@ -2,11 +2,11 @@ class Nitpick
 
   include InputSanitation
 
-  attr_reader :id, :nitpicker, :comment
-  def initialize(submission_id, nitpicker, comment, options = {})
+  attr_reader :id, :nitpicker, :body
+  def initialize(submission_id, nitpicker, body, options = {})
     @id = submission_id
     @nitpicker = nitpicker
-    @comment = sanitize(comment.to_s)
+    @body = sanitize(body.to_s)
     @approvable = options.fetch(:approvable) { false }
     @nitpicked = false
   end
@@ -24,9 +24,9 @@ class Nitpick
   end
 
   def save
-    unless comment.empty?
+    unless body.empty?
       @nitpicked = true
-      submission.nits << Nit.new(user: nitpicker, comment: comment)
+      submission.comments << Comment.new(user: nitpicker, comment: body)
       submission.state = 'pending' if submission.hibernating?
     end
     if @approvable

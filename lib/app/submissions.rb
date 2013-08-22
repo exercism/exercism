@@ -144,7 +144,7 @@ class ExercismApp < Sinatra::Base
   get '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
     please_login("You have to be logged in to do that")
     submission = Submission.find(id)
-    nit = submission.nits.where(id: nit_id).first
+    nit = submission.comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
       flash[:notice] = "Only the author may edit the text."
       redirect "/submissions/#{id}"
@@ -153,7 +153,7 @@ class ExercismApp < Sinatra::Base
   end
 
   post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
-    nit = Submission.find(id).nits.where(id: nit_id).first
+    nit = Submission.find(id).comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
       flash[:notice] = "Only the author may edit the text."
     end

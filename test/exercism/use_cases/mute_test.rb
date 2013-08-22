@@ -1,4 +1,6 @@
 require './test/integration_helper'
+require 'services/message'
+require 'services/hibernation_message'
 
 class MuteTest < Minitest::Test
 
@@ -40,7 +42,7 @@ class MuteTest < Minitest::Test
   end
 
   def test_trigger_hibernation
-    submission.nits << Nit.new(user: alice, at: Time.now - a_week)
+    submission.comments << Comment.new(user: alice, at: Time.now - a_week)
     Message.stub(:ship, nil) do
       Mute.new(submission, alice).save
     end
@@ -57,14 +59,14 @@ class MuteTest < Minitest::Test
   end
 
   def test_do_not_hibernate_if_submitter_commented_last
-    submission.nits << Nit.new(user: bob, at: Time.now - a_week)
+    submission.comments << Comment.new(user: bob, at: Time.now - a_week)
     Mute.new(submission, alice).save
     submission.reload
     refute_equal 'hibernating', submission.state
   end
 
   def test_do_not_hibernate_if_last_activity_was_recent
-    submission.nits << Nit.new(user: alice, at: Time.now - (a_week-1))
+    submission.comments << Comment.new(user: alice, at: Time.now - (a_week-1))
     Mute.new(submission, alice).save
     submission.reload
     refute_equal 'hibernating', submission.state
@@ -72,7 +74,7 @@ class MuteTest < Minitest::Test
 
   def test_do_not_hibernate_if_muter_is_not_locksmith
     charlie = User.new(username: 'charlie')
-    submission.nits << Nit.new(user: alice, at: Time.now - a_week)
+    submission.comments << Comment.new(user: alice, at: Time.now - a_week)
     Mute.new(submission, charlie).save
     submission.reload
     assert submission.pending?
