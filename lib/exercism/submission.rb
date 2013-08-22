@@ -57,6 +57,10 @@ class Submission
     submission
   end
 
+  def self.assignment_completed?(submission)
+    related(submission).approved.any?
+  end
+
   def participants
     return @participants if @participants
 
