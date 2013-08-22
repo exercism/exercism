@@ -72,5 +72,9 @@ class Notification
   def slug
     submission.slug if submission
   end
+
+  def assignment_completed?
+    submission.ongoing? if submission
+  end
 end
 

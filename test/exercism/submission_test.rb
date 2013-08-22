@@ -68,6 +68,18 @@ class SubmissionTest < Minitest::Test
     assert_equal 'approved', submission.state
   end
 
+  def test_not_completed_when_ongoing
+    submission.state = 'pending'
+    submission.save
+    assert !Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
+  end
+
+  def test_completed_when_completed
+    submission.state = 'approved'
+    submission.save
+    assert Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
+  end
+
   def test_retrieve_assignment
     # Crazy long path. Best I can figure there's no storage of the path past the
     # Curriculum object in Exercism so we have to mock the whole chain
