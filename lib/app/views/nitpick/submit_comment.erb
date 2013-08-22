@@ -24,7 +24,7 @@
     <% if current_user.unlocks?(submission.exercise) %>
       <button type="submit" name="approve" class="btn">Unlock Next (Comment optional)</button>
     <% else %>
-      <% unless current_user.owns?(submission) %>
+      <% if current_user.nitpicker_on?(submission.exercise) && !current_user.owns?(submission) %>
         <button type="submit" name="approvable" class="btn" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
       <% end %>
     <% end %>
