@@ -20,7 +20,7 @@ class NitpickTest < Minitest::Test
   def test_fails_when_already_nitpicked
     bob = User.create(username: 'bob')
     submission = bob.submissions.create(:user => bob)
-    submission.nits.create
+    submission.comments.create
 
     assert_raises Unsubmit::SubmissionHasNits do
       Unsubmit.new(bob).unsubmit

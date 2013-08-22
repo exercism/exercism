@@ -14,7 +14,6 @@ class Submission
 
   belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
-  embeds_many :nits
   has_many :comments
 
   validates_presence_of :user
@@ -63,7 +62,7 @@ class Submission
 
     participants = Set.new
     participants.add user
-    nits.each do |nit|
+    comments.each do |nit|
       participants.add nit.nitpicker
     end
     participants.add approver if approver.present?
@@ -75,11 +74,11 @@ class Submission
   end
 
   def nits_by_others
-    nits.select {|nit| nit.user != self.user }
+    comments.select {|nit| nit.user != self.user }
   end
 
   def nits_by_self_count
-    nits.select {|nit| nit.user == self.user }.count
+    comments.select {|nit| nit.user == self.user }.count
   end
 
   def discussion_involves_user?
