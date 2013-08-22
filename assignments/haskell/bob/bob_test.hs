@@ -54,6 +54,10 @@ test_respondsToProlongedSilence :: Assertion
 test_respondsToProlongedSilence =
   "Fine. Be that way." @=? responseFor "    "
 
+test_respondsToNonLettersWithQuestion :: Assertion
+test_respondsToNonLettersWithQuestion =
+  "Sure." @=? responseFor ":) ?"
+
 respondsToTests :: [Test]
 respondsToTests =
   [ testCase "something" test_respondsToSomething
@@ -71,6 +75,7 @@ respondsToTests =
     test_respondsToStatementContainingQuestionMark
   , testCase "silence" test_respondsToSilence
   , testCase "prolonged silence" test_respondsToProlongedSilence
+  , testCase "questioned nonsence" test_respondsToNonLettersWithQuestion
   ]
 
 main :: IO ()
