@@ -49,4 +49,10 @@ describe('Anagram', function() {
     var matches = detector.match(['cashregister', 'Carthorse', 'radishes']);
     expect(matches).toEqual(['Carthorse']);
   });
+
+  xit("does not detect a word as its own anagram",function() {
+    var detector = new Anagram("banana");
+    var matches = detector.match(['banana']);
+    expect(matches).toEqual([]);
+  });
 });

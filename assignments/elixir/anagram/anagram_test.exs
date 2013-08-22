@@ -38,4 +38,9 @@ defmodule AnagramTest do
     # matches = Anagram.match "Orchestra", %w(cashregister Carthorse radishes)
     # assert matches == ["Carthorse"]
   end
+
+  test "anagrams must not be the source word" do 
+    # matches = Anagram.match "banana", ["banana"]
+    # assert matches == []
+  end
 end
