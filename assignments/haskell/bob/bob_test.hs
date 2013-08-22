@@ -62,6 +62,10 @@ test_respondsToMultipleLineQuestions :: Assertion
 test_respondsToMultipleLineQuestions =
   "Whatever." @=? responseFor "\nDoes this cryogenic chamber make me look fat? \nno"
 
+test_respondsToOtherWhitespace :: Assertion
+test_respondsToOtherWhitespace =
+  "Fine. Be that way." @=? responseFor "\n\r \t\v\xA0\x2002" -- \xA0 No-break space, \x2002 En space
+
 respondsToTests :: [Test]
 respondsToTests =
   [ testCase "something" test_respondsToSomething
@@ -82,6 +86,7 @@ respondsToTests =
   , testCase "questioned nonsence" test_respondsToNonLettersWithQuestion
   , testCase "multiple-line statement containing question mark"
     test_respondsToMultipleLineQuestions
+  , testCase "all whitespace is silence" test_respondsToOtherWhitespace
   ]
 
 main :: IO ()
