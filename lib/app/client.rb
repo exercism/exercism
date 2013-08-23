@@ -8,6 +8,10 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  get '/getting-started' do
+    erb :getting_started
+  end
+
   put '/account/email' do
     if current_user.guest?
       halt 403, "You must be logged in to edit your email settings"
