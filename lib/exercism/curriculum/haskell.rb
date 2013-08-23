@@ -9,6 +9,7 @@ class Exercism
         binary prime-factors raindrops allergies
         atbash-cipher
         crypto-square kindergarden-garden robot-simulator queen-attack
+        accumulate binary-search-tree difference-of-squares hexadecimal
       )
     end
 
