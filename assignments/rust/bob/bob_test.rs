@@ -56,6 +56,6 @@ fn test_shout_without_question_mark() {
 #[test]
 #[should_fail]
 fn test_silent_treatment() {
-    assert_eq!("Fine. Be that way.", bob::reply(""));
+    assert_eq!("Fine. Be that way!", bob::reply(""));
 }
 

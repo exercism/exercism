@@ -48,11 +48,11 @@ test_respondsToStatementContainingQuestionMark =
 
 test_respondsToSilence :: Assertion
 test_respondsToSilence =
-  "Fine. Be that way." @=? responseFor ""
+  "Fine. Be that way!" @=? responseFor ""
 
 test_respondsToProlongedSilence :: Assertion
 test_respondsToProlongedSilence =
-  "Fine. Be that way." @=? responseFor "    "
+  "Fine. Be that way!" @=? responseFor "    "
 
 test_respondsToNonLettersWithQuestion :: Assertion
 test_respondsToNonLettersWithQuestion =
@@ -64,7 +64,7 @@ test_respondsToMultipleLineQuestions =
 
 test_respondsToOtherWhitespace :: Assertion
 test_respondsToOtherWhitespace =
-  "Fine. Be that way." @=? responseFor "\n\r \t\v\xA0\x2002" -- \xA0 No-break space, \x2002 En space
+  "Fine. Be that way!" @=? responseFor "\n\r \t\v\xA0\x2002" -- \xA0 No-break space, \x2002 En space
 
 respondsToTests :: [Test]
 respondsToTests =

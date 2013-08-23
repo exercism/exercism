@@ -10,7 +10,7 @@ classify s | all isSpace s = Silence
            | otherwise = Other
 
 response :: Prompt -> String
-response Silence = "Fine. Be that way."
+response Silence = "Fine. Be that way!"
 response Yell = "Woah, chill out!"
 response Question = "Sure."
 response Other = "Whatever."
