@@ -76,5 +76,13 @@
     <hr>
     <%= erb :"nitpick/submit_comment", locals: {submission: submission} %>
 
+
+    <hr />
+
+    <% if current_user.owns?(submission) && !current_user.completed?(submission.exercise) %>
+      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/done" method="POST">
+        <button type="submit" name="done" class="pull-right btn">OK, I'm done. Unlock the next exercise.</button>
+      </form>
+    <% end %>
   </div>
 </div>

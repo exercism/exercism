@@ -114,19 +114,6 @@ class SubmissionTest < Minitest::Test
     assert_equal Set.new([alice]), s1.participants
   end
 
-  def test_participants_when_approved
-    alice = User.create(username: 'alice', github_id: '1', current: {'nong' => 'one'})
-    bob = User.create(username: 'bob', github_id: '2', mastery: ['nong'])
-
-    curriculum = Curriculum.new('/tmp')
-    curriculum.add NongCurriculum.new
-    s1 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
-
-    Approval.new(s1.id, bob, nil, curriculum).save
-    s1.reload; alice.reload
-    assert_equal Set.new([alice, bob]), s1.participants
-  end
-
   def test_muted_by_when_muted
     submission = Submission.new(state: 'pending', muted_by: ['alice'])
     assert submission.muted_by?(alice)

@@ -85,7 +85,6 @@ class SubmissionApiValidResponseTest < Minitest::Test
         is_exercise_completed: false,
         is_submitter: true,
         is_approvable: true,
-        is_unlockable: false,
         wants_opinion: false,
         nits: [
           {
