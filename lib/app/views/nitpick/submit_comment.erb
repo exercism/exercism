@@ -21,13 +21,11 @@
 
   <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
     <%= erb :comment %>
-    <% if current_user.unlocks?(submission.exercise) %>
-      <button type="submit" name="approve" class="btn">Unlock Next (Comment optional)</button>
-    <% else %>
-      <% if current_user.nitpicker_on?(submission.exercise) && !current_user.owns?(submission) %>
-        <button type="submit" name="approvable" class="btn" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
-      <% end %>
+
+    <% if current_user.nitpicker_on?(submission.exercise) && !current_user.owns?(submission) %>
+      <button type="submit" name="approvable" class="btn" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
     <% end %>
+
     <% if current_user.owns?(submission) %>
       <button type="submit" name="nitpick" class="pull-right btn btn-primary">Discuss</button>
     <% else %>

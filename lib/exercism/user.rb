@@ -13,10 +13,7 @@ class User
   field :g_id, as: :github_id, type: Integer
   field :key, type: String, default: ->{ create_key }
   field :j_at, type: Time, default: ->{ Time.now.utc }
-  field :adm, as: :is_admin, type: Boolean, default: false
   field :ms, as: :mastery, type: Array, default: []
-  field :jm, as: :journeymans_ticket, type: Array, default: []
-  field :aptc, as: :apprenticeship, type: Hash, default: {}
 
   has_many :submissions
   has_many :notifications
@@ -97,7 +94,7 @@ class User
   end
 
   def nitpicker_on?(exercise)
-    unlocks?(exercise) || completed?(exercise)
+    locksmith_in?(exercise.language) || completed?(exercise)
   end
 
   def nitpicker?
