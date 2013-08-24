@@ -24,15 +24,21 @@ class Nitpick
   end
 
   def save
+    mute = false
     unless body.empty?
       @nitpicked = true
       submission.comments << Comment.new(user: nitpicker, comment: body)
       submission.state = 'pending' if submission.hibernating?
+      mute = true
     end
     if @approvable
       # Total hack.
       submission.is_approvable = true
       submission.flagged_by << nitpicker.username
+      mute = true
+    end
+    if mute
+      submission.mute(nitpicker.username)
     end
     submission.save
     self

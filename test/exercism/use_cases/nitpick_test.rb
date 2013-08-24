@@ -30,6 +30,12 @@ class NitpickTest < Minitest::Test
     assert !submission.approvable?, "Should NOT be approvable"
   end
 
+  def test_nitpicking_a_submission_mutes_it
+    nitpicker = User.new(username: 'alice')
+    Nitpick.new(submission.id, nitpicker, 'Too many variables').save
+    assert submission.reload.muted_by?(nitpicker), 'should be muted'
+  end
+
   def test_empty_nit_does_not_get_saved
     nitpicker = User.new(username: 'alice')
     nitpick = Nitpick.new(submission.id, nitpicker, '').save
@@ -37,7 +43,13 @@ class NitpickTest < Minitest::Test
     assert_equal 0, submission.reload.comments.count
   end
 
-  def test_flag_a_submission_for_approval
+  def test_empty_nit_does_not_mute
+    nitpicker = User.new(username: 'alice')
+    nitpick = Nitpick.new(submission.id, nitpicker, '').save
+    refute submission.reload.muted_by?(nitpicker)
+  end
+
+  def test_like_a_submission
     nitpicker = User.new(username: 'alice')
     nitpick = Nitpick.new(submission.id, nitpicker, 'Too many variables', approvable: true).save
     assert nitpick.nitpicked?
@@ -47,7 +59,13 @@ class NitpickTest < Minitest::Test
     assert submission.pending?
   end
 
-  def test_can_flag_without_comment
+  def test_liking_a_submission_mutes_it
+    nitpicker = User.new(username: 'alice')
+    nitpick = Nitpick.new(submission.id, nitpicker, "", approvable: true).save
+    assert submission.reload.muted_by?(nitpicker)
+  end
+
+  def test_can_like_without_a_comment
     nitpicker = User.new(username: 'alice')
     nitpick = Nitpick.new(submission.id, nitpicker, '', approvable: true).save
     submission.reload

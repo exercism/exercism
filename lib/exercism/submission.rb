@@ -191,8 +191,12 @@ class Submission
     muted_by.include?(user.username)
   end
 
-  def mute!(username)
+  def mute(username)
     muted_by << username
+  end
+
+  def mute!(username)
+    mute(username)
     save
   end
 
