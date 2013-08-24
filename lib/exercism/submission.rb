@@ -14,7 +14,6 @@ class Submission
   field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
   field :v, as: :version, type: Integer, default: 0
 
-  belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
   has_many :comments
 
@@ -71,7 +70,6 @@ class Submission
     comments.each do |nit|
       participants.add nit.nitpicker
     end
-    participants.add approver if approver.present?
     @participants = participants
   end
 
