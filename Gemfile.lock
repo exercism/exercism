@@ -53,7 +53,7 @@ GEM
     moped (1.5.0)
     multi_json (1.7.5)
     multipart-post (1.2.0)
-    newrelic_rpm (3.6.1.88)
+    newrelic_rpm (3.5.8.72)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     origin (1.1.0)
@@ -80,6 +80,7 @@ GEM
     redcarpet (2.3.0)
     rouge (0.4.0)
       thor
+    ruby-prof (0.13.0)
     sanitize (2.0.6)
       nokogiri (>= 1.4.4)
     simplecov (0.7.1)
@@ -119,7 +120,7 @@ DEPENDENCIES
   minitest (~> 5.0)
   mocha
   mongoid
-  newrelic_rpm
+  newrelic_rpm (= 3.5.8.72)
   petroglyph
   pony
   pry
@@ -129,6 +130,7 @@ DEPENDENCIES
   rake
   redcarpet
   rouge
+  ruby-prof
   sanitize
   simplecov
   sinatra
