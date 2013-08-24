@@ -7,12 +7,10 @@ class Notification
   field :c, as: :count, type: Integer, default: 0
   field :n, as: :note, type: String # only for custom notifications
 
-  belongs_to :user
+  belongs_to :user, index: true
   belongs_to :submission
 
-  def self.recent_for_user(user)
-    where(user: user).limit(100).descending(:at)
-  end
+  scope :recent, desc(:at).limit(100)
 
   def self.on(submission, options)
     data = {

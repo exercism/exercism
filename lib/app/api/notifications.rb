@@ -19,7 +19,7 @@ class ExercismApp < Sinatra::Base
 
   get '/api/v1/notifications' do
     require_recipient
-    notifications = Notification.recent_for_user(recipient)
+    notifications = recipient.notifications.recent
     pg :notifications, locals: {notifications: notifications}
   end
 
