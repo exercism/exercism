@@ -2,55 +2,46 @@ class ExercismApp < Sinatra::Base
 
   helpers do
     def nitpick(id)
+      notice = "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
+      please_login(notice)
+
       submission = Submission.find(id)
-
-      if current_user.guest?
-        halt 403, "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
-      end
-
-      unless current_user.owns?(submission) || current_user.may_nitpick?(submission.exercise)
-        halt 403, "You do not have permission to nitpick that exercise."
-      end
-
       nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
       nitpick.save
       if nitpick.nitpicked?
-        #TODO - create emails from notifications
-        Notify.everyone(submission, current_user, 'nitpick')
+        Notify.everyone(submission, 'nitpick', except: current_user)
+        flash[:success] = 'This submission has been nominated for approval' if nitpick.approvable?
         begin
-          NitpickMessage.ship(
-            instigator: nitpick.nitpicker,
-            submission: nitpick.submission,
-            site_root: site_root
-          )
+          unless nitpick.nitpicker == nitpick.submission.user
+            NitpickMessage.ship(
+              instigator: nitpick.nitpicker,
+              submission: nitpick.submission,
+              site_root: site_root
+            )
+          end
         rescue => e
           puts "Failed to send email. #{e.message}."
         end
       end
+      submission.unmute_all!
     end
 
-    def approve(id)
-      if current_user.guest?
-        halt 403, "You're not logged in right now, so I can't let you do that. Sorry."
-      end
-
-      unless current_user.admin?
-        halt 403, "You do not have permission to approve that exercise."
-      end
+    def toggle_opinions(id, state)
       submission = Submission.find(id)
 
-      Notify.source(submission, current_user, 'approval')
-
-      begin
-        ApprovalMessage.ship(
-          instigator: current_user,
-          submission: Submission.find(id),
-          site_root: site_root
-        )
-      rescue => e
-        puts "Failed to send email. #{e.message}."
+      unless current_user.owns?(submission)
+        flash[:error] = "You do not have permission to do that."
+        redirect '/'
       end
-      Approval.new(id, current_user, params[:comment]).save
+
+      submission.send("#{state}_opinions!")
+      submission.unmute_all! if submission.wants_opinions?
+
+      if submission.wants_opinions?
+        flash[:notice] = "Your request for more opinions has been made. You can disable this below when all is clear."
+      else
+        flash[:notice] = "Your request for more opinions has been disabled."
+      end
     end
   end
 
@@ -59,71 +50,92 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/submissions/:id' do |id|
-    please_login "/submissions/#{id}"
+    please_login
 
     submission = Submission.find(id)
 
-    unless current_user.owns?(submission) || current_user.may_nitpick?(submission.exercise)
-      flash[:error] = "You do not have permission to nitpick that exercise."
-      redirect '/'
-    end
+    title(submission.slug + " in " + submission.language + " by " + submission.user.username)
 
     erb :nitpick, locals: {submission: submission}
   end
 
-  # TODO: Write javascript to submit form here
+  # TODO: Submit to this endpoint rather than the `respond` one.
   post '/submissions/:id/nitpick' do |id|
     nitpick(id)
-    redirect '/'
-  end
-
-  # TODO: Write javascript to submit form here
-  post '/submissions/:id/approve' do |id|
-    approve(id)
-    redirect '/'
-  end
-
-  # I don't like this, but I don't see how to make
-  # the front-end to be able to use the same textarea for two purposes
-  # without it. It seems like this is a necessary
-  # fallback even if we implement the javascript stuff.
-  post '/submissions/:id/respond' do |id|
-    if params[:approve]
-      approve(id)
-    else
-      nitpick(id)
-    end
     redirect "/submissions/#{id}"
   end
 
-  post '/submissions/:id/nits/:nit_id/argue' do |id, nit_id|
-    if current_user.guest?
-      flash[:error] = 'We may have just redeployed, which logged you out. Sorry about that! Hit the back button and save the comment you just wrote, and try again after logging in. Deploying without invalidating sessions is on the list!'
-    end
-    please_login("/submissions/#{id}/nits/#{nit_id}/argue")
+  post '/submissions/:id/respond' do |id|
+    nitpick(id)
+    redirect "/submissions/#{id}"
+  end
 
-    if params[:comment].empty?
-      submission = Submission.find_by(id: id)
-    else
-      data = {
-        submission_id: id,
-        nit_id: nit_id,
-        user: current_user,
-        comment: params[:comment]
-      }
-      argument = Argument.new(data).save
-      submission = argument.submission
-      Notify.everyone(submission, current_user, 'comment')
+  post '/submissions/:id/opinions/enable' do |id|
+    please_login "You have to be logged in to do that."
+    toggle_opinions(id, :enable)
+    redirect "/submissions/#{id}"
+  end
+
+  post '/submissions/:id/opinions/disable' do |id|
+    please_login "You have to be logged in to do that."
+    toggle_opinions(id, :disable)
+    redirect "/submissions/#{id}"
+  end
+
+  post '/submissions/:id/mute' do |id|
+    please_login "You have to be logged in to do that."
+    submission = Submission.find(id)
+    submission.mute!(current_user.username)
+    flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
+    redirect '/'
+  end
+
+  post '/submissions/:id/unmute' do |id|
+    please_login "You have to be logged in to do that."
+    submission = Submission.find(id)
+    submission.unmute!(current_user)
+    flash[:notice] = "The submission has been unmuted."
+    redirect '/'
+  end
+
+  get '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
+    please_login("You have to be logged in to do that")
+    submission = Submission.find(id)
+    nit = submission.comments.where(id: nit_id).first
+    unless current_user == nit.nitpicker
+      flash[:notice] = "Only the author may edit the text."
+      redirect "/submissions/#{id}"
+    end
+    erb :edit_nit, locals: {submission: submission, nit: nit}
+  end
+
+  post '/submissions/:id/done' do |id|
+    please_login("You have to be logged in to do that")
+    submission = Submission.find id
+    unless current_user.owns?(submission)
+      flash[:notice] = "Only the submitter may unlock the next exercise."
+      redirect "/submissions/#{id}"
+    end
+    Completion.new(submission).save
+    flash[:success] = "#{current_user.current_in(submission.language)} unlocked."
+    redirect "/"
+  end
+
+  post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
+    nit = Submission.find(id).comments.where(id: nit_id).first
+    unless current_user == nit.nitpicker
+      flash[:notice] = "Only the author may edit the text."
     end
 
+    nit.sanitized_update(params['comment'])
     redirect "/submissions/#{id}"
   end
 
   get '/submissions/:language/:assignment' do |language, assignment|
-    please_login "/submissions/#{language}/#{assignment}"
+    please_login
 
-    unless current_user.admin?
-      flash[:notice] = "Sorry, need to know only."
+    unless current_user.locksmith?
+      flash[:notice] = "This is an admin-only area. Sorry."
       redirect '/'
     end
 

@@ -40,6 +40,13 @@ class PhraseTest < MiniTest::Unit::TestCase
     assert_equal counts, phrase.word_count
   end
 
+  def test_handles_cramped_lists
+    skip
+    phrase = Phrase.new("one,two,three")
+    counts = {"one"=>1, "two"=>1, "three" => 1}
+    assert_equal counts, phrase.word_count
+  end
+
   def test_include_numbers
     skip
     phrase = Phrase.new("testing, 1, 2 testing")

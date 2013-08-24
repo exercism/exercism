@@ -38,7 +38,7 @@ class Assignments
       exercise = curriculum.in(exercise.language).successor(exercise)
       next if exercise.slug == 'congratulations'
       curriculum.assign(exercise)
-    end
+    end.compact
   end
 
   def completed_exercises

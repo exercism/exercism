@@ -1,30 +1,10 @@
 require './test/test_helper'
+require './test/fixtures/fake_curricula'
 
-require 'exercism/curriculum'
-require 'exercism/locale'
-require 'exercism/trail'
 require 'exercism/exercise'
 require 'exercism/assignment'
-
-class NongCurriculum
-  def slugs
-    %w(one two)
-  end
-
-  def locale
-    Locale.new('nong', 'no', 'not')
-  end
-end
-
-class FempCurriculum
-  def slugs
-    %w(one two)
-  end
-
-  def locale
-    Locale.new('femp', 'fp', 'fpt')
-  end
-end
+require 'exercism/trail'
+require 'exercism/curriculum'
 
 # Integration tests.
 # This is the entry point into the app.
@@ -33,7 +13,7 @@ class CurriculumTest < Minitest::Test
   attr_reader :curriculum
   def setup
     @curriculum = Curriculum.new('./test/fixtures')
-    curriculum.add NongCurriculum.new
+    curriculum.add FakeRubyCurriculum.new
   end
 
   def test_curriculum_takes_a_path
@@ -41,39 +21,55 @@ class CurriculumTest < Minitest::Test
   end
 
   def test_find_exercise_in_trail
-    ex = Exercise.new('nong', 'one')
-    assert_equal ex, curriculum.in('nong').find('one')
+    ex = Exercise.new('ruby', 'one')
+    assert_equal ex, curriculum.in('ruby').find('one')
   end
 
   def test_get_assignment_from_trail
-    path = './test/fixtures/nong/one'
-    assignment = curriculum.in('nong').assign('one')
-    assert_equal path, assignment.path
+    assignment = curriculum.in('ruby').assign('one')
+    assert_equal './test/fixtures/ruby/one', assignment.path
   end
 
-  def test_get_assignment_from_exercise
-    exercise = Exercise.new('nong', 'one')
+  def test_get_assignment_from_curriculum
+    exercise = Exercise.new('ruby', 'one')
     assignment = curriculum.assign(exercise)
-    assert_equal './test/fixtures/nong/one', assignment.path
-  end
-
-  # Do I want an actual locale object, or just the language?
-  def test_identify_language_from_filename
-    curriculum.add FempCurriculum.new
-    assert_equal 'femp', curriculum.identify_language('one.fp')
-  end
-
-  def test_unknown_language
-    assert_raises Exercism::UnknownLanguage do
-      curriculum.identify_language('femp.fp')
-    end
+    assert_equal './test/fixtures/ruby/one', assignment.path
   end
 
   def test_unstarted_trails
-    curriculum.add FempCurriculum.new
-    languages = curriculum.unstarted_trails(['femp'])
-    assert_equal ['nong'], languages
+    curriculum.add FakeGoCurriculum.new
+    languages = curriculum.unstarted_trails(['go'])
+    assert_equal ['ruby'], languages
+  end
+end
+
+class ConvenienceCurriculumTest < Minitest::Test
+  attr_reader :curriculum
+  def setup
+    @curriculum = Curriculum.new('./test/fixtures')
+    @curriculum.add FakeRubyCurriculum.new
+    @curriculum.add FakeGoCurriculum.new
+    Exercism.instance_variable_set(:@trails, nil)
+    Exercism.instance_variable_set(:@languages, nil)
   end
 
+  def teardown
+    Exercism.instance_variable_set(:@trails, nil)
+    Exercism.instance_variable_set(:@languages, nil)
+  end
+
+  def test_languages
+    Exercism.stub(:current_curriculum, curriculum) do
+      assert_equal [:go, :ruby], Exercism.languages
+    end
+  end
+
+  def test_trails
+    Exercism.stub(:current_curriculum, curriculum) do
+      ruby = Exercise.new('ruby', 'one')
+      go = Exercise.new('go', 'one')
+      assert_equal [ruby, go], Exercism.trails.map(&:first)
+    end
+  end
 end
 

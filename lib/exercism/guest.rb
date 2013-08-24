@@ -3,6 +3,10 @@ class Guest
     true
   end
 
+  def locksmith?
+    false
+  end
+
   def is?(username)
     false
   end
@@ -12,10 +16,6 @@ class Guest
   end
 
   def nitpicker?
-    false
-  end
-
-  def admin?
     false
   end
 

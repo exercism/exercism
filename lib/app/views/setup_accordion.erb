@@ -1,0 +1,12 @@
+<div class="accordion-group">
+  <div class="accordion-heading">
+    <a class="accordion-toggle" data-toggle="collapse" data-parent="#setup_accordion" href="#<%= language %>Setup">
+      <%= language.capitalize %> Setup
+    </a>
+  </div>
+  <div id="<%= language %>Setup" class="accordion-body collapse">
+    <div class="accordion-inner">
+      <%= erb :"setup/#{language}" %>
+    </div>
+  </div>
+</div>

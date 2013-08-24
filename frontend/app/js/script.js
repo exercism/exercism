@@ -1,12 +1,9 @@
 $(function() {
   var notification = new exercism.models.Notification(),
-      notificationList = new exercism.collections.NotificationList({
+  notificationList = new exercism.collections.NotificationList({
     model: notification
   });
   $('.dropdown-toggle').dropdown();
-  exercism.models.selectFilter = new exercism.models.SelectFilter();
-  exercism.views.selectFilter = new exercism.views.SelectFilter({ model: exercism.models.selectFilter });
-  exercism.routers.application = new exercism.routers.Application();
   exercism.collections.notificationsList = new exercism.collections.NotificationList({
     model: notification
   });
@@ -14,22 +11,30 @@ $(function() {
     el: $("#toggle-notifications"),
     collection: notificationList
   });
-  Backbone.history.start();
+
+  // Only initialize the javascript for the filters if there are filter
+  //   assets on the page.
+  if ($('#submission-filters').length !== 0) {
+    exercism.models.selectFilter = new exercism.models.SelectFilter();
+    exercism.views.selectFilter = new exercism.views.SelectFilter({ model: exercism.models.selectFilter });
+  }
 });
 
 //TODO move all variable declaration to the tops of functions.
 $(function() {
-  $(".pending-submission").each(function(index,element) {
+  $(".pending-submission, .work").each(function(index,element) {
     var elem = $(element);
 
     var language = elem.data('language');
     $(".language",elem).tooltip({ title: language });
 
     var nitCount = elem.data('nits');
-    $(".nits",elem).tooltip({ title: nitCount + " Nits" });
+    $(".nits",elem).tooltip({ title: nitCount + " Nits by Others" });
 
-    var argumentCount = elem.data('arguments');
-    $(".arguments",elem).tooltip({ title: argumentCount + " Responses" });
+    $(".opinions",elem).tooltip({ title: "More Opinions Desired" });
+
+    var versionCount = elem.data('versions');
+    $(".versions",elem).tooltip({ title: "Iteration " + versionCount });
   });
 
   $(".code a[data-action='enlarge']").on("click",function() {
@@ -67,5 +72,12 @@ $(function() {
       hide: 100
     },
     content: 'use the command <code>exercism fetch</code> to add this assignment to your exercism directory'
+  });
+
+  $(".mute").each(function(index, element) {
+    var elem = $(element);
+
+    $(".mute-btn",elem).tooltip({ placement: "bottom", title: "Mute this submission until there is further activity." });
+    $(".unmute-btn",elem).tooltip({ placement: "bottom", title: "Unmute this sumission." });
   });
 });

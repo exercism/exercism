@@ -44,9 +44,9 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/curriculum/:id' do |id|
-    please_login("/curriculum/#{id}")
+    please_login
 
-    unless current_user.admin?
+    unless current_user.locksmith?
       flash[:notice] = "Sorry, need to know only."
       redirect '/'
     end

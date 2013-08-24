@@ -1,91 +1,79 @@
+class NullDashboard
+  attr_reader :user, :language, :slug
+  def initialize(user, language, slug)
+    @user, @language, @slug = user, language, slug
+  end
+
+  def breakdown
+    {}
+  end
+
+  def show_filters?
+    false
+  end
+
+  def submissions
+    []
+  end
+
+  def available_exercises
+    []
+  end
+end
+
 class Dashboard
-
-  class Filters
-    attr_reader :submissions
-
-    def initialize(submissions)
-      @submissions ||= submissions
-    end
-
-    def users
-      @users ||= submissions.map {|sub| sub.user.username}.uniq.sort
-    end
-
-    def exercises
-      @exercises ||= submissions.map(&:slug).uniq.sort
-    end
-
-    def languages
-      @languages ||= submissions.map(&:language).uniq.sort
-    end
-  end
-
-  class Submissions
-    attr_reader :submissions
-    def initialize(submissions)
-      @submissions = submissions
-    end
-
-    def all
-      pending
-    end
-
-    def any?
-      not all.empty?
-    end
-
-    def pending
-      submissions
-    end
-
-    def without_nits
-      @without_nits ||= pending.select { |sub| sub.nits.count.zero? }.reverse
-    end
-
-    def with_nits
-      @with_nits ||= pending.select { |sub| !sub.nits.count.zero? }
-    end
-
-    def flagged_for_approval
-      []
-    end
-  end
-
-  class AdminSubmissions < Submissions
-    def all
-      submissions
-    end
-
-    def pending
-      @pending ||= submissions.select { |sub| !sub.approvable? }
-    end
-
-    def flagged_for_approval
-      @flagged_for_approval ||= submissions.select { |sub| sub.approvable? }
-    end
-  end
-
-  attr_reader :user, :all_submissions
-  def initialize(user, all_submissions)
+  attr_reader :user, :language, :slug
+  def initialize(user, language, slug)
     @user = user
-    @all_submissions = all_submissions
+    @language = language
+    @slug = slug
+  end
+
+  def breakdown
+    Breakdown.of(language)
+  end
+
+  def show_filters?
+    ![nil, 'featured', 'opinions'].include? slug
   end
 
   def submissions
     return @submissions if @submissions
 
-    if user.admin?
-      @submissions ||= AdminSubmissions.new(all_submissions)
+    scope = pending
+    case slug
+    when 'looks-great'
+      scope = scope.and(is_approvable: true)
+    when 'opinions'
+      scope = scope.and(wants_opinions: true)
+    when 'featured'
+      scope = scope.select {|submission|
+        submission.no_nits_yet?
+      }
     else
-      submissions = all_submissions.select do |sub|
-        user.may_nitpick?(sub.exercise)
-      end
-      @submissions ||= Submissions.new(submissions)
+      scope = scope.and(slug: slug)
     end
+
+    submissions = scope.select do |submission|
+      show_submission?(user, submission)
+    end
+    @submissions = submissions
   end
 
-  def filters
-    @filters ||= Filters.new(submissions.all)
+  def available_exercises
+    Exercism.current_curriculum.in(language).exercises.select {|exercise|
+      user.nitpicker_on?(exercise)
+    }
+  end
+
+  private
+
+  def pending
+    @pending ||= Submission.pending.asc(:at).where(language: language)
+  end
+
+  def show_submission?(user, submission)
+    user.nitpicker_on?(submission.exercise) && !submission.muted_by?(user)
   end
 end
 

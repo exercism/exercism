@@ -1,4 +1,6 @@
-Palindromes = function Palindromes(options) {
+'use strict';
+
+module.exports = function Palindromes(options) {
 
   this.maxFactor = options.maxFactor;
   this.minFactor = options.minFactor || 1;
@@ -26,31 +28,31 @@ Palindromes = function Palindromes(options) {
         if ( ! arrayContainsArray(palindromes[result],newFactor) ) {
           palindromes[result].push(newFactor);
         }
-      };
-    };
+      }
+    }
 
     this.palindromes = palindromes;
     this.palindromeIndexes = palindromeIndexes;
-  }
+  };
 
   this.largest = function() {
     var largestPalindrome = Math.max.apply(null,this.palindromeIndexes);
     var factors = this.palindromes[largestPalindrome];
     return { value: largestPalindrome, factors: factors };
-  }
+  };
 
   this.smallest = function() {
     var smallestPalindrome = Math.min.apply(null,this.palindromeIndexes);
     var factors = this.palindromes[smallestPalindrome];
     return { value: smallestPalindrome, factors: factors };
-  }
+  };
 
   this.isPalindrome = function(number) {
     var numberAsString = number.toString();
     var reversedString = numberAsString.split("").reverse().join("");
     return (numberAsString === reversedString);
-  }
-}
+  };
+};
 
 function arrayContainsArray(array,element) {
   var containsArray = false;
@@ -59,7 +61,7 @@ function arrayContainsArray(array,element) {
     if (array[i].join() === element.join()) {
       containsArray = true;
     }
-  };
+  }
 
   return containsArray;
 }

@@ -25,8 +25,3 @@ class Year
 
 end
 
-class Fixnum
-  def leap_year?
-    Year.new(self).leap?
-  end
-end

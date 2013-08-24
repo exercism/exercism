@@ -1,6 +1,12 @@
 window.exercism.collections.NotificationList = Backbone.Collection.extend({
   url: '/api/v1/notifications',
 
+  parse: function(response){
+    return response.notifications.map(function(e) {
+      return e.notification;
+    });
+  },
+
   initialize: function(){
     this.newCount = 0;
     this.listenTo(this, "all", this.updateNewCount);

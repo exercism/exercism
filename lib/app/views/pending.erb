@@ -1,39 +1,25 @@
-<p>Read about <a href="/cycle">the feedback cycle</a>.</p>
-
-<% if current_user.nitpicker? %>
-  <p>Read about <a href="/nitpick">how to nitpick</a></p>
-<% end %>
-
 <% if submissions.any? %>
   <h2>Needs Nitpicking</h2>
+
+  <% if show_filters %>
+  <div id="submission-filters">
+    <div class="label">Quick-Filters</div>
+    <label class="checkbox">
+      <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" id="filter-nits" class="submission-filter-check" />
+      Only without nitpicks
+    </label>
+
+    <label id="opinion-filter"class="checkbox">
+      <input type="checkbox" data-action="set-filter" data-filter="opinions" data-selected="All" id="filter-opinions" class="submission-filter-check" />
+      Only requesting opinions
+    </label>
+  </div>
+  <% end %>
+  <hr/>
+
   <div class="pending-submissions">
-
-    <%= erb :filter_pending, locals: { label: 'User', options: filters.users } %>
-    <%= erb :filter_pending, locals: { label: 'Exercise', options: filters.exercises } %>
-    <%= erb :filter_pending, locals: { label: 'Language', options: filters.languages } %>
-
-    <label class="checkbox">
-      <input type="checkbox" data-action="set-filter" data-filter="nits" data-selected="All" />
-      I only want to see submissions without nits
-    </label>
-
-    <label class="checkbox">
-      <input type="checkbox" data-action="set-filter" data-filter="arguments" data-selected="All" />
-      I only want to see submissions without arguments
-    </label>
-
-    <hr/>
-    <% submissions.flagged_for_approval.each do |submission| %>
+    <% submissions.each do |submission| %>
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
-
-    <% submissions.without_nits.each do |submission| %>
-      <%= erb :pending_submission, locals: { submission: submission } %>
-    <% end %>
-
-    <% submissions.with_nits.each do |submission| %>
-      <%= erb :pending_submission, locals: { submission: submission } %>
-    <% end %>
-
   </div>
 <% end %>

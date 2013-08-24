@@ -2,6 +2,7 @@
   position: absolute;
   right:0;
   top: 0em;
+  z-index: 1;
   width:2.2em;
   height:2.2em;
   border-width: 0;
@@ -10,7 +11,7 @@
   font-weight:600;
   color:#fff;
   cursor: pointer;
-  user-select:none;
+  user-select: none;
   margin:0;
   background:rgba(0, 0, 0, .4);
   transition-duration: .3s;
@@ -50,6 +51,9 @@ li.notification {
   .check {
     cursor: pointer;
     margin-right: .25em;
+  }
+  &.message {
+    cursor: pointer;
   }
 }
 

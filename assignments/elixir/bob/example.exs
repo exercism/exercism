@@ -26,7 +26,7 @@ defmodule Teenager do
     end
   end
 
-  defp silent?(input),   do: input == ""
-  defp shouting?(input), do: input == String.upcase input
-  defp question?(input), do: "?" == String.last input
+  defp silent?(input),   do: "" == String.strip(input)
+  defp shouting?(input), do: input == String.upcase(input)
+  defp question?(input), do: String.ends_with?(input, "?")
 end

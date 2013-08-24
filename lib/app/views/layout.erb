@@ -1,17 +1,14 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='en' ng-app="exercism">
   <head>
     <meta charset='utf-8'>
-    <title>exercism.io</title>
+    <title><%= title %></title>
     <meta content='width=device-width, initial-scale=1.0' name='viewport'>
     <meta content='' name='description'>
     <meta content='' name='author'>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
     <link href='/ico/favicon.png' rel='shortcut icon'>
-    <% if ENV['RACK_ENV'].to_sym == :production %>
-        <link href='/css/app.min.css' rel='stylesheet'>
-    <% else %>
-        <link href='/css/app.css' rel='stylesheet'>
-    <% end %>
+    <link href='/css/app.css' rel='stylesheet'>
   </head>
   <body>
     <% unless current_user.guest? %>
@@ -20,28 +17,39 @@
     <div class='navbar navbar-top'>
       <div class='navbar-inner'>
         <a class='brand' href='/'>exercism.io</a>
+        <% unless current_user.guest? %>
+          <ul class="nav">
+            <% Exercism.languages.each do |language| %>
+              <%= dashboard_nav_li language.to_s %>
+            <% end %>
+          </ul>
+        <% end %>
         <ul class="nav pull-right">
           <% if current_user.guest? %>
             <li><a href="/login">log in with github</a></li>
             <%= erb :backdoor %>
           <% else %>
             <li>
-              <a href="/account">
-                <%= gravatar_tag current_user.avatar_url, size: 20 %>
-                hi, <%= current_user.username %>
-              </a>
+            <a class="dropdown-toggle" href="#">
+              <%= gravatar_tag current_user.avatar_url, size: 20 %>
+              hi, <%= current_user.username %> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu" role="menu">
+              <li><a tabindex="-1" href="/<%= current_user.username %>">Dashboard</a></li>
+              <li><a tabindex="-1" href="/getting-started">Getting Started</a></li>
+              <li><a tabindex="-1" href="/logout">Log Out</a></li>
+            </ul>
             </li>
-            <li><a href="/logout">log out</a></li>
           <% end %>
         </ul>
       </div>
     </div>
 
-    <% [:notice, :error, :alert].each do |level| %>
+    <% [:notice, :error, :alert, :success].each do |level| %>
       <% unless flash[level].blank? %>
-        <div class="alert <%= level.to_s %>">
-          <a class="close" href="#">×</a>
-          <p><%= flash[level] %></p>
+        <div class="alert alert-<%= level.to_s %> alert--fixed-width">
+          <a class="close" href="#" data-dismiss="alert">×</a>
+          <%= flash[level] %>
         </div>
       <% end %>
     <% end %>
@@ -57,10 +65,6 @@
       </footer>
     </div>
     <div id="list-notifications"></div>
-    <% if ENV['RACK_ENV'].to_sym == :production %>
-      <script src="/js/app.min.js"></script>
-    <% else %>
-      <script src="/js/app.js"></script>
-    <% end %>
+    <script src="/js/app.js"></script>
   </body>
 </html>

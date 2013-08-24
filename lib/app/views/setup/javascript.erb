@@ -1,0 +1,49 @@
+<h3>JavaScript</h3>
+
+<h4>Installation: </h4>
+
+<ul>
+  <li>
+    Install <a href="http://nodejs.org/">Node.js</a>
+    <ul>
+      <li>
+        <a href="https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager">Installing Node.js via package manager</a>
+      </li>
+    </ul>
+  </li>
+
+  <li>
+    Install <a href="https://github.com/mhevery/jasmine-node">jasmine-node</a> with
+    <code>npm install jasmine-node -g</code>
+  </li>
+</ul>
+
+<p>
+  Update your <code>PATH</code> to include the npm binaries. Add the
+  following to either <code>~/.bash_profile</code> or <code>~/.zshrc</code>
+</p>
+
+<pre>$ export PATH=/usr/local/share/npm/bin:$PATH</pre>
+
+<h4>Running tests: </h4>
+<p>Execute the tests with:</p>
+
+<pre>$ jasmine-node bob_test.spec.js</pre>
+
+
+<h4>Making your first node module: </h4>
+
+<p> 
+  To create a module that can be loaded with <code>var Bob = require(./bob);</code>, 
+  put this code in <code>bob.js</code>:
+</p>
+
+<pre>
+var Bob = function() {};
+module.exports = Bob;
+</pre>
+
+<p>
+  You can find more information about modules in the 
+  <a href="http://nodejs.org/api/modules.html#modules_module_exports">node documentation</a>.
+</p>

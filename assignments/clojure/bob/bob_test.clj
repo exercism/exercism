@@ -1,4 +1,4 @@
-(ns bob.test (:use clojure.test))
+(ns bob.test (:require [clojure.test :refer :all]))
 (load-file "bob.clj")
 
 (deftest responds-to-something
@@ -32,6 +32,9 @@
   (is (= "Whatever." (bob/response-for "Ending with ? means a question."))))
 
 (deftest responds-to-silence
-  (is (= "Fine, be that way." (bob/response-for ""))))
+  (is (= "Fine. Be that way!" (bob/response-for ""))))
+
+(deftest responds-to-prolonged-silence
+  (is (= "Fine. Be that way!" (bob/response-for "    "))))
 
 (run-tests)

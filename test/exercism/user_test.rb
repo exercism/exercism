@@ -1,12 +1,16 @@
 require './test/mongo_helper'
 
+require 'exercism/locksmith'
+require 'exercism/problem_set'
+require 'exercism/input_sanitation'
 require 'exercism/user'
 require 'exercism/null_submission'
 require 'exercism/exercise'
 require 'exercism/locale'
 require 'exercism/trail'
+require 'exercism/comment'
 require 'exercism/submission'
-require 'exercism/nit'
+require 'exercism/notification'
 
 class UserTest < Minitest::Test
 
@@ -29,52 +33,22 @@ class UserTest < Minitest::Test
     assert_match %r{\A[a-z0-9]{40}\z}, user.key
   end
 
-  def test_user_on_a_single_trail
+  def test_user_has_a_problem_set
     user = User.new(current: {'nong' => 'one'})
     ex = Exercise.new('nong', 'one')
     assert_equal [ex], user.current_exercises
   end
 
-  def test_user_on_multiple_trails
-    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
-    ex1 = Exercise.new('nong', 'one')
-    ex2 = Exercise.new('femp', 'two')
-    assert_equal [ex1, ex2], user.current_exercises
-  end
-
-  def test_user_knows_what_they_are_doing
-    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
-    assert user.doing?('femp')
-  end
-
-  def test_user_knows_what_they_are_not_doing
-    user = User.new(current: {'nong' => 'one'})
-    assert !user.doing?('femp')
-  end
-
-  def test_user_finds_current_exercise_for_a_language
-    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
-
-    assert_equal Exercise.new('femp', 'two'), user.current_on('femp')
-  end
-
-  def test_user_completes_an_exercise
-    nong = Locale.new('nong', 'no', 'not')
-    trail = Trail.new(nong, %w(one two three), '/tmp')
-
-    user = User.new(current: {'nong' => 'two'})
-
+  def test_user_is_nitpicker_on_completed_assignment
+    user = User.new(current: {'nong' => 'two'}, completed: {'nong' => ['one']})
     one = Exercise.new('nong', 'one')
-    two = Exercise.new('nong', 'two')
-    user.complete!(two, on: trail)
-
-    assert user.completed?(two), 'Expected to have completed nong:two'
-    assert_equal [one], user.current_exercises
+    assert user.nitpicker_on?(one)
   end
 
-  def test_admin_may_nitpick_stuff
-    admin = User.new(username: 'alice', is_admin: true)
-    assert admin.may_nitpick?(Exercise.new('lang', 'exercise'))
+  def test_user_is_not_nitpicker_on_current_assignment
+    user = User.new(current: {'nong' => 'one'})
+    one = Exercise.new('nong', 'one')
+    refute user.nitpicker_on?(one)
   end
 
   def test_user_may_nitpick_an_exercise_they_completed
@@ -87,25 +61,24 @@ class UserTest < Minitest::Test
     assert user.may_nitpick?(one)
   end
 
-  def test_user_may_not_nitpick_uncompleted_assignments
+  def test_user_may_not_nitpick_future_assignments
     user = User.new(current: {'nong' => 'one'})
     nong = Locale.new('nong', 'no', 'not')
     trail = Trail.new(nong, ['one', 'two'], '/tmp')
 
-    one = Exercise.new('nong', 'one')
     two = Exercise.new('nong', 'two')
-    assert !user.may_nitpick?(one)
-    assert !user.may_nitpick?(two)
+    refute user.may_nitpick?(two)
+  end
+
+  def test_user_may_nitpick_current_assignments
+    user = User.new(current: {'nong' => 'one'})
+    one = Exercise.new('nong', 'one')
+    assert user.may_nitpick?(one)
   end
 
   def test_user_not_a_guest
     user = User.new
     refute user.guest?
-  end
-
-  def test_user_current_languages
-    user = User.new(current: {'nong' => 'one', 'femp' => 'two'})
-    assert_equal %w(nong femp).sort, user.current_languages.sort
   end
 
   def test_user_is?
@@ -125,9 +98,12 @@ class UserTest < Minitest::Test
     refute user.new?
   end
 
-  def test_admin_isnt_new
-    admin = User.new(is_admin: true)
-    refute admin.new?
+  def test_locksmith_isnt_new
+    locksmith = User.new
+    def locksmith.locksmith?
+      true
+    end
+    refute locksmith.new?
   end
 
   def test_create_user_from_github
@@ -157,9 +133,12 @@ class UserTest < Minitest::Test
     assert_equal 'old', user.avatar_url
   end
 
-  def test_admin_is_nitpicker
-    admin = User.new(is_admin: true)
-    assert admin.nitpicker?
+  def test_locksmith_is_nitpicker
+    locksmith = User.new
+    def locksmith.locksmith?
+      true
+    end
+    assert locksmith.nitpicker?
   end
 
   def test_user_with_completed_exercises_is_nitpicker
@@ -218,6 +197,10 @@ class UserTest < Minitest::Test
 
     user.do!(exercise)
     assert_equal({'nong' => 'one'}, user.reload.current)
+  end
+
+  def test_user_is_not_locksmith_by_default
+    refute User.new.locksmith?
   end
 
   private

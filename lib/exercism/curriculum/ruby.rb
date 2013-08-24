@@ -2,17 +2,17 @@ class Exercism
   class RubyCurriculum
     def slugs
       %w(
-        bob rna-transcription word-count anagram beer-song
+        bob word-count anagram
         nucleotide-count point-mutations phone-number
         grade-school robot-name leap etl meetup space-age grains
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies strain
-        atbash-cipher accumulate crypto-square trinary
+        atbash-cipher accumulate crypto-square trinary rna-transcription
         sieve simple-cipher octal luhn pig-latin pythagorean-triplet
         series difference-of-squares secret-handshake linked-list wordy
         hexadecimal largest-series-product kindergarden-garden
         binary-search-tree matrix robot-simulator nth-prime
-        palindrome-products pascals-triangle say
+        palindrome-products pascals-triangle say beer-song
         sum-of-multiples queen-attack saddle-points ocr-numbers
       )
     end

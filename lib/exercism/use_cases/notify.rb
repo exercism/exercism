@@ -1,49 +1,25 @@
 class Notify
-  def self.everyone(submission, from, about)
-    (submission.participants - [from]).each do |to|
-      new(submission, to, from, about).save
+  def self.everyone(submission, regarding, options = {})
+    except = Array(options[:except])
+    (submission.participants - except).each do |to|
+      Notification.on(submission, to: to, regarding: regarding)
     end
   end
 
-  def self.source(submission, from, about)
-    new(submission, submission.user, from, about).save
+  def self.about(note, options)
+    data = {
+      note: note,
+      regarding: 'custom',
+      user: options[:to]
+    }
+    Notification.create(data)
   end
 
-  attr_reader :submission, :to, :from, :about
-
-  def initialize(submission, to, from, about)
-    @submission = submission
-    @to = to
-    @from = from
-    @about = about
+  def self.source(submission, regarding, options = {})
+    except = Array(options[:except])
+    unless except.include?(submission.user)
+      Notification.on(submission, to: submission.user, regarding: regarding)
+    end
   end
-
-  def save
-    Notification.create({
-      user: to,
-      from: from.username,
-      regarding: about,
-      link: link(about)
-    })
-  end
-
-  def link(about)
-    "/" + send("#{about}_link".to_sym)
-  end
-  def approval_link
-    [
-      submission.user.username,
-      submission.language,
-      submission.slug
-    ].join("/")
-  end
-
-  def nitpick_link
-    [
-      "submissions",
-      submission.id
-    ].join("/")
-  end
-  alias_method :comment_link, :nitpick_link
-
 end
+

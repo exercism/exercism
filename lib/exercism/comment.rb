@@ -1,13 +1,31 @@
 class Comment
   include Mongoid::Document
+  include InputSanitation
 
   field :at, type: Time, default: ->{ Time.now.utc }
-  field :body, type: String
+  field :c, as: :comment, type: String
 
   belongs_to :user
-  embedded_in :nit
+  belongs_to :nit
+  belongs_to :submission
 
-  def commenter
+  # Experiment: Implement manual counter-cache
+  # to see if this affects load time of dashboard pages.
+  # preliminary testing in development suggests a 40% decrease
+  # in load time
+  after_create do |comment|
+    unless comment.user.owns?(comment.submission)
+      comment.submission.nc += 1
+      comment.submission.save
+    end
+  end
+
+  def nitpicker
     user
+  end
+
+  def sanitized_update(comment)
+    self.comment = sanitize(comment)
+    save
   end
 end

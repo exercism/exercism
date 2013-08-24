@@ -1,0 +1,27 @@
+<h3>Clojure</h3>
+
+<h4>Installation:</h4>
+
+<ul>
+  <li>
+    Homebrew for Mac OS X
+    <ul>
+      <li>Update your homebrew to latest: <code>brew update</code></li>
+      <li>Install Leiningen: <code>brew install leiningen</code></li>
+      <li>Install lein-exec: edit <code>~/.lein/profiles.clj</code> and add <code>{:user {:plugins [[lein-exec "0.3.1"]]}}</code></li>
+    </ul>
+  </li>
+  <li>
+    Other
+    <ul>
+      <li>Download the latest table release jar file <a href="http://clojure.org/downloads">Clojure-1.5.1</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h4>Running tests:</h4>
+<p>If you installed lein-exec: </p>
+<pre>$ lein exec bob_test.clj</pre>
+
+<p>If jar file downloaded, assuming <code>clojure-1.5.1.jar</code></p>
+<pre>$ java -cp clojure-1.5.1.jar clojure.main bob_test.clj</pre>

@@ -2,6 +2,8 @@ require 'digest/sha1'
 
 class User
   include Mongoid::Document
+  include Locksmith
+  include ProblemSet
 
   field :u, as: :username, type: String
   field :email, type: String
@@ -11,12 +13,11 @@ class User
   field :g_id, as: :github_id, type: Integer
   field :key, type: String, default: ->{ create_key }
   field :j_at, type: Time, default: ->{ Time.now.utc }
-  field :adm, as: :is_admin, type: Boolean, default: false
-
-  alias_method :admin?, :is_admin
+  field :ms, as: :mastery, type: Array, default: []
 
   has_many :submissions
   has_many :notifications
+  has_many :comments
 
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first
@@ -47,6 +48,10 @@ class User
     submissions.order_by(at: :desc).where(language: exercise.language, slug: exercise.slug)
   end
 
+  def most_recent_submission
+    submissions.order_by(at: :asc).last
+  end
+
   def guest?
     false
   end
@@ -56,8 +61,8 @@ class User
     save
   end
 
-  def doing?(language)
-    current.key?(language)
+  def sees?(language)
+    doing?(language) || locksmith_in?(language)
   end
 
   def complete!(exercise, options = {})
@@ -68,30 +73,12 @@ class User
     save
   end
 
-  def completed?(exercise)
-    completed_exercises.any? {|_, exercises| exercises.include?(exercise) }
-  end
-
-  def completed_exercises
-    unless @completed_exercises
-      @completed_exercises = {}
-      completed.map do |language, slugs|
-        @completed_exercises[language] = slugs.map {|slug| Exercise.new(language, slug)}
-      end
-    end
-    @completed_exercises
-  end
-
-  def current_languages
-    current.keys
+  def nitpicks_trail?(language)
+    completed.keys.include?(language) || locksmith_in?(language)
   end
 
   def current_exercises
     current.to_a.map {|cur| Exercise.new(*cur)}
-  end
-
-  def current_on(language)
-    current_exercises.find {|ex| ex.language == language}
   end
 
   def ==(other)
@@ -103,15 +90,19 @@ class User
   end
 
   def may_nitpick?(exercise)
-    admin? || completed?(exercise)
+    nitpicker_on?(exercise) || working_on?(exercise)
+  end
+
+  def nitpicker_on?(exercise)
+    locksmith_in?(exercise.language) || completed?(exercise)
   end
 
   def nitpicker?
-    admin? || completed.size > 0
+    locksmith? || completed.size > 0
   end
 
   def new?
-    !admin? && submissions.count == 0
+    !locksmith? && submissions.count == 0
   end
 
   def owns?(submission)

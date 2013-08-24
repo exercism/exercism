@@ -1,0 +1,4 @@
+<span class="icon-ok"></span>
+<a href="<%= link %>"><%= language %>: <%= slug %></a>
+<br>
+completed <%= ago %>

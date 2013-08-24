@@ -9,7 +9,7 @@
 <% else %>
 
   <% if after.approved? %>
-    <p><strong>Approved</strong> by <%= gravatar_tag after.approver.avatar_url %> <%= after.approver.username %> <%= ago(after.approved_at) %></p>
+    <p>This exercise has been thoroughly bikeshedded and <b><%= user.username %></b> has moved on.</p>
   <% else %>
     <p>This exercise is still in progress.</p>
   <% end %>
@@ -21,7 +21,7 @@
         <li><a data-revision="<%= index + 1 %>">Rev <%= index + 1 %></a></li>
       <% end %>
       <% if after.approved? %>
-        <li><a data-revision="latest" class="selected">Approved</a></li>
+        <li><a data-revision="latest" class="selected">Final</a></li>
         <li><a data-revision="example">Example</a></li>
       <% else %>
         <li><a data-revision="latest" class="selected">Latest</a></li>
@@ -43,7 +43,7 @@
 
     <% end %>
 
-    <%= erb :"code/submission", locals: { title: after.approved? ? "Approved" : "Latest",
+    <%= erb :"code/submission", locals: { title: after.approved? ? "Final" : "Latest",
         html: { id: "revision-latest" },
         submission: after } %>
 

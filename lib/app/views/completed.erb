@@ -1,0 +1,40 @@
+<h2>Completed Assignments</h2>
+
+<% if submissions.any? %>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Link</th>
+        <th>Submitted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% submissions.all.each do |submission| %>
+        <tr>
+          <td>
+            <div class="avatar">
+              <%= gravatar_tag submission.user.avatar_url, size: 30 %>
+            </div>
+            <%= profile_link(submission.user) %>
+          </td>
+
+          <td>
+            <a href="/submissions/<%= submission.id %>"><%= submission.slug %></a>
+          </td>
+
+          <td>
+            <%= ago(submission.at) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p>
+    <%= will_paginate submissions, renderer: BootstrapPagination::Sinatra %>
+  </p>
+<% else %>
+  <p>
+    <b>No recently approved submissions in <%= language %>: <%= slug %></b>
+  </p>
+<% end %>

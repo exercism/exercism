@@ -6,13 +6,17 @@
       <%= title %>
     </a>
     <div style="float: right;">
-    <span class="badge badge-important"><%= submission.nits.count %>
-    </span>
-    <span class="badge badge-info"><%= submission.argument_count %>
+    <span class="badge badge-important"><%= submission.nc %>
     </span>
     </div>
   </h2>
-  <h3><small>Submitted <%= ago(submission.at) %></small></h3>
+  <h3>
+    <small>Submitted <%= ago(submission.at) %> &centerdot;
+      <a href="/submissions/<%= submission.id %>">
+        view submission &raquo;
+      </a>
+    </small>
+  </h3>
   <div class"btn-group">
     <a class="btn" data-action="enlarge">
       <i class="icon-resize-full"></i>

@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative 'example'
+require_relative 'word_problem'
 
 class WordProblemTest < MiniTest::Unit::TestCase
   def test_add_1
