@@ -6,14 +6,10 @@ module CryptoSquare ( normalizePlaintext
 
 import Data.Char (isAlphaNum, toLower)
 import Data.List (intercalate)
-
-chunk :: Int -> [a] -> [[a]]
-chunk _ [] = []
-chunk n xs = ys : chunk n zs
-  where (ys,zs) = splitAt n xs
+import Data.List.Split (chunksOf)
 
 everyNth :: Int -> String -> String
-everyNth = (map head .) . chunk
+everyNth = (map head .) . chunksOf
 
 squareSize :: String -> Int
 squareSize = ceiling . (sqrt :: Double -> Double) . fromIntegral . length
@@ -22,7 +18,7 @@ normalizePlaintext :: String -> String
 normalizePlaintext = map toLower . filter isAlphaNum
 
 plaintextSegments :: String -> [String]
-plaintextSegments s = chunk (squareSize text) text
+plaintextSegments s = chunksOf (squareSize text) text
   where text = normalizePlaintext s
 
 cipherSegments :: String -> [String]
@@ -33,4 +29,4 @@ ciphertext :: String -> String
 ciphertext = concat . cipherSegments . normalizePlaintext
 
 normalizeCiphertext :: String -> String
-normalizeCiphertext = intercalate " " . chunk 5 . ciphertext
+normalizeCiphertext = intercalate " " . chunksOf 5 . ciphertext
