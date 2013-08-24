@@ -11,6 +11,7 @@ class Submission
   field :apr_by, as: :flagged_by, type: Array, default: []
   field :op, as: :wants_opinions, type: Boolean, default: false
   field :mt_by, as: :muted_by, type: Array, default: []
+  field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
 
   belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
@@ -74,7 +75,7 @@ class Submission
   end
 
   def nits_by_others_count
-    nits_by_others.count
+    nc
   end
 
   def nits_by_others
