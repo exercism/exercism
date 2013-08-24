@@ -27,6 +27,7 @@ class Attempt
     if user.completed?(exercise)
       submission.state = 'tweaked'
     end
+    user.clear_stash(file.path)
     submission.code = code
     if previous_submission.approvable?
       submission.is_approvable = true

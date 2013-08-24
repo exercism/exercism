@@ -13,6 +13,8 @@ class Submission
   field :mt_by, as: :muted_by, type: Array, default: []
   field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
   field :v, as: :version, type: Integer, default: 0
+  field :st_n, as: :stash_name, type: String
+
 
   belongs_to :user
   has_many :comments
@@ -135,6 +137,7 @@ class Submission
     if pending? || hibernating? || tweaked?
       self.state = 'superseded'
     end
+    self.delete if stashed?
     save
   end
 
@@ -152,6 +155,10 @@ class Submission
 
   def pending?
     state == 'pending'
+  end
+
+  def stashed?
+    state == 'stashed'
   end
 
   def hibernating?
