@@ -4,6 +4,7 @@ class Attempt
   def initialize(user, code, filename, curriculum = Exercism.current_curriculum)
     @user = user
     @code = code
+    @filename = filename
     @language = curriculum.identify_language(filename)
   end
 
@@ -15,6 +16,7 @@ class Attempt
     user.submissions_on(exercise).each do |sub|
       sub.supersede!
     end
+    user.clear_stash(@filename)
     submission.code = code
     user.submissions << submission
     user.save

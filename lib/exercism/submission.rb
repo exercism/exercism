@@ -9,6 +9,7 @@ class Submission
   field :a_at, as: :approved_at, type: Time
   field :apr, as: :is_approvable, type: Boolean, default: false
   field :apr_by, as: :flagged_by, type: Array, default: []
+  field :st_n, as: :stash_name, type: String
 
   belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
@@ -57,6 +58,7 @@ class Submission
 
   def supersede!
     self.state = 'superseded' if pending?
+    self.delete if stashed?
     save
   end
 
