@@ -5,7 +5,7 @@ end
 module Sinatra
   module GemHelper
     def gem_version(user_agent)
-      match = user_agent.match(/v(\d+)\.(\d+)\.(\d+)$/)
+      match = user_agent.match(/v(\d+)\.(\d+)\.(\d+)(\.beta)?$/)
       Exercism::Gem.new(match[1].to_i, match[2].to_i, match[3].to_i)
     end
 
