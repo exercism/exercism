@@ -109,6 +109,24 @@ class User
     self == submission.user
   end
 
+  def stashed_submissions
+    self.submissions.select{ |submission| submission.stashed? }
+  end
+
+  def stash_list
+    list = []
+    self.stashed_submissions.each do |sub|
+      list << sub.stash_name
+    end
+    return list 
+  end
+
+  def clear_stash(filename)
+    self.stashed_submissions.each do |sub|
+      sub.delete if sub.stash_name == filename
+    end
+  end
+
   private
 
   def latest_submission_on(exercise)
