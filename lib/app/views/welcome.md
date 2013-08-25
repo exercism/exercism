@@ -2,7 +2,7 @@
 
 Thank you for trying out exercism.io, especially with all the chaos of _the early days_.
 
-It came as a complete surprise to me that the project hit a nerve with people. I expected **dozens** of people to use the site. It's been 2 months since I showed the first couple of people, and since then 900 people have submitted over 8000 pieces of code.
+It came as a complete surprise to me that the project hit a nerve with people. I expected **dozens** of people to use the site. It's been 2 months since I showed the first couple of people, and since then over 1,000 people have submitted over 10,000 pieces of code.
 
 It's exciting, and also a little scary. I hope that I can keep up, and that I don't disappoint you.
 
