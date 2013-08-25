@@ -184,6 +184,12 @@ blockquote.submitter {
   border-left: 5px solid #0088cc;
 }
 
+blockquote p{
+  font-size: 1.2em;
+  font-weight: initial;
+  line-height: 1.4em;
+}
+
 a code {
   color: #0088cc;
 }
