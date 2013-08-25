@@ -6,7 +6,6 @@ class Comment
   field :c, as: :comment, type: String
 
   belongs_to :user
-  belongs_to :nit
   belongs_to :submission
 
   # Experiment: Implement manual counter-cache
