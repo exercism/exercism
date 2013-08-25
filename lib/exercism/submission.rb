@@ -69,8 +69,10 @@ class Submission
 
     participants = Set.new
     participants.add user
-    comments.each do |nit|
-      participants.add nit.nitpicker
+    related_submissions.each do |submission|
+      submission.comments.each do |nit|
+        participants.add nit.nitpicker
+      end
     end
     @participants = participants
   end

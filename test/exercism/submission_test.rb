@@ -106,12 +106,18 @@ class SubmissionTest < Minitest::Test
     assert_equal 3, s3.version
   end
 
-  def test_participants_when_not_approved
-    alice = User.new(username: 'alice')
-    bob = User.new(username: 'bob', github_id: '2', mastery: ['nong'])
-    s1 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
+  def test_participants
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    charlie = User.create(username: 'charlie')
+    s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
+    s1.comments << Comment.new(user: bob, comment: 'nice')
+    s1.save
+    s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
+    s2.comments << Comment.new(user: charlie, comment: 'pretty good')
+    s2.save
 
-    assert_equal Set.new([alice]), s1.participants
+    assert_equal %w(alice bob charlie), s2.participants.map(&:username).sort
   end
 
   def test_muted_by_when_muted
