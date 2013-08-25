@@ -5,6 +5,7 @@ require 'will_paginate/mongoid'
 
 require 'app/presenters/dashboard'
 
+require 'app/setup'
 require 'app/about'
 require 'app/nitpick'
 require 'app/api'
@@ -16,7 +17,6 @@ require 'app/dashboard'
 require 'app/exercises'
 require 'app/trails'
 require 'app/users'
-require 'app/setup'
 require 'app/not_found' # always include last
 
 require 'app/helpers/submissions_helper'
@@ -152,6 +152,8 @@ class ExercismApp < Sinatra::Base
     end
 
     def unstarted_trails
+      return [] if current_user.guest?
+
       @unstarted_trails ||= Exercism.current_curriculum.unstarted_trails(current_user.current_languages)
     end
 

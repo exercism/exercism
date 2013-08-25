@@ -29,9 +29,6 @@
   </aside>
   <main id="pending-submissions" class="span8">
   <% if welcome %>
-    <% if current_user.new? %>
-      <%= erb :"setup/getting_started" %>
-    <% end %>
     <%= md(File.read('./lib/app/views/welcome.md')) %>
   <% elsif show_pending_submissions?(language) %>
     <%= erb :pending, locals: {submissions: submissions, show_filters: show_filters} %>

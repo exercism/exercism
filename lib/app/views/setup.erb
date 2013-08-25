@@ -18,9 +18,11 @@
 
 <p>You will be asked for your username, your API key, and the location on your filesystem that you'd like to put the exercises. The gem will suggest your current location as the default (in parentheses). If you are happy with that, you can simply hit enter to select that option.</p>
 
-<p>Your api key is: <b><%= current_user.key %></b></p>
+<% unless current_user.guest? %>
+  <p>Your api key is: <b><%= current_user.key %></b></p>
 
-<p>You can always find your API key in <%= profile_link(current_user, "your account") %>.</p>
+  <p>You can always find your API key in <%= profile_link(current_user, "your account") %>.</p>
+<% end %>
 
 <p>If you mess up your login, you can either edit the config file at
 <kbd>~/.exercism</kbd> or <kbd>~/.config/exercism</kbd>

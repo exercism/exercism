@@ -12,8 +12,3 @@ I still don't quite know what exercism.io will end up being. It helps that so ma
 
 Not knowing where it is going means that everything could change. I will do my best to make that change as painless as possible, and will provide ample warning (and a data download) if things should change so drastically that you wouldn't be able to find early discussions.
 
-#### Thoughts?
-
-I would love to hear from you if you have ideas, or just want to share your thoughts about how things could be made better. What works, what doesn't, what would you hate to see change?
-
-Feel free to email me (my email address is on [my github account](https://github.com/kytrinyx/)), or [open tickets](https://github.com/kytrinyx/exercism.io/issues) on the repo.

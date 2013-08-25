@@ -1,0 +1,39 @@
+<% unless current_user.guest? %>
+  <ul class="nav">
+    <% Exercism.languages.each do |language| %>
+      <%= dashboard_nav_li language.to_s %>
+    <% end %>
+  </ul>
+<% end %>
+
+<ul class="nav pull-right">
+  <li class="dropdown">
+    <a class="dropdown-toggle" id="drop-setup" href="#" data-toggle="dropdown">
+      Getting Started <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu" id="menu-setup" role="menu" area-labelledby="drop-setup">
+      <li><a role="menuitem" tabindex="-1" href="/setup">Initial Setup</a></li>
+      <% Exercism.current_curriculum.locales.each do |locale| %>
+        <li>
+          <a role="menuitem" tabindex="-1" href="/setup/<%= locale.language %>"><%= locale.name %></a>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+
+  <% if current_user.guest? %>
+    <li><a href="/login">log in with github</a></li>
+    <%= erb :backdoor %>
+  <% else %>
+    <li>
+      <a class="dropdown-toggle" id="drop-account" href="#">
+        <%= gravatar_tag current_user.avatar_url, size: 20 %>
+        hi, <%= current_user.username %> <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu" role="menu">
+        <li><a role="menuitem" tabindex="-1" href="/<%= current_user.username %>">Account</a></li>
+        <li><a role="menuitem" tabindex="-1" href="/logout">Log Out</a></li>
+      </ul>
+    </li>
+  <% end %>
+</ul>

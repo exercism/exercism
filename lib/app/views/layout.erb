@@ -14,34 +14,11 @@
     <% unless current_user.guest? %>
       <div id="toggle-notifications"></div>
     <% end %>
+
     <div class='navbar navbar-top'>
       <div class='navbar-inner'>
         <a class='brand' href='/'>exercism.io</a>
-        <% unless current_user.guest? %>
-          <ul class="nav">
-            <% Exercism.languages.each do |language| %>
-              <%= dashboard_nav_li language.to_s %>
-            <% end %>
-          </ul>
-        <% end %>
-        <ul class="nav pull-right">
-          <% if current_user.guest? %>
-            <li><a href="/login">log in with github</a></li>
-            <%= erb :backdoor %>
-          <% else %>
-            <li>
-            <a class="dropdown-toggle" href="#">
-              <%= gravatar_tag current_user.avatar_url, size: 20 %>
-              hi, <%= current_user.username %> <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a tabindex="-1" href="/<%= current_user.username %>">Dashboard</a></li>
-              <li><a tabindex="-1" href="/getting-started">Getting Started</a></li>
-              <li><a tabindex="-1" href="/logout">Log Out</a></li>
-            </ul>
-            </li>
-          <% end %>
-        </ul>
+        <%= erb :nav %>
       </div>
     </div>
 
@@ -61,6 +38,9 @@
       <hr>
       <footer>
       <p>&copy; <%= Date.today.year %> Katrina Owen</p>
+      <% unless current_user.guest? %>
+        <p>I would love to hear from you if you have ideas, or just want to share your thoughts about how things could be made better. What works, what doesn't, what would you hate to see change? Feel free to email me (my email address is on <a href="https://github.com/kytrinyx/">my github account</a>).</p>
+      <% end %>
       <p>Source: <a href="https://github.com/kytrinyx/exercism.io">github.com/kytrinyx/exercism.io</a>. Report bugs and submit feedback <a href="https://github.com/kytrinyx/exercism.io/issues">on GitHub</a>.</p>
       </footer>
     </div>
