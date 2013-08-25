@@ -16,6 +16,7 @@ require 'app/dashboard'
 require 'app/exercises'
 require 'app/trails'
 require 'app/users'
+require 'app/setup'
 require 'app/not_found' # always include last
 
 require 'app/helpers/submissions_helper'
