@@ -42,6 +42,10 @@ class Notification
     regarding == 'done'
   end
 
+  def like?
+    regarding == 'like'
+  end
+
   def hibernating?
     regarding == 'hibernating'
   end
