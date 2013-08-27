@@ -27,7 +27,7 @@ class NitpickTest < Minitest::Test
     nit = submission.reload.comments.first
     assert submission.pending?, "Should be pending"
     assert_equal 'Too many variables', nit.comment
-    assert !submission.approvable?, "Should NOT be approvable"
+    refute submission.liked?, "Should NOT be liked"
   end
 
   def test_nitpicking_a_submission_mutes_it
@@ -51,26 +51,26 @@ class NitpickTest < Minitest::Test
 
   def test_like_a_submission
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, 'Too many variables', approvable: true).save
+    nitpick = Nitpick.new(submission.id, nitpicker, 'Too many variables', liked: true).save
     assert nitpick.nitpicked?
     submission.reload
-    assert submission.approvable?
-    assert_equal ['alice'], submission.flagged_by
+    assert submission.liked?
+    assert_equal ['alice'], submission.liked_by
     assert submission.pending?
   end
 
   def test_liking_a_submission_mutes_it
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, "", approvable: true).save
+    nitpick = Nitpick.new(submission.id, nitpicker, "", liked: true).save
     assert submission.reload.muted_by?(nitpicker)
   end
 
   def test_can_like_without_a_comment
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, '', approvable: true).save
+    nitpick = Nitpick.new(submission.id, nitpicker, '', liked: true).save
     submission.reload
-    assert submission.approvable?, "Expected assignment to be flagged"
-    assert_equal ['alice'], submission.flagged_by
+    assert submission.liked?, "Expected assignment to be liked"
+    assert_equal ['alice'], submission.liked_by
     assert submission.pending?
   end
 

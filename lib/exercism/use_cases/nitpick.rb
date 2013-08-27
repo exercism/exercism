@@ -7,7 +7,7 @@ class Nitpick
     @id = submission_id
     @nitpicker = nitpicker
     @body = sanitize(body.to_s)
-    @approvable = options.fetch(:approvable) { false }
+    @liked = options.fetch(:liked) { false }
     @nitpicked = false
   end
 
@@ -15,8 +15,8 @@ class Nitpick
     @nitpicked
   end
 
-  def approvable?
-    @approvable
+  def liked?
+    @liked
   end
 
   def submission
@@ -31,11 +31,7 @@ class Nitpick
       submission.state = 'pending' if submission.hibernating?
       mute = true
     end
-    if @approvable
-      # Total hack.
-      submission.is_approvable = true
-      submission.flagged_by << nitpicker.username
-      # Duplicate so we can delete approvable
+    if liked?
       submission.is_liked = true
       submission.liked_by << nitpicker.username
       mute = true

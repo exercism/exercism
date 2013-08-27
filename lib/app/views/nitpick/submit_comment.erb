@@ -28,11 +28,11 @@
     <% end %>
 
     <% if current_user.nitpicker_on?(submission.exercise) && !current_user.owns?(submission) %>
-      <button type="submit" name="approvable" class="btn" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
+      <button type="submit" name="like" class="btn" <%= 'disabled' if submission.liked_by.include?(current_user.username)%>>Looks great!</button>
     <% end %>
 
-    <% if submission.approvable? %>
-      <p><%= n_people_like_it(submission.flagged_by.count) %></p>
+    <% if submission.liked? %>
+      <p><%= n_people_like_it(submission.liked_by.count) %></p>
     <% end %>
   </form>
 

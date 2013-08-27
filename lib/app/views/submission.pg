@@ -2,7 +2,7 @@ node submission: submission do
   attributes :id
   node is_exercise_completed: submission.user.completed?(submission.exercise)
   node is_submitter: user.is?(submission.user.username)
-  node is_approvable: submission.approvable?
+  node is_liked: submission.liked?
   node wants_opinion: submission.wants_opinions?
   collection nits: submission.comments do |nit|
     node nit: nit do

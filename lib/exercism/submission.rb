@@ -9,8 +9,6 @@ class Submission
   field :a_at, as: :approved_at, type: Time
   field :lk, as: :is_liked, type: Boolean, default: false
   field :lk_by, as: :liked_by, type: Array, default: []
-  field :apr, as: :is_approvable, type: Boolean, default: false
-  field :apr_by, as: :flagged_by, type: Array, default: []
   field :op, as: :wants_opinions, type: Boolean, default: false
   field :mt_by, as: :muted_by, type: Array, default: []
   field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
@@ -148,8 +146,8 @@ class Submission
     true
   end
 
-  def approvable?
-    is_approvable
+  def liked?
+    is_liked
   end
 
   def approved?

@@ -6,11 +6,10 @@ class ExercismApp < Sinatra::Base
       please_login(notice)
 
       submission = Submission.find(id)
-      nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
+      nitpick = Nitpick.new(id, current_user, params[:comment], liked: params[:like])
       nitpick.save
       if nitpick.nitpicked?
         Notify.everyone(submission, 'nitpick', except: current_user)
-        flash[:success] = 'This submission has been nominated for approval' if nitpick.approvable?
         begin
           unless nitpick.nitpicker == nitpick.submission.user
             NitpickMessage.ship(

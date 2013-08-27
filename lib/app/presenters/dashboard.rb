@@ -43,7 +43,7 @@ class Dashboard
     scope = pending
     case slug
     when 'looks-great'
-      scope = scope.and(is_approvable: true)
+      scope = scope.and(is_liked: true)
     when 'opinions'
       scope = scope.and(wants_opinions: true)
     when 'featured'
