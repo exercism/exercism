@@ -160,15 +160,6 @@ class ExercismApp < Sinatra::Base
     def show_pending_submissions?(language)
       (!language && current_user.nitpicker?) || (language && current_user.nitpicks_trail?(language))
     end
-
-    def n_people_like_it(n)
-      case n
-        when 0 then ""
-        when 1 then "1 person thinks this looks great"
-      else
-        "#{n} people think this looks great"
-      end
-    end
   end
 
 end

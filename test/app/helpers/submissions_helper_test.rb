@@ -1,5 +1,9 @@
-require './test/test_helper'
+require './test/mongo_helper'
 require 'app/helpers/submissions_helper'
+require 'exercism/locksmith'
+require 'exercism/problem_set'
+require 'exercism/user'
+require 'exercism/submission'
 
 class SubmissionsHelperTest < Minitest::Test
 
@@ -33,4 +37,19 @@ class SubmissionsHelperTest < Minitest::Test
     assert_equal "/submissions/#{@submission.id}/unmute", helper.mute_button_action_for(@submission, @fred)
   end
 
+  def test_no_likes
+    assert_equal '', helper.these_people_like_it([])
+  end
+
+  def test_one_like
+    assert_equal '@alice thinks this looks great', helper.these_people_like_it(['alice'])
+  end
+
+  def test_two_likes
+    assert_equal '@alice and @bob think this looks great', helper.these_people_like_it(['alice', 'bob'])
+  end
+
+  def test_many_likes
+    assert_equal '@alice, @bob, and @charlie think this looks great', helper.these_people_like_it(['alice', 'bob', 'charlie'])
+  end
 end

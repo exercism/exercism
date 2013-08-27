@@ -32,7 +32,7 @@
     <% end %>
 
     <% if submission.liked? %>
-      <p><%= n_people_like_it(submission.liked_by.count) %></p>
+      <p><%= these_people_like_it(submission.liked_by) %></p>
     <% end %>
   </form>
 
