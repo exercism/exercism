@@ -23,5 +23,6 @@ class Completion
     submission.approved_at = Time.now.utc
     submission.save
     user.complete! exercise, on: trail
+    user.reload
   end
 end
