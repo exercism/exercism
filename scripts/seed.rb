@@ -115,7 +115,6 @@ Nitpick.new(attempt.submission.id, master, "`words.words` is so echo-y.").save
 Notify.everyone(attempt.submission, 'nitpick', except: master)
 attempt = Attempt.new(alice.reload, "class Code \nend", "#{alice.current_in('ruby').slug}/code.rb").save
 Completion.new(attempt.submission).save
-Notify.source(attempt.submission, 'done')
 alice.reload
 
 attempt = Attempt.new(alice.reload, "class Code \nend", "#{alice.current_in('ruby').slug}/code.rb").save
