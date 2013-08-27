@@ -4,6 +4,7 @@ exercism.views.Notification = Backbone.View.extend({
   attemptTemplate: JST["app/templates/attempt_notification.us"],
   unlockedTemplate: JST["app/templates/unlocked_notification.us"],
   hibernatingTemplate: JST["app/templates/hibernating_notification.us"],
+  likeTemplate: JST["app/templates/like_notification.us"],
   customTemplate: JST["app/templates/custom_notification.us"],
 
   tagName: "li",
@@ -40,6 +41,9 @@ exercism.views.Notification = Backbone.View.extend({
         break;
       case "hibernating":
         this.$el.html(this.hibernatingTemplate(this.model.toJSON()));
+        break;
+      case "like":
+        this.$el.html(this.likeTemplate(this.model.toJSON()));
         break;
       case "custom":
         this.$el.html(this.customTemplate(this.model.toJSON()));

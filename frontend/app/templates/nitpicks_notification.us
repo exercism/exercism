@@ -1,5 +1,4 @@
 <span class="icon-comment<% count == 1 ? "" : "s" %>"></span>
-<% if (assignmentCompleted){ print('<span class="icon-thumbs-up-alt"></span>')} %>
 <a href="<%= link %>"><%= language %>: <%= slug %></a>
 <br>
 <%= count %> new <%= count == 1 ? "nitpick" : "nitpicks" %> <%= ago %>

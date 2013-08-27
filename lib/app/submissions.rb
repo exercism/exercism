@@ -76,6 +76,7 @@ class ExercismApp < Sinatra::Base
     submission.liked_by << current_user.username
     submission.mute(current_user.username)
     submission.save
+    Notify.source(submission, 'like')
     redirect "/submissions/#{id}"
   end
 

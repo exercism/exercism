@@ -1,0 +1,4 @@
+<span class="icon-thumbs-up"></span>
+<a href="<%= link %>"><%= language %>: <%= slug %></a>
+<br>
+<%= count %> <%= count == 1 ? "person" : "people" %> said your code looks great (<%= ago %>)
