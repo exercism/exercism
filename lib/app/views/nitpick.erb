@@ -68,13 +68,11 @@
       <p>Feel free to expound on trade-offs or choices or thoughts about your code.</p>
     <% end %>
 
-
-
     <% submission.comments.each do |nit| %>
       <%= erb :"nitpick/nit", locals: {nit: nit, submission: submission} %>
     <% end %>
 
-    <% if current_user.owns?(submission) && submission.discussion_involves_user? %>
+    <% if current_user.owns?(submission) && !current_user.completed?(submission.exercise) && submission.discussion_involves_user? %>
       <%= erb :"nitpick/more_opinions", locals: {submission: submission} %>
     <% end %>
 
