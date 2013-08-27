@@ -1,5 +1,5 @@
 ---
-blurb: "Write a program that will convert a octal number, represented as a string (i.e. '1735263'), to it's decimal equivalent using first principles (i.e. no, you may not use built-in ruby libraries or gems to accomplish the conversion)."
+blurb: "Write a program that will convert a octal number, represented as a string (i.e. '1735263'), to its decimal equivalent using first principles (i.e. no, you may not use built-in ruby libraries or gems to accomplish the conversion)."
 source: "All of Computer Science"
 source_url: "http://www.wolframalpha.com/input/?i=base+8"
 
