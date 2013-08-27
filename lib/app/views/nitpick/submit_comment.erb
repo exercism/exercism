@@ -26,14 +26,6 @@
     <% else %>
       <button type="submit" name="nitpick" class="pull-right btn btn-primary">Nitpick</button>
     <% end %>
-
-    <% if current_user.nitpicker_on?(submission.exercise) && !current_user.owns?(submission) %>
-      <button type="submit" name="like" class="btn" <%= 'disabled' if submission.liked_by.include?(current_user.username)%>>Looks great!</button>
-    <% end %>
-
-    <% if submission.liked? %>
-      <p><%= these_people_like_it(submission.liked_by) %></p>
-    <% end %>
   </form>
 
   <% if current_user.is?(submission.user.username) %>

@@ -154,6 +154,15 @@ class SubmissionsTest < Minitest::Test
     assert_equal false, submission.reload.wants_opinions?
   end
 
+  def test_like_a_submission
+    submission = generate_attempt.submission
+    post "/submissions/#{submission.id}/like", {}, 'rack.session' => logged_in
+    submission.reload
+    assert submission.liked?, "should be liked"
+    assert_equal ['alice'], submission.liked_by, "alice should like it"
+    assert submission.muted_by?(alice), "should be muted"
+  end
+
   def test_change_opinions_when_not_logged_in
     submission = generate_attempt.submission
     post "/submissions/#{submission.id}/opinions/enable", {}, 'rack.session' => not_logged_in

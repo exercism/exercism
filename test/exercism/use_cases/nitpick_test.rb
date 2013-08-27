@@ -49,31 +49,6 @@ class NitpickTest < Minitest::Test
     refute submission.reload.muted_by?(nitpicker)
   end
 
-  def test_like_a_submission
-    nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, 'Too many variables', liked: true).save
-    assert nitpick.nitpicked?
-    submission.reload
-    assert submission.liked?
-    assert_equal ['alice'], submission.liked_by
-    assert submission.pending?
-  end
-
-  def test_liking_a_submission_mutes_it
-    nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, "", liked: true).save
-    assert submission.reload.muted_by?(nitpicker)
-  end
-
-  def test_can_like_without_a_comment
-    nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, '', liked: true).save
-    submission.reload
-    assert submission.liked?, "Expected assignment to be liked"
-    assert_equal ['alice'], submission.liked_by
-    assert submission.pending?
-  end
-
   def test_nitpicking_hibernating_exercise_sets_it_to_pending
     submission.state = 'hibernating'
     submission.save

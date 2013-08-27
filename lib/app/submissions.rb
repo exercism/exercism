@@ -6,7 +6,7 @@ class ExercismApp < Sinatra::Base
       please_login(notice)
 
       submission = Submission.find(id)
-      nitpick = Nitpick.new(id, current_user, params[:comment], liked: params[:like])
+      nitpick = Nitpick.new(id, current_user, params[:comment])
       nitpick.save
       if nitpick.nitpicked?
         Notify.everyone(submission, 'nitpick', except: current_user)
@@ -66,6 +66,16 @@ class ExercismApp < Sinatra::Base
 
   post '/submissions/:id/respond' do |id|
     nitpick(id)
+    redirect "/submissions/#{id}"
+  end
+
+  post '/submissions/:id/like' do |id|
+    please_login "You have to be logged in to do that."
+    submission = Submission.find(id)
+    submission.is_liked = true
+    submission.liked_by << current_user.username
+    submission.mute(current_user.username)
+    submission.save
     redirect "/submissions/#{id}"
   end
 

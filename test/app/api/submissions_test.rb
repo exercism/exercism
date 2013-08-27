@@ -84,7 +84,7 @@ class SubmissionApiValidResponseTest < Minitest::Test
         id: wildcard_matcher,
         is_exercise_completed: false,
         is_submitter: true,
-        is_liked: true,
+        is_liked: false,
         wants_opinion: false,
         nits: [
           {
@@ -107,7 +107,7 @@ class SubmissionApiValidResponseTest < Minitest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
-    Nitpick.new(submission.id, alice, '### test nit', liked: true).save
+    Nitpick.new(submission.id, alice, '### test nit').save
     submission.reload
     get "/api/v1/submission/#{submission.id}", {}, 'rack.session' => logged_in
 
