@@ -137,20 +137,6 @@ class AttemptTest < Minitest::Test
     assert_equal attempt.previous_submission, user.submissions.first
   end
 
-  def test_a_new_attempt_is_flagged_if_the_previous_two
-    bob = User.create(username: 'bob')
-    Attempt.new(user, 'CODE 1', 'two/two.fp', curriculum).save
-    one = user.submissions.first
-    one.is_approvable = true
-    one.flagged_by << bob.username
-    one.save
-
-    Attempt.new(user, 'CODE 2', 'two/two.fp', curriculum).save
-    two = user.submissions.last
-    assert two.approvable?, "'Looks Great!' should have persisted."
-    assert_equal [], two.flagged_by
-  end
-
   def test_newlines_are_removed_at_the_end_of_the_file
     Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.fp', curriculum).save
     assert_equal "\nCODE1\n\nCODE2", user.submissions.first.code
