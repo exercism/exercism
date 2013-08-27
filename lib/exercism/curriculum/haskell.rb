@@ -10,7 +10,8 @@ class Exercism
         atbash-cipher
         crypto-square kindergarden-garden robot-simulator queen-attack
         accumulate binary-search-tree difference-of-squares hexadecimal
-        largest-series-product luhn matrix ocr-numbers
+        largest-series-product luhn matrix ocr-numbers octal trinary
+        wordy
       )
     end
 
