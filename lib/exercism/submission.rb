@@ -7,6 +7,8 @@ class Submission
   field :c, as: :code, type: String
   field :at, type: Time, default: ->{ Time.now.utc }
   field :a_at, as: :approved_at, type: Time
+  field :lk, as: :is_liked, type: Boolean, default: false
+  field :lk_by, as: :liked_by, type: Array, default: []
   field :apr, as: :is_approvable, type: Boolean, default: false
   field :apr_by, as: :flagged_by, type: Array, default: []
   field :op, as: :wants_opinions, type: Boolean, default: false
@@ -14,7 +16,6 @@ class Submission
   field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
   field :v, as: :version, type: Integer, default: 0
   field :st_n, as: :stash_name, type: String
-
 
   belongs_to :user
   has_many :comments

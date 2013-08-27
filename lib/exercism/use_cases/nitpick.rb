@@ -35,6 +35,9 @@ class Nitpick
       # Total hack.
       submission.is_approvable = true
       submission.flagged_by << nitpicker.username
+      # Duplicate so we can delete approvable
+      submission.is_liked = true
+      submission.liked_by << nitpicker.username
       mute = true
     end
     if mute
