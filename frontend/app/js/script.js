@@ -63,6 +63,20 @@ $(function() {
     var $this = $(this);
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
+
+  $('form').ready(function () {
+      var unsaved = false;
+      $(":input").change(function() {
+          unsaved = true;
+      });
+      function unloadPage() {
+          if(unsaved){
+              return "You have unsaved changes on this page"
+          }
+      }
+      window.onbeforeunload = unloadPage;
+  });
+
   $('.work-slug').popover({
     trigger: 'hover',
     placement: 'right',
@@ -73,6 +87,8 @@ $(function() {
     },
     content: 'use the command <code>exercism fetch</code> to add this assignment to your exercism directory'
   });
+
+
 
   $(".mute").each(function(index, element) {
     var elem = $(element);
