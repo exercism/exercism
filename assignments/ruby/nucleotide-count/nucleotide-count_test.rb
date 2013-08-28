@@ -55,6 +55,20 @@ class DNATest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_validates_dna_not_rna
+    skip
+    assert_raises ArgumentError do
+      DNA.new("ACGU")
+    end
+  end
+
+  def test_validates_dna
+    skip
+    assert_raises ArgumentError do
+      DNA.new("John")
+    end
+  end
+
   def test_counts_all_nucleotides
     skip
     s = "AGCTTTTCATTCTGACTGCAACGGGCAATATGTCTCTGTGTGGATTAAAAAAAGAGTGTCTGATAGCAGC"
