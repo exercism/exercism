@@ -1,19 +1,10 @@
 ## Step 1
 
-In other words, if the input to the program is `22`, then the output should be `'twenty-two'`
+Handle the basic case of 0 through 99.
 
-e.g.
+If the input to the program is `22`, then the output should be `'twenty-two'`.
 
-```ruby
-Say.new(22).in_english
-```
-
-```ruby
-Say.new(-1).in_english
-# say.rb:7:in 'in_english': Number must be between 0 and 99, inclusive. (ArgumentError)
-```
-
-The program must also report any values that are out of range.
+Your program should complain loudly if given a number outside the blessed range.
 
 Some good test cases for this program are:
 
@@ -24,41 +15,42 @@ Some good test cases for this program are:
 * -1
 * 100
 
-## Extensions
+### Extension
 
-If you're on a Mac, shell out to Mac OS X's program to talk out loud.
+If you're on a Mac, shell out to Mac OS X's `say` program to talk out loud.
 
 ## Step 2
 
-```ruby
-Chunks.new(1234567890).split
-# => [1, 234, 567, 890]
+Implement breaking a number up into chunks of thousands.
 
-Chunks.new(1000).split
-# => [0, 0, 1, 0]
-```
+So `1234567890` should yield a list like 1, 234, 567, and 890,
+while the far simpler `1000` should yield just 1 and 0.
 
 The program must also report any values that are out of range.
 
 ## Step 3
 
-In other words, if the input to the program is `1234567890` then the output should be `'1 billion 234 million 567 thousand 890'`
+Now handle inserting the appropriate scale word between those chunks.
+
+So `1234567890` should yield `'1 billion 234 million 567 thousand 890'`
 
 The program must also report any values that are out of range.
-
+It's fine to stop at "trillion".
 
 ## Step 4
 
-In other words, if the input to the program is `12345` then the output should be `twelve thousand three hundred forty-five`.
+Put it all together to get nothing but plain English.
+
+`12345` should give `twelve thousand three hundred forty-five`.
 
 The program must also report any values that are out of range.
 
-## Extensions
+### Extensions
 
-Use _and_ (correctly) in the English number:
+Use _and_ (correctly) when spelling out the number in English:
 
-* fourteen
-* one hundred
-* one hundred and twenty
-* one thousand and two
-* one thousand three hundred and twenty-three
+* 14 becomes "fourteen".
+* 100 becomes "one hundred".
+* 120 becomes "one hundred and twenty".
+* 1002 becomes "one thousand and two".
+* 1323 becomes "one thousand three hundred and twenty-three".

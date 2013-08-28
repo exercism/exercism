@@ -1,8 +1,19 @@
-The spaces and punctuation are removed from the English text and the
-characters are written into a square (or rectangle) and the entire message is
-downcased. For example, the sentence "If man was meant to stay on the ground
-god would have given us roots" is 54 characters long, so it is written into a
-rectangle with 7 rows and 8 columns.
+The input is first normalized: The spaces and punctuation are removed from the
+English text and the message is downcased.
+
+Then, the normalized characters are broken into rows.
+These rows can be regarded as forming a rectangle
+when printed with intervening newlines.
+
+For example, the sentence
+
+> If man was meant to stay on the ground god would have given us roots
+
+is 54 characters long.
+
+Broken into 8-character columns, it yields 7 rows.
+
+Those 7 rows produce this rectangle when printed one per line:
 
 ```plain
 ifmanwas
@@ -43,16 +54,15 @@ A message between 5 and 8 characters long should use a rectangle 3 characters wi
 
 Output the encoded text in groups of five letters.
 
-E.g.
+For example:
 
-```ruby
-crypto = Crypto.new("Have a nice day. Feed the dog & chill out!")
-crypto.normalize_plaintext
-# => "haveanicedayfeedthedogchillout"
-crypto.size
-# => 36
-crypto.plaintext_segments
-# => ["havean", "iceday", "feedth", "edogch", "illout"]
-crypto.ciphertext
-# => "hifei acedl v..."
-```
+- "Have a nice day. Feed the dog & chill out!"
+  - Normalizes to: "haveanicedayfeedthedogchillout"
+  - Which has length: 36
+  - And splits into 5 6-character rows:
+    - "havean"
+    - "iceday"
+    - "feedth"
+    - "edogch"
+    - "illout"
+  - Which yields a ciphertext beginning: "hifei acedl v…"
