@@ -38,28 +38,32 @@
 
   <div id="current_submission" class="code span6">
     <h2>Code</h2>
-    <div class"btn-group">
-      <a class="btn" data-action="enlarge">
-        <i class="icon-resize-full"></i>
-      </a>
-      <a style="display: none;" class="btn" data-action="shrink">
-        <i class="icon-resize-small"></i>
-      </a>
-      <br />
-    </div>
-    <div style="padding-top: 2px;">
-      <%= md(submission.code, submission.language) %>
-    </div>
 
     <% if submission.liked? %>
       <p><%= these_people_like_it(submission.liked_by) %></p>
     <% end %>
 
+    <div class"btn-group">
+
     <% if current_user.nitpicker_on?(submission.exercise) && !current_user.owns?(submission) %>
-      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/like" method="POST">
-        <button type="submit" name="like" class="btn pull-right" <%= 'disabled' if submission.liked_by.include?(current_user.username)%>>Looks great!</button>
+      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/like" method="POST" class="pull-left" style="display: inline;">
+        <button type="submit" name="like" class="btn" <%= 'disabled' if submission.liked_by.include?(current_user.username)%>>Looks great!</button>
       </form>
     <% end %>
+
+      <a class="btn" data-action="enlarge">
+        <i class="icon-resize-full"></i>
+      </a>
+
+      <a style="display: none;" class="btn" data-action="shrink">
+        <i class="icon-resize-small"></i>
+      </a>
+      <br />
+
+    </div>
+    <div style="padding-top: 2px;">
+      <%= md(submission.code, submission.language) %>
+    </div>
   </div>
 
   <div class="comments span6">
