@@ -16,15 +16,11 @@
 
   <div id="code-timeline" class="pagination pagination-centered">
     <ul>
-      <li><a data-revision="start" class="selected">Start</a></li>
       <% iterations.each_with_index do |iteration,index| %>
         <li><a data-revision="<%= index + 1 %>">Rev <%= index + 1 %></a></li>
       <% end %>
       <% if after.approved? %>
-        <li><a data-revision="latest" class="selected">Final</a></li>
         <li><a data-revision="example">Example</a></li>
-      <% else %>
-        <li><a data-revision="latest" class="selected">Latest</a></li>
       <% end %>
     </ul>
   </div>
