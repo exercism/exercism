@@ -10,7 +10,7 @@ class Exercism
         atbash-cipher accumulate crypto-square trinary rna-transcription
         sieve simple-cipher octal luhn pig-latin pythagorean-triplet
         series difference-of-squares secret-handshake linked-list wordy
-        hexadecimal largest-series-product kindergarden-garden
+        hexadecimal largest-series-product kindergarten-garden
         binary-search-tree matrix robot-simulator nth-prime
         palindrome-products pascals-triangle say beer-song
         sum-of-multiples queen-attack saddle-points ocr-numbers
