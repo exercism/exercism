@@ -1,28 +1,23 @@
-## `Array#keep`
+For example, given the collection of numbers:
 
-Implement an instance method on Array called `keep` which lets you
-evaluate each element in the array and returns a new array with
-only the elements where the evaluation is truthy.
+- 1, 2, 3, 4, 5
 
-## `Array#discard`
+And the predicate:
 
-Implement an instance method on Array called `keep` which lets you
-evaluate each element in the array and returns a new array with
-only the elements where the evaluation is falsy.
+- is the number even?
 
-## Examples
+Then your `keep` operation should produce:
 
-```ruby
-numbers = [1, 2, 3, 4, 5]
-evens = numbers.keep do |number|
-  number.even?
-end
+- 2, 4
 
-odds = numbers.discard do |number|
-  number.even?
-end
-```
+While your `discard` operation should produce:
+
+- 1, 3, 5
+
+Note that the union of `keep` and `discard` is all the elements.
 
 ## Restrictions
 
-You may only use Enumerable#each to implement this method. No other enumerable methods are allowed.
+Keep your hands off that filter/reject/whatchamacallit functionality
+provided by your standard library!
+Solve this one yourself using other basic tools instead.

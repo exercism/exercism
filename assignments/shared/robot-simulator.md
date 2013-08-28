@@ -6,9 +6,9 @@ The robot factory manufactures robots that have three possible movements:
 * turn left
 * advance
 
-Robots are placed on a hypothetical, infinite grid, facing a particular
-direction (north, east, south, west) at a set of {x,y} coordinates, e.g.
-`[3,8]`.
+Robots are placed on a hypothetical infinite grid, facing a particular
+direction (north, east, south, or west) at a set of {x,y} coordinates, e.g.,
+{3,8}.
 
 ## Step 2
 
@@ -31,7 +31,8 @@ The floor of the room is a grid, each square of which measures 1 square RU
 The rooms are always oriented so that each wall faces east, south, west, and
 north.
 
-The test algorithm is to place a robot at a coordinate in the room, facing in a particular direction.
+The test algorithm is to place a robot at a coordinate in the room, facing in
+a particular direction.
 
 The robot then receives a number of instructions, at which point the testing
 facility verifies the robot's new position, and in which direction it is
@@ -48,15 +49,12 @@ The robot factory manufactures robots that have three possible movements:
 The robot factory's test facility has a simulator which can take a string of
 letters and feed this into a robot as instructions.
 
-```ruby
-simulator = Simulator.new
-robot = Robot.new
-simulator.place(robot, x: 7, y: 3, direction: :north)
-simulator.instructions("RAALAL")
-=> [:turn_right, :advance, :advance, :turn_left, :advance, :turn_left]
-simulator.evaluate(robot, "RLAALAL")
-robot.coordinates
-# => [9, 4]
-robot.bearing
-# => :west
-```
+- The letter-string "RAALAL" means:
+  - Turn right
+  - Advance twice
+  - Turn left
+  - Advance once
+  - Turn left yet again
+- Say a robot starts at {7, 3} facing north.
+  Then running this stream of instructions should leave it
+  at {9, 4} facing west.
