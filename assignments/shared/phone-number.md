@@ -8,12 +8,6 @@ The rules are as follows:
 
 We've provided tests, now make them pass.
 
-Hint: Only make one test pass at a time. You can turn off tests by sending the message `skip` to it:
-
-```ruby
-def test_string_conversion
-  skip
-  assert_equal 1, "1".to_i
-end
-```
-
+Hint: Only make one test pass at a time.
+Disable the others, then flip each on in turn
+after you get the current failing one to pass.
