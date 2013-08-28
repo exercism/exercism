@@ -5,7 +5,7 @@ An Atbash cipher for the Latin alphabet would be as follows:
 
 ```plain
 Plain:  abcdefghijklmnopqrstuvwxyz
-Cipher: ZYXWVUTSRQPONMLKJIHGFEDCBA
+Cipher: zyxwvutsrqponmlkjihgfedcba
 ```
 
 It is a very weak cipher because it only has one possible key, and it is a
