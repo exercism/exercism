@@ -71,7 +71,7 @@ $(function() {
       });
       function unloadPage() {
           if(unsaved){
-              return "You have unsaved changes on this page"
+              return "You have unsaved changes on this page";
           }
       }
       window.onbeforeunload = unloadPage;
