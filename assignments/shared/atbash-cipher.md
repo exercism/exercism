@@ -11,11 +11,6 @@ Cipher: zyxwvutsrqponmlkjihgfedcba
 It is a very weak cipher because it only has one possible key, and it is a
 simple monoalphabetic substitution cipher. However, this may not have been an issue in the cipher's time.
 
-e.g:
-```ruby
-Atbash.encode('test')
-# => "gvhg"
-
-Atbash.decode('gvhg')
-# => "test"
-```
+## Examples
+- Encoding "test" gives "gvhg"
+- Decoding "gvhg" gives "test"
