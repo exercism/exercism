@@ -44,7 +44,7 @@ class DNATest < MiniTest::Unit::TestCase
     skip
     dna = DNA.new('GATTACA')
     dna.count('U')
-    expected = {"A"=>3, "T"=>2, "C"=>1, "G"=>1}
+    expected = {'A' => 3, 'T' => 2, 'C' => 1, 'G' => 1}
     assert_equal expected, dna.nucleotide_counts
   end
 
