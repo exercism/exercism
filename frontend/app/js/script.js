@@ -67,9 +67,13 @@ $(function() {
   $('textarea').each(function () {
     var $this = $(this);
     var question_text = "You have unsaved changes on this page";
+    var was_sumbitted = false;
+    $this.parents("form").on('submit',function(){
+      was_sumbitted = true;
+    });
     window.onbeforeunload = function (e) {
       var unsaved = $this.text() !== $this.val();
-      if(unsaved) {
+      if(!was_sumbitted && unsaved) {
         // see http://stackoverflow.com/questions/10311341/confirmation-before-closing-of-tab-browser
         e = e || window.event;
         
