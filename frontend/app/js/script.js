@@ -64,17 +64,22 @@ $(function() {
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
 
-  $('form').ready(function () {
-      var unsaved = false;
-      $(":input").change(function() {
-          unsaved = true;
-      });
-      function unloadPage() {
-          if(unsaved){
-              return "You have unsaved changes on this page";
-          }
+  $('textarea').each(function () {
+    var $this = $(this);
+    var question_text = "You have unsaved changes on this page";
+    window.onbeforeunload = function (e) {
+      var unsaved = $this.text() !== $this.val();
+      if(unsaved) {
+        // see http://stackoverflow.com/questions/10311341/confirmation-before-closing-of-tab-browser
+        e = e || window.event;
+        
+        if (e) {
+            e.returnValue = question_text;
+        }
+        
+        return question_text;
       }
-      window.onbeforeunload = unloadPage;
+    };
   });
 
   $('.work-slug').popover({
