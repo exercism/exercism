@@ -74,9 +74,5 @@ class Notification
   def slug
     submission.slug if submission
   end
-
-  def assignment_completed?
-    Submission.assignment_completed?(submission) if submission
-  end
 end
 

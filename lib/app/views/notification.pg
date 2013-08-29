@@ -3,7 +3,6 @@ node notification: notification do
   node recipient: recipient.username
   node date: notification.at.to_i
   node ago: ago(notification.at)
-  node assignmentCompleted: notification.assignment_completed?
   if notification.nitpick? || notification.done? || notification.hibernating?
     node link: "/submissions/#{notification.submission.id}"
   elsif notification.custom?
