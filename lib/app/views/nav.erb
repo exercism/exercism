@@ -6,10 +6,11 @@
       Help <b class="caret"></b>
     </a>
     <ul class="dropdown-menu" id="menu-setup" role="menu" area-labelledby="drop-setup">
-      <li><a role="menuitem" tabindex="-1" href="/setup">Initial Setup</a></li>
+      <li><a role="menuitem" tabindex="-1" href="/help/how-to-access-exercises">How to Access the Exercises</a></li>
+      <li><a role="menuitem" tabindex="-1" href="/help/how-to-nitpick">How to Nitpick</a></li>
       <% Exercism.current_curriculum.locales.each do |locale| %>
         <li>
-          <a role="menuitem" tabindex="-1" href="/setup/<%= locale.language %>"><%= locale.name %></a>
+          <a role="menuitem" tabindex="-1" href="/setup/<%= locale.language %>">Setting up <%= locale.name %></a>
         </li>
       <% end %>
     </ul>

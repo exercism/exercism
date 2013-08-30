@@ -16,22 +16,11 @@
       </ul>
     </nav>
     </br>
-    <div class="sidebar-panel">
-      <p>Read about <a href="/cycle">the feedback cycle</a>.</p>
-
-      <% if current_user.nitpicker? %>
-        <p>Read about <a href="/nitpick">how to nitpick</a></p>
-      <% end %>
-    </div>
-
   </aside>
+
   <main id="pending-submissions" class="span8">
-  <% if welcome %>
-    <%= md(File.read('./lib/app/views/welcome.md')) %>
-  <% elsif show_pending_submissions?(language) %>
+  <% if show_pending_submissions?(language) %>
     <%= erb :pending, locals: {submissions: submissions, show_filters: show_filters, language: language} %>
-    <% elsif language && current_user.submissions.where(language: language).count > 0 %>
-    <%= erb :"about/welcome" %>
   <% else %>
     <%= erb :setup %>
   <% end %>

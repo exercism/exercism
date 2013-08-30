@@ -4,7 +4,7 @@ class ExercismApp < Sinatra::Base
     if current_user.guest?
       erb :index
     else
-      erb :dashboard, locals: {welcome: true, language: nil, exercise: nil}
+      erb :home
     end
   end
 

@@ -5,8 +5,8 @@ require 'will_paginate/mongoid'
 
 require 'app/presenters/dashboard'
 
+require 'app/help'
 require 'app/setup'
-require 'app/about'
 require 'app/nitpick'
 require 'app/api'
 require 'app/auth'
