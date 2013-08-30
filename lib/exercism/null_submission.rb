@@ -1,9 +1,5 @@
 require 'delegate'
 class NullSubmission < SimpleDelegator
-  def id
-    ''
-  end
-
   def liked?
     false
   end

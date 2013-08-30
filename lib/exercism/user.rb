@@ -32,8 +32,8 @@ class User
 
   def ongoing
     @ongoing ||= current_exercises.map do |exercise|
-      latest_submission_on(exercise) || NullSubmission.new(exercise)
-    end
+      latest_submission_on(exercise)
+    end.compact
   end
 
   def done
