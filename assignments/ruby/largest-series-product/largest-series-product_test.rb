@@ -98,21 +98,21 @@ class SeriesTest < MiniTest::Unit::TestCase
 
   def test_some_big_number
     skip
-    s = '73167176531330624919225119674426574742355349194934'
+    s = "73167176531330624919225119674426574742355349194934"
     series = Series.new(s)
     assert_equal 23520, series.largest_product(6)
   end
 
   def test_some_other_big_number
     skip
-    s = '52677741234314237566414902593461595376319419139427'
+    s = "52677741234314237566414902593461595376319419139427"
     series = Series.new(s)
     assert_equal 28350, series.largest_product(6)
   end
 
   def test_identity
     skip
-    series = Series.new('')
+    series = Series.new("")
     assert_equal 1, series.largest_product(0)
   end
 
