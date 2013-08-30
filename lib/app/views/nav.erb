@@ -5,9 +5,24 @@
         Nitpick <b class="caret"></b>
       </a>
 
-      <ul class="dropdown-menu" id="menu-nitpick" role="menu" area-labelledby="drop-setup">
+      <ul class="dropdown-menu" id="menu-nitpick" role="menu" area-labelledby="drop-nitpick">
         <% nitpicker_languages.each do |language| %>
           <li><a role="menuitem" tabindex="-1" href="<%= path_for(language) %>"><%= language.to_s.capitalize %></a></li>
+        <% end %>
+      </ul>
+  <% end %>
+
+  <% if current_user.current.any? %>
+    <li class="dropdown">
+      <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">
+        Current Exercises <b class="caret"></b>
+      </a>
+
+      <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
+        <% current_user.ongoing.each do |submission| %>
+          <li>
+            <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.id %>"><%= submission.language + ' ' + submission.slug %></a>
+          </li>
         <% end %>
       </ul>
   <% end %>

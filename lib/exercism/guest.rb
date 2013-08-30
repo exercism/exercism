@@ -3,6 +3,10 @@ class Guest
     false
   end
 
+  def current
+    {}
+  end
+
   def guest?
     true
   end
