@@ -96,6 +96,7 @@ Different languages/trails do not need to have the same assignments or the same 
 9. Start the server with `./scripts/boot.sh`
 10. Login at http://localhost:4567.
 11. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
+12. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
 
 ## Frontend development setup
 1. Install node and npm
