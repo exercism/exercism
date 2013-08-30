@@ -1,5 +1,48 @@
-<% if language %>
-  <%= erb :"setup/#{language}" %>
-<% else %>
-  <%= erb :setup %>
-<% end %>
+<h1>About exercism.io</h1>
+
+<p>Exercism.io aims to give you a safe place to practice writing readable and expressive code.</p>
+
+<p>The format of the exercises are a README and a test suite. You fetch these to your local development environment, where you can make the test suite pass using your usual tools. Then you submit the code to the website, where those who have completed the exercise previously are invited to ask questions and provide suggestions for improvement.</p>
+
+<p>There is no <em>best solution</em> to a given exercise. There are a number of good approaches to solving each problem, and if someone tries to suggest that there's one good solution, you're encouraged to respectfully disagree.</p>
+
+<h2>Purpose</h2>
+
+<p>The purpose of exercism is to:</p>
+
+<ul>
+  <li>practice writing expressive code.</li>
+  <li>practice accepting feedback graciously.</li>
+  <li>practice giving feedback respectfully.</li>
+</ul>
+
+<p>One particularly well-kept secret is that looking at someone's code with an eye towards finding ways of improving it can teach you more about writing readable code than receiving feedback on your own code.</p>
+
+<p>Doing this forces you to think about why you make the trade-offs that you do, what in the code you are reacting to, and why you are reacting to it.</p>
+
+<h2>Future</h2>
+
+<p>I don't yet know what exercism.io is or will become. I hope that it will develope into a place where you can learn, play, experiment, and discuss. Features come and go quite rapidly, and as people use the site we're discovering what works, what doesn't, and what's missing.</p>
+
+<h2>Contributors</h2>
+
+<p>An overwhelmingly large number of people have <a href="https://github.com/kytrinyx/exercism.io/graphs/contributors">contributed to the codebase</a>.</p>
+
+<p>An even larger number of people have contributed by doing exercises and participating in the discussions about code.</p>
+
+<h2>Origins</h2>
+
+<p>In November 2006 I joined the Cattle Drive on the JavaRanch. In short, you send in a assignment by email, and a real person gives you comments back. It didn't take long until I was nitpicking other people's code, and I have been doing so on a daily basis since then.</p>
+
+<p>Reviewing other people's code has taught me more about writing readable code, than receiving feedback on my own code. I wondered if it would be possible to have people first get nitpicked, then turn around and nitpick new people, and spread the effort of giving feedback across a larger group.</p>
+
+<p>In February 2013 I joined Jumpstart Lab as a developer and co-instructor for their 6-month full-time developer training program. One of the things we implemented was a daily programming warm-up exercise. At first, this was simply a README, then we added a test suite to help guide the students and let them get a taste of what TDD feels like. After a few months we had a number of pain points that we wanted to address:</p>
+
+<ul>
+  <li>We had to manually upload a new warmup every morning</li>
+  <li>The students often did not finish warmups</li>
+  <li>The students didn't get feedback on the code they wrote for the warmups</li>
+</ul>
+
+<p>I decided to try to combine these ideas into an app, and launched a very rough prototype to the students in late June 2013.</p>
+

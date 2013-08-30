@@ -1,3 +1,21 @@
+<ul class="nav">
+  <li><a href="/about">About</a></li>
+
+  <li class="dropdown">
+    <a class="dropdown-toggle" id="drop-setup" href="#" data-toggle="dropdown">
+      Help <b class="caret"></b>
+    </a>
+    <ul class="dropdown-menu" id="menu-setup" role="menu" area-labelledby="drop-setup">
+      <li><a role="menuitem" tabindex="-1" href="/setup">Initial Setup</a></li>
+      <% Exercism.current_curriculum.locales.each do |locale| %>
+        <li>
+          <a role="menuitem" tabindex="-1" href="/setup/<%= locale.language %>"><%= locale.name %></a>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+</ul>
+
 <ul class="nav pull-right">
   <% if nitpicker_languages.any? %>
     <li class="dropdown">
@@ -26,21 +44,6 @@
         <% end %>
       </ul>
   <% end %>
-
-  <li class="dropdown">
-    <a class="dropdown-toggle" id="drop-setup" href="#" data-toggle="dropdown">
-      Getting Started <b class="caret"></b>
-    </a>
-    <ul class="dropdown-menu" id="menu-setup" role="menu" area-labelledby="drop-setup">
-      <li><a role="menuitem" tabindex="-1" href="/setup">Initial Setup</a></li>
-      <% Exercism.current_curriculum.locales.each do |locale| %>
-        <li>
-          <a role="menuitem" tabindex="-1" href="/setup/<%= locale.language %>"><%= locale.name %></a>
-        </li>
-      <% end %>
-    </ul>
-  </li>
-
   <% if current_user.guest? %>
     <li><a href="/login">log in with github</a></li>
     <%= erb :backdoor %>
@@ -48,7 +51,7 @@
     <li>
       <a class="dropdown-toggle" id="drop-account" href="#">
         <%= gravatar_tag current_user.avatar_url, size: 20 %>
-        hi, <%= current_user.username %> <b class="caret"></b>
+        <%= current_user.username %> <b class="caret"></b>
       </a>
       <ul class="dropdown-menu" role="menu">
         <li><a role="menuitem" tabindex="-1" href="/<%= current_user.username %>">Account</a></li>

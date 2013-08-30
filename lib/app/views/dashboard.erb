@@ -33,7 +33,7 @@
     <% elsif language && current_user.submissions.where(language: language).count > 0 %>
     <%= erb :"about/welcome" %>
   <% else %>
-    <%= erb :about, locals: {language: language, unstarted: unstarted_trails} %>
+    <%= erb :setup %>
   <% end %>
   </main>
 </div>
