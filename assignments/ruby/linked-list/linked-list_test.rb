@@ -1,5 +1,4 @@
 require 'minitest/autorun'
-
 require_relative 'linked_list'
 
 class LinkedListProxyTest < MiniTest::Unit::TestCase
