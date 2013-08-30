@@ -3,6 +3,10 @@ class Guest
     false
   end
 
+  def ongoing
+    {}
+  end
+
   def current
     {}
   end
