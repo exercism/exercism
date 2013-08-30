@@ -10,7 +10,7 @@ function recordAllData(bst) {
 
 describe('BinarySearchTree', function() {
 
-  it('data is retrained', function() {
+  it('data is retained', function() {
     expect(4).toEqual(new Bst(4).data);
   });
 
