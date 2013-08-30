@@ -1,12 +1,17 @@
-<% unless current_user.guest? %>
-  <ul class="nav">
-    <% Exercism.languages.each do |language| %>
-      <%= dashboard_nav_li language.to_s %>
-    <% end %>
-  </ul>
-<% end %>
-
 <ul class="nav pull-right">
+  <% if nitpicker_languages.any? %>
+    <li class="dropdown">
+      <a class="dropdown-toggle" id="drop-nitpick" href="#" data-toggle="dropdown">
+        Nitpick <b class="caret"></b>
+      </a>
+
+      <ul class="dropdown-menu" id="menu-nitpick" role="menu" area-labelledby="drop-setup">
+        <% nitpicker_languages.each do |language| %>
+          <li><a role="menuitem" tabindex="-1" href="<%= path_for(language) %>"><%= language.to_s.capitalize %></a></li>
+        <% end %>
+      </ul>
+  <% end %>
+
   <li class="dropdown">
     <a class="dropdown-toggle" id="drop-setup" href="#" data-toggle="dropdown">
       Getting Started <b class="caret"></b>
