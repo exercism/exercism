@@ -34,7 +34,7 @@ class Dashboard
   end
 
   def show_filters?
-    ![nil, 'featured', 'opinions'].include? slug
+    ![nil, 'no-nits', 'opinions'].include? slug
   end
 
   def submissions
@@ -46,7 +46,7 @@ class Dashboard
       scope = scope.and(is_liked: true)
     when 'opinions'
       scope = scope.and(wants_opinions: true)
-    when 'featured'
+    when 'no-nits'
       scope = scope.select {|submission|
         submission.no_nits_yet?
       }

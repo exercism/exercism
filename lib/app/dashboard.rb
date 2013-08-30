@@ -5,7 +5,7 @@ class ExercismApp < Sinatra::Base
     please_login
 
     presenter = current_user.sees?(params[:language]) ? Dashboard : NullDashboard
-    dashboard = presenter.new(current_user, params[:language], params[:slug] || 'featured')
+    dashboard = presenter.new(current_user, params[:language], params[:slug] || 'no-nits')
 
     locals = {
       welcome: false,
