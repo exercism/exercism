@@ -1,6 +1,6 @@
 <?php
 
-require './example.php';
+require realpath(__DIR__ . '/example.php');
 
 class TrinaryTest extends PHPUnit_Framework_TestCase
 {
