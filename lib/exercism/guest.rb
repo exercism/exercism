@@ -1,4 +1,8 @@
 class Guest
+  def nitpicks_trail?(language)
+    false
+  end
+
   def guest?
     true
   end
