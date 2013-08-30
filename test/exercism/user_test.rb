@@ -154,7 +154,7 @@ class UserTest < Minitest::Test
 
   def test_user_ongoing_without_submission
     user = User.new(current: {'nong' => 'one'})
-    assert_equal [false], user.ongoing.map(&:submitted?)
+    assert_equal [], user.ongoing
   end
 
   def test_user_ongoing_with_submissions
