@@ -1,5 +1,8 @@
 <% if submissions.any? %>
-  <h2>Needs Nitpicking</h2>
+  <h2>
+    <%= language_icon(language) %>
+    Pending Submissions
+  </h2>
 
   <% if show_filters %>
   <div id="submission-filters">
