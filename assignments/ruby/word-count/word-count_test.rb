@@ -19,7 +19,7 @@ class PhraseTest < MiniTest::Unit::TestCase
   def test_count_multiple_occurrences
     skip
     phrase = Phrase.new("one fish two fish red fish blue fish")
-    counts = {"one"=>1, "fish"=>4, "two"=>1, "red"=>1, "blue"=>1}
+    counts = {"one" => 1, "fish" => 4, "two" => 1, "red" => 1, "blue" => 1}
     assert_equal counts, phrase.word_count
   end
 
@@ -28,7 +28,7 @@ class PhraseTest < MiniTest::Unit::TestCase
     phrase = Phrase.new("all the kings horses and all the kings men")
     phrase.word_count # count it an extra time
     counts = {
-      "all"=>2, "the"=>2, "kings"=>2, "horses"=>1, "and"=>1, "men"=>1
+      "all" => 2, "the" => 2, "kings" => 2, "horses" => 1, "and" => 1, "men" => 1
     }
     assert_equal counts, phrase.word_count
   end
@@ -36,14 +36,14 @@ class PhraseTest < MiniTest::Unit::TestCase
   def test_ignore_punctuation
     skip
     phrase = Phrase.new("car : carpet as java : javascript!!&@$%^&")
-    counts = {"car"=>1, "carpet"=>1, "as"=>1, "java"=>1, "javascript"=>1}
+    counts = {"car" => 1, "carpet" => 1, "as" => 1, "java" => 1, "javascript" => 1}
     assert_equal counts, phrase.word_count
   end
 
   def test_handles_cramped_lists
     skip
     phrase = Phrase.new("one,two,three")
-    counts = {"one"=>1, "two"=>1, "three" => 1}
+    counts = {"one" => 1, "two" => 1, "three" => 1}
     assert_equal counts, phrase.word_count
   end
 

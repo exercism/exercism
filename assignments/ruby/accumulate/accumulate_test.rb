@@ -20,7 +20,7 @@ class ArrayTest < MiniTest::Unit::TestCase
     result = %w(hello world).accumulate { |word|
       word.upcase
     }
-    assert_equal ['HELLO', 'WORLD'], result
+    assert_equal %(HELLO WORLD), result
   end
 
   def test_accumulate_reversed_strings
@@ -28,7 +28,7 @@ class ArrayTest < MiniTest::Unit::TestCase
     result = %w(the quick brown fox etc).accumulate { |word|
       word.reverse
     }
-    assert_equal ["eht", "kciuq", "nworb", "xof", "cte"], result
+    assert_equal %w(eht kciuq nworb xof cte), result
   end
 
   def test_accumulate_recursively
@@ -38,7 +38,7 @@ class ArrayTest < MiniTest::Unit::TestCase
         "#{char}#{digit}"
       }
     }
-    assert_equal [["a1", "a2", "a3"], ["b1", "b2", "b3"], ["c1", "c2", "c3"]], result
+    assert_equal [%w(a1 a2 a3), %w(b1 b2 b3), %w(c1 c2 c3)], result
   end
 
 end
