@@ -76,14 +76,22 @@ $(function() {
       if(!was_sumbitted && unsaved) {
         // see http://stackoverflow.com/questions/10311341/confirmation-before-closing-of-tab-browser
         e = e || window.event;
-        
+
         if (e) {
             e.returnValue = question_text;
         }
-        
+
         return question_text;
       }
     };
+  });
+
+  // cmd + return submits nitpicks on mac ctrl + return submits on windows
+  // from https://github.com/dewski/cmd-enter
+  $(document).on('keydown', 'textarea', function(e) {
+      if(e.keyCode === 13 && (e.metaKey || e.ctrlKey)) {
+          $(this).parents('form').submit();
+      }
   });
 
   $('.work-slug').popover({
