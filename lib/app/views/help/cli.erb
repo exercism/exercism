@@ -1,0 +1,70 @@
+<h1>How to Access the Exercises</h1>
+
+<p>You access the exercises via the command line.</p>
+
+<p>The command line interface (CLI) is currently a ruby gem, which means that you will need to have Ruby installed, even if you don't plan on doing the Ruby exercises.</p>
+
+<p>We are working on a replacement in Go that eventually be available as a binary that can be installed with no dependencies. Feel free to <a href="https://github.com/msgehard/go-exercism">try it out</a>.</p>
+
+<h2>Installing the CLI</h2>
+
+<p>When you have Ruby installed, open up a terminal window and run the following command:</p>
+
+<pre>
+  $ gem install exercism
+</pre>
+
+<p>If you're using <em>rbenv</em> you'll need to run <kbd>rbenv rehash</kbd> to get the <kbd>exercism</kbd> command into your path.</p>
+
+<h2>Configuring the CLI</h2>
+
+<p>Run the following command:</p>
+
+<pre>
+  $ exercism login
+</pre>
+
+<p>You will be asked for your username, your API key, and the location on your filesystem that you'd like to put the exercises. The gem will suggest your current location as the default (in parentheses). If you are happy with that, you can simply hit enter to select that option.</p>
+
+<p>Your credentials get saved in a config file in your home directory.</p>
+
+<% if current_user.guest? %>
+  <p>You can always find your API key in your account.</p>
+<% else %>
+  <p>You can always find your API key in <%= profile_link(current_user, "your account") %>.</p>
+<% end %>
+
+<p>If you mess up your login, you can either edit the config file at
+<kbd>~/.exercism</kbd> or <kbd>~/.config/exercism</kbd>
+or you can say <kbd>exercism logout</kbd> and then try again.</p>
+
+<h2>Fetching the Code</h2>
+
+To fetch down your current exercises, issue the command:
+
+<pre>
+  $ exercism fetch
+</pre>
+
+The gem will download the exercises to the configured project directory. Note that the code will be put in that directory even if you are somewhere else on the filesystem.
+
+To start working on an exercise, go find the downloaded files.
+
+<pre>
+  $ cd path/to/exercism/project # or whatever
+</pre>
+
+You can work on them using your usual editor, tools, and environment.
+
+<h2>Submitting the Code</h2>
+
+<p>At the moment, before submitting your first exercise in a given language, you need to log into the website, go to your account, and activate the language. This requirement should be removed shortly.</p>
+
+<p>Once you've done that, you can submit the code to the website with the following command:</p>
+
+<pre>
+  $ exercism submit path/to/your/code.ext
+</pre>
+
+<p>You will be given a link to the submission. This is where you'll get feedback.</p>
+

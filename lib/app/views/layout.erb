@@ -14,30 +14,11 @@
     <% unless current_user.guest? %>
       <div id="toggle-notifications"></div>
     <% end %>
+
     <div class='navbar navbar-top'>
       <div class='navbar-inner'>
         <a class='brand' href='/'>exercism.io</a>
-        <% unless current_user.guest? %>
-          <ul class="nav">
-            <% Exercism.languages.each do |language| %>
-              <%= dashboard_nav_li language.to_s %>
-            <% end %>
-          </ul>
-        <% end %>
-        <ul class="nav pull-right">
-          <% if current_user.guest? %>
-            <li><a href="/login">log in with github</a></li>
-            <%= erb :backdoor %>
-          <% else %>
-            <li>
-              <a href="/<%= current_user.username %>">
-                <%= gravatar_tag current_user.avatar_url, size: 20 %>
-                hi, <%= current_user.username %>
-              </a>
-            </li>
-            <li><a href="/logout">log out</a></li>
-          <% end %>
-        </ul>
+        <%= erb :nav %>
       </div>
     </div>
 
@@ -57,7 +38,7 @@
       <hr>
       <footer>
       <p>&copy; <%= Date.today.year %> Katrina Owen</p>
-      <p>Source: <a href="https://github.com/kytrinyx/exercism.io">github.com/kytrinyx/exercism.io</a>. Report bugs and submit feedback <a href="https://github.com/kytrinyx/exercism.io/issues">on GitHub</a>.</p>
+      <p>Source: <a href="https://github.com/kytrinyx/exercism.io">github.com/kytrinyx/exercism.io</a>. Report bugs and submit feedback <a href="https://github.com/kytrinyx/exercism.io/issues">on GitHub</a>. Email me at <a href="mailto:katrina.owen@gmail.com">katrina.owen@gmail.com</a>.</p>
       </footer>
     </div>
     <div id="list-notifications"></div>

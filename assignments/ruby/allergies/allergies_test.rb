@@ -41,13 +41,13 @@ class AllergiesTest < MiniTest::Unit::TestCase
   def test_allergic_to_lots_of_stuff
     skip
     allergies = Allergies.new(248)
-    assert_equal ["strawberries", "tomatoes", "chocolate", "pollen", "cats"], allergies.list
+    assert_equal ['strawberries', 'tomatoes', 'chocolate', 'pollen', 'cats'], allergies.list
   end
 
   def test_allergic_to_everything
     skip
     allergies = Allergies.new(255)
-    assert_equal ["eggs", "peanuts", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats"], allergies.list
+    assert_equal ['eggs', 'peanuts', 'shellfish', 'strawberries', 'tomatoes', 'chocolate', 'pollen', 'cats'], allergies.list
   end
 
   def test_no_allergies_means_not_allergic
@@ -73,7 +73,7 @@ class AllergiesTest < MiniTest::Unit::TestCase
   def test_ignore_non_allergen_score_parts
     skip
     allergies = Allergies.new(509)
-    assert_equal ["eggs", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats"], allergies.list
+    assert_equal ['eggs', 'shellfish', 'strawberries', 'tomatoes', 'chocolate', 'pollen', 'cats'], allergies.list
   end
 
 end

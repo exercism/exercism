@@ -1,6 +1,6 @@
 require 'delegate'
 class NullSubmission < SimpleDelegator
-  def approvable?
+  def liked?
     false
   end
 

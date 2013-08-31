@@ -9,37 +9,24 @@
 
   <% if current_user.owns?(submission) %>
 
-    <p><a href="http://exercism.io/nitpick" target="_blank">Comments</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown">GitHub Flavoured Markdown</a></p>
+    <p><a href="http://exercism.io/nitpick" target="_blank">Comments</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></p>
     <%= erb :"nitpick/encourage_submitter", locals: {version: submission.version, nit_count: submission.nits_by_others_count} %>
 
   <% else %>
 
-    <p><a href="http://exercism.io/nitpick" target="_blank">Nitpicks</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown">GitHub Flavoured Markdown</a></p>
+    <p><a href="http://exercism.io/nitpick" target="_blank">Nitpicks</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></p>
     <%= erb :"nitpick/encourage_nitpicker", locals: {language: submission.language} %>
 
   <% end %>
 
   <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
     <%= erb :comment %>
-    <% if current_user.unlocks?(submission.exercise) %>
-      <button type="submit" name="approve" class="btn">Unlock Next (Comment optional)</button>
-    <% else %>
-      <% unless current_user.owns?(submission) %>
-        <button type="submit" name="approvable" class="btn" <%= 'disabled' if submission.flagged_by.include?(current_user.username)%>>Looks great!</button>
-      <% end %>
-    <% end %>
     <% if current_user.owns?(submission) %>
       <button type="submit" name="nitpick" class="pull-right btn btn-primary">Discuss</button>
     <% else %>
       <button type="submit" name="nitpick" class="pull-right btn btn-primary">Nitpick</button>
     <% end %>
-    <% if submission.approvable? %>
-      <p><%= n_people_like_it(submission.flagged_by.count) %></p>
-    <% end %>
   </form>
 
-  <% if current_user.is?(submission.user.username) %>
-    <p>Read about <a href="/cycle">the feedback cycle</a>.</p>
-  <% end %>
-
 <% end %>
+

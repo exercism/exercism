@@ -7,14 +7,16 @@ class Submission
   field :c, as: :code, type: String
   field :at, type: Time, default: ->{ Time.now.utc }
   field :a_at, as: :approved_at, type: Time
-  field :apr, as: :is_approvable, type: Boolean, default: false
-  field :apr_by, as: :flagged_by, type: Array, default: []
+  field :lk, as: :is_liked, type: Boolean, default: false
+  field :lk_by, as: :liked_by, type: Array, default: []
   field :op, as: :wants_opinions, type: Boolean, default: false
   field :mt_by, as: :muted_by, type: Array, default: []
+  field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
+  field :v, as: :version, type: Integer, default: 0
+  field :st_n, as: :stash_name, type: String
 
-  belongs_to :approver, class_name: "User", foreign_key: "github_id"
   belongs_to :user
-  embeds_many :nits
+  has_many :comments
 
   validates_presence_of :user
 
@@ -57,28 +59,33 @@ class Submission
     submission
   end
 
+  def self.assignment_completed?(submission)
+    related(submission).approved.any?
+  end
+
   def participants
     return @participants if @participants
 
     participants = Set.new
     participants.add user
-    nits.each do |nit|
-      participants.add nit.nitpicker
+    related_submissions.each do |submission|
+      submission.comments.each do |nit|
+        participants.add nit.nitpicker
+      end
     end
-    participants.add approver if approver.present?
     @participants = participants
   end
 
   def nits_by_others_count
-    nits_by_others.count
+    nc
   end
 
   def nits_by_others
-    nits.select {|nit| nit.user != self.user }
+    comments.select {|nit| nit.user != self.user }
   end
 
   def nits_by_self_count
-    nits.select {|nit| nit.user == self.user }.count
+    comments.select {|nit| nit.user == self.user }.count
   end
 
   def discussion_involves_user?
@@ -86,11 +93,7 @@ class Submission
   end
 
   def versions_count
-    @versions_count ||= related_submissions.count
-  end
-
-  def version
-    @version ||= related_submissions.index(self) + 1
+    @versions_count ||= Submission.related(self).count
   end
 
   def related_submissions
@@ -113,6 +116,10 @@ class Submission
     !this_version_has_nits?
   end
 
+  def older_than?(time)
+    self.at < (Time.now.utc - time)
+  end
+
   def exercise
     @exercise ||= Exercise.new(language, slug)
   end
@@ -131,6 +138,7 @@ class Submission
     if pending? || hibernating? || tweaked?
       self.state = 'superseded'
     end
+    self.delete if stashed?
     save
   end
 
@@ -138,8 +146,8 @@ class Submission
     true
   end
 
-  def approvable?
-    is_approvable
+  def liked?
+    is_liked
   end
 
   def approved?
@@ -148,6 +156,10 @@ class Submission
 
   def pending?
     state == 'pending'
+  end
+
+  def stashed?
+    state == 'stashed'
   end
 
   def hibernating?
@@ -180,8 +192,12 @@ class Submission
     muted_by.include?(user.username)
   end
 
-  def mute!(username)
+  def mute(username)
     muted_by << username
+  end
+
+  def mute!(username)
+    mute(username)
     save
   end
 
@@ -196,6 +212,14 @@ class Submission
   end
 
   private
+
+  # Experiment: Cache the iteration number so that we can display it
+  # on the dashboard without pulling down all the related versions
+  # of the submission.
+  # Preliminary testing in development suggests an 80% improvement.
+  before_create do |document|
+    document.v = Submission.related(self).count + 1
+  end
 
   def trail
     Exercism.current_curriculum.trails[language]

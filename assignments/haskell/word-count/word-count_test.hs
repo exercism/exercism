@@ -25,6 +25,13 @@ wordCountTests =
     wordCount "testing, 1, 2 testing"
   , testCase "normalize case" $
     fromList [("go", 3)] @=? wordCount "go Go GO"
+  , testCase "prefix punctuation" $
+    fromList [("testing", 2), ("1", 1), ("2", 1)] @=?
+    wordCount "!%%#testing, 1, 2 testing"
+  , testCase "symbols are separators" $
+    fromList [("hey", 1), ("my", 1), ("spacebar", 1),
+              ("is", 1), ("broken", 1)] @=?
+    wordCount "hey,my_spacebar_is_broken."
   ]
 
 main :: IO ()

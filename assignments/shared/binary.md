@@ -1,23 +1,28 @@
-You may not use built-in ruby libraries or gems to accomplish the conversion.
+Write a program passing the tests.
 
-The program should consider strings specifying an invalid binary as the value 0.
+You will be guided to implement binary to decimal conversion.
+Given a binary input string, your program should be able to produce a decimal
+output.
 
-This is how computers work:
+## Note
+- Implement the conversion yourself.
+  Do not use something else to perform the conversion for you.
+- Treat invalid input as binary 0.
 
-```bash
-# "1011001"
-  1     0     1     1     0     0     1
-2^6 + 2^5 + 2^4 + 2^3 + 2^2 + 2^1 + 2^0
- 64 +   0 +  16 +   8 +   0 +   0 +   1 = 89
-```
+## About Binary (Base-2)
+Decimal is a base-10 system.
 
-If you want to write extra tests and/or check your answers, feel free to use irb:
+A number 23 in base 10 notation can be understood
+as a linear combination of powers of 10:
 
-```ruby
-irb(main):001:0> 0b1011001
-=> 89
-irb(main):002:0> 0b1101
-=> 13
-irb(main):003:0> 0b110110110110101
-=> 28085
-```
+- The rightmost digit gets multiplied by 10^0 = 1
+- The next number gets multiplied by 10^1 = 10
+- …
+- The *n*th number gets multiplied by 10^*(n-1)*.
+- All these values are summed.
+
+So: `23 => 2*10^1 + 3*10^0 => 2*10 + 3*1 = 23 base 10`
+
+Binary is similar, but uses powers of 2 rather than powers of 10.
+
+So: `101 => 1*2^2 + 0*2^1 + 1*2^0 => 1*4 + 0*2 + 1*1 => 4 + 1 => 5 base 10`.

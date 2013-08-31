@@ -1,42 +1,16 @@
-```ruby
-school = School.new("Haleakala Hippy School")
-```
+In the end, you should be able to:
 
-If no students have been added, the db should be empty:
+- Add a student's name to the roster for a grade
+  - "Add Jim to grade 2."
+  - "OK."
+- Get a list of all students enrolled in a grade
+  - "Which students are in grade 2?"
+  - "We've only got Jim just now."
+- Get a sorted list of all students in all grades.
+  Grades should sort as 1, 2, 3, etc.,
+  and students within a grade should be sorted alphabetically by name.
+  - "Who all is enrolled in school right now?"
+  - "Grade 1: Anna, Barb, and Charlie. Grade 2: Alex, Peter, and Zoe. Grade 3…"
 
-```ruby
-school.db
-# => {}
-```
-
-When you add a student, they get added to the correct grade.
-
-```ruby
-school.add("James", 2)
-school.db
-# => {2 => ["James"]}
-```
-
-You can, of course, add several students to the same grade, and students to different grades.
-
-```ruby
-school.add("Phil", 2)
-school.add("Jennifer", 3)
-school.add("Little Billy", 1)
-school.db
-# => {2 => ["James", "Blair"], 3 => ["Jennifer"], 1 => ["Little Billy"]}
-```
-
-Also, you can ask for all the students in a single grade:
-
-```ruby
-school.grade(2)
-# => ["James", "Blair"]
-```
-
-Lastly, you should be able to get a sorted list of all the students. Grades are sorted in descending order numerically, and the students within them are sorted in ascending order alphabetically.
-
-```ruby
-school.sort
-# => {1 => ["Little Billy"], 2 => ["Blair", "James"], 3 => ["Jennifer"]}
-```
+Note that all our students only have one name.
+(It's a small town, what do you want?)

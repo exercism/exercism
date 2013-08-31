@@ -28,9 +28,6 @@ class ExercismApp < Sinatra::Base
   end
 
   post '/api/v1/user/assignments' do
-    if upgrade_gem?(request.user_agent)
-      halt 400, {:error => "Please upgrade your exercism gem"}.to_json
-    end
     request.body.rewind
     data = request.body.read
     if data.empty?
@@ -66,8 +63,31 @@ class ExercismApp < Sinatra::Base
     attempt.save
     Notify.everyone(attempt.previous_submission, 'code', except: user)
 
+    if upgrade_gem?(request.user_agent)
+      Notify.about("Please upgrade your exercism gem, as there have been some significant improvements.", to: attempt.submission.user)
+    end
+
     status 201
     pg :attempt, locals: {submission: attempt.submission}
+  end
+
+  delete '/api/v1/user/assignments' do
+    unless params[:key]
+      halt 401, {error: "Please provide API key"}.to_json
+    end
+    user = User.find_by(key: params[:key])
+    begin
+      Unsubmit.new(user).unsubmit
+    rescue Unsubmit::NothingToUnsubmit
+      halt 404, {error: "Nothing to unsubmit."}.to_json
+    rescue Unsubmit::SubmissionHasNits
+      halt 403, {error: "The submission has nitpicks, so can't be deleted."}.to_json
+    rescue Unsubmit::SubmissionApproved
+      halt 403, {error: "The submission has been already approved, so can't be deleted."}.to_json
+    rescue Unsubmit::SubmissionTooOld
+      halt 403, {error: "The submission is too old to be deleted."}.to_json
+    end
+    status 204
   end
 
   get '/api/v1/user/assignments/next' do

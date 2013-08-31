@@ -4,8 +4,12 @@ class ExercismApp < Sinatra::Base
     if current_user.guest?
       erb :index
     else
-      erb :dashboard, locals: {welcome: true, language: nil, exercise: nil}
+      erb :home
     end
+  end
+
+  get '/about' do
+    erb :about
   end
 
   put '/account/email' do

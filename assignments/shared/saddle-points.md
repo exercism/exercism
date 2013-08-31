@@ -1,3 +1,5 @@
+So say you've a matrix like so:
+
 ```plain
     0  1  2
   |---------
@@ -6,19 +8,13 @@
 2 | 6  6  7
 ```
 
+It's got a saddle point at (1, 0).
 
-```ruby
-matrix = Matrix.new("9 8 7\n5 3 2\n6 6 7")
-matrix.saddle_points
-# => [[1, 0]]
-```
-
-```plain
-  0  1  2
-  |---------
-0 | 4  5  4
-1 | 3  5  5     <--- saddle point at (1,0)
-2 | 1  5  4
-```
+It's called a "saddle point"
+because its neighbors on one axis are bigger than it
+while its neighbors along the other are smaller.
 
 A matrix may have zero saddle points, or it might have several.
+
+Your code should be able to provide the (possibly empty) list of all the saddle
+points for any given matrix.

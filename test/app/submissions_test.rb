@@ -51,7 +51,7 @@ class SubmissionsTest < Minitest::Test
     Message.stub(:ship, nil) do
       post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
     end
-    assert_equal 1, submission.reload.nits.count
+    assert_equal 1, submission.reload.comments.count
     assert_equal 1, submission.reload.nits_by_others_count
   end
 
@@ -64,7 +64,7 @@ class SubmissionsTest < Minitest::Test
     Message.stub(:ship, nil) do
       post url, {comment: "good"}, {'rack.session' => {github_id: 1}}
     end
-    assert_equal 1, submission.reload.nits.count
+    assert_equal 1, submission.reload.comments.count
     assert_equal 0, submission.reload.nits_by_others_count
     assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
@@ -75,8 +75,8 @@ class SubmissionsTest < Minitest::Test
 
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
-    nit = Nit.new(user: bob, comment: "ok")
-    submission.nits << nit
+    nit = Comment.new(user: bob, comment: "ok")
+    submission.comments << nit
     submission.save
 
     # sanitizes response
@@ -85,16 +85,8 @@ class SubmissionsTest < Minitest::Test
       post url, {comment: "<script type=\"text/javascript\">bad();</script>good"}, {'rack.session' => {github_id: 2}}
     end
 
-    nit = submission.reload.nits.last
+    nit = submission.reload.comments.last
     assert_equal "bad();good", nit.comment
-
-    # sanitizes approval
-    url = "/submissions/#{submission.id}/approve"
-    Message.stub(:ship, nil) do
-      post url, {comment: "<script type=\"text/javascript\">awful();</script><a href=\"bad.html\" onblur=\"foo();\">good</a>"}, {'rack.session' => {github_id: 2}}
-    end
-    nit = submission.reload.nits.last
-    assert_equal "awful();<a href=\"bad.html\">good</a>", nit.comment
   end
 
   def test_guest_nitpicks
@@ -106,21 +98,12 @@ class SubmissionsTest < Minitest::Test
     assert_response_status(302)
   end
 
-  def test_guest_approves
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
-    submission = Submission.first
-
-    post "/submissions/#{submission.id}/approve", {comment: "Looks great!"}
-
-    assert_response_status(302)
-  end
-
   def test_multiple_versions
     bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count
-    assert_equal 0, submission.nits.count
+    assert_equal 0, submission.comments.count
     assert_equal true, submission.no_version_has_nits?
     assert_equal false, submission.this_version_has_nits?
 
@@ -134,8 +117,8 @@ class SubmissionsTest < Minitest::Test
     assert_equal false, submission.this_version_has_nits?
 
     # not changed by nit being added by another user
-    nit = Nit.new(user: bob, comment: "ok")
-    submission.nits << nit
+    nit = Comment.new(user: bob, comment: "ok")
+    submission.comments << nit
     submission.save
     assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
@@ -171,6 +154,15 @@ class SubmissionsTest < Minitest::Test
     assert_equal false, submission.reload.wants_opinions?
   end
 
+  def test_like_a_submission
+    submission = generate_attempt.submission
+    post "/submissions/#{submission.id}/like", {}, 'rack.session' => logged_in
+    submission.reload
+    assert submission.liked?, "should be liked"
+    assert_equal ['alice'], submission.liked_by, "alice should like it"
+    assert submission.muted_by?(alice), "should be muted"
+  end
+
   def test_change_opinions_when_not_logged_in
     submission = generate_attempt.submission
     post "/submissions/#{submission.id}/opinions/enable", {}, 'rack.session' => not_logged_in
@@ -203,17 +195,6 @@ class SubmissionsTest < Minitest::Test
     bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
 
     url = "/submissions/#{submission.id}/respond"
-    Message.stub(:ship, nil) do
-      Submission.any_instance.expects(:unmute_all!)
-      post url, {comment: "good"}, {'rack.session' => {github_id: 2}}
-    end
-  end
-
-  def test_unmute_all_on_approval
-    submission = generate_attempt.submission
-    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
-
-    url = "/submissions/#{submission.id}/approve"
     Message.stub(:ship, nil) do
       Submission.any_instance.expects(:unmute_all!)
       post url, {comment: "good"}, {'rack.session' => {github_id: 2}}

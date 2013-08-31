@@ -12,8 +12,10 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    submissions = Submission.completed_for(language, slug).limit(50)
-    erb :completed, locals: {submissions: submissions}
+    submissions = Submission.completed_for(language, slug)
+                            .paginate(page: params[:page], per_page: per_page)
+
+    erb :completed, locals: {language: language, slug: slug, submissions: submissions}
   end
 
   get '/user/:language/:slug' do |language, slug|
@@ -52,6 +54,12 @@ class ExercismApp < Sinatra::Base
       iterations: submissions
     }
     erb :summary, locals: locals
+  end
+
+  private
+
+  def per_page
+    params[:per_page] || 50
   end
 
 end

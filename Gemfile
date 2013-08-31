@@ -13,9 +13,13 @@ gem 'rouge'
 gem 'sinatra', require: 'sinatra/base'
 gem 'pony'
 gem 'sanitize'
+gem 'will_paginate', git: 'https://github.com/mislav/will_paginate.git' # master for mongoid support
+gem 'will_paginate-bootstrap'
 gem 'pry', require: false
+gem 'newrelic_rpm', "3.5.8.72"
 
 group :test, :development do
+  gem 'ruby-prof'
   gem 'minitest', '~> 5.0', require: false
   gem 'approvals', require: false
   gem 'rack-test', require: false

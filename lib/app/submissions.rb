@@ -6,11 +6,10 @@ class ExercismApp < Sinatra::Base
       please_login(notice)
 
       submission = Submission.find(id)
-      nitpick = Nitpick.new(id, current_user, params[:comment], approvable: params[:approvable])
+      nitpick = Nitpick.new(id, current_user, params[:comment])
       nitpick.save
       if nitpick.nitpicked?
         Notify.everyone(submission, 'nitpick', except: current_user)
-        flash[:success] = 'This submission has been nominated for approval' if nitpick.approvable?
         begin
           unless nitpick.nitpicker == nitpick.submission.user
             NitpickMessage.ship(
@@ -23,35 +22,6 @@ class ExercismApp < Sinatra::Base
           puts "Failed to send email. #{e.message}."
         end
       end
-      submission.unmute_all!
-    end
-
-    def approve(id)
-      please_login("You need to be logged in to do that. Sorry.")
-
-      submission = Submission.find(id)
-      unless current_user.unlocks?(submission.exercise)
-        flash[:notice] = "You do not have permission to mark that exercise as complete."
-        redirect '/'
-      end
-
-      begin
-        unless current_user == submission.user
-          ApprovalMessage.ship(
-            instigator: current_user,
-            submission: submission,
-            site_root: site_root
-          )
-        end
-      rescue => e
-        puts "Failed to send email. #{e.message}."
-      end
-      approval = Approval.new(id, current_user, params[:comment]).save
-
-      if approval.has_comment?
-        Notify.everyone(submission, 'nitpick', except: [current_user, submission.user])
-      end
-      Notify.source(submission, 'done', except: current_user)
       submission.unmute_all!
     end
 
@@ -88,28 +58,25 @@ class ExercismApp < Sinatra::Base
     erb :nitpick, locals: {submission: submission}
   end
 
-  # TODO: Write javascript to submit form here
+  # TODO: Submit to this endpoint rather than the `respond` one.
   post '/submissions/:id/nitpick' do |id|
     nitpick(id)
-    redirect '/'
+    redirect "/submissions/#{id}"
   end
 
-  # TODO: Write javascript to submit form here
-  post '/submissions/:id/approve' do |id|
-    approve(id)
-    redirect '/'
-  end
-
-  # I don't like this, but I don't see how to make
-  # the front-end to be able to use the same textarea for two purposes
-  # without it. It seems like this is a necessary
-  # fallback even if we implement the javascript stuff.
   post '/submissions/:id/respond' do |id|
-    if params[:approve]
-      approve(id)
-    else
-      nitpick(id)
-    end
+    nitpick(id)
+    redirect "/submissions/#{id}"
+  end
+
+  post '/submissions/:id/like' do |id|
+    please_login "You have to be logged in to do that."
+    submission = Submission.find(id)
+    submission.is_liked = true
+    submission.liked_by << current_user.username
+    submission.mute(current_user.username)
+    submission.save
+    Notify.source(submission, 'like')
     redirect "/submissions/#{id}"
   end
 
@@ -144,7 +111,7 @@ class ExercismApp < Sinatra::Base
   get '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
     please_login("You have to be logged in to do that")
     submission = Submission.find(id)
-    nit = submission.nits.where(id: nit_id).first
+    nit = submission.comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
       flash[:notice] = "Only the author may edit the text."
       redirect "/submissions/#{id}"
@@ -152,8 +119,20 @@ class ExercismApp < Sinatra::Base
     erb :edit_nit, locals: {submission: submission, nit: nit}
   end
 
+  post '/submissions/:id/done' do |id|
+    please_login("You have to be logged in to do that")
+    submission = Submission.find id
+    unless current_user.owns?(submission)
+      flash[:notice] = "Only the submitter may unlock the next exercise."
+      redirect "/submissions/#{id}"
+    end
+    Completion.new(submission).save
+    flash[:success] = "#{current_user.current_in(submission.language)} unlocked."
+    redirect "/"
+  end
+
   post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
-    nit = Submission.find(id).nits.where(id: nit_id).first
+    nit = Submission.find(id).comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
       flash[:notice] = "Only the author may edit the text."
     end

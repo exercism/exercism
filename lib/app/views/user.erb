@@ -3,6 +3,10 @@
     <h1><%= user.username %></h1>
     <p>GitHub Profile: <%= github_profile_link(user) %></p>
 
+    <% if current_user.is?(user.username) %>
+    <p>You've left <%= user.comments.count %> nits.</p>
+    <% end %>
+
     <h4>Current</h4>
     <ul>
       <% current.each do |exercise| %>

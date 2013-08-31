@@ -1,8 +1,9 @@
 require './test/mongo_helper'
+require 'exercism/problem_set'
 require 'exercism/locksmith'
 require 'exercism/user'
 require 'exercism/input_sanitation'
-require 'exercism/nit'
+require 'exercism/comment'
 require 'exercism/submission'
 require 'exercism/notification'
 

@@ -1,21 +1,16 @@
-require 'forwardable'
 class Notification
   include Mongoid::Document
-  extend Forwardable
 
   field :re, as: :regarding, type: String
   field :r, as: :read, type: Boolean, default: false
   field :at, type: Time, default: ->{ Time.now.utc }
   field :c, as: :count, type: Integer, default: 0
+  field :n, as: :note, type: String # only for custom notifications
 
-  belongs_to :user
+  belongs_to :user, index: true
   belongs_to :submission
 
-  def_delegators :submission, :language, :slug
-
-  def self.recent_for_user(user)
-    where(user: user).limit(100).descending(:at)
-  end
+  scope :recent, desc(:at).limit(100)
 
   def self.on(submission, options)
     data = {
@@ -35,12 +30,20 @@ class Notification
     notification
   end
 
+  def custom?
+    regarding == 'custom'
+  end
+
   def nitpick?
     regarding == 'nitpick'
   end
 
   def done?
     regarding == 'done'
+  end
+
+  def like?
+    regarding == 'like'
   end
 
   def hibernating?
@@ -52,7 +55,7 @@ class Notification
   end
 
   def username
-    submission.user.username
+    submission.user.username if submission
   end
 
   def increment
@@ -62,6 +65,14 @@ class Notification
   def read!
     self.read = true
     save
+  end
+
+  def language
+    submission.language if submission
+  end
+
+  def slug
+    submission.slug if submission
   end
 end
 

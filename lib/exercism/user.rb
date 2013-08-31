@@ -13,13 +13,11 @@ class User
   field :g_id, as: :github_id, type: Integer
   field :key, type: String, default: ->{ create_key }
   field :j_at, type: Time, default: ->{ Time.now.utc }
-  field :adm, as: :is_admin, type: Boolean, default: false
   field :ms, as: :mastery, type: Array, default: []
-  field :jm, as: :journeymans_ticket, type: Array, default: []
-  field :aptc, as: :apprenticeship, type: Hash, default: {}
 
   has_many :submissions
   has_many :notifications
+  has_many :comments
 
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first
@@ -34,8 +32,8 @@ class User
 
   def ongoing
     @ongoing ||= current_exercises.map do |exercise|
-      latest_submission_on(exercise) || NullSubmission.new(exercise)
-    end
+      latest_submission_on(exercise)
+    end.compact
   end
 
   def done
@@ -48,6 +46,10 @@ class User
 
   def submissions_on(exercise)
     submissions.order_by(at: :desc).where(language: exercise.language, slug: exercise.slug)
+  end
+
+  def most_recent_submission
+    submissions.order_by(at: :asc).last
   end
 
   def guest?
@@ -92,7 +94,7 @@ class User
   end
 
   def nitpicker_on?(exercise)
-    unlocks?(exercise) || completed?(exercise)
+    locksmith_in?(exercise.language) || completed?(exercise)
   end
 
   def nitpicker?
@@ -105,6 +107,24 @@ class User
 
   def owns?(submission)
     self == submission.user
+  end
+
+  def stashed_submissions
+    self.submissions.select{ |submission| submission.stashed? }
+  end
+
+  def stash_list
+    list = []
+    self.stashed_submissions.each do |sub|
+      list << sub.stash_name
+    end
+    return list 
+  end
+
+  def clear_stash(filename)
+    self.stashed_submissions.each do |sub|
+      sub.delete if sub.stash_name == filename
+    end
   end
 
   private

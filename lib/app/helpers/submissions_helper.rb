@@ -9,11 +9,18 @@ module Sinatra
       "/submissions/#{submission.id}/#{action}"
     end
 
-    def mute_button_for(submission, user)
-      if submission.muted_by?(user)
-        '<button type="submit" class="btn unmute-btn"><i class="icon-microphone"></i></button>'
+    def these_people_like_it(liked_by)
+      everyone = liked_by.map {|name| "@#{name}"}
+      case everyone.size
+        when 0
+          ""
+        when 1
+          "#{everyone.first} thinks this looks great"
+        when 2
+          "#{everyone.join(' and ')} think this looks great"
       else
-        '<button type="submit" class="btn mute-btn"><i class="icon-microphone-off"></i></button>'
+        last = everyone.pop
+        "#{everyone.join(', ')}, and #{last} think this looks great"
       end
     end
   end

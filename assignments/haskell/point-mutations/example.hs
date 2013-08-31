@@ -1,3 +1,3 @@
 module DNA (hammingDistance) where
 hammingDistance :: String -> String -> Int
-hammingDistance a b = length $ filter (uncurry (/=)) $ zip a b
+hammingDistance a b = sum $ map fromEnum $ zipWith (/=) a b

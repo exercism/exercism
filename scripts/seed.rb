@@ -14,6 +14,12 @@ end
 
 reset
 
+daemon_data = {
+  username: 'exercism-daemon',
+  github_id: 0
+}
+User.create(daemon_data)
+
 master_data = {
   username: 'master',
   github_id: -1,
@@ -21,24 +27,6 @@ master_data = {
   mastery: ['ruby', 'elixir']
 }
 master = User.create(master_data)
-
-journeyman_data = {
-  username: 'journeyman',
-  github_id: -2,
-  email: "journeyman@example.com",
-  journeymans_ticket: ['javascript'],
-  completed: {'ruby' => ['bob'], 'javascript' => ['bob']}
-}
-journeyman = User.create(journeyman_data)
-
-apprentice_data = {
-  username: 'apprentice',
-  github_id: -3,
-  email: "apprentice@example.com",
-  apprenticeship: {"clojure" => ["bob"]},
-  completed: {'clojure' => ['bob'], 'javascript' => ['bob']}
-}
-apprentice = User.create(apprentice_data)
 
 alice_data = {
   username: 'alice',
@@ -72,29 +60,18 @@ Exercism.current_curriculum.trails.each do |_, trail|
         Nitpick.new(submission.id, master, "It is missing `hey` in iteration #{i}.").save
       end
       if rand(2) == 0
-        locksmith = nil
-        if master.unlocks?(exercise)
-          locksmith = master
-        elsif journeyman.unlocks?(exercise)
-          locksmith = journeyman
-        elsif apprentice.unlocks?(exercise)
-          locksmith = apprentice
-        end
-        if locksmith
-          Approval.new(submission.id, locksmith, 'very nice').save
-          Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
-
-          Approval.new(submission.id, locksmith, 'expressive').save
-          Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
-
-          Approval.new(submission.id, locksmith, 'short and sweet').save
-          Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
-        end
+        Completion.new(submission).save
+        Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
+        Completion.new(submission).save
+        Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
+        Completion.new(submission).save
+        Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
       end
 
       if rand(10) == 0
-        submission.is_approvable = true
-        submission.flagged_by = users.sample.username
+        submission.is_liked = true
+        submission.liked_by ||= []
+        submission.liked_by << users.sample.username
       end
       if rand(10) == 0
         submission.wants_opinions = true
@@ -123,7 +100,7 @@ Notify.everyone(attempt.submission, 'nitpick', except: master)
 attempt = Attempt.new(alice.reload, "class Code \nend", "#{alice.current_in('ruby').slug}/code.rb").save
 attempt.submission.at = Time.now.utc - 6
 attempt.submission.save
-Approval.new(attempt.submission.id, master, 'very nice').save
+Completion.new(attempt.submission).save
 alice.reload
 
 attempt = Attempt.new(alice.reload, "class Code \nend", "#{alice.current_in('ruby').slug}/code.rb").save
@@ -137,8 +114,7 @@ attempt.submission.save
 Nitpick.new(attempt.submission.id, master, "`words.words` is so echo-y.").save
 Notify.everyone(attempt.submission, 'nitpick', except: master)
 attempt = Attempt.new(alice.reload, "class Code \nend", "#{alice.current_in('ruby').slug}/code.rb").save
-Approval.new(attempt.submission.id, master, 'better').save
-Notify.source(attempt.submission, 'done')
+Completion.new(attempt.submission).save
 alice.reload
 
 attempt = Attempt.new(alice.reload, "class Code \nend", "#{alice.current_in('ruby').slug}/code.rb").save
@@ -158,7 +134,7 @@ attempt = Attempt.new(bob, "def bark_along_little_doggie_when_the_moon_is_full_i
 Nitpick.new(attempt.submission.id, master, 'Not enough code.').save
 Nitpick.new(attempt.submission.id, master, 'I like the method name.').save
 
-[alice, bob, master, journeyman, apprentice].each do |user|
+[alice, bob, master].each do |user|
   puts
   puts "Created: #{user.username}"
   puts "API Key: #{user.key}"

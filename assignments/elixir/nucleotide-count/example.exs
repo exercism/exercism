@@ -1,6 +1,5 @@
 defmodule DNA do
-
-  @empty_nucleotide_table HashDict.new([{?A, 0}, {?C, 0}, {?G, 0}, {?T, 0}])
+  @nucleotides [?A, ?C, ?G, ?T]
 
   @doc """
   Counts individual nucleotides in a DNA strand.
@@ -14,8 +13,8 @@ defmodule DNA do
   1
   """
 
-  def count(dna, nucleotide) do
-    Enum.count dna,  &1 == nucleotide
+  def count(strand, nucleotide) do
+    Enum.count strand,  &1 == nucleotide
   end
 
 
@@ -28,11 +27,7 @@ defmodule DNA do
   HashDict.new [{?A, 4}, {?T, 1}, {?C, 0}, {?G, 0}]
   """
 
-  def nucleotide_counts(nucleotides) do
-    List.foldl(nucleotides, @empty_nucleotide_table, fn(nucleotide, acc) ->
-      HashDict.update(acc, nucleotide, 1, &1+1)
-    end)
+  def nucleotide_counts(strand) do
+    HashDict.new @nucleotides, &({&1, count(strand, &1)})
   end
-
-
 end

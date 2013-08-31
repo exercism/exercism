@@ -37,6 +37,13 @@ class SolutionTest < Minitest::Test
     assert_equal exercise, solution.exercise
   end
 
+  def test_assume_current_exercise
+    exercise = Exercise.new('python', 'tissue')
+    code = Code.new('file.py', locales)
+    solution = Solution.new(alice, code)
+    assert_equal exercise, solution.exercise
+  end
+
   def test_identify_completed_exercise
     exercise = Exercise.new('ruby', 'hypothesis')
     code = Code.new('/some/path/hypothesis/file.rb', locales)

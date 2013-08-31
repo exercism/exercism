@@ -5,7 +5,7 @@
       <ul class="nav nav-tabs nav-stacked">
         <% if language %>
           <% if exercises.any? %>
-            <%= dashboard_assignment_nav(language, 'featured') %>
+            <%= dashboard_assignment_nav(language, 'no-nits') %>
             <%= dashboard_assignment_nav(language, 'opinions') %>
             <%= dashboard_assignment_nav(language, 'looks-great') %>
             <% exercises.each do |exercise| %>
@@ -15,30 +15,14 @@
         <% end %>
       </ul>
     </nav>
-    <%= erb :ongoing_assignments, locals: {ongoing: current_user.ongoing} %>
-    <%= erb :completed_assignments, locals: {completed: current_user.done } %>
     </br>
-    <div class="sidebar-panel">
-      <p>Read about <a href="/cycle">the feedback cycle</a>.</p>
-
-      <% if current_user.nitpicker? %>
-        <p>Read about <a href="/nitpick">how to nitpick</a></p>
-      <% end %>
-    </div>
-
   </aside>
+
   <main id="pending-submissions" class="span8">
-  <% if welcome %>
-    <% if current_user.new? %>
-      <%= erb :"setup/getting_started" %>
-    <% end %>
-    <%= md(File.read('./lib/app/views/welcome.md')) %>
-  <% elsif show_pending_submissions?(language) %>
-    <%= erb :pending, locals: {submissions: submissions, show_filters: show_filters} %>
-    <% elsif language && current_user.submissions.where(language: language).count > 0 %>
-    <%= erb :"about/welcome" %>
+  <% if show_pending_submissions?(language) %>
+    <%= erb :pending, locals: {submissions: submissions, show_filters: show_filters, language: language} %>
   <% else %>
-    <%= erb :about, locals: {language: language, unstarted: unstarted_trails} %>
+    <%= erb :setup %>
   <% end %>
   </main>
 </div>

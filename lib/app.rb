@@ -1,9 +1,12 @@
 require 'exercism'
 require 'sinatra/petroglyph'
+require 'will_paginate'
+require 'will_paginate/mongoid'
 
 require 'app/presenters/dashboard'
 
-require 'app/about'
+require 'app/help'
+require 'app/setup'
 require 'app/nitpick'
 require 'app/api'
 require 'app/auth'
@@ -36,6 +39,7 @@ class ExercismApp < Sinatra::Base
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
 
+  helpers WillPaginate::Sinatra::Helpers
   helpers Sinatra::SubmissionsHelper
   helpers Sinatra::SiteTitleHelper
   helpers Sinatra::FuzzyTimeHelper
@@ -133,11 +137,6 @@ class ExercismApp < Sinatra::Base
       slug.split("-").map(&:capitalize).join(" ")
     end
 
-    def dashboard_nav_li(language=nil, html={})
-      path = path_for(language)
-      %{<li class="#{active_top_nav(path)} #{html[:class]}"><a href="#{path}">#{nav_text(language)}</a></li>}
-    end
-
     def dashboard_assignment_nav(language, slug=nil, counts=nil)
       return if counts && counts.zero?
 
@@ -148,6 +147,8 @@ class ExercismApp < Sinatra::Base
     end
 
     def unstarted_trails
+      return [] if current_user.guest?
+
       @unstarted_trails ||= Exercism.current_curriculum.unstarted_trails(current_user.current_languages)
     end
 
@@ -155,13 +156,10 @@ class ExercismApp < Sinatra::Base
       (!language && current_user.nitpicker?) || (language && current_user.nitpicks_trail?(language))
     end
 
-    def n_people_like_it(n)
-      case n
-        when 0 then ""
-        when 1 then "1 person thinks this looks great"
-      else
-        "#{n} people think this looks great"
-      end
+    def nitpicker_languages
+      @nitpicker_languages ||= Exercism.languages.select { |lang|
+        current_user.nitpicks_trail?(lang.to_s)
+      }
     end
   end
 

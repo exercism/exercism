@@ -1,10 +1,18 @@
 class Guest
-  def guest?
-    true
+  def nitpicks_trail?(language)
+    false
   end
 
-  def unlocks?(exercise)
-    false
+  def ongoing
+    []
+  end
+
+  def current
+    {}
+  end
+
+  def guest?
+    true
   end
 
   def locksmith?

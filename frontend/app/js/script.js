@@ -63,6 +63,37 @@ $(function() {
     var $this = $(this);
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
+
+  $('textarea').each(function () {
+    var $this = $(this);
+    var question_text = "You have unsaved changes on this page";
+    var was_sumbitted = false;
+    $this.parents("form").on('submit',function(){
+      was_sumbitted = true;
+    });
+    window.onbeforeunload = function (e) {
+      var unsaved = $this.text() !== $this.val();
+      if(!was_sumbitted && unsaved) {
+        // see http://stackoverflow.com/questions/10311341/confirmation-before-closing-of-tab-browser
+        e = e || window.event;
+
+        if (e) {
+            e.returnValue = question_text;
+        }
+
+        return question_text;
+      }
+    };
+  });
+
+  // cmd + return submits nitpicks on mac ctrl + return submits on windows
+  // from https://github.com/dewski/cmd-enter
+  $(document).on('keydown', 'textarea', function(e) {
+      if(e.keyCode === 13 && (e.metaKey || e.ctrlKey)) {
+          $(this).parents('form').submit();
+      }
+  });
+
   $('.work-slug').popover({
     trigger: 'hover',
     placement: 'right',
@@ -73,6 +104,8 @@ $(function() {
     },
     content: 'use the command <code>exercism fetch</code> to add this assignment to your exercism directory'
   });
+
+
 
   $(".mute").each(function(index, element) {
     var elem = $(element);

@@ -76,17 +76,17 @@ class BobTests(unittest.TestCase):
 
     def test_silence(self):
         self.assertEqual(
-            'Fine. Be that way.', self.bob.hey('')
+            'Fine. Be that way!', self.bob.hey('')
         )
 
     def test_more_silence(self):
         self.assertEqual(
-            'Fine. Be that way.', self.bob.hey(None)
+            'Fine. Be that way!', self.bob.hey(None)
         )
 
     def test_prolonged_silence(self):
         self.assertEqual(
-            'Fine. Be that way.', self.bob.hey('    ')
+            'Fine. Be that way!', self.bob.hey('    ')
         )
 
 if __name__ == '__main__':

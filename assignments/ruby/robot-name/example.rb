@@ -10,15 +10,15 @@ class Robot
   private
 
   def prefix
-    alphabet.shuffle[0..1].join('')
+    alphabet.sample(2).join('')
   end
 
   def suffix
-    rand(899) + 100
+    rand(100...999)
   end
 
   def alphabet
-    %w(A B C D E F G H I J K L M N O P Q R S T U V W X Y Z)
+    ('A'..'Z').to_a
   end
 end
 

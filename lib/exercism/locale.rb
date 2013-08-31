@@ -21,6 +21,10 @@ end
 
 Locale = Struct.new(:language, :code_extension, :test_extension) do
 
+  def name
+    language.to_s.capitalize
+  end
+
   def to_sym
     language.to_sym
   end

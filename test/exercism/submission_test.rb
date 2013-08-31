@@ -68,6 +68,18 @@ class SubmissionTest < Minitest::Test
     assert_equal 'approved', submission.state
   end
 
+  def test_not_completed_when_ongoing
+    submission.state = 'pending'
+    submission.save
+    assert !Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
+  end
+
+  def test_completed_when_completed
+    submission.state = 'approved'
+    submission.save
+    assert Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
+  end
+
   def test_retrieve_assignment
     # Crazy long path. Best I can figure there's no storage of the path past the
     # Curriculum object in Exercism so we have to mock the whole chain
@@ -94,25 +106,18 @@ class SubmissionTest < Minitest::Test
     assert_equal 3, s3.version
   end
 
-  def test_participants_when_not_approved
-    alice = User.new(username: 'alice')
-    bob = User.new(username: 'bob', github_id: '2', mastery: ['nong'])
-    s1 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
+  def test_participants
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    charlie = User.create(username: 'charlie')
+    s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
+    s1.comments << Comment.new(user: bob, comment: 'nice')
+    s1.save
+    s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
+    s2.comments << Comment.new(user: charlie, comment: 'pretty good')
+    s2.save
 
-    assert_equal Set.new([alice]), s1.participants
-  end
-
-  def test_participants_when_approved
-    alice = User.create(username: 'alice', github_id: '1', current: {'nong' => 'one'})
-    bob = User.create(username: 'bob', github_id: '2', mastery: ['nong'])
-
-    curriculum = Curriculum.new('/tmp')
-    curriculum.add NongCurriculum.new
-    s1 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
-
-    Approval.new(s1.id, bob, nil, curriculum).save
-    s1.reload; alice.reload
-    assert_equal Set.new([alice, bob]), s1.participants
+    assert_equal %w(alice bob charlie), s2.participants.map(&:username).sort
   end
 
   def test_muted_by_when_muted

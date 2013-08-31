@@ -38,4 +38,19 @@ defmodule AnagramTest do
     # matches = Anagram.match "Orchestra", %w(cashregister Carthorse radishes)
     # assert matches == ["Carthorse"]
   end
+
+  test "anagrams must not be the source word" do
+    # matches = Anagram.match "banana", ["banana"]
+    # assert matches == []
+  end
+
+  test "anagrams must not be the source word case-insensitively" do
+    # matches = Anagram.match "banana", ["Banana"]
+    # assert matches == []
+  end
+
+  test "anagrams must use all letters exactly once" do
+    # matches = Anagram.match "patter", ["tapper"]
+    # assert matches == []
+  end
 end
