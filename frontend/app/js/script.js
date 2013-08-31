@@ -89,9 +89,9 @@ $(function() {
   // cmd + return submits nitpicks on mac ctrl + return submits on windows
   // from https://github.com/dewski/cmd-enter
   $(document).on('keydown', 'textarea', function(e) {
-      if(e.keyCode == 13 && (e.metaKey || e.ctrlKey)) {
+      if(e.keyCode === 13 && (e.metaKey || e.ctrlKey)) {
           $(this).parents('form').submit();
-      };
+      }
   });
 
   $('.work-slug').popover({
