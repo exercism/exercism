@@ -1,4 +1,4 @@
-class NullDashboard
+class NullWorkload
   attr_reader :user, :language, :slug
   def initialize(user, language, slug)
     @user, @language, @slug = user, language, slug
@@ -21,7 +21,7 @@ class NullDashboard
   end
 end
 
-class Dashboard
+class Workload
   attr_reader :user, :language, :slug
   def initialize(user, language, slug)
     @user = user
