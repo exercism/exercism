@@ -55,7 +55,7 @@ class ExercismApp < Sinatra::Base
 
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
 
-    erb :nitpick, locals: {submission: submission}
+    erb :submission, locals: {submission: submission}
   end
 
   # TODO: Submit to this endpoint rather than the `respond` one.
