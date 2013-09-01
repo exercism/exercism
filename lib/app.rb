@@ -146,12 +146,6 @@ class ExercismApp < Sinatra::Base
       %{<li class="#{active_nav(path)}"><a href="#{path}">#{nav_text(slug)}#{tally}</a></li>}
     end
 
-    def unstarted_trails
-      return [] if current_user.guest?
-
-      @unstarted_trails ||= Exercism.current_curriculum.unstarted_trails(current_user.current_languages)
-    end
-
     def show_pending_submissions?(language)
       (!language && current_user.nitpicker?) || (language && current_user.nitpicks_trail?(language))
     end

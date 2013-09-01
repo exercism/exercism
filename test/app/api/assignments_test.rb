@@ -1,5 +1,6 @@
 require './test/api_helper'
 require './test/fixtures/fake_curricula'
+require 'mocha/setup'
 
 class AssignmentsApiTest < Minitest::Test
   include Rack::Test::Methods
@@ -10,7 +11,7 @@ class AssignmentsApiTest < Minitest::Test
 
   attr_reader :alice, :curriculum
   def setup
-    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'one', 'go' => 'two'}, completed: {'ruby' => ['zero']})
+    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'one', 'go' => 'two'}, completed: {'go' => ['one']})
     @curriculum = Curriculum.new('./test/fixtures')
     @curriculum.add FakeCurriculum.new
     @curriculum.add FakeRubyCurriculum.new
@@ -25,7 +26,7 @@ class AssignmentsApiTest < Minitest::Test
     Exercism.instance_variable_set(:@languages, nil)
   end
 
-  def test_api_returns_current_assignment_data
+  def test_api_returns_first_incomplete_assignment_for_each_track
     Exercism.stub(:current_curriculum, curriculum) do
       get '/api/v1/user/assignments/current', {key: alice.key}
 
@@ -45,13 +46,16 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
-  def test_api_complains_if_no_trail_has_been_started
+  def test_api_starts_trail_automatically
     Exercism.stub(:current_curriculum, curriculum) do
       bob = User.create(username: 'bob', github_id: 2, current: {})
       post '/api/v1/user/assignments', {key: bob.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
-      assert_equal 400, last_response.status
-      message = JSON.parse(last_response.body)["error"]
-      assert_equal "Please start the trail before submitting.", message
+
+      submission = Submission.first
+      ex = Exercise.new('ruby', 'one')
+      assert_equal ex, submission.exercise
+      assert_equal 201, last_response.status
+      assert_equal 'one', bob.reload.current['ruby']
     end
   end
 
@@ -74,15 +78,28 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_accepts_submission_on_completed_exercise
     Exercism.stub(:current_curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
-        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'zero/code.rb'}.to_json
+        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.go'}.to_json
       end
 
       submission = Submission.first
-      ex = Exercise.new('ruby', 'zero')
+      ex = Exercise.new('go', 'one')
       assert_equal ex, submission.exercise
       assert_equal 201, last_response.status
 
       options = {format: :json, :name => 'api_submission_accepted_on_completed'}
+      Approvals.verify(last_response.body, options)
+    end
+  end
+
+  def test_api_rejects_submission_on_nonexistent_exercise
+    Exercism.stub(:current_curriculum, curriculum) do
+      Notify.stub(:everyone, nil) do
+        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'three/code.ext'}.to_json
+      end
+
+      assert_equal 400, last_response.status
+
+      options = {format: :json, :name => 'reject_nonexistent_exercise'}
       Approvals.verify(last_response.body, options)
     end
   end

@@ -35,12 +35,6 @@ class CurriculumTest < Minitest::Test
     assignment = curriculum.assign(exercise)
     assert_equal './test/fixtures/ruby/one', assignment.path
   end
-
-  def test_unstarted_trails
-    curriculum.add FakeGoCurriculum.new
-    languages = curriculum.unstarted_trails(['go'])
-    assert_equal ['ruby'], languages
-  end
 end
 
 class ConvenienceCurriculumTest < Minitest::Test

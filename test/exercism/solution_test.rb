@@ -10,7 +10,7 @@ class SolutionTest < Minitest::Test
     include ProblemSet
 
     def current
-      {'ruby' => 'button', 'python' => 'tissue'}
+      {'ruby' => 'button'}
     end
 
     def completed
@@ -31,6 +31,13 @@ class SolutionTest < Minitest::Test
   end
 
   def test_identify_current_exercise
+    exercise = Exercise.new('ruby', 'button')
+    code = Code.new('/some/path/button/file.rb', locales)
+    solution = Solution.new(alice, code)
+    assert_equal exercise, solution.exercise
+  end
+
+  def test_identify_available_exercise_on_unstarted_trail
     exercise = Exercise.new('python', 'tissue')
     code = Code.new('/some/path/tissue/file.py', locales)
     solution = Solution.new(alice, code)
@@ -38,8 +45,8 @@ class SolutionTest < Minitest::Test
   end
 
   def test_assume_current_exercise
-    exercise = Exercise.new('python', 'tissue')
-    code = Code.new('file.py', locales)
+    exercise = Exercise.new('ruby', 'button')
+    code = Code.new('file.rb', locales)
     solution = Solution.new(alice, code)
     assert_equal exercise, solution.exercise
   end
@@ -58,5 +65,6 @@ class SolutionTest < Minitest::Test
       solution.exercise
     end
   end
+
 end
 

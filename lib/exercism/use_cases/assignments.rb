@@ -25,7 +25,9 @@ class Assignments
   private
 
   def assigned_exercises
-    user.current_exercises.map do |exercise|
+    Exercism.trails.map do |trail|
+      user.current_in(trail.language) || trail.first
+    end.map do |exercise|
       unless exercise.slug == 'congratulations'
         curriculum.assign(exercise)
       end

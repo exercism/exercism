@@ -25,8 +25,13 @@ class Solution
     code.language
   end
 
+  def available?(exercise)
+    current = user.current_in(exercise.language)
+    !current || current.slug == exercise.slug || user.completed?(exercise)
+  end
+
   def validate(candidate)
-    unless user.working_on?(candidate) || user.completed?(candidate)
+    unless available?(candidate)
       raise Exercism::UnavailableExercise.new(error_message(candidate))
     end
   end

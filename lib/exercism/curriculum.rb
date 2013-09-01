@@ -51,10 +51,6 @@ class Curriculum
     self.in(exercise.language).assign(exercise.slug)
   end
 
-  def unstarted_trails(started)
-    available_languages - started
-  end
-
   def available?(language)
     available_languages.include?(language)
   end

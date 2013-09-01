@@ -1,7 +1,0 @@
-<% unless unstarted_trails.empty? %>
-  <% unstarted_trails.each do |language| %>
-    <form action="/user/<%= language %>/start" method="POST">
-      <input type="submit" value="start <%= language %>" class="btn btn-primary btn-success"/>
-    </form>
-  <% end %>
-<% end %>

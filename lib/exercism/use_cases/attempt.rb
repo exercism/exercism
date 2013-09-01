@@ -1,18 +1,23 @@
+class Exercism
+  class UnknownExercise < StandardError; end
+end
+
 class Attempt
 
-  attr_reader :user, :code, :file
+  attr_reader :user, :code, :file, :curriculum
   def initialize(user, code, path, curriculum = Exercism.current_curriculum)
     @user = user
     @code = sanitize(code)
     @file = Code.new(path, curriculum.locales)
+    @curriculum = curriculum
   end
 
   def language
     file.language
   end
 
-  def on_started_trail?
-    !!user.current[language]
+  def slug
+    file.slug || user.current[language]
   end
 
   def submission
@@ -20,6 +25,9 @@ class Attempt
   end
 
   def save
+    unless user.current[language]
+      user.do! exercise
+    end
     user.submissions_on(exercise).each do |sub|
       sub.supersede!
       sub.unmute_all!
@@ -32,6 +40,12 @@ class Attempt
     user.submissions << submission
     user.save
     self
+  end
+
+  def validate!
+    unless curriculum.in(language).find(slug)
+      raise Exercism::UnknownExercise.new("Unknown exercise '#{slug}' in #{language}")
+    end
   end
 
   def duplicate?

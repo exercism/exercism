@@ -41,18 +41,10 @@ class ExercismApp < Sinatra::Base
 
     begin
       attempt = Attempt.new(user, data['code'], data['path'])
-    rescue Exercism::UnknownLanguage => e
-      halt 400, {:error => e.message}.to_json
-    end
-
-    unless attempt.on_started_trail?
-      halt 400, {:error => "Please start the trail before submitting."}.to_json
-    end
-
-    begin
       # TODO: refactor to ask about validity
       attempt.exercise
-    rescue Exercism::UnavailableExercise => e
+      attempt.validate!
+    rescue Exercism::UnavailableExercise, Exercism::UnknownExercise, Exercism::UnknownLanguage => e
       halt 400, {:error => e.message}.to_json
     end
 
