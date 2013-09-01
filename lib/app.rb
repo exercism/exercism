@@ -103,7 +103,7 @@ class ExercismApp < Sinatra::Base
       %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
     end
 
-    def path_for(language=nil, section='dashboard')
+    def path_for(language=nil, section='nitpick')
       if language
         "/#{section}/#{language.downcase}"
       else
