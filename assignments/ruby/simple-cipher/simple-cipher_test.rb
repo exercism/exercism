@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'cipher'
 
-class RandomKeyCipherTest < MiniTest::Unit::TestCase
+class RandomKeyCipherTest < Minitest::Test
   def setup
     @cipher = Cipher.new(nil)
   end
@@ -32,7 +32,7 @@ class RandomKeyCipherTest < MiniTest::Unit::TestCase
   end
 end
 
-class IncorrectKeyCipherTest < MiniTest::Unit::TestCase
+class IncorrectKeyCipherTest < Minitest::Test
   def test_cipher_with_caps_key
     skip
     assert_raises ArgumentError do
@@ -55,7 +55,7 @@ class IncorrectKeyCipherTest < MiniTest::Unit::TestCase
   end
 end
 
-class SubstitutionCipherTest < MiniTest::Unit::TestCase
+class SubstitutionCipherTest < Minitest::Test
   def setup
     @key = "abcdefghij"
     @cipher = Cipher.new(@key)
@@ -102,7 +102,7 @@ class SubstitutionCipherTest < MiniTest::Unit::TestCase
 
 end
 
-class PseudoShiftCipherTest < MiniTest::Unit::TestCase
+class PseudoShiftCipherTest < Minitest::Test
   def setup
     @cipher = Cipher.new("dddddddddd")
   end

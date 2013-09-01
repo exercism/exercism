@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'simulator'
 
-class RobotTurningTest < MiniTest::Unit::TestCase
+class RobotTurningTest < Minitest::Test
 
   def robot
     @robot
@@ -126,7 +126,7 @@ class RobotTurningTest < MiniTest::Unit::TestCase
   end
 end
 
-class RobotSimulatorTest < MiniTest::Unit::TestCase
+class RobotSimulatorTest < Minitest::Test
   def simulator
     @simulator ||= Simulator.new
   end

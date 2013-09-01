@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'prime_factors'
 
-class PrimeFactorsTest < MiniTest::Unit::TestCase
+class PrimeFactorsTest < Minitest::Test
 
   def test_1
     assert_equal [], PrimeFactors.for(1)

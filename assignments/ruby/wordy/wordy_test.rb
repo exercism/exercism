@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'word_problem'
 
-class WordProblemTest < MiniTest::Unit::TestCase
+class WordProblemTest < Minitest::Test
   def test_add_1
     assert_equal 2, WordProblem.new('What is 1 plus 1?').answer
   end

@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'space_age'
 
-class SpaceAgeTest < MiniTest::Unit::TestCase
+class SpaceAgeTest < Minitest::Test
 
   def test_age_in_seconds
     age = SpaceAge.new(1_000_000)

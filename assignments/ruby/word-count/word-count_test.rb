@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'phrase'
 
-class PhraseTest < MiniTest::Unit::TestCase
+class PhraseTest < Minitest::Test
 
   def test_count_one_word
     phrase = Phrase.new("word")

@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'matrix'
 
-class MatrixTest < MiniTest::Unit::TestCase
+class MatrixTest < Minitest::Test
 
   def test_extract_a_row
     matrix = Matrix.new("1 2\n10 20")

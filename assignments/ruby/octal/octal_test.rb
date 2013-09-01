@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'octal'
 
-class OctalTest < MiniTest::Unit::TestCase
+class OctalTest < Minitest::Test
   def test_octal_1_is_decimal_1
     assert_equal 1, Octal.new("1").to_decimal
   end

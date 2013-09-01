@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'triangle'
 
-class TriangleTest < MiniTest::Unit::TestCase
+class TriangleTest < Minitest::Test
 
   def test_one_row
     triangle = Triangle.new(1)

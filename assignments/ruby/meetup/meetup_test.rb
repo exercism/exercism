@@ -2,7 +2,7 @@ require 'minitest/autorun'
 require 'date'
 require_relative 'meetup'
 
-class MeetupTest < MiniTest::Unit::TestCase
+class MeetupTest < Minitest::Test
 
   def test_monteenth_of_may_2013
     assert_equal Date.new(2013, 5, 13), Meetup.new(5, 2013).monteenth

@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'pig_latin'
 
-class PigLatinTest < MiniTest::Unit::TestCase
+class PigLatinTest < Minitest::Test
 
   def test_word_beginning_with_a
     assert_equal "appleay", PigLatin.translate("apple")

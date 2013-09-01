@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'bst'
 
-class BstTest < MiniTest::Unit::TestCase
+class BstTest < Minitest::Test
   def test_data_is_retained
     assert_equal 4, Bst.new(4).data
   end

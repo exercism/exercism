@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'linked_list'
 
-class LinkedListProxyTest < MiniTest::Unit::TestCase
+class LinkedListProxyTest < Minitest::Test
   def setup
     @list = LinkedList.new((0..100).to_a)
   end
@@ -60,7 +60,7 @@ class LinkedListProxyTest < MiniTest::Unit::TestCase
 
 end
 
-class LinkedListTest < MiniTest::Unit::TestCase
+class LinkedListTest < Minitest::Test
   def setup
     @list = LinkedList.new([1])
     @head = @list.instance_variable_get(:@head)
@@ -83,7 +83,7 @@ class LinkedListTest < MiniTest::Unit::TestCase
   end
 end
 
-class LinkedListRangeTest < MiniTest::Unit::TestCase
+class LinkedListRangeTest < Minitest::Test
   def setup
     @list = LinkedList.new((1..10).to_a)
     @head = @list.instance_variable_get(:@head)

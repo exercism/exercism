@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'dna'
 
-class RibonucleicAcidTest < MiniTest::Unit::TestCase
+class RibonucleicAcidTest < Minitest::Test
   def setup
     @cga = RibonucleicAcid.new('CGA')
     @agc = RibonucleicAcid.new('AGC')

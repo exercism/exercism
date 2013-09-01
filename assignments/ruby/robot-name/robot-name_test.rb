@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'robot'
 
-class RobotTest < MiniTest::Unit::TestCase
+class RobotTest < Minitest::Test
   def test_has_name
     assert_match /\w{2}\d{3}/, Robot.new.name
   end

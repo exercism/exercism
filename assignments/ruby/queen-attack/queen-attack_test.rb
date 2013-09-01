@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'queens'
 
-class QueensTest < MiniTest::Unit::TestCase
+class QueensTest < Minitest::Test
 
   def test_default_positions
     queens = Queens.new

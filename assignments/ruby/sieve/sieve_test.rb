@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'sieve'
 
-class SieveTest < MiniTest::Unit::TestCase
+class SieveTest < Minitest::Test
 
   def test_a_few_primes
     expected = [2, 3, 5, 7]

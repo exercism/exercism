@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'triplet'
 
-class TripletTest < MiniTest::Unit::TestCase
+class TripletTest < Minitest::Test
   def test_sum
     assert_equal 12, Triplet.new(3, 4, 5).sum
   end
