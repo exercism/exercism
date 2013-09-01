@@ -23,7 +23,7 @@
       <% current_user.ongoing.each do |submission| %>
         <li>
           <p>
-            <a href="/submissions/#{submission.id}">
+            <a href="/submissions/<%= submission.id %>">
               <%= submission.language.capitalize + ': ' + submission.slug %>
             </a> (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
           </p>
