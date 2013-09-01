@@ -1,0 +1,43 @@
+<% if current_user.new? %>
+
+  <h3>The Process</h3>
+
+  <ol>
+    <li>Submit your code.</li>
+    <li>Receive feedback.</li>
+    <li>Resubmit your code. Rinse. Repeat.</li>
+  </ol>
+
+  <p>Once you feel like the discussion has wound down, click the "unlock" button, and you'll be able to fetch the next exercise. You can always submit new versions of completed exercises.</p>
+
+  <h3>Nitpick Others</h3>
+
+  <p>When you've completed the first exercise, you will gain access to the exercises that are awaiting feedback.</p>
+
+<% else %>
+
+<div class="row">
+  <div class="span4">
+    <h4>Current Exercises</h4>
+    <ul>
+      <% current_user.ongoing.each do |submission| %>
+        <li>
+          <p>
+            <a href="/submissions/#{submission.id}">
+              <%= submission.language.capitalize + ': ' + submission.slug %>
+            </a> (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
+          </p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="span8">
+    <% if submission %>
+      <h4>Got a few minutes to spare?</h4>
+      <p>Go and help <b>@<%= submission.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= submission.id %>"><%= submission.slug %> in <%= submission.language.capitalize %></a>.</p>
+    <% end %>
+  </div>
+</div>
+
+<% end %>

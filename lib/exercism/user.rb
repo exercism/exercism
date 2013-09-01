@@ -30,6 +30,15 @@ class User
     user
   end
 
+  def random_work
+    completed.keys.shuffle.each do |language|
+      work = Submission.pending.where(language: language).in(slug: completed[language]).asc(:nc)
+      if work.count > 0
+        return work.limit(10).to_a.sample
+      end
+    end
+  end
+
   def ongoing
     @ongoing ||= Submission.pending.where(user: self)
   end

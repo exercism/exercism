@@ -4,7 +4,7 @@ class ExercismApp < Sinatra::Base
     if current_user.guest?
       erb :index
     else
-      erb :home
+      erb :dashboard, locals: {submission: current_user.random_work}
     end
   end
 
