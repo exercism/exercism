@@ -75,4 +75,13 @@ class NitpickTest < Minitest::Test
     submission.reload
     assert submission.superseded?
   end
+
+  def test_nitpick_with_mentions
+    nitpicker = User.new(username: 'alice')
+    nitpick = Nitpick.new(submission.id, nitpicker, "Mention @#{@submission.user.username}").save
+    submission.reload
+    comment = submission.comments.last
+    assert_equal 1, comment.mentions.count
+    assert_equal submission.user, comment.mentions.first
+  end
 end
