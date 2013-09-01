@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/jayferd/rouge.git
+  revision: b6c4fb5df11cbfbe852e4fc157c01fbad2d47754
+  specs:
+    rouge (0.4.0)
+      thor
+
+GIT
   remote: https://github.com/mislav/will_paginate.git
   revision: 0da168851b9356f678106abd19055fc6e9a6df72
   specs:
@@ -78,8 +85,6 @@ GEM
       rack (>= 1.0)
     rake (10.1.0)
     redcarpet (2.3.0)
-    rouge (0.4.0)
-      thor
     ruby-prof (0.13.0)
     sanitize (2.0.6)
       nokogiri (>= 1.4.4)
@@ -129,7 +134,7 @@ DEPENDENCIES
   rack-test
   rake
   redcarpet
-  rouge
+  rouge!
   ruby-prof
   sanitize
   simplecov
