@@ -161,7 +161,7 @@ class UserTest < Minitest::Test
     user = User.create(current: {'nong' => 'one'})
     exercise = Exercise.new('nong', 'one')
 
-    user.submissions << create_submission(exercise, :code => "s1")
+    user.submissions << create_submission(exercise, :code => "s1", state: 'superseded')
     user.submissions << create_submission(exercise, :code => "s2")
     user.save
 

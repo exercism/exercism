@@ -31,9 +31,7 @@ class User
   end
 
   def ongoing
-    @ongoing ||= current_exercises.map do |exercise|
-      latest_submission_on(exercise)
-    end.compact
+    @ongoing ||= Submission.pending.where(user: self)
   end
 
   def done
