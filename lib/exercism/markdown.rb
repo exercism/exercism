@@ -26,7 +26,7 @@ class Markdown < Redcarpet::Render::XHTML
   end
 
   def block_code(code, language)
-    lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::Text
+    lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::PlainText
 
     # XXX HACK: Redcarpet strips hard tabs out of code blocks,
     # so we assume you're not using leading spaces that aren't tabs,
