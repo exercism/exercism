@@ -16,19 +16,20 @@ exports.WordProblem = class WordProblem
     Object.keys @BINARY_OPERATORS
 
   pattern: ->
-    operations  = " (#{@operators().join('|')}) "
+    operations = " (#{@operators().join('|')}) "
 
-    expression  = ''
-    expression += '(?:what is ([-+]?[\\d]+)'
-    expression += operations
-    expression += '([-+]?[\\d]+)(?:'
-    expression += operations
-    expression += '([-+]?[\\d]+))?)'
+    /// (?:
+      what[\x20]is[\x20] # what is
+      ([-+]?[\d]+)       # +/- number
+      #{operations}      # operator (plus, minus, etc.)
+      ([-+]?[\d]+)       # +/- number
+      (?:                # optional extra group
+        #{operations}    # operator (plus, minus, etc.)
+        ([-+]?[\d]+)     # +/- number
+      )?                 # end optional extra group
+    ) ///i
 
-    new RegExp(expression, 'i')
-
-  tooComplicated: ->
-    not @matches
+  tooComplicated: -> not @matches
 
   answer: =>
     throw @ERROR.tooComplicated if @tooComplicated()
