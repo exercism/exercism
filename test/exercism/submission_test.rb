@@ -120,6 +120,23 @@ class SubmissionTest < Minitest::Test
     assert_equal %w(alice bob charlie), s2.participants.map(&:username).sort
   end
 
+  def test_participants_with_mentions
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    charlie = User.create(username: 'charlie')
+    mention_user = User.create(username: 'mention_user')
+    s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
+    s1.comments << Comment.new(user: alice, comment: 'What about @bob?')
+    s1.save
+    s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
+    s2.comments << Comment.new(user: charlie, comment: '@mention_user should have bleh')
+    s2.save
+
+    # NOTE: mention_user doesn't enter until s2, but it's related to s1.
+    assert_equal %w(alice bob charlie mention_user), s1.participants.map(&:username).sort
+    assert_equal %w(alice bob charlie mention_user), s2.participants.map(&:username).sort
+  end
+
   def test_muted_by_when_muted
     submission = Submission.new(state: 'pending', muted_by: ['alice'])
     assert submission.muted_by?(alice)

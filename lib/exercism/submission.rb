@@ -71,6 +71,7 @@ class Submission
     related_submissions.each do |submission|
       submission.comments.each do |nit|
         participants.add nit.nitpicker
+	nit.mentions.each { |mention| participants.add mention }
       end
     end
     @participants = participants
