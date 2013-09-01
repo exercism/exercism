@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'atbash'
 
-class AtbashTest < MiniTest::Unit::TestCase
+class AtbashTest < Minitest::Test
 
   def test_encode_no
     assert_equal 'ml', Atbash.encode('no')

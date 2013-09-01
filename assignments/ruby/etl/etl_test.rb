@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'etl'
 
-class TransformTest < MiniTest::Unit::TestCase
+class TransformTest < Minitest::Test
 
   def test_transform_one_value
     old = { 'hello' => ['WORLD'] }

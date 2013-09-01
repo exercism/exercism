@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'roman'
 
-class RomanTest < MiniTest::Unit::TestCase
+class RomanTest < Minitest::Test
 
   def test_1
     assert_equal 'I', 1.to_roman

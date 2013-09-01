@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'binary'
 
-class BinaryTest < MiniTest::Unit::TestCase
+class BinaryTest < Minitest::Test
   def test_binary_1_is_decimal_1
     assert_equal 1, Binary.new("1").to_decimal
   end

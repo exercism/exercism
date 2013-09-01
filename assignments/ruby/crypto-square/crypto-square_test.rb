@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'crypto'
 
-class CryptoTest < MiniTest::Unit::TestCase
+class CryptoTest < Minitest::Test
   def test_normalize_strange_characters
     crypto = Crypto.new('s#$%^&plunk')
     assert_equal "splunk", crypto.normalize_plaintext

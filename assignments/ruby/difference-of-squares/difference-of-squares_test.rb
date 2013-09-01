@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'squares'
 
-class SquaresTest < MiniTest::Unit::TestCase
+class SquaresTest < Minitest::Test
 
   def test_square_of_sums_to_5
     assert_equal 225, Squares.new(5).square_of_sums

@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'allergies'
 
-class AllergiesTest < MiniTest::Unit::TestCase
+class AllergiesTest < Minitest::Test
 
   def test_no_allergies_at_all
     allergies = Allergies.new(0)

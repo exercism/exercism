@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'phone'
 
-class PhoneTest < MiniTest::Unit::TestCase
+class PhoneTest < Minitest::Test
 
   def test_cleans_number
     number = Phone.new("(123) 456-7890").number

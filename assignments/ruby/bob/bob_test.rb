@@ -13,7 +13,7 @@ rescue LoadError => e
   exit!
 end
 
-class TeenagerTest < MiniTest::Unit::TestCase
+class TeenagerTest < Minitest::Test
   attr_reader :teenager
 
   def setup

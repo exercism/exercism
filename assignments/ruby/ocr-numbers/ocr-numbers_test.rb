@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'ocr'
 
-class OCRTest < MiniTest::Unit::TestCase
+class OCRTest < Minitest::Test
 
   def test_recognize_zero
     text = <<-NUMBER.chomp

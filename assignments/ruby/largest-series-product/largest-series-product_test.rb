@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'series'
 
-class SeriesTest < MiniTest::Unit::TestCase
+class SeriesTest < Minitest::Test
   def test_digits
     assert_equal (0..9).to_a, Series.new("0123456789").digits
   end

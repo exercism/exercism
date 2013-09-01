@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'garden'
 
-class GardenTest < MiniTest::Unit::TestCase
+class GardenTest < Minitest::Test
 
   def test_alices_garden
     garden = Garden.new("RC\nGG")
@@ -29,7 +29,7 @@ class GardenTest < MiniTest::Unit::TestCase
 
 end
 
-class TestFullGarden < MiniTest::Unit::TestCase
+class TestFullGarden < Minitest::Test
   def setup
     diagram = "VRCGVVRVCGGCCGVRGCVCGCGV\nVRCCCGCRRGVCGCRVVCVGCGCV"
     @garden = Garden.new(diagram)
@@ -100,7 +100,7 @@ class TestFullGarden < MiniTest::Unit::TestCase
   end
 end
 
-class DisorderedTest < MiniTest::Unit::TestCase
+class DisorderedTest < Minitest::Test
 
   def setup
     diagram = "VCRRGVRG\nRVGCCGCV"
@@ -134,7 +134,7 @@ class DisorderedTest < MiniTest::Unit::TestCase
 
 end
 
-class TwoGardensDifferentStudents < MiniTest::Unit::TestCase
+class TwoGardensDifferentStudents < Minitest::Test
  def diagram
    "VCRRGVRG\nRVGCCGCV"
  end

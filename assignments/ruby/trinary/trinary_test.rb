@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'trinary'
 
-class TrinaryTest < MiniTest::Unit::TestCase
+class TrinaryTest < Minitest::Test
   def test_trinary_1_is_decimal_1
     assert_equal 1, Trinary.new("1").to_decimal
   end

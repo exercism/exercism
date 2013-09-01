@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'school'
 
-class SchoolTest < MiniTest::Unit::TestCase
+class SchoolTest < Minitest::Test
 
   def school
     @school

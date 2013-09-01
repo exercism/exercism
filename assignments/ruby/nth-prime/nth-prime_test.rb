@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'prime'
 
-class TestPrimes < MiniTest::Unit::TestCase
+class TestPrimes < Minitest::Test
 
   def test_first
     assert_equal 2, Prime.nth(1)

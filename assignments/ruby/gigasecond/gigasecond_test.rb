@@ -3,7 +3,7 @@ require 'date'
 require 'time'
 require_relative 'gigasecond'
 
-class GigasecondTest < MiniTest::Unit::TestCase
+class GigasecondTest < Minitest::Test
 
   def test_1
     gs = Gigasecond.new(Date.new(2011, 4, 25))

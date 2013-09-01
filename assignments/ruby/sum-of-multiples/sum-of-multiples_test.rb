@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'sum'
 
-class SumTest < MiniTest::Unit::TestCase
+class SumTest < Minitest::Test
 
   def test_sum_to_1
     assert_equal 0, SumOfMultiples.to(1)

@@ -2,7 +2,7 @@ require 'minitest/autorun'
 
 require_relative 'linked_list'
 
-class LinkedListTest < MiniTest::Unit::TestCase
+class LinkedListTest < Minitest::Test
   def setup
     @head = linked_list([1])
   end
@@ -26,7 +26,7 @@ class LinkedListTest < MiniTest::Unit::TestCase
   end
 end
 
-class LinkedListRangeTest < MiniTest::Unit::TestCase
+class LinkedListRangeTest < Minitest::Test
   def setup
     @head = linked_list((1..10).to_a)
   end

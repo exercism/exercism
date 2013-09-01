@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'anagram'
 
-class AnagramTest < MiniTest::Unit::TestCase
+class AnagramTest < Minitest::Test
 
   def test_no_matches
     detector = Anagram.new('diaper')

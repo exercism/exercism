@@ -1,7 +1,7 @@
 require 'minitest/autorun'
 require_relative 'palindromes'
 
-class PalindromesTest < MiniTest::Unit::TestCase
+class PalindromesTest < Minitest::Test
 
   def test_largest_palindrome_from_single_digit_factors
     palindromes = Palindromes.new(max_factor: 9)
