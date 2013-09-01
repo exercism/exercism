@@ -23,6 +23,14 @@ class Comment
     user
   end
 
+  def mentions
+    # http://rubular.com/r/TagnENb1Wm
+    candidates = comment.scan(/\@\w+/).uniq
+    candidates.each_with_object([]) do |username, mentions|
+      mentions << User.find_by(:u => username.sub(/\@/, '')) rescue nil
+    end
+  end
+
   def sanitized_update(comment)
     self.comment = sanitize(comment)
     save

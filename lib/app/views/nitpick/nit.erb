@@ -8,6 +8,14 @@
     <%= gravatar_tag nit.user.avatar_url, size: 20 %>
     <em><%= profile_link(nit.user) %></em>, <%= ago(nit.at) %>
   </cite>
+  <% unless nit.mentions.empty? %>
+    <aside>
+      Mentions:
+      <% nit.mentions.each do |mention| %>
+	<em><%= profile_link(mention) %></em>
+      <% end %>
+    </aside>
+  <% end %>
 
   <% if current_user == nit.nitpicker %>
     <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit">
