@@ -4,6 +4,14 @@ class ExercismApp < Sinatra::Base
     md(params[:comment])
   end
 
+  get '/dashboard/:language/?' do |language|
+    redirect "/nitpick/#{language}/no-nits"
+  end
+
+  get '/dashboard/:language/:slug/?' do |language, slug|
+    redirect "/nitpick/#{language}/#{slug}"
+  end
+
   get '/nitpick/:language/?' do |language|
     redirect "/nitpick/#{language}/no-nits"
   end
