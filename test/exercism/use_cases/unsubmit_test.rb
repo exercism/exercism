@@ -1,6 +1,6 @@
 require './test/integration_helper'
 
-class NitpickTest < Minitest::Test
+class UnsubmitTest < Minitest::Test
 
   def test_success
     bob = User.create(username: 'bob')
