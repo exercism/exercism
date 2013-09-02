@@ -1,8 +1,6 @@
-module Robot (Movement(..),
-              Bearing(..),
+module Robot (Bearing(..),
               Robot,
               mkRobot,
-              instructions,
               coordinates,
               bearing,
               simulate,
@@ -10,6 +8,7 @@ module Robot (Movement(..),
               turnLeft
               ) where
 import Data.List (foldl')
+import Control.Arrow (first, second)
 
 data Movement = TurnLeft
               | TurnRight
@@ -20,7 +19,7 @@ data Bearing = North
                | East
                | South
                | West
-               deriving (Show, Eq, Enum)
+               deriving (Show, Eq, Enum, Bounded)
 
 type Coordinates = (Int, Int)
 
@@ -31,20 +30,18 @@ mkRobot :: Bearing -> Coordinates -> Robot
 mkRobot = Robot
 
 advance :: Bearing -> Coordinates -> Coordinates
-advance dir (x, y) =
-  case dir of
-    North -> (x, y + 1)
-    East  -> (x + 1, y)
-    South -> (x, y - 1)
-    West  -> (x - 1, y)
+advance dir = case dir of
+  North -> second succ
+  East  -> first succ
+  South -> second pred
+  West  -> first pred
 
-turnLeft :: Bearing -> Bearing
-turnLeft North = West
-turnLeft d = pred d
+turnLeft, turnRight :: Bearing -> Bearing
+turnLeft d | d == minBound = maxBound
+           | otherwise     = pred d
 
-turnRight :: Bearing -> Bearing
-turnRight West = North
-turnRight d = succ d
+turnRight d | d == maxBound = minBound
+            | otherwise     = succ d
 
 instructions :: String -> [Movement]
 instructions = map fromChar
