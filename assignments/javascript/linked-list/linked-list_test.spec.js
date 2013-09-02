@@ -1,80 +1,45 @@
-var LinkedList = require('./example');
+var Deque = require('./example');
 
-function rangeArray(min, max) {
-  var array = [];
-  for (var i = min; i <= max; i++) {
-    array.push(i);
-  }
-  return array;
-}
-
-describe('LinkedList Proxy', function () {
-  var ll = new LinkedList(rangeArray(0, 100));
-
-  it('head', function () {
-    expect(ll.head).toBe(0);
+describe('Deque', function () {
+  it('push/pop', function () {
+    var deque = new Deque();
+    deque.push(10);
+    deque.push(20);
+    expect(deque.pop()).toBe(20);
+    expect(deque.pop()).toBe(10);
   });
-
-  it('tail', function () {
-    expect(ll.tail).toBe(100);
+  it('push/shift', function () {
+    var deque = new Deque();
+    deque.push(10);
+    deque.push(20);
+    expect(deque.shift()).toBe(10);
+    expect(deque.shift()).toBe(20);
   });
-
-  it('can add a new element', function () {
-    ll.add(101);
-    expect(ll.tail).toBe(101);
+  it('unshift/shift', function () {
+    var deque = new Deque();
+    deque.unshift(10);
+    deque.unshift(20);
+    expect(deque.shift()).toBe(20);
+    expect(deque.shift()).toBe(10);
   });
-
-  it('can access a specifict element', function () {
-    expect(ll.valueAt(51)).toBe(51);
+  it('unshift/pop', function () {
+    var deque = new Deque();
+    deque.unshift(10);
+    deque.unshift(20);
+    expect(deque.pop()).toBe(10);
+    expect(deque.pop()).toBe(20);
   });
-
-  it('first index', function () {
-    expect(ll.valueAt(0)).toBe(ll.head);
+  it('example', function () {
+    var deque = new Deque();
+    deque.push(10);
+    deque.push(20);
+    expect(deque.pop()).toBe(20);
+    deque.push(30);
+    expect(deque.shift()).toBe(10);
+    deque.unshift(40);
+    deque.push(50);
+    expect(deque.shift()).toBe(40);
+    expect(deque.pop()).toBe(50);
+    expect(deque.shift()).toBe(30);
   });
-
-  it('insert', function () {
-    ll.insert(52, 52.5);
-    expect(ll.valueAt(52)).toBe(52.5);
-  });
-
-  it('delete', function () {
-    ll.delete(52);
-    expect(ll.valueAt(52)).toBe(52);
-  });
-
-});
-
-describe('LinkedList', function () {
-  var ll = new LinkedList([1]);
-  var head = ll.list.head;
-
-  it('head is an object', function () {
-    expect(typeof head).toBe('object');
-  });
-
-  it('head value', function () {
-    expect(head.value).toBe(1);
-  });
-
-  it('add next', function () {
-    head.next = { value: 2, next: null };
-    expect(head.next).toBeDefined();
-    expect(typeof head.next).toBe('object');
-    expect(head.next.value).toBe(2);
-  });
-
-});
-
-describe('LinkedList range', function () {
-  var ll = new LinkedList(rangeArray(1, 10));
-  var head = ll.list.head;
-
-  it('head next', function () {
-    expect(head.next.value).toBe(2);
-  });
-
-  it('10 deep', function () {
-    expect(head.next.next.next.next.next.next.next.next.next.value).toBe(10);
-  });
-
 });
