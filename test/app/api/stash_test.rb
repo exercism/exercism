@@ -1,6 +1,6 @@
 require './test/api_helper'
 
-class ApiTest < Minitest::Test
+class StashesApiTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
@@ -15,6 +15,7 @@ class ApiTest < Minitest::Test
   def teardown
     Mongoid.reset
   end
+
   def test_api_accepts_stash_submission_and_returns_stash_file
     post '/api/v1/user/assignments/stash', {key: alice.key, code: 'THE CODE', filename: 'code.rb'}.to_json
     assert_equal 201, last_response.status
