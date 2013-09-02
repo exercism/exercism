@@ -1,62 +1,53 @@
-class LinkedList
-  attr_reader :head, :tail
+class Element
+  attr_accessor :prev
+  attr_accessor :next
+  attr_reader :datum
 
-  def initialize(list)
-    list.each do |datum|
-      current_tail = @tail
-      @tail = Element.new(datum)
-      current_tail.next = @tail unless current_tail.nil?
-
-      if @head.nil?
-        @head = @tail
-      end
-    end
+  def initialize(datum, next_element=nil, prev=nil)
+    @datum = datum
+    @next = next_element || self
+    @prev = prev || self
   end
 
-  def head
-    @head.datum
-  end
-
-  def tail
-    @tail.datum
-  end
-
-  def [](index)
-    index(index).datum
-  end
-
-  def index(index)
-    current = @head
-    index.times do
-      current = current.next
-    end
-    return current
-  end
-
-  def add(datum)
-    current_tail = @tail
-    @tail = Element.new(datum)
-    current_tail.next = @tail
-  end
-
-  def insert(index, datum)
-    previous = index(index-1)
-    current = previous.next
-    previous.next = Element.new(datum)
-    previous.next.next = current
-  end
-
-  def delete(index)
-    previous = index(index-1)
-    previous.next = previous.next.next
-  end
 end
 
-class Element
-  attr_reader :datum
-  attr_accessor :next
+class Deque
+  def initialize
+    @front = nil
+  end
 
-  def initialize(datum)
-    @datum = datum
+  def push(value)
+    if @front.nil?
+      @front = Element.new(value)
+    else
+      back = @front.prev
+      n = Element.new(value, @front, back)
+      back.next = n
+      @front.prev = n
+    end
+  end
+
+  def unshift(value)
+    push(value)
+    @front = @front.prev
+  end
+
+  def pop
+    @front = @front.prev
+    shift
+  end
+
+  def shift
+    value = @front.datum
+    front = @front.next
+    back = @front.prev
+    if front.equal?(@front)
+      @front = nil
+    else
+      front.prev = back
+      back.next = front
+      @front = front
+    end
+    value
   end
 end
