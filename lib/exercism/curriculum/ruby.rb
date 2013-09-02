@@ -14,6 +14,7 @@ class Exercism
         binary-search-tree matrix robot-simulator nth-prime
         palindrome-products pascals-triangle say beer-song
         sum-of-multiples queen-attack saddle-points ocr-numbers
+        simple-linked-list
       )
     end
 
