@@ -1,56 +1,48 @@
 'use strict';
 
-function elementAt(list, index) {
-  var current = list.head;
-  for (var i = 0; i < index; i++) {
-    current = current.next;
-  }
-  return current;
+function Node(value, next, prev) {
+  this.value = value;
+  this.next = next || this;
+  this.prev = prev || this;
 }
 
-function populateInitial(value) {
-  /*jshint validthis:true */
-  var currentTail = this.tail;
-  this.tail = { value: value, next: null };
-  if (currentTail) {
-    currentTail.next = this.tail;
-  }
-
-  if (!this.head) {
-    this.head = this.tail;
-  }
+function Deque() {
+  this._front = null;
 }
 
-function LinkedList(initialValues) {
-  var list = { tail: null };
-  initialValues.forEach(populateInitial, list);
+Deque.prototype.push = function Deque_push(value) {
+  if (this._front === null) {
+    this._front = new Node(value);
+  } else {
+    var back = this._front.prev;
+    var n = new Node(value, this._front, back);
+    back.next = n;
+    this._front.prev = n;
+  }
+};
 
-  return {
-    list: list,
-    get head() {
-      return list.head.value;
-    },
-    get tail() {
-      return list.tail.value;
-    },
-    add: function (value) {
-      var currentTail = this.list.tail;
-      this.list.tail = { value: value, next: null };
-      currentTail.next = this.list.tail;
-    },
-    valueAt: function (index) {
-      return elementAt(this.list, index).value;
-    },
-    insert: function (index, value) {
-      var previous = elementAt(this.list, index-1);
-      var current = previous.next;
-      previous.next = { value: value, next: current };
-    },
-    delete: function (index) {
-      var previous = elementAt(this.list, index-1);
-      previous.next = previous.next.next;
-    }
-  };
-}
+Deque.prototype.unshift = function Deque_unshift(value) {
+  this.push(value);
+  this._front = this._front.prev;
+};
 
-module.exports = LinkedList;
+Deque.prototype.pop = function Deque_pop() {
+  this._front = this._front.prev;
+  return this.shift();
+};
+
+Deque.prototype.shift = function Deque_shift() {
+  var value = this._front.value;
+  var front = this._front.next;
+  var back = this._front.prev;
+  if (front === this._front) {
+    this._front = null;
+  } else {
+    front.prev = back;
+    back.next = front;
+    this._front = front;
+  }
+  return value;
+};
+
+module.exports = Deque;
