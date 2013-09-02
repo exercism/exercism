@@ -15,6 +15,10 @@ class SignupTest < Minitest::Test
     @trail = Trail.new(locale, ['one', 'two'], '/tmp')
   end
 
+  def teardown
+    Mongoid.reset
+  end
+
   def test_user_gets_new_exercise
     assert_equal [], user.current_exercises
     Signup.new(user, trail).perform
