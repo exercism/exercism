@@ -1,7 +1,7 @@
 import Test.HUnit (Assertion, (@=?), runTestTT, Test(..))
 import Control.Monad (void)
-import Robot (Bearing(..), Movement(..), Robot, mkRobot,
-              instructions, coordinates, simulate,
+import Robot (Bearing(..), Robot, mkRobot,
+              coordinates, simulate,
               bearing, turnRight, turnLeft)
 
 testCase :: String -> Assertion -> Test
