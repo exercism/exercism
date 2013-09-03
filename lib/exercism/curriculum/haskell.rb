@@ -11,7 +11,7 @@ class Exercism
         crypto-square kindergarten-garden robot-simulator queen-attack
         accumulate binary-search-tree difference-of-squares hexadecimal
         largest-series-product luhn matrix ocr-numbers octal trinary
-        wordy simple-linked-list linked-list
+        wordy simple-linked-list linked-list nth-prime
       )
     end
 

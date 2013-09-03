@@ -40,4 +40,6 @@ seriesTests = map TestCase
   , int 1 @=? largestProduct 0 ""
     -- unlike the Ruby implementation, no error is expected for too small input
   , int 1 @=? largestProduct 4 "123"
+    -- edge case :)
+  , int 0 @=? largestProduct 2 "00"
   ]
