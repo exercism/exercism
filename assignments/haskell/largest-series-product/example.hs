@@ -1,6 +1,6 @@
 module Series (digits, slices, largestProduct) where
 import Data.Char (digitToInt)
-import Data.List (tails, foldl')
+import Data.List (tails)
 
 digits :: Integral a => String -> [a]
 digits = map $ fromIntegral . digitToInt
@@ -10,4 +10,6 @@ slices n = go . digits
   where go xs = map (take n) $ take (length xs - pred n) (tails xs)
 
 largestProduct :: Integral a => Int -> String -> a
-largestProduct n = maximum . (1:) . map (foldl' (*) 1) . slices n
+largestProduct n text = case map product (slices n text) of
+  []       -> 1
+  products -> maximum products

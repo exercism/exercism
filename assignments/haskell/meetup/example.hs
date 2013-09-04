@@ -2,37 +2,34 @@ module Meetup (Weekday(..), Schedule(..), meetupDay) where
 import Data.Time.Calendar (Day, addDays, fromGregorian, addGregorianMonthsClip)
 import Data.Time.Calendar.WeekDate (toWeekDate)
 
-data Weekday = Sunday
-             | Monday
+data Weekday = Monday
              | Tuesday
              | Wednesday
              | Thursday
              | Friday
              | Saturday
+             | Sunday
+             deriving (Enum)
+
 data Schedule = First
               | Second
               | Third
               | Fourth
               | Last
               | Teenth
+              deriving (Enum)
+
 type Year = Integer
 type Month = Int
 
-addWeeks :: Integer -> Day -> Day
-addWeeks = addDays . (7 *)
+addWeeks :: Int -> Day -> Day
+addWeeks = addDays . (7 *) . fromIntegral
 
 weekdayNum :: Weekday -> Int
-weekdayNum w = case w of
-  Monday    -> 1
-  Tuesday   -> 2
-  Wednesday -> 3
-  Thursday  -> 4
-  Friday    -> 5
-  Saturday  -> 6
-  Sunday    -> 7
+weekdayNum = succ . fromEnum
 
 toWeekday :: Weekday -> Day -> Day
-toWeekday w d = addDays (fromIntegral offset) d
+toWeekday w d = fromIntegral offset `addDays` d
   where offset | wnum >= wd = wnum - wd
                | otherwise  = 7 + wnum - wd
         wnum = weekdayNum w
@@ -41,13 +38,11 @@ toWeekday w d = addDays (fromIntegral offset) d
 meetupDay :: Schedule -> Weekday -> Year -> Month -> Day
 meetupDay schedule weekday year month =
   case schedule of
-    First  -> firstDay
-    Second -> 1 `addWeeks` firstDay
-    Third  -> 2 `addWeeks` firstDay
-    Fourth -> 3 `addWeeks` firstDay
-    Last   -> (-1) `addWeeks` toWeekday weekday nextMonthStart
-    Teenth -> toWeekday weekday (addDays 12 monthStart)
+    Last   -> (-1) `addWeeks` calcDay nextMonthStart
+    Teenth -> calcDay $ 12 `addDays` monthStart
+    enum   -> fromEnum enum `addWeeks` firstDay
   where
+    calcDay = toWeekday weekday
     monthStart = fromGregorian year month 1
     nextMonthStart = addGregorianMonthsClip 1 monthStart
-    firstDay = toWeekday weekday monthStart
+    firstDay = calcDay monthStart
