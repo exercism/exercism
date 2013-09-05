@@ -68,5 +68,15 @@ class ProblemSetTest < Minitest::Test
     cake = Exercise.new('ruby', 'cake')
     assert_equal cake, alice.current_in('ruby')
   end
+
+  def test_latest_in_language
+    ham = Exercise.new('python', 'ham')
+    assert_equal ham, alice.latest_in('python')
+
+    lion = Exercise.new('ruby', 'lion')
+    assert_equal lion, alice.latest_in('ruby')
+
+    assert_nil alice.latest_in('haskell')
+  end
 end
 

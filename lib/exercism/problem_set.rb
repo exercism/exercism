@@ -16,7 +16,7 @@ module ProblemSet
   def completed_exercises
     return @completed_exercises if @completed_exercises
 
-    exercises = Hash.new {|language, history| history[language] = []}
+    exercises = Hash.new {|history, language| history[language] = []}
     completed.each {|language, slugs|
       exercises[language] = slugs.map {|slug|
         Exercise.new(language, slug)
@@ -39,5 +39,9 @@ module ProblemSet
 
   def current_in(language)
     current_exercises.find {|exercise| exercise.in?(language)}
+  end
+
+  def latest_in(language)
+    completed_exercises[language].last
   end
 end
