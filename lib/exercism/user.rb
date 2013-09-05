@@ -82,7 +82,7 @@ class User
   end
 
   def nitpicks_trail?(language)
-    completed.keys.include?(language) || locksmith_in?(language)
+    (completed.keys + current.keys).include?(language) || locksmith_in?(language)
   end
 
   def current_exercises
@@ -97,12 +97,8 @@ class User
     username == handle
   end
 
-  def may_nitpick?(exercise)
-    nitpicker_on?(exercise) || working_on?(exercise)
-  end
-
   def nitpicker_on?(exercise)
-    locksmith_in?(exercise.language) || completed?(exercise)
+    locksmith_in?(exercise.language) || completed?(exercise) || working_on?(exercise)
   end
 
   def nitpicker?

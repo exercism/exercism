@@ -45,37 +45,6 @@ class UserTest < Minitest::Test
     assert user.nitpicker_on?(one)
   end
 
-  def test_user_is_not_nitpicker_on_current_assignment
-    user = User.new(current: {'nong' => 'one'})
-    one = Exercise.new('nong', 'one')
-    refute user.nitpicker_on?(one)
-  end
-
-  def test_user_may_nitpick_an_exercise_they_completed
-    user = User.new(current: {'nong' => 'one'})
-    nong = Locale.new('nong', 'no', 'not')
-    trail = Trail.new(nong, ['one', 'two'], '/tmp')
-
-    one = Exercise.new('nong', 'one')
-    user.complete!(one, on: trail)
-    assert user.may_nitpick?(one)
-  end
-
-  def test_user_may_not_nitpick_future_assignments
-    user = User.new(current: {'nong' => 'one'})
-    nong = Locale.new('nong', 'no', 'not')
-    trail = Trail.new(nong, ['one', 'two'], '/tmp')
-
-    two = Exercise.new('nong', 'two')
-    refute user.may_nitpick?(two)
-  end
-
-  def test_user_may_nitpick_current_assignments
-    user = User.new(current: {'nong' => 'one'})
-    one = Exercise.new('nong', 'one')
-    assert user.may_nitpick?(one)
-  end
-
   def test_user_not_a_guest
     user = User.new
     refute user.guest?
