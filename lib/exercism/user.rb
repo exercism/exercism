@@ -70,7 +70,7 @@ class User
   end
 
   def sees?(language)
-    doing?(language) || locksmith_in?(language)
+    doing?(language) || did?(language) || locksmith_in?(language)
   end
 
   def complete!(exercise, options = {})
