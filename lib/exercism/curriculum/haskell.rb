@@ -12,7 +12,7 @@ class Exercism
         accumulate binary-search-tree difference-of-squares hexadecimal
         largest-series-product luhn matrix ocr-numbers octal trinary
         wordy simple-linked-list linked-list nth-prime palindrome-products
-        pascals-triangle
+        pascals-triangle pig-latin
       )
     end
 
