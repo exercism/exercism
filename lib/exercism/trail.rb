@@ -27,14 +27,10 @@ class Trail
     assign(first.slug)
   end
 
-  def successor(exercise)
-    exercises[exercises.index(exercise)+1] || CompletedExercise.new(language)
-  end
-
-  def after(exercise, completed)
+  def after(exercise, completed = [])
     exercises.find do |ex|
       !completed.include?(ex.slug)
-    end || CompletedExercise.new(language)
+    end
   end
 
 end

@@ -1,6 +1,13 @@
 {
   "assignments": [
     {
+      "track": "ruby",
+      "slug": "one",
+      "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
+      "test_file": "one_test.rb",
+      "tests": "require 'minitest/autorun'\nrequire_relative 'example'\nclass OneTest < Minitest::Test\n  def test_one\n    assert_equal 1, One.value\n  end\nend\n"
+    },
+    {
       "track": "go",
       "slug": "two",
       "readme": "# Two\n\nThis is two.\n\n* two\n* two again\n\n\n## Source\n\nThe web. [view source](http://example.org)\n",

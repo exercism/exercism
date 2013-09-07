@@ -22,16 +22,16 @@ class TrailTest < Minitest::Test
     assert_equal one, trail.first
   end
 
-  def test_successive_exercises
-    assert_equal two, trail.successor(one)
-  end
-
   def test_catch_up_missed_exercise
     slugs = %w(chicken suit one garden two cake)
     trail = Trail.new(go, slugs, '/tmp')
 
     exercise = trail.after(two, %w(chicken suit garden))
     assert_equal one, exercise
+  end
+
+  def test_after_last_exercise
+    assert_nil trail.after(two, %w(one two))
   end
 end
 

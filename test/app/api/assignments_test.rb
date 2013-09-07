@@ -159,7 +159,7 @@ class AssignmentsApiTest < Minitest::Test
     end
   end
 
-  def test_peek_returns_assignments_for_all_trails
+  def test_peek_with_no_completed_trails
     Exercism.stub(:current_curriculum, curriculum) do
       user = User.create(github_id: 2, current: {'ruby' => 'one', 'go' => 'one'})
 
@@ -171,20 +171,9 @@ class AssignmentsApiTest < Minitest::Test
     end
   end
 
-  def test_peek_behind_complete_trail
+  def test_peek_with_complete_trail
     Exercism.stub(:current_curriculum, curriculum) do
-      user = User.create(github_id: 2, current: {'ruby' => 'congratulations'})
-
-      get '/api/v1/user/assignments/next', {key: user.key}
-
-      assert_equal 404, last_response.status
-      assert_equal "No more assignments!", last_response.body
-    end
-  end
-
-  def test_peek_returns_assignments_for_incomplete_trails
-    Exercism.stub(:current_curriculum, curriculum) do
-      user = User.create(github_id: 2, current: {'ruby' => 'congratulations', 'go' => 'one'})
+      user = User.create(github_id: 2, current: {}, completed: {'go' => ['one'], 'fake' => ['one', 'two']})
 
       get '/api/v1/user/assignments/next', {key: user.key}
 
