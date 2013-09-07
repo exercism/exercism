@@ -1,5 +1,5 @@
 (ns word-count.test (:require [clojure.test :refer :all]))
-(load-file "word_count.clj")
+(load-file "word-count.clj")
 
 (deftest count-one-word
   (is (= {"word" 1}
