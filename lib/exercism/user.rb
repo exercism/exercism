@@ -77,7 +77,6 @@ class User
     trail = options[:on]
     self.completed[exercise.language] ||= []
     self.completed[exercise.language] << exercise.slug
-    self.current[exercise.language] = trail.after(exercise, completed[exercise.language]).slug
     save
   end
 

@@ -27,13 +27,5 @@ class CompletionTest < Minitest::Test
     done = {'fake' => ['one']}
     assert_equal done, user.completed
   end
-
-  def test_approve_last_submission_on_trail_gives_a_dummy_assignment
-    Completion.new(submission, curriculum).save
-    attempt = Attempt.new(user.reload, 'CODE', 'two/two.ext', curriculum).save
-    submission = Submission.last
-    Completion.new(submission, curriculum).save
-    assert_equal 'congratulations', submission.reload.user.current_in('fake').slug
-  end
 end
 
