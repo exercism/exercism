@@ -1,5 +1,0 @@
-Hi bob,
-
-Your submission on Word Count in ruby has been approved by alice!
-
-Visit http://example.com/bob/ruby/word-count to find out more.
