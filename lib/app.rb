@@ -14,7 +14,6 @@ require 'app/client'
 require 'app/curriculum'
 require 'app/submissions'
 require 'app/exercises'
-require 'app/trails'
 require 'app/users'
 require 'app/not_found' # always include last
 
