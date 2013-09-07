@@ -26,6 +26,7 @@ class CompletionTest < Minitest::Test
     user.reload
     done = {'fake' => ['one']}
     assert_equal done, user.completed
+    assert_nil user.current['fake']
   end
 end
 
