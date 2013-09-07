@@ -150,7 +150,7 @@ class ExercismApp < Sinatra::Base
     end
 
     submissions = Submission.where(l: language, s: assignment)
-                            .in(state: ["pending", "approved"])
+                            .in(state: ["pending", "done"])
                             .includes(:user)
                             .desc(:at).to_a
 

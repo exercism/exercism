@@ -246,12 +246,12 @@ class AssignmentsApiTest < Minitest::Test
     end
   end
 
-  def test_unsubmit_fails_already_approved
+  def test_unsubmit_fails_when_already_done
     Exercism.stub(:current_curriculum, curriculum) do
       unsubmit_object = stub()
 
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
-      unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionApproved.new)
+      unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionDone.new)
 
       delete '/api/v1/user/assignments', {key: alice.key}
       assert_equal 403, last_response.status

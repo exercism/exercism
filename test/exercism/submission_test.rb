@@ -61,11 +61,11 @@ class SubmissionTest < Minitest::Test
     assert_equal 'superseded', submission.state
   end
 
-  def test_do_not_supersede_approved_submissions
-    submission.state = 'approved'
+  def test_do_not_supersede_completed_submissions
+    submission.state = 'done'
     submission.save
     submission.supersede!
-    assert_equal 'approved', submission.state
+    assert_equal 'done', submission.state
   end
 
   def test_not_completed_when_ongoing
@@ -75,7 +75,7 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_completed_when_completed
-    submission.state = 'approved'
+    submission.state = 'done'
     submission.save
     assert Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
   end

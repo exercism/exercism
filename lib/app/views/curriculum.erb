@@ -17,7 +17,7 @@
       <th>Name</th>
       <th>Pending Submissions</th>
       <th>Superseded Submissions</th>
-      <th>Approved Submissions</th>
+      <th>Completed Submissions</th>
       <th>Nitpicks</th>
     </tr>
   </thead>
@@ -30,7 +30,7 @@
       </td>
       <td><%= quantify summary['pending'] %></td>
       <td><%= quantify summary['superseded'] %></td>
-      <td><%= quantify summary['approved'] %></td>
+      <td><%= quantify summary['done'] %></td>
       <td><%= quantify summary['nits'] %></td>
     </tr>
   <% end %>

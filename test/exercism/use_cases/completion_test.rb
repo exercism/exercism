@@ -20,8 +20,8 @@ class CompletionTest < Minitest::Test
   def test_complete_a_submission
     Completion.new(submission, curriculum).save
     submission.reload
-    assert_equal 'approved', submission.state
-    assert !submission.approved_at.nil?
+    assert_equal 'done', submission.state
+    assert !submission.done_at.nil?
 
     user.reload
     done = {'fake' => ['one']}

@@ -19,8 +19,8 @@ class Completion
   end
 
   def save
-    submission.state = 'approved'
-    submission.approved_at = Time.now.utc
+    submission.state = 'done'
+    submission.done_at = Time.now.utc
     submission.save
     user.complete! exercise, on: trail
     user.reload

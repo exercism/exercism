@@ -32,11 +32,11 @@ class UnsubmitTest < Minitest::Test
     end
   end
 
-  def test_fails_when_already_approved
+  def test_fails_when_already_done
     bob = User.create(username: 'bob')
-    bob.submissions.create(:user => bob, :state => "approved")
+    bob.submissions.create(:user => bob, :state => "done")
 
-    assert_raises Unsubmit::SubmissionApproved do
+    assert_raises Unsubmit::SubmissionDone do
       Unsubmit.new(bob).unsubmit
     end
   end

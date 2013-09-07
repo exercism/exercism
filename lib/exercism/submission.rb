@@ -7,6 +7,7 @@ class Submission
   field :c, as: :code, type: String
   field :at, type: Time, default: ->{ Time.now.utc }
   field :a_at, as: :approved_at, type: Time
+  field :d_at, as: :done_at, type: Time
   field :lk, as: :is_liked, type: Boolean, default: false
   field :lk_by, as: :liked_by, type: Array, default: []
   field :op, as: :wants_opinions, type: Boolean, default: false
@@ -32,7 +33,7 @@ class Submission
   end
 
   def self.completed_for(language, slug)
-    approved.where(language: language, slug: slug)
+    done.where(language: language, slug: slug)
   end
 
   def self.related(submission)
@@ -48,8 +49,8 @@ class Submission
     where(state: 'pending').desc(:at)
   end
 
-  def self.approved
-    where(state: 'approved').desc(:at)
+  def self.done
+    where(state: 'done').desc(:at)
   end
 
   def self.on(exercise)
@@ -60,7 +61,7 @@ class Submission
   end
 
   def self.assignment_completed?(submission)
-    related(submission).approved.any?
+    related(submission).done.any?
   end
 
   def participants
@@ -151,8 +152,8 @@ class Submission
     is_liked
   end
 
-  def approved?
-    state == 'approved'
+  def done?
+    state == 'done'
   end
 
   def pending?

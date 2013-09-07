@@ -8,7 +8,7 @@
   <% end %>
 <% else %>
 
-  <% if after.approved? %>
+  <% if after.done? %>
     <p>This exercise has been thoroughly bikeshedded and <b><%= user.username %></b> has moved on.</p>
   <% else %>
     <p>This exercise is still in progress.</p>
@@ -19,7 +19,7 @@
       <% iterations.each_with_index do |iteration,index| %>
         <li><a data-revision="<%= index + 1 %>">Rev <%= index + 1 %></a></li>
       <% end %>
-      <% if after.approved? %>
+      <% if after.done? %>
         <li><a data-revision="example">Example</a></li>
       <% end %>
     </ul>
@@ -39,11 +39,11 @@
 
     <% end %>
 
-    <%= erb :"code/submission", locals: { title: after.approved? ? "Final" : "Latest",
+    <%= erb :"code/submission", locals: { title: after.done? ? "Final" : "Latest",
         html: { id: "revision-latest" },
         submission: after } %>
 
-    <% if after.approved? %>
+    <% if after.done? %>
 
       <%= erb :"code/simple", locals: { title: "Example",
         html: { id: "revision-example", style: "display: none;" },

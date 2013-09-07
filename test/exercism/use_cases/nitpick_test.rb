@@ -58,13 +58,13 @@ class NitpickTest < Minitest::Test
     assert submission.pending?
   end
 
-  def test_do_not_change_state_of_approved_submission
-    submission.state = 'approved'
+  def test_do_not_change_state_of_completed_submission
+    submission.state = 'done'
     submission.save
     nitpicker = User.new(username: 'alice')
     nitpick = Nitpick.new(submission.id, nitpicker, 'a comment').save
     submission.reload
-    assert submission.approved?
+    assert submission.done?
   end
 
   def test_do_not_change_state_of_superseded_submission

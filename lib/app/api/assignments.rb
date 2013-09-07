@@ -74,8 +74,8 @@ class ExercismApp < Sinatra::Base
       halt 404, {error: "Nothing to unsubmit."}.to_json
     rescue Unsubmit::SubmissionHasNits
       halt 403, {error: "The submission has nitpicks, so can't be deleted."}.to_json
-    rescue Unsubmit::SubmissionApproved
-      halt 403, {error: "The submission has been already approved, so can't be deleted."}.to_json
+    rescue Unsubmit::SubmissionDone
+      halt 403, {error: "The submission has been already completed, so can't be deleted."}.to_json
     rescue Unsubmit::SubmissionTooOld
       halt 403, {error: "The submission is too old to be deleted."}.to_json
     end
