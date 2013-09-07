@@ -18,7 +18,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def generate_attempt(code = 'CODE')
-    Attempt.new(@alice, code, 'word-count/file.rb').save
+    Attempt.new(alice, code, 'word-count/file.rb').save
   end
 
   attr_reader :alice
@@ -31,7 +31,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def logged_in
-    { github_id: @alice.github_id }
+    { github_id: alice.github_id }
   end
 
   def not_logged_in
@@ -208,5 +208,42 @@ class SubmissionsTest < Minitest::Test
       Submission.any_instance.expects(:unmute_all!)
       post "/submissions/#{submission.id}/opinions/enable", {}, 'rack.session' => logged_in
     end
+  end
+
+  def test_must_be_logged_in_to_complete_exercise
+    submission = generate_attempt.submission
+    post "/submissions/#{submission.id}/done"
+    assert_equal 302, last_response.status
+    assert_equal 'pending', submission.reload.state
+  end
+
+  def test_must_be_submission_owner_to_complete_exercise
+    submission = generate_attempt.submission
+    bob = User.create(github_id: 2)
+    post "/submissions/#{submission.id}/done", {}, 'rack.session' => {github_id: 2}
+    assert_equal 302, last_response.status
+    assert_equal 'pending', submission.reload.state
+  end
+
+  def test_complete_exercise
+    submission = generate_attempt.submission
+    post "/submissions/#{submission.id}/done", {}, 'rack.session' => {github_id: alice.github_id}
+    assert_equal 'done', submission.reload.state
+  end
+
+  def test_clicking_complete_on_earlier_version_completes_last_exercise
+    data = {
+      user: alice,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+    s1 = Submission.create(data.merge(state: 'superseded', at: Time.now - 5))
+    s2 = Submission.create(data.merge(state: 'pending', at: Time.now - 2))
+
+    post "/submissions/#{s1.id}/done", {}, 'rack.session' => {github_id: alice.github_id}
+
+    assert_equal 'superseded', s1.reload.state
+    assert_equal 'done', s2.reload.state
   end
 end

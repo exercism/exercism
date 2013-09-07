@@ -2,7 +2,7 @@ class Completion
 
   attr_reader :submission, :curriculum
   def initialize(submission, curriculum = Exercism.current_curriculum)
-    @submission = submission
+    @submission = submission.related_submissions.last
     @curriculum = curriculum
   end
 
