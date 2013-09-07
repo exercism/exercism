@@ -126,8 +126,8 @@ class ExercismApp < Sinatra::Base
       flash[:notice] = "Only the submitter may unlock the next exercise."
       redirect "/submissions/#{id}"
     end
-    Completion.new(submission).save
-    flash[:success] = "#{current_user.current_in(submission.language)} unlocked."
+    completion = Completion.new(submission).save
+    flash[:success] = "#{completion.unlocked} unlocked."
     redirect "/"
   end
 

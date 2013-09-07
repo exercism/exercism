@@ -28,5 +28,10 @@ class CompletionTest < Minitest::Test
     assert_equal done, user.completed
     assert_nil user.current['fake']
   end
+
+  def test_unlocked_exercise
+    completion = Completion.new(submission, curriculum).save
+    assert_equal Exercise.new('fake', 'two'), completion.unlocked
+  end
 end
 

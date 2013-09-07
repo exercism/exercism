@@ -18,11 +18,16 @@ class Completion
     curriculum.in(submission.language)
   end
 
+  def unlocked
+    trail.after(exercise, user.completed[exercise.language])
+  end
+
   def save
     submission.state = 'done'
     submission.done_at = Time.now.utc
     submission.save
     user.complete! exercise, on: trail
     user.reload
+    self
   end
 end
