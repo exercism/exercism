@@ -1,8 +1,8 @@
 (ns dna)
 
-(def thymine \T)
-(def uracil  \U)
+(def thymidine \T)
+(def uracil    \U)
 
 (defn to-rna
   [strand]
-  (clojure.string/replace strand thymine uracil))
+  (clojure.string/replace strand thymidine uracil))
