@@ -20,18 +20,31 @@
 
 <div class="row">
   <div class="span4">
-    <h4>Current Exercises</h4>
-    <ul>
-      <% current_user.ongoing.each do |submission| %>
-        <li>
-          <p>
-            <a href="/submissions/<%= submission.id %>">
-              <%= submission.language.capitalize + ': ' + submission.slug %>
-            </a> (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
-          </p>
-        </li>
-      <% end %>
-    </ul>
+    <% if current_user.ongoing.any? %>
+      <h4>Current Exercises</h4>
+      <ul>
+        <% current_user.ongoing.each do |submission| %>
+          <li>
+            <p>
+              <a href="/submissions/<%= submission.id %>">
+                <%= submission.language.capitalize + ': ' + submission.slug %>
+              </a> (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
+            </p>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <h4>Next Steps</h4>
+      <p>You don't currently have any pending submissions.</p>
+      <p>Fetch the next exercises using the command line client:</p>
+      <pre>
+        exercism fetch
+      </pre>
+      <p>When the tests are passing, submit the exercise with:</p>
+      <pre>
+        exercism submit path/to/file.ext
+      </pre>
+    <% end %>
   </div>
 
   <div class="span8">
