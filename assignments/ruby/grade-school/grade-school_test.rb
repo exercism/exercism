@@ -61,5 +61,6 @@ class SchoolTest < MiniTest::Unit::TestCase
       6 => ["Kareem"]
     }
     assert_equal sorted, school.sort
+    assert_equal [3, 4, 6], school.sort.keys
   end
 end
