@@ -49,8 +49,8 @@
     <li><a href="/login">log in with github</a></li>
     <%= erb :backdoor %>
   <% else %>
-    <li>
-      <a class="dropdown-toggle" id="drop-account" href="#">
+    <li class="dropdown">
+      <a class="dropdown-toggle" id="drop-account" href="#" data-toggle="dropdown">
         <%= gravatar_tag current_user.avatar_url, size: 20 %>
         <%= current_user.username %> <b class="caret"></b>
       </a>
