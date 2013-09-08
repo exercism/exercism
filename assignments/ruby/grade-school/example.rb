@@ -15,7 +15,7 @@ class School
   end
 
   def sort
-    sorted = db.map { |grade, students| [ grade, students.sort ] }
+    sorted = db.map { |grade, students| [ grade, students.sort ] }.sort
     Hash[sorted]
   end
 end
