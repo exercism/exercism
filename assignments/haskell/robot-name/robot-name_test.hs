@@ -27,7 +27,9 @@ robotTests =
       r <- mkRobot
       n1 <- robotName r
       n2 <- robotName r
+      n3 <- robotName r
       n1 @=? n2
+      n1 @=? n3
   , testCase "different robots have different names" $ do
       n1 <- mkRobot >>= robotName
       n2 <- mkRobot >>= robotName
@@ -41,7 +43,9 @@ robotTests =
     resetName r
     n1 <- robotName r
     n2 <- robotName r
+    n3 <- robotName r
     n1 @=? n2
+    n1 @=? n3
   , testCase "new name is different from old name" $ do
     r <- mkRobot
     n1 <- robotName r
