@@ -6,7 +6,7 @@ pre.highlight  {
   font: 'Bitstream Vera Sans Mono','Courier', monospace;
   font-size:14px;
 
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   white-space: pre;
   line-height:26px;
