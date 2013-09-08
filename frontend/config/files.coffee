@@ -30,4 +30,11 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('files', {
       "app/js/**/namespace.coffee",
       "app/js/**/*.coffee"
     ]
+
+  css:
+    vendor: [
+      "vendor/css/bootstrap.css",
+      "vendor/css/bootstrap-responsive.css",
+      "vendor/css/**/*.css",
+    ]
 })
