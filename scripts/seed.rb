@@ -48,7 +48,7 @@ Exercism.current_curriculum.trails.each do |_, trail|
     users << user.reload
 
     rand(1..5).times do |i|
-      exercise = user.current_in(language)
+      exercise = user.current_in(language) || trail.first
       attempt = Attempt.new(user.reload, "class Code\nend", "#{exercise.slug}/code.#{locale.code_extension}").save
       created_on = Date.today - rand(30)
       attempt.submission.at = created_on.to_time - n.to_i * rand(3600)
@@ -61,11 +61,11 @@ Exercism.current_curriculum.trails.each do |_, trail|
       end
       if rand(2) == 0
         Completion.new(submission).save
-        Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
+        Attempt.new(user.reload, "class Code \nend", "#{exercise.slug}/code.#{locale.code_extension}").save
         Completion.new(submission).save
-        Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
+        Attempt.new(user.reload, "class Code \nend", "#{exercise.slug}/code.#{locale.code_extension}").save
         Completion.new(submission).save
-        Attempt.new(user.reload, "class Code \nend", "#{user.current_in(language).slug}/code.#{locale.code_extension}").save
+        Attempt.new(user.reload, "class Code \nend", "#{exercise.slug}/code.#{locale.code_extension}").save
       end
 
       if rand(10) == 0
