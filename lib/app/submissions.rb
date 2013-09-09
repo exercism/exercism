@@ -52,6 +52,7 @@ class ExercismApp < Sinatra::Base
     please_login
 
     submission = Submission.find(id)
+    submission.viewed!(current_user)
 
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
 

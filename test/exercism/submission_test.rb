@@ -146,5 +146,24 @@ class SubmissionTest < Minitest::Test
     submission = Submission.new(state: 'pending')
     refute submission.muted_by?(alice)
   end
+
+  def test_submissions_with_no_views
+    assert_empty submission.viewers
+    assert_equal 0, submission.view_count
+  end
+
+  def test_viewed_submission
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    charlie = User.create(username: 'charlie')
+    submission.viewed!(alice)
+    submission.viewed!(bob)
+    submission.viewed!(charlie)
+    submission.viewed!(bob)
+    submission.reload
+
+    assert_equal %w(alice bob charlie), submission.viewers
+    assert_equal 3, submission.view_count
+  end
 end
 
