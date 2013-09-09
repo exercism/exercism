@@ -15,6 +15,7 @@ class Submission
   field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
   field :v, as: :version, type: Integer, default: 0
   field :st_n, as: :stash_name, type: String
+  field :vs, as: :viewers, type: Array, default: []
 
   belongs_to :user
   has_many :comments
@@ -211,6 +212,14 @@ class Submission
   def unmute_all!
     muted_by.clear
     save
+  end
+
+  def viewed!(user)
+    add_to_set(:viewers, user.username)
+  end
+
+  def view_count
+    @view_count ||= viewers.count
   end
 
   private
