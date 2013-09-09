@@ -42,6 +42,31 @@ class SubmissionsTest < Minitest::Test
     Mongoid.reset
   end
 
+  def test_submission_view_count
+    bob = User.create(github_id: 2, username: "bob", email: "bob@example.com", mastery: ['ruby'])
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
+    submission = Submission.first
+
+    assert_equal 0, submission.view_count
+
+    get "/submissions/#{submission.id}", {}, {'rack.session' => {github_id: 2}}
+
+    submission = Submission.first
+    assert_equal 1, submission.view_count
+  end
+
+  def test_submission_view_count_for_guest
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
+    submission = Submission.first
+
+    assert_equal 0, submission.view_count
+
+    get "/submissions/#{submission.id}"
+
+    submission = Submission.first
+    assert_equal 0, submission.view_count
+  end
+
   def test_nitpick_assignment
     bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save

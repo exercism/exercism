@@ -9,6 +9,11 @@ module Sinatra
       "/submissions/#{submission.id}/#{action}"
     end
 
+    def view_count_for(submission)
+      count = submission.view_count
+      "#{count} " + "view".pluralize(count)
+    end
+
     def these_people_like_it(liked_by)
       everyone = liked_by.map {|name| "@#{name}"}
       case everyone.size
