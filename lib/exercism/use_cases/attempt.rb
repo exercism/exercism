@@ -25,7 +25,7 @@ class Attempt
   end
 
   def save
-    unless user.current[language]
+    unless user.completed?(exercise)
       user.do! exercise
     end
     user.submissions_on(exercise).each do |sub|
