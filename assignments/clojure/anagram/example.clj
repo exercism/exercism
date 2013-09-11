@@ -5,8 +5,7 @@
   [word]
   (-> word
       lower-case
-      (split #"")
-      sort))
+      frequencies))
 
 (defn anagrams-for
   [word candidates]
