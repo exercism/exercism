@@ -34,9 +34,19 @@ class ExercismApp < Sinatra::Base
       halt 400, {:error => "Must send key and code as json."}.to_json
     end
     data = JSON.parse(data)
-    user = User.find_by(key: data['key'])
+    user = User.where(key: data['key']).first
     unless user
-      halt 401, {:error => "Unable to identify user"}.to_json
+      message = <<-MESSAGE
+      Beloved user,
+
+      We have changed your API key (and everyone else's).
+
+      You will need to log out from the exercism gem (`exercism logout`)
+      and log back in using the new API key in your account on the website.
+
+      Sorry about the inconvenience!
+      MESSAGE
+      halt 401, {:error => message}.to_json
     end
 
     begin

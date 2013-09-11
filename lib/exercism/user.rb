@@ -142,7 +142,11 @@ class User
   end
 
   def secret
-    "There is solemn satisfaction in doing the best you can for #{github_id} billion people."
+    if ENV['USER_API_KEY']
+      "#{ENV['USER_API_KEY']} #{github_id}"
+    else
+      "There is solemn satisfaction in doing the best you can for #{github_id} billion people."
+    end
   end
 end
 
