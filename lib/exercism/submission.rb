@@ -65,6 +65,10 @@ class Submission
     related(submission).done.any?
   end
 
+  def self.unmuted_for(username)
+    nin(muted_by: username)
+  end
+
   def participants
     return @participants if @participants
 

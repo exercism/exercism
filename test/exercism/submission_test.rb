@@ -142,6 +142,13 @@ class SubmissionTest < Minitest::Test
     assert submission.muted_by?(alice)
   end
 
+  def test_unmuted_for_when_muted
+    submission.mute(submission.user.username)
+    submission.save
+    refute(Submission.unmuted_for(submission.user.username).include?(submission),
+           "unmuted_for should only return submissions that have not been muted")
+  end
+
   def test_muted_by_when_not_muted
     submission = Submission.new(state: 'pending')
     refute submission.muted_by?(alice)
