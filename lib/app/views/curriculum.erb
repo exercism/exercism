@@ -18,6 +18,7 @@
       <th>Pending Submissions</th>
       <th>Superseded Submissions</th>
       <th>Completed Submissions</th>
+      <th>Tweaked Submissions</th>
       <th>Nitpicks</th>
     </tr>
   </thead>
@@ -31,6 +32,7 @@
       <td><%= quantify summary['pending'] %></td>
       <td><%= quantify summary['superseded'] %></td>
       <td><%= quantify summary['done'] %></td>
+      <td><%= quantify summary['tweaked'] %></td>
       <td><%= quantify summary['nits'] %></td>
     </tr>
   <% end %>

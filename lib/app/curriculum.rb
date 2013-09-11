@@ -4,23 +4,23 @@ class ExercismApp < Sinatra::Base
     def progress(language)
       map = %q{
         function() {
-          var nits = this.nits || [],
-              state = this.state || 'pending',
-              summary = { nits: nits.length, pending: 0, superseded: 0, done: 0 };
-          summary[done] = 1;
+          var state = this.state || 'pending',
+              summary = { nits: this.nc, pending: 0, superseded: 0, done: 0 , tweaked: 0};
+              summary[state] = 1;
           emit(this.s, summary);
         }
       }
 
       reduce = %q{
         function(key, values) {
-          var result = { nits: 0, pending: 0, superseded: 0, done: 0 };
+          var result = { nits: 0, pending: 0, superseded: 0, done: 0, tweaked: 0 };
 
           values.forEach(function(value) {
             result.nits       += value.nits;
             result.pending    += value.pending;
             result.superseded += value.superseded;
-            result.done   += value.done;
+            result.done       += value.done;
+            result.tweaked    += value.tweaked;
           });
 
           return result;
