@@ -84,4 +84,21 @@ class NitpickTest < Minitest::Test
     assert_equal 1, comment.mentions.count
     assert_equal submission.user, comment.mentions.first
   end
+
+  def test_ignore_mentions_in_code_spans
+    nitpicker = User.new(username: 'alice')
+    nitpick = Nitpick.new(submission.id, nitpicker, "`@#{@submission.user.username}`").save
+    submission.reload
+    comment = submission.comments.last
+    assert_equal 0, comment.mentions.count
+  end
+
+  def test_ignore_mentions_in_fenced_code_blocks
+    nitpicker = User.new(username: 'alice')
+    nitpick = Nitpick.new(submission.id, nitpicker, "```\n@#{submission.user.username}\n```").save
+    submission.reload
+    comment = submission.comments.last
+    assert_equal 0, comment.mentions.count
+  end
+
 end
