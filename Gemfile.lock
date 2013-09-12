@@ -27,6 +27,8 @@ GEM
     coderay (1.0.9)
     daemons (1.1.9)
     eventmachine (1.0.3)
+    faker (1.2.0)
+      i18n (~> 0.5)
     faraday (0.8.7)
       multipart-post (~> 1.1)
     haml (4.0.3)
@@ -119,6 +121,7 @@ PLATFORMS
 
 DEPENDENCIES
   approvals
+  faker
   faraday
   json_expressions
   mailcatcher

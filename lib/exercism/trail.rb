@@ -1,7 +1,8 @@
 class Trail
 
-  attr_reader :exercises, :locale, :path
+  attr_reader :exercises, :locale, :path, :slugs
   def initialize(locale, slugs, path)
+    @slugs = slugs
     @locale = locale
     @exercises = slugs.map {|slug| Exercise.new(locale.to_s, slug)}
     @path = path
