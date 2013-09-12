@@ -14,3 +14,12 @@ In the end, you should be able to:
 
 Note that all our students only have one name.
 (It's a small town, what do you want?)
+
+
+## For bonus points
+
+Did you get the specs passing and the code clean? If you want to, these are some additional things you could try:
+
+* If your implementation allows outside code to mutate the school's internal DB directly, see if you can prevent this. Feel free to introduce additional tests.
+
+Then please share your thoughts in a comment on the submission. Did this experiment make the code better? Worse? Did you learn anything from it?
