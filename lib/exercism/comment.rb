@@ -1,3 +1,5 @@
+require 'exercism/markdown'
+
 class Comment
   include Mongoid::Document
   include InputSanitation
@@ -25,7 +27,7 @@ class Comment
 
   def mentions
     # http://rubular.com/r/TagnENb1Wm
-    candidates = comment.scan(/\@\w+/).uniq
+    candidates = html_comment_without_code.scan(/\@\w+/).uniq
     candidates.each_with_object([]) do |username, mentions|
       mentions << User.find_by(:u => username.sub(/\@/, '')) rescue nil
     end
@@ -35,4 +37,15 @@ class Comment
     self.comment = sanitize(comment)
     save
   end
+
+  private
+
+  def html_comment_without_code
+    html_comment = Markdown.render(comment)
+    dom = Nokogiri::HTML(html_comment)
+    dom.css("code").remove
+    dom.css("td[class='code']").remove
+    dom.css("body").first.content
+  end
+
 end
