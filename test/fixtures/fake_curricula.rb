@@ -1,6 +1,22 @@
 require 'exercism/locale'
 
-class FakeRubyCurriculum
+class FakeTrail
+  def language
+    locale.language
+  end
+end
+
+class FakePythonCurriculum < FakeTrail
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    Locale.new('python', 'py', 'py')
+  end
+end
+
+class FakeRubyCurriculum < FakeTrail
   def slugs
     %w(one two)
   end
@@ -10,7 +26,7 @@ class FakeRubyCurriculum
   end
 end
 
-class FakeGoCurriculum
+class FakeGoCurriculum < FakeTrail
   def slugs
     %w(one two)
   end
@@ -20,7 +36,7 @@ class FakeGoCurriculum
   end
 end
 
-class FakeCurriculum
+class FakeCurriculum < FakeTrail
   def slugs
     %w(one two)
   end

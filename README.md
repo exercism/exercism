@@ -91,7 +91,7 @@ Different languages/trails do not need to have the same assignments or the same 
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-7. Run the database seed with `ruby scripts/seed.rb`
+7. Run the database seed with `rake db:seed` (if you want LOTS of data: `rake db:seed[1000]` or some other big number).
 8. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
 9. Start the server with `./scripts/boot.sh`
 10. Login at http://localhost:4567.
