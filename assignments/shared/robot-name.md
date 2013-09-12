@@ -7,7 +7,7 @@ Every once in a while we need to reset a robot to its factory settings, which me
 
 ## For bonus points
 
-Did you get the specs passing and the code clean? If you want to, these are some additional things you could try:
+Did you get the tests passing and the code clean? If you want to, these are some additional things you could try:
 
 * Random names means a risk of collisions. Make sure the same name is never used twice. Feel free to introduce additional tests.
 

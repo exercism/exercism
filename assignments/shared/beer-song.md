@@ -19,7 +19,7 @@ You can get multiple verses by passing in the verse to start from, and (optional
 
 ## For bonus points
 
-Did you get the specs passing and the code clean? If you want to, these are some additional things you could try:
+Did you get the tests passing and the code clean? If you want to, these are some additional things you could try:
 
 * Remove as much duplication as you possibly can.
 * Optimize for readability, even if it means introducing duplication.

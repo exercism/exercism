@@ -18,7 +18,7 @@ Note that all our students only have one name.
 
 ## For bonus points
 
-Did you get the specs passing and the code clean? If you want to, these are some additional things you could try:
+Did you get the tests passing and the code clean? If you want to, these are some additional things you could try:
 
 * If your implementation allows outside code to mutate the school's internal DB directly, see if you can prevent this. Feel free to introduce additional tests.
 
