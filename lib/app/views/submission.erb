@@ -16,7 +16,7 @@
     <p>
       Iteration <b><%= submission.version %></b> of <b><%= submission.versions_count %></b>.
       <% if submission.user.completed?(submission.exercise) %>
-        This exercise has been thoroughly bikeshedded and <b><%= submission.user.username %></b> has moved on.
+        This exercise has been completed.
       <% else %>
         This exercise is still in progress.
       <% end %>
