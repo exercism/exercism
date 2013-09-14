@@ -13,6 +13,7 @@ class Exercism
         largest-series-product luhn matrix ocr-numbers octal trinary
         wordy simple-linked-list linked-list nth-prime palindrome-products
         pascals-triangle pig-latin pythagorean-triplet saddle-points say
+        secret-handshake
       )
     end
 
