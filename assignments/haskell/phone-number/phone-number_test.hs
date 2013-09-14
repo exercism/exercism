@@ -23,6 +23,10 @@ numberTests =
     "0000000000" @=? number "21234567890"
   , testCase "invalid when 9 digits" $
     "0000000000" @=? number "123456789"
+  , testCase "invalid when empty" $
+    "0000000000" @=? number ""
+  , testCase "invalid when no digits present" $
+    "0000000000" @=? number " (-) "
   ]
 
 areaCodeTests :: [Test]
