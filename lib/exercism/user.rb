@@ -31,13 +31,13 @@ class User
   end
 
   def random_work
-    return nil if completed.keys.empty?
     completed.keys.shuffle.each do |language|
       work = Submission.pending.where(language: language).in(slug: completed[language]).asc(:nc)
       if work.count > 0
         return work.limit(10).to_a.sample
       end
     end
+    nil
   end
 
   def ongoing
