@@ -121,7 +121,7 @@ class AssignmentsApiTest < Minitest::Test
     Exercism.stub(:current_curriculum, curriculum) do
       bob = User.create(github_id: 2, current: {'ruby' => 'two'})
       trail = Exercism.current_curriculum.in('ruby')
-      bob.complete! trail.exercises.last, on: trail
+      bob.complete! trail.exercises.last
       get '/api/v1/user/assignments/current', {key: bob.key}
       assert_equal 200, last_response.status
     end
@@ -150,8 +150,8 @@ class AssignmentsApiTest < Minitest::Test
       user = User.create(github_id: 2, current: {'ruby' => 'one'})
       trail = curriculum.in('ruby')
       exercises = trail.exercises.each
-      user.complete! exercises.next, on: trail
-      user.complete! exercises.next, on: trail
+      user.complete! exercises.next
+      user.complete! exercises.next
 
       get '/api/v1/user/assignments/completed', {key: user.key}
 

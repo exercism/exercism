@@ -73,8 +73,7 @@ class User
     doing?(language) || did?(language) || locksmith_in?(language)
   end
 
-  def complete!(exercise, options = {})
-    trail = options[:on]
+  def complete!(exercise)
     self.completed[exercise.language] ||= []
     self.completed[exercise.language] << exercise.slug
     self.current.delete(exercise.language)
