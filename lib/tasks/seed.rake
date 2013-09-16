@@ -8,7 +8,7 @@ namespace :db do
     require 'seed'
 
     Seed.reset
-    Seed.generate(args[:size])
+    Seed.generate(args[:size].to_i)
     Seed.generate_default_users
   end
 end
