@@ -6,6 +6,10 @@ module Seed
       end.merge(code: 'CODE')
     end
 
+    def completed?
+      state == 'done'
+    end
+
     def by(user)
       attributes.merge(user: user)
     end

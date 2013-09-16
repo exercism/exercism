@@ -22,6 +22,16 @@ class Seed::AttemptTest < Minitest::Test
     assert_equal attributes, attempt.by(user)
   end
 
+  def test_completed_p
+    attempt = Seed::Attempt.new('ruby', 'word-count', now)
+
+    attempt.state = 'pending'
+    refute attempt.completed?
+
+    attempt.state = 'done'
+    assert attempt.completed?
+  end
+
   def test_attempt_comments
     5.times do
       attempt = Seed::Attempt.new('ruby', 'word-count', now, 'pending')
