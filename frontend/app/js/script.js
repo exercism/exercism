@@ -55,7 +55,6 @@ $(function() {
 
   $("#code-timeline").on("click",function(event) {
     var revisionId = $(event.target).data("revision");
-    $(this).find(".selected").removeClass("selected");
     $(event.target).toggleClass("selected");
     $('#revision-' + revisionId).toggle();
   });
