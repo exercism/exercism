@@ -51,7 +51,7 @@ module Seed
           exercise.attempts.each do |attempt|
             submission = ::Submission.create(attempt.by(user))
             attempt.comments.each do |comment|
-              ::Comment.create(comment.by(users.sample).merge(submission: submission))
+              ::Comment.create(comment.by(users.sample, on: submission))
             end
           end
         end

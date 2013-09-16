@@ -6,11 +6,12 @@ module Seed
       @body, @at = body, at
     end
 
-    def by(user)
+    def by(user, options = {})
       {
         user: user,
         comment: body,
-        at: at
+        at: at,
+        submission: options[:on]
       }
     end
   end

@@ -10,11 +10,13 @@ class SeedCommentTest < Minitest::Test
   def test_attributes
     comment = Seed::Comment.new('O HAI', now)
     user = Object.new
+    submission = Object.new
     expected = {
       user: user,
       comment: 'O HAI',
-      at: now
+      at: now,
+      submission: submission
     }
-    assert_equal expected, comment.by(user)
+    assert_equal expected, comment.by(user, on: submission)
   end
 end
