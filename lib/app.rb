@@ -94,16 +94,6 @@ class ExercismApp < Sinatra::Base
       end
     end
 
-    def active_top_nav(path=nil)
-      if path == "/"
-        active_nav(path)
-      elsif request.path_info.match(/#{path}/)
-        "active"
-      else
-        ""
-      end
-    end
-
     def nav_text(slug)
       if slug == 'opinions'
         slug = 'wants second opinion'
