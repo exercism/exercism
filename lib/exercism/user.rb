@@ -46,9 +46,9 @@ class User
 
   def done
     @done ||= completed_exercises.map do |lang, exercises|
-      exercises.map do |exercise|
-        latest_submission_on(exercise) || NullSubmission.new(exercise)
-      end
+      exercises.map { |exercise|
+        latest_submission_on(exercise)
+      }
     end.flatten
   end
 
