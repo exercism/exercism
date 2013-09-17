@@ -9,11 +9,11 @@ gem 'petroglyph'
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'redcarpet'
-gem 'rouge', git: 'https://github.com/jayferd/rouge.git' # master to see if it fixes #157
+gem 'rouge', github: 'jayferd/rouge' # master to see if it fixes #157
 gem 'sinatra', require: 'sinatra/base'
 gem 'pony'
 gem 'sanitize'
-gem 'will_paginate', git: 'https://github.com/mislav/will_paginate.git' # master for mongoid support
+gem 'will_paginate', github: 'mislav/will_paginate', tag: "4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df"
 gem 'will_paginate-bootstrap'
 gem 'pry', require: false
 gem 'newrelic_rpm', "3.5.8.72"
