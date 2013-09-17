@@ -97,7 +97,7 @@ class User
   end
 
   def nitpicker_on?(exercise)
-    locksmith_in?(exercise.language) || completed?(exercise) || working_on?(exercise)
+    locksmith_in?(exercise.language) || completed?(exercise)
   end
 
   def nitpicker?

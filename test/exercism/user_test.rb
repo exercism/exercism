@@ -45,6 +45,12 @@ class UserTest < Minitest::Test
     assert user.nitpicker_on?(one)
   end
 
+  def test_user_is_not_nitpicker_on_current_assignment
+    user = User.new(current: {'nong' => 'one'})
+    one = Exercise.new('nong', 'one')
+    refute user.nitpicker_on?(one)
+  end
+
   def test_user_not_a_guest
     user = User.new
     refute user.guest?
