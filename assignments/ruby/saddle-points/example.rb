@@ -13,7 +13,7 @@ class Matrix
         row.each_with_index do |number, i|
           min = columns[i].min
           if number == max && number == min
-            coordinates << [i, j]
+            coordinates << [j, i]
           end
         end
       end
