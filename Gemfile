@@ -5,6 +5,7 @@ ruby "1.9.3"
 gem 'rake'
 gem 'faraday'
 gem 'mongoid'
+gem 'newrelic_rpm', "3.5.8.72" # used both in production and development
 gem 'petroglyph'
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
@@ -29,6 +30,3 @@ group :test, :development do
   gem 'faker', require: false # for seed data
 end
 
-group :production do
-  gem 'newrelic_rpm', "3.5.8.72"
-end
