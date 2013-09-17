@@ -8,13 +8,18 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/api/v1/user/assignments/completed' do
-    unless params[:key]
+    key = params[:key]
+    unless key
       halt 401, {error: "Please provide API key"}.to_json
     end
 
-    assignments = Assignments.new(params[:key])
+    user = User.where(key: key).first
 
-    {assignments: assignments.completed}.to_json
+    unless user
+      halt 401, {error: "Cannot find user for API key #{key}"}
+    end
+
+    {assignments: user.completed}.to_json
   end
 
   get '/api/v1/user/assignments/current' do

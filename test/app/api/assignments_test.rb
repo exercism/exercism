@@ -142,7 +142,7 @@ class AssignmentsApiTest < Minitest::Test
 
     get '/api/v1/user/assignments/completed', {key: new_user.key}
 
-    assert_equal({"assignments" => []}, JSON::parse(last_response.body))
+    assert_equal({"assignments" => {}}, JSON::parse(last_response.body))
   end
 
   def test_completed_returns_the_names_of_completed_assignments
@@ -155,7 +155,7 @@ class AssignmentsApiTest < Minitest::Test
 
       get '/api/v1/user/assignments/completed', {key: user.key}
 
-      assert_equal({"assignments" => ['one', 'two']}, JSON::parse(last_response.body))
+      assert_equal({"assignments" => {"ruby" => ['one', 'two']}}, JSON::parse(last_response.body))
     end
   end
 
