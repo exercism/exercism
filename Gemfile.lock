@@ -1,13 +1,14 @@
 GIT
-  remote: https://github.com/jayferd/rouge.git
-  revision: b6c4fb5df11cbfbe852e4fc157c01fbad2d47754
+  remote: git://github.com/jayferd/rouge.git
+  revision: a75c074d5dfdd8973e5f4d3d5ce8c235cc947ec5
   specs:
-    rouge (0.4.0)
+    rouge (0.5.3)
       thor
 
 GIT
-  remote: https://github.com/mislav/will_paginate.git
-  revision: 0da168851b9356f678106abd19055fc6e9a6df72
+  remote: git://github.com/mislav/will_paginate.git
+  revision: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
+  tag: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
   specs:
     will_paginate (3.0.4)
 
