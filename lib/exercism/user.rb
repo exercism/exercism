@@ -116,11 +116,7 @@ class User
   end
 
   def stash_list
-    list = []
-    self.stashed_submissions.each do |sub|
-      list << sub.stash_name
-    end
-    return list 
+    self.stashed_submissions.map(&:stash_name)
   end
 
   def clear_stash(filename)
