@@ -20,12 +20,11 @@ class User
   has_many :comments
 
   def self.from_github(id, username, email, avatar_url)
-    user = User.where(github_id: id).first
-    user ||= User.new(username: username, github_id: id, email: email, avatar_url: avatar_url)
-    if avatar_url && !user.avatar_url
-      user.avatar_url = avatar_url.gsub(/\?.+$/, '')
-    end
-    user.username = username
+    user = User.where(github_id: id).first ||
+           User.new(github_id: id, email: email)
+
+    user.username   = username
+    user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url && !user.avatar_url
     user.save
     user
   end
