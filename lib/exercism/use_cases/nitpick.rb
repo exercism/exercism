@@ -23,7 +23,7 @@ class Nitpick
       @nitpicked = true
       submission.comments << Comment.new(user: nitpicker, comment: body)
       submission.state = 'pending' if submission.hibernating?
-      submission.mute(nitpicker.username)
+      submission.mute(nitpicker)
       submission.save
     end
     self
