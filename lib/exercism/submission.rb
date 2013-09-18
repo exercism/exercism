@@ -149,6 +149,24 @@ class Submission
     save
   end
 
+  def submitted?
+    true
+  end
+
+  def like!(user)
+    self.is_liked = true
+    liked_by << user.username
+    mute(user)
+    save
+  end
+
+  def unlike!(user)
+    liked_by.delete(user.username)
+    self.is_liked = liked_by.length > 0
+    unmute(user)
+    save
+  end
+
   def liked?
     is_liked
   end
@@ -195,17 +213,21 @@ class Submission
     muted_by.include?(user.username)
   end
 
-  def mute(username)
-    muted_by << username
+  def mute(user)
+    muted_by << user.username
   end
 
-  def mute!(username)
-    mute(username)
+  def mute!(user)
+    mute(user)
     save
   end
 
-  def unmute!(user)
+  def unmute(user)
     muted_by.delete(user.username)
+  end
+
+  def unmute!(user)
+    unmute(user)
     save
   end
 

@@ -18,21 +18,20 @@ class SubmissionTest < Minitest::Test
   end
 
   def submission
-    return @submission if @submission
-
-    @submission = Submission.on(exercise)
-    @submission.user = User.create(username: 'charlie')
-    @submission.save
-    @submission
+    @submission ||= begin
+      Submission.on(exercise).tap do |submission|
+        submission.user = User.create(username: 'charlie')
+        submission.save
+      end
+    end
   end
 
   def alice
-    return @alice if @alice
-    @alice = Object.new
-    def @alice.username
-      'alice'
+    @alice ||= begin
+      mock do |alice|
+        alice.stubs(username: 'alice')
+      end
     end
-    @alice
   end
 
   def teardown
@@ -71,7 +70,7 @@ class SubmissionTest < Minitest::Test
   def test_not_completed_when_ongoing
     submission.state = 'pending'
     submission.save
-    assert !Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
+    refute Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
   end
 
   def test_completed_when_completed
@@ -110,9 +109,11 @@ class SubmissionTest < Minitest::Test
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
     charlie = User.create(username: 'charlie')
+
     s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
     s1.comments << Comment.new(user: bob, comment: 'nice')
     s1.save
+
     s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
     s2.comments << Comment.new(user: charlie, comment: 'pretty good')
     s2.save
@@ -125,9 +126,11 @@ class SubmissionTest < Minitest::Test
     bob = User.create(username: 'bob')
     charlie = User.create(username: 'charlie')
     mention_user = User.create(username: 'mention_user')
+    
     s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
     s1.comments << Comment.new(user: alice, comment: 'What about @bob?')
     s1.save
+
     s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
     s2.comments << Comment.new(user: charlie, comment: '@mention_user should have bleh')
     s2.save
@@ -135,6 +138,58 @@ class SubmissionTest < Minitest::Test
     # NOTE: mention_user doesn't enter until s2, but it's related to s1.
     assert_equal %w(alice bob charlie mention_user), s1.participants.map(&:username).sort
     assert_equal %w(alice bob charlie mention_user), s2.participants.map(&:username).sort
+  end
+
+  def test_like_sets_is_liked
+    submission = Submission.new(state: 'pending')
+    submission.like!(alice)
+    assert submission.is_liked = true
+  end
+
+  def test_like_sets_liked_by
+    submission = Submission.new(state: 'pending')
+    submission.like!(alice)
+    assert submission.liked_by = ['alice']
+  end
+
+  def test_like_calls_mute
+    submission = Submission.new(state: 'pending')
+    submission.expects(:mute).with(alice)
+    submission.like!(alice)
+  end
+
+  def test_unlike_resets_is_liked_if_liked_by_is_empty
+    submission = Submission.new(state: 'pending', liked_by: ['alice'])
+    submission.unlike!(alice)
+    refute submission.is_liked
+  end
+
+  def test_unlike_does_not_reset_is_liked_if_liked_by_is_not_empty
+    submission = Submission.new(state: 'pending', liked_by: ['alice', 'bob'])
+    submission.unlike!(alice)
+    assert submission.is_liked
+  end
+
+  def test_unlike_changes_liked_by
+    submission = Submission.new(state: 'pending', liked_by: ['alice', 'bob'])
+    submission.unlike!(alice)
+    assert submission.liked_by = ['bob']
+  end
+
+  def test_unlike_calls_unmute
+    submission = Submission.new(state: 'pending')
+    submission.expects(:unmute).with(alice)
+    submission.unlike!(alice)
+  end
+
+  def test_liked_reflects_positive_is_liked
+    submission = Submission.new(is_liked: true)
+    assert submission.liked?
+  end
+
+  def test_liked_reflects_negative_is_liked
+    submission = Submission.new(is_liked: false)
+    refute submission.liked?
   end
 
   def test_muted_by_when_muted

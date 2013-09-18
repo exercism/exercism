@@ -45,12 +45,7 @@
     <% end %>
 
     <div class"btn-group">
-
-    <% if current_user.nitpicker_on?(submission.exercise) && !current_user.owns?(submission) %>
-      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/like" method="POST" class="pull-left" style="display: inline;">
-        <button type="submit" name="like" class="btn" <%= 'disabled' if submission.liked_by.include?(current_user.username)%>>Looks great!</button>
-      </form>
-    <% end %>
+      <%= like_submission_button(submission, current_user) %>
 
       <a class="btn" data-action="enlarge">
         <i class="icon-resize-full"></i>

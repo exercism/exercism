@@ -73,11 +73,16 @@ class ExercismApp < Sinatra::Base
   post '/submissions/:id/like' do |id|
     please_login "You have to be logged in to do that."
     submission = Submission.find(id)
-    submission.is_liked = true
-    submission.liked_by << current_user.username
-    submission.mute(current_user.username)
-    submission.save
+    submission.like!(current_user)
     Notify.source(submission, 'like')
+    redirect "/submissions/#{id}"
+  end
+
+  post '/submissions/:id/unlike' do |id|
+    please_login "You have to be logged in to do that."
+    submission = Submission.find(id)
+    submission.unlike!(current_user)
+    flash[:notice] = "The submission has been unliked."
     redirect "/submissions/#{id}"
   end
 
@@ -96,7 +101,7 @@ class ExercismApp < Sinatra::Base
   post '/submissions/:id/mute' do |id|
     please_login "You have to be logged in to do that."
     submission = Submission.find(id)
-    submission.mute!(current_user.username)
+    submission.mute!(current_user)
     flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
     redirect '/'
   end
