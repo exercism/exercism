@@ -9,16 +9,15 @@ require 'exercism/curriculum/haskell'
 
 class Exercism
   def self.current_curriculum
-    return @curriculum if @curriculum
+    @curriculum ||= begin
+      curriculums =  [:ruby, :javascript, :elixir, :clojure, :python, :haskell]
 
-    @curriculum = Curriculum.new('./assignments')
-    @curriculum.add RubyCurriculum.new
-    @curriculum.add JavascriptCurriculum.new
-    @curriculum.add ElixirCurriculum.new
-    @curriculum.add ClojureCurriculum.new
-    @curriculum.add PythonCurriculum.new
-    @curriculum.add HaskellCurriculum.new
-    @curriculum
+      Curriculum.new('./assignments').tap do |curriculum|
+        curriculums.each do |type|
+          curriculum.add "exercism/#{type}_curriculum".classify.constantize.new
+        end
+      end
+    end
   end
 
   def self.trails

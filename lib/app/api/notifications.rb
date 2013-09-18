@@ -7,12 +7,12 @@ class ExercismApp < Sinatra::Base
     end
 
     def recipient
-      return @recipient if @recipient
-
-      if params[:key]
-        @recipient = User.find_by(key: params[:key])
-      elsif session[:github_id]
-        @recipient = current_user
+      @recipient ||= begin
+        if params[:key]
+          User.find_by(key: params[:key])
+        elsif session[:github_id]
+          current_user
+        end
       end
     end
   end
