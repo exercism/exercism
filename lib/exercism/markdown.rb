@@ -5,8 +5,15 @@ require 'rouge/plugins/redcarpet'
 class Markdown < Redcarpet::Render::XHTML
 
   def self.render(content)
-    markdown = Redcarpet::Markdown.new(Markdown, options)
+    renderer = new(renderer_options)
+    markdown = Redcarpet::Markdown.new(renderer, options)
     markdown.render(content)
+  end
+
+  def self.renderer_options
+    { 
+      hard_wrap: true
+    }
   end
 
   def self.options
@@ -17,10 +24,8 @@ class Markdown < Redcarpet::Render::XHTML
       strikethrough: true,
       lax_html_blocks: true,
       superscript: true,
-      hard_wrap: true,
       tables: true,
       space_after_headers: true,
-      hard_wrap: true,
       xhtml: true
     }
   end
