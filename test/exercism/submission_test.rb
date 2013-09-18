@@ -198,7 +198,7 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_unmuted_for_when_muted
-    submission.mute(submission.user.username)
+    submission.mute(submission.user)
     submission.save
     refute(Submission.unmuted_for(submission.user.username).include?(submission),
            "unmuted_for should only return submissions that have not been muted")
