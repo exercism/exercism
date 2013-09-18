@@ -66,17 +66,17 @@ class Submission
   end
 
   def participants
-    return @participants if @participants
-
-    participants = Set.new
-    participants.add user
-    related_submissions.each do |submission|
-      submission.comments.each do |nit|
-        participants.add nit.nitpicker
-	nit.mentions.each { |mention| participants.add mention }
+    @participants ||= begin
+      participants = Set.new
+      participants.add user
+      related_submissions.each do |submission|
+        submission.comments.each do |nit|
+          participants.add nit.nitpicker
+          nit.mentions.each { |mention| participants.add mention }
+        end
       end
+      participants
     end
-    @participants = participants
   end
 
   def nits_by_others_count

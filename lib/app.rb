@@ -29,7 +29,7 @@ require 'services'
 
 class ExercismApp < Sinatra::Base
 
-  set :environment, ENV.fetch('RACK_ENV') { 'development' }.to_sym
+  set :environment, ENV.fetch('RACK_ENV') { :development }.to_sym
   set :root, 'lib/app'
   set :method_override, true
 
@@ -57,12 +57,12 @@ class ExercismApp < Sinatra::Base
     end
 
     def current_user
-      return @current_user if @current_user
-
-      if session[:github_id]
-        @current_user = User.find_by(github_id: session[:github_id])
-      else
-        @current_user = Guest.new
+      @current_user ||= begin
+        if session[:github_id]
+          User.find_by(github_id: session[:github_id])
+        else
+          Guest.new
+        end
       end
     end
 

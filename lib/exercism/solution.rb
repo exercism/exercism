@@ -9,10 +9,11 @@ class Solution
   end
 
   def exercise
-    return @exercise if @exercise
-    exercise = Exercise.new(language, slug)
-    validate exercise
-    @exercise = exercise
+    @exercise ||= begin
+      Exercise.new(language, slug).tap do |exercise|
+        validate exercise
+      end
+    end
   end
 
   private

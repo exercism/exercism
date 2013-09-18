@@ -14,15 +14,15 @@ module ProblemSet
   end
 
   def completed_exercises
-    return @completed_exercises if @completed_exercises
-
-    exercises = Hash.new {|history, language| history[language] = []}
-    completed.each {|language, slugs|
-      exercises[language] = slugs.map {|slug|
-        Exercise.new(language, slug)
-      }
-    }
-    @completed_exercises = exercises
+    @completed_exercises ||= begin
+      exercises = Hash.new {|history, language| history[language] = []}
+      completed.each do |language, slugs|
+        exercises[language] = slugs.map do |slug|
+          Exercise.new(language, slug)
+        end
+      end
+      exercises
+    end
   end
 
   def completed?(candidate)
