@@ -17,21 +17,36 @@ class SubmissionsTest < Minitest::Test
     }
   end
 
+  def bob_attributes
+    {
+      username: 'bob',
+      github_id: 2,
+      mastery: ['ruby'],
+      email: "bob@example.com"
+    }
+  end
+
   def generate_attempt(code = 'CODE')
     Attempt.new(alice, code, 'word-count/file.rb').save
   end
 
-  attr_reader :alice
+  attr_reader :alice, :bob
   def setup
     @alice = User.create(alice_attributes)
+    @bob = User.create(bob_attributes)
   end
 
   def assert_response_status(expected_status)
     assert_equal expected_status, last_response.status
   end
 
-  def logged_in
+  def logged_in_with_alice
     { github_id: alice.github_id }
+  end
+  alias_method :logged_in, :logged_in_with_alice
+
+  def logged_in_with_bob
+    { github_id: bob.github_id }
   end
 
   def not_logged_in
@@ -43,7 +58,6 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_submission_view_count
-    bob = User.create(github_id: 2, username: "bob", email: "bob@example.com", mastery: ['ruby'])
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
@@ -68,7 +82,6 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_nitpick_assignment
-    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
@@ -96,8 +109,6 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_input_sanitation
-    bob = User.create(github_id: 2, mastery: ['ruby'])
-
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
     nit = Comment.new(user: bob, comment: "ok")
@@ -124,7 +135,6 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_multiple_versions
-    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count
@@ -181,11 +191,14 @@ class SubmissionsTest < Minitest::Test
 
   def test_like_a_submission
     submission = generate_attempt.submission
-    post "/submissions/#{submission.id}/like", {}, 'rack.session' => logged_in
-    submission.reload
-    assert submission.liked?, "should be liked"
-    assert_equal ['alice'], submission.liked_by, "alice should like it"
-    assert submission.muted_by?(alice), "should be muted"
+    Submission.any_instance.expects(:like!).with(bob)
+    post "/submissions/#{submission.id}/like", {}, 'rack.session' => logged_in_with_bob
+  end
+
+  def test_unlike_a_submission
+    submission = generate_attempt.submission
+    Submission.any_instance.expects(:unlike!).with(bob)
+    post "/submissions/#{submission.id}/unlike", {}, 'rack.session' => logged_in_with_bob
   end
 
   def test_change_opinions_when_not_logged_in
@@ -217,7 +230,6 @@ class SubmissionsTest < Minitest::Test
 
   def test_unmute_all_on_new_nitpick
     submission = generate_attempt.submission
-    bob = User.create(github_id: 2, email: "bob@example.com", mastery: ['ruby'])
 
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
@@ -244,7 +256,6 @@ class SubmissionsTest < Minitest::Test
 
   def test_must_be_submission_owner_to_complete_exercise
     submission = generate_attempt.submission
-    bob = User.create(github_id: 2)
     post "/submissions/#{submission.id}/done", {}, 'rack.session' => {github_id: 2}
     assert_equal 302, last_response.status
     assert_equal 'pending', submission.reload.state
