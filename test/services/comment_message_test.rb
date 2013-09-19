@@ -1,11 +1,10 @@
 require './test/approval_helper'
 
 require 'services/message'
-require 'services/nitpick_message'
+require 'services/comment_message'
 require 'exercism/exercise'
 
-
-class NitpickMessageTest < Minitest::Test
+class CommentMessageTest < Minitest::Test
 
   FakeUser = Struct.new(:username, :email)
   FakeSubmission = Struct.new(:id, :user, :exercise)
@@ -23,7 +22,7 @@ class NitpickMessageTest < Minitest::Test
   end
 
   def dispatch
-    @dispatch ||= NitpickMessage.new(
+    @dispatch ||= CommentMessage.new(
       instigator: alice,
       submission: submission,
       site_root: "http://example.com"
@@ -31,7 +30,7 @@ class NitpickMessageTest < Minitest::Test
   end
 
   def test_subject
-    assert_equal "New nitpick from alice", dispatch.subject
+    assert_equal "New comment from alice", dispatch.subject
   end
 
   def test_body

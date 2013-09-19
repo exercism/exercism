@@ -6,15 +6,14 @@ class ExercismApp < Sinatra::Base
       please_login(notice)
 
       submission = Submission.find(id)
-      nitpick = Nitpick.new(id, current_user, params[:comment])
-      nitpick.save
-      if nitpick.nitpicked?
+      comment = CreatesComment.create(id, current_user, params[:comment])
+      unless comment.new_record?
         Notify.everyone(submission, 'nitpick', except: current_user)
         begin
-          unless nitpick.nitpicker == nitpick.submission.user
-            NitpickMessage.ship(
-              instigator: nitpick.nitpicker,
-              submission: nitpick.submission,
+          unless comment.nitpicker == submission.user
+            CommentMessage.ship(
+              instigator: comment.nitpicker,
+              submission: submission,
               site_root: site_root
             )
           end
