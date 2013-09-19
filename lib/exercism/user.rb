@@ -18,6 +18,8 @@ class User
   has_many :submissions
   has_many :notifications
   has_many :comments
+  has_and_belongs_to_many :teams, inverse_of: :member
+  has_many :teams_created, class_name: "Team", inverse_of: :creator
 
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first ||
@@ -123,6 +125,10 @@ class User
     self.stashed_submissions.each do |sub|
       sub.delete if sub.stash_name == filename
     end
+  end
+
+  def latest_submission
+    @latest_submission ||= submissions.pending.order_by(at: :desc).first
   end
 
   private

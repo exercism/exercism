@@ -15,6 +15,7 @@ require 'app/curriculum'
 require 'app/submissions'
 require 'app/exercises'
 require 'app/users'
+require 'app/teams'
 require 'app/not_found' # always include last
 
 require 'app/helpers/submissions_helper'

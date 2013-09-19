@@ -1,0 +1,24 @@
+<h1>Team <%= team.slug %></h1>
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Latest Submission</th>
+    </tr>
+  </head>
+  <tbody>
+    <% members.each do |member| %>
+      <tr>
+        <td>
+          <a href="/<%= member.username %>"><%= member.username %></a>
+        </td>
+        <td>
+          <a href="/submissions/<%= member.latest_submission.id %>">
+            <%= member.latest_submission.exercise.name %>
+            (<%= member.latest_submission.language.capitalize %>)
+          </a>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
