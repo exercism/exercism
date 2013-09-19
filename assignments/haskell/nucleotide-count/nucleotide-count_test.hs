@@ -1,8 +1,13 @@
-import Test.HUnit (Assertion, (@=?), runTestTT, Test(..), assertFailure)
-import Control.Monad (void)
+import Test.HUnit (Assertion, (@=?), runTestTT, assertFailure, Test(..), Counts(..))
+import System.Exit (ExitCode(..), exitWith)
 import DNA (count, nucleotideCounts)
 import Data.Map (fromList)
 import qualified Control.Exception as E
+
+exitProperly :: IO Counts -> IO ()
+exitProperly m = do
+  counts <- m
+  exitWith $ if failures counts /= 0 || errors counts /= 0 then ExitFailure 1 else ExitSuccess
 
 assertError :: String -> a -> IO ()
 assertError err f =
@@ -15,7 +20,7 @@ testCase :: String -> Assertion -> Test
 testCase label assertion = TestLabel label (TestCase assertion)
 
 main :: IO ()
-main = void $ runTestTT $ TestList
+main = exitProperly $ runTestTT $ TestList
        [ TestList countTests
        , TestList nucleotideCountTests]
 
