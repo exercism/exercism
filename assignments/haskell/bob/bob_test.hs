@@ -1,6 +1,11 @@
-import Test.HUnit (Assertion, (@=?), runTestTT, Test(..))
-import Control.Monad (void)
+import Test.HUnit (Assertion, (@=?), runTestTT, Test(..), Counts(..))
+import System.Exit (ExitCode(..), exitWith)
 import Bob (responseFor)
+
+exitProperly :: IO Counts -> IO ()
+exitProperly m = do
+  counts <- m
+  exitWith $ if failures counts /= 0 || errors counts /= 0 then ExitFailure 1 else ExitSuccess
 
 testCase :: String -> Assertion -> Test
 testCase label assertion = TestLabel label (TestCase assertion)
@@ -90,4 +95,4 @@ respondsToTests =
   ]
 
 main :: IO ()
-main = void (runTestTT (TestList respondsToTests))
+main = exitProperly (runTestTT (TestList respondsToTests))

@@ -1,12 +1,17 @@
-import Test.HUnit (Assertion, (@=?), runTestTT, Test(..))
-import Control.Monad (void)
+import Test.HUnit (Assertion, (@=?), runTestTT, Test(..), Counts(..))
+import System.Exit (ExitCode(..), exitWith)
 import Beer (sing, verse)
+
+exitProperly :: IO Counts -> IO ()
+exitProperly m = do
+  counts <- m
+  exitWith $ if failures counts /= 0 || errors counts /= 0 then ExitFailure 1 else ExitSuccess
 
 testCase :: String -> Assertion -> Test
 testCase label assertion = TestLabel label (TestCase assertion)
 
 main :: IO ()
-main = void (runTestTT (TestList [TestList verseTests, TestList singTests]))
+main = exitProperly (runTestTT (TestList [TestList verseTests, TestList singTests]))
 
 verse_8, verse_2, verse_1, verse_0 :: String
 verse_8 = "8 bottles of beer on the wall, 8 bottles of beer.\nTake one down and pass it around, 7 bottles of beer on the wall.\n"
