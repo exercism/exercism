@@ -1,13 +1,18 @@
-import Test.HUnit (Assertion, (@=?), runTestTT, Test(..))
-import Control.Monad (void)
+import Test.HUnit (Assertion, (@=?), runTestTT, Test(..), Counts(..))
+import System.Exit (ExitCode(..), exitWith)
 import ETL (transform)
 import qualified Data.Map as M
+
+exitProperly :: IO Counts -> IO ()
+exitProperly m = do
+  counts <- m
+  exitWith $ if failures counts /= 0 || errors counts /= 0 then ExitFailure 1 else ExitSuccess
 
 testCase :: String -> Assertion -> Test
 testCase label assertion = TestLabel label (TestCase assertion)
 
 main :: IO ()
-main = void $ runTestTT $ TestList
+main = exitProperly $ runTestTT $ TestList
        [ TestList transformTests ]
 
 transformTests :: [Test]
