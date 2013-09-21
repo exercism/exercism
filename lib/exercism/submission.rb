@@ -18,7 +18,7 @@ class Submission
   field :vs, as: :viewers, type: Array, default: []
 
   belongs_to :user
-  has_many :comments
+  has_many :comments, order: {at: :asc}
 
   validates_presence_of :user
 
