@@ -34,7 +34,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     check_sanitiation(input, expected)
   end
 
-  def test_ampersands
+  def test_markdown_code_with_ampersands
     input = "```\nbig && strong\n```"
     expected = %Q{<pre class=\"highlight plaintext\">
   <table>
@@ -50,6 +50,26 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
   </table>
 </pre>}
     check_sanitiation(input, expected)
+  end
+
+  def test_markdown_code_with_double_braces
+    skip("TODO: Improve markdown code processing for braces")
+    input = "```\n{{current}}\n```"
+    expected = %Q{<pre class=\"highlight plaintext\">
+  <table>
+    <tbody>
+      <tr>
+        <td class=\"gutter gl\">
+          <div class=\"lineno\">1</div>
+        </td>
+        <td class=\"code\">{{current}}
+</td>
+      </tr>
+    </tbody>
+  </table>
+</pre>}
+    check_sanitiation(input, expected)
+
   end
 
   def test_complex_markdown_with_code
