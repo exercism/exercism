@@ -52,9 +52,8 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     check_sanitisation(input, expected)
   end
 
-  def test_markdown_code_with_double_braces
-    skip("TODO: Improve markdown code processing for braces")
-    input = "```\n{{current}}\n```"
+  def test_markdown_code_with_text_and_double_braces
+    input = "```\nx{{current}}y\n```"
     expected = %Q{<pre class=\"highlight plaintext\">
   <table>
     <tbody>
@@ -62,15 +61,74 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
         <td class=\"gutter gl\">
           <div class=\"lineno\">1</div>
         </td>
-        <td class=\"code\">{{current}}
+        <td class=\"code\">x{{current}}y
 </td>
       </tr>
     </tbody>
   </table>
 </pre>}
     check_sanitisation(input, expected)
-
   end
+
+  def test_markdown_code_with_double_braces
+    input = "```\n{{x: y}}\n```"
+    expected = %Q{<pre class=\"highlight json\">
+  <table>
+    <tbody>
+      <tr>
+        <td class=\"gutter gl\">
+          <div class=\"lineno\">1</div>
+        </td>
+        <td class=\"code\">
+          <span class=\"p\">{</span>
+          <span class=\"err\">{x</span>
+          <span class=\"p\">:</span>
+          <span class=\"w\"> </span>
+          <span class=\"err\">y</span>
+          <span class=\"p\">}</span>
+          <span class=\"err\">}</span>
+          <span class=\"w\">
+</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</pre>}
+
+    check_sanitiation(input, expected)
+  end
+
+  def test_markdown_code_with_javascript_and_double_braces
+    input = %Q{```
+  var refill = 99
+    , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
+                 "{{action}}, {{remaining}} of beer on the wall.\n";}
+
+    expected = %Q{<pre class=\"highlight plaintext\">
+  <table>
+    <tbody>
+      <tr>
+        <td class=\"gutter gl\">
+          <div class=\"lineno\">1</div>
+          <div class=\"lineno\">2</div>
+          <div class=\"lineno\">3</div>
+          <div class=\"lineno\">4</div>
+          <div class=\"lineno\">5</div>
+        </td>
+        <td class=\"code\">  var refill = 99
+    , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
+                 "{{action}}, {{remaining}} of beer on the wall.\n";
+</td>
+      </tr>
+    </tbody>
+  </table>
+</pre>}
+
+    converter = ConvertsMarkdownToHTML.new(input)
+    converter.convert
+    assert_equal expected, converter.content.strip
+  end
+
 
   def test_complex_markdown_with_code
     input = %Q{Pre text
