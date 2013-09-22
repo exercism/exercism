@@ -2,6 +2,7 @@
   <div class="span8">
     <h1><%= user.username %></h1>
     <p>GitHub Profile: <%= github_profile_link(user) %></p>
+    <p>Create a <a href="/teams">new team</a>.</p>
 
     <% if current_user.is?(user.username) %>
       <% if (user.teams | user.teams_created).any? %>
