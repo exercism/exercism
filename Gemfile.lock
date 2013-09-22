@@ -36,6 +36,8 @@ GEM
       tilt
     i18n (0.6.1)
     json_expressions (0.8.2)
+    loofah (1.2.1)
+      nokogiri (>= 1.4.4)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -89,8 +91,6 @@ GEM
     rake (10.1.0)
     redcarpet (2.3.0)
     ruby-prof (0.13.0)
-    sanitize (2.0.6)
-      nokogiri (>= 1.4.4)
     simplecov (0.7.1)
       multi_json (~> 1.0)
       simplecov-html (~> 0.7.1)
@@ -125,6 +125,7 @@ DEPENDENCIES
   faker
   faraday
   json_expressions
+  loofah
   mailcatcher
   minitest (~> 5.0)
   mocha
@@ -140,7 +141,6 @@ DEPENDENCIES
   redcarpet
   rouge!
   ruby-prof
-  sanitize
   simplecov
   sinatra
   will_paginate!
