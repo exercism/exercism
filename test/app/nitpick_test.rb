@@ -32,7 +32,7 @@ class NitpickAppTest < Minitest::Test
   end
 
   def generate_nitpick(attempt)
-    Nitpick.new(attempt.submission.id, master, "It is missing `hey`.").save
+    CreatesComment.new(attempt.submission.id, master, "It is missing `hey`.").create
   end
 
   def logged_in
