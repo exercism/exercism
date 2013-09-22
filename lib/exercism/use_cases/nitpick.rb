@@ -1,12 +1,10 @@
 class Nitpick
 
-  include InputSanitation
-
   attr_reader :id, :nitpicker, :body
   def initialize(submission_id, nitpicker, body, options = {})
     @id = submission_id
     @nitpicker = nitpicker
-    @body = sanitize(body.to_s)
+    @body = body.to_s
     @nitpicked = false
   end
 

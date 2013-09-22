@@ -143,7 +143,8 @@ class ExercismApp < Sinatra::Base
       flash[:notice] = "Only the author may edit the text."
     end
 
-    nit.sanitized_update(params['comment'])
+    nit.comment = params["comment"]
+    nit.save
     redirect "/submissions/#{id}"
   end
 
