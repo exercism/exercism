@@ -2,19 +2,14 @@
 
 <p>You access the exercises via the command line.</p>
 
-<p>The command line interface (CLI) is currently a ruby gem, which means that you will need to have Ruby installed, even if you don't plan on doing the Ruby exercises.</p>
+<p>The command line interface (CLI) is a stand-alone binary, so you should be able to install it without installing any particular programming language or environment.</p>
 
-<p>We are working on a replacement in Go that eventually be available as a binary that can be installed with no dependencies. Feel free to <a href="https://github.com/msgehard/go-exercism">try it out</a>.</p>
 
 <h2>Installing the CLI</h2>
 
-<p>When you have Ruby installed, open up a terminal window and run the following command:</p>
+<p>Download the correct <a href="https://github.com/msgehard/go-exercism/releases/tag/1.0.0">exercism CLI</a> binary for your system.</p>
 
-<pre>
-  $ gem install exercism
-</pre>
-
-<p>If you're using <em>rbenv</em> you'll need to run <kbd>rbenv rehash</kbd> to get the <kbd>exercism</kbd> command into your path.</p>
+<p>If you are on a Mac and you're wondering which binary you need, <a href="http://support.apple.com/kb/HT3696">this page</a> should be useful. If not, post <a href="https://github.com/kytrinyx/exercism.io/issues/new">an issue</a> so that we can figure out what's confusing, help you out, and then update this text so that the next person doesn't get stuck.</p>
 
 <h2>Configuring the CLI</h2>
 
@@ -35,8 +30,7 @@
 <% end %>
 
 <p>If you mess up your login, you can either edit the config file at
-<kbd>~/.exercism</kbd> or <kbd>~/.config/exercism</kbd>
-or you can say <kbd>exercism logout</kbd> and then try again.</p>
+<kbd>~/.exercism.go</kbd> or you can say <kbd>exercism logout</kbd> and then try again.</p>
 
 <h2>Fetching the Code</h2>
 
