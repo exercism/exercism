@@ -2,6 +2,7 @@ require './test/mongo_helper'
 
 require 'exercism/locksmith'
 require 'exercism/problem_set'
+require 'exercism/team'
 require 'exercism/user'
 require 'exercism/null_submission'
 require 'exercism/exercise'
@@ -175,6 +176,18 @@ class UserTest < Minitest::Test
 
   def test_user_is_not_locksmith_by_default
     refute User.new.locksmith?
+  end
+
+  def test_find_user_by_case_insensitive_username
+    User.create username: 'alice'
+    assert_equal 'alice', User.find_by_username('ALICE').username
+  end
+
+  def test_find_a_bunch_of_users_by_case_insensitive_username
+    User.create username: 'alice'
+    User.create username: 'bob'
+    usernames = User.find_in_usernames(['ALICE', 'BOB']).map(&:username).sort
+    assert_equal ['alice', 'bob'], usernames
   end
 
   private

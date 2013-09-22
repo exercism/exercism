@@ -31,6 +31,14 @@ class User
     user
   end
 
+  def self.find_in_usernames(usernames)
+    User.in(username: usernames.map {|u| /\A#{u}\z/i})
+  end
+
+  def self.find_by_username(username)
+    where(username: /\A#{username}\z/i).first
+  end
+
   def random_work
     completed.keys.shuffle.each do |language|
       work = Submission.pending.unmuted_for(username).where(language: language).in(slug: completed[language]).asc(:nc)

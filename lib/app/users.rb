@@ -2,7 +2,7 @@ class ExercismApp < Sinatra::Base
 
   get '/:username' do |username|
     please_login
-    user = User.where(username: /\A#{username}\z/i).first
+    user = User.find_by_username(username)
 
     if user
       title(user.username)
