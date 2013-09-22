@@ -95,7 +95,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
   </table>
 </pre>}
 
-    check_sanitiation(input, expected)
+    check_sanitisation(input, expected)
   end
 
   def test_markdown_code_with_javascript_and_double_braces
