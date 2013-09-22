@@ -4,7 +4,15 @@
     <p>GitHub Profile: <%= github_profile_link(user) %></p>
 
     <% if current_user.is?(user.username) %>
-    <p>You've left <%= user.comments.count %> nits.</p>
+      <% if user.teams.any? %>
+        <p>You are on the following teams:</p>
+        <ul>
+          <% user.teams.each do |team| %>
+            <li><a href="/teams/<%= team.slug %>"><%= team.slug %></a></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <p>You've left <%= user.comments.count %> nits.</p>
     <% end %>
 
     <h4>Current</h4>
