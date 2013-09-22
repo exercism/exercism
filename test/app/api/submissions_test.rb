@@ -107,7 +107,7 @@ class SubmissionApiValidResponseTest < Minitest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
-    Nitpick.new(submission.id, alice, '### test nit').save
+    CreatesComment.new(submission.id, alice, '### test nit').create
     submission.reload
     get "/api/v1/submission/#{submission.id}", {}, 'rack.session' => logged_in
 

@@ -1,6 +1,6 @@
 require './test/integration_helper'
 
-class NitpickTest < Minitest::Test
+class CreatesCommentTest < Minitest::Test
 
   def exercise
     Exercise.new('nong', 'one')
@@ -23,7 +23,7 @@ class NitpickTest < Minitest::Test
 
   def test_nitpicking_a_submission_saves_a_nit
     nitpicker = User.new(username: 'alice')
-    Nitpick.new(submission.id, nitpicker, 'Too many variables').save
+    CreatesComment.new(submission.id, nitpicker, 'Too many variables').create
     nit = submission.reload.comments.first
     assert submission.pending?, "Should be pending"
     assert_equal 'Too many variables', nit.comment
@@ -32,20 +32,19 @@ class NitpickTest < Minitest::Test
 
   def test_nitpicking_a_submission_mutes_it
     nitpicker = User.new(username: 'alice')
-    Nitpick.new(submission.id, nitpicker, 'Too many variables').save
+    CreatesComment.new(submission.id, nitpicker, 'Too many variables').create
     assert submission.reload.muted_by?(nitpicker), 'should be muted'
   end
 
-  def test_empty_nit_does_not_get_saved
+  def test_empty_nit_does_not_get_created
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, '').save
-    assert !nitpick.nitpicked?
+    nitpick = CreatesComment.new(submission.id, nitpicker, '').create
     assert_equal 0, submission.reload.comments.count
   end
 
   def test_empty_nit_does_not_mute
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, '').save
+    nitpick = CreatesComment.new(submission.id, nitpicker, '').create
     refute submission.reload.muted_by?(nitpicker)
   end
 
@@ -53,7 +52,7 @@ class NitpickTest < Minitest::Test
     submission.state = 'hibernating'
     submission.save
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, 'a comment').save
+    nitpick = CreatesComment.new(submission.id, nitpicker, 'a comment').create
     submission.reload
     assert submission.pending?
   end
@@ -62,7 +61,7 @@ class NitpickTest < Minitest::Test
     submission.state = 'done'
     submission.save
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, 'a comment').save
+    nitpick = CreatesComment.new(submission.id, nitpicker, 'a comment').create
     submission.reload
     assert submission.done?
   end
@@ -71,14 +70,14 @@ class NitpickTest < Minitest::Test
     submission.state = 'superseded'
     submission.save
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, 'a comment').save
+    nitpick = CreatesComment.new(submission.id, nitpicker, 'a comment').create
     submission.reload
     assert submission.superseded?
   end
 
   def test_nitpick_with_mentions
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, "Mention @#{@submission.user.username}").save
+    nitpick = CreatesComment.new(submission.id, nitpicker, "Mention @#{@submission.user.username}").create
     submission.reload
     comment = submission.comments.last
     assert_equal 1, comment.mentions.count
@@ -87,7 +86,7 @@ class NitpickTest < Minitest::Test
 
   def test_ignore_mentions_in_code_spans
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, "`@#{@submission.user.username}`").save
+    nitpick = CreatesComment.new(submission.id, nitpicker, "`@#{@submission.user.username}`").create
     submission.reload
     comment = submission.comments.last
     assert_equal 0, comment.mentions.count
@@ -95,7 +94,7 @@ class NitpickTest < Minitest::Test
 
   def test_ignore_mentions_in_fenced_code_blocks
     nitpicker = User.new(username: 'alice')
-    nitpick = Nitpick.new(submission.id, nitpicker, "```\n@#{submission.user.username}\n```").save
+    nitpick = CreatesComment.new(submission.id, nitpicker, "```\n@#{submission.user.username}\n```").create
     submission.reload
     comment = submission.comments.last
     assert_equal 0, comment.mentions.count
@@ -105,7 +104,7 @@ class NitpickTest < Minitest::Test
     nitpicker = User.new(username: 'alice')
     content = "<script type=\"text/javascript\">bad();</script>good"
     ConvertsMarkdownToHTML.expects(:convert).with(content)
-    Nitpick.new(submission.id, nitpicker, content).save
+    CreatesComment.create(submission.id, nitpicker, content)
   end
 
 end
