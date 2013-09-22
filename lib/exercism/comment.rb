@@ -1,3 +1,4 @@
+require 'exercism/input_sanitation'
 require 'exercism/markdown'
 
 class Comment
