@@ -22,4 +22,8 @@ class Team
   def usernames
     members.map(&:username)
   end
+
+  def includes?(user)
+    creator == user || members.include?(user)
+  end
 end

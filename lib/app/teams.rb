@@ -9,6 +9,11 @@ class ExercismApp < Sinatra::Base
   post '/teams/?' do
     please_login
 
+    unless team.includes?(current_user)
+      flash[:error] = "You may only view team pages for teams that you are on."
+      redirect "/"
+    end
+
     team = Team.by(current_user).defined_with(params[:team])
     if team.valid?
       team.save

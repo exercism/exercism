@@ -33,5 +33,14 @@ class TeamTest < Minitest::Test
 
     assert alice.teams_created.include?(team)
   end
+
+  def test_team_inclusion
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    team = Team.create(slug: 'sparkle', creator: alice, members: [bob])
+
+    assert team.includes?(alice)
+    assert team.includes?(bob)
+  end
 end
 
