@@ -145,8 +145,12 @@ heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-l
 
 ## Contributing
 
+Thank you for want to contribute! :heart::sparkling_heart::heart:
+
 Fork and clone. Hack hack hack.
 Submit a pull request and tell us why your idea is awesome.
+
+For more details, please read the [contributing guide](https://github.com/kytrinyx/exercism.io/blob/master/CONTRIBUTING.md).
 
 ## License
 
