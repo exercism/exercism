@@ -5,10 +5,6 @@ class ExercismApp < Sinatra::Base
     languages.include? language.to_sym
   end
 
-  get '/setup' do
-    erb :setup
-  end
-
   get '/setup/:language/?' do
     language = params[:language].downcase
     unless in_curriculum? language
