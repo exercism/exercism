@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/jayferd/rouge.git
-  revision: a75c074d5dfdd8973e5f4d3d5ce8c235cc947ec5
-  specs:
-    rouge (0.5.3)
-      thor
-
-GIT
   remote: git://github.com/mislav/will_paginate.git
   revision: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
   tag: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
@@ -90,6 +83,7 @@ GEM
       rack (>= 1.0)
     rake (10.1.0)
     redcarpet (2.3.0)
+    rouge (0.5.4)
     ruby-prof (0.13.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
@@ -139,7 +133,7 @@ DEPENDENCIES
   rack-test
   rake
   redcarpet
-  rouge!
+  rouge
   ruby-prof
   simplecov
   sinatra

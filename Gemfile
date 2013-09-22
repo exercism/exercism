@@ -10,7 +10,7 @@ gem 'petroglyph'
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'redcarpet'
-gem 'rouge', github: 'jayferd/rouge' # master to see if it fixes #157
+gem 'rouge'
 gem 'sinatra', require: 'sinatra/base'
 gem 'pony'
 gem 'loofah'
