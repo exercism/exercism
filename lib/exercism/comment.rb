@@ -27,26 +27,12 @@ class Comment
   end
 
   def mentions
-    # http://rubular.com/r/TagnENb1Wm
-    candidates = html_comment_without_code.scan(/\@\w+/).uniq
-    candidates.each_with_object([]) do |username, mentions|
-      mentions << User.find_by(:u => username.sub(/\@/, '')) rescue nil
-    end
+    ExtractsMentionsFromMarkdown.extract(comment)
   end
 
   def sanitized_update(comment)
     self.comment = sanitize(comment)
     save
-  end
-
-  private
-
-  def html_comment_without_code
-    html_comment = Markdown.render(comment)
-    dom = Nokogiri::HTML(html_comment)
-    dom.css("code").remove
-    dom.css("td[class='code']").remove
-    dom.css("body").first.content
   end
 
 end
