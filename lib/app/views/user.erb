@@ -15,7 +15,11 @@
       <p>You've left <%= user.comments.count %> nits.</p>
     <% end %>
 
+    <h3>Exercises</h3>
     <h4>Current</h4>
+    <% if current.none? %>
+      <p>You have not submitted any exercises lately.</p>
+    <% end %>
     <ul>
       <% current.each do |exercise| %>
         <li>
@@ -55,6 +59,9 @@
 <div class="row">
   <div class="span12">
     <h4>Completed</h4>
+    <% if completed.none? %>
+      <p>You have not completed any exercises.</p>
+    <% end %>
   </div>
 </div>
 <div class="row">
