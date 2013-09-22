@@ -9,12 +9,12 @@
 
   <% if current_user.owns?(submission) %>
 
-    <p><a href="http://exercism.io/nitpick" target="_blank">Comments</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></p>
+    <p><a href="http://exercism.io/help/how-to-nitpick" target="_blank">Comments</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></p>
     <%= erb :"nitpick/encourage_submitter", locals: {version: submission.version, nit_count: submission.nits_by_others_count} %>
 
   <% else %>
 
-    <p><a href="http://exercism.io/nitpick" target="_blank">Nitpicks</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></p>
+    <p><a href="http://exercism.io/help/how-to-nitpick" target="_blank">Nitpicks</a> are parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></p>
     <%= erb :"nitpick/encourage_nitpicker", locals: {language: submission.language} %>
 
   <% end %>
