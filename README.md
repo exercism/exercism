@@ -1,6 +1,8 @@
 # exercism.io
 
-[![Build Status](https://travis-ci.org/kytrinyx/exercism.io.png?branch=master)](https://travis-ci.org/kytrinyx/exercism.io) [![Code Climate](https://codeclimate.com/github/kytrinyx/exercism.io.png)](https://codeclimate.com/github/kytrinyx/exercism.io)
+[![Build Status](https://travis-ci.org/kytrinyx/exercism.io.png?branch=master)](https://travis-ci.org/kytrinyx/exercism.io) 
+[![Code Climate](https://codeclimate.com/github/kytrinyx/exercism.io.png)](https://codeclimate.com/github/kytrinyx/exercism.io)
+[![Gemnasium](https://gemnasium.com/kytrinyx/exercism.io.png)](https://gemnasium.com/kytrinyx/exercism.io)
 
 Application to support working through sequential programming problems, with
 crowd-sourced code reviews.
