@@ -1,6 +1,6 @@
 <div class="span4">
   <h5>
-    <%= gravatar_tag current_user.avatar_url, size: 20 %>
+    <%= gravatar_tag member.avatar_url, size: 20 %>
     <a href="/<%= member.username %>"><%= member.username %></a>
   </h5>
   <% if submissions.any? %>
