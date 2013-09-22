@@ -3,7 +3,7 @@
 <% else %>
   <blockquote>
 <% end %>
-  <%= md(nit.comment) %>
+  <%= nit.html_comment %>
   <cite>
     <%= gravatar_tag nit.user.avatar_url, size: 20 %>
     <em><%= profile_link(nit.user) %></em>, <%= ago(nit.at) %>

@@ -1,15 +1,18 @@
-require 'exercism/input_sanitation'
 require 'exercism/markdown'
 
 class Comment
   include Mongoid::Document
-  include InputSanitation
 
   field :at, type: Time, default: ->{ Time.now.utc }
   field :c, as: :comment, type: String
+  field :hc, as: :html_comment, type: String
 
   belongs_to :user
   belongs_to :submission
+
+  before_save do |comment|
+    self.html_comment = ConvertsMarkdownToHTML.convert(comment.comment)
+  end
 
   # Experiment: Implement manual counter-cache
   # to see if this affects load time of dashboard pages.
@@ -29,10 +32,4 @@ class Comment
   def mentions
     ExtractsMentionsFromMarkdown.extract(comment)
   end
-
-  def sanitized_update(comment)
-    self.comment = sanitize(comment)
-    save
-  end
-
 end

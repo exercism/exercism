@@ -2,7 +2,6 @@ require './test/mongo_helper'
 
 require 'exercism/locksmith'
 require 'exercism/problem_set'
-require 'exercism/input_sanitation'
 require 'exercism/user'
 require 'exercism/null_submission'
 require 'exercism/exercise'

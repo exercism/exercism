@@ -101,4 +101,11 @@ class NitpickTest < Minitest::Test
     assert_equal 0, comment.mentions.count
   end
 
+  def test_sanitation
+    nitpicker = User.new(username: 'alice')
+    content = "<script type=\"text/javascript\">bad();</script>good"
+    ConvertsMarkdownToHTML.expects(:convert).with(content)
+    Nitpick.new(submission.id, nitpicker, content).save
+  end
+
 end

@@ -122,7 +122,8 @@ class SubmissionsTest < Minitest::Test
     end
 
     nit = submission.reload.comments.last
-    assert_equal "bad();good", nit.comment
+    expected = "<p>&lt;script type=\"text/javascript\"&gt;bad();&lt;/script&gt;good</p>"
+    assert_equal expected, nit.html_comment.strip
   end
 
   def test_guest_nitpicks
