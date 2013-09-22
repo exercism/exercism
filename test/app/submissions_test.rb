@@ -282,4 +282,13 @@ class SubmissionsTest < Minitest::Test
     assert_equal 'superseded', s1.reload.state
     assert_equal 'done', s2.reload.state
   end
+
+  def test_edit_comment
+    submission = generate_attempt.submission
+    comment = Comment.create(user: bob, submission: submission, comment: "```ruby\n\t{a: 'a'}\n```")
+
+    post "/submissions/#{submission.id}/nits/#{comment.id}/edit", {comment: "OK"}, "rack.session" => {github_id: bob.github_id}
+
+    assert_equal "OK", comment.reload.comment
+  end
 end
