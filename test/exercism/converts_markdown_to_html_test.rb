@@ -2,7 +2,7 @@ require './test/integration_helper'
 
 class ConvertsMarkdownToHTMLTest < Minitest::Test
 
-  def check_sanitiation(input, expected)
+  def check_sanitisation(input, expected)
     converter = ConvertsMarkdownToHTML.new(input)
     converter.convert
     assert_equal expected, converter.content.strip
@@ -22,16 +22,16 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     converter.convert
   end
 
-  def test_sanitiation
+  def test_sanitisation
     input = "<script type=\"text/javascript\">bad();</script>good"
     expected = "<p>&lt;script type=\"text/javascript\"&gt;bad();&lt;/script&gt;good</p>"
-    check_sanitiation(input, expected)
+    check_sanitisation(input, expected)
   end
 
   def test_markdown
     input = "Foo **bold** bar"
     expected = "<p>Foo <strong>bold</strong> bar</p>"
-    check_sanitiation(input, expected)
+    check_sanitisation(input, expected)
   end
 
   def test_markdown_code_with_ampersands
@@ -49,7 +49,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     </tbody>
   </table>
 </pre>}
-    check_sanitiation(input, expected)
+    check_sanitisation(input, expected)
   end
 
   def test_markdown_code_with_double_braces
@@ -68,7 +68,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     </tbody>
   </table>
 </pre>}
-    check_sanitiation(input, expected)
+    check_sanitisation(input, expected)
 
   end
 
@@ -103,24 +103,24 @@ end
 </pre>
 <p>Post text</p>}
 
-    check_sanitiation(input, expected)
+    check_sanitisation(input, expected)
   end
 
   def test_stubby_lambda
     input = "->"
     expected = "<p>-&gt;</p>"
-    check_sanitiation(input, expected)
+    check_sanitisation(input, expected)
   end
 
   def test_elixir_operator
     input = "->>"
     expected = "<p>-&gt;&gt;</p>"
-    check_sanitiation(input, expected)
+    check_sanitisation(input, expected)
   end
 
   def test_ascii_hearts
     input = "<3 This is lovely!"
     expected = "<p>&lt;3 This is lovely!</p>"
-    check_sanitiation(input, expected)
+    check_sanitisation(input, expected)
   end
 end
