@@ -5,6 +5,10 @@ class TeamTest < Minitest::Test
     Mongoid.reset
   end
 
+  def test_team_requires_slug
+    refute Team.new.valid?
+  end
+
   def test_team_has_unique_slug
     Team.create(slug: 'purple')
     team = Team.new(slug: 'purple')

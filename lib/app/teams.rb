@@ -1,5 +1,23 @@
 class ExercismApp < Sinatra::Base
 
+  get '/teams/?' do
+    please_login
+
+    erb :"teams/new", locals: {team: Team.new}
+  end
+
+  post '/teams/?' do
+    please_login
+
+    team = Team.by(current_user).defined_with(params[:team])
+    if team.valid?
+      team.save
+      redirect "/teams/#{team.slug}"
+    else
+      erb :"teams/new", locals: {team: team}
+    end
+  end
+
   get '/teams/:slug' do |slug|
     please_login
 
