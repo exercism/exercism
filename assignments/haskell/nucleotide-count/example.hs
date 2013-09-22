@@ -1,5 +1,5 @@
 module DNA (count, nucleotideCounts) where
-import Data.Map (Map, fromListWith)
+import Data.Map.Strict (Map, fromListWith)
 
 count :: Char -> String -> Int
 count needle = length . filter (nucleotide ==) . map verifyNucleotide

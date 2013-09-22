@@ -1,6 +1,6 @@
 module WordCount (wordCount) where
 import Data.Char (toLower, isAlphaNum)
-import Data.Map (Map, fromListWith)
+import Data.Map.Strict (Map, fromListWith)
 import Data.List.Split (wordsBy)
 
 wordCount :: String -> Map String Int
