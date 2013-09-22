@@ -1,12 +1,13 @@
 require 'time'
 require 'faker'
-require 'seed/user_pool'
-require 'seed/pod'
-require 'seed/trail'
-require 'seed/exercise'
-require 'seed/timeline'
+
 require 'seed/attempt'
 require 'seed/comment'
+require 'seed/exercise'
+require 'seed/pod'
+require 'seed/trail'
+require 'seed/timeline'
+require 'seed/user_pool'
 
 module Seed
   def self.reset

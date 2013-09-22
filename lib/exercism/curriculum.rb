@@ -1,11 +1,11 @@
-require 'exercism/curriculum/ruby'
-require 'exercism/curriculum/javascript'
+require 'exercism/curriculum/clojure'
 require 'exercism/curriculum/coffeescript'
 require 'exercism/curriculum/elixir'
-require 'exercism/curriculum/clojure'
 require 'exercism/curriculum/go'
-require 'exercism/curriculum/python'
 require 'exercism/curriculum/haskell'
+require 'exercism/curriculum/javascript'
+require 'exercism/curriculum/python'
+require 'exercism/curriculum/ruby'
 
 class Exercism
   def self.current_curriculum
