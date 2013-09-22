@@ -4,7 +4,7 @@
     <p>GitHub Profile: <%= github_profile_link(user) %></p>
 
     <% if current_user.is?(user.username) %>
-      <% if user.teams.any? %>
+      <% if (user.teams | user.teams_created).any? %>
         <p>You are on the following teams:</p>
         <ul>
           <% user.teams.each do |team| %>
