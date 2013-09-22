@@ -5,26 +5,28 @@ require 'will_paginate/mongoid'
 
 require 'app/presenters/workload'
 
-require 'app/help'
-require 'app/setup'
-require 'app/nitpick'
 require 'app/api'
 require 'app/auth'
 require 'app/client'
 require 'app/curriculum'
+require 'app/help'
+require 'app/nitpick'
+require 'app/setup'
 require 'app/submissions'
-require 'app/exercises'
-require 'app/users'
 require 'app/teams'
-require 'app/not_found' # always include last
+require 'app/users'
 
-require 'app/helpers/submissions_helper'
-require 'app/helpers/site_title_helper'
+# Must be included at this point in order
+require 'app/exercises'
+require 'app/not_found'
+
 require 'app/helpers/fuzzy_time_helper'
-require 'app/helpers/gravatar_helper'
-require 'app/helpers/github_link_helper'
-require 'app/helpers/profile_helper'
 require 'app/helpers/gem_helper'
+require 'app/helpers/github_link_helper'
+require 'app/helpers/gravatar_helper'
+require 'app/helpers/profile_helper'
+require 'app/helpers/site_title_helper'
+require 'app/helpers/submissions_helper'
 
 require 'services'
 
