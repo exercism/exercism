@@ -7,7 +7,7 @@
       <% if (user.teams | user.teams_created).any? %>
         <p>You are on the following teams:</p>
         <ul>
-          <% user.teams.each do |team| %>
+          <% (user.teams | user.teams_created).each do |team| %>
             <li><a href="/teams/<%= team.slug %>"><%= team.slug %></a></li>
           <% end %>
         </ul>
