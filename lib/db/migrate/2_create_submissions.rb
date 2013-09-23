@@ -11,8 +11,8 @@ class CreateSubmissions < ActiveRecord::Migration
       t.datetime :approved_at
       t.datetime :done_at
       t.boolean  :is_liked
-      t.boolean  :wants_opinions
-      t.integer  :nit_count,      null: false, default: 0
+      t.boolean  :wants_opinions, null: false
+      t.integer  :nit_count,      null: false
       t.integer  :version
       t.string   :stash_name
 

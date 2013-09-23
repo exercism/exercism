@@ -6,19 +6,20 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_has_unique_slug
-    Team.create(slug: 'purple')
-    team = Team.new(slug: 'purple')
+    alice = User.create!(username: 'alice')
+    Team.create!(slug: 'purple', creator: alice)
+    team = Team.new(slug: 'purple', creator: alice)
     refute team.valid?
     team.save
     assert_equal 1, Team.count
   end
 
   def test_has_members
-    alice = User.create(username: 'alice')
-    team = Team.create(slug: 'purple', members: [alice])
+    alice = User.create!(username: 'alice')
+    bob = User.create!(username: 'bob')
+    team = Team.create!(slug: 'purple', members: [alice], creator: bob)
 
     assert_equal [alice], team.members
-
     assert alice.teams.include?(team)
   end
 

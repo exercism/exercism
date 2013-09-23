@@ -1,3 +1,4 @@
+require 'active_support' # Must be required before active_record
 require 'active_record'
 require 'faraday'
 
@@ -20,6 +21,7 @@ require 'exercism/null_submission'
 require 'exercism/problem_set'
 require 'exercism/solution'
 require 'exercism/submission'
+require 'exercism/submission_viewer'
 require 'exercism/team'
 require 'exercism/team_membership'
 require 'exercism/trail'

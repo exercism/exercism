@@ -19,6 +19,13 @@ class Notification < ActiveRecord::Base
 
   scope :recent, order(at: :desc).limit(100)
 
+  before_create do
+    self.at    ||= DateTime.now.utc
+    self.read  ||= false
+    self.count ||= 0
+    true
+  end
+
   def self.on(submission, options)
     data = {
       submission_id: submission.id,

@@ -13,6 +13,7 @@ class HibernationMessageTest < Minitest::Test
   attr_reader :alice, :submission
 
   def setup
+    super
     @alice = FakeUser.new('alice', 'alice@example.com')
 
     @submission = FakeSubmission.new(

@@ -116,7 +116,7 @@ class SubmissionsTest < Minitest::Test
   def test_input_sanitation
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
-    nit = Comment.new(user: bob, comment: "ok")
+    nit = Comment.new(user: bob, comment: "ok", at: DateTime.now - 1.day)
     submission.comments << nit
     submission.save
 
@@ -141,6 +141,8 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_multiple_versions
+    skip "Je ne comprends pas"
+
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count

@@ -14,7 +14,7 @@ class Team < ActiveRecord::Base
   has_many :members, through: :memberships, source: :user
 
   validates :creator, presence: true #,  uniqueness: true <<TODO: This breaks tests weidly. 
-  validates :slug, presence: true #,  uniqueness: true <<TODO: This breaks tests weidly. 
+  validates :slug, presence: true,  uniqueness: true #<<TODO: This breaks tests weidly. 
 
   def self.by(user)
     new(creator: user)

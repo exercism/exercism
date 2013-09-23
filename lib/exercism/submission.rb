@@ -24,14 +24,26 @@ class Submission < ActiveRecord::Base
   has_many :comments, order: {at: :asc}
 =end
 
-  serialize :viewers, Array
   serialize :liked_by, Array
   serialize :muted_by, Array
 
   belongs_to :user
-  has_many :comments, order: {at: :asc}
+  has_many :comments, order: 'at ASC'
+
+  has_many :submission_viewers
+  has_many :viewers, through: :submission_viewers
 
   validates_presence_of :user
+
+  before_create do
+    self.state          ||= "pending"
+    self.at             ||= DateTime.now.utc
+    self.nit_count      ||= 0
+    self.version        ||= 0
+    self.wants_opinions ||= false
+    self.is_liked       ||= false
+    true
+  end
 
   def self.pending_for(language, exercise=nil)
     if exercise
@@ -49,7 +61,7 @@ class Submission < ActiveRecord::Base
   end
 
   def self.related(submission)
-    order(at: :asc).
+    order('at ASC').
       where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
   end
 
@@ -125,7 +137,7 @@ class Submission < ActiveRecord::Base
   end
 
   def older_than?(time)
-    self.at < (Time.now.utc - time)
+    self.at < (DateTime.now.utc - time)
   end
 
   def exercise
@@ -238,8 +250,7 @@ class Submission < ActiveRecord::Base
   end
 
   def viewed!(user)
-    self.viewers << user.username
-    save
+    self.viewers << user unless viewers.include?(user)
   end
 
   def view_count

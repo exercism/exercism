@@ -15,8 +15,14 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :submission
 
-  before_save do |comment|
-    self.html_comment = ConvertsMarkdownToHTML.convert(comment.comment)
+  before_create do
+    self.at ||= DateTime.now.utc
+    true
+  end
+
+  before_save do
+    self.html_comment = ConvertsMarkdownToHTML.convert(self.comment)
+    true
   end
 
   # Experiment: Implement manual counter-cache

@@ -37,6 +37,12 @@ class User < ActiveRecord::Base
   has_many :teams_created, class_name: "Team", foreign_key: :creator_id
   has_many :team_memberships, class_name: "TeamMembership"
   has_many :teams, through: :team_memberships
+  
+  before_create do
+    self.key = create_key
+    self.j_at ||= DateTime.now.utc
+    true
+  end
 
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first ||
@@ -49,17 +55,19 @@ class User < ActiveRecord::Base
   end
 
   def self.find_in_usernames(usernames)
-    User.where(username: usernames.map {|u| /\A#{u}\z/i})
+    raise "Rewrite this to use postgres Regexp"
+    where(username: usernames.map {|u| /\A#{u}\z/i})
   end
 
   def self.find_by_username(username)
-    where(username: /\A#{username}\z/i).first
+    raise "Rewrite this to use postgres Regexp"
+    where('username RLIKE ?', /\A#{username}\z/i).first  
   end
 
   def random_work
     completed.keys.shuffle.each do |language|
       completed[language].reverse.each do |slug|
-        work = Submission.pending_for(language, slug).unmuted_for(username).asc(:nc)
+        work = Submission.pending_for(language, slug).unmuted_for(username).order("nit_count ASC")
         if work.count > 0
           return work.limit(10).to_a.sample
         end
@@ -69,7 +77,7 @@ class User < ActiveRecord::Base
   end
 
   def ongoing
-    @ongoing ||= Submission.pending.where(user_id: id)
+    @ongoing ||= submissions.pending
   end
 
   def done
@@ -85,7 +93,7 @@ class User < ActiveRecord::Base
   end
 
   def most_recent_submission
-    submissions.order(at: :asc).last
+    submissions.order("at ASC").last
   end
 
   def guest?

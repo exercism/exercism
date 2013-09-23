@@ -12,6 +12,7 @@ class BreakdownTest < Minitest::Test
   end
 
   def test_simple_breakdown
+    skip "Reimplement the code behind this"
     Submission.create(user: alice, language: 'ruby', slug: 'bob')
     Submission.create(user: alice, language: 'ruby', slug: 'bob')
     Submission.create(user: alice, language: 'ruby', slug: 'word-count')

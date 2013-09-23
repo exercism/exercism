@@ -15,7 +15,7 @@ class ExtractsMentionsFromMarkdown
   def extract
     @mentions = []
     candidates.each do |username|
-      @mentions << User.find_by(u: username.sub(/\@/, '')) rescue nil
+      @mentions << User.where(username: username.sub(/\@/, '')).first rescue nil
     end
   end
 

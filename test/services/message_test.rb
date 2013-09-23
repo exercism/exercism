@@ -20,6 +20,7 @@ end
 class MessageTest < Minitest::Test
   attr_reader :submission, :locksmith
   def setup
+    super
     exercise = Exercise.new('fake', 'one')
     @submission = Submission.on(exercise)
     @submission.user = User.create(

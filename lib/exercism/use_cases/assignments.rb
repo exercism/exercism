@@ -7,7 +7,7 @@ class Assignments
   end
 
   def user
-    @user ||= User.find_by(key: key)
+    @user ||= User.where(key: key).first
   end
 
   def current

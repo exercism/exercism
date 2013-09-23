@@ -45,7 +45,7 @@ module Sinatra
         <form accept-charset="UTF-8" action="/submissions/#{submission.id}/#{action}" method="POST" class="pull-left" style="display: inline;">
           <button type="submit" name="#{action}" class="btn">#{text}</button>
         </form>
-      }.html_safe
+      }
     end
   end
 end
