@@ -10,6 +10,7 @@ require 'seed/timeline'
 require 'seed/user_pool'
 
 module Seed
+=begin
   def self.reset
     Mongoid.default_session.collections.each do |coll|
       unless coll.name == 'system.indexes'
@@ -18,6 +19,7 @@ module Seed
       end
     end
   end
+=end
 
   def self.generate_default_users
     [admin, daemon].each do |attributes|

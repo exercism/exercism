@@ -186,7 +186,7 @@ class UserTest < Minitest::Test
   def test_find_a_bunch_of_users_by_case_insensitive_username
     User.create username: 'alice'
     User.create username: 'bob'
-    usernames = User.find_in_usernames(['ALICE', 'BOB']).map(&:username).sort
+    usernames = User.where(username: ['ALICE', 'BOB']).map(&:username).sort
     assert_equal ['alice', 'bob'], usernames
   end
 

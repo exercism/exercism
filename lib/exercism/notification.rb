@@ -1,4 +1,6 @@
-class Notification
+class Notification < ActiveRecord::Base
+
+=begin
   include Mongoid::Document
 
   field :re, as: :regarding, type: String
@@ -9,13 +11,18 @@ class Notification
 
   belongs_to :user, index: true
   belongs_to :submission
+=end
 
-  scope :recent, desc(:at).limit(100)
+
+  belongs_to :user
+  belongs_to :submission
+
+  scope :recent, order(at: :desc).limit(100)
 
   def self.on(submission, options)
     data = {
-      submission: submission,
-      user: options.fetch(:to),
+      submission_id: submission.id,
+      user_id: options.fetch(:to).id,
       regarding: options[:regarding]
     }
     notification = where(data.merge(read: false)).first || new(data)

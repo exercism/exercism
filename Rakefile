@@ -10,5 +10,15 @@ Rake::TestTask.new do |t|
   t.pattern = "test/**/*_test.rb"
 end
 
-task default: :test
+namespace :db do
+  desc "migrate your database"
+  task :migrate do
+    require 'bundler'
+    Bundler.require
+    require_relative 'lib/exercism/manages_database'
+    ManagesDatabase.establish_connection
+    ActiveRecord::Migrator.migrate('lib/db/migrate')
+  end
+end
 
+task default: :test

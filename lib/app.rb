@@ -2,7 +2,7 @@ require 'airbrake'
 require 'exercism'
 require 'sinatra/petroglyph'
 require 'will_paginate'
-require 'will_paginate/mongoid'
+require 'will_paginate/active_record'
 
 require 'app/presenters/workload'
 

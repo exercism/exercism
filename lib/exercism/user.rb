@@ -1,25 +1,42 @@
 require 'digest/sha1'
 
-class User
-  include Mongoid::Document
+class User < ActiveRecord::Base
+
   include Locksmith
   include ProblemSet
+
+=begin
+  include Mongoid::Document
 
   field :u, as: :username, type: String
   field :email, type: String
   field :img, as: :avatar_url, type: String
-  field :cur, as: :current, type: Hash, default: {}
-  field :comp, as: :completed, type: Hash, default: {}
   field :g_id, as: :github_id, type: Integer
   field :key, type: String, default: ->{ create_key }
   field :j_at, type: Time, default: ->{ Time.now.utc }
+
   field :ms, as: :mastery, type: Array, default: []
+  field :cur, as: :current, type: Hash, default: {}
+  field :comp, as: :completed, type: Hash, default: {}
 
   has_many :submissions
   has_many :notifications
   has_many :comments
   has_and_belongs_to_many :teams, inverse_of: :member
   has_many :teams_created, class_name: "Team", inverse_of: :creator
+=end
+
+  serialize :mastery, Array
+  serialize :current, Hash
+  serialize :completed, Hash
+
+  has_many :submissions
+  has_many :notifications
+  has_many :comments
+
+  has_many :teams_created, class_name: "Team", foreign_key: :creator_id
+  has_many :team_memberships, class_name: "TeamMembership"
+  has_many :teams, through: :team_memberships
 
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first ||
@@ -32,7 +49,7 @@ class User
   end
 
   def self.find_in_usernames(usernames)
-    User.in(username: usernames.map {|u| /\A#{u}\z/i})
+    User.where(username: usernames.map {|u| /\A#{u}\z/i})
   end
 
   def self.find_by_username(username)
@@ -52,7 +69,7 @@ class User
   end
 
   def ongoing
-    @ongoing ||= Submission.pending.where(user: self)
+    @ongoing ||= Submission.pending.where(user_id: id)
   end
 
   def done
@@ -64,11 +81,11 @@ class User
   end
 
   def submissions_on(exercise)
-    submissions.order_by(at: :desc).where(language: exercise.language, slug: exercise.slug)
+    submissions.order(at: :desc).where(language: exercise.language, slug: exercise.slug)
   end
 
   def most_recent_submission
-    submissions.order_by(at: :asc).last
+    submissions.order(at: :asc).last
   end
 
   def guest?
@@ -138,7 +155,7 @@ class User
   end
 
   def latest_submission
-    @latest_submission ||= submissions.pending.order_by(at: :desc).first
+    @latest_submission ||= submissions.pending.order(at: :desc).first
   end
 
   private

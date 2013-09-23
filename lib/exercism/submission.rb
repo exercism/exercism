@@ -1,4 +1,6 @@
-class Submission
+class Submission < ActiveRecord::Base
+
+=begin
   include Mongoid::Document
 
   field :state, type: String, default: 'pending'
@@ -9,13 +11,22 @@ class Submission
   field :a_at, as: :approved_at, type: Time
   field :d_at, as: :done_at, type: Time
   field :lk, as: :is_liked, type: Boolean, default: false
-  field :lk_by, as: :liked_by, type: Array, default: []
   field :op, as: :wants_opinions, type: Boolean, default: false
-  field :mt_by, as: :muted_by, type: Array, default: []
   field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
   field :v, as: :version, type: Integer, default: 0
   field :st_n, as: :stash_name, type: String
+
   field :vs, as: :viewers, type: Array, default: []
+  field :lk_by, as: :liked_by, type: Array, default: []
+  field :mt_by, as: :muted_by, type: Array, default: []
+
+  belongs_to :user
+  has_many :comments, order: {at: :asc}
+=end
+
+  serialize :viewers, Array
+  serialize :liked_by, Array
+  serialize :muted_by, Array
 
   belongs_to :user
   has_many :comments, order: {at: :asc}
@@ -38,7 +49,7 @@ class Submission
   end
 
   def self.related(submission)
-    order_by(at: :asc).
+    order(at: :asc).
       where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
   end
 
@@ -47,11 +58,11 @@ class Submission
   end
 
   def self.pending
-    where(state: 'pending').desc(:at)
+    where(state: 'pending').order(at: :desc)
   end
 
   def self.done
-    where(state: 'done').desc(:at)
+    where(state: 'done').order(at: :desc)
   end
 
   def self.on(exercise)
@@ -74,7 +85,7 @@ class Submission
   end
 
   def nits_by_others_count
-    nc
+    nit_count
   end
 
   def nits_by_others
@@ -227,7 +238,8 @@ class Submission
   end
 
   def viewed!(user)
-    add_to_set(:viewers, user.username)
+    self.viewers << user.username
+    save
   end
 
   def view_count
@@ -241,7 +253,7 @@ class Submission
   # of the submission.
   # Preliminary testing in development suggests an 80% improvement.
   before_create do |document|
-    document.v = Submission.related(self).count + 1
+    self.version = Submission.related(self).count + 1
   end
 
   def trail

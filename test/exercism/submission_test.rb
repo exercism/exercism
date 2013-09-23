@@ -229,13 +229,13 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_comments_are_sorted
-    submission.comments << Comment.new(body: 'second', at: Time.now, user: submission.user)
-    submission.comments << Comment.new(body: 'first', at: Time.now - 1000, user: submission.user)
+    submission.comments << Comment.new(comment: 'second', at: Time.now, user: submission.user)
+    submission.comments << Comment.new(comment: 'first', at: Time.now - 1000, user: submission.user)
     submission.save
 
     one, two = submission.comments
-    assert_equal 'first', one.body
-    assert_equal 'second', two.body
+    assert_equal 'first', one.comment
+    assert_equal 'second', two.comment
   end
 end
 

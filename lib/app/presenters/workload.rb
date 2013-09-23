@@ -69,7 +69,7 @@ class Workload
   private
 
   def pending
-    @pending ||= Submission.pending.asc(:at).where(language: language)
+    @pending ||= Submission.pending.order(at: :asc).where(language: language)
   end
 
   def show_submission?(user, submission)

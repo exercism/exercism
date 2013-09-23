@@ -5,6 +5,7 @@ class Breakdown
   end
 
   def self.compute(language)
+    raise "Reimplement This"
     match = {"$match" => {"state" => "pending", "l" => language}}
     group = {"$group" => {"_id" => "$s", count: {"$sum" => 1}}}
     Submission.collection.aggregate([match, group])

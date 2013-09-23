@@ -18,6 +18,11 @@ GEM
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
+    activerecord (3.2.13)
+      activemodel (= 3.2.13)
+      activesupport (= 3.2.13)
+      arel (~> 3.0.2)
+      tzinfo (~> 0.3.29)
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
@@ -27,6 +32,7 @@ GEM
     approvals (0.0.9)
       nokogiri
       thor
+    arel (3.0.2)
     builder (3.0.4)
     coderay (1.0.9)
     daemons (1.1.9)
@@ -61,18 +67,11 @@ GEM
     minitest (5.0.5)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
-    mongoid (3.1.4)
-      activemodel (~> 3.2)
-      moped (~> 1.4)
-      origin (~> 1.0)
-      tzinfo (~> 0.3.22)
-    moped (1.5.0)
     multi_json (1.7.5)
     multipart-post (1.2.0)
     newrelic_rpm (3.5.8.72)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
-    origin (1.1.0)
     petroglyph (0.0.7)
       tilt
     polyglot (0.3.3)
@@ -125,6 +124,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activerecord (~> 3.2.0)
   airbrake
   approvals
   diffy
@@ -134,7 +134,6 @@ DEPENDENCIES
   mailcatcher
   minitest (~> 5.0)
   mocha
-  mongoid
   newrelic_rpm (= 3.5.8.72)
   petroglyph
   pony

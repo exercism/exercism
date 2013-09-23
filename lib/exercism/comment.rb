@@ -1,11 +1,16 @@
 require 'exercism/markdown'
 
-class Comment
+class Comment < ActiveRecord::Base
+=begin
   include Mongoid::Document
 
   field :at, type: Time, default: ->{ Time.now.utc }
   field :c, as: :comment, type: String
   field :hc, as: :html_comment, type: String
+
+  belongs_to :user
+  belongs_to :submission
+=end
 
   belongs_to :user
   belongs_to :submission
@@ -20,7 +25,7 @@ class Comment
   # in load time
   after_create do |comment|
     unless comment.user.owns?(comment.submission)
-      comment.submission.nc += 1
+      comment.submission.nit_count += 1
       comment.submission.save
     end
   end

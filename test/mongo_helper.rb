@@ -1,5 +1,11 @@
 require './test/test_helper'
 
+module Mongoid
+  def self.reset
+  end
+end
+
+=begin
 require 'mongoid'
 
 Mongoid.load!("./config/mongoid.yml")
@@ -11,3 +17,4 @@ module Mongoid
     end
   end
 end
+=end
