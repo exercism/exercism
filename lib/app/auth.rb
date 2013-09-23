@@ -18,6 +18,7 @@ class ExercismApp < Sinatra::Base
     def login(user)
       data = {
         value: user.github_id,
+        path: '/',
         expires: Time.now + (60 * 60 * 24 * 30) # 1 month
       }
       response.set_cookie('_exercism_login', data)
