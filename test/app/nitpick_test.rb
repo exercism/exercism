@@ -13,6 +13,7 @@ class NitpickAppTest < Minitest::Test
 
   attr_reader :master
   def setup
+    super
     @master = User.create({
       username: 'the_master',
       github_id: 0,
@@ -22,7 +23,6 @@ class NitpickAppTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
     clear_cookies
   end
 

@@ -1,4 +1,4 @@
-require './test/mongo_helper'
+require './test/test_helper'
 require 'exercism/problem_set'
 require 'exercism/locksmith'
 require 'exercism/user'
@@ -10,7 +10,7 @@ require 'exercism/notification'
 class NotificationTest < Minitest::Test
 
   def teardown
-    Mongoid.reset
+    super
     @alice = nil
     @bob = nil
     @submission = nil

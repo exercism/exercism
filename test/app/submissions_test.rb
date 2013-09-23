@@ -36,6 +36,7 @@ class SubmissionsTest < Minitest::Test
 
   attr_reader :alice, :bob
   def setup
+    super
     @alice = User.create(alice_attributes)
     @bob = User.create(bob_attributes)
   end
@@ -45,8 +46,20 @@ class SubmissionsTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
     clear_cookies
+  end
+
+  def logged_in_with_alice
+    { github_id: alice.github_id }
+  end
+  alias_method :logged_in, :logged_in_with_alice
+
+  def logged_in_with_bob
+    { github_id: bob.github_id }
+  end
+
+  def not_logged_in
+    { github_id: nil }
   end
 
   def test_submission_view_count

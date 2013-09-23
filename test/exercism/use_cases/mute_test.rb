@@ -5,7 +5,7 @@ require 'services/hibernation_message'
 class MuteTest < Minitest::Test
 
   def teardown
-    Mongoid.reset
+    super
     @alice = nil
     @bob = nil
     @submission = nil

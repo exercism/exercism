@@ -24,6 +24,7 @@ class AttemptTest < Minitest::Test
 
   attr_reader :user, :curriculum
   def setup
+    super
     data = {
       completed: {'nong' => ['one'], 'femp' => ['one']}
     }
@@ -34,7 +35,7 @@ class AttemptTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
+    super
     @user = nil
   end
 

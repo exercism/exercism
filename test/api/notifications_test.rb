@@ -20,7 +20,7 @@ class NotificationsApiTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
+    super
     @alice = nil
     @submission = nil
   end

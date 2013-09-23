@@ -11,6 +11,7 @@ class AssignmentsApiTest < Minitest::Test
 
   attr_reader :alice, :curriculum
   def setup
+    super
     @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'one', 'go' => 'two'}, completed: {'go' => ['one']})
     @curriculum = Curriculum.new('./test/fixtures')
     @curriculum.add FakeCurriculum.new
@@ -21,7 +22,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
+    super
     Exercism.instance_variable_set(:@trails, nil)
     Exercism.instance_variable_set(:@languages, nil)
   end

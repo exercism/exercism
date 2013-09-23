@@ -1,10 +1,6 @@
 require './test/integration_helper'
 
 class TeamTest < Minitest::Test
-  def teardown
-    Mongoid.reset
-  end
-
   def test_team_requires_slug
     refute Team.new.valid?
   end

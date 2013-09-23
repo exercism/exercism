@@ -3,7 +3,7 @@ require './test/integration_helper'
 class BreakdownTest < Minitest::Test
 
   def teardown
-    Mongoid.reset
+    super
     @alice = nil
   end
 

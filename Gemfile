@@ -4,7 +4,8 @@ ruby "1.9.3"
 
 gem 'rake'
 gem 'faraday'
-gem 'activerecord', '~> 3.2.0'
+gem 'activerecord', '~>3.2.0'
+gem 'database_cleaner'
 gem 'newrelic_rpm', "3.5.8.72" # used both in production and development
 gem 'petroglyph'
 gem 'puma'
@@ -22,7 +23,7 @@ gem 'diffy'
 
 group :test, :development do
   gem 'ruby-prof'
-  gem 'minitest', '~> 5.0', require: false
+  gem 'minitest', require: false
   gem 'approvals', require: false
   gem 'rack-test', require: false
   gem 'mocha', require: false

@@ -35,7 +35,7 @@ class SubmissionTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
+    super
     @submission = nil
   end
 

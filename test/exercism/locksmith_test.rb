@@ -16,6 +16,7 @@ end
 class MasterLocksmithTest < Minitest::Test
   attr_reader :master
   def setup
+    super
     @master = Smith.new
     @master.mastery << 'ruby'
   end

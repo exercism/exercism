@@ -9,6 +9,7 @@ class AssignmentTest < Minitest::Test
 
   attr_reader :assignment, :fake
   def setup
+    super
     @fake = Locale.new('fake', 'ext', 'test')
     @assignment = Assignment.new(fake, 'one', './test/fixtures')
   end

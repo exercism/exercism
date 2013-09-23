@@ -36,10 +36,6 @@ class MessageTest < Minitest::Test
     )
   end
 
-  def teardown
-    Mongoid.reset
-  end
-
   def test_send_nitpick_email
     dispatch = FakeMessage.new(
       instigator: locksmith,

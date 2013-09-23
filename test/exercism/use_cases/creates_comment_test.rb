@@ -16,7 +16,7 @@ class CreatesCommentTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
+    super
     @bob = nil
     @submission = nil
   end

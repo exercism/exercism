@@ -12,6 +12,7 @@ class CurriculumTest < Minitest::Test
 
   attr_reader :curriculum
   def setup
+    super
     @curriculum = Curriculum.new('./test/fixtures')
     curriculum.add FakeRubyCurriculum.new
   end

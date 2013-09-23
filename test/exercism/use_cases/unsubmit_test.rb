@@ -2,10 +2,6 @@ require './test/integration_helper'
 
 class UnsubmitTest < Minitest::Test
 
-  def teardown
-    Mongoid.reset
-  end
-
   def test_success
     bob = User.create(username: 'bob')
     bob.submissions.create(:user => bob)

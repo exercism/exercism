@@ -1,4 +1,4 @@
-require './test/mongo_helper'
+require './test/test_helper'
 require 'app/helpers/submissions_helper'
 require 'exercism/locksmith'
 require 'exercism/problem_set'
@@ -15,6 +15,7 @@ class SubmissionsHelperTest < Minitest::Test
   end
 
   def setup
+    super
     @alice      = User.new(username: 'alice', email: 'alice@example.com')
     @fred       = User.new(username: 'fred', email: 'fred@example.com')
     @submission = Submission.new(user: @alice)

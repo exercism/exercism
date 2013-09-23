@@ -1,5 +1,4 @@
-require './test/mongo_helper'
-
+require './test/test_helper'
 require 'exercism/locksmith'
 require 'exercism/problem_set'
 require 'exercism/team'
@@ -13,10 +12,6 @@ require 'exercism/submission'
 require 'exercism/notification'
 
 class UserTest < Minitest::Test
-
-  def teardown
-    Mongoid.reset
-  end
 
   def test_identical_users_are_identical
     attributes = {

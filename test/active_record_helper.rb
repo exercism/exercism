@@ -1,13 +1,18 @@
-require './test/test_helper'
 require 'active_record'
+require 'database_cleaner'
+require 'minitest/unit'
+require_relative '../lib/exercism/manages_database'
 
 ManagesDatabase.establish_connection
 
-module WithRollback
-  def temporarily(&block)
-    ActiveRecord::Base.connection.transaction do
-      block.call
-      raise ActiveRecord::Rollback
-    end
+DatabaseCleaner.strategy = :transaction
+
+
+class Minitest::Test
+  def setup
+    DatabaseCleaner.start
+  end
+  def teardown
+    DatabaseCleaner.clean
   end
 end

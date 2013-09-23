@@ -9,11 +9,17 @@ class StashesApiTest < Minitest::Test
 
   attr_reader :alice
   def setup
-    @alice = User.create(current: {'ruby' => 'word-count'})
+    super
+    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'word-count', 'javascript' => 'anagram'})
   end
 
-  def teardown
-    Mongoid.reset
+  def test_api_accepts_stash_submission_and_returns_stash_file
+    post '/user/assignments/stash', {key: alice.key, code: 'THE CODE', filename: 'code.rb'}.to_json
+    assert_equal 201, last_response.status
+
+    get '/user/assignments/stash', {key: alice.key, filename: 'code.rb'}
+    assert_equal 200, last_response.status
+    assert_equal({"code" => 'THE CODE', "filename" => "code.rb"}, JSON::parse(last_response.body))
   end
 
   def test_only_user_may_see_their_own_list_of_stashed_files

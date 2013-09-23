@@ -9,8 +9,16 @@ class ExercisesTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
     clear_cookies
+  end
+
+  def setup
+    super
+    @alice = User.create(username: 'alice', github_id: 1, email: 'alice@example.com')
+  end
+
+  def logged_in
+    { github_id: @alice.github_id }
   end
 
   def test_exercise_gallery
