@@ -16,11 +16,15 @@ class ExercismApp < Sinatra::Base
     end
 
     def login(user)
-      session[:github_id] = user.github_id
+      data = {
+        value: user.github_id,
+        expires: Time.now + (60 * 60 * 24 * 30) # 1 month
+      }
+      response.set_cookie('_exercism_login', data)
     end
 
     def logout
-      session[:github_id] = nil
+      response.delete_cookie('_exercism_login')
       @current_user = nil
     end
   end
@@ -37,7 +41,7 @@ class ExercismApp < Sinatra::Base
         redirect '/'
       end
 
-      session[:github_id] = params[:id]
+      login(User.find_by(github_id: params[:id]))
       redirect "/"
     end
   end

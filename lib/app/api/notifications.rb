@@ -10,7 +10,7 @@ class ExercismApp < Sinatra::Base
       @recipient ||= begin
         if params[:key]
           User.find_by(key: params[:key])
-        elsif session[:github_id]
+        elsif request.cookies['_exercism_login']
           current_user
         end
       end

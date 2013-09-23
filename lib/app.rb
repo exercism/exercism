@@ -61,8 +61,8 @@ class ExercismApp < Sinatra::Base
 
     def current_user
       @current_user ||= begin
-        if session[:github_id]
-          User.find_by(github_id: session[:github_id])
+        if request.cookies['_exercism_login']
+          User.find_by(github_id: request.cookies['_exercism_login'])
         else
           Guest.new
         end

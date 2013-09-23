@@ -8,6 +8,10 @@ class TeamsTest < Minitest::Test
     ExercismApp
   end
 
+  def login(user)
+    set_cookie("_exercism_login=#{user.github_id}")
+  end
+
   def alice_attributes
     {
         username: 'alice',
@@ -46,23 +50,16 @@ class TeamsTest < Minitest::Test
     assert_equal expected_status, last_response.status
   end
 
-  def logged_in_with_alice
-    { github_id: alice.github_id }
-  end
-  alias_method :logged_in, :logged_in_with_alice
-
-  def not_logged_in
-    { github_id: nil }
-  end
-
   def teardown
     Mongoid.reset
+    clear_cookies
   end
 
   def test_team_creation_with_no_members
     assert_equal 0, alice.teams_created.size
 
-    post '/teams', {team: {slug: 'no_members', usernames: ""}}, {'rack.session' => logged_in}
+    login(alice)
+    post '/teams', {team: {slug: 'no_members', usernames: ""}}
 
     team = Team.first
 
@@ -71,13 +68,15 @@ class TeamsTest < Minitest::Test
   end
 
   def test_team_creation_with_no_slug
-    post '/teams', {team: {usernames: bob.username}}, {'rack.session' => logged_in}
+    login(alice)
+    post '/teams', {team: {usernames: bob.username}}
 
     assert_equal 0, alice.teams_created.size
   end
 
   def test_team_creation_with_multiple_members
-    post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{john.username}"}}, {'rack.session' => logged_in}
+    login(alice)
+    post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{john.username}"}}
 
     team = Team.first
 
@@ -96,7 +95,8 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{john.username}"})
     team.save
 
-    get "/teams/#{team.slug}", {}, {'rack.session' => {github_id: bob.github_id}}
+    login(bob)
+    get "/teams/#{team.slug}", {}
 
     assert_response_status(200)
   end
@@ -105,7 +105,8 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username}"})
     team.save
 
-    get "/teams/#{team.slug}", {}, {'rack.session' => {github_id: john.github_id}}
+    login(john)
+    get "/teams/#{team.slug}", {}
 
     assert_response_status(302)
   end

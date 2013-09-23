@@ -7,6 +7,10 @@ class NitpickAppTest < Minitest::Test
     ExercismApp
   end
 
+  def login(user)
+    set_cookie("_exercism_login=#{user.github_id}")
+  end
+
   attr_reader :master
   def setup
     @master = User.create({
@@ -19,6 +23,7 @@ class NitpickAppTest < Minitest::Test
 
   def teardown
     Mongoid.reset
+    clear_cookies
   end
 
   def generate_submission(language, exe)
@@ -35,13 +40,10 @@ class NitpickAppTest < Minitest::Test
     CreatesComment.new(attempt.submission.id, master, "It is missing `hey`.").create
   end
 
-  def logged_in
-    { github_id: master.github_id }
-  end
-
   def test_language_when_and_nitted_submission_present
     generate_nitpick(generate_submission("clojure", "clj"))
-    get '/nitpick/clojure/no-nits', {}, 'rack.session' => logged_in
+    login(master)
+    get '/nitpick/clojure/no-nits'
     assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200
@@ -49,7 +51,8 @@ class NitpickAppTest < Minitest::Test
 
   def test_language_when_and_submission_present
     generate_submission("clojure", "clj")
-    get '/nitpick/clojure/no-nits', {}, 'rack.session' => logged_in
+    login(master)
+    get '/nitpick/clojure/no-nits'
     assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200
@@ -57,7 +60,8 @@ class NitpickAppTest < Minitest::Test
 
   def test_language_when_and_nitted_submission_present
     generate_nitpick(generate_submission("clojure", "clj"))
-    get '/nitpick/clojure/no-nits', {}, 'rack.session' => logged_in
+    login(master)
+    get '/nitpick/clojure/no-nits'
     assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200
