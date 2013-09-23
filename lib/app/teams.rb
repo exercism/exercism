@@ -9,11 +9,6 @@ class ExercismApp < Sinatra::Base
   post '/teams/?' do
     please_login
 
-    unless team.includes?(current_user)
-      flash[:error] = "You may only view team pages for teams that you are on."
-      redirect "/"
-    end
-
     team = Team.by(current_user).defined_with(params[:team])
     if team.valid?
       team.save
@@ -27,7 +22,14 @@ class ExercismApp < Sinatra::Base
     please_login
 
     team = Team.where(slug: slug).first
+
     if team
+
+      unless team.includes?(current_user)
+        flash[:error] = "You may only view team pages for teams that you are on."
+        redirect "/"
+      end
+
       erb :"teams/show", locals: {team: team, members: team.members.sort_by {|m| m.username.downcase}}
     else
       flash[:error] = "We don't know anything about team '#{slug}'"
