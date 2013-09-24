@@ -3,6 +3,7 @@ class ExtractsMentionsFromMarkdown
   attr_reader :mentions
 
   def self.extract(content)
+    return [] if content.empty?
     extracter = new(content)
     extracter.extract
     extracter.mentions

@@ -19,4 +19,8 @@ class ExtractsMentionsFromMarkdownTest < Minitest::Test
     content = "```\n@#{user.username}\n```"
     assert_equal [], ExtractsMentionsFromMarkdown.extract(content)
   end
+
+  def test_there_are_no_mentions_in_empty_comments
+    assert_equal [], ExtractsMentionsFromMarkdown.extract("")
+  end
 end
