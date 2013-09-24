@@ -297,7 +297,7 @@ class SubmissionsTest < Minitest::Test
     comment = Comment.create(user: bob, submission: submission, comment: "```ruby\n\t{a: 'a'}\n```")
 
     login(bob)
-    post "/submissions/#{submission.id}/nits/#{comment.id}/edit", {comment: "OK"}
+    post "/submissions/#{submission.id}/nits/#{comment.id}", {comment: "OK"}
 
     assert_equal "OK", comment.reload.comment
   end
