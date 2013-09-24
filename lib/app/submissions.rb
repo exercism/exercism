@@ -147,6 +147,18 @@ class ExercismApp < Sinatra::Base
     redirect "/submissions/#{id}"
   end
 
+  delete '/submissions/:id/nits/:nit_id' do |id, nit_id|
+    nit = Submission.find(id).comments.where(id: nit_id).first
+    unless current_user == nit.nitpicker
+      flash[:notice] = "Only the author may delete the text."
+      redirect '/'
+    end
+
+    nit.delete
+    redirect "/submissions/#{id}"
+  end
+
+
   get '/submissions/:language/:assignment' do |language, assignment|
     please_login
 
