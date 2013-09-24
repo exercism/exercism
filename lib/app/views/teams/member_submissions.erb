@@ -7,10 +7,15 @@
     <ul>
       <% submissions.each do |submission| %>
         <li>
-          <a href="/submissions/<%= submission.id %>">
-            <%= submission.exercise.name %>
-            (<%= submission.language.capitalize %>)
-          </a>
+          <% if current_user.working_on?(submission.exercise) || current_user.nitpicker_on?(submission.exercise) %>
+            <a href="/submissions/<%= submission.id %>">
+              <%= submission.exercise.name %>
+              (<%= submission.language.capitalize %>)
+            </a>
+        <% else %>
+          <%= submission.exercise.name %>
+          (<%= submission.language.capitalize %>)
+        <% end %>
         </li>
       <% end %>
     </ul>
