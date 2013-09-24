@@ -116,7 +116,7 @@ class SubmissionsTest < Minitest::Test
   def test_input_sanitation
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
-    nit = Comment.new(user: bob, comment: "ok", at: DateTime.now - 1.day)
+    nit = Comment.new(user: bob, body: "ok", at: DateTime.now - 1.day)
     submission.comments << nit
     submission.save
 
@@ -128,7 +128,7 @@ class SubmissionsTest < Minitest::Test
 
     nit = submission.reload.comments.last
     expected = "<p>&lt;script type=\"text/javascript\"&gt;bad();&lt;/script&gt;good</p>"
-    assert_equal expected, nit.html_comment.strip
+    assert_equal expected, nit.html_body.strip
   end
 
   def test_guest_nitpicks
@@ -293,11 +293,11 @@ class SubmissionsTest < Minitest::Test
 
   def test_edit_comment
     submission = generate_attempt.submission
-    comment = Comment.create(user: bob, submission: submission, comment: "```ruby\n\t{a: 'a'}\n```")
+    comment = Comment.create(user: bob, submission: submission, body: "```ruby\n\t{a: 'a'}\n```")
 
     post "/submissions/#{submission.id}/nits/#{comment.id}", {comment: "OK"}, login(bob)
 
-    assert_equal "OK", comment.reload.comment
+    assert_equal "OK", comment.reload.body
   end
 
   def test_delete_comment

@@ -111,11 +111,11 @@ class SubmissionTest < Minitest::Test
     charlie = User.create(username: 'charlie')
 
     s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
-    s1.comments << Comment.new(user: bob, comment: 'nice')
+    s1.comments << Comment.new(user: bob, body: 'nice')
     s1.save
 
     s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
-    s2.comments << Comment.new(user: charlie, comment: 'pretty good')
+    s2.comments << Comment.new(user: charlie, body: 'pretty good')
     s2.save
 
     assert_equal %w(alice bob charlie), s2.participants.map(&:username).sort
@@ -128,11 +128,11 @@ class SubmissionTest < Minitest::Test
     mention_user = User.create(username: 'mention_user')
 
     s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
-    s1.comments << Comment.new(user: alice, comment: 'What about @bob?')
+    s1.comments << Comment.new(user: alice, body: 'What about @bob?')
     s1.save
 
     s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
-    s2.comments << Comment.new(user: charlie, comment: '@mention_user should have bleh')
+    s2.comments << Comment.new(user: charlie, body: '@mention_user should have bleh')
     s2.save
 
     # NOTE: mention_user doesn't enter until s2, but it's related to s1.
@@ -230,13 +230,13 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_comments_are_sorted
-    submission.comments << Comment.new(comment: 'second', at: Time.now, user: submission.user)
-    submission.comments << Comment.new(comment: 'first', at: Time.now - 1000, user: submission.user)
+    submission.comments << Comment.new(body: 'second', at: Time.now, user: submission.user)
+    submission.comments << Comment.new(body: 'first', at: Time.now - 1000, user: submission.user)
     submission.save
 
     one, two = submission.comments
-    assert_equal 'first', one.comment
-    assert_equal 'second', two.comment
+    assert_equal 'first', one.body
+    assert_equal 'second', two.body
   end
 end
 

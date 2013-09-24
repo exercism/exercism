@@ -21,7 +21,7 @@ class Comment < ActiveRecord::Base
   end
 
   before_save do
-    self.html_comment = ConvertsMarkdownToHTML.convert(self.comment)
+    self.html_body = ConvertsMarkdownToHTML.convert(body)
     true
   end
 
@@ -29,10 +29,10 @@ class Comment < ActiveRecord::Base
   # to see if this affects load time of dashboard pages.
   # preliminary testing in development suggests a 40% decrease
   # in load time
-  after_create do |comment|
-    unless comment.user.owns?(comment.submission)
-      comment.submission.nit_count += 1
-      comment.submission.save
+  after_create do
+    unless user.owns?(submission)
+      submission.nit_count += 1
+      submission.save
     end
   end
 
@@ -41,6 +41,6 @@ class Comment < ActiveRecord::Base
   end
 
   def mentions
-    ExtractsMentionsFromMarkdown.extract(comment)
+    ExtractsMentionsFromMarkdown.extract(body)
   end
 end

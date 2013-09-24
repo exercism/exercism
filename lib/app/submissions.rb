@@ -143,7 +143,7 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    nit.comment = params["comment"]
+    nit.body = params["comment"]
     nit.save
     redirect "/submissions/#{id}"
   end

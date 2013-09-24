@@ -13,7 +13,7 @@ class SeedCommentTest < Minitest::Test
     submission = Object.new
     expected = {
       user: user,
-      comment: 'O HAI',
+      body: 'O HAI',
       at: now,
       submission: submission
     }

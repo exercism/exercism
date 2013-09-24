@@ -9,7 +9,7 @@ module Seed
     def by(user, options = {})
       {
         user: user,
-        comment: body,
+        body: body,
         at: at,
         submission: options[:on]
       }

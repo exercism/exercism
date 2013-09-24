@@ -26,7 +26,7 @@ class CreatesCommentTest < Minitest::Test
     CreatesComment.new(submission.id, nitpicker, 'Too many variables').create
     nit = submission.reload.comments.first
     assert submission.pending?, "Should be pending"
-    assert_equal 'Too many variables', nit.comment
+    assert_equal 'Too many variables', nit.body
     refute submission.liked?, "Should NOT be liked"
   end
 

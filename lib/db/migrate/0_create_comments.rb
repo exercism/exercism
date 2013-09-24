@@ -5,8 +5,8 @@ class CreateComments < ActiveRecord::Migration
       t.integer  :submission_id, null: false
 
       t.datetime :at
-      t.text     :comment
-      t.text     :html_comment
+      t.text     :body
+      t.text     :html_body
     end
   end
 end
