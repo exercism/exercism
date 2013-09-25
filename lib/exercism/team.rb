@@ -19,6 +19,15 @@ class Team
     self
   end
 
+  def recruit(usernames)
+    self.members += User.find_in_usernames(usernames.to_s.scan(/\w+/))
+  end
+
+  def dismiss(username)
+    user = User.where(username: username.to_s).first
+    self.members.delete(user)
+  end
+
   def usernames
     members.map(&:username)
   end
