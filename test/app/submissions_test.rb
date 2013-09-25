@@ -301,4 +301,13 @@ class SubmissionsTest < Minitest::Test
 
     assert_equal "OK", comment.reload.comment
   end
+
+  def test_delete_comment
+    submission = generate_attempt.submission
+    assert_equal 0, Comment.count
+    comment = Comment.create(user: bob, submission: submission, comment: "ohai")
+    login(bob)
+    delete "/submissions/#{submission.id}/nits/#{comment.id}"
+    assert_equal 0, Comment.count
+  end
 end
