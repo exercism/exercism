@@ -130,7 +130,19 @@ class TeamsTest < Minitest::Test
     team.reload
 
     refute team.includes?(bob)
-    assert User.where(username: bob.username).first
+  end
+
+  def test_leave_team
+    login(bob)
+
+    team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{john.username}"})
+    team.save
+
+    put "/teams/#{team.slug}/leave"
+
+    team.reload
+
+    refute team.includes?(bob)
   end
 
   def test_member_removal_without_being_creator

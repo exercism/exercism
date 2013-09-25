@@ -58,6 +58,21 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  put '/teams/:slug/leave' do |slug|
+    please_login
+
+    team = Team.where(slug: slug).first
+
+    if team
+      team.dismiss(current_user.username)
+
+      redirect "/#{current_user.username}"
+    else
+      flash[:error] = "We don't know anything about team '#{slug}'"
+      redirect '/'
+    end
+  end
+
   delete '/teams/:slug/members/:username' do |slug, username|
     please_login
 
@@ -76,6 +91,5 @@ class ExercismApp < Sinatra::Base
       flash[:error] = "We don't know anything about team '#{slug}'"
       redirect '/'
     end
-
   end
 end
