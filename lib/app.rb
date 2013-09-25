@@ -1,3 +1,4 @@
+require 'airbrake'
 require 'exercism'
 require 'sinatra/petroglyph'
 require 'will_paginate'
@@ -39,6 +40,15 @@ class ExercismApp < Sinatra::Base
   enable :sessions
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
+
+  configure :production do
+    Airbrake.configure do |config|
+      config.api_key = ENV['AIRBRAKE_API_KEY']
+    end
+
+    use Airbrake::Rack
+    enable :raise_errors
+  end
 
   helpers WillPaginate::Sinatra::Helpers
   helpers Sinatra::SubmissionsHelper

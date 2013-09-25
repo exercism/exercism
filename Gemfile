@@ -17,6 +17,7 @@ gem 'loofah'
 gem 'will_paginate', github: 'mislav/will_paginate', tag: "4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df"
 gem 'will_paginate-bootstrap'
 gem 'pry', require: false
+gem 'airbrake'
 
 group :test, :development do
   gem 'ruby-prof'
