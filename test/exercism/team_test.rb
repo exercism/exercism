@@ -42,5 +42,58 @@ class TeamTest < Minitest::Test
     assert team.includes?(alice)
     assert team.includes?(bob)
   end
+
+  def test_team_recruit
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    charlie = User.create(username: 'charlie')
+    john = User.create(username: 'john')
+
+    team = Team.create(slug: 'blurple', creator: alice)
+
+    team.recruit(bob.username)
+    team.recruit("#{john.username},#{charlie.username}")
+
+    assert team.includes?(bob)
+    assert team.includes?(charlie)
+    assert team.includes?(john)
+  end
+
+  def test_team_does_not_recruit_duplicates
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+
+    team = Team.create(slug: 'awesome', creator: alice, members: [bob])
+    assert_equal 1, team.members.size
+
+    team.recruit(bob.username)
+    assert_equal 1, team.members.size
+  end
+
+  def test_team_member_dismiss
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+
+    team = Team.create(slug: 'awesome', creator: alice, members: [bob])
+
+    team.dismiss(bob.username)
+    team.reload
+
+    refute team.includes?(bob)
+    assert_equal 0, team.members.size
+    assert User.where(username: bob.username).first
+  end
+
+  def test_team_member_dismiss_invalid_member
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+
+    team = Team.create(slug: 'awesome', creator: alice, members: [bob])
+
+    team.dismiss(alice.username)
+    team.reload
+
+    assert_equal 1, team.members.size
+  end
 end
 

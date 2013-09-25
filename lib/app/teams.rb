@@ -37,4 +37,45 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  post '/teams/:slug/members' do |slug|
+    please_login
+
+    team = Team.where(slug: slug).first
+
+    if team
+      unless team.creator == current_user
+        flash[:error] = "You are not allowed to add team members."
+        redirect "/"
+      end
+
+      team.recruit(params[:usernames])
+      team.save
+
+      redirect "/teams/#{team.slug}"
+    else
+      flash[:error] = "We don't know anything about team '#{slug}'"
+      redirect '/'
+    end
+  end
+
+  delete '/teams/:slug/members/:username' do |slug, username|
+    please_login
+
+    team = Team.where(slug: slug).first
+
+    if team
+      unless team.creator == current_user
+        flash[:error] = "You are not allowed to remove team members."
+        redirect "/"
+      end
+
+      team.dismiss(username)
+
+      redirect "/teams/#{team.slug}"
+    else
+      flash[:error] = "We don't know anything about team '#{slug}'"
+      redirect '/'
+    end
+
+  end
 end
