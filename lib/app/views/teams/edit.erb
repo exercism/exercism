@@ -1,0 +1,11 @@
+<h1>Edit a Team</h1>
+<form accept-charset="UTF-8" action="/teams/<%= team.slug %>" method="POST">
+  <% team.errors.full_messages.each do |error| %>
+  <p class="error"><%= error %></p>
+  <% end %>
+  <label for="team_slug">Slug</label>
+  <input type="text" name="team[slug]" id="team_slug" placeholder="e.g. gocowboys" value="<%= team.slug %>">
+  <label for="team_usernames">Usernames (comma-separated list)</label>
+  <textarea name="team[usernames]" id="team_usernames" placeholder="e.g. kytrinyx, seeflanigan, rubysolo, theotherzach"><%= team.usernames.join(", ") %></textarea>
+  <button type="submit" class="btn btn-primary">Save</button>
+</form>
