@@ -91,6 +91,74 @@ class TeamsTest < Minitest::Test
     end
   end
 
+  def test_member_addition
+    login(alice)
+
+    team = Team.by(alice).defined_with({slug: 'members'})
+    team.save
+
+    post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{john.username}"}
+
+    team.reload
+
+    assert team.includes?(bob)
+    assert team.includes?(john)
+  end
+
+  def test_member_addition_without_being_creator
+    login(bob)
+
+    team = Team.by(alice).defined_with({slug: 'members', usernames: bob.username})
+    team.save
+
+    post "/teams/#{team.slug}/members", {usernames: john.username}
+
+    team.reload
+
+    assert_response_status(302)
+    refute team.includes?(john)
+  end
+
+  def test_member_removal
+    login(alice)
+
+    team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{john.username}"})
+    team.save
+
+    delete "/teams/#{team.slug}/members/#{bob.username}"
+
+    team.reload
+
+    refute team.includes?(bob)
+  end
+
+  def test_leave_team
+    login(bob)
+
+    team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{john.username}"})
+    team.save
+
+    put "/teams/#{team.slug}/leave"
+
+    team.reload
+
+    refute team.includes?(bob)
+  end
+
+  def test_member_removal_without_being_creator
+    login(bob)
+
+    team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{john.username}"})
+    team.save
+
+    delete "/teams/#{team.slug}/members/#{john.username}"
+
+    team.reload
+
+    assert_response_status(302)
+    assert team.includes?(john)
+  end
+
   def test_view_a_team_as_a_member
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{john.username}"})
     team.save

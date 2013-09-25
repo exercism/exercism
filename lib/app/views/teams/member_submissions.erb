@@ -1,7 +1,11 @@
-<div class="span4">
+<div class="span4" id="<%= member.username %>">
   <h5>
     <%= gravatar_tag member.avatar_url, size: 20 %>
     <a href="/<%= member.username %>"><%= member.username %></a>
+    <% if current_user == team.creator %>
+      <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
+         class="btn btn-mini btn-danger hidden member_delete">Dismiss</a>
+    <% end %>
   </h5>
   <% if submissions.any? %>
     <ul>
