@@ -147,7 +147,7 @@ heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-l
 
 ## Contributing
 
-Thank you for want to contribute! :heart::sparkling_heart::heart:
+Thank you for wanting to contribute! :heart::sparkling_heart::heart:
 
 Fork and clone. Hack hack hack.
 Submit a pull request and tell us why your idea is awesome.
