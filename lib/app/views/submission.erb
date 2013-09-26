@@ -86,7 +86,7 @@
 
 
     <% if submission.comments.empty? && current_user.is?(submission.user.username) %>
-      <p>Feel free to expound on trade-offs or choices or thoughts about your code.</p>
+      <p>Feel free to explain the trade-offs or choices or thoughts about your code.</p>
     <% end %>
 
     <% submission.comments.each do |nit| %>
