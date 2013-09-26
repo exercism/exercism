@@ -1,40 +1,35 @@
 class Breakdown
 
   def self.of(language)
-    new language, compute(language)
+    new language
   end
 
-  def self.compute(language)
-    raise "Reimplement This"
-    match = {"$match" => {"state" => "pending", "l" => language}}
-    group = {"$group" => {"_id" => "$s", count: {"$sum" => 1}}}
-    Submission.collection.aggregate([match, group])
-  end
-
-  attr_reader :language
-  def initialize(language, aggregate)
+  def initialize(language)
     @language = language
-    @aggregate = aggregate
   end
 
   def [](exercise)
     histogram[exercise]
   end
 
+  private
+
   def histogram
-    @histogram ||= aggregate.each_with_object(Hash.new(0)) {|entry, counts|
-      counts[exercise(entry["_id"])] = entry["count"]
-    }
+    @histogram ||= begin
+      aggregate.each_with_object(Hash.new(0)) {|entry, counts|
+        counts[exercise(entry["slug"])] = entry["c"]
+      }
+    end
+  end
+
+  def aggregate
+    @aggregate ||= Submission.pending.where(language: @language).
+                                      group(:slug).
+                                      select("slug, COUNT(*) as c")
   end
 
   def exercise(slug)
-    Exercise.new(language, slug)
-  end
-
-  private
-
-  def aggregate
-    @aggregate
+    Exercise.new(@language, slug)
   end
 
 end
