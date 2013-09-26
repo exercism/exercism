@@ -175,17 +175,13 @@ class UserTest < Minitest::Test
   end
 
   def test_find_user_by_case_insensitive_username
-    skip "Code needs rewriting to use regexp"
-    User.create username: 'alice'
+    %w{alice bob}.each do |name| User.create username: name end
     assert_equal 'alice', User.find_by_username('ALICE').username
   end
 
   def test_find_a_bunch_of_users_by_case_insensitive_username
-    skip "This test isn't really testing any functionality. Should it test find_in_usernames?"
-    User.create username: 'alice'
-    User.create username: 'bob'
-    usernames = User.where(username: ['ALICE', 'BOB']).map(&:username).sort
-    assert_equal ['alice', 'bob'], usernames
+    %w{alice bob fred}.each do |name| User.create username: name end
+    assert_equal ['alice', 'bob'], User.find_in_usernames(['ALICE', 'BOB']).map(&:username)
   end
 
   private

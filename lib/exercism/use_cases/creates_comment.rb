@@ -21,8 +21,7 @@ class CreatesComment
   def create
     unless body.empty?
       @nitpicked = true
-      @comment = Comment.new(user: commenter, body: body)
-      submission.comments << @comment
+      @comment = submission.comments.create(user: commenter, body: body)
       submission.state = 'pending' if submission.hibernating?
       submission.mute(commenter)
       submission.save

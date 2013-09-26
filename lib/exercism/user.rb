@@ -55,13 +55,11 @@ class User < ActiveRecord::Base
   end
 
   def self.find_in_usernames(usernames)
-    raise "Rewrite this to use postgres Regexp"
-    where(username: usernames.map {|u| /\A#{u}\z/i})
+    where('LOWER(username) IN (?)', usernames.map(&:downcase))
   end
 
   def self.find_by_username(username)
-    raise "Rewrite this to use postgres Regexp"
-    where('username RLIKE ?', /\A#{username}\z/i).first  
+    where('LOWER(username) = ?', username.downcase).first  
   end
 
   def random_work
