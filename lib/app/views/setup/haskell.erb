@@ -9,3 +9,14 @@
 
 <h4>Building and running tests: </h4>
 <pre>$ runhaskell bob_test.hs</pre>
+
+<h4>Making your first Haskell module</h4>
+
+<p>
+  To create a module that can be loaded with <code>import Bob (responseFor)</code>,
+  put this code in <code>Bob.hs</code>:
+</p>
+
+<pre>module Bob where
+    responseFor = id
+</pre>
