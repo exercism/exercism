@@ -31,30 +31,21 @@ class ExercismAPI < Sinatra::Base
   helpers Sinatra::GemHelper
 
   helpers do
-    # Temporarily, until I can get this sorted out.
+    def require_user
+      if current_user.guest?
+        halt 401, {error: "You must be logged in to access this feature. Please double-check your API key."}.to_json
+      end
+    end
+
     def current_user
-      @current_user ||= begin
-        if request.cookies['_exercism_login']
-          User.find_by(github_id: request.cookies['_exercism_login'])
-        else
-          Guest.new
-        end
-      end
+      @current_user ||= find_user || Guest.new
     end
 
-    def require_recipient
-      unless recipient
-        halt 401, {error: "Please provide API key or valid session"}.to_json
-      end
-    end
-
-    def recipient
-      @recipient ||= begin
-        if params[:key]
-          User.find_by(key: params[:key])
-        elsif request.cookies['_exercism_login']
-          current_user
-        end
+    def find_user
+      if request.cookies['_exercism_login']
+        User.where(github_id: request.cookies['_exercism_login']).first
+      elsif params[:key]
+        User.where(key: params[:key]).first
       end
     end
   end

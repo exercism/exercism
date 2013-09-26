@@ -14,18 +14,15 @@ class ExercismAPI < Sinatra::Base
   end
 
   get '/user/assignments/stash' do
-    unless params[:key]
-      halt 401, {error: "Please provide API key"}.to_json
-    end
-    user = User.find_by(key: params[:key])
+    require_user
     filename = params[:filename]
-    stash = Stash.new(user,' ',filename).find
+    stash = Stash.new(current_user,' ',filename).find
     pg :stash, locals: {stash: stash}
   end
 
   get '/user/assignments/stash/list' do
-    user = User.find_by(key: params[:key])
-    list = user.stash_list
+    require_user
+    list = current_user.stash_list
     pg :stash_list, locals: {list: list}
   end
 end

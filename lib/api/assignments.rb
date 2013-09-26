@@ -7,27 +7,13 @@ class ExercismAPI < Sinatra::Base
   end
 
   get '/user/assignments/completed' do
-    key = params[:key]
-    unless key
-      halt 401, {error: "Please provide API key"}.to_json
-    end
-
-    user = User.where(key: key).first
-
-    unless user
-      halt 401, {error: "Cannot find user for API key #{key}"}
-    end
-
-    {assignments: user.completed}.to_json
+    require_user
+    {assignments: current_user.completed}.to_json
   end
 
   get '/user/assignments/current' do
-    unless params[:key]
-      halt 401, {error: "Please provide API key"}.to_json
-    end
-
-    assignments = Assignments.new(params[:key])
-
+    require_user
+    assignments = Assignments.new(current_user.key)
     pg :assignments, locals: {assignments: assignments.current}
   end
 
@@ -45,8 +31,9 @@ class ExercismAPI < Sinatra::Base
 
       We have changed your API key (and everyone else's).
 
-      You will need to log out from the exercism gem (`exercism logout`)
-      and log back in using the new API key in your account on the website.
+      You will need to log out from the exercism command line client
+      (`exercism logout`) and log back in using the new API key in
+      your account on the website.
 
       Sorry about the inconvenience!
       MESSAGE
@@ -78,12 +65,9 @@ class ExercismAPI < Sinatra::Base
   end
 
   delete '/user/assignments' do
-    unless params[:key]
-      halt 401, {error: "Please provide API key"}.to_json
-    end
-    user = User.find_by(key: params[:key])
+    require_user
     begin
-      Unsubmit.new(user).unsubmit
+      Unsubmit.new(current_user).unsubmit
     rescue Unsubmit::NothingToUnsubmit
       halt 404, {error: "Nothing to unsubmit."}.to_json
     rescue Unsubmit::SubmissionHasNits
@@ -97,11 +81,8 @@ class ExercismAPI < Sinatra::Base
   end
 
   get '/user/assignments/next' do
-    unless params[:key]
-      halt 401, {error: "Please provide API key"}.to_json
-    end
-
-    assignments = Assignments.new(params[:key]).next
+    require_user
+    assignments = Assignments.new(current_user.key).next
 
     halt 404, 'No more assignments!' if assignments.empty?
 
