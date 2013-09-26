@@ -150,7 +150,6 @@ class UserTest < Minitest::Test
   end
 
   def test_user_done_with_submissions
-    skip "I have no idea what this test is testing :)"
     user = User.create(current: {'nong' => 'one'}, completed: {'nong' => ['one']})
     exercise = Exercise.new('nong', 'one')
 
