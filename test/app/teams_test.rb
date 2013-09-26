@@ -1,4 +1,4 @@
-require './test/api_helper'
+require './test/app_helper'
 require 'mocha/setup'
 
 class TeamsTest < Minitest::Test
@@ -14,28 +14,28 @@ class TeamsTest < Minitest::Test
 
   def alice_attributes
     {
-        username: 'alice',
-        github_id: 1,
-        current: {'ruby' => 'word-count', 'javascript' => 'anagram'},
-        email: "alice@example.com"
+      username: 'alice',
+      github_id: 1,
+      current: {'ruby' => 'word-count', 'javascript' => 'anagram'},
+      email: "alice@example.com"
     }
   end
 
   def bob_attributes
     {
-        username: 'bob',
-        github_id: 2,
-        mastery: ['ruby'],
-        email: "bob@example.com"
+      username: 'bob',
+      github_id: 2,
+      mastery: ['ruby'],
+      email: "bob@example.com"
     }
   end
 
   def john_attributes
     {
-        username: 'john',
-        github_id: 3,
-        mastery: ['ruby'],
-        email: "john@example.com"
+      username: 'john',
+      github_id: 3,
+      mastery: ['ruby'],
+      email: "john@example.com"
     }
   end
 

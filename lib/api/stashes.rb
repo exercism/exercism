@@ -1,5 +1,5 @@
-class ExercismApp < Sinatra::Base
-  post '/api/v1/user/assignments/stash' do
+class ExercismAPI < Sinatra::Base
+  post '/user/assignments/stash' do
     request.body.rewind
     data = request.body.read
     data = JSON.parse(data)
@@ -13,7 +13,7 @@ class ExercismApp < Sinatra::Base
     pg :stash, locals: {stash: stash.submission}
   end
 
-  get '/api/v1/user/assignments/stash' do
+  get '/user/assignments/stash' do
     unless params[:key]
       halt 401, {error: "Please provide API key"}.to_json
     end
@@ -23,7 +23,7 @@ class ExercismApp < Sinatra::Base
     pg :stash, locals: {stash: stash}
   end
 
-  get '/api/v1/user/assignments/stash/list' do
+  get '/user/assignments/stash/list' do
     user = User.find_by(key: params[:key])
     list = user.stash_list
     pg :stash_list, locals: {list: list}

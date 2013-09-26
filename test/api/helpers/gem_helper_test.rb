@@ -1,5 +1,5 @@
 require './test/test_helper'
-require 'app/helpers/gem_helper'
+require 'api/helpers/gem_helper'
 
 class GemHelperTest < Minitest::Test
 

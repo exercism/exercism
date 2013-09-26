@@ -6,7 +6,7 @@ class AssignmentsApiTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
-    ExercismApp
+    ExercismAPI
   end
 
   attr_reader :alice, :curriculum
@@ -28,7 +28,7 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_api_returns_first_incomplete_assignment_for_each_track
     Exercism.stub(:current_curriculum, curriculum) do
-      get '/api/v1/user/assignments/current', {key: alice.key}
+      get '/user/assignments/current', {key: alice.key}
 
       output = last_response.body
       options = {format: :json, :name => 'api_current_assignment_data'}
@@ -37,19 +37,19 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_complains_if_no_key_is_submitted
-    get '/api/v1/user/assignments/current'
+    get '/user/assignments/current'
     assert_equal 401, last_response.status
   end
 
   def test_api_complains_if_no_key_is_submitted_for_completed_assignments
-    get '/api/v1/user/assignments/completed'
+    get '/user/assignments/completed'
     assert_equal 401, last_response.status
   end
 
   def test_api_starts_trail_automatically
     Exercism.stub(:current_curriculum, curriculum) do
       bob = User.create(username: 'bob', github_id: 2, current: {})
-      post '/api/v1/user/assignments', {key: bob.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+      post '/user/assignments', {key: bob.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
 
       submission = Submission.first
       ex = Exercise.new('ruby', 'one')
@@ -62,7 +62,7 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_accepts_submission_attempt
     Exercism.stub(:current_curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
-        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
       end
 
       submission = Submission.first
@@ -78,7 +78,7 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_accepts_submission_on_completed_exercise
     Exercism.stub(:current_curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
-        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.go'}.to_json
+        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.go'}.to_json
       end
 
       submission = Submission.first
@@ -94,7 +94,7 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_rejects_submission_on_nonexistent_exercise
     Exercism.stub(:current_curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
-        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'three/code.ext'}.to_json
+        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'three/code.ext'}.to_json
       end
 
       assert_equal 400, last_response.status
@@ -107,7 +107,7 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_rejects_submission_on_future_exercise
     Exercism.stub(:current_curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
-        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'future/code.rb'}.to_json
+        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'future/code.rb'}.to_json
       end
 
       assert_equal 400, last_response.status
@@ -122,14 +122,14 @@ class AssignmentsApiTest < Minitest::Test
       bob = User.create(github_id: 2, current: {'ruby' => 'two'})
       trail = Exercism.current_curriculum.in('ruby')
       bob.complete! trail.exercises.last
-      get '/api/v1/user/assignments/current', {key: bob.key}
+      get '/user/assignments/current', {key: bob.key}
       assert_equal 200, last_response.status
     end
   end
 
   def test_fetch_demo
     Exercism.stub(:current_curriculum, curriculum) do
-      get '/api/v1/assignments/demo'
+      get '/assignments/demo'
       assert_equal 200, last_response.status
 
       options = {format: :json, :name => 'api_demo'}
@@ -140,7 +140,7 @@ class AssignmentsApiTest < Minitest::Test
   def test_completed_sends_back_empty_list_for_new_user
     new_user = User.create(github_id: 2)
 
-    get '/api/v1/user/assignments/completed', {key: new_user.key}
+    get '/user/assignments/completed', {key: new_user.key}
 
     assert_equal({"assignments" => {}}, JSON::parse(last_response.body))
   end
@@ -153,7 +153,7 @@ class AssignmentsApiTest < Minitest::Test
       user.complete! exercises.next
       user.complete! exercises.next
 
-      get '/api/v1/user/assignments/completed', {key: user.key}
+      get '/user/assignments/completed', {key: user.key}
 
       assert_equal({"assignments" => {"ruby" => ['one', 'two']}}, JSON::parse(last_response.body))
     end
@@ -163,7 +163,7 @@ class AssignmentsApiTest < Minitest::Test
     Exercism.stub(:current_curriculum, curriculum) do
       user = User.create(github_id: 2, current: {'ruby' => 'one', 'go' => 'one'})
 
-      get '/api/v1/user/assignments/next', {key: user.key}
+      get '/user/assignments/next', {key: user.key}
 
       output = last_response.body
       options = {format: :json, name: 'api_peek_on_two_incomplete_trails'}
@@ -175,7 +175,7 @@ class AssignmentsApiTest < Minitest::Test
     Exercism.stub(:current_curriculum, curriculum) do
       user = User.create(github_id: 2, current: {}, completed: {'go' => ['one'], 'fake' => ['one', 'two']})
 
-      get '/api/v1/user/assignments/next', {key: user.key}
+      get '/user/assignments/next', {key: user.key}
 
       assert_equal 200, last_response.status
 
@@ -189,7 +189,7 @@ class AssignmentsApiTest < Minitest::Test
     Exercism.stub(:current_curriculum, curriculum) do
       Attempt.new(alice, 'THE CODE', 'one/code.rb').save
       Notify.stub(:everyone, nil) do
-        post '/api/v1/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
       end
 
       response_error = JSON.parse(last_response.body)['error']
@@ -206,7 +206,7 @@ class AssignmentsApiTest < Minitest::Test
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
       unsubmit_object.expects(:unsubmit)
 
-      delete '/api/v1/user/assignments', {key: alice.key}
+      delete '/user/assignments', {key: alice.key}
       assert_equal 204, last_response.status
     end
   end
@@ -218,7 +218,7 @@ class AssignmentsApiTest < Minitest::Test
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
       unsubmit_object.expects(:unsubmit).raises(Unsubmit::NothingToUnsubmit.new)
 
-      delete '/api/v1/user/assignments', {key: alice.key}
+      delete '/user/assignments', {key: alice.key}
       assert_equal 404, last_response.status
     end
   end
@@ -230,7 +230,7 @@ class AssignmentsApiTest < Minitest::Test
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
       unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionHasNits.new)
 
-      delete '/api/v1/user/assignments', {key: alice.key}
+      delete '/user/assignments', {key: alice.key}
       assert_equal 403, last_response.status
     end
   end
@@ -242,7 +242,7 @@ class AssignmentsApiTest < Minitest::Test
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
       unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionDone.new)
 
-      delete '/api/v1/user/assignments', {key: alice.key}
+      delete '/user/assignments', {key: alice.key}
       assert_equal 403, last_response.status
     end
   end
@@ -254,7 +254,7 @@ class AssignmentsApiTest < Minitest::Test
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
       unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionTooOld.new)
 
-      delete '/api/v1/user/assignments', {key: alice.key}
+      delete '/user/assignments', {key: alice.key}
       assert_equal 403, last_response.status
     end
   end

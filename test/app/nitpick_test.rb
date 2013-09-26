@@ -1,4 +1,4 @@
-require './test/api_helper'
+require './test/app_helper'
 
 class NitpickAppTest < Minitest::Test
   include Rack::Test::Methods

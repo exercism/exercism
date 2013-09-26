@@ -1,4 +1,4 @@
-require './test/api_helper'
+require './test/app_helper'
 require 'mocha/setup'
 
 class SubmissionsTest < Minitest::Test

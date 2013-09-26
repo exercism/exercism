@@ -4,7 +4,7 @@ class NotificationsApiTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
-    ExercismApp
+    ExercismAPI
   end
 
   def login(user)
@@ -26,13 +26,13 @@ class NotificationsApiTest < Minitest::Test
   end
 
   def test_notifications_are_protected
-    get '/api/v1/notifications'
+    get '/notifications'
     assert_equal 401, last_response.status
   end
 
   def test_get_notifications_using_shared_secret
     Notification.on(submission, to: alice, regarding: 'nitpick')
-    get '/api/v1/notifications', key: alice.key
+    get '/notifications', key: alice.key
     notifications = JSON.parse(last_response.body)['notifications']
     assert_equal 1, notifications.size
     assert_equal "/submissions/#{submission.id}", notifications.first['notification']['link']
@@ -41,7 +41,7 @@ class NotificationsApiTest < Minitest::Test
   def test_get_notifications_when_logged_in
     Notification.on(submission, to: alice, regarding: 'nitpick')
     login(alice)
-    get '/api/v1/notifications'
+    get '/notifications'
     notifications = JSON.parse(last_response.body)['notifications']
     assert_equal 1, notifications.size
     assert_equal "/submissions/#{submission.id}", notifications.first['notification']['link']
@@ -49,7 +49,7 @@ class NotificationsApiTest < Minitest::Test
 
   def test_updating_read_status_is_restricted
     notification = Notification.on(submission, to: alice, regarding: 'nitpick')
-    put "/api/v1/notifications/#{notification.id}"
+    put "/notifications/#{notification.id}"
     assert_equal 401, last_response.status
     refute notification.reload.read
   end
@@ -57,13 +57,13 @@ class NotificationsApiTest < Minitest::Test
   def test_mark_notification_as_read_when_logged_in
     notification = Notification.on(submission, to: alice, regarding: 'nitpick')
     login(alice)
-    put "/api/v1/notifications/#{notification.id}"
+    put "/notifications/#{notification.id}"
     assert notification.reload.read
   end
 
   def test_mark_notification_as_read_using_shared_secret
     notification = Notification.on(submission, to: alice, regarding: 'nitpick')
-    put "/api/v1/notifications/#{notification.id}", key: alice.key
+    put "/notifications/#{notification.id}", key: alice.key
     assert notification.reload.read
   end
 end

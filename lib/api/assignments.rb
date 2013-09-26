@@ -1,13 +1,12 @@
-class ExercismApp < Sinatra::Base
-
-  get '/api/v1/assignments/demo' do
+class ExercismAPI < Sinatra::Base
+  get '/assignments/demo' do
     assignments = Exercism.trails.map do |trail|
       trail.first_assignment
     end
     pg :assignments, locals: {assignments: assignments}
   end
 
-  get '/api/v1/user/assignments/completed' do
+  get '/user/assignments/completed' do
     key = params[:key]
     unless key
       halt 401, {error: "Please provide API key"}.to_json
@@ -22,7 +21,7 @@ class ExercismApp < Sinatra::Base
     {assignments: user.completed}.to_json
   end
 
-  get '/api/v1/user/assignments/current' do
+  get '/user/assignments/current' do
     unless params[:key]
       halt 401, {error: "Please provide API key"}.to_json
     end
@@ -32,7 +31,7 @@ class ExercismApp < Sinatra::Base
     pg :assignments, locals: {assignments: assignments.current}
   end
 
-  post '/api/v1/user/assignments' do
+  post '/user/assignments' do
     request.body.rewind
     data = request.body.read
     if data.empty?
@@ -78,7 +77,7 @@ class ExercismApp < Sinatra::Base
     pg :attempt, locals: {submission: attempt.submission}
   end
 
-  delete '/api/v1/user/assignments' do
+  delete '/user/assignments' do
     unless params[:key]
       halt 401, {error: "Please provide API key"}.to_json
     end
@@ -97,7 +96,7 @@ class ExercismApp < Sinatra::Base
     status 204
   end
 
-  get '/api/v1/user/assignments/next' do
+  get '/user/assignments/next' do
     unless params[:key]
       halt 401, {error: "Please provide API key"}.to_json
     end
@@ -109,3 +108,4 @@ class ExercismApp < Sinatra::Base
     pg :assignments, locals: {assignments: assignments}
   end
 end
+
