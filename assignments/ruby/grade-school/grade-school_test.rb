@@ -8,7 +8,7 @@ class SchoolTest < MiniTest::Unit::TestCase
   end
 
   def setup
-    @school = School.new("Haleakala Hippy School")
+    @school = School.new
   end
 
   def test_an_empty_school
@@ -61,5 +61,6 @@ class SchoolTest < MiniTest::Unit::TestCase
       6 => ["Kareem"]
     }
     assert_equal sorted, school.sort
+    assert_equal [3, 4, 6], school.sort.keys
   end
 end

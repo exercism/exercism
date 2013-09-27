@@ -1,28 +1,58 @@
-<div class="row">
+<% if current_user.new? %>
 
-  <aside class="span4">
-    <nav>
-      <ul class="nav nav-tabs nav-stacked">
-        <% if language %>
-          <% if exercises.any? %>
-            <%= dashboard_assignment_nav(language, 'no-nits') %>
-            <%= dashboard_assignment_nav(language, 'opinions') %>
-            <%= dashboard_assignment_nav(language, 'looks-great') %>
-            <% exercises.each do |exercise| %>
-              <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise]) %>
-            <% end %>
-          <% end %>
+  <h3>The Process</h3>
+
+  <ol>
+    <li>Submit your code.</li>
+    <li>Receive feedback.</li>
+    <li>Resubmit your code. Rinse. Repeat.</li>
+  </ol>
+
+  <p>Once you feel like the discussion has wound down, click the "unlock" button, and you'll be able to fetch the next exercise. You can always submit new versions of completed exercises.</p>
+
+  <h3>Nitpick Others</h3>
+
+  <p>When you've completed the first exercise, you will gain access to the exercises that are awaiting feedback.</p>
+
+  <h3>Wondering where to start?</h3>
+  <p>The help menu should get you going. The first step will be to <a href="/help/how-to-access-exercises">access the exercises</a>. If you get stuck, <a href="mailto:katrina.owen@gmail.com">email me</a>!</p>
+<% else %>
+
+<div class="row">
+  <div class="span4">
+    <% if current_user.ongoing.any? %>
+      <h4>Current Exercises</h4>
+      <ul>
+        <% current_user.ongoing.each do |submission| %>
+          <li>
+            <p>
+              <a href="/submissions/<%= submission.id %>">
+                <%= submission.language.capitalize + ': ' + submission.slug %>
+              </a> (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
+            </p>
+          </li>
         <% end %>
       </ul>
-    </nav>
-    </br>
-  </aside>
+    <% else %>
+      <h4>Next Steps</h4>
+      <p>You don't currently have any pending submissions.</p>
+      <p>Fetch the next exercises using the command line client:</p>
+      <pre>
+        exercism fetch
+      </pre>
+      <p>When the tests are passing, submit the exercise with:</p>
+      <pre>
+        exercism submit path/to/file.ext
+      </pre>
+    <% end %>
+  </div>
 
-  <main id="pending-submissions" class="span8">
-  <% if show_pending_submissions?(language) %>
-    <%= erb :pending, locals: {submissions: submissions, show_filters: show_filters, language: language} %>
-  <% else %>
-    <%= erb :setup %>
-  <% end %>
-  </main>
+  <div class="span8">
+    <% if submission %>
+      <h4>Got a few minutes to spare?</h4>
+      <p>Go and help <b>@<%= submission.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= submission.id %>"><%= submission.slug %> in <%= submission.language.capitalize %></a>.</p>
+    <% end %>
+  </div>
 </div>
+
+<% end %>

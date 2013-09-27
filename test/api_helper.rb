@@ -4,7 +4,6 @@ require './test/approval_helper'
 require 'sinatra/base'
 require 'rack/test'
 require 'rack-flash'
-require 'json_expressions/minitest'
 
-require 'app'
+require 'api'
 

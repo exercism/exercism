@@ -1,6 +1,8 @@
 # exercism.io
 
-[![Build Status](https://travis-ci.org/kytrinyx/exercism.io.png?branch=master)](https://travis-ci.org/kytrinyx/exercism.io) [![Code Climate](https://codeclimate.com/github/kytrinyx/exercism.io.png)](https://codeclimate.com/github/kytrinyx/exercism.io)
+[![Build Status](https://travis-ci.org/kytrinyx/exercism.io.png?branch=master)](https://travis-ci.org/kytrinyx/exercism.io) 
+[![Code Climate](https://codeclimate.com/github/kytrinyx/exercism.io.png)](https://codeclimate.com/github/kytrinyx/exercism.io)
+[![Gemnasium](https://gemnasium.com/kytrinyx/exercism.io.png)](https://gemnasium.com/kytrinyx/exercism.io)
 
 Application to support working through sequential programming problems, with
 crowd-sourced code reviews.
@@ -91,7 +93,7 @@ Different languages/trails do not need to have the same assignments or the same 
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-7. Run the database seed with `ruby scripts/seed.rb`
+7. Run the database seed with `rake db:seed` (if you want LOTS of data: `rake db:seed[1000]` or some other big number).
 8. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
 9. Start the server with `./scripts/boot.sh`
 10. Login at http://localhost:4567.
@@ -145,8 +147,12 @@ heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-l
 
 ## Contributing
 
+Thank you for wanting to contribute! :heart::sparkling_heart::heart:
+
 Fork and clone. Hack hack hack.
 Submit a pull request and tell us why your idea is awesome.
+
+For more details, please read the [contributing guide](https://github.com/kytrinyx/exercism.io/blob/master/CONTRIBUTING.md).
 
 ## License
 

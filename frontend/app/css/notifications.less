@@ -1,19 +1,19 @@
 .toggle-notifications {
   position: absolute;
-  right:0;
-  top: 0em;
+  right: 0;
+  top: 0;
   z-index: 1;
-  width:2.2em;
-  height:2.2em;
+  width: 41px;
+  height: 41px;
   border-width: 0;
-  padding:.35em;
-  font-size:1.4em;
-  font-weight:600;
-  color:#fff;
+  padding: 0;
+  font-size: 1.4em;
+  font-weight: 600;
+  color: #fff;
   cursor: pointer;
   user-select: none;
-  margin:0;
-  background:rgba(0, 0, 0, .4);
+  margin: 0;
+  background: rgba(0, 0, 0, .4);
   transition-duration: .3s;
   transition-timing-function: ease-in-out;
   transition-property: box-shadow, color, opacity, padding-left;
@@ -30,7 +30,7 @@
 }
 
 #list-notifications {
-  position: relative;
+  position: absolute;
   opacity: 0;
   right: -17.5em;
   width: 17.5em;
@@ -70,13 +70,12 @@ li.new-notification {
   opacity: 1;
   right: 0em;
   top: 3em;
-  transition: all .3s ease-in-out;
   box-shadow: 30em 0 0 30em rgba(0, 0, 0, .3);
   transition: all .3s ease-in-out;
   overflow-y: auto;
   height: auto;
   min-height: 5em;
-  max-height: 100%;
+  max-height: 90%;
 }
 
 #list-notifications {
@@ -89,4 +88,5 @@ body {
 body.reveal-notifications {
   margin-right: 17.5em;
   margin-left: -17.5em;
+  overflow-x: hidden;
 }

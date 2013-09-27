@@ -21,10 +21,6 @@ class GuestTest < Minitest::Test
     refute guest.nitpicker?
   end
 
-  def test_guest_may_not_nitpick?
-    refute guest.may_nitpick?(nil)
-  end
-
   def test_guest_is_not_locksmith
     refute guest.locksmith?
   end

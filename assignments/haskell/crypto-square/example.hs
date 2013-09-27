@@ -5,7 +5,6 @@ module CryptoSquare ( normalizePlaintext
                     , normalizeCiphertext ) where
 
 import Data.Char (isAlphaNum, toLower)
-import Data.List (intercalate)
 import Data.List.Split (chunksOf)
 
 everyNth :: Int -> String -> String
@@ -29,4 +28,4 @@ ciphertext :: String -> String
 ciphertext = concat . cipherSegments . normalizePlaintext
 
 normalizeCiphertext :: String -> String
-normalizeCiphertext = intercalate " " . chunksOf 5 . ciphertext
+normalizeCiphertext = unwords . chunksOf 5 . ciphertext

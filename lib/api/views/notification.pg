@@ -1,0 +1,13 @@
+node notification: notification do
+  attributes :id, :regarding, :count, :read, :note, :language, :slug, :username
+  node recipient: current_user.username
+  node date: notification.at.to_i
+  node ago: ago(notification.at)
+  if notification.nitpick? || notification.done? || notification.hibernating?
+    node link: "/submissions/#{notification.submission.id}"
+  elsif notification.custom?
+    node link: nil
+  else
+    node link: "/#{notification.username}/#{notification.language}/#{notification.slug}"
+  end
+end

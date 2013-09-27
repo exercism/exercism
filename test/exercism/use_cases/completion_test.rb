@@ -20,20 +20,18 @@ class CompletionTest < Minitest::Test
   def test_complete_a_submission
     Completion.new(submission, curriculum).save
     submission.reload
-    assert_equal 'approved', submission.state
-    assert !submission.approved_at.nil?
+    assert_equal 'done', submission.state
+    assert !submission.done_at.nil?
 
     user.reload
     done = {'fake' => ['one']}
     assert_equal done, user.completed
+    assert_nil user.current['fake']
   end
 
-  def test_approve_last_submission_on_trail_gives_a_dummy_assignment
-    Completion.new(submission, curriculum).save
-    attempt = Attempt.new(user.reload, 'CODE', 'two/two.ext', curriculum).save
-    submission = Submission.last
-    Completion.new(submission, curriculum).save
-    assert_equal 'congratulations', submission.reload.user.current_in('fake').slug
+  def test_unlocked_exercise
+    completion = Completion.new(submission, curriculum).save
+    assert_equal Exercise.new('fake', 'two'), completion.unlocked
   end
 end
 

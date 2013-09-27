@@ -1,6 +1,13 @@
 {
   "assignments": [
     {
+      "track": "fake",
+      "slug": "one",
+      "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
+      "test_file": "one_test.test",
+      "tests": "assert 'one'\n"
+    },
+    {
       "track": "ruby",
       "slug": "one",
       "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",

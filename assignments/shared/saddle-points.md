@@ -1,4 +1,4 @@
-So say you've a matrix like so:
+So say you have a matrix like so:
 
 ```plain
     0  1  2
@@ -8,13 +8,15 @@ So say you've a matrix like so:
 2 | 6  6  7
 ```
 
-It's got a saddle point at (1, 0).
+It has a saddle point at (1, 0).
 
-It's called a "saddle point"
-because its neighbors on one axis are bigger than it
-while its neighbors along the other are smaller.
+It's called a "saddle point" because it is greater than or equal to every
+element in its row and the less than or equal to every element in its column.
 
-A matrix may have zero saddle points, or it might have several.
+A matrix may have zero or more saddle points.
 
-Your code should be able to provide the (possibly empty) list of all the saddle
-points for any given matrix.
+Your code should be able to provide the (possibly empty) list of all the
+saddle points for any given matrix.
+
+Note that you may find other definitions of matrix saddle points online, but
+the tests for this exercise follow the above unambiguous definition.

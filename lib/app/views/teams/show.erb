@@ -1,0 +1,28 @@
+<h1>
+  Team <%= team.slug %>
+</h1>
+
+<% if current_user == team.creator %>
+  <a href="#" id="edit_team" class="btn btn-small">Edit</a>
+
+  <div class="hidden" id="add_members">
+    <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/members" %>" method="POST">
+      <label for="usernames">Usernames (comma-separated list)</label>
+      <textarea name="usernames" id="usernames" placeholder="e.g. kytrinyx, seeflanigan, rubysolo, theotherzach"></textarea>
+      <button type="submit" class="btn btn-primary">Invite</button>
+    </form>
+  </div>
+<% else %>
+  <form action="<%= "/teams/#{team.slug}/leave" %>" method="post" class="team-leave-form">
+    <input type="hidden" name="_method" value="put" />
+    <input type="submit" name="update" value="Leave" class="btn btn-mini btn-danger"  />
+  </form>
+<% end %>
+
+<% members.each_slice(3) do |row| %>
+  <div class="row">
+    <% row.each do |member| %>
+      <%= erb :"teams/member_submissions", locals: {team: team, member: member, submissions: member.submissions.pending} %>
+    <% end %>
+  </div>
+<% end %>

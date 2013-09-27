@@ -25,9 +25,9 @@ class Notification
   end
 
   def self.mark_read(user, id)
-    notification = where(user: user).and(_id: id).first
-    notification.update_attributes(read: true)
-    notification
+    where(user: user).and(_id: id).first.tap do |notification|
+      notification.update_attributes(read: true)
+    end
   end
 
   def custom?

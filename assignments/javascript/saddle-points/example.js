@@ -71,7 +71,7 @@ module.exports = function Matrix(matrix) {
         minIndexes = this.indexesOfMinValues(columns[currentMaxIndex]);
 
         if (minIndexes.indexOf(i) >= 0) {
-          saddlePoints.push([currentMaxIndex,i]);
+          saddlePoints.push([i, currentMaxIndex]);
         }
       }
 

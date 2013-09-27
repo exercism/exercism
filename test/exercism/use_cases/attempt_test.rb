@@ -25,7 +25,6 @@ class AttemptTest < Minitest::Test
   attr_reader :user, :curriculum
   def setup
     data = {
-      current: {'nong' => 'two', 'femp' => 'two'},
       completed: {'nong' => ['one'], 'femp' => ['one']}
     }
     @user = User.create(data)
@@ -152,6 +151,16 @@ class AttemptTest < Minitest::Test
   def test_no_reject_without_previous
     attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.fp', curriculum)
     assert_equal false, attempt.duplicate?
+  end
+
+  def test_attempt_sets_exercise_as_current
+    attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.fp', curriculum).save
+    assert user.working_on?(Exercise.new('femp', 'two'))
+  end
+
+  def test_attempt_doesnt_set_completed_exercise_as_current
+    attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one/one.fp', curriculum).save
+    refute user.working_on?(Exercise.new('femp', 'one'))
   end
 end
 

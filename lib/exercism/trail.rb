@@ -1,7 +1,8 @@
 class Trail
 
-  attr_reader :exercises, :locale, :path
+  attr_reader :exercises, :locale, :path, :slugs
   def initialize(locale, slugs, path)
+    @slugs = slugs
     @locale = locale
     @exercises = slugs.map {|slug| Exercise.new(locale.to_s, slug)}
     @path = path
@@ -27,14 +28,10 @@ class Trail
     assign(first.slug)
   end
 
-  def successor(exercise)
-    exercises[exercises.index(exercise)+1] || CompletedExercise.new(language)
-  end
-
-  def after(exercise, completed)
+  def after(exercise, completed = [])
     exercises.find do |ex|
       !completed.include?(ex.slug)
-    end || CompletedExercise.new(language)
+    end
   end
 
 end

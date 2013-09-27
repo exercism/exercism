@@ -6,15 +6,14 @@ class ExercismApp < Sinatra::Base
       please_login(notice)
 
       submission = Submission.find(id)
-      nitpick = Nitpick.new(id, current_user, params[:comment])
-      nitpick.save
-      if nitpick.nitpicked?
+      comment = CreatesComment.create(id, current_user, params[:comment])
+      unless comment.new_record?
         Notify.everyone(submission, 'nitpick', except: current_user)
         begin
-          unless nitpick.nitpicker == nitpick.submission.user
-            NitpickMessage.ship(
-              instigator: nitpick.nitpicker,
-              submission: nitpick.submission,
+          unless comment.nitpicker == submission.user
+            CommentMessage.ship(
+              instigator: comment.nitpicker,
+              submission: submission,
               site_root: site_root
             )
           end
@@ -52,10 +51,11 @@ class ExercismApp < Sinatra::Base
     please_login
 
     submission = Submission.find(id)
+    submission.viewed!(current_user)
 
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
 
-    erb :nitpick, locals: {submission: submission}
+    erb :submission, locals: {submission: submission}
   end
 
   # TODO: Submit to this endpoint rather than the `respond` one.
@@ -72,11 +72,16 @@ class ExercismApp < Sinatra::Base
   post '/submissions/:id/like' do |id|
     please_login "You have to be logged in to do that."
     submission = Submission.find(id)
-    submission.is_liked = true
-    submission.liked_by << current_user.username
-    submission.mute(current_user.username)
-    submission.save
+    submission.like!(current_user)
     Notify.source(submission, 'like')
+    redirect "/submissions/#{id}"
+  end
+
+  post '/submissions/:id/unlike' do |id|
+    please_login "You have to be logged in to do that."
+    submission = Submission.find(id)
+    submission.unlike!(current_user)
+    flash[:notice] = "The submission has been unliked."
     redirect "/submissions/#{id}"
   end
 
@@ -95,7 +100,7 @@ class ExercismApp < Sinatra::Base
   post '/submissions/:id/mute' do |id|
     please_login "You have to be logged in to do that."
     submission = Submission.find(id)
-    submission.mute!(current_user.username)
+    submission.mute!(current_user)
     flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
     redirect '/'
   end
@@ -126,20 +131,34 @@ class ExercismApp < Sinatra::Base
       flash[:notice] = "Only the submitter may unlock the next exercise."
       redirect "/submissions/#{id}"
     end
-    Completion.new(submission).save
-    flash[:success] = "#{current_user.current_in(submission.language)} unlocked."
+    completion = Completion.new(submission).save
+    flash[:success] = "#{completion.unlocked} unlocked."
     redirect "/"
   end
 
-  post '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
+  post '/submissions/:id/nits/:nit_id' do |id, nit_id|
     nit = Submission.find(id).comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
       flash[:notice] = "Only the author may edit the text."
+      redirect '/'
     end
 
-    nit.sanitized_update(params['comment'])
+    nit.comment = params["comment"]
+    nit.save
     redirect "/submissions/#{id}"
   end
+
+  delete '/submissions/:id/nits/:nit_id' do |id, nit_id|
+    nit = Submission.find(id).comments.where(id: nit_id).first
+    unless current_user == nit.nitpicker
+      flash[:notice] = "Only the author may delete the text."
+      redirect '/'
+    end
+
+    nit.delete
+    redirect "/submissions/#{id}"
+  end
+
 
   get '/submissions/:language/:assignment' do |language, assignment|
     please_login
@@ -150,7 +169,7 @@ class ExercismApp < Sinatra::Base
     end
 
     submissions = Submission.where(l: language, s: assignment)
-                            .in(state: ["pending", "approved"])
+                            .in(state: ["pending", "done"])
                             .includes(:user)
                             .desc(:at).to_a
 

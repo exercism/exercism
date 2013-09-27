@@ -37,7 +37,7 @@ class ExercismApp < Sinatra::Base
     end
 
     user = current_user if current_user.is?(username)
-    user ||= User.where(username: username).first
+    user ||= User.find_by_username(username)
 
     unless user
       flash[:error] = "We don't know anything about #{username}."

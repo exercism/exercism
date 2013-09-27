@@ -4,6 +4,7 @@ require 'bundler'
 Bundler.require
 
 require 'app'
+require 'api'
 
 ENV['RACK_ENV'] ||= 'development'
 
@@ -19,3 +20,6 @@ end
 
 run ExercismApp
 
+map '/api/v1/' do
+  run ExercismAPI
+end

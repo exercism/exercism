@@ -1,12 +1,17 @@
-import Test.HUnit (Assertion, (@=?), runTestTT, Test(..))
-import Control.Monad (void)
+import Test.HUnit (Assertion, (@=?), runTestTT, Test(..), Counts(..))
+import System.Exit (ExitCode(..), exitWith)
 import Series (digits, slices, largestProduct)
+
+exitProperly :: IO Counts -> IO ()
+exitProperly m = do
+  counts <- m
+  exitWith $ if failures counts /= 0 || errors counts /= 0 then ExitFailure 1 else ExitSuccess
 
 testCase :: String -> Assertion -> Test
 testCase label assertion = TestLabel label (TestCase assertion)
 
 main :: IO ()
-main = void $ runTestTT $ TestList
+main = exitProperly $ runTestTT $ TestList
   [ TestList seriesTests ]
 
 -- Allow implementations that work with Integral to compile without warning
@@ -40,4 +45,6 @@ seriesTests = map TestCase
   , int 1 @=? largestProduct 0 ""
     -- unlike the Ruby implementation, no error is expected for too small input
   , int 1 @=? largestProduct 4 "123"
+    -- edge case :)
+  , int 0 @=? largestProduct 2 "00"
   ]

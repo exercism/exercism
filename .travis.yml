@@ -2,7 +2,10 @@ language: ruby
 rvm:
   - 1.9.3
 services: mongodb
-before_script: 'bundle exec mailcatcher'
+before_script:
+  - './test/haskell/bootstrap.sh'
+  - 'bundle exec mailcatcher'
 script:
   - rake
-  - 'cd frontend && npm install && lineman spec-ci'
+  - '( cd frontend && npm install && lineman spec-ci )'
+  - '( export PATH=/opt/hp-2013.2.0.0/bin:$PATH; runhaskell ./test/haskell/check-exercises.hs )'

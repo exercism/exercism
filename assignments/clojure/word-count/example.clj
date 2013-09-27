@@ -9,3 +9,15 @@
        (group-by identity)
        (reduce (fn [acc [word occurrences]]
                  (assoc acc word (count occurrences))) {})))
+
+;; Another approach
+(ns phrase
+ (:require [clojure.string :refer [split lower-case]]))
+
+(defn- sanitize-and-split [phrase]
+  (-> (lower-case phrase)
+      (split #"\W+")))
+
+(defn word-count [phrase]
+  (-> (sanitize-and-split phrase)
+      (frequencies)))

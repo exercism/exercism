@@ -8,7 +8,7 @@ class ExercismApp < Sinatra::Base
     erb :"help/nitpick"
   end
 
-  get '/nitpick/ruby/bob' do
+  get '/help/nitpick/ruby/bob' do
     erb :blog, locals: {markdown: File.read('./lib/nitpick/ruby/bob.md')}
   end
 

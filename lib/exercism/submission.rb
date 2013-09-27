@@ -7,6 +7,7 @@ class Submission
   field :c, as: :code, type: String
   field :at, type: Time, default: ->{ Time.now.utc }
   field :a_at, as: :approved_at, type: Time
+  field :d_at, as: :done_at, type: Time
   field :lk, as: :is_liked, type: Boolean, default: false
   field :lk_by, as: :liked_by, type: Array, default: []
   field :op, as: :wants_opinions, type: Boolean, default: false
@@ -14,9 +15,10 @@ class Submission
   field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
   field :v, as: :version, type: Integer, default: 0
   field :st_n, as: :stash_name, type: String
+  field :vs, as: :viewers, type: Array, default: []
 
   belongs_to :user
-  has_many :comments
+  has_many :comments, order: {at: :asc}
 
   validates_presence_of :user
 
@@ -32,7 +34,7 @@ class Submission
   end
 
   def self.completed_for(language, slug)
-    approved.where(language: language, slug: slug)
+    done.where(language: language, slug: slug)
   end
 
   def self.related(submission)
@@ -48,8 +50,8 @@ class Submission
     where(state: 'pending').desc(:at)
   end
 
-  def self.approved
-    where(state: 'approved').desc(:at)
+  def self.done
+    where(state: 'done').desc(:at)
   end
 
   def self.on(exercise)
@@ -60,20 +62,15 @@ class Submission
   end
 
   def self.assignment_completed?(submission)
-    related(submission).approved.any?
+    related(submission).done.any?
+  end
+
+  def self.unmuted_for(username)
+    nin(muted_by: username)
   end
 
   def participants
-    return @participants if @participants
-
-    participants = Set.new
-    participants.add user
-    related_submissions.each do |submission|
-      submission.comments.each do |nit|
-        participants.add nit.nitpicker
-      end
-    end
-    @participants = participants
+    @participants ||= DeterminesParticipants.determine(user, related_submissions)
   end
 
   def nits_by_others_count
@@ -146,12 +143,26 @@ class Submission
     true
   end
 
+  def like!(user)
+    self.is_liked = true
+    liked_by << user.username
+    mute(user)
+    save
+  end
+
+  def unlike!(user)
+    liked_by.delete(user.username)
+    self.is_liked = liked_by.length > 0
+    unmute(user)
+    save
+  end
+
   def liked?
     is_liked
   end
 
-  def approved?
-    state == 'approved'
+  def done?
+    state == 'done'
   end
 
   def pending?
@@ -192,23 +203,35 @@ class Submission
     muted_by.include?(user.username)
   end
 
-  def mute(username)
-    muted_by << username
+  def mute(user)
+    muted_by << user.username
   end
 
-  def mute!(username)
-    mute(username)
+  def mute!(user)
+    mute(user)
     save
   end
 
-  def unmute!(user)
+  def unmute(user)
     muted_by.delete(user.username)
+  end
+
+  def unmute!(user)
+    unmute(user)
     save
   end
 
   def unmute_all!
     muted_by.clear
     save
+  end
+
+  def viewed!(user)
+    add_to_set(:viewers, user.username)
+  end
+
+  def view_count
+    @view_count ||= viewers.count
   end
 
   private
@@ -225,4 +248,42 @@ class Submission
     Exercism.current_curriculum.trails[language]
   end
 
+  class DeterminesParticipants
+
+    attr_reader :participants
+
+    def self.determine(user, submissions)
+      determiner = new(user, submissions)
+      determiner.determine
+      determiner.participants
+    end
+
+    def initialize(user, submissions)
+      @user = user
+      @submissions = submissions
+    end
+
+    def determine
+      @participants = Set.new
+      @participants.add @user
+      @submissions.each do |submission|
+        add_submission(submission)
+      end
+    end
+
+    private
+
+    def add_submission(submission)
+      submission.comments.each do |comment|
+        add_comment(comment)
+      end
+    end
+
+    def add_comment(comment)
+      @participants.add comment.nitpicker
+      comment.mentions.each do |mention| 
+        @participants.add mention
+      end
+    end
+  end
 end

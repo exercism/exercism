@@ -2,7 +2,7 @@ class Completion
 
   attr_reader :submission, :curriculum
   def initialize(submission, curriculum = Exercism.current_curriculum)
-    @submission = submission
+    @submission = submission.related_submissions.last
     @curriculum = curriculum
   end
 
@@ -18,11 +18,16 @@ class Completion
     curriculum.in(submission.language)
   end
 
+  def unlocked
+    trail.after(exercise, user.completed[exercise.language])
+  end
+
   def save
-    submission.state = 'approved'
-    submission.approved_at = Time.now.utc
+    submission.state = 'done'
+    submission.done_at = Time.now.utc
     submission.save
-    user.complete! exercise, on: trail
+    user.complete! exercise
     user.reload
+    self
   end
 end

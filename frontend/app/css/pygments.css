@@ -6,7 +6,7 @@ pre.highlight  {
   font: 'Bitstream Vera Sans Mono','Courier', monospace;
   font-size:14px;
 
-  overflow-x: scroll;
+  overflow-x: auto;
   overflow-y: hidden;
   white-space: pre;
   line-height:26px;
@@ -23,6 +23,7 @@ td.gutter {
 .highlight .err{color:#a61717;background-color:#e3d2d2;}
 .highlight .k{font-weight:bold;}
 .highlight .o{font-weight:bold;}
+.highlight .cd{color:#998;font-style:italic;}
 .highlight .cm{color:#998;font-style:italic;}
 .highlight .cp{color:#999;font-weight:bold;}
 .highlight .c1{color:#998;font-style:italic;}

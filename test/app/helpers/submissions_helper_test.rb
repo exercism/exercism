@@ -20,6 +20,24 @@ class SubmissionsHelperTest < Minitest::Test
     @submission = Submission.new(user: @alice)
   end
 
+  def test_no_views
+    @submission.save
+    assert_equal "0 views", helper.view_count_for(@submission)
+  end
+
+  def test_1_view
+    @submission.save
+    @submission.viewed!(@fred)
+    assert_equal "1 view", helper.view_count_for(@submission)
+  end
+
+  def test_many_views
+    @submission.save
+    @submission.viewed!(@fred)
+    @submission.viewed!(@alice)
+    assert_equal "2 views", helper.view_count_for(@submission)
+  end
+
   def test_user_can_mute_other_submissions
     assert_equal true, helper.can_mute?(@submission, @fred)
   end
@@ -52,4 +70,38 @@ class SubmissionsHelperTest < Minitest::Test
   def test_many_likes
     assert_equal '@alice, @bob, and @charlie think this looks great', helper.these_people_like_it(['alice', 'bob', 'charlie'])
   end
+
+  def test_like_submission_button_for_non_nitpicker
+    refute helper.like_submission_button(@submission, @fred)
+  end
+
+  def test_like_submission_button_for_owner
+    refute helper.like_submission_button(@submission, @alice)
+  end
+
+  def test_like_submission_button_for_nitpicker
+    @fred.mastery << 'ruby'
+    @submission.exercise.language = 'ruby'
+    expected = %Q{
+      <form accept-charset="UTF-8" action="/submissions/#{@submission.id}/like" method="POST" class="pull-left" style="display: inline;">
+        <button type="submit" name="like" class="btn">Looks great!</button>
+      </form>
+    }.strip.squeeze(" ")
+    actual = helper.like_submission_button(@submission, @fred).strip.squeeze(" ")
+    assert_equal expected, actual
+  end
+
+  def test_like_submission_button_for_nitpicker_who_has_liked
+    @fred.mastery << 'ruby'
+    @submission.exercise.language = 'ruby'
+    @submission.liked_by = ['fred']
+    expected = %Q{
+      <form accept-charset="UTF-8" action="/submissions/#{@submission.id}/unlike" method="POST" class="pull-left" style="display: inline;">
+        <button type="submit" name="unlike" class="btn">I didn't mean to like this!</button>
+      </form>
+    }.strip.squeeze(" ")
+    actual = helper.like_submission_button(@submission, @fred).strip.squeeze(" ")
+    assert_equal expected, actual
+  end
+
 end

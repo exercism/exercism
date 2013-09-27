@@ -1,24 +1,23 @@
-require 'exercism/curriculum/ruby'
-require 'exercism/curriculum/javascript'
+require 'exercism/curriculum/clojure'
 require 'exercism/curriculum/coffeescript'
 require 'exercism/curriculum/elixir'
-require 'exercism/curriculum/clojure'
 require 'exercism/curriculum/go'
-require 'exercism/curriculum/python'
 require 'exercism/curriculum/haskell'
+require 'exercism/curriculum/javascript'
+require 'exercism/curriculum/python'
+require 'exercism/curriculum/ruby'
 
 class Exercism
   def self.current_curriculum
-    return @curriculum if @curriculum
+    @curriculum ||= begin
+      curriculums =  [:ruby, :javascript, :elixir, :clojure, :python, :haskell]
 
-    @curriculum = Curriculum.new('./assignments')
-    @curriculum.add RubyCurriculum.new
-    @curriculum.add JavascriptCurriculum.new
-    @curriculum.add ElixirCurriculum.new
-    @curriculum.add ClojureCurriculum.new
-    @curriculum.add PythonCurriculum.new
-    @curriculum.add HaskellCurriculum.new
-    @curriculum
+      Curriculum.new('./assignments').tap do |curriculum|
+        curriculums.each do |type|
+          curriculum.add "exercism/#{type}_curriculum".classify.constantize.new
+        end
+      end
+    end
   end
 
   def self.trails
@@ -49,10 +48,6 @@ class Curriculum
 
   def assign(exercise)
     self.in(exercise.language).assign(exercise.slug)
-  end
-
-  def unstarted_trails(started)
-    available_languages - started
   end
 
   def available?(language)

@@ -1,0 +1,29 @@
+<div class="span4" id="<%= member.username %>">
+  <h5>
+    <%= gravatar_tag member.avatar_url, size: 20 %>
+    <a href="/<%= member.username %>"><%= member.username %></a>
+    <% if current_user == team.creator %>
+      <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
+         class="btn btn-mini btn-danger hidden member_delete">Dismiss</a>
+    <% end %>
+  </h5>
+  <% if submissions.any? %>
+    <ul>
+      <% submissions.each do |submission| %>
+        <li>
+          <% if current_user.working_on?(submission.exercise) || current_user.nitpicker_on?(submission.exercise) %>
+            <a href="/submissions/<%= submission.id %>">
+              <%= submission.exercise.name %>
+              (<%= submission.language.capitalize %>)
+            </a>
+        <% else %>
+          <%= submission.exercise.name %>
+          (<%= submission.language.capitalize %>)
+        <% end %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>No current submissions.</p>
+  <% end %>
+</div>

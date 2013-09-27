@@ -25,4 +25,6 @@
       <%= erb :pending_submission, locals: { submission: submission } %>
     <% end %>
   </div>
+<% else %>
+  <p>There are no unmuted, pending submissions in this list.</p>
 <% end %>

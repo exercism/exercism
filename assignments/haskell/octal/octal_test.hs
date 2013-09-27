@@ -1,7 +1,7 @@
 {-# LANGUAGE TemplateHaskell #-}
 import Test.QuickCheck
 import Test.QuickCheck.All (quickCheckAll)
-import Control.Monad (void)
+import System.Exit (ExitCode(..), exitWith)
 import Octal (showOct, readOct)
 import qualified Numeric as N
 
@@ -15,6 +15,11 @@ that the solution is efficient.
 
 Handling invalid input is not necessary.
 -}
+
+exitProperly :: IO Bool -> IO ()
+exitProperly m = do
+  didSucceed <- m
+  exitWith $ if didSucceed then ExitSuccess else ExitFailure 1
 
 prop_showOct_integral :: (Integral a, Show a) => (Positive a) -> Bool
 prop_showOct_integral (Positive n) = N.showOct n "" == showOct n
@@ -30,4 +35,4 @@ prop_readOct_int :: (Positive Int) -> Bool
 prop_readOct_int = prop_readOct_integral
 
 main :: IO ()
-main = void $quickCheckAll
+main = exitProperly $quickCheckAll

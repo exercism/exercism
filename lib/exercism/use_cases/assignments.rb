@@ -25,19 +25,27 @@ class Assignments
   private
 
   def assigned_exercises
-    user.current_exercises.map do |exercise|
-      unless exercise.slug == 'congratulations'
-        curriculum.assign(exercise)
-      end
-    end.compact
+    Exercism.trails.map do |trail|
+      user.current_in(trail.language) || next_on(trail)
+    end.compact.map do |exercise|
+      curriculum.assign(exercise)
+    end
+  end
+
+  def next_on(trail)
+    latest_exercise = user.latest_in(trail.language)
+    slugs = user.completed[trail.language] || []
+    trail.after(latest_exercise, slugs)
   end
 
   def upcoming_exercises
-    user.current_exercises.map do |exercise|
-      next if exercise.slug == 'congratulations'
-      exercise = curriculum.in(exercise.language).successor(exercise)
-      next if exercise.slug == 'congratulations'
-      curriculum.assign(exercise)
+    Exercism.trails.map do |trail|
+      current_exercise = user.current_in(trail.language)
+      exercise = current_exercise || user.latest_in(trail.language)
+      slugs = user.completed[trail.language] || []
+      slugs << current_exercise.slug if current_exercise
+      upcoming = trail.after(exercise, slugs)
+      curriculum.assign(upcoming) if upcoming
     end.compact
   end
 
