@@ -47,7 +47,7 @@ class TeamTest < Minitest::Test
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
     charlie = User.create(username: 'charlie')
-    john = User.create(username: 'john')
+    john = User.create(username: 'john-lennon')
 
     team = Team.create(slug: 'blurple', creator: alice)
 

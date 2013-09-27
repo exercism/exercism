@@ -20,7 +20,7 @@ class Team
   end
 
   def recruit(usernames)
-    self.members += User.find_in_usernames(usernames.to_s.scan(/\w+/))
+    self.members += User.find_in_usernames(usernames.to_s.scan(/[\w-]+/))
   end
 
   def dismiss(username)
