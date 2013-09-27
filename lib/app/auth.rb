@@ -22,6 +22,7 @@ class ExercismApp < Sinatra::Base
         expires: Time.now + (60 * 60 * 24 * 30) # 1 month
       }
       response.set_cookie('_exercism_login', data)
+      @current_user = user
     end
 
     def logout
@@ -67,11 +68,11 @@ class ExercismApp < Sinatra::Base
       user = Authentication.perform(params[:code])
       login(user)
     rescue => e
-      flash[:error] = "We're having trouble with logins right now. Please come back later"
+      flash[:error] = "We're having trouble with logins right now. Please come back later."
     end
 
     if current_user.guest?
-      flash[:error] = "We're having trouble with logins right now. Please come back later"
+      flash[:error] = "We're having trouble with logins right now. Please come back later."
     end
 
     # params[:splat] might be an empty array
