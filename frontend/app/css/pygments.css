@@ -23,6 +23,7 @@ td.gutter {
 .highlight .err{color:#a61717;background-color:#e3d2d2;}
 .highlight .k{font-weight:bold;}
 .highlight .o{font-weight:bold;}
+.highlight .cd{color:#998;font-style:italic;}
 .highlight .cm{color:#998;font-style:italic;}
 .highlight .cp{color:#999;font-weight:bold;}
 .highlight .c1{color:#998;font-style:italic;}
