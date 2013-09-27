@@ -27,11 +27,11 @@ class SubmissionTest < Minitest::Test
   end
 
   def alice
-    @alice ||= begin
-      mock do |alice|
-        alice.stubs(username: 'alice')
-      end
-    end
+    @alice ||= User.create(username: 'alice')
+  end
+
+  def fred
+    @fred ||= User.create(username: 'fred')
   end
 
   def teardown
@@ -193,12 +193,11 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_muted_by_when_muted
-    submission = Submission.new(state: 'pending', muted_by: ['alice'])
+    submission = Submission.create!(user: fred, state: 'pending', muted_by: [alice])
     assert submission.muted_by?(alice)
   end
 
   def test_unmuted_for_when_muted
-    skip "How do we do nin now?"
     submission.mute(submission.user)
     submission.save
     refute(Submission.unmuted_for(submission.user.username).include?(submission),

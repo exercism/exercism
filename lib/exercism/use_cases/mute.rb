@@ -9,7 +9,7 @@ class Mute
 
   def save
     if submission.pending?
-      submission.muted_by << user.username
+      submission.muted_by << user
       hibernate! if hibernate?
     end
     submission.save

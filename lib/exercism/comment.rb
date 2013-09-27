@@ -1,16 +1,6 @@
 require 'exercism/markdown'
 
 class Comment < ActiveRecord::Base
-=begin
-  include Mongoid::Document
-
-  field :at, type: Time, default: ->{ Time.now.utc }
-  field :c, as: :comment, type: String
-  field :hc, as: :html_comment, type: String
-
-  belongs_to :user
-  belongs_to :submission
-=end
 
   belongs_to :user
   belongs_to :submission

@@ -1,14 +1,5 @@
 class Team < ActiveRecord::Base
 
-=begin
-  include Mongoid::Document
-
-  field :s, as: :slug, type: String
-
-  has_and_belongs_to_many :members, class_name: "User", inverse_of: :teams
-  belongs_to :creator, class_name: "User", inverse_of: :teams_created
-=end
-
   belongs_to :creator, class_name: "User"
   has_many :memberships, class_name: "TeamMembership"
   has_many :members, through: :memberships, source: :user

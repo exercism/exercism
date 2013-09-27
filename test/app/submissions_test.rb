@@ -141,8 +141,6 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_multiple_versions
-    skip "Je ne comprends pas"
-
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
     assert_equal 1, submission.versions_count
@@ -160,12 +158,12 @@ class SubmissionsTest < Minitest::Test
     assert_equal false, submission.this_version_has_nits?
 
     # not changed by nit being added by another user
-    nit = Comment.new(user: bob, comment: "ok")
+    nit = Comment.new(user: bob, body: "ok")
     submission.comments << nit
     submission.save
     assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
-    assert_equal true, submission.this_version_has_nits?
+    assert_equal false, submission.this_version_has_nits?
 
     # is changed by a new submission
     Attempt.new(alice, 'CODE REVISED', 'word-count/file.rb').save

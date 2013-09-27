@@ -1,31 +1,6 @@
 class Submission < ActiveRecord::Base
 
-=begin
-  include Mongoid::Document
-
-  field :state, type: String, default: 'pending'
-  field :l, as: :language, type: String
-  field :s, as: :slug, type: String
-  field :c, as: :code, type: String
-  field :at, type: Time, default: ->{ Time.now.utc }
-  field :a_at, as: :approved_at, type: Time
-  field :d_at, as: :done_at, type: Time
-  field :lk, as: :is_liked, type: Boolean, default: false
-  field :op, as: :wants_opinions, type: Boolean, default: false
-  field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
-  field :v, as: :version, type: Integer, default: 0
-  field :st_n, as: :stash_name, type: String
-
-  field :vs, as: :viewers, type: Array, default: []
-  field :lk_by, as: :liked_by, type: Array, default: []
-  field :mt_by, as: :muted_by, type: Array, default: []
-
-  belongs_to :user
-  has_many :comments, order: {at: :asc}
-=end
-
   serialize :liked_by, Array
-  serialize :muted_by, Array
 
   belongs_to :user
   has_many :comments, order: 'at ASC'
@@ -33,11 +8,14 @@ class Submission < ActiveRecord::Base
   has_many :submission_viewers
   has_many :viewers, through: :submission_viewers
 
+  has_many :muted_submissions
+  has_many :muted_by, through: :muted_submissions, source: :user
+
   validates_presence_of :user
 
   before_create do
     self.state          ||= "pending"
-    self.at             ||= DateTime.now.utc
+    self.at             ||= Time.now.utc
     self.nit_count      ||= 0
     self.version        ||= 0
     self.wants_opinions ||= false
@@ -89,7 +67,7 @@ class Submission < ActiveRecord::Base
   end
 
   def self.unmuted_for(username)
-    nin(muted_by: username)
+    where("muted_by != ?", username)
   end
 
   def participants
@@ -137,7 +115,7 @@ class Submission < ActiveRecord::Base
   end
 
   def older_than?(time)
-    self.at < (DateTime.now.utc - time)
+    self.at.utc < (Time.now.utc - time)
   end
 
   def exercise
@@ -223,11 +201,11 @@ class Submission < ActiveRecord::Base
   end
 
   def muted_by?(user)
-    muted_by.include?(user.username)
+    muted_submissions.where(user_id: user.id).exists?
   end
 
   def mute(user)
-    muted_by << user.username
+    muted_by << user
   end
 
   def mute!(user)
@@ -236,7 +214,7 @@ class Submission < ActiveRecord::Base
   end
 
   def unmute(user)
-    muted_by.delete(user.username)
+    muted_submissions.where(user_id: user.id).destroy_all
   end
 
   def unmute!(user)

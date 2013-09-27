@@ -94,7 +94,9 @@ class AttemptTest < Minitest::Test
   end
 
   def test_a_new_attempt_unmutes_previous_attempt
-    submission = Submission.create(user: user, language: 'femp', slug: 'two', at: Time.now, muted_by: %w(tom jerry))
+    tom = User.create(username: 'tom')
+    jerry = User.create(username: 'jerry')
+    submission = Submission.create(user: user, language: 'femp', slug: 'two', at: Time.now, muted_by: [tom, jerry])
     Attempt.new(user, 'CODE 2', 'two/two.fp', curriculum).save
     assert_equal [], submission.reload.muted_by
   end

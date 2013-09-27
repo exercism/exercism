@@ -1,19 +1,5 @@
 class Notification < ActiveRecord::Base
 
-=begin
-  include Mongoid::Document
-
-  field :re, as: :regarding, type: String
-  field :r, as: :read, type: Boolean, default: false
-  field :at, type: Time, default: ->{ Time.now.utc }
-  field :c, as: :count, type: Integer, default: 0
-  field :n, as: :note, type: String # only for custom notifications
-
-  belongs_to :user, index: true
-  belongs_to :submission
-=end
-
-
   belongs_to :user
   belongs_to :submission
 

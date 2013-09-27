@@ -5,27 +5,6 @@ class User < ActiveRecord::Base
   include Locksmith
   include ProblemSet
 
-=begin
-  include Mongoid::Document
-
-  field :u, as: :username, type: String
-  field :email, type: String
-  field :img, as: :avatar_url, type: String
-  field :g_id, as: :github_id, type: Integer
-  field :key, type: String, default: ->{ create_key }
-  field :j_at, type: Time, default: ->{ Time.now.utc }
-
-  field :ms, as: :mastery, type: Array, default: []
-  field :cur, as: :current, type: Hash, default: {}
-  field :comp, as: :completed, type: Hash, default: {}
-
-  has_many :submissions
-  has_many :notifications
-  has_many :comments
-  has_and_belongs_to_many :teams, inverse_of: :member
-  has_many :teams_created, class_name: "Team", inverse_of: :creator
-=end
-
   serialize :mastery, Array
   serialize :current, Hash
   serialize :completed, Hash

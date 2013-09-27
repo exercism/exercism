@@ -18,7 +18,7 @@ class SubmissionsHelperTest < Minitest::Test
     super
     @alice      = User.new(username: 'alice', email: 'alice@example.com')
     @fred       = User.new(username: 'fred', email: 'fred@example.com')
-    @submission = Submission.new(user: @alice)
+    @submission = Submission.create!(user: @alice)
   end
 
   def test_no_views
@@ -52,7 +52,7 @@ class SubmissionsHelperTest < Minitest::Test
   end
 
   def test_user_can_unmute_a_muted_submission
-    @submission.muted_by = [@fred.username]
+    @submission.muted_by << @fred
     assert_equal "/submissions/#{@submission.id}/unmute", helper.mute_button_action_for(@submission, @fred)
   end
 
