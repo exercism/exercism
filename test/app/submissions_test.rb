@@ -46,6 +46,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def teardown
+    super
     clear_cookies
   end
 

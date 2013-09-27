@@ -9,6 +9,7 @@ class ExercisesTest < Minitest::Test
   end
 
   def teardown
+    super
     clear_cookies
   end
 

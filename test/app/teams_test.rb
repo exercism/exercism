@@ -41,6 +41,7 @@ class TeamsTest < Minitest::Test
 
   attr_reader :alice, :bob, :john
   def setup
+    super
     @alice = User.create(alice_attributes)
     @bob = User.create(bob_attributes)
     @john = User.create(john_attributes)
@@ -51,7 +52,7 @@ class TeamsTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
+    super
     clear_cookies
   end
 
@@ -62,6 +63,7 @@ class TeamsTest < Minitest::Test
 
     team = Team.first
 
+    alice.reload
     assert_equal 1, alice.teams_created.size
     assert_equal alice, team.creator
   end

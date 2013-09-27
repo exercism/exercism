@@ -6,7 +6,7 @@ class ExercismAPI < Sinatra::Base
     unless data['key']
       halt 401, {error: "Please provide API key"}.to_json
     end
-    user = User.find_by(key: data['key'])
+    user = User.where(key: data['key']).first
     halt 401, "Unable to identify user" unless user
     stash = Stash.new(user, data['code'], data['filename']).save
     status 201
