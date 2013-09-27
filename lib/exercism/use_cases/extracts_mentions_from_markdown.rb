@@ -3,10 +3,9 @@ class ExtractsMentionsFromMarkdown
   attr_reader :mentions
 
   def self.extract(content)
-    return [] if content.empty?
-    extracter = new(content)
-    extracter.extract
-    extracter.mentions
+    extractor = new(content)
+    extractor.extract
+    extractor.mentions
   end
 
   def initialize(content)
@@ -31,7 +30,8 @@ class ExtractsMentionsFromMarkdown
     dom = Nokogiri::HTML(html_content)
     dom.css("code").remove
     dom.css("td[class='code']").remove
-    dom.css("body").first.content
+    body = dom.css("body").first
+    body ? body.content : ""
   end
 
 end
