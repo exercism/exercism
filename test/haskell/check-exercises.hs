@@ -33,10 +33,11 @@ testAssignment dir fn = do
   let d = dir </> fn
       example = d </> "example.hs"
       testFile = d </> (fn ++ "_test.hs")
+      opts = ["-Wall", "-Werror", testFile]
   putStrLn $ "-- " ++ fn
   modFile <- (++ ".hs") . parseModule . lines <$> readFile example
   copyFile example modFile
-  exitCode <- finally (rawSystem "runhaskell" [testFile]) (removeFile modFile)
+  exitCode <- finally (rawSystem "runhaskell" opts) (removeFile modFile)
   return $ case exitCode of
     ExitSuccess -> Nothing
     _           -> Just fn
