@@ -5,6 +5,6 @@ module Sinatra
       @title = value if value
       @title ? "#{@title}" : "exercism.io"
     end
-    
+
   end
 end

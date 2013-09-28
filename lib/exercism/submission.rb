@@ -281,7 +281,7 @@ class Submission
 
     def add_comment(comment)
       @participants.add comment.nitpicker
-      comment.mentions.each do |mention| 
+      comment.mentions.each do |mention|
         @participants.add mention
       end
     end

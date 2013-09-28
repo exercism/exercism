@@ -11,7 +11,7 @@ class Markdown < Redcarpet::Render::XHTML
   end
 
   def self.renderer_options
-    { 
+    {
       hard_wrap: true
     }
   end
