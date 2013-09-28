@@ -11,7 +11,7 @@ class ExtractsMentionsFromMarkdown
   def initialize(content)
     @content = content
   end
-  
+
   def extract
     @mentions = []
     candidates.each do |username|
