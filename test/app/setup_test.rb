@@ -13,7 +13,7 @@ class SetupPageTest < Minitest::Test
     assert last_response.body.include?("Installation")
     assert last_response.status == 200
   end
-  
+
   def test_language_setup_pages
     ['Clojure', 'Ruby', 'Python', 'Elixir', 'Haskell', 'JavaScript'].each do |lang|
       visit_setup_page lang
