@@ -10,11 +10,11 @@ defmodule PhoneTest do
   end
 
   test "cleans number with dots" do
-    # assert "1234567890", Phone.number("123.456.7890")
+    # assert "1234567890" == Phone.number("123.456.7890")
   end
 
   test "valid when 11 digits and first is 1" do
-    # assert "1234567890", Phone.number("11234567890")
+    # assert "1234567890" == Phone.number("11234567890")
   end
 
   test "invalid when 11 digits" do
