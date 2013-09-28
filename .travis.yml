@@ -9,4 +9,4 @@ script:
   - rake
   - '( cd frontend && npm install && lineman spec-ci )'
   - '( export PATH=/opt/hp-2013.2.0.0/bin:$PATH; runhaskell ./test/haskell/check-exercises.hs )'
-  - "! git grep ' $' -- \*.rb | grep -v 'assignments/ruby/ocr-numbers/ocr-numbers_test.rb'"
+  - "! git grep ' $' -- \\*.rb | grep -v 'assignments/ruby/ocr-numbers/ocr-numbers_test.rb'"
