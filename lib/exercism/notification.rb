@@ -3,7 +3,7 @@ class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :submission
 
-  scope :recent, order(at: :desc).limit(100)
+  scope :recent, -> { order("at DESC").limit(100) }
 
   before_create do
     self.at    ||= DateTime.now.utc
