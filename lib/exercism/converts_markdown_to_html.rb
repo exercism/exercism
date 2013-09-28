@@ -14,7 +14,7 @@ class ConvertsMarkdownToHTML
   def initialize(input)
     @content = (input || "").dup
   end
-  
+
   def convert
     sanitize_markdown
     convert_markdown_to_html
