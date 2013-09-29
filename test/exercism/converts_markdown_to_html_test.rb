@@ -16,7 +16,6 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_convert_calls_correct_methods
     converter = ConvertsMarkdownToHTML.new(nil)
-    converter.expects(:sanitize_markdown)
     converter.expects(:convert_markdown_to_html)
     converter.expects(:sanitize_html)
     converter.convert
@@ -152,7 +151,7 @@ Post text}
           <div class="lineno">3</div>
         </td>
         <td class="code">class Foobar
-  foos.each { |foo| foo.bar &amp;gt; 10 }
+  foos.each { |foo| foo.bar &gt; 10 }
 end
 </td>
       </tr>

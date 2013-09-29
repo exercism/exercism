@@ -16,17 +16,11 @@ class ConvertsMarkdownToHTML
   end
 
   def convert
-    sanitize_markdown
     convert_markdown_to_html
     sanitize_html
   end
 
   private
-
-  def sanitize_markdown
-    @content.gsub!('>', '&gt;')
-    @content.gsub!('<', '&lt;')
-  end
 
   def sanitize_html
     @content = Loofah.xml_fragment(@content).scrub!(:escape).to_s
