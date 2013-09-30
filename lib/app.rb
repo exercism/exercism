@@ -26,6 +26,7 @@ require 'app/helpers/gravatar_helper'
 require 'app/helpers/profile_helper'
 require 'app/helpers/site_title_helper'
 require 'app/helpers/submissions_helper'
+require 'app/helpers/markdown_helper'
 
 require 'services'
 
@@ -55,6 +56,7 @@ class ExercismApp < Sinatra::Base
   helpers Sinatra::GravatarHelper
   helpers Sinatra::GithubLinkHelper
   helpers Sinatra::ProfileHelper
+  helpers Sinatra::MarkdownHelper
 
   helpers do
 
@@ -73,14 +75,6 @@ class ExercismApp < Sinatra::Base
         else
           Guest.new
         end
-      end
-    end
-
-    def md(text, language = nil)
-      if language
-        Markdown.render("```#{language}\n#{text}\n```")
-      else
-        Markdown.render(text)
       end
     end
 
