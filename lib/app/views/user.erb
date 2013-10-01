@@ -19,7 +19,11 @@
     <h3>Exercises</h3>
     <h4>Current</h4>
     <% if current.none? %>
-      <p>You have not submitted any exercises lately.</p>
+      <% if current_user.is?(user.username) %>
+        <p>You have not submitted any exercises lately.</p>
+      <% else %>
+        <p>This coder has not submitted any exercises lately.</p>
+      <% end %>
     <% end %>
     <ul>
       <% current.each do |exercise| %>
