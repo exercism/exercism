@@ -1,4 +1,4 @@
--module(beer_song).
+-module(example).
 -export([verse/1, sing/1, sing/2]).
 
 
@@ -21,7 +21,7 @@ verse(0) ->
 verse(N) ->
   io_lib:format(
     "~s of beer on the wall, ~s of beer.\n"
-    "Take one down and pass it around, ~s of beer on the wall.\n",
+    "Take it down and pass it around, ~s of beer on the wall.\n",
     [nBottles(N), nBottles(N), nBottles(N - 1)]).
 
 
