@@ -1,4 +1,4 @@
--module(example).
+-module(beer_song).
 -export([verse/1, sing/1, sing/2]).
 
 
