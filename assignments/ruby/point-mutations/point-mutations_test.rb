@@ -44,9 +44,10 @@ class DNATest < MiniTest::Unit::TestCase
 
   def test_does_not_actually_shorten_original_strand
     skip
-    assert_equal 1, DNA.new('AGACAACAGCCAGCCGCCGGATT').hamming_distance('AGGCAA')
-    assert_equal 4, DNA.new('AGACAACAGCCAGCCGCCGGATT').hamming_distance('AGACATCTTTCAGCCGCCGGATTAGGCAA')
-    assert_equal 1, DNA.new('AGACAACAGCCAGCCGCCGGATT').hamming_distance('AGG')
+    dna = DNA.new('AGACAACAGCCAGCCGCCGGATT')
+    assert_equal 1, dna.hamming_distance('AGGCAA')
+    assert_equal 4, dna.hamming_distance('AGACATCTTTCAGCCGCCGGATTAGGCAA')
+    assert_equal 1, dna.('AGACAACAGCCAGCCGCCGGATT').hamming_distance('AGG')
   end
 
 end
