@@ -34,4 +34,10 @@ class CodeTest < Minitest::Test
     code = Code.new('/path/to/file.py', locales)
     assert_equal 'to', code.slug
   end
+
+  def test_windows_file_path
+    code = Code.new('\path\to\file.py', locales)
+    assert_equal 'to', code.slug
+    assert_equal 'file.py', code.filename
+  end
 end
