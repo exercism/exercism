@@ -30,7 +30,7 @@ class NotificationsApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
-  def test_get_notifications_using_shared_secret
+  def test_get_notifications_using_api_key
     Notification.on(submission, to: alice, regarding: 'nitpick')
     get '/notifications', key: alice.key
     notifications = JSON.parse(last_response.body)['notifications']
@@ -61,7 +61,7 @@ class NotificationsApiTest < Minitest::Test
     assert notification.reload.read
   end
 
-  def test_mark_notification_as_read_using_shared_secret
+  def test_mark_notification_as_read_using_api_key
     notification = Notification.on(submission, to: alice, regarding: 'nitpick')
     put "/notifications/#{notification.id}", key: alice.key
     assert notification.reload.read
