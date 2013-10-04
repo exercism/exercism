@@ -19,7 +19,6 @@ gem 'will_paginate-bootstrap'
 gem 'pry', require: false
 gem 'airbrake'
 gem 'diffy'
-gem 'ansi2html'
 
 group :test, :development do
   gem 'ruby-prof'

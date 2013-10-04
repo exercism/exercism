@@ -17,7 +17,6 @@ GEM
     airbrake (3.1.14)
       builder
       json
-    ansi2html (5.3.4)
     approvals (0.0.8)
       nokogiri
       thor
@@ -121,7 +120,6 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
-  ansi2html
   approvals
   diffy
   faker
