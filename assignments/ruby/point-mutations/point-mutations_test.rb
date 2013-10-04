@@ -47,7 +47,7 @@ class DNATest < MiniTest::Unit::TestCase
     dna = DNA.new('AGACAACAGCCAGCCGCCGGATT')
     assert_equal 1, dna.hamming_distance('AGGCAA')
     assert_equal 4, dna.hamming_distance('AGACATCTTTCAGCCGCCGGATTAGGCAA')
-    assert_equal 1, dna.('AGACAACAGCCAGCCGCCGGATT').hamming_distance('AGG')
+    assert_equal 1, dna.hamming_distance('AGG')
   end
 
 end
