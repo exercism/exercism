@@ -59,6 +59,16 @@ class TeenagerTest < MiniTest::Unit::TestCase
     assert_equal 'Woah, chill out!', teenager.hey('1, 2, 3 GO!')
   end
 
+  def test_only_numbers
+    skip
+    assert_equal 'Whatever.', teenager.hey('1, 2, 3')
+  end
+  
+  def test_question_with_only_numbers
+    skip
+    assert_equal 'Sure.', teenager.hey('4?')
+  end
+
   def test_shouting_with_special_characters
     skip
     assert_equal 'Woah, chill out!', teenager.hey('ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!')
