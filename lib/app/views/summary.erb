@@ -41,7 +41,7 @@
     <% if iterations.size > 1 %>
       <%= erb :"code/simple", locals: { title: "Diff",
         html: { id: "revision-diff", style: "display: none;" },
-        code: diff.to_s,
+        code: '',
         language: 'diff' } %>
     <% end %>
 
