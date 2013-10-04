@@ -1,7 +1,9 @@
 class Notify
   def self.everyone(submission, regarding, options = {})
     except = Array(options[:except])
-    (submission.participants - except).each do |to|
+    cohort = Cohort.for(submission.user)
+    users = cohort.sees(submission.exercise) + submission.participants - except
+    users.each do |to|
       Notification.on(submission, to: to, regarding: regarding)
     end
   end

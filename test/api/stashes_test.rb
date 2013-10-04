@@ -45,10 +45,12 @@ class StashesApiTest < Minitest::Test
   end
 
   def test_stash_deleted_on_submission_attempt
-    stashed_data = {'code' => 'THE CODE', 'filename' => 'code.rb'}
-    post '/user/assignments/stash', {key: alice.key}.merge(stashed_data).to_json
-    post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
-    get '/user/assignments/stash/list', key: alice.key
+    Notify.stub(:everyone, nil) do
+      stashed_data = {'code' => 'THE CODE', 'filename' => 'code.rb'}
+      post '/user/assignments/stash', {key: alice.key}.merge(stashed_data).to_json
+      post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'code.rb'}.to_json
+      get '/user/assignments/stash/list', key: alice.key
+    end
     assert_equal({"list" => []}, JSON::parse(last_response.body))
   end
 end
