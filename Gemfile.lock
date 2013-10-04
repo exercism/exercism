@@ -17,12 +17,14 @@ GEM
     airbrake (3.1.14)
       builder
       json
+    ansi2html (5.3.4)
     approvals (0.0.8)
       nokogiri
       thor
     builder (3.0.4)
     coderay (1.0.9)
     daemons (1.1.9)
+    diffy (3.0.1)
     eventmachine (1.0.3)
     faker (1.2.0)
       i18n (~> 0.5)
@@ -119,7 +121,9 @@ PLATFORMS
 
 DEPENDENCIES
   airbrake
+  ansi2html
   approvals
+  diffy
   faker
   faraday
   loofah

@@ -18,6 +18,8 @@ gem 'will_paginate', github: 'mislav/will_paginate', tag: "4cb4986d5ce05aa84572b
 gem 'will_paginate-bootstrap'
 gem 'pry', require: false
 gem 'airbrake'
+gem 'diffy'
+gem 'ansi2html'
 
 group :test, :development do
   gem 'ruby-prof'
