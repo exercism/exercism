@@ -58,11 +58,12 @@ $(function() {
     $(event.target).toggleClass("selected");
 
     //Example is a special case, it's simply toggled
-    if($(event.target).html().indexOf("Example") != -1) {
-      if($(event.target).hasClass('selected'))
+    if($(event.target).html().indexOf("Example") !== -1) {
+      if($(event.target).hasClass('selected')) {
         $("#revision-example").show();
-      else
+      } else {
         $("#revision-example").hide();
+      }
       return;
     }
 
