@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   has_many :teams_created, class_name: "Team", foreign_key: :creator_id
   has_many :team_memberships, class_name: "TeamMembership"
   has_many :teams, through: :team_memberships
-  
+
   before_create do
     self.key = create_key
     true
@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def self.find_by_username(username)
-    where('LOWER(username) = ?', username.downcase).first  
+    where('LOWER(username) = ?', username.downcase).first
   end
 
   def random_work
