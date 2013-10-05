@@ -27,7 +27,7 @@ class User
 end
 
 class PGUser < ActiveRecord::Base
-  table_name :users
+  self.table_name = :users
 
   serialize :current, Hash
   serialize :completed, Hash

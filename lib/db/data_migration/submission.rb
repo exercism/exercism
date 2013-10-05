@@ -40,7 +40,7 @@ class Submission
 end
 
 class PGSubmission < ActiveRecord::Base
-  table_name :submissions
+  self.table_name = :submissions
   serialize :liked_by, Array
   serialize :viewers, Array
 end

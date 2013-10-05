@@ -14,7 +14,7 @@ class Team
 end
 
 class PGTeam < ActiveRecord::Base
-  table_name :teams
+  self.table_name = :teams
 
   has_and_belongs_to_many :members
 end

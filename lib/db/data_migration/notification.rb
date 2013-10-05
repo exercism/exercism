@@ -23,6 +23,6 @@ class Notification
 end
 
 class PGNotification < ActiveRecord::Base
-  table_name :notifications
+  self.table_name = :notifications
 end
 

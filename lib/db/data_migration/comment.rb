@@ -19,6 +19,6 @@ class Comment
 end
 
 class PGComment < ActiveRecord::Base
-  table_name :comments
+  self.table_name = :comments
 end
 
