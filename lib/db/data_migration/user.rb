@@ -11,6 +11,10 @@ class User
   field :j_at, type: Time, default: ->{ Time.now.utc }
   field :ms, as: :mastery, type: Array, default: []
 
+  def self.unmigrated_in(timeframe)
+    where(timeframe.mongoid_criteria(:j_at)).not_in(id: PGUser.migrated_ids(timeframe))
+  end
+
   def pg_attributes
     {
       username: username,
@@ -32,5 +36,9 @@ class PGUser < ActiveRecord::Base
   serialize :current, Hash
   serialize :completed, Hash
   serialize :mastery, Array
+
+  def self.migrated_ids(timeframe)
+    where(timeframe.pg_criteria).pluck(:mongoid_id)
+  end
 end
 
