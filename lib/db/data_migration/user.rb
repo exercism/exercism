@@ -15,6 +15,10 @@ class User
     where(timeframe.mongoid_criteria(:j_at)).not_in(id: PGUser.migrated_ids(timeframe))
   end
 
+  def pg_user
+    @pg_user ||= PGUser.find_by_mongoid_id(id.to_s)
+  end
+
   def pg_attributes
     {
       username: username,

@@ -1,7 +1,9 @@
 class Team
   include Mongoid::Document
   field :s, as: :slug, type: String
-  belongs_to :creator, class_name: "User", inverse_of: :teams_created
+  belongs_to :creator, class_name: "User"
+
+  has_and_belongs_to_many :members, class_name: "User"
 
   # There are no timestamps in teams.
   # It's OK, because there aren't too many of them.
@@ -29,5 +31,8 @@ class PGTeam < ActiveRecord::Base
   def self.migrated_ids
     where('1=1').pluck(:mongoid_id)
   end
+end
+
+class TeamMembership < ActiveRecord::Base
 end
 

@@ -35,7 +35,10 @@ class DataMigration
 
   def self.migrate_teams
     Team.unmigrated.each do |team|
-      PGTeam.create(team.pg_attributes)
+      pg_team = PGTeam.create(team.pg_attributes)
+      team.members.each do |member|
+        TeamMembership.create(user_id: member.pg_user.id, team_id: pg_team.id)
+      end
     end
   end
 
