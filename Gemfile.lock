@@ -68,11 +68,18 @@ GEM
     minitest (5.0.5)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
+    mongoid (3.1.4)
+      activemodel (~> 3.2)
+      moped (~> 1.4)
+      origin (~> 1.0)
+      tzinfo (~> 0.3.22)
+    moped (1.5.0)
     multi_json (1.7.5)
     multipart-post (1.2.0)
     newrelic_rpm (3.5.8.72)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
+    origin (1.1.0)
     petroglyph (0.0.7)
       tilt
     polyglot (0.3.3)
@@ -136,6 +143,7 @@ DEPENDENCIES
   mailcatcher
   minitest (~> 5.0)
   mocha
+  mongoid
   newrelic_rpm (= 3.5.8.72)
   petroglyph
   pony

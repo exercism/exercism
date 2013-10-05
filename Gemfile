@@ -24,6 +24,9 @@ gem 'diffy'
 # See http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
 gem 'pony', require: false
 
+# For data migration only.
+gem 'mongoid', require: false
+
 group :test, :development do
   gem 'ruby-prof'
   gem 'minitest', '~> 5.0', require: false
