@@ -14,10 +14,6 @@ class CreateSubmissions < ActiveRecord::Migration
       t.integer  :version
       t.string   :stash_name
 
-      t.string :viewers
-      t.string :liked_by
-      t.string :muted_by
-
       t.timestamps
 
       t.string :mongoid_id

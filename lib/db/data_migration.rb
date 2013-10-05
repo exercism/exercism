@@ -12,6 +12,7 @@ require './lib/db/data_migration/timeframe'
 class DataMigration
   def self.execute
     migrate_users
+    migrate_submissions
     # ...
   end
 
@@ -19,6 +20,14 @@ class DataMigration
     timeframes.each do |timeframe|
       User.unmigrated_in(timeframe).each do |user|
         PGUser.create(user.pg_attributes)
+      end
+    end
+  end
+
+  def self.migrate_submissions
+    timeframes.each do |timeframe|
+      Submission.unmigrated_in(timeframe).each do |submission|
+        PGSubmission.create(submission.pg_attributes)
       end
     end
   end

@@ -16,6 +16,14 @@ class Submission
   field :vs, as: :viewers, type: Array, default: []
   belongs_to :user
 
+  def self.unmigrated_in(timeframe)
+    where(timeframe.mongoid_criteria(:at)).not_in(id: PGSubmission.migrated_ids(timeframe))
+  end
+
+  def pg_user
+    @pg_user ||= PGUser.find_by_mongoid_id(user_id.to_s)
+  end
+
   def pg_attributes
     {
       state: state,
@@ -29,19 +37,18 @@ class Submission
       nit_count: nit_count,
       version: version,
       stash_name: stash_name,
+      user_id: pg_user.id,
       mongoid_id: id.to_s,
       mongoid_user_id: user_id.to_s,
-      liked_by: liked_by,
-      viewers: viewers
     }
-    # muted_by - I think it should be a relation. We want to filter on it.
-    # We'll need a :mutes or :muted_submissions table or something?
   end
 end
 
 class PGSubmission < ActiveRecord::Base
   self.table_name = :submissions
-  serialize :liked_by, Array
-  serialize :viewers, Array
+
+  def self.migrated_ids(timeframe)
+    where(timeframe.pg_criteria).pluck(:mongoid_id)
+  end
 end
 
