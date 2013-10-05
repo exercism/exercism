@@ -10,7 +10,14 @@ class CreateNotifications < ActiveRecord::Migration
       t.string   :note
 
       t.timestamps
+
+      t.string :mongoid_id
+      t.string :mongoid_user_id
+      t.string :mongoid_submission_id
     end
+    add_index :notifications, :mongoid_id, unique: true
+    add_index :notifications, :mongoid_user_id
+    add_index :notifications, :mongoid_submission_id
   end
 end
 

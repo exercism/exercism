@@ -8,6 +8,13 @@ class CreateComments < ActiveRecord::Migration
       t.text     :html_body
 
       t.timestamps
+
+      t.string :mongoid_id
+      t.string :mongoid_user_id
+      t.string :mongoid_submission_id
     end
+    add_index :comments, :mongoid_id, unique: true
+    add_index :comments, :mongoid_user_id
+    add_index :comments, :mongoid_submission_id
   end
 end

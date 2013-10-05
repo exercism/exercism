@@ -12,7 +12,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string :completed
 
       t.timestamps
+
+      t.string :mongoid_id
     end
+    add_index :users, :mongoid_id, unique: true
   end
 end
 

@@ -19,7 +19,12 @@ class CreateSubmissions < ActiveRecord::Migration
       t.string :muted_by
 
       t.timestamps
+
+      t.string :mongoid_id
+      t.string :mongoid_user_id
     end
+    add_index :submissions, :mongoid_id, unique: true
+    add_index :submissions, :mongoid_user_id
   end
 end
 
