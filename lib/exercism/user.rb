@@ -19,7 +19,6 @@ class User < ActiveRecord::Base
   
   before_create do
     self.key = create_key
-    self.j_at ||= DateTime.now.utc
     true
   end
 

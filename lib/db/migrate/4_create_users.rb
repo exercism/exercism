@@ -6,15 +6,12 @@ class CreateUsers < ActiveRecord::Migration
       t.string   :avatar_url
       t.integer  :github_id
       t.string   :key
-      t.datetime :j_at
-
-      t.datetime :at
-      t.text     :comment
-      t.text     :html_comment
 
       t.string :mastery
       t.string :current
       t.string :completed
+
+      t.timestamps
     end
   end
 end
