@@ -69,10 +69,10 @@ class ExercismApp < Sinatra::Base
     end
 
     def current_user
-      @current_user ||= find_user || Guest.new
+      @current_user ||= logged_in_user || Guest.new
     end
 
-    def find_user
+    def logged_in_user
       if session[:github_id]
         User.where(github_id: session[:github_id]).first
       end
