@@ -1,4 +1,5 @@
 require 'active_record'
+require 'db/config'
 # require 'pg'
 
 class ManagesDatabase
@@ -7,12 +8,16 @@ class ManagesDatabase
     new.establish_connection
   end
 
-  def initialize
-    @options = {adapter: 'sqlite3', database: 'test.sqlite'}
+  def establish_connection
+    ActiveRecord::Base.establish_connection(config)
   end
 
-  def establish_connection
-    ActiveRecord::Base.establish_connection(@options)
+  def environment
+    ENV.fetch('RACK_ENV') { 'development'}
+  end
+
+  def config
+    @config ||= DB::Config.new(environment).options
   end
 
 end

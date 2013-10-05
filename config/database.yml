@@ -1,0 +1,7 @@
+---
+test:
+  adapter: sqlite3
+  database: db/exercism_test.sqlite
+development:
+  adapter: sqlite3
+  database: db/exercism_development.sqlite
