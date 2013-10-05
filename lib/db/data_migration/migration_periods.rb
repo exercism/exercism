@@ -12,7 +12,8 @@ class MigrationPeriods
   private
 
   def launched_on
-    @launched_on ||= Date.new(2013, 6, 13)
+    # Screw timezones. Pretend it was yesterday.
+    @launched_on ||= Date.new(2013, 6, 12)
   end
 
   def migrate_to
