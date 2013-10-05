@@ -5,11 +5,6 @@ class Comment < ActiveRecord::Base
   belongs_to :user
   belongs_to :submission
 
-  before_create do
-    self.at ||= DateTime.now.utc
-    true
-  end
-
   before_save do
     self.html_body = ConvertsMarkdownToHTML.convert(body)
     true

@@ -14,7 +14,7 @@ class SeedCommentTest < Minitest::Test
     expected = {
       user: user,
       body: 'O HAI',
-      at: now,
+      created_at: now,
       submission: submission
     }
     assert_equal expected, comment.by(user, on: submission)

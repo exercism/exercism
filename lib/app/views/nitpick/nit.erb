@@ -6,7 +6,7 @@
   <%= nit.html_comment %>
   <cite>
     <%= gravatar_tag nit.user.avatar_url, size: 20 %>
-    <em><%= profile_link(nit.user) %></em>, <%= ago(nit.at) %>
+    <em><%= profile_link(nit.user) %></em>, <%= ago(nit.created_at) %>
   </cite>
   <% unless nit.mentions.empty? %>
     <aside>

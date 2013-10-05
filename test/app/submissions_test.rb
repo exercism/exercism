@@ -117,7 +117,7 @@ class SubmissionsTest < Minitest::Test
   def test_input_sanitation
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
-    nit = Comment.new(user: bob, body: "ok", at: DateTime.now - 1.day)
+    nit = Comment.new(user: bob, body: "ok", created_at: DateTime.now - 1.day)
     submission.comments << nit
     submission.save
 

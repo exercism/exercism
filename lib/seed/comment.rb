@@ -1,16 +1,16 @@
 module Seed
   class Comment
-    attr_reader :body, :at
+    attr_reader :body, :created_at
 
-    def initialize(body, at)
-      @body, @at = body, at
+    def initialize(body, created_at)
+      @body, @created_at = body, created_at
     end
 
     def by(user, options = {})
       {
         user: user,
         body: body,
-        at: at,
+        created_at: created_at,
         submission: options[:on]
       }
     end

@@ -38,7 +38,7 @@ class Seed::AttemptTest < Minitest::Test
       if attempt.comments.size > 1
         first = attempt.comments.first
         last = attempt.comments.last
-        assert first.at < last.at
+        assert first.created_at < last.created_at
       end
     end
   end

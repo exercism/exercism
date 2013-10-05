@@ -52,6 +52,6 @@ class Mute
   end
 
   def latest_nit_at
-    submission.nits_by_others.map(&:at).sort.last
+    submission.nits_by_others.map(&:created_at).sort.last
   end
 end

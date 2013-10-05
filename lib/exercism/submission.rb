@@ -3,7 +3,7 @@ class Submission < ActiveRecord::Base
   serialize :liked_by, Array
 
   belongs_to :user
-  has_many :comments, order: 'at ASC'
+  has_many :comments, order: 'created_at ASC'
 
   has_many :submission_viewers
   has_many :viewers, through: :submission_viewers
