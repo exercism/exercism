@@ -6,9 +6,10 @@ class CreateNotifications < ActiveRecord::Migration
 
       t.string   :regarding
       t.boolean  :read
-      t.datetime :at
       t.integer  :count,         null: false, default: 0
       t.string   :note
+
+      t.timestamps
     end
   end
 end

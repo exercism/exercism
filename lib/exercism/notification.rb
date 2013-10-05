@@ -3,10 +3,9 @@ class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :submission
 
-  scope :recent, -> { order("at DESC").limit(100) }
+  scope :recent, -> { order("created_at DESC").limit(100) }
 
   before_create do
-    self.at    ||= DateTime.now.utc
     self.read  ||= false
     self.count ||= 0
     true

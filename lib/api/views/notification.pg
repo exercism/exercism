@@ -1,8 +1,8 @@
 node notification: notification do
   attributes :id, :regarding, :count, :read, :note, :language, :slug, :username
   node recipient: current_user.username
-  node date: notification.at.to_i
-  node ago: ago(notification.at)
+  node date: notification.created_at.to_i
+  node ago: ago(notification.created_at)
   if notification.custom?
     node link: nil
   else
