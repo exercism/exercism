@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
   end
 
   def most_recent_submission
-    submissions.order("at ASC").last
+    submissions.order("created_at ASC").last
   end
 
   def guest?
@@ -139,7 +139,7 @@ class User < ActiveRecord::Base
   end
 
   def latest_submission
-    @latest_submission ||= submissions.pending.order(at: :desc).first
+    @latest_submission ||= submissions.pending.order(created_at: :desc).first
   end
 
   private

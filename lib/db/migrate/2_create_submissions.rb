@@ -7,8 +7,6 @@ class CreateSubmissions < ActiveRecord::Migration
       t.string   :language
       t.string   :slug
       t.string   :code
-      t.datetime :at
-      t.datetime :approved_at
       t.datetime :done_at
       t.boolean  :is_liked
       t.boolean  :wants_opinions, null: false
@@ -19,6 +17,8 @@ class CreateSubmissions < ActiveRecord::Migration
       t.string :viewers
       t.string :liked_by
       t.string :muted_by
+
+      t.timestamps
     end
   end
 end

@@ -24,7 +24,7 @@ class MuteTest < Minitest::Test
   end
 
   def submission
-    @submission ||= Submission.create(user: bob, language: 'ruby', slug: 'bob', at: Time.now - (a_week*2))
+    @submission ||= Submission.create(user: bob, language: 'ruby', slug: 'bob', created_at: Time.now - (a_week*2))
   end
 
   def test_mute_pending_submission

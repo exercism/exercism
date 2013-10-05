@@ -14,7 +14,7 @@ class Seed::AttemptTest < Minitest::Test
     attributes = {
       slug: 'word-count',
       language: 'ruby',
-      at: now,
+      created_at: now,
       state: 'pending',
       code: 'CODE',
       user: user

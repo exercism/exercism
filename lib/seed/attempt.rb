@@ -1,5 +1,5 @@
 module Seed
-  Attempt = Struct.new(:language, :slug, :at, :state) do
+  Attempt = Struct.new(:language, :slug, :created_at, :state) do
     def attributes
       members.each_with_object({}) do |member, attrs|
         attrs[member] = send(member)
@@ -31,7 +31,7 @@ module Seed
     end
 
     def after(timestamp)
-      (timestamp || at) + rand(1000..100000)
+      (timestamp || created_at) + rand(1000..100000)
     end
   end
 end

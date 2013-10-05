@@ -39,7 +39,7 @@ class UnsubmitTest < Minitest::Test
 
   def test_fails_when_too_old
     bob = User.create(username: 'bob')
-    bob.submissions.create(:user => bob, :at => Time.now - Unsubmit::TIMEOUT - 1)
+    bob.submissions.create(:user => bob, :created_at => Time.now - Unsubmit::TIMEOUT - 1)
 
     assert_raises Unsubmit::SubmissionTooOld do
       Unsubmit.new(bob).unsubmit

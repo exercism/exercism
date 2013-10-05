@@ -15,7 +15,6 @@ class Submission < ActiveRecord::Base
 
   before_create do
     self.state          ||= "pending"
-    self.at             ||= Time.now.utc
     self.nit_count      ||= 0
     self.version        ||= 0
     self.wants_opinions ||= false
@@ -39,7 +38,7 @@ class Submission < ActiveRecord::Base
   end
 
   def self.related(submission)
-    order('at ASC').
+    order('created_at ASC').
       where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
   end
 
@@ -48,11 +47,11 @@ class Submission < ActiveRecord::Base
   end
 
   def self.pending
-    where(state: 'pending').order(at: :desc)
+    where(state: 'pending').order(created_at: :desc)
   end
 
   def self.done
-    where(state: 'done').order(at: :desc)
+    where(state: 'done').order(created_at: :desc)
   end
 
   def self.on(exercise)
@@ -115,7 +114,7 @@ class Submission < ActiveRecord::Base
   end
 
   def older_than?(time)
-    self.at.utc < (Time.now.utc - time)
+    self.created_at.utc < (Time.now.utc - time)
   end
 
   def exercise

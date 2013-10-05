@@ -86,7 +86,7 @@ class AttemptTest < Minitest::Test
   end
 
   def test_a_new_attempt_supersedes_the_previous_hibernating_one
-    submission = Submission.create(user: user, language: 'femp', slug: 'two', at: Time.now, state: 'hibernating')
+    submission = Submission.create(user: user, language: 'femp', slug: 'two', created_at: Time.now, state: 'hibernating')
     Attempt.new(user, 'CODE 2', 'two/two.fp', curriculum).save
     one, two = user.reload.submissions
     assert one.superseded?
@@ -96,7 +96,7 @@ class AttemptTest < Minitest::Test
   def test_a_new_attempt_unmutes_previous_attempt
     tom = User.create(username: 'tom')
     jerry = User.create(username: 'jerry')
-    submission = Submission.create(user: user, language: 'femp', slug: 'two', at: Time.now, muted_by: [tom, jerry])
+    submission = Submission.create(user: user, language: 'femp', slug: 'two', created_at: Time.now, muted_by: [tom, jerry])
     Attempt.new(user, 'CODE 2', 'two/two.fp', curriculum).save
     assert_equal [], submission.reload.muted_by
   end

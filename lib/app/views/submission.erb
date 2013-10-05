@@ -11,7 +11,7 @@
     <% end %>
 
     <%= erb :byline, locals: {exercise: submission.exercise, user: submission.user} %>
-    <p>Submitted <%= ago(submission.at) %>.</p>
+    <p>Submitted <%= ago(submission.created_at) %>.</p>
     <p><%= view_count_for(submission) %>.</p>
     <p>
       Iteration <b><%= submission.version %></b> of <b><%= submission.versions_count %></b>.
