@@ -43,9 +43,5 @@ class PGSubmission < ActiveRecord::Base
   table_name :submissions
   serialize :liked_by, Array
   serialize :viewers, Array
-
-  # needs fields for
-  # mongoid_id
-  # mongoid_user_id
 end
 

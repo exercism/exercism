@@ -32,8 +32,5 @@ class PGUser < ActiveRecord::Base
   serialize :current, Hash
   serialize :completed, Hash
   serialize :mastery, Array
-
-  # needs field for:
-  # mongoid_id
 end
 

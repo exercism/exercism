@@ -17,9 +17,5 @@ class PGTeam < ActiveRecord::Base
   table_name :teams
 
   has_and_belongs_to_many :members
-
-  # we will need fields for:
-  # mongoid_id
-  # mongoid_creator_id
 end
 

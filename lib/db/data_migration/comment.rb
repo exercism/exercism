@@ -20,9 +20,5 @@ end
 
 class PGComment < ActiveRecord::Base
   table_name :comments
-  # needs fields for:
-  # mongoid_id
-  # mongoid_user_id
-  # mongoid_submission_id
 end
 
