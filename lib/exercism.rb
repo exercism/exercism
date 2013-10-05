@@ -29,8 +29,8 @@ require 'exercism/trail'
 require 'exercism/use_cases'
 require 'exercism/user'
 
-require 'exercism/manages_database'
-ManagesDatabase.establish_connection
+require 'db/connection'
+DB::Connection.establish
 
 class Exercism
   # See lib/exercism/curriculum.rb for default curriculum setup

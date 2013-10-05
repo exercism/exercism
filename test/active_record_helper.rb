@@ -1,8 +1,8 @@
 require 'active_record'
 require 'database_cleaner'
-require_relative '../lib/exercism/manages_database'
+require 'db/connection'
 
-ManagesDatabase.establish_connection
+DB::Connection.establish
 
 DatabaseCleaner.strategy = :transaction
 

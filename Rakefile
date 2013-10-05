@@ -14,8 +14,8 @@ namespace :db do
   task :migrate do
     require 'bundler'
     Bundler.require
-    require_relative 'lib/exercism/manages_database'
-    ManagesDatabase.establish_connection
+    require_relative 'lib/db/connection'
+    DB::Connection.establish
     ActiveRecord::Migrator.migrate('lib/db/migrate')
   end
 end
