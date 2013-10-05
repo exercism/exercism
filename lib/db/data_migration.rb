@@ -13,6 +13,7 @@ class DataMigration
   def self.execute
     migrate_users
     migrate_submissions
+    migrate_teams
     # ...
   end
 
@@ -29,6 +30,12 @@ class DataMigration
       Submission.unmigrated_in(timeframe).each do |submission|
         PGSubmission.create(submission.pg_attributes)
       end
+    end
+  end
+
+  def self.migrate_teams
+    Team.unmigrated.each do |team|
+      PGTeam.create(team.pg_attributes)
     end
   end
 
