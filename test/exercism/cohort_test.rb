@@ -2,10 +2,6 @@ require './test/integration_helper'
 
 class CohortTest < Minitest::Test
 
-  def teardown
-    Mongoid.reset
-  end
-
   def test_team_members_and_managers
     alice = User.create username: 'alice'
     bob = User.create username: 'bob'
