@@ -71,6 +71,22 @@ test_respondsToOtherWhitespace :: Assertion
 test_respondsToOtherWhitespace =
   "Fine. Be that way!" @=? responseFor "\n\r \t\v\xA0\x2002" -- \xA0 No-break space, \x2002 En space
 
+test_respondsToOnlyNumbers :: Assertion
+test_respondsToOnlyNumbers =
+  "Whatever." @=? responseFor "1, 2, 3"
+
+test_respondsToQuestionWithOnlyNumbers :: Assertion
+test_respondsToQuestionWithOnlyNumbers =
+  "Sure." @=? responseFor "4?"
+
+test_respondsToUnicodeShout :: Assertion
+test_respondsToUnicodeShout =
+  "Woah, chill out!" @=? responseFor "\xdcML\xc4\xdcTS!"
+
+test_respondsToUnicodeNonShout :: Assertion
+test_respondsToUnicodeNonShout =
+  "Whatever." @=? responseFor "\xdcML\xe4\xdcTS!"
+
 respondsToTests :: [Test]
 respondsToTests =
   [ testCase "something" test_respondsToSomething
@@ -92,6 +108,10 @@ respondsToTests =
   , testCase "multiple-line statement containing question mark"
     test_respondsToMultipleLineQuestions
   , testCase "all whitespace is silence" test_respondsToOtherWhitespace
+  , testCase "only numbers" test_respondsToOnlyNumbers
+  , testCase "question with only numbers" test_respondsToQuestionWithOnlyNumbers
+  , testCase "unicode shout" test_respondsToUnicodeShout
+  , testCase "unicode non-shout" test_respondsToUnicodeNonShout
   ]
 
 main :: IO ()
