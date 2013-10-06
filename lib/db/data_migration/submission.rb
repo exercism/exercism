@@ -57,3 +57,6 @@ end
 
 class MutedSubmission < ActiveRecord::Base
 end
+
+class Like < ActiveRecord::Base
+end

@@ -33,6 +33,7 @@ class DataMigration
         pg_submission = PGSubmission.create(submission.pg_attributes)
         migrate_submission_viewers(submission, pg_submission)
         migrate_muted_submissions(submission, pg_submission)
+        migrate_likes(submission, pg_submission)
       end
     end
   end
@@ -48,6 +49,13 @@ class DataMigration
     submission.muted_by.each do |username|
       user = PGUser.find_by_username(username)
       MutedSubmission.create(user_id: user.id, submission_id: pg_submission.id)
+    end
+  end
+
+  def self.migrate_likes(submission, pg_submission)
+    submission.liked_by.each do |username|
+      user = PGUser.find_by_username(username)
+      Like.create(user_id: user.id, submission_id: pg_submission.id)
     end
   end
 
