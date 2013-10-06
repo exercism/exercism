@@ -1,16 +1,16 @@
 GIT
+  remote: git://github.com/jayferd/rouge.git
+  revision: 1822e646c6380215dbb4b777ab2bbacde892b363
+  ref: 1822e646c6380215dbb4b777ab2bbacde892b363
+  specs:
+    rouge (1.0.0)
+
+GIT
   remote: git://github.com/mislav/will_paginate.git
   revision: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
   tag: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
   specs:
     will_paginate (3.0.4)
-
-GIT
-  remote: git://github.com/rsslldnphy/rouge.git
-  revision: 323b53d459ae3745c037dd0ad18484caa18ce1ba
-  branch: fix/table-inside-pre
-  specs:
-    rouge (1.0.0)
 
 GEM
   remote: http://rubygems.org/
