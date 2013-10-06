@@ -18,33 +18,16 @@ CODE
 RUBY
     output = helper.md(code, "ruby")
     expected = <<HTML.strip
-<pre class="highlight ruby">
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter gl">
-          <div class="lineno">1</div>
-        </td>
-        <td class="code"><span class="no">CODE</span>
-</td>
-      </tr>
-    </tbody>
-  </table>
-</pre>
-&lt;script&gt;alert('hi, bob!')&lt;/script&gt;
-<pre class="highlight plaintext">
-  <table>
-    <tbody>
-      <tr>
-        <td class="gutter gl">
-          <div class="lineno">1</div>
-        </td>
-        <td class="code">
-</td>
-      </tr>
-    </tbody>
-  </table>
-</pre>
+<div class="highlight ruby"><table><tbody><tr>
+<td class="gutter gl"><div class="lineno"><pre>1</pre></div></td>
+<td class="code"><pre><span class="no">CODE</span>
+</pre></td>
+</tr></tbody></table></div>
+&lt;script&gt;alert('hi, bob!')&lt;/script&gt;<div class="highlight plaintext"><table><tbody><tr>
+<td class="gutter gl"><div class="lineno"><pre>1</pre></div></td>
+<td class="code"><pre>
+</pre></td>
+</tr></tbody></table></div>
 HTML
     assert_equal expected, output
   end

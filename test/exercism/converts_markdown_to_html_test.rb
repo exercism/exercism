@@ -35,64 +35,76 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_ampersands
     input = "```\nbig && strong\n```"
-    expected = %Q{<pre class=\"highlight plaintext\">
+    expected = %Q{<div class=\"highlight plaintext\">
   <table>
     <tbody>
       <tr>
         <td class=\"gutter gl\">
-          <div class=\"lineno\">1</div>
+          <div class=\"lineno\">
+            <pre>1</pre>
+          </div>
         </td>
-        <td class=\"code\">big &amp;&amp; strong
-</td>
+        <td class=\"code\">
+          <pre>big &amp;&amp; strong
+</pre>
+        </td>
       </tr>
     </tbody>
   </table>
-</pre>}
+</div>}
     check_sanitisation(input, expected)
   end
 
   def test_markdown_code_with_text_and_double_braces
     input = "```\nx{{current}}y\n```"
-    expected = %Q{<pre class=\"highlight plaintext\">
+    expected = %Q{<div class=\"highlight plaintext\">
   <table>
     <tbody>
       <tr>
         <td class=\"gutter gl\">
-          <div class=\"lineno\">1</div>
+          <div class=\"lineno\">
+            <pre>1</pre>
+          </div>
         </td>
-        <td class=\"code\">x{{current}}y
-</td>
+        <td class=\"code\">
+          <pre>x{{current}}y
+</pre>
+        </td>
       </tr>
     </tbody>
   </table>
-</pre>}
+</div>}
     check_sanitisation(input, expected)
   end
 
   def test_markdown_code_with_double_braces
     input = "```\n{{x: y}}\n```"
-    expected = %Q{<pre class=\"highlight json\">
+    expected = %Q{<div class=\"highlight json\">
   <table>
     <tbody>
       <tr>
         <td class=\"gutter gl\">
-          <div class=\"lineno\">1</div>
+          <div class=\"lineno\">
+            <pre>1</pre>
+          </div>
         </td>
         <td class=\"code\">
-          <span class=\"p\">{</span>
-          <span class=\"err\">{x</span>
-          <span class=\"p\">:</span>
-          <span class=\"w\"> </span>
-          <span class=\"err\">y</span>
-          <span class=\"p\">}</span>
-          <span class=\"err\">}</span>
-          <span class=\"w\">
+          <pre>
+            <span class=\"p\">{</span>
+            <span class=\"err\">{x</span>
+            <span class=\"p\">:</span>
+            <span class=\"w\"> </span>
+            <span class=\"err\">y</span>
+            <span class=\"p\">}</span>
+            <span class=\"err\">}</span>
+            <span class=\"w\">
 </span>
+          </pre>
         </td>
       </tr>
     </tbody>
   </table>
-</pre>}
+</div>}
 
     check_sanitisation(input, expected)
   end
@@ -103,25 +115,37 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
                  "{{action}}, {{remaining}} of beer on the wall.\n";}
 
-    expected = %Q{<pre class=\"highlight plaintext\">
+    expected = %Q{<div class=\"highlight plaintext\">
   <table>
     <tbody>
       <tr>
         <td class=\"gutter gl\">
-          <div class=\"lineno\">1</div>
-          <div class=\"lineno\">2</div>
-          <div class=\"lineno\">3</div>
-          <div class=\"lineno\">4</div>
-          <div class=\"lineno\">5</div>
+          <div class=\"lineno\">
+            <pre>1</pre>
+          </div>
+          <div class=\"lineno\">
+            <pre>2</pre>
+          </div>
+          <div class=\"lineno\">
+            <pre>3</pre>
+          </div>
+          <div class=\"lineno\">
+            <pre>4</pre>
+          </div>
+          <div class=\"lineno\">
+            <pre>5</pre>
+          </div>
         </td>
-        <td class=\"code\">  var refill = 99
+        <td class=\"code\">
+          <pre>  var refill = 99
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
                  "{{action}}, {{remaining}} of beer on the wall.\n";
-</td>
+</pre>
+        </td>
       </tr>
     </tbody>
   </table>
-</pre>}
+</div>}
 
     converter = ConvertsMarkdownToHTML.new(input)
     converter.convert
@@ -141,23 +165,31 @@ end
 Post text}
 
     expected = %q{<p>Pre text</p>
-<pre class="highlight plaintext">
+<div class="highlight plaintext">
   <table>
     <tbody>
       <tr>
         <td class="gutter gl">
-          <div class="lineno">1</div>
-          <div class="lineno">2</div>
-          <div class="lineno">3</div>
+          <div class="lineno">
+            <pre>1</pre>
+          </div>
+          <div class="lineno">
+            <pre>2</pre>
+          </div>
+          <div class="lineno">
+            <pre>3</pre>
+          </div>
         </td>
-        <td class="code">class Foobar
+        <td class="code">
+          <pre>class Foobar
   foos.each { |foo| foo.bar &gt; 10 }
 end
-</td>
+</pre>
+        </td>
       </tr>
     </tbody>
   </table>
-</pre>
+</div>
 <p>Post text</p>}
 
     check_sanitisation(input, expected)
