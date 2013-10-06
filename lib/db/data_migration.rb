@@ -14,6 +14,7 @@ class DataMigration
     migrate_users
     migrate_submissions
     migrate_teams
+    migrate_comments
     # ...
   end
 
@@ -38,6 +39,14 @@ class DataMigration
       pg_team = PGTeam.create(team.pg_attributes)
       team.members.each do |member|
         TeamMembership.create(user_id: member.pg_user.id, team_id: pg_team.id)
+      end
+    end
+  end
+
+  def self.migrate_comments
+    timeframes.each do |timeframe|
+      Comment.unmigrated_in(timeframe).each do |comment|
+        PGComment.create(comment.pg_attributes)
       end
     end
   end
