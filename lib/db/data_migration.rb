@@ -63,11 +63,15 @@ class DataMigration
   def self.migrate_teams
     Team.unmigrated.each do |team|
       pg_team = PGTeam.create(team.pg_attributes)
-      team.members.each do |member|
-        TeamMembership.create(user_id: member.pg_user.id, team_id: pg_team.id)
-      end
+      migrate_team_memberships(team, pg_team)
     end
     puts "MongoDB.Teams: #{Team.count}, PostgreSQL.Teams: #{PGTeam.count}"
+  end
+
+  def self.migrate_team_memberships(team, pg_team)
+    team.members.each do |member|
+      TeamMembership.create(user_id: member.pg_user.id, team_id: pg_team.id)
+    end
   end
 
   def self.migrate_comments
