@@ -16,7 +16,6 @@ class DataMigration
     migrate_teams
     migrate_comments
     migrate_notifications
-    # ...
   end
 
   def self.migrate_users
