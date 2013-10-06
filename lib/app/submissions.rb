@@ -177,4 +177,16 @@ class ExercismApp < Sinatra::Base
                                                   language: language,
                                                 assignment: assignment }
   end
+
+  get '/submissions/diff/:id/:id' do |a,b|
+    please_login
+
+    diff = Diffy::Diff.new(Submission.find(a).code, Submission.find(b).code)
+    erb :"code/simple", layout: false, locals: { title: "Diff",
+        html: { id: "revision-diff"},
+        code: diff.to_s,
+        language: 'diff',
+    }
+
+  end
 end

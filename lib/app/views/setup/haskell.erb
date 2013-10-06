@@ -5,6 +5,8 @@
 <p>
   Download and install a recent Haskell Platform (GHC) for your OS from
   <a href="http://www.haskell.org/platform/">haskell.org/platform</a>.
+  Linux distributions are likely to name this package
+  <code>haskell-platform</code>.
 </p>
 
 <h4>Building and running tests: </h4>
@@ -17,6 +19,8 @@
   put this code in <code>Bob.hs</code>:
 </p>
 
-<pre>module Bob where
-    responseFor = id
+<pre>module Bob (responseFor) where
+
+responseFor :: String -> String
+responseFor = undefined
 </pre>

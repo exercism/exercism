@@ -9,7 +9,7 @@ module Sinatra
       else
         Markdown.render(text)
       end
-      Loofah.xml_fragment(html).scrub!(:escape).to_s
+      Loofah.fragment(html).scrub!(:escape).to_s
     end
   end
 end

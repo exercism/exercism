@@ -21,8 +21,6 @@
   <main id="pending-submissions" class="span8">
   <% if show_pending_submissions?(language) %>
     <%= erb :pending, locals: {submissions: submissions, show_filters: show_filters, language: language} %>
-  <% else %>
-    <%= erb :setup %>
   <% end %>
   </main>
 </div>

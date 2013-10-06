@@ -10,7 +10,7 @@ gem 'petroglyph'
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'redcarpet'
-gem 'rouge'
+gem 'rouge', github: 'rsslldnphy/rouge', branch: 'fix/table-inside-pre'
 gem 'sinatra', require: 'sinatra/base'
 gem 'pony'
 gem 'loofah'
@@ -18,6 +18,7 @@ gem 'will_paginate', github: 'mislav/will_paginate', tag: "4cb4986d5ce05aa84572b
 gem 'will_paginate-bootstrap'
 gem 'pry', require: false
 gem 'airbrake'
+gem 'diffy'
 
 group :test, :development do
   gem 'ruby-prof'

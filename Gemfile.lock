@@ -5,6 +5,13 @@ GIT
   specs:
     will_paginate (3.0.4)
 
+GIT
+  remote: git://github.com/rsslldnphy/rouge.git
+  revision: 323b53d459ae3745c037dd0ad18484caa18ce1ba
+  branch: fix/table-inside-pre
+  specs:
+    rouge (1.0.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -23,6 +30,7 @@ GEM
     builder (3.0.4)
     coderay (1.0.9)
     daemons (1.1.9)
+    diffy (3.0.1)
     eventmachine (1.0.3)
     faker (1.2.0)
       i18n (~> 0.5)
@@ -87,7 +95,6 @@ GEM
       rack (>= 1.0)
     rake (10.1.0)
     redcarpet (2.3.0)
-    rouge (0.5.4)
     ruby-prof (0.13.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
@@ -121,6 +128,7 @@ PLATFORMS
 DEPENDENCIES
   airbrake
   approvals
+  diffy
   faker
   faraday
   gemoji
@@ -138,7 +146,7 @@ DEPENDENCIES
   rack-test
   rake
   redcarpet
-  rouge
+  rouge!
   ruby-prof
   simplecov
   sinatra

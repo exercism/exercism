@@ -49,7 +49,9 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_starts_trail_automatically
     Exercism.stub(:current_curriculum, curriculum) do
       bob = User.create(username: 'bob', github_id: 2, current: {})
-      post '/user/assignments', {key: bob.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+      Notify.stub(:everyone, nil) do
+        post '/user/assignments', {key: bob.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+      end
 
       submission = Submission.first
       ex = Exercise.new('ruby', 'one')
@@ -183,6 +185,24 @@ class AssignmentsApiTest < Minitest::Test
       options = {format: :json, name: 'api_peek_with_complete_trail'}
       Approvals.verify(output, options)
     end
+  end
+
+  def test_notify_team_members_about_submission
+    bob = User.create username: 'bob', github_id: -2
+    charlie = User.create username: 'charlie', github_id: -3, current: {'ruby' => 'bob'}
+    dave = User.create username: 'dave', github_id: -4, completed: {'ruby' => ['bob']}
+    eve = User.create username: 'eve', github_id: -5
+    Team.create(slug: 'team1', members: [bob, charlie], creator: alice)
+    Team.create(slug: 'team2', members: [bob, dave, eve], creator: alice)
+
+    post '/user/assignments', {key: bob.key, code: 'THE CODE', path: 'bob/code.rb'}.to_json
+    assert_equal 201, last_response.status
+
+    [alice, charlie, dave].each do |user|
+      assert_equal 1, user.reload.notifications.count, "Notify #{user.username} failed"
+    end
+
+    assert_equal 0, eve.reload.notifications.count
   end
 
   def test_api_rejects_duplicates

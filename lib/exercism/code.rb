@@ -25,7 +25,7 @@ class Code
   private
 
   def path_segments
-    @path_segments = path.split('/')
+    @path_segments = path.split(/\/|\\/)
   end
 
   def identify_locale
