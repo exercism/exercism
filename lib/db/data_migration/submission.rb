@@ -54,3 +54,6 @@ end
 
 class SubmissionViewer < ActiveRecord::Base
 end
+
+class MutedSubmission < ActiveRecord::Base
+end

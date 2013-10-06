@@ -35,6 +35,10 @@ class DataMigration
           viewer = PGUser.find_by_username(username)
           SubmissionViewer.create(viewer_id: viewer.id, submission_id: pg_submission.id)
         end
+        submission.muted_by.each do |username|
+          user = PGUser.find_by_username(username)
+          MutedSubmission.create(user_id: user.id, submission_id: pg_submission.id)
+        end
       end
     end
   end
