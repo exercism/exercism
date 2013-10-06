@@ -30,7 +30,11 @@ class DataMigration
   def self.migrate_submissions
     timeframes.each do |timeframe|
       Submission.unmigrated_in(timeframe).each do |submission|
-        PGSubmission.create(submission.pg_attributes)
+        pg_submission = PGSubmission.create(submission.pg_attributes)
+        submission.viewers.each do |username|
+          viewer = PGUser.find_by_username(username)
+          SubmissionViewer.create(viewer_id: viewer.id, submission_id: pg_submission.id)
+        end
       end
     end
   end

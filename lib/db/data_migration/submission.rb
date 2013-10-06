@@ -52,3 +52,5 @@ class PGSubmission < ActiveRecord::Base
   end
 end
 
+class SubmissionViewer < ActiveRecord::Base
+end
