@@ -25,6 +25,7 @@ class DataMigration
         PGUser.create(user.pg_attributes)
       end
     end
+    puts "MongoDB.Users: #{User.count}, PostgreSQL.Users: #{PGUser.count}"
   end
 
   def self.migrate_submissions
@@ -36,6 +37,7 @@ class DataMigration
         migrate_likes(submission, pg_submission)
       end
     end
+    puts "MongoDB.Submissions: #{Submission.count}, PostgreSQL.Submission: #{PGSubmission.count}"
   end
 
   def self.migrate_submission_viewers(submission, pg_submission)
@@ -66,6 +68,7 @@ class DataMigration
         TeamMembership.create(user_id: member.pg_user.id, team_id: pg_team.id)
       end
     end
+    puts "MongoDB.Teams: #{Team.count}, PostgreSQL.Teams: #{PGTeam.count}"
   end
 
   def self.migrate_comments
@@ -74,6 +77,7 @@ class DataMigration
         PGComment.create(comment.pg_attributes)
       end
     end
+    puts "MongoDB.Comments: #{Comment.count}, PostgreSQL.Comments: #{PGComment.count}"
   end
 
   def self.migrate_notifications
@@ -85,6 +89,7 @@ class DataMigration
         PGNotification.create(notification.pg_attributes)
       end
     end
+    puts "MongoDB.Notifications: #{Notification.count}, PostgreSQL.Notifications: #{PGNotification.count}"
   end
 
   def self.timeframes
