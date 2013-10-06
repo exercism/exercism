@@ -2,7 +2,7 @@ class CreateNotifications < ActiveRecord::Migration
   def change
     create_table :notifications do |t|
       t.integer  :user_id,       null: false
-      t.integer  :submission_id, null: false
+      t.integer  :submission_id  # might be null
 
       t.string   :regarding
       t.boolean  :read

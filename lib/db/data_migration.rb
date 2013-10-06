@@ -15,6 +15,7 @@ class DataMigration
     migrate_submissions
     migrate_teams
     migrate_comments
+    migrate_notifications
     # ...
   end
 
@@ -47,6 +48,17 @@ class DataMigration
     timeframes.each do |timeframe|
       Comment.unmigrated_in(timeframe).each do |comment|
         PGComment.create(comment.pg_attributes)
+      end
+    end
+  end
+
+  def self.migrate_notifications
+    # First, let's delete read notifications if they're old
+    Notification.where(:at.lt => (Date.today - 2), :read => true).delete_all
+
+    timeframes.each do |timeframe|
+      Notification.unmigrated_in(timeframe).each do |notification|
+        PGNotification.create(notification.pg_attributes)
       end
     end
   end
