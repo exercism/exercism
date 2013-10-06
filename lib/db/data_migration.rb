@@ -31,15 +31,23 @@ class DataMigration
     timeframes.each do |timeframe|
       Submission.unmigrated_in(timeframe).each do |submission|
         pg_submission = PGSubmission.create(submission.pg_attributes)
-        submission.viewers.each do |username|
-          viewer = PGUser.find_by_username(username)
-          SubmissionViewer.create(viewer_id: viewer.id, submission_id: pg_submission.id)
-        end
-        submission.muted_by.each do |username|
-          user = PGUser.find_by_username(username)
-          MutedSubmission.create(user_id: user.id, submission_id: pg_submission.id)
-        end
+        migrate_submission_viewers(submission, pg_submission)
+        migrate_muted_submissions(submission, pg_submission)
       end
+    end
+  end
+
+  def self.migrate_submission_viewers(submission, pg_submission)
+    submission.viewers.each do |username|
+      viewer = PGUser.find_by_username(username)
+      SubmissionViewer.create(viewer_id: viewer.id, submission_id: pg_submission.id)
+    end
+  end
+
+  def self.migrate_muted_submissions(submission, pg_submission)
+    submission.muted_by.each do |username|
+      user = PGUser.find_by_username(username)
+      MutedSubmission.create(user_id: user.id, submission_id: pg_submission.id)
     end
   end
 
