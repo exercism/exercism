@@ -12,7 +12,7 @@ class Emojify
   end
 
   def convert
-    @input.to_str.gsub(/:([a-z0-9\+\-_]+):/) do |match|
+    @input.to_s.gsub(/:([a-z0-9\+\-_]+):/) do |match|
       if names.include?($1)
         '<img alt="' + $1 + '" height="20" src="' + "../img/emoji/#{$1}.png" + '" style="vertical-align:middle" width="20" />'
       else
