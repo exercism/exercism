@@ -1,4 +1,4 @@
-pre.highlight  {
+.highlight  {
   background-color:#f8f8f8;
   border-radius:3px;
   border:1px solid #ccc;
@@ -8,15 +8,28 @@ pre.highlight  {
 
   overflow-x: auto;
   overflow-y: hidden;
-  white-space: pre;
   line-height:26px;
+  padding: 20px 0;
+}
+
+.highlight pre {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0 0 0 9.5px;
+  line-height:26px;
+  white-space: pre;
+}
+
+blockquote .highlight {
+  margin-bottom: 10px;
 }
 
 td.gutter {
     white-space: nowrap;
 }
 
-.highlight .lineno { padding-right: 10px; color: #999; }
+.highlight .lineno pre { color: #999; }
 
 /* Pygments coloring */
 .highlight .c{color:#998;font-style:italic;}
