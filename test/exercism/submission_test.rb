@@ -37,6 +37,8 @@ class SubmissionTest < Minitest::Test
   def teardown
     super
     @submission = nil
+    @fred = nil
+    @alice = nil
   end
 
   def test_supersede_pending_submission
@@ -147,39 +149,44 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_like_sets_liked_by
-    submission = Submission.new(state: 'pending')
-    submission.like!(alice)
-    assert submission.liked_by = ['alice']
+    submission = Submission.create(state: 'pending', user: alice)
+    submission.like!(fred)
+    assert_equal [fred], submission.liked_by
   end
 
   def test_like_calls_mute
-    submission = Submission.new(state: 'pending')
-    submission.expects(:mute).with(alice)
-    submission.like!(alice)
+    submission = Submission.create(state: 'pending', user: alice)
+    submission.expects(:mute).with(fred)
+    submission.like!(fred)
   end
 
   def test_unlike_resets_is_liked_if_liked_by_is_empty
-    submission = Submission.new(state: 'pending', liked_by: ['alice'])
-    submission.unlike!(alice)
+    submission = Submission.create(state: 'pending', user: alice)
+    Like.create(submission: submission, user: fred)
+    submission.unlike!(fred)
     refute submission.is_liked
   end
 
   def test_unlike_does_not_reset_is_liked_if_liked_by_is_not_empty
-    submission = Submission.new(state: 'pending', liked_by: ['alice', 'bob'])
-    submission.unlike!(alice)
+    bob = User.create(username: 'bob')
+    submission = Submission.create(state: 'pending', user: alice)
+    Like.create(submission: submission, user: bob)
+    Like.create(submission: submission, user: fred)
+    submission.unlike!(bob)
     assert submission.is_liked
   end
 
   def test_unlike_changes_liked_by
-    submission = Submission.new(state: 'pending', liked_by: ['alice', 'bob'])
-    submission.unlike!(alice)
-    assert submission.liked_by = ['bob']
+    submission = Submission.create(state: 'pending', user: alice)
+    Like.create(submission: submission, user: fred)
+    submission.unlike!(fred)
+    assert_equal [], submission.liked_by
   end
 
   def test_unlike_calls_unmute
-    submission = Submission.new(state: 'pending')
-    submission.expects(:unmute).with(alice)
-    submission.unlike!(alice)
+    submission = Submission.create(state: 'pending', user: alice)
+    submission.expects(:unmute).with(fred)
+    submission.unlike!(fred)
   end
 
   def test_liked_reflects_positive_is_liked
@@ -200,7 +207,7 @@ class SubmissionTest < Minitest::Test
   def test_unmuted_for_when_muted
     submission.mute(submission.user)
     submission.save
-    refute(Submission.unmuted_for(submission.user.username).include?(submission),
+    refute(Submission.unmuted_for(submission.user).include?(submission),
            "unmuted_for should only return submissions that have not been muted")
   end
 

@@ -12,6 +12,7 @@ class Submission < ActiveRecord::Base
   has_many :muted_by, through: :muted_submissions, source: :user
 
   has_many :likes
+  has_many :liked_by, through: :likes, source: :user
 
   validates_presence_of :user
 
@@ -67,8 +68,8 @@ class Submission < ActiveRecord::Base
     related(submission).done.any?
   end
 
-  def self.unmuted_for(username)
-    where("muted_by != ?", username)
+  def self.unmuted_for(user)
+    joins(:muted_submissions).where('muted_submissions.user_id = ?', user.id).where('muted_submissions.submission_id IS NULL')
   end
 
   def participants
@@ -147,13 +148,13 @@ class Submission < ActiveRecord::Base
 
   def like!(user)
     self.is_liked = true
-    liked_by << user.username
+    self.liked_by << user unless liked_by.include?(user)
     mute(user)
     save
   end
 
   def unlike!(user)
-    liked_by.delete(user.username)
+    likes.where(user_id: user.id).destroy_all
     self.is_liked = liked_by.length > 0
     unmute(user)
     save

@@ -33,7 +33,7 @@ module Sinatra
 
       return unless user.nitpicker_on?(submission.exercise) && !user.owns?(submission)
 
-      if submission.liked_by.include?(user.username)
+      if submission.liked_by.include?(user)
         action = "unlike"
         text = "I didn't mean to like this!"
       else

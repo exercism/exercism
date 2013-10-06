@@ -4,6 +4,10 @@ require 'exercism/locksmith'
 require 'exercism/problem_set'
 require 'exercism/user'
 require 'exercism/submission'
+require 'exercism/exercise'
+require 'exercism/muted_submission'
+require 'exercism/submission_viewer'
+require 'exercism/like'
 
 class SubmissionsHelperTest < Minitest::Test
 
@@ -95,7 +99,7 @@ class SubmissionsHelperTest < Minitest::Test
   def test_like_submission_button_for_nitpicker_who_has_liked
     @fred.mastery << 'ruby'
     @submission.exercise.language = 'ruby'
-    @submission.liked_by = ['fred']
+    @submission.liked_by << @fred
     expected = %Q{
       <form accept-charset="UTF-8" action="/submissions/#{@submission.id}/unlike" method="POST" class="pull-left" style="display: inline;">
         <button type="submit" name="unlike" class="btn">I didn't mean to like this!</button>
