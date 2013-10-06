@@ -11,6 +11,8 @@ class Submission < ActiveRecord::Base
   has_many :muted_submissions
   has_many :muted_by, through: :muted_submissions, source: :user
 
+  has_many :likes
+
   validates_presence_of :user
 
   before_create do
