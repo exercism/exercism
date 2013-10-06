@@ -30,3 +30,5 @@ group :test, :development do
   gem 'faker', require: false # for seed data
 end
 
+gem 'gemoji'
+

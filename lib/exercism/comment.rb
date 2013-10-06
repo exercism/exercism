@@ -1,4 +1,5 @@
 require 'exercism/markdown'
+require 'exercism/emojify'
 
 class Comment
   include Mongoid::Document
@@ -11,7 +12,7 @@ class Comment
   belongs_to :submission
 
   before_save do |comment|
-    self.html_comment = ConvertsMarkdownToHTML.convert(comment.comment)
+    self.html_comment = Emojify.convert(ConvertsMarkdownToHTML.convert(comment.comment))
   end
 
   # Experiment: Implement manual counter-cache
