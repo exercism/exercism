@@ -18,6 +18,10 @@ class CreateSubmissions < ActiveRecord::Migration
 
       t.string :mongoid_id
       t.string :mongoid_user_id
+
+      t.string :viewers   # deprecated
+      t.string :liked_by  # deprecated
+      t.string :muted_by  # deprecated
     end
     add_index :submissions, :mongoid_id, unique: true
     add_index :submissions, :mongoid_user_id
