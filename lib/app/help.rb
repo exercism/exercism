@@ -4,6 +4,10 @@ class ExercismApp < Sinatra::Base
     erb :"help/cli"
   end
 
+  get '/help/understanding-path' do
+    erb :"help/path"
+  end
+
   get '/help/how-to-nitpick' do
     erb :"help/nitpick"
   end

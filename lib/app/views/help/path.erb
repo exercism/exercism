@@ -1,0 +1,52 @@
+<h1>Your <code>PATH</code></h1>
+
+<p>The <code>PATH</code> environment variable is how your computer decides where to look for a program when you call it on the command line.</p>
+
+<p>For example, when you say:</p>
+
+<pre>
+    ruby bob_test.rb
+</pre>
+
+<p>this is a command to your computer to go use the program named <code>ruby</code> to execute the file named <code>bob_test.rb</code>.</p>
+
+<p>The problem your computer is left with is <em>How does it know where the <code>ruby</code> program lives?</em> It can't just go looking through every single directory on your computer, that would take forever. This is where the <code>PATH</code> comes in.</p>
+
+<h2>Understanding <code>PATH</code></h2>
+
+<p><code>PATH</code> is a variable that your shell keeps in memory. You use <code>PATH</code> to set it, and <code>$PATH</code> to get it. Go ahead and check what your path is now by opening your terminal and typing:</p>
+
+<pre>
+    echo $PATH
+</pre>
+
+<p>It might look something like this:</p>
+
+<pre>
+/Users/yourname/.gem/ruby/1.9.3/bin:/opt/rubies/ruby-1.9.3-p392/lib/ruby/gems/1.9.1/bin:/opt/rubies/ruby-1.9.3-p392/bin:/Users/yourname/.gem/ruby/1.9.3:/Users/yourname/bin:/usr/local/bin:/usr/bin:/usr/local/share/npm/bin:/usr/local/go/bin:/Users/kytrinyx/code/go/bin:/bin:/usr/sbin:/sbin:/usr/texbin
+</pre>
+
+<p>That's essentially a big list of places that your computer will look for programs to run. Each location on your computer is separated from the next with a <code>:</code>. When you call <code>ruby bob_test.rb</code> the computer looks at the first place, and if it finds a program named ruby, fine. It will run it. If not, it will go to the second place and try again. And so on and so forth, until it either finds the program, or runs out of places to look.</p>
+
+<p>You will need to but the <code>exercism</code> command line client in a location that your computer knows to look for it.</p>
+
+<p>It doesn't have to be a place that your computer already knows about. You can create a new directory and tell the computer that it should look there.</p>
+
+<p>On my system I have a directory in my home directory <kbd>~/bin</kbd> which I use to stick random binaries that only I will use.</p>
+
+<p>To add this directory to my path, I open up the configuration file for my shell. I find this in my home directory. <code>cd</code> with no arguments should take you to your home directory.</p>
+
+<p>The file could be named any number of things, but typically if you are using <code>bash</code> it is named <code>.bashrc</code> or <code>.bash_profile</code>, and if you're using <code>zsh</code> it is named <code>.zshrc</code>.</p>
+
+<p>To add it to your path, open up the config file and add this line to it:</p>
+
+<pre>
+  export PATH=~/bin:$PATH
+</pre>
+
+<p>That means <em>Store this new PATH by taking the old path and sticking my custom directory in front of it</em>. That way the computer will go look there first.</p>
+
+<h2>Still confused?</h2>
+
+<p>If you're still confused post <a href="https://github.com/kytrinyx/exercism.io/issues/new">an issue</a> so that we can figure out what's confusing, help you out, and then update this text so that the next person doesn't get stuck.</p>
+
