@@ -71,7 +71,11 @@
         <h2>Provide Feedback
       <% end %>
     <% else %>
-      <h2>Nitpicks
+      <% if submission.nit_count == 1 %>
+        <h2>1 Nitpick
+      <% else %>
+      <h2><%= submission.nit_count %> Nitpicks
+      <% end %>
     <% end %>
       <% if can_mute?(submission, current_user) %>
         <form accept-charset="UTF-8" action="<%= mute_button_action_for(submission, current_user) %>" method="POST" style="display: inline; float: right;">
