@@ -1,4 +1,4 @@
-require './test/test_helper'
+require './test/integration_helper'
 require 'app/helpers/markdown_helper'
 
 class MarkdownHelperTest < Minitest::Test
@@ -19,12 +19,12 @@ RUBY
     output = helper.md(code, "ruby")
     expected = <<HTML.strip
 <div class="highlight ruby"><table><tbody><tr>
-<td class="gutter gl"><div class="lineno"><pre>1</pre></div></td>
+<td class=\"gutter gl\"><pre class=\"lineno\">1</pre></td>
 <td class="code"><pre><span class="no">CODE</span>
 </pre></td>
 </tr></tbody></table></div>
 &lt;script&gt;alert('hi, bob!')&lt;/script&gt;<div class="highlight plaintext"><table><tbody><tr>
-<td class="gutter gl"><div class="lineno"><pre>1</pre></div></td>
+<td class=\"gutter gl\"><pre class=\"lineno\">1</pre></td>
 <td class="code"><pre>
 </pre></td>
 </tr></tbody></table></div>

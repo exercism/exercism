@@ -1,4 +1,5 @@
 require './test/integration_helper'
+require 'mocha/setup'
 
 class ConvertsMarkdownToHTMLTest < Minitest::Test
 
@@ -40,9 +41,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     <tbody>
       <tr>
         <td class=\"gutter gl\">
-          <div class=\"lineno\">
-            <pre>1</pre>
-          </div>
+          <pre class=\"lineno\">1</pre>
         </td>
         <td class=\"code\">
           <pre>big &amp;&amp; strong
@@ -62,9 +61,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     <tbody>
       <tr>
         <td class=\"gutter gl\">
-          <div class=\"lineno\">
-            <pre>1</pre>
-          </div>
+          <pre class=\"lineno\">1</pre>
         </td>
         <td class=\"code\">
           <pre>x{{current}}y
@@ -84,9 +81,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     <tbody>
       <tr>
         <td class=\"gutter gl\">
-          <div class=\"lineno\">
-            <pre>1</pre>
-          </div>
+          <pre class=\"lineno\">1</pre>
         </td>
         <td class=\"code\">
           <pre>
@@ -120,21 +115,11 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     <tbody>
       <tr>
         <td class=\"gutter gl\">
-          <div class=\"lineno\">
-            <pre>1</pre>
-          </div>
-          <div class=\"lineno\">
-            <pre>2</pre>
-          </div>
-          <div class=\"lineno\">
-            <pre>3</pre>
-          </div>
-          <div class=\"lineno\">
-            <pre>4</pre>
-          </div>
-          <div class=\"lineno\">
-            <pre>5</pre>
-          </div>
+          <pre class=\"lineno\">1</pre>
+          <pre class=\"lineno\">2</pre>
+          <pre class=\"lineno\">3</pre>
+          <pre class=\"lineno\">4</pre>
+          <pre class=\"lineno\">5</pre>
         </td>
         <td class=\"code\">
           <pre>  var refill = 99
@@ -170,15 +155,9 @@ Post text}
     <tbody>
       <tr>
         <td class="gutter gl">
-          <div class="lineno">
-            <pre>1</pre>
-          </div>
-          <div class="lineno">
-            <pre>2</pre>
-          </div>
-          <div class="lineno">
-            <pre>3</pre>
-          </div>
+          <pre class="lineno">1</pre>
+          <pre class="lineno">2</pre>
+          <pre class="lineno">3</pre>
         </td>
         <td class="code">
           <pre>class Foobar
