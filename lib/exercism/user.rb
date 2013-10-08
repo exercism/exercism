@@ -41,7 +41,8 @@ class User
 
   def random_work
     completed.keys.shuffle.each do |language|
-      work = Submission.pending.unmuted_for(username).where(language: language).in(slug: completed[language]).asc(:nc)
+      exercise = completed_exercises[language].sample
+      work = Submission.pending_for(language, exercise.slug).unmuted_for(username).asc(:nc)
       if work.count > 0
         return work.limit(10).to_a.sample
       end
