@@ -5,7 +5,7 @@ count_test() ->
   compareNestedLists(word_count:count("one two two three three three"),
     "one: 1\n"
     "two: 2\n"
-    "three: 3").
+    "three: 3\n").
 
 
 compareNestedLists(Response, Expected) ->
