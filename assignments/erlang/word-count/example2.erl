@@ -11,7 +11,7 @@ count([Char|Chars]) when is_integer(Char) ->
 %% Alternative shorter implementation using dict that doesn't preserve key order
 
 count([], Tally) ->
-  lists:flatten([io_lib:format("~s: ~B\n", [Word, Count]) || {Word, Count} <-lists:reverse(dict:to_list(Tally))]);
+  lists:flatten([io_lib:format("~s: ~B\n", [Word, Count]) || {Word, Count} <- dict:to_list(Tally)]);
 
 count([Word|Words], Tally) ->
   count(Words, dict:update(Word, fun(Count) -> Count + 1 end, 1, Tally)).
