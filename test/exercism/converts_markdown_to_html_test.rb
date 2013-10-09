@@ -36,14 +36,14 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_ampersands
     input = "```\nbig && strong\n```"
-    expected = %Q{<div class=\"highlight plaintext\">
+    expected = %q{<div class="highlight plaintext">
   <table>
     <tbody>
       <tr>
-        <td class=\"gutter gl\">
-          <pre class=\"lineno\">1</pre>
+        <td class="gutter gl">
+          <pre class="lineno">1</pre>
         </td>
-        <td class=\"code\">
+        <td class="code">
           <pre>big &amp;&amp; strong
 </pre>
         </td>
@@ -56,14 +56,14 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_text_and_double_braces
     input = "```\nx{{current}}y\n```"
-    expected = %Q{<div class=\"highlight plaintext\">
+    expected = %q{<div class="highlight plaintext">
   <table>
     <tbody>
       <tr>
-        <td class=\"gutter gl\">
-          <pre class=\"lineno\">1</pre>
+        <td class="gutter gl">
+          <pre class="lineno">1</pre>
         </td>
-        <td class=\"code\">
+        <td class="code">
           <pre>x{{current}}y
 </pre>
         </td>
@@ -76,23 +76,23 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_double_braces
     input = "```\n{{x: y}}\n```"
-    expected = %Q{<div class=\"highlight json\">
+    expected = %q{<div class="highlight json">
   <table>
     <tbody>
       <tr>
-        <td class=\"gutter gl\">
-          <pre class=\"lineno\">1</pre>
+        <td class="gutter gl">
+          <pre class="lineno">1</pre>
         </td>
-        <td class=\"code\">
+        <td class="code">
           <pre>
-            <span class=\"p\">{</span>
-            <span class=\"err\">{x</span>
-            <span class=\"p\">:</span>
-            <span class=\"w\"> </span>
-            <span class=\"err\">y</span>
-            <span class=\"p\">}</span>
-            <span class=\"err\">}</span>
-            <span class=\"w\">
+            <span class="p">{</span>
+            <span class="err">{x</span>
+            <span class="p">:</span>
+            <span class="w"> </span>
+            <span class="err">y</span>
+            <span class="p">}</span>
+            <span class="err">}</span>
+            <span class="w">
 </span>
           </pre>
         </td>
@@ -110,18 +110,18 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
                  "{{action}}, {{remaining}} of beer on the wall.\n";}
 
-    expected = %Q{<div class=\"highlight plaintext\">
+    expected = %Q{<div class="highlight plaintext">
   <table>
     <tbody>
       <tr>
-        <td class=\"gutter gl\">
-          <pre class=\"lineno\">1</pre>
-          <pre class=\"lineno\">2</pre>
-          <pre class=\"lineno\">3</pre>
-          <pre class=\"lineno\">4</pre>
-          <pre class=\"lineno\">5</pre>
+        <td class="gutter gl">
+          <pre class="lineno">1</pre>
+          <pre class="lineno">2</pre>
+          <pre class="lineno">3</pre>
+          <pre class="lineno">4</pre>
+          <pre class="lineno">5</pre>
         </td>
-        <td class=\"code\">
+        <td class="code">
           <pre>  var refill = 99
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
                  "{{action}}, {{remaining}} of beer on the wall.\n";
