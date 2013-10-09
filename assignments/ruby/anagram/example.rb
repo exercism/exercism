@@ -1,22 +1,22 @@
 class Anagram
 
-  attr_reader :source
-  def initialize(source)
-    @source = AnagramSource.new(source)
+  attr_reader :subject
+  def initialize(word)
+    @subject = AnagramSubject.new(word)
   end
 
   def match(candidates)
     candidates.select do |candidate|
-      source.anagram_of? candidate
+      subject.anagram_of? candidate
     end
   end
 end
 
-class AnagramSource
+class AnagramSubject
 
-  attr_reader :source
-  def initialize(source)
-    @source = source
+  attr_reader :subject
+  def initialize(subject)
+    @subject = subject
   end
 
   def anagram_of?(word)
@@ -24,7 +24,7 @@ class AnagramSource
   end
 
   def duplicate?(word)
-    word.downcase == source.downcase
+    word.downcase == subject.downcase
   end
 
   def canonicalize(word)
@@ -32,7 +32,7 @@ class AnagramSource
   end
 
   def fingerprint
-    @fingerprint ||= canonicalize(source)
+    @fingerprint ||= canonicalize(subject)
   end
 end
 
