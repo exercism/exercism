@@ -4,12 +4,7 @@ require 'loofah'
 module Sinatra
   module MarkdownHelper
     def md(text, language = nil)
-      html = if language
-        Markdown.render("```#{language}\n#{text}\n```")
-      else
-        Markdown.render(text)
-      end
-      Loofah.fragment(html).scrub!(:escape).to_s
+      ConvertsMarkdownToHTML.convert(language ? "```#{language}\n#{text}\n```" : text)
     end
   end
 end
