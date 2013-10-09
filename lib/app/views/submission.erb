@@ -31,7 +31,7 @@
       <% end %>
 
     </p>
-    <% if current_user.nitpicker_on?(exercise) %>
+    <% if current_user.nitpicker_on?(submission.exercise) %>
       <p>&laquo; <a href="/<%= [submission.user.username, submission.language, submission.slug].join('/') %>">Submission history</a></p>
     <% end %>
   </div>
