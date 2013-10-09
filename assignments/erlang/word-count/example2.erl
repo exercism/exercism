@@ -3,8 +3,8 @@
 
 
 
-count([Char|Chars]) when is_integer(Char) ->
-  count(string:tokens([Char|Chars], " "), dict:new()).
+count(WordList) when is_list(WordList)->
+  count(string:tokens(lists:flatten(WordList), " "), dict:new()).
 
 
 
