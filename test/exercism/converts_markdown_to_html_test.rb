@@ -174,6 +174,30 @@ end
     check_sanitisation(input, expected)
   end
 
+  def test_markdown_with_clojure_code
+    input = %q{Check out this code:
+
+```clj
+(defn to-rna
+  [dna-string]
+  (clojure.string/replace dna-string \T \U))
+```}
+
+    expected = %q{<p>Check out this code:</p>
+<div class="highlight clojure"><table><tbody><tr>
+<td class="gutter gl">
+<pre class="lineno">1</pre>
+<pre class="lineno">2</pre>
+<pre class="lineno">3</pre>
+</td>
+<td class="code"><pre><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">to-rna</span><span class="w">
+  </span><span class="p">[</span><span class="n">dna-string</span><span class="p">]</span><span class="w">
+  </span><span class="p">(</span><span class="nf">clojure.string/replace</span><span class="w"> </span><span class="n">dna-string</span><span class="w"> </span><span class="sc">\T</span><span class="w"> </span><span class="sc">\U</span><span class="p">))</span><span class="w">
+</span></pre></td>
+</tr></tbody></table></div>}
+    check_sanitisation(input, expected)
+  end
+
   def test_stubby_lambda
     input = "->"
     expected = "<p>-&gt;</p>"
