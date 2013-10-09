@@ -17,7 +17,7 @@ class Phrase
   attr_reader :source
 
   def each_word
-    source.downcase.scan(/\w+/) do |word|
+    source.downcase.scan(/[\w']+/) do |word|
       yield word
     end
   end
