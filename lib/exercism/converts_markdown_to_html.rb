@@ -23,7 +23,7 @@ class ConvertsMarkdownToHTML
   private
 
   def sanitize_html
-    @content = Loofah.xml_fragment(@content).scrub!(:escape).to_s
+    @content = Loofah.fragment(@content).scrub!(:escape).to_s
   end
 
   def convert_markdown_to_html
