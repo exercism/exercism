@@ -24,7 +24,7 @@ GEM
     airbrake (3.1.14)
       builder
       json
-    approvals (0.0.8)
+    approvals (0.0.9)
       nokogiri
       thor
     builder (3.0.4)
@@ -57,7 +57,7 @@ GEM
     metaclass (0.0.1)
     method_source (0.8.1)
     mime-types (1.23)
-    mini_portile (0.5.0)
+    mini_portile (0.5.1)
     minitest (5.0.5)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
