@@ -38,6 +38,6 @@ class BinaryTest < MiniTest::Unit::TestCase
 
   def test_invalid_binary_is_decimal_0
     skip
-    assert_equal 0, Binary.new("carrot").to_decimal
+    assert_equal 0, Binary.new("carrot123").to_decimal
   end
 end
