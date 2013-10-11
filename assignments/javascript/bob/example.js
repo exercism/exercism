@@ -6,7 +6,7 @@ function Bob() {
   }
 
   function isShouting(message) {
-    return message.toUpperCase() === message;
+    return message.toUpperCase() === message && /[A-Z]/.test(message);
   }
 
   function isAQuestion(message) {
