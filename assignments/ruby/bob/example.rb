@@ -25,7 +25,7 @@ class Bob
   end
 
   def forceful?(s)
-    s.upcase == s
+    s =~ /[A-Z]/ && s.upcase == s
   end
 end
 
@@ -62,7 +62,7 @@ class Phrase
   end
 
   def loud?
-    source.upcase == source
+    source =~ /[A-Z]/ && source.upcase == source
   end
 
   def silent?
@@ -117,7 +117,7 @@ end
 class AnswerShout
 
   def self.handles?(input)
-    input == input.upcase
+    input =~ /[A-Z]/ && input.upcase == input
   end
 
   def reply
@@ -145,7 +145,7 @@ class David
 
   HANDLERS = {
     :nothing   => Handler.new("Fine. Be that way!", ->(i) { i.strip.empty? }),
-    :yell      => Handler.new("Woah, chill out!",   ->(i) { i.eql?(i.upcase) }),
+    :yell      => Handler.new("Woah, chill out!",   ->(i) { i.eql?(i.upcase) && i =~ /[A-Z]/ }),
     :question  => Handler.new("Sure.",              ->(i) { i.end_with?("?") }),
     :statement => Handler.new("Whatever.",          ->(i) { true })
   }
