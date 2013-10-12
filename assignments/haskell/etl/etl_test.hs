@@ -18,32 +18,32 @@ main = exitProperly $ runTestTT $ TestList
 transformTests :: [Test]
 transformTests =
   [ testCase "transform one value" $
-    M.fromList [("a", 1)] @=? transform (M.fromList [(1, ["A"])])
+    M.fromList [('A', 1)] @=? transform (M.fromList [(1, ['A'])])
   , testCase "transform multiple keys from one value" $
-    M.fromList [("a", 1), ("e", 1)] @=? transform (M.fromList [(1, ["A", "E"])])
+    M.fromList [('A', 1), ('E', 1)] @=? transform (M.fromList [(1, ['A', 'E'])])
   , testCase "transform multiple keys from multiple values" $
-    M.fromList [("a", 1), ("b", 4)] @=?
-    transform (M.fromList [(1, ["A"]), (4, ["B"])])
+    M.fromList [('A', 1), ('B', 4)] @=?
+    transform (M.fromList [(1, ['A']), (4, ['B'])])
   , testCase "full dataset" $
     M.fromList fullOut @=? transform (M.fromList fullIn)
   ]
 
-fullOut :: [(String, Int)]
+fullOut :: [(Char, Int)]
 fullOut =
-  [ ("a", 1), ("b", 3), ("c", 3), ("d", 2), ("e", 1)
-  , ("f", 4), ("g", 2), ("h", 4), ("i", 1), ("j", 8)
-  , ("k", 5), ("l", 1), ("m", 3), ("n", 1), ("o", 1)
-  , ("p", 3), ("q", 10), ("r", 1), ("s", 1), ("t", 1)
-  , ("u", 1), ("v", 4), ("w", 4), ("x", 8), ("y", 4)
-  , ("z", 10) ]
+  [ ('A', 1), ('B', 3), ('C', 3), ('D', 2), ('E', 1)
+  , ('F', 4), ('G', 2), ('H', 4), ('I', 1), ('J', 8)
+  , ('K', 5), ('L', 1), ('M', 3), ('N', 1), ('O', 1)
+  , ('P', 3), ('Q', 10), ('R', 1), ('S', 1), ('T', 1)
+  , ('U', 1), ('V', 4), ('W', 4), ('X', 8), ('Y', 4)
+  , ('Z', 10) ]
 
-fullIn :: [(Int, [String])]
+fullIn :: [(Int, [Char])]
 fullIn =
-  [ (1, map (:[]) "AEIOULNRST")
-  , (2, ["D", "G"])
-  , (3, map (:[]) "BCMP")
-  , (4, map (:[]) "FHVWY")
-  , (5, ["K"])
-  , (8, ["J", "X"])
-  , (10, ["Q", "Z"])
+  [ (1, "AEIOULNRST")
+  , (2, "DG")
+  , (3, "BCMP")
+  , (4, "FHVWY")
+  , (5, "K")
+  , (8, "JX")
+  , (10, "QZ")
   ]
