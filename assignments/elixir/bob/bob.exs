@@ -1,7 +1,10 @@
 defmodule Message do
+
   def silent?(input),   do: "" == String.strip(input)
-  def shouting?(input), do: input == String.upcase(input)
+  def shouting?(input), do: input == String.upcase(input) && letters?(input)
   def question?(input), do: String.ends_with?(input, "?")
+
+  defp letters?(input), do: Regex.match?(%r/[a-zA-Z]+/, input)
 end
 
 defmodule Teenager do
