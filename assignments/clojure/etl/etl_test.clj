@@ -3,16 +3,16 @@
 
 
 (deftest transform-one-value
-  (is (= {"world" "hello"}
-         (etl/transform {"hello" ["WORLD"]}))))
+  (is (= {"world" 1}
+         (etl/transform {1 ["WORLD"]}))))
 
 (deftest transform-more-values
-  (is (= {"world" "hello" "gschoolers" "hello"}
-         (etl/transform {"hello" ["WORLD" "GSCHOOLERS"]}))))
+  (is (= {"world" 1 "gschoolers" 1}
+         (etl/transform {1 ["WORLD" "GSCHOOLERS"]}))))
 
 (deftest more-keys
-  (is (= {"apple" "a" "artichoke" "a" "boat" "b" "ballerina" "b"}
-         (etl/transform {"a" ["APPLE" "ARTICHOKE"] "b" ["BOAT" "BALLERINA"] }))))
+  (is (= {"apple" 1 "artichoke" 1 "boat" 2 "ballerina" 2}
+         (etl/transform {1 ["APPLE" "ARTICHOKE"] 2 ["BOAT" "BALLERINA"] }))))
 
 (deftest full-dataset
   (is (= { "a"  1 "b"  3 "c" 3 "d" 2 "e" 1
