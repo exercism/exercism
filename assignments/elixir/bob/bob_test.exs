@@ -44,4 +44,12 @@ defmodule TeenagerTest do
   test "prolonged silence" do
     # assert Teenager.hey("  ") == "Fine. Be that way!"
   end
+
+  test "only numbers" do
+    # assert Teenager.hey("1, 2, 3") == "Whatever."
+  end
+
+  test "question with numbers" do
+    # assert Teenager.hey("4?") == "Sure."
+  end
 end
