@@ -37,4 +37,10 @@
 (deftest responds-to-prolonged-silence
   (is (= "Fine. Be that way!" (bob/response-for "    "))))
 
+(deftest responds-to-only-numbers
+  (is (= "Whatever." (bob/response-for "1, 2, 3"))))
+
+(deftest responds-to-number-question
+  (is (= "Sure." (bob/response-for "4?"))))
+
 (run-tests)
