@@ -6,26 +6,26 @@ defmodule TransformTest do
   doctest ETL
 
   test "transform one value" do
-    old = HashDict.new [{"hello", ["WORLD"]}]
-    expected = HashDict.new [{"world", "hello"}]
+    old = HashDict.new [{1, ["WORLD"]}]
+    expected = HashDict.new [{"world", 1}]
 
     assert expected == ETL.transform(old)
   end
 
   test "transform more values" do
-    old = HashDict.new [{"hello", ["WORLD", "GSCHOOLERS"]}]
-    expected = HashDict.new [{"world", "hello"}, {"gschoolers", "hello"}]
+    old = HashDict.new [{1, ["WORLD", "GSCHOOLERS"]}]
+    expected = HashDict.new [{"world", 1}, {"gschoolers", 1}]
 
     assert expected == ETL.transform(old)
   end
 
   test "more keys" do
-    old = HashDict.new [{"a", ["APPLE", "ARTICHOKE"]}, {"b", ["BOAT", "BALLERINA"]}]
+    old = HashDict.new [{1, ["APPLE", "ARTICHOKE"]}, {2, ["BOAT", "BALLERINA"]}]
     expected = HashDict.new [
-      {"apple", "a"},
-      {"artichoke", "a"},
-      {"boat", "b"},
-      {"ballerina", "b"}
+      {"apple", 1},
+      {"artichoke", 1},
+      {"boat", 2},
+      {"ballerina", 2}
     ]
 
     assert expected == ETL.transform(old)

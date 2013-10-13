@@ -7,24 +7,24 @@ import unittest
 
 class TransformTest(unittest.TestCase):
     def test_transform_one_value(self):
-        old = {'hello': ['WORLD']}
-        expected = {'world': 'hello'}
+        old = {1: ['WORLD']}
+        expected = {'world': 1}
 
         self.assertEqual(expected, etl.transform(old))
 
     def test_transform_more_values(self):
-        old = {'hello':  ['WORLD', 'GSCHOOLERS']}
-        expected = {'world': 'hello', 'gschoolers': 'hello'}
+        old = {1: ['WORLD', 'GSCHOOLERS']}
+        expected = {'world': 1, 'gschoolers': 1}
   
         self.assertEqual(expected, etl.transform(old))
 
     def test_more_keys(self):
-        old = {'a': ['APPLE', 'ARTICHOKE'], 'b': ['BOAT', 'BALLERINA']}
+        old = {1: ['APPLE', 'ARTICHOKE'], 1: ['BOAT', 'BALLERINA']}
         expected = {
-            'apple': 'a',
-            'artichoke': 'a',
-            'boat': 'b',
-            'ballerina': 'b'
+            'apple': 1,
+            'artichoke': 1,
+            'boat': 2,
+            'ballerina': 2
         }
 
         self.assertEqual(expected, etl.transform(old))
