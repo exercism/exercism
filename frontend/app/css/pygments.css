@@ -29,7 +29,7 @@ td.gutter {
     white-space: nowrap;
 }
 
-.highlight .lineno pre { color: #999; }
+.highlight .lineno { color: #999; }
 
 /* Pygments coloring */
 .highlight .c{color:#998;font-style:italic;}
