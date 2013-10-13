@@ -2,8 +2,8 @@ class Exercism
   class RubyCurriculum
     def slugs
       %w(
-        bob word-count anagram
-        nucleotide-count point-mutations phone-number
+        bob hamming word-count anagram
+        nucleotide-count phone-number
         grade-school robot-name leap etl meetup space-age grains
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies strain
@@ -14,7 +14,7 @@ class Exercism
         binary-search-tree matrix robot-simulator nth-prime
         palindrome-products pascals-triangle say beer-song
         sum-of-multiples queen-attack saddle-points ocr-numbers
-        simple-linked-list linked-list
+        simple-linked-list linked-list point-mutations
       )
     end
 
