@@ -4,28 +4,28 @@ require_relative 'etl'
 class TransformTest < MiniTest::Unit::TestCase
 
   def test_transform_one_value
-    old = { 'hello' => ['WORLD'] }
-    expected = { 'world' => 'hello' }
+    old = { 1 => ['WORLD'] }
+    expected = { 'world' => 1 }
 
     assert_equal expected, ETL.transform(old)
   end
 
   def test_transform_more_values
     skip
-    old = { 'hello' => ['WORLD', 'GSCHOOLERS'] }
-    expected = { 'world' => 'hello', 'gschoolers' => 'hello' }
+    old = { 1 => ['WORLD', 'GSCHOOLERS'] }
+    expected = { 'world' => 1, 'gschoolers' => 1 }
 
     assert_equal expected, ETL.transform(old)
   end
 
   def test_more_keys
     skip
-    old = { 'a' => ['APPLE', 'ARTICHOKE'], 'b' => ['BOAT', 'BALLERINA'] }
+    old = { 1 => ['APPLE', 'ARTICHOKE'], 2 => ['BOAT', 'BALLERINA'] }
     expected = {
-      'apple' => 'a',
-      'artichoke' => 'a',
-      'boat' => 'b',
-      'ballerina' => 'b'
+      'apple' => 1,
+      'artichoke' => 1,
+      'boat' => 2,
+      'ballerina' => 2
     }
 
     assert_equal expected, ETL.transform(old)
