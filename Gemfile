@@ -8,6 +8,7 @@ gem 'activerecord', '~>3.2.0'
 gem 'database_cleaner'
 gem 'newrelic_rpm', "3.5.8.72" # used both in production and development
 gem 'petroglyph'
+gem 'pg'
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'redcarpet'

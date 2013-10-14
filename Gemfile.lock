@@ -82,6 +82,7 @@ GEM
     origin (1.1.0)
     petroglyph (0.0.7)
       tilt
+    pg (0.16.0)
     polyglot (0.3.3)
     pony (1.4.1)
       mail (> 2.0)
@@ -146,6 +147,7 @@ DEPENDENCIES
   mongoid
   newrelic_rpm (= 3.5.8.72)
   petroglyph
+  pg
   pony
   pry
   puma
