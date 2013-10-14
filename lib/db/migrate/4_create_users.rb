@@ -7,9 +7,9 @@ class CreateUsers < ActiveRecord::Migration
       t.integer  :github_id
       t.string   :key
 
-      t.string :mastery
-      t.string :current
-      t.string :completed
+      t.text :mastery
+      t.text :current
+      t.text :completed
 
       t.timestamps
 

@@ -6,7 +6,7 @@ class CreateSubmissions < ActiveRecord::Migration
       t.string   :state
       t.string   :language
       t.string   :slug
-      t.string   :code
+      t.text     :code
       t.datetime :done_at
       t.boolean  :is_liked
       t.boolean  :wants_opinions, null: false
