@@ -235,6 +235,14 @@ class SubmissionTest < Minitest::Test
     assert_equal 3, submission.view_count
   end
 
+  def test_viewing_submission_twice_is_fine
+    alice = User.create(username: 'alice')
+    submission.viewed!(alice)
+    submission.viewed!(alice)
+    assert_equal 1, submission.view_count
+    assert_equal %w(alice), submission.viewers.map(&:username)
+  end
+
   def test_comments_are_sorted
     submission.comments << Comment.new(body: 'second', created_at: Time.now, user: submission.user)
     submission.comments << Comment.new(body: 'first', created_at: Time.now - 1000, user: submission.user)

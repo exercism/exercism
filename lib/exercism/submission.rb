@@ -230,7 +230,11 @@ class Submission < ActiveRecord::Base
   end
 
   def viewed!(user)
-    self.viewers << user unless viewers.include?(user)
+    begin
+      self.viewers << user unless viewers.include?(user)
+    rescue => e
+      # we don't care.
+    end
   end
 
   def view_count
