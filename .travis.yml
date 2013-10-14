@@ -3,9 +3,11 @@ rvm:
   - 1.9.3
 before_script:
   - './test/haskell/bootstrap.sh'
+  - './test/rust/bootstrap.sh'
   - 'bundle exec mailcatcher'
 script:
   - 'RACK_ENV=test rake db:migrate test'
   - '( cd frontend && npm install && lineman spec-ci )'
   - '( export PATH=/opt/hp-2013.2.0.0/bin:$PATH; runhaskell ./test/haskell/check-exercises.hs )'
+  - './test/rust/check-exercises.sh'
   - "! git grep ' $' -- \\*.rb | grep -v 'assignments/ruby/ocr-numbers/ocr-numbers_test.rb'"
