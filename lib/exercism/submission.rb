@@ -27,17 +27,6 @@ class Submission < ActiveRecord::Base
 
   scope :pending, where(state: 'pending')
 
-  def self.pending_for(language, exercise=nil)
-    if exercise
-      pending.
-        and(language: language.downcase).
-        and(slug: exercise.downcase)
-    else
-      pending.
-        and(language: language.downcase)
-    end
-  end
-
   def self.completed_for(language, slug)
     done.where(language: language, slug: slug)
   end
@@ -68,7 +57,7 @@ class Submission < ActiveRecord::Base
   end
 
   def self.unmuted_for(user)
-    joins(:muted_submissions).where('muted_submissions.user_id = ?', user.id).where('muted_submissions.submission_id IS NULL')
+    joins("left join (select submission_id from muted_submissions ms where user_id=#{user.id}) as t ON t.submission_id=submissions.id").where('t.submission_id is null')
   end
 
   def participants

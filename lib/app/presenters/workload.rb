@@ -66,7 +66,7 @@ class Workload
   private
 
   def pending
-    @pending ||= Submission.pending.where(language: language).joins("left join (select submission_id from muted_submissions ms where user_id=#{user.id}) as t ON t.submission_id=submissions.id").where('t.submission_id is null')
+    @pending ||= Submission.pending.where(language: language).unmuted_for(user)
   end
 end
 
