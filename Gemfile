@@ -15,7 +15,7 @@ gem 'redcarpet'
 gem 'rouge', github: 'jayferd/rouge', ref: '1822e646c6380215dbb4b777ab2bbacde892b363'
 gem 'sinatra', require: 'sinatra/base'
 gem 'loofah'
-gem 'will_paginate', github: 'mislav/will_paginate', tag: "4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df"
+gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'pry', require: false
 gem 'airbrake'

@@ -27,8 +27,8 @@ class Submission < ActiveRecord::Base
 
   scope :pending, where(state: 'pending')
 
-  def self.completed_for(language, slug)
-    done.where(language: language, slug: slug)
+  def self.completed_for(exercise)
+    done.where(language: exercise.language, slug: exercise.slug)
   end
 
   def self.related(submission)
@@ -42,7 +42,7 @@ class Submission < ActiveRecord::Base
 
 
   def self.done
-    where(state: 'done').order(created_at: :desc)
+    where(state: 'done').order('created_at DESC')
   end
 
   def self.on(exercise)

@@ -5,13 +5,6 @@ GIT
   specs:
     rouge (1.0.0)
 
-GIT
-  remote: git://github.com/mislav/will_paginate.git
-  revision: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
-  tag: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
-  specs:
-    will_paginate (3.0.4)
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -126,6 +119,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
+    will_paginate (3.0.5)
     will_paginate-bootstrap (0.2.4)
       will_paginate (>= 3.0.3)
 
@@ -159,5 +153,5 @@ DEPENDENCIES
   ruby-prof
   simplecov
   sinatra
-  will_paginate!
+  will_paginate
   will_paginate-bootstrap

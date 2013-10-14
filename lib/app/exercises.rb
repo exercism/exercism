@@ -12,7 +12,7 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    submissions = Submission.completed_for(language, slug)
+    submissions = Submission.completed_for(exercise)
                             .paginate(page: params[:page], per_page: per_page)
 
     erb :completed, locals: {language: language, slug: slug, submissions: submissions}
