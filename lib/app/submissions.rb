@@ -6,7 +6,7 @@ class ExercismApp < Sinatra::Base
       please_login(notice)
 
       submission = Submission.find(id)
-      comment = CreatesComment.create(id, current_user, params[:comment])
+      comment = CreatesComment.create(id, current_user, params[:body])
       unless comment.new_record?
         Notify.everyone(submission, 'nitpick', except: current_user)
         begin
@@ -143,7 +143,7 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    nit.body = params["comment"]
+    nit.body = params["body"]
     nit.save
     redirect "/submissions/#{id}"
   end

@@ -93,7 +93,7 @@ class SubmissionsTest < Minitest::Test
 
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
-      post url, {comment: "good"}, login(bob)
+      post url, {body: "good"}, login(bob)
     end
     assert_equal 1, submission.reload.comments.count
     assert_equal 1, submission.reload.nits_by_others_count
@@ -106,7 +106,7 @@ class SubmissionsTest < Minitest::Test
 
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
-      post url, {comment: "good"}, login(alice)
+      post url, {body: "good"}, login(alice)
     end
     assert_equal 1, submission.reload.comments.count
     assert_equal 0, submission.reload.nits_by_others_count
@@ -124,7 +124,7 @@ class SubmissionsTest < Minitest::Test
     # sanitizes response
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
-      post url, {comment: "<script type=\"text/javascript\">bad();</script>good"}, login(bob)
+      post url, {body: "<script type=\"text/javascript\">bad();</script>good"}, login(bob)
     end
 
     nit = submission.reload.comments.last
@@ -136,7 +136,7 @@ class SubmissionsTest < Minitest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
-    post "/submissions/#{submission.id}/respond", {comment: "Could be better by ..."}
+    post "/submissions/#{submission.id}/respond", {body: "Could be better by ..."}
 
     assert_response_status(302)
   end
@@ -152,7 +152,7 @@ class SubmissionsTest < Minitest::Test
     # not changed by a nit being added
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
-      post url, {comment: "good"}, login(bob)
+      post url, {body: "good"}, login(bob)
     end
     assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
@@ -241,7 +241,7 @@ class SubmissionsTest < Minitest::Test
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
       Submission.any_instance.expects(:unmute_all!)
-      post url, {comment: "good"}, login(bob)
+      post url, {body: "good"}, login(bob)
     end
   end
 
@@ -294,7 +294,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
     comment = Comment.create(user: bob, submission: submission, body: "```ruby\n\t{a: 'a'}\n```")
 
-    post "/submissions/#{submission.id}/nits/#{comment.id}", {comment: "OK"}, login(bob)
+    post "/submissions/#{submission.id}/nits/#{comment.id}", {body: "OK"}, login(bob)
 
     assert_equal "OK", comment.reload.body
   end
