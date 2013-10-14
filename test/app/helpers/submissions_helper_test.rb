@@ -65,15 +65,24 @@ class SubmissionsHelperTest < Minitest::Test
   end
 
   def test_one_like
-    assert_equal '@alice thinks this looks great', helper.these_people_like_it(['alice'])
+    assert_equal '@alice thinks this looks great', helper.these_people_like_it([User.new(username: 'alice')])
   end
 
   def test_two_likes
-    assert_equal '@alice and @bob think this looks great', helper.these_people_like_it(['alice', 'bob'])
+    users = [
+      User.new(username: 'alice'),
+      User.new(username: 'bob')
+    ]
+    assert_equal '@alice and @bob think this looks great', helper.these_people_like_it(users)
   end
 
   def test_many_likes
-    assert_equal '@alice, @bob, and @charlie think this looks great', helper.these_people_like_it(['alice', 'bob', 'charlie'])
+    users = [
+      User.new(username: 'alice'),
+      User.new(username: 'bob'),
+      User.new(username: 'charlie')
+    ]
+    assert_equal '@alice, @bob, and @charlie think this looks great', helper.these_people_like_it(users)
   end
 
   def test_like_submission_button_for_non_nitpicker

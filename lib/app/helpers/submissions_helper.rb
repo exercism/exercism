@@ -15,7 +15,7 @@ module Sinatra
     end
 
     def these_people_like_it(liked_by)
-      everyone = liked_by.map {|name| "@#{name}"}
+      everyone = liked_by.map {|user| "@#{user.username}"}
       case everyone.size
         when 0
           ""
