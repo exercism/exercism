@@ -25,6 +25,8 @@ class Submission < ActiveRecord::Base
     true
   end
 
+  scope :pending, where(state: 'pending')
+
   def self.pending_for(language, exercise=nil)
     if exercise
       pending.
@@ -49,9 +51,6 @@ class Submission < ActiveRecord::Base
     pending.where(:'nits._id'.exists => false)
   end
 
-  def self.pending
-    where(state: 'pending').order(created_at: :desc)
-  end
 
   def self.done
     where(state: 'done').order(created_at: :desc)

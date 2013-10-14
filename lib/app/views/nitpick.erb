@@ -9,7 +9,7 @@
             <%= dashboard_assignment_nav(language, 'opinions') %>
             <%= dashboard_assignment_nav(language, 'looks-great') %>
             <% exercises.each do |exercise| %>
-              <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise]) %>
+              <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise.slug]) %>
             <% end %>
           <% end %>
         <% end %>

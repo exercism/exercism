@@ -4,7 +4,6 @@ require 'faraday'
 
 require 'exercism/assignment'
 require 'exercism/authentication'
-require 'exercism/breakdown'
 require 'exercism/code'
 require 'exercism/cohort'
 require 'exercism/comment'

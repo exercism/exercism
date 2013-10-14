@@ -30,7 +30,7 @@ class Workload
   end
 
   def breakdown
-    Breakdown.of(language)
+    @breakdown ||= pending.group('submissions.slug').count
   end
 
   def show_filters?
@@ -40,24 +40,21 @@ class Workload
   def submissions
     return @submissions if @submissions
 
-    scope = pending
+    scope = pending.order('created_at ASC')
     case slug
-    when 'looks-great'
-      scope = scope.and(is_liked: true)
     when 'opinions'
-      scope = scope.and(wants_opinions: true)
+      scope = scope.where(wants_opinions: true)
+    when 'looks-great'
+      scope = scope.where(is_liked: true)
     when 'no-nits'
-      scope = scope.select {|submission|
-        submission.no_nits_yet?
-      }
+      scope = scope.where(nit_count: 0)
     else
-      scope = scope.and(slug: slug)
+      scope = pending.where(slug: slug)
     end
 
-    submissions = scope.select do |submission|
-      show_submission?(user, submission)
+    @submissions = scope.select do |submission|
+      user.nitpicker_on?(submission.exercise)
     end
-    @submissions = submissions
   end
 
   def available_exercises
@@ -69,11 +66,7 @@ class Workload
   private
 
   def pending
-    @pending ||= Submission.pending.order('created_at ASC').where(language: language)
-  end
-
-  def show_submission?(user, submission)
-    user.nitpicker_on?(submission.exercise) && !submission.muted_by?(user)
+    @pending ||= Submission.pending.where(language: language).joins("left join (select submission_id from muted_submissions ms where user_id=#{user.id}) as t ON t.submission_id=submissions.id").where('t.submission_id is null')
   end
 end
 

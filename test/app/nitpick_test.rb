@@ -41,14 +41,6 @@ class NitpickAppTest < Minitest::Test
     CreatesComment.new(attempt.submission.id, master, "It is missing `hey`.").create
   end
 
-  def test_language_when_and_nitted_submission_present
-    generate_nitpick(generate_submission("clojure", "clj"))
-    get '/nitpick/clojure/no-nits', {}, login(master)
-    assert last_response.body.include?("the_master"), "visible username"
-    assert last_response.body.include?("bob"), "visible submission"
-    assert_equal last_response.status, 200
-  end
-
   def test_language_when_and_submission_present
     generate_submission("clojure", "clj")
     get '/nitpick/clojure/no-nits', {}, login(master)
@@ -57,11 +49,12 @@ class NitpickAppTest < Minitest::Test
     assert_equal last_response.status, 200
   end
 
-  def test_language_when_and_nitted_submission_present
+  def test_language_when_submission_is_nitted
     generate_nitpick(generate_submission("clojure", "clj"))
     get '/nitpick/clojure/no-nits', {}, login(master)
     assert last_response.body.include?("the_master"), "visible username"
-    assert last_response.body.include?("bob"), "visible submission"
+    refute last_response.body.include?("bob"), "submission should have been muted"
     assert_equal last_response.status, 200
   end
 end
+
