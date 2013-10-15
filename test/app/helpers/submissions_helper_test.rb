@@ -52,12 +52,12 @@ class SubmissionsHelperTest < Minitest::Test
   end
 
   def test_user_can_mute_an_unmuted_submission
-    assert_equal "/submissions/#{@submission.id}/mute", helper.mute_button_action_for(@submission, @fred)
+    assert_equal "/submissions/#{@submission.key}/mute", helper.mute_button_action_for(@submission, @fred)
   end
 
   def test_user_can_unmute_a_muted_submission
     @submission.muted_by << @fred
-    assert_equal "/submissions/#{@submission.id}/unmute", helper.mute_button_action_for(@submission, @fred)
+    assert_equal "/submissions/#{@submission.key}/unmute", helper.mute_button_action_for(@submission, @fred)
   end
 
   def test_no_likes
@@ -97,7 +97,7 @@ class SubmissionsHelperTest < Minitest::Test
     @fred.mastery << 'ruby'
     @submission.exercise.language = 'ruby'
     expected = %Q{
-      <form accept-charset="UTF-8" action="/submissions/#{@submission.id}/like" method="POST" class="pull-left" style="display: inline;">
+      <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/like" method="POST" class="pull-left" style="display: inline;">
         <button type="submit" name="like" class="btn">Looks great!</button>
       </form>
     }.strip.squeeze(" ")
@@ -110,7 +110,7 @@ class SubmissionsHelperTest < Minitest::Test
     @submission.exercise.language = 'ruby'
     @submission.liked_by << @fred
     expected = %Q{
-      <form accept-charset="UTF-8" action="/submissions/#{@submission.id}/unlike" method="POST" class="pull-left" style="display: inline;">
+      <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/unlike" method="POST" class="pull-left" style="display: inline;">
         <button type="submit" name="unlike" class="btn">I didn't mean to like this!</button>
       </form>
     }.strip.squeeze(" ")

@@ -6,7 +6,7 @@ module Sinatra
 
     def mute_button_action_for(submission, user)
       action = submission.muted_by?(user) ? 'unmute' : 'mute'
-      "/submissions/#{submission.id}/#{action}"
+      "/submissions/#{submission.key}/#{action}"
     end
 
     def view_count_for(submission)
@@ -42,7 +42,7 @@ module Sinatra
       end
 
       %Q{
-        <form accept-charset="UTF-8" action="/submissions/#{submission.id}/#{action}" method="POST" class="pull-left" style="display: inline;">
+        <form accept-charset="UTF-8" action="/submissions/#{submission.key}/#{action}" method="POST" class="pull-left" style="display: inline;">
           <button type="submit" name="#{action}" class="btn">#{text}</button>
         </form>
       }

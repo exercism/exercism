@@ -22,6 +22,7 @@ class Submission < ActiveRecord::Base
     self.version        ||= 0
     self.wants_opinions ||= false
     self.is_liked       ||= false
+    self.key            ||= (mongoid_id || generate_key)
     true
   end
 
@@ -229,7 +230,19 @@ class Submission < ActiveRecord::Base
     @view_count ||= viewers.count
   end
 
+  def generate_key
+    Digest::SHA1.hexdigest(secret)[0..23]
+  end
+
   private
+
+  def secret
+    if ENV['SUBMISSION_SECRET']
+      "#{ENV['SUBMISSION_SECRET']} #{rand(10**10)}"
+    else
+      "There is solemn satisfaction in doing the best you can for #{10**10} billion people."
+    end
+  end
 
   # Experiment: Cache the iteration number so that we can display it
   # on the dashboard without pulling down all the related versions

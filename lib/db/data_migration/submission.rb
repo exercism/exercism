@@ -38,6 +38,7 @@ class Submission
       version: version,
       stash_name: stash_name,
       user_id: pg_user.id,
+      key: id.to_s,
       mongoid_id: id.to_s,
       mongoid_user_id: user_id.to_s,
     }

@@ -2,6 +2,7 @@ class CreateSubmissions < ActiveRecord::Migration
   def change
     create_table :submissions do |t|
       t.integer  :user_id,        null: false
+      t.string   :key
 
       t.string   :state
       t.string   :language

@@ -26,7 +26,7 @@
         <% if related == submission %>
           <span style="padding: 10px;"><%= related.version %></span>
         <% else %>
-          <a class="btn btn-default" href="/submissions/<%= related.id %>"> <%= related.version %></a>
+          <a class="btn btn-default" href="/submissions/<%= related.key %>"> <%= related.version %></a>
         <% end %>
       <% end %>
 
@@ -107,7 +107,7 @@
     <%= erb :"nitpick/submit_comment", locals: {submission: submission} %>
 
     <% if current_user.owns?(submission) && !current_user.completed?(submission.exercise) %>
-      <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/done" method="POST">
+      <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/done" method="POST">
         <button type="submit" name="done" class="btn">OK, I'm done. Unlock the next exercise.</button>
       </form>
     <% end %>

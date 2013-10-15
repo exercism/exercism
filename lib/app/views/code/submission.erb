@@ -2,7 +2,7 @@
   <%= "style='#{html[:style]}'" if html[:style] %>
   class="revision code span6">
   <h2>
-    <a href="/submissions/<%= submission.id %>">
+    <a href="/submissions/<%= submission.key %>">
       <%= title %>
     </a>
     <div style="float: right;">
@@ -12,7 +12,7 @@
   </h2>
   <h3>
     <small>Submitted <%= ago(submission.created_at) %> &centerdot;
-      <a href="/submissions/<%= submission.id %>">
+      <a href="/submissions/<%= submission.key %>">
         view submission &raquo;
       </a>
     </small>

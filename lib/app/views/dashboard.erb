@@ -26,7 +26,7 @@
         <% current_user.ongoing.each do |submission| %>
           <li>
             <p>
-              <a href="/submissions/<%= submission.id %>">
+              <a href="/submissions/<%= submission.key %>">
                 <%= submission.language.capitalize + ': ' + submission.slug %>
               </a> (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
             </p>
@@ -50,7 +50,7 @@
   <div class="span8">
     <% if submission %>
       <h4>Got a few minutes to spare?</h4>
-      <p>Go and help <b>@<%= submission.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= submission.id %>"><%= submission.slug %> in <%= submission.language.capitalize %></a>.</p>
+      <p>Go and help <b>@<%= submission.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= submission.key %>"><%= submission.slug %> in <%= submission.language.capitalize %></a>.</p>
     <% end %>
   </div>
 </div>

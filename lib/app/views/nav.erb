@@ -40,7 +40,7 @@
       <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
         <% current_user.ongoing.each do |submission| %>
           <li>
-            <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.id %>"><%= submission.language + ' ' + submission.slug %></a>
+            <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>"><%= submission.language + ' ' + submission.slug %></a>
           </li>
         <% end %>
       </ul>

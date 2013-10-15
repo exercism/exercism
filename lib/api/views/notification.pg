@@ -6,6 +6,6 @@ node notification: notification do
   if notification.custom?
     node link: nil
   else
-    node link: "/submissions/#{notification.submission.id}"
+    node link: "/submissions/#{notification.submission.key}"
   end
 end

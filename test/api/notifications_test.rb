@@ -35,7 +35,7 @@ class NotificationsApiTest < Minitest::Test
     get '/notifications', key: alice.key
     notifications = JSON.parse(last_response.body)['notifications']
     assert_equal 1, notifications.size
-    assert_equal "/submissions/#{submission.id}", notifications.first['notification']['link']
+    assert_equal "/submissions/#{submission.key}", notifications.first['notification']['link']
   end
 
   def test_get_notifications_when_logged_in
@@ -43,7 +43,7 @@ class NotificationsApiTest < Minitest::Test
     get '/notifications', {}, login(alice)
     notifications = JSON.parse(last_response.body)['notifications']
     assert_equal 1, notifications.size
-    assert_equal "/submissions/#{submission.id}", notifications.first['notification']['link']
+    assert_equal "/submissions/#{submission.key}", notifications.first['notification']['link']
   end
 
   def test_updating_read_status_is_restricted

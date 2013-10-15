@@ -14,7 +14,7 @@
     <tr>
       <td>
         <%= gravatar_tag submission.user.avatar_url, size: 20 %>
-        <a href="/submissions/<%= submission.id %>"><%= submission.user.username %></a>
+        <a href="/submissions/<%= submission.key %>"><%= submission.user.username %></a>
       </td>
       <td><%= submission.created_at %></td>
       <td><%= submission.comments.length %></td>

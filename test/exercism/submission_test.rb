@@ -41,6 +41,18 @@ class SubmissionTest < Minitest::Test
     @alice = nil
   end
 
+  def test_submission_key_from_mongoid_id
+    submission = Submission.create(user: alice, mongoid_id: 'abc')
+    submission.reload
+    assert_equal 'abc', submission.key
+  end
+
+  def test_random_submission_key
+    submission = Submission.create(user: alice)
+    submission.reload
+    refute_nil submission.key
+  end
+
   def test_supersede_pending_submission
     assert_equal 'pending', submission.state
     submission.supersede!

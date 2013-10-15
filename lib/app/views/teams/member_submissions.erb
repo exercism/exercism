@@ -12,7 +12,7 @@
       <% submissions.each do |submission| %>
         <li>
           <% if current_user.working_on?(submission.exercise) || current_user.nitpicker_on?(submission.exercise) %>
-            <a href="/submissions/<%= submission.id %>">
+            <a href="/submissions/<%= submission.key %>">
               <%= submission.exercise.name %>
               (<%= submission.language.capitalize %>)
             </a>

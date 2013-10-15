@@ -69,7 +69,7 @@ class SubmissionsTest < Minitest::Test
 
     assert_equal 0, submission.view_count
 
-    get "/submissions/#{submission.id}", {}, login(bob)
+    get "/submissions/#{submission.key}", {}, login(bob)
 
     submission = Submission.first
     assert_equal 1, submission.view_count
@@ -81,7 +81,7 @@ class SubmissionsTest < Minitest::Test
 
     assert_equal 0, submission.view_count
 
-    get "/submissions/#{submission.id}"
+    get "/submissions/#{submission.key}"
 
     submission = Submission.first
     assert_equal 0, submission.view_count
@@ -91,7 +91,7 @@ class SubmissionsTest < Minitest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
-    url = "/submissions/#{submission.id}/respond"
+    url = "/submissions/#{submission.key}/respond"
     Message.stub(:ship, nil) do
       post url, {body: "good"}, login(bob)
     end
@@ -104,7 +104,7 @@ class SubmissionsTest < Minitest::Test
     submission = Submission.first
     assert_equal 1, submission.versions_count
 
-    url = "/submissions/#{submission.id}/respond"
+    url = "/submissions/#{submission.key}/respond"
     Message.stub(:ship, nil) do
       post url, {body: "good"}, login(alice)
     end
@@ -122,7 +122,7 @@ class SubmissionsTest < Minitest::Test
     submission.save
 
     # sanitizes response
-    url = "/submissions/#{submission.id}/respond"
+    url = "/submissions/#{submission.key}/respond"
     Message.stub(:ship, nil) do
       post url, {body: "<script type=\"text/javascript\">bad();</script>good"}, login(bob)
     end
@@ -136,7 +136,7 @@ class SubmissionsTest < Minitest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
-    post "/submissions/#{submission.id}/respond", {body: "Could be better by ..."}
+    post "/submissions/#{submission.key}/respond", {body: "Could be better by ..."}
 
     assert_response_status(302)
   end
@@ -150,7 +150,7 @@ class SubmissionsTest < Minitest::Test
     assert_equal false, submission.this_version_has_nits?
 
     # not changed by a nit being added
-    url = "/submissions/#{submission.id}/respond"
+    url = "/submissions/#{submission.key}/respond"
     Message.stub(:ship, nil) do
       post url, {body: "good"}, login(bob)
     end
@@ -178,7 +178,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
 
     Message.stub(:ship, nil) do
-      post "/submissions/#{submission.id}/opinions/enable", {}, login(alice)
+      post "/submissions/#{submission.key}/opinions/enable", {}, login(alice)
     end
 
     assert_equal true, submission.reload.wants_opinions?
@@ -190,7 +190,7 @@ class SubmissionsTest < Minitest::Test
     submission.save
 
     Message.stub(:ship, nil) do
-      post "/submissions/#{submission.id}/opinions/disable", {}, login(alice)
+      post "/submissions/#{submission.key}/opinions/disable", {}, login(alice)
     end
 
     assert_equal false, submission.reload.wants_opinions?
@@ -199,18 +199,18 @@ class SubmissionsTest < Minitest::Test
   def test_like_a_submission
     submission = generate_attempt.submission
     Submission.any_instance.expects(:like!).with(bob)
-    post "/submissions/#{submission.id}/like", {}, login(bob)
+    post "/submissions/#{submission.key}/like", {}, login(bob)
   end
 
   def test_unlike_a_submission
     submission = generate_attempt.submission
     Submission.any_instance.expects(:unlike!).with(bob)
-    post "/submissions/#{submission.id}/unlike", {}, login(bob)
+    post "/submissions/#{submission.key}/unlike", {}, login(bob)
   end
 
   def test_change_opinions_when_not_logged_in
     submission = generate_attempt.submission
-    post "/submissions/#{submission.id}/opinions/enable"
+    post "/submissions/#{submission.key}/opinions/enable"
     assert_equal 302, last_response.status
     assert_equal false, submission.reload.wants_opinions?
   end
@@ -219,7 +219,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
 
     Message.stub(:ship, nil) do
-      post "/submissions/#{submission.id}/mute", {}, login(alice)
+      post "/submissions/#{submission.key}/mute", {}, login(alice)
     end
 
     assert submission.reload.muted_by?(alice)
@@ -229,7 +229,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
 
     Message.stub(:ship, nil) do
-      post "/submissions/#{submission.id}/unmute", {}, login(alice)
+      post "/submissions/#{submission.key}/unmute", {}, login(alice)
     end
 
     refute submission.reload.muted_by?(alice)
@@ -238,7 +238,7 @@ class SubmissionsTest < Minitest::Test
   def test_unmute_all_on_new_nitpick
     submission = generate_attempt.submission
 
-    url = "/submissions/#{submission.id}/respond"
+    url = "/submissions/#{submission.key}/respond"
     Message.stub(:ship, nil) do
       Submission.any_instance.expects(:unmute_all!)
       post url, {body: "good"}, login(bob)
@@ -250,27 +250,27 @@ class SubmissionsTest < Minitest::Test
 
     Message.stub(:ship, nil) do
       Submission.any_instance.expects(:unmute_all!)
-      post "/submissions/#{submission.id}/opinions/enable", {}, login(alice)
+      post "/submissions/#{submission.key}/opinions/enable", {}, login(alice)
     end
   end
 
   def test_must_be_logged_in_to_complete_exercise
     submission = generate_attempt.submission
-    post "/submissions/#{submission.id}/done"
+    post "/submissions/#{submission.key}/done"
     assert_equal 302, last_response.status
     assert_equal 'pending', submission.reload.state
   end
 
   def test_must_be_submission_owner_to_complete_exercise
     submission = generate_attempt.submission
-    post "/submissions/#{submission.id}/done", {}, login(bob)
+    post "/submissions/#{submission.key}/done", {}, login(bob)
     assert_equal 302, last_response.status
     assert_equal 'pending', submission.reload.state
   end
 
   def test_complete_exercise
     submission = generate_attempt.submission
-    post "/submissions/#{submission.id}/done", {}, login(alice)
+    post "/submissions/#{submission.key}/done", {}, login(alice)
     assert_equal 'done', submission.reload.state
   end
 
@@ -284,7 +284,7 @@ class SubmissionsTest < Minitest::Test
     s1 = Submission.create(data.merge(state: 'superseded', created_at: Time.now - 5))
     s2 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 2))
 
-    post "/submissions/#{s1.id}/done", {}, login(alice)
+    post "/submissions/#{s1.key}/done", {}, login(alice)
 
     assert_equal 'superseded', s1.reload.state
     assert_equal 'done', s2.reload.state
@@ -294,7 +294,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
     comment = Comment.create(user: bob, submission: submission, body: "```ruby\n\t{a: 'a'}\n```")
 
-    post "/submissions/#{submission.id}/nits/#{comment.id}", {body: "OK"}, login(bob)
+    post "/submissions/#{submission.key}/nits/#{comment.id}", {body: "OK"}, login(bob)
 
     assert_equal "OK", comment.reload.body
   end
@@ -303,7 +303,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
     assert_equal 0, Comment.count
     comment = Comment.create(user: bob, submission: submission, body: "ohai")
-    delete "/submissions/#{submission.id}/nits/#{comment.id}", {}, login(bob)
+    delete "/submissions/#{submission.key}/nits/#{comment.id}", {}, login(bob)
     assert_equal 0, Comment.count
   end
 end

@@ -17,8 +17,8 @@
   <div id="code-timeline" class="pagination pagination-centered">
     <ul>
       <% iterations.each_with_index do |iteration,index| %>
-        <li><a class="revision <%= iteration == after ? 'selected' : '' %>" 
-          data-submission-id="<%= iteration.id %>" 
+        <li><a class="revision <%= iteration == after ? 'selected' : '' %>"
+          data-submission-id="<%= iteration.key %>"
           data-revision="<%= index + 1 %>">Rev <%= index + 1 %>
         </a></li>
       <% end %>
