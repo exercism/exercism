@@ -168,10 +168,9 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    submissions = Submission.where(l: language, s: assignment)
-                            .in(state: ["pending", "done"])
+    submissions = Submission.where(language: language, slug: assignment, state: ['pending', 'done'])
                             .includes(:user)
-                            .desc(:at).to_a
+                            .order('created_at DESC').to_a
 
     erb :submissions_for_assignment, locals: { submissions: submissions,
                                                   language: language,

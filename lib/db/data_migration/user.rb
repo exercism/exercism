@@ -26,6 +26,7 @@ class User
       github_id: github_id,
       avatar_url: avatar_url,
       current: current,
+      completed: completed,
       key: key,
       created_at: j_at,
       mastery: mastery,
