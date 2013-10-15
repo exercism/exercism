@@ -32,6 +32,10 @@ numberTests =
     "0000000000" @=? number ""
   , testCase "invalid when no digits present" $
     "0000000000" @=? number " (-) "
+  , testCase "valid with leading characters" $
+    "1234567890" @=? number "my number is 123 456 7890"
+  , testCase "valid with trailing characters" $
+    "1234567890" @=? number "123 456 7890 - bob"
   ]
 
 areaCodeTests :: [Test]
