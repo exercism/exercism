@@ -40,9 +40,9 @@ class User
   end
 
   def random_work
-    completed.keys.shuffle.each do |language|
-      exercise = completed_exercises[language].sample
-      work = Submission.pending_for(language, exercise.slug).unmuted_for(username).asc(:nc)
+    language, slugs = completed.max_by {|lang, slugs| slugs.count}
+    slugs.reverse.each do |slug|
+      work = Submission.pending_for(language, slug).unmuted_for(username).asc(:nc)
       if work.count > 0
         return work.limit(10).to_a.sample
       end
