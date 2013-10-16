@@ -15,7 +15,7 @@ class ApiTest < Minitest::Test
   end
 
   def login(user)
-    set_cookie("_exercism_login=#{user.github_id}")
+    {'rack.session' => {github_id: user.github_id}}
   end
 
   def alice
@@ -29,8 +29,7 @@ class ApiTest < Minitest::Test
   end
 
   def test_require_user_accepts_cookie
-    login(alice)
-    get '/'
+    get '/', {}, login(alice)
     assert_equal 200, last_response.status
     assert_equal "OK", last_response.body
   end

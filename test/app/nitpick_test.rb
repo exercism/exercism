@@ -8,7 +8,7 @@ class NitpickAppTest < Minitest::Test
   end
 
   def login(user)
-    set_cookie("_exercism_login=#{user.github_id}")
+    {'rack.session' => {github_id: user.github_id}}
   end
 
   attr_reader :master
@@ -42,8 +42,7 @@ class NitpickAppTest < Minitest::Test
 
   def test_language_when_and_nitted_submission_present
     generate_nitpick(generate_submission("clojure", "clj"))
-    login(master)
-    get '/nitpick/clojure/no-nits'
+    get '/nitpick/clojure/no-nits', {}, login(master)
     assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200
@@ -51,8 +50,7 @@ class NitpickAppTest < Minitest::Test
 
   def test_language_when_and_submission_present
     generate_submission("clojure", "clj")
-    login(master)
-    get '/nitpick/clojure/no-nits'
+    get '/nitpick/clojure/no-nits', {}, login(master)
     assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200
@@ -60,8 +58,7 @@ class NitpickAppTest < Minitest::Test
 
   def test_language_when_and_nitted_submission_present
     generate_nitpick(generate_submission("clojure", "clj"))
-    login(master)
-    get '/nitpick/clojure/no-nits'
+    get '/nitpick/clojure/no-nits', {}, login(master)
     assert last_response.body.include?("the_master"), "visible username"
     assert last_response.body.include?("bob"), "visible submission"
     assert_equal last_response.status, 200

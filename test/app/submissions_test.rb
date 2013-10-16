@@ -9,7 +9,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def login(user)
-    set_cookie("_exercism_login=#{user.github_id}")
+    {'rack.session' => {github_id: user.github_id}}
   end
 
   def alice_attributes
@@ -55,8 +55,7 @@ class SubmissionsTest < Minitest::Test
 
     assert_equal 0, submission.view_count
 
-    login(bob)
-    get "/submissions/#{submission.id}"
+    get "/submissions/#{submission.id}", {}, login(bob)
 
     submission = Submission.first
     assert_equal 1, submission.view_count
@@ -80,8 +79,7 @@ class SubmissionsTest < Minitest::Test
 
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
-      login(bob)
-      post url, {comment: "good"}
+      post url, {comment: "good"}, login(bob)
     end
     assert_equal 1, submission.reload.comments.count
     assert_equal 1, submission.reload.nits_by_others_count
@@ -94,8 +92,7 @@ class SubmissionsTest < Minitest::Test
 
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
-      login(alice)
-      post url, {comment: "good"}
+      post url, {comment: "good"}, login(alice)
     end
     assert_equal 1, submission.reload.comments.count
     assert_equal 0, submission.reload.nits_by_others_count
@@ -113,8 +110,7 @@ class SubmissionsTest < Minitest::Test
     # sanitizes response
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
-      login(bob)
-      post url, {comment: "<script type=\"text/javascript\">bad();</script>good"}
+      post url, {comment: "<script type=\"text/javascript\">bad();</script>good"}, login(bob)
     end
 
     nit = submission.reload.comments.last
@@ -142,8 +138,7 @@ class SubmissionsTest < Minitest::Test
     # not changed by a nit being added
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
-      login(bob)
-      post url, {comment: "good"}
+      post url, {comment: "good"}, login(bob)
     end
     assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
@@ -169,8 +164,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
 
     Message.stub(:ship, nil) do
-      login(alice)
-      post "/submissions/#{submission.id}/opinions/enable"
+      post "/submissions/#{submission.id}/opinions/enable", {}, login(alice)
     end
 
     assert_equal true, submission.reload.wants_opinions?
@@ -182,8 +176,7 @@ class SubmissionsTest < Minitest::Test
     submission.save
 
     Message.stub(:ship, nil) do
-      login(alice)
-      post "/submissions/#{submission.id}/opinions/disable"
+      post "/submissions/#{submission.id}/opinions/disable", {}, login(alice)
     end
 
     assert_equal false, submission.reload.wants_opinions?
@@ -192,15 +185,13 @@ class SubmissionsTest < Minitest::Test
   def test_like_a_submission
     submission = generate_attempt.submission
     Submission.any_instance.expects(:like!).with(bob)
-    login(bob)
-    post "/submissions/#{submission.id}/like"
+    post "/submissions/#{submission.id}/like", {}, login(bob)
   end
 
   def test_unlike_a_submission
     submission = generate_attempt.submission
     Submission.any_instance.expects(:unlike!).with(bob)
-    login(bob)
-    post "/submissions/#{submission.id}/unlike"
+    post "/submissions/#{submission.id}/unlike", {}, login(bob)
   end
 
   def test_change_opinions_when_not_logged_in
@@ -214,8 +205,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
 
     Message.stub(:ship, nil) do
-      login(alice)
-      post "/submissions/#{submission.id}/mute"
+      post "/submissions/#{submission.id}/mute", {}, login(alice)
     end
 
     assert submission.reload.muted_by?(alice)
@@ -225,8 +215,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
 
     Message.stub(:ship, nil) do
-      login(alice)
-      post "/submissions/#{submission.id}/unmute"
+      post "/submissions/#{submission.id}/unmute", {}, login(alice)
     end
 
     refute submission.reload.muted_by?(alice)
@@ -238,8 +227,7 @@ class SubmissionsTest < Minitest::Test
     url = "/submissions/#{submission.id}/respond"
     Message.stub(:ship, nil) do
       Submission.any_instance.expects(:unmute_all!)
-      login(bob)
-      post url, {comment: "good"}
+      post url, {comment: "good"}, login(bob)
     end
   end
 
@@ -248,8 +236,7 @@ class SubmissionsTest < Minitest::Test
 
     Message.stub(:ship, nil) do
       Submission.any_instance.expects(:unmute_all!)
-      login(alice)
-      post "/submissions/#{submission.id}/opinions/enable"
+      post "/submissions/#{submission.id}/opinions/enable", {}, login(alice)
     end
   end
 
@@ -262,16 +249,14 @@ class SubmissionsTest < Minitest::Test
 
   def test_must_be_submission_owner_to_complete_exercise
     submission = generate_attempt.submission
-    login(bob)
-    post "/submissions/#{submission.id}/done"
+    post "/submissions/#{submission.id}/done", {}, login(bob)
     assert_equal 302, last_response.status
     assert_equal 'pending', submission.reload.state
   end
 
   def test_complete_exercise
     submission = generate_attempt.submission
-    login(alice)
-    post "/submissions/#{submission.id}/done"
+    post "/submissions/#{submission.id}/done", {}, login(alice)
     assert_equal 'done', submission.reload.state
   end
 
@@ -285,8 +270,7 @@ class SubmissionsTest < Minitest::Test
     s1 = Submission.create(data.merge(state: 'superseded', at: Time.now - 5))
     s2 = Submission.create(data.merge(state: 'pending', at: Time.now - 2))
 
-    login(alice)
-    post "/submissions/#{s1.id}/done"
+    post "/submissions/#{s1.id}/done", {}, login(alice)
 
     assert_equal 'superseded', s1.reload.state
     assert_equal 'done', s2.reload.state
@@ -296,8 +280,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
     comment = Comment.create(user: bob, submission: submission, comment: "```ruby\n\t{a: 'a'}\n```")
 
-    login(bob)
-    post "/submissions/#{submission.id}/nits/#{comment.id}", {comment: "OK"}
+    post "/submissions/#{submission.id}/nits/#{comment.id}", {comment: "OK"}, login(bob)
 
     assert_equal "OK", comment.reload.comment
   end
@@ -306,8 +289,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
     assert_equal 0, Comment.count
     comment = Comment.create(user: bob, submission: submission, comment: "ohai")
-    login(bob)
-    delete "/submissions/#{submission.id}/nits/#{comment.id}"
+    delete "/submissions/#{submission.id}/nits/#{comment.id}", {}, login(bob)
     assert_equal 0, Comment.count
   end
 end

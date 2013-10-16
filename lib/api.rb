@@ -42,8 +42,8 @@ class ExercismAPI < Sinatra::Base
     end
 
     def find_user
-      if request.cookies['_exercism_login']
-        User.where(github_id: request.cookies['_exercism_login']).first
+      if session[:github_id]
+        User.where(github_id: session[:github_id]).first
       elsif params[:key]
         User.where(key: params[:key]).first
       end

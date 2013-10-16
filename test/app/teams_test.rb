@@ -9,7 +9,7 @@ class TeamsTest < Minitest::Test
   end
 
   def login(user)
-    set_cookie("_exercism_login=#{user.github_id}")
+    {'rack.session' => {github_id: user.github_id}}
   end
 
   def alice_attributes
@@ -58,8 +58,7 @@ class TeamsTest < Minitest::Test
   def test_team_creation_with_no_members
     assert_equal 0, alice.teams_created.size
 
-    login(alice)
-    post '/teams', {team: {slug: 'no_members', usernames: ""}}
+    post '/teams', {team: {slug: 'no_members', usernames: ""}}, login(alice)
 
     team = Team.first
 
@@ -68,15 +67,13 @@ class TeamsTest < Minitest::Test
   end
 
   def test_team_creation_with_no_slug
-    login(alice)
-    post '/teams', {team: {usernames: bob.username}}
+    post '/teams', {team: {usernames: bob.username}}, login(alice)
 
     assert_equal 0, alice.teams_created.size
   end
 
   def test_team_creation_with_multiple_members
-    login(alice)
-    post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{john.username}"}}
+    post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{john.username}"}}, login(alice)
 
     team = Team.first
 
@@ -92,12 +89,10 @@ class TeamsTest < Minitest::Test
   end
 
   def test_member_addition
-    login(alice)
-
     team = Team.by(alice).defined_with({slug: 'members'})
     team.save
 
-    post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{john.username}"}
+    post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{john.username}"}, login(alice)
 
     team.reload
 
@@ -106,12 +101,10 @@ class TeamsTest < Minitest::Test
   end
 
   def test_member_addition_without_being_creator
-    login(bob)
-
     team = Team.by(alice).defined_with({slug: 'members', usernames: bob.username})
     team.save
 
-    post "/teams/#{team.slug}/members", {usernames: john.username}
+    post "/teams/#{team.slug}/members", {usernames: john.username}, login(bob)
 
     team.reload
 
@@ -120,12 +113,10 @@ class TeamsTest < Minitest::Test
   end
 
   def test_member_removal
-    login(alice)
-
     team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{john.username}"})
     team.save
 
-    delete "/teams/#{team.slug}/members/#{bob.username}"
+    delete "/teams/#{team.slug}/members/#{bob.username}", {}, login(alice)
 
     team.reload
 
@@ -133,12 +124,10 @@ class TeamsTest < Minitest::Test
   end
 
   def test_leave_team
-    login(bob)
-
     team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{john.username}"})
     team.save
 
-    put "/teams/#{team.slug}/leave"
+    put "/teams/#{team.slug}/leave", {}, login(bob)
 
     team.reload
 
@@ -146,12 +135,10 @@ class TeamsTest < Minitest::Test
   end
 
   def test_member_removal_without_being_creator
-    login(bob)
-
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{john.username}"})
     team.save
 
-    delete "/teams/#{team.slug}/members/#{john.username}"
+    delete "/teams/#{team.slug}/members/#{john.username}", {}, login(bob)
 
     team.reload
 
@@ -163,8 +150,7 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{john.username}"})
     team.save
 
-    login(bob)
-    get "/teams/#{team.slug}", {}
+    get "/teams/#{team.slug}", {}, login(bob)
 
     assert_response_status(200)
   end
@@ -173,8 +159,7 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username}"})
     team.save
 
-    login(john)
-    get "/teams/#{team.slug}", {}
+    get "/teams/#{team.slug}", {}, login(john)
 
     assert_response_status(302)
   end

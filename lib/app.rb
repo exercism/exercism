@@ -69,13 +69,11 @@ class ExercismApp < Sinatra::Base
     end
 
     def current_user
-      @current_user ||= begin
-        if request.cookies['_exercism_login']
-          User.find_by(github_id: request.cookies['_exercism_login'])
-        else
-          Guest.new
-        end
-      end
+      @current_user ||= find_user || Guest.new
+    end
+
+    def find_user
+      User.where(github_id: session[:github_id]).first
     end
 
     def language_icon(language,html={})
