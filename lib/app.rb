@@ -73,7 +73,9 @@ class ExercismApp < Sinatra::Base
     end
 
     def find_user
-      User.where(github_id: session[:github_id]).first
+      if session[:github_id]
+        User.where(github_id: session[:github_id]).first
+      end
     end
 
     def language_icon(language,html={})
