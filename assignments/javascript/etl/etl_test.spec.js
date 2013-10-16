@@ -15,7 +15,7 @@ describe("Transform", function() {
   });
 
   xit("transforms more keys", function() {
-    var old = { 2 : ['APPLE', 'ARTICHOKE'], 2 : ['BOAT', 'BALLERINA'] };
+    var old = { 1 : ['APPLE', 'ARTICHOKE'], 2 : ['BOAT', 'BALLERINA'] };
     var expected = {
       'apple' : 1,
       'artichoke' : 1,
