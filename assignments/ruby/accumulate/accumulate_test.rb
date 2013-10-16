@@ -20,7 +20,7 @@ class ArrayTest < MiniTest::Unit::TestCase
     result = %w(hello world).accumulate { |word|
       word.upcase
     }
-    assert_equal %(HELLO WORLD), result
+    assert_equal %w(HELLO WORLD), result
   end
 
   def test_accumulate_reversed_strings
