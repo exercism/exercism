@@ -11,7 +11,7 @@ class Exercism
         sieve simple-cipher octal luhn pig-latin pythagorean-triplet
         series difference-of-squares secret-handshake linked-list wordy
         hexadecimal largest-series-product kindergarten-garden
-        binary-search-tree matrix nth-prime
+        binary-search-tree matrix robot-simulator nth-prime
         palindrome-products pascals-triangle say
         sum-of-multiples queen-attack saddle-points ocr-numbers
         meetup
