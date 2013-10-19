@@ -9,19 +9,18 @@ pub fn verse(n: int) -> ~str {
         2 =>
             ~"2 bottles of beer on the wall, 2 bottles of beer.\nTake one down and pass it around, 1 bottle of beer on the wall.\n",
         n if n > 2 && n <= 99 =>
-            [n.to_str(), ~" bottles of beer on the wall, ",
-             n.to_str(), ~" bottles of beer.\n",
-             ~"Take one down and pass it around, ",
-             (n - 1).to_str(), ~" bottles of beer on the wall.\n"].concat(),
+            format!("{n} bottles of beer on the wall, {n} bottles of beer.\nTake one down and pass it around, {n_minus_1} bottles of beer on the wall.\n", n=n, n_minus_1=n - 1),
         _ =>
             fail!(),
     }
 }
 
 pub fn sing(start: int, end: int) -> ~str {
-    iter::range_inclusive(end, start)
+    let mut s = iter::range_inclusive(end, start)
         .invert()
         .map(verse)
-        .collect::<~[~str]>()
-        .connect("\n") + "\n"
+        .to_owned_vec()
+        .connect("\n");
+    s.push_char('\n');
+    s
 }
