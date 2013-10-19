@@ -17,7 +17,7 @@ fn test_no_matches() {
 #[test]
 #[should_fail]
 fn test_detect_simple_anagram() {
-    assert_eq!(anagram::anagrams_for("ant", ["tan", "stand", "at"]), ~[~"tan"]);
+    assert_eq!(anagram::anagrams_for("ant", ["tan", "stand", "at"]), ~["tan"]);
 }
 
 #[test]
@@ -38,7 +38,7 @@ fn test_detect_anagram() {
     assert_eq!(
         anagram::anagrams_for("listen",
                               ["enlists", "google", "inlets", "banana"]),
-        ~[~"inlets"])
+        ~["inlets"])
 }
 
 #[test]
@@ -48,7 +48,7 @@ fn test_multiple_anagrams() {
         anagram::anagrams_for("allergy",
                               ["gallery", "ballerina", "regally",
                                "clergy", "largely", "leading"]),
-        ~[~"gallery", ~"regally", ~"largely"]);
+        ~["gallery", "regally", "largely"]);
 }
 
 #[test]
@@ -57,7 +57,7 @@ fn test_case_insensitive_anagrams() {
     assert_eq!(
         anagram::anagrams_for("Orchestra",
                               ["cashregister", "Carthorse", "radishes"]),
-        ~[~"Carthorse"]);
+        ~["Carthorse"]);
 }
 
 #[test]
