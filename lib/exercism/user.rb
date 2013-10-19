@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
   def random_work
     completed.keys.shuffle.each do |language|
       completed[language].reverse.each do |slug|
-        work = Submission.pending_for(language, slug).unmuted_for(username).order("nit_count ASC")
+        work = Submission.pending.where(language: language, slug: slug).unmuted_for(self).order("nit_count ASC")
         if work.count > 0
           return work.limit(10).to_a.sample
         end
