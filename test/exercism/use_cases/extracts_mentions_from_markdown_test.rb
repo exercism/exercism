@@ -23,4 +23,10 @@ class ExtractsMentionsFromMarkdownTest < Minitest::Test
   def test_there_are_no_mentions_in_empty_comments
     assert_equal [], ExtractsMentionsFromMarkdown.extract("")
   end
+
+  def test_only_return_mentions_for_existing_usernames
+    alice = User.create(username: 'alice')
+    content = "Mention @alice and @bob"
+    assert_equal [alice], ExtractsMentionsFromMarkdown.extract(content)
+  end
 end
