@@ -10,6 +10,19 @@ require 'seed/timeline'
 require 'seed/user_pool'
 
 module Seed
+  def self.models
+    [
+      ::Like, ::MutedSubmission, ::SubmissionViewer,
+      ::TeamMembership, ::Team, ::Notification,
+      ::Comment, ::Submission, ::User
+    ]
+  end
+
+  def self.reset
+    models.each do |model|
+      model.destroy_all
+    end
+  end
 
   def self.generate_default_users
     [admin, daemon].each do |attributes|
