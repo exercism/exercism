@@ -85,20 +85,20 @@ Different languages/trails do not need to have the same assignments or the same 
 
 ## Setup
 
-1. Install mongodb with: `brew install mongodb` or `apt-get install mongodb`
-2. Get it running: follow instructions to load the server at startup. Ensure that server is currently running
-3. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
-4. Install gems with: `bundle`
-5. Get a client id/secret from Github at https://github.com/settings/applications/new.
+1. Install postgresql with: `brew install postgresql` or `apt-get install postgresql-9.2`
+2. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
+3. Install gems with: `bundle`
+4. Get a client id/secret from Github at https://github.com/settings/applications/new.
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-7. Run the database seed with `rake db:seed` (if you want LOTS of data: `rake db:seed[1000]` or some other big number).
-8. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
-9. Start the server with `./scripts/boot.sh`
-10. Login at http://localhost:4567.
-11. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
-12. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
+5. Run the database migrations with `rake db:migrate`.
+6. Run the database seed with `rake db:seed` (if you want LOTS of data: `rake db:seed[1000]` or some other big number).
+7. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
+8. Start the server with `./scripts/boot.sh`
+9. Login at http://localhost:4567.
+10. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
+11. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
 
 ## Frontend development setup
 1. Install node and npm
