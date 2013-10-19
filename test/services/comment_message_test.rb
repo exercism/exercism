@@ -7,7 +7,7 @@ require 'exercism/exercise'
 class CommentMessageTest < Minitest::Test
 
   FakeUser = Struct.new(:username, :email)
-  FakeSubmission = Struct.new(:id, :user, :exercise)
+  FakeSubmission = Struct.new(:key, :user, :exercise)
 
   attr_reader :alice, :submission
 
@@ -16,7 +16,7 @@ class CommentMessageTest < Minitest::Test
     @alice = FakeUser.new('alice', 'alice@example.com')
 
     @submission = FakeSubmission.new(
-      'ID',
+      'KEY',
       FakeUser.new('bob', 'bob@example.com'),
       Exercise.new('ruby', 'word-count')
     )
