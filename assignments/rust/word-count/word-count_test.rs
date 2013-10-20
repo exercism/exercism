@@ -6,10 +6,15 @@ use std::hashmap::HashMap;
 mod word_count;
 
 fn check_word_count(s: &str, pairs: &[(&str, uint)]) {
+    // The reason for the awkward code in here is to ensure that the failure
+    // message for assert_eq! is as informative as possible. A simpler
+    // solution would simply check the length of the map, and then
+    // check for the presence and value of each key in the given pairs vector.
     let mut m: HashMap<~str, uint> = word_count::word_count(s);
     for &(k, v) in pairs.iter() {
         assert_eq!((k, m.pop(&k.to_owned()).unwrap()), (k, v));
     }
+    // may fail with a message that clearly shows all extra pairs in the map
     assert_eq!(m.iter().to_owned_vec(), ~[]);
 }
 
