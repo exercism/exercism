@@ -7,21 +7,21 @@ mod word_count;
 
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_no_words() {
     assert_eq!(word_count::word_count(""), HashMap::new());
     assert_eq!(word_count::word_count("-!@#$ $#() @@@"), HashMap::new());
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_count_one_word() {
     let m = word_count::word_count("word");
     assert_eq!(m.find(&~"word").unwrap(), &1);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_count_one_of_each() {
     let m = word_count::word_count("one of each");
     assert_eq!(m.find(&~"one").unwrap(), &1);
@@ -30,7 +30,7 @@ fn test_count_one_of_each() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_count_multiple_occurrences() {
     let m = word_count::word_count("one fish two fish red fish blue fish");
     assert_eq!(m.find(&~"one").unwrap(), &1);
@@ -41,7 +41,7 @@ fn test_count_multiple_occurrences() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_ignore_punctuation() {
     let m = word_count::word_count("car : carpet as java : javascript!!&@$%^&");
     assert_eq!(m.find(&~"car").unwrap(), &1);
@@ -52,7 +52,7 @@ fn test_ignore_punctuation() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_include_numbers() {
     let m = word_count::word_count("testing, 1, 2 testing");
     assert_eq!(m.find(&~"testing").unwrap(), &2);
@@ -61,14 +61,14 @@ fn test_include_numbers() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_normalize_case() {
     let m = word_count::word_count("go Go GO");
     assert_eq!(m.find(&~"go").unwrap(), &3);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_prefix_punctuation() {
     let m = word_count::word_count("!%%#testing, 1, 2 testing");
     assert_eq!(m.find(&~"testing").unwrap(), &2);
@@ -77,7 +77,7 @@ fn test_prefix_punctuation() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_symbols_are_separators() {
     let m = word_count::word_count("hey,my_spacebar_is_broken.");
     assert_eq!(m.find(&~"hey").unwrap(), &1);

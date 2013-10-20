@@ -7,7 +7,7 @@ extern mod extra;
 mod anagram;
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_no_matches() {
     assert_eq!(
         anagram::anagrams_for("diaper", ["hello", "world", "zombies", "pants"]),
@@ -15,25 +15,25 @@ fn test_no_matches() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_detect_simple_anagram() {
     assert_eq!(anagram::anagrams_for("ant", ["tan", "stand", "at"]), ~["tan"]);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_does_not_confuse_different_duplicates() {
     assert_eq!(anagram::anagrams_for("galea", ["eagle"]), ~[]);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_eliminate_anagram_subsets() {
     assert_eq!(anagram::anagrams_for("good", ["dog", "goody"]), ~[]);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_detect_anagram() {
     assert_eq!(
         anagram::anagrams_for("listen",
@@ -42,7 +42,7 @@ fn test_detect_anagram() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_multiple_anagrams() {
     assert_eq!(
         anagram::anagrams_for("allergy",
@@ -52,7 +52,7 @@ fn test_multiple_anagrams() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_case_insensitive_anagrams() {
     assert_eq!(
         anagram::anagrams_for("Orchestra",
@@ -61,7 +61,7 @@ fn test_case_insensitive_anagrams() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_does_not_detect_a_word_as_its_own_anagram() {
     assert_eq!(anagram::anagrams_for("banana", ["banana"]), ~[]);
 }

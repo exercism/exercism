@@ -6,25 +6,25 @@ extern mod std;
 mod dna;
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_no_difference_between_empty_strands() {
     assert_eq!(dna::hamming_distance("", ""), 0);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_no_difference_between_identical_strands() {
     assert_eq!(dna::hamming_distance("GGACTGA", "GGACTGA"), 0);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_complete_hamming_distance_in_small_strand() {
     assert_eq!(dna::hamming_distance("ACT", "GGA"), 3);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_hamming_distance_in_off_by_one_strand() {
     assert_eq!(
         dna::hamming_distance(
@@ -34,25 +34,25 @@ fn test_hamming_distance_in_off_by_one_strand() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_small_hamming_distance_in_the_middle_somewhere() {
     assert_eq!(dna::hamming_distance("GGACG", "GGTCG"), 1);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_larger_distance() {
     assert_eq!(dna::hamming_distance("ACCAGGG", "ACTATGG"), 2);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_ignores_extra_length_on_the_other_strand_when_longer() {
     assert_eq!(dna::hamming_distance("AAACTAGGGG", "AGGCTAGCGGTAGGAC"), 3);
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_ignores_extra_length_on_the_original_strand_when_longer() {
     assert_eq!(
         dna::hamming_distance("GACTACGGACAGGGTAGGGAAT", "GACATCGCACACC"),
@@ -60,7 +60,7 @@ fn test_ignores_extra_length_on_the_original_strand_when_longer() {
 }
 
 #[test]
-#[should_fail]
+#[ignore]
 fn test_hamming_distance() {
     let cases = [
         ("AGACAACAGCCAGCCGCCGGATT", "AGGCAA", 1),
