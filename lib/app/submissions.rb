@@ -51,6 +51,11 @@ class ExercismApp < Sinatra::Base
     please_login
 
     submission = Submission.find_by_key(key)
+    unless submission
+      flash[:error] = "We can't find that submission."
+      redirect '/'
+    end
+
     submission.viewed!(current_user)
 
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
