@@ -4,7 +4,9 @@ struct RibonucleicAcid {
 }
 
 impl RibonucleicAcid {
-    pub fn new(nucleotides: ~str) -> RibonucleicAcid { RibonucleicAcid { nucleotides: nucleotides } }
+    pub fn new(nucleotides: ~str) -> RibonucleicAcid {
+        RibonucleicAcid { nucleotides: nucleotides }
+    }
 }
 
 impl ToStr for RibonucleicAcid {
@@ -18,10 +20,12 @@ struct DeoxyribonucleicAcid {
 }
 
 impl DeoxyribonucleicAcid {
-    pub fn new(nucleotides: ~str) -> DeoxyribonucleicAcid { DeoxyribonucleicAcid { nucleotides: nucleotides } }
+    pub fn new(nucleotides: ~str) -> DeoxyribonucleicAcid {
+        DeoxyribonucleicAcid { nucleotides: nucleotides }
+    }
 
     pub fn to_rna(&self) -> RibonucleicAcid {
-        let rna_nucleotides = self.nucleotides.map_chars(|chr| if chr == 'T' { 'U' } else { chr } );
+        let rna_nucleotides = self.nucleotides.replace("T", "U");
 
         RibonucleicAcid { nucleotides: rna_nucleotides }
     }
