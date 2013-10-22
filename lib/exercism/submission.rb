@@ -240,7 +240,7 @@ class Submission < ActiveRecord::Base
     if ENV['SUBMISSION_SECRET']
       "#{ENV['SUBMISSION_SECRET']} #{rand(10**10)}"
     else
-      "There is solemn satisfaction in doing the best you can for #{10**10} billion people."
+      "There is solemn satisfaction in doing the best you can for #{rand(10**10)} billion people."
     end
   end
 
