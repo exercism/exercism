@@ -7,7 +7,7 @@ class ExercismApp < Sinatra::Base
 
     exercise = Exercise.new(language, slug)
 
-    unless current_user.completed?(exercise)
+    unless current_user.nitpicker_on?(exercise)
       flash[:notice] = "You'll have access to that page when you complete #{slug} in #{language}"
       redirect '/'
     end
