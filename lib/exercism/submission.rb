@@ -32,6 +32,14 @@ class Submission < ActiveRecord::Base
     done.where(language: exercise.language, slug: exercise.slug)
   end
 
+  def self.random_completed_for(exercise)
+    where(
+      state: ['done', 'tweaked'],
+      language: exercise.language,
+      slug: exercise.slug
+    ).order('RANDOM()').limit(1).first
+  end
+
   def self.related(submission)
     order('created_at ASC').
       where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
