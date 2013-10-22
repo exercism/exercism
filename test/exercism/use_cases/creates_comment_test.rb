@@ -30,6 +30,13 @@ class CreatesCommentTest < Minitest::Test
     refute submission.liked?, "Should NOT be liked"
   end
 
+  def test_should_return_invalid_comment_if_invalid
+    nitpicker = User.new(username: 'alice')
+    cc = CreatesComment.new(submission.id, nitpicker, '')
+    cc.create
+    assert cc.comment
+  end
+
   def test_nitpicking_a_submission_mutes_it
     nitpicker = User.new(username: 'alice')
     CreatesComment.new(submission.id, nitpicker, 'Too many variables').create
@@ -39,7 +46,7 @@ class CreatesCommentTest < Minitest::Test
   def test_empty_nit_does_not_get_created
     nitpicker = User.new(username: 'alice')
     nitpick = CreatesComment.new(submission.id, nitpicker, '').create
-    assert_equal 0, submission.reload.comments.count
+    assert_equal 0, submission.comments(true).count
   end
 
   def test_empty_nit_does_not_mute
