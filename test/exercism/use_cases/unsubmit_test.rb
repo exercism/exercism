@@ -21,7 +21,7 @@ class UnsubmitTest < Minitest::Test
     bob = User.create(username: 'bob')
     alice = User.create(username: 'alice')
     submission = bob.submissions.create(:user => bob)
-    submission.comments.create(user: alice)
+    submission.comments.create(user: alice, body: "foobar")
 
     assert_raises Unsubmit::SubmissionHasNits do
       Unsubmit.new(bob).unsubmit

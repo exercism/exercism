@@ -42,7 +42,7 @@ class MuteTest < Minitest::Test
   end
 
   def test_trigger_hibernation
-    submission.comments << Comment.new(user: alice, created_at: Time.now - a_week)
+    submission.comments << Comment.new(user: alice, created_at: Time.now - a_week, body: "Foobar")
     submission.reload
     Message.stub(:ship, nil) do
       Mute.new(submission, alice).save
