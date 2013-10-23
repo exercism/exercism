@@ -18,4 +18,3 @@ transcribes_all_occurences_test() ->
       "ACGUGGUCUUAA",
       dna:to_rna("ACGTGGTCTTAA")
   ).
-
