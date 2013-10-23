@@ -1,24 +1,27 @@
 -module(bob).
 
--export([response_for/1, is_question/1, is_shouting/1]).
+-export([response_for/1]).
 
+-spec response_for(string()) -> string().
 response_for(String) ->
-    case is_all_spaces(String) of
-        true -> "Fine. Be that way.";
-        false -> case is_shouting(String) of
-                     true -> "Woah, chill out!";
-                     false -> case is_question(String) of
-                                  true -> "Sure.";
-                                  false -> "Whatever."
-                              end
-                 end
+    first_match(
+      String,
+      [{fun is_all_spaces/1, "Fine. Be that way."},
+       {fun is_shouting/1, "Woah, chill out!"},
+       {fun is_question/1, "Sure."},
+       {fun (_) -> true end, "Whatever."}]).
+
+first_match(S, [{F, Res} | Fs]) ->
+    case F(S) of
+        true -> Res;
+        false -> first_match(S, Fs)
     end.
 
 is_shouting(String) ->
-    string:equal(string:to_upper(String), String).
+    string:to_upper(String) =:= String.
 
 is_question(String) ->
     lists:last(String) =:= $?.
 
 is_all_spaces(String) ->
-    [] =:= string:strip(String).
+    string:strip(String) =:= [].
