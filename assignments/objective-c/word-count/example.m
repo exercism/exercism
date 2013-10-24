@@ -7,7 +7,6 @@
 
 @end
 
-#import "WordCount.h"
 
 @interface WordCount ()
 
@@ -22,20 +21,15 @@
   self = [super init];
 
   if (self) {
-    NSString *downcasedWord = [string lowercaseString];
-
-    NSError *error = NULL;
-    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^\\w\\s]+" options:NSRegularExpressionCaseInsensitive error:&error];
-
-    NSString *modifiedString = [regex stringByReplacingMatchesInString:downcasedWord  options:0 range:NSMakeRange(0, [string length]) withTemplate:@""];
-
-    [self setWords:[modifiedString componentsSeparatedByString:@" "]];
+    NSString *cleanString = [self stripUnwantedCharacters:[string lowercaseString]];
+    [self setWords:[cleanString componentsSeparatedByString:@" "]];
   }
 
   return self;
 }
 
 - (NSDictionary *)count {
+
   NSMutableDictionary *countDictionary = [NSMutableDictionary dictionary];
 
   [[self words] enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -43,10 +37,17 @@
 
     if (count == NULL) { count = @0; }
 
-    [countDictionary setObject:[NSNumber numberWithInt:([count integerValue] + 1)] forKey:obj];
+    [countDictionary setObject:[NSNumber numberWithInt:((int)[count integerValue] + 1)] forKey:obj];
   }];
 
   return countDictionary;
+}
+
+- (NSString *)stripUnwantedCharacters:(NSString *)text {
+    NSError *error = NULL;
+    NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"[^\\w\\s]+" options:NSRegularExpressionCaseInsensitive error:&error];
+
+    return [regex stringByReplacingMatchesInString:text options:0 range:NSMakeRange(0, [text length]) withTemplate:@""];
 }
 
 @end
