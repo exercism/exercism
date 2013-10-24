@@ -10,16 +10,32 @@
 
 -(NSString *)hey:(NSString *)statement {
 
-  if ([statement isEqualToString:@""]) {
-    return @"Fine, be that way.";
-  } else if ([statement hasSuffix:@"?"]) {
-    return @"Sure.";
-  } else if ([statement isEqualToString:[statement uppercaseString]]) {
-    return @"Woah, chill out!";
+  NSString *response = NULL;
+
+  if ([self isSilence:statement]) {
+    response = @"Fine, be that way.";
+  } else if ([self isQuestion:statement]) {
+    response = @"Sure.";
+  } else if ([self isShouting:statement]) {
+    response = @"Woah, chill out!";
   } else {
-    return @"Whatever.";
+    response = @"Whatever.";
   }
 
+  return response;
+}
+
+-(BOOL)isSilence:(NSString *)statement {
+  return [statement isEqualToString:@""];
+}
+
+-(BOOL)isQuestion:(NSString *)statement {
+  return [statement hasSuffix:@"?"];
+}
+
+-(BOOL)isShouting:(NSString *)statement {
+  return [statement isEqualToString:[statement uppercaseString]];
 }
 
 @end
+
