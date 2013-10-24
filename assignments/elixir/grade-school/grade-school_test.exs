@@ -18,7 +18,7 @@ defmodule SchoolTest do
       |> School.add("Blair", 2)
       |> School.add("Paul", 2)
 
-    # assert actual == HashDict.new [{2, ["James", "Blair", "Paul"]}]
+    # assert Enum.sort(actual[2]) == ["Blair", "James", "Paul"]
   end
 
   test "add students to different grades" do
@@ -36,7 +36,7 @@ defmodule SchoolTest do
       |> School.add("Jeff", 1)
       |> School.grade(5)
 
-    # assert ["Franklin", "Bradley"] == actual
+    # assert Enum.sort(actual) == ["Bradley", "Franklin"]
   end
 
   test "get students in a non existant grade" do
