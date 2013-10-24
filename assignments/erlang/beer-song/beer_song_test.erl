@@ -30,7 +30,7 @@ singing_several_verses_test() ->
     "Take it down and pass it around, 6 bottles of beer on the wall.\n\n"
 
     "6 bottles of beer on the wall, 6 bottles of beer.\n"
-    "Take it down and pass it around, 5 bottles of beer on the wall.\n").
+    "Take it down and pass it around, 5 bottles of beer on the wall.\n\n").
 
 sing_all_the_rest_of_the_verses_test() ->
   compareNestedLists(beer_song:sing(3),
@@ -44,8 +44,7 @@ sing_all_the_rest_of_the_verses_test() ->
     "Take it down and pass it around, no more bottles of beer on the wall.\n\n"
 
     "No more bottles of beer on the wall, no more bottles of beer.\n"
-    "Go to the store and buy some more, 99 bottles of beer on the wall.\n").
+    "Go to the store and buy some more, 99 bottles of beer on the wall.\n\n").
 
 compareNestedLists(Response, Expected) ->
-  ?assertEqual(lists:flatten(Expected), lists:flatten(Response)).
-
+  ?assertEqual(lists:flatten(Response), lists:flatten(Expected)).
