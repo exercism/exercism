@@ -41,7 +41,7 @@ class Message
   end
 
   def from_email
-    'noreply@exercism.io'
+    'kytrinyx@exercism.io'
   end
 
   def template_name
