@@ -3,7 +3,7 @@ class Exercism
     def slugs
       %w(
         bob rna-transcription word-count anagram beer-song
-        nucleotide-count point-mutations
+        nucleotide-count point-mutations phone-number
       )
     end
 
