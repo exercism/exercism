@@ -1,4 +1,3 @@
-require 'airbrake'
 require 'exercism'
 require 'sinatra/petroglyph'
 
@@ -17,15 +16,6 @@ class ExercismAPI < Sinatra::Base
   enable :sessions
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
-
-  configure :production do
-    Airbrake.configure do |config|
-      config.api_key = ENV['AIRBRAKE_API_KEY']
-    end
-
-    use Airbrake::Rack
-    enable :raise_errors
-  end
 
   helpers Sinatra::FuzzyTimeHelper
   helpers Sinatra::GemHelper

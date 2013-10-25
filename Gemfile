@@ -18,7 +18,6 @@ gem 'loofah'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'pry', require: false
-gem 'airbrake'
 gem 'diffy'
 
 # Must not be required

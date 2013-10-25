@@ -19,9 +19,6 @@ GEM
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    airbrake (3.1.14)
-      builder
-      json
     approvals (0.0.9)
       nokogiri
       thor
@@ -39,7 +36,6 @@ GEM
     haml (4.0.3)
       tilt
     i18n (0.6.1)
-    json (1.8.0)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     mail (2.5.4)
@@ -128,7 +124,6 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 3.2.0)
-  airbrake
   approvals
   database_cleaner
   diffy
