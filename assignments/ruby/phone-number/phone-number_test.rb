@@ -32,6 +32,12 @@ class PhoneNumberTest < MiniTest::Unit::TestCase
     assert_equal "0000000000", number
   end
 
+  def test_invalid_when_12_digits_and_first_is_1
+    skip
+    number = PhoneNumber.new("112345678901").number
+    assert_equal "0000000000", number
+  end
+
   def test_area_code
     skip
     number = PhoneNumber.new("1234567890")
