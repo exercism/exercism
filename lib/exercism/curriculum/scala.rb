@@ -3,6 +3,7 @@ class Exercism
     def slugs
       %w(
         bob hamming word-count-anagram
+        nucleotide-count
       )
     end
 
