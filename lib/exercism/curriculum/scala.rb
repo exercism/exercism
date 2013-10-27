@@ -2,7 +2,7 @@ class Exercism
   class ScalaCurriculum
     def slugs
       %w(
-        bob hamming word-count-anagram
+        bob hamming word-count anagram
         nucleotide-count phone-number
       )
     end
