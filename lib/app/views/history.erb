@@ -1,0 +1,45 @@
+<h2>Your Nits</h2>
+
+<% if nitpicks.any? %>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>User</th>
+        <th>Submission</th>
+        <th>Nitpick</th>
+        <th>Submitted</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% nitpicks.all.each do |nitpick| %>
+        <tr>
+          <td>
+            <div class="avatar">
+              <%= gravatar_tag nitpick.submission.user.avatar_url, size: 30 %>
+            </div>
+            <%= profile_link(nitpick.submission.user) %>
+          </td>
+
+          <td>
+            <a href="/submissions/<%= nitpick.submission.key %>"><%= nitpick.submission.language %> / <%= nitpick.submission.slug %></a>
+          </td>
+
+          <td>
+            <%= nitpick.html_body %>
+          </td>
+
+          <td>
+            <%= ago(nitpick.created_at) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <p>
+    <%= will_paginate nitpicks, renderer: BootstrapPagination::Sinatra %>
+  </p>
+<% else %>
+  <p>
+    <b>You haven't given any nitpicks yet.</b>
+  </p>
+<% end %>
