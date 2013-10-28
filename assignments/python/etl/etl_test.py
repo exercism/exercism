@@ -19,7 +19,7 @@ class TransformTest(unittest.TestCase):
         self.assertEqual(expected, etl.transform(old))
 
     def test_more_keys(self):
-        old = {1: ['APPLE', 'ARTICHOKE'], 1: ['BOAT', 'BALLERINA']}
+        old = {1: ['APPLE', 'ARTICHOKE'], 2: ['BOAT', 'BALLERINA']}
         expected = {
             'apple': 1,
             'artichoke': 1,
