@@ -8,8 +8,4 @@ class HibernationMessage < Message
     'hibernation'
   end
 
-  def from_email
-    'katrina.owen@gmail.com'
-  end
-
 end
