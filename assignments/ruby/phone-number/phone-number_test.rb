@@ -1,3 +1,4 @@
+gem 'minitest'
 require 'minitest/autorun'
 require_relative 'phone_number'
 
@@ -18,6 +19,12 @@ class PhoneNumberTest < MiniTest::Unit::TestCase
     skip
     number = PhoneNumber.new("11234567890").number
     assert_equal "1234567890", number
+  end
+
+  def test_invalid_with_letters
+    skip
+    number = PhoneNumber.new("123-abc-1234").number
+    assert_equal "0000000000", number
   end
 
   def test_invalid_when_11_digits
