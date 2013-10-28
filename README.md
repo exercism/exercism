@@ -23,10 +23,6 @@ and the evolution of the code. It's not about getting code perfect or
 right, but using the pieces of code to talk about the little details of
 what makes code expressive.
 
-Each code submission seems very ephemeral right now. You submit. You
-resubmit, the old submission goes into hiding along with the discussion
-about it.
-
 There are excellent discussions, and it would be great to be able to extract
 the learning from these discussions, perhaps into blog posts, perhaps into
 checklists to help teach nitpicking.
