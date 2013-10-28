@@ -10,4 +10,5 @@ script:
   - '( cd frontend && npm install && lineman spec-ci )'
   - '( export PATH=/opt/hp-2013.2.0.0/bin:$PATH; runhaskell ./test/haskell/check-exercises.hs )'
   - './test/rust/check-exercises.sh'
+  - './test/python/check-exercises.py'
   - "! git grep ' $' -- \\*.rb | grep -v 'assignments/ruby/ocr-numbers/ocr-numbers_test.rb'"
