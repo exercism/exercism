@@ -92,12 +92,13 @@ Different languages/trails do not need to have the same assignments or the same 
   * create db user with: `createuser exercism`
   * create database with: `createdb -O exercism exercism_development`
 6. Run the database migrations with `rake db:migrate`.
-7. Run the database seed with `rake db:seed` (if you want LOTS of data: `rake db:seed[1000]` or some other big number).
-8. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
-9. Start the server with `./scripts/boot.sh`
-10. Login at http://localhost:4567.
-11. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
-12. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
+7. Run test database migrations with `RACK_ENV rake db:migrate` (This is only useful for test environment)
+8. Run the database seed with `rake db:seed` (if you want LOTS of data: `rake db:seed[1000]` or some other big number).
+9. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
+10. Start the server with `./scripts/boot.sh`
+11. Login at http://localhost:4567.
+12. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
+13. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
 
 ## Frontend development setup
 1. Install node and npm
