@@ -8,7 +8,7 @@ class Exercism
     end
 
     def locale
-      Lcoale.new('scala', 'scala', 'scala')
+      Locale.new('scala', 'scala', 'scala')
     end
   end
 end
