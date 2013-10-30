@@ -26,7 +26,7 @@ class HibernationMessageTest < Minitest::Test
   def dispatch
     @dispatch ||= HibernationMessage.new(
       instigator: alice,
-      submission: submission,
+      target: submission,
       site_root: "http://example.com"
     )
   end

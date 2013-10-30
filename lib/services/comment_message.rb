@@ -8,4 +8,12 @@ class CommentMessage < Message
     'comment'
   end
 
+  def submission
+    @target.submission
+  end
+
+  def nitpick
+    @target.body
+  end
+
 end
