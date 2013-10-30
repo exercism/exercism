@@ -48,6 +48,6 @@ class Github
   end
 
   def self.user_agent
-    'github.com:kytrinyx/exercism.io'
+    'github.com:exercism/exercism.io'
   end
 end
