@@ -255,6 +255,15 @@ class SubmissionTest < Minitest::Test
     assert_equal %w(alice), submission.viewers.map(&:username)
   end
 
+  def test_viewing_with_increase_in_viewers
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    submission.viewed!(alice)
+    assert_equal 1, submission.view_count
+    submission.viewed!(bob)
+    assert_equal 2, submission.view_count
+  end
+
   def test_comments_are_sorted
     submission.comments << Comment.new(body: 'second', created_at: Time.now, user: submission.user)
     submission.comments << Comment.new(body: 'first', created_at: Time.now - 1000, user: submission.user)

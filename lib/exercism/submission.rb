@@ -235,7 +235,7 @@ class Submission < ActiveRecord::Base
   end
 
   def view_count
-    @view_count ||= viewers.count
+    viewers.count
   end
 
   def generate_key
