@@ -224,7 +224,7 @@ textarea {
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 16px;
   line-height: 20px;
   color: #333333;
   background-color: #ffffff;
@@ -4612,10 +4612,14 @@ input[type="submit"].btn.btn-mini {
 
 .navbar .nav > li > a {
   float: none;
-  padding: 10px 15px 10px;
+  padding: 30px 10px 0;
   color: #777777;
   text-decoration: none;
   text-shadow: 0 1px 0 #ffffff;
+}
+
+.navbar .nav > li:first-child > a {
+  margin-left: 10px;
 }
 
 .navbar .nav .dropdown-toggle .caret {
