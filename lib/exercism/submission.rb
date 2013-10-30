@@ -230,7 +230,8 @@ class Submission < ActiveRecord::Base
     begin
       self.viewers << user unless viewers.include?(user)
     rescue => e
-      # we don't care.
+      # Temporarily output this to the logs
+      puts "#{e.class}: #{e.message}"
     end
   end
 
