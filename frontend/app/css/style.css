@@ -131,6 +131,10 @@ h1.home {
   background-image: url('/img/objective-c.png');
 }
 
+.scala-icon {
+  background-image: url('/img/scala.png');
+}
+
 .nits {
   text-align: center;
   line-height: 30px;
