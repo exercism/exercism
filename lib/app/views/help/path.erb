@@ -23,7 +23,7 @@
 <p>It might look something like this:</p>
 
 <pre>
-/Users/yourname/.gem/ruby/1.9.3/bin:/opt/rubies/ruby-1.9.3-p392/lib/ruby/gems/1.9.1/bin:/opt/rubies/ruby-1.9.3-p392/bin:/Users/yourname/.gem/ruby/1.9.3:/Users/yourname/bin:/usr/local/bin:/usr/bin:/usr/local/share/npm/bin:/usr/local/go/bin:/Users/kytrinyx/code/go/bin:/bin:/usr/sbin:/sbin:/usr/texbin
+/Users/yourname/.gem/ruby/1.9.3/bin:/opt/rubies/ruby-1.9.3-p392/lib/ruby/gems/1.9.1/bin:/opt/rubies/ruby-1.9.3-p392/bin:/Users/yourname/.gem/ruby/1.9.3:/Users/yourname/bin:/usr/local/bin:/usr/bin:/usr/local/share/npm/bin:/usr/local/go/bin:/Users/yourname/code/go/bin:/bin:/usr/sbin:/sbin:/usr/texbin
 </pre>
 
 <p>That's essentially a big list of places that your computer will look for programs to run. Each location on your computer is separated from the next with a <code>:</code>. When you call <code>ruby bob_test.rb</code> the computer looks at the first place, and if it finds a program named ruby, fine. It will run it. If not, it will go to the second place and try again. And so on and so forth, until it either finds the program, or runs out of places to look.</p>
