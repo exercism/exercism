@@ -4,7 +4,7 @@ class Exercism
       %w(
         bob hamming word-count anagram
         nucleotide-count phone-number
-        grade-school robot-name leap etl
+        grade-school robot-name leap etl meetup
       )
     end
 
