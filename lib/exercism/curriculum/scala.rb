@@ -4,6 +4,7 @@ class Exercism
       %w(
         bob hamming word-count anagram
         nucleotide-count phone-number
+        grade-school
       )
     end
 
