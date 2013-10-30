@@ -40,7 +40,7 @@ class MessageTest < Minitest::Test
   def test_send_nitpick_email
     dispatch = FakeMessage.new(
       instigator: locksmith,
-      submission: submission,
+      target: submission,
       intercept_emails: true,
       site_root: 'http://test.exercism.io'
     ).ship

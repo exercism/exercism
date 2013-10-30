@@ -13,7 +13,7 @@ class ExercismApp < Sinatra::Base
           unless comment.nitpicker == submission.user
             CommentMessage.ship(
               instigator: comment.nitpicker,
-              submission: submission,
+              target: comment,
               site_root: site_root
             )
           end

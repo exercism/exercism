@@ -8,25 +8,26 @@ class CommentMessageTest < Minitest::Test
 
   FakeUser = Struct.new(:username, :email)
   FakeSubmission = Struct.new(:key, :user, :exercise)
+  FakeComment = Struct.new(:body, :submission)
 
-  attr_reader :alice, :submission
+  attr_reader :alice, :submission, :comment
 
   def setup
     super
     @alice = FakeUser.new('alice', 'alice@example.com')
-
     @submission = FakeSubmission.new(
       'KEY',
       FakeUser.new('bob', 'bob@example.com'),
-      Exercise.new('ruby', 'word-count')
+      Exercise.new('ruby', 'word-count'),
     )
+    @comment = FakeComment.new('This is awesome!!!', @submission)
   end
 
   def dispatch
     @dispatch ||= CommentMessage.new(
       instigator: alice,
-      submission: submission,
-      site_root: "http://example.com"
+      target: comment,
+      site_root: "http://example.com",
     )
   end
 

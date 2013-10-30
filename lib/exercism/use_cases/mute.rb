@@ -27,7 +27,7 @@ class Mute
     begin
       HibernationMessage.ship(
         instigator: user,
-        submission: submission,
+        target: submission,
         site_root: site_root
       )
     rescue => e
