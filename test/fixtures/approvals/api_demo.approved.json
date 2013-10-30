@@ -5,21 +5,37 @@
       "slug": "one",
       "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
       "test_file": "one_test.test",
-      "tests": "assert 'one'\n"
+      "tests": "assert 'one'\n",
+      "additional_files": {
+      }
     },
     {
       "track": "ruby",
       "slug": "one",
       "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
       "test_file": "one_test.rb",
-      "tests": "require 'minitest/autorun'\nrequire_relative 'example'\nclass OneTest < Minitest::Test\n  def test_one\n    assert_equal 1, One.value\n  end\nend\n"
+      "tests": "require 'minitest/autorun'\nrequire_relative 'example'\nclass OneTest < Minitest::Test\n  def test_one\n    assert_equal 1, One.value\n  end\nend\n",
+      "additional_files": {
+      }
     },
     {
       "track": "go",
       "slug": "one",
       "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
       "test_file": "one_test.go",
-      "tests": "package one\n\nimport \"testing\"\n\nfunc TestOne(t *testing.T) {\n\tif 1 != Uno.Value {\n\t\tt.Errorf(\"Expected Uno.Value to equal 1\")\n\t}\n}\n\n"
+      "tests": "package one\n\nimport \"testing\"\n\nfunc TestOne(t *testing.T) {\n\tif 1 != Uno.Value {\n\t\tt.Errorf(\"Expected Uno.Value to equal 1\")\n\t}\n}\n\n",
+      "additional_files": {
+      }
+    },
+    {
+      "track": "scala",
+      "slug": "one",
+      "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
+      "test_file": "src/test/scala/one_test.scala",
+      "tests": "import org.scalatest._\n\nclass OneTest extends FunSuite with Matchers {\n  test (\"one\") {\n    One.value should be (1)\n  }\n}\n",
+      "additional_files": {
+        "build.sbt": "scalaVersion := \"2.10.3\"\n\nlibaryDependencies += \"org.scalatest\" %% \"scalatest\" % \"2.0.RC3\" % \"test\"\n"
+      }
     }
   ]
 }

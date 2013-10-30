@@ -17,6 +17,7 @@ class AssignmentsApiTest < Minitest::Test
     @curriculum.add FakeCurriculum.new
     @curriculum.add FakeRubyCurriculum.new
     @curriculum.add FakeGoCurriculum.new
+    @curriculum.add FakeScalaCurriculum.new
     Exercism.instance_variable_set(:@trails, nil)
     Exercism.instance_variable_set(:@languages, nil)
   end

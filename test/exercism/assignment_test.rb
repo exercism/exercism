@@ -50,5 +50,10 @@ class AssignmentTest < Minitest::Test
     readme = "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n"
     assert_equal readme, assignment.readme
   end
+
+  def test_default_additional_files
+    additional_files = {}
+    assert_equal additional_files, assignment.additional_files
+  end
 end
 

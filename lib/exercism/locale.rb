@@ -19,7 +19,13 @@ class UnknownLocale
   end
 end
 
-Locale = Struct.new(:language, :code_extension, :test_extension) do
+Locale = Struct.new(:language, :code_extension, :test_extension, :test_directory, :additional_files) do
+
+  def initialize(*args)
+    super
+    self.test_directory ||= "."
+    self.additional_files ||= []
+  end
 
   def name
     language.to_s.capitalize

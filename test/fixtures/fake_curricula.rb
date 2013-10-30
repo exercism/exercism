@@ -36,6 +36,16 @@ class FakeGoCurriculum < FakeTrail
   end
 end
 
+class FakeScalaCurriculum < FakeTrail
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    Locale.new('scala', 'scala', 'scala', 'src/test/scala', ['build.sbt'])
+  end
+end
+
 class FakeCurriculum < FakeTrail
   def slugs
     %w(one two)
