@@ -19,13 +19,7 @@ class UnknownLocale
   end
 end
 
-Locale = Struct.new(:language, :code_extension, :test_extension, :test_directory, :additional_files) do
-
-  def initialize(*args)
-    super
-    self.test_directory ||= "."
-    self.additional_files ||= []
-  end
+Locale = Struct.new(:language, :code_extension, :test_extension) do
 
   def name
     language.to_s.capitalize
@@ -39,4 +33,22 @@ Locale = Struct.new(:language, :code_extension, :test_extension, :test_directory
     language
   end
 
+  def test_directory
+    "."
+  end
+
+  def additional_files
+    []
+  end
+
+end
+
+class ScalaLocale < Locale
+  def test_directory
+    "src/test/scala"
+  end
+
+  def additional_files
+    ["build.sbt"]
+  end
 end

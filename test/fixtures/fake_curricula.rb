@@ -42,7 +42,7 @@ class FakeScalaCurriculum < FakeTrail
   end
 
   def locale
-    Locale.new('scala', 'scala', 'scala', 'src/test/scala', ['build.sbt'])
+    ScalaLocale.new('scala', 'scala', 'scala')
   end
 end
 

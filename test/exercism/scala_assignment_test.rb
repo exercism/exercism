@@ -8,7 +8,7 @@ class ScalaAssignmentTest < Minitest::Test
   attr_reader :assignment, :scala
   def setup
     super
-    @scala = Locale.new('scala', 'scala', 'scala', 'src/test/scala', ['build.sbt'])
+    @scala = ScalaLocale.new('scala', 'scala', 'scala')
     @assignment = Assignment.new(scala, 'one', './test/fixtures')
   end
 
