@@ -3,13 +3,10 @@ require 'mocha/setup'
 
 class SubmissionsTest < Minitest::Test
   include Rack::Test::Methods
+  include AppTestHelper
 
   def app
     ExercismApp
-  end
-
-  def login(user)
-    {'rack.session' => {github_id: user.github_id}}
   end
 
   def alice_attributes

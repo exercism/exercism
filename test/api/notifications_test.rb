@@ -2,13 +2,10 @@ require './test/api_helper'
 
 class NotificationsApiTest < Minitest::Test
   include Rack::Test::Methods
+  include AppTestHelper
 
   def app
     ExercismAPI
-  end
-
-  def login(user)
-    {'rack.session' => {github_id: user.github_id}}
   end
 
   def alice

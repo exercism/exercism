@@ -6,4 +6,4 @@ require 'rack/test'
 require 'rack-flash'
 
 require 'app'
-
+require './test/app_test_helper'
