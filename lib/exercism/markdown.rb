@@ -15,10 +15,10 @@ def hyperlink_mentions!(node)
     elsif child.node_type == Nokogiri::XML::Node::TEXT_NODE
       set = []
       remaining = child.content
-      while !remaining.empty?
+      until remaining.empty?
         head, match, remaining = remaining.partition(USERNAME_REGEX)
         set << child.document.create_text_node(head)
-        if !match.empty?
+        unless match.empty?
           link = child.document.create_element("a")
           link.set_attribute('class', 'mention')
           link.set_attribute('href', '/' + match[1..-1])
