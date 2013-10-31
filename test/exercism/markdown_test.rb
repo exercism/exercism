@@ -23,7 +23,6 @@ class MarkdownTest < Minitest::Test
 
   def test_mention_ignores_fenced_code_blocks
     markdown = "```\n@goose\n```"
-    expected = "<p><code>@goose</code></p>"
     assert_match "<pre>@goose", Markdown.render(markdown)
   end
 
