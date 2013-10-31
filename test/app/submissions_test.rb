@@ -43,19 +43,6 @@ class SubmissionsTest < Minitest::Test
     assert_equal expected_status, last_response.status
   end
 
-  def logged_in_with_alice
-    { github_id: alice.github_id }
-  end
-  alias_method :logged_in, :logged_in_with_alice
-
-  def logged_in_with_bob
-    { github_id: bob.github_id }
-  end
-
-  def not_logged_in
-    { github_id: nil }
-  end
-
   def test_submission_view_count
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
