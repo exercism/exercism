@@ -1,6 +1,8 @@
 require './test/integration_helper'
+require 'mocha/setup'
 
 class CreatesCommentTest < Minitest::Test
+  include DBCleaner
 
   def exercise
     Exercise.new('nong', 'one')

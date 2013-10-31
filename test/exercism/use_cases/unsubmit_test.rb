@@ -1,6 +1,7 @@
 require './test/integration_helper'
 
 class UnsubmitTest < Minitest::Test
+  include DBCleaner
 
   def test_success
     bob = User.create(username: 'bob')

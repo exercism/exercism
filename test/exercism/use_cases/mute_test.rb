@@ -1,16 +1,13 @@
 require './test/integration_helper'
 
 class MuteTest < Minitest::Test
+  include DBCleaner
 
   def teardown
     super
     @alice = nil
     @bob = nil
     @submission = nil
-  end
-
-  def a_week
-    60 * 60 * 24 * 7
   end
 
   def alice
@@ -22,7 +19,7 @@ class MuteTest < Minitest::Test
   end
 
   def submission
-    @submission ||= Submission.create(user: bob, language: 'ruby', slug: 'bob', created_at: Time.now - (a_week*2))
+    @submission ||= Submission.create(user: bob, language: 'ruby', slug: 'bob')
   end
 
   def test_mute_pending_submission
@@ -39,3 +36,4 @@ class MuteTest < Minitest::Test
     refute submission.muted_by?(alice), "Unexpectedly muted"
   end
 end
+

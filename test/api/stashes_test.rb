@@ -2,6 +2,7 @@ require './test/api_helper'
 
 class StashesApiTest < Minitest::Test
   include Rack::Test::Methods
+  include DBCleaner
 
   def app
     ExercismAPI

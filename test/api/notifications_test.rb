@@ -3,9 +3,16 @@ require './test/api_helper'
 class NotificationsApiTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
+  include DBCleaner
 
   def app
     ExercismAPI
+  end
+
+  def teardown
+    super
+    @alice = nil
+    @submission = nil
   end
 
   def alice
@@ -14,12 +21,6 @@ class NotificationsApiTest < Minitest::Test
 
   def submission
     @submission ||= Submission.create(language: 'ruby', slug: 'bob', user: alice)
-  end
-
-  def teardown
-    super
-    @alice = nil
-    @submission = nil
   end
 
   def test_notifications_are_protected

@@ -1,13 +1,13 @@
-require './test/test_helper'
+require './test/active_record_helper'
 require 'exercism/problem_set'
 require 'exercism/locksmith'
 require 'exercism/user'
-#require 'exercism/input_sanitation'
 require 'exercism/comment'
 require 'exercism/submission'
 require 'exercism/notification'
 
 class NotificationTest < Minitest::Test
+  include DBCleaner
 
   def teardown
     super

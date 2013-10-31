@@ -27,7 +27,6 @@ class SolutionTest < Minitest::Test
 
   attr_reader :alice
   def setup
-    super
     @alice = FakeUser.new
   end
 

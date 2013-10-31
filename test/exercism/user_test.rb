@@ -1,27 +1,7 @@
-require './test/test_helper'
-require 'exercism/locksmith'
-require 'exercism/problem_set'
-require 'exercism/team'
-require 'exercism/user'
-require 'exercism/null_submission'
-require 'exercism/exercise'
-require 'exercism/locale'
-require 'exercism/trail'
-require 'exercism/comment'
-require 'exercism/submission'
-require 'exercism/notification'
+require './test/integration_helper'
 
 class UserTest < Minitest::Test
-
-  def test_identical_users_are_identical
-    attributes = {
-      username: 'alice',
-      current: {'nong' => 'one'},
-    }
-    user1 = User.new(attributes)
-    user2 = User.new(attributes)
-    assert_equal user1, user2
-  end
+  include DBCleaner
 
   def test_user_create_key
     user = User.create

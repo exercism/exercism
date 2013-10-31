@@ -12,6 +12,7 @@ class NongCurriculum
 end
 
 class SubmissionTest < Minitest::Test
+  include DBCleaner
 
   def exercise
     Exercise.new('nong', 'one')

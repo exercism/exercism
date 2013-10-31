@@ -4,6 +4,7 @@ require 'mocha/setup'
 class TeamsTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
+  include DBCleaner
 
   def app
     ExercismApp
@@ -46,11 +47,6 @@ class TeamsTest < Minitest::Test
 
   def assert_response_status(expected_status)
     assert_equal expected_status, last_response.status
-  end
-
-  def teardown
-    super
-    clear_cookies
   end
 
   def test_team_creation_with_no_members

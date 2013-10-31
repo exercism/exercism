@@ -10,6 +10,7 @@ end
 class ApiTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
+  include DBCleaner
 
   def app
     ExercismAPI

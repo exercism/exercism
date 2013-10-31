@@ -2,6 +2,7 @@ require './test/integration_helper'
 require './test/fixtures/fake_curricula'
 
 class CompletionTest < Minitest::Test
+  include DBCleaner
 
   attr_reader :submission, :user, :curriculum
   def setup

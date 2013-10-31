@@ -4,19 +4,10 @@ require 'mocha/setup'
 class ExercisesTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
+  include DBCleaner
 
   def app
     ExercismApp
-  end
-
-  def teardown
-    super
-    clear_cookies
-  end
-
-  def setup
-    super
-    @alice = User.create(username: 'alice', github_id: 1, email: 'alice@example.com')
   end
 
   def test_exercise_gallery

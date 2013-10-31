@@ -21,6 +21,7 @@ class FempCurriculum
 end
 
 class AttemptTest < Minitest::Test
+  include DBCleaner
 
   attr_reader :user, :curriculum
   def setup
@@ -32,11 +33,6 @@ class AttemptTest < Minitest::Test
     @curriculum = Curriculum.new('/tmp')
     @curriculum.add NongCurriculum.new
     @curriculum.add FempCurriculum.new
-  end
-
-  def teardown
-    super
-    @user = nil
   end
 
   def test_saving_an_attempt_constructs_a_submission

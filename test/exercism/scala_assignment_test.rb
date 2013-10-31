@@ -1,4 +1,5 @@
 require './test/test_helper'
+require 'pathname'
 
 require 'exercism/locale'
 require 'exercism/assignment'

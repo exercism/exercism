@@ -4,6 +4,7 @@ require 'mocha/setup'
 
 class AssignmentsApiTest < Minitest::Test
   include Rack::Test::Methods
+  include DBCleaner
 
   def app
     ExercismAPI

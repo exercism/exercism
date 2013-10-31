@@ -1,28 +1,21 @@
-require './test/test_helper'
+require './test/integration_helper'
 require 'app/helpers/submissions_helper'
-require 'exercism/locksmith'
-require 'exercism/problem_set'
-require 'exercism/user'
-require 'exercism/submission'
-require 'exercism/exercise'
-require 'exercism/muted_submission'
-require 'exercism/submission_viewer'
-require 'exercism/like'
 
 class SubmissionsHelperTest < Minitest::Test
+  include DBCleaner
+
+  def setup
+    super
+    @alice      = User.new(username: 'alice', email: 'alice@example.com')
+    @fred       = User.new(username: 'fred', email: 'fred@example.com')
+    @submission = Submission.create(user: @alice)
+  end
 
   def helper
     return @helper if @helper
     @helper = Object.new
     @helper.extend(Sinatra::SubmissionsHelper)
     @helper
-  end
-
-  def setup
-    super
-    @alice      = User.new(username: 'alice', email: 'alice@example.com')
-    @fred       = User.new(username: 'fred', email: 'fred@example.com')
-    @submission = Submission.create!(user: @alice)
   end
 
   def test_no_views

@@ -3,6 +3,7 @@ require './test/app_helper'
 class NitpickAppTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
+  include DBCleaner
 
   def app
     ExercismApp
@@ -17,11 +18,6 @@ class NitpickAppTest < Minitest::Test
       email: "master@example.com",
       mastery: ['ruby', 'elixir', 'javascript', 'python', 'clojure']
     })
-  end
-
-  def teardown
-    super
-    clear_cookies
   end
 
   def generate_submission(language, exe)

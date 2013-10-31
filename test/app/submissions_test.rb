@@ -4,6 +4,7 @@ require 'mocha/setup'
 class SubmissionsTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
+  include DBCleaner
 
   def app
     ExercismApp
@@ -40,11 +41,6 @@ class SubmissionsTest < Minitest::Test
 
   def assert_response_status(expected_status)
     assert_equal expected_status, last_response.status
-  end
-
-  def teardown
-    super
-    clear_cookies
   end
 
   def logged_in_with_alice

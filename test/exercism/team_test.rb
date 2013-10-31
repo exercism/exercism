@@ -1,6 +1,8 @@
 require './test/integration_helper'
 
 class TeamTest < Minitest::Test
+  include DBCleaner
+
   def test_team_requires_slug
     refute Team.new.valid?
   end

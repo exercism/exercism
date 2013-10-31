@@ -1,6 +1,7 @@
 require './test/test_helper'
 
 require 'yaml'
+require 'pathname'
 require 'exercism/locale'
 require 'exercism/exercise'
 require 'exercism/assignment'
@@ -9,7 +10,6 @@ class AssignmentTest < Minitest::Test
 
   attr_reader :assignment, :fake
   def setup
-    super
     @fake = Locale.new('fake', 'ext', 'test')
     @assignment = Assignment.new(fake, 'one', './test/fixtures')
   end
