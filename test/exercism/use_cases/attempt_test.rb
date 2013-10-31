@@ -21,9 +21,11 @@ class FempCurriculum
 end
 
 class AttemptTest < Minitest::Test
+  include DBCleaner
 
   attr_reader :user, :curriculum
   def setup
+    super
     data = {
       completed: {'nong' => ['one'], 'femp' => ['one']}
     }
@@ -31,11 +33,6 @@ class AttemptTest < Minitest::Test
     @curriculum = Curriculum.new('/tmp')
     @curriculum.add NongCurriculum.new
     @curriculum.add FempCurriculum.new
-  end
-
-  def teardown
-    Mongoid.reset
-    @user = nil
   end
 
   def test_saving_an_attempt_constructs_a_submission
@@ -85,7 +82,7 @@ class AttemptTest < Minitest::Test
   end
 
   def test_a_new_attempt_supersedes_the_previous_hibernating_one
-    submission = Submission.create(user: user, language: 'femp', slug: 'two', at: Time.now, state: 'hibernating')
+    submission = Submission.create(user: user, language: 'femp', slug: 'two', created_at: Time.now, state: 'hibernating')
     Attempt.new(user, 'CODE 2', 'two/two.fp', curriculum).save
     one, two = user.reload.submissions
     assert one.superseded?
@@ -93,7 +90,9 @@ class AttemptTest < Minitest::Test
   end
 
   def test_a_new_attempt_unmutes_previous_attempt
-    submission = Submission.create(user: user, language: 'femp', slug: 'two', at: Time.now, muted_by: %w(tom jerry))
+    tom = User.create(username: 'tom')
+    jerry = User.create(username: 'jerry')
+    submission = Submission.create(user: user, language: 'femp', slug: 'two', created_at: Time.now, muted_by: [tom, jerry])
     Attempt.new(user, 'CODE 2', 'two/two.fp', curriculum).save
     assert_equal [], submission.reload.muted_by
   end

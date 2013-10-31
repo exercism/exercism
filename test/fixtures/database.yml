@@ -1,0 +1,4 @@
+---
+fake:
+  adapter: sqlite3
+  database: db/betterful_fake

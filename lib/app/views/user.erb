@@ -14,7 +14,14 @@
           <% end %>
         </ul>
       <% end %>
-      <p>You've left <%= user.comments.count %> nits.</p>
+      <p>
+        You've left
+        <% if user.comments.any? %>
+          <a href="/user/history"><%= user.comments.count %> nits</a>.
+        <% else %>
+          <%= user.comments.count %> nits.
+        <% end %>
+      </p>
     <% end %>
 
     <h3>Exercises</h3>

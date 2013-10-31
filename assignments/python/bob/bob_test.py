@@ -54,9 +54,29 @@ class BobTests(unittest.TestCase):
             'Woah, chill out!', self.bob.hey('1, 2, 3 GO!')
         )
 
+    def test_only_numbers(self):
+        self.assertEqual(
+            'Whatever.', self.bob.hey('1, 2, 3')
+        )
+
+    def test_question_with_only_numbers(self):
+        self.assertEqual(
+            'Sure.', self.bob.hey('4?')
+        )
+
     def test_shouting_with_special_characters(self):
         self.assertEqual(
             'Woah, chill out!', self.bob.hey('ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!')
+        )
+
+    def test_shouting_with_umlauts(self):
+        self.assertEqual(
+            'Woah, chill out!', self.bob.hey(u"\xdcML\xc4\xdcTS!")
+        )
+
+    def test_calmly_speaking_with_umlauts(self):
+        self.assertEqual(
+            'Whatever.', self.bob.hey(u"\xdcML\xe4\xdcTS!")
         )
 
     def test_shouting_with_no_exclamation_mark(self):
@@ -77,11 +97,6 @@ class BobTests(unittest.TestCase):
     def test_silence(self):
         self.assertEqual(
             'Fine. Be that way!', self.bob.hey('')
-        )
-
-    def test_more_silence(self):
-        self.assertEqual(
-            'Fine. Be that way!', self.bob.hey(None)
         )
 
     def test_prolonged_silence(self):

@@ -10,12 +10,17 @@ require 'seed/timeline'
 require 'seed/user_pool'
 
 module Seed
+  def self.models
+    [
+      ::Like, ::MutedSubmission, ::SubmissionViewer,
+      ::TeamMembership, ::Team, ::Notification,
+      ::Comment, ::Submission, ::User
+    ]
+  end
+
   def self.reset
-    Mongoid.default_session.collections.each do |coll|
-      unless coll.name == 'system.indexes'
-        puts "Removing collection: #{coll.name}"
-        coll.drop
-      end
+    models.each do |model|
+      model.destroy_all
     end
   end
 

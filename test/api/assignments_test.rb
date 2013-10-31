@@ -4,6 +4,7 @@ require 'mocha/setup'
 
 class AssignmentsApiTest < Minitest::Test
   include Rack::Test::Methods
+  include DBCleaner
 
   def app
     ExercismAPI
@@ -11,17 +12,19 @@ class AssignmentsApiTest < Minitest::Test
 
   attr_reader :alice, :curriculum
   def setup
+    super
     @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'one', 'go' => 'two'}, completed: {'go' => ['one']})
     @curriculum = Curriculum.new('./test/fixtures')
     @curriculum.add FakeCurriculum.new
     @curriculum.add FakeRubyCurriculum.new
     @curriculum.add FakeGoCurriculum.new
+    @curriculum.add FakeScalaCurriculum.new
     Exercism.instance_variable_set(:@trails, nil)
     Exercism.instance_variable_set(:@languages, nil)
   end
 
   def teardown
-    Mongoid.reset
+    super
     Exercism.instance_variable_set(:@trails, nil)
     Exercism.instance_variable_set(:@languages, nil)
   end

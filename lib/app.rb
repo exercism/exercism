@@ -1,8 +1,7 @@
-require 'airbrake'
 require 'exercism'
 require 'sinatra/petroglyph'
 require 'will_paginate'
-require 'will_paginate/mongoid'
+require 'will_paginate/active_record'
 
 require 'app/presenters/workload'
 
@@ -11,6 +10,7 @@ require 'app/client'
 require 'app/curriculum'
 require 'app/help'
 require 'app/nitpick'
+require 'app/nitpick_history'
 require 'app/setup'
 require 'app/submissions'
 require 'app/teams'
@@ -40,15 +40,6 @@ class ExercismApp < Sinatra::Base
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
 
-  configure :production do
-    Airbrake.configure do |config|
-      config.api_key = ENV['AIRBRAKE_API_KEY']
-    end
-
-    use Airbrake::Rack
-    enable :raise_errors
-  end
-
   helpers WillPaginate::Sinatra::Helpers
   helpers Sinatra::SubmissionsHelper
   helpers Sinatra::SiteTitleHelper
@@ -69,10 +60,10 @@ class ExercismApp < Sinatra::Base
     end
 
     def current_user
-      @current_user ||= find_user || Guest.new
+      @current_user ||= logged_in_user || Guest.new
     end
 
-    def find_user
+    def logged_in_user
       if session[:github_id]
         User.where(github_id: session[:github_id]).first
       end
@@ -106,7 +97,7 @@ class ExercismApp < Sinatra::Base
     end
 
     def dashboard_assignment_nav(language, slug=nil, counts=nil)
-      return if counts && counts.zero?
+      return if !['no-nits', 'opinions', 'looks-great'].include?(slug) && (!counts || counts.zero?)
 
       path = path_for(language)
       path += "/#{slug}" if slug

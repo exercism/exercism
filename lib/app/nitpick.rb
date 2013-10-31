@@ -1,7 +1,7 @@
 class ExercismApp < Sinatra::Base
 
   post '/preview' do
-    ConvertsMarkdownToHTML.convert(params[:comment])
+    ConvertsMarkdownToHTML.convert(params[:body])
   end
 
   get '/dashboard/:language/?' do |language|

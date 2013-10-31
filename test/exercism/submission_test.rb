@@ -12,6 +12,7 @@ class NongCurriculum
 end
 
 class SubmissionTest < Minitest::Test
+  include DBCleaner
 
   def exercise
     Exercise.new('nong', 'one')
@@ -27,16 +28,30 @@ class SubmissionTest < Minitest::Test
   end
 
   def alice
-    @alice ||= begin
-      mock do |alice|
-        alice.stubs(username: 'alice')
-      end
-    end
+    @alice ||= User.create(username: 'alice')
+  end
+
+  def fred
+    @fred ||= User.create(username: 'fred')
   end
 
   def teardown
-    Mongoid.reset
+    super
     @submission = nil
+    @fred = nil
+    @alice = nil
+  end
+
+  def test_submission_key_from_mongoid_id
+    submission = Submission.create(user: alice, mongoid_id: 'abc')
+    submission.reload
+    assert_equal 'abc', submission.key
+  end
+
+  def test_random_submission_key
+    submission = Submission.create(user: alice)
+    submission.reload
+    refute_nil submission.key
   end
 
   def test_supersede_pending_submission
@@ -111,11 +126,11 @@ class SubmissionTest < Minitest::Test
     charlie = User.create(username: 'charlie')
 
     s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
-    s1.comments << Comment.new(user: bob, comment: 'nice')
+    s1.comments << Comment.new(user: bob, body: 'nice')
     s1.save
 
     s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
-    s2.comments << Comment.new(user: charlie, comment: 'pretty good')
+    s2.comments << Comment.new(user: charlie, body: 'pretty good')
     s2.save
 
     assert_equal %w(alice bob charlie), s2.participants.map(&:username).sort
@@ -128,11 +143,11 @@ class SubmissionTest < Minitest::Test
     mention_user = User.create(username: 'mention_user')
 
     s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
-    s1.comments << Comment.new(user: alice, comment: 'What about @bob?')
+    s1.comments << Comment.new(user: alice, body: 'What about @bob?')
     s1.save
 
     s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
-    s2.comments << Comment.new(user: charlie, comment: '@mention_user should have bleh')
+    s2.comments << Comment.new(user: charlie, body: '@mention_user should have bleh')
     s2.save
 
     # NOTE: mention_user doesn't enter until s2, but it's related to s1.
@@ -147,39 +162,44 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_like_sets_liked_by
-    submission = Submission.new(state: 'pending')
-    submission.like!(alice)
-    assert submission.liked_by = ['alice']
+    submission = Submission.create(state: 'pending', user: alice)
+    submission.like!(fred)
+    assert_equal [fred], submission.liked_by
   end
 
   def test_like_calls_mute
-    submission = Submission.new(state: 'pending')
-    submission.expects(:mute).with(alice)
-    submission.like!(alice)
+    submission = Submission.create(state: 'pending', user: alice)
+    submission.expects(:mute).with(fred)
+    submission.like!(fred)
   end
 
   def test_unlike_resets_is_liked_if_liked_by_is_empty
-    submission = Submission.new(state: 'pending', liked_by: ['alice'])
-    submission.unlike!(alice)
+    submission = Submission.create(state: 'pending', user: alice)
+    Like.create(submission: submission, user: fred)
+    submission.unlike!(fred)
     refute submission.is_liked
   end
 
   def test_unlike_does_not_reset_is_liked_if_liked_by_is_not_empty
-    submission = Submission.new(state: 'pending', liked_by: ['alice', 'bob'])
-    submission.unlike!(alice)
+    bob = User.create(username: 'bob')
+    submission = Submission.create(state: 'pending', user: alice)
+    Like.create(submission: submission, user: bob)
+    Like.create(submission: submission, user: fred)
+    submission.unlike!(bob)
     assert submission.is_liked
   end
 
   def test_unlike_changes_liked_by
-    submission = Submission.new(state: 'pending', liked_by: ['alice', 'bob'])
-    submission.unlike!(alice)
-    assert submission.liked_by = ['bob']
+    submission = Submission.create(state: 'pending', user: alice)
+    Like.create(submission: submission, user: fred)
+    submission.unlike!(fred)
+    assert_equal [], submission.liked_by
   end
 
   def test_unlike_calls_unmute
-    submission = Submission.new(state: 'pending')
-    submission.expects(:unmute).with(alice)
-    submission.unlike!(alice)
+    submission = Submission.create(state: 'pending', user: alice)
+    submission.expects(:unmute).with(fred)
+    submission.unlike!(fred)
   end
 
   def test_liked_reflects_positive_is_liked
@@ -193,14 +213,14 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_muted_by_when_muted
-    submission = Submission.new(state: 'pending', muted_by: ['alice'])
+    submission = Submission.create!(user: fred, state: 'pending', muted_by: [alice])
     assert submission.muted_by?(alice)
   end
 
   def test_unmuted_for_when_muted
     submission.mute(submission.user)
     submission.save
-    refute(Submission.unmuted_for(submission.user.username).include?(submission),
+    refute(Submission.unmuted_for(submission.user).include?(submission),
            "unmuted_for should only return submissions that have not been muted")
   end
 
@@ -224,13 +244,30 @@ class SubmissionTest < Minitest::Test
     submission.viewed!(bob)
     submission.reload
 
-    assert_equal %w(alice bob charlie), submission.viewers
+    assert_equal %w(alice bob charlie), submission.viewers.map(&:username)
     assert_equal 3, submission.view_count
   end
 
+  def test_viewing_submission_twice_is_fine
+    alice = User.create(username: 'alice')
+    submission.viewed!(alice)
+    submission.viewed!(alice)
+    assert_equal 1, submission.view_count
+    assert_equal %w(alice), submission.viewers.map(&:username)
+  end
+
+  def test_viewing_with_increase_in_viewers
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    submission.viewed!(alice)
+    assert_equal 1, submission.view_count
+    submission.viewed!(bob)
+    assert_equal 2, submission.view_count
+  end
+
   def test_comments_are_sorted
-    submission.comments << Comment.new(body: 'second', at: Time.now, user: submission.user)
-    submission.comments << Comment.new(body: 'first', at: Time.now - 1000, user: submission.user)
+    submission.comments << Comment.new(body: 'second', created_at: Time.now, user: submission.user)
+    submission.comments << Comment.new(body: 'first', created_at: Time.now - 1000, user: submission.user)
     submission.save
 
     one, two = submission.comments

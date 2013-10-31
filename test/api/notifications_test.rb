@@ -2,13 +2,17 @@ require './test/api_helper'
 
 class NotificationsApiTest < Minitest::Test
   include Rack::Test::Methods
+  include AppTestHelper
+  include DBCleaner
 
   def app
     ExercismAPI
   end
 
-  def login(user)
-    {'rack.session' => {github_id: user.github_id}}
+  def teardown
+    super
+    @alice = nil
+    @submission = nil
   end
 
   def alice
@@ -17,12 +21,6 @@ class NotificationsApiTest < Minitest::Test
 
   def submission
     @submission ||= Submission.create(language: 'ruby', slug: 'bob', user: alice)
-  end
-
-  def teardown
-    Mongoid.reset
-    @alice = nil
-    @submission = nil
   end
 
   def test_notifications_are_protected
@@ -35,7 +33,7 @@ class NotificationsApiTest < Minitest::Test
     get '/notifications', key: alice.key
     notifications = JSON.parse(last_response.body)['notifications']
     assert_equal 1, notifications.size
-    assert_equal "/submissions/#{submission.id}", notifications.first['notification']['link']
+    assert_equal "/submissions/#{submission.key}", notifications.first['notification']['link']
   end
 
   def test_get_notifications_when_logged_in
@@ -43,7 +41,7 @@ class NotificationsApiTest < Minitest::Test
     get '/notifications', {}, login(alice)
     notifications = JSON.parse(last_response.body)['notifications']
     assert_equal 1, notifications.size
-    assert_equal "/submissions/#{submission.id}", notifications.first['notification']['link']
+    assert_equal "/submissions/#{submission.key}", notifications.first['notification']['link']
   end
 
   def test_updating_read_status_is_restricted

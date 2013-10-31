@@ -1,7 +1,7 @@
 <div ng-controller="MarkdownCtrl">
   <tabset>
     <tab heading="Write">
-      <textarea name="comment" class="span6 comment" rows="8" ng-model="data.comment"></textarea>
+      <textarea name="body" class="span6 comment" rows="8" ng-model="data.body"></textarea>
     </tab>
     <tab heading="Preview" select="preview()">
       <div class="preview" ng-bind-html-unsafe="data.preview">

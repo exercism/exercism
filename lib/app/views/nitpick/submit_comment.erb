@@ -1,6 +1,6 @@
 <% if submission.user.completed?(submission.exercise) %>
 
-  <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
+  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/respond" method="POST">
     <%= erb :small_comment %>
     <button type="submit" name="nitpick" class="btn btn-primary">Comment</button>
   </form>
@@ -19,7 +19,7 @@
 
   <% end %>
 
-  <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/respond" method="POST">
+  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/respond" method="POST">
     <%= erb :comment %>
     <% if current_user.owns?(submission) %>
       <button type="submit" name="nitpick" class="pull-right btn btn-primary">Discuss</button>

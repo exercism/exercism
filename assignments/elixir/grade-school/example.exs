@@ -1,6 +1,6 @@
 defmodule School do
   def add(db, student, grade) do
-    HashDict.update db, grade, [student], &1 ++ [student]
+    HashDict.update db, grade, [student], &([ student | &1 ])
   end
 
   def grade(db, grade) do

@@ -3,13 +3,11 @@ require 'mocha/setup'
 
 class TeamsTest < Minitest::Test
   include Rack::Test::Methods
+  include AppTestHelper
+  include DBCleaner
 
   def app
     ExercismApp
-  end
-
-  def login(user)
-    {'rack.session' => {github_id: user.github_id}}
   end
 
   def alice_attributes
@@ -41,6 +39,7 @@ class TeamsTest < Minitest::Test
 
   attr_reader :alice, :bob, :john
   def setup
+    super
     @alice = User.create(alice_attributes)
     @bob = User.create(bob_attributes)
     @john = User.create(john_attributes)
@@ -50,11 +49,6 @@ class TeamsTest < Minitest::Test
     assert_equal expected_status, last_response.status
   end
 
-  def teardown
-    Mongoid.reset
-    clear_cookies
-  end
-
   def test_team_creation_with_no_members
     assert_equal 0, alice.teams_created.size
 
@@ -62,6 +56,7 @@ class TeamsTest < Minitest::Test
 
     team = Team.first
 
+    alice.reload
     assert_equal 1, alice.teams_created.size
     assert_equal alice, team.creator
   end

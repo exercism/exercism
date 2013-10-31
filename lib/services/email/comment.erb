@@ -1,5 +1,12 @@
 Hi <%= name %>,
 
-Your submission on <%= exercise.name %> in <%= exercise.language %> has received feedback from <%= from %>!
+Your submission on <%= exercise.name %> in <%= exercise.language %> has received the following feedback from <%= from %>!
 
-Visit <%= site_root %>/submissions/<%= submission.id %> to find out more.
+<%= nitpick %>
+
+Visit <%= site_root %>/submissions/<%= submission.key %> to find out more.
+
+--
+If you'd like to stop receiving email notifications, go to http://exercism.io/<%= submission.user.username %> and delete your email address.
+
+Do you have thoughts? Ideas? Criticism? I'd love to hear from you. Hit reply to send me an email.

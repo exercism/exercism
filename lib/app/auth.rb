@@ -38,7 +38,7 @@ class ExercismApp < Sinatra::Base
         redirect '/'
       end
 
-      login(User.find_by(github_id: params[:id]))
+      login(User.find_by_github_id(params[:id]))
       redirect "/"
     end
   end

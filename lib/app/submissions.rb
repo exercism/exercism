@@ -1,19 +1,19 @@
 class ExercismApp < Sinatra::Base
 
   helpers do
-    def nitpick(id)
+    def nitpick(key)
       notice = "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
       please_login(notice)
 
-      submission = Submission.find(id)
-      comment = CreatesComment.create(id, current_user, params[:comment])
+      submission = Submission.find_by_key(key)
+      comment = CreatesComment.create(submission.id, current_user, params[:body])
       unless comment.new_record?
         Notify.everyone(submission, 'nitpick', except: current_user)
         begin
           unless comment.nitpicker == submission.user
             CommentMessage.ship(
               instigator: comment.nitpicker,
-              submission: submission,
+              target: comment,
               site_root: site_root
             )
           end
@@ -24,8 +24,8 @@ class ExercismApp < Sinatra::Base
       submission.unmute_all!
     end
 
-    def toggle_opinions(id, state)
-      submission = Submission.find(id)
+    def toggle_opinions(key, state)
+      submission = Submission.find_by_key(key)
 
       unless current_user.owns?(submission)
         flash[:error] = "You do not have permission to do that."
@@ -43,14 +43,19 @@ class ExercismApp < Sinatra::Base
     end
   end
 
-  get '/user/submissions/:id' do |id|
-    redirect "/submissions/#{id}"
+  get '/user/submissions/:key' do |key|
+    redirect "/submissions/#{key}"
   end
 
-  get '/submissions/:id' do |id|
+  get '/submissions/:key' do |key|
     please_login
 
-    submission = Submission.find(id)
+    submission = Submission.find_by_key(key)
+    unless submission
+      flash[:error] = "We can't find that submission."
+      redirect '/'
+    end
+
     submission.viewed!(current_user)
 
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
@@ -59,104 +64,104 @@ class ExercismApp < Sinatra::Base
   end
 
   # TODO: Submit to this endpoint rather than the `respond` one.
-  post '/submissions/:id/nitpick' do |id|
-    nitpick(id)
-    redirect "/submissions/#{id}"
+  post '/submissions/:key/nitpick' do |key|
+    nitpick(key)
+    redirect "/submissions/#{key}"
   end
 
-  post '/submissions/:id/respond' do |id|
-    nitpick(id)
-    redirect "/submissions/#{id}"
+  post '/submissions/:key/respond' do |key|
+    nitpick(key)
+    redirect "/submissions/#{key}"
   end
 
-  post '/submissions/:id/like' do |id|
+  post '/submissions/:key/like' do |key|
     please_login "You have to be logged in to do that."
-    submission = Submission.find(id)
+    submission = Submission.find_by_key(key)
     submission.like!(current_user)
     Notify.source(submission, 'like')
-    redirect "/submissions/#{id}"
+    redirect "/submissions/#{key}"
   end
 
-  post '/submissions/:id/unlike' do |id|
+  post '/submissions/:key/unlike' do |key|
     please_login "You have to be logged in to do that."
-    submission = Submission.find(id)
+    submission = Submission.find_by_key(key)
     submission.unlike!(current_user)
     flash[:notice] = "The submission has been unliked."
-    redirect "/submissions/#{id}"
+    redirect "/submissions/#{key}"
   end
 
-  post '/submissions/:id/opinions/enable' do |id|
+  post '/submissions/:key/opinions/enable' do |key|
     please_login "You have to be logged in to do that."
-    toggle_opinions(id, :enable)
-    redirect "/submissions/#{id}"
+    toggle_opinions(key, :enable)
+    redirect "/submissions/#{key}"
   end
 
-  post '/submissions/:id/opinions/disable' do |id|
+  post '/submissions/:key/opinions/disable' do |key|
     please_login "You have to be logged in to do that."
-    toggle_opinions(id, :disable)
-    redirect "/submissions/#{id}"
+    toggle_opinions(key, :disable)
+    redirect "/submissions/#{key}"
   end
 
-  post '/submissions/:id/mute' do |id|
+  post '/submissions/:key/mute' do |key|
     please_login "You have to be logged in to do that."
-    submission = Submission.find(id)
+    submission = Submission.find_by_key(key)
     submission.mute!(current_user)
     flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
     redirect '/'
   end
 
-  post '/submissions/:id/unmute' do |id|
+  post '/submissions/:key/unmute' do |key|
     please_login "You have to be logged in to do that."
-    submission = Submission.find(id)
+    submission = Submission.find_by_key(key)
     submission.unmute!(current_user)
     flash[:notice] = "The submission has been unmuted."
     redirect '/'
   end
 
-  get '/submissions/:id/nits/:nit_id/edit' do |id, nit_id|
+  get '/submissions/:key/nits/:nit_id/edit' do |key, nit_id|
     please_login("You have to be logged in to do that")
-    submission = Submission.find(id)
+    submission = Submission.find_by_key(key)
     nit = submission.comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
       flash[:notice] = "Only the author may edit the text."
-      redirect "/submissions/#{id}"
+      redirect "/submissions/#{key}"
     end
     erb :edit_nit, locals: {submission: submission, nit: nit}
   end
 
-  post '/submissions/:id/done' do |id|
+  post '/submissions/:key/done' do |key|
     please_login("You have to be logged in to do that")
-    submission = Submission.find id
+    submission = Submission.find_by_key(key)
     unless current_user.owns?(submission)
       flash[:notice] = "Only the submitter may unlock the next exercise."
-      redirect "/submissions/#{id}"
+      redirect "/submissions/#{key}"
     end
     completion = Completion.new(submission).save
     flash[:success] = "#{completion.unlocked} unlocked."
     redirect "/"
   end
 
-  post '/submissions/:id/nits/:nit_id' do |id, nit_id|
-    nit = Submission.find(id).comments.where(id: nit_id).first
+  post '/submissions/:key/nits/:nit_id' do |key, nit_id|
+    nit = Submission.find_by_key(key).comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
       flash[:notice] = "Only the author may edit the text."
       redirect '/'
     end
 
-    nit.comment = params["comment"]
+    nit.body = params["body"]
     nit.save
-    redirect "/submissions/#{id}"
+    redirect "/submissions/#{key}"
   end
 
-  delete '/submissions/:id/nits/:nit_id' do |id, nit_id|
-    nit = Submission.find(id).comments.where(id: nit_id).first
+  delete '/submissions/:key/nits/:nit_id' do |key, nit_id|
+    nit = Submission.find_by_key(key).comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
       flash[:notice] = "Only the author may delete the text."
       redirect '/'
     end
 
     nit.delete
-    redirect "/submissions/#{id}"
+    redirect "/submissions/#{key}"
   end
 
 
@@ -168,20 +173,19 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    submissions = Submission.where(l: language, s: assignment)
-                            .in(state: ["pending", "done"])
+    submissions = Submission.where(language: language, slug: assignment, state: ['pending', 'done'])
                             .includes(:user)
-                            .desc(:at).to_a
+                            .order('created_at DESC').to_a
 
     erb :submissions_for_assignment, locals: { submissions: submissions,
                                                   language: language,
                                                 assignment: assignment }
   end
 
-  get '/submissions/diff/:id/:id' do |a,b|
+  get '/submissions/diff/:key/:key' do |a,b|
     please_login
 
-    diff = Diffy::Diff.new(Submission.find(a).code, Submission.find(b).code)
+    diff = Diffy::Diff.new(Submission.find_by_key(a).code, Submission.find_by_key(b).code)
     erb :"code/simple", layout: false, locals: { title: "Diff",
         html: { id: "revision-diff"},
         code: diff.to_s,

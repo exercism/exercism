@@ -1,44 +1,47 @@
-class Submission
-  include Mongoid::Document
+class Submission < ActiveRecord::Base
 
-  field :state, type: String, default: 'pending'
-  field :l, as: :language, type: String
-  field :s, as: :slug, type: String
-  field :c, as: :code, type: String
-  field :at, type: Time, default: ->{ Time.now.utc }
-  field :a_at, as: :approved_at, type: Time
-  field :d_at, as: :done_at, type: Time
-  field :lk, as: :is_liked, type: Boolean, default: false
-  field :lk_by, as: :liked_by, type: Array, default: []
-  field :op, as: :wants_opinions, type: Boolean, default: false
-  field :mt_by, as: :muted_by, type: Array, default: []
-  field :nc, as: :nit_count, type: Integer, default: 0 # nits by others
-  field :v, as: :version, type: Integer, default: 0
-  field :st_n, as: :stash_name, type: String
-  field :vs, as: :viewers, type: Array, default: []
+  serialize :liked_by, Array
 
   belongs_to :user
-  has_many :comments, order: {at: :asc}
+  has_many :comments, order: 'created_at ASC'
+
+  has_many :submission_viewers
+  has_many :viewers, through: :submission_viewers
+
+  has_many :muted_submissions
+  has_many :muted_by, through: :muted_submissions, source: :user
+
+  has_many :likes
+  has_many :liked_by, through: :likes, source: :user
 
   validates_presence_of :user
 
-  def self.pending_for(language, exercise=nil)
-    if exercise
-      pending.
-        and(language: language.downcase).
-        and(slug: exercise.downcase)
-    else
-      pending.
-        and(language: language.downcase)
-    end
+  before_create do
+    self.state          ||= "pending"
+    self.nit_count      ||= 0
+    self.version        ||= 0
+    self.wants_opinions ||= false
+    self.is_liked       ||= false
+    self.key            ||= (mongoid_id || generate_key)
+    true
   end
 
-  def self.completed_for(language, slug)
-    done.where(language: language, slug: slug)
+  scope :pending, where(state: 'pending')
+
+  def self.completed_for(exercise)
+    done.where(language: exercise.language, slug: exercise.slug)
+  end
+
+  def self.random_completed_for(exercise)
+    where(
+      state: ['done', 'tweaked'],
+      language: exercise.language,
+      slug: exercise.slug
+    ).order('RANDOM()').limit(1).first
   end
 
   def self.related(submission)
-    order_by(at: :asc).
+    order('created_at ASC').
       where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
   end
 
@@ -46,12 +49,9 @@ class Submission
     pending.where(:'nits._id'.exists => false)
   end
 
-  def self.pending
-    where(state: 'pending').desc(:at)
-  end
 
   def self.done
-    where(state: 'done').desc(:at)
+    where(state: 'done').order('created_at DESC')
   end
 
   def self.on(exercise)
@@ -65,8 +65,8 @@ class Submission
     related(submission).done.any?
   end
 
-  def self.unmuted_for(username)
-    nin(muted_by: username)
+  def self.unmuted_for(user)
+    joins("left join (select submission_id from muted_submissions ms where user_id=#{user.id}) as t ON t.submission_id=submissions.id").where('t.submission_id is null')
   end
 
   def participants
@@ -74,7 +74,7 @@ class Submission
   end
 
   def nits_by_others_count
-    nc
+    nit_count
   end
 
   def nits_by_others
@@ -114,7 +114,7 @@ class Submission
   end
 
   def older_than?(time)
-    self.at < (Time.now.utc - time)
+    self.created_at.utc < (Time.now.utc - time)
   end
 
   def exercise
@@ -145,13 +145,13 @@ class Submission
 
   def like!(user)
     self.is_liked = true
-    liked_by << user.username
+    self.liked_by << user unless liked_by.include?(user)
     mute(user)
     save
   end
 
   def unlike!(user)
-    liked_by.delete(user.username)
+    likes.where(user_id: user.id).destroy_all
     self.is_liked = liked_by.length > 0
     unmute(user)
     save
@@ -200,11 +200,11 @@ class Submission
   end
 
   def muted_by?(user)
-    muted_by.include?(user.username)
+    muted_submissions.where(user_id: user.id).exists?
   end
 
   def mute(user)
-    muted_by << user.username
+    muted_by << user
   end
 
   def mute!(user)
@@ -213,7 +213,7 @@ class Submission
   end
 
   def unmute(user)
-    muted_by.delete(user.username)
+    muted_submissions.where(user_id: user.id).destroy_all
   end
 
   def unmute!(user)
@@ -227,21 +227,38 @@ class Submission
   end
 
   def viewed!(user)
-    add_to_set(:viewers, user.username)
+    begin
+      self.viewers << user unless viewers.include?(user)
+    rescue => e
+      # Temporarily output this to the logs
+      puts "#{e.class}: #{e.message}"
+    end
   end
 
   def view_count
-    @view_count ||= viewers.count
+    viewers.count
+  end
+
+  def generate_key
+    Digest::SHA1.hexdigest(secret)[0..23]
   end
 
   private
+
+  def secret
+    if ENV['SUBMISSION_SECRET']
+      "#{ENV['SUBMISSION_SECRET']} #{rand(10**10)}"
+    else
+      "There is solemn satisfaction in doing the best you can for #{rand(10**10)} billion people."
+    end
+  end
 
   # Experiment: Cache the iteration number so that we can display it
   # on the dashboard without pulling down all the related versions
   # of the submission.
   # Preliminary testing in development suggests an 80% improvement.
   before_create do |document|
-    document.v = Submission.related(self).count + 1
+    self.version = Submission.related(self).count + 1
   end
 
   def trail

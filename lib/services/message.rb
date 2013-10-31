@@ -11,7 +11,7 @@ class Message
 
   def initialize(options)
     @instigator = options.fetch(:instigator)
-    @submission = options.fetch(:submission)
+    @target = options.fetch(:target)
     @site_root = options.fetch(:site_root)
     @intercept_emails = options.fetch(:intercept_emails) { false }
   end
@@ -22,6 +22,10 @@ class Message
 
   def recipient
     submission.user
+  end
+
+  def submission
+    @target
   end
 
   def to
@@ -41,7 +45,7 @@ class Message
   end
 
   def from_email
-    'noreply@exercism.io'
+    'kytrinyx@exercism.io'
   end
 
   def template_name

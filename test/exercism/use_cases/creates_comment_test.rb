@@ -1,6 +1,8 @@
 require './test/integration_helper'
+require 'mocha/setup'
 
 class CreatesCommentTest < Minitest::Test
+  include DBCleaner
 
   def exercise
     Exercise.new('nong', 'one')
@@ -16,7 +18,7 @@ class CreatesCommentTest < Minitest::Test
   end
 
   def teardown
-    Mongoid.reset
+    super
     @bob = nil
     @submission = nil
   end
@@ -26,8 +28,15 @@ class CreatesCommentTest < Minitest::Test
     CreatesComment.new(submission.id, nitpicker, 'Too many variables').create
     nit = submission.reload.comments.first
     assert submission.pending?, "Should be pending"
-    assert_equal 'Too many variables', nit.comment
+    assert_equal 'Too many variables', nit.body
     refute submission.liked?, "Should NOT be liked"
+  end
+
+  def test_should_return_invalid_comment_if_invalid
+    nitpicker = User.new(username: 'alice')
+    cc = CreatesComment.new(submission.id, nitpicker, '')
+    cc.create
+    assert cc.comment
   end
 
   def test_nitpicking_a_submission_mutes_it
@@ -39,7 +48,7 @@ class CreatesCommentTest < Minitest::Test
   def test_empty_nit_does_not_get_created
     nitpicker = User.new(username: 'alice')
     nitpick = CreatesComment.new(submission.id, nitpicker, '').create
-    assert_equal 0, submission.reload.comments.count
+    assert_equal 0, submission.comments(true).count
   end
 
   def test_empty_nit_does_not_mute

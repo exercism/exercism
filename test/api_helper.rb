@@ -6,4 +6,5 @@ require 'rack/test'
 require 'rack-flash'
 
 require 'api'
+require './test/app_test_helper'
 

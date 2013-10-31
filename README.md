@@ -1,8 +1,8 @@
 # exercism.io
 
-[![Build Status](https://travis-ci.org/kytrinyx/exercism.io.png?branch=master)](https://travis-ci.org/kytrinyx/exercism.io) 
-[![Code Climate](https://codeclimate.com/github/kytrinyx/exercism.io.png)](https://codeclimate.com/github/kytrinyx/exercism.io)
-[![Gemnasium](https://gemnasium.com/kytrinyx/exercism.io.png)](https://gemnasium.com/kytrinyx/exercism.io)
+[![Build Status](https://travis-ci.org/exercism/exercism.io.png?branch=master)](https://travis-ci.org/exercism/exercism.io)
+[![Code Climate](https://codeclimate.com/github/exercism/exercism.io.png)](https://codeclimate.com/github/exercism/exercism.io)
+[![Gemnasium](https://gemnasium.com/exercism/exercism.io.png)](https://gemnasium.com/exercism/exercism.io)
 
 Application to support working through sequential programming problems, with
 crowd-sourced code reviews.
@@ -22,10 +22,6 @@ The discussions are the most important thing in the application. That
 and the evolution of the code. It's not about getting code perfect or
 right, but using the pieces of code to talk about the little details of
 what makes code expressive.
-
-Each code submission seems very ephemeral right now. You submit. You
-resubmit, the old submission goes into hiding along with the discussion
-about it.
 
 There are excellent discussions, and it would be great to be able to extract
 the learning from these discussions, perhaps into blog posts, perhaps into
@@ -85,20 +81,24 @@ Different languages/trails do not need to have the same assignments or the same 
 
 ## Setup
 
-1. Install mongodb with: `brew install mongodb` or `apt-get install mongodb`
-2. Get it running: follow instructions to load the server at startup. Ensure that server is currently running
-3. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
-4. Install gems with: `bundle`
-5. Get a client id/secret from Github at https://github.com/settings/applications/new.
+1. Install postgresql with: `brew install postgresql` or `apt-get install postgresql-9.2`
+2. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
+3. Install gems with: `bundle`
+4. Get a client id/secret from Github at https://github.com/settings/applications/new.
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-7. Run the database seed with `rake db:seed` (if you want LOTS of data: `rake db:seed[1000]` or some other big number).
-8. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
-9. Start the server with `./scripts/boot.sh`
-10. Login at http://localhost:4567.
-11. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
-12. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
+5. Presuming you have Postgres installed (if not: `brew install postgres`):
+  * create db user with: `createuser exercism`
+  * create database with: `createdb -O exercism exercism_development`
+6. Run the database migrations with `rake db:migrate`.
+7. Run test database migrations with `RACK_ENV=test rake db:migrate` (This is only useful for test environment)
+8. Run the database seed with `rake db:seed` (if you want LOTS of data: `rake db:seed[1000]` or some other big number).
+9. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
+10. Start the server with `./scripts/boot.sh`
+11. Login at http://localhost:4567.
+12. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
+13. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
 
 ## Frontend development setup
 1. Install node and npm
@@ -128,6 +128,8 @@ There's a script in `bin/console` that will load irb with the exercism environme
 
 Run tests with: `rake test`
 
+Make sure your migrations are up-to-date with: `rake db:migrate RACK_ENV=test`
+
 Make sure that `mailcatcher` is running.
 
 ### Code coverage
@@ -152,7 +154,7 @@ Thank you for wanting to contribute! :heart::sparkling_heart::heart:
 Fork and clone. Hack hack hack.
 Submit a pull request and tell us why your idea is awesome.
 
-For more details, please read the [contributing guide](https://github.com/kytrinyx/exercism.io/blob/master/CONTRIBUTING.md).
+For more details, please read the [contributing guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md).
 
 ## License
 

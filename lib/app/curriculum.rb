@@ -2,34 +2,11 @@ class ExercismApp < Sinatra::Base
 
   helpers do
     def progress(language)
-      map = %q{
-        function() {
-          var state = this.state || 'pending',
-              summary = { nits: this.nc, pending: 0, superseded: 0, done: 0 , tweaked: 0};
-              summary[state] = 1;
-          emit(this.s, summary);
-        }
-      }
-
-      reduce = %q{
-        function(key, values) {
-          var result = { nits: 0, pending: 0, superseded: 0, done: 0, tweaked: 0 };
-
-          values.forEach(function(value) {
-            result.nits       += value.nits;
-            result.pending    += value.pending;
-            result.superseded += value.superseded;
-            result.done       += value.done;
-            result.tweaked    += value.tweaked;
-          });
-
-          return result;
-        }
-      }
-
-      Submission.where(l: language).map_reduce(map, reduce).out(inline: true).each_with_object({}) do |exercise, summary|
-        summary[exercise['_id']] = exercise['value']
+      summary = Hash.new {|hash, key| hash[key] = {}}
+      Submission.select('slug, state, count(id)').where(language: 'ruby').group(:slug, :state).each do |submission|
+        summary[submission.slug][submission.state] = submission.count.to_i
       end
+      summary
     end
 
     def quantify(value)

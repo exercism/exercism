@@ -1,11 +1,11 @@
 <hr>
 
 <% if submission.wants_opinions? %>
-  <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/opinions/disable" method="POST">
+  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/opinions/disable" method="POST">
     <button type="submit" class="btn">This is clear now. No more opinions necessary.</button>
   </form>
 <% else %>
-  <form accept-charset="UTF-8" action="/submissions/<%= submission.id %>/opinions/enable" method="POST">
+  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/opinions/enable" method="POST">
     <strong>Disagree with a nitpick?</strong> <button type="submit" class="btn">Ask for more opinions.</button>
   </form>
 <% end %>

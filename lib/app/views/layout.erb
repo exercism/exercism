@@ -7,8 +7,8 @@
     <meta content='' name='description'>
     <meta content='' name='author'>
     <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
-    <link href='/ico/favicon.png' rel='shortcut icon'>
-    <link href='/css/app.css' rel='stylesheet'>
+    <link href='/ico/favicon.png?v=2' rel='shortcut icon'>
+    <link href='/css/app.css?v=1' rel='stylesheet'>
   </head>
   <body>
     <% unless current_user.guest? %>
@@ -17,7 +17,7 @@
 
     <div class='navbar navbar-static-top'>
       <div class='navbar-inner'>
-        <a class='brand' href='/'>exercism.io</a>
+        <a class='brand' href='/'><img width="250" src="/img/logo.png" /></a>
         <%= erb :nav %>
       </div>
     </div>
@@ -38,7 +38,7 @@
       <hr>
       <footer>
       <p>&copy; <%= Date.today.year %> Katrina Owen</p>
-      <p>Source: <a href="https://github.com/kytrinyx/exercism.io">github.com/kytrinyx/exercism.io</a>. Report bugs and submit feedback <a href="https://github.com/kytrinyx/exercism.io/issues">on GitHub</a>. Email me at <a href="mailto:katrina.owen@gmail.com">katrina.owen@gmail.com</a>.</p>
+      <p>Source: <a href="https://github.com/exercism/exercism.io">github.com/exercism/exercism.io</a>. Report bugs and submit feedback <a href="https://github.com/exercism/exercism.io/issues">on GitHub</a>. Email me at <a href="mailto:kytrinyx@exercism.io">kytrinyx@exercism.io</a>.</p>
       </footer>
     </div>
     <div id="list-notifications"></div>

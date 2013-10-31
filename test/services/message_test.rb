@@ -1,49 +1,30 @@
-require_relative "../integration_helper"
-
+require_relative "../test_helper"
 require 'services'
 
-class FakeMessage < Message
-
-  def subject
-    "Fake message to #{recipient.username} from #{from}"
-  end
-
-  # override the ERB stuff.
-  # We can test that directly on
-  # each email without involving smtp
-  def body
-    "A clever man commits no minor blunders."
-  end
-
-end
-
 class MessageTest < Minitest::Test
-  attr_reader :submission, :locksmith
-  def setup
-    exercise = Exercise.new('fake', 'one')
-    @submission = Submission.on(exercise)
-    @submission.user = User.create(
-      github_id: 1,
-      email: "bobguy1998@example.com",
-      username: "AwesomeBob",
-    )
-    @submission.save
+  class FakeMessage < Message
+    def subject
+      "Fake message to #{recipient.username} from #{from}"
+    end
 
-    @locksmith = User.create(
-      github_id: 1337,
-      email: "locksmith@example.com",
-      username: "locksmith",
-    )
+    # override the ERB stuff.
+    # We can test that directly on
+    # each email without involving smtp
+    def body
+      "A clever man commits no minor blunders."
+    end
   end
 
-  def teardown
-    Mongoid.reset
-  end
+  FakeUser = Struct.new(:username, :email)
+  FakeSubmission = Struct.new(:user)
 
   def test_send_nitpick_email
+    instigator = FakeUser.new('instigator', 'instigator@example.com')
+    submitter = FakeUser.new('submitter', 'submitter@example.com')
+    submission = FakeSubmission.new(submitter)
     dispatch = FakeMessage.new(
-      instigator: locksmith,
-      submission: submission,
+      instigator: instigator,
+      target: submission,
       intercept_emails: true,
       site_root: 'http://test.exercism.io'
     ).ship

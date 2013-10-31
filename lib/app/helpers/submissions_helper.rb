@@ -6,7 +6,7 @@ module Sinatra
 
     def mute_button_action_for(submission, user)
       action = submission.muted_by?(user) ? 'unmute' : 'mute'
-      "/submissions/#{submission.id}/#{action}"
+      "/submissions/#{submission.key}/#{action}"
     end
 
     def view_count_for(submission)
@@ -15,7 +15,7 @@ module Sinatra
     end
 
     def these_people_like_it(liked_by)
-      everyone = liked_by.map {|name| "@#{name}"}
+      everyone = liked_by.map {|user| "@#{user.username}"}
       case everyone.size
         when 0
           ""
@@ -33,7 +33,7 @@ module Sinatra
 
       return unless user.nitpicker_on?(submission.exercise) && !user.owns?(submission)
 
-      if submission.liked_by.include?(user.username)
+      if submission.liked_by.include?(user)
         action = "unlike"
         text = "I didn't mean to like this!"
       else
@@ -42,10 +42,10 @@ module Sinatra
       end
 
       %Q{
-        <form accept-charset="UTF-8" action="/submissions/#{submission.id}/#{action}" method="POST" class="pull-left" style="display: inline;">
+        <form accept-charset="UTF-8" action="/submissions/#{submission.key}/#{action}" method="POST" class="pull-left" style="display: inline;">
           <button type="submit" name="#{action}" class="btn">#{text}</button>
         </form>
-      }.html_safe
+      }
     end
   end
 end

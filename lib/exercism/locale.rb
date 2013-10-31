@@ -33,4 +33,22 @@ Locale = Struct.new(:language, :code_extension, :test_extension) do
     language
   end
 
+  def test_directory
+    "."
+  end
+
+  def additional_files
+    []
+  end
+
+end
+
+class ScalaLocale < Locale
+  def test_directory
+    "src/test/scala"
+  end
+
+  def additional_files
+    ["build.sbt"]
+  end
 end

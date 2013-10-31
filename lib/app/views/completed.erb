@@ -20,11 +20,11 @@
           </td>
 
           <td>
-            <a href="/submissions/<%= submission.id %>"><%= submission.slug %></a>
+            <a href="/submissions/<%= submission.key %>"><%= submission.slug %></a>
           </td>
 
           <td>
-            <%= ago(submission.at) %>
+            <%= ago(submission.created_at) %>
           </td>
         </tr>
       <% end %>

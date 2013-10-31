@@ -1,0 +1,18 @@
+<div class="row">
+  <div class="code span12">
+    <h1>
+      <%= submission.exercise.language.capitalize %>:
+      <%= submission.exercise.name %>
+    </h1>
+    <p>
+    This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.exercise.name %> in <%= submission.exercise.language %>.
+    <% if total > 1 %>
+
+    See one of the <a href="/completed/<%= submission.language %>/<%= submission.slug %>/random">other <%= total %> implementations</a> of <%= submission.slug %> in <%= submission.language %>.
+    <% end %>
+    </p>
+    <div style="padding-top: 2px;">
+      <%= md(submission.code, submission.language) %>
+    </div>
+  </div>
+</div>

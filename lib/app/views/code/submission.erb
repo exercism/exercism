@@ -2,17 +2,17 @@
   <%= "style='#{html[:style]}'" if html[:style] %>
   class="revision code span6">
   <h2>
-    <a href="/submissions/<%= submission.id %>">
+    <a href="/submissions/<%= submission.key %>">
       <%= title %>
     </a>
     <div style="float: right;">
-    <span class="badge badge-important"><%= submission.nc %>
+    <span class="badge badge-important"><%= submission.nit_count %>
     </span>
     </div>
   </h2>
   <h3>
-    <small>Submitted <%= ago(submission.at) %> &centerdot;
-      <a href="/submissions/<%= submission.id %>">
+    <small>Submitted <%= ago(submission.created_at) %> &centerdot;
+      <a href="/submissions/<%= submission.key %>">
         view submission &raquo;
       </a>
     </small>

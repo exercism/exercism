@@ -2,62 +2,79 @@
   <li><a href="/about">About</a></li>
 
   <li class="dropdown">
-    <a class="dropdown-toggle" id="drop-setup" href="#" data-toggle="dropdown">
-      Help <b class="caret"></b>
-    </a>
-    <ul class="dropdown-menu" id="menu-setup" role="menu" area-labelledby="drop-setup">
-      <li><a role="menuitem" tabindex="-1" href="/help/how-to-access-exercises">How to Access the Exercises</a></li>
-      <li><a role="menuitem" tabindex="-1" href="/help/how-to-nitpick">How to Nitpick</a></li>
-      <% Exercism.current_curriculum.locales.each do |locale| %>
-        <li>
-          <a role="menuitem" tabindex="-1" href="/setup/<%= locale.language %>">Setting up <%= locale.name %></a>
-        </li>
-      <% end %>
-    </ul>
+  <a class="dropdown-toggle" id="drop-setup" href="#" data-toggle="dropdown">
+    Help <b class="caret"></b></a>
+
+  <ul class="dropdown-menu" id="menu-setup" role="menu" area-labelledby="drop-setup">
+    <li><a role="menuitem" tabindex="-1" href="/help/how-to-access-exercises">How to Access the Exercises</a></li>
+    <li><a role="menuitem" tabindex="-1" href="/help/how-to-nitpick">How to Nitpick</a></li>
+    <% Exercism.current_curriculum.locales.each do |locale| %>
+      <li><a role="menuitem" tabindex="-1" href="/setup/<%= locale.language %>">
+      Setting up <%= locale.name %></a>
+    </li>
+    <% end %>
+  </ul>
   </li>
 </ul>
 
 <ul class="nav pull-right">
   <% if nitpicker_languages.any? %>
     <li class="dropdown">
-      <a class="dropdown-toggle" id="drop-nitpick" href="#" data-toggle="dropdown">
-        Nitpick <b class="caret"></b>
-      </a>
+  <a class="dropdown-toggle" id="drop-nitpick" href="#" data-toggle="dropdown">
+    Nitpick <b class="caret"></b></a>
 
-      <ul class="dropdown-menu" id="menu-nitpick" role="menu" area-labelledby="drop-nitpick">
-        <% nitpicker_languages.each do |language| %>
-          <li><a role="menuitem" tabindex="-1" href="<%= path_for(language) %>"><%= language.to_s.capitalize %></a></li>
-        <% end %>
-      </ul>
+  <ul class="dropdown-menu" id="menu-nitpick" role="menu" area-labelledby="drop-nitpick">
+    <% nitpicker_languages.each do |language| %>
+      <li><a role="menuitem" tabindex="-1" href="<%= path_for(language) %>">
+      <%= language.to_s.capitalize %></a>
+    </li>
+    <% end %>
+  </ul>
   <% end %>
 
   <% if current_user.ongoing.any? %>
     <li class="dropdown">
-      <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">
-        Current Exercises <b class="caret"></b>
-      </a>
+  <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">
+    Current Exercises <b class="caret"></b></a>
 
-      <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
-        <% current_user.ongoing.each do |submission| %>
-          <li>
-            <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.id %>"><%= submission.language + ' ' + submission.slug %></a>
-          </li>
-        <% end %>
-      </ul>
+  <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
+    <% current_user.ongoing.each do |submission| %>
+      <li><a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>">
+      <%= submission.language + ' ' + submission.slug %></a>
+    </li>
+    <% end %>
+  </ul>
   <% end %>
+
+  <% if !current_user.guest? %> 
+    <% if (current_user.teams | current_user.teams_created).any? %>
+    <li class="dropdown">
+    <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">
+    Your Teams<b class="caret"></b></a>
+
+    <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
+    <% (current_user.teams | current_user.teams_created).each do |team| %>
+      <li><a role="menuitem" tabindex="-1" href="/teams/<%= team.slug %>"><%= team.slug %></a></li>
+    <% end %>
+    </ul>
+    <% end %>
+  <% end %>
+
   <% if current_user.guest? %>
-    <li><a href="/login">log in with github</a></li>
+    <li><a href="/login">Log in with Github</a></li>
     <%= erb :backdoor %>
   <% else %>
     <li class="dropdown">
-      <a class="dropdown-toggle" id="drop-account" href="#" data-toggle="dropdown">
-        <%= gravatar_tag current_user.avatar_url, size: 20 %>
-        <%= current_user.username %> <b class="caret"></b>
-      </a>
-      <ul class="dropdown-menu" role="menu">
-        <li><a role="menuitem" tabindex="-1" href="/<%= current_user.username %>">Account</a></li>
-        <li><a role="menuitem" tabindex="-1" href="/logout">Log Out</a></li>
-      </ul>
-    </li>
+  <a class="dropdown-toggle" id="drop-account" href="#" data-toggle="dropdown">
+    <%= gravatar_tag current_user.avatar_url, size: 20 %>
+    <%= current_user.username %> <b class="caret"></b>
+  </a>
+
+  <ul class="dropdown-menu" role="menu">
+    <li><a role="menuitem" tabindex="-1" href="/<%= current_user.username %>">Account</a></li>
+    <li><a role="menuitem" tabindex="-1" href="/logout">Log Out</a></li>
+  </ul>
+  </li>
   <% end %>
 </ul>
+

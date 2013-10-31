@@ -1,5 +1,4 @@
 require './test/test_helper'
-
 require 'exercism/guest'
 
 class GuestTest < Minitest::Test

@@ -1,21 +1,20 @@
-class Notification
-  include Mongoid::Document
+class Notification < ActiveRecord::Base
 
-  field :re, as: :regarding, type: String
-  field :r, as: :read, type: Boolean, default: false
-  field :at, type: Time, default: ->{ Time.now.utc }
-  field :c, as: :count, type: Integer, default: 0
-  field :n, as: :note, type: String # only for custom notifications
-
-  belongs_to :user, index: true
+  belongs_to :user
   belongs_to :submission
 
-  scope :recent, desc(:at).limit(100)
+  scope :recent, -> { order("created_at DESC").limit(100) }
+
+  before_create do
+    self.read  ||= false
+    self.count ||= 0
+    true
+  end
 
   def self.on(submission, options)
     data = {
-      submission: submission,
-      user: options.fetch(:to),
+      submission_id: submission.id,
+      user_id: options.fetch(:to).id,
       regarding: options[:regarding]
     }
     notification = where(data.merge(read: false)).first || new(data)

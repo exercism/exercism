@@ -1,13 +1,11 @@
-class Team
-  include Mongoid::Document
+class Team < ActiveRecord::Base
 
-  field :s, as: :slug, type: String
+  belongs_to :creator, class_name: "User"
+  has_many :memberships, class_name: "TeamMembership"
+  has_many :members, through: :memberships, source: :user
 
-  has_and_belongs_to_many :members, class_name: "User", inverse_of: :teams
-  belongs_to :creator, class_name: "User", inverse_of: :teams_created
-
-  validates_presence_of :slug
-  validates_uniqueness_of :slug
+  validates :creator, presence: true
+  validates :slug, presence: true,  uniqueness: true
 
   def self.by(user)
     new(creator: user)

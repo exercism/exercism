@@ -7,6 +7,7 @@ require 'exercism/trail'
 class TrailTest < Minitest::Test
 
   attr_reader :trail, :one, :two, :go
+
   def setup
     @go = Locale.new('go', 'go', 'go')
     @trail = Trail.new(go, ['one', 'two'], '/tmp')

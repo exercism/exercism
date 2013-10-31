@@ -25,7 +25,9 @@ class Assignment
   end
 
   def test_file
-    "#{slug}_test.#{locale.test_extension}"
+    directory = Pathname.new(locale.test_directory)
+    file = directory + "#{slug}_test.#{locale.test_extension}"
+    file.to_s
   end
 
   def example
@@ -34,6 +36,13 @@ class Assignment
 
   def example_file
     "example.#{locale.code_extension}"
+  end
+
+  def additional_files
+    locale.additional_files.reduce({}) do |hash, file|
+      hash[file] = read(file)
+      hash
+    end
   end
 
   def blurb

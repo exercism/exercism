@@ -16,8 +16,8 @@ describe "MarkdownCtrl", ->
 
   describe "preview function", ->
     it "posts to preview with comment", ->
-      @scope.data.comment = "testcomment"
-      @$httpBackend.expectPOST("/preview", "comment=testcomment").respond(200, '')
+      @scope.data.body = "testcomment"
+      @$httpBackend.expectPOST("/preview", "body=testcomment").respond(200, '')
       @scope.preview()
       @$httpBackend.flush()
     it "posts to preview with correct content type", ->

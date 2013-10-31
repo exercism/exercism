@@ -1,5 +1,12 @@
 Hi bob,
 
-Your submission on Word Count in ruby has received feedback from alice!
+Your submission on Word Count in ruby has received the following feedback from alice!
 
-Visit http://example.com/submissions/ID to find out more.
+This is awesome!!!
+
+Visit http://example.com/submissions/KEY to find out more.
+
+--
+If you'd like to stop receiving email notifications, go to http://exercism.io/bob and delete your email address.
+
+Do you have thoughts? Ideas? Criticism? I'd love to hear from you. Hit reply to send me an email.

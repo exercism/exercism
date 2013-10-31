@@ -12,7 +12,6 @@ class Smith
   end
 end
 
-
 class MasterLocksmithTest < Minitest::Test
   attr_reader :master
   def setup

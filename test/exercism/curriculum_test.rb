@@ -6,8 +6,6 @@ require 'exercism/assignment'
 require 'exercism/trail'
 require 'exercism/curriculum'
 
-# Integration tests.
-# This is the entry point into the app.
 class CurriculumTest < Minitest::Test
 
   attr_reader :curriculum
@@ -40,6 +38,7 @@ end
 class ConvenienceCurriculumTest < Minitest::Test
   attr_reader :curriculum
   def setup
+    super
     @curriculum = Curriculum.new('./test/fixtures')
     @curriculum.add FakeRubyCurriculum.new
     @curriculum.add FakeGoCurriculum.new
@@ -48,6 +47,7 @@ class ConvenienceCurriculumTest < Minitest::Test
   end
 
   def teardown
+    super
     Exercism.instance_variable_set(:@trails, nil)
     Exercism.instance_variable_set(:@languages, nil)
   end

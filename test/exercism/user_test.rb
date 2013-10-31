@@ -1,35 +1,10 @@
-require './test/mongo_helper'
-
-require 'exercism/locksmith'
-require 'exercism/problem_set'
-require 'exercism/team'
-require 'exercism/user'
-require 'exercism/null_submission'
-require 'exercism/exercise'
-require 'exercism/locale'
-require 'exercism/trail'
-require 'exercism/comment'
-require 'exercism/submission'
-require 'exercism/notification'
+require './test/integration_helper'
 
 class UserTest < Minitest::Test
-
-  def teardown
-    Mongoid.reset
-  end
-
-  def test_identical_users_are_identical
-    attributes = {
-      username: 'alice',
-      current: {'nong' => 'one'},
-    }
-    user1 = User.new(attributes)
-    user2 = User.new(attributes)
-    assert_equal user1, user2
-  end
+  include DBCleaner
 
   def test_user_create_key
-    user = User.new
+    user = User.create
     assert_match %r{\A[a-z0-9]{40}\z}, user.key
   end
 
@@ -179,15 +154,13 @@ class UserTest < Minitest::Test
   end
 
   def test_find_user_by_case_insensitive_username
-    User.create username: 'alice'
+    %w{alice bob}.each do |name| User.create username: name end
     assert_equal 'alice', User.find_by_username('ALICE').username
   end
 
   def test_find_a_bunch_of_users_by_case_insensitive_username
-    User.create username: 'alice'
-    User.create username: 'bob'
-    usernames = User.find_in_usernames(['ALICE', 'BOB']).map(&:username).sort
-    assert_equal ['alice', 'bob'], usernames
+    %w{alice bob fred}.each do |name| User.create username: name end
+    assert_equal ['alice', 'bob'], User.find_in_usernames(['ALICE', 'BOB']).map(&:username)
   end
 
   private

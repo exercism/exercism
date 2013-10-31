@@ -8,8 +8,8 @@ class HibernationMessage < Message
     'hibernation'
   end
 
-  def from_email
-    'katrina.owen@gmail.com'
+  def user_commented_last?
+    submission.comments.last.user == submission.user
   end
 
 end

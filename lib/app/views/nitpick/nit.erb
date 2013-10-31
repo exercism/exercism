@@ -3,10 +3,10 @@
 <% else %>
   <blockquote>
 <% end %>
-  <%= nit.html_comment %>
+  <%= nit.html_body %>
   <cite>
     <%= gravatar_tag nit.user.avatar_url, size: 20 %>
-    <em><%= profile_link(nit.user) %></em>, <%= ago(nit.at) %>
+    <em><%= profile_link(nit.user) %></em>, <%= ago(nit.created_at) %>
   </cite>
   <% unless nit.mentions.empty? %>
     <aside>
@@ -18,7 +18,7 @@
   <% end %>
 
   <% if current_user == nit.nitpicker %>
-    <a href="/submissions/<%= submission.id %>/nits/<%= nit.id %>/edit">
+    <a href="/submissions/<%= submission.key %>/nits/<%= nit.id %>/edit">
       <button class="btn btn-small edit-text">
         <span aria-hidden="true" data-icon="✎"></span>
         <span class="screen-reader-text">Edit</span>

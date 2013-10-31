@@ -9,13 +9,11 @@ end
 
 class ApiTest < Minitest::Test
   include Rack::Test::Methods
+  include AppTestHelper
+  include DBCleaner
 
   def app
     ExercismAPI
-  end
-
-  def login(user)
-    {'rack.session' => {github_id: user.github_id}}
   end
 
   def alice

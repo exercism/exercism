@@ -1,27 +1,25 @@
 require 'exercism/markdown'
 
-class Comment
-  include Mongoid::Document
-
-  field :at, type: Time, default: ->{ Time.now.utc }
-  field :c, as: :comment, type: String
-  field :hc, as: :html_comment, type: String
+class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :submission
 
-  before_save do |comment|
-    self.html_comment = ConvertsMarkdownToHTML.convert(comment.comment)
+  validates :body, presence: true
+
+  before_save do
+    self.html_body = ConvertsMarkdownToHTML.convert(body)
+    true
   end
 
   # Experiment: Implement manual counter-cache
   # to see if this affects load time of dashboard pages.
   # preliminary testing in development suggests a 40% decrease
   # in load time
-  after_create do |comment|
-    unless comment.user.owns?(comment.submission)
-      comment.submission.nc += 1
-      comment.submission.save
+  after_create do
+    unless user.owns?(submission)
+      submission.nit_count += 1
+      submission.save
     end
   end
 
@@ -30,6 +28,6 @@ class Comment
   end
 
   def mentions
-    ExtractsMentionsFromMarkdown.extract(comment)
+    ExtractsMentionsFromMarkdown.extract(body)
   end
 end

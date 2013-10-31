@@ -5,31 +5,28 @@ GIT
   specs:
     rouge (1.0.0)
 
-GIT
-  remote: git://github.com/mislav/will_paginate.git
-  revision: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
-  tag: 4cb4986d5ce05aa84572b05cfd1c1d0aa9bc07df
-  specs:
-    will_paginate (3.0.4)
-
 GEM
   remote: http://rubygems.org/
   specs:
     activemodel (3.2.13)
       activesupport (= 3.2.13)
       builder (~> 3.0.0)
+    activerecord (3.2.13)
+      activemodel (= 3.2.13)
+      activesupport (= 3.2.13)
+      arel (~> 3.0.2)
+      tzinfo (~> 0.3.29)
     activesupport (3.2.13)
       i18n (= 0.6.1)
       multi_json (~> 1.0)
-    airbrake (3.1.14)
-      builder
-      json
     approvals (0.0.9)
       nokogiri
       thor
+    arel (3.0.2)
     builder (3.0.4)
     coderay (1.0.9)
     daemons (1.1.9)
+    database_cleaner (1.1.1)
     diffy (3.0.1)
     eventmachine (1.0.3)
     faker (1.2.0)
@@ -39,7 +36,6 @@ GEM
     haml (4.0.3)
       tilt
     i18n (0.6.1)
-    json (1.8.0)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     mail (2.5.4)
@@ -75,6 +71,7 @@ GEM
     origin (1.1.0)
     petroglyph (0.0.7)
       tilt
+    pg (0.16.0)
     polyglot (0.3.3)
     pony (1.4.1)
       mail (> 2.0)
@@ -118,6 +115,7 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
+    will_paginate (3.0.5)
     will_paginate-bootstrap (0.2.4)
       will_paginate (>= 3.0.3)
 
@@ -125,8 +123,9 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
+  activerecord (~> 3.2.0)
   approvals
+  database_cleaner
   diffy
   faker
   faraday
@@ -137,6 +136,7 @@ DEPENDENCIES
   mongoid
   newrelic_rpm (= 3.5.8.72)
   petroglyph
+  pg
   pony
   pry
   puma
@@ -148,5 +148,5 @@ DEPENDENCIES
   ruby-prof
   simplecov
   sinatra
-  will_paginate!
+  will_paginate
   will_paginate-bootstrap
