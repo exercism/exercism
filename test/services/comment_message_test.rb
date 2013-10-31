@@ -13,7 +13,6 @@ class CommentMessageTest < Minitest::Test
   attr_reader :alice, :submission, :comment
 
   def setup
-    super
     @alice = FakeUser.new('alice', 'alice@example.com')
     @submission = FakeSubmission.new(
       'KEY',

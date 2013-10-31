@@ -1,19 +1,15 @@
 require './test/approval_helper'
-
 require 'services/message'
 require 'services/hibernation_message'
 require 'exercism/exercise'
 
-
 class HibernationMessageTest < Minitest::Test
-
   FakeUser = Struct.new(:username, :email)
   FakeSubmission = Struct.new(:id, :user, :exercise)
 
   attr_reader :alice, :submission
 
   def setup
-    super
     @alice = FakeUser.new('alice', 'alice@example.com')
 
     @submission = FakeSubmission.new(
@@ -40,3 +36,4 @@ class HibernationMessageTest < Minitest::Test
   end
 
 end
+
