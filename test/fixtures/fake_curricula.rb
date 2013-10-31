@@ -36,6 +36,16 @@ class FakeGoCurriculum < FakeTrail
   end
 end
 
+class FakeScalaCurriculum < FakeTrail
+  def slugs
+    %w(one two)
+  end
+
+  def locale
+    ScalaLocale.new('scala', 'scala', 'scala')
+  end
+end
+
 class FakeCurriculum < FakeTrail
   def slugs
     %w(one two)
