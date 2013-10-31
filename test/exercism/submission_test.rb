@@ -274,5 +274,21 @@ class SubmissionTest < Minitest::Test
     assert_equal 'first', one.body
     assert_equal 'second', two.body
   end
-end
 
+  def test_aging_submissions
+    # not old
+    s1 = Submission.create(user: alice, state: 'pending')
+    # no nits
+    s2 = Submission.create(user: alice, state: 'pending', created_at: (Date.today - 22).to_time, nit_count: 0)
+    # not pending
+    s3 = Submission.create(user: alice, state: 'completed')
+    s4 = Submission.create(user: alice, state: 'pending', created_at: (Date.today - 22).to_time, nit_count: 1)
+
+    # Guard clause.
+    # All the expected submissions got created
+    assert_equal 4, Submission.count
+
+    ids = Submission.aging.all.map(&:id)
+    assert_equal [s4.id], ids
+  end
+end

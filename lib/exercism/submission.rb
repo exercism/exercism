@@ -27,6 +27,11 @@ class Submission < ActiveRecord::Base
   end
 
   scope :pending, where(state: 'pending')
+  scope :aging, lambda {
+    three_weeks_ago = Time.now - (60*60*24*7*3)
+    cutoff = three_weeks_ago.strftime('%Y-%m-%d %H:%M:%S')
+    pending.where('nit_count > 0').where('created_at < ?', cutoff)
+  }
 
   def self.completed_for(exercise)
     done.where(language: exercise.language, slug: exercise.slug)
