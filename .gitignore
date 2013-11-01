@@ -1,3 +1,4 @@
+*.beam
 *.gem
 *.rbc
 *.pyc
