@@ -3,6 +3,7 @@
 *.rbc
 *.pyc
 *.swp
+*.beam
 .bundle
 .config
 .DS_Store
