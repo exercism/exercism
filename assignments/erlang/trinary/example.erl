@@ -1,14 +1,14 @@
 -module(example).
--export([toDecimal/1]).
+-export([to_decimal/1]).
 -define(BASE, 3).
 
 %%
 %% trinary/ternary (base 3) to decimal (base 10)
 %%
 
-toDecimal(StringNumeric) ->
+to_decimal(StringNumeric) ->
   % numeric character list indexed by position
-  IndexedList = listIndex(numericOr(StringNumeric, "")),
+  IndexedList = list_index(numeric_or(StringNumeric, "")),
 
   % tokenize string into a list of numeric characters
   Tokens = lists:foldl(fun accumulate/2, [], IndexedList),
@@ -20,7 +20,7 @@ toDecimal(StringNumeric) ->
 %% if string is all numeric, return it; otherwise, return given default
 %%
 
-numericOr(StringNumeric, Or) -> case re:run(StringNumeric, "^[0-9]+$") of
+numeric_or(StringNumeric, Or) -> case re:run(StringNumeric, "^[0-9]+$") of
   {match, _} -> StringNumeric;
   nomatch    -> Or
 end.
@@ -29,8 +29,8 @@ end.
 %% builds a numeric character list indexed by position (i.e. [{Num, Index}, ...])
 %%
 
-listIndex(StringNumeric) ->
-  {Tuples, _} = lists:mapfoldr(fun indexAccumluator/2, 0, StringNumeric), Tuples.
+list_index(StringNumeric) ->
+  {Tuples, _} = lists:mapfoldr(fun index_accumulator/2, 0, StringNumeric), Tuples.
 
 %%
 %% Iterator to build tuples like `{Item, Index}` which correspond
@@ -40,7 +40,7 @@ listIndex(StringNumeric) ->
 %% element 2: posision in the list (zero based) -- increase by one for each iteration
 %%
 
-indexAccumluator(Item, Index) -> {{Item, Index}, Index + 1}.
+index_accumulator(Item, Index) -> {{Item, Index}, Index + 1}.
 
 %%
 %% accumulate list values
