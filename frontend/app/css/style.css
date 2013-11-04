@@ -123,6 +123,10 @@ h1.home {
   background-image: url('/img/haskell.png');
 }
 
+.java-icon {
+  background-image: url('/img/java.png');
+}
+
 .nits {
   text-align: center;
   line-height: 30px;
