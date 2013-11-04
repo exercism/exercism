@@ -20,7 +20,7 @@ Each language will need at least 10 exercises in order to launch, as well as a s
 
 In addition to the exercises (test suites + example solution), it also requires:
 
-1. An icon in `frontend/app/img/$LANGUAGE.png`
+1. An icon in `lib/app/public/img/$LANGUAGE.png`
 2. A reference to the icon in [frontend/app/css/style.css](https://github.com/exercism/exercism.io/blob/496f541f886c38ec5b39379b63ea3d97e3165529/frontend/app/css/style.css#L94-L124)
 3. A help file: `lib/app/views/setup/$LANGUAGE.erb`
 4. An entry in `lib/exercism/curriculum.rb`
