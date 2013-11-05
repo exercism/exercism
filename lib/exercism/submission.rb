@@ -1,7 +1,5 @@
 class Submission < ActiveRecord::Base
 
-  serialize :liked_by, Array
-
   belongs_to :user
   has_many :comments, order: 'created_at ASC', dependent: :destroy
 
@@ -30,7 +28,7 @@ class Submission < ActiveRecord::Base
     true
   end
 
-  scope :pending, where(state: 'pending')
+  scope :pending, ->{ where(state: 'pending') }
   scope :aging, lambda {
     three_weeks_ago = Time.now - (60*60*24*7*3)
     cutoff = three_weeks_ago.strftime('%Y-%m-%d %H:%M:%S')
