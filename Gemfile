@@ -4,7 +4,7 @@ ruby "1.9.3"
 
 gem 'rake'
 gem 'faraday'
-gem 'activerecord', '~>3.2.0'
+gem 'activerecord', '~> 3.2'
 gem 'newrelic_rpm', '=3.6.8.168' # used both in production and development
 gem 'petroglyph'
 gem 'pg'
