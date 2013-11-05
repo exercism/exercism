@@ -31,8 +31,8 @@ GEM
     eventmachine (1.0.3)
     faker (1.2.0)
       i18n (~> 0.5)
-    faraday (0.8.7)
-      multipart-post (~> 1.1)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     haml (4.0.3)
       tilt
     i18n (0.6.1)
