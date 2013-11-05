@@ -27,6 +27,7 @@ require 'exercism/team_membership'
 require 'exercism/trail'
 require 'exercism/use_cases'
 require 'exercism/user'
+require 'exercism/work'
 
 require 'db/connection'
 DB::Connection.establish
