@@ -3,15 +3,19 @@ class Submission < ActiveRecord::Base
   serialize :liked_by, Array
 
   belongs_to :user
-  has_many :comments, order: 'created_at ASC'
+  has_many :comments, order: 'created_at ASC', dependent: :destroy
 
-  has_many :submission_viewers
+  # I don't really want the notifications method,
+  # just the dependent destroy
+  has_many :notifications, dependent: :destroy
+
+  has_many :submission_viewers, dependent: :destroy
   has_many :viewers, through: :submission_viewers
 
-  has_many :muted_submissions
+  has_many :muted_submissions, dependent: :destroy
   has_many :muted_by, through: :muted_submissions, source: :user
 
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :liked_by, through: :likes, source: :user
 
   validates_presence_of :user
