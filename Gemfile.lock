@@ -26,7 +26,7 @@ GEM
     builder (3.0.4)
     coderay (1.0.9)
     daemons (1.1.9)
-    database_cleaner (1.1.1)
+    database_cleaner (1.2.0)
     diffy (3.0.1)
     eventmachine (1.0.3)
     faker (1.2.0)
