@@ -22,7 +22,7 @@ class AssignmentTest < Minitest::Test
 
   def test_detect_files_all_the_way_down
     assignment = Assignment.new('scala', 'one', './test/fixtures')
-    assert_equal ['build.sbt', 'src/test/scala/one_test.scala'], assignment.files
+    assert_equal ['build.sbt', 'src/test/scala/one_test.scala'].sort, assignment.files.sort
   end
 
   def test_load_testsuite
