@@ -3,7 +3,6 @@ require 'seed/timeline'
 require 'seed/attempt'
 require 'seed/exercise'
 require 'seed/trail'
-require 'exercism/locale'
 
 class SeedTrailTest < Minitest::Test
   class FakePythonCurriculum
@@ -11,12 +10,8 @@ class SeedTrailTest < Minitest::Test
       %w(one two three four five six seven)
     end
 
-    def locale
-      @locale ||= Locale.new('python', 'py', 'py')
-    end
-
     def language
-      locale.language
+      'python'
     end
   end
 
