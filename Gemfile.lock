@@ -82,7 +82,7 @@ GEM
     rack-test (0.6.2)
       rack (>= 1.0)
     rake (10.1.0)
-    redcarpet (2.3.0)
+    redcarpet (3.0.0)
     ruby-prof (0.13.0)
     simplecov (0.7.1)
       multi_json (~> 1.0)
