@@ -4,7 +4,6 @@ class Assignment
       path_to(test_file),
       path_to_shared(instructions_file),
       path_to_shared(data_file),
-      path_to(example_file)
     ]
   end
 

@@ -22,9 +22,6 @@
           data-revision="<%= index + 1 %>">Rev <%= index + 1 %>
         </a></li>
       <% end %>
-      <% if after.done? %>
-        <li><a data-revision="example">Example</a></li>
-      <% end %>
     </ul>
   </div>
 
@@ -43,13 +40,6 @@
         html: { id: "revision-diff", style: "display: none;" },
         code: '',
         language: 'diff' } %>
-    <% end %>
-
-    <% if after.done? %>
-      <%= erb :"code/simple", locals: { title: "Example",
-        html: { id: "revision-example", style: "display: none;" },
-        code: Exercism.current_curriculum.in(after.language).assign(after.slug).example,
-        language: after.language } %>
     <% end %>
   </div>
 <% end %>

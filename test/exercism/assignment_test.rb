@@ -23,11 +23,6 @@ class AssignmentTest < Minitest::Test
     assert_equal tests, assignment.tests
   end
 
-  def test_load_example_code
-    code = "say 'one'\n"
-    assert_equal code, assignment.example
-  end
-
   def test_load_blurb
     blurb = "This is one."
     assert_equal blurb, assignment.blurb

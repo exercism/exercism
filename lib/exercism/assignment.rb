@@ -30,14 +30,6 @@ class Assignment
     file.to_s
   end
 
-  def example
-    @example ||= read(example_file)
-  end
-
-  def example_file
-    "example.#{locale.code_extension}"
-  end
-
   def additional_files
     locale.additional_files.reduce({}) do |hash, file|
       hash[file] = read(file)
