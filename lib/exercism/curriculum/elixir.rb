@@ -11,8 +11,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('elixir', 'exs', 'exs')
+    def language
+      'elixir'
     end
   end
 end

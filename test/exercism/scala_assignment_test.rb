@@ -1,16 +1,13 @@
 require './test/test_helper'
 require 'pathname'
 
-require 'exercism/locale'
 require 'exercism/assignment'
 
 class ScalaAssignmentTest < Minitest::Test
 
   attr_reader :assignment, :scala
   def setup
-    super
-    @scala = ScalaLocale.new('scala', 'scala', 'scala')
-    @assignment = Assignment.new(scala, 'one', './test/fixtures')
+    @assignment = Assignment.new('scala', 'one', './test/fixtures')
   end
 
   def test_load_testsuite

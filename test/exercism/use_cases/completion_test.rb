@@ -8,10 +8,10 @@ class CompletionTest < Minitest::Test
   def setup
     super
     @curriculum = Curriculum.new('/tmp')
-    @curriculum.add FakeCurriculum.new
-    @user = User.create(username: 'bob', current: {'fake' => 'one'}, github_id: 1)
+    @curriculum.add FakeRubyCurriculum.new
+    @user = User.create(username: 'bob', current: {'ruby' => 'one'}, github_id: 1)
 
-    attempt = Attempt.new(user, 'CODE', 'one/one.ext', curriculum).save
+    attempt = Attempt.new(user, 'CODE', 'one/one.rb', curriculum).save
     @submission = Submission.first
   end
 
@@ -22,14 +22,14 @@ class CompletionTest < Minitest::Test
     assert !submission.done_at.nil?
 
     user.reload
-    done = {'fake' => ['one']}
+    done = {'ruby' => ['one']}
     assert_equal done, user.completed
-    assert_nil user.current['fake']
+    assert_nil user.current['ruby']
   end
 
   def test_unlocked_exercise
     completion = Completion.new(submission, curriculum).save
-    assert_equal Exercise.new('fake', 'two'), completion.unlocked
+    assert_equal Exercise.new('ruby', 'two'), completion.unlocked
   end
 end
 

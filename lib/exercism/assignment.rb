@@ -1,15 +1,15 @@
 class Assignment
 
-  attr_reader :path, :locale, :slug, :data_dir
-  def initialize(locale, slug, path)
-    @locale = locale
+  attr_reader :path, :language, :slug, :data_dir
+  def initialize(language, slug, path)
+    @language = language
     @slug = slug
     @data_dir = path
-    @path = File.join(path, locale.to_s, slug)
+    @path = File.join(path, language, slug)
   end
 
-  def language
-    locale.language
+  def files
+    Dir.glob("#{path}/**/**").reject {|f| f[/example/] || File.directory?(f)}.map {|f| f.gsub("#{path}/", '')}
   end
 
   def name
@@ -25,16 +25,18 @@ class Assignment
   end
 
   def test_file
-    directory = Pathname.new(locale.test_directory)
-    file = directory + "#{slug}_test.#{locale.test_extension}"
-    file.to_s
+    files.find {|f| f[/test/]}
   end
 
   def additional_files
-    locale.additional_files.reduce({}) do |hash, file|
+    additional_filenames.reduce({}) do |hash, file|
       hash[file] = read(file)
       hash
     end
+  end
+
+  def additional_filenames
+    files.reject {|f| f[/test/]}
   end
 
   def blurb

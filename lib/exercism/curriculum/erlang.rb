@@ -16,8 +16,8 @@ class Exercism
 
     end
 
-    def locale
-      Locale.new('erlang', 'erl', 'erl')
+    def language
+      'erlang'
     end
   end
 end

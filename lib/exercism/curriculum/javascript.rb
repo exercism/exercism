@@ -19,8 +19,8 @@ class Exercism
       # always put meetup last. It's crazy in javascript.
     end
 
-    def locale
-      Locale.new('javascript', 'js', 'spec.js')
+    def language
+      'javascript'
     end
   end
 end

@@ -9,8 +9,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('python', 'py', 'py')
+    def language
+      'python'
     end
   end
 end

@@ -12,8 +12,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('clojure', 'clj', 'clj')
+    def language
+      'clojure'
     end
   end
 end

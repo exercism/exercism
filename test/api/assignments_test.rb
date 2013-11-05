@@ -15,7 +15,6 @@ class AssignmentsApiTest < Minitest::Test
     super
     @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'one', 'go' => 'two'}, completed: {'go' => ['one']})
     @curriculum = Curriculum.new('./test/fixtures')
-    @curriculum.add FakeCurriculum.new
     @curriculum.add FakeRubyCurriculum.new
     @curriculum.add FakeGoCurriculum.new
     @curriculum.add FakeScalaCurriculum.new
@@ -99,7 +98,7 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_rejects_submission_on_nonexistent_exercise
     Exercism.stub(:current_curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'three/code.ext'}.to_json
+        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'three/code.rb'}.to_json
       end
 
       assert_equal 400, last_response.status
@@ -178,7 +177,7 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_peek_with_complete_trail
     Exercism.stub(:current_curriculum, curriculum) do
-      user = User.create(github_id: 2, current: {}, completed: {'go' => ['one'], 'fake' => ['one', 'two']})
+      user = User.create(github_id: 2, current: {}, completed: {'go' => ['one'], 'ruby' => ['one', 'two']})
 
       get '/user/assignments/next', {key: user.key}
 

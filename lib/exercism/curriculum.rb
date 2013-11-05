@@ -1,5 +1,4 @@
 require 'exercism/curriculum/clojure'
-require 'exercism/curriculum/coffeescript'
 require 'exercism/curriculum/elixir'
 require 'exercism/curriculum/go'
 require 'exercism/curriculum/haskell'
@@ -31,16 +30,14 @@ class Exercism
 end
 
 class Curriculum
-  attr_reader :path, :trails, :locales
+  attr_reader :path, :trails
   def initialize(path)
     @path = path
-    @locales = []
     @trails = {}
   end
 
   def add(curriculum)
-    @trails[curriculum.locale.to_sym] = Trail.new(curriculum.locale, curriculum.slugs, path)
-    @locales << curriculum.locale
+    @trails[curriculum.language.to_sym] = Trail.new(curriculum.language, curriculum.slugs, path)
   end
 
   def in(language)
@@ -52,13 +49,11 @@ class Curriculum
   end
 
   def available?(language)
-    available_languages.include?(language)
+    available_languages.include?(language.to_sym)
   end
 
-  private
-
-  def available_languages
-    locales.map(&:language)
+  def languages
+    trails.keys
   end
 
 end

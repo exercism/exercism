@@ -2,20 +2,27 @@ require './test/test_helper'
 
 require 'yaml'
 require 'pathname'
-require 'exercism/locale'
 require 'exercism/exercise'
 require 'exercism/assignment'
 
 class AssignmentTest < Minitest::Test
 
-  attr_reader :assignment, :fake
+  attr_reader :assignment
   def setup
-    @fake = Locale.new('fake', 'ext', 'test')
-    @assignment = Assignment.new(fake, 'one', './test/fixtures')
+    @assignment = Assignment.new('fake', 'one', './test/fixtures')
   end
 
   def test_name
     assert_equal 'One', assignment.name
+  end
+
+  def test_detect_files_ignoring_example_code
+    assert_equal ['one_test.test'], assignment.files
+  end
+
+  def test_detect_files_all_the_way_down
+    assignment = Assignment.new('scala', 'one', './test/fixtures')
+    assert_equal ['build.sbt', 'src/test/scala/one_test.scala'], assignment.files
   end
 
   def test_load_testsuite

@@ -18,8 +18,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('ruby', 'rb', 'rb')
+    def language
+      'ruby'
     end
   end
 end

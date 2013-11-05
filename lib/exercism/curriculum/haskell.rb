@@ -18,8 +18,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('haskell', 'hs', 'hs')
+    def language
+      'haskell'
     end
   end
 end

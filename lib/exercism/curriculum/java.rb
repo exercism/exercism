@@ -6,8 +6,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('java', 'java', 'java')
+    def language
+      'java'
     end
   end
 end

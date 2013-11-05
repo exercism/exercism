@@ -7,8 +7,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('rust', 'rs', 'rs')
+    def language
+      'rust'
     end
   end
 end

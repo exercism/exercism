@@ -1,57 +1,39 @@
-require 'exercism/locale'
+class FakePythonCurriculum
+  def slugs
+    %w(one two)
+  end
 
-class FakeTrail
   def language
-    locale.language
+    'python'
   end
 end
 
-class FakePythonCurriculum < FakeTrail
+class FakeRubyCurriculum
   def slugs
     %w(one two)
   end
 
-  def locale
-    Locale.new('python', 'py', 'py')
+  def language
+    'ruby'
   end
 end
 
-class FakeRubyCurriculum < FakeTrail
+class FakeGoCurriculum
   def slugs
     %w(one two)
   end
 
-  def locale
-    Locale.new('ruby', 'rb', 'rb')
+  def language
+    'go'
   end
 end
 
-class FakeGoCurriculum < FakeTrail
+class FakeScalaCurriculum
   def slugs
     %w(one two)
   end
 
-  def locale
-    Locale.new('go', 'go', 'go')
-  end
-end
-
-class FakeScalaCurriculum < FakeTrail
-  def slugs
-    %w(one two)
-  end
-
-  def locale
-    ScalaLocale.new('scala', 'scala', 'scala')
-  end
-end
-
-class FakeCurriculum < FakeTrail
-  def slugs
-    %w(one two)
-  end
-
-  def locale
-    Locale.new('fake', 'ext', 'test')
+  def language
+    'scala'
   end
 end

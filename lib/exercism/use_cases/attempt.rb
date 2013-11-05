@@ -8,7 +8,7 @@ class Attempt
   def initialize(user, code, path, curriculum = Exercism.current_curriculum)
     @user = user
     @code = sanitize(code)
-    @file = Code.new(path, curriculum.locales)
+    @file = Code.new(path)
     @curriculum = curriculum
   end
 

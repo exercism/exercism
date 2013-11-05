@@ -7,8 +7,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('go', 'go', 'go')
+    def language
+      'go'
     end
   end
 end

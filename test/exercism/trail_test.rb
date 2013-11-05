@@ -1,16 +1,14 @@
 require './test/test_helper'
 
-require 'exercism/locale'
 require 'exercism/exercise'
 require 'exercism/trail'
 
 class TrailTest < Minitest::Test
 
-  attr_reader :trail, :one, :two, :go
+  attr_reader :trail, :one, :two
 
   def setup
-    @go = Locale.new('go', 'go', 'go')
-    @trail = Trail.new(go, ['one', 'two'], '/tmp')
+    @trail = Trail.new('go', ['one', 'two'], '/tmp')
     @one = Exercise.new('go', 'one')
     @two = Exercise.new('go', 'two')
   end
@@ -25,7 +23,7 @@ class TrailTest < Minitest::Test
 
   def test_catch_up_missed_exercise
     slugs = %w(chicken suit one garden two cake)
-    trail = Trail.new(go, slugs, '/tmp')
+    trail = Trail.new('go', slugs, '/tmp')
 
     exercise = trail.after(two, %w(chicken suit garden))
     assert_equal one, exercise

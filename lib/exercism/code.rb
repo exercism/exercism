@@ -1,13 +1,30 @@
-class Code
+class Exercism
+  class UnknownLanguage < StandardError; end
+end
 
-  attr_reader :path, :locales
-  def initialize(path, locales)
+class Code
+  LANGUAGES = {
+    'clj' => 'clojure',
+    'exs' => 'elixir',
+    'erl' => 'erlang',
+    'go' => 'go',
+    'hs' => 'haskell',
+    'java' => 'java',
+    'js' => 'javascript',
+    'py' => 'python',
+    'rb' => 'ruby',
+    'rs' => 'rust'
+  }
+
+  attr_reader :path
+  def initialize(path)
     @path = path
-    @locales = locales
   end
 
   def language
-    locale.language
+    LANGUAGES.fetch(extension) do
+      raise Exercism::UnknownLanguage.new("Cannot determine language of #{filename}")
+    end
   end
 
   def filename
@@ -26,14 +43,6 @@ class Code
 
   def path_segments
     @path_segments = path.split(/\/|\\/)
-  end
-
-  def identify_locale
-    locales.find {|settings| settings.code_extension == extension}
-  end
-
-  def locale
-    @locale ||= identify_locale || UnknownLocale.new(filename, extension)
   end
 end
 

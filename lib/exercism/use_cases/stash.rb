@@ -1,10 +1,10 @@
 class Stash
 
   attr_reader :user, :code
-  def initialize(user, code, filename, curriculum = Exercism.current_curriculum)
+  def initialize(user, code, filename)
     @user = user
     @code = code
-    @file = Code.new(filename, curriculum.locales)
+    @file = Code.new(filename)
   end
 
   def filename

@@ -11,8 +11,7 @@ class SeedPodTest < Minitest::Test
     [
       FakePythonCurriculum.new,
       FakeRubyCurriculum.new,
-      FakeGoCurriculum.new,
-      FakeCurriculum.new
+      FakeGoCurriculum.new
     ]
   end
 
@@ -30,12 +29,12 @@ class SeedPodTest < Minitest::Test
     languages = (1..100).map do
       Seed::Pod.new(curricula).trails.map { |t| t.language }
     end.flatten.uniq
-    assert_equal 4, languages.size
+    assert_equal 3, languages.size
   end
 
   def test_subset_of_slugs
     sizes = (1..100).map do
-      Seed::Pod.new([FakeCurriculum.new]).trails.map { |t| t.slugs.size }
+      Seed::Pod.new([FakeRubyCurriculum.new]).trails.map { |t| t.slugs.size }
     end.uniq.flatten
     assert_equal [1, 2], sizes.sort
   end

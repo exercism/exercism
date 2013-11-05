@@ -1,21 +1,12 @@
 require './test/integration_helper'
+require './test/fixtures/fake_curricula'
 require "mocha/setup"
-
-class NongCurriculum
-  def slugs
-    %w(one two)
-  end
-
-  def locale
-    Locale.new('nong', 'no', 'not')
-  end
-end
 
 class SubmissionTest < Minitest::Test
   include DBCleaner
 
   def exercise
-    Exercise.new('nong', 'one')
+    Exercise.new('ruby', 'one')
   end
 
   def submission
@@ -107,9 +98,9 @@ class SubmissionTest < Minitest::Test
 
   def test_iteration_counts
     alice = User.new(username: 'alice')
-    s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
-    s2 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
-    s3 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
+    s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
+    s2 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
+    s3 = Submission.create(state: 'pending', user: alice, language: 'ruby', slug: 'one')
 
     [s1, s2, s3].each do |submission|
       assert_equal 3, submission.versions_count
@@ -125,11 +116,11 @@ class SubmissionTest < Minitest::Test
     bob = User.create(username: 'bob')
     charlie = User.create(username: 'charlie')
 
-    s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
+    s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
     s1.comments << Comment.new(user: bob, body: 'nice')
     s1.save
 
-    s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
+    s2 = Submission.create(state: 'pending', user: alice, language: 'ruby', slug: 'one')
     s2.comments << Comment.new(user: charlie, body: 'pretty good')
     s2.save
 
@@ -142,11 +133,11 @@ class SubmissionTest < Minitest::Test
     charlie = User.create(username: 'charlie')
     mention_user = User.create(username: 'mention_user')
 
-    s1 = Submission.create(state: 'superseded', user: alice, language: 'nong', slug: 'one')
+    s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
     s1.comments << Comment.new(user: alice, body: 'What about @bob?')
     s1.save
 
-    s2 = Submission.create(state: 'pending', user: alice, language: 'nong', slug: 'one')
+    s2 = Submission.create(state: 'pending', user: alice, language: 'ruby', slug: 'one')
     s2.comments << Comment.new(user: charlie, body: '@mention_user should have bleh')
     s2.save
 
