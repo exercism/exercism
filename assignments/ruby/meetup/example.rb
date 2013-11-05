@@ -24,13 +24,13 @@ class Meetup
     case schedule
     when :teenth then
       @thirteenth + days_til(weekday, @thirteenth)
-    when :first then 
+    when :first then
       @first + days_til(weekday, @first)
-    when :second then 
+    when :second then
       @eighth + days_til(weekday, @eighth)
-    when :third then 
+    when :third then
       @fifteenth + days_til(weekday, @fifteenth)
-    when :fourth then 
+    when :fourth then
       @twenty_second + days_til(weekday, @twenty_second)
     when :last then
       @last - (7 - (self.class.weekday_number(weekday) - @last.wday)) % 7
@@ -38,7 +38,7 @@ class Meetup
   end
 
   private
-    
+
   def days_til(weekday, day)
     (self.class.weekday_number(weekday) - day.wday) % 7
   end
