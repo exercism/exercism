@@ -64,7 +64,7 @@ GEM
       mini_portile (~> 0.5.0)
     petroglyph (0.0.7)
       tilt
-    pg (0.16.0)
+    pg (0.17.0)
     polyglot (0.3.3)
     pony (1.4.1)
       mail (> 2.0)
