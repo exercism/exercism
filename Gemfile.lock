@@ -59,7 +59,7 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.7.5)
     multipart-post (1.2.0)
-    newrelic_rpm (3.5.8.72)
+    newrelic_rpm (3.6.8.168)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     petroglyph (0.0.7)
@@ -126,7 +126,7 @@ DEPENDENCIES
   mailcatcher
   minitest (~> 5.0)
   mocha
-  newrelic_rpm (= 3.5.8.72)
+  newrelic_rpm (= 3.6.8.168)
   petroglyph
   pg
   pony
