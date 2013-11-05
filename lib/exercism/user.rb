@@ -100,10 +100,6 @@ class User < ActiveRecord::Base
     current.to_a.map {|cur| Exercise.new(*cur)}
   end
 
-  def ==(other)
-    username == other.username && current == other.current
-  end
-
   def is?(handle)
     username == handle
   end
