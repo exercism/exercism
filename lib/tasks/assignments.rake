@@ -1,5 +1,5 @@
 class Assignment
-  def files
+  def files_on_hand
     [
       path_to(test_file),
       path_to_shared(instructions_file),
@@ -12,7 +12,7 @@ class Assignment
   end
 
   def missing_files
-    @missing_files ||= files.reject {|file| File.exists?(file)}
+    @missing_files ||= files_on_hand.reject {|file| File.exists?(file)}
   end
 end
 
