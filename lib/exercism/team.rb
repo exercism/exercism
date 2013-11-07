@@ -7,6 +7,8 @@ class Team < ActiveRecord::Base
   validates :creator, presence: true
   validates :slug, presence: true,  uniqueness: true
 
+  before_save :normalize_slug
+
   def self.by(user)
     new(creator: user)
   end
@@ -32,5 +34,11 @@ class Team < ActiveRecord::Base
 
   def includes?(user)
     creator == user || members.include?(user)
+  end
+
+  private
+
+  def normalize_slug
+    self.slug = slug.downcase.gsub(/\W/, {' ' => '-', /\S/ => ''})
   end
 end

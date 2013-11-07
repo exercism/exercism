@@ -16,6 +16,12 @@ class TeamTest < Minitest::Test
     assert_equal 1, Team.count
   end
 
+  def test_normalize_slug
+    alice = User.create(username: 'alice')
+    team = Team.create(slug: 'O HAI!', creator: alice)
+    assert_equal 'o-hai', team.slug
+  end
+
   def test_has_members
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
