@@ -204,7 +204,7 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_muted_by_when_muted
-    submission = Submission.create!(user: fred, state: 'pending', muted_by: [alice])
+    submission = Submission.create(user: fred, state: 'pending', muted_by: [alice])
     assert submission.muted_by?(alice)
   end
 
