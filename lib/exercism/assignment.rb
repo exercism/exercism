@@ -8,7 +8,7 @@ class Assignment
     @path = File.join(path, language, slug)
   end
 
-  def files
+  def filenames
     Dir.glob("#{path}/**/**").reject {|f| f[/example/] || File.directory?(f)}.map {|f| f.gsub("#{path}/", '')}
   end
 
@@ -25,18 +25,13 @@ class Assignment
   end
 
   def test_file
-    files.find {|f| f[/test/]}
+    filenames.find {|f| f[/test/]}
   end
 
-  def additional_files
-    additional_filenames.reduce({}) do |hash, file|
-      hash[file] = read(file)
-      hash
+  def files
+    filenames.map do |file|
+      {"name" => file, "text" => read(file)}
     end
-  end
-
-  def additional_filenames
-    files.reject {|f| f[/test/]}
   end
 
   def blurb

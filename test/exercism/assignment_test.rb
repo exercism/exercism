@@ -16,13 +16,13 @@ class AssignmentTest < Minitest::Test
     assert_equal 'One', assignment.name
   end
 
-  def test_detect_files_ignoring_example_code
-    assert_equal ['one_test.test'], assignment.files
+  def test_detect_filenames_ignoring_example_code
+    assert_equal ['Fakefile', 'one_test.test'], assignment.filenames.sort
   end
 
   def test_detect_files_all_the_way_down
     assignment = Assignment.new('scala', 'one', './test/fixtures')
-    assert_equal ['build.sbt', 'src/test/scala/one_test.scala'].sort, assignment.files.sort
+    assert_equal ['build.sbt', 'src/test/scala/one_test.scala'].sort, assignment.filenames.sort
   end
 
   def test_load_testsuite
@@ -53,9 +53,37 @@ class AssignmentTest < Minitest::Test
     assert_equal readme, assignment.readme
   end
 
-  def test_default_additional_files
-    additional_files = {}
-    assert_equal additional_files, assignment.additional_files
+  def test_files
+    expected = [
+      {"name" => "Fakefile", "text" => "Autorun fake code\n"},
+      {"name" => "one_test.test", "text" => "assert 'one'\n"}
+    ]
+    assert_equal expected, assignment.files.sort_by {|file| file["name"]}
+  end
+
+  def test_sanity_check_scala_assignment
+    assignment = Assignment.new('scala', 'one', './test/fixtures')
+    tests = <<-END
+import org.scalatest._
+
+class OneTest extends FunSuite with Matchers {
+  test ("one") {
+    One.value should be (1)
+  }
+}
+END
+
+    build_sbt = <<-END
+scalaVersion := "2.10.3"
+
+libaryDependencies += "org.scalatest" %% "scalatest" % "2.0.RC3" % "test"
+END
+    expected = [
+      {"name" => "build.sbt", "text" => build_sbt},
+      {"name" => "src/test/scala/one_test.scala", "text" => tests},
+    ]
+
+    assert_equal expected, assignment.files
   end
 end
 
