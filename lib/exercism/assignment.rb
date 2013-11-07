@@ -20,6 +20,27 @@ class Assignment
     @exercise ||= Exercise.new(language, slug)
   end
 
+  def stub
+    if @checked_stub then
+      @stub == :no_stub ? nil : @stub
+    else
+      @stub = read_stub_file
+      @checked_stub = true
+      stub
+    end
+  end
+
+  def stub_file
+    if @checked_stub_file then
+      @stub_file == :no_stub ? nil : @stub_file
+    else
+      fn = stub_filename
+      @stub_file = fn ? fn.sub("_stub", "") : :no_stub
+      @checked_stub_file = true
+      stub_file
+    end
+  end
+
   def tests
     @tests ||= read(test_file)
   end
@@ -36,7 +57,7 @@ class Assignment
   end
 
   def additional_filenames
-    files.reject {|f| f[/test/]}
+    files.reject {|f| f[/test/] || f[/stub/]}
   end
 
   def blurb
@@ -81,6 +102,15 @@ README
 
   def instructions_file
     "#{slug}.md"
+  end
+
+  def stub_filename
+    files.find {|f| f[/_stub/]}
+  end
+
+  def read_stub_file
+    fn = stub_filename
+    fn ? read(fn) : :no_stub
   end
 
   def read(file)

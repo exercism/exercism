@@ -17,12 +17,21 @@ class AssignmentTest < Minitest::Test
   end
 
   def test_detect_files_ignoring_example_code
-    assert_equal ['one_test.test'], assignment.files
+    assert_equal ['one_test.test', 'one_stub.ext'], assignment.files
   end
 
   def test_detect_files_all_the_way_down
     assignment = Assignment.new('scala', 'one', './test/fixtures')
     assert_equal ['build.sbt', 'src/test/scala/one_test.scala'].sort, assignment.files.sort
+  end
+
+  def test_load_stub
+    stub = "say <something>\n"
+    assert_equal stub, assignment.stub
+  end
+
+  def test_stub_filename
+    assert_equal "one.ext", assignment.stub_file
   end
 
   def test_load_testsuite
@@ -56,6 +65,22 @@ class AssignmentTest < Minitest::Test
   def test_default_additional_files
     additional_files = {}
     assert_equal additional_files, assignment.additional_files
+  end
+end
+
+class AssignmentTestNoStub < Minitest::Test
+
+  attr_reader :assignment
+  def setup
+    @assignment = Assignment.new('fake', 'two', './test/fixtures')
+  end
+
+  def test_load_stub
+    assert_equal nil, assignment.stub
+  end
+
+  def test_stub_filename
+    assert_equal nil, assignment.stub_file
   end
 end
 
