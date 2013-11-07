@@ -57,8 +57,11 @@ class AssignmentTest < Minitest::Test
     expected = {
       "Fakefile" => "Autorun fake code\n",
       "one_test.test" => "assert 'one'\n",
+      "README.md" => "THE README"
     }
-    assert_equal expected, assignment.files
+    assignment.stub(:readme, "THE README") do
+      assert_equal expected, assignment.files
+    end
   end
 
   def test_sanity_check_scala_assignment
@@ -81,9 +84,12 @@ END
     expected = {
       "build.sbt" => build_sbt,
       "src/test/scala/one_test.scala" => tests,
+      "README.md" => "THE README"
     }
 
-    assert_equal expected, assignment.files
+    assignment.stub(:readme, "THE README") do
+      assert_equal expected, assignment.files
+    end
   end
 end
 

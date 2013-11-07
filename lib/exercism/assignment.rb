@@ -31,7 +31,7 @@ class Assignment
   def files
     filenames.reduce({}) do |files, name|
       files.merge(name => read(name))
-    end
+    end.merge("README.md" => readme)
   end
 
   def blurb

@@ -8,7 +8,8 @@
       "tests": "require 'minitest/autorun'\nrequire_relative 'example'\nclass OneTest < Minitest::Test\n  def test_one\n    assert_equal 1, One.value\n  end\nend\n",
       "files": {
         "Fakefile": "Autorun fake code\n",
-        "one_test.rb": "require 'minitest/autorun'\nrequire_relative 'example'\nclass OneTest < Minitest::Test\n  def test_one\n    assert_equal 1, One.value\n  end\nend\n"
+        "one_test.rb": "require 'minitest/autorun'\nrequire_relative 'example'\nclass OneTest < Minitest::Test\n  def test_one\n    assert_equal 1, One.value\n  end\nend\n",
+        "README.md": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n"
       }
     },
     {
@@ -18,7 +19,8 @@
       "test_file": "two_test.go",
       "tests": "package two\n\nimport \"testing\"\n\nfunc TestTwo(t *testing.T) {\n\tif 2 != Due.Value {\n\t\tt.Errorf(\"Expected Due.Value to equal 2\")\n\t}\n}\n\n",
       "files": {
-        "two_test.go": "package two\n\nimport \"testing\"\n\nfunc TestTwo(t *testing.T) {\n\tif 2 != Due.Value {\n\t\tt.Errorf(\"Expected Due.Value to equal 2\")\n\t}\n}\n\n"
+        "two_test.go": "package two\n\nimport \"testing\"\n\nfunc TestTwo(t *testing.T) {\n\tif 2 != Due.Value {\n\t\tt.Errorf(\"Expected Due.Value to equal 2\")\n\t}\n}\n\n",
+        "README.md": "# Two\n\nThis is two.\n\n* two\n* two again\n\n\n## Source\n\nThe web. [view source](http://example.org)\n"
       }
     },
     {
@@ -29,7 +31,8 @@
       "tests": "import org.scalatest._\n\nclass OneTest extends FunSuite with Matchers {\n  test (\"one\") {\n    One.value should be (1)\n  }\n}\n",
       "files": {
         "build.sbt": "scalaVersion := \"2.10.3\"\n\nlibaryDependencies += \"org.scalatest\" %% \"scalatest\" % \"2.0.RC3\" % \"test\"\n",
-        "src/test/scala/one_test.scala": "import org.scalatest._\n\nclass OneTest extends FunSuite with Matchers {\n  test (\"one\") {\n    One.value should be (1)\n  }\n}\n"
+        "src/test/scala/one_test.scala": "import org.scalatest._\n\nclass OneTest extends FunSuite with Matchers {\n  test (\"one\") {\n    One.value should be (1)\n  }\n}\n",
+        "README.md": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n"
       }
     }
   ]
