@@ -29,8 +29,8 @@ class Assignment
   end
 
   def files
-    filenames.map do |file|
-      {"name" => file, "text" => read(file)}
+    filenames.reduce({}) do |files, name|
+      files.merge(name => read(name))
     end
   end
 

@@ -54,11 +54,11 @@ class AssignmentTest < Minitest::Test
   end
 
   def test_files
-    expected = [
-      {"name" => "Fakefile", "text" => "Autorun fake code\n"},
-      {"name" => "one_test.test", "text" => "assert 'one'\n"}
-    ]
-    assert_equal expected, assignment.files.sort_by {|file| file["name"]}
+    expected = {
+      "Fakefile" => "Autorun fake code\n",
+      "one_test.test" => "assert 'one'\n",
+    }
+    assert_equal expected, assignment.files
   end
 
   def test_sanity_check_scala_assignment
@@ -78,10 +78,10 @@ scalaVersion := "2.10.3"
 
 libaryDependencies += "org.scalatest" %% "scalatest" % "2.0.RC3" % "test"
 END
-    expected = [
-      {"name" => "build.sbt", "text" => build_sbt},
-      {"name" => "src/test/scala/one_test.scala", "text" => tests},
-    ]
+    expected = {
+      "build.sbt" => build_sbt,
+      "src/test/scala/one_test.scala" => tests,
+    }
 
     assert_equal expected, assignment.files
   end
