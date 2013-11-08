@@ -8,8 +8,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('objective-c', 'm', 'm')
+    def language
+      'objective-c'
     end
   end
 end
