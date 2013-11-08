@@ -31,8 +31,8 @@
       "tests": "import org.scalatest._\n\nclass OneTest extends FunSuite with Matchers {\n  test (\"one\") {\n    One.value should be (1)\n  }\n}\n",
       "files": {
         "build.sbt": "scalaVersion := \"2.10.3\"\n\nlibaryDependencies += \"org.scalatest\" %% \"scalatest\" % \"2.0.RC3\" % \"test\"\n",
-        "src/test/scala/one_test.scala": "import org.scalatest._\n\nclass OneTest extends FunSuite with Matchers {\n  test (\"one\") {\n    One.value should be (1)\n  }\n}\n",
-        "README.md": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n"
+        "README.md": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
+        "src/test/scala/one_test.scala": "import org.scalatest._\n\nclass OneTest extends FunSuite with Matchers {\n  test (\"one\") {\n    One.value should be (1)\n  }\n}\n"
       }
     }
   ]

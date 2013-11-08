@@ -29,9 +29,7 @@ class Assignment
   end
 
   def files
-    filenames.reduce({}) do |files, name|
-      files.merge(name => read(name))
-    end.merge("README.md" => readme)
+    @files ||= Hash[construct_files]
   end
 
   def blurb
@@ -94,5 +92,10 @@ README
     File.join(data_dir, 'shared', file)
   end
 
+  def construct_files
+    filenames.reduce({}) do |files, name|
+      files.merge(name => read(name))
+    end.merge("README.md" => readme).sort_by {|name, text| name.downcase}
+  end
 end
 
