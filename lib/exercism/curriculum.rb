@@ -6,11 +6,12 @@ require 'exercism/curriculum/haskell'
 require 'exercism/curriculum/javascript'
 require 'exercism/curriculum/python'
 require 'exercism/curriculum/ruby'
+require 'exercism/curriculum/objective-c'
 
 class Exercism
   def self.current_curriculum
     @curriculum ||= begin
-      curriculums =  [:ruby, :javascript, :elixir, :clojure, :python, :haskell]
+      curriculums =  [:ruby, :javascript, :elixir, :clojure, :python, :haskell, :objectivec ]
 
       Curriculum.new('./assignments').tap do |curriculum|
         curriculums.each do |type|

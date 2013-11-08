@@ -127,6 +127,10 @@ h1.home {
   background-image: url('/img/java.png');
 }
 
+.objective-c-icon {
+  background-image: url('/img/objective-c.png');
+}
+
 .nits {
   text-align: center;
   line-height: 30px;

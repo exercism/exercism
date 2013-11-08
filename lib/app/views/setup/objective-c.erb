@@ -1,0 +1,30 @@
+<h3>Objective-C</h3>
+
+<h4>Installation: </h4>
+
+<p>
+  Ensure that you have the latest Xcode installed through the Mac App Store.
+</p>
+
+<h4>Building and running tests: </h4>
+
+<p>Exercism will only download a test file. You will need to manually create the header and the source file associated with the exercise. You will need to generate an Xcode Project file with the test file, the header file (.h) and the source file (.m).</p>
+
+<p>Tests will be run through Xcode.</p>
+
+
+<h4>A Test Runner</h4>
+
+<p>An alternative to manually generating the project file is to use a test runner utility, written in ruby, that will create a project file for you with the test file, header file and source file.</p>
+
+<pre>$ gem install objc
+$ brew install xctool</pre>
+
+<h5>Running the Tests</h5>
+
+<pre>$ objc ExerciseName</pre>
+
+<p>The <code>objc</code> utility uses the exercise name to find the test file, <code>ExerciseNameTest.m</code>, the header file, <code>ExerciseName.h</code> and source file <code>ExerciseNameTest.m</code>. The files are inserted into a temporary Xcode Project and then <code>xctool</code> is used to run the tests for the project.</p>
+
+<p>While <code>objc</code> makes it so you never have to launch Xcode to complete these exercises, the error messages and feedback through the command-line are not as clear as through the Xcode user interface</p>
+
