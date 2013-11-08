@@ -57,22 +57,6 @@ The actual assignment consists of
 * a test suite, where all test are pending except the first one
 * a sample solution that passes the test suite
 
-Each language is configured with a test extension and a code extension.
-
-For ruby, both of these are 'rb', so the test suite is named:
-
-```bash
-SLUG_test.rb
-```
-
-and the sample solution is called
-
-```bash
-example.rb
-```
-
-The extensions are also used to detect which language a user is submitting an assignment to via the API (they may be on several trails simultaneously).
-
 The languages/trails are configured in `lib/exercism/curriculum/LANGUAGE.rb`.
 
 The list of assignments is just a really big array of assignment slugs in the order that they will be assigned.
