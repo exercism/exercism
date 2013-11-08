@@ -12,9 +12,9 @@ defmodule DNA do
   iex> DNA.count('AATAA', ?T)
   1
   """
-
+  @spec count([char], char) :: non_neg_integer
   def count(strand, nucleotide) do
-    Enum.count strand, &(&1 == nucleotide)
+  
   end
 
 
@@ -26,8 +26,8 @@ defmodule DNA do
   iex> DNA.nucleotide_counts('AATAA')
   HashDict.new [{?A, 4}, {?T, 1}, {?C, 0}, {?G, 0}]
   """
-
+  @spec nucleotide_counts([char]) :: HashDict.t
   def nucleotide_counts(strand) do
-    HashDict.new @nucleotides, &{&1, count(strand, &1)}
+ 
   end
 end
