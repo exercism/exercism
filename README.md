@@ -110,11 +110,27 @@ There's a script in `bin/console` that will load irb with the exercism environme
 
 ## Testing
 
-Run tests with: `rake test`
-
 Make sure your migrations are up-to-date with: `rake db:migrate RACK_ENV=test`
 
 Make sure that `mailcatcher` is running.
+
+Run tests with: `rake test`
+
+To run a single test suite, you can do so with:
+
+```bash
+ruby path/to/the_test.rb
+```
+
+If it complains about dependencies, then either we forgot to require the correct dependencies (a distinct possibility), or we are dependening on a particular tag of a gem installed directly from github (this happens on occasion).
+
+If there's a git dependency, you can do this:
+
+```ruby
+bundle exec ruby path/to/the_test.rb
+```
+
+For the require, you'll need to figure out what the missing dependency is. Feel free to open an issue on github. It's likely that someone familiar with the codebase will be able to identify the problem immediately.
 
 ### Code coverage
 
