@@ -128,6 +128,8 @@ There's a script in `bin/console` that will load irb with the exercism environme
 
 Run tests with: `rake test`
 
+To run a specific test, use: `rake test TEST=path/to/testfile.rb`
+
 Make sure your migrations are up-to-date with: `rake db:migrate RACK_ENV=test`
 
 Make sure that `mailcatcher` is running.
