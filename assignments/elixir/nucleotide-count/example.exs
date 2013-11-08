@@ -14,7 +14,7 @@ defmodule DNA do
   """
 
   def count(strand, nucleotide) do
-    Enum.count strand,  &1 == nucleotide
+    Enum.count strand, &(&1 == nucleotide)
   end
 
 
@@ -28,6 +28,6 @@ defmodule DNA do
   """
 
   def nucleotide_counts(strand) do
-    HashDict.new @nucleotides, &({&1, count(strand, &1)})
+    HashDict.new @nucleotides, &{&1, count(strand, &1)}
   end
 end
