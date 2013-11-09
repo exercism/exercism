@@ -91,5 +91,12 @@ END
       assert_equal expected, assignment.files
     end
   end
+
+  def test_testfile_is_case_insensitive
+    objectivec_assignment = Assignment.new('objective-c', 'one', './test/fixtures/')
+    assert_equal "ExampleTest.m", objectivec_assignment.test_file
+    ruby_assignment = Assignment.new('ruby', 'two', './test/fixtures/')
+    assert_equal "two_test.rb", ruby_assignment.test_file 
+  end
 end
 
