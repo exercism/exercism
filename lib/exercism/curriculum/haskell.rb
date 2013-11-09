@@ -14,7 +14,7 @@ class Exercism
         wordy simple-linked-list linked-list nth-prime palindrome-products
         pascals-triangle pig-latin pythagorean-triplet saddle-points say
         secret-handshake series sieve simple-cipher strain sum-of-multiples
-        parallel-letter-frequency sgf-parsing go-counting
+        parallel-letter-frequency sgf-parsing go-counting zipper
       )
     end
 
