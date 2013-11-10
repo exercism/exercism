@@ -10,6 +10,7 @@
 coverage
 InstalledFiles
 lib/bundler/man
+log
 pkg
 rdoc
 spec/reports
