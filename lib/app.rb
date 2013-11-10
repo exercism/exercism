@@ -52,11 +52,7 @@ class ExercismApp < Sinatra::Base
   helpers do
 
     def site_root
-      if ENV['RACK_ENV'].to_sym == :production
-        'http://exercism.io'
-      else
-        'http://localhost:4567'
-      end
+      env.fetch 'HTTP_HOST', 'http://exercism.io'
     end
 
     def current_user
