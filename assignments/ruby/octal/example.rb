@@ -10,6 +10,7 @@ class Octal
   def to_decimal
     decimal = 0
     digits.each_with_index do |digit, index|
+      digit = 0 if [8,9].include? digit
       decimal += digit * BASE**index
     end
     decimal
