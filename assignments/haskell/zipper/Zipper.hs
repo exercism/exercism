@@ -16,10 +16,11 @@ module Zipper (
 ) where
 
 -- | A binary tree.
-data BinTree a = BT a                   -- ^ Value
-                    (Maybe (BinTree a)) -- ^ Left child
-                    (Maybe (BinTree a)) -- ^ Right child
-  deriving (Eq, Show)
+data BinTree a = BT { 
+    btValue :: a                 -- ^ Value
+  , btLeft  :: Maybe (BinTree a) -- ^ Left child
+  , btRight :: Maybe (BinTree a) -- ^ Right child
+} deriving (Eq, Show)
 
 -- | A zipper for a binary tree.
 data Zipper a -- Complete this definition
