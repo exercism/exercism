@@ -6,7 +6,7 @@ public class BobTest {
     private final Bob bob = new Bob();
 
     @Test
-    public void say_something() {
+    public void saySomething() {
         assertEquals(
             "Whatever.",
             bob.hey("Tom-ay-to, tom-aaaah-to.")
@@ -22,7 +22,7 @@ public class BobTest {
     }
 
     @Test
-    public void asking_a_question() {
+    public void askingAQuestion() {
         assertEquals(
             "Sure.",
             bob.hey("Does this cryogenic chamber make me look fat?")
@@ -30,7 +30,7 @@ public class BobTest {
     }
 
     @Test
-    public void asking_a_numeric_question() {
+    public void askingANumericQuestion() {
         assertEquals(
             "Sure.",
             bob.hey("You are, what, like 15?")
@@ -38,7 +38,7 @@ public class BobTest {
     }
 
     @Test
-    public void talking_forcefully() {
+    public void talkingForcefully() {
         assertEquals(
             "Whatever.",
             bob.hey("Let's go make out behind the gym!")
@@ -46,77 +46,77 @@ public class BobTest {
     }
 
     @Test
-    public void using_acronyms_in_regular_speech() {
+    public void usingAcronymsInRegularSpeech() {
         assertEquals(
             "Whatever.", bob.hey("It's OK if you don't want to go to the DMV.")
         );
     }
 
     @Test
-    public void forceful_questions() {
+    public void forcefulQuestions() {
         assertEquals(
             "Woah, chill out!", bob.hey("WHAT THE HELL WERE YOU THINKING?")
         );
     }
 
     @Test
-    public void shouting_numbers() {
+    public void shoutingNumbers() {
         assertEquals(
             "Woah, chill out!", bob.hey("1, 2, 3 GO!")
         );
     }
 
     @Test
-    public void only_numbers() {
+    public void onlyNumbers() {
         assertEquals(
             "Whatever.", bob.hey("1, 2, 3")
         );
     }
 
     @Test
-    public void question_with_only_numbers() {
+    public void questionWithOnlyNumbers() {
         assertEquals(
             "Sure.", bob.hey("4?")
         );
     }
 
     @Test
-    public void shouting_with_special_characters() {
+    public void shoutingWithSpecialCharacters() {
         assertEquals(
             "Woah, chill out!", bob.hey("ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!")
         );
     }
 
     @Test
-    public void shouting_with_umlauts() {
+    public void shoutingWithUmlauts() {
         assertEquals(
             "Woah, chill out!", bob.hey("\u00dcML\u00c4\u00dcTS!")
         );
     }
 
     @Test
-    public void calmly_speaking_with_umlauts() {
+    public void calmlySpeakingWithUmlauts() {
         assertEquals(
             "Whatever.", bob.hey("\u00dcML\u00e4\u00dcTS!")
         );
     }
 
     @Test
-    public void shouting_with_no_exclamation_mark() {
+    public void shoutingWithNoExclamationMark() {
         assertEquals(
             "Woah, chill out!", bob.hey("I HATE YOU")
         );
     }
 
     @Test
-    public void statement_containing_question_mark() {
+    public void statementContainingQuestionMark() {
         assertEquals(
             "Whatever.", bob.hey("Ending with ? means a question.")
         );
     }
 
     @Test
-    public void prattling_on() {
+    public void prattlingOn() {
         assertEquals(
             "Sure.", bob.hey("Wait! Hang on. Are you going to be OK?")
         );
@@ -130,7 +130,7 @@ public class BobTest {
     }
 
     @Test
-    public void prolonged_silence() {
+    public void prolongedSilence() {
         assertEquals(
             "Fine. Be that way!", bob.hey("    ")
         );
