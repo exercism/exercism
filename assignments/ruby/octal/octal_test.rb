@@ -45,4 +45,14 @@ class OctalTest < MiniTest::Unit::TestCase
     skip
     assert_equal 0, Octal.new("carrot").to_decimal
   end
+  
+  def test_8_is_seen_as_invalid_and_returns_0
+    assert_equal 0, Octal.new("8").to_decimal
+  end
+
+  def test_9_is_seen_as_invalid_and_returns_0
+    assert_equal 0, Octal.new("9").to_decimal
+  end
+
+
 end
