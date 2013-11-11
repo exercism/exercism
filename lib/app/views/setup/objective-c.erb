@@ -10,6 +10,23 @@
 
 <p>Exercism will only download a test file. You will need to manually create the header and the source file associated with the exercise. You will need to generate an Xcode Project file with the test file, the header file (.h) and the source file (.m).</p>
 
+<h4>Creating the project in XCode</h4>
+<ul><li>Start Xcode create a new project.</li>
+<li>Select OSX-->Application and then Command Line Tool.</li>
+<li>Click Next and give it a project name using the ExerciseName is advised.</li>
+<li>Select Foundation at the bottom from the drop down menu.</li>
+<li>Click Next until the wizard is finished.</li>
+<li>Now that the project is created click on Editor-->Add Target.</li> 
+<li>Select OSX-->Other and select Cocoa Unit Testing Bundle.</li> 
+<li>Ensure it's of type XCTest and that the project and target match then click finish.</li> 
+<li>Open the new file which will be named <code>ExerciseName_Tests.m</code> in a folder called ExerciseName Tests and replace the contents with the test file you got from exercism.</li>
+<li>Create a new file with the correct name for the exercise.</li>
+<li>Click on your project in the left hand pane.</li>
+<li>Select Build Phases on the right.</li>
+<li>Ensure that XCTest.framework exists under Link Binary With Libraries.</li>
+<li>Add your .m files to the compile sources list.</li>
+<li>Then use CMD-U to run the tests when you're ready.</li></ul>
+
 <p>Tests will be run through Xcode.</p>
 
 
