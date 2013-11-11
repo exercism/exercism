@@ -24,7 +24,8 @@ In addition to the exercises (test suites + example solution), it also requires:
 2. A reference to the icon in [frontend/app/css/style.css](https://github.com/exercism/exercism.io/blob/496f541f886c38ec5b39379b63ea3d97e3165529/frontend/app/css/style.css#L94-L124)
 3. A help file: `lib/app/views/setup/$LANGUAGE.erb`
 4. An entry in `lib/exercism/curriculum.rb`
-5. A curriculum definition in `lib/exercism/curriculum/$LANGUAGE.rb`
+5. An entry in `lib/exercism/code.rb` to define the extension for that language.
+6. A curriculum definition in `lib/exercism/curriculum/$LANGUAGE.rb`
 
 Thank you again!
 :heart: :sparkling_heart: :heart:
