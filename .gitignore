@@ -31,3 +31,6 @@ _yardoc
 doc/
 .approvals
 db/*sqlite
+
+# Java
+.class
