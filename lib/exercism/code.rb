@@ -13,7 +13,8 @@ class Code
     'js' => 'javascript',
     'py' => 'python',
     'rb' => 'ruby',
-    'rs' => 'rust'
+    'rs' => 'rust',
+    'm' => 'objective-c'
   }
 
   attr_reader :path
