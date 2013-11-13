@@ -6,20 +6,46 @@ class Work
   end
 
   def random
-    user.completed.keys.shuffle.each do |language|
-      user.completed[language].reverse.each do |slug|
-        work = work_for(language, slug)
-        if work.count > 0
-          return work.limit(10).to_a.sample
-        end
-      end
+    shuffled.reduce(nil) do |acc, (language, slug)|
+      acc || Pick.new(user, language, slug).choice
     end
-    nil
   end
 
-  def work_for(language, slug)
-    sql = "LEFT JOIN (SELECT submission_id FROM comments WHERE user_id=#{user.id}) AS tc ON submissions.id=tc.submission_id"
-    Submission.pending.joins(sql).where('tc.submission_id IS NULL').where(language: language, slug: slug).unmuted_for(user).order("nit_count ASC")
+  private
+
+  def shuffled
+    user.completed.to_a.shuffle.flat_map do |(language, slugs)|
+      slugs = rand < 0.7 ? slugs.reverse : slugs.shuffle
+      slugs.map { |slug| [language, slug] }
+    end
   end
 
+  class Pick
+    def initialize(user, language, slug)
+      @user = user
+      @language = language
+      @slug = slug
+    end
+
+    def choice
+      choices.limit(1).offset(index).first
+    end
+
+    private
+    attr_reader :user, :language, :slug
+
+    def index
+      DecayingRandomizer.new(choices.count).next
+    end
+
+    def choices
+      @choices ||= Submission.pending.
+        where(language: language, slug: slug).
+        joins("LEFT JOIN (SELECT submission_id FROM comments WHERE user_id=#{user.id}) AS tc ON submissions.id=tc.submission_id").
+        where('tc.submission_id IS NULL').
+        unmuted_for(user).
+        order("updated_at DESC")
+    end
+
+  end
 end
