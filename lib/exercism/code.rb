@@ -44,7 +44,7 @@ class Code
   private
 
   def path_segments
-    @path_segments = path.split(/\/|\\/)
+    @path_segments = path.gsub("src/main/scala/", "").split(/\/|\\/)
   end
 end
 

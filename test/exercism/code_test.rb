@@ -30,6 +30,11 @@ class CodeTest < Minitest::Test
     assert_equal 'to', code.slug
   end
 
+  def test_slug_in_scala
+    code = Code.new('path/to/src/main/scala/file.scala')
+    assert_equal 'to', code.slug
+  end
+
   def test_windows_file_path
     code = Code.new('\path\to\file.py')
     assert_equal 'to', code.slug
