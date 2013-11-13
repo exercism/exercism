@@ -8,8 +8,8 @@ class Exercism
       )
     end
 
-    def locale
-      Locale.new('scala', 'scala', 'scala')
+    def language
+      'scala'
     end
   end
 end
