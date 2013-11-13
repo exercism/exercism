@@ -14,7 +14,8 @@ class Code
     'py' => 'python',
     'rb' => 'ruby',
     'rs' => 'rust',
-    'm' => 'objective-c'
+    'm' => 'objective-c',
+    'scala' => 'scala'
   }
 
   attr_reader :path
