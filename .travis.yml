@@ -13,4 +13,5 @@ script:
   - './test/rust/check-exercises.sh'
   - './test/python/check-exercises.py'
   - './test/erlang/check-exercises.sh'
+  - './test/scala/check-exercises.sh'
   - "! git grep ' $' -- \\*.rb | grep -v 'assignments/ruby/ocr-numbers/ocr-numbers_test.rb'"
