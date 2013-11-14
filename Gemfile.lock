@@ -1,6 +1,7 @@
 GIT
   remote: git@github.com:sgrif/rouge.git
-  revision: b3ae27a35e3fb5046e1f8b52d5d121622639c3c3
+  revision: 2c6498b7dfe3cac0d82118fadf8d849e0b782b2c
+  ref: sg-add-scala
   specs:
     rouge (1.1.0)
 
