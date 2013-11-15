@@ -13,19 +13,19 @@ func ToRomanNumeral(input int) string {
 	buffer := bytes.NewBufferString("")
 
 	mappings := []arabicToRoman{
-		arabicToRoman{1000, "M"},
-		arabicToRoman{900, "CM"},
-		arabicToRoman{500, "D"},
-		arabicToRoman{400, "CD"},
-		arabicToRoman{100, "C"},
-		arabicToRoman{90, "XC"},
-		arabicToRoman{50, "L"},
-		arabicToRoman{40, "XL"},
-		arabicToRoman{10, "X"},
-		arabicToRoman{9, "IX"},
-		arabicToRoman{5, "V"},
-		arabicToRoman{4, "IV"},
-		arabicToRoman{1, "I"},
+		{1000, "M"},
+		{900, "CM"},
+		{500, "D"},
+		{400, "CD"},
+		{100, "C"},
+		{90, "XC"},
+		{50, "L"},
+		{40, "XL"},
+		{10, "X"},
+		{9, "IX"},
+		{5, "V"},
+		{4, "IV"},
+		{1, "I"},
 	}
 
 	for _, m := range mappings {

@@ -10,11 +10,11 @@ type rnaTest struct {
 }
 
 var rnaTests = []rnaTest{
-	rnaTest{"C", "C"},
-	rnaTest{"G", "G"},
-	rnaTest{"A", "A"},
-	rnaTest{"T", "U"},
-	rnaTest{"ACGTGGTCTTAA", "ACGUGGUCUUAA"},
+	{"C", "C"},
+	{"G", "G"},
+	{"A", "A"},
+	{"T", "U"},
+	{"ACGTGGTCTTAA", "ACGUGGUCUUAA"},
 }
 
 func TestRnaTranscription(t *testing.T) {

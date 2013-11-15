@@ -12,7 +12,7 @@ func (h Histogram) sameLength(o Histogram) bool {
 
 func (h Histogram) sameMappings(o Histogram) (res bool) {
 	res = true
-	for k, _ := range h {
+	for k := range h {
 		if h[k] != o[k] {
 			res = false
 		}

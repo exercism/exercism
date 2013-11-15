@@ -8,10 +8,10 @@ type testCase struct {
 }
 
 var testCases = []testCase{
-	testCase{"1", 1},
-	testCase{"10", 8},
-	testCase{"1234567", 342391},
-	testCase{"carrot", 0},
+	{"1", 1},
+	{"10", 8},
+	{"1234567", 342391},
+	{"carrot", 0},
 }
 
 func TestToDecimal(t *testing.T) {
