@@ -22,6 +22,10 @@ tmp
 # JavaScript
 node_modules
 
+# OCaml
+*.native
+_build/
+
 # ENV vars
 scripts/boot.sh
 
