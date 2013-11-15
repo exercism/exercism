@@ -2,18 +2,17 @@ package bob
 
 import "strings"
 
-func Hey(drivel string) (reply string) {
-	reply = "Whatever."
-	if silent(drivel) {
-		reply = "Fine. Be that way!"
+func Hey(drivel string) string {
+	switch {
+	case silent(drivel):
+		return "Fine. Be that way!"
+	case asking(drivel):
+		return "Sure."
+	case yelling(drivel):
+		return "Woah, chill out!"
+	default:
+		return "Whatever."
 	}
-	if yelling(drivel) {
-		reply = "Woah, chill out!"
-	}
-	if asking(drivel) {
-		reply = "Sure."
-	}
-	return
 }
 
 func yelling(drivel string) bool {
