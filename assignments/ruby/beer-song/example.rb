@@ -1,45 +1,21 @@
 class BeerSong
-  def sing(first, last = 0)
-    s = ""
-    first.downto(last).each do |number|
-      s << verse(number)
-      s << "\n"
-    end
-    s
+  def sing
+    verses(99, 0)
+  end
+
+  def verses(starting, ending)
+    (ending..starting).to_a.reverse.map {|n| verse(n) }.join("\n") + "\n"
   end
 
   def verse(number)
-    s = ""
-    s << "#{bottles(number).capitalize} of beer on the wall, "
-    s << "#{bottles(number)} of beer.\n"
-    s << action(number)
-    s << next_bottle(number)
-  end
-
-  def next_bottle(current_verse)
-    "#{bottles(next_verse(current_verse))} of beer on the wall.\n"
-  end
-
-  def action(current_verse)
-    if current_verse.zero?
-      "Go to the store and buy some more, "
-    else
-      "Take #{current_verse == 1 ? "it" : "one"} down and pass it around, "
-    end
-  end
-
-  def next_verse(current_verse)
-    current_verse.zero? ? 99 : (current_verse - 1)
-  end
-
-  def bottles(number)
-    if number.zero?
-      "no more bottles"
+    if number == 0
+      "No more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n"
     elsif number == 1
-      "1 bottle"
+      "%s bottle of beer on the wall, %s bottle of beer.\nTake it down and pass it around, no more bottles of beer on the wall.\n" % [number, number]
+    elsif number == 2
+      "%s bottles of beer on the wall, %s bottles of beer.\nTake one down and pass it around, %s bottle of beer on the wall.\n" % [number, number, number-1]
     else
-      "#{number} bottles"
+      "%s bottles of beer on the wall, %s bottles of beer.\nTake one down and pass it around, %s bottles of beer on the wall.\n" % [number, number, number-1]
     end
   end
-
 end
