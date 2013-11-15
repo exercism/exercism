@@ -2,8 +2,8 @@ class Exercism
   class RubyCurriculum
     def slugs
       %w(
-        bob leap grade-school hamming word-count anagram
-        etl space-age grains gigasecond triangle scrabble-score
+        bob leap grade-school hamming word-count anagram etl
+        proverb space-age grains gigasecond triangle scrabble-score
         roman-numerals prime-factors raindrops strain
         beer-song nucleotide-count phone-number robot-name
         atbash-cipher accumulate crypto-square trinary rna-transcription
