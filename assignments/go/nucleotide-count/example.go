@@ -13,7 +13,7 @@ type DNA struct {
 
 func (dna DNA) Count(nucleotide string) (count int, err error) {
 	validNucleotides := "ACGTU"
-	if (!strings.Contains(validNucleotides, nucleotide)) {
+	if !strings.Contains(validNucleotides, nucleotide) {
 		return 0, errors.New("dna: invalid nucleotide " + nucleotide)
 	}
 

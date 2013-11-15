@@ -1,8 +1,8 @@
 package wc
 
 import (
-	"strings"
 	"regexp"
+	"strings"
 )
 
 type Histogram map[string]int

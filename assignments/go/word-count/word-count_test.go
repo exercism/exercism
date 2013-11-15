@@ -60,9 +60,7 @@ func TestIncludeNumbers(t *testing.T) {
 	assertEqual(t, actual, expected)
 }
 
-
 func TestNormalizeCase(t *testing.T) {
 	t.SkipNow()
 	assertEqual(t, WordCount("go Go GO"), Histogram{"go": 3})
 }
-

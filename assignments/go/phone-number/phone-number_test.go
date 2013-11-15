@@ -9,13 +9,13 @@ type test struct {
 	expected string
 }
 
-func assertAllTestsPass(t *testing.T, tests []test, testFunc func(string)string) {
-  for _, test := range tests {
-    actual := testFunc(test.input)
-    if test.expected != actual {
-      t.Errorf("Number(%s): expected [%s], actual: [%s]", test.input, test.expected, actual)
-    }
-  }
+func assertAllTestsPass(t *testing.T, tests []test, testFunc func(string) string) {
+	for _, test := range tests {
+		actual := testFunc(test.input)
+		if test.expected != actual {
+			t.Errorf("Number(%s): expected [%s], actual: [%s]", test.input, test.expected, actual)
+		}
+	}
 }
 
 var numberTests = []test{
@@ -40,10 +40,10 @@ func TestAreaCode(t *testing.T) {
 }
 
 var formatTests = []test{
-  test{"1234567890", "(123) 456-7890"},
-  test{"11234567890", "(123) 456-7890"},
+	test{"1234567890", "(123) 456-7890"},
+	test{"11234567890", "(123) 456-7890"},
 }
 
 func TestFormat(t *testing.T) {
-  assertAllTestsPass(t, formatTests, Format)
+	assertAllTestsPass(t, formatTests, Format)
 }

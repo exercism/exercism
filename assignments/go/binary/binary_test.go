@@ -3,11 +3,11 @@ package binary
 import "testing"
 
 type binaryTest struct {
-	binary        string
-	expected      int
+	binary   string
+	expected int
 }
 
-var binaryTests = []binaryTest {
+var binaryTests = []binaryTest{
 	{"1", 1}, {"10", 2}, {"11", 3},
 	{"100", 4}, {"1001", 9}, {"10001101000", 1128},
 	{"12", 0},

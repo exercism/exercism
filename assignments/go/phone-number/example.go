@@ -1,9 +1,9 @@
 package phonenumber
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
-  "fmt"
 )
 
 func Number(in string) (ret string) {
@@ -20,11 +20,11 @@ func AreaCode(in string) string {
 }
 
 func Format(in string) (ret string) {
-  format := "(%s) %s-%s"
-  if len(in) == 10 {
-    ret = fmt.Sprintf(format, AreaCode(in), in[3:6], in[6:]) 
-  } else {
-    ret = fmt.Sprintf(format, in[1:4], in[4:7], in[7:]) 
-  }
-  return 
+	format := "(%s) %s-%s"
+	if len(in) == 10 {
+		ret = fmt.Sprintf(format, AreaCode(in), in[3:6], in[6:])
+	} else {
+		ret = fmt.Sprintf(format, in[1:4], in[4:7], in[7:])
+	}
+	return
 }

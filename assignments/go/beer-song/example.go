@@ -40,8 +40,8 @@ func bottles(numberBottles int) (b string) {
 
 func action(numberBottles int) (r string) {
 	switch {
-  case numberBottles == 2:
-    r = fmt.Sprintf("Take one down and pass it around, %d bottle of beer on the wall.", numberBottles-1)
+	case numberBottles == 2:
+		r = fmt.Sprintf("Take one down and pass it around, %d bottle of beer on the wall.", numberBottles-1)
 	case numberBottles == 1:
 		r = "Take it down and pass it around, no more bottles of beer on the wall."
 	case numberBottles == 0:
