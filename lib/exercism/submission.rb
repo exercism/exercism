@@ -34,6 +34,14 @@ class Submission < ActiveRecord::Base
     cutoff = three_weeks_ago.strftime('%Y-%m-%d %H:%M:%S')
     pending.where('nit_count > 0').where('created_at < ?', cutoff)
   }
+  scope :not_commented_on_by, ->(user) {
+    joins("LEFT JOIN (SELECT submission_id FROM comments WHERE user_id=#{user.id}) AS already_commented ON submissions.id=already_commented.submission_id").
+    where('already_commented.submission_id IS NULL')
+  }
+  scope :not_liked_by, ->(user) {
+    joins("LEFT JOIN (SELECT submission_id FROM likes WHERE user_id=#{user.id}) AS already_liked ON submissions.id=already_liked.submission_id").
+    where('already_liked.submission_id IS NULL')
+  }
 
   def self.completed_for(exercise)
     done.where(language: exercise.language, slug: exercise.slug)

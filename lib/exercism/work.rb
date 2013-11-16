@@ -41,10 +41,7 @@ class Work
     def choices
       @choices ||= Submission.pending.
         where(language: language, slug: slug).
-        joins("LEFT JOIN (SELECT submission_id FROM comments WHERE user_id=#{user.id}) AS already_commented ON submissions.id=already_commented.submission_id").
-        joins("LEFT JOIN (SELECT submission_id FROM likes WHERE user_id=#{user.id}) AS already_liked ON submissions.id=already_liked.submission_id").
-        where('already_commented.submission_id IS NULL').
-        where('already_liked.submission_id IS NULL').
+        not_commented_on_by(user).not_liked_by(user).
         unmuted_for(user).
         order("updated_at DESC")
     end
