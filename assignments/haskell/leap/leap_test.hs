@@ -23,5 +23,5 @@ isLeapYearTests =
   , testCase "century" $
     False @=? isLeapYear 1900
   , testCase "exceptional century" $
-    True @=? isLeapYear 2000
+    True @=? isLeapYear 2400
   ]

@@ -1,26 +1,26 @@
 class Year
 
-  attr_reader :year
+  attr_reader :number
   def initialize(number)
-    @year = number.to_i
+    @number = number.to_i
   end
 
   def leap?
-    (by4? && !by100?) || by400?
+    (vanilla? && !century?) || exceptional_century?
   end
 
   private
 
-  def by4?
-    (year % 4) == 0
+  def vanilla?
+    (number % 4) == 0
   end
 
-  def by100?
-    (year % 100) == 0
+  def century?
+    (number % 100) == 0
   end
 
-  def by400?
-    (year % 400) == 0
+  def exceptional_century?
+    (number % 400) == 0
   end
 
 end

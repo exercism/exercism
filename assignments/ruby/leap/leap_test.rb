@@ -8,17 +8,17 @@ class YearTest < MiniTest::Unit::TestCase
 
   def test_any_old_year
     skip
-    assert !Year.new(1997).leap?
+    refute Year.new(1997).leap?
   end
 
   def test_century
     skip
-    assert !Year.new(1900).leap?
+    refute Year.new(1900).leap?
   end
 
   def test_exceptional_century
     skip
-    assert Year.new(2000).leap?
+    assert Year.new(2400).leap?
   end
 
 end

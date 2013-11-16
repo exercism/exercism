@@ -12,7 +12,7 @@ var testCases = []struct {
 	{1996, true, "a vanilla leap year"},
 	{1997, false, "a normal year"},
 	{1900, false, "a century"},
-	{2000, true, "an exceptional century"},
+	{2400, true, "an exceptional century"},
 }
 
 func TestLeapYears(t *testing.T) {

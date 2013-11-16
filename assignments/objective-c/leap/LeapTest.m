@@ -23,7 +23,7 @@
 }
 
 - (void)testExceptionalCentury {
-  Year *year = [[Year alloc] initWithCalendarYear:@2000];
+  Year *year = [[Year alloc] initWithCalendarYear:@2400];
   XCTAssert([year isLeapYear]);
 }
 

@@ -18,7 +18,7 @@ describe("Year", function() {
   });
 
   xit("turn of the 21st century", function() {
-    var year = new Year(2000);
+    var year = new Year(2400);
     expect(year.isLeapYear()).toBeTruthy();
   });
 

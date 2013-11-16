@@ -18,6 +18,6 @@ defmodule LeapTest do
   end
 
   test "exceptional century" do
-    # assert Year.leap_year?(2000)
+    # assert Year.leap_year?(2400)
   end
 end

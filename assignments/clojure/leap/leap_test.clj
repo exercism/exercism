@@ -11,6 +11,6 @@
   (is (not (leap-year? 1900))))
 
 (deftest exceptional-century
-  (is (leap-year? 2000)))
+  (is (leap-year? 2400)))
 
 (run-tests)

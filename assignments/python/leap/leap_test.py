@@ -13,7 +13,7 @@ class YearTest(unittest.TestCase):
         self.assertFalse(Year(1997).is_leap_year())
 
     def test_exceptional_century(self):
-        self.assertTrue(Year(2000).is_leap_year())
+        self.assertTrue(Year(2400).is_leap_year())
 
 if __name__ == '__main__':
     unittest.main()
