@@ -21,7 +21,6 @@ class ExercismApp < Sinatra::Base
           puts "Failed to send email. #{e.message}."
         end
       end
-      submission.unmute_all!
     end
 
     def toggle_opinions(key, state)

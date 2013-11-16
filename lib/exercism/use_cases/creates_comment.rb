@@ -21,6 +21,7 @@ class CreatesComment
   def create
     @comment = submission.comments.create(user: commenter, body: body)
     unless @comment.new_record?
+      submission.unmute_all!
       @nitpicked = true
       submission.state = 'pending' if submission.hibernating?
       submission.mute(commenter)
