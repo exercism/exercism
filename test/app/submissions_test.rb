@@ -80,7 +80,6 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_nitpicking_assignment_mutes_it_for_the_nitpicker
-    skip "mutes are broken. See issue #1013"
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
