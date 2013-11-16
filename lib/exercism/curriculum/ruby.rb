@@ -3,8 +3,8 @@ class Exercism
     def slugs
       %w(
         bob leap grade-school hamming word-count anagram etl
-        proverb space-age grains gigasecond triangle scrabble-score
-        roman-numerals prime-factors raindrops strain
+        proverb space-age grains gigasecond house scrabble-score
+        roman-numerals prime-factors raindrops strain triangle
         beer-song nucleotide-count phone-number robot-name
         atbash-cipher accumulate crypto-square trinary rna-transcription
         sieve simple-cipher luhn pig-latin pythagorean-triplet allergies
