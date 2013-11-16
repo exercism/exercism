@@ -79,6 +79,19 @@ class SubmissionsTest < Minitest::Test
     assert_equal 1, submission.reload.nits_by_others_count
   end
 
+  def test_nitpicking_assignment_mutes_it_for_the_nitpicker
+    skip "mutes are broken. See issue #1013"
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
+    submission = Submission.first
+
+    url = "/submissions/#{submission.key}/respond"
+    Message.stub(:ship, nil) do
+      post url, {body: "good"}, login(bob)
+    end
+    assert_equal 1, MutedSubmission.count
+    assert submission.reload.muted_by?(bob.reload)
+  end
+
   def test_nitpick_own_assignment
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
