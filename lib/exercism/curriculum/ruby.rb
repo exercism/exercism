@@ -10,7 +10,7 @@ class Exercism
         sieve simple-cipher luhn pig-latin pythagorean-triplet allergies
         series difference-of-squares secret-handshake linked-list wordy
         hexadecimal largest-series-product kindergarten-garden
-        binary-search-tree matrix robot-simulator nth-prime
+        binary-search-tree matrix robot-simulator nth-prime food-chain
         palindrome-products pascals-triangle say meetup
         sum-of-multiples queen-attack saddle-points ocr-numbers
         simple-linked-list linked-list point-mutations
