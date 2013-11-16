@@ -41,8 +41,7 @@ class Work
     def choices
       @choices ||= Submission.pending.
         where(language: language, slug: slug).
-        joins("LEFT JOIN (SELECT submission_id FROM comments WHERE user_id=#{user.id}) AS tc ON submissions.id=tc.submission_id").
-        where('tc.submission_id IS NULL').
+        not_commented_on_by(user).not_liked_by(user).
         unmuted_for(user).
         order("updated_at DESC")
     end
