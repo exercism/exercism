@@ -1,0 +1,11 @@
+<div class="row">
+  <div class="span8">
+    <h1>Nit Stats - <%= user.username %></h1>
+    <h3>Nits picked v. nits received over the past 30 days</h3>
+    <ul class="graph-legend">
+      <li class="nits-picked">Nits picked</li>
+      <li class="nits-received">Nits recieved</li>
+    </ul>
+    <canvas id="nitstat-chart" data-stats='<%= stats.data.to_json %>' width="800" height="400"></canvas>
+  </div>
+</div>
