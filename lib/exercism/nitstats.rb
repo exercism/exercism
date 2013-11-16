@@ -20,7 +20,7 @@ class Nitstats
   end
 
   def given
-    sql = "select date(c.created_at), count(1)
+    sql = "select date(c.created_at) as date, count(1) as count
            from comments c, submissions s
            where c.user_id = #{user.id}
            and c.submission_id = s.id
@@ -30,7 +30,7 @@ class Nitstats
   end
 
   def received
-    sql = "select date(c.created_at), count(1)
+    sql = "select date(c.created_at) as date, count(1) as count
            from comments c, submissions s
            where c.user_id != #{user.id}
            and c.submission_id = s.id
@@ -62,7 +62,7 @@ class Nitstats
   attr_reader :user
 
   def extract_stat(results)
-    results = results.reduce({}) { |acc, r| acc.merge(r["created_at"] => r["count"]) }
+    results = results.reduce({}) { |acc, r| acc.merge(r["date"] => r["count"]) }
     (from..to).map { |d| results[d.to_s].to_i }
   end
 
