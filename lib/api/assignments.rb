@@ -1,9 +1,30 @@
 class ExercismAPI < Sinatra::Base
+  helpers do
+    def curriculum
+      Exercism.current_curriculum
+    end
+  end
+
   get '/assignments/demo' do
     assignments = Exercism.trails.map do |trail|
       trail.first_assignment
     end
     pg :assignments, locals: {assignments: assignments}
+  end
+
+  get '/assignments/:language/:slug' do |language, slug|
+    unless curriculum.available?(language)
+      halt 400, {error: "Sorry, we don't have exercises in '#{language}'."}.to_json
+    end
+
+    trail = curriculum.in(language)
+    exercise = trail.find(slug)
+    unless exercise
+      halt 400, {error: "Sorry, we don't have '#{slug}' in '#{language}'."}.to_json
+    end
+
+    # Is it gross to return an array?
+    pg :assignments, locals: {assignments: [trail.assign(slug)]}
   end
 
   get '/user/assignments/completed' do

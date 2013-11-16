@@ -28,6 +28,31 @@ class AssignmentsApiTest < Minitest::Test
     Exercism.instance_variable_set(:@languages, nil)
   end
 
+  def test_cannot_fetch_exercise_in_nonexistent_language
+    Exercism.stub(:current_curriculum, curriculum) do
+      get '/assignments/nosuch/one'
+      assert_equal 400, last_response.status
+      assert_match /sorry/i, JSON.parse(last_response.body)['error']
+    end
+  end
+
+  def test_cannot_fetch_nonexistent_exercise
+    Exercism.stub(:current_curriculum, curriculum) do
+      get '/assignments/ruby/million'
+      assert_equal 400, last_response.status
+      assert_match /sorry/i, JSON.parse(last_response.body)['error']
+    end
+  end
+
+  def test_fetch_exercise
+    Exercism.stub(:current_curriculum, curriculum) do
+      get '/assignments/ruby/one'
+      assert_equal 200, last_response.status
+      options = {format: :json, name: 'fetch_specific_exercise'}
+      Approvals.verify(last_response.body, options)
+    end
+  end
+
   def test_api_returns_first_incomplete_assignment_for_each_track
     Exercism.stub(:current_curriculum, curriculum) do
       get '/user/assignments/current', {key: alice.key}
@@ -121,7 +146,7 @@ class AssignmentsApiTest < Minitest::Test
     end
   end
 
-  def test_submit_beyond_end_of_trail
+  def test_fetch_at_the_end_of_trail
     Exercism.stub(:current_curriculum, curriculum) do
       bob = User.create(github_id: 2, current: {'ruby' => 'two'})
       trail = Exercism.current_curriculum.in('ruby')

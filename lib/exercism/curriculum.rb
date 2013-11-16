@@ -51,7 +51,7 @@ class Curriculum
   end
 
   def available?(language)
-    available_languages.include?(language.to_sym)
+    languages.include?(language.to_sym)
   end
 
   def languages
