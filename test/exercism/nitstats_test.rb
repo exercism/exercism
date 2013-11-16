@@ -3,6 +3,7 @@ require 'mocha/setup'
 require 'active_support/all'
 
 class NitstatsTest < Minitest::Test
+  include DBCleaner
 
   def user
     stub(id: 38)
@@ -34,5 +35,20 @@ class NitstatsTest < Minitest::Test
 
   def test_step_retured
     refute_nil stats.data[:step]
+  end
+
+  def test_correct_numbers_returned
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    sub1 = Submission.create(state: 'pending', user: alice, language: 'python', slug: 'one')
+    sub2 = Submission.create(state: 'pending', user: bob, language: 'python', slug: 'two')
+    Comment.create(user: alice, submission: sub1, body: 'something')
+    Comment.create(user: alice, submission: sub2, body: 'something')
+    Comment.create(user: bob, submission: sub2, body: 'something')
+
+    assert_equal 0, Nitstats.new(alice).data[:received].last
+    assert_equal 1, Nitstats.new(alice).data[:given].last
+    assert_equal 0, Nitstats.new(bob).data[:given].last
+    assert_equal 1, Nitstats.new(bob).data[:received].last
   end
 end
