@@ -2,22 +2,24 @@ package binary
 
 import "testing"
 
-type binaryTest struct {
+var testCases = []struct {
 	binary   string
 	expected int
-}
-
-var binaryTests = []binaryTest{
-	{"1", 1}, {"10", 2}, {"11", 3},
-	{"100", 4}, {"1001", 9}, {"10001101000", 1128},
+}{
+	{"1", 1},
+	{"10", 2},
+	{"11", 3},
+	{"100", 4},
+	{"1001", 9},
+	{"10001101000", 1128},
 	{"12", 0},
 }
 
 func TestBinary(t *testing.T) {
-	for _, test := range binaryTests {
-		actual := ToDecimal(test.binary)
-		if actual != test.expected {
-			t.Errorf("ToDecimal(%d): expected %d, actual %d", test.binary, test.expected, actual)
+	for _, tt := range testCases {
+		actual := ToDecimal(tt.binary)
+		if actual != tt.expected {
+			t.Fatalf("ToDecimal(%d): expected %d, actual %d", tt.binary, tt.expected, actual)
 		}
 	}
 }
