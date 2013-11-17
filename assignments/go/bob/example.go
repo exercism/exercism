@@ -6,17 +6,17 @@ func Hey(drivel string) string {
 	switch {
 	case silent(drivel):
 		return "Fine. Be that way!"
-	case asking(drivel):
-		return "Sure."
 	case yelling(drivel):
 		return "Woah, chill out!"
+	case asking(drivel):
+		return "Sure."
 	default:
 		return "Whatever."
 	}
 }
 
 func yelling(drivel string) bool {
-	return len(drivel) > 0 && strings.ToUpper(drivel) == drivel
+	return strings.ToUpper(drivel) == drivel && strings.ToLower(drivel) != strings.ToUpper(drivel)
 }
 
 func asking(drivel string) bool {
@@ -24,5 +24,5 @@ func asking(drivel string) bool {
 }
 
 func silent(drivel string) bool {
-	return drivel == ""
+	return strings.Trim(drivel, " ") == ""
 }

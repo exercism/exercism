@@ -2,52 +2,114 @@ package bob
 
 import "testing"
 
-func assertReply(t *testing.T, in string, out string) {
-	if reply := Hey(in); reply != out {
-		t.Errorf("Hey(\"%v\"): Got \"%v\", expected \"%v\"", in, reply, out)
+var testCases = []struct {
+	description string
+	expected    string
+	input       string
+}{
+	{
+		"stating something",
+		"Whatever.",
+		"Tom-ay-to, tom-aaaah-to.",
+	},
+	{
+		"shouting",
+		"Woah, chill out!",
+		"WATCH OUT!",
+	},
+	{
+		"asking a question",
+		"Sure.",
+		"Does this cryogenic chamber make me look fat?",
+	},
+	{
+		"asking a numeric question",
+		"Sure.",
+		"You are, what, like 15?",
+	},
+	{
+		"talking forcefully",
+		"Whatever.",
+		"Let's go make out behind the gym!",
+	},
+	{
+		"using acronyms in regular speech",
+		"Whatever.",
+		"It's OK if you don't want to go to the DMV.",
+	},
+	{
+		"forceful questions",
+		"Woah, chill out!",
+		"WHAT THE HELL WERE YOU THINKING?",
+	},
+	{
+		"shouting numbers",
+		"Woah, chill out!",
+		"1, 2, 3 GO!",
+	},
+	{
+		"only numbers",
+		"Whatever.",
+		"1, 2, 3",
+	},
+	{
+		"question with only numbers",
+		"Sure.",
+		"4?",
+	},
+	{
+		"shouting with special characters",
+		"Woah, chill out!",
+		"ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!",
+	},
+	{
+		"shouting with no exclamation mark",
+		"Woah, chill out!",
+		"I HATE YOU",
+	},
+	{
+		"statement containing question mark",
+		"Whatever.",
+		"Ending with ? means a question.",
+	},
+	{
+		"prattling on",
+		"Sure.",
+		"Wait! Hang on. Are you going to be OK?",
+	},
+	{
+		"silence",
+		"Fine. Be that way!",
+		"",
+	},
+	{
+		"prolonged silence",
+		"Fine. Be that way!",
+		"    ",
+	},
+	{
+		"really prolonged silence",
+		"Fine. Be that way!",
+		"                 ",
+	},
+	{
+		"multi line trick question",
+		"Whatever.",
+		"Do I ever change my mind?\nNo.",
+	},
+}
+
+func TestHeyBob(t *testing.T) {
+	for _, tt := range testCases {
+		actual := Hey(tt.input)
+		if actual != tt.expected {
+			msg := `
+	ALICE (%s): %s
+	BOB: %s
+
+	Expected Bob to respond: %s
+			`
+			t.Fatalf(msg, tt.description, tt.input, actual, tt.expected)
+		}
 	}
-}
-
-func TestBobStatement(t *testing.T) {
-	assertReply(t, "Tom-ay-to, tom-aaaah-to.", "Whatever.")
-}
-
-func TestShouting(t *testing.T) {
-	t.SkipNow()
-	assertReply(t, "WATCH OUT!", "Woah, chill out!")
-}
-
-func TestExclaiming(t *testing.T) {
-	t.SkipNow()
-	assertReply(t, "Let's go make out behind the gym!", "Whatever.")
-}
-
-func TestAsking(t *testing.T) {
-	t.SkipNow()
-	assertReply(t, "Does this cryogenic chamber make me look fat?", "Sure.")
-}
-
-func TestShoutNumbers(t *testing.T) {
-	t.SkipNow()
-	assertReply(t, "1, 2, 3 GO!", "Woah, chill out!")
-}
-
-func TestShoutWeirdCharacters(t *testing.T) {
-	t.SkipNow()
-	assertReply(t, "ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!", "Woah, chill out!")
-}
-
-func TestShoutWithoutPunctuation(t *testing.T) {
-	t.SkipNow()
-	assertReply(t, "I HATE YOU", "Woah, chill out!")
-}
-
-func TestStatementWithQuestionMark(t *testing.T) {
-	t.SkipNow()
-	assertReply(t, "Ending with ? means a question.", "Whatever.")
-}
-
-func TestSilentTreatment(t *testing.T) {
-	t.SkipNow()
-	assertReply(t, "", "Fine. Be that way!")
 }
