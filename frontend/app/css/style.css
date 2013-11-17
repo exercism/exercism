@@ -1,8 +1,17 @@
 /*HOME*/
 
+.navbar .brand {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.navbar .nav > li > a {
+  padding-top: 14px;
+}
+
 div.navbar-inner {
   padding-right: 3em;
-  padding-left: 3em;
+  padding-left: 2em;
 }
 
 div.home {
