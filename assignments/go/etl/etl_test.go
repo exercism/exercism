@@ -2,24 +2,27 @@ package etl
 
 import "testing"
 
+type in map[int][]string
+type out map[string]int
+
 var transformTests = []struct {
-	input    map[int][]string
-	expected map[string]int
+	input    in
+	expected out
 }{
 	{
-		map[int][]string{1: {"WORLD"}},
-		map[string]int{"world": 1},
+		in{1: {"WORLD"}},
+		out{"world": 1},
 	},
 	{
-		map[int][]string{1: {"WORLD", "GSCHOOLERS"}},
-		map[string]int{"world": 1, "gschoolers": 1},
+		in{1: {"WORLD", "GSCHOOLERS"}},
+		out{"world": 1, "gschoolers": 1},
 	},
 	{
-		map[int][]string{
+		in{
 			1: {"APPLE", "ARTICHOKE"},
 			2: {"BOAT", "BALLERINA"},
 		},
-		map[string]int{
+		out{
 			"apple":     1,
 			"artichoke": 1,
 			"boat":      2,
@@ -27,7 +30,7 @@ var transformTests = []struct {
 		},
 	},
 	{
-		map[int][]string{
+		in{
 			1:  {"A", "E", "I", "O", "U", "L", "N", "R", "S", "T"},
 			2:  {"D", "G"},
 			3:  {"B", "C", "M", "P"},
@@ -36,7 +39,7 @@ var transformTests = []struct {
 			8:  {"J", "X"},
 			10: {"Q", "Z"},
 		},
-		map[string]int{
+		out{
 			"a": 1, "e": 1, "i": 1, "o": 1, "u": 1, "l": 1, "n": 1, "r": 1, "s": 1, "t": 1,
 			"d": 2, "g": 2,
 			"b": 3, "c": 3, "m": 3, "p": 3,
@@ -48,7 +51,7 @@ var transformTests = []struct {
 	},
 }
 
-func mapsMatch(actual map[string]int, expected map[string]int) bool {
+func equal(actual map[string]int, expected map[string]int) bool {
 	if len(actual) != len(expected) {
 		return false
 	}
@@ -65,10 +68,10 @@ func mapsMatch(actual map[string]int, expected map[string]int) bool {
 }
 
 func TestTranform(t *testing.T) {
-	for _, test := range transformTests {
-		actual := Transform(test.input)
-		if !mapsMatch(actual, test.expected) {
-			t.Errorf("Transform(%v). Expected [%v], Actual [%v]", test.input, test.expected, actual)
+	for _, tt := range transformTests {
+		actual := Transform(tt.input)
+		if !equal(actual, tt.expected) {
+			t.Fatalf("Transform(%v). Expected [%v], Actual [%v]", tt.input, tt.expected, actual)
 		}
 	}
 }
