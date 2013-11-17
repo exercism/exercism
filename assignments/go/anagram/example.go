@@ -1,37 +1,28 @@
 package anagram
 
-import "strings"
+import (
+	"sort"
+	"strings"
+)
 
 func Detect(subject string, candidates []string) []string {
+	subject = strings.ToLower(subject)
 	var matches []string
-	for _, v := range candidates {
-		if isAnagram(subject, v) {
-			matches = append(matches, v)
+	for _, c := range candidates {
+		c = strings.ToLower(c)
+		if isAnagram(subject, c) {
+			matches = append(matches, c)
 		}
 	}
 	return matches
 }
 
 func isAnagram(subject, candidate string) bool {
-	subject = strings.ToLower(subject)
-	candidate = strings.ToLower(candidate)
+	return subject != candidate && alphagram(subject) == alphagram(candidate)
+}
 
-	if subject == candidate {
-		return false
-	}
-
-	if len(subject) != len(candidate) {
-		return false
-	}
-
-	result := true
-	for _, char := range subject {
-		if strings.Count(subject, string(char)) == strings.Count(candidate, string(char)) {
-			result = result && true
-		} else {
-			return false
-		}
-	}
-
-	return result
+func alphagram(s string) string {
+	chars := strings.Split(s, "")
+	sort.Strings(chars)
+	return strings.Join(chars, "")
 }
