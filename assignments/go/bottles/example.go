@@ -1,4 +1,4 @@
-package beersong
+package bottles
 
 import (
 	"bytes"
@@ -9,18 +9,17 @@ func Verse(numberBottles int) string {
 	return fmt.Sprintf("%s\n%s\n", bottles(numberBottles), action(numberBottles))
 }
 
-func Sing(args ...int) string {
+func Verses(start, stop int) string {
 	var buffer bytes.Buffer
-	start := args[0]
-	var end int
-
-	if len(args) == 1 {
-		end = 0
-	} else {
-		end = args[1]
+	for i := start; i >= stop; i-- {
+		buffer.WriteString(Verse(i) + "\n")
 	}
+	return buffer.String()
+}
 
-	for i := start; i >= end; i-- {
+func Sing() string {
+	var buffer bytes.Buffer
+	for i := 99; i >= 0; i-- {
 		buffer.WriteString(Verse(i) + "\n")
 	}
 	return buffer.String()
@@ -51,51 +50,3 @@ func action(numberBottles int) (r string) {
 	}
 	return
 }
-
-/*
-class Beer
-  def sing(first, last = 0)
-    s = ""
-    first.downto(last).each do |number|
-      s << verse(number)
-      s << "\n"
-    end
-    s
-  end
-
-  def verse(number)
-    s = ""
-    s << "#{bottles(number).capitalize} of beer on the wall, "
-    s << "#{bottles(number)} of beer.\n"
-    s << action(number)
-    s << next_bottle(number)
-  end
-
-  def next_bottle(current_verse)
-    "#{bottles(next_verse(current_verse))} of beer on the wall.\n"
-  end
-
-  def action(current_verse)
-    if current_verse == 0
-      "Go to the store and buy some more, "
-    else
-      "Take #{current_verse == 1 ? "it" : "one"} down and pass it around, "
-    end
-  end
-
-  def next_verse(current_verse)
-    current_verse == 0 ? 99 : (current_verse - 1)
-  end
-
-  def bottles(number)
-    if number == 0
-      "no more bottles"
-    elsif number == 1
-      "1 bottle"
-    else
-      "#{number} bottles"
-    end
-  end
-
-end
-*/
