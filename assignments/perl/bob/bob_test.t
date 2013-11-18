@@ -4,7 +4,17 @@ use warnings;
 use Test::More;
 
 my @cases = (
-    ['Tom-ay-to, tom-aaaah-to.', 'Whatever.'],
+    # input                                           expected output
+    ['Tom-ay-to, tom-aaaah-to.',                      'Whatever.'],
+    ['WATCH OUT!',                                    'Woah, chill out!'],
+    ['Does this cryogenic chamber make me look fat?', 'Sure.'],
+    ['You are, what, like 15?',                        'Sure.'],
+    ["Let's go make out behind the gym!",              'Whatever.'],
+    ["It's OK if you don't want to go to the DMV.",    'Whatever.'], 
+    ['WHAT THE HELL WERE YOU THINKING?',               'Woah, chill out!'], 
+    ['1, 2, 3 GO!',                                    'Woah, chill out!'], 
+    ['1, 2, 3',                                        'Whatever.'], 
+
 );
 
 
@@ -22,8 +32,5 @@ can_ok('Bob', 'hey') or BAIL_OUT("Missing package Bob; or missing sub hey {}");
 foreach my $c (@cases) {
     is Bob::hey($c->[0]), $c->[1], $c->[0];
 }
-
-
-
 
 
