@@ -1,6 +1,7 @@
 use strict;
 use warnings;
 use open ':std', ':encoding(utf8)';
+use utf8;
 
 use Test::More;
 
@@ -17,7 +18,9 @@ my @cases = (
     ['1, 2, 3',                                        'Whatever.',          'only numbers'], 
     ['4?',                                             'Sure.',              'question with only numbers'], 
     ['ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!',  'Woah, chill out!',   'shouting with special characters'], 
+    ["ÜMLÄÜTS!",                                       'Woah, chill out!',   'shouting with umlauts'], 
     ["\xdcML\xc4\xdcTS!",                              'Woah, chill out!',   'shouting with umlauts'], 
+    ["ÜMLäÜTS!",                                       'Whatever.',          'speaking calmly with umlauts'],
     #["\xdcML\xe4\xdcTS!",                              'Whatever.',          'speaking calmly with umlauts'],
     ['I HATE YOU',                                     'Woah, chill out!',   'shouting with no exclamation mark'],
     ['Ending with ? means a question.',                'Whatever.',          'statement containing question mark'],
