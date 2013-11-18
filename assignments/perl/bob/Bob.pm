@@ -4,7 +4,7 @@ sub hey {
     my ($text) = @_;
 
     return 'Fine. Be that way!'
-        if $text eq '';
+        if $text =~ /^\s*$/;
     return 'Woah, chill out!'
         if uc($text) eq $text and $text =~ /\p{Uppercase}/;
     return 'Sure.'

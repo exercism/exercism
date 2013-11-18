@@ -1,9 +1,6 @@
 use strict;
 use warnings;
 use open ':std', ':encoding(utf8)';
-#binmode(STDOUT, ':utf8');
-#binmode(STDERR, ':utf8');
-#use utf8;
 
 use Test::More;
 
@@ -26,6 +23,7 @@ my @cases = (
     ['Ending with ? means a question.',                'Whatever.',          'statement containing question mark'],
     ["Wait! Hang on. Are you going to be OK?",         'Sure.',              'prattling on'],
     ['',                                               'Fine. Be that way!', 'silence'],
+    ['    ',                                           'Fine. Be that way!', 'prolonged silence'],
 );
 
 
