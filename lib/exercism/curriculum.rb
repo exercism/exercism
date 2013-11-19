@@ -8,6 +8,7 @@ require 'exercism/curriculum/python'
 require 'exercism/curriculum/ruby'
 require 'exercism/curriculum/objective-c'
 require 'exercism/curriculum/scala'
+require 'exercism/curriculum/perl5'
 
 class Exercism
   def self.current_curriculum
