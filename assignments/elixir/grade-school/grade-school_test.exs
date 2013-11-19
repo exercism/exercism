@@ -45,9 +45,9 @@ defmodule SchoolTest do
 
   test "sort school" do
     actual = db
+      |> School.add("Christopher", 4)
       |> School.add("Jennifer", 4)
       |> School.add("Kareem", 6)
-      |> School.add("Christopher", 4)
       |> School.add("Kyle", 3)
       |> School.sort
 
