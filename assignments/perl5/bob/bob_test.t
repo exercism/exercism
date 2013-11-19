@@ -39,7 +39,7 @@ eval "use Bob";
 ok !$@, 'Cannot load Bob.pm'
     or BAIL_OUT('Does Bob.pm compile?  Does it end with 1; ?');
 
-can_ok('Bob', 'hey') or BAIL_OUT("Missing package Bob; or missing sub hey {}");
+can_ok('Bob', 'hey') or BAIL_OUT("Missing package Bob; or missing sub hey()");
 
 foreach my $c (@cases) {
     #diag uc $c->[0];
