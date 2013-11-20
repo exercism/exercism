@@ -9,7 +9,7 @@ class Assignment
   end
 
   def filenames
-    Dir.glob("#{path}/**/**").reject {|f| f[/example/] || File.directory?(f)}.map {|f| f.gsub("#{path}/", '')}
+    Dir.glob("#{path}/**/**").reject {|f| f[/example/i] || File.directory?(f)}.map {|f| f.gsub("#{path}/", '')}
   end
 
   def name

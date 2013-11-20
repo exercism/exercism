@@ -18,6 +18,9 @@ class AssignmentTest < Minitest::Test
 
   def test_detect_filenames_ignoring_example_code
     assert_equal ['Fakefile', 'one_test.test'], assignment.filenames.sort
+    # also: case insensitive
+    obj_c = Assignment.new('objective-c', 'one', './test/fixtures/')
+    assert_equal ["OneTest.m"], obj_c.filenames.sort
   end
 
   def test_detect_files_all_the_way_down
@@ -94,7 +97,7 @@ END
 
   def test_testfile_is_case_insensitive
     objectivec_assignment = Assignment.new('objective-c', 'one', './test/fixtures/')
-    assert_equal "ExampleTest.m", objectivec_assignment.test_file
+    assert_equal "OneTest.m", objectivec_assignment.test_file
     ruby_assignment = Assignment.new('ruby', 'two', './test/fixtures/')
     assert_equal "two_test.rb", ruby_assignment.test_file
   end
