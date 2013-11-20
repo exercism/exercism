@@ -144,6 +144,9 @@ h1.home {
   background-image: url('/img/scala.png');
 }
 
+.perl5-icon {
+  background-image: url('/img/perl5.png');
+}
 .nits {
   text-align: center;
   line-height: 30px;
