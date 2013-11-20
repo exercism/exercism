@@ -1,22 +1,9 @@
-class NucleicAcid
-  THYMIDINE = 'T'
-  URACIL = 'U'
-
-  attr_reader :strand
-  def initialize(strand)
-    @strand = strand
+class Complement
+  def self.of_dna(strand)
+    strand.tr('CGTA', 'GCAU')
   end
 
-  require 'forwardable'
-  extend Forwardable
-  def_delegators :strand, :to_str, :to_s, :==
-end
-
-class RibonucleicAcid < NucleicAcid
-end
-
-class DeoxyribonucleicAcid < NucleicAcid
-  def to_rna
-    RibonucleicAcid.new(strand.tr THYMIDINE, URACIL)
+  def self.of_rna(strand)
+    strand.tr('GCAU', 'CGTA')
   end
 end
