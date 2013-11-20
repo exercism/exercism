@@ -6,8 +6,17 @@ use utf8;
 use Test::More;
 
 my @cases = (
-    # input                                           expected output        title
-#    ['Tom-ay-to, tom-aaaah-to.',                       'Whatever.',          'stating something'],
+    # input                                       expected output                  title
+    ['word',                                      {word =>  1},                    'one word'],
+    ['one of each',                               {one => 1, of => 1, each => 1},  'one of each'], 
+    ['one fish two fish red fish blue fish',
+            {one => 1, fish => 4, two => 1, red => 1, blue => 1},
+                 'multiple occurences'],
+    ['car : carpet as java : javascript!!&@$%^&',
+            {car => 1, carpet => 1, as => 1, java => 1, javascript => 1},
+                'ignore punctuation'],
+    ['testing, 1, 2 testing',                     {testing => 2, 1 => 1, 2 => 1}, 'include numbers'],
+    ['go Go GO',                                  {go => 3},                       'normalize case'],
 );
 
 

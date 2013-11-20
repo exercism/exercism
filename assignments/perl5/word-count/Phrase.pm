@@ -6,6 +6,9 @@ sub word_count {
     my ($text) = @_;
     my %count;
 
+	foreach my $word ($text =~ /(\w+)/g) {
+		$count{lc $word}++;
+	}
 
     return \%count;
 }
