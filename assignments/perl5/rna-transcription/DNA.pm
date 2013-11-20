@@ -1,4 +1,6 @@
 package DNA;
+use strict;
+use warnings;
 
 sub to_rna {
 	my ($dna) = @_;

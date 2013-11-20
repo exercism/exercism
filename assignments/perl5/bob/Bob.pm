@@ -1,4 +1,6 @@
 package Bob;
+use strict;
+use warnings;
 
 sub hey {
     my ($text) = @_;
