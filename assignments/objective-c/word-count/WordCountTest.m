@@ -49,7 +49,7 @@
   XCTAssertEqual([expected objectForKey:@"javascript"],[result objectForKey:@"javascript"]);
 }
 
-- (void)includeNumbers {
+- (void)testIncludeNumbers {
   WordCount *words = [[WordCount alloc] initWithString:@"testing, 1, 2 testing"];
   NSDictionary *expected = @{ @"testing" : @2, @"1" : @1, @"2" : @1 };
   NSDictionary *result = [words count];
@@ -59,7 +59,7 @@
   XCTAssertEqual([expected objectForKey:@"2"],[result objectForKey:@"2"]);
 }
 
-- (void)normalizeCase {
+- (void)testNormalizeCase {
   WordCount *words = [[WordCount alloc] initWithString:@"go Go GO"];
   NSDictionary *expected = @{ @"go" : @3 };
   NSDictionary *result = [words count];
