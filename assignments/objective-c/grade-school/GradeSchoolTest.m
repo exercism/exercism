@@ -24,7 +24,7 @@
   XCTAssert([result isEqualToDictionary:expected]);
 }
 
-- (void)addMoreStudentsInSameClass {
+- (void)testAddMoreStudentsInSameClass {
   GradeSchool *school = [[GradeSchool alloc] init];
   [school addStudentWithName:@"James" andGrade:@2];
   [school addStudentWithName:@"Blair" andGrade:@2];
