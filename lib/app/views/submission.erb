@@ -108,7 +108,7 @@
 
     <% if current_user.owns?(submission) && !current_user.completed?(submission.exercise) %>
       <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/done" method="POST">
-        <button type="submit" name="done" class="btn">OK, I'm done. Unlock the next exercise.</button>
+        <button type="submit" name="done" id="btn" class="btn">OK, I'm done. Unlock the next exercise.</button>
       </form>
     <% end %>
 

@@ -3555,6 +3555,11 @@ input[type="button"].btn-block {
   background-color: #080808 \9;
 }
 
+button.btn#btn{
+  position:relative;
+  bottom:20px;
+}
+
 button.btn,
 input[type="submit"].btn {
   *padding-top: 3px;
