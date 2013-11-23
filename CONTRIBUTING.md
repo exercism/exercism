@@ -8,11 +8,11 @@ Please file issues on the [GitHub issues list](https://github.com/exercism/exerc
 
 ## Features / Pull Requests
 
-If you want a feature implemented, the best way to get it done is to submit a pull request that implements it. Tests and docs would be wonderful.
+If you want a feature implemented, the best way to get it done is to submit a pull request that implements it. Tests would be wonderful.
 
 There are full instructions on getting the app running [in the README](https://github.com/exercism/exercism.io/blob/master/README.md).
 
-Please try and stick to the [Ruby Style Guidelines](https://github.com/styleguide/ruby) with the one exception of using Jim Weirich's style of [braces vs do-end](http://onestepback.org/index.cgi/Tech/Ruby/BraceVsDoEnd.rdoc).
+Please try and stick to the [Ruby Style Guidelines](https://github.com/styleguide/ruby).
 
 ## Creating a new Language Track
 
