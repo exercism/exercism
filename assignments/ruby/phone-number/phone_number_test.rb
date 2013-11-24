@@ -1,8 +1,3 @@
-gem 'minitest'
-require 'minitest/autorun'
-require_relative 'phone_number'
-
-gem 'minitest'
 require 'minitest/autorun'
 require_relative 'phone_number'
 
