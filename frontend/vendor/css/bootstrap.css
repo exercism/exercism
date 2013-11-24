@@ -3555,7 +3555,7 @@ input[type="button"].btn-block {
   background-color: #080808 \9;
 }
 
-button.btn#btn{
+button.btn.exercise-done{
   position:relative;
   bottom:20px;
 }
