@@ -25,7 +25,7 @@ defmodule Frequency do
   defp count_text(string) do
     # At the time of writing Elixir doesn't yet have a way to determine if a
     # character is a letter. So use a workaround with Regex.
-    String.replace(string, %r/\P{L}+/u, "") # \P{L} = anything but a letter
+    String.replace(string, %r/\P{L}+/, "") # \P{L} = anything but a letter
     |> String.downcase()
     |> String.graphemes()
     |> Enum.reduce(HashDict.new(), fn c, acc -> Dict.update(acc, c, 1, &(&1+1)) end)
