@@ -21,7 +21,7 @@ gem 'diffy'
 
 # Must not be required
 # See http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
-gem 'pony', require: false
+gem 'pony', '~> 1.6', require: false
 
 group :test, :development do
   gem 'ruby-prof'
