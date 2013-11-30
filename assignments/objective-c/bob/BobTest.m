@@ -39,12 +39,41 @@
   XCTAssertEqual(expected,result);
 }
 
+- (void)testUsingAcronyms {
+    NSString *input = @"It's OK if you don't want to go to the DMV.";
+    NSString *expected = @"Whatever.";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
+}
+
+- (void)testForcefulQuestions {
+    NSString *input = @"WHAT THE HELL WERE YOU THINKING?";
+    NSString *expected = @"Woah, chill out!";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
+}
+
+
 - (void)testShoutingNumbers {
   NSString *input = @"1, 2, 3 GO!";
   NSString *expected = @"Woah, chill out!";
   NSString *result = [[self bob] hey:input];
   XCTAssertEqual(expected,result);
 }
+
+- (void)testOnlyNumbers {
+    NSString *input = @"1, 2, 3.";
+    NSString *expected = @"Whatever.";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
+}
+- (void)testQuestionWithOnlyNumbers {
+    NSString *input = @"4?";
+    NSString *expected = @"Sure.";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
+}
+
 
 - (void)testShoutingWithSpecialCharacters {
   NSString *input = @"ZOMG THE %^*@#$(*^ ZOMBIES ARE COMING!!11!!1!";
@@ -53,11 +82,53 @@
   XCTAssertEqual(expected,result);
 }
 
+- (void)testShoutingWithUmlautsCharacters {
+    NSString *input = @"ÄMLÄTS!";
+    NSString *expected = @"Woah, chill out!";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
+}
+
+- (void)testCalmlySpeakingAboutUmlauts {
+    NSString *input = @"ÄMLäTS!";
+    NSString *expected = @"Whatever.";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
+}
+
+- (void)testShoutingWithNoExclamationMark {
+    NSString *input = @"I HATE YOU";
+    NSString *expected = @"Woah, chill out!";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
+}
+
+- (void)testStatementContainingQuestionsMark {
+    NSString *input = @"Ending with a ? means a question.";
+    NSString *expected = @"Whatever.";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
+}
+
+- (void)testPrattlingOn {
+    NSString *input = @"Wait! Hang on.  Are you going to be OK?";
+    NSString *expected = @"Sure.";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
+}
+
 - (void)testSilence {
   NSString *input = @"";
   NSString *expected = @"Fine, be that way.";
   NSString *result = [[self bob] hey:input];
   XCTAssertEqual(expected,result);
+}
+
+- (void)testProlongedSilence {
+    NSString *input = @"     ";
+    NSString *expected = @"Fine, be that way.";
+    NSString *result = [[self bob] hey:input];
+    XCTAssertEqual(expected,result);
 }
 
 @end
