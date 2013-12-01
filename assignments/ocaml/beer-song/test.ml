@@ -1,6 +1,5 @@
 open Core.Std
 open OUnit2
-open Beer
 
 let ae exp got = assert_equal ~printer:String.to_string exp got
 
