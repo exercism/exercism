@@ -15,7 +15,7 @@ class Code
     'rb' => 'ruby',
     'rs' => 'rust',
     'm' => 'objective-c',
-    'scala' => 'scala'
+    'scala' => 'scala',
     'pl' => 'perl5' # Usually .pl for scripts, .pm for modules, .t for test files
   }
 
