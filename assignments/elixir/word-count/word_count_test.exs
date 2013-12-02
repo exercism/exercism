@@ -1,4 +1,4 @@
-Code.load_file("word-count.exs")
+Code.load_file("word_count.exs")
 ExUnit.start
 
 defmodule WordsTest do
