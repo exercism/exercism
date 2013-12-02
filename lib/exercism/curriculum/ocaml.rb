@@ -3,7 +3,7 @@ class Exercism
     def slugs
       %w(
         bob word-count anagram beer-song nucleotide-count
-        rna-transcription
+        rna-transcription point-mutations
       )
 # These are the ones Elixir supports.
 #      %w(
