@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative 'example'
+require_relative 'beer_song'
 
 class BeerSongTest < MiniTest::Unit::TestCase
 
