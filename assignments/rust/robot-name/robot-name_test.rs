@@ -5,24 +5,35 @@ extern mod extra;
 
 mod robot;
 
+/*
+These are the expected signatures:
+
+impl Robot {
+    pub fn new() -> Robot { ... }
+    pub fn name<'a>(&'a self) -> &'a str { ... }
+    pub fn resetName(&mut self) { ... }
+}
+*/
+
 fn assert_name_matches_pattern(n: &str) {
     assert!(n.slice_to(3).iter().all(|c| c >= 'A' && c <= 'Z'), "name starts with 3 letters");
     assert!(n.slice_from(3).iter().all(|c| c >= '0' && c <= '9'), "name ends with 3 numbers");
 }
 
 fn assert_name_is_persistent(r: &robot::Robot) {
+    // The type system already proves this, but why not.
     let n1 = r.name();
     let n2 = r.name();
     let n3 = r.name();
-    // These are borrowed otherwise n2 would get moved for the first comparison
-    assert_eq!(&n1, &n2);
-    assert_eq!(&n2, &n3);
+    assert_eq!(n1, n2);
+    assert_eq!(n2, n3);
 }
 
 #[test]
 #[ignore]
 fn test_name_should_match_expected_pattern() {
-    assert_name_matches_pattern(robot::Robot::new().name());
+    let r = robot::Robot::new();
+    assert_name_matches_pattern(r.name());
 }
 
 #[test]
@@ -60,8 +71,8 @@ fn test_new_name_is_persistent() {
 #[ignore]
 fn test_new_name_is_different_from_old_name() {
     let mut r = robot::Robot::new();
-    let n1 = r.name();
+    let n1 = r.name().to_owned();
     r.resetName();
-    let n2 = r.name();
+    let n2 = r.name().to_owned();
     assert!(n1 != n2, "Robot name should change when reset");
 }
