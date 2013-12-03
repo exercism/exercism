@@ -27,7 +27,11 @@ func convert(s string) string {
 	for i := 0; i < len(s); i++ {
 		char := inputSlice[i]
 		index := indexOf(originalSlice, char)
-		result = result + reversedSlice[index]
+		if index > -1 {
+			result = result + reversedSlice[index]
+		} else {
+			result = result + char
+		}
 	}
 	return result
 }
