@@ -12,9 +12,9 @@ var tests = []struct {
 	{"lnt", "OMG"},
 	{"lnt", "O M G"},
 	{"nrmwy oldrm tob", "mindblowingly"},
-//	{"gvhgr mt123 gvhgr mt", "Testing, 1 2 3, testing."},
-//	{"gifgs rhurx grlm", "Truth is fiction."},
-//	{"The quick brown fox jumps over the lazy dog.", "gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt"},
+	{"gvhgr mt123 gvhgr mt", "Testing, 1 2 3, testing."},
+	{"gifgs rhurx grlm", "Truth is fiction."},
+	{"gsvjf rxpyi ldmul cqfnk hlevi gsvoz abwlt", "The quick brown fox jumps over the lazy dog."},
 }
 
 func TestAtbash(t *testing.T) {
