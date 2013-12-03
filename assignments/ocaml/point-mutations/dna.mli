@@ -1,3 +1,5 @@
+(** Point-mutation exercise *)
+
 type nucleotide = A | C | G | T
 
 (** Compute the hammning distance between the two lists. *)

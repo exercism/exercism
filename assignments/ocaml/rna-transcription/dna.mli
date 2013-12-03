@@ -1,3 +1,5 @@
+(** Rna-transcription exercise *)
+
 type dna = [ `A | `C | `G | `T ]
 type rna = [ `A | `C | `G | `U ]
 

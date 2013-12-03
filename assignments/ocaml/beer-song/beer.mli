@@ -1,3 +1,5 @@
+(** Beer-song exercise *)
+
 (** Return a single beer song verse. *)
 val verse : int -> string
 
