@@ -24,8 +24,8 @@ impl Robot {
         Robot { name: generateName() }
     }
 
-    pub fn name(&self) -> ~str {
-        self.name.to_owned()
+    pub fn name<'a>(&'a self) -> &'a str {
+        self.name.as_slice()
     }
 
     pub fn resetName(&mut self) {
