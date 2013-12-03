@@ -58,22 +58,22 @@ class PigLatinTest < MiniTest::Unit::TestCase
   end
 
   def test_word_beginning_with_ye
-    #skip
+    skip
     assert_equal "ellowyay", PigLatin.translate("yellow")
   end
 
   def test_word_beginning_with_yt
-    #skip
+    skip
     assert_equal "yttriaay", PigLatin.translate("yttria")
   end
 
   def test_word_beginning_with_xe
-    #skip
+    skip
     assert_equal "enonxay", PigLatin.translate("xenon")
   end
 
   def test_word_beginning_with_xr
-    #skip
+    skip
     assert_equal "xrayay", PigLatin.translate("xray")
   end
 end
