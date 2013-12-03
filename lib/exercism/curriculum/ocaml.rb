@@ -4,6 +4,7 @@ class Exercism
       %w(
         bob word-count anagram beer-song nucleotide-count
         rna-transcription point-mutations phone-number
+        grade-school
       )
 # These are the ones Elixir supports.
 #      %w(
