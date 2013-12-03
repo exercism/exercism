@@ -7,6 +7,7 @@ class Team < ActiveRecord::Base
   validates :creator, presence: true
   validates :slug, presence: true,  uniqueness: true
 
+  after_initialize :provide_default_name, :if => :new_record?
   before_save :normalize_slug
 
   def self.by(user)
@@ -40,5 +41,9 @@ class Team < ActiveRecord::Base
 
   def normalize_slug
     self.slug = slug.downcase.gsub(/\W/, {' ' => '-', /\S/ => ''})
+  end
+
+  def provide_default_name
+    self.name ||= self.slug
   end
 end

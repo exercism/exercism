@@ -16,6 +16,20 @@ class TeamTest < Minitest::Test
     assert_equal 1, Team.count
   end
 
+  def test_team_has_default_name
+    alice = User.create(username: 'alice')
+    team = Team.create(slug: 'I <3 Exercism', creator: alice)
+    assert_equal 'I <3 Exercism', team.name
+    assert_equal 'i-3-exercism', team.slug
+  end
+
+  def test_team_has_explicit_name
+    alice = User.create(username: 'alice')
+    team = Team.create(slug: 'harold', name: 'Purple Crayon', creator: alice)
+    assert_equal 'Purple Crayon', team.name
+    assert_equal 'harold', team.slug
+  end
+
   def test_normalize_slug
     alice = User.create(username: 'alice')
     team = Team.create(slug: 'O HAI!', creator: alice)
