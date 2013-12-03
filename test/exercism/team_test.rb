@@ -3,12 +3,18 @@ require './test/integration_helper'
 class TeamTest < Minitest::Test
   include DBCleaner
 
+  attr_reader :alice, :bob
+  def setup
+    super
+    @alice = User.create(username: 'alice')
+    @bob = User.create(username: 'bob')
+  end
+
   def test_team_requires_slug
     refute Team.new.valid?
   end
 
   def test_team_has_unique_slug
-    alice = User.create(username: 'alice')
     Team.create(slug: 'purple', creator: alice)
     team = Team.new(slug: 'purple', creator: alice)
     refute team.valid?
@@ -17,28 +23,23 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_has_default_name
-    alice = User.create(username: 'alice')
     team = Team.create(slug: 'I <3 Exercism', creator: alice)
     assert_equal 'I <3 Exercism', team.name
     assert_equal 'i-3-exercism', team.slug
   end
 
   def test_team_has_explicit_name
-    alice = User.create(username: 'alice')
     team = Team.create(slug: 'harold', name: 'Purple Crayon', creator: alice)
     assert_equal 'Purple Crayon', team.name
     assert_equal 'harold', team.slug
   end
 
   def test_normalize_slug
-    alice = User.create(username: 'alice')
     team = Team.create(slug: 'O HAI!', creator: alice)
     assert_equal 'o-hai', team.slug
   end
 
   def test_has_members
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
     team = Team.create(slug: 'purple', members: [alice], creator: bob)
 
     assert_equal [alice], team.members
@@ -46,7 +47,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_has_creator
-    alice = User.create(username: "alice")
     team = Team.create(slug: 'purple', creator: alice)
     assert_equal alice, team.creator
 
@@ -54,8 +54,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_inclusion
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
     team = Team.create(slug: 'sparkle', creator: alice, members: [bob])
 
     assert team.includes?(alice)
@@ -63,8 +61,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_recruit
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
     charlie = User.create(username: 'charlie')
     john = User.create(username: 'john-lennon')
 
@@ -79,9 +75,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_does_not_recruit_duplicates
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
-
     team = Team.create(slug: 'awesome', creator: alice, members: [bob])
     assert_equal 1, team.members.size
 
@@ -90,9 +83,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_member_dismiss
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
-
     team = Team.create(slug: 'awesome', creator: alice, members: [bob])
 
     team.dismiss(bob.username)
@@ -104,9 +94,6 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_member_dismiss_invalid_member
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
-
     team = Team.create(slug: 'awesome', creator: alice, members: [bob])
 
     team.dismiss(alice.username)
