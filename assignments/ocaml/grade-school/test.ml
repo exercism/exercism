@@ -3,10 +3,6 @@ open OUnit2
 
 module IMap = Int.Map
 
-let option_to_string f = function
-  | None   -> "None"
-  | Some x -> "Some " ^ f x
-
 (* Assert list equals *)
 let ale exp got = 
   let printer l = List.sexp_of_t String.sexp_of_t l
