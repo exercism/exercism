@@ -3,7 +3,6 @@ package octal
 import (
 	"math"
 	"strconv"
-	"strings"
 )
 
 // Easy way:
@@ -11,13 +10,12 @@ import (
 //
 // Let's do it the hard way.
 
-func ToDecimal(s string) (r int64) {
-	digits := strings.Split(s, "")
-	length := len(digits)
+func ToDecimal(s string) (n int64) {
+	length := len(s)
 
-	for i := length; i > 0; i = i - 1 {
-		v, _ := strconv.ParseInt(digits[i-1], 10, 0)
-		r = r + (v * int64(math.Pow(8, float64(length-i))))
+	for i := length; i > 0; i-- {
+		v, _ := strconv.ParseInt(string(s[i-1]), 10, 0)
+		n = n + (v * int64(math.Pow(8, float64(length-i))))
 	}
-	return r
+	return n
 }

@@ -5,13 +5,13 @@ ruby "1.9.3"
 gem 'rake'
 gem 'faraday'
 gem 'activerecord', '~> 3.2'
-gem 'newrelic_rpm', '=3.6.8.168' # used both in production and development
+gem 'newrelic_rpm', '=3.6.9.171' # used both in production and development
 gem 'petroglyph'
 gem 'pg'
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'redcarpet'
-gem 'rouge', '~> 1.1.0', git: 'git://github.com/sgrif/rouge.git', ref: 'sg-add-scala'
+gem 'rouge', '~> 1.2.0'
 gem 'sinatra', require: 'sinatra/base'
 gem 'loofah'
 gem 'will_paginate'
@@ -21,7 +21,7 @@ gem 'diffy'
 
 # Must not be required
 # See http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
-gem 'pony', require: false
+gem 'pony', '~> 1.6', require: false
 
 group :test, :development do
   gem 'ruby-prof'

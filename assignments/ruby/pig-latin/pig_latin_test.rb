@@ -57,4 +57,23 @@ class PigLatinTest < MiniTest::Unit::TestCase
     assert_equal "ickquay astfay unray", PigLatin.translate("quick fast run")
   end
 
+  def test_word_beginning_with_ye
+    skip
+    assert_equal "ellowyay", PigLatin.translate("yellow")
+  end
+
+  def test_word_beginning_with_yt
+    skip
+    assert_equal "yttriaay", PigLatin.translate("yttria")
+  end
+
+  def test_word_beginning_with_xe
+    skip
+    assert_equal "enonxay", PigLatin.translate("xenon")
+  end
+
+  def test_word_beginning_with_xr
+    skip
+    assert_equal "xrayay", PigLatin.translate("xray")
+  end
 end

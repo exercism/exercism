@@ -4,7 +4,7 @@ class BeerSong
   end
 
   def verses(starting, ending)
-    (ending..starting).to_a.reverse.map {|n| verse(n) }.join("\n") + "\n"
+    (ending..starting).to_a.reverse.map {|n| verse(n)}.join("\n") + "\n"
   end
 
   def verse(number)

@@ -1,38 +1,48 @@
+// place in Bob.h
 @interface Bob : NSObject
 
 - (NSString *)hey:(NSString *)statement;
 
 @end
 
+// place in Bob.m
+@interface NSString (BobTalk)
+-(BOOL) isEmpty;
+-(BOOL) isQuestion;
+-(BOOL) isShouting;
+@end
+
+
 @implementation Bob
 
--(NSString *)hey:(NSString *)statement {
-
-  NSString *response = NULL;
-
-  if ([self isSilence:statement]) {
-    response = @"Fine, be that way.";
-  } else if ([self isQuestion:statement]) {
-    response = @"Sure.";
-  } else if ([self isShouting:statement]) {
-    response = @"Woah, chill out!";
-  } else {
-    response = @"Whatever.";
-  }
-
-  return response;
+-(NSString *) hey: (NSString *) input {
+    if ([input isEmpty]) {
+        return @"Fine, be that way.";
+    }
+    else if ([input isShouting]) {
+        return @"Woah, chill out!";
+    }
+    else if ([input isQuestion]) {
+        return  @"Sure.";
+    }
+    else {
+        return @"Whatever.";
+    }
 }
 
--(BOOL)isSilence:(NSString *)statement {
-  return [statement isEqualToString:@""];
-}
+@end
 
--(BOOL)isQuestion:(NSString *)statement {
-  return [statement hasSuffix:@"?"];
+@implementation NSString (BobTalk)
+-(BOOL) isEmpty {
+    return  [[self stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] length] < 1;
 }
-
--(BOOL)isShouting:(NSString *)statement {
-  return [statement isEqualToString:[statement uppercaseString]];
+-(BOOL) isQuestion {
+    return [self hasSuffix:@"?"];
+}
+-(BOOL) isShouting {
+    return
+    [self isEqualToString: [self uppercaseString]] &&
+    ([self rangeOfCharacterFromSet:[NSCharacterSet letterCharacterSet] options:0].location != NSNotFound);
 }
 
 @end

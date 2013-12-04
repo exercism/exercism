@@ -1,5 +1,5 @@
 require 'minitest/autorun'
-require_relative './scrabble'
+require_relative 'scrabble'
 
 class ScrabbleTest < MiniTest::Unit::TestCase
   def test_empty_word_scores_zero
