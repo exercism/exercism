@@ -4,13 +4,14 @@ use warnings;
 use Test::More;
 use JSON qw(from_json);
 
+my $cases_file = 'cases.json';
 my $cases;
-if (open my $fh, '<', 'cases.json') {
+if (open my $fh, '<', $cases_file) {
     local $/ = undef;
     $cases = from_json scalar <$fh>;
-    
+} else {
+    die "Could not open '$cases_file' $!";
 }
-
 
 plan tests => 3 + @$cases;
 #diag explain $cases; 
