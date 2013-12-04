@@ -30,7 +30,6 @@ foreach my $c (@$cases) {
     eval {
         $answer = Wordy::answer($c->{input});
     };
-diag $answer;
     if ($c->{exception}) {
 		like $@, qr/^$c->{exception}/, "Exception $c->{name}";
 	} else {
