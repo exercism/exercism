@@ -1,0 +1,56 @@
+[
+  {
+    "word"     : "diaper", 
+    "words"    : ["hello", "world", "zombies", "pants"],
+    "expected" : [],
+    "name"     : "no matches"
+  },
+  {
+    "word"     : "ant",
+    "words"    : ["tan", "stand", "at"],
+    "expected" : ["tan"],
+    "name"     : "detect_simple_anagram"
+  },
+  {
+    "word"     : "master",
+    "words"    : ["stream", "pigeon", "maters"],
+    "expected" : ["stream", "maters"],
+    "name"     : "multiple_anagrams"
+  },
+  {
+    "word"     : "galea",
+    "words"    : ["eagle"],
+    "expected" : [],
+    "name"     : "does_not_confuse_different_duplicates"
+  },
+  {
+    "word"     : "good",
+    "words"    : ["dog", "goody"],
+    "expected" : [],
+    "name"     : "eliminate_anagram_subsets"
+  },
+  {
+    "word"     : "listen",
+    "words"    : ["enlists", "google", "inlets", "banana"],
+    "expected" : ["inlets"],
+    "name"     : "detect_anagram"
+  },
+  {
+    "word"     : "allergy",
+    "words"    : ["gallery", "ballerina", "regally", "clergy", "largely", "leading"],
+    "expected" : ["gallery", "regally", "largely"],
+    "name"     : "multiple_anagrams"
+  },
+  {
+    "word"     : "Orchestra",
+    "words"    : ["cashregister", "Carthorse", "radishes"],
+    "expected" : ["Carthorse"],
+    "name"     : "anagrams_are_case_insensitive"
+  },
+  {
+    "word"     : "banana",
+    "words"    : ["banana"],
+    "expected" : [],
+    "name"     : "same_word_isnt_anagram"
+  }
+]
