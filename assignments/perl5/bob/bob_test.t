@@ -3,6 +3,8 @@ use warnings;
 use open ':std', ':encoding(utf8)';
 use utf8;
 
+my $module = $ENV{EXERCISM} ? 'Example' : 'Bob';
+
 use Test::More;
 
 my @cases = (
@@ -32,19 +34,21 @@ my @cases = (
 
 plan tests => 3 + @cases;
 
-ok -e 'Bob.pm', 'missing Bob.pm'
-    or BAIL_OUT("You need to create a module called Bob.pm with a function called hey() that gets one parameter: The text Bob hears.");
+ok -e "$module.pm", "missing $module.pm"
+    or BAIL_OUT("You need to create a module called $module.pm with a function called hey() that gets one parameter: The text Bob hears.");
 
-eval "use Bob";
-ok !$@, 'Cannot load Bob.pm'
-    or BAIL_OUT('Does Bob.pm compile?  Does it end with 1; ?');
+eval "use $module";
+ok !$@, "Cannot load $module.pm"
+    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok('Bob', 'hey') or BAIL_OUT("Missing package Bob; or missing sub hey()");
+can_ok($module, 'hey') or BAIL_OUT("Missing package $module; or missing sub hey()");
+
+my $sub = $module . '::hey';
 
 foreach my $c (@cases) {
     #diag uc $c->[0];
     my $title = $c->[2] ? "$c->[2]: $c->[0]" : $c->[0];
-    is Bob::hey($c->[0]), $c->[1], $title;
+    no strict 'refs';
+    is $sub->($c->[0]), $c->[1], $title;
 }
-
 
