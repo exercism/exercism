@@ -5,7 +5,7 @@ defmodule Strain do
 
   Using filter would work, but don't use it.
   """
-  @spec keep(List, function) :: List
+  @spec keep(Enum, function) :: List
   
   def keep(collection, function) do
     Enum.reduce(collection, [], fn(entry, kept) ->
@@ -18,7 +18,7 @@ defmodule Strain do
 
   Using reject would work, but don't use it.
   """
-  @spec discard(List, function) :: List
+  @spec discard(Enum, function) :: List
 
   def discard(collection, function) do
     Enum.reduce(collection, [], fn(entry, kept) ->
