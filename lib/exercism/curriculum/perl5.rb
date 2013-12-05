@@ -9,6 +9,7 @@ class Exercism
           triangle
           wordy
           queen-attack
+          prime-factors
       )
     end
 
