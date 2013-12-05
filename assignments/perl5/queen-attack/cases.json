@@ -32,6 +32,16 @@
     "name" : "cannot_occupy_same_space"
   },
   {
+    "params" :[{ "white": [2, -4], "black": [1, 3] }],
+    "exception" : [ "ArgumentError" ],
+    "name" : "cannot_have_negative_coordinate"
+  },
+  {
+    "params" :[{ "white": [2, 4], "black": [1, 8] }],
+    "exception" : [ "ArgumentError" ],
+    "name" : "cannot_be_outside_the_board"
+  },
+  {
     "params" : [ {"white": [2, 4], "black": [6, 6] } ],
     "board"  : [
        [
