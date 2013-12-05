@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+my $module = $ENV{EXERCISM} ? 'Example' : 'Deque';
+
 use Test::More;
 use JSON qw(from_json);
 
@@ -16,18 +18,18 @@ if (open my $fh, '<', $cases_file) {
 #plan tests => 3 + @$cases;
 #diag explain $cases; 
 
-ok -e 'Deque.pm', 'missing Deque.pm'
-    or BAIL_OUT("You need to create a class called Deque.pm with a constructor called new.");
+ok -e "$module.pm", "missing $module.pm"
+    or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
 
-eval "use Deque";
-ok !$@, 'Cannot load Deque.pm'
-    or BAIL_OUT("Does Deque.pm compile?  Does it end with 1; ? ($@)");
+eval "use $module";
+ok !$@, "Cannot load $module.pm"
+    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ? ($@)");
 
-can_ok('Deque', 'new') or BAIL_OUT("Missing package Deque; or missing sub new()");
+can_ok($module, 'new') or BAIL_OUT("Missing package $module; or missing sub new()");
 
 foreach my $c (@$cases) {
    diag "Start $c->{name}";
-   my $q = Deque->new;
+   my $q = $module->new;
    foreach my $s (@{ $c->{set} }) {
       foreach my $command (qw(push unshift)) {
          if (exists $s->{$command}) {

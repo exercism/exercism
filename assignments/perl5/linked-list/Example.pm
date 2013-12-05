@@ -1,4 +1,4 @@
-package Deque;
+package Example;
 use strict;
 use warnings;
 
