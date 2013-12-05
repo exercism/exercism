@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+my $module = $ENV{EXERCISM} ? 'Example' : 'Queens';
+
 use Test::More;
 use JSON qw(from_json);
 
@@ -16,21 +18,21 @@ if (open my $fh, '<', $cases_file) {
 #plan tests => 3 + @$cases;
 #diag explain $cases; 
 
-ok -e 'Queens.pm', 'missing Queens.pm'
-    or BAIL_OUT("You need to create a class called Queens.pm with a constructor called new.");
+ok -e "$module.pm", "missing $module.pm"
+    or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
 
-eval "use Queens";
-ok !$@, 'Cannot load Queens.pm'
-    or BAIL_OUT("Does Queens.pm compile?  Does it end with 1; ? ($@)");
+eval "use $module";
+ok !$@, "Cannot load $module.pm"
+    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ? ($@)");
 
-can_ok('Queens', 'new') or BAIL_OUT("Missing package Queens; or missing sub new()");
+can_ok($module, 'new') or BAIL_OUT("Missing package $module; or missing sub new()");
 
 foreach my $c (@$cases) {
 	my @q;
     my @exceptions;
 	foreach my $params (@{ $c->{params} }) {
         eval {
-	        push @q, Queens->new(%$params);
+	        push @q, $module->new(%$params);
         };
         push @exceptions, $@;
     }

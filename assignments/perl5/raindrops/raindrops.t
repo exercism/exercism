@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+my $module = $ENV{EXERCISM} ? 'Example' : 'Raindrops';
+
 use Test::More;
 use JSON qw(from_json);
 
@@ -16,17 +18,20 @@ if (open my $fh, '<', $cases_file) {
 #plan tests => 3 + @$cases;
 #diag explain $cases; 
 
-ok -e 'Raindrops.pm', 'missing Raindrops.pm'
-    or BAIL_OUT("You need to create a class called Raindrops.pm with a constructor called convert.");
+ok -e "$module.pm", "missing $module.pm"
+    or BAIL_OUT("You need to create a class called $module.pm with a constructor called convert.");
 
-eval "use Raindrops";
-ok !$@, 'Cannot load Raindrops.pm'
-    or BAIL_OUT("Does Raindrops.pm compile?  Does it end with 1; ? ($@)");
+eval "use $module";
+ok !$@, "Cannot load $module.pm"
+    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ? ($@)");
 
-can_ok('Raindrops', 'convert') or BAIL_OUT("Missing package Raindrops; or missing sub convert()");
+can_ok($module, 'convert') or BAIL_OUT("Missing package $module; or missing sub convert()");
+
+my $sub = $module . '::convert';
 
 foreach my $c (@$cases) {
-   is_deeply Raindrops::convert($c->{input}), $c->{expected}, $c->{name}
+    no strict 'refs';
+    is_deeply $sub->($c->{input}), $c->{expected}, $c->{name}
 }
 
 

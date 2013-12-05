@@ -1,4 +1,4 @@
-package Phrase;
+package Example;
 use strict;
 use warnings;
 

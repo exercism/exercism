@@ -1,4 +1,4 @@
-package Triangle;
+package Example;
 use strict;
 use warnings;
 
