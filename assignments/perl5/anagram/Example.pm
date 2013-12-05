@@ -1,4 +1,4 @@
-package Anagram;
+package Example;
 use strict;
 use warnings;
 
