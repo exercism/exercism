@@ -9,6 +9,7 @@ class Exercism
         binary prime-factors raindrops allergies
         atbash-cipher bank-account parallel-letter-frequency
         zipper minesweeper difference-of-squares dot-dsl
+        custom-set
       )
     end
 
