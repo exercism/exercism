@@ -83,7 +83,31 @@
     "params" : [{"white": [2, 3], "black": [4, 7]}],
     "attack" : [false],
     "name" : "cannot_attack"
+  },
+  {
+    "params" : [{"white": [2, 4], "black": [2, 7]}],
+    "attack"  : [true],
+    "name" : "can_attack_on_same_row"
+  },
+  {
+    "params" : [{"white": [5, 4], "black": [2, 4]}],
+    "attack" : [true],
+    "name" : "can_attack_on_same_column"
+  },
+  {
+    "params" : [{"white": [1, 1], "black": [6, 6]}],
+    "attack"  : [true],
+    "name" : "can_attack_on_diagonal"
+  },
+  {
+    "params" : [{"white": [0, 6], "black": [1, 7]}],
+    "attack"  : [true],
+    "name" : "can_attack_on_other_diagonal"
+  },
+  {
+    "params" : [{"white": [4, 1], "black": [6, 3]}],
+    "attack"  : [true],
+    "name" : "can_attack_on_yet_another_diagonal"
   }
 ]
-
 

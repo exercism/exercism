@@ -49,7 +49,11 @@ foreach my $c (@$cases) {
             is $q[$i]->to_string, $expected , "$c->{name} board";
         }
         if (exists $c->{attack}) {
-            ok !$q[$i]->can_attack, "$c->{name} can attack";
+        	if ($c->{attack}[$i]) {
+                ok $q[$i]->can_attack, "$c->{name} can attack";
+			} else {
+                ok !$q[$i]->can_attack, "$c->{name} can NOT attack";
+			}
         }
     }
 }
