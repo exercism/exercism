@@ -1,4 +1,4 @@
-package Wordy;
+package Example;
 use strict;
 use warnings;
 
