@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+my $module = $ENV{EXERCISM} ? 'Example' : 'Triangle';
+
 use Test::More;
 use JSON qw(from_json);
 
@@ -17,19 +19,22 @@ if (open my $fh, '<', $cases_file) {
 #diag explain $cases; 
 plan tests => 3 + @$cases;
 
-ok -e 'Triangle.pm', 'missing Triangle.pm'
-    or BAIL_OUT("You need to create a class called Triangle.pm with an function called kind() that gets 3 numbers - the length of the sides. It should return a single word like equilateral, isosceles, or scalene. Or, it should throw and exception.");
+ok -e "$module.pm", "missing $module.pm"
+    or BAIL_OUT("You need to create a class called $module.pm with an function called kind() that gets 3 numbers - the length of the sides. It should return a single word like equilateral, isosceles, or scalene. Or, it should throw and exception.");
 
-eval "use Triangle";
-ok !$@, 'Cannot load Triangle.pm'
-    or BAIL_OUT('Does Triangle.pm compile?  Does it end with 1; ?');
+eval "use $module";
+ok !$@, "Cannot load $module.pm"
+    or BAIL_OUT("Does $module.pm compile?  Does it end with 1; ?");
 
-can_ok('Triangle', 'kind') or BAIL_OUT("Missing package Triangle; or missing sub kind()");
+can_ok($module, 'kind') or BAIL_OUT("Missing package $module; or missing sub kind()");
+
+my $sub = $module . '::kind';
 
 foreach my $c (@$cases) {
     my $kind;
     eval {
-        $kind = Triangle::kind(@{ $c->{input} });
+    	no strict 'refs';
+        $kind = $sub->(@{ $c->{input} });
     };
     if ($c->{exception}) {
 		like $@, qr/^$c->{exception}/, "Exception $c->{name}";
