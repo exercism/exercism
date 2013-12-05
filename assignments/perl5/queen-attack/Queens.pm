@@ -10,6 +10,10 @@ sub new {
 	$self->{white} //= [0, 3];
 	$self->{black} //= [7, 3];
 
+    foreach my $c (@{ $self->{white} }, @{ $self->{black} }) {
+       die "ArgumentError" if $c < 0 or $c > 7 or $c != int($c);
+    }
+
     die "ArgumentError" if
         $self->{white}[0] == $self->{black}[0] and
         $self->{white}[1] == $self->{black}[1];
