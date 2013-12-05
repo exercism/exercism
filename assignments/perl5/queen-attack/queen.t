@@ -21,7 +21,7 @@ ok -e 'Queens.pm', 'missing Queens.pm'
 
 eval "use Queens";
 ok !$@, 'Cannot load Queens.pm'
-    or BAIL_OUT('Does Queens.pm compile?  Does it end with 1; ?');
+    or BAIL_OUT("Does Queens.pm compile?  Does it end with 1; ? ($@)");
 
 can_ok('Queens', 'new') or BAIL_OUT("Missing package Queens; or missing sub new()");
 
@@ -44,6 +44,10 @@ foreach my $c (@$cases) {
         if ($c->{exception}) {
 			like $exceptions[$i], qr{^$c->{exception}[$i]}, "$c->{name} exception";
 		}
+        if ($c->{board}) {
+            my $expected = join("\n", @{ $c->{board}[$i] }) . "\n";
+            is $q[$i]->to_string, $expected , "$c->{name} board";
+        }
     }
 }
 

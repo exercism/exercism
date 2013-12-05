@@ -31,7 +31,17 @@ sub black {
     $self->{black};
 }
 
+sub to_string {
+    my ($self) = @_;
+    my @board;
+	push @board, [('O') x 8] for 1..8;
+	$board[$self->white->[0]][$self->white->[1]] = 'W';
+	$board[$self->black->[0]][$self->black->[1]] = 'B';
 
+	return join '',
+        map { "$_\n" }
+		map { join ' ', @$_ } @board
+}
 
 1;
 

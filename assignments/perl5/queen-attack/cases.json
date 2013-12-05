@@ -30,5 +30,21 @@
     "params" :[{ "white": [2, 4], "black": [2, 4] }],
     "exception" : [ "ArgumentError" ],
     "name" : "cannot_occupy_same_space"
+  },
+  {
+    "params" : [ {"white": [2, 4], "black": [6, 6] } ],
+    "board"  : [
+       [
+         "O O O O O O O O",
+         "O O O O O O O O",
+         "O O O O W O O O",
+         "O O O O O O O O",
+         "O O O O O O O O",
+         "O O O O O O O O",
+         "O O O O O O B O",
+         "O O O O O O O O"
+       ]
+    ],
+    "name" : "string_representation"
   }
 ]
