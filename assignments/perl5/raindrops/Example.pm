@@ -1,4 +1,4 @@
-package Raindrops;
+package Example;
 use strict;
 use warnings;
 
