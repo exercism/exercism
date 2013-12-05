@@ -1,4 +1,4 @@
-package Prime;
+package Example;
 use strict;
 use warnings;
 
