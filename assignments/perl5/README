@@ -1,0 +1,13 @@
+When the tests are run they expect a module with some real name (e.g. Anagram.pm)
+but the Exercism system allows us to have example implementations in the directory
+of each exercise.
+If they are called /*example.*/i they won't be copied to the users. (which is a good thing).
+
+So the sample solutions are all called Example.pm.
+
+Each test file will look for the appropriate module name, but if the test are run as
+
+   EXERCISM=1 perl file.t 
+
+then they will expect a file called Example.pm
+
