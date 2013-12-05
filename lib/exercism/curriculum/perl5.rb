@@ -2,7 +2,7 @@ class Exercism
   class Perl5Curriculum
     def slugs
       %w(
-          bob rna-transcription word-count anagram triangle
+          bob rna-transcription word-count anagram triangle queen-attack
       )
     end
 
