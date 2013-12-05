@@ -1,4 +1,4 @@
-package DNA;
+package Example;
 use strict;
 use warnings;
 

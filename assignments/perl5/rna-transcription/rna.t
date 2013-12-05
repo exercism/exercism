@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+my $module = $ENV{EXERCISM} ? 'Example' : 'DNA';
+
 use Test::More;
 
 my @cases = (
@@ -13,17 +15,20 @@ my @cases = (
  
 plan tests => 3 + @cases;
 
-ok -e 'DNA.pm', 'missing DNA.pm'
-    or BAIL_OUT("You need to create a module called DNA.pm with a function called to_rna() that gets one parameter: a DNA sequence");
+ok -e "$module.pm", "missing $module.pm"
+    or BAIL_OUT("You need to create a module called $module.pm with a function called to_rna() that gets one parameter: a DNA sequence");
 
-eval "use DNA";
-ok !$@, 'Cannot load DNA.pm'
-    or BAIL_OUT('Does DNA.pm compile?  Does it end with some true value?');
+eval "use $module";
+ok !$@, "Cannot load $module.pm"
+    or BAIL_OUT("Does $module.pm compile?  Does it end with some true value?");
 
-can_ok('DNA', 'to_rna') or BAIL_OUT("Missing package DNA; or missing sub to_rna");
+can_ok($module, 'to_rna') or BAIL_OUT("Missing package $module; or missing sub to_rna");
+
+my $sub = $module . '::to_rna';
 
 foreach my $c (@cases) {
-    is DNA::to_rna($c->[0]), $c->[1], "$c->[2]: $c->[0]   => $c->[1]";
+    no strict 'refs';
+    is $sub->($c->[0]), $c->[1], "$c->[2]: $c->[0]   => $c->[1]";
 }
 
 
