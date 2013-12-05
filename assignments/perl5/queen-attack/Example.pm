@@ -1,4 +1,4 @@
-package Queens;
+package Example;
 use strict;
 use warnings;
 
