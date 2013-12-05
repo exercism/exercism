@@ -78,6 +78,11 @@
       ]
     ],
     "name" : "yet_another_string_representation"
+  },
+  {
+    "params" : [{"white": [2, 3], "black": [4, 7]}],
+    "attack" : [false],
+    "name" : "cannot_attack"
   }
 ]
 

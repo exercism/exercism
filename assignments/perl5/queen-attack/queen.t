@@ -48,6 +48,9 @@ foreach my $c (@$cases) {
             my $expected = join("\n", @{ $c->{board}[$i] }) . "\n";
             is $q[$i]->to_string, $expected , "$c->{name} board";
         }
+        if (exists $c->{attack}) {
+            ok !$q[$i]->can_attack, "$c->{name} can attack";
+        }
     }
 }
 

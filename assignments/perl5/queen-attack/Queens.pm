@@ -43,5 +43,17 @@ sub to_string {
 		map { join ' ', @$_ } @board
 }
 
+sub can_attack {
+	my ($self) = @_;
+
+	return 1 if $self->white->[0] == $self->black->[0];
+	return 1 if $self->white->[1] == $self->black->[1];
+	return 1 if
+		abs($self->white->[0] - $self->black->[0]) ==
+		abs($self->white->[1] - $self->black->[1]);
+
+	return;
+}
+
 1;
 
