@@ -10,6 +10,10 @@ sub new {
 	$self->{white} //= [0, 3];
 	$self->{black} //= [7, 3];
 
+    die "ArgumentError" if
+        $self->{white}[0] == $self->{black}[0] and
+        $self->{white}[1] == $self->{black}[1];
+
 	return $self;
 }
 

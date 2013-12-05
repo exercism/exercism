@@ -27,8 +27,12 @@ can_ok('Queens', 'new') or BAIL_OUT("Missing package Queens; or missing sub new(
 
 foreach my $c (@$cases) {
 	my @q;
+    my @exceptions;
 	foreach my $params (@{ $c->{params} }) {
-	    push @q, Queens->new(%$params);
+        eval {
+	        push @q, Queens->new(%$params);
+        };
+        push @exceptions, $@;
     }
     foreach my $i (0 .. @q-1) {
 	    if ($c->{white}) {
@@ -37,6 +41,9 @@ foreach my $c (@$cases) {
 	    if ($c->{black}) {
 		    is_deeply $q[$i]->black, $c->{black}[$i], "$c->{name} black";
 	    }
+        if ($c->{exception}) {
+			like $exceptions[$i], qr{^$c->{exception}[$i]}, "$c->{name} exception";
+		}
     }
 }
 
