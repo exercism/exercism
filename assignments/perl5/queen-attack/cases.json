@@ -46,5 +46,39 @@
        ]
     ],
     "name" : "string_representation"
+  },
+  {
+    "params" : [{"white": [7, 1], "black": [0, 0]}],
+    "board"  : [
+      [
+        "B O O O O O O O",
+        "O O O O O O O O",
+        "O O O O O O O O",
+        "O O O O O O O O",
+        "O O O O O O O O",
+        "O O O O O O O O",
+        "O O O O O O O O",
+        "O W O O O O O O"
+      ]
+    ],
+    "name" : "another_string_representation"
+  },
+  {
+    "params" : [{"white": [4, 3], "black": [3, 4]}],
+    "board"  : [
+      [
+        "O O O O O O O O",
+        "O O O O O O O O",
+        "O O O O O O O O",
+        "O O O O B O O O",
+        "O O O W O O O O",
+        "O O O O O O O O",
+        "O O O O O O O O",
+        "O O O O O O O O"
+      ]
+    ],
+    "name" : "yet_another_string_representation"
   }
 ]
+
+
