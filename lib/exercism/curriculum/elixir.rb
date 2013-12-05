@@ -8,7 +8,7 @@ class Exercism
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies
         atbash-cipher bank-account parallel-letter-frequency
-        zipper minesweeper difference-of-squares
+        zipper minesweeper difference-of-squares dot-dsl
       )
     end
 
