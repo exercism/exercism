@@ -1,4 +1,4 @@
-package Bob;
+package Example;
 use strict;
 use warnings;
 

@@ -1,0 +1,82 @@
+[
+  {
+    "input"    : "What is 1 plus 1?",
+    "expected" : 2,
+    "name"     : "add_1"
+  },
+  {
+    "input"    : "What is 53 plus 2?",
+    "expected" : 55,
+    "name"     : "add_2"
+  },
+  {
+    "input"    : "What is -1 plus -10?",
+    "expected" : -11,
+    "name"     : "add_negative_numbers"
+  },
+  {
+    "input"    : "What is 123 plus 45678?",
+    "expected" : 45801,
+    "name"     : "add_more_digits"
+  },
+  {
+    "input"    : "What is 4 minus -12?",
+    "expected" : 16,
+    "name"     : "subtract"
+  },
+  {
+    "input"    : "What is -3 multiplied by 25?",
+    "expected" : -75,
+    "name"     : "multiply"
+  },
+  {
+    "input"    : "What is 33 divided by -3?",
+    "expected" : -11,
+    "name"     : "divide"
+  },
+  {
+    "input"    : "What is 1 plus 1 plus 1?",
+    "expected" : 3,
+    "name"     : "add_twice"
+  },
+  {
+    "input"    : "What is 1 plus 5 minus -2?",
+    "expected" : 8,
+    "name"     : "add_then_subtract"
+  },
+  {
+    "input"    : "What is 20 minus 4 minus 13?",
+    "expected" : 3,
+    "name"     : "subtract_twice"
+  },
+  {
+    "input"    : "What is 17 minus 6 plus 3?",
+    "expected" : 14,
+    "name"     : "subtract_then_add"
+  },
+  {
+    "input"    : "What is 2 multiplied by -2 multiplied by 3?",
+    "expected" : -12,
+    "name"     : "multiply_twice"
+  },
+  {
+    "input"    : "What is -3 plus 7 multiplied by -2?",
+    "expected" : -8,
+    "name"     : "add_then_multiply"
+  },
+  {
+    "input"    : "What is -12 divided by 2 divided by -3?",
+    "expected" : 2,
+    "name"     : "divide_twice"
+  },
+  {
+    "input"     : "What is 53 cubed?",
+    "exception" : "ArgumentError",
+    "name"      : "too_advanced"
+  },
+  {
+    "input"    : "Who is the president of the United States?",
+    "exception" : "ArgumentError",
+    "name"     : "irrelevant"
+  }
+]

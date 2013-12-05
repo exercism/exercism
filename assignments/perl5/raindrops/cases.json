@@ -1,0 +1,83 @@
+[
+  {
+    "input"    : 1,
+    "expected" : 1,
+    "name"     : "test_1"
+  },
+  {
+    "input"    : 3,
+    "expected" : "Pling",
+    "name"     : "test_3"
+  },
+  {
+    "input"    : 5,
+    "expected" : "Plang",
+    "name"     : "test_5"
+  },
+  {
+    "input"    : 7,
+    "expected" : "Plong",
+    "name"     : "test_7"
+  },
+  {
+    "input"    : 6,
+    "expected" : "Pling",
+    "name"     : "test_6"
+  },
+  {
+    "input"    : 9,
+    "expected" : "Pling",
+    "name"     : "test_9"
+  },
+  {
+    "input"    : 10,
+    "expected" : "Plang",
+    "name"     : "test_10"
+  },
+  {
+    "input"    : 14,
+    "expected" : "Plong",
+    "name"     : "test_14"
+  },
+  {
+    "input"    : 15,
+    "expected" : "PlingPlang",
+    "name"     : "test_15"
+  },
+  {
+    "input"    : 21,
+    "expected" : "PlingPlong",
+    "name"     : "test_21"
+  },
+  {
+    "input"    : 25,
+    "expected" : "Plang",
+    "name"     : "test_25"
+  },
+  {
+    "input"    : 35,
+    "expected" : "PlangPlong",
+    "name"     : "test_35"
+  },
+  {
+    "input"    : 49,
+    "expected" : "Plong",
+    "name"     : "test_49"
+  },
+  {
+    "input"    : 52,
+    "expected" : 52,
+    "name"     : "test_52"
+  },
+  {
+    "input"    : 105,
+    "expected" : "PlingPlangPlong",
+    "name"     : "test_105"
+  },
+  {
+    "input"    : 12121,
+    "expected" : 12121,
+    "name"     : "test_12121"
+  }
+]
+

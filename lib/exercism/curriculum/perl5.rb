@@ -2,7 +2,16 @@ class Exercism
   class Perl5Curriculum
     def slugs
       %w(
-          bob rna-transcription
+          bob
+          rna-transcription
+          word-count
+          anagram
+          triangle
+          wordy
+          queen-attack
+          prime-factors
+          linked-list
+          raindrops
       )
     end
 
