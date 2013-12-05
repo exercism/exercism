@@ -17,7 +17,7 @@ if (open my $fh, '<', $cases_file) {
 #diag explain $cases; 
 
 ok -e 'Prime.pm', 'missing Prime.pm'
-    or BAIL_OUT("You need to create a class called Prime.pm with a constructor called new.");
+    or BAIL_OUT("You need to create a class called Prime.pm with a constructor called factors.");
 
 eval "use Prime";
 ok !$@, 'Cannot load Prime.pm'

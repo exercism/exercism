@@ -11,6 +11,7 @@ class Exercism
           queen-attack
           prime-factors
           linked-list
+          raindrops
       )
     end
 
