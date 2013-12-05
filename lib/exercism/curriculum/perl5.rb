@@ -10,6 +10,7 @@ class Exercism
           wordy
           queen-attack
           prime-factors
+          linked-list
       )
     end
 
