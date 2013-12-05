@@ -26,13 +26,18 @@ ok !$@, 'Cannot load Queens.pm'
 can_ok('Queens', 'new') or BAIL_OUT("Missing package Queens; or missing sub new()");
 
 foreach my $c (@$cases) {
-	my $q = Queens->new(%{ $c->{params} });
-	if ($c->{white}) {
-		is_deeply $q->white, $c->{white}, "$c->{name} white";
-	}
-	if ($c->{black}) {
-		is_deeply $q->black, $c->{black}, "$c->{name} black";
-	}
+	my @q;
+	foreach my $params (@{ $c->{params} }) {
+	    push @q, Queens->new(%$params);
+    }
+    foreach my $i (0 .. @q-1) {
+	    if ($c->{white}) {
+		    is_deeply $q[$i]->white, $c->{white}[$i], "$c->{name} white";
+	    }
+	    if ($c->{black}) {
+		    is_deeply $q[$i]->black, $c->{black}[$i], "$c->{name} black";
+	    }
+    }
 }
 
 

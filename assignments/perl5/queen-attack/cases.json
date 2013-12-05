@@ -1,15 +1,31 @@
 [
   {
-      "params" : {},
-      "white"  : [0, 3],
-      "black"  : [7, 3],
-      "name" : "default_positions"
+    "params" : [{}],
+    "white"  : [[0, 3]],
+    "black"  : [[7, 3]],
+    "name" : "default_positions"
   },
   {
-      "params" : { "white" : [3, 7], "black" : [6, 1] },
-      "white"  : [3, 7],
-      "black"  : [6, 1],
-      "name" : "specific_placement"
+    "params" : [{ "white" : [3, 7], "black" : [6, 1] }],
+    "white"  : [[3, 7]],
+    "black"  : [[6, 1]],
+    "name" : "specific_placement"
+  },
+  {
+    "params" : [
+      { "white": [3, 7], "black": [6, 1] },
+      { "white": [5, 4], "black": [7, 7] }
+    ],
+    "white"  : [
+      [3, 7],
+      [5, 4]
+    ],
+    "black"  : [
+      [6, 1],
+      [7, 7]
+    ],
+    "name" : "multiple_boards_simultaneously"
   }
+
 
 ]
