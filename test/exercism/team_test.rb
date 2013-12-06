@@ -23,7 +23,9 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_has_default_name
-    team = Team.create(slug: 'I <3 Exercism', creator: alice)
+    team = Team.by(alice).defined_with(slug: 'I <3 Exercism')
+    team.save
+
     assert_equal 'I <3 Exercism', team.name
     assert_equal 'i-3-exercism', team.slug
   end

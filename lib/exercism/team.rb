@@ -7,14 +7,14 @@ class Team < ActiveRecord::Base
   validates :creator, presence: true
   validates :slug, presence: true,  uniqueness: true
 
-  after_initialize :provide_default_name, :if => :new_record?
-  before_save :normalize_slug
+  before_save :provide_default_name, :normalize_slug
 
   def self.by(user)
     new(creator: user)
   end
 
   def defined_with(options)
+    self.name = options[:name] || options[:slug]
     self.slug = options[:slug]
     self.members = User.find_in_usernames(options[:usernames].to_s.scan(/\w+/))
     self
