@@ -45,6 +45,10 @@ listTests =
     1 @=? L.datum two_r
     2 @=? L.datum (L.next two_r)
     True @=? L.isNil (L.next $ L.next two_r)
+    let three_r = L.reverseLinkedList three
+    1 @=? L.datum three_r
+    2 @=? L.datum (L.next three_r)
+    3 @=? L.datum (L.next (L.next three_r))
   , testCase "roundtrip" $ do
     ([] :: [Int]) @=? (L.toList . L.fromList) []
     ([1] :: [Int]) @=? (L.toList . L.fromList) [1]
@@ -53,4 +57,5 @@ listTests =
   ]
   where
     one = L.new (1 :: Int) L.nil
-    two = L.new (2 :: Int) one
+    two = L.new 2 one
+    three = L.new 3 two
