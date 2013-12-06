@@ -7,6 +7,6 @@ This is awesome!!!
 Visit http://example.com/submissions/KEY to find out more.
 
 --
-If you'd like to stop receiving email notifications, go to http://exercism.io/bob and delete your email address.
+If you'd like to stop receiving email notifications, go to http://example.com/bob and delete your email address.
 
 Do you have thoughts? Ideas? Criticism? I'd love to hear from you. Hit reply to send me an email.

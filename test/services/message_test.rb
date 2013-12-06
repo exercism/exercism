@@ -26,7 +26,7 @@ class MessageTest < Minitest::Test
       instigator: instigator,
       target: submission,
       intercept_emails: true,
-      site_root: 'http://test.exercism.io'
+      site_root: 'test.exercism.io'
     ).ship
     # Integration test. Go look in mailcatcher to make sure you're happy with this
   end

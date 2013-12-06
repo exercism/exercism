@@ -26,7 +26,7 @@ class CommentMessageTest < Minitest::Test
     @dispatch ||= CommentMessage.new(
       instigator: alice,
       target: comment,
-      site_root: "http://example.com",
+      site_root: "example.com",
     )
   end
 

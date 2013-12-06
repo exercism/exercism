@@ -23,7 +23,7 @@ class HibernationMessageTest < Minitest::Test
     HibernationMessage.new(
       instigator: alice,
       target: submission,
-      site_root: "http://example.com"
+      site_root: "example.com"
     )
   end
 
