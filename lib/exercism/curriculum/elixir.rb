@@ -7,7 +7,7 @@ class Exercism
         grade-school leap etl meetup space-age grains
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies
-        atbash-cipher bank-account parallel-letter-frequency
+        atbash-cipher bank-account sum-of-multiples parallel-letter-frequency
         zipper minesweeper difference-of-squares dot-dsl
         custom-set
       )
