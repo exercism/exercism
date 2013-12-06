@@ -1,14 +1,12 @@
-Array.prototype.accumulate = function(accumulator) {
-  if (typeof Array.prototype.map == 'function') {
-    return this.map(accumulator);
-  }
-
+var accumulate = module.exports = function (list, accumulator) {
   var out = [];
-  var end = this.length;
+  var idx = -1;
+  var end = Array.isArray(list) ? list.length : 0;
 
-  for (var i = 0; i < end; i++) {
-    out.push(accumulator(this[i]));
+  while (++idx < end) {
+    out.push(accumulator(list[idx]));
   }
 
   return out;
 };
+
