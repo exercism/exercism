@@ -1,4 +1,4 @@
-var Garden = require('./garden');
+var Garden = require('./kindergarten-garden');
 
 describe('Garden', function () {
 
