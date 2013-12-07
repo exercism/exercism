@@ -1,7 +1,7 @@
-var atbash = require('./atbash');
+var atbash = require('./atbash-cipher');
 
 describe("encode", function() {
-  
+
   it("encodes no", function() {
     expect(atbash.encode('no')).toEqual('ml');
   });
