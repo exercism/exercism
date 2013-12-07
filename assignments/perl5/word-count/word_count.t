@@ -10,7 +10,7 @@ use Test::More;
 my @cases = (
     # input                                       expected output                  title
     ['word',                                      {word =>  1},                    'one word'],
-    ['one of each',                               {one => 1, of => 1, each => 1},  'one of each'], 
+    ['one of each',                               {one => 1, of => 1, each => 1},  'one of each'],
     ['one fish two fish red fish blue fish',
             {one => 1, fish => 4, two => 1, red => 1, blue => 1},
                  'multiple occurences'],

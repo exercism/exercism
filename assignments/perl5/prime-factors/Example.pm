@@ -18,7 +18,7 @@ sub factors {
         $i++;
 	}
 	push @factors, $num;
-	
+
     return \@factors;
 }
 

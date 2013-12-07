@@ -1,6 +1,6 @@
 [
   {
-    "word"     : "diaper", 
+    "word"     : "diaper",
     "words"    : ["hello", "world", "zombies", "pants"],
     "expected" : [],
     "name"     : "no matches"

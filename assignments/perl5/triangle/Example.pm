@@ -17,7 +17,7 @@ sub kind {
 		$x + $z <= $y or
 		$y + $z <= $x;
 
-    return 'equilateral' if $x == $y and $y == $z; 
+    return 'equilateral' if $x == $y and $y == $z;
     return 'isosceles' if $x == $y or $x == $z or $y == $z;
 	return 'scalene';
 }

@@ -16,7 +16,7 @@ if (open my $fh, '<', $cases_file) {
 }
 
 plan tests => 3 + @$cases;
-#diag explain $cases; 
+#diag explain $cases;
 
 ok -e "$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a class called $module.pm with an function called answer() that gets the original word as the first parameter and a reference to a list of word to check. It should return a referene to a list of words.");

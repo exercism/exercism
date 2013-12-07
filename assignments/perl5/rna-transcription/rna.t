@@ -12,7 +12,7 @@ my @cases = (
    ['T', 'U',  'thymidine to uracil'],
    ['ACGTGGTCTTAA', 'ACGUGGUCUUAA', 'transcribes all occurences'],
 );
- 
+
 plan tests => 3 + @cases;
 
 ok -e "$module.pm", "missing $module.pm"

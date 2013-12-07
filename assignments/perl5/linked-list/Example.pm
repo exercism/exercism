@@ -11,7 +11,7 @@ sub push {
     my ($self, $value) = @_;
 
     my $element = Element->new(
-       value   => $value, 
+       value   => $value,
        prev_e  => $self->{last_e},
        next_e  => undef,
    );
@@ -55,7 +55,7 @@ sub unshift {
     my ($self, $value) = @_;
 
     my $element = Element->new(
-       value   => $value, 
+       value   => $value,
        prev_e  => undef,
        next_e  => $self->{first_e},
    );

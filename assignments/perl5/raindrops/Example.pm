@@ -11,7 +11,7 @@ sub convert {
    $str .= "Plong" if $num / 7 == int($num / 7);
    return $str if $str;
 
-   return $num; 
+   return $num;
 }
 
 1;

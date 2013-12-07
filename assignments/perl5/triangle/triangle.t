@@ -16,7 +16,7 @@ if (open my $fh, '<', $cases_file) {
 }
 
 
-#diag explain $cases; 
+#diag explain $cases;
 plan tests => 3 + @$cases;
 
 ok -e "$module.pm", "missing $module.pm"
