@@ -1,4 +1,4 @@
-var Series = require('./series');
+var Series = require('./largest-series-product');
 
 describe('Series', function () {
 
