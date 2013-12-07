@@ -2,8 +2,8 @@ class Exercism
   class ElixirCurriculum
     def slugs
       %w(
-        bob word-count anagram beer-song nucleotide-count
-        rna-transcription point-mutations strain accumulate phone-number
+        bob word-count accumulate strain anagram beer-song nucleotide-count
+        rna-transcription point-mutations phone-number
         grade-school leap etl meetup space-age grains
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors raindrops allergies

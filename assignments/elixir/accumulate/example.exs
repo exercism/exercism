@@ -6,8 +6,7 @@ defmodule Accumulate do
   Try to do this exercise without using map!
   """
   
-  @spec accumulate(Enum, function) :: List
-  
+  @spec accumulate(Enum.t, (any -> as_boolean(term))) :: list
   def accumulate(collection, function) do
     Enum.reduce(collection, [], fn(element, acc) ->
       [function.(element)|acc]

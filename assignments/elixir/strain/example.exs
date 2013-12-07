@@ -5,8 +5,7 @@ defmodule Strain do
 
   Using filter would work, but don't use it.
   """
-  @spec keep(Enum, function) :: List
-  
+  @spec keep(Enum.t, (any -> as_boolean(term))) :: list
   def keep(collection, function) do
     Enum.reduce(collection, [], fn(entry, kept) ->
       if function.(entry), do: [entry|kept], else: kept
@@ -18,8 +17,7 @@ defmodule Strain do
 
   Using reject would work, but don't use it.
   """
-  @spec discard(Enum, function) :: List
-
+  @spec discard(Enum.t, (any -> as_boolean(term))) :: list
   def discard(collection, function) do
     Enum.reduce(collection, [], fn(entry, kept) ->
       unless function.(entry), do: [entry|kept], else: kept
