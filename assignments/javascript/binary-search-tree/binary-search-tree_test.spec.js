@@ -1,4 +1,4 @@
-var Bst = require('./example');
+var Bst = require('./binary-search-tree');
 
 function recordAllData(bst) {
   var out = [];
