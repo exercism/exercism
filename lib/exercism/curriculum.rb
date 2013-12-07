@@ -13,7 +13,7 @@ require 'exercism/curriculum/perl5'
 class Exercism
   def self.current_curriculum
     @curriculum ||= begin
-      curriculums =  [:ruby, :javascript, :elixir, :clojure, :python, :haskell, :objectivec, :scala]
+      curriculums =  [:ruby, :javascript, :elixir, :clojure, :python, :haskell, :objectivec, :scala, :perl5]
 
       Curriculum.new('./assignments').tap do |curriculum|
         curriculums.each do |type|
