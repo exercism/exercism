@@ -23,6 +23,11 @@ class AssignmentTest < Minitest::Test
     assert_equal ["OneTest.m"], obj_c.filenames.sort
   end
 
+  def test_detect_perl5_test_file
+    one = Assignment.new('perl5', 'one', './test/fixtures')
+    assert_equal 'one.t', one.test_file
+  end
+
   def test_detect_files_all_the_way_down
     assignment = Assignment.new('scala', 'one', './test/fixtures')
     assert_equal ['build.sbt', 'src/test/scala/one_test.scala'].sort, assignment.filenames.sort

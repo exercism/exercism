@@ -25,7 +25,7 @@ class Assignment
   end
 
   def test_file
-    filenames.find {|f| f[/test/i]}
+    filenames.find {|f| f[/test/i] || f[/\.t$/]}
   end
 
   def files
