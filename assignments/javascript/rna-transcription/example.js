@@ -1,13 +1,11 @@
-(function() {
-  'use strict';
+'use strict';
 
-  function DNA(nucleotides) {
-    this.nucleotides = nucleotides;
+module.exports = function (nucleotides) {
+  var type = ({}).toString.call(nucleotides);
+
+  if (type != '[object String]') {
+    throw new TypeError('Expected String but was given + ' + type);
   }
 
-  DNA.prototype.toRNA = function() {
-    return this.nucleotides.replace(/T/g,'U');
-  };
-
-  module.exports = DNA;
-})();
+  return nucleotides.replace(/T/g, 'U');
+};
