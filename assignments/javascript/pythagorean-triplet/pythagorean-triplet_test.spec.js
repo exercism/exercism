@@ -1,4 +1,4 @@
-var Triplet = require('./triplet');
+var Triplet = require('./pythagorean-triplet');
 
 describe('Triplet', function () {
 
