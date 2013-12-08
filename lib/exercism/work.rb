@@ -14,7 +14,7 @@ class Work
   private
 
   def shuffled
-    user.completed.to_a.shuffle.flat_map do |(language, slugs)|
+    user.nitpickables.to_a.shuffle.flat_map do |(language, slugs)|
       slugs = rand < 0.7 ? slugs.reverse : slugs.shuffle
       slugs.map { |slug| [language, slug] }
     end
