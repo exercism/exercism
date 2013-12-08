@@ -16,7 +16,8 @@ class Code
     'rs' => 'rust',
     'm' => 'objective-c',
     'scala' => 'scala',
-    'pl' => 'perl5' # Usually .pl for scripts, .pm for modules, .t for test files
+    'pl' => 'perl5', # Usually .pl for scripts, .pm for modules, .t for test files
+    'pm' => 'perl5'
   }
 
   attr_reader :path
