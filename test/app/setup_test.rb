@@ -15,7 +15,7 @@ class SetupPageTest < Minitest::Test
   end
 
   def test_language_setup_pages
-    ['Clojure', 'Ruby', 'Python', 'Elixir', 'Haskell', 'JavaScript'].each do |lang|
+    ['Clojure', 'Ruby', 'Python', 'Elixir', 'Haskell', 'JavaScript', 'OCaml'].each do |lang|
       visit_setup_page lang
     end
   end
