@@ -1,4 +1,4 @@
-var ocr = require('./ocr');
+var ocr = require('./ocr-numbers');
 
 describe('ocr', function () {
 
