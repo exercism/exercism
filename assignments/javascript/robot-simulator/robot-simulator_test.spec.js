@@ -1,7 +1,7 @@
-Robot = require('./robot');
+var Robot = require('./robot-simulator');
 
 describe("Robot", function() {
-  var robot = new Robot();  
+  var robot = new Robot();
 
   it("robot bearing", function() {
     var directions = [ 'east', 'west', 'north', 'south' ];
@@ -152,5 +152,4 @@ describe("Robot", function() {
     expect(robot3.coordinates).toEqual([11, 5]);
     expect(robot3.bearing).toEqual("north");
   });
-
 });
