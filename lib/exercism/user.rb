@@ -85,6 +85,15 @@ class User < ActiveRecord::Base
     (completed.keys + current.keys).include?(language) || locksmith_in?(language)
   end
 
+  def nitpickables
+    mastered_slugs = self.mastery.map do |language|
+      [language, Exercism.current_curriculum.trails[language.to_sym].slugs]
+    end
+    return Hash[mastered_slugs].merge(self.completed) do |key, a, b|
+      (a + b).uniq
+    end
+  end
+
   def current_exercises
     current.to_a.map {|cur| Exercise.new(*cur)}
   end

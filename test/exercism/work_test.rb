@@ -22,6 +22,14 @@ class WorkTest < Minitest::Test
     assert_equal submission, Work.new(alice).random
   end
 
+  def test_work_where_alice_is_locksmith
+    alice = User.create(username: 'alice', mastery: ['ruby'])
+    bob = User.create(username: 'bob')
+    submission = Submission.create(user: bob, language: 'ruby', slug: 'word-count')
+
+    assert_equal submission, Work.new(alice).random
+  end
+
   def test_no_completed_exercises
     user = User.create(completed: {})
     work = Work.new(user)
