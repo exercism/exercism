@@ -88,6 +88,10 @@ class Submission < ActiveRecord::Base
     @participants ||= DeterminesParticipants.determine(user, related_submissions)
   end
 
+  def nits_by_user(user)
+    comments.select {|nit| nit.user == user}
+  end
+
   def nits_by_others_count
     nit_count
   end
@@ -207,6 +211,10 @@ class Submission < ActiveRecord::Base
   def enable_opinions!
     self.wants_opinions = true
     self.save
+  end
+
+  def disable_opinions
+    self.wants_opinions = false
   end
 
   def disable_opinions!
