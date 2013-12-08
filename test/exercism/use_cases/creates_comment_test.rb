@@ -116,4 +116,18 @@ class CreatesCommentTest < Minitest::Test
     CreatesComment.create(submission.id, nitpicker, content)
   end
 
+  def test_nit_by_new_commenter_unflags_second_opinion
+    nitpicker = User.new(username: 'alice')
+    CreatesComment.new(submission.id, nitpicker, "a comment").create
+    CreatesComment.new(submission.id, submission.user, "a comment").create
+    submission.enable_opinions!
+    CreatesComment.new(submission.id, nitpicker, "a comment").create
+    submission.reload
+    assert submission.wants_opinions?, "Flag should stay on if the same people keep commenting"
+    nitpicker = User.new(username: 'joe')
+    CreatesComment.new(submission.id, nitpicker, "a comment").create
+    submission.reload
+    refute submission.wants_opinions?, "Flag should be off if there is a new commenter"
+  end
+
 end
