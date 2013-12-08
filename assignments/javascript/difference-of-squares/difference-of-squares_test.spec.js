@@ -1,4 +1,4 @@
-var Squares = require('./squares');
+var Squares = require('./difference-of-squares');
 
 describe('Squares', function () {
 
