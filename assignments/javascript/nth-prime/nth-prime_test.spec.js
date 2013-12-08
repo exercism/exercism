@@ -1,4 +1,4 @@
-var prime = require ('./prime');
+var prime = require ('./nth-prime');
 
 describe('Prime',function() {
 
