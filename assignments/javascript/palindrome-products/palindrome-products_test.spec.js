@@ -1,4 +1,4 @@
-var Palindromes = require('./palindrome');
+var Palindromes = require('./palindrome-products');
 
 describe("Palindrome", function() {
 
