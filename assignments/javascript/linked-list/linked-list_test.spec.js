@@ -1,6 +1,7 @@
-var Deque = require('./example');
+var Deque = require('./linked-list');
 
 describe('Deque', function () {
+
   it('push/pop', function () {
     var deque = new Deque();
     deque.push(10);
@@ -8,6 +9,7 @@ describe('Deque', function () {
     expect(deque.pop()).toBe(20);
     expect(deque.pop()).toBe(10);
   });
+
   it('push/shift', function () {
     var deque = new Deque();
     deque.push(10);
@@ -15,6 +17,7 @@ describe('Deque', function () {
     expect(deque.shift()).toBe(10);
     expect(deque.shift()).toBe(20);
   });
+
   it('unshift/shift', function () {
     var deque = new Deque();
     deque.unshift(10);
@@ -22,6 +25,7 @@ describe('Deque', function () {
     expect(deque.shift()).toBe(20);
     expect(deque.shift()).toBe(10);
   });
+
   it('unshift/pop', function () {
     var deque = new Deque();
     deque.unshift(10);
@@ -29,6 +33,7 @@ describe('Deque', function () {
     expect(deque.pop()).toBe(10);
     expect(deque.pop()).toBe(20);
   });
+
   it('example', function () {
     var deque = new Deque();
     deque.push(10);
@@ -42,4 +47,5 @@ describe('Deque', function () {
     expect(deque.pop()).toBe(50);
     expect(deque.shift()).toBe(30);
   });
+
 });
