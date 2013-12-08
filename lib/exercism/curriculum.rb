@@ -9,14 +9,17 @@ require 'exercism/curriculum/ruby'
 require 'exercism/curriculum/objective-c'
 require 'exercism/curriculum/scala'
 require 'exercism/curriculum/perl5'
+require 'exercism/curriculum/ocaml'
 
 class Exercism
+  def self.curricula
+    [:ruby, :javascript, :elixir, :clojure, :python, :haskell, :objectivec, :scala, :perl5, :ocaml].sort
+  end
+
   def self.current_curriculum
     @curriculum ||= begin
-      curriculums =  [:ruby, :javascript, :elixir, :clojure, :python, :haskell, :objectivec, :scala, :perl5]
-
       Curriculum.new('./assignments').tap do |curriculum|
-        curriculums.each do |type|
+        curricula.each do |type|
           curriculum.add "exercism/#{type}_curriculum".classify.constantize.new
         end
       end

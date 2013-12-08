@@ -17,7 +17,8 @@ class Code
     'm' => 'objective-c',
     'scala' => 'scala',
     'pl' => 'perl5', # Usually .pl for scripts, .pm for modules, .t for test files
-    'pm' => 'perl5'
+    'pm' => 'perl5',
+    'ml' => 'ocaml',
   }
 
   attr_reader :path

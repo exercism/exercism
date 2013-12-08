@@ -1,5 +1,5 @@
 class Exercism
-  class ElixirCurriculum
+  class OcamlCurriculum
     def slugs
       %w(
         bob word-count anagram beer-song nucleotide-count
