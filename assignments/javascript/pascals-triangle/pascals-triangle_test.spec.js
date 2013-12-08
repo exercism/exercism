@@ -1,4 +1,4 @@
-var Triangle = require('./triangle');
+var Triangle = require('./pascals-triangle');
 
 describe('Triangle', function () {
 
