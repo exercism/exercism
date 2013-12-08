@@ -1,5 +1,4 @@
-var Queens = require('./queens');
-
+var Queens = require('./queen-attack');
 
 describe("Queens", function() {
   it("has the correct default positions", function() {
@@ -38,7 +37,6 @@ O O O O O O B O\n\
 O O O O O O O O\n\
 "
     expect(queens.toString()).toEqual(board);
-
   });
 
   xit("queens cannot attack", function() {
