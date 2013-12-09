@@ -1,26 +1,13 @@
+require 'date'
+
 class Year
 
-  attr_reader :number
-  def initialize(number)
-    @number = number
-  end
-
-  def leap?
-    (vanilla? && !century?) || exceptional_century?
-  end
-
-  private
-
-  def vanilla?
-    (number % 4) == 0
-  end
-
-  def century?
-    (number % 100) == 0
-  end
-
-  def exceptional_century?
-    (number % 400) == 0
+  def self.leap?(year)
+    begin
+      Date.new(year, 2, 29) and true
+    rescue
+      false
+    end
   end
 
 end
