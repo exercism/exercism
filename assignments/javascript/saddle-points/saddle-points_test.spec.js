@@ -1,7 +1,6 @@
-var Matrix = require("./matrix");
+var Matrix = require("./saddle-points");
 
 describe("Matrix", function() {
-
   it("extracts a row", function() {
     var matrix = new Matrix("1 2\n10 20");
     expect(matrix.rows[0]).toEqual([1,2]);
