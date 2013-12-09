@@ -1,20 +1,21 @@
-function Year(number) {
-  'use strict';
+'use strict';
 
-  this.year = number;
+/**
+ * Whether given year is a leap year.
+ *
+ * @param  {number|string} year
+ * Year as a number or string.
+ *
+ * @return {boolean}
+ * Whether given year is a leap year.
+ */
 
-  this.isLeapYear = function() {
-    return this.yearDivisibleBy(4) &&
-      ( ! this.yearDivisibleBy(100) || this.yearDivisibleBy(400) );
-  };
+var isLeapYear = module.exports = function (year) {
+  var date;
 
-  this.yearDivisibleBy = function(divisor) {
-    return this.divisibleBy(this.year,divisor);
-  };
+  year = Number(year);
+  date = new Date(year, 1, 29); // feb 29 valid only in leap year
 
-  this.divisibleBy = function(number,divisor) {
-    return number % divisor === 0;
-  };
-}
+  return !(date.getMonth() - 1);
+};
 
-module.exports = Year;
