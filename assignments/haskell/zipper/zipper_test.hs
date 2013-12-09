@@ -46,4 +46,7 @@ zipperTests =
     t3 @=? (toTree . setLeft (Just (BT 5 Nothing Nothing)) . fromJust . left . fromTree $ t1)
   , testCase "setRight with Nothing" $
     t4 @=? (toTree . setRight Nothing . fromJust . left . fromTree $ t1)
+  , testCase "different paths to same zipper" $
+    (right . fromTree $ t1) @=?
+    (right . fromJust . up . fromJust . left . fromTree $ t1)
   ]

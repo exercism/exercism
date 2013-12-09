@@ -45,10 +45,8 @@ left = undefined
 right :: Zipper a -> Maybe (Zipper a)
 right = undefined
 
--- | Get the parent of the focus node.
---
--- If the focus node is the root node doesn't move the zipper.
-up :: Zipper a -> Zipper a
+-- | Get the parent of the focus node, if any.
+up :: Zipper a -> Maybe (Zipper a)
 up = undefined
 
 -- | Set the value of the focus node.
