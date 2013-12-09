@@ -49,6 +49,20 @@ class TeamsTest < Minitest::Test
     assert_equal expected_status, last_response.status
   end
 
+  def test_team_creation_without_name_uses_slug
+    post '/teams', {team: {slug: 'no_members', usernames: ""}}, login(alice)
+    team = Team.first
+
+    assert_equal 'no_members', team.name
+  end
+
+  def test_team_creation_with_name
+    post '/teams', {team: {name: 'No Members', slug: 'no_members', usernames: ""}}, login(alice)
+    team = Team.first
+
+    assert_equal 'No Members', team.name
+  end
+
   def test_team_creation_with_no_members
     assert_equal 0, alice.teams_created.size
 
