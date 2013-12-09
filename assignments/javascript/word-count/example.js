@@ -1,21 +1,13 @@
-function Words(input) {
-  'use strict';
+'use strict';
 
-  var words = input.match(/\b[a-z0-9]+\b/gi);
+module.exports = function (input) {
   var counts = {};
+  var tokens = String(input).match(/\b[a-z0-9]+\b/gi) || [];
 
-  for (var i = 0; i < words.length; i++) {
-    var currentWord = words[i].toLowerCase();
+  tokens.forEach(function (token) {
+    var word = token.toLowerCase();
+    word in counts ? counts[word] += 1 : counts[word] =  1;
+  });
 
-    if (counts[currentWord] === undefined) {
-      counts[currentWord] = 0;
-    }
-
-    counts[currentWord] += 1;
-
-  }
-
-  this.count = counts;
-}
-
-module.exports = Words;
+  return counts;
+};
