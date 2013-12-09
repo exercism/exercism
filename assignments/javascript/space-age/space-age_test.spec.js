@@ -1,7 +1,6 @@
-var SpaceAge = require('./spaceAge');
+var SpaceAge = require('./space-age');
 
 describe("Space Age", function() {
-
   it("age in seconds", function() {
     var age = new SpaceAge(1000000);
     expect(age.seconds).toEqual(1000000);
@@ -53,5 +52,4 @@ describe("Space Age", function() {
     expect(age.onEarth()).toEqual(260.16);
     expect(age.onNeptune()).toEqual(1.58);
   });
-
 });

@@ -51,7 +51,6 @@ function SpaceAge(seconds) {
   this.onNeptune = function() {
     return this.yearsOnPlanet("neptune");
   };
-
 }
 
 module.exports = SpaceAge;
