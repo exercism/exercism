@@ -1,4 +1,4 @@
-var SecretHandshake = require('./secrethandshake');
+var SecretHandshake = require('./secret-handshake');
 
 describe("Secret Handshake", function() {
   it("1 is a wink", function() {
