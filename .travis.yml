@@ -9,6 +9,7 @@ before_script:
 script:
   - 'RACK_ENV=test rake db:migrate test'
   - '( cd frontend && npm install && lineman spec-ci )'
+  - '( cd assignments/javascript && make test && cd - )'
   - '( export PATH=/opt/hp-2013.2.0.0/bin:$PATH; runhaskell ./test/haskell/check-exercises.hs )'
   - './test/rust/check-exercises.sh'
   - './test/python/check-exercises.py'
