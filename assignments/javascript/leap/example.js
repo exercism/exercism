@@ -10,12 +10,10 @@
  * Whether given year is a leap year.
  */
 
-var isLeapYear = module.exports = function (year) {
-  var date;
+module.exports = function (year) {
+  var feb = 1;
 
-  year = Number(year);
-  date = new Date(year, 1, 29); // feb 29 valid only in leap year
-
-  return !(date.getMonth() - 1);
+  // if date is valid, `.getMonth` should return month (`feb`) given.
+  return new Date(Number(year), feb, 29).getMonth() === feb;
 };
 
