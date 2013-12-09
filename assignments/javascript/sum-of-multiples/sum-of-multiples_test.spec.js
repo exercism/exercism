@@ -1,7 +1,6 @@
-var SumOfMultiples = require('./sumofmultiples');
+var SumOfMultiples = require('./sum-of-multiples');
 
 describe('SumOfMultiples', function () {
-
   it('to 1', function () {
     expect(SumOfMultiples().to(1)).toBe(0);
   });
@@ -25,5 +24,4 @@ describe('SumOfMultiples', function () {
   xit('[43, 47] to 10000', function () {
     expect(SumOfMultiples([43, 47]).to(10000)).toBe(2203160);
   });
-
 });
