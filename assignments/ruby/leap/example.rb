@@ -2,7 +2,7 @@ class Year
 
   attr_reader :number
   def initialize(number)
-    @number = number.to_i
+    @number = number
   end
 
   def leap?
