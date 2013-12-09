@@ -1,6 +1,6 @@
 'use strict';
 
-exports.toRoman = function(number) {
+module.exports = function(number) {
   var result = '';
   var mappings = [
     {arabic: 1000, roman: 'M'},
