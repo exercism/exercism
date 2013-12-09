@@ -1,52 +1,31 @@
 package bottles
 
-import (
-	"bytes"
+import(
+	"strings"
 	"fmt"
 )
 
-func Verse(numberBottles int) string {
-	return fmt.Sprintf("%s\n%s\n", bottles(numberBottles), action(numberBottles))
+func Sing() (result string) {
+	return Verses(99, 0)
 }
 
-func Verses(start, stop int) string {
-	var buffer bytes.Buffer
-	for i := start; i >= stop; i-- {
-		buffer.WriteString(Verse(i) + "\n")
+func Verses(start, end int) string {
+	a := []string{}
+	for i := end; i < start + 1; i++ {
+		a = append([]string{Verse(i)}, a...)
 	}
-	return buffer.String()
+	return strings.Join(a, "\n") + "\n"
 }
 
-func Sing() string {
-	var buffer bytes.Buffer
-	for i := 99; i >= 0; i-- {
-		buffer.WriteString(Verse(i) + "\n")
+func Verse(n int) (result string) {
+	if n == 0 {
+		result = "No more bottles of beer on the wall, no more bottles of beer.\nGo to the store and buy some more, 99 bottles of beer on the wall.\n"
+	} else if n == 1 {
+		result = "1 bottle of beer on the wall, 1 bottle of beer.\nTake it down and pass it around, no more bottles of beer on the wall.\n"
+	} else if n == 2 {
+		result = "2 bottles of beer on the wall, 2 bottles of beer.\nTake one down and pass it around, 1 bottle of beer on the wall.\n"
+	} else {
+		result = fmt.Sprintf("%d bottles of beer on the wall, %d bottles of beer.\nTake one down and pass it around, %d bottles of beer on the wall.\n", n, n, n-1)
 	}
-	return buffer.String()
-}
-
-func bottles(numberBottles int) (b string) {
-	switch {
-	case numberBottles == 1:
-		b = fmt.Sprintf("%d bottle of beer on the wall, %d bottle of beer.", numberBottles, numberBottles)
-	case numberBottles == 0:
-		b = "No more bottles of beer on the wall, no more bottles of beer."
-	default:
-		b = fmt.Sprintf("%d bottles of beer on the wall, %d bottles of beer.", numberBottles, numberBottles)
-	}
-	return
-}
-
-func action(numberBottles int) (r string) {
-	switch {
-	case numberBottles == 2:
-		r = fmt.Sprintf("Take one down and pass it around, %d bottle of beer on the wall.", numberBottles-1)
-	case numberBottles == 1:
-		r = "Take it down and pass it around, no more bottles of beer on the wall."
-	case numberBottles == 0:
-		r = "Go to the store and buy some more, 99 bottles of beer on the wall."
-	default:
-		r = fmt.Sprintf("Take one down and pass it around, %d bottles of beer on the wall.", numberBottles-1)
-	}
-	return
+	return result
 }

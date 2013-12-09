@@ -1,5 +1,6 @@
 require 'exercism/curriculum/clojure'
 require 'exercism/curriculum/elixir'
+require 'exercism/curriculum/go'
 require 'exercism/curriculum/haskell'
 require 'exercism/curriculum/javascript'
 require 'exercism/curriculum/objective-c'
@@ -14,6 +15,7 @@ class Exercism
     [
       :clojure,
       :elixir,
+      :go,
       :haskell,
       :javascript,
       :objectivec,

@@ -2,8 +2,10 @@ class Exercism
   class GoCurriculum
     def slugs
       %w(
-        bob word-count anagram nucleotide-count
-        binary
+        leap etl hamming anagram word-count binary accumulate
+        point-mutations allergies nucleotide-count bob
+        rna-transcription roman-numerals atbash-cipher
+        phone-number octal bottles
       )
     end
 
