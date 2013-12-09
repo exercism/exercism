@@ -19,6 +19,7 @@ class Code
     'pl' => 'perl5', # Usually .pl for scripts, .pm for modules, .t for test files
     'pm' => 'perl5',
     'ml' => 'ocaml',
+    'coffee' => 'coffeescript',
   }
 
   attr_reader :path

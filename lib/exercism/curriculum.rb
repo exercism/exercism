@@ -1,19 +1,28 @@
 require 'exercism/curriculum/clojure'
 require 'exercism/curriculum/elixir'
-require 'exercism/curriculum/go'
 require 'exercism/curriculum/haskell'
-# require 'exercism/curriculum/java'
 require 'exercism/curriculum/javascript'
+require 'exercism/curriculum/objective-c'
+require 'exercism/curriculum/ocaml'
+require 'exercism/curriculum/perl5'
 require 'exercism/curriculum/python'
 require 'exercism/curriculum/ruby'
-require 'exercism/curriculum/objective-c'
 require 'exercism/curriculum/scala'
-require 'exercism/curriculum/perl5'
-require 'exercism/curriculum/ocaml'
 
 class Exercism
   def self.curricula
-    [:ruby, :javascript, :elixir, :clojure, :python, :haskell, :objectivec, :scala, :perl5, :ocaml].sort
+    [
+      :clojure,
+      :elixir,
+      :haskell,
+      :javascript,
+      :objectivec,
+      :ocaml,
+      :perl5,
+      :python,
+      :ruby,
+      :scala,
+    ]
   end
 
   def self.current_curriculum
