@@ -5,7 +5,7 @@ class CreatesCommentTest < Minitest::Test
   include DBCleaner
 
   def exercise
-    Exercise.new('nong', 'one')
+    Exercise.new('ruby', 'one')
   end
 
   def submission

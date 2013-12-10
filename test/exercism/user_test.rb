@@ -9,20 +9,20 @@ class UserTest < Minitest::Test
   end
 
   def test_user_has_a_problem_set
-    user = User.new(current: {'nong' => 'one'})
-    ex = Exercise.new('nong', 'one')
+    user = User.new(current: {'ruby' => 'one'})
+    ex = Exercise.new('ruby', 'one')
     assert_equal [ex], user.current_exercises
   end
 
   def test_user_is_nitpicker_on_completed_assignment
-    user = User.new(current: {'nong' => 'two'}, completed: {'nong' => ['one']})
-    one = Exercise.new('nong', 'one')
+    user = User.new(current: {'ruby' => 'two'}, completed: {'ruby' => ['one']})
+    one = Exercise.new('ruby', 'one')
     assert user.nitpicker_on?(one)
   end
 
   def test_user_is_not_nitpicker_on_current_assignment
-    user = User.new(current: {'nong' => 'one'})
-    one = Exercise.new('nong', 'one')
+    user = User.new(current: {'ruby' => 'one'})
+    one = Exercise.new('ruby', 'one')
     refute user.nitpicker_on?(one)
   end
 
@@ -103,13 +103,13 @@ class UserTest < Minitest::Test
   end
 
   def test_user_ongoing_without_submission
-    user = User.new(current: {'nong' => 'one'})
+    user = User.new(current: {'ruby' => 'one'})
     assert_equal [], user.ongoing
   end
 
   def test_user_ongoing_with_submissions
-    user = User.create(current: {'nong' => 'one'})
-    exercise = Exercise.new('nong', 'one')
+    user = User.create(current: {'ruby' => 'one'})
+    exercise = Exercise.new('ruby', 'one')
 
     user.submissions << create_submission(exercise, :code => "s1", state: 'superseded')
     user.submissions << create_submission(exercise, :code => "s2")
@@ -125,13 +125,13 @@ class UserTest < Minitest::Test
   end
 
   def test_user_done_without_submissions
-    user = User.create(current: {'nong' => 'one'})
+    user = User.create(current: {'ruby' => 'one'})
     assert_equal [], user.done
   end
 
   def test_user_done_with_submissions
-    user = User.create(current: {'nong' => 'one'}, completed: {'nong' => ['one']})
-    exercise = Exercise.new('nong', 'one')
+    user = User.create(current: {'ruby' => 'one'}, completed: {'ruby' => ['one']})
+    exercise = Exercise.new('ruby', 'one')
 
     user.submissions << create_submission(exercise, :code => "s1")
     user.submissions << create_submission(exercise, :code => "s2")
@@ -143,10 +143,10 @@ class UserTest < Minitest::Test
 
   def test_user_do!
     user = User.new
-    exercise = Exercise.new('nong', 'one')
+    exercise = Exercise.new('ruby', 'one')
 
     user.do!(exercise)
-    assert_equal({'nong' => 'one'}, user.reload.current)
+    assert_equal({'ruby' => 'one'}, user.reload.current)
   end
 
   def test_user_is_not_locksmith_by_default
