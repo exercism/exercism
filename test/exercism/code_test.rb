@@ -40,4 +40,9 @@ class CodeTest < Minitest::Test
     assert_equal 'to', code.slug
     assert_equal 'file.py', code.filename
   end
+
+  def test_case_insensitive_slug
+    code = Code.new('/Path/To/File.py')
+    assert_equal 'to', code.slug
+  end
 end
