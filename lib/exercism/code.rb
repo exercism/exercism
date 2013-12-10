@@ -42,7 +42,7 @@ class Code
   end
 
   def slug
-    path_segments[-2].downcase
+    path_segments[-2].downcase if path_segments[-2]
   end
 
   private
