@@ -41,6 +41,12 @@ class CodeTest < Minitest::Test
     assert_equal 'file.py', code.filename
   end
 
+  def test_windows_scala_file_path
+    code = Code.new("scala\\bob\\src\\main\\scala\\bob.scala")
+    assert_equal 'bob', code.slug
+    assert_equal 'bob.scala', code.filename
+  end
+
   def test_case_insensitive_slug
     code = Code.new('/Path/To/File.py')
     assert_equal 'to', code.slug

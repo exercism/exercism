@@ -46,6 +46,11 @@ class ExercismAPI < Sinatra::Base
     end
     data = JSON.parse(data)
     user = User.where(key: data['key']).first
+    begin
+      LogEntry.create(user: user, body: data.to_json)
+    rescue => e
+      # ignore failures
+    end
     unless user
       message = <<-MESSAGE
       Beloved user,

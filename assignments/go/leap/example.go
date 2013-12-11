@@ -1,8 +1,5 @@
 package leap
 
-func IsLeap(year int) bool {
-	isVanilla := (year % 4) == 0
-	isCentury := (year % 100) == 0
-	isException := (year % 400) == 0
-	return isVanilla && !isCentury || isException
+func IsLeapYear(i int) bool {
+	return i%4 == 0 && i%100 != 0 || i%400 == 0
 }
