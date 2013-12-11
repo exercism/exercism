@@ -3,6 +3,10 @@ class Guest
     false
   end
 
+  def nitpicker_languages
+    []
+  end
+
   def ongoing
     []
   end
