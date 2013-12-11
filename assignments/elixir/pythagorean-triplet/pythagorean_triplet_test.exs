@@ -21,22 +21,22 @@ defmodule PythagoreanTripletTest do
 
   test "not pythagorean" do
     triplet = [5, 6, 7]
-    assert !Triplet.pythagorean?(triplet)
+    refute Triplet.pythagorean?(triplet)
   end
 
   test "triplets up to 10" do
-    triplets = Triplet.generate(10)
-    assert [60, 480] == Enum.map(triplets, &(Triplet.product(&1)))
+    triplets = Triplet.generate(1, 10)
+    assert [60, 480] == Enum.map(triplets, &Triplet.product/1)
   end
 
   test "triplets from 11 up to 20" do
     triplets = Triplet.generate(11, 20)
-    assert [3840] == Enum.map(triplets, &(Triplet.product(&1)))
+    assert [3840] == Enum.map(triplets, &Triplet.product/1)
   end
 
   test "triplets where sum is 180 and max factor is 100" do
     triplets = Triplet.generate(1, 100, 180)
-    assert [118080, 168480, 202500] == Enum.map(triplets, &(Triplet.product(&1)))
+    assert [118080, 168480, 202500] == Enum.map(triplets, &Triplet.product/1)
   end
 
 

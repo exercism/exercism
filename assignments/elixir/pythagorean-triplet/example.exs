@@ -33,36 +33,24 @@ defmodule Triplet do
   end
 
   @doc """
-  Generates a list of pythagorean triplets from a given min (or 1 if no min) to a given max.
+  Generates a list of pythagorean triplets from a given min to a given max.
   """
   @spec generate(non_neg_integer, non_neg_integer) :: [list(non_neg_integer)]
-  def generate(min // 1, max) do
-    Enum.reduce(min..max, [], fn(f1, acc) ->
-      Enum.reduce(f1..max, [], fn(f2, acc) ->
-        Enum.reduce(f2..max, [], fn(f3, acc) ->
-          if select?([f1, f2, f3]) do
-            [[f1, f2, f3]|acc]
-          else acc
-          end
-        end) |> Enum.concat(acc)
-      end) |> Enum.concat(acc)
-    end) |> Enum.reverse
+  def generate(min, max) do
+    lc x inlist Enum.to_list(min..max), 
+    y inlist Enum.to_list(x..max), 
+    z inlist Enum.to_list(y..max), 
+    select?([x, y, z]), do: [x, y, z]
   end
 
   @doc """
   Generates a list of pythagorean triplets from a given min to a given max, whose values add up to a given sum.
   """
-  @spec generate(non_neg_integer, non_neg_integer, non_neg_integer) :: [list(non_neg_integer
+  @spec generate(non_neg_integer, non_neg_integer, non_neg_integer) :: [list(non_neg_integer)]
   def generate(min, max, sum) do
-    Enum.reduce(min..max, [], fn(f1, acc) ->
-      Enum.reduce(f1..max, [], fn(f2, acc) ->
-        Enum.reduce(f2..max, [], fn(f3, acc) ->
-          if select?([f1, f2, f3], sum) do
-            [[f1, f2, f3]|acc]
-          else acc
-          end
-        end) |> Enum.concat(acc)
-      end) |> Enum.concat(acc)
-    end) |> Enum.reverse
+    lc x inlist Enum.to_list(min..max), 
+    y inlist Enum.to_list(x..max), 
+    z inlist Enum.to_list(y..max), 
+    select?([x, y, z], sum), do: [x, y, z]
   end
 end
