@@ -2,7 +2,7 @@ class Exercism
   class JavaCurriculum
     def slugs
       %w(
-        bob word-count
+        bob hamming word-count
       )
     end
 
