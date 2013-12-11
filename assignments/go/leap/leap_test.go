@@ -17,7 +17,7 @@ var testCases = []struct {
 
 func TestLeapYears(t *testing.T) {
 	for _, test := range testCases {
-		observed := IsLeap(test.year)
+		observed := IsLeapYear(test.year)
 		if observed != test.expected {
 			t.Fatalf("%v is %s", test.year, test.description)
 		}
