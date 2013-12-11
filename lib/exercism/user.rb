@@ -82,7 +82,11 @@ class User < ActiveRecord::Base
   end
 
   def nitpicks_trail?(language)
-    (completed.keys + current.keys).include?(language) || locksmith_in?(language)
+    nitpicker_languages.include?(language)
+  end
+
+  def nitpicker_languages
+    (submissions.done.pluck('language') + mastery).uniq
   end
 
   def nitpickables

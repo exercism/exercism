@@ -106,9 +106,7 @@ class ExercismApp < Sinatra::Base
     end
 
     def nitpicker_languages
-      @nitpicker_languages ||= Exercism.languages.select { |lang|
-        current_user.nitpicks_trail?(lang.to_s)
-      }
+      Exercism.languages.map(&:to_s) & current_user.nitpicker_languages
     end
   end
 
