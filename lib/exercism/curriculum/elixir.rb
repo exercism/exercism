@@ -8,7 +8,7 @@ class Exercism
         gigasecond triangle scrabble-score roman-numerals
         binary prime-factors sieve raindrops allergies
         atbash-cipher bank-account sum-of-multiples largest-series-product
-        parallel-letter-frequency
+        pythagorean-triplet parallel-letter-frequency
         zipper minesweeper difference-of-squares dot-dsl
         custom-set
       )
