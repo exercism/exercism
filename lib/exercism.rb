@@ -30,6 +30,7 @@ require 'exercism/trail'
 require 'exercism/use_cases'
 require 'exercism/user'
 require 'exercism/work'
+require 'exercism/log_entry'
 
 require 'db/connection'
 DB::Connection.establish
