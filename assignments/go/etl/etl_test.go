@@ -10,23 +10,23 @@ var transformTests = []struct {
 	expected out
 }{
 	{
-		in{1: {"WORLD"}},
-		out{"world": 1},
+		in{1: {"A"}},
+		out{"a": 1},
 	},
 	{
-		in{1: {"WORLD", "GSCHOOLERS"}},
-		out{"world": 1, "gschoolers": 1},
+		in{1: {"A", "E", "I", "O", "U"}},
+		out{"a": 1, "e": 1, "i": 1, "o": 1, "u": 1},
 	},
 	{
 		in{
-			1: {"APPLE", "ARTICHOKE"},
-			2: {"BOAT", "BALLERINA"},
+			1: {"A", "E"},
+			2: {"D", "G"},
 		},
 		out{
-			"apple":     1,
-			"artichoke": 1,
-			"boat":      2,
-			"ballerina": 2,
+			"a": 1,
+			"e": 1,
+			"d": 2,
+			"g": 2,
 		},
 	},
 	{
