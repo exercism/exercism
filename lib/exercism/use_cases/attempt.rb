@@ -20,6 +20,10 @@ class Attempt
     file.slug || user.current[language]
   end
 
+  def exercise
+    @exercise ||= Exercise.new(language, slug)
+  end
+
   def submission
     @submission ||= Submission.on(exercise)
   end
@@ -60,15 +64,7 @@ class Attempt
     @previous_submission ||= previous_submissions.first || NullSubmission.new(exercise)
   end
 
-  def exercise
-    @exercise ||= solution.exercise
-  end
-
   private
-
-  def solution
-    @solution ||= Solution.new(user, file)
-  end
 
   def sanitize(code)
     code.gsub(/\n*\z/, "")

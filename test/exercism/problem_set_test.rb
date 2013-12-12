@@ -33,13 +33,6 @@ class ProblemSetTest < Minitest::Test
     refute alice.did?('go')
   end
 
-  def test_current_exercises
-    ruby, python, go = alice.current_exercises
-    assert_equal Exercise.new('ruby', 'cake'), ruby
-    assert_equal Exercise.new('python', 'eggs'), python
-    assert_equal Exercise.new('go', 'light'), go
-  end
-
   def test_completed_exercises
     shoe, lion = alice.completed_exercises['ruby']
     ham = alice.completed_exercises['python'].first
@@ -55,18 +48,8 @@ class ProblemSetTest < Minitest::Test
     refute alice.completed?(Exercise.new('ruby', 'pill')), 'pill'
   end
 
-  def test_working_on_p
-    assert alice.working_on?(Exercise.new('ruby', 'cake')), 'cake'
-    refute alice.working_on?(Exercise.new('ruby', 'shoe')), 'shoe'
-  end
-
   def test_current_languages
     assert_equal %w(go python ruby), alice.current_languages.sort
-  end
-
-  def test_current_exercise_in_language
-    cake = Exercise.new('ruby', 'cake')
-    assert_equal cake, alice.current_in('ruby')
   end
 
   def test_latest_in_language

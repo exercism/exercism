@@ -133,19 +133,6 @@ class AssignmentsApiTest < Minitest::Test
     end
   end
 
-  def test_api_rejects_submission_on_future_exercise
-    Exercism.stub(:current_curriculum, curriculum) do
-      Notify.stub(:everyone, nil) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'future/code.rb'}.to_json
-      end
-
-      assert_equal 400, last_response.status
-
-      options = {format: :json, :name => 'reject_future_exercises'}
-      Approvals.verify(last_response.body, options)
-    end
-  end
-
   def test_fetch_at_the_end_of_trail
     Exercism.stub(:current_curriculum, curriculum) do
       bob = User.create(github_id: 2, current: {'ruby' => 'two'})

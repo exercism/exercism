@@ -75,7 +75,7 @@ class ExercismAPI < Sinatra::Base
       # TODO: refactor to ask about validity
       attempt.exercise
       attempt.validate!
-    rescue Exercism::UnavailableExercise, Exercism::UnknownExercise, Exercism::UnknownLanguage => e
+    rescue Exercism::UnknownExercise, Exercism::UnknownLanguage => e
       halt 400, {:error => e.message}.to_json
     end
 

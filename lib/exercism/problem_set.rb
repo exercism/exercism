@@ -7,12 +7,6 @@ module ProblemSet
     completed.key?(language)
   end
 
-  def current_exercises
-    @current_exercises ||= current.map {|language, slug|
-      Exercise.new(language, slug)
-    }
-  end
-
   def completed_exercises
     @completed_exercises ||= begin
       exercises = Hash.new {|history, language| history[language] = []}
