@@ -16,4 +16,7 @@
 (deftest it-transcribes-all-occurrences-of-thymidine-to-uracil
   (is (= "ACGUGGUCUUAA" (dna/to-rna "ACGTGGTCTTAA"))))
 
+(deftest it-validates-dna-strands
+  (is (thrown? AssertionError (dna/to-rna "XCGFGGTDTTAA"))))
+
 (run-tests)
