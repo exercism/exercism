@@ -45,7 +45,7 @@ class Attempt
   end
 
   def remove_from_completed(exercise)
-    user.completed[exercise.language].delete(exercise.slug)
+    (user.completed[exercise.language] || []).delete(exercise.slug)
   end
 
   def validate!
