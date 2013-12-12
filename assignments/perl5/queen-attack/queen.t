@@ -14,9 +14,16 @@ if (open my $fh, '<', $cases_file) {
 } else {
     die "Could not open '$cases_file' $!";
 }
-
-#plan tests => 3 + @$cases;
 #diag explain $cases;
+
+my  $tests = 3;
+foreach my $c (@$cases) {
+	foreach my $bo (@{ $c->{boards} }) {
+		$tests += keys(%$bo) - 1;
+		$tests++ if not exists $bo->{exception};
+	}
+}
+plan tests => $tests;
 
 ok -e "$module.pm", "missing $module.pm"
     or BAIL_OUT("You need to create a class called $module.pm with a constructor called new.");
@@ -28,43 +35,42 @@ ok !$@, "Cannot load $module.pm"
 can_ok($module, 'new') or BAIL_OUT("Missing package $module; or missing sub new()");
 
 foreach my $c (@$cases) {
-	my @q;
-	foreach my $params (@{ $c->{params} }) {
+	foreach my $board (@{ $c->{boards} }) {
         eval {
-	        push @q, $module->new(%$params);
+	        $board->{res} = $module->new(%{ $board->{params} });
         };
 		if ($@) {
-        	push @q, { exception => $@ };
+        	$board->{res} = { exception => $@ };
 		}
     }
-    foreach my $i (0 .. @q-1) {
-        if ($c->{exception}) {
-			like $q[$i]{exception}, qr{^$c->{exception}[$i]}, "$c->{name} exception";
-		} elsif ($q[$i]{exception}) {
-			ok !$q[$i]{exception}, "$c->{name} no exception" or do {
-				diag $q[$i]{exception};
+	foreach my $board (@{ $c->{boards} }) {
+        if ($board->{exception}) {
+			like $board->{res}{exception}, qr{^$board->{exception}}, "$c->{name} exception";
+		} else {
+			ok !$board->{res}{exception}, "$c->{name} no exception" or do {
+				diag $board->{res}{exception};
 				next;
 			};
 		}
-	    if ($c->{white}) {
-		    is_deeply $q[$i]->white, $c->{white}[$i], "$c->{name} white";
+	    if ($board->{white}) {
+		    is_deeply $board->{res}->{white}, $board->{white}, "$c->{name} white";
 	    }
-	    if ($c->{black}) {
-		    is_deeply $q[$i]->black, $c->{black}[$i], "$c->{name} black";
+	    if ($board->{black}) {
+		    is_deeply $board->{res}->black, $board->{black}, "$c->{name} black";
 	    }
-        if ($c->{board}) {
-            my $expected = join("\n", @{ $c->{board}[$i] }) . "\n";
-            is $q[$i]->to_string, $expected , "$c->{name} board";
+        if ($board->{board}) {
+            my $expected = join("\n", @{ $board->{board} }) . "\n";
+            is $board->{res}->to_string, $expected , "$c->{name} board";
         }
-        if (exists $c->{attack}) {
-        	if ($c->{attack}[$i]) {
-                ok $q[$i]->can_attack, "$c->{name} can attack";
+        if (exists $board->{attack}) {
+        	if ($board->{attack}) {
+                ok $board->{res}->can_attack, "$c->{name} can attack";
 			} else {
-                ok !$q[$i]->can_attack, "$c->{name} can NOT attack";
+                ok !$board->{res}->can_attack, "$c->{name} can NOT attack";
 			}
         }
     }
 }
 
 
-done_testing();
+#done_testing();
