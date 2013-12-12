@@ -36,14 +36,16 @@ class Attempt
       sub.supersede!
       sub.unmute_all!
     end
-    if user.completed?(exercise)
-      submission.state = 'tweaked'
-    end
     user.clear_stash(file.path)
+    remove_from_completed(exercise)
     submission.code = code
     user.submissions << submission
     user.save
     self
+  end
+
+  def remove_from_completed(exercise)
+    user.completed[exercise.language].delete(exercise.slug)
   end
 
   def validate!

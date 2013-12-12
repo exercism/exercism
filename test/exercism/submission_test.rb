@@ -66,11 +66,13 @@ class SubmissionTest < Minitest::Test
     assert_equal 'superseded', submission.state
   end
 
-  def test_do_not_supersede_completed_submissions
+  def test_supersede_completed_submissions
     submission.state = 'done'
+    submission.done_at = Time.now
     submission.save
     submission.supersede!
-    assert_equal 'done', submission.state
+    assert_equal 'superseded', submission.state
+    assert_nil   submission.done_at
   end
 
   def test_not_completed_when_ongoing

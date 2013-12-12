@@ -50,7 +50,7 @@ class AttemptTest < Minitest::Test
     submission = Submission.first
     assert_equal 'ruby', submission.language
     assert_equal 'one', submission.slug
-    assert submission.tweaked?, 'tweaked'
+    assert submission.pending?, "Expected submission to be pending but was #{submission.state}"
     assert_equal user, submission.user
   end
 
@@ -138,9 +138,11 @@ class AttemptTest < Minitest::Test
     assert user.working_on?(Exercise.new('ruby', 'two'))
   end
 
-  def test_attempt_doesnt_set_completed_exercise_as_current
+  def test_attempt_sets_completed_exercises_as_current
     attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one/one.rb', curriculum).save
-    refute user.working_on?(Exercise.new('ruby', 'one'))
+    assert user.working_on?(Exercise.new('ruby', 'one'))
+    # BIG FAT LEGACY MARKER
+    assert_equal [], user.completed['ruby']
   end
 end
 

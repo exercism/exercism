@@ -155,10 +155,9 @@ class Submission < ActiveRecord::Base
   end
 
   def supersede!
-    if pending? || hibernating? || tweaked?
-      self.state = 'superseded'
-    end
-    self.delete if stashed?
+    self.delete and return if stashed?
+    self.state   = 'superseded'
+    self.done_at = nil
     save
   end
 
