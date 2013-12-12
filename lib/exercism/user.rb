@@ -140,11 +140,23 @@ class User < ActiveRecord::Base
     @latest_submission ||= submissions.pending.order(created_at: :desc).first
   end
 
-  private
-
   def latest_submission_on(exercise)
     submissions_on(exercise).first
   end
+
+  def active_submissions
+    submissions.pending
+  end
+
+  def worked_in_languages
+    submissions.done.pluck('language')
+  end
+
+  def completed_submissions_in(language)
+    submissions.done.where(language: language)
+  end
+
+  private
 
   def create_key
     Digest::SHA1.hexdigest(secret)

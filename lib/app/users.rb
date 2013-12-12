@@ -1,5 +1,12 @@
 class ExercismApp < Sinatra::Base
 
+  get '/account' do
+    please_login
+
+    title('account')
+    erb :account
+  end
+
   get '/:username' do |username|
     please_login
     user = User.find_by_username(username)

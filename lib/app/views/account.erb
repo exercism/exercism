@@ -1,0 +1,82 @@
+<div class="row">
+  <div class="span8">
+    <h1>Account</h1>
+
+    <h2>Teams</h2>
+    <% if (current_user.teams | current_user.teams_created).any? %>
+      <ul>
+        <% (current_user.teams | current_user.teams_created).each do |team| %>
+          <li><a href="/teams/<%= team.slug %>"><%= team.slug %></a></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <p>Create a <a href="/teams">new team</a>.</p>
+
+    <% if current_user.comments.any? %>
+      <p>You've left <a href="/user/history"><%= current_user.comments.count %> nits</a>.</p>
+    <% end %>
+
+    <h2>Exercises</h2>
+
+    <h3>Current</h3>
+    <% if current_user.active_submissions.none? %>
+      <p>You have not submitted any exercises lately.</p>
+    <% end %>
+
+    <ul>
+      <% current_user.active_submissions.each do |submission| %>
+        <li>
+          <a href="<%= ['', 'submissions', submission.key].join('/') %>"><%= submission.language.titleize %>: <%= submission.name %></a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="span4">
+    <dl>
+      <dt>Api key:</dt>
+      <dd><%= current_user.key %></dd>
+    </dl>
+
+    <p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on
+      <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
+
+    <p>
+      The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
+      <form action="/account/email" method="post">
+        <input type="hidden" name="_method" value="put" />
+        <div class="input-append">
+          <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
+          <input type="submit" name="update" value="Update" class="btn" />
+        </div>
+      </form>
+    </p>
+  </div>
+</div>
+
+<% if current_user.submissions.done.count.zero? %>
+  <div class="row">
+    <div class="span12">
+      <h4>Completed</h4>
+      <p>You have not completed any exercises.</p>
+    </div>
+  </div>
+<% else %>
+
+<div class="row">
+  <% current_user.worked_in_languages.each do |language| %>
+  <div class="span2">
+    <h5><%= language.titleize %></h5>
+    <ul>
+      <% current_user.completed_submissions_in(language).each do |submission| %>
+      <li>
+      <a href="<%= ['', 'submissions', submission.related_submissions.last.key].join('/') %>"><%= submission.name %></a>
+      <br>
+      <a href="<%= ['', 'completed', submission.language, submission.slug, 'random'].join('/') %>">gallery &raquo;</a>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+</div>
+<% end %>

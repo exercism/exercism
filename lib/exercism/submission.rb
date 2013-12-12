@@ -84,6 +84,10 @@ class Submission < ActiveRecord::Base
     joins("left join (select submission_id from muted_submissions ms where user_id=#{user.id}) as t ON t.submission_id=submissions.id").where('t.submission_id is null')
   end
 
+  def name
+    @name ||= slug.split('-').map(&:capitalize).join(' ')
+  end
+
   def participants
     @participants ||= DeterminesParticipants.determine(user, related_submissions)
   end

@@ -3,41 +3,19 @@
     <h1><%= user.username %></h1>
     <p>GitHub Profile: <%= github_profile_link(user) %></p>
 
-    <% if current_user.is?(user.username) %>
-      <p>Create a <a href="/teams">new team</a>.</p>
-
-      <% if (user.teams | user.teams_created).any? %>
-        <p>You are on the following teams:</p>
-        <ul>
-          <% (user.teams | user.teams_created).each do |team| %>
-            <li><a href="/teams/<%= team.slug %>"><%= team.slug %></a></li>
-          <% end %>
-        </ul>
-      <% end %>
-      <p>
-        You've left
-        <% if user.comments.any? %>
-          <a href="/user/history"><%= user.comments.count %> nits</a>.
-        <% else %>
-          <%= user.comments.count %> nits.
-        <% end %>
-      </p>
-    <% end %>
-
     <h3>Exercises</h3>
+
     <h4>Current</h4>
     <% if current.none? %>
-      <% if current_user.is?(user.username) %>
-        <p>You have not submitted any exercises lately.</p>
-      <% else %>
-        <p>This coder has not submitted any exercises lately.</p>
-      <% end %>
+      <p><%= user.username %> has not submitted any exercises lately.</p>
+    <% else %>
     <% end %>
+
     <ul>
       <% current.each do |exercise| %>
         <li>
           <% if current_user.is?(user.username) || current_user.nitpicker_on?(exercise) %>
-            <a href="<%= ['', user.username, exercise.language, exercise.slug].join('/') %>"><%= exercise.language.titleize %>: <%= exercise.name %></a>
+            <a href="<%= ['', 'submissions', user.latest_submission_on(exercise).key].join('/') %>"><%= exercise.language.titleize %>: <%= exercise.name %></a>
           <% else %>
             <%= exercise.language.titleize %>: <%= exercise.name %>
           <% end %>
@@ -45,42 +23,17 @@
       <% end %>
     </ul>
   </div>
-  <div class="span4">
-    <% if current_user.is?(user.username) %>
-      <dl>
-        <dt>Api key:</dt>
-        <dd><%= current_user.key %></dd>
-      </dl>
-
-    <p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on
-      <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
-
-    <p>
-      The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
-      <form action="/account/email" method="post">
-        <input type="hidden" name="_method" value="put" />
-        <div class="input-append">
-          <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
-          <input type="submit" name="update" value="Update" class="btn" />
-        </div>
-      </form>
-    </p>
-    <% end %>
-  </div>
 </div>
 
 <div class="row">
   <div class="span12">
     <h4>Completed</h4>
     <% if completed.none? %>
-      <% if current_user.is?(user.username) %>
-        <p>You have not completed any exercises.</p>
-      <% else %>
-        <p>This coder has not completed any exercises.</p>
-      <% end %>
+    <p><%= user.username %> has not completed any exercises.</p>
     <% end %>
   </div>
 </div>
+
 <div class="row">
   <% completed.each do |language, exercises| %>
   <div class="span2">
@@ -89,7 +42,7 @@
       <% exercises.each do |exercise| %>
       <li>
       <% if current_user.is?(user.username) || current_user.nitpicker_on?(exercise) %>
-      <a href="<%= ['', user.username, exercise.language, exercise.slug].join('/') %>"><%= exercise.name %></a>
+      <a href="<%= ['', 'submissions', user.latest_submission_on(exercise).key].join('/') %>"><%= exercise.name %></a>
       <br>
       <a href="<%= ['', 'completed', exercise.language, exercise.slug, 'random'].join('/') %>">gallery &raquo;</a>
       <% else %>
