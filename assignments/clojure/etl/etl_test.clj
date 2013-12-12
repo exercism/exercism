@@ -22,13 +22,13 @@
            "u"  1 "v"  4 "w" 4 "x" 8 "y" 4
            "z" 10 }
          (etl/transform {
-             1 (subvec (clojure.string/split "AEIOULNRST" #"") 1)
-             2 (subvec (clojure.string/split "DG" #"") 1)
-             3 (subvec (clojure.string/split "BCMP" #"") 1)
-             4 (subvec (clojure.string/split "FHVWY" #"") 1)
-             5 (subvec (clojure.string/split "K" #"") 1)
-             8 (subvec (clojure.string/split "JX" #"") 1)
-            10 (subvec (clojure.string/split "QZ" #"") 1)
+             1 (clojure.string/split "AEIOULNRST" #"")
+             2 (clojure.string/split "DG" #"")
+             3 (clojure.string/split "BCMP" #"")
+             4 (clojure.string/split "FHVWY" #"")
+             5 (clojure.string/split "K" #"")
+             8 (clojure.string/split "JX" #"")
+            10 (clojure.string/split "QZ" #"")
          }))))
 
 (run-tests)
