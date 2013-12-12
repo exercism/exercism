@@ -176,15 +176,14 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_completed_returns_the_names_of_completed_assignments
     Exercism.stub(:current_curriculum, curriculum) do
-      user = User.create(github_id: 2, current: {'ruby' => 'one'})
-      trail = curriculum.in('ruby')
-      exercises = trail.exercises.each
-      user.complete! exercises.next
-      user.complete! exercises.next
+      user = User.create(github_id: 2)
+      Submission.create(user: user, code: 'CODE', state: 'done', language: 'ruby', slug: 'one')
+      Submission.create(user: user, code: 'CODE', state: 'done', language: 'ruby', slug: 'two')
+      Submission.create(user: user, code: 'CODE', state: 'done', language: 'python', slug: 'one')
 
       get '/user/assignments/completed', {key: user.key}
 
-      assert_equal({"assignments" => {"ruby" => ['one', 'two']}}, JSON::parse(last_response.body))
+      assert_equal({"assignments" => {"ruby" => ['one', 'two'], 'python' => ['one']}}, JSON::parse(last_response.body))
     end
   end
 
