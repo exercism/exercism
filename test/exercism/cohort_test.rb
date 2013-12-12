@@ -6,9 +6,12 @@ class CohortTest < Minitest::Test
   def test_team_members_and_managers
     alice = User.create username: 'alice'
     bob = User.create username: 'bob'
-    charlie = User.create username: 'charlie', current: {'ruby' => 'cake'}
+    charlie = User.create username: 'charlie'
     dave = User.create username: 'dave', completed: {'ruby' => ['cake']}
     eve = User.create username: 'eve'
+
+    Submission.create(language: 'ruby', slug: 'cake', code: 'CODE', user: charlie)
+
     Team.create(slug: 'team1', members: [bob, charlie], creator: alice)
     Team.create(slug: 'team2', members: [bob, dave, eve], creator: alice)
 

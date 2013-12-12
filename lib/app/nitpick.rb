@@ -19,7 +19,7 @@ class ExercismApp < Sinatra::Base
   get '/nitpick/:language/:slug/?' do |language, slug|
     please_login
 
-    presenter = current_user.sees?(language) ? Workload : NullWorkload
+    presenter = current_user.nitpicks_trail?(language) ? Workload : NullWorkload
     workload = presenter.new(current_user, language, slug || 'no-nits')
 
     locals = {

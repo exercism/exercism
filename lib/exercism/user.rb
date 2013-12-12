@@ -70,15 +70,15 @@ class User < ActiveRecord::Base
     save
   end
 
-  def sees?(language)
-    doing?(language) || did?(language) || locksmith_in?(language)
-  end
-
   def complete!(exercise)
     self.completed[exercise.language] ||= []
     self.completed[exercise.language] << exercise.slug
     self.current.delete(exercise.language)
     save
+  end
+
+  def working_on?(candidate)
+    active_submissions.where(language: candidate.language, slug: candidate.slug).count > 0
   end
 
   def nitpicks_trail?(language)

@@ -202,9 +202,12 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_notify_team_members_about_submission
     bob = User.create username: 'bob', github_id: -2
-    charlie = User.create username: 'charlie', github_id: -3, current: {'ruby' => 'bob'}
+    charlie = User.create username: 'charlie', github_id: -3
     dave = User.create username: 'dave', github_id: -4, completed: {'ruby' => ['bob']}
     eve = User.create username: 'eve', github_id: -5
+
+    Submission.create(language: 'ruby', slug: 'bob', code: 'CODE', user: charlie)
+
     Team.create(slug: 'team1', members: [bob, charlie], creator: alice)
     Team.create(slug: 'team2', members: [bob, dave, eve], creator: alice)
 

@@ -20,19 +20,6 @@ class ProblemSetTest < Minitest::Test
     @alice = FakeUser.new
   end
 
-  def test_doing
-    assert alice.doing?('ruby')
-    assert alice.doing?('python')
-    assert alice.doing?('go')
-    refute alice.doing?('clojure')
-  end
-
-  def test_did
-    assert alice.did?('ruby')
-    assert alice.did?('python')
-    refute alice.did?('go')
-  end
-
   def test_completed_exercises
     shoe, lion = alice.completed_exercises['ruby']
     ham = alice.completed_exercises['python'].first
@@ -46,10 +33,6 @@ class ProblemSetTest < Minitest::Test
     assert alice.completed?(Exercise.new('ruby', 'lion')), 'lion'
     refute alice.completed?(Exercise.new('ruby', 'cake')), 'cake'
     refute alice.completed?(Exercise.new('ruby', 'pill')), 'pill'
-  end
-
-  def test_current_languages
-    assert_equal %w(go python ruby), alice.current_languages.sort
   end
 
   def test_latest_in_language

@@ -1,12 +1,4 @@
 module ProblemSet
-  def doing?(language)
-    current.key?(language)
-  end
-
-  def did?(language)
-    completed.key?(language)
-  end
-
   def completed_exercises
     @completed_exercises ||= begin
       exercises = Hash.new {|history, language| history[language] = []}
@@ -21,14 +13,6 @@ module ProblemSet
 
   def completed?(candidate)
     completed_exercises.any? {|_, exercises| exercises.include?(candidate)}
-  end
-
-  def working_on?(candidate)
-    current_exercises.any? {|exercise| exercise == candidate}
-  end
-
-  def current_languages
-    current.keys
   end
 
   def current_in(language)
