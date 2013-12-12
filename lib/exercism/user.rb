@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
   end
 
   def nitpicker_languages
-    (submissions.done.pluck('language') + mastery).uniq
+    (worked_in_languages + mastery).uniq
   end
 
   def nitpickables
@@ -149,7 +149,7 @@ class User < ActiveRecord::Base
   end
 
   def worked_in_languages
-    submissions.done.pluck('language')
+    submissions.done.pluck('language').uniq
   end
 
   def completed_submissions_in(language)
