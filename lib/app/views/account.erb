@@ -54,14 +54,14 @@
   </div>
 </div>
 
-<% if current_user.submissions.done.count.zero? %>
-  <div class="row">
-    <div class="span12">
-      <h4>Completed</h4>
-      <p>You have not completed any exercises.</p>
-    </div>
+<div class="row">
+  <div class="span12">
+  <h3>Completed</h3>
+  <% if current_user.submissions.done.count.zero? %>
+    <p>You have not completed any exercises.</p>
+  <% else %>
   </div>
-<% else %>
+</div>
 
 <div class="row">
   <% current_user.worked_in_languages.each do |language| %>
