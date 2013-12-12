@@ -180,16 +180,4 @@ class ExercismApp < Sinatra::Base
                                                   language: language,
                                                 assignment: assignment }
   end
-
-  get '/submissions/diff/:key/:key' do |a,b|
-    please_login
-
-    diff = Diffy::Diff.new(Submission.find_by_key(a).code, Submission.find_by_key(b).code)
-    erb :"code/simple", layout: false, locals: { title: "Diff",
-        html: { id: "revision-diff"},
-        code: diff.to_s,
-        language: 'diff',
-    }
-
-  end
 end

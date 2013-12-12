@@ -29,11 +29,7 @@
           <a class="btn btn-default" href="/submissions/<%= related.key %>"> <%= related.version %></a>
         <% end %>
       <% end %>
-
     </p>
-    <% if current_user.nitpicker_on?(submission.exercise) %>
-      <p>&laquo; <a href="/<%= [submission.user.username, submission.language, submission.slug].join('/') %>">Submission history</a></p>
-    <% end %>
   </div>
 </div>
 

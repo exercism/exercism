@@ -17,7 +17,6 @@ gem 'loofah'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 gem 'pry', require: false
-gem 'diffy'
 
 # Must not be required
 # See http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
