@@ -49,7 +49,7 @@ class Submission < ActiveRecord::Base
 
   def self.random_completed_for(exercise)
     where(
-      state: ['done', 'tweaked'],
+      state: 'done',
       language: exercise.language,
       slug: exercise.slug
     ).order('RANDOM()').limit(1).first
@@ -197,10 +197,6 @@ class Submission < ActiveRecord::Base
 
   def hibernating?
     state == 'hibernating'
-  end
-
-  def tweaked?
-    state == 'tweaked'
   end
 
   def superseded?

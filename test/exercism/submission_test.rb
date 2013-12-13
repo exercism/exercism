@@ -59,12 +59,6 @@ class SubmissionTest < Minitest::Test
     assert_equal 'superseded', submission.state
   end
 
-  def test_supersede_tweaked_submission
-    submission.state = 'tweaked'
-    submission.supersede!
-    submission.reload
-    assert_equal 'superseded', submission.state
-  end
 
   def test_supersede_completed_submissions
     submission.state = 'done'
