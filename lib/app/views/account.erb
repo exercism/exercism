@@ -1,46 +1,55 @@
+<h1>Account</h1>
 <div class="row">
   <div class="span8">
-    <h1>Account</h1>
 
     <h2>Teams</h2>
-    <% if (current_user.teams | current_user.teams_created).any? %>
+    <% if profile.has_teams? %>
       <ul>
-        <% (current_user.teams | current_user.teams_created).each do |team| %>
+        <% profile.teams.each do |team| %>
           <li><a href="/teams/<%= team.slug %>"><%= team.slug %></a></li>
         <% end %>
       </ul>
     <% end %>
     <p>Create a <a href="/teams">new team</a>.</p>
 
-    <% if current_user.comments.any? %>
-      <p>You've left <a href="/user/history"><%= current_user.comments.count %> nits</a>.</p>
+    <% if profile.has_nitpicked? %>
+      <p>You've left <a href="/user/history"><%= profile.nitpicks.count %> nits</a>.</p>
     <% end %>
 
     <h2>Exercises</h2>
-
     <h3>Current</h3>
-    <% if current_user.active_submissions.none? %>
-      <p>You have not submitted any exercises lately.</p>
+    <% if profile.has_current_submissions? %>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Exercise</th>
+            <th>Language</th>
+            <th>Iteration</th>
+            <th>Nits</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% profile.current.each do |submission| %>
+          <tr>
+            <td><%= profile.submission_link(submission) %></td>
+            <td><%= submission.language.titleize %></td>
+            <td><%= submission.version %></td>
+            <td><%= submission.nit_count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p><%= profile.no_current_sumbissions_message %></p>
     <% end %>
-
-    <ul>
-      <% current_user.active_submissions.each do |submission| %>
-        <li>
-          <a href="<%= ['', 'submissions', submission.key].join('/') %>"><%= submission.language.titleize %>: <%= submission.name %></a>
-        </li>
-      <% end %>
-    </ul>
   </div>
-
   <div class="span4">
     <dl>
       <dt>Api key:</dt>
       <dd><%= current_user.key %></dd>
     </dl>
-
     <p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on
       <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
-
     <p>
       The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
       <form action="/account/email" method="post">
@@ -56,27 +65,34 @@
 
 <div class="row">
   <div class="span12">
-  <h3>Completed</h3>
-  <% if current_user.submissions.done.count.zero? %>
-    <p>You have not completed any exercises.</p>
-  <% else %>
+    <h3>Completed</h3>
+    <% if profile.has_completed_submissions? %>
+      <table class="table table-bordered table-striped">
+        <col />
+        <col width="100%" />
+        <thead>
+          <tr>
+            <th>Language</th>
+            <th>Exercises</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% profile.languages.each do |language| %>
+            <tr>
+              <td><%= language.titleize %></td>
+              <td>
+                <% profile.completed_in(language).each do |submission| %>
+                  <span class="completed-exercise">
+                    <%= profile.submission_link(submission) %>
+                  </span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p><%= profile.no_completed_sumbissions_message %></p>
+    <% end %>
   </div>
 </div>
-
-<div class="row">
-  <% current_user.worked_in_languages.each do |language| %>
-  <div class="span2">
-    <h5><%= language.titleize %></h5>
-    <ul>
-      <% current_user.completed_submissions_in(language).each do |submission| %>
-      <li>
-      <a href="<%= ['', 'submissions', submission.related_submissions.last.key].join('/') %>"><%= submission.name %></a>
-      <br>
-      <a href="<%= ['', 'completed', submission.language, submission.slug, 'random'].join('/') %>">gallery &raquo;</a>
-      </li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
-</div>
-<% end %>

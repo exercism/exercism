@@ -4,7 +4,7 @@ class ExercismApp < Sinatra::Base
     please_login
 
     title('account')
-    erb :account
+    erb :account, locals: { profile: Profile.new(current_user) }
   end
 
   get '/:username' do |username|
@@ -13,7 +13,7 @@ class ExercismApp < Sinatra::Base
 
     if user
       title(user.username)
-      erb :user, locals: {user: user, current: user.current_exercises, completed: user.completed_exercises}
+      erb :user, locals: { profile: Profile.new(user, current_user) }
     else
       status 404
       erb :not_found

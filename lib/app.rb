@@ -4,6 +4,7 @@ require 'will_paginate'
 require 'will_paginate/active_record'
 
 require 'app/presenters/workload'
+require 'app/presenters/profile'
 
 require 'app/auth'
 require 'app/client'
@@ -21,7 +22,6 @@ require 'app/exercises'
 require 'app/not_found'
 
 require 'app/helpers/fuzzy_time_helper'
-require 'app/helpers/github_link_helper'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/profile_helper'
 require 'app/helpers/site_title_helper'
@@ -45,7 +45,6 @@ class ExercismApp < Sinatra::Base
   helpers Sinatra::SiteTitleHelper
   helpers Sinatra::FuzzyTimeHelper
   helpers Sinatra::GravatarHelper
-  helpers Sinatra::GithubLinkHelper
   helpers Sinatra::ProfileHelper
   helpers Sinatra::MarkdownHelper
 
