@@ -3,7 +3,13 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class BobTest {
-    private final Bob bob = new Bob();
+
+    private Bob bob;
+
+    @Before
+    public void before() {
+        bob = new Bob();
+    }
 
     @Test
     public void saySomething() {
