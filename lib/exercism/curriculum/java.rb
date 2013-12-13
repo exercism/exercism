@@ -2,7 +2,7 @@ class Exercism
   class JavaCurriculum
     def slugs
       %w(
-        bob hamming word-count anagram
+        bob hamming robot-name word-count anagram
       )
     end
 
