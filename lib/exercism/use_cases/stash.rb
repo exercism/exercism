@@ -1,6 +1,6 @@
 class Stash
 
-  attr_reader :user, :code
+  attr_reader :user, :code, :file
   def initialize(user, code, filename)
     @user = user
     @code = code
@@ -8,24 +8,23 @@ class Stash
   end
 
   def filename
-    @file.filename
-  end
-
-  def language
-    @file.language
+    file.path
   end
 
   def submission
-    @submission ||= Submission.new
+    @submission ||= Submission.new(
+      language: file.language,
+      slug: file.slug,
+      state: 'stashed',
+      code: code,
+      stash_name: filename
+    )
   end
 
   def save
     user.submissions.each do |sub|
       sub.supersede! if sub.stash_name == filename
     end
-    submission.state = 'stashed'
-    submission.code = code
-    submission.stash_name = filename
     user.submissions << submission
     user.save
     self
