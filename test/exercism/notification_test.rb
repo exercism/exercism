@@ -1,5 +1,4 @@
 require './test/active_record_helper'
-require 'exercism/problem_set'
 require 'exercism/user'
 require 'exercism/comment'
 require 'exercism/submission'

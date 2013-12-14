@@ -10,11 +10,11 @@ class Profile
   end
 
   def has_current_submissions?
-    current.any?
+    user.submissions.pending.count > 0
   end
 
   def has_completed_submissions?
-    user.completed_exercises.any?
+    user.submissions.done.count > 0
   end
 
   def teams

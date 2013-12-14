@@ -8,20 +8,16 @@ class UserTest < Minitest::Test
     assert_match %r{\A[a-z0-9]{40}\z}, user.key
   end
 
-  def test_user_has_a_problem_set
-    user = User.new(current: {'ruby' => 'one'})
-    ex = Exercise.new('ruby', 'one')
-    assert_equal [ex], user.current_exercises
-  end
-
   def test_user_is_nitpicker_on_completed_assignment
-    user = User.new(current: {'ruby' => 'two'}, completed: {'ruby' => ['one']})
+    user = User.create
+    Submission.create(user: user, language: 'ruby', slug: 'one', state: 'done')
     one = Exercise.new('ruby', 'one')
     assert user.nitpicker_on?(one)
   end
 
   def test_user_is_not_nitpicker_on_current_assignment
-    user = User.new(current: {'ruby' => 'one'})
+    user = User.create
+    Submission.create(user: user, language: 'ruby', slug: 'one', state: 'pending')
     one = Exercise.new('ruby', 'one')
     refute user.nitpicker_on?(one)
   end
@@ -117,28 +113,6 @@ class UserTest < Minitest::Test
     user.reload
 
     assert_equal ["s2"], user.ongoing.map(&:code)
-  end
-
-  def test_user_none_done_without_exercises
-    user = User.new
-    assert_equal [], user.done
-  end
-
-  def test_user_done_without_submissions
-    user = User.create(current: {'ruby' => 'one'})
-    assert_equal [], user.done
-  end
-
-  def test_user_done_with_submissions
-    user = User.create(current: {'ruby' => 'one'}, completed: {'ruby' => ['one']})
-    exercise = Exercise.new('ruby', 'one')
-
-    user.submissions << create_submission(exercise, :code => "s1")
-    user.submissions << create_submission(exercise, :code => "s2")
-    user.save
-    user.reload
-
-    assert_equal ["s2"], user.done.map(&:code)
   end
 
   def test_user_do!

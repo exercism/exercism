@@ -1,9 +1,6 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-
-  include ProblemSet
-
   serialize :mastery, Array
   serialize :current, Hash
   serialize :completed, Hash
@@ -42,14 +39,6 @@ class User < ActiveRecord::Base
 
   def ongoing
     @ongoing ||= submissions.pending
-  end
-
-  def done
-    @done ||= completed_exercises.map do |lang, exercises|
-      exercises.map { |exercise|
-        latest_submission_on(exercise)
-      }
-    end.flatten
   end
 
   def submissions_on(exercise)
@@ -107,6 +96,10 @@ class User < ActiveRecord::Base
 
   def nitpicker_on?(exercise)
     mastery.include?(exercise.language) || completed?(exercise)
+  end
+
+  def completed?(candidate)
+    submissions.where(language: candidate.language, slug: candidate.slug, state: 'done').count > 0
   end
 
   def locksmith?
