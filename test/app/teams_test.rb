@@ -56,6 +56,13 @@ class TeamsTest < Minitest::Test
     assert_equal 'no_members', team.name
   end
 
+  def test_team_creation_with_empty_name_uses_slug
+    post '/teams', {team: {slug: 'no_members', name: '', usernames: ''}}, login(alice)
+    team = Team.first
+
+    assert_equal 'no_members', team.name
+  end
+
   def test_team_creation_with_name
     post '/teams', {team: {name: 'No Members', slug: 'no_members', usernames: ""}}, login(alice)
     team = Team.first
