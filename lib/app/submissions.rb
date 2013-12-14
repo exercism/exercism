@@ -132,11 +132,11 @@ class ExercismApp < Sinatra::Base
     please_login("You have to be logged in to do that")
     submission = Submission.find_by_key(key)
     unless current_user.owns?(submission)
-      flash[:notice] = "Only the submitter may unlock the next exercise."
+      flash[:notice] = "Only the submitter may complete the exercise."
       redirect "/submissions/#{key}"
     end
     completion = Completion.new(submission).save
-    flash[:success] = "#{completion.unlocked} unlocked."
+    flash[:success] = "#{submission.name} in #{submission.language} will no longer appear in the nitpick lists."
     redirect "/"
   end
 

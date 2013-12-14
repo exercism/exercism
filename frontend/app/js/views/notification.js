@@ -2,7 +2,6 @@ exercism.views.Notification = Backbone.View.extend({
   defaultTemplate: JST["app/templates/notification.us"],
   nitpicksTemplate: JST["app/templates/nitpicks_notification.us"],
   attemptTemplate: JST["app/templates/attempt_notification.us"],
-  unlockedTemplate: JST["app/templates/unlocked_notification.us"],
   hibernatingTemplate: JST["app/templates/hibernating_notification.us"],
   likeTemplate: JST["app/templates/like_notification.us"],
   customTemplate: JST["app/templates/custom_notification.us"],
@@ -35,9 +34,6 @@ exercism.views.Notification = Backbone.View.extend({
     switch (this.notificationType()) {
       case "code":
         this.$el.html(this.attemptTemplate(this.model.toJSON()));
-        break;
-      case "done":
-        this.$el.html(this.unlockedTemplate(this.model.toJSON()));
         break;
       case "hibernating":
         this.$el.html(this.hibernatingTemplate(this.model.toJSON()));
