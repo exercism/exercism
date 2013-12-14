@@ -16,10 +16,10 @@
       "slug": "two",
       "readme": "# Two\n\nThis is two.\n\n* two\n* two again\n\n\n## Source\n\nThe web. [view source](http://example.org)\n",
       "test_file": "two_test.go",
-      "tests": "package two\n\nimport \"testing\"\n\nfunc TestTwo(t *testing.T) {\n\tif 2 != Due.Value {\n\t\tt.Errorf(\"Expected Due.Value to equal 2\")\n\t}\n}\n\n",
+      "tests": "package two\n\nimport \"testing\"\n\nfunc TestTwo(t *testing.T) {\n\tif 2 != Due.Value {\n\t\tt.Errorf(\"Expected Due.Value to equal 2\")\n\t}\n}\n",
       "files": {
         "README.md": "# Two\n\nThis is two.\n\n* two\n* two again\n\n\n## Source\n\nThe web. [view source](http://example.org)\n",
-        "two_test.go": "package two\n\nimport \"testing\"\n\nfunc TestTwo(t *testing.T) {\n\tif 2 != Due.Value {\n\t\tt.Errorf(\"Expected Due.Value to equal 2\")\n\t}\n}\n\n"
+        "two_test.go": "package two\n\nimport \"testing\"\n\nfunc TestTwo(t *testing.T) {\n\tif 2 != Due.Value {\n\t\tt.Errorf(\"Expected Due.Value to equal 2\")\n\t}\n}\n"
       }
     },
     {
