@@ -78,21 +78,6 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
-  def test_api_starts_trail_automatically
-    Exercism.stub(:current_curriculum, curriculum) do
-      bob = User.create(username: 'bob', github_id: 2, current: {})
-      Notify.stub(:everyone, nil) do
-        post '/user/assignments', {key: bob.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
-      end
-
-      submission = Submission.first
-      ex = Exercise.new('ruby', 'one')
-      assert_equal ex, submission.exercise
-      assert_equal 201, last_response.status
-      assert_equal 'one', bob.reload.current['ruby']
-    end
-  end
-
   def test_api_accepts_submission_attempt
     Exercism.stub(:current_curriculum, curriculum) do
       Notify.stub(:everyone, nil) do

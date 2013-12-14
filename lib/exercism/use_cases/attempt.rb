@@ -29,9 +29,6 @@ class Attempt
   end
 
   def save
-    unless user.completed?(exercise)
-      user.do! exercise
-    end
     user.submissions_on(exercise).each do |sub|
       sub.supersede!
       sub.unmute_all!

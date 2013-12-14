@@ -53,11 +53,6 @@ class User < ActiveRecord::Base
     false
   end
 
-  def do!(exercise)
-    self.current[exercise.language] = exercise.slug
-    save
-  end
-
   def complete!(exercise)
     self.completed[exercise.language] ||= []
     self.completed[exercise.language] << exercise.slug

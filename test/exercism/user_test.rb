@@ -115,14 +115,6 @@ class UserTest < Minitest::Test
     assert_equal ["s2"], user.ongoing.map(&:code)
   end
 
-  def test_user_do!
-    user = User.new
-    exercise = Exercise.new('ruby', 'one')
-
-    user.do!(exercise)
-    assert_equal({'ruby' => 'one'}, user.reload.current)
-  end
-
   def test_user_is_not_locksmith_by_default
     refute User.new.locksmith?
   end

@@ -58,8 +58,6 @@ module Seed
             submission = ::Submission.create(attempt.by(user))
             if attempt.completed?
               user.complete! submission.exercise
-            else
-              user.do! submission.exercise
             end
             attempt.comments.each do |comment|
               ::Comment.create(comment.by(users.sample, on: submission))
