@@ -30,11 +30,7 @@ class ExercismAPI < Sinatra::Base
 
   get '/user/assignments/completed' do
     require_user
-    sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='done'" % current_user.id.to_s
-    completed = ActiveRecord::Base.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, exercises|
-      exercises[result["language"]] << result["slug"]
-    end
-    {assignments: completed}.to_json
+    {assignments: current_user.completed}.to_json
   end
 
   get '/user/assignments/current' do

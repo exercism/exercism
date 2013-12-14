@@ -5,7 +5,7 @@ class WorkTest < Minitest::Test
   include DBCleaner
 
   def test_work_where_alice_has_commented
-    alice = User.create(username: 'alice', completed: { ruby: [:anything] })
+    alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
     submission = Submission.create(user: bob, language: 'ruby', slug: 'anything')
     Comment.create(user: bob, submission: submission, body: 'something')
@@ -15,7 +15,9 @@ class WorkTest < Minitest::Test
   end
 
   def test_work_where_alice_has_not_commented
-    alice = User.create(username: 'alice', completed: { ruby: [:anything] })
+    alice = User.create(username: 'alice')
+    Submission.create(user: alice, language: 'ruby', slug: 'anything', state: 'done')
+
     bob = User.create(username: 'bob')
     submission = Submission.create(user: bob, language: 'ruby', slug: 'anything')
 
@@ -31,7 +33,7 @@ class WorkTest < Minitest::Test
   end
 
   def test_no_completed_exercises
-    user = User.create(completed: {})
+    user = User.create
     work = Work.new(user)
     assert_nil work.random
   end
@@ -42,7 +44,9 @@ class WorkTest < Minitest::Test
     sub1 = Submission.create(state: 'pending', user: bob, language: 'python', slug: 'one')
     sub2 = Submission.create(state: 'pending', user: alice, language: 'python', slug: 'two')
 
-    user = User.create(completed: { python: [:one, :two]})
+    user = User.create
+    Submission.create(state: 'done', user: user, language: 'python', slug: 'one')
+    Submission.create(state: 'done', user: user, language: 'python', slug: 'two')
 
     work = Work.new(user)
     work.stubs(:rand).returns(0.6)
@@ -56,11 +60,13 @@ class WorkTest < Minitest::Test
     sub1 = Submission.create(state: 'pending', user: bob, language: 'python', slug: 'one')
     sub2 = Submission.create(state: 'pending', user: alice, language: 'python', slug: 'two')
 
-    user = User.create(completed: { python: [:one, :two]})
-    user.completed[:python].expects(:shuffle).returns([:one, :two])
+    user = User.create
+    Submission.create(state: 'done', user: user, language: 'python', slug: 'one')
+    Submission.create(state: 'done', user: user, language: 'python', slug: 'two')
 
     work = Work.new(user)
     work.stubs(:rand).returns(0.8)
+    user.completed['python'].expects(:shuffle).returns(['one', 'two'])
     assert_equal work.random, sub1
   end
 
@@ -68,7 +74,7 @@ class WorkTest < Minitest::Test
     alice = User.create(username: 'alice')
     submission = Submission.create(state: 'pending', user: alice, language: 'haskell', slug: 'two')
 
-    user = User.create(completed: { haskell: [:one, :two]})
+    user = User.create
     Like.create(submission: submission, user: user)
     work = Work.new(user)
     assert_nil work.random
@@ -79,7 +85,10 @@ class WorkTest < Minitest::Test
     sub1 = Submission.create(state: 'pending', user: alice, language: 'haskell', slug: 'one')
     sub2 = Submission.create(state: 'pending', user: alice, language: 'haskell', slug: 'two')
 
-    user = User.create(completed: { haskell: [:one, :two]})
+    user = User.create
+    Submission.create(state: 'done', user: user, language: 'haskell', slug: 'one')
+    Submission.create(state: 'done', user: user, language: 'haskell', slug: 'two')
+
     Like.create(submission: sub2, user: user)
     work = Work.new(user)
     assert_equal sub1, work.random

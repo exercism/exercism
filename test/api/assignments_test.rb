@@ -13,7 +13,7 @@ class AssignmentsApiTest < Minitest::Test
   attr_reader :alice, :curriculum
   def setup
     super
-    @alice = User.create(username: 'alice', github_id: 1, completed: {'go' => ['one']})
+    @alice = User.create(username: 'alice', github_id: 1)
     @curriculum = Curriculum.new('./test/fixtures')
     @curriculum.add FakeRubyCurriculum.new
     @curriculum.add FakeGoCurriculum.new

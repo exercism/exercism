@@ -7,10 +7,7 @@ class AttemptTest < Minitest::Test
   attr_reader :user, :curriculum
   def setup
     super
-    data = {
-      completed: {'python' => ['one'], 'ruby' => ['one']}
-    }
-    @user = User.create(data)
+    @user = User.create
     @curriculum = Curriculum.new('/tmp')
     @curriculum.add FakePythonCurriculum.new
     @curriculum.add FakeRubyCurriculum.new
@@ -141,8 +138,6 @@ class AttemptTest < Minitest::Test
   def test_attempt_sets_completed_exercises_as_current
     attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one/one.rb', curriculum).save
     assert user.working_on?(Exercise.new('ruby', 'one'))
-    # BIG FAT LEGACY MARKER
-    assert_equal [], user.completed['ruby']
   end
 end
 

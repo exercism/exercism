@@ -2,7 +2,6 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   serialize :mastery, Array
-  serialize :completed, Hash
 
   has_many :submissions
   has_many :notifications
@@ -64,12 +63,12 @@ class User < ActiveRecord::Base
     (worked_in_languages + mastery).uniq
   end
 
-  def nitpickables
-    mastered_slugs = self.mastery.map do |language|
-      [language, Exercism.current_curriculum.trails[language.to_sym].slugs]
-    end
-    return Hash[mastered_slugs].merge(self.completed) do |key, a, b|
-      (a + b).uniq
+  def completed
+    @completed ||= begin
+      sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='done' ORDER BY created_at ASC" % id.to_s
+      connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, exercises|
+        exercises[result["language"]] << result["slug"]
+      end
     end
   end
 

@@ -14,9 +14,21 @@ class Work
   private
 
   def shuffled
-    user.nitpickables.to_a.shuffle.flat_map do |(language, slugs)|
+    nitpickables.to_a.shuffle.flat_map do |(language, slugs)|
       slugs = rand < 0.7 ? slugs.reverse : slugs.shuffle
       slugs.map { |slug| [language, slug] }
+    end
+  end
+
+  def mastered_slugs
+    user.mastery.map do |language|
+      [language, Exercism.current_curriculum.trails[language.to_sym].slugs]
+    end
+  end
+
+  def nitpickables
+    Hash[mastered_slugs].merge(user.completed) do |key, a, b|
+      (a + b).uniq
     end
   end
 
