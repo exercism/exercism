@@ -19,7 +19,7 @@
 
   <% end %>
 
-  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/respond" method="POST">
+  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
     <%= erb :comment %>
     <% if current_user.owns?(submission) %>
       <button type="submit" name="nitpick" class="pull-right btn btn-primary">Discuss</button>

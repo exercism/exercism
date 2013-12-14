@@ -127,7 +127,7 @@ class SubmissionsTest < Minitest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
-    post "/submissions/#{submission.key}/respond", {body: "Could be better by ..."}
+    post "/submissions/#{submission.key}/nitpick", {body: "Could be better by ..."}
 
     assert_response_status(302)
   end
