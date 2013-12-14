@@ -73,10 +73,6 @@ class User < ActiveRecord::Base
     end
   end
 
-  def current_exercises
-    current.to_a.map {|cur| Exercise.new(*cur)}
-  end
-
   def is?(handle)
     username == handle
   end
