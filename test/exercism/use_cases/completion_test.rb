@@ -19,11 +19,7 @@ class CompletionTest < Minitest::Test
     Completion.new(submission, curriculum).save
     submission.reload
     assert_equal 'done', submission.state
-    assert !submission.done_at.nil?
-
-    user.reload
-    done = {'ruby' => ['one']}
-    assert_equal done, user.completed
+    refute submission.done_at.nil?
   end
 end
 

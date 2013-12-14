@@ -52,12 +52,6 @@ class User < ActiveRecord::Base
     false
   end
 
-  def complete!(exercise)
-    self.completed[exercise.language] ||= []
-    self.completed[exercise.language] << exercise.slug
-    save
-  end
-
   def working_on?(candidate)
     active_submissions.where(language: candidate.language, slug: candidate.slug).count > 0
   end

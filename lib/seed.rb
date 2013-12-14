@@ -56,9 +56,6 @@ module Seed
         trail.exercises.each do |exercise|
           exercise.attempts.each do |attempt|
             submission = ::Submission.create(attempt.by(user))
-            if attempt.completed?
-              user.complete! submission.exercise
-            end
             attempt.comments.each do |comment|
               ::Comment.create(comment.by(users.sample, on: submission))
             end

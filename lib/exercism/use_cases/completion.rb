@@ -22,7 +22,6 @@ class Completion
     submission.state = 'done'
     submission.done_at = Time.now.utc
     submission.save
-    user.complete! exercise
     user.reload
     self
   end
