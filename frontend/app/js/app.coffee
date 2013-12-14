@@ -8,6 +8,12 @@ $ ->
     if confirm("Are you sure you want to dismiss #{username}")
       dismissTeamMember(username, slug)
 
+  $('#destroy_team').on 'click', ->
+    slug = $(@).data('team')
+
+    if confirm("Are you sure you want to delete " + slug + "?")
+      destroyTeam(slug);
+
   $('#edit_team').on 'click', (event) ->
     event.preventDefault()
     toggleTeamEdit()
@@ -24,6 +30,15 @@ toggleTeamEdit = ->
     members_box.slideUp ->
       delete_buttons.addClass('hidden')
       members_box.addClass('hidden')
+
+destroyTeam = (slug) ->
+  href = "/teams/" + slug
+  form = $('<form method="post" action="' + href + '"></form>')
+  method_input = '<input name="_method" value="delete" type="hidden"/>'
+
+  form.hide().append(method_input).appendTo('body')
+  form.submit()
+
 
 dismissTeamMember = (username, slug) ->
   href = "/teams/#{slug}/members/#{username}"

@@ -179,4 +179,25 @@ class TeamsTest < Minitest::Test
 
     assert_response_status(302)
   end
+
+  def test_delete_team_without_being_creator
+    team = Team.by(alice).defined_with({slug: 'delete', usernames: "#{bob.username}"})
+    team.save
+
+    delete "/teams/#{team.slug}", {}, login(bob)
+
+    assert_response_status(302)
+    assert Team.exists?(slug: 'delete')
+  end
+
+  def test_delete_team_as_creator
+    team = Team.by(alice).defined_with({slug: 'delete', usernames: "#{bob.username}"})
+    team.save
+
+    delete "/teams/#{team.slug}", {}, login(alice)
+
+    assert_response_status(302)
+    refute Team.exists?(slug: 'delete')
+  end
+
 end
