@@ -2,7 +2,6 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
 
-  include Locksmith
   include ProblemSet
 
   serialize :mastery, Array
@@ -107,7 +106,11 @@ class User < ActiveRecord::Base
   end
 
   def nitpicker_on?(exercise)
-    locksmith_in?(exercise.language) || completed?(exercise)
+    mastery.include?(exercise.language) || completed?(exercise)
+  end
+
+  def locksmith?
+    !mastery.empty?
   end
 
   def nitpicker?
