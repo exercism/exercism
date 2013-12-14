@@ -1,3 +1,5 @@
+require 'api/assignments/demo'
+
 class ExercismAPI < Sinatra::Base
   helpers do
     def curriculum
@@ -6,10 +8,8 @@ class ExercismAPI < Sinatra::Base
   end
 
   get '/assignments/demo' do
-    assignments = Exercism.trails.map do |trail|
-      trail.first_assignment
-    end
-    pg :assignments, locals: {assignments: assignments}
+    demo = API::Assignments::Demo.new(curriculum)
+    pg :assignments, locals: {assignments: demo.assignments}
   end
 
   get '/assignments/:language/:slug' do |language, slug|

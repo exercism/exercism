@@ -16,12 +16,8 @@ class Trail
     Assignment.new(language, slug, path)
   end
 
-  def first
-    exercises.first
-  end
-
   def first_assignment
-    assign(first.slug)
+    assign(exercises.first.slug)
   end
 
   def after(exercise, completed = [])

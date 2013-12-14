@@ -17,10 +17,6 @@ class TrailTest < Minitest::Test
     assert_equal 'go', trail.language
   end
 
-  def test_first_exercise_on_trail
-    assert_equal one, trail.first
-  end
-
   def test_catch_up_missed_exercise
     slugs = %w(chicken suit one garden two cake)
     trail = Trail.new('go', slugs, '/tmp')

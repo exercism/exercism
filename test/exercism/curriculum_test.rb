@@ -62,7 +62,7 @@ class ConvenienceCurriculumTest < Minitest::Test
     Exercism.stub(:current_curriculum, curriculum) do
       ruby = Exercise.new('ruby', 'one')
       go = Exercise.new('go', 'one')
-      assert_equal [ruby, go], Exercism.trails.map(&:first)
+      assert_equal [ruby, go], Exercism.trails.map {|t| t.exercises.first}
     end
   end
 end
