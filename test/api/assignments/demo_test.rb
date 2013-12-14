@@ -1,4 +1,4 @@
-require './test/approval_helper'
+require './test/test_helper'
 require './test/fixtures/fake_curricula'
 
 require 'exercism/exercise'
