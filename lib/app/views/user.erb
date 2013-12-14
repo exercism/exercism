@@ -1,56 +1,69 @@
 <div class="row">
   <div class="span8">
-    <h1><%= user.username %></h1>
-    <p>GitHub Profile: <%= github_profile_link(user) %></p>
+
+    <h1><%= profile.username %></h1>
+    <p>GitHub Profile: <%= profile.github_link %></p>
 
     <h3>Exercises</h3>
 
     <h4>Current</h4>
-    <% if current.none? %>
-      <p><%= user.username %> has not submitted any exercises lately.</p>
+    <% if profile.has_current_submissions? %>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Exercise</th>
+            <th>Language</th>
+            <th>Iteration</th>
+            <th>Nits</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% profile.current.each do |submission| %>
+          <tr>
+            <td><%= profile.submission_link(submission) %></td>
+            <td><%= submission.language.titleize %></td>
+            <td><%= submission.version %></td>
+            <td><%= submission.nit_count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
     <% else %>
+      <p><%= profile.no_current_sumbissions_message %></p>
     <% end %>
-
-    <ul>
-      <% current.each do |exercise| %>
-        <li>
-          <% if current_user.is?(user.username) || current_user.nitpicker_on?(exercise) %>
-            <a href="<%= ['', 'submissions', user.latest_submission_on(exercise).key].join('/') %>"><%= exercise.language.titleize %>: <%= exercise.name %></a>
-          <% else %>
-            <%= exercise.language.titleize %>: <%= exercise.name %>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
   </div>
 </div>
 
 <div class="row">
   <div class="span12">
     <h4>Completed</h4>
-    <% if completed.none? %>
-    <p><%= user.username %> has not completed any exercises.</p>
+    <% if profile.has_completed_submissions? %>
+      <table class="table table-bordered table-striped">
+        <col />
+        <col width="100%" />
+        <thead>
+          <tr>
+            <th>Language</th>
+            <th>Exercises</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% profile.languages.each do |language| %>
+            <tr>
+              <td><%= language.titleize %></td>
+              <td>
+                <% profile.completed_in(language).each do |submission| %>
+                  <span class="completed-exercise">
+                    <%= profile.submission_link(submission) %>
+                  </span>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    <% else %>
+      <p><%= profile.no_completed_sumbissions_message %></p>
     <% end %>
   </div>
-</div>
-
-<div class="row">
-  <% completed.each do |language, exercises| %>
-  <div class="span2">
-    <h5><%= language.titleize %></h5>
-    <ul>
-      <% exercises.each do |exercise| %>
-      <li>
-      <% if current_user.is?(user.username) || current_user.nitpicker_on?(exercise) %>
-      <a href="<%= ['', 'submissions', user.latest_submission_on(exercise).key].join('/') %>"><%= exercise.name %></a>
-      <br>
-      <a href="<%= ['', 'completed', exercise.language, exercise.slug, 'random'].join('/') %>">gallery &raquo;</a>
-      <% else %>
-      <%= exercise.name %>
-      <% end %>
-      </li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
 </div>
