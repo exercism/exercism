@@ -7,4 +7,3 @@ func TestTwo(t *testing.T) {
 		t.Errorf("Expected Due.Value to equal 2")
 	}
 }
-

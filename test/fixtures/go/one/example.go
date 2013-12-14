@@ -4,6 +4,6 @@ type One struct {
 	Value int
 }
 
-var Uno = One {
+var Uno = One{
 	Value: 1,
 }

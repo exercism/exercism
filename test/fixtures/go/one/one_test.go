@@ -7,4 +7,3 @@ func TestOne(t *testing.T) {
 		t.Errorf("Expected Uno.Value to equal 1")
 	}
 }
-

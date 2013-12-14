@@ -4,6 +4,6 @@ type Two struct {
 	Value int
 }
 
-var Due = Two {
+var Due = Two{
 	Value: 2,
 }
