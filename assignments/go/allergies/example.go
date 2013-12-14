@@ -2,7 +2,7 @@ package allergies
 
 import "math"
 
-var allergens = []string{ "eggs", "peanuts", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats" }
+var allergens = []string{"eggs", "peanuts", "shellfish", "strawberries", "tomatoes", "chocolate", "pollen", "cats"}
 
 func Allergies(i int) (result []string) {
 	for _, v := range allergens {
@@ -21,7 +21,7 @@ func AllergicTo(i int, allergen string) bool {
 
 func indexOf(slice []string, string string) int {
 	for p, v := range slice {
-		if (v == string) {
+		if v == string {
 			return p
 		}
 	}

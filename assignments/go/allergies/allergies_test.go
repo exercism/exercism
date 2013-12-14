@@ -1,13 +1,13 @@
 package allergies
 
-import(
+import (
 	"fmt"
 	"testing"
 )
 
 var allergiesTests = []struct {
 	expected []string
-	input int
+	input    int
 }{
 	{[]string{}, 0},
 	{[]string{"eggs"}, 1},
@@ -23,7 +23,7 @@ var allergiesTests = []struct {
 func TestAllergies(t *testing.T) {
 	for _, test := range allergiesTests {
 		actual := Allergies(test.input)
-		if fmt.Sprintf("%s", actual) != fmt.Sprintf("%s", test.expected)  {
+		if fmt.Sprintf("%s", actual) != fmt.Sprintf("%s", test.expected) {
 			t.Errorf("Allergies(%d): expected %s, actual %s", test.input, test.expected, actual)
 		}
 	}
@@ -31,7 +31,7 @@ func TestAllergies(t *testing.T) {
 
 var allergicToTests = []struct {
 	expected bool
-	i int
+	i        int
 	allergen string
 }{
 	{false, 0, "peanuts"},
@@ -44,7 +44,7 @@ var allergicToTests = []struct {
 func TestAllergicTo(t *testing.T) {
 	for _, test := range allergicToTests {
 		actual := AllergicTo(test.i, test.allergen)
-		if actual != test.expected  {
+		if actual != test.expected {
 			t.Errorf("AllergicTo(%s, %s): expected %s, actual %s", test.i, test.allergen, test.expected, actual)
 		}
 	}

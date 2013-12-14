@@ -1,8 +1,8 @@
 package bottles
 
-import(
-	"strings"
+import (
 	"fmt"
+	"strings"
 )
 
 func Sing() (result string) {
@@ -11,7 +11,7 @@ func Sing() (result string) {
 
 func Verses(start, end int) string {
 	a := []string{}
-	for i := end; i < start + 1; i++ {
+	for i := end; i < start+1; i++ {
 		a = append([]string{Verse(i)}, a...)
 	}
 	return strings.Join(a, "\n") + "\n"

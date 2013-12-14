@@ -1,8 +1,8 @@
 package atbash
 
-import(
-	"strings"
+import (
 	"regexp"
+	"strings"
 )
 
 var alphabet = "abcdefghijklmnopqrstuvwxyz"
@@ -53,7 +53,7 @@ func reverse(s string) string {
 
 func indexOf(slice []string, string string) int {
 	for p, v := range slice {
-		if (v == string) {
+		if v == string {
 			return p
 		}
 	}
