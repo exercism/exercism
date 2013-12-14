@@ -4,6 +4,7 @@
 
 <% if current_user == team.creator %>
   <a href="#" id="edit_team" class="btn btn-small">Edit</a>
+  <a href="#" id="destroy_team" class="btn btn-small btn-danger" data-team=<%= team.slug %>>Destroy</a>
 
   <div class="hidden" id="add_members">
     <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/members" %>" method="POST">

@@ -37,6 +37,26 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  delete '/teams/:slug' do |slug|
+    please_login
+
+    team = Team.where(slug: slug).first
+
+    if team
+      unless team.creator == current_user
+        flash[:error] = "You are not allowed to delete the team."
+        redirect '/'
+      end
+
+      team.delete
+
+      redirect '/account'
+    else
+      flash[:error] = "We don't know anything about team '#{slug}'"
+      redirect '/'
+    end
+  end
+
   post '/teams/:slug/members' do |slug|
     please_login
 
