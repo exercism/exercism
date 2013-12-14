@@ -31,7 +31,7 @@
 <% if current_user.guest? %>
   <p>You can always find your API key in your account.</p>
 <% else %>
-  <p>You can always find your API key in <%= profile_link(current_user, "your account") %>.</p>
+  <p>You can always find your API key in <a href="/account">your account</a>.</p>
 <% end %>
 
 <p>If you mess up your login, you can either edit the config file at
