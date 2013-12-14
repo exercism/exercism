@@ -98,13 +98,8 @@ class UserTest < Minitest::Test
     assert_equal [], user.ongoing
   end
 
-  def test_user_ongoing_without_submission
-    user = User.new(current: {'ruby' => 'one'})
-    assert_equal [], user.ongoing
-  end
-
   def test_user_ongoing_with_submissions
-    user = User.create(current: {'ruby' => 'one'})
+    user = User.create
     exercise = Exercise.new('ruby', 'one')
 
     user.submissions << create_submission(exercise, :code => "s1", state: 'superseded')

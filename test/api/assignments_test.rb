@@ -13,7 +13,7 @@ class AssignmentsApiTest < Minitest::Test
   attr_reader :alice, :curriculum
   def setup
     super
-    @alice = User.create(username: 'alice', github_id: 1, current: {'ruby' => 'one', 'go' => 'two'}, completed: {'go' => ['one']})
+    @alice = User.create(username: 'alice', github_id: 1, completed: {'go' => ['one']})
     @curriculum = Curriculum.new('./test/fixtures')
     @curriculum.add FakeRubyCurriculum.new
     @curriculum.add FakeGoCurriculum.new
@@ -125,9 +125,10 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_fetch_at_the_end_of_trail
     Exercism.stub(:current_curriculum, curriculum) do
-      bob = User.create(github_id: 2, current: {'ruby' => 'two'})
+      bob = User.create(github_id: 2)
       trail = Exercism.current_curriculum.in('ruby')
-      bob.complete! trail.exercises.last
+      exercise = trail.exercises.last
+      Submission.create(user: bob, language: exercise.language, slug: exercise.slug, state: 'done')
       get '/user/assignments/current', {key: bob.key}
       assert_equal 200, last_response.status
     end

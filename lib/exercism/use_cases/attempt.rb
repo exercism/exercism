@@ -17,7 +17,7 @@ class Attempt
   end
 
   def slug
-    file.slug || user.current[language]
+    file.slug
   end
 
   def exercise

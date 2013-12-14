@@ -2,7 +2,6 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   serialize :mastery, Array
-  serialize :current, Hash
   serialize :completed, Hash
 
   has_many :submissions
@@ -56,7 +55,6 @@ class User < ActiveRecord::Base
   def complete!(exercise)
     self.completed[exercise.language] ||= []
     self.completed[exercise.language] << exercise.slug
-    self.current.delete(exercise.language)
     save
   end
 

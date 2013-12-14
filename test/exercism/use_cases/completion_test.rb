@@ -9,7 +9,7 @@ class CompletionTest < Minitest::Test
     super
     @curriculum = Curriculum.new('/tmp')
     @curriculum.add FakeRubyCurriculum.new
-    @user = User.create(username: 'bob', current: {'ruby' => 'one'}, github_id: 1)
+    @user = User.create(username: 'bob', github_id: 1)
 
     attempt = Attempt.new(user, 'CODE', 'one/one.rb', curriculum).save
     @submission = Submission.first
@@ -24,7 +24,6 @@ class CompletionTest < Minitest::Test
     user.reload
     done = {'ruby' => ['one']}
     assert_equal done, user.completed
-    assert_nil user.current['ruby']
   end
 end
 

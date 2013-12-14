@@ -14,7 +14,6 @@ class SubmissionsTest < Minitest::Test
     {
       username: 'alice',
       github_id: 1,
-      current: {'ruby' => 'word-count', 'javascript' => 'anagram'},
       email: "alice@example.com"
     }
   end

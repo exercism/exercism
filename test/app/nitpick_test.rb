@@ -24,8 +24,7 @@ class NitpickAppTest < Minitest::Test
     user = User.create({
       username: "#{language}_user",
       github_id: language,
-      email: "#{language}_coder@example.com",
-      current: { language => "bob" }
+      email: "#{language}_coder@example.com"
     })
     attempt = Attempt.new(user, "class Bob\nend", "bob/bob.#{exe}").save
   end
