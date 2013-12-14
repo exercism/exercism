@@ -24,7 +24,7 @@ class Submission < ActiveRecord::Base
     self.version        ||= 0
     self.wants_opinions ||= false
     self.is_liked       ||= false
-    self.key            ||= (mongoid_id || generate_key)
+    self.key            ||= generate_key
     true
   end
 

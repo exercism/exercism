@@ -33,12 +33,6 @@ class SubmissionTest < Minitest::Test
     @alice = nil
   end
 
-  def test_submission_key_from_mongoid_id
-    submission = Submission.create(user: alice, mongoid_id: 'abc')
-    submission.reload
-    assert_equal 'abc', submission.key
-  end
-
   def test_random_submission_key
     submission = Submission.create(user: alice)
     submission.reload
