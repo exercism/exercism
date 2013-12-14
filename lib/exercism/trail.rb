@@ -26,4 +26,10 @@ class Trail
     end
   end
 
+  def upcoming(completed)
+    slugs.find do |slug|
+      !completed.include?(slug)
+    end
+  end
+
 end

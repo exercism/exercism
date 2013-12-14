@@ -53,8 +53,13 @@ class AssignmentsApiTest < Minitest::Test
     end
   end
 
-  def test_api_returns_first_incomplete_assignment_for_each_track
+  def test_api_delivers_current_and_upcoming_assignments_for_each_track
+    Submission.create(user: alice, language: 'go', slug: 'one', code: 'CODE', state: 'done')
+    Submission.create(user: alice, language: 'go', slug: 'two', code: 'CODE', state: 'pending')
+    Submission.create(user: alice, language: 'ruby', slug: 'one', code: 'CODE', state: 'pending')
+
     Exercism.stub(:current_curriculum, curriculum) do
+
       get '/user/assignments/current', {key: alice.key}
 
       output = last_response.body
@@ -174,30 +179,9 @@ class AssignmentsApiTest < Minitest::Test
     end
   end
 
-  def test_peek_with_no_completed_trails
-    Exercism.stub(:current_curriculum, curriculum) do
-      user = User.create(github_id: 2, current: {'ruby' => 'one', 'go' => 'one'})
-
-      get '/user/assignments/next', {key: user.key}
-
-      output = last_response.body
-      options = {format: :json, name: 'api_peek_on_two_incomplete_trails'}
-      Approvals.verify(output, options)
-    end
-  end
-
-  def test_peek_with_complete_trail
-    Exercism.stub(:current_curriculum, curriculum) do
-      user = User.create(github_id: 2, current: {}, completed: {'go' => ['one'], 'ruby' => ['one', 'two', 'three', 'four']})
-
-      get '/user/assignments/next', {key: user.key}
-
-      assert_equal 200, last_response.status
-
-      output = last_response.body
-      options = {format: :json, name: 'api_peek_with_complete_trail'}
-      Approvals.verify(output, options)
-    end
+  def test_peek_is_deprecated
+    get '/user/assignments/next'
+    assert_equal 410, last_response.status
   end
 
   def test_notify_team_members_about_submission

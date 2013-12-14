@@ -1,4 +1,5 @@
 require 'api/assignments/demo'
+require 'api/assignments/fetch'
 
 class ExercismAPI < Sinatra::Base
   helpers do
@@ -38,8 +39,17 @@ class ExercismAPI < Sinatra::Base
 
   get '/user/assignments/current' do
     require_user
-    assignments = Assignments.new(current_user.key)
-    pg :assignments, locals: {assignments: assignments.current}
+    sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='done'" % current_user.id.to_s
+    completed = ActiveRecord::Base.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
+    sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='pending'" % current_user.id.to_s
+    current = ActiveRecord::Base.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
+
+    handler = API::Assignments::Fetch.new(completed, current, curriculum)
+    pg :assignments, locals: {assignments: handler.assignments}
+  end
+
+  get '/user/assignments/next' do
+    halt 410, {error: "`peek` is deprecated. `fetch` always delivers the next exercise."}.to_json
   end
 
   post '/user/assignments' do
@@ -110,13 +120,5 @@ class ExercismAPI < Sinatra::Base
     status 204
   end
 
-  get '/user/assignments/next' do
-    require_user
-    assignments = Assignments.new(current_user.key).next
-
-    halt 404, 'No more assignments!' if assignments.empty?
-
-    pg :assignments, locals: {assignments: assignments}
-  end
 end
 

@@ -1,4 +1,3 @@
-require 'exercism/use_cases/assignments'
 require 'exercism/use_cases/attempt'
 require 'exercism/use_cases/completion'
 require 'exercism/use_cases/extracts_mentions_from_markdown'
