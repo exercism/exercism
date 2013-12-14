@@ -1,6 +1,6 @@
 class FakePythonCurriculum
   def slugs
-    %w(one two)
+    %w(one two three four)
   end
 
   def language
@@ -10,7 +10,7 @@ end
 
 class FakeRubyCurriculum
   def slugs
-    %w(one two)
+    %w(one two three four)
   end
 
   def language
@@ -20,7 +20,7 @@ end
 
 class FakeGoCurriculum
   def slugs
-    %w(one two)
+    %w(one two three four)
   end
 
   def language
@@ -30,7 +30,7 @@ end
 
 class FakeScalaCurriculum
   def slugs
-    %w(one two)
+    %w(one two three four)
   end
 
   def language

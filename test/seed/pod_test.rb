@@ -36,6 +36,6 @@ class SeedPodTest < Minitest::Test
     sizes = (1..100).map do
       Seed::Pod.new([FakeRubyCurriculum.new]).trails.map { |t| t.slugs.size }
     end.uniq.flatten
-    assert_equal [1, 2], sizes.sort
+    assert_equal [1, 2, 3, 4], sizes.sort
   end
 end
