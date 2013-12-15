@@ -4,6 +4,7 @@ class Notification < ActiveRecord::Base
   belongs_to :submission
 
   scope :recent, -> { order("created_at DESC").limit(100) }
+  scope :unread, -> { where(read: false) }
 
   before_create do
     self.read  ||= false
