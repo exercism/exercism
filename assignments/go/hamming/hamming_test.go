@@ -10,15 +10,15 @@ var testCases = []struct {
 	description      string
 }{
 	{0, "", "", "no difference between empty strands"},
-	{2, "AG", "CT", "complete hamming distance for small strand"},
+	{2, "AG", "CT", "complete hamming distance for small strands"},
 	{0, "A", "A", "no difference between identical strands"},
-	{1, "A", "G", "complete distance for single nucleotide strand"},
+	{1, "A", "G", "complete distance for single nucleotide strands"},
 	{1, "AT", "CT", "small hamming distance"},
-	{1, "GGACG", "GGTCG", "small hamming distance in longer strand"},
+	{1, "GGACG", "GGTCG", "small hamming distance in longer strands"},
 	{0, "AAAG", "AAA", "ignores extra length on first strand when longer"},
 	{0, "AAA", "AAAG", "ignores extra length on second strand when longer"},
 	{4, "GATACA", "GCATAA", "large hamming distance"},
-	{9, "GGACGGATTCTG", "AGGACGGATTCT", "hamming distance in very long strand"},
+	{9, "GGACGGATTCTG", "AGGACGGATTCT", "hamming distance in very long strands"},
 }
 
 func TestHamming(t *testing.T) {
@@ -28,9 +28,12 @@ func TestHamming(t *testing.T) {
 
 		if tc.expected != observed {
 			t.Fatalf(`%s:
+{%v,%v}
 expected: %v
 observed: %v`,
 				tc.description,
+				tc.strandA,
+				tc.strandB,
 				tc.expected,
 				observed,
 			)
