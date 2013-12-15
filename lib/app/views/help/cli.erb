@@ -61,6 +61,7 @@ gunzip -c path/to/exercism-linux-amd64.tgz | tar -xvf -
   <li>If you are using <code>bash</code>, look for a file named <code>.bash_profile</code> or <code>.bashrc</code>. If you have <code>zsh</code>, you will have a <code>.zshrc</code> file. Notice the dot at the beginning of the file name. This means that it is a <em>hidden file</em> and it won't show up if you just use <code>ls</code>. The flag <code>-a</code> tells <code>ls</code> to include the files whose names begin with a dot that it normally skips over.</li>
   <li>Open the config file using <kbd>open .bash_profile</kbd> (on a Mac), or <kbd>gedit .bash_profile</kbd> (on linux). If neither of those work, try <kbd>nano .bash_profile</kbd>.</li>
   <li>Add <code>export PATH=~/bin:$PATH</code> to the end of the config file, then save and close it.</li>
+  <li>The new configuration will not be active in your current terminal window, so you need to either open a new terminal window, or reload the configuration file into the existing window (known as "sourcing" a file): <kbd>source ~/.bash_profile<code>.</li>
 </ol>
 
 <p><a href="/help/understanding-path">Read more about <code>PATH</code></a> if this is unfamiliar territory.</p>
