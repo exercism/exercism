@@ -7,6 +7,18 @@ class Assignment
     ]
   end
 
+  def path_to_shared(file)
+    File.join(data_dir, 'shared', file)
+  end
+
+  def instructions_file
+    "#{slug}.md"
+  end
+
+  def data_file
+    "#{slug}.yml"
+  end
+
   def missing_files?
     missing_files.size > 0
   end
