@@ -3,6 +3,7 @@ require 'active_record'
 require 'faraday'
 
 require 'exercism/assignment'
+require 'exercism/readme'
 require 'exercism/authentication'
 require 'exercism/code'
 require 'exercism/cohort'
