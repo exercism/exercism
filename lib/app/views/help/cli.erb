@@ -2,26 +2,87 @@
 
 <p>You access the exercises via the command line.</p>
 
-<p>The command line interface (CLI) is a stand-alone binary, so you should be able to install it without installing any particular programming language or environment.</p>
+<p>The command line interface (CLI) is a stand-alone binary, and you can install it without installing any particular programming language or environment.</p>
 
-<h2>Installing the CLI</h2>
+<p><b>TL;DR</b> Get the<a href="https://github.com/exercism/cli/releases/latest">latest release of the CLI</a>, unpack it, stick it in your path, and call <kbd>exercism -v</kbd> to verify that it's installed correctly.</p>
 
-<p>Download the correct <a href="https://github.com/exercism/cli/releases/latest">exercism CLI</a> binary for your system. You will need to unpack it. The actual client is the file named <kbd>exercism</kbd>.</p>
+<p>Detailed instructions follow.</p>
 
-<p>To find out what shell you are using on a Mac or Linux, go to the terminal and type <code>echo $SHELL</code> or <code>echo $0</code>.</p>
+<h2>Downloading the CLI</h2>
 
-<p>On Mac or Linux, put the client in a directory that is in your <kbd>PATH</kbd>.</p>
+<p>Go to the latest release of the <a href="https://github.com/exercism/cli/releases/latest">exercism CLI</a>, and download the correct binary for your system.</p>
+
+<p>The file is named <kbd>exercism-PLATFORM-ARCHITECTURE.tgz</kbd>, where <kbd>PLATFORM</kbd> is either Windows, Linux, or Darwin. If you're on a Mac, you want Darwin. <kbd>ARCHITECTURE</kbd> refers to whether you have a 32-bit (<b>386</b>) or 64-bit (<b>amd64</b>) processor.</p>
+
+<h2>Unpacking the CLI</h2>
+
+<p>The file that you download is an archive, known as a <i>GZIP'ed tarball</i>. On some systems it will be enough to double-click the file.</p>
+
+<p>To unpack the archive from the command line, open up a terminal window and type the following, replacing <kbd>path/to/exercism-linux-amd64.tgz</kbd> with the actual path to the actual filename you downloaded:</p>
+
+<pre>
+gunzip -c path/to/exercism-linux-amd64.tgz | tar -xvf -
+</pre>
+
+<p>The resulting file is named <kbd>exercism</kbd>.</p>
+
+<p>On Windows, you may not have <kbd>gzip</kbd> and <kbd>GNU tar</kbd> installed. It seems like neither <kbd>jzip</kbd> or <kbd>7-zip</kbd> work. The <a href="http://legroom.net/software/uniextract">universal extractor "uniextract"</a> does work, however.</p>
+
+<p>If you are unsure of which processor architecture you have, try one of these:</p>
+
+<ul>
+  <li><a href="http://support.microsoft.com/kb/827218">Windows</a></li>
+  <li><a href="http://support.apple.com/kb/HT3696">Mac OS X</a></li>
+  <li>On linux, try <a href="http://www.howtogeek.com/howto/24842/">uname</a> or <a href="http://linuxers.org/article/use-lscpu-command-get-cpuprocessor-information-linux">lscpu</a>.</li>
+</ul>
+
+<p>If you get stuck, post <a href="https://github.com/exercism/exercism.io/issues/new">an issue</a> so that we can figure out what's confusing, help you out, and then update this text so that the next person doesn't get stuck.</p>
+
+<h2>Installing the CLI on Mac or Linux</h2>
+
+<p>The end goal is to get the <code>exercism</code> to be in a place that your computer knows to look, so that when you type <kbd>exercism</kbd> in your terminal window, it runs the <code>exercism</code> command.</p>
+
+<h3>Creating a Folder for the <code>exercism</code> CLI</h3>
+
+<ol>
+  <li>Open up a terminal window.</li>
+  <li>Use <kbd>cd</kbd> to make sure you are in your home directory.</li>
+  <li>Create a folder to put binary files (like the exercism CLI) in with this command: <kbd>mkdir bin</kbd>.</li>
+  <li>Put the <code>exercism</code> binary you downloaded and unpacked into the bin directory you just created. (You can use the windows explorer or finder if you want.)</li>
+</ol>
+
+<h3>Updating your Configuration File</h3>
+
+<ol>
+  <li>Open up a terminal window</li>
+  <li>Use <kbd>cd</kbd> to make sure you are in your home directory.</li>
+  <li>Find out what shell you are using by typing <kbd>echo $SHELL</kbd> or <kbd>echo $0</kbd>. The result is likely to be <code>bash</code> or <code>zsh</code>.</li>
+  <li>Use <kbd>ls -a</kbd> to list all the files in your home directory.</li>
+  <li>If you are using <code>bash</code>, look for a file named <code>.bash_profile</code> or <code>.bashrc</code>. If you have <code>zsh</code>, you will have a <code>.zshrc</code> file. Notice the dot at the beginning of the file name. This means that it is a <em>hidden file</em> and it won't show up if you just use <code>ls</code>. The flag <code>-a</code> tells <code>ls</code> to include the files whose names begin with a dot that it normally skips over.</li>
+  <li>Open the config file using <kbd>open .bash_profile</kbd> (on a Mac), or <kbd>gedit .bash_profile</kbd> (on linux). If neither of those work, try <kbd>nano .bash_profile</kbd>.</li>
+  <li>Add <code>export PATH=~/bin:$PATH</code> to the end of the config file, then save and close it.</li>
+</ol>
 
 <p><a href="/help/understanding-path">Read more about <code>PATH</code></a> if this is unfamiliar territory.</p>
 
-<p>If you are on a Mac and you're wondering which binary you need, <a href="http://support.apple.com/kb/HT3696">this page</a> should be useful. If not, post <a href="https://github.com/exercism/exercism.io/issues/new">an issue</a> so that we can figure out what's confusing, help you out, and then update this text so that the next person doesn't get stuck.</p>
+<h2>Installing the CLI on Windows</h2>
+
+<p>On Windows the exercism binary is called <code>exercism.exe</code>.</p>
+
+<p>Create a new folder for your exercism exercises, and put the <code>exercism.exe</code> file in that folder. Then you run it by calling it with <code>C:\path\to\exercism\project\exercism.exe</code>.</p>
 
 <h2>Configuring the CLI</h2>
 
-<p>Run the following command:</p>
+<p>Run the following command (Mac/Linux):</p>
 
 <pre>
   $ exercism login
+</pre>
+
+<p>or (Windows):</p>
+
+<pre>
+  $ C:\path\to\exercism.exe login
 </pre>
 
 <p>You will be asked for your username, your API key, and the location on your filesystem that you'd like to put the exercises. The gem will suggest your current location as the default (in parentheses). If you are happy with that, you can simply hit enter to select that option.</p>
@@ -34,8 +95,7 @@
   <p>You can always find your API key in <a href="/account">your account</a>.</p>
 <% end %>
 
-<p>If you mess up your login, you can either edit the config file at
-<kbd>~/.exercism.go</kbd> or you can say <kbd>exercism logout</kbd> and then try again.</p>
+<p>If you mess up your login, you can run the <kbd>exercism login</kbd> command again.</p>
 
 <h2>Fetching the Code</h2>
 
