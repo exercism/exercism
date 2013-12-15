@@ -1,5 +1,9 @@
 class ExercismApp < Sinatra::Base
 
+  get '/exercises/:slug' do |slug|
+    erb :"exercises/readme", locals: {readme: Readme.new(slug).text}
+  end
+
   get '/completed/:language/:slug/random' do |language, slug|
     please_login
 
