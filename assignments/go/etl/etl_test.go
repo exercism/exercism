@@ -2,27 +2,27 @@ package etl
 
 import "testing"
 
-type in map[int][]string
-type out map[string]int
+type given map[int][]string
+type expectation map[string]int
 
 var transformTests = []struct {
-	input    in
-	expected out
+	input  given
+	output expectation
 }{
 	{
-		in{1: {"A"}},
-		out{"a": 1},
+		given{1: {"A"}},
+		expectation{"a": 1},
 	},
 	{
-		in{1: {"A", "E", "I", "O", "U"}},
-		out{"a": 1, "e": 1, "i": 1, "o": 1, "u": 1},
+		given{1: {"A", "E", "I", "O", "U"}},
+		expectation{"a": 1, "e": 1, "i": 1, "o": 1, "u": 1},
 	},
 	{
-		in{
+		given{
 			1: {"A", "E"},
 			2: {"D", "G"},
 		},
-		out{
+		expectation{
 			"a": 1,
 			"e": 1,
 			"d": 2,
@@ -30,7 +30,7 @@ var transformTests = []struct {
 		},
 	},
 	{
-		in{
+		given{
 			1:  {"A", "E", "I", "O", "U", "L", "N", "R", "S", "T"},
 			2:  {"D", "G"},
 			3:  {"B", "C", "M", "P"},
@@ -39,7 +39,7 @@ var transformTests = []struct {
 			8:  {"J", "X"},
 			10: {"Q", "Z"},
 		},
-		out{
+		expectation{
 			"a": 1, "e": 1, "i": 1, "o": 1, "u": 1, "l": 1, "n": 1, "r": 1, "s": 1, "t": 1,
 			"d": 2, "g": 2,
 			"b": 3, "c": 3, "m": 3, "p": 3,
@@ -51,15 +51,15 @@ var transformTests = []struct {
 	},
 }
 
-func equal(actual map[string]int, expected map[string]int) bool {
-	if len(actual) != len(expected) {
+func equal(actual map[string]int, expectation map[string]int) bool {
+	if len(actual) != len(expectation) {
 		return false
 	}
 
 	for k, actualVal := range actual {
-		expectedVal, present := expected[k]
+		expectationVal, present := expectation[k]
 
-		if !present || actualVal != expectedVal {
+		if !present || actualVal != expectationVal {
 			return false
 		}
 	}
@@ -70,8 +70,8 @@ func equal(actual map[string]int, expected map[string]int) bool {
 func TestTranform(t *testing.T) {
 	for _, tt := range transformTests {
 		actual := Transform(tt.input)
-		if !equal(actual, tt.expected) {
-			t.Fatalf("Transform(%v). Expected [%v], Actual [%v]", tt.input, tt.expected, actual)
+		if !equal(actual, tt.output) {
+			t.Fatalf("Transform(%v). Expected [%v], Actual [%v]", tt.input, tt.output, actual)
 		}
 	}
 }
