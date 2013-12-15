@@ -1,10 +1,12 @@
-The tricky thing here is that a leap year occurs:
+The tricky thing here is that a leap year occurs when at least one of the
+following is true:
 
 ```plain
-on every year that is evenly divisible by 4
-  except every year that is evenly divisible by 100
-    except every year that is evenly divisible by 400.
+year is evenly divisible by 4
+year is evenly divisible by 400 AND NOT evenly divisible by 100
 ```
+
+Otherwise, not a leap year.
 
 For example, 1997 is not a leap year, but 1996 is.
 1900 is not a leap year, but 2000 is.
