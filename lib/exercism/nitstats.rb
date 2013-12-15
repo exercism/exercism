@@ -16,7 +16,7 @@ class Nitstats
   private
 
   def labels
-    (from..to).map { |d| d.strftime "%d/%m" }
+    (from..to).map { |d| d.strftime("%b %e").squeeze(" ") }
   end
 
   def given
