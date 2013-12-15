@@ -9,33 +9,29 @@ crowd-sourced code reviews.
 
 ## WARNING
 
-This an early-stage experiment. In other words: Shield your eyes, children,
-the code is bolted on.
-
-We welcome contributions as we work to figure out what this beast is.
+This an experiment, and the code reflects that. Many features have been thrown
+in, only to be deprecated shortly thereafter, and there's scar tissue
+throughout the system.
 
 Features may be here today, gone tomorrow.
 
-### What we think we know
-
-The discussions are the most important thing in the application. That
-and the evolution of the code. It's not about getting code perfect or
-right, but using the pieces of code to talk about the little details of
-what makes code expressive.
-
-There are excellent discussions, and it would be great to be able to extract
-the learning from these discussions, perhaps into blog posts, perhaps into
-checklists to help teach nitpicking.
-
-We believe that there's learning in doing the exercises and receiving feedback,
-and there's also learning in reading other people's code and providing feedback.
-
-It would be great if there were a way to have meta-discussions about providing
-feedback.
+Things do seem to have settled a bit in the past couple of months, so there's
+a chance that we'll reach some sort of 1.0 in early 2014.
 
 The messaging right now is a disaster. The site is confusing, the process is
 opaque, and it's hard to figure out where you need to look to figure stuff
 out.
+
+### What we think we know
+
+This is a process with two parts:
+
+* practice (writing code, iterating)
+* nitpicking (looking at code, providing insights and asking questions)
+
+It's not about getting code perfect or right, but using the pieces of code to
+talk about the little details of what makes code simple, readable, and/or
+expressive.
 
 ## The Data
 
@@ -47,17 +43,14 @@ The common data for assignments are in
 assignments/shared
 ```
 
-This includes some metadata that gets sewn into a README, as well as a blurb
-that can be shown on the website.
+This includes some metadata that gets sewn into a README.
 
 Not all assignments will be appropriate for all languages.
 
-The actual assignment consists of
+The actual assignment consists of a test suite, where all test are pending
+except the first one.
 
-* a test suite, where all test are pending except the first one
-* a sample solution that passes the test suite
-
-The languages/trails are configured in `lib/exercism/curriculum/LANGUAGE.rb`.
+The languages paths are configured in `lib/exercism/curriculum/LANGUAGE.rb`.
 
 The list of assignments is just a really big array of assignment slugs in the order that they will be assigned.
 
@@ -73,15 +66,15 @@ Different languages/trails do not need to have the same assignments or the same 
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
 5. Presuming you have Postgres installed (if not: `brew install postgres`):
-  * create db user with: `createuser exercism`
-  * create database with: `createdb -O exercism exercism_development`
+  * create db user with: `createuser exercism`.
+  * create database with: `createdb -O exercism exercism_development`.
 6. Run the database migrations with `rake db:migrate`.
-7. Run test database migrations with `RACK_ENV=test rake db:migrate` (This is only useful for test environment)
-8. Run the database seed with `rake db:seed` (if you want LOTS of data: `rake db:seed[1000]` or some other big number).
-9. Copy the boot script `scripts/boot.sh.example` to `scripts/boot.sh` and fill in your GitHub details
-10. Start the server with `./scripts/boot.sh`
-11. Login at http://localhost:4567.
-12. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
+7. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
+8. Copy `config/env` to `.env`
+9. Edit `.env` to fill in the correct values.
+10. Start the server with `. .env && rackup -p4567`
+11. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
+12. Login at http://localhost:4567.
 13. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
 
 ## Frontend development setup
@@ -94,27 +87,17 @@ Different languages/trails do not need to have the same assignments or the same 
 
 ## Sending Emails
 
-If you want to send actual emails, you will need to export the following environment variables:
-
-* `EMAIL_USERNAME`
-* `EMAIL_PASSWORD`
-* `EMAIL_DOMAIN`
-* `EMAIL_SMTP_ADDRESS`
-* `EMAIL_SMTP_PORT`
-
-You can do this in `scripts/boot.sh` for development.
+If you want to send emails, you will need to fill out the relevant environment variables in `.env` and uncomment the lines so that the variables get exported.
 
 ## Console
 
-There's a script in `bin/console` that will load irb with the exercism environment loaded.
+There's a script in `bin/console` that will load pry with the exercism environment loaded.
 
 ## Testing
 
-Make sure your migrations are up-to-date with: `rake db:migrate RACK_ENV=test`
-
-Make sure that `mailcatcher` is running.
-
-Run tests with: `rake test`
+1. Prepare the test environment with `RACK_ENV=test rake db:migrate`.
+2. Make sure that `mailcatcher` is running.
+3. Run the test suite with `rake` or `rake test`.
 
 To run a single test suite, you can do so with:
 
@@ -126,7 +109,7 @@ If it complains about dependencies, then either we forgot to require the correct
 
 If there's a git dependency, you can do this:
 
-```ruby
+```bash
 bundle exec ruby path/to/the_test.rb
 ```
 
@@ -136,7 +119,9 @@ For the require, you'll need to figure out what the missing dependency is. Feel 
 
 To enable code coverage run:
 
-    COVERAGE=1 rake test
+```bash
+COVERAGE=1 rake test
+```
 
 Browse the results located in `coverage/index.html`
 

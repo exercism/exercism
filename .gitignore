@@ -26,8 +26,8 @@ node_modules
 *.native
 _build/
 
-# ENV vars
-scripts/boot.sh
+# Environment variables
+.env
 
 # YARD artifacts
 .yardoc
