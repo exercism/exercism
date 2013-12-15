@@ -38,7 +38,7 @@ class Profile
   end
 
   def completed_in(language)
-    user.completed_submissions_in(language)
+    user.completed_submissions_in(language).reverse
   end
 
   def languages
@@ -50,7 +50,11 @@ class Profile
   end
 
   def submission_link(submission)
-   %{<a href="/submissions/#{submission.key}">#{submission.name}</a>}
+    if narcissistic? || current_user.nitpicker_on?(submission.exercise)
+     %{<a href="/submissions/#{submission.key}">#{submission.name}</a>}
+    else
+     %{<a href="/exercises/#{submission.slug}">#{submission.name}</a>}
+    end
   end
 
   def no_current_sumbissions_message
