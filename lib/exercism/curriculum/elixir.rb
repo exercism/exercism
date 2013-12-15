@@ -10,7 +10,7 @@ class Exercism
         atbash-cipher bank-account sum-of-multiples largest-series-product
         pythagorean-triplet palindrome-products parallel-letter-frequency
         zipper minesweeper difference-of-squares dot-dsl
-        custom-set
+        custom-set nth-prime
       )
     end
 
