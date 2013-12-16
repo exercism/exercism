@@ -2,15 +2,15 @@ class School
 
   attr_reader :db
   def initialize
-    @db ||= Hash.new { |students, grade| students[grade] = [] }
+    @db = Hash.new { |db, grade| db[grade] = [] }
   end
 
   def add(student, grade)
     db[grade] << student
   end
 
-  def grade(level)
-    db[level] || []
+  def grade(grade)
+    db[grade]
   end
 
   def sort
