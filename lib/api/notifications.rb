@@ -1,7 +1,7 @@
 class ExercismAPI < Sinatra::Base
   get '/notifications' do
     require_user
-    notifications = current_user.notifications.unread
+    notifications = current_user.notifications.recent
     pg :notifications, locals: {notifications: notifications}
   end
 

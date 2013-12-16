@@ -4,7 +4,7 @@ class Notification < ActiveRecord::Base
   belongs_to :submission
 
   scope :by_recency, -> { order("created_at DESC") }
-  scope :recent, -> { by_recency.limit(100) }
+  scope :recent, -> { by_recency.limit(400) }
   scope :unread, -> { by_recency.where(read: false) }
 
   before_create do
