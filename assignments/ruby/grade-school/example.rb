@@ -9,8 +9,8 @@ class School
     db[grade] << student
   end
 
-  def grade(grade)
-    db[grade]
+  def grade(level)
+    db[level]
   end
 
   def sort
