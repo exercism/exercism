@@ -19,7 +19,7 @@ class Exercism
     end
 
     def language
-      'ocaml'
+      'OCaml'
     end
   end
 end

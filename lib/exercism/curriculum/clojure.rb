@@ -13,7 +13,7 @@ class Exercism
     end
 
     def language
-      'clojure'
+      'Clojure'
     end
   end
 end

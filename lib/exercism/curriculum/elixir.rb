@@ -15,7 +15,7 @@ class Exercism
     end
 
     def language
-      'elixir'
+      'Elixir'
     end
   end
 end

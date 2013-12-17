@@ -9,7 +9,7 @@ class Exercism
     end
 
     def language
-      'objective-c'
+      'Objective-C'
     end
   end
 end

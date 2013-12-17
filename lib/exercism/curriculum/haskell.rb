@@ -19,7 +19,7 @@ class Exercism
     end
 
     def language
-      'haskell'
+      'Haskell'
     end
   end
 end

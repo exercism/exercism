@@ -6,6 +6,7 @@ require 'will_paginate/active_record'
 require 'app/presenters/workload'
 require 'app/presenters/profile'
 
+require 'app/site'
 require 'app/auth'
 require 'app/client'
 require 'app/curriculum'

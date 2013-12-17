@@ -16,7 +16,7 @@ class Exercism
     end
 
     def language
-      'perl5'
+      'Perl5'
     end
   end
 end

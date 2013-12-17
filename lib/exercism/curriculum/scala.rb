@@ -10,7 +10,7 @@ class Exercism
     end
 
     def language
-      'scala'
+      'Scala'
     end
   end
 end

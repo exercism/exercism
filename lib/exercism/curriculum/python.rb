@@ -10,7 +10,7 @@ class Exercism
     end
 
     def language
-      'python'
+      'Python'
     end
   end
 end

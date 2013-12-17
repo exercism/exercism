@@ -9,7 +9,7 @@ class Exercism
     end
 
     def language
-      'coffeescript'
+      'CoffeeScript'
     end
   end
 end

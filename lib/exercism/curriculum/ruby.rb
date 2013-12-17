@@ -18,7 +18,7 @@ class Exercism
     end
 
     def language
-      'ruby'
+      'Ruby'
     end
   end
 end

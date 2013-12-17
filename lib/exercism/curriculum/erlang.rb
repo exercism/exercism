@@ -17,7 +17,7 @@ class Exercism
     end
 
     def language
-      'erlang'
+      'Erlang'
     end
   end
 end

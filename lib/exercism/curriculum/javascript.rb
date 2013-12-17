@@ -20,7 +20,7 @@ class Exercism
     end
 
     def language
-      'javascript'
+      'JavaScript'
     end
   end
 end

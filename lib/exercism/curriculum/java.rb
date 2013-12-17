@@ -7,7 +7,7 @@ class Exercism
     end
 
     def language
-      'java'
+      'Java'
     end
   end
 end

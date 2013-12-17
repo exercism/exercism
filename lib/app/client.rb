@@ -1,13 +1,5 @@
 class ExercismApp < Sinatra::Base
 
-  get '/' do
-    if current_user.guest?
-      erb :index
-    else
-      erb :dashboard, locals: {submission: Work.new(current_user).random}
-    end
-  end
-
   get '/privacy' do
     erb :privacy
   end

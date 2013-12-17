@@ -54,7 +54,7 @@ class Curriculum
   end
 
   def add(curriculum)
-    @trails[curriculum.language.to_sym] = Trail.new(curriculum.language, curriculum.slugs, path)
+    @trails[curriculum.language.downcase.to_sym] = Trail.new(curriculum.language, curriculum.slugs, path)
   end
 
   def in(language)

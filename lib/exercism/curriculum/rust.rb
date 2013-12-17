@@ -9,7 +9,7 @@ class Exercism
     end
 
     def language
-      'rust'
+      'Rust'
     end
   end
 end

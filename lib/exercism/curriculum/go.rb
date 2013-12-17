@@ -10,7 +10,7 @@ class Exercism
     end
 
     def language
-      'go'
+      'Go'
     end
   end
 end
