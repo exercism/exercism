@@ -114,6 +114,8 @@ class ExercismApp < Sinatra::Base
   end
 
   put '/teams/:slug' do |slug|
+    please_login
+    
     EditsTeam.new(self).update(slug, params[:team])
   end
 
