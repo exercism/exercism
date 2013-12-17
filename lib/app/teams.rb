@@ -118,6 +118,6 @@ class ExercismApp < Sinatra::Base
   end
 
   def team_updated(team)
-    redirect "/teams/#{team.slug}", 302
+    redirect "/teams/#{team.slug}"
   end
 end
