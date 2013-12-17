@@ -168,6 +168,15 @@
       }
     ],
     "name" : "can_attack_on_yet_another_diagonal"
+  },
+  {
+    "boards" : [
+      {
+        "params" : {"white": [4, 2], "black": [5, 1]},
+        "attack" : true
+      }
+    ],
+    "name" : "can_attack_on_orthogonal_diagonal"
   }
 ]
 
