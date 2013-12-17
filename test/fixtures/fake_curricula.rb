@@ -4,7 +4,7 @@ class FakePythonCurriculum
   end
 
   def language
-    'python'
+    'Python'
   end
 end
 
@@ -14,7 +14,7 @@ class FakeRubyCurriculum
   end
 
   def language
-    'ruby'
+    'Ruby'
   end
 end
 
@@ -24,7 +24,7 @@ class FakeGoCurriculum
   end
 
   def language
-    'go'
+    'Go'
   end
 end
 
@@ -34,6 +34,6 @@ class FakeScalaCurriculum
   end
 
   def language
-    'scala'
+    'Scala'
   end
 end
