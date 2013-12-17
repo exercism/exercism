@@ -112,4 +112,12 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
   end
+
+  put '/teams/:slug' do |slug|
+    EditsTeam.new(self).update(slug, params[:team])
+  end
+
+  def team_updated(team)
+    redirect "/teams/#{team.slug}", 302
+  end
 end

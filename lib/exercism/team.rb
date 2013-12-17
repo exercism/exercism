@@ -16,7 +16,7 @@ class Team < ActiveRecord::Base
   def defined_with(options)
     self.slug = options[:slug]
     self.name = options[:name].present? && options[:name] || options[:slug]
-    self.members = User.find_in_usernames(options[:usernames].to_s.scan(/\w+/))
+    self.members = User.find_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
     self
   end
 
