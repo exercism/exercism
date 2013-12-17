@@ -2,17 +2,17 @@ import java.util.*;
 
 public class Anagram {
 
-    private AnagramSubject subject;
+    final private AnagramSubject anagramSubject;
 
     public Anagram(String word) {
-        subject = new AnagramSubject(word);
+        anagramSubject = new AnagramSubject(word);
     }
 
     public List<String> match(List<String> candidates) {
         List<String> anagrams = new ArrayList<String>();
 
         for (String candidate : candidates) {
-            if (subject.anagramOf(candidate)) {
+            if (anagramSubject.anagramOf(candidate)) {
                 anagrams.add(candidate);
             }
         }
@@ -20,26 +20,26 @@ public class Anagram {
         return anagrams;
     }
 
-    class AnagramSubject {
+    static final class AnagramSubject {
 
-        private String subject;
-        private char[] fingerprint;
+        private String word;
+        final private char[] fingerprint;
 
-        public AnagramSubject(String word) {
-            this.subject = word;
-            this.fingerprint = canonicalize(word);
+        public AnagramSubject(String other) {
+            this.word = other;
+            this.fingerprint = canonicalize(other);
         }
 
-        public boolean anagramOf(String word) {
-            return !duplicate(word) && Arrays.equals(fingerprint,(canonicalize(word)));
+        public boolean anagramOf(String other) {
+            return !duplicate(other) && Arrays.equals(fingerprint,canonicalize(other));
         }
 
-        private boolean duplicate(String word) {
-            return subject.equalsIgnoreCase(word);
+        private boolean duplicate(String other) {
+            return word.equalsIgnoreCase(other);
         }
 
-        private char[] canonicalize(String word) {
-            char[] chars = word.toLowerCase().toCharArray();
+        private char[] canonicalize(String other) {
+            char[] chars = other.toLowerCase().toCharArray();
             Arrays.sort(chars);
             return chars;
         }
