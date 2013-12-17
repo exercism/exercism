@@ -112,4 +112,19 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
   end
+
+  put '/teams/:slug' do |slug|
+    please_login
+
+    EditsTeam.new(self).update(slug, params[:team])
+  end
+
+  def team_updated(slug)
+    redirect "/teams/#{slug}"
+  end
+
+  def team_invalid(slug)
+    flash[:error] = "Slug can't be blanked"
+    redirect "/teams/#{slug}"
+  end
 end

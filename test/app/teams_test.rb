@@ -199,4 +199,13 @@ class TeamsTest < Minitest::Test
     refute Team.exists?(slug: 'delete')
   end
 
+  def test_edit_teams_name_and_slug
+    team = Team.by(alice).defined_with({slug: 'edit', usernames: "#{bob.username}"})
+    team.save
+
+    put "/teams/#{team.slug}", {team: {name: 'New name', slug: 'new_slug'}}, login(alice)
+
+    assert_response_status(302)
+    assert team.reload.name == 'New name'
+  end
 end
