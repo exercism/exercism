@@ -5,7 +5,7 @@ class Trail
     @slugs = slugs
     @name = language
     @language = language.downcase
-    @exercises = slugs.map {|slug| Exercise.new(language, slug)}
+    @exercises = slugs.map {|slug| Exercise.new(@language, slug)}
     @path = path
   end
 
