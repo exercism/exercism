@@ -6,9 +6,8 @@ class EditsTeamTest < Minitest::Test
 
   def setup
     super
-    controller = mock
-    controller.expects(:team_updated)
-    @edits = EditsTeam.new(controller)
+    @controller = mock
+    @edits = EditsTeam.new(@controller)
   end
 
   def team
@@ -19,6 +18,7 @@ class EditsTeamTest < Minitest::Test
   end
 
   def test_changing_teams_name_and_slug
+    @controller.expects(:team_updated)
     @edits.update(team.slug, name: "New name", slug: "new_slug")
 
     assert_equal "New name", team.reload.name
@@ -26,9 +26,18 @@ class EditsTeamTest < Minitest::Test
   end
 
   def test_changing_teams_name_and_slug_with_empty_name
+    @controller.expects(:team_updated)
     @edits.update(team.slug, name: "", slug: "new_slug")
 
     assert_equal "new_slug", team.reload.name
     assert_equal "new_slug", team.reload.slug
+  end
+
+  def test_changing_teams_slug_when_slug_empty
+    @controller.expects(:team_invalid)
+    @edits.update(team.slug, name: "", slug: "")
+
+    assert_equal "Old name", team.reload.name
+    assert_equal "old_slug", team.reload.slug
   end
 end
