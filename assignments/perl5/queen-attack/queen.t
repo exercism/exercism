@@ -56,7 +56,7 @@ foreach my $c (@$cases) {
 		    is_deeply $board->{res}->{white}, $board->{white}, "$c->{name} white";
 	    }
 	    if ($board->{black}) {
-		    is_deeply $board->{res}->black, $board->{black}, "$c->{name} black";
+		    is_deeply $board->{res}->{black}, $board->{black}, "$c->{name} black";
 	    }
         if ($board->{board}) {
             my $expected = join("\n", @{ $board->{board} }) . "\n";
