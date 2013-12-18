@@ -33,16 +33,6 @@ var testCases = []struct {
 		description: "simple anagram",
 	},
 	{
-		subject: "ant",
-		candidates: []string{
-			"tan",
-			"stand",
-			"at",
-		},
-		expected:    []string{"tan"},
-		description: "simple anagram",
-	},
-	{
 		subject: "listen",
 		candidates: []string{
 			"enlists",
