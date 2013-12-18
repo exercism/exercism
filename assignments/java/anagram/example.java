@@ -2,7 +2,7 @@ import java.util.*;
 
 public class Anagram {
 
-    final private AnagramSubject anagramSubject;
+    private final AnagramSubject anagramSubject;
 
     public Anagram(String word) {
         anagramSubject = new AnagramSubject(word);
@@ -22,8 +22,8 @@ public class Anagram {
 
     static final class AnagramSubject {
 
-        private String word;
-        final private char[] fingerprint;
+        private final String word;
+        private final char[] fingerprint;
 
         public AnagramSubject(String other) {
             this.word = other;
