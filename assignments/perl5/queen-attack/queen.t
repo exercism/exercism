@@ -53,7 +53,7 @@ foreach my $c (@$cases) {
 			};
 		}
 	    if ($board->{white}) {
-		    is_deeply $board->{res}->{white}, $board->{white}, "$c->{name} white";
+		    is_deeply $board->{res}->white, $board->{white}, "$c->{name} white";
 	    }
 	    if ($board->{black}) {
 		    is_deeply $board->{res}->black, $board->{black}, "$c->{name} black";
