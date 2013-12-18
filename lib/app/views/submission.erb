@@ -32,6 +32,12 @@
           <a class="btn btn-default" href="/submissions/<%= related.key %>"> <%= related.version %></a>
         <% end %>
       <% end %>
+      <% if submission.user.completed?(submission.exercise) &&
+            submission.user.is?(current_user.username) %>
+        <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/reopen" method="POST">
+          <button type="submit" name="reopen" class="btn btn-default" >Reopen Exercise</button>
+        </form>
+      <% end %>
     </p>
   </div>
 </div>
