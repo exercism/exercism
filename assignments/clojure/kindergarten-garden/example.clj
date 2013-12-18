@@ -4,7 +4,7 @@
 (def seeds { "G" :grass "C" :clover "R" :radishes "V" :violets })
 
 (defn row-to-seeds [row-string]
-  (map seeds (rest (clojure.string/split row-string #""))))
+  (map seeds (clojure.string/split row-string #"")))
 
 (defn garden-to-rows [garden]
   (clojure.string/split-lines garden))
