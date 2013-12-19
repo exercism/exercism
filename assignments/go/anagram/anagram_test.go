@@ -149,6 +149,8 @@ func TestDetectAnagrams(t *testing.T) {
 			msg := `
 				%s
 
+				Given %v
+				Candidates %v
 				Expected %v
 				Got %v
 				`
