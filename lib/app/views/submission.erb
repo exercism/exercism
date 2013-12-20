@@ -32,12 +32,21 @@
           <a class="btn btn-default" href="/submissions/<%= related.key %>"> <%= related.version %></a>
         <% end %>
       <% end %>
-      <% if submission.user.completed?(submission.exercise) &&
-            submission.user.is?(current_user.username) %>
-        <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/reopen" method="POST">
-          <button type="submit" name="reopen" class="btn btn-default" >Reopen Exercise</button>
-        </form>
+
+      <% if current_user.owns?(submission) %>
+
+        <% if submission.user.completed?(submission.exercise) %>
+          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/reopen" method="POST">
+            <button type="submit" name="reopen" class="btn btn-default" >Reopen Exercise</button>
+          </form>
+        <% else %>
+          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/done" method="POST">
+            <button type="submit" name="done" class="exercise-done" class="btn">OK, I'm done. I don't want more feedback on this.</button>
+          </form>
+        <% end %>
+
       <% end %>
+
     </p>
   </div>
 </div>
@@ -110,12 +119,5 @@
 
     <hr>
     <%= erb :"nitpick/submit_comment", locals: {submission: submission} %>
-
-    <% if current_user.owns?(submission) && !current_user.completed?(submission.exercise) %>
-      <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/done" method="POST">
-        <button type="submit" name="done" class="exercise-done" class="btn">OK, I'm done. I don't want more feedback on this.</button>
-      </form>
-    <% end %>
-
   </div>
 </div>
