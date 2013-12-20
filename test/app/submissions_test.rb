@@ -297,4 +297,54 @@ class SubmissionsTest < Minitest::Test
     delete "/submissions/#{submission.key}/nits/#{comment.id}", {}, login(bob)
     assert_equal 0, Comment.count
   end
+
+  def test_reopen_exercise
+    data = {
+      user: alice,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+    submission = Submission.create(data.merge(state: 'done', created_at: Time.now - 2, done_at: Time.now))
+
+    post "/submissions/#{submission.key}/reopen", {}, login(alice)
+
+    submission.reload
+    assert_equal 'pending', submission.state
+    assert_nil submission.done_at
+  end
+
+  def test_must_be_owner_to_reopen_exercise
+    data = {
+      user: alice,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    submission = Submission.create(data.merge(state: 'done', created_at: Time.now - 2, done_at: Time.now))
+
+    post "/submissions/#{submission.key}/reopen", {}, login(bob)
+
+    submission.reload
+    assert_equal 302, last_response.status
+    assert_equal 'done', submission.state
+  end
+
+  def test_reopen_exercise_sets_latest_submission_to_pending
+    data = {
+      user: alice,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    s1 = Submission.create(data.merge(state: 'superseded', created_at: Time.now - 10))
+    s2 = Submission.create(data.merge(state: 'done', created_at: Time.now - 2, done_at: Time.now))
+
+    post "/submissions/#{s1.key}/reopen", {}, login(alice)
+
+    assert_equal 'superseded', s1.reload.state
+    assert_equal 'pending', s2.reload.state
+  end
 end
