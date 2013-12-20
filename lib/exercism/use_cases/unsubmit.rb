@@ -6,28 +6,31 @@ class Unsubmit
 
   TIMEOUT = 5.minutes
 
+  attr_reader :user
   def initialize(user)
     @user = user
   end
 
   def unsubmit
-    submission = @user.most_recent_submission
-    previous_version_num = submission.version - 1
-    previous_submission = Submission.where({ user_id: @user,
-                                             language: submission.language,
-                                             slug: submission.slug,
-                                             version: previous_version_num }).first
-
-    unless previous_submission.nil?
-      previous_submission.state = 'pending'
-      previous_submission.save
-    end
+    submission = user.most_recent_submission
 
     raise NothingToUnsubmit.new  if submission.nil?
     raise SubmissionHasNits.new  if submission.this_version_has_nits?
     raise SubmissionDone.new     if submission.done?
     raise SubmissionTooOld.new   if submission.older_than?(TIMEOUT)
 
+    options = {
+      user_id: @user,
+      language: submission.language,
+      slug: submission.slug,
+      version: submission.version - 1
+    }
+    previous_submission = Submission.where(options).first
+
+    unless previous_submission.nil?
+      previous_submission.state = 'pending'
+      previous_submission.save
+    end
     submission.destroy
   end
 end
