@@ -1,10 +1,10 @@
-<h1>Curriculum</h1>
+<h1><%= trail.name %></h1>
 
 <ul class="nav nav-tabs">
   <% languages.each do |language| %>
-    <% css_class = (language == trail.locale.language.to_sym ? 'active' : '') %>
+    <% css_class = (language == trail.language.to_sym ? 'active' : '') %>
     <li class="<%= css_class %>">
-      <a href="/curriculum/<%= language %>"><%= language %></a>
+      <a href="/curriculum/<%= language.downcase %>"><%= language %></a>
     </li>
   <% end %>
 </ul>
@@ -26,7 +26,7 @@
     <% summary = progress[exercise.slug.to_s] || {} %>
     <tr>
       <td>
-        <a href="/submissions/<%= trail.locale.language %>/<%= exercise.slug %>"><%= exercise.slug %></a>
+        <a href="/submissions/<%= trail.language %>/<%= exercise.slug %>"><%= exercise.slug %></a>
       </td>
       <td><%= quantify summary['pending'] %></td>
       <td><%= quantify summary['superseded'] %></td>
