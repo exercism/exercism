@@ -63,4 +63,20 @@ class SchoolTest < MiniTest::Unit::TestCase
     assert_equal sorted, school.sort
     assert_equal [3, 4, 6], school.sort.keys
   end
+
+  def test_sort_has_no_side_effects
+    skip
+    school.add("Jennifer", 4)
+    school.add("Kareem", 6)
+    school.add("Christopher", 4)
+    school.add("Kyle", 3)
+    original = {
+      4 => ["Jennifer", "Christopher"],
+      6 => ["Kareem"],
+      3 => ["Kyle"]
+    }
+
+    school.sort
+    assert_equal original, school.db
+  end
 end
