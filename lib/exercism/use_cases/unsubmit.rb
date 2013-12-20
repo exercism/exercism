@@ -12,6 +12,16 @@ class Unsubmit
 
   def unsubmit
     submission = @user.most_recent_submission
+    previous_version_num = submission.version - 1
+    previous_submission = Submission.where({ user_id: @user,
+                                             language: submission.language,
+                                             slug: submission.slug,
+                                             version: previous_version_num }).first
+
+    unless previous_submission.nil?
+      previous_submission.state = 'pending'
+      previous_submission.save
+    end
 
     raise NothingToUnsubmit.new  if submission.nil?
     raise SubmissionHasNits.new  if submission.this_version_has_nits?
