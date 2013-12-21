@@ -6,6 +6,7 @@ require 'will_paginate/active_record'
 require 'app/presenters/workload'
 require 'app/presenters/profile'
 
+require 'app/admin' # must come before 'app/user'
 require 'app/site'
 require 'app/account'
 require 'app/auth'
@@ -16,7 +17,6 @@ require 'app/nitpick'
 require 'app/submissions'
 require 'app/teams'
 require 'app/user'
-require 'app/admin'
 
 # Must be included at this point in order
 require 'app/exercises'

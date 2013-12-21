@@ -21,9 +21,14 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  get '/admin' do
+    default_trail = Exercism.current_curriculum.trails.keys.first
+    redirect "/admin/stats/#{ default_trail }"
+  end
+
   get '/admin/stats' do
     default_trail = Exercism.current_curriculum.trails.keys.first
-    redirect "/curriculum/#{ default_trail }"
+    redirect "/admin/stats/#{ default_trail }"
   end
 
   get '/admin/stats/:language' do |language|

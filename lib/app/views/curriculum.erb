@@ -4,7 +4,7 @@
   <% languages.each do |language| %>
     <% css_class = (language == trail.language.to_sym ? 'active' : '') %>
     <li class="<%= css_class %>">
-      <a href="/curriculum/<%= language.downcase %>"><%= language %></a>
+      <a href="/admin/stats/<%= language.downcase %>"><%= language %></a>
     </li>
   <% end %>
 </ul>
