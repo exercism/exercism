@@ -48,6 +48,10 @@ class Exercism
   def self.current
     @current ||= trails.map(&:name).sort
   end
+
+  def self.upcoming
+    @upcoming ||= ['Java', 'CoffeeScript', 'Rust', 'Erlang', 'PHP'] - current
+  end
 end
 
 class Curriculum

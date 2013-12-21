@@ -7,10 +7,20 @@ module App
         @names = names
       end
 
-      # This won't work for 1 and 2
+      def count
+        names.length
+      end
+
       def to_s
-        *most, last = names
-        [most.join(', '), last].join(', and ')
+        case count
+        when 1
+          names.first
+        when 2
+          names.join(' and ')
+        else
+          *most, last = names
+          [most.join(', '), last].join(', and ')
+        end
       end
     end
   end
