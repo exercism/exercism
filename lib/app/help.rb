@@ -16,4 +16,13 @@ class ExercismApp < Sinatra::Base
     erb :blog, locals: {markdown: File.read('./lib/nitpick/ruby/bob.md')}
   end
 
+  get '/help/setup/:language/?' do
+    language = params[:language].downcase.to_sym
+    if Exercism.languages.include?(language)
+      erb :"setup/#{language}"
+    else
+      status 404
+      erb :not_found
+    end
+  end
 end

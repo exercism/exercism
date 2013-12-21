@@ -1,9 +1,5 @@
 class ExercismApp < Sinatra::Base
 
-  post '/preview' do
-    ConvertsMarkdownToHTML.convert(params[:body])
-  end
-
   get '/dashboard/:language/?' do |language|
     redirect "/nitpick/#{language}/no-nits"
   end

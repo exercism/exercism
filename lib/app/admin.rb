@@ -21,12 +21,12 @@ class ExercismApp < Sinatra::Base
     end
   end
 
-  get '/curriculum' do
+  get '/admin/stats' do
     default_trail = Exercism.current_curriculum.trails.keys.first
     redirect "/curriculum/#{ default_trail }"
   end
 
-  get '/curriculum/:id' do |id|
+  get '/admin/stats/:language' do |language|
     please_login
 
     unless current_user.locksmith?
@@ -34,9 +34,9 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    trail = Exercism.current_curriculum.trails[id.to_sym]
+    trail = Exercism.current_curriculum.trails[language.to_sym]
     languages = Exercism.current_curriculum.trails.map {|_, t| t.name}
-    progress = progress(id)
+    progress = progress(language)
 
     erb :curriculum, locals: { trail: trail, languages: languages, progress: progress }
   end

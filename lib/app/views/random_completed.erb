@@ -8,7 +8,7 @@
     This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.exercise.name %> in <%= submission.exercise.language %>.
     <% if total > 1 %>
 
-    See one of the <a href="/completed/<%= submission.language %>/<%= submission.slug %>/random">other <%= total %> implementations</a> of <%= submission.slug %> in <%= submission.language %>.
+    See one of the <a href="/code/<%= submission.language %>/<%= submission.slug %>/random">other <%= total %> implementations</a> of <%= submission.slug %> in <%= submission.language %>.
     <% end %>
     </p>
     <div style="padding-top: 2px;">

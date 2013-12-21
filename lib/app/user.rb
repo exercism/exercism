@@ -1,12 +1,5 @@
 class ExercismApp < Sinatra::Base
 
-  get '/account' do
-    please_login
-
-    title('account')
-    erb :account, locals: { profile: Profile.new(current_user) }
-  end
-
   get '/:username' do |username|
     please_login
     user = User.find_by_username(username)
@@ -33,4 +26,15 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  get '/:username/history' do
+    please_login
+
+    per_page = params[:per_page] || 10
+
+    nitpicks = current_user.comments
+                           .order('created_at DESC')
+                           .paginate(page: params[:page], per_page: per_page)
+
+    erb :history, locals: {nitpicks: nitpicks}
+  end
 end

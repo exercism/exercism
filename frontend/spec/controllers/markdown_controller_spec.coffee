@@ -17,18 +17,18 @@ describe "MarkdownCtrl", ->
   describe "preview function", ->
     it "posts to preview with comment", ->
       @scope.data.body = "testcomment"
-      @$httpBackend.expectPOST("/preview", "body=testcomment").respond(200, '')
+      @$httpBackend.expectPOST("/comments/preview", "body=testcomment").respond(200, '')
       @scope.preview()
       @$httpBackend.flush()
     it "posts to preview with correct content type", ->
-      @$httpBackend.expectPOST("/preview",
+      @$httpBackend.expectPOST("/comments/preview",
         undefined, (headers) ->
           headers["Content-Type"].indexOf("form-urlencoded") != -1
       ).respond(200, "")
       @scope.preview()
       @$httpBackend.flush()
     it "assigns successfull response to preview", ->
-      @$httpBackend.expectPOST("/preview",
+      @$httpBackend.expectPOST("/comments/preview",
         undefined).respond(200, "test_response")
       @scope.preview()
       @$httpBackend.flush()

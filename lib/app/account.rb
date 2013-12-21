@@ -1,11 +1,9 @@
 class ExercismApp < Sinatra::Base
+  get '/account' do
+    please_login
 
-  get '/privacy' do
-    erb :privacy
-  end
-
-  get '/about' do
-    erb :about
+    title('account')
+    erb :account, locals: { profile: Profile.new(current_user) }
   end
 
   put '/account/email' do
@@ -17,5 +15,4 @@ class ExercismApp < Sinatra::Base
     current_user.save
     redirect "/#{current_user.username}"
   end
-
 end

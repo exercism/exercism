@@ -13,7 +13,7 @@
     <p>Create a <a href="/teams">new team</a>.</p>
 
     <% if profile.has_nitpicked? %>
-      <p>You've left <a href="/user/history"><%= profile.nitpicks.count %> nits</a>.</p>
+      <p>You've left <a href="/<%= profile.username %>/history"><%= profile.nitpicks.count %> nits</a>.</p>
     <% end %>
 
     <h2>Exercises</h2>

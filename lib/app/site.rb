@@ -11,4 +11,12 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  get '/privacy' do
+    erb :privacy
+  end
+
+  get '/about' do
+    erb :about
+  end
+
 end
