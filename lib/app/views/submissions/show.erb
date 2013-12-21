@@ -10,7 +10,7 @@
       </div>
     <% end %>
 
-    <%= erb :byline, locals: {exercise: submission.exercise, user: submission.user} %>
+    <%= erb :"submissions/byline", locals: {exercise: submission.exercise, user: submission.user} %>
     <p>Submitted <%= ago(submission.created_at) %>.</p>
     <p><%= view_count_for(submission) %>.</p>
     <p>
@@ -110,14 +110,14 @@
     <% end %>
 
     <% submission.comments.each do |nit| %>
-      <%= erb :"nitpick/nit", locals: {nit: nit, submission: submission} %>
+      <%= erb :"submissions/nit", locals: {nit: nit, submission: submission} %>
     <% end %>
 
     <% if current_user.owns?(submission) && !current_user.completed?(submission.exercise) && submission.discussion_involves_user? %>
-      <%= erb :"nitpick/more_opinions", locals: {submission: submission} %>
+      <%= erb :"submissions/more_opinions", locals: {submission: submission} %>
     <% end %>
 
     <hr>
-    <%= erb :"nitpick/submit_comment", locals: {submission: submission} %>
+    <%= erb :"submissions/submit_comment", locals: {submission: submission} %>
   </div>
 </div>

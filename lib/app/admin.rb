@@ -41,7 +41,7 @@ class ExercismApp < Sinatra::Base
     languages = Exercism.current
     progress = progress(language)
 
-    erb :curriculum, locals: { trail: trail, languages: languages, progress: progress }
+    erb :"admin/stats", locals: { trail: trail, languages: languages, progress: progress }
   end
 
 end

@@ -3,7 +3,7 @@ class ExercismApp < Sinatra::Base
     please_login
 
     title('account')
-    erb :account, locals: { profile: Profile.new(current_user) }
+    erb :"account/show", locals: { profile: Profile.new(current_user) }
   end
 
   put '/account/email' do

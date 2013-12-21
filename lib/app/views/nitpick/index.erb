@@ -20,7 +20,7 @@
 
   <main id="pending-submissions" class="span8">
   <% if show_pending_submissions?(language) %>
-    <%= erb :pending, locals: {submissions: submissions, show_filters: show_filters, language: language} %>
+    <%= erb :"nitpick/pending", locals: {submissions: submissions, show_filters: show_filters, language: language} %>
   <% end %>
   </main>
 </div>

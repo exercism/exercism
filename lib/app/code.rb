@@ -14,6 +14,6 @@ class ExercismApp < Sinatra::Base
     submission = Submission.random_completed_for(exercise)
     total = Submission.completed_for(exercise).count
 
-    erb :random_completed, locals: {submission: submission, total: total}
+    erb :"code/random", locals: {submission: submission, total: total}
   end
 end

@@ -59,7 +59,7 @@ class ExercismApp < Sinatra::Base
 
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
 
-    erb :submission, locals: {submission: submission}
+    erb :"submissions/show", locals: {submission: submission}
   end
 
   # TODO: Submit to this endpoint rather than the `respond` one.
@@ -125,7 +125,7 @@ class ExercismApp < Sinatra::Base
       flash[:notice] = "Only the author may edit the text."
       redirect "/submissions/#{key}"
     end
-    erb :edit_nit, locals: {submission: submission, nit: nit}
+    erb :"submissions/edit_nit", locals: {submission: submission, nit: nit}
   end
 
   post '/submissions/:key/done' do |key|
@@ -176,9 +176,7 @@ class ExercismApp < Sinatra::Base
                             .includes(:user)
                             .order('created_at DESC').to_a
 
-    erb :submissions_for_assignment, locals: { submissions: submissions,
-                                                  language: language,
-                                                assignment: assignment }
+    erb :"submissions/assignment", locals: {submissions: submissions, language: language, assignment: assignment}
   end
 
   post '/submissions/:key/reopen' do |key|

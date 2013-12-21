@@ -22,7 +22,7 @@
 
   <div class="pending-submissions">
     <% submissions.each do |submission| %>
-      <%= erb :pending_submission, locals: { submission: submission } %>
+      <%= erb :"nitpick/pending_submission", locals: { submission: submission } %>
     <% end %>
   </div>
 <% else %>

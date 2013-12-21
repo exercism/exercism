@@ -62,7 +62,7 @@
 
   <% if current_user.guest? %>
     <li><a href="/login">Log in with Github</a></li>
-    <%= erb :backdoor %>
+    <%= erb :"auth/backdoor" %>
   <% else %>
     <li class="dropdown">
   <a class="dropdown-toggle" id="drop-account" href="#" data-toggle="dropdown">

@@ -6,7 +6,7 @@ class ExercismApp < Sinatra::Base
 
     if user
       title(user.username)
-      erb :user, locals: { profile: Profile.new(user, current_user) }
+      erb :"user/show", locals: { profile: Profile.new(user, current_user) }
     else
       status 404
       erb :not_found
@@ -19,7 +19,7 @@ class ExercismApp < Sinatra::Base
     if user
       stats = Nitstats.new(user)
       title("#{user.username} - Nit Stats")
-      erb :nitstats, locals: {user: user, stats: stats }
+      erb :"user/nitstats", locals: {user: user, stats: stats }
     else
       status 404
       erb :not_found
@@ -35,6 +35,6 @@ class ExercismApp < Sinatra::Base
                            .order('created_at DESC')
                            .paginate(page: params[:page], per_page: per_page)
 
-    erb :history, locals: {nitpicks: nitpicks}
+    erb :"user/history", locals: {nitpicks: nitpicks}
   end
 end

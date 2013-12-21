@@ -6,18 +6,18 @@ class ExercismApp < Sinatra::Base
     if current_user.guest?
       current = App::Site::Languages.new(Exercism.current)
       upcoming = App::Site::Languages.new(Exercism.upcoming)
-      erb :index, locals: {current: current, upcoming: upcoming}
+      erb :"site/index", locals: {current: current, upcoming: upcoming}
     else
-      erb :dashboard, locals: {submission: Work.new(current_user).random}
+      erb :"site/dashboard", locals: {submission: Work.new(current_user).random}
     end
   end
 
   get '/privacy' do
-    erb :privacy
+    erb :"site/privacy"
   end
 
   get '/about' do
-    erb :about
+    erb :"site/about"
   end
 
 end

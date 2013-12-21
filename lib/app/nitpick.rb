@@ -26,7 +26,7 @@ class ExercismApp < Sinatra::Base
       exercises: workload.available_exercises,
       breakdown: workload.breakdown
     }
-    erb :nitpick, locals: locals
+    erb :"nitpick/index", locals: locals
   end
 end
 
