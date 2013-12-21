@@ -5,7 +5,7 @@ end
 class Attempt
 
   attr_reader :user, :code, :file, :curriculum
-  def initialize(user, code, path, curriculum = Exercism.current_curriculum)
+  def initialize(user, code, path, curriculum = Exercism.curriculum)
     @user = user
     @code = sanitize(code)
     @file = Code.new(path)

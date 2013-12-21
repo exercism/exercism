@@ -11,7 +11,7 @@ require 'exercism/curriculum/ruby'
 require 'exercism/curriculum/scala'
 
 class Exercism
-  def self.curricula
+  def self.subjects
     [
       :clojure,
       :elixir,
@@ -27,10 +27,10 @@ class Exercism
     ]
   end
 
-  def self.current_curriculum
+  def self.curriculum
     @curriculum ||= begin
       Curriculum.new('./assignments').tap do |curriculum|
-        curricula.each do |type|
+        subjects.each do |type|
           curriculum.add "exercism/#{type}_curriculum".classify.constantize.new
         end
       end
@@ -38,11 +38,15 @@ class Exercism
   end
 
   def self.trails
-    @trails ||= current_curriculum.trails.values
+    @trails ||= curriculum.trails.values
   end
 
   def self.languages
-    @languages ||= current_curriculum.trails.keys.sort
+    @languages ||= curriculum.trails.keys.sort
+  end
+
+  def self.current
+    @current ||= trails.map(&:name).sort
   end
 end
 

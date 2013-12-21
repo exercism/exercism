@@ -37,7 +37,7 @@ namespace :assignments do
 
     broken = false
 
-    Exercism.current_curriculum.trails.each do |_, trail|
+    Exercism.trails.each do |trail|
       trail.exercises.each do |exercise|
         assignment = trail.assign(exercise.slug)
 

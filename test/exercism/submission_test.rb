@@ -75,17 +75,6 @@ class SubmissionTest < Minitest::Test
     assert Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
   end
 
-  def test_retrieve_assignment
-    # Crazy long path. Best I can figure there's no storage of the path past the
-    # Curriculum object in Exercism so we have to mock the whole chain
-    trail = mock()
-    Exercism.stubs(:current_curriculum => mock(:trails => trail))
-    trail.expects(:[]).with('ruby').returns(mock(:assign => mock(:example => "say 'one'")))
-
-    submission = Submission.new(slug: 'bob', language: 'ruby')
-    assert_equal("say 'one'", submission.assignment.example)
-  end
-
   def test_iteration_counts
     alice = User.new(username: 'alice')
     s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')

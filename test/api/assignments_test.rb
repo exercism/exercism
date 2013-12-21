@@ -29,7 +29,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_cannot_fetch_exercise_in_nonexistent_language
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       get '/assignments/nosuch/one'
       assert_equal 400, last_response.status
       assert_match /sorry/i, JSON.parse(last_response.body)['error']
@@ -37,7 +37,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_cannot_fetch_nonexistent_exercise
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       get '/assignments/ruby/million'
       assert_equal 400, last_response.status
       assert_match /sorry/i, JSON.parse(last_response.body)['error']
@@ -45,7 +45,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_fetch_exercise
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       get '/assignments/ruby/one'
       assert_equal 200, last_response.status
       options = {format: :json, name: 'fetch_specific_exercise'}
@@ -58,7 +58,7 @@ class AssignmentsApiTest < Minitest::Test
     Submission.create(user: alice, language: 'go', slug: 'two', code: 'CODE', state: 'pending')
     Submission.create(user: alice, language: 'ruby', slug: 'one', code: 'CODE', state: 'pending')
 
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
 
       get '/user/assignments/current', {key: alice.key}
 
@@ -79,7 +79,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_accepts_submission_attempt
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
         post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
       end
@@ -95,7 +95,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_accepts_submission_on_completed_exercise
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
         post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.go'}.to_json
       end
@@ -111,7 +111,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_rejects_submission_on_nonexistent_exercise
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       Notify.stub(:everyone, nil) do
         post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'five/code.rb'}.to_json
       end
@@ -124,9 +124,9 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_fetch_at_the_end_of_trail
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       bob = User.create(github_id: 2)
-      trail = Exercism.current_curriculum.in('ruby')
+      trail = Exercism.curriculum.in('ruby')
       exercise = trail.exercises.last
       Submission.create(user: bob, language: exercise.language, slug: exercise.slug, state: 'done')
       get '/user/assignments/current', {key: bob.key}
@@ -135,7 +135,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_fetch_demo
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       get '/assignments/demo'
       assert_equal 200, last_response.status
 
@@ -153,7 +153,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_completed_returns_the_names_of_completed_assignments
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       user = User.create(github_id: 2)
       Submission.create(user: user, code: 'CODE', state: 'done', language: 'ruby', slug: 'one')
       Submission.create(user: user, code: 'CODE', state: 'done', language: 'ruby', slug: 'two')
@@ -193,7 +193,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_rejects_duplicates
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       Attempt.new(alice, 'THE CODE', 'one/code.rb').save
       Notify.stub(:everyone, nil) do
         post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
@@ -207,7 +207,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_unsubmit_success
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       unsubmit_object = stub()
 
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
@@ -219,7 +219,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_unsubmit_fails_no_submission
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       unsubmit_object = stub()
 
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
@@ -231,7 +231,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_unsubmit_fails_with_nits
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       unsubmit_object = stub()
 
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
@@ -243,7 +243,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_unsubmit_fails_when_already_done
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       unsubmit_object = stub()
 
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
@@ -255,7 +255,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_unsubmit_fails_too_old
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       unsubmit_object = stub()
 
       Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
@@ -267,7 +267,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_unsubmit_sets_previous_submission_to_pending_if_exists
-    Exercism.stub(:current_curriculum, curriculum) do
+    Exercism.stub(:curriculum, curriculum) do
       Submission.create(user: @alice, code: 'CODE', state: 'superseded', language: 'ruby', slug: 'one', version: 1)
       Submission.create(user: @alice, code: 'CODE', state: 'pending', language: 'ruby', slug: 'one', version: 2)
 

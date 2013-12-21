@@ -284,7 +284,7 @@ class Submission < ActiveRecord::Base
   end
 
   def trail
-    Exercism.current_curriculum.trails[language]
+    Exercism.curriculum.in(language)
   end
 
   class DeterminesParticipants

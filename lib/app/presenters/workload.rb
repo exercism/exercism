@@ -58,7 +58,7 @@ class Workload
   end
 
   def available_exercises
-    Exercism.current_curriculum.in(language).exercises.select {|exercise|
+    Exercism.curriculum.in(language).exercises.select {|exercise|
       user.nitpicker_on?(exercise)
     }
   end

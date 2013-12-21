@@ -8,9 +8,9 @@
   <ul class="dropdown-menu" id="menu-setup" role="menu" area-labelledby="drop-setup">
     <li><a role="menuitem" tabindex="-1" href="/help/how-to-access-exercises">How to Access the Exercises</a></li>
     <li><a role="menuitem" tabindex="-1" href="/help/how-to-nitpick">How to Nitpick</a></li>
-    <% Exercism.current_curriculum.languages.each do |language| %>
-      <li><a role="menuitem" tabindex="-1" href="/help/setup/<%= language %>">
-      Setting up <%= language.capitalize %></a>
+    <% Exercism.trails.each do |trail| %>
+      <li><a role="menuitem" tabindex="-1" href="/help/setup/<%= trail.language %>">
+      Setting up <%= trail.name %></a>
     </li>
     <% end %>
   </ul>

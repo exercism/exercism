@@ -22,7 +22,7 @@ class Work
 
   def mastered_slugs
     user.mastery.map do |language|
-      [language, Exercism.current_curriculum.trails[language.to_sym].slugs]
+      [language, Exercism.curriculum.in(language).slugs]
     end
   end
 
