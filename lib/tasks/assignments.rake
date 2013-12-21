@@ -48,8 +48,17 @@ namespace :assignments do
             puts "\t#{file}"
           end
         end
+
+        begin
+          assignment.readme
+        rescue Exception => e
+          broken = true
+          puts "#{assignment.exercise} has a broken README"
+          puts e.message
+        end
       end
     end
+
     exit 1 if broken
   end
 end
