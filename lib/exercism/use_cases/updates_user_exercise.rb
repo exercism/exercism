@@ -13,6 +13,8 @@ module Hack
 
       exercise.user_id = user_id
       exercise.state = latest.state
+      exercise.language = latest.language
+      exercise.slug = latest.slug
       exercise.created_at ||= earliest_submission_at
       exercise.updated_at = most_recent_change_at
       exercise.completed_at = exercise.updated_at if done?
