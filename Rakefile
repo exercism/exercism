@@ -1,3 +1,5 @@
+ENV['NEWRELIC_ENABLE'] = "false"
+
 $:.unshift File.expand_path("./../lib", __FILE__)
 Dir.glob("lib/tasks/*.rake").each { |r| import r }
 
