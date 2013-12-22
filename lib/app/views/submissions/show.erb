@@ -18,7 +18,7 @@
       <% if submission.user.completed?(submission.exercise) %>
         This exercise has been completed.
         <% if submission.user.is?(current_user.username) %>
-          See <a href="<%= ['', 'completed', submission.language, submission.slug, 'random'].join('/') %>">someone else's solution</a> to this exercise.
+          See <a href="/code/<%= submission.language %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.
         <% end %>
       <% else %>
         This exercise is still in progress.
