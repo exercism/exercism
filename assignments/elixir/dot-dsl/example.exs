@@ -7,9 +7,9 @@ defmodule Dot do
   defmacro graph([do: ast]) do
     g = do_graph(ast)
     Macro.escape(
-      Graph[attrs: Enum.sort(g.attrs),
-            nodes: Enum.sort(g.nodes),
-            edges: Enum.sort(g.edges)])
+      Graph.new(attrs: Enum.sort(g.attrs),
+                nodes: Enum.sort(g.nodes),
+                edges: Enum.sort(g.edges)))
   end
 
   defp do_graph(nil) do
@@ -24,7 +24,7 @@ defmodule Dot do
 
   defp do_stmt(stmt = {:graph, _, [kws]}, g) when is_list(kws) do
     if Keyword.keyword?(kws) do
-      g.update(attrs: (Code.eval_quoted(kws) |> elem(0)) ++ g.attrs)
+      g.update(attrs: kws ++ g.attrs)
     else
       raise_invalid_stmt(stmt)
     end
@@ -35,7 +35,7 @@ defmodule Dot do
   defp do_stmt(stmt = {atom, _, [kws]}, g)
     when is_atom(atom) and atom != :-- and is_list(kws) do
     if Keyword.keyword?(kws) do
-      g.update(nodes: [{atom, Code.eval_quoted(kws) |> elem(0)} | g.nodes])
+      g.update(nodes: [{atom, kws} | g.nodes])
     else
       raise_invalid_stmt(stmt)
     end
@@ -47,7 +47,7 @@ defmodule Dot do
   defp do_stmt(stmt = {:--, _, [{a, _, nil}, {b, _, [kws]}]}, g)
     when is_atom(a) and is_atom(b) and is_list(kws) do
     if Keyword.keyword?(kws) do
-      g.update(edges: [{a, b, Code.eval_quoted(kws) |> elem(0)} | g.edges])
+      g.update(edges: [{a, b, kws} | g.edges])
     else
       raise_invalid_stmt(stmt)
     end
