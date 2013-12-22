@@ -14,6 +14,7 @@ class Hibernation
   def process
     if stale?
       hibernate and notify
+      Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
     end
   end
 

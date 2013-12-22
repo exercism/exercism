@@ -26,6 +26,20 @@ class HibernationTest < Minitest::Test
     def save
       true
     end
+
+    # For the user exercise Hack.
+    # Temporary measure.
+    def user_id
+    end
+    def language
+    end
+    def slug
+    end
+  end
+
+  class NullHack
+    def update
+    end
   end
 
   def admin
@@ -40,9 +54,11 @@ class HibernationTest < Minitest::Test
     alice = FakeUser.new(2, 'alice', 'alice@example.com')
     comment = FakeComment.new(alice, cutoff - 1)
     submission = FakeSubmission.new(alice, [comment], 'pending')
-    Hibernation.stub(:admin, admin) do
-      Hibernation.new(submission, :intercept).process
-      assert_equal 'hibernating', submission.state
+    Hack::UpdatesUserExercise.stub(:new, NullHack.new) do
+      Hibernation.stub(:admin, admin) do
+        Hibernation.new(submission, :intercept).process
+        assert_equal 'hibernating', submission.state
+      end
     end
   end
 
@@ -50,9 +66,11 @@ class HibernationTest < Minitest::Test
     bob = FakeUser.new(3, 'bob', 'bob@example.com')
     comment = FakeComment.new(bob, cutoff + 1)
     submission = FakeSubmission.new(bob, [comment], 'pending')
-    Hibernation.stub(:admin, admin) do
-      Hibernation.new(submission, :intercept).process
-      assert_equal 'pending', submission.state
+    Hack::UpdatesUserExercise.stub(:new, NullHack.new) do
+      Hibernation.stub(:admin, admin) do
+        Hibernation.new(submission, :intercept).process
+        assert_equal 'pending', submission.state
+      end
     end
   end
 end

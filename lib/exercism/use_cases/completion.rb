@@ -23,6 +23,7 @@ class Completion
     submission.done_at = Time.now.utc
     submission.save
     user.reload
+    Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
     self
   end
 end

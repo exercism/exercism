@@ -38,6 +38,7 @@ class Attempt
     submission.code = code
     user.submissions << submission
     user.save
+    Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
     self
   end
 

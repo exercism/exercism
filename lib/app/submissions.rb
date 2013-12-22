@@ -187,10 +187,11 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    latest_submission = Submission.where(user_id: current_user.id, slug: selected_submission.slug, state: 'done').first
-    latest_submission.state = 'pending'
-    latest_submission.done_at = nil
-    latest_submission.save
-    redirect "/submissions/#{latest_submission.key}"
+    submission = Submission.where(user_id: current_user.id, slug: selected_submission.slug, state: 'done').first
+    submission.state = 'pending'
+    submission.done_at = nil
+    submission.save
+    Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
+    redirect "/submissions/#{submission.key}"
   end
 end

@@ -32,5 +32,6 @@ class Unsubmit
       previous_submission.save
     end
     submission.destroy
+    Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
   end
 end

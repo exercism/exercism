@@ -27,6 +27,7 @@ require 'exercism/team_membership'
 require 'exercism/trail'
 require 'exercism/use_cases'
 require 'exercism/user'
+require 'exercism/user_exercise'
 require 'exercism/work'
 require 'exercism/log_entry'
 
