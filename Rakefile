@@ -16,7 +16,7 @@ namespace :db do
     Bundler.require
     require_relative 'lib/db/connection'
     DB::Connection.establish
-    ActiveRecord::Migrator.migrate('lib/db/migrate')
+    ActiveRecord::Migrator.migrate('./db/migrate')
   end
 end
 
