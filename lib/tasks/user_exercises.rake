@@ -15,7 +15,7 @@ namespace :migrate do
     require 'db/connection'
     DB::Connection.establish
 
-    sql = "SELECT DISTINCT user_id, language, slug FROM submissions s LEFT JOIN user_exercises e ON s.user_exercise_id=e.id WHERE e.id IS NULL"
+    sql = "SELECT DISTINCT user_id, language, slug FROM submissions WHERE user_exercise_id IS NULL"
     ActiveRecord::Base.connection.execute(sql).each do |result|
       begin
         Hack::UpdatesUserExercise.new(result["user_id"], result["language"], result["slug"]).update
