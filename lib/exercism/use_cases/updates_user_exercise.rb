@@ -18,6 +18,11 @@ module Hack
       exercise.completed_at = exercise.updated_at if done?
       exercise.iteration_count = submissions.count
       exercise.save
+
+      submissions.each do |s|
+        s.user_exercise_id = exercise.id
+        s.save
+      end
     end
 
     private
