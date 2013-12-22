@@ -1,1 +1,1 @@
-pry -r ./scripts/env.rb
+NEWRELIC_ENABLE=false pry -r ./scripts/env.rb
