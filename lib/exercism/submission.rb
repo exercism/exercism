@@ -61,11 +61,6 @@ class Submission < ActiveRecord::Base
       where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
   end
 
-  def self.nitless
-    pending.where(:'nits._id'.exists => false)
-  end
-
-
   def self.done
     where(state: 'done').order('created_at DESC')
   end
