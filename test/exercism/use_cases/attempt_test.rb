@@ -122,12 +122,12 @@ class AttemptTest < Minitest::Test
     first_attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.rb', curriculum).save
     second_attempt =  Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.rb', curriculum)
 
-    assert_equal true, second_attempt.duplicate?
+    assert second_attempt.duplicate?
   end
 
   def test_no_reject_without_previous
     attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.rb', curriculum)
-    assert_equal false, attempt.duplicate?
+    refute attempt.duplicate?
   end
 
   def test_attempt_sets_exercise_as_current

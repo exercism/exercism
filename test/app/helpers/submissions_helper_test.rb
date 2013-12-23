@@ -34,11 +34,11 @@ class SubmissionsHelperTest < Minitest::Test
   end
 
   def test_user_can_mute_other_submissions
-    assert_equal true, helper.can_mute?(@submission, @fred)
+    assert helper.can_mute?(@submission, @fred)
   end
 
   def test_user_cannot_mute_own_submission
-    assert_equal false, helper.can_mute?(@submission, @alice)
+    refute helper.can_mute?(@submission, @alice)
   end
 
   def test_user_can_mute_an_unmuted_submission

@@ -134,7 +134,7 @@ class SubmissionsTest < Minitest::Test
       post "/submissions/#{submission.key}/opinions/enable", {}, login(alice)
     end
 
-    assert_equal true, submission.reload.wants_opinions?
+    assert submission.reload.wants_opinions?
   end
 
   def test_disable_opinions
@@ -146,7 +146,7 @@ class SubmissionsTest < Minitest::Test
       post "/submissions/#{submission.key}/opinions/disable", {}, login(alice)
     end
 
-    assert_equal false, submission.reload.wants_opinions?
+    refute submission.reload.wants_opinions?
   end
 
   def test_like_a_submission
@@ -165,7 +165,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
     post "/submissions/#{submission.key}/opinions/enable"
     assert_equal 302, last_response.status
-    assert_equal false, submission.reload.wants_opinions?
+    refute submission.reload.wants_opinions?
   end
 
   def test_mute_submission

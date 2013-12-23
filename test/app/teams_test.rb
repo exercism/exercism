@@ -99,7 +99,7 @@ class TeamsTest < Minitest::Test
     assert_equal 1, john.teams.size
 
     [alice, bob, john].each do |member|
-      assert_equal true, team.includes?(member)
+      assert team.includes?(member)
     end
   end
 
