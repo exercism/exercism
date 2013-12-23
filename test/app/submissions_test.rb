@@ -75,7 +75,6 @@ class SubmissionsTest < Minitest::Test
       post url, {body: "good"}, login(bob)
     end
     assert_equal 1, submission.reload.comments.count
-    assert_equal 1, submission.reload.nits_by_others_count
   end
 
   def test_nitpicking_assignment_mutes_it_for_the_nitpicker
@@ -99,7 +98,6 @@ class SubmissionsTest < Minitest::Test
       post url, {body: "good"}, login(alice)
     end
     assert_equal 1, submission.reload.comments.count
-    assert_equal 0, submission.reload.nits_by_others_count
     assert_equal true, submission.no_version_has_nits?
   end
 

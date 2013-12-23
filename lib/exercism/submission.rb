@@ -93,10 +93,6 @@ class Submission < ActiveRecord::Base
     comments.select {|nit| nit.user == user}
   end
 
-  def nits_by_others_count
-    nit_count
-  end
-
   def nits_by_others
     comments.select {|nit| nit.user != self.user }
   end
@@ -106,7 +102,7 @@ class Submission < ActiveRecord::Base
   end
 
   def discussion_involves_user?
-    [nits_by_self_count, nits_by_others_count].min > 0
+    [nits_by_self_count, nit_count].min > 0
   end
 
   def related_submissions
@@ -114,7 +110,7 @@ class Submission < ActiveRecord::Base
   end
 
   def no_version_has_nits?
-    @no_previous_nits ||= related_submissions.find_index { |v| v.nits_by_others_count > 0 }.nil?
+    @no_previous_nits ||= related_submissions.find_index { |v| v.nit_count > 0 }.nil?
   end
 
   def some_version_has_nits?
@@ -122,7 +118,7 @@ class Submission < ActiveRecord::Base
   end
 
   def this_version_has_nits?
-    nits_by_others_count > 0
+    nit_count > 0
   end
 
   def no_nits_yet?
