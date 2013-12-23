@@ -80,10 +80,6 @@ class Submission < ActiveRecord::Base
     @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
 
-  def nits_by_user(user)
-    comments.select {|nit| nit.user == user}
-  end
-
   def nits_by_others
     comments.select {|nit| nit.user != self.user }
   end
