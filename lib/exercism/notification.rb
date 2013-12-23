@@ -75,5 +75,9 @@ class Notification < ActiveRecord::Base
   def slug
     submission.slug if submission
   end
+
+  def link
+    "/submissions/#{submission.key}" unless custom?
+  end
 end
 
