@@ -151,24 +151,6 @@ class Submission < ActiveRecord::Base
     state == 'superseded'
   end
 
-  def wants_opinions?
-    wants_opinions
-  end
-
-  def enable_opinions!
-    self.wants_opinions = true
-    self.save
-  end
-
-  def disable_opinions
-    self.wants_opinions = false
-  end
-
-  def disable_opinions!
-    self.wants_opinions = false
-    self.save
-  end
-
   def muted_by?(user)
     muted_submissions.where(user_id: user.id).exists?
   end

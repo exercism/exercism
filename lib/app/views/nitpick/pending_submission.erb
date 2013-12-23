@@ -4,11 +4,6 @@
   data-language="<%= submission.language %>"
   data-nits="<%= submission.nit_count %>"
   data-versions="<%= submission.version %>"
-  <% if submission.wants_opinions? %>
-    data-opinions="1"
-  <% else %>
-    data-opinions="0"
-  <% end %>
   data-url="/submissions/<%= submission.key %>">
 
   <h3 class="span8">
@@ -34,12 +29,6 @@
   <div class="versions circle span1">
     <%= submission.version %>
   </div>
-
-  <% if submission.wants_opinions? %>
-    <div class="opinions circle span1">
-      <i class="icon-bullhorn"></i>
-    </div>
-  <% end %>
 
   <% if submission.liked? %>
     <div class="circle span1">

@@ -24,8 +24,6 @@ $(function() {
     var nitCount = elem.data('nits');
     $(".nits",elem).tooltip({ title: nitCount + " Nits by Others" });
 
-    $(".opinions",elem).tooltip({ title: "More Opinions Desired" });
-
     var versionCount = elem.data('versions');
     $(".versions",elem).tooltip({ title: "Iteration " + versionCount });
   });

@@ -6,7 +6,6 @@
         <% if language %>
           <% if exercises.any? %>
             <%= dashboard_assignment_nav(language, 'no-nits') %>
-            <%= dashboard_assignment_nav(language, 'opinions') %>
             <%= dashboard_assignment_nav(language, 'looks-great') %>
             <% exercises.each do |exercise| %>
               <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise.slug]) %>

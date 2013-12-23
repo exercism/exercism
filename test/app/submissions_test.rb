@@ -127,28 +127,6 @@ class SubmissionsTest < Minitest::Test
     assert_response_status(302)
   end
 
-  def test_enable_opinions
-    submission = generate_attempt.submission
-
-    Message.stub(:ship, nil) do
-      post "/submissions/#{submission.key}/opinions/enable", {}, login(alice)
-    end
-
-    assert submission.reload.wants_opinions?
-  end
-
-  def test_disable_opinions
-    submission = generate_attempt.submission
-    submission.wants_opinions = true
-    submission.save
-
-    Message.stub(:ship, nil) do
-      post "/submissions/#{submission.key}/opinions/disable", {}, login(alice)
-    end
-
-    refute submission.reload.wants_opinions?
-  end
-
   def test_like_a_submission
     submission = generate_attempt.submission
     Submission.any_instance.expects(:like!).with(bob)
@@ -159,13 +137,6 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
     Submission.any_instance.expects(:unlike!).with(bob)
     post "/submissions/#{submission.key}/unlike", {}, login(bob)
-  end
-
-  def test_change_opinions_when_not_logged_in
-    submission = generate_attempt.submission
-    post "/submissions/#{submission.key}/opinions/enable"
-    assert_equal 302, last_response.status
-    refute submission.reload.wants_opinions?
   end
 
   def test_mute_submission
@@ -195,15 +166,6 @@ class SubmissionsTest < Minitest::Test
     Message.stub(:ship, nil) do
       Submission.any_instance.expects(:unmute_all!)
       post url, {body: "good"}, login(bob)
-    end
-  end
-
-  def test_unmute_all_on_enable_opinions
-    submission = generate_attempt.submission
-
-    Message.stub(:ship, nil) do
-      Submission.any_instance.expects(:unmute_all!)
-      post "/submissions/#{submission.key}/opinions/enable", {}, login(alice)
     end
   end
 

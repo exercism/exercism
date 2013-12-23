@@ -86,14 +86,11 @@ class ExercismApp < Sinatra::Base
     end
 
     def nav_text(slug)
-      if slug == 'opinions'
-        slug = 'wants second opinion'
-      end
       slug.split("-").map(&:capitalize).join(" ")
     end
 
     def dashboard_assignment_nav(language, slug=nil, counts=nil)
-      return if !['no-nits', 'opinions', 'looks-great'].include?(slug) && (!counts || counts.zero?)
+      return if !['no-nits', 'looks-great'].include?(slug) && (!counts || counts.zero?)
 
       path = path_for(language)
       path += "/#{slug}" if slug

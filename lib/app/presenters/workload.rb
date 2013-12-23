@@ -34,8 +34,6 @@ class Workload
 
     scope = pending.order('created_at ASC')
     case slug
-    when 'opinions'
-      scope = scope.where(wants_opinions: true)
     when 'looks-great'
       scope = scope.where(is_liked: true)
     when 'no-nits'

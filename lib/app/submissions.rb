@@ -22,24 +22,6 @@ class ExercismApp < Sinatra::Base
         end
       end
     end
-
-    def toggle_opinions(key, state)
-      submission = Submission.find_by_key(key)
-
-      unless current_user.owns?(submission)
-        flash[:error] = "You do not have permission to do that."
-        redirect '/'
-      end
-
-      submission.send("#{state}_opinions!")
-      submission.unmute_all! if submission.wants_opinions?
-
-      if submission.wants_opinions?
-        flash[:notice] = "Your request for more opinions has been made. You can disable this below when all is clear."
-      else
-        flash[:notice] = "Your request for more opinions has been disabled."
-      end
-    end
   end
 
   get '/user/submissions/:key' do |key|
@@ -86,18 +68,6 @@ class ExercismApp < Sinatra::Base
     submission = Submission.find_by_key(key)
     submission.unlike!(current_user)
     flash[:notice] = "The submission has been unliked."
-    redirect "/submissions/#{key}"
-  end
-
-  post '/submissions/:key/opinions/enable' do |key|
-    please_login "You have to be logged in to do that."
-    toggle_opinions(key, :enable)
-    redirect "/submissions/#{key}"
-  end
-
-  post '/submissions/:key/opinions/disable' do |key|
-    please_login "You have to be logged in to do that."
-    toggle_opinions(key, :disable)
     redirect "/submissions/#{key}"
   end
 

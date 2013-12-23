@@ -25,9 +25,6 @@ class CreatesComment
       @nitpicked = true
       submission.state = 'pending' if submission.hibernating?
       submission.mute(commenter)
-      if submission.comments.where(user_id: commenter.id).count == 1
-        submission.disable_opinions
-      end
       submission.save
     end
   end

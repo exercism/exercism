@@ -113,10 +113,6 @@
       <%= erb :"submissions/nit", locals: {nit: nit, submission: submission} %>
     <% end %>
 
-    <% if current_user.owns?(submission) && !current_user.completed?(submission.exercise) && submission.discussion_involves_user? %>
-      <%= erb :"submissions/more_opinions", locals: {submission: submission} %>
-    <% end %>
-
     <hr>
     <%= erb :"submissions/submit_comment", locals: {submission: submission} %>
   </div>
