@@ -19,7 +19,6 @@ class ExercismApp < Sinatra::Base
     workload = presenter.new(current_user, language, slug || 'no-nits')
 
     locals = {
-      show_filters: workload.show_filters?,
       submissions: workload.submissions,
       language: workload.language,
       exercise: workload.slug,

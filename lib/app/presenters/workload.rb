@@ -8,10 +8,6 @@ class NullWorkload
     {}
   end
 
-  def show_filters?
-    false
-  end
-
   def submissions
     []
   end
@@ -31,10 +27,6 @@ class Workload
 
   def breakdown
     @breakdown ||= pending.group('submissions.slug').count
-  end
-
-  def show_filters?
-    ![nil, 'no-nits', 'opinions'].include? slug
   end
 
   def submissions

@@ -11,13 +11,6 @@ $(function() {
     el: $("#toggle-notifications"),
     collection: notificationList
   });
-
-  // Only initialize the javascript for the filters if there are filter
-  //   assets on the page.
-  if ($('#submission-filters').length !== 0) {
-    exercism.models.selectFilter = new exercism.models.SelectFilter();
-    exercism.views.selectFilter = new exercism.views.SelectFilter({ model: exercism.models.selectFilter });
-  }
 });
 
 //TODO move all variable declaration to the tops of functions.
