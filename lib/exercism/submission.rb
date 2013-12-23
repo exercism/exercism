@@ -84,10 +84,6 @@ class Submission < ActiveRecord::Base
     nit_count < comments.count
   end
 
-  def related_submissions
-    @related_submissions ||= Submission.related(self).to_a
-  end
-
   def older_than?(time)
     self.created_at.utc < (Time.now.utc - time)
   end

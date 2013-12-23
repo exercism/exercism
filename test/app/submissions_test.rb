@@ -237,6 +237,8 @@ class SubmissionsTest < Minitest::Test
     s1 = Submission.create(data.merge(state: 'superseded', created_at: Time.now - 5))
     s2 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 2))
 
+    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'word-count').update
+
     post "/submissions/#{s1.key}/done", {}, login(alice)
 
     assert_equal 'superseded', s1.reload.state

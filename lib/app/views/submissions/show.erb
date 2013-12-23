@@ -25,11 +25,11 @@
       <% end %>
     </p>
     <p> View iteration:
-      <% submission.related_submissions.each do |related| %>
-        <% if related == submission %>
-          <span style="padding: 10px;"><%= related.version %></span>
+      <% submission.user_exercise.submissions.each do |s| %>
+        <% if s == submission %>
+          <span style="padding: 10px;"><%= s.version %></span>
         <% else %>
-          <a class="btn btn-default" href="/submissions/<%= related.key %>"> <%= related.version %></a>
+          <a class="btn btn-default" href="/submissions/<%= s.key %>"> <%= s.version %></a>
         <% end %>
       <% end %>
 
