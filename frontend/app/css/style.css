@@ -214,6 +214,10 @@ blockquote p{
   line-height: 1.4em;
 }
 
+code {
+  color: #000;
+}
+
 a code {
   color: #0088cc;
 }
