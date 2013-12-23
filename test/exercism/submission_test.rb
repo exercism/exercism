@@ -63,18 +63,6 @@ class SubmissionTest < Minitest::Test
     assert_nil   submission.done_at
   end
 
-  def test_not_completed_when_ongoing
-    submission.state = 'pending'
-    submission.save
-    refute Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
-  end
-
-  def test_completed_when_completed
-    submission.state = 'done'
-    submission.save
-    assert Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
-  end
-
   def test_participants
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')

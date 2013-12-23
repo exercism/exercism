@@ -77,10 +77,6 @@ class Submission < ActiveRecord::Base
     submission
   end
 
-  def self.assignment_completed?(submission)
-    related(submission).done.any?
-  end
-
   def self.unmuted_for(user)
     joins("left join (select submission_id from muted_submissions ms where user_id=#{user.id}) as t ON t.submission_id=submissions.id").where('t.submission_id is null')
   end
