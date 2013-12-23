@@ -80,12 +80,8 @@ class Submission < ActiveRecord::Base
     @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
 
-  def nits_by_self_count
-    comments.select {|nit| nit.user == self.user }.count
-  end
-
   def discussion_involves_user?
-    [nits_by_self_count, nit_count].min > 0
+    nit_count < comments.count
   end
 
   def related_submissions
