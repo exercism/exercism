@@ -14,7 +14,7 @@
     <p>Submitted <%= ago(submission.created_at) %>.</p>
     <p><%= view_count_for(submission) %>.</p>
     <p>
-      Iteration <b><%= submission.version %></b> of <b><%= submission.versions_count %></b>.
+      Iteration <b><%= submission.version %></b> of <b><%= submission.user_exercise.iteration_count %></b>.
       <% if submission.user.completed?(submission.exercise) %>
         This exercise has been completed.
         <% if submission.user.is?(current_user.username) %>

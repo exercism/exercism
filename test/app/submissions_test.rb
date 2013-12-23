@@ -93,7 +93,6 @@ class SubmissionsTest < Minitest::Test
   def test_nitpick_own_assignment
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
-    assert_equal 1, submission.versions_count
 
     url = "/submissions/#{submission.key}/respond"
     Message.stub(:ship, nil) do
@@ -101,7 +100,6 @@ class SubmissionsTest < Minitest::Test
     end
     assert_equal 1, submission.reload.comments.count
     assert_equal 0, submission.reload.nits_by_others_count
-    assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
   end
 
@@ -135,7 +133,6 @@ class SubmissionsTest < Minitest::Test
   def test_multiple_versions
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
-    assert_equal 1, submission.versions_count
     assert_equal 0, submission.comments.count
     assert_equal true, submission.no_version_has_nits?
     assert_equal false, submission.this_version_has_nits?
@@ -145,7 +142,6 @@ class SubmissionsTest < Minitest::Test
     Message.stub(:ship, nil) do
       post url, {body: "good"}, login(bob)
     end
-    assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
     assert_equal false, submission.this_version_has_nits?
 
@@ -153,14 +149,12 @@ class SubmissionsTest < Minitest::Test
     nit = Comment.new(user: bob, body: "ok")
     submission.comments << nit
     submission.save
-    assert_equal 1, submission.versions_count
     assert_equal true, submission.no_version_has_nits?
     assert_equal false, submission.this_version_has_nits?
 
     # is changed by a new submission
     Attempt.new(alice, 'CODE REVISED', 'word-count/file.rb').save
     new_submission = Submission.where(:slug => submission.slug).last
-    assert_equal 2, new_submission.versions_count
     assert_equal false, new_submission.no_version_has_nits?
     assert_equal true, new_submission.some_version_has_nits?
   end

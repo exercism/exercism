@@ -113,10 +113,6 @@ class Submission < ActiveRecord::Base
     [nits_by_self_count, nits_by_others_count].min > 0
   end
 
-  def versions_count
-    @versions_count ||= Submission.related(self).count
-  end
-
   def related_submissions
     @related_submissions ||= Submission.related(self).to_a
   end

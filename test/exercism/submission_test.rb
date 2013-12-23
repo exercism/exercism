@@ -75,21 +75,6 @@ class SubmissionTest < Minitest::Test
     assert Submission.assignment_completed?(submission), 'The submission should totally be ongoing here'
   end
 
-  def test_iteration_counts
-    alice = User.new(username: 'alice')
-    s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
-    s2 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
-    s3 = Submission.create(state: 'pending', user: alice, language: 'ruby', slug: 'one')
-
-    [s1, s2, s3].each do |submission|
-      assert_equal 3, submission.versions_count
-    end
-
-    assert_equal 1, s1.version
-    assert_equal 2, s2.version
-    assert_equal 3, s3.version
-  end
-
   def test_participants
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
