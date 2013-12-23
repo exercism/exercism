@@ -5,7 +5,7 @@ class Exercism
         leap etl hamming anagram word-count binary accumulate
         allergies bob
         rna-transcription roman-numerals atbash-cipher
-        phone-number octal bottles nucleotide-count point-mutations
+        phone-number octal bottles nucleotide-count
       )
     end
 
