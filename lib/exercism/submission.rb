@@ -109,22 +109,6 @@ class Submission < ActiveRecord::Base
     @related_submissions ||= Submission.related(self).to_a
   end
 
-  def no_version_has_nits?
-    @no_previous_nits ||= related_submissions.find_index { |v| v.nit_count > 0 }.nil?
-  end
-
-  def some_version_has_nits?
-    !no_version_has_nits?
-  end
-
-  def this_version_has_nits?
-    nit_count > 0
-  end
-
-  def no_nits_yet?
-    !this_version_has_nits?
-  end
-
   def older_than?(time)
     self.created_at.utc < (Time.now.utc - time)
   end

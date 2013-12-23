@@ -15,7 +15,7 @@ class Unsubmit
     submission = user.most_recent_submission
 
     raise NothingToUnsubmit.new  if submission.nil?
-    raise SubmissionHasNits.new  if submission.this_version_has_nits?
+    raise SubmissionHasNits.new  if submission.nit_count > 0
     raise SubmissionDone.new     if submission.done?
     raise SubmissionTooOld.new   if submission.older_than?(TIMEOUT)
 

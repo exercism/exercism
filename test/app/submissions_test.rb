@@ -98,7 +98,6 @@ class SubmissionsTest < Minitest::Test
       post url, {body: "good"}, login(alice)
     end
     assert_equal 1, submission.reload.comments.count
-    assert_equal true, submission.no_version_has_nits?
   end
 
   def test_input_sanitation
@@ -126,35 +125,6 @@ class SubmissionsTest < Minitest::Test
     post "/submissions/#{submission.key}/nitpick", {body: "Could be better by ..."}
 
     assert_response_status(302)
-  end
-
-  def test_multiple_versions
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
-    submission = Submission.first
-    assert_equal 0, submission.comments.count
-    assert_equal true, submission.no_version_has_nits?
-    assert_equal false, submission.this_version_has_nits?
-
-    # not changed by a nit being added
-    url = "/submissions/#{submission.key}/respond"
-    Message.stub(:ship, nil) do
-      post url, {body: "good"}, login(bob)
-    end
-    assert_equal true, submission.no_version_has_nits?
-    assert_equal false, submission.this_version_has_nits?
-
-    # not changed by nit being added by another user
-    nit = Comment.new(user: bob, body: "ok")
-    submission.comments << nit
-    submission.save
-    assert_equal true, submission.no_version_has_nits?
-    assert_equal false, submission.this_version_has_nits?
-
-    # is changed by a new submission
-    Attempt.new(alice, 'CODE REVISED', 'word-count/file.rb').save
-    new_submission = Submission.where(:slug => submission.slug).last
-    assert_equal false, new_submission.no_version_has_nits?
-    assert_equal true, new_submission.some_version_has_nits?
   end
 
   def test_enable_opinions
