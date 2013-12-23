@@ -4,10 +4,6 @@ class NullSubmission < SimpleDelegator
     false
   end
 
-  def participants
-    []
-  end
-
   def code
     ''
   end

@@ -63,41 +63,6 @@ class SubmissionTest < Minitest::Test
     assert_nil   submission.done_at
   end
 
-  def test_participants
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
-    charlie = User.create(username: 'charlie')
-
-    s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
-    s1.comments << Comment.new(user: bob, body: 'nice')
-    s1.save
-
-    s2 = Submission.create(state: 'pending', user: alice, language: 'ruby', slug: 'one')
-    s2.comments << Comment.new(user: charlie, body: 'pretty good')
-    s2.save
-
-    assert_equal %w(alice bob charlie), s2.participants.map(&:username).sort
-  end
-
-  def test_participants_with_mentions
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
-    charlie = User.create(username: 'charlie')
-    mention_user = User.create(username: 'mention_user')
-
-    s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
-    s1.comments << Comment.new(user: alice, body: 'What about @bob?')
-    s1.save
-
-    s2 = Submission.create(state: 'pending', user: alice, language: 'ruby', slug: 'one')
-    s2.comments << Comment.new(user: charlie, body: '@mention_user should have bleh')
-    s2.save
-
-    # NOTE: mention_user doesn't enter until s2, but it's related to s1.
-    assert_equal %w(alice bob charlie mention_user), s1.participants.map(&:username).sort
-    assert_equal %w(alice bob charlie mention_user), s2.participants.map(&:username).sort
-  end
-
   def test_like_sets_is_liked
     submission = Submission.new(state: 'pending')
     submission.like!(alice)

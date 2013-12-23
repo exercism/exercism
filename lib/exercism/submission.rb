@@ -85,10 +85,6 @@ class Submission < ActiveRecord::Base
     @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
 
-  def participants
-    @participants ||= DeterminesParticipants.determine(user, related_submissions)
-  end
-
   def nits_by_user(user)
     comments.select {|nit| nit.user == user}
   end
@@ -258,44 +254,5 @@ class Submission < ActiveRecord::Base
 
   def trail
     Exercism.curriculum.in(language)
-  end
-
-  class DeterminesParticipants
-
-    attr_reader :participants
-
-    def self.determine(user, submissions)
-      determiner = new(user, submissions)
-      determiner.determine
-      determiner.participants
-    end
-
-    def initialize(user, submissions)
-      @user = user
-      @submissions = submissions
-    end
-
-    def determine
-      @participants = Set.new
-      @participants.add @user
-      @submissions.each do |submission|
-        add_submission(submission)
-      end
-    end
-
-    private
-
-    def add_submission(submission)
-      submission.comments.each do |comment|
-        add_comment(comment)
-      end
-    end
-
-    def add_comment(comment)
-      @participants.add comment.nitpicker
-      comment.mentions.each do |mention|
-        @participants.add mention
-      end
-    end
   end
 end
