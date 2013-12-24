@@ -9,7 +9,7 @@ class Exercism
 
       # Somewhat tricky
       %w(
-        prime-factors
+        minesweeper prime-factors
       ) +
 
       # Rather complicated
