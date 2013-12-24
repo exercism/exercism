@@ -12,7 +12,7 @@ If you want a feature implemented, the best way to get it done is to submit a pu
 
 There are full instructions on getting the app running [in the README](https://github.com/exercism/exercism.io/blob/master/README.md).
 
-Please try and stick to the [Ruby Style Guidelines](https://github.com/styleguide/ruby).
+Please try and stick to the [GitHub Ruby Style Guidelines](https://github.com/styleguide/ruby).
 
 ## Creating a new Language Track
 
