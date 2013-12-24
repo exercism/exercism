@@ -2,25 +2,24 @@ source "http://rubygems.org"
 
 ruby "1.9.3"
 
-gem 'rake'
-gem 'faraday'
 gem 'activerecord', '~> 3.2'
+gem 'faraday'
+gem 'loofah'
 gem 'newrelic_rpm', '=3.6.9.171' # used both in production and development
 gem 'petroglyph'
 gem 'pg'
+# Pony must not be required. See
+# http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
+gem 'pony', '~> 1.6', require: false
+gem 'pry', require: false
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
+gem 'rake'
 gem 'redcarpet'
 gem 'rouge', '~> 1.2.0'
 gem 'sinatra', require: 'sinatra/base'
-gem 'loofah'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
-gem 'pry', require: false
-
-# Must not be required
-# See http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
-gem 'pony', '~> 1.6', require: false
 
 group :test, :development do
   gem 'ruby-prof'
