@@ -1,31 +1,4 @@
 class ExercismApp < Sinatra::Base
-  helpers do
-    def please_login(notice = nil)
-      if current_user.guest?
-        flash[:notice] = notice if notice
-        redirect "/please-login?return_path=#{request.path_info}"
-      end
-    end
-
-    def login_url(return_path = nil)
-      url = Github.login_url
-      if return_path
-        url << "&redirect_uri=http://#{site_root}/github/callback#{return_path}"
-      end
-      url
-    end
-
-    def login(user)
-      session[:github_id] = user.github_id
-      @current_user = user
-    end
-
-    def logout
-      session[:github_id] = nil
-      @current_user = nil
-    end
-  end
-
   get '/logout' do
     logout
     redirect '/'
