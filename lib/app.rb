@@ -26,6 +26,7 @@ require 'app/not_found'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/profile_helper'
+require 'app/helpers/session_helper'
 require 'app/helpers/site_title_helper'
 require 'app/helpers/submissions_helper'
 require 'app/helpers/markdown_helper'
@@ -49,21 +50,12 @@ class ExercismApp < Sinatra::Base
   helpers Sinatra::GravatarHelper
   helpers Sinatra::ProfileHelper
   helpers Sinatra::MarkdownHelper
+  helpers Sinatra::SessionHelper
 
   helpers do
 
     def site_root
       env.fetch 'HTTP_HOST', 'http://exercism.io'
-    end
-
-    def current_user
-      @current_user ||= logged_in_user || Guest.new
-    end
-
-    def logged_in_user
-      if session[:github_id]
-        User.where(github_id: session[:github_id]).first
-      end
     end
 
     def language_icon(language,html={})
