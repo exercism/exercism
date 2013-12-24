@@ -7,6 +7,7 @@ require 'app/presenters/workload'
 require 'app/presenters/profile'
 
 require 'app/admin' # must come before 'app/user'
+require 'app/notifications'
 require 'app/site'
 require 'app/account'
 require 'app/auth'

@@ -15,6 +15,12 @@ $(function() {
 
 //TODO move all variable declaration to the tops of functions.
 $(function() {
+  $('.notifications li.unread a').on("click", function() {
+    var elem = $(this).parent(".unread");
+    elem.addClass("read");
+    elem.removeClass("unread");
+  });
+
   $(".pending-submission, .work").each(function(index,element) {
     var elem = $(element);
 

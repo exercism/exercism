@@ -214,3 +214,29 @@ code {
 a code {
   color: #0088cc;
 }
+
+.notifications ul {
+  list-style-type: none;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.notifications span.icon {
+  padding-right: 5px;
+}
+
+.notifications li {
+  padding: 4px;
+}
+
+.notifications .read {
+  color: #999;
+}
+.notifications .read a {
+  color: #999;
+}
+
+.notifications p.nota-bene {
+  padding-top: 20px;
+  color: #999;
+}

@@ -5,12 +5,20 @@ class Notification < ActiveRecord::Base
 
   scope :by_recency, -> { order("created_at DESC") }
   scope :recent, -> { by_recency.limit(400) }
-  scope :unread, -> { by_recency.where(read: false) }
+  scope :unread, -> { where(read: false) }
+  scope :read, -> { where(read: true) }
+  scope :joins_submissions, -> { joins('INNER JOIN submissions s ON s.id=notifications.submission_id') }
+  scope :personal, -> { joins_submissions.where('s.user_id = notifications.user_id') }
+  scope :general, -> { joins_submissions.where('s.user_id != notifications.user_id') }
 
   before_create do
     self.read  ||= false
     self.count ||= 0
     true
+  end
+
+  def self.viewed!(submission, user)
+    where(submission_id: submission.id, user_id: user.id).update_all(read: true)
   end
 
   def self.on(submission, options)
@@ -29,6 +37,10 @@ class Notification < ActiveRecord::Base
     where(user: user).and(_id: id).first.tap do |notification|
       notification.update_attributes(read: true)
     end
+  end
+
+  def state
+    read ? 'read' : 'unread'
   end
 
   def custom?
@@ -78,6 +90,24 @@ class Notification < ActiveRecord::Base
 
   def link
     "/submissions/#{submission.key}" unless custom?
+  end
+
+  def icon
+    case regarding
+    when "hibernating"
+      "moon"
+    when "custom"
+      "info-sign"
+    when "like"
+      "thumbs-up"
+    when "attempt"
+      "code"
+    else
+      s = "comment"
+      s << "s" if count > 1
+      s << "-alt" if submission && submission.user != recipient
+      s
+    end
   end
 end
 
