@@ -1,6 +1,6 @@
 defmodule Beer do
   def sing(start, finish // 0) do
-    Enum.map_join(start..finish, "\n", verse &1) <> "\n"
+    Enum.map_join(start..finish, "\n", &verse/1) <> "\n"
   end
 
   def verse(number) do
