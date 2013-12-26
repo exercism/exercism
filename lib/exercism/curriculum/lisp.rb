@@ -2,8 +2,8 @@ class Exercism
   class CommonlispCurriculum
     def slugs
       %w(
-        bob rna-transcription
-# word-count anagram beer-song
+        bob rna-transcription word-count
+#        anagram beer-song
 #        nucleotide-count point-mutations phone-number
 #        grade-school robot-name leap etl meetup space-age grains
 #        gigasecond triangle scrabble-score roman-numerals
