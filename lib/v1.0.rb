@@ -8,6 +8,8 @@ class Exercism
   end
 end
 
+require 'app/site/languages'
+
 require File.join(Exercism::App.root, 'site')
 
 class ExercismV1p0 < Sinatra::Base
