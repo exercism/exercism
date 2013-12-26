@@ -4,7 +4,7 @@ class Trail
   def initialize(language, slugs, path)
     @slugs = slugs
     @name = language
-    @language = language.downcase
+    @language = language.downcase.gsub(" ", "-")
     @exercises = slugs.map {|slug| Exercise.new(@language, slug)}
     @path = path
   end

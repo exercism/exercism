@@ -28,5 +28,9 @@ class TrailTest < Minitest::Test
   def test_after_last_exercise
     assert_nil trail.after(two, %w(one two))
   end
-end
 
+  def test_language_from_name_with_spaces
+    trail = Trail.new('Common Lisp', [], '/tmp')
+    assert_equal 'common-lisp', trail.language
+  end
+end
