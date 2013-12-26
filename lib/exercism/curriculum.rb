@@ -18,7 +18,7 @@ class Exercism
       :go,
       :haskell,
       :javascript,
-      :objectivec,
+      :objective_c,
       :ocaml,
       :perl5,
       :python,

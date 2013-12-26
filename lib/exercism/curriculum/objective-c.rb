@@ -1,5 +1,5 @@
 class Exercism
-  class ObjectivecCurriculum
+  class ObjectiveCCurriculum
     def slugs
       %w(
         bob hamming word-count anagram
