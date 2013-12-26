@@ -25,8 +25,16 @@ defmodule DotTest do
     assert Graph[nodes: [{:a, []}]] == exprt(Dot.graph do a end)
   end
   
+  test "graph with one node with keywords" do
+    assert Graph[nodes: [{:a, [color: :green]}]] == exprt(Dot.graph do a [color: :green] end)
+  end
+
   test "graph with one edge" do
     assert Graph[edges: [{:a, :b, []}]] == exprt(Dot.graph do a -- b end)
+  end
+
+  test "graph with just attribute" do
+    assert Graph[attrs: [foo: 1]] == exprt(Dot.graph do graph [foo: 1] end)
   end
   
   test "graph with attributes" do
