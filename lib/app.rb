@@ -23,6 +23,7 @@ require 'app/user'
 require 'app/exercises'
 require 'app/not_found'
 
+require 'app/helpers/article_helper'
 require 'app/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/profile_helper'
@@ -44,6 +45,7 @@ class ExercismApp < Sinatra::Base
   use Rack::Flash
 
   helpers WillPaginate::Sinatra::Helpers
+  helpers Sinatra::ArticleHelper
   helpers Sinatra::SubmissionsHelper
   helpers Sinatra::SiteTitleHelper
   helpers Sinatra::FuzzyTimeHelper
@@ -101,6 +103,19 @@ class ExercismApp < Sinatra::Base
 
     def nitpicker_languages
       Exercism.languages.map(&:to_s) & current_user.nitpicker_languages
+    end
+
+    def help_topics
+      [
+        ['cli', 'Downloading the Command-Line Interface'],
+        ['fetch', 'Fetching the Exercises'],
+        ['submit', 'Submitting Code'],
+        ['nitpick', 'Nitpicking'],
+        ['path', 'Understanding PATH'],
+        ['troubleshooting', 'Troubleshooting'],
+      ] + Exercism.current.map { |language|
+        ["setup/#{language.downcase}", "Setting Up #{language}"]
+      }
     end
   end
 

@@ -1,24 +1,26 @@
+require 'app/help/setup'
+
 class ExercismApp < Sinatra::Base
-
-  get '/help/how-to-access-exercises' do
-    erb :"help/cli"
+  get '/help' do
+    erb :"help/topic", locals: {topic: 'index', substitutions: {}}
   end
 
-  get '/help/understanding-path' do
-    erb :"help/path"
-  end
-
-  get '/help/how-to-nitpick' do
-    erb :"help/nitpick"
-  end
-
-  get '/help/setup/:language/?' do
-    language = params[:language].downcase.to_sym
-    if Exercism.languages.include?(language)
-      erb :"help/setup/#{language}"
-    else
-      status 404
-      erb :not_found
+  get '/help/:topic' do |slug|
+    topic = slug
+    unless article_exists?('help', topic)
+      status = 404
+      topic = '404'
     end
+
+    erb :"help/topic", locals: {topic: topic, substitutions: {'TOPIC' => slug}}
+  end
+
+  get '/help/setup/:language' do |language|
+    language = App::Help::Setup.new(language)
+    if language.not_found?
+      status = 404
+    end
+
+    erb :"help/topic", locals: {topic: "setup/#{language.topic}", substitutions: {'LANGUAGE' => language.name}}
   end
 end
