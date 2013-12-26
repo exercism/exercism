@@ -1,0 +1,20 @@
+%header#section-header.navbar.navbar-default.navbar-fixed-top
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand.visible-xs{:href => link_to('/')} Exercism.io
+
+    %nav.collapse.navbar-collapse.bs-navbar-collapse{:role => "navigation"}
+      %ul.nav.navbar-nav
+        %li.active
+          %a{:href => '#'} About Exercism
+        %li
+          %a{:href => '#'} Getting Started
+        %li
+          %a{:href => '#'} Help
+      %ul.nav.navbar-nav.navbar-right
+        %li
+          %a.sprite-icon-login{:href => '#'} Login with Github

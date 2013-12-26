@@ -115,6 +115,7 @@ DEPENDENCIES
   database_cleaner
   faker
   faraday
+  haml
   loofah
   mailcatcher
   minitest (~> 5.0)

@@ -1,0 +1,13 @@
+%footer#section-footer
+  .container.text-center
+    %p
+      %a.sprite-brand{:href => link_to("/")} Exercism.io
+      %span.text-line
+        \&copy; 2013 Katrina Owen.
+      %span.text-line
+        Report bugs and submit feedback on
+        = succeed "." do
+          %a{:href => "http://github.com/exercism/exercism.io/issues"} GitHub
+        Email me at
+        = succeed "." do
+          %a{:href => "mailto:kytrinyx@exercism.io"} kytrinyx@exercism.io

@@ -4,6 +4,7 @@ ruby "1.9.3"
 
 gem 'activerecord', '~> 3.2'
 gem 'faraday'
+gem 'haml', require: false
 gem 'loofah'
 gem 'newrelic_rpm', '=3.6.9.171' # used both in production and development
 gem 'petroglyph'
