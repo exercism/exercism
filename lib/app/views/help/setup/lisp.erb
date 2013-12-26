@@ -19,3 +19,21 @@
     </ul>
   </li>
 </ul>
+
+<h4>Running the tests<h4>
+Simply load the test file into your running Lisp implementation.
+
+<h4>Making your first Common Lisp solution:</h4>
+
+To create lisp code that can be loaded with <code>(load "bob")</code>
+for the first exercise, put this code in <code>bob.lisp</code>:
+
+<pre>
+(cl:defpackage #:bob
+  (:use :common-lisp)
+  (:export :response-for))
+
+(in-package :bob)
+
+(defun response-for (msg) "Whatever.")
+</pre>
