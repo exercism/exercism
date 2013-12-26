@@ -136,6 +136,10 @@ h1.home {
   background-image: url('/img/java.png');
 }
 
+.commonlisp-icon {
+  background-image: url('/img/clojure.png');
+}
+
 .objective-c-icon {
   background-image: url('/img/objective-c.png');
 }
