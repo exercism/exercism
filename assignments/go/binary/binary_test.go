@@ -19,7 +19,7 @@ func TestBinary(t *testing.T) {
 	for _, tt := range testCases {
 		actual := ToDecimal(tt.binary)
 		if actual != tt.expected {
-			t.Fatalf("ToDecimal(%d): expected %d, actual %d", tt.binary, tt.expected, actual)
+			t.Fatalf("ToDecimal(%v): expected %d, actual %d", tt.binary, tt.expected, actual)
 		}
 	}
 }
