@@ -5,8 +5,7 @@
 (in-package :bob)
 
 (defun contains-alpha-chars-p (msg)
-  (some #'(lambda (c) (find c "abcdefghijklmnopqrstuvwxyz" 
-			    :test #'string-equal))
+  (some #'(lambda (c) (char-not-greaterp #\a c #\z))
 	(coerce msg 'list)))
 
 (defun silence-p (msg) (equal "" (string-trim '(#\Space) msg)))
