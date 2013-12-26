@@ -3,7 +3,6 @@ require 'exercism/curriculum/elixir'
 require 'exercism/curriculum/go'
 require 'exercism/curriculum/haskell'
 require 'exercism/curriculum/javascript'
-require 'exercism/curriculum/lisp'
 require 'exercism/curriculum/objective-c'
 require 'exercism/curriculum/ocaml'
 require 'exercism/curriculum/perl5'
@@ -19,7 +18,6 @@ class Exercism
       :go,
       :haskell,
       :javascript,
-      :commonlisp,
       :objectivec,
       :ocaml,
       :perl5,
@@ -52,7 +50,7 @@ class Exercism
   end
 
   def self.upcoming
-    @upcoming ||= ['Java', 'CoffeeScript', 'Rust', 'Erlang', 'PHP', 'Common Lisp'] - current
+    @upcoming ||= ['Java', 'CoffeeScript', 'Rust', 'Erlang', 'PHP'] - current
   end
 end
 
