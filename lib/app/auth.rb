@@ -1,18 +1,18 @@
 class ExercismApp < Sinatra::Base
   get '/logout' do
     logout
-    redirect '/'
+    redirect root_path
   end
 
   if ENV['RACK_ENV'] == 'development'
     get '/backdoor' do
       if User.count == 0
         flash[:error] = "You'll want to run the seed script: `rake db:seed`"
-        redirect '/'
+        redirect root_path
       end
 
       login(User.find_by_github_id(params[:id]))
-      redirect "/"
+      redirect root_path
     end
   end
 
@@ -45,7 +45,7 @@ class ExercismApp < Sinatra::Base
 
     # params[:splat] might be an empty array
     # which suits us just fine.
-    redirect "/#{params[:splat].first}"
+    redirect [root_path, params[:splat].first].join('/')
   end
 
 end

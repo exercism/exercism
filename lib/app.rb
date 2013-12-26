@@ -58,6 +58,10 @@ class ExercismApp < Sinatra::Base
       env.fetch 'HTTP_HOST', 'http://exercism.io'
     end
 
+    def root_path
+      '/'
+    end
+
     def language_icon(language,html={})
       %{<div class="language circle #{html[:class]} #{language}-icon">&nbsp;</div>}
     end
