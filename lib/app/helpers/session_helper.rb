@@ -10,7 +10,7 @@ module Sinatra
     def login_url(return_path = nil)
       url = Github.login_url
       if return_path
-        url << "&redirect_uri=http://#{site_root}/github/callback#{return_path}"
+        url << "&redirect_uri=#{site_root}/github/callback#{return_path}"
       end
       url
     end
