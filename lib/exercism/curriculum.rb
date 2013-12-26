@@ -50,7 +50,7 @@ class Exercism
   end
 
   def self.upcoming
-    @upcoming ||= ['Java', 'CoffeeScript', 'Rust', 'Erlang', 'PHP'] - current
+    @upcoming ||= ['Java', 'CoffeeScript', 'Rust', 'Erlang', 'PHP', 'Common Lisp'] - current
   end
 end
 
