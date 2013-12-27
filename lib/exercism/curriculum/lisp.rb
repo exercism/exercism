@@ -10,7 +10,7 @@ class Exercism
         nucleotide-count
         point-mutations
         phone-number
-        # grade-school
+        grade-school
         robot-name
         leap
         # etl
