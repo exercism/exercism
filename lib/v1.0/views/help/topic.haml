@@ -1,0 +1,22 @@
+%section#section-content
+  #content-first.content-heading
+    .container.container-narrow
+      .row
+        .col-md-7
+          %a.sprite-logo-medium.pull-left{:href => link_to("/")} Exercism
+          %h1.pull-left Help
+
+        #help-topics.col-md-5
+          .btn-group.text-left
+            %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+              Choose a Help Topic
+              %span.caret
+            %ul.dropdown-menu{:role => "menu"}
+              - help_topics.each do |slug, title|
+                %li
+                  %a{:href => link_to("/help/#{slug}")}= title
+
+  #content-second
+    %article.first.last
+      .container.container-narrow
+        = article('help', topic, substitutions).to_html

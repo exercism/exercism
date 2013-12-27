@@ -1,5 +1,18 @@
 module Sinatra
   module ArticleHelper
+    def help_topics
+      [
+        ['cli', 'Downloading the Command-Line Interface'],
+        ['fetch', 'Fetching the Exercises'],
+        ['submit', 'Submitting Code'],
+        ['nitpick', 'Nitpicking'],
+        ['path', 'Understanding PATH'],
+        ['troubleshooting', 'Troubleshooting'],
+      ] + Exercism.current.map { |language|
+        ["setup/#{language.downcase}", "Setting Up #{language}"]
+      }
+    end
+
     def article(section, name, substitutions={})
       Article.new(File.read(article_source(section, name)), substitutions)
     end
