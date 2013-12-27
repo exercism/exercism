@@ -1,9 +1,6 @@
 require 'active_record'
 require 'exercism/use_cases/updates_user_exercise'
-
-class UserExercise < ActiveRecord::Base
-  has_many :submissions
-end
+require 'exercism/user_exercise'
 
 class Submission < ActiveRecord::Base
   belongs_to :user_exercise
@@ -26,6 +23,17 @@ namespace :migrate do
       end
     end
     puts
+  end
+
+  desc "migrate user exercise keys"
+  task :user_exercise_keys do
+    require 'db/connection'
+    DB::Connection.establish
+
+    UserExercise.find_each do |exercise|
+      exercise.key = exercise.generate_key
+      exercise.save
+    end
   end
 end
 
