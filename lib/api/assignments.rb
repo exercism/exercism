@@ -92,10 +92,6 @@ class ExercismAPI < Sinatra::Base
     attempt.save
     Notify.everyone(attempt.submission.reload, 'code', except: user)
 
-    if upgrade_gem?(request.user_agent)
-      Notify.about("Please update your exercism gem, as there have been some significant improvements.", to: attempt.submission.user)
-    end
-
     status 201
     pg :attempt, locals: {submission: attempt.submission}
   end

@@ -2,7 +2,6 @@ require 'exercism'
 require 'sinatra/petroglyph'
 
 require 'app/helpers/fuzzy_time_helper'
-require 'api/helpers/gem_helper'
 
 require 'api/assignments'
 require 'api/notifications'
@@ -18,7 +17,6 @@ class ExercismAPI < Sinatra::Base
   use Rack::Flash
 
   helpers Sinatra::FuzzyTimeHelper
-  helpers Sinatra::GemHelper
 
   helpers do
     def require_user
