@@ -11,7 +11,7 @@ class Exercism
         # point-mutations
         phone-number
         # grade-school
-        # robot-name
+        robot-name
         # leap
         # etl
         # meetup
