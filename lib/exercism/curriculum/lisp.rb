@@ -8,11 +8,11 @@ class Exercism
         anagram
         beer-song
         nucleotide-count
-        # point-mutations
+        point-mutations
         phone-number
         # grade-school
         robot-name
-        # leap
+        leap
         # etl
         # meetup
         # space-age
