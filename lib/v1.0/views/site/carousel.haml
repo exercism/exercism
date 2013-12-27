@@ -1,0 +1,31 @@
+#carousel-nitpicks.carousel.slide{"data-ride" => "carousel"}
+  .carousel-inner
+
+    - slides.each do |slide|
+      .item{:class => slide.first? && "active"}
+        %label= "Iteration #{slide.iteration}"
+        .row
+          .col-md-7.textarea
+            %p
+              .content-code
+                = slide.code
+          .col-md-5.blockquote-item
+            .item-heading.clearfix
+              %span.item-count.pull-right= slide.iteration
+              %img.pull-left.img-circle{:src => "/v1.0/images/carousel/#{slide.username}.jpg"}/
+              .item-info.pull-left
+                %p.name= slide.username
+                %p.time
+                  About
+                  = slide.hours
+                  hours ago
+            .item-description
+              %p= slide.comment
+
+  %ol.carousel-indicators
+    %li.active{"data-slide-to" => "0", "data-target" => "#carousel-nitpicks"}
+    %li{"data-slide-to" => "1", "data-target" => "#carousel-nitpicks"}
+    %li{"data-slide-to" => "2", "data-target" => "#carousel-nitpicks"}
+    %li{"data-slide-to" => "3", "data-target" => "#carousel-nitpicks"}
+    %li{"data-slide-to" => "4", "data-target" => "#carousel-nitpicks"}
+    %li{"data-slide-to" => "5", "data-target" => "#carousel-nitpicks"}
