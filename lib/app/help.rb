@@ -1,10 +1,6 @@
 require 'app/help/setup'
 
 class ExercismApp < Sinatra::Base
-  get '/help' do
-    erb :"help/topic", locals: {topic: 'index', substitutions: {}}
-  end
-
   get '/help/:topic' do |slug|
     topic = slug
     unless article_exists?('help', topic)
