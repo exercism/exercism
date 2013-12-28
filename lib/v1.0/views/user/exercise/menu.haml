@@ -1,0 +1,48 @@
+#menu-tree
+  %ul.nav.nav-list.borders
+
+    %li.list-menu
+      %label.tree-toggler.nav-header
+        Teams
+        %span.count= nav.team_count
+      %ul.nav.nav-list.tree.collapse.regular
+        - nav.teams.each do |team|
+          %li
+            %a{:href => "#"}= team.name
+        %li
+          = haml :"user/exercise/add_team"
+
+    %li.list-menu
+      %label.tree-toggler.nav-header
+        Exercises
+        %span.count= nav.exercise_count
+      %ul.nav.nav-list.tree.collapse.regular
+        - nav.exercises.each do |exercise|
+          %li
+            %a{:href => "#"}
+              %span.cat= exercise.slug
+              %span.topic{:class => exercise.language}= exercise.language
+
+    %li.list-menu
+      %label.tree-toggler.nav-header
+        Activity
+        %span.count= "%02d" % nav.conversation_count
+      %ul.nav.nav-list.tree.collapse.detailed
+        %li
+          %a{:href => "#"}
+          .sprite-icon-comment.menu-icon
+          .info
+            %p.cat
+              anagram
+              %span.topic Ruby
+            %p.name JonanMoses (1)
+            %p.fineprint About 7 hours ago
+        %li
+          %a{:href => "#"}
+          .sprite-icon-code.menu-icon
+          .info
+            %p.cat
+              anagram
+              %span.topic Javascript
+            %p.name wvmitchell
+            %p.fineprint New version about 7 hours ago

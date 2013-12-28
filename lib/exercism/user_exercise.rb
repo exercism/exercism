@@ -1,5 +1,9 @@
 class UserExercise < ActiveRecord::Base
   has_many :submissions, :order => 'created_at ASC'
+  belongs_to :user
+
+  scope :active,    ->{ where(state: 'pending') }
+  scope :completed, ->{ where(state: 'done') }
 
   before_create do
     self.key = generate_key

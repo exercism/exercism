@@ -1,0 +1,25 @@
+!!!
+/[if lt IE 7] <html class="no-js lt-ie9 lt-ie8 lt-ie7">
+/[if IE 7] <html class="no-js lt-ie9 lt-ie8">
+/[if IE 8] <html class="no-js lt-ie9">
+/ [if gt IE 8]><!
+%html.no-js
+  / <![endif]
+  = haml :"layout/head"
+  %body
+    = haml :"layout/ie_warning"
+    .row.aside-show.unstyled
+
+      %aside#sidebar-first.col-md-3
+        = haml :"user/exercise/profile"
+        = haml :"user/exercise/menu"
+        = haml :"user/exercise/account"
+
+      .col-md-9.section-main
+        = haml :"user/exercise/byline", locals: {exercise: exercise}
+        %section#section-content.section-content-code
+          .row
+            = haml :"user/exercise/code", locals: {exercise: exercise}
+            = haml :"user/exercise/nitpicks", locals: {exercise: exercise}
+    = haml :"layout/footer"
+    = haml :"layout/foot"

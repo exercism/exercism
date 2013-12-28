@@ -1,0 +1,22 @@
+%header#section-header.section-header-code.clearfix
+  .row
+    #title.col-md-4
+      %p
+        %span.lrg= exercise.slug
+        %span.sml{:class => exercise.language}= exercise.language
+    #author.col-md-7
+      %img.pull-left.img-circle{:src => exercise.avatar_url}/
+      .info.pull-left
+        %p.name= exercise.username
+        %p
+          Latest submission
+          = ago(exercise.latest_submission_at)
+          %span.delim /
+          %span.text-line= exercise.views
+        %p
+          %span.strong= exercise.iteration_count
+          = exercise.iteration_qualifier
+          %span.delim /
+          %span.text-line= exercise.status
+    #logo.col-md-1
+      %a.sprite-logo-dark{:href => link_to('/')} Exercism.io

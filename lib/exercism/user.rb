@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :submissions
   has_many :notifications
   has_many :comments
+  has_many :exercises, class_name: "UserExercise"
 
   has_many :teams_created, class_name: "Team", foreign_key: :creator_id
   has_many :team_memberships, class_name: "TeamMembership"

@@ -9,11 +9,18 @@ class Exercism
 end
 
 require 'app/helpers/article_helper'
+require 'app/helpers/fuzzy_time_helper'
+require 'app/helpers/markdown_helper'
 
 require 'app/site/languages'
-require File.join(Exercism::App.root, 'site', 'carousel')
+[
+  'site/carousel', 'user/navigation', 'user/account',
+  'user/track', 'user/exercise', 'user/comment'
+].each do |presenter|
+  require File.join(Exercism::App.root, presenter)
+end
 
-['site', 'help'].each do |controller|
+['site', 'help', 'user'].each do |controller|
   require File.join(Exercism::App.root, controller)
 end
 
@@ -22,6 +29,8 @@ class ExercismV1p0 < Sinatra::Base
   set :root, File.join('lib', Exercism::App.root)
 
   helpers Sinatra::ArticleHelper
+  helpers Sinatra::FuzzyTimeHelper
+  helpers Sinatra::MarkdownHelper
 
   helpers do
     def link_to(path)

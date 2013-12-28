@@ -1,0 +1,19 @@
+#content-first.col-md-8
+  %a#expand-code.pull-right.sprite-expand{:href => "javascript:;"} Expand
+  %h2
+    Code <
+    %span>= exercise.iteration_count
+    >
+
+  - exercise.submissions.reverse.each do |submission|
+    .iteration.section-toggle.clearfix
+      - if  submission.version == exercise.iteration_count
+        %a.pull-right.btn-operator.toggle{:href => "javascript:;"} -
+      - else
+        %a.pull-right.btn-operator.toggle{:href => "javascript:;"} +
+      %label
+        Iteration
+        = "%02d" % submission.version
+      %p.toggle-content
+        .content-code
+          = md(submission.code, exercise.language)

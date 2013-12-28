@@ -1,0 +1,33 @@
+%aside#sidebar-second.col-md-4
+  %h2
+    Nitpicks <
+    %span>= exercise.nitpick_count
+    >
+
+  %form#add-nitpick
+    %label Add Nitpick
+    %p
+      %textarea{:rows => "8"}
+    %p.text-right.btn-wrapper
+      %a.btn.btn-link{:href => "#"} Preview
+      %input.btn.btn-link.btn-submit{:type => "submit", :value => "Submit"}/
+
+  .btn-group.text-left
+    %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
+      View All Nitpicks
+      %span.caret
+    %ul.dropdown-menu{:role => "menu"}
+      %li
+        %a{:href => "#"} ABC
+      %li
+        %a{:href => "#"} XYZ
+
+  .col-md-12.blockquote-item.no-rpadding
+    - exercise.each_comment do |comment|
+      .item-heading.clearfix
+        %span.item-count.pull-right= comment.iteration
+        %img.pull-left.img-circle{:src => comment.avatar_url}/
+        .item-info.pull-left
+          %p.name= comment.username
+          %p.time= ago(comment.created_at).capitalize
+      .item-description= md(comment.body)
