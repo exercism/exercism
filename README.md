@@ -72,9 +72,9 @@ Different languages/trails do not need to have the same assignments or the same 
 7. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
 8. Copy `config/env` to `.env`
 9. Edit `.env` to fill in the correct values.
-10. Start the server with `. .env && rackup -p4567`
-11. Run [MailCatcher](http://mailcatcher.me/) with `mailcatcher`, and open your browser to [localhost:1080](http://localhost:1080).
-12. Login at http://localhost:4567.
+10. Start the server with `foreman start`
+11. Login at http://localhost:4567.
+12. You can view the mails send in [MailCatcher](http://mailcatcher.me/) in your browser at [localhost:1080](http://localhost:1080).
 13. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
 
 ## Frontend development setup
