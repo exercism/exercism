@@ -2,7 +2,7 @@ require './test/active_record_helper'
 require 'exercism/user'
 require 'exercism/comment'
 require 'exercism/submission'
-require 'exercism/notification'
+require 'exercism/submission_notification'
 
 class NotificationTest < MiniTest::Unit::TestCase
   include DBCleaner
@@ -27,20 +27,20 @@ class NotificationTest < MiniTest::Unit::TestCase
   end
 
   def test_create_notification
-    assert_equal 0, Notification.count
-    Notification.on(submission, to: bob)
-    assert_equal 1, Notification.count
+    assert_equal 0, SubmissionNotification.count
+    SubmissionNotification.on(submission, to: bob)
+    assert_equal 1, SubmissionNotification.count
   end
 
   def test_reading_a_notification
-    notification = Notification.on(submission, to: bob)
+    notification = SubmissionNotification.on(submission, to: bob)
     refute notification.read
     notification.read!
     assert notification.read
   end
 
   def test_created_notification_has_useful_information
-    notification = Notification.on(submission, to: bob, regarding: 'stuff')
+    notification = SubmissionNotification.on(submission, to: bob, regarding: 'stuff')
     assert_equal submission, notification.submission
     assert_equal 'ruby', notification.language
     assert_equal 'one', notification.slug
@@ -51,33 +51,33 @@ class NotificationTest < MiniTest::Unit::TestCase
   end
 
   def test_increment_existing_notification
-    Notification.on(submission, to: bob)
-    notification = Notification.on(submission, to: bob)
-    assert_equal 1, Notification.count, "Total notifications"
+    SubmissionNotification.on(submission, to: bob)
+    notification = SubmissionNotification.on(submission, to: bob)
+    assert_equal 1, SubmissionNotification.count, "Total notifications"
     assert_equal 2, notification.count, "Activity count"
     refute notification.read
   end
 
   def test_do_not_increment_read_notification
-    Notification.on(submission, to: bob).read!
-    assert_equal 1, Notification.count, 'Total notifications before'
-    notification = Notification.on(submission, to: bob)
-    assert_equal 2, Notification.count, 'Total notifications after'
+    SubmissionNotification.on(submission, to: bob).read!
+    assert_equal 1, SubmissionNotification.count, 'Total notifications before'
+    notification = SubmissionNotification.on(submission, to: bob)
+    assert_equal 2, SubmissionNotification.count, 'Total notifications after'
     assert_equal 1, notification.count, "Activity count"
     refute notification.read
   end
 
   def test_do_not_get_notifications_confused_for_users
     charlie = User.create(username: 'charlie')
-    Notification.on(submission, to: charlie)
-    Notification.on(submission, to: bob)
-    assert_equal 2, Notification.count
+    SubmissionNotification.on(submission, to: charlie)
+    SubmissionNotification.on(submission, to: bob)
+    assert_equal 2, SubmissionNotification.count
   end
 
   def test_do_not_get_notifications_confused_for_topics
-    Notification.on(submission, to: bob, regarding: 'kittens')
-    Notification.on(submission, to: bob, regarding: 'food')
-    assert_equal 2, Notification.count
+    SubmissionNotification.on(submission, to: bob, regarding: 'kittens')
+    SubmissionNotification.on(submission, to: bob, regarding: 'food')
+    assert_equal 2, SubmissionNotification.count
   end
 end
 
