@@ -46,11 +46,11 @@ module Seed
   end
 
   def self.generate(size)
-    users = []
     pool = UserPool.new(size)
-    pool.people.each do |person|
-      user = User.create(username: person.name, github_id: person.id)
-      users << user
+    users = pool.people.map do |person|
+      User.create!(username: person.name, github_id: person.id)
+    end
+    users.each do |user|
       pod = Seed::Pod.new
       pod.trails.each do |trail|
         trail.exercises.each do |exercise|
