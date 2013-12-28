@@ -127,7 +127,7 @@ class User < ActiveRecord::Base
   end
 
   def worked_in_languages
-    submissions.done.pluck('language').uniq
+    @worked_in_languages ||= submissions.done.pluck('language').uniq
   end
 
   def completed_submissions_in(language)
