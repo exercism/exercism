@@ -101,20 +101,6 @@ class User < ActiveRecord::Base
     self == submission.user
   end
 
-  def stashed_submissions
-    self.submissions.select{ |submission| submission.stashed? }
-  end
-
-  def stash_list
-    self.stashed_submissions.map(&:stash_name)
-  end
-
-  def clear_stash(filename)
-    self.stashed_submissions.each do |sub|
-      sub.delete if sub.stash_name == filename
-    end
-  end
-
   def latest_submission
     @latest_submission ||= submissions.pending.order(created_at: :desc).first
   end

@@ -105,7 +105,6 @@ class Submission < ActiveRecord::Base
   end
 
   def supersede!
-    self.delete and return if stashed?
     self.state   = 'superseded'
     self.done_at = nil
     save
@@ -139,10 +138,6 @@ class Submission < ActiveRecord::Base
 
   def pending?
     state == 'pending'
-  end
-
-  def stashed?
-    state == 'stashed'
   end
 
   def hibernating?

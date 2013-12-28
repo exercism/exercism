@@ -50,7 +50,7 @@ module Hack
     end
 
     def submissions
-      @submissions ||= Submission.where(options).where("state != 'stashed'").order('created_at ASC')
+      @submissions ||= Submission.where(options).order('created_at ASC')
     end
 
     def exercise

@@ -1,2 +1,0 @@
-node :code => stash.code
-node :filename => stash.stash_name
