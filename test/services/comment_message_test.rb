@@ -32,7 +32,7 @@ class CommentMessageTest < Minitest::Test
   end
 
   def test_subject
-    assert_equal "New comment from alice", dispatch.subject
+    assert_equal "Your ruby word-count exercise got a new comment", dispatch.subject
   end
 
   def test_body
