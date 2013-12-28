@@ -24,7 +24,7 @@ $ jasmine-node bob_test.spec.js
 
 ## Making Your First Node Module
 
-To create a module that can be loaded with `var Bob = require(./bob);`, put this code in `bob.js`:
+To create a module that can be loaded with `var Bob = require('./bob');`, put this code in `bob.js`:
 
 ```javascript
 var Bob = function() {};
