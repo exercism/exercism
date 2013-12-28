@@ -1,3 +1,4 @@
+export PORT=4567
 export EXERCISM_GITHUB_CLIENT_ID=abc123
 export EXERCISM_GITHUB_CLIENT_SECRET=abcdef123456
 # export EMAIL_DOMAIN=yourdomain.com
