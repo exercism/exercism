@@ -1,4 +1,6 @@
 class Readme
+  include Named
+
   attr_reader :slug, :dir
 
   def initialize(slug, dir="./assignments")

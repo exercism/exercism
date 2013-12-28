@@ -22,4 +22,19 @@ namespace :db do
   end
 end
 
+desc "Run each test file independently"
+namespace :test do
+  task :each do
+    files = Dir.glob('test/**/*_test.rb')
+    failures = files.reject do |file|
+      system("ruby #{file}")
+    end
+
+    puts "FAILURES IN:"
+    failures.each do |failure|
+      puts failure
+    end
+  end
+end
+
 task default: :test

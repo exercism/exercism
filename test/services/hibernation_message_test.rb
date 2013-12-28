@@ -1,6 +1,7 @@
 require './test/approval_helper'
 require 'services/message'
 require 'services/hibernation_message'
+require 'exercism/named'
 require 'exercism/exercise'
 
 class HibernationMessageTest < Minitest::Test

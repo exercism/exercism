@@ -1,4 +1,5 @@
 require './test/test_helper'
+require 'exercism/named'
 require 'exercism/exercise'
 
 class ExerciseTest < Minitest::Test

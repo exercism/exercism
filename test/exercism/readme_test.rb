@@ -1,5 +1,6 @@
 require './test/test_helper'
 require 'yaml'
+require 'exercism/named'
 require 'exercism/readme'
 
 class ReadmeTest < Minitest::Test

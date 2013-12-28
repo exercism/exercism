@@ -1,4 +1,5 @@
 class Submission < ActiveRecord::Base
+  include Named
 
   belongs_to :user
   belongs_to :user_exercise

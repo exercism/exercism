@@ -2,6 +2,7 @@ require './test/test_helper'
 
 require 'yaml'
 require 'pathname'
+require 'exercism/named'
 require 'exercism/exercise'
 require 'exercism/assignment'
 

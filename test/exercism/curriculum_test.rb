@@ -1,6 +1,7 @@
 require './test/test_helper'
 require './test/fixtures/fake_curricula'
 
+require 'exercism/named'
 require 'exercism/exercise'
 require 'exercism/assignment'
 require 'exercism/trail'
