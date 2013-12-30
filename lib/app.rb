@@ -89,7 +89,7 @@ class ExercismApp < Sinatra::Base
     end
 
     def dashboard_assignment_nav(language, slug=nil, counts=nil)
-      return if !['no-nits', 'looks-great'].include?(slug) && (!counts || counts.zero?)
+      return if slug != 'no-nits' && (!counts || counts.zero?)
 
       path = path_for(language)
       path += "/#{slug}" if slug
