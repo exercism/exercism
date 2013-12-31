@@ -14,7 +14,7 @@ module Sinatra
     end
 
     def redirect_uri(return_path)
-      "&redirect_uri=#{site_root}/github/callback#{return_path}"
+      "&redirect_uri=http://#{site_root}/github/callback#{return_path}"
     end
 
     def login(user)
