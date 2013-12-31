@@ -42,14 +42,19 @@ class Workload
       scope = pending.where(slug: slug)
     end
 
-    @submissions = scope.select do |submission|
-      user.nitpicker_on?(submission.exercise)
+    unless user.mastery.include?(language)
+      scope = scope.where(slug: user.completed[language])
     end
+
+    @submissions = scope.includes(:user)
   end
 
   def available_exercises
-    Exercism.curriculum.in(language).exercises.select {|exercise|
-      user.nitpicker_on?(exercise)
+    exercises = Exercism.curriculum.in(language).exercises
+    return exercises if user.mastery.include?(language)
+
+    exercises.select {|exercise|
+      user.completed[language].include? exercise.slug
     }
   end
 
@@ -59,4 +64,3 @@ class Workload
     @pending ||= Submission.pending.where(language: language).unmuted_for(user)
   end
 end
-
