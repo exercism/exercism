@@ -21,11 +21,15 @@ GEM
     daemons (1.1.9)
     database_cleaner (1.2.0)
     docile (1.1.1)
+    dotenv (0.9.0)
     eventmachine (1.0.3)
     faker (1.2.0)
       i18n (~> 0.5)
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
+    foreman (0.63.0)
+      dotenv (>= 0.7)
+      thor (>= 0.13.6)
     haml (4.0.3)
       tilt
     i18n (0.6.5)
@@ -115,6 +119,7 @@ DEPENDENCIES
   database_cleaner
   faker
   faraday
+  foreman
   haml
   loofah
   mailcatcher
