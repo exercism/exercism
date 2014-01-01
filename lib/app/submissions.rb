@@ -124,13 +124,16 @@ class ExercismApp < Sinatra::Base
   end
 
   delete '/submissions/:key/nits/:nit_id' do |key, nit_id|
-    nit = Submission.find_by_key(key).comments.where(id: nit_id).first
+    submission = Submission.find_by_key(key)
+    nit = submission.comments.where(id: nit_id).first
     unless current_user == nit.nitpicker
       flash[:notice] = "Only the author may delete the text."
       redirect '/'
     end
 
     nit.delete
+    submission.nit_count -= 1
+    submission.save
     redirect "/submissions/#{key}"
   end
 
