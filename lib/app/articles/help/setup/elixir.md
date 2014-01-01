@@ -2,18 +2,10 @@
 
 ### Homebrew for Mac OS X
 
-Elixir requires Erlang R16B:
+Elixir requires Erlang:
 
 ```bash
-$ brew tap homebrew/versions
-$ brew install erlang-r16
-```
-
-If you have a previous Erlang version installed, unlink it and link the new one:
-
-```bash
-$ brew uninstall erlang
-$ brew link erlang-r16
+$ brew install erlang
 ```
 
 Update your homebrew to latest and install Elixir:
