@@ -24,7 +24,9 @@ func TestAllergies(t *testing.T) {
 	for _, test := range allergiesTests {
 		actual := Allergies(test.input)
 		if fmt.Sprintf("%s", actual) != fmt.Sprintf("%s", test.expected) {
-			t.Errorf("Allergies(%d): expected %s, actual %s", test.input, test.expected, actual)
+			t.Fatalf("FAIL: Allergies(%d): expected %s, actual %s", test.input, test.expected, actual)
+		} else {
+			t.Logf("PASS: Allergic to %v", test.expected)
 		}
 	}
 }
@@ -45,7 +47,9 @@ func TestAllergicTo(t *testing.T) {
 	for _, test := range allergicToTests {
 		actual := AllergicTo(test.i, test.allergen)
 		if actual != test.expected {
-			t.Errorf("AllergicTo(%s, %s): expected %s, actual %s", test.i, test.allergen, test.expected, actual)
+			t.Fatalf("FAIL: AllergicTo(%d, %s): expected %t, actual %t", test.i, test.allergen, test.expected, actual)
+		} else {
+			t.Logf("PASS: AllergicTo(%d, %s) %t", test.i, test.allergen, actual)
 		}
 	}
 }
