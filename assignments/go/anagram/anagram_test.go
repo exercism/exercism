@@ -1,6 +1,7 @@
 package anagram
 
 import (
+	"fmt"
 	"sort"
 	"testing"
 )
@@ -134,27 +135,22 @@ func equal(a []string, b []string) bool {
 
 	sort.Strings(a)
 	sort.Strings(b)
-	for i := 0; i < len(a); i = i + 1 {
-		if a[i] != b[i] {
-			return false
-		}
-	}
-	return true
+	return fmt.Sprintf("%v", a) == fmt.Sprintf("%v", b)
 }
 
 func TestDetectAnagrams(t *testing.T) {
 	for _, tt := range testCases {
 		actual := Detect(tt.subject, tt.candidates)
 		if !equal(tt.expected, actual) {
-			msg := `
-				%s
-
-				Given %v
-				Candidates %v
-				Expected %v
-				Got %v
+			msg := `FAIL: %s
+	Subject %s
+	Candidates %v
+	Expected %v
+	Got %v
 				`
-			t.Fatalf(msg, tt.description, tt.expected, actual)
+			t.Fatalf(msg, tt.description, tt.subject, tt.candidates, tt.expected, actual)
+		} else {
+			t.Logf("PASS: %s", tt.description)
 		}
 	}
 }
