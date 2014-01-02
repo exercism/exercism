@@ -12,11 +12,11 @@ On Mac OS X or Linux you can install the CLI with the following command [view so
 $ curl http://cli.exercism.io/install | sh
 ```
 
-Or, download the [latest release](github.com/exercism/cli/releases/latest) for your operating system and architecture (32-bit or 64-bit), and place the binary [in your PATH](/v1.0/help/path).
+Or, download the [latest release](http://github.com/exercism/cli/releases/latest) for your operating system and architecture (32-bit or 64-bit), and place the binary [in your PATH](/v1.0/help/path).
 
 To determine your processor architecture, try `uname -m`.
 
-If you're on Windows, get the [latest release](github.com/exercism/cli/releases/latest). To unpack the `.tgz` file you will need a tool like `gzip`, `GNU tar`, or the [universal extractor "uniextract"](http://legroom.net/software/uniextract)". It seems like neither `jzip` or `7-zip` work.
+If you're on Windows, get the [latest release](http://github.com/exercism/cli/releases/latest). To unpack the `.tgz` file you will need a tool like `gzip`, `GNU tar`, or the [universal extractor "uniextract"](http://legroom.net/software/uniextract)". It seems like neither `jzip` or `7-zip` work.
 
 The extracted binary is named `exercism.exe`.
 
