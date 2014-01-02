@@ -219,9 +219,11 @@ class SubmissionsTest < Minitest::Test
   def test_delete_comment
     submission = generate_attempt.submission
     assert_equal 0, Comment.count
+    assert_equal 0, submission.nit_count
     comment = Comment.create(user: bob, submission: submission, body: "ohai")
     delete "/submissions/#{submission.key}/nits/#{comment.id}", {}, login(bob)
     assert_equal 0, Comment.count
+    assert_equal 0, submission.reload.nit_count
   end
 
   def test_reopen_exercise
