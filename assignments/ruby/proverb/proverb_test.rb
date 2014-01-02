@@ -28,6 +28,14 @@ class ProverbTest < MiniTest::Unit::TestCase
     assert_equal expected, proverb.to_s
   end
 
+  def test_proverb_does_not_hard_code_the_rhyme_dictionary
+    skip
+    proverb = Proverb.new('key', 'value')
+    expected = "For want of a key the value was lost.\n" +
+      "And all for the want of a key."
+    assert_equal expected, proverb.to_s
+  end
+
   def test_the_whole_proverb
     skip
     chain = [
