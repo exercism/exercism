@@ -31,7 +31,7 @@ class ExercismApp < Sinatra::Base
   get '/submissions/:key' do |key|
     please_login
 
-    submission = Submission.find_by_key(key)
+    submission = Submission.includes(:user, comments: :user).find_by_key(key)
     unless submission
       flash[:error] = "We can't find that submission."
       redirect '/'
