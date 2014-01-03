@@ -3,7 +3,7 @@ class ExercismApp < Sinatra::Base
   helpers do
     def progress(language)
       summary = Hash.new {|hash, key| hash[key] = {}}
-      Submission.select('slug, state, count(id)').where(language: 'ruby').group(:slug, :state).each do |submission|
+      Submission.select('slug, state, count(id)').where(language: language).group(:slug, :state).each do |submission|
         summary[submission.slug][submission.state] = submission.count.to_i
       end
       sql = "SELECT s.slug, COUNT(c.id) nits FROM comments c INNER JOIN submissions s ON c.submission_id=s.id WHERE s.language=? GROUP BY slug"
