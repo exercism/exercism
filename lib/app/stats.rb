@@ -21,27 +21,18 @@ class ExercismApp < Sinatra::Base
     end
   end
 
-  get '/admin' do
-    redirect "/admin/stats/#{Exercism.languages.first}"
+  get '/stats' do
+    redirect "/stats/#{Exercism.languages.first}"
   end
 
-  get '/admin/stats' do
-    redirect "/admin/stats/#{Exercism.languages.first}"
-  end
-
-  get '/admin/stats/:language' do |language|
+  get '/stats/:language' do |language|
     please_login
-
-    unless current_user.locksmith?
-      flash[:notice] = "Sorry, need to know only."
-      redirect '/'
-    end
 
     trail = Exercism.curriculum.in(language.to_sym)
     languages = Exercism.current
     progress = progress(language)
 
-    erb :"admin/stats", locals: { trail: trail, languages: languages, progress: progress }
+    erb :"stats/show", locals: { trail: trail, languages: languages, progress: progress }
   end
 
 end
