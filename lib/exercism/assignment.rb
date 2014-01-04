@@ -1,11 +1,13 @@
 class Assignment
 
-  attr_reader :path, :language, :slug, :data_dir
-  def initialize(language, slug, path)
+  attr_reader :path, :language, :slug, :data_dir, :code, :filename
+  def initialize(language, slug, path, code=nil, filename=nil)
     @language = language
     @slug = slug
     @data_dir = path
     @path = File.join(path, language, slug)
+    @code = code
+    @filename = filename
   end
 
   def filenames
@@ -43,9 +45,11 @@ class Assignment
   end
 
   def construct_files
-    filenames.reduce({}) do |files, name|
+    files_data = filenames.reduce({}) do |files, name|
       files.merge(name => read(name))
-    end.merge("README.md" => readme).sort_by {|name, text| name.downcase}
+    end.merge("README.md" => readme)
+    files_data.merge!(filename => code) if code && filename
+    files_data.sort_by {|name, text| name.downcase}
   end
 end
 

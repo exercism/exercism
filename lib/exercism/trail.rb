@@ -13,8 +13,8 @@ class Trail
     exercises.find {|ex| ex.slug == slug}
   end
 
-  def assign(slug)
-    Assignment.new(language, slug, path)
+  def assign(slug, code=nil, filename=nil)
+    Assignment.new(language, slug, path, code, filename)
   end
 
   def first_assignment
