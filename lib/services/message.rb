@@ -14,6 +14,7 @@ class Message
     @target = options.fetch(:target)
     @site_root = options.fetch(:site_root)
     @intercept_emails = options.fetch(:intercept_emails) { false }
+    @html = options.fetch(:html) { false }
   end
 
   def exercise
@@ -67,6 +68,7 @@ class Message
       subject: full_subject,
       body: body,
       intercept_emails: intercept_emails?,
+      html: @html
     ).ship
     self
   end

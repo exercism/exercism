@@ -1,0 +1,36 @@
+<p>Hi <%= name %>,</p>
+
+<p>Here's your daily digest from Exercism.<p>
+
+<% if notifications %>
+  <p>
+    <h2> Notifications (<%= notifications.count %>) </h2>
+    <% notifications.each do |notification| %>
+      <li>
+        <a href="<%= notification.link %>">
+          <%= notification.language %>: <%= notification.slug %>
+        </a>
+        <%= notification.regarding %> from: <%= notification.username %> <i><%= ago(notification.created_at) %></i>
+      </li>
+    <% end %>
+  </p>
+<% end %>
+
+<% if pending_submissions %>
+  <p>
+    <h2>Pending Submissions</h2>
+    <% pending_submissions.each do |submission| %>
+      <li>
+        <a href="<%= site_root %>/submissions/<%= submission.key %>"><%= submission.language %>: <%= submission.slug %></a>
+        <%= submission.user.username %>
+        submitted this exercise <%= ago(submission.created_at) %>
+      </li>
+    <% end %>
+  </p>
+<% end %>
+  
+</br>
+--</br>
+If you'd like to stop receiving email notifications, go to <a href="<%= site_root %>/<%= @user.username %>"><%= site_root %>/<%= @user.username %></a> and delete your email address.
+
+Do you have thoughts? Ideas? Criticism? I'd love to hear from you. Hit reply to send me an email.
