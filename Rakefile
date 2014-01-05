@@ -30,9 +30,12 @@ namespace :test do
       system("ruby #{file}")
     end
 
-    puts "FAILURES IN:"
-    failures.each do |failure|
-      puts failure
+    unless failures.empty?
+      puts "FAILURES IN:"
+      failures.each do |failure|
+        puts failure
+      end
+      exit 1
     end
   end
 end
