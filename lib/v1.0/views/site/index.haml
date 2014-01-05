@@ -14,7 +14,10 @@
         %h2 Practice
         %p
           We give you a README and a test suite. You make the tests pass... but that's just the first step.
-          The goal is to focus on expressive, readable code. Work locally in your usual environment using your usual tools.
+          The goal is to focus on expressive, readable code
+          = succeed "." do
+            %a{:href => link_to('/about')} in multiple languages
+          Work locally in your usual environment using your usual tools.
       .col-md-4
         .sprite-icon-social.icon-circle.center
         %h2 Get Feedback
