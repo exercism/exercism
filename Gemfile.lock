@@ -122,7 +122,7 @@ DEPENDENCIES
   foreman
   haml
   loofah
-  mailcatcher
+  mailcatcher (~> 0.5)
   minitest (~> 5.2)
   mocha
   newrelic_rpm (~> 3.7)

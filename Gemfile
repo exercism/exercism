@@ -30,7 +30,7 @@ group :test, :development do
   gem 'rack-test', require: false
   gem 'mocha', require: false
   gem 'simplecov', require: false
-  gem 'mailcatcher', require: false # for Travis-CI
+  gem 'mailcatcher', '~> 0.5', require: false # for Travis-CI
   gem 'faker', '~> 1.2', require: false # for seed data
   gem 'foreman', require: false
 end
