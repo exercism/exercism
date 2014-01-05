@@ -40,8 +40,8 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_ampersands
     input = "```\nbig && strong\n```"
-    expected = %q{<div class="highlight plaintext"><table><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1</pre></td>
+    expected = %q{<div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
 <td class="code"><pre>big &amp;&amp; strong
 </pre></td>
 </tr></tbody></table></div>}
@@ -50,8 +50,8 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_text_and_double_braces
     input = "```\nx{{current}}y\n```"
-    expected = %q{<div class="highlight plaintext"><table><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1</pre></td>
+    expected = %q{<div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
 <td class="code"><pre>x{{current}}y
 </pre></td>
 </tr></tbody></table></div>}
@@ -61,8 +61,8 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_double_braces
     input = "```\n{{x: y}}\n```"
-    expected = %q{<div class="highlight json"><table><tbody><tr>
-<td class="gutter gl"><pre class="lineno">1</pre></td>
+    expected = %q{<div class="highlight json"><table style="border-spacing: 0;"><tbody><tr>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
 <td class="code"><pre><span class="p">{</span><span class="err">{x</span><span class="p">:</span><span class="w"> </span><span class="err">y</span><span class="p">}</span><span class="err">}</span><span class="w">
 </span></pre></td>
 </tr></tbody></table></div>}
@@ -76,8 +76,8 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
                  "{{action}}, {{remaining}} of beer on the wall.\n";}
 
-    expected = %Q{<div class="highlight plaintext"><table><tbody><tr>
-<td class="gutter gl">
+    expected = %Q{<div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
+<td class="gutter gl" style="text-align: right;">
 <pre class="lineno">1</pre>
 <pre class="lineno">2</pre>
 <pre class="lineno">3</pre>
@@ -108,8 +108,8 @@ end
 Post text}
 
     expected = %q{<p>Pre text</p>
-<div class="highlight plaintext"><table><tbody><tr>
-<td class="gutter gl">
+<div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
+<td class="gutter gl" style="text-align: right;">
 <pre class="lineno">1</pre>
 <pre class="lineno">2</pre>
 <pre class="lineno">3</pre>
@@ -134,8 +134,8 @@ end
 ```}
 
     expected = %q{<p>Check out this code:</p>
-<div class="highlight clojure"><table><tbody><tr>
-<td class="gutter gl">
+<div class="highlight clojure"><table style="border-spacing: 0;"><tbody><tr>
+<td class="gutter gl" style="text-align: right;">
 <pre class="lineno">1</pre>
 <pre class="lineno">2</pre>
 <pre class="lineno">3</pre>

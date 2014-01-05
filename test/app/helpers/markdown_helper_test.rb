@@ -18,13 +18,13 @@ CODE
 RUBY
     output = helper.md(code, "ruby")
     expected = <<HTML.strip
-<div class="highlight ruby"><table><tbody><tr>
-<td class=\"gutter gl\"><pre class=\"lineno\">1</pre></td>
+<div class="highlight ruby"><table style=\"border-spacing: 0;\"><tbody><tr>
+<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\">1</pre></td>
 <td class="code"><pre><span class="no">CODE</span>
 </pre></td>
 </tr></tbody></table></div>
-&lt;script&gt;alert('hi, bob!')&lt;/script&gt;<div class="highlight plaintext"><table><tbody><tr>
-<td class=\"gutter gl\"><pre class=\"lineno\">1</pre></td>
+&lt;script&gt;alert('hi, bob!')&lt;/script&gt;<div class="highlight plaintext"><table style=\"border-spacing: 0;\"><tbody><tr>
+<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\">1</pre></td>
 <td class="code"><pre>
 </pre></td>
 </tr></tbody></table></div>
