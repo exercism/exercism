@@ -36,6 +36,7 @@ class Attempt
     user.clear_stash(file.path)
     remove_from_completed(exercise)
     submission.code = code
+    submission.filename = file.filename
     user.submissions << submission
     user.save
     Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update

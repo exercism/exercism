@@ -2,6 +2,7 @@ require './test/test_helper'
 require 'faker'
 require 'seed/attempt'
 require 'seed/comment'
+require 'exercism/code'
 
 class Seed::AttemptTest < Minitest::Test
   def now
@@ -17,6 +18,7 @@ class Seed::AttemptTest < Minitest::Test
       created_at: now,
       state: 'pending',
       code: 'CODE',
+      filename: 'word-count.rb',
       user: user
     }
     assert_equal attributes, attempt.by(user)

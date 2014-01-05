@@ -3,7 +3,7 @@ module Seed
     def attributes
       members.each_with_object({}) do |member, attrs|
         attrs[member] = send(member)
-      end.merge(code: 'CODE')
+      end.merge(code: 'CODE').merge(filename: filename)
     end
 
     def completed?
@@ -32,6 +32,10 @@ module Seed
 
     def after(timestamp)
       (timestamp || created_at) + rand(1000..100000)
+    end
+
+    def filename
+      slug + "." + Code::LANGUAGES.invert[language]
     end
   end
 end

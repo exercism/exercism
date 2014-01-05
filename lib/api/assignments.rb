@@ -1,5 +1,6 @@
 require 'api/assignments/demo'
 require 'api/assignments/fetch'
+require 'api/assignments/restore'
 
 class ExercismAPI < Sinatra::Base
   helpers do
@@ -46,6 +47,14 @@ class ExercismAPI < Sinatra::Base
 
   get '/user/assignments/next' do
     halt 410, {error: "`peek` is deprecated. `fetch` always delivers the next exercise."}.to_json
+  end
+
+  get '/user/assignments/restore' do
+    require_user
+    sql = "SELECT u.language, u.slug, s.code, s.filename FROM user_exercises u, submissions s WHERE u.id = s.user_exercise_id AND u.state = s.state AND u.state IN ('done', 'pending') AND u.user_id = %s" % current_user.id.to_s
+    submitted = ActiveRecord::Base.connection.execute(sql).map {|result| [result["language"], result["slug"], result["code"], result["filename"]]}
+    handler = API::Assignments::Restore.new(submitted, curriculum)
+    pg :assignments_compact, locals: {assignments: handler.assignments}
   end
 
   post '/user/assignments' do
