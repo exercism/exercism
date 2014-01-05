@@ -2,7 +2,7 @@ require './test/test_helper'
 require 'exercism/article'
 require 'app/helpers/article_helper'
 
-class ArticleHelperTest < Minitest::Test
+class ArticleHelperTest < MiniTest::Unit::TestCase
 
   def helper
     return @helper if @helper

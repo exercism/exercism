@@ -2,7 +2,7 @@ require './test/test_helper'
 require 'faker'
 require 'seed/user_pool'
 
-class SeedUserPoolTest < Minitest::Test
+class SeedUserPoolTest < MiniTest::Unit::TestCase
   def test_small_pool
     pool = Seed::UserPool.new(3)
 

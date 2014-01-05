@@ -3,7 +3,7 @@ require 'seed/exercise'
 require 'seed/attempt'
 require 'seed/timeline'
 
-class SeedExerciseTest < Minitest::Test
+class SeedExerciseTest < MiniTest::Unit::TestCase
 
   def test_random_size
     sizes = (1..100).map do

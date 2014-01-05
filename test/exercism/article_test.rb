@@ -2,7 +2,7 @@ require './test/test_helper'
 require 'exercism/article'
 require 'exercism/converts_markdown_to_html'
 
-class ArticleTest < Minitest::Test
+class ArticleTest < MiniTest::Unit::TestCase
   def test_variable_replacement
     article = Article.new('This {{THING}} sucks!', 'THING' => 'stuff')
     assert_equal 'This stuff sucks!', article.to_s

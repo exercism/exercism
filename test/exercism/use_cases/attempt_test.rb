@@ -1,7 +1,7 @@
 require './test/integration_helper'
 require './test/fixtures/fake_curricula'
 
-class AttemptTest < Minitest::Test
+class AttemptTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   attr_reader :user, :curriculum

@@ -6,7 +6,7 @@ require 'seed/pod'
 class Exercism
 end
 
-class SeedPodTest < Minitest::Test
+class SeedPodTest < MiniTest::Unit::TestCase
   def curricula
     [
       FakePythonCurriculum.new,

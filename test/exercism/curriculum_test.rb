@@ -7,7 +7,7 @@ require 'exercism/assignment'
 require 'exercism/trail'
 require 'exercism/curriculum'
 
-class CurriculumTest < Minitest::Test
+class CurriculumTest < MiniTest::Unit::TestCase
 
   attr_reader :curriculum
   def setup
@@ -36,7 +36,7 @@ class CurriculumTest < Minitest::Test
   end
 end
 
-class ConvenienceCurriculumTest < Minitest::Test
+class ConvenienceCurriculumTest < MiniTest::Unit::TestCase
   attr_reader :curriculum
   def setup
     super

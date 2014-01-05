@@ -4,7 +4,7 @@ require 'exercism/comment'
 require 'exercism/submission'
 require 'exercism/notification'
 
-class NotificationTest < Minitest::Test
+class NotificationTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def teardown

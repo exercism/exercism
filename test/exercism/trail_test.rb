@@ -4,7 +4,7 @@ require 'exercism/named'
 require 'exercism/exercise'
 require 'exercism/trail'
 
-class TrailTest < Minitest::Test
+class TrailTest < MiniTest::Unit::TestCase
 
   attr_reader :trail, :one, :two
 

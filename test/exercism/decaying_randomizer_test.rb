@@ -2,7 +2,7 @@ require './test/test_helper'
 require 'exercism/decaying_randomizer'
 require 'mocha/setup'
 
-class DecayingRandomizerTest < Minitest::Test
+class DecayingRandomizerTest < MiniTest::Unit::TestCase
 
   def randomizer
     @randomizer ||= DecayingRandomizer.new(100)

@@ -1,6 +1,6 @@
 require './test/integration_helper'
 
-class UserTest < Minitest::Test
+class UserTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def test_user_create_key

@@ -1,7 +1,7 @@
 require './test/test_helper'
 require 'exercism/markdown'
 
-class MarkdownTest < Minitest::Test
+class MarkdownTest < MiniTest::Unit::TestCase
   def test_mention
     markdown = "u @goose."
     expected = "<p>u <a class=\"mention\" href=\"/goose\">@goose</a>.</p>"

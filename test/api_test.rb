@@ -7,7 +7,7 @@ class ExercismAPI < Sinatra::Base
   end
 end
 
-class ApiTest < Minitest::Test
+class ApiTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods
   include AppTestHelper
   include DBCleaner

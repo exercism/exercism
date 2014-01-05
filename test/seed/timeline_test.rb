@@ -2,7 +2,7 @@ require './test/test_helper'
 require 'time'
 require 'seed/timeline'
 
-class SeedTimelineTest < Minitest::Test
+class SeedTimelineTest < MiniTest::Unit::TestCase
   def test_small_number_of_events
     timeline = Seed::Timeline.new(3)
     assert_equal 3, timeline.events.size

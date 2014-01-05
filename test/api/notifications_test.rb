@@ -1,6 +1,6 @@
 require './test/api_helper'
 
-class NotificationsApiTest < Minitest::Test
+class NotificationsApiTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods
   include AppTestHelper
   include DBCleaner

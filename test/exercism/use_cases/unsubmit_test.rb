@@ -1,6 +1,6 @@
 require './test/integration_helper'
 
-class UnsubmitTest < Minitest::Test
+class UnsubmitTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def teardown

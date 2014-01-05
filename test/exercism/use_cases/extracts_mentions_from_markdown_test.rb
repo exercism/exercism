@@ -1,6 +1,6 @@
 require './test/integration_helper'
 
-class ExtractsMentionsFromMarkdownTest < Minitest::Test
+class ExtractsMentionsFromMarkdownTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   attr_reader :user

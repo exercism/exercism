@@ -2,7 +2,7 @@ require './test/integration_helper'
 require './test/fixtures/fake_curricula'
 require "mocha/setup"
 
-class SubmissionTest < Minitest::Test
+class SubmissionTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def exercise

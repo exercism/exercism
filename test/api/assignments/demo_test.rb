@@ -8,7 +8,7 @@ require 'exercism/curriculum'
 require 'exercism/assignment'
 require 'api/assignments/demo'
 
-class APIAssignmentsDemoTest < Minitest::Test
+class APIAssignmentsDemoTest < MiniTest::Unit::TestCase
 
   def test_demo_assignments
     curriculum = Curriculum.new('./test/fixtures')

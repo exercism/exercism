@@ -10,7 +10,7 @@ require './lib/exercism/notification'
 require './lib/exercism/named'
 require './lib/exercism/exercise'
 
-class HibernationTest < Minitest::Test
+class HibernationTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   FakeUser = Struct.new(:id, :username, :email)

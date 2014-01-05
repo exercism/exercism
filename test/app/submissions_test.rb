@@ -1,7 +1,7 @@
 require './test/app_helper'
 require 'mocha/setup'
 
-class SubmissionsTest < Minitest::Test
+class SubmissionsTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods
   include AppTestHelper
   include DBCleaner

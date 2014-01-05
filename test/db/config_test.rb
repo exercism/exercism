@@ -1,7 +1,7 @@
 require './test/test_helper'
 require 'db/config'
 
-class DB::ConfigTest < Minitest::Test
+class DB::ConfigTest < MiniTest::Unit::TestCase
   def test_default_file
     file = './config/database.yml'
     assert_equal file, DB::Config.new('env').file

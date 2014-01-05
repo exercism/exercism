@@ -4,7 +4,7 @@ require 'seed/attempt'
 require 'seed/comment'
 require 'exercism/code'
 
-class Seed::AttemptTest < Minitest::Test
+class Seed::AttemptTest < MiniTest::Unit::TestCase
   def now
     @now ||= Time.now
   end

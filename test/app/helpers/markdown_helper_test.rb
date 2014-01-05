@@ -1,7 +1,7 @@
 require './test/integration_helper'
 require 'app/helpers/markdown_helper'
 
-class MarkdownHelperTest < Minitest::Test
+class MarkdownHelperTest < MiniTest::Unit::TestCase
   def helper
     return @helper if @helper
     @helper = Object.new

@@ -1,6 +1,6 @@
 require './test/api_helper'
 
-class StashesApiTest < Minitest::Test
+class StashesApiTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods
   include DBCleaner
 

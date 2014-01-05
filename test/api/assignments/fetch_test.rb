@@ -8,7 +8,7 @@ require 'exercism/curriculum'
 require 'exercism/assignment'
 require 'api/assignments/fetch'
 
-class APIAssignmentsFetchTest < Minitest::Test
+class APIAssignmentsFetchTest < MiniTest::Unit::TestCase
   def test_fetch_assignments
     curriculum = Curriculum.new('/tmp')
     curriculum.add FakePythonCurriculum.new

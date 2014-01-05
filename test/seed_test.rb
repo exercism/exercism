@@ -2,7 +2,7 @@ require './test/active_record_helper'
 require 'exercism'
 require 'seed'
 
-class SeedTest < Minitest::Test
+class SeedTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def test_generate

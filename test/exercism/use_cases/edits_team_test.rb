@@ -1,7 +1,7 @@
 require './test/integration_helper'
 require 'mocha/setup'
 
-class EditsTeamTest < Minitest::Test
+class EditsTeamTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def setup

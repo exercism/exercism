@@ -2,7 +2,7 @@ require './test/test_helper'
 require 'exercism/named'
 require 'exercism/exercise'
 
-class ExerciseTest < Minitest::Test
+class ExerciseTest < MiniTest::Unit::TestCase
   def test_exercise_attributes
     exercise = Exercise.new('go', 'one')
 

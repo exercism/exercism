@@ -1,6 +1,6 @@
 require './test/integration_helper'
 
-class MuteTest < Minitest::Test
+class MuteTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def teardown

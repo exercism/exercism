@@ -2,7 +2,7 @@ require './test/test_helper'
 require 'time'
 require 'seed/comment'
 
-class SeedCommentTest < Minitest::Test
+class SeedCommentTest < MiniTest::Unit::TestCase
   def now
     @now ||= Time.now
   end

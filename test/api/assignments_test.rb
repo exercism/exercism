@@ -2,7 +2,7 @@ require './test/api_helper'
 require './test/fixtures/fake_curricula'
 require 'mocha/setup'
 
-class AssignmentsApiTest < Minitest::Test
+class AssignmentsApiTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods
   include DBCleaner
 

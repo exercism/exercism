@@ -40,7 +40,6 @@ GEM
     method_source (0.8.2)
     mime-types (1.25.1)
     mini_portile (0.5.1)
-    minitest (5.2.0)
     mocha (0.14.0)
       metaclass (~> 0.0.1)
     multi_json (1.8.2)
@@ -104,7 +103,6 @@ DEPENDENCIES
   foreman
   haml
   loofah
-  minitest (~> 5.2)
   mocha
   newrelic_rpm (~> 3.7)
   petroglyph

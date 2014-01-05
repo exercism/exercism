@@ -4,7 +4,7 @@ require 'seed/attempt'
 require 'seed/exercise'
 require 'seed/trail'
 
-class SeedTrailTest < Minitest::Test
+class SeedTrailTest < MiniTest::Unit::TestCase
   class FakePythonCurriculum
     def slugs
       %w(one two three four five six seven)

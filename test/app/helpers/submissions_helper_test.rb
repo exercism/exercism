@@ -1,7 +1,7 @@
 require './test/integration_helper'
 require 'app/helpers/submissions_helper'
 
-class SubmissionsHelperTest < Minitest::Test
+class SubmissionsHelperTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def setup

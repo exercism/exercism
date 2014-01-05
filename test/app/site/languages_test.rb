@@ -1,7 +1,7 @@
 require './test/test_helper'
 require 'app/site/languages'
 
-class AppSiteLanguagesTest < Minitest::Test
+class AppSiteLanguagesTest < MiniTest::Unit::TestCase
   def test_one_language
     assert_equal "Python", App::Site::Languages.new(['Python']).to_s
   end

@@ -1,7 +1,7 @@
 require './test/integration_helper'
 require 'mocha/setup'
 
-class CreatesCommentTest < Minitest::Test
+class CreatesCommentTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def exercise

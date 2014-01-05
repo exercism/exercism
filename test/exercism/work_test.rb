@@ -1,7 +1,7 @@
 require './test/integration_helper'
 require 'mocha/setup'
 
-class WorkTest < Minitest::Test
+class WorkTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def test_work_where_alice_has_commented

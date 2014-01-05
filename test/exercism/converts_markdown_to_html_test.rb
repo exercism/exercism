@@ -5,7 +5,7 @@ require './lib/exercism/markdown'
 require './lib/exercism/converts_markdown_to_html'
 require 'mocha/setup'
 
-class ConvertsMarkdownToHTMLTest < Minitest::Test
+class ConvertsMarkdownToHTMLTest < MiniTest::Unit::TestCase
 
   def check_sanitisation(input, expected)
     converter = ConvertsMarkdownToHTML.new(input)

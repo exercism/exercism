@@ -2,7 +2,7 @@ require './test/test_helper'
 require 'app/help/setup'
 require 'exercism/curriculum' # I hate the dependencies here
 
-class AppHelpSetupTest < Minitest::Test
+class AppHelpSetupTest < MiniTest::Unit::TestCase
   def with_stubbed_languages(&block)
     Exercism.stub(:languages, [:ruby]) do
       Exercism.stub(:upcoming, ["PHP"]) do
