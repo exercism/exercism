@@ -61,21 +61,22 @@ Different languages/trails do not need to have the same assignments or the same 
 1. Install postgresql with: `brew install postgresql` or `apt-get install postgresql-9.2`
 2. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
 3. Install gems with: `bundle`
-4. Get a client id/secret from Github at https://github.com/settings/applications/new.
+4. Install `mailcatcher` with `gem install mailcatcher`
+5. Get a client id/secret from Github at https://github.com/settings/applications/new.
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-5. Presuming you have Postgres installed (if not: `brew install postgres`):
+6. Presuming you have Postgres installed (if not: `brew install postgres`):
   * create db user with: `createuser exercism`.
   * create database with: `createdb -O exercism exercism_development`.
-6. Run the database migrations with `rake db:migrate`.
-7. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
-8. Copy `config/env` to `.env`
-9. Edit `.env` to fill in the correct values.
-10. Start the server with `foreman start`
-11. Login at http://localhost:4567.
-12. You can view the mails send in [MailCatcher](http://mailcatcher.me/) in your browser at [localhost:1080](http://localhost:1080).
-13. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
+7. Run the database migrations with `rake db:migrate`.
+8. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
+9. Copy `config/env` to `.env`
+10. Edit `.env` to fill in the correct values.
+11. Start the server with `foreman start`
+12. Login at http://localhost:4567.
+13. You can view the emails sent in [MailCatcher](http://mailcatcher.me/) in your browser at [localhost:1080](http://localhost:1080).
+14. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
 
 ## Frontend development setup
 1. Install node and npm

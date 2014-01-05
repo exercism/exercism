@@ -5,6 +5,8 @@ require 'active_record'
 require 'database_cleaner'
 require 'db/connection'
 
+I18n.enforce_available_locales = false
+
 DB::Connection.establish
 
 DatabaseCleaner.strategy = :transaction

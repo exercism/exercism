@@ -19,6 +19,8 @@ class MessageTest < Minitest::Test
   FakeSubmission = Struct.new(:user)
 
   def test_send_nitpick_email
+    return if ENV['CI'] == '1'
+
     instigator = FakeUser.new('instigator', 'instigator@example.com')
     submitter = FakeUser.new('submitter', 'submitter@example.com')
     submission = FakeSubmission.new(submitter)
