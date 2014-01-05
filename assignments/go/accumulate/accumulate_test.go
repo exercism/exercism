@@ -24,7 +24,7 @@ func TestAccumulate(t *testing.T) {
 	for _, test := range tests {
 		actual := Accumulate(test.given, test.converter)
 		if fmt.Sprintf("%s", actual) != fmt.Sprintf("%s", test.expected) {
-			t.Fatalf("Allergies(%s, %s): expected %s, actual %s", test.given, test.converter, test.expected, actual)
+			t.Fatalf("Allergies(%s, %#v): expected %s, actual %s", test.given, test.converter, test.expected, actual)
 		} else {
 			t.Logf("PASS: %s %v", test.description, test.given)
 		}
