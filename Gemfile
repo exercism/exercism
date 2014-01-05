@@ -24,7 +24,7 @@ gem 'will_paginate-bootstrap'
 
 group :test, :development do
   gem 'ruby-prof'
-  gem 'minitest', '~> 5.0', require: false
+  gem 'minitest', '~> 5.2', require: false
   gem 'database_cleaner', require: false
   gem 'approvals', require: false
   gem 'rack-test', require: false
