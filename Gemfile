@@ -6,7 +6,7 @@ gem 'activerecord', '~> 3.2'
 gem 'faraday'
 gem 'haml', require: false
 gem 'loofah'
-gem 'newrelic_rpm', '=3.6.9.171' # used both in production and development
+gem 'newrelic_rpm', '~>3.7' # used both in production and development
 gem 'petroglyph'
 gem 'pg'
 # Pony must not be required. See
