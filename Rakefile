@@ -8,7 +8,7 @@ require 'rake/testtask'
 Rake::TestTask.new do |t|
   require 'bundler'
   Bundler.require
-  t.pattern = "test/**/*_test.rb"
+  t.test_files = FileList['test/**/*_test.rb'].exclude('test/fixtures/**/*')
 end
 
 namespace :db do
@@ -25,7 +25,7 @@ end
 desc "Run each test file independently"
 namespace :test do
   task :each do
-    files = Dir.glob('test/**/*_test.rb')
+    files = FileList['test/**/*_test.rb'].exclude('test/fixtures/**/*')
     failures = files.reject do |file|
       system("ruby #{file}")
     end
