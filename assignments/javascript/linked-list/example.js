@@ -6,11 +6,11 @@ function Node(value, next, prev) {
   this.prev = prev || this;
 }
 
-function Deque() {
+function LinkedList() {
   this._front = null;
 }
 
-Deque.prototype.push = function Deque_push(value) {
+LinkedList.prototype.push = function LinkedList_push(value) {
   if (this._front === null) {
     this._front = new Node(value);
   } else {
@@ -21,17 +21,18 @@ Deque.prototype.push = function Deque_push(value) {
   }
 };
 
-Deque.prototype.unshift = function Deque_unshift(value) {
+LinkedList.prototype.unshift = function LinkedList_unshift(value) {
   this.push(value);
   this._front = this._front.prev;
 };
 
-Deque.prototype.pop = function Deque_pop() {
+LinkedList.prototype.pop = function LinkedList_pop() {
+  if (this._front === null) {return undefined};
   this._front = this._front.prev;
   return this.shift();
 };
 
-Deque.prototype.shift = function Deque_shift() {
+LinkedList.prototype.shift = function LinkedList_shift() {
   var value = this._front.value;
   var front = this._front.next;
   var back = this._front.prev;
@@ -45,4 +46,26 @@ Deque.prototype.shift = function Deque_shift() {
   return value;
 };
 
-module.exports = Deque;
+LinkedList.prototype.count = function() {
+  if (this._front === null) {
+    return 0;
+  } else if (this._front.next === this._front) {
+    return 1;
+  } else {
+    this._front.next = this._front.next.next;
+    return this.count() + 1;
+  }
+};
+
+LinkedList.prototype.delete = function(match) {
+  if (this._front.next === this._front && this._front.value === match) {
+    this._front = null;
+  } else if (this._front.next.value === match) {
+    this._front.next = this._front.next.next;
+  } else {
+    this._front = this._front.next;
+    return this.delete(match);
+  }
+};
+
+module.exports = LinkedList;
