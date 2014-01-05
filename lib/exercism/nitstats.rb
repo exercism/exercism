@@ -26,7 +26,7 @@ class Nitstats
            and c.submission_id = s.id
            and s.user_id != #{user.id}
            group by date(c.created_at) order by date(c.created_at)"
-    extract_stat ActiveRecord::Base.connection.execute(sql)
+    extract_stat Submission.connection.execute(sql)
   end
 
   def received
@@ -36,7 +36,7 @@ class Nitstats
            and c.submission_id = s.id
            and s.user_id = #{user.id}
            group by date(c.created_at) order by date(c.created_at)"
-    extract_stat ActiveRecord::Base.connection.execute(sql)
+    extract_stat Submission.connection.execute(sql)
   end
 
   def from

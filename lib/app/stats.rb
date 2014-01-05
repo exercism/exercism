@@ -9,7 +9,7 @@ class ExercismApp < Sinatra::Base
       sql = "SELECT s.slug, COUNT(c.id) nits FROM comments c INNER JOIN submissions s ON c.submission_id=s.id WHERE s.language=? GROUP BY slug"
       query = ActiveRecord::Base.send(:sanitize_sql_array, [sql, language])
 
-      ActiveRecord::Base.connection.execute(query).to_a.each do |submission|
+      Submission.connection.execute(query).to_a.each do |submission|
         summary[submission["slug"]]["nits"] = submission["nits"]
       end
       summary

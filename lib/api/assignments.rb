@@ -37,9 +37,9 @@ class ExercismAPI < Sinatra::Base
   get '/user/assignments/current' do
     require_user
     sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='done'" % current_user.id.to_s
-    completed = ActiveRecord::Base.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
+    completed = Submission.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
     sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='pending'" % current_user.id.to_s
-    current = ActiveRecord::Base.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
+    current = Submission.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
 
     handler = API::Assignments::Fetch.new(completed, current, curriculum)
     pg :assignments, locals: {assignments: handler.assignments}
@@ -52,7 +52,7 @@ class ExercismAPI < Sinatra::Base
   get '/user/assignments/restore' do
     require_user
     sql = "SELECT u.language, u.slug, s.code, s.filename FROM user_exercises u, submissions s WHERE u.id = s.user_exercise_id AND u.state = s.state AND u.state IN ('done', 'pending') AND u.user_id = %s" % current_user.id.to_s
-    submitted = ActiveRecord::Base.connection.execute(sql).map {|result| [result["language"], result["slug"], result["code"], result["filename"]]}
+    submitted = Submission.connection.execute(sql).map {|result| [result["language"], result["slug"], result["code"], result["filename"]]}
     handler = API::Assignments::Restore.new(submitted, curriculum)
     pg :assignments_compact, locals: {assignments: handler.assignments}
   end

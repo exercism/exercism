@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
   def completed
     @completed ||= begin
       sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='done' ORDER BY created_at ASC" % id.to_s
-      connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, exercises|
+      User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, exercises|
         exercises[result["language"]] << result["slug"]
       end
     end
