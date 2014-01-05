@@ -197,7 +197,7 @@ class SubmissionTest < MiniTest::Unit::TestCase
     # All the expected submissions got created
     assert_equal 4, Submission.count
 
-    ids = Submission.aging.all.map(&:id)
+    ids = Submission.aging.map(&:id)
     assert_equal [s4.id], ids
   end
 end

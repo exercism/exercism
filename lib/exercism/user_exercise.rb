@@ -1,5 +1,5 @@
 class UserExercise < ActiveRecord::Base
-  has_many :submissions, :order => 'created_at ASC'
+  has_many :submissions, ->{ order 'created_at ASC' }
   belongs_to :user
 
   scope :active,    ->{ where(state: 'pending') }

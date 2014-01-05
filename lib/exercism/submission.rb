@@ -3,7 +3,7 @@ class Submission < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :user_exercise
-  has_many :comments, order: 'created_at ASC', dependent: :destroy
+  has_many :comments, ->{ order 'created_at ASC' }, dependent: :destroy
 
   # I don't really want the notifications method,
   # just the dependent destroy

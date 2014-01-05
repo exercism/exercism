@@ -2,7 +2,7 @@ source "http://rubygems.org"
 
 ruby "2.0.0"
 
-gem 'activerecord', '~> 3.2'
+gem 'activerecord', '~> 4.0'
 gem 'faraday'
 gem 'haml', require: false
 gem 'loofah'

@@ -1,6 +1,6 @@
 ENV['RACK_ENV'] = 'test'
 require './test/test_helper'
-gem 'activerecord', '~> 3.2'
+gem 'activerecord', '~> 4.0'
 require 'active_record'
 require 'database_cleaner'
 require 'db/connection'
