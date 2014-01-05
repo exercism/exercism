@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 1.9.3
+  - 2.0.0
 before_script:
   - './test/haskell/bootstrap.sh'
   - './test/rust/bootstrap.sh'
