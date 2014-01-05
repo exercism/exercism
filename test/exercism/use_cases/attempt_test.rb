@@ -70,7 +70,9 @@ class AttemptTest < MiniTest::Unit::TestCase
   def test_a_new_attempt_unmutes_previous_attempt
     tom = User.create(username: 'tom')
     jerry = User.create(username: 'jerry')
-    submission = Submission.create(user: user, language: 'ruby', slug: 'two', created_at: Time.now, muted_by: [tom, jerry])
+    submission = Submission.create(user: user, language: 'ruby', slug: 'two', created_at: Time.now)
+    submission.mute! tom
+    submission.mute! jerry
     Attempt.new(user, 'CODE 2', 'two/two.rb', curriculum).save
     assert_equal [], submission.reload.muted_by
   end
