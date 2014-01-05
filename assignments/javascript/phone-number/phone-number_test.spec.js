@@ -31,7 +31,7 @@ describe("PhoneNumber()", function() {
     expect(phone.areaCode()).toEqual("123");
   });
 
-  xit("has an area code", function() {
+  xit("formats a number", function() {
     var phone = new PhoneNumber("1234567890");
     expect(phone.toString()).toEqual("(123) 456-7890");
   });
