@@ -31,7 +31,7 @@ group :test, :development do
   gem 'mocha', require: false
   gem 'simplecov', require: false
   gem 'mailcatcher', require: false # for Travis-CI
-  gem 'faker', require: false # for seed data
+  gem 'faker', '~> 1.2', require: false # for seed data
   gem 'foreman', require: false
 end
 

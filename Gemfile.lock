@@ -32,7 +32,7 @@ GEM
       thor (>= 0.13.6)
     haml (4.0.4)
       tilt
-    i18n (0.6.5)
+    i18n (0.6.9)
     loofah (1.2.1)
       nokogiri (>= 1.4.4)
     mail (2.5.4)
@@ -117,7 +117,7 @@ DEPENDENCIES
   activerecord (~> 3.2)
   approvals
   database_cleaner
-  faker
+  faker (~> 1.2)
   faraday
   foreman
   haml
