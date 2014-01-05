@@ -138,6 +138,6 @@ DEPENDENCIES
   rouge (~> 1.2.0)
   ruby-prof
   simplecov
-  sinatra
+  sinatra (~> 1.4.4)
   will_paginate
   will_paginate-bootstrap

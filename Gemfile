@@ -18,7 +18,7 @@ gem 'rack-flash3', require: 'rack-flash'
 gem 'rake'
 gem 'redcarpet'
 gem 'rouge', '~> 1.2.0'
-gem 'sinatra', require: 'sinatra/base'
+gem 'sinatra', '~> 1.4.4', require: 'sinatra/base'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
