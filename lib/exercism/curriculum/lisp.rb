@@ -14,6 +14,7 @@ class Exercism
         robot-name
         leap
         etl
+        meetup
         space-age
       )
     end
