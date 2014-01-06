@@ -52,7 +52,7 @@ describe('Anagram', function() {
 
   xit("does not detect a word as its own anagram",function() {
     var detector = new Anagram("banana");
-    var matches = detector.match(['banana']);
+    var matches = detector.match(['Banana']);
     expect(matches).toEqual([]);
   });
 });
