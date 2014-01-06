@@ -6,7 +6,7 @@ require './lib/exercism/use_cases/notify'
 require './lib/services/message'
 require './lib/services/email'
 require './lib/services/hibernation_message'
-require './lib/exercism/notification'
+require './lib/exercism/submission_notification'
 require './lib/exercism/named'
 require './lib/exercism/exercise'
 

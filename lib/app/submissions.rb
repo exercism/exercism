@@ -38,7 +38,7 @@ class ExercismApp < Sinatra::Base
     end
 
     submission.viewed!(current_user)
-    Notification.viewed!(submission, current_user)
+    SubmissionNotification.viewed!(submission, current_user)
 
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
 
