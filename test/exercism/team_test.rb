@@ -42,8 +42,15 @@ class TeamTest < MiniTest::Unit::TestCase
   end
 
   def test_has_members
-    team = Team.create(slug: 'purple', members: [alice], creator: bob)
+    team = Team.create(slug: 'purple', unconfirmed_members: [alice], creator: bob)
 
+    assert_equal [alice], team.unconfirmed_members
+    assert_equal [], team.members
+    refute alice.teams.include?(team)
+
+    team.confirm(alice.username)
+
+    assert_equal [], team.unconfirmed_members
     assert_equal [alice], team.members
     assert alice.teams.include?(team)
   end
@@ -56,9 +63,12 @@ class TeamTest < MiniTest::Unit::TestCase
   end
 
   def test_team_inclusion
-    team = Team.create(slug: 'sparkle', creator: alice, members: [bob])
+    team = Team.create(slug: 'sparkle', creator: alice, unconfirmed_members: [bob])
 
     assert team.includes?(alice)
+    refute team.includes?(bob)
+
+    team.confirm(bob.username)
     assert team.includes?(bob)
   end
 
@@ -71,13 +81,22 @@ class TeamTest < MiniTest::Unit::TestCase
     team.recruit(bob.username)
     team.recruit("#{john.username},#{charlie.username}")
 
+    refute team.includes?(bob)
+    refute team.includes?(charlie)
+    refute team.includes?(john)
+
+    team.confirm(bob.username)
+    team.confirm(charlie.username)
+    team.confirm(john.username)
+
     assert team.includes?(bob)
     assert team.includes?(charlie)
     assert team.includes?(john)
   end
 
   def test_team_does_not_recruit_duplicates
-    team = Team.create(slug: 'awesome', creator: alice, members: [bob])
+    team = Team.create(slug: 'awesome', creator: alice, unconfirmed_members: [bob])
+    team.confirm(bob.username)
     assert_equal 1, team.members.size
 
     team.recruit(bob.username)
@@ -85,8 +104,9 @@ class TeamTest < MiniTest::Unit::TestCase
   end
 
   def test_team_member_dismiss
-    team = Team.create(slug: 'awesome', creator: alice, members: [bob])
+    team = Team.create(slug: 'awesome', creator: alice, unconfirmed_members: [bob])
 
+    team.confirm(bob.username)
     team.dismiss(bob.username)
     team.reload
 
@@ -98,6 +118,7 @@ class TeamTest < MiniTest::Unit::TestCase
   def test_team_member_dismiss_invalid_member
     team = Team.create(slug: 'awesome', creator: alice, members: [bob])
 
+    team.confirm(bob.username)
     team.dismiss(alice.username)
     team.reload
 

@@ -22,7 +22,7 @@ class Profile
   end
 
   def teams
-    user.teams | user.teams_created
+    user.unconfirmed_teams | user.teams | user.teams_created
   end
 
   def has_teams?

@@ -6,7 +6,27 @@
     <% if profile.has_teams? %>
       <ul>
         <% profile.teams.each do |team| %>
-          <li><a href="/teams/<%= team.slug %>"><%= team.slug %></a></li>
+          <li>
+            <% if team.unconfirmed_members.include?(profile.user) %>
+              <ul class="inline">
+                <li style="padding-left: 0;"><%= team.slug %></li>
+                <li>
+                  <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
+                    <input type="hidden" name="_method" value="put" />
+                    <input type="submit" name="update" value="Accept invitation" class="btn btn-mini btn-success"/>
+                  </form>
+                </li>
+                <li>
+                  <form action="<%= "/teams/#{team.slug}/leave" %>" method="post">
+                    <input type="hidden" name="_method" value="put" />
+                    <input type="submit" name="update" value="Decline" class="btn btn-mini btn-danger"/>
+                  </form>
+                </li>
+              </ul>
+            <% else %>
+              <a href="/teams/<%= team.slug %>"><%= team.slug %></a>
+            <% end %>
+          </li>
         <% end %>
       </ul>
     <% end %>

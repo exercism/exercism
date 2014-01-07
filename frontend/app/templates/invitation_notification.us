@@ -1,0 +1,4 @@
+<span class="icon-user"></span>
+<%= username %> wants you to join team <a href="<%= link %>"><%= team_name %></a>.
+<br>
+Sent <%= ago %>.

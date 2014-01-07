@@ -12,6 +12,7 @@ class ExercismApp < Sinatra::Base
     team = Team.by(current_user).defined_with(params[:team])
     if team.valid?
       team.save
+      notify(team.unconfirmed_members, team)
       redirect "/teams/#{team.slug}"
     else
       erb :"teams/new", locals: {team: team}
@@ -30,7 +31,7 @@ class ExercismApp < Sinatra::Base
         redirect "/"
       end
 
-      erb :"teams/show", locals: {team: team, members: team.members.sort_by {|m| m.username.downcase}}
+      erb :"teams/show", locals: {team: team, members: team.all_members.sort_by {|m| m.username.downcase}}
     else
       flash[:error] = "We don't know anything about team '#{slug}'"
       redirect '/'
@@ -48,7 +49,7 @@ class ExercismApp < Sinatra::Base
         redirect '/'
       end
 
-      team.delete
+      team.destroy
 
       redirect '/account'
     else
@@ -70,6 +71,8 @@ class ExercismApp < Sinatra::Base
 
       team.recruit(params[:usernames])
       team.save
+      invitees = User.find_in_usernames(params[:usernames].to_s.scan(/[\w-]+/))
+      notify(invitees, team)
 
       redirect "/teams/#{team.slug}"
     else
@@ -119,6 +122,26 @@ class ExercismApp < Sinatra::Base
     EditsTeam.new(self).update(slug, params[:team])
   end
 
+  put '/teams/:slug/confirm' do |slug|
+    please_login
+
+    team = Team.where(slug: slug).first
+
+    if team
+      unless team.unconfirmed_members.include?(current_user)
+        flash[:error] = "You don't have a pending invitation to this team."
+        redirect "/"
+      end
+
+      team.confirm(current_user.username)
+
+      redirect "/teams/#{team.slug}"
+    else
+      flash[:error] = "We don't know anything about team '#{slug}'"
+      redirect '/'
+    end
+  end
+
   def team_updated(slug)
     redirect "/teams/#{slug}"
   end
@@ -127,4 +150,25 @@ class ExercismApp < Sinatra::Base
     flash[:error] = "Slug can't be blanked"
     redirect "/teams/#{slug}"
   end
+
+  private
+
+  def notify(invitees, team)
+    invitees.each do |invitee|
+      TeamNotification.on(team, to: invitee, regarding: 'invitation')
+      begin
+        TeamInvitationMessage.ship(
+          instigator: team.creator,
+          target: {
+            team_name: team.name,
+            invitee: invitee
+          },
+          site_root: site_root
+        )
+      rescue => e
+        puts "Failed to send email. #{e.message}."
+      end
+    end
+  end
+
 end

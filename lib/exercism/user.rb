@@ -9,8 +9,10 @@ class User < ActiveRecord::Base
   has_many :exercises, class_name: "UserExercise"
 
   has_many :teams_created, class_name: "Team", foreign_key: :creator_id
-  has_many :team_memberships, class_name: "TeamMembership"
+  has_many :team_memberships, ->{ where confirmed: true }, class_name: "TeamMembership"
   has_many :teams, through: :team_memberships
+  has_many :unconfirmed_team_memberships, ->{ where confirmed: false }, class_name: "TeamMembership"
+  has_many :unconfirmed_teams, through: :unconfirmed_team_memberships, source: :team
 
   before_create do
     self.key = create_key
