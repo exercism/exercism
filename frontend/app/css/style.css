@@ -244,3 +244,14 @@ a code {
   padding-top: 20px;
   color: #999;
 }
+
+.btn-no-link, .btn-no-link:hover {
+  color: black;
+  cursor: default;
+  text-decoration: none;
+}
+
+.btn-deemphasized, .btn-deemphasized:hover {
+  background-image: none;
+  background-color: #fcfcfc;
+}

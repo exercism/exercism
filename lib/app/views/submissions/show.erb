@@ -27,9 +27,9 @@
     <p> View iteration:
       <% submission.user_exercise.submissions.each do |s| %>
         <% if s == submission %>
-          <span style="padding: 10px;"><%= s.version %></span>
+          <span class="btn btn-link btn-no-link"><%= s.version %></span>
         <% elsif s.comments.to_a.length == 0  && submission.user_exercise.submissions.last != s %>
-          <a href="/submissions/<%= s.key %>" style="padding: 10px;"> <%= s.version %></a>
+          <a class="btn btn-deemphasized" href="/submissions/<%= s.key %>"> <%= s.version %></a>
         <% else %>
           <a class="btn btn-default" href="/submissions/<%= s.key %>"> <%= s.version %></a>
         <% end %>
