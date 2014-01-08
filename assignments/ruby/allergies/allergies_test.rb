@@ -5,9 +5,9 @@ class AllergiesTest < MiniTest::Unit::TestCase
 
   def test_no_allergies_means_not_allergic
     allergies = Allergies.new(0)
-    assert !allergies.allergic_to?('peanuts')
-    assert !allergies.allergic_to?('cats')
-    assert !allergies.allergic_to?('strawberries')
+    refute allergies.allergic_to?('peanuts')
+    refute allergies.allergic_to?('cats')
+    refute allergies.allergic_to?('strawberries')
   end
 
   def test_is_allergic_to_eggs
@@ -21,7 +21,7 @@ class AllergiesTest < MiniTest::Unit::TestCase
     allergies = Allergies.new(5)
     assert allergies.allergic_to?('eggs')
     assert allergies.allergic_to?('shellfish')
-    assert !allergies.allergic_to?('strawberries')
+    refute allergies.allergic_to?('strawberries')
   end
 
   def test_no_allergies_at_all
