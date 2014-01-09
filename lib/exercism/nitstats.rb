@@ -40,11 +40,11 @@ class Nitstats
   end
 
   def from
-    29.days.ago.to_date
+    to - 29
   end
 
   def to
-    Date.today
+    Time.now.utc.to_date
   end
 
   def max
