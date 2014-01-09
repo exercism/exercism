@@ -52,4 +52,9 @@ defmodule TeenagerTest do
   test "question with numbers" do
     # assert Teenager.hey("4?") == "Sure."
   end
+
+  test "shouting in Russian" do
+    # Hopefully this is Russian for "get out"
+    # assert Teenager.hey("УХОДИТЬ") == "Woah, chill out!"
+  end
 end
