@@ -106,11 +106,6 @@
       <% end %>
     </h2>
 
-
-    <% if submission.comments.empty? && current_user.is?(submission.user.username) %>
-      <p>Feel free to explain the trade-offs or choices or thoughts about your code.</p>
-    <% end %>
-
     <% submission.comments.each do |nit| %>
       <%= erb :"submissions/nit", locals: {nit: nit, submission: submission} %>
     <% end %>
