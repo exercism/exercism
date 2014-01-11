@@ -1,4 +1,4 @@
-#[link(name = "beer", vers = "1.0")];
+#[crate_id = "beer-song_test#1.0"];
 #[crate_type = "lib"];
 
 extern mod std;

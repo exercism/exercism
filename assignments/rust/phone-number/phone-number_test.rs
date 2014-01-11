@@ -1,4 +1,4 @@
-#[link(name = "phone", vers = "1.0")];
+#[crate_id = "phone-number_test#1.0"];
 #[crate_type = "lib"];
 
 mod phone;

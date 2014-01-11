@@ -1,7 +1,5 @@
-#[link(name = "school", vers = "1.0")];
+#[crate_id = "grade-school_test#1.0"];
 #[crate_type = "lib"];
-
-extern mod extra;
 
 mod school;
 

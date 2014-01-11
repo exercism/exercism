@@ -1,14 +1,12 @@
-extern mod extra;
-use extra::sort;
 use std::hashmap::HashMap;
 
-struct School {
+pub struct School {
     priv grades: HashMap<uint, ~[~str]>
 }
 
-fn sorted<T: Clone + Ord>(array: &[T]) -> ~[T] {
+fn sorted<T: Clone + TotalOrd>(array: &[T]) -> ~[T] {
     let mut res = array.iter().map(|v| v.clone()).to_owned_vec();
-    sort::tim_sort(res);
+    res.sort();
     res
 }
 
@@ -34,6 +32,6 @@ impl School {
     }
 
     pub fn grade(self, grade: uint) -> ~[~str] {
-        self.grades.find(&grade).map(|&v| sorted(v.to_owned())).unwrap_or(~[])
+        self.grades.find(&grade).map(|v| sorted(v.to_owned())).unwrap_or(~[])
     }
 }

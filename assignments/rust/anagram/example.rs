@@ -1,8 +1,5 @@
-extern mod extra;
-
-// Rust 0.8 does not have proper unicode support :(
+// Rust 0.9 does not have proper unicode support :(
 use std::ascii::StrAsciiExt; 
-use extra::sort;
 
 pub fn anagrams_for<'a>(word: &str, inputs: &[&'a str]) -> ~[&'a str] {
     let lower_word = word.to_ascii_lower();
@@ -17,7 +14,7 @@ pub fn anagrams_for<'a>(word: &str, inputs: &[&'a str]) -> ~[&'a str] {
 }
 
 fn alphagram(str: &str) -> ~[char] {
-    let mut chars: ~[char] = str.iter().collect();
-    sort::tim_sort(chars);
+    let mut chars: ~[char] = str.chars().collect();
+    chars.sort();
     chars
 }

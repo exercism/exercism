@@ -2,7 +2,7 @@ use std::char;
 
 pub fn number(s: &str) -> ~str {
     let digits: ~str = s
-        .iter()
+        .chars()
         .filter(|&c| char::is_digit_radix(c, 10))
         .collect();
     match digits.len() {

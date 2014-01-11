@@ -10,7 +10,7 @@ fn is_silence(message: &str) -> bool {
 }
 
 fn is_yelling(message: &str) -> bool {
-    message.iter().all(|char| !char.is_lowercase())
+    message.chars().all(|char| !char.is_lowercase())
 }
 
 fn is_question(message: &str) -> bool {
