@@ -27,7 +27,7 @@ defmodule ListOps do
   end
 
   @type acc :: any
-  @spec reduce(list, acc, ((acc, any) -> acc)) :: acc
+  @spec reduce(list, acc, ((any, acc) -> acc)) :: acc
   def reduce(l, acc, f) do
 
   end

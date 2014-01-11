@@ -71,6 +71,10 @@ defmodule ListOpsTest do
       L.reduce(Enum.to_list(1..1_000_000), 0, &(&1+&2))
   end
 
+  test "reduce with non-commutative function" do
+    assert 0 == L.reduce([1,2,3,4], 10, fn x, acc -> acc - x end)
+  end
+
   test "append of empty lists" do
     assert [] == L.append([], [])
   end
