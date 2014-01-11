@@ -43,8 +43,12 @@ class Hibernation
     end
   end
 
+  def comment
+    submission.comments.last
+  end
+
   def stale?
-    submission.comments.last.created_at < cutoff
+    comment.user != submission.user && comment.created_at < cutoff
   end
 end
 
