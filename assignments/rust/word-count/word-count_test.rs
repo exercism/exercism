@@ -1,4 +1,4 @@
-#[link(name = "word_count", vers = "1.0")];
+#[crate_id = "word-count_test#1.0"];
 #[crate_type = "lib"];
 
 use std::hashmap::HashMap;

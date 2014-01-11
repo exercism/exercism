@@ -1,7 +1,5 @@
-#[link(name = "robot", vers = "1.0")];
+#[crate_id = "robot-name_test#1.0"];
 #[crate_type = "lib"];
-
-extern mod extra;
 
 mod robot;
 
@@ -16,8 +14,8 @@ impl Robot {
 */
 
 fn assert_name_matches_pattern(n: &str) {
-    assert!(n.slice_to(3).iter().all(|c| c >= 'A' && c <= 'Z'), "name starts with 3 letters");
-    assert!(n.slice_from(3).iter().all(|c| c >= '0' && c <= '9'), "name ends with 3 numbers");
+    assert!(n.slice_to(3).chars().all(|c| c >= 'A' && c <= 'Z'), "name starts with 3 letters");
+    assert!(n.slice_from(3).chars().all(|c| c >= '0' && c <= '9'), "name ends with 3 numbers");
 }
 
 fn assert_name_is_persistent(r: &robot::Robot) {

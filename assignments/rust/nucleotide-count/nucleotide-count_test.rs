@@ -1,4 +1,4 @@
-#[link(name = "dna", vers = "1.0")];
+#[crate_id="nucleotide-count_test#1.0"];
 #[crate_type = "lib"];
 
 use std::hashmap::HashMap;

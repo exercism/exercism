@@ -1,7 +1,7 @@
 use std::rand::{task_rng, Rng};
 use std::str;
 
-struct Robot {
+pub struct Robot {
     name: ~str
 }
 

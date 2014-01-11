@@ -1,4 +1,4 @@
-#[link(name = "dna", vers = "1.0")];
+#[crate_id = "point-mutations_test#1.0"];
 #[crate_type = "lib"];
 
 extern mod std;

@@ -1,8 +1,7 @@
-#[link(name = "anagram", vers = "1.0")];
+#[crate_id = "anagram_test#1.0"];
 #[crate_type = "lib"];
 
 extern mod std;
-extern mod extra;
 
 mod anagram;
 

@@ -1,4 +1,4 @@
-#[link(name = "bob", vers = "1.0")];
+#[crate_id = "bob_test#1.0"];
 #[crate_type = "lib"];
 
 extern mod std;

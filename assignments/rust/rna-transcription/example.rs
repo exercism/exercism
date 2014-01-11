@@ -1,5 +1,5 @@
 #[deriving(Eq)]
-struct RibonucleicAcid {
+pub struct RibonucleicAcid {
     nucleotides: ~str
 }
 
@@ -15,7 +15,7 @@ impl ToStr for RibonucleicAcid {
     }
 }
 
-struct DeoxyribonucleicAcid {
+pub struct DeoxyribonucleicAcid {
     nucleotides: ~str
 }
 

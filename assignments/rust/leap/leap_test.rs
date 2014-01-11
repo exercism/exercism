@@ -1,4 +1,4 @@
-#[link(name = "leap_year", vers = "1.0")];
+#[crate_id = "leap_test#1.0"];
 #[crate_type = "lib"];
 
 mod leap_year;
