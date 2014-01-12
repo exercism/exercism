@@ -1,24 +1,19 @@
 <div class="row">
   <div class="span11">
-    <% if submission.hibernating? %>
-      <div class="alert alert-notice alert--fixed-width">
-        <a class="close" href="#" data-dismiss="alert">×</a>
-        This submission has gone into hibernation because there has not been any activity on it for over three weeks.
-        <% if current_user.owns?(submission) %>
-        To take the submission back out of hibernation either respond to the nitpicks, or submit a new version.
-        <% end %>
-      </div>
-    <% end %>
-
     <%= erb :"submissions/byline", locals: {exercise: submission.exercise, user: submission.user} %>
     <p>Submitted <%= ago(submission.created_at) %>.</p>
     <p><%= view_count_for(submission) %>.</p>
     <p>
       Iteration <b><%= submission.version %></b> of <b><%= submission.user_exercise.iteration_count %></b>.
-      <% if submission.user.completed?(submission.exercise) %>
+      <% if submission.exercise_completed? %>
         This exercise has been completed.
         <% if submission.user.is?(current_user.username) %>
           See <a href="/code/<%= submission.language %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.
+        <% end %>
+      <% elsif submission.exercise_hibernating? %>
+        This exercise is hibernating.
+        <% if current_user.owns?(submission) %>
+        To take the submission back out of hibernation either respond to the nitpicks, or submit a new version.
         <% end %>
       <% else %>
         This exercise is still in progress.

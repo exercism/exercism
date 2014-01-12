@@ -197,6 +197,14 @@ class Submission < ActiveRecord::Base
     Digest::SHA1.hexdigest(secret)[0..23]
   end
 
+  def exercise_completed?
+    user_exercise.completed?
+  end
+
+  def exercise_hibernating?
+    user_exercise.hibernating?
+  end
+
   private
 
   def secret

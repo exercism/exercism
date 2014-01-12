@@ -13,6 +13,14 @@ class UserExercise < ActiveRecord::Base
     Digest::SHA1.hexdigest(secret)[0..23]
   end
 
+  def completed?
+    state == 'done'
+  end
+
+  def hibernating?
+    state == 'hibernating'
+  end
+
   private
 
   def secret
