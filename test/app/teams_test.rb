@@ -95,6 +95,19 @@ class TeamsTest < MiniTest::Unit::TestCase
     bob.reload
     john.reload
 
+    assert_equal 0, bob.teams.size
+    assert_equal 0, john.teams.size
+
+    assert team.includes?(alice)
+    refute team.includes?(bob)
+    refute team.includes?(john)
+
+    put "/teams/#{team.slug}/confirm", {}, login(bob)
+    put "/teams/#{team.slug}/confirm", {}, login(john)
+
+    bob.reload
+    john.reload
+
     assert_equal 1, bob.teams.size
     assert_equal 1, john.teams.size
 
@@ -111,8 +124,15 @@ class TeamsTest < MiniTest::Unit::TestCase
 
     team.reload
 
+    refute team.includes?(bob)
+    refute team.includes?(john)
+
+    put "/teams/#{team.slug}/confirm", {}, login(bob)
+
+    team.reload
+
     assert team.includes?(bob)
-    assert team.includes?(john)
+    refute team.includes?(john)
   end
 
   def test_member_addition_without_being_creator
@@ -131,6 +151,7 @@ class TeamsTest < MiniTest::Unit::TestCase
     team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{john.username}"})
     team.save
 
+    put "/teams/#{team.slug}/confirm", {}, login(bob)
     delete "/teams/#{team.slug}/members/#{bob.username}", {}, login(alice)
 
     team.reload
@@ -142,6 +163,7 @@ class TeamsTest < MiniTest::Unit::TestCase
     team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{john.username}"})
     team.save
 
+    put "/teams/#{team.slug}/confirm", {}, login(bob)
     put "/teams/#{team.slug}/leave", {}, login(bob)
 
     team.reload
@@ -153,6 +175,7 @@ class TeamsTest < MiniTest::Unit::TestCase
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{john.username}"})
     team.save
 
+    put "/teams/#{team.slug}/confirm", {}, login(john)
     delete "/teams/#{team.slug}/members/#{john.username}", {}, login(bob)
 
     team.reload
@@ -165,6 +188,11 @@ class TeamsTest < MiniTest::Unit::TestCase
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{john.username}"})
     team.save
 
+    get "/teams/#{team.slug}", {}, login(bob)
+
+    assert_response_status(302)
+
+    put "/teams/#{team.slug}/confirm", {}, login(bob)
     get "/teams/#{team.slug}", {}, login(bob)
 
     assert_response_status(200)
@@ -207,5 +235,16 @@ class TeamsTest < MiniTest::Unit::TestCase
 
     assert_response_status(302)
     assert team.reload.name == 'New name'
+  end
+
+  def test_notify_unconfirmed_members_of_invitation
+    post '/teams', {team: {slug: 'notify', usernames: bob.username}}, login(alice)
+
+    assert_equal 0, alice.reload.notifications.count, "Shouldn't notify creator"
+    assert_equal 1, bob.reload.notifications.count, "Notify bob failed"
+
+    post "/teams/notify/members", {usernames: john.username}, login(alice)
+
+    assert_equal 1, john.reload.notifications.count, "Notify john failed"
   end
 end

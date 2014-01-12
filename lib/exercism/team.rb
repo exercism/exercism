@@ -1,8 +1,14 @@
 class Team < ActiveRecord::Base
 
   belongs_to :creator, class_name: "User"
-  has_many :memberships, class_name: "TeamMembership"
+  has_many :memberships, ->{ where confirmed: true }, class_name: "TeamMembership"
+  has_many :unconfirmed_memberships, ->{ where confirmed: false }, class_name: "TeamMembership"
   has_many :members, through: :memberships, source: :user
+  has_many :unconfirmed_members, through: :unconfirmed_memberships, source: :user
+
+  # I don't really want the notifications method,
+  # just the dependent destroy
+  has_many :notifications, dependent: :destroy, foreign_key: 'item_id', class_name: 'TeamNotification'
 
   validates :creator, presence: true
   validates :slug, presence: true,  uniqueness: true
@@ -16,17 +22,25 @@ class Team < ActiveRecord::Base
   def defined_with(options)
     self.slug = options[:slug]
     self.name = options[:name].present? && options[:name] || options[:slug]
-    self.members = User.find_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
+    self.unconfirmed_members = User.find_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
     self
   end
 
   def recruit(usernames)
-    self.members += User.find_in_usernames(usernames.to_s.scan(/[\w-]+/))
+    self.unconfirmed_members += User.find_in_usernames(usernames.to_s.scan(/[\w-]+/))
   end
 
   def dismiss(username)
     user = User.where(username: username.to_s).first
     self.members.delete(user)
+    self.unconfirmed_members.delete(user)
+  end
+
+  def confirm(username)
+    user = User.where(username: username.to_s).first
+    self.unconfirmed_memberships.where(user_id: user.id).first.confirm!
+    self.unconfirmed_members.reload
+    self.members.reload
   end
 
   def usernames
@@ -35,6 +49,10 @@ class Team < ActiveRecord::Base
 
   def includes?(user)
     creator == user || members.include?(user)
+  end
+
+  def all_members
+    members + unconfirmed_members
   end
 
   private

@@ -7,6 +7,11 @@
          class="btn btn-mini btn-danger hidden member_delete">Dismiss</a>
     <% end %>
   </h5>
+  <p>
+  <% if team.unconfirmed_members.include?(member) %>
+    Pending confirmation.
+  <% end %>
+  </p>
   <% if submissions.any? %>
     <ul>
       <% submissions.each do |submission| %>

@@ -197,17 +197,24 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     Submission.create(language: 'ruby', slug: 'bob', code: 'CODE', user: charlie)
     Submission.create(language: 'ruby', slug: 'bob', code: 'CODE', user: dave, state: 'done')
 
-    Team.create(slug: 'team1', members: [bob, charlie], creator: alice)
-    Team.create(slug: 'team2', members: [bob, dave, eve], creator: alice)
+    team1 = Team.create(slug: 'team1', unconfirmed_members: [bob, charlie], creator: alice)
+    team2 = Team.create(slug: 'team2', unconfirmed_members: [bob, dave, eve], creator: alice)
+
+    team1.confirm(bob.username)
+    team2.confirm(bob.username)
+    team2.confirm(dave.username)
+    team2.confirm(eve.username)
 
     post '/user/assignments', {key: bob.key, code: 'THE CODE', path: 'bob/code.rb'}.to_json
     assert_equal 201, last_response.status
 
-    [alice, charlie, dave].each do |user|
+    [alice, dave].each do |user|
       assert_equal 1, user.reload.notifications.count, "Notify #{user.username} failed"
     end
 
-    assert_equal 0, eve.reload.notifications.count
+    [charlie, eve].each do |user|
+      assert_equal 0, user.reload.notifications.count, "#{user.username} was notified, but shouldn't have"
+    end
   end
 
   def test_api_rejects_duplicates

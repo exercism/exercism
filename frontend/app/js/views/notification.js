@@ -5,6 +5,7 @@ exercism.views.Notification = Backbone.View.extend({
   hibernatingTemplate: JST["app/templates/hibernating_notification.us"],
   likeTemplate: JST["app/templates/like_notification.us"],
   customTemplate: JST["app/templates/custom_notification.us"],
+  invitationTemplate: JST["app/templates/invitation_notification.us"],
 
   tagName: "li",
 
@@ -32,6 +33,9 @@ exercism.views.Notification = Backbone.View.extend({
 
   render: function() {
     switch (this.notificationType()) {
+      case "invitation":
+        this.$el.html(this.invitationTemplate(this.model.toJSON()));
+        break;
       case "code":
         this.$el.html(this.attemptTemplate(this.model.toJSON()));
         break;
