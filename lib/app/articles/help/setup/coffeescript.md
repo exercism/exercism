@@ -27,9 +27,9 @@ $ jasmine-node --coffee bob_test.spec.coffee
 To create a module that can be loaded with `Bob = require './bob';`, put this code in `bob.coffee`:
 
 ```coffeescript
-Bob = ->
+class Bob
 
-module.exports = Bob;
+module.exports = Bob
 ```
 
 You can find more information about modules in the [node documentation](http://nodejs.org/api/modules.html#modules_module_exports).
