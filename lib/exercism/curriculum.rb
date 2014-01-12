@@ -1,4 +1,5 @@
 require 'exercism/curriculum/clojure'
+require 'exercism/curriculum/coffeescript'
 require 'exercism/curriculum/elixir'
 require 'exercism/curriculum/go'
 require 'exercism/curriculum/haskell'
@@ -14,6 +15,7 @@ class Exercism
   def self.subjects
     [
       :clojure,
+      :coffeescript,
       :elixir,
       :go,
       :haskell,
@@ -50,7 +52,7 @@ class Exercism
   end
 
   def self.upcoming
-    @upcoming ||= ['Java', 'CoffeeScript', 'Rust', 'Erlang', 'PHP', 'Common Lisp'] - current
+    @upcoming ||= ['Java', 'Rust', 'Erlang', 'PHP', 'Common Lisp'] - current
   end
 end
 
