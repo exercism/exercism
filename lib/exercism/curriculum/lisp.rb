@@ -15,6 +15,7 @@ class Exercism
         leap
         etl
         space-age
+        grains
       )
     end
 
