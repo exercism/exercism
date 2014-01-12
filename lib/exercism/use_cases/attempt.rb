@@ -33,7 +33,6 @@ class Attempt
       sub.supersede!
       sub.unmute_all!
     end
-    user.clear_stash(file.path)
     remove_from_completed(exercise)
     submission.code = code
     submission.filename = file.filename
