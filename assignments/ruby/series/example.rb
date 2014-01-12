@@ -1,6 +1,5 @@
 class Series
 
-  attr_reader :digits
   def initialize(numeric_string)
     @digits = convert_to_digits(numeric_string)
   end
@@ -20,6 +19,8 @@ class Series
   end
 
   private
+
+  attr_reader :digits
 
   def convert_to_digits(s)
     s.chars.to_a.map(&:to_i)
