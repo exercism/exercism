@@ -24,7 +24,7 @@
           <tr>
             <th>Exercise</th>
             <th>Language</th>
-            <th>Iteration</th>
+            <th>Iterations</th>
             <th>Nits</th>
           </tr>
         </thead>
@@ -42,7 +42,34 @@
     <% else %>
       <p><%= profile.no_current_sumbissions_message %></p>
     <% end %>
+
+    <% if profile.has_hibernating_submissions? %>
+      <h3>Hibernating</h3>
+      <p>To make a hibernating exercise active again, either comment on it, or submit a new iteration.</p>
+      <table class="table table-bordered table-striped">
+        <thead>
+          <tr>
+            <th>Exercise</th>
+            <th>Language</th>
+            <th>Iterations</th>
+            <th>Nits</th>
+          </tr>
+        </thead>
+        <tbody>
+        <% profile.hibernating_submissions.each do |submission| %>
+          <tr>
+            <td><%= profile.submission_link(submission) %></td>
+            <td><%= submission.language.titleize %></td>
+            <td><%= submission.version %></td>
+            <td><%= submission.nit_count %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    <% end %>
+
   </div>
+
   <div class="span4">
     <dl>
       <dt>Api key:</dt>

@@ -30,12 +30,17 @@ class Submission < ActiveRecord::Base
     true
   end
 
+
+  scope :done, ->{ where(state: 'done') }
   scope :pending, ->{ where(state: 'pending') }
+  scope :hibernating, ->{ where(state: 'hibernating') }
   scope :aging, lambda {
     three_weeks_ago = Time.now - (60*60*24*7*3)
     cutoff = three_weeks_ago.strftime('%Y-%m-%d %H:%M:%S')
     pending.where('nit_count > 0').where('created_at < ?', cutoff)
   }
+  scope :chronologically, -> { order('created_at ASC') }
+  scope :reversed, -> { order('created_at DESC') }
   scope :not_commented_on_by, ->(user) {
     joins("LEFT JOIN (SELECT submission_id FROM comments WHERE user_id=#{user.id}) AS already_commented ON submissions.id=already_commented.submission_id").
     where('already_commented.submission_id IS NULL')
@@ -60,10 +65,6 @@ class Submission < ActiveRecord::Base
   def self.related(submission)
     order('created_at ASC').
       where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
-  end
-
-  def self.done
-    where(state: 'done').order('created_at DESC')
   end
 
   def self.on(exercise)

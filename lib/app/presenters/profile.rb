@@ -17,6 +17,10 @@ class Profile
     user.submissions.done.count > 0
   end
 
+  def has_hibernating_submissions?
+    user.submissions.hibernating.count > 0
+  end
+
   def teams
     user.teams | user.teams_created
   end
@@ -35,6 +39,10 @@ class Profile
 
   def current
     user.active_submissions
+  end
+
+  def hibernating_submissions
+    user.submissions.hibernating
   end
 
   def completed_in(language)
