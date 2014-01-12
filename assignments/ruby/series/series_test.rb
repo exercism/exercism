@@ -3,32 +3,7 @@ require_relative 'series'
 
 class SeriesTest < MiniTest::Unit::TestCase
 
-  def test_simple_series
-    assert_equal (0..4).to_a, Series.new("01234").digits
-  end
-
-  def test_longer_simple_series
-    skip
-    assert_equal (0..9).to_a, Series.new("0123456789").digits
-  end
-
-  def test_reversed_long_series
-    skip
-    assert_equal (0..9).to_a.reverse, Series.new("9876543210").digits
-  end
-
-  def test_another_simple_reversed_series
-    skip
-    assert_equal (4..8).to_a.reverse, Series.new("87654").digits
-  end
-
-  def test_arbitrary_digits
-    skip
-    assert_equal [9, 3, 6, 9, 2, 3, 4, 6, 8], Series.new("936923468").digits
-  end
-
   def test_simple_slices_of_one
-    skip
     series = Series.new("01234")
     assert_equal [[0], [1], [2], [3], [4]], series.slices(1)
   end
@@ -111,9 +86,11 @@ class SeriesTest < MiniTest::Unit::TestCase
 
   def test_more_complicated_slice_that_blows_up
     skip
-    series = Series.new("01032987583")
+    slice_string = "01032987583"
+    
+    series = Series.new(slice_string)
     assert_raises ArgumentError do
-      series.slices(series.digits.length + 1)
+      series.slices(slice_string.length + 1)
     end
   end
 end
