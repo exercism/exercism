@@ -7,4 +7,6 @@ Examples are
 * the Wednesteenth
 * the last Thursday
 
-There are exactly 7 days that end in '-teenth', therefore one is guaranteed that each day of the week will have a '-teenth' in every month.
+There are exactly 7 days that end in '-teenth', therefore one is
+guaranteed that each day of the week will have a '-teenth' in every
+month.
