@@ -32,12 +32,17 @@ multiple_anagrams_test() ->
                                 "largely", "leading"]),
        ["gallery", "regally", "largely"]).
 
-case_insensitive_anagrams_test() ->
+case_insensitive_subject_test() ->
     ?assertEqual(
-       anagram:find("Orchestra", ["cashregister", "Carthorse", "radishes"]),
+       anagram:find("Orchestra", ["cashregister", "carthorse", "radishes"]),
+       ["carthorse"]).
+
+case_insensitive_candidate_test() ->
+    ?assertEqual(
+       anagram:find("orchestra", ["cashregister", "Carthorse", "radishes"]),
        ["Carthorse"]).
 
 does_not_detect_a_word_as_its_own_anagram_test() ->
     ?assertEqual(
-       anagram:find("banana", ["banana"]),
-       []).
+       anagram:find("corn", ["corn", "dark", "Corn", "rank", "CORN", "cron", "park"]),
+       ["cron"]).
