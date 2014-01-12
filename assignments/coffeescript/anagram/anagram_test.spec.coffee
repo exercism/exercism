@@ -35,8 +35,22 @@ describe "Anagram", ->
     matches = detector.match ["gallery", "ballerina", "regally", "clergy", "largely", "leading"]
     expect(matches).toEqual ["gallery", "regally", "largely"]
 
-  xit "detects anagrams case-insensitively", ->
-    detector = new Anagram "Orchestra"
-    matches = detector.match ["cashregister", "Carthorse", "radishes"]
-    expect(matches).toEqual ["Carthorse"]
+  xit "does not detect identical words", ->
+    detector = new Anagram "corn"
+    matches = detector.match ["corn", "dark", "Corn", "rank", "CORN", "cron", "park"]
+    expect(matches).toEqual ["cron"]
 
+  xit "does not detect non-anagrams with identical checksum", ->
+    detector = new Anagram "mass"
+    matches = detector.match ["last"]
+    expect(matches).toEqual []
+
+  xit "detects anagrams using case-insensitive subject", ->
+    detector = new Anagram "Orchestra"
+    matches = detector.match ["cashregister", "carthorse", "radishes"]
+    expect(matches).toEqual ["carthorse"]
+
+  xit "detects anagrams using case-insensitive candidates", ->
+    detector = new Anagram "orchestra"
+    matches = detector.match ["cashregister", "Carthorse", "radishes"]
+    expect(matches).toEqual ["carthorse"]
