@@ -2,7 +2,8 @@ class ExercismApp < Sinatra::Base
   get '/notifications' do
     please_login
 
-    erb :"notifications/index", locals: {notifications: current_user.notifications.by_recency}
+    notifications = current_user.notifications.about_nitpicks.by_recency
+    erb :"notifications/index", locals: {notifications: notifications}
   end
 
   delete '/notifications/read' do

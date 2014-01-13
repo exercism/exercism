@@ -2,10 +2,14 @@ class Notification < ActiveRecord::Base
 
   belongs_to :user
 
+  scope :about_nitpicks, -> { where(type: 'SubmissionNotification') }
   scope :by_recency, -> { order("created_at DESC") }
   scope :recent, -> { by_recency.limit(400) }
   scope :unread, -> { where(read: false) }
   scope :read, -> { where(read: true) }
+  scope :joins_submissions, -> { joins('INNER JOIN submissions s ON s.id = notifications.item_id') }
+  scope :personal, -> { joins_submissions.where('s.user_id = notifications.user_id') }
+  scope :general, -> { joins_submissions.where('s.user_id != notifications.user_id') }
 
   before_create do
     self.read  ||= false
