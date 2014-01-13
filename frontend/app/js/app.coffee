@@ -18,6 +18,8 @@ $ ->
     event.preventDefault()
     toggleTeamEdit()
 
+  if _.any($('.comments'))
+    emojify.run(document.getElementsByClassName("comments")[0])
 
 toggleTeamEdit = ->
   members_box = $('#add_members')
