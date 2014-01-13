@@ -57,7 +57,7 @@
         selected_sets.push(OBJECTS);
         selected_sets.push(PLACES);
         selected_sets.push(SYMBOLS);
-        selected_sets.push(EMOTICONS);
+        //selected_sets.push(EMOTICONS);
 
         for (var index = 0; index < selected_sets.length; index++) {
           var r;
