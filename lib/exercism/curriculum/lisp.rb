@@ -17,6 +17,7 @@ class Exercism
         meetup
         space-age
         grains
+        gigasecond
       )
     end
 
