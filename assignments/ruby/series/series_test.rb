@@ -87,7 +87,7 @@ class SeriesTest < MiniTest::Unit::TestCase
   def test_more_complicated_slice_that_blows_up
     skip
     slice_string = "01032987583"
-    
+
     series = Series.new(slice_string)
     assert_raises ArgumentError do
       series.slices(slice_string.length + 1)
