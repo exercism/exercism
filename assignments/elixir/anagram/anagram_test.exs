@@ -34,23 +34,28 @@ defmodule AnagramTest do
     # assert matches == ["gallery", "regally", "largely"]
   end
 
-  test "detect anagrams case-insensitively" do
-    # matches = Anagram.match "Orchestra", %w(cashregister Carthorse radishes)
+  test "anagrams must use all letters exactly once" do
+    # matches = Anagram.match "patter", ["tapper"]
+    # assert matches == []
+  end
+
+  test "detect anagrams with case-insensitive subject" do
+    # matches = Anagram.match "Orchestra", %w(cashregister carthorse radishes)
+    # assert matches == ["carthorse"]
+  end
+
+  test "detect anagrams with case-insensitive candidate" do
+    # matches = Anagram.match "orchestra", %w(cashregister Carthorse radishes)
     # assert matches == ["Carthorse"]
   end
 
   test "anagrams must not be the source word" do
-    # matches = Anagram.match "banana", ["banana"]
-    # assert matches == []
+    # matches = Anagram.match "corn", ["corn", "dark", "Corn", "rank", "CORN", "cron", "park"]
+    # assert matches == ["cron"]
   end
 
-  test "anagrams must not be the source word case-insensitively" do
-    # matches = Anagram.match "banana", ["Banana"]
-    # assert matches == []
-  end
-
-  test "anagrams must use all letters exactly once" do
-    # matches = Anagram.match "patter", ["tapper"]
+  test "do not detect words based on checksum" do
+    # matches = Anagram.match "mass", ["last"]
     # assert matches == []
   end
 end
