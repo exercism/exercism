@@ -255,3 +255,10 @@ a code {
   background-image: none;
   background-color: #fcfcfc;
 }
+
+.emojify {
+  height: 24px;
+  width: 24px;
+  vertical-align: top;
+}
+
