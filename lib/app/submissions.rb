@@ -42,7 +42,7 @@ class ExercismApp < Sinatra::Base
 
     title(submission.slug + " in " + submission.language + " by " + submission.user.username)
 
-    erb :"submissions/show", locals: {submission: submission}
+    erb :"submissions/show", locals: {submission: submission, sharing: Sharing.new}
   end
 
   # TODO: Submit to this endpoint rather than the `respond` one.
