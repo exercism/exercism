@@ -24,7 +24,6 @@ class Submission < ActiveRecord::Base
     self.state          ||= "pending"
     self.nit_count      ||= 0
     self.version        ||= 0
-    self.wants_opinions ||= false
     self.is_liked       ||= false
     self.key            ||= generate_key
     true
