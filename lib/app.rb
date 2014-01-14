@@ -5,6 +5,7 @@ require 'will_paginate/active_record'
 
 require 'app/presenters/workload'
 require 'app/presenters/profile'
+require 'app/presenters/sharing'
 
 require 'app/stats' # must come before 'app/user'
 require 'app/notifications'

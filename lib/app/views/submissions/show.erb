@@ -1,6 +1,11 @@
 <div class="row">
   <div class="span11">
     <%= erb :"submissions/byline", locals: {exercise: submission.exercise, user: submission.user} %>
+    <p><% if current_user.owns?(submission) %>
+      <%= sharing.twitter_link(submission) %>
+    <% end %>
+    </p>
+
     <p>Submitted <%= ago(submission.created_at) %>.</p>
     <p><%= view_count_for(submission) %>.</p>
     <p>
