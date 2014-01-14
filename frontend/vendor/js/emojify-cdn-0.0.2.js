@@ -39,11 +39,24 @@
       config: {
         emojify_tag_type: 'img',
         cdn_host: 'http://www.tortue.me/emoji',
-        emoji_image_extension: 'png'
+        emoji_image_extension: 'png',
+        emoticons_enabled: true,
+        people_enabled: true,
+        nature_enabled: true,
+        objects_enabled: true,
+        places_enabled: true,
+        symbols_enabled: true
       },
 
       setConfig: function (newConfig) {
         this.config.emojify_tag_type = typeof newConfig.emojify_tag_type !== 'undefined' ? newConfig.emojify_tag_type : this.config.emojify_tag_type;
+        this.config.emoticons_enabled = typeof newConfig.emoticons_enabled !== 'undefined' ? newConfig.emoticons_enabled : this.config.emoticons_enabled;
+        this.config.people_enabled = typeof newConfig.people_enabled !== 'undefined' ? newConfig.people_enabled : this.config.people_enabled;
+        this.config.nature_enabled = typeof newConfig.nature_enabled !== 'undefined' ? newConfig.nature_enabled : this.config.nature_enabled;
+        this.config.objects_enabled = typeof newConfig.objects_enabled !== 'undefined' ? newConfig.objects_enabled : this.config.objects_enabled;
+        this.config.places_enabled = typeof newConfig.places_enabled !== 'undefined' ? newConfig.places_enabled : this.config.places_enabled;
+        this.config.symbols_enabled = typeof newConfig.symbols_enabled !== 'undefined' ? newConfig.symbols_enabled : this.config.symbols_enabled;
+
         this.config.cdn_host = typeof newConfig.cdn_host !== 'undefined' ? newConfig.cdn_host : this.config.cdn_host;
         this.config.emoji_image_extension = typeof newConfig.emoji_image_extension !== 'undefined' ? newConfig.emoji_image_extension : this.config.emoji_image_extension;
       },
@@ -52,12 +65,12 @@
         el = el ? el : document.body
 
         var selected_sets = []
-        selected_sets.push(PEOPLE)
-        selected_sets.push(NATURE);
-        selected_sets.push(OBJECTS);
-        selected_sets.push(PLACES);
-        selected_sets.push(SYMBOLS);
-        //selected_sets.push(EMOTICONS);
+        if (this.config.people_enabled) selected_sets.push(PEOPLE);
+        if (this.config.nature_enabled) selected_sets.push(NATURE);
+        if (this.config.objects_enabled) selected_sets.push(OBJECTS);
+        if (this.config.places_enabled) selected_sets.push(PLACES);
+        if (this.config.symbols_enabled) selected_sets.push(SYMBOLS);
+        if (this.config.emoticons_enabled) selected_sets.push(EMOTICONS);
 
         for (var index = 0; index < selected_sets.length; index++) {
           var r;
