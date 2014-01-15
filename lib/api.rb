@@ -6,6 +6,7 @@ require 'app/helpers/fuzzy_time_helper'
 require 'api/assignments'
 require 'api/notifications'
 require 'api/stashes'
+require 'api/stats'
 
 class ExercismAPI < Sinatra::Base
   set :environment, ENV.fetch('RACK_ENV') { :development }.to_sym
