@@ -1,6 +1,6 @@
 module Api
   module Stats
-    class Nitpicks
+    class Streak
       attr_reader :languages, :data, :year, :month
       def initialize(languages, data, year, month)
         @languages = languages.map(&:to_s)
