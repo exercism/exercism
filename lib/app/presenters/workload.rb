@@ -39,7 +39,7 @@ class Workload
     when 'no-nits'
       scope = scope.where(nit_count: 0)
     else
-      scope = pending.where(slug: slug)
+      scope = scope.where(slug: slug)
     end
 
     unless user.mastery.include?(language)
