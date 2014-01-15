@@ -3,7 +3,7 @@ require 'api/stats/streak'
 
 module Api
   module Stats
-    module Nitstreak
+    module NitStreak
       def self.for(username, year, month)
         user = User.find_by_username(username)
         data = Api::Stats::NitpicksSQL.new(user.id, year, month).execute
