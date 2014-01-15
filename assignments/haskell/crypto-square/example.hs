@@ -5,10 +5,8 @@ module CryptoSquare ( normalizePlaintext
                     , normalizeCiphertext ) where
 
 import Data.Char (isAlphaNum, toLower)
+import Data.List (transpose)
 import Data.List.Split (chunksOf)
-
-everyNth :: Int -> String -> String
-everyNth = (map head .) . chunksOf
 
 squareSize :: String -> Int
 squareSize = ceiling . (sqrt :: Double -> Double) . fromIntegral . length
@@ -20,12 +18,8 @@ plaintextSegments :: String -> [String]
 plaintextSegments s = chunksOf (squareSize text) text
   where text = normalizePlaintext s
 
-cipherSegments :: String -> [String]
-cipherSegments s = map (everyNth cols . flip drop s) [0 .. pred cols]
-  where cols = squareSize s
-
 ciphertext :: String -> String
-ciphertext = concat . cipherSegments . normalizePlaintext
+ciphertext = concat . transpose . plaintextSegments
 
 normalizeCiphertext :: String -> String
 normalizeCiphertext = unwords . chunksOf 5 . ciphertext
