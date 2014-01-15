@@ -142,6 +142,8 @@ Submit a pull request and tell us why your idea is awesome.
 
 For more details, please read the [contributing guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md).
 
+To join the mailing list, send an email to exercism@librelist.com to be automatically subscribed or check out the [Archives](http://librelist.com/browser/exercism/).
+
 ## License
 
 GNU Affero General Public License
