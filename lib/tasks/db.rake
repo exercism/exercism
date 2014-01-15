@@ -14,7 +14,7 @@ namespace :db do
       require 'active_support/all'
       name = ENV['name'] || ENV['NAME']
       if name.nil?
-        $stderr.puts "Usage: rake generate:migration name=the_name_of_your_migration"
+        $stderr.puts "Usage: rake db:generate:migration name=the_name_of_your_migration"
         exit 1
       end
 
