@@ -27,7 +27,7 @@ module Api
 
       def counts_for(date, language)
         date = date.strftime('%Y-%m-%d')
-        {'date' => date, 'nit_count' => by_language_and_date[language][date]}
+        {'date' => date, 'count' => by_language_and_date[language][date]}
       end
 
       def start_date
@@ -42,7 +42,7 @@ module Api
         result = Hash.new {|hash, language| hash[language] = Hash.new(0)}
         data.group_by {|row| row["language"]}.each do |language, rows|
           rows.each do |row|
-            result[language][row["date"]] = row["nit_count"].to_i
+            result[language][row["date"]] = row["count"].to_i
           end
         end
         result

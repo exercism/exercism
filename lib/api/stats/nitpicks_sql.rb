@@ -15,7 +15,7 @@ module Api
       def sql
         <<-SQL
         SELECT
-          count(c.id) nit_count, s.language, c.created_at::date date
+          count(c.id) AS count, s.language, c.created_at::date date
         FROM
           comments c
         INNER JOIN submissions s ON c.submission_id=s.id
