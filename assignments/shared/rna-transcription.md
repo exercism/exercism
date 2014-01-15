@@ -4,5 +4,10 @@ The four nucleotides found in DNA are adenine (**A**), cytosine (**C**), guanine
 
 The four nucleotides found in RNA are adenine (**A**), cytosine (**C**), guanine (**G**) and uracil (**U**).
 
-Given a DNA strand, its transcribed RNA strand is formed by replacing all occurrences of thymidine with uracil.
+Given a DNA strand, its transcribed RNA strand is formed by replacing each nucleotide with its complement:
+
+* `G` -> `C`
+* `C` -> `G`
+* `T` -> `A`
+* `A` -> `U`
 
