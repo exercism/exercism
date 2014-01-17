@@ -6,9 +6,9 @@ class ApiStatsStreakTest < MiniTest::Unit::TestCase
 
   def data
     [
-      {"nit_count"=>"2", "language"=>"ruby", "date"=>"2013-12-01"},
-      {"nit_count"=>"1", "language"=>"python", "date"=>"2013-12-11"},
-      {"nit_count"=>"1", "language"=>"ruby", "date"=>"2013-12-31"}
+      {"count"=>"2", "language"=>"ruby", "date"=>"2013-12-01"},
+      {"count"=>"1", "language"=>"python", "date"=>"2013-12-11"},
+      {"count"=>"1", "language"=>"ruby", "date"=>"2013-12-31"}
     ]
   end
 
