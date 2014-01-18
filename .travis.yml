@@ -6,7 +6,7 @@ before_script:
   - './test/rust/bootstrap.sh'
   - './test/erlang/bootstrap.sh'
 script:
-  - 'RACK_ENV=test CI=1 bundle exec rake db:migrate test:each'
+  - 'RACK_ENV=test CI=1 bundle exec rake db:migrate test_with_coverage'
   - '( cd frontend && npm install && lineman spec-ci )'
   - '( export PATH=/opt/hp-2013.2.0.0/bin:$PATH; runhaskell ./test/haskell/check-exercises.hs )'
   - 'make test --directory=assignments/javascript'
