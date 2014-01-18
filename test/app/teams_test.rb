@@ -88,51 +88,55 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_team_creation_with_multiple_members
-    post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{john.username}"}}, login(alice)
+    TeamInvitationMessage.stub(:ship, nil) do
+      post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{john.username}"}}, login(alice)
 
-    team = Team.first
+      team = Team.first
 
-    bob.reload
-    john.reload
+      bob.reload
+      john.reload
 
-    assert_equal 0, bob.teams.size
-    assert_equal 0, john.teams.size
+      assert_equal 0, bob.teams.size
+      assert_equal 0, john.teams.size
 
-    assert team.includes?(alice)
-    refute team.includes?(bob)
-    refute team.includes?(john)
+      assert team.includes?(alice)
+      refute team.includes?(bob)
+      refute team.includes?(john)
 
-    put "/teams/#{team.slug}/confirm", {}, login(bob)
-    put "/teams/#{team.slug}/confirm", {}, login(john)
+      put "/teams/#{team.slug}/confirm", {}, login(bob)
+      put "/teams/#{team.slug}/confirm", {}, login(john)
 
-    bob.reload
-    john.reload
+      bob.reload
+      john.reload
 
-    assert_equal 1, bob.teams.size
-    assert_equal 1, john.teams.size
+      assert_equal 1, bob.teams.size
+      assert_equal 1, john.teams.size
 
-    [alice, bob, john].each do |member|
-      assert team.includes?(member)
+      [alice, bob, john].each do |member|
+        assert team.includes?(member)
+      end
     end
   end
 
   def test_member_addition
-    team = Team.by(alice).defined_with({slug: 'members'})
-    team.save
+    TeamInvitationMessage.stub(:ship, nil) do
+      team = Team.by(alice).defined_with({slug: 'members'})
+      team.save
 
-    post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{john.username}"}, login(alice)
+      post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{john.username}"}, login(alice)
 
-    team.reload
+      team.reload
 
-    refute team.includes?(bob)
-    refute team.includes?(john)
+      refute team.includes?(bob)
+      refute team.includes?(john)
 
-    put "/teams/#{team.slug}/confirm", {}, login(bob)
+      put "/teams/#{team.slug}/confirm", {}, login(bob)
 
-    team.reload
+      team.reload
 
-    assert team.includes?(bob)
-    refute team.includes?(john)
+      assert team.includes?(bob)
+      refute team.includes?(john)
+    end
   end
 
   def test_member_addition_without_being_creator
@@ -238,13 +242,15 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_notify_unconfirmed_members_of_invitation
-    post '/teams', {team: {slug: 'notify', usernames: bob.username}}, login(alice)
+    TeamInvitationMessage.stub(:ship, nil) do
+      post '/teams', {team: {slug: 'notify', usernames: bob.username}}, login(alice)
 
-    assert_equal 0, alice.reload.notifications.count, "Shouldn't notify creator"
-    assert_equal 1, bob.reload.notifications.count, "Notify bob failed"
+      assert_equal 0, alice.reload.notifications.count, "Shouldn't notify creator"
+      assert_equal 1, bob.reload.notifications.count, "Notify bob failed"
 
-    post "/teams/notify/members", {usernames: john.username}, login(alice)
+      post "/teams/notify/members", {usernames: john.username}, login(alice)
 
-    assert_equal 1, john.reload.notifications.count, "Notify john failed"
+      assert_equal 1, john.reload.notifications.count, "Notify john failed"
+    end
   end
 end
