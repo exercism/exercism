@@ -1,3 +1,4 @@
+require 'simplecov' if ENV['COVERAGE']
 require './test/integration_helper'
 require './test/approval_helper'
 
