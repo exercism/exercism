@@ -19,14 +19,23 @@ pub struct DeoxyribonucleicAcid {
     nucleotides: ~str
 }
 
+fn transcribe_dna_rna(c: char) -> char {
+    match c {
+        'C' => 'G',
+        'G' => 'C',
+        'A' => 'U',
+        'T' => 'A',
+        _   => c
+    }
+}
+
 impl DeoxyribonucleicAcid {
     pub fn new(nucleotides: ~str) -> DeoxyribonucleicAcid {
         DeoxyribonucleicAcid { nucleotides: nucleotides }
     }
 
     pub fn to_rna(&self) -> RibonucleicAcid {
-        let rna_nucleotides = self.nucleotides.replace("T", "U");
-
+        let rna_nucleotides = self.nucleotides.chars().map(transcribe_dna_rna).collect();
         RibonucleicAcid { nucleotides: rna_nucleotides }
     }
 }

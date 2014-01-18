@@ -14,32 +14,32 @@ fn test_acid_equals_acid() {
 
 #[test]
 #[ignore]
-fn test_transcribes_cytidine_unchanged() {
-    assert_eq!(dna::RibonucleicAcid::new(~"C"), dna::DeoxyribonucleicAcid::new(~"C").to_rna());
+fn test_transcribes_cytidine_guanosine() {
+    assert_eq!(dna::RibonucleicAcid::new(~"G"), dna::DeoxyribonucleicAcid::new(~"C").to_rna());
 }
 
 #[test]
 #[ignore]
-fn test_transcribes_guanosine_unchanged() {
-    assert_eq!(dna::RibonucleicAcid::new(~"G"), dna::DeoxyribonucleicAcid::new(~"G").to_rna());
+fn test_transcribes_guanosine_cytidine() {
+    assert_eq!(dna::RibonucleicAcid::new(~"C"), dna::DeoxyribonucleicAcid::new(~"G").to_rna());
 }
 
 #[test]
 #[ignore]
-fn test_transcribes_adenosine_unchanged() {
-    assert_eq!(dna::RibonucleicAcid::new(~"A"), dna::DeoxyribonucleicAcid::new(~"A").to_rna());
+fn test_transcribes_adenosine_uracil() {
+    assert_eq!(dna::RibonucleicAcid::new(~"U"), dna::DeoxyribonucleicAcid::new(~"A").to_rna());
 }
 
 #[test]
 #[ignore]
-fn test_transcribes_thymidine_to_uracil() {
-    assert_eq!(dna::RibonucleicAcid::new(~"U"), dna::DeoxyribonucleicAcid::new(~"T").to_rna());
+fn test_transcribes_thymidine_to_adenosine() {
+    assert_eq!(dna::RibonucleicAcid::new(~"A"), dna::DeoxyribonucleicAcid::new(~"T").to_rna());
 }
 
 #[test]
 #[ignore]
-fn test_transcribes_all_occurrences_of_thymidine_to_uracil() {
-    assert_eq!(dna::RibonucleicAcid::new(~"ACGUGGUCUUAA"), dna::DeoxyribonucleicAcid::new(~"ACGTGGTCTTAA").to_rna())
+fn test_transcribes_all_dna_to_rna() {
+    assert_eq!(dna::RibonucleicAcid::new(~"UGCACCAGAAUU"), dna::DeoxyribonucleicAcid::new(~"ACGTGGTCTTAA").to_rna())
 }
 
 #[test]
