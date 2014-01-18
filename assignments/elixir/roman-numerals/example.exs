@@ -22,6 +22,6 @@ defmodule Roman do
   end
 
   defp largest_factor(number) do
-    Enum.first Enum.filter(@numerals, fn([p, _]) -> p <= number end)
+    hd Enum.filter(@numerals, fn([p, _]) -> p <= number end)
   end
 end

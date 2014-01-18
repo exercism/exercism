@@ -97,23 +97,20 @@ defmodule CustomSet do
   defp diff(a, b) do
     la = unwrap(a)
     lb = unwrap(b)
-    # Lazy enumerable 
-    fn acc, f ->
-      do_diff(la, lb, acc, f)
-    end
+    do_diff(la, lb, [])
   end
 
-  defp do_diff([], [], acc, _), do: acc
-  defp do_diff([ha|ta], [], acc, f), do: do_diff(ta, [], f.({:a_only, ha}, acc), f)
-  defp do_diff([], [hb|tb], acc, f), do: do_diff([], tb, f.({:b_only, hb}, acc), f)
-  defp do_diff(a = [ha|ta], b = [hb|tb], acc, f) do
+  defp do_diff([], [], acc), do: :lists.reverse(acc)
+  defp do_diff([ha|ta], [], acc), do: do_diff(ta, [], [{:a_only, ha} | acc])
+  defp do_diff([], [hb|tb], acc), do: do_diff([], tb, [{:b_only, hb} | acc])
+  defp do_diff(a = [ha|ta], b = [hb|tb], acc) do
     cond do
       lt_strict(ha, hb) ->
-        do_diff(ta, b, f.({:a_only, ha}, acc), f)
+        do_diff(ta, b, [{:a_only, ha} | acc])
       lt_strict(hb, ha) ->
-        do_diff(a, tb, f.({:b_only, hb}, acc), f)
+        do_diff(a, tb, [{:b_only, hb} | acc])
       true ->
-        do_diff(ta, tb, f.({:both, ha}, acc), f)
+        do_diff(ta, tb, [{:both, ha} | acc])
     end
   end
 
@@ -129,7 +126,11 @@ end
 defimpl Inspect, for: CustomSet do
   import Kernel, except: [inspect: 2]
   import Inspect.Algebra
+  # Deal with the deprecation of Kernel.to_doc
+  if not { :to_doc, 2 } in Inspect.Algebra.__info__(:functions) do
+    def to_doc(x, opts), do: Kernel.inspect(x, opts)
+  end
   def inspect(s, opts) do
-    concat ["#<CustomSet ", Kernel.inspect(CustomSet.to_list(s), opts), ">"]
+    concat ["#<CustomSet ", to_doc(CustomSet.to_list(s), opts), ">"]
   end
 end

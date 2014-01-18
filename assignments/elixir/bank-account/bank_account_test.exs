@@ -52,7 +52,7 @@ defmodule BankAccountTest do
     this = self()
     Process.spawn(fn ->
       BankAccount.update(context[:account], 20)
-      this <- :continue
+      send(this, :continue)
     end)
     receive do
       :continue -> :ok
@@ -60,5 +60,13 @@ defmodule BankAccountTest do
       1000 -> flunk("Timeout") 
     end
     assert BankAccount.balance(context[:account]) == 20
+  end
+
+  ## Workarounds
+
+  # This deals with the deprecation of the send operator.
+  # It makes this code work both pre-0.12.2 and post-0.12.3
+  unless { :send, 2 } in Kernel.__info__(:functions) do
+    defp send(to, what), do: to <- what
   end
 end

@@ -10,9 +10,7 @@ defmodule Sieve do
       |> Enum.reverse
   end
 
-  @doc """
-  Checks if a given number is prime based on a given list of known primes.
-  """
+  # Checks if a given number is prime based on a given list of known primes.
   @spec is_prime?(non_neg_integer, [non_neg_integer]) :: boolean
 
   defp is_prime?(number, primes) do

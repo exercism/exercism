@@ -1,92 +1,46 @@
 defmodule Phone do
-  @doc """
-  Remove formatting from a phone number.
-
-  Returns "0000000000" if phone number is not valid
-  (10 digits or "1" followed by 10 digits)
-
-  ## Examples
-
-  iex> Phone.number("123-456-7890")
-  "1234567890"
-
-  iex> Phone.number("+1 (303) 555-1212")
-  "13035551212"
-
-  iex> Phone.number("867.5309")
-  "0000000000"
+  @moduledoc """
+  Utilities to work with phone numbers.
   """
-  def number(raw) do
-    raw
-      |> select_digits
-      |> join
-      |> validate
-  end
 
-  defp select_digits(string), do: Regex.scan %r{\d}, string
-  defp join(digits), do: Enum.join digits, ""
+  @bad_result "0000000000"
 
-  defp validate(number) do
-    cond do
-      valid?(number) -> number
-      true -> "0000000000"
+  @doc """
+  Clean up a phone number.
+
+  Returns 0000000000 if the phone number is bad.
+  """
+  @spec number(String.t) :: String.t
+  def number(str) do
+    r = String.to_char_list!(str)
+        |> Enum.filter(&(&1 >= ?0 and &1 <= ?9))
+        |> do_number()
+    case r do
+      nil -> @bad_result
+      l   -> String.from_char_list!(l)
     end
   end
 
-  defp valid_number_re, do: %r/^1?(\d{3})(\d{3})(\d{4})$/
-  defp parts(number),   do: Enum.first Regex.scan valid_number_re, number
-  defp valid?(number),  do: Regex.match? valid_number_re, number
+  defp do_number(l) when length(l) == 10, do: l
+  defp do_number([?1|l]) when length(l) == 10, do: l
+  defp do_number(_), do: nil
 
   @doc """
-  Extract the area code from a phone number
-
-  Returns the first three digits from a phone number,
-  ignoring long distance indicator
-
-  ## Examples
-
-  iex> Phone.area_code("123-456-7890")
-  "123"
-
-  iex> Phone.area_code("+1 (303) 555-1212")
-  "303"
-
-  iex> Phone.area_code("867.5309")
-  "000"
+  Get the area code of a phone number.
+  
+  The area code is the first three digits of a cleaned up phone number.
   """
-  def area_code(raw) do
-    raw
-      |> number
-      |> _area_code
+  @spec area_code(String.t) :: String.t
+  def area_code(str) do
+    number(str) |> String.slice(0, 3)
   end
-
-  defp _area_code(number), do: Enum.first parts number
 
   @doc """
-  Pretty print a phone number
-
-  Wraps the area code in parentheses and separates
-  exchange and subscriber number with a dash.
-
-  ## Examples
-
-  iex> Phone.pretty("123-456-7890")
-  "(123) 456-7890"
-
-  iex> Phone.pretty("+1 (303) 555-1212")
-  "(303) 555-1212"
-
-  iex> Phone.pretty("867.5309")
-  "(000) 000-0000"
+  Pretty print a phone number.
   """
-  def pretty(raw) do
-    raw
-      |> number
-      |> _pretty
-  end
-
-  defp _pretty(number) do
-    [area, exchange, subscriber] = parts number
-    "(#{area}) #{exchange}-#{subscriber}"
+  @spec pretty(String.t) :: String.t
+  def pretty(str) do
+    c = number(str)
+    "(#{String.slice(c, 0, 3)}) #{String.slice(c, 3, 3)}-#{String.slice(c,6,4)}"
   end
 end
