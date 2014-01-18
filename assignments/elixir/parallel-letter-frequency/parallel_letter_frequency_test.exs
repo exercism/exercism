@@ -1,4 +1,9 @@
-Code.load_file("frequency.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("frequency.exs")
+end
+
 ExUnit.start
 
 # Your code should contain a frequency(texts, workers) function which accepts a

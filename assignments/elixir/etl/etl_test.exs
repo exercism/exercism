@@ -1,4 +1,9 @@
-Code.load_file("etl.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("etl.exs")
+end
+
 ExUnit.start
 
 defmodule TransformTest do

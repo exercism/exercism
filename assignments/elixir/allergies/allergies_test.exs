@@ -1,4 +1,10 @@
-Code.load_file("allergies.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("allergies.exs")
+end
+
+
 ExUnit.start
 
 defmodule AllergiesTest do

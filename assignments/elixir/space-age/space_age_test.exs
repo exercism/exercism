@@ -1,4 +1,9 @@
-Code.load_file("space_age.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("space_age.exs")
+end
+
 ExUnit.start
 
 # You need to define a SpaceAge module containing a function age_on that given a

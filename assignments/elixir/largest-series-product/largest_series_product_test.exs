@@ -1,4 +1,9 @@
-Code.load_file("largest_series_product.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("largest_series_product.exs")
+end
+
 ExUnit.start
 
 defmodule LargestSeriesProductTest do
