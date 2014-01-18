@@ -1,4 +1,9 @@
-Code.load_file("word_count.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("word_count.exs")
+end
+
 ExUnit.start
 
 defmodule WordsTest do

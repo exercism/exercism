@@ -1,4 +1,9 @@
-Code.load_file("gigasecond.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("gigasecond.exs")
+end
+
 ExUnit.start
 
 defmodule GigasecondTest do

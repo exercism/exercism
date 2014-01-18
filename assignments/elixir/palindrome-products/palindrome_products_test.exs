@@ -1,4 +1,9 @@
-Code.load_file("palindrome_products.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("palindrome_products.exs")
+end
+
 ExUnit.start
 
 defmodule PalindromeProductsTest do
@@ -18,7 +23,7 @@ defmodule PalindromeProductsTest do
 
   test "smallest palindrome from double digit factors" do
     palindromes = Palindromes.generate(99, 10)
-    assert 121 == palindromes |> Dict.keys |> Enum.sort |> Enum.first
+    assert 121 == palindromes |> Dict.keys |> Enum.sort |> hd
     assert [[11, 11]] == palindromes[121]
   end
 
@@ -30,7 +35,7 @@ defmodule PalindromeProductsTest do
 
   test "smallest palindromes from triple digit factors" do
     palindromes = Palindromes.generate(999, 100)
-    assert 10201 == palindromes |> Dict.keys |> Enum.sort |> Enum.first
+    assert 10201 == palindromes |> Dict.keys |> Enum.sort |> hd
     assert [[101, 101]] == palindromes[10201]
 
   end

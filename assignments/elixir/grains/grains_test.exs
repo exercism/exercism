@@ -1,4 +1,9 @@
-Code.load_file("grains.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("grains.exs")
+end
+
 ExUnit.start
 
 # NOTE: :math.pow/2 doesn't do what you'd expect:

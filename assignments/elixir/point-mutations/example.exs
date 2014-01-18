@@ -12,5 +12,5 @@ defmodule DNA do
   end
 
   defp pairs(s1, s2),           do: Enum.zip(s1, s2)
-  defp count_mismatched(pairs), do: Enum.count pairs, fn({c1, c2}) -> c2 && (c1 != c2) end
+  defp count_mismatched(pairs), do: Enum.count(pairs, fn({c1, c2}) -> c2 && (c1 != c2) end)
 end

@@ -1,4 +1,9 @@
-Code.load_file("forth.exs")
+if System.get_env("EXERCISM_TEST_EXAMPLES") do
+  Code.load_file("example.exs")
+else
+  Code.load_file("forth.exs")
+end
+
 ExUnit.start
 
 defmodule ForthTest do
