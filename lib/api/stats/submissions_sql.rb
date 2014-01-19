@@ -15,7 +15,7 @@ module Api
       def sql
         <<-SQL
         SELECT
-          count(id) AS count, language, created_at::date
+          count(id) AS count, language, created_at::date AS date
         FROM
           submissions
         WHERE
