@@ -1,4 +1,4 @@
-package rnatranscription
+package strand
 
 import (
 	"testing"
@@ -10,11 +10,11 @@ type rnaTest struct {
 }
 
 var rnaTests = []rnaTest{
-	{"C", "C"},
-	{"G", "G"},
-	{"A", "A"},
-	{"T", "U"},
-	{"ACGTGGTCTTAA", "ACGUGGUCUUAA"},
+	{"C", "G"},
+	{"G", "C"},
+	{"A", "U"},
+	{"T", "A"},
+	{"ACGTGGTCTTAA", "UGCACCAGAAUU"},
 }
 
 func TestRnaTranscription(t *testing.T) {
