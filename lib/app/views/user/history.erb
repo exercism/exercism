@@ -35,9 +35,9 @@
       <% end %>
     </tbody>
   </table>
-  <p>
+  <div class="pagination">
     <%= will_paginate nitpicks, renderer: BootstrapPagination::Sinatra %>
-  </p>
+  </div>
 <% else %>
   <p>
     <b>You haven't given any nitpicks yet.</b>
