@@ -1,27 +1,19 @@
-class Year
+require 'delegate'
 
-  attr_reader :number
-  def initialize(number)
-    @number = number
+class Year < SimpleDelegator
+
+  def self.leap?(number)
+    Year.new(number).leap?
   end
 
   def leap?
-    (vanilla? && !century?) || exceptional_century?
+    divisible_by?(400) || divisible_by?(4) && !divisible_by?(100)
   end
 
   private
 
-  def vanilla?
-    (number % 4) == 0
+  def divisible_by?(i)
+    (self % i) == 0
   end
-
-  def century?
-    (number % 100) == 0
-  end
-
-  def exceptional_century?
-    (number % 400) == 0
-  end
-
 end
 
