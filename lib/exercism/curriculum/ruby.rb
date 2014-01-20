@@ -2,9 +2,9 @@ class Exercism
   class RubyCurriculum
     def slugs
       %w(
-        bob leap grade-school hamming word-count anagram etl
-        proverb space-age grains gigasecond house scrabble-score
-        roman-numerals prime-factors raindrops strain triangle
+        bob leap grains raindrops hamming etl scrabble-score
+        gigasecond word-count anagram grade-school proverb space-age
+        house roman-numerals prime-factors strain triangle
         beer-song nucleotide-count phone-number robot-name
         atbash-cipher accumulate crypto-square trinary rna-transcription
         sieve simple-cipher luhn pig-latin pythagorean-triplet allergies
