@@ -45,7 +45,7 @@ class ExercismApp < Sinatra::Base
 
     # params[:splat] might be an empty array
     # which suits us just fine.
-    redirect [root_path, params[:splat].first].join('/')
+    redirect [root_path, params[:splat].first].flatten.join('/')
   end
 
 end
