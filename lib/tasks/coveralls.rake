@@ -1,4 +1,4 @@
-unless ENV.fetch('RACK_ENV') { :development }.to_sym == :production
+if [:test, :development].include?(ENV.fetch('RACK_ENV') { :development }.to_sym)
   require 'coveralls/rake/task'
   Coveralls::RakeTask.new
   task :test_with_coverage do
