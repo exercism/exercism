@@ -67,7 +67,7 @@ class Attempt
   private
 
   def sanitize(code)
-    code.gsub(/\n*\z/, "")
+    code.gsub(/\n*\z|\A\n*/, "")
   end
 
 end

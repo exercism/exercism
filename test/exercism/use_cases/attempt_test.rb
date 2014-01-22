@@ -120,6 +120,11 @@ class AttemptTest < MiniTest::Unit::TestCase
     assert_equal "CODE1\n\nCODE2", user.submissions.first.code
   end
 
+  def test_newlines_are_removed_at_the_beginning_of_the_file
+    Attempt.new(user, "\nCODE1\n\nCODE2", 'two/two.rb', curriculum).save
+    assert_equal "CODE1\n\nCODE2", user.submissions.first.code
+  end
+
   def test_rejects_duplicates
     first_attempt = Attempt.new(user, "CODE", 'two/two.rb', curriculum).save
     second_attempt =  Attempt.new(user, "CODE", 'two/two.rb', curriculum)
