@@ -116,29 +116,30 @@ class AttemptTest < MiniTest::Unit::TestCase
   end
 
   def test_newlines_are_removed_at_the_end_of_the_file
-    Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.rb', curriculum).save
-    assert_equal "\nCODE1\n\nCODE2", user.submissions.first.code
+    Attempt.new(user, "CODE1\n\nCODE2\n\n\n", 'two/two.rb', curriculum).save
+    assert_equal "CODE1\n\nCODE2", user.submissions.first.code
   end
 
   def test_rejects_duplicates
-    first_attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.rb', curriculum).save
-    second_attempt =  Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.rb', curriculum)
+    first_attempt = Attempt.new(user, "CODE", 'two/two.rb', curriculum).save
+    second_attempt =  Attempt.new(user, "CODE", 'two/two.rb', curriculum)
 
     assert second_attempt.duplicate?
   end
 
   def test_no_reject_without_previous
-    attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.rb', curriculum)
+    attempt = Attempt.new(user, "CODE", 'two/two.rb', curriculum)
     refute attempt.duplicate?
   end
 
   def test_attempt_sets_exercise_as_current
-    attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'two/two.rb', curriculum).save
+    attempt = Attempt.new(user, "CODE", 'two/two.rb', curriculum).save
     assert user.working_on?(Exercise.new('ruby', 'two'))
   end
 
   def test_attempt_sets_completed_exercises_as_current
-    attempt = Attempt.new(user, "\nCODE1\n\nCODE2\n\n\n", 'one/one.rb', curriculum).save
+    refute user.working_on?(Exercise.new('ruby', 'one'))
+    attempt = Attempt.new(user, "CODE", 'one/one.rb', curriculum).save
     assert user.working_on?(Exercise.new('ruby', 'one'))
   end
 end
