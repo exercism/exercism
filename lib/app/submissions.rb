@@ -161,7 +161,7 @@ class ExercismApp < Sinatra::Base
       redirect '/'
     end
 
-    submission = Submission.where(user_id: current_user.id, slug: selected_submission.slug, state: 'done').first
+    submission = Submission.where(user_id: current_user.id, language: selected_submission.language, slug: selected_submission.slug, state: 'done').first
     submission.state = 'pending'
     submission.done_at = nil
     submission.save

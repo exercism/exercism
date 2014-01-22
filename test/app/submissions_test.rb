@@ -234,16 +234,19 @@ class SubmissionsTest < MiniTest::Unit::TestCase
     data = {
       user: alice,
       code: 'code',
-      language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      state: 'done',
+      created_at: Time.now - 2,
+      done_at: Time.now
     }
-    submission = Submission.create(data.merge(state: 'done', created_at: Time.now - 2, done_at: Time.now))
+    s1 = Submission.create(data.merge(language: 'python'))
+    s2 = Submission.create(data.merge(language: 'ruby'))
 
-    post "/submissions/#{submission.key}/reopen", {}, login(alice)
+    post "/submissions/#{s2.key}/reopen", {}, login(alice)
 
-    submission.reload
-    assert_equal 'pending', submission.state
-    assert_nil submission.done_at
+    s2.reload
+    assert_equal 'pending', s2.state
+    assert_nil s2.done_at
   end
 
   def test_must_be_owner_to_reopen_exercise
