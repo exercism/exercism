@@ -262,3 +262,7 @@ a code {
   vertical-align: top;
 }
 
+#current_submission h2 a {
+  font-size: 14px;
+}
+
