@@ -56,6 +56,13 @@ class ExercismApp < Sinatra::Base
   helpers Sinatra::SessionHelper
 
   helpers do
+    def github_client_id
+      ENV.fetch('EXERCISM_GITHUB_CLIENT_ID')
+    end
+
+    def github_client_secret
+      ENV.fetch('EXERCISM_GITHUB_CLIENT_SECRET')
+    end
 
     def site_root
       env.fetch 'HTTP_HOST', 'http://exercism.io'
@@ -63,6 +70,10 @@ class ExercismApp < Sinatra::Base
 
     def root_path
       '/'
+    end
+
+    def link_to(path)
+      File.join(root_path, path)
     end
 
     def language_icon(language,html={})

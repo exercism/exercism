@@ -3,12 +3,12 @@ module Sinatra
     def please_login(notice = nil)
       if current_user.guest?
         flash[:notice] = notice if notice
-        redirect "/please-login?return_path=#{request.path_info}"
+        redirect link_to("/please-login?return_path=#{request.path_info}")
       end
     end
 
     def login_url(return_path = nil)
-      url = Github.login_url
+      url = Github.login_url(github_client_id)
       url << redirect_uri(return_path) if return_path
       url
     end

@@ -1,19 +1,7 @@
-class ExercismApp < Sinatra::Base
+class ExercismV1p0 < Sinatra::Base
   get '/logout' do
     logout
     redirect root_path
-  end
-
-  if ENV['RACK_ENV'] == 'development'
-    get '/backdoor' do
-      if User.count == 0
-        flash[:error] = "You'll want to run the seed script: `rake db:seed`"
-        redirect root_path
-      end
-
-      login(User.find_by_github_id(params[:id]))
-      redirect root_path
-    end
   end
 
   get '/please-login' do
