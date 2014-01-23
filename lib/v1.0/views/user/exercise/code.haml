@@ -16,4 +16,4 @@
         = "%02d" % submission.version
       %p.toggle-content
         .content-code
-          = md(submission.code, exercise.language)
+          = preserve md(submission.code, exercise.language)
