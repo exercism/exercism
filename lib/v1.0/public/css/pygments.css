@@ -1,5 +1,5 @@
 code {
-  font-family: 'source_code_proextralight';
+  font-family: 'source_code_proregular';
   color: #000;
 }
 
@@ -8,7 +8,7 @@ div.highlight {
   border-radius:3px;
   border:1px solid #ccc;
 
-  font-family: 'source_code_proextralight';
+  font-family: 'source_code_proregular';
   font-size:14px;
 
   overflow-x: auto;
@@ -20,6 +20,9 @@ div.highlight {
 div.highlight pre {
   background: none;
   border: none;
+
+  font-family: 'source_code_proregular';
+
   margin: 0;
   padding: 0 0 0 9.5px;
   line-height:26px;
