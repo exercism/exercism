@@ -34,8 +34,12 @@ class ExercismV1p0 < Sinatra::Base
   helpers Sinatra::MarkdownHelper
 
   helpers do
+    def root_path
+      "/v1.0"
+    end
+
     def link_to(path)
-      "/" + File.join(Exercism::App.root, path)
+      File.join(root_path, path)
     end
   end
 end
