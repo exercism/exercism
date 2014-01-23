@@ -20,10 +20,21 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
   # enableSass: true
 
   # configure lineman to load additional angular related npm tasks
-  loadNpmTasks: [ "grunt-ngmin" ]
+  loadNpmTasks: [ "grunt-ngmin"]
+
   # task override configuration
   prependTasks:
     dist: ["ngmin"]         # ngmin should run in dist only
+
+  watch:
+    scripts:
+      files: ["generated/**"],
+      tasks: ['copy:dev']
+
+  copy:
+    dev:
+      files: [expand: true, cwd: 'generated', src: ['css/**', 'js/**', '!**/spec.js', 
+              '!**/*.less*', '!**/*.coffee*', '!**/*.*.map'], dest: '../lib/app/public' ]
 
   # configuration for grunt-ngmin, this happens _after_ concat once, which is the ngmin ideal :)
   ngmin: {
