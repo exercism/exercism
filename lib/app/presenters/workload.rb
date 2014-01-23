@@ -49,6 +49,11 @@ class Workload
     @submissions = scope.includes(:user)
   end
 
+  def next_submission(current_submission)
+    current_index = submissions.index { |submission| submission.id == current_submission.id }
+    current_index ? submissions[current_index + 1] : nil
+  end
+
   def available_exercises
     exercises = Exercism.curriculum.in(language).exercises
     return exercises if user.mastery.include?(language)

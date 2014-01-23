@@ -106,6 +106,10 @@
           <% else %>
           <button type="submit" class="btn mute-btn"><i class="icon-microphone-off"></i>mute</button>
           <% end %>
+
+          <% if next_submission %>
+            <a href="/submissions/<%= next_submission.key %>" class="btn next-submission">Next Submission <i class="icon-arrow-right"></i></a>
+          <% end %>
         </form>
       <% end %>
     </h2>
