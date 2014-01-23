@@ -262,7 +262,10 @@ a code {
   vertical-align: top;
 }
 
+h2 .next-submission {
+  font-weight: normal;
+}
+
 #current_submission h2 a {
   font-size: 14px;
 }
-
