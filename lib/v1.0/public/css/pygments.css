@@ -24,6 +24,8 @@ div.highlight pre {
   padding: 0 0 0 9.5px;
   line-height:26px;
   white-space: pre;
+  width: 100%;
+  max-width: none;
 }
 
 blockquote .highlight {
