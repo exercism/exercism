@@ -1,12 +1,14 @@
 ## Downloading the CLI
 
-You access the exercises via the command line.
+You access the exercises via the command line using a stand-alone binary.
 
-The command-line interface (CLI) is a stand-alone binary, and you can install it without installing any particular programming language or environment.
+You can install it without installing any particular programming language or environment.
 
 ## Installing the CLI
 
-On Mac OS X or Linux you can install the CLI with the following command [view source](http://cli.exercism.io/install):
+### OS X or Linux
+
+You can install the CLI with the following command [view source](http://cli.exercism.io/install):
 
 ```bash
 $ curl http://cli.exercism.io/install | sh
@@ -16,10 +18,16 @@ Or, download the [latest release](http://github.com/exercism/cli/releases/latest
 
 To determine your processor architecture, try `uname -m`.
 
-If you're on Windows, get the [latest release](http://github.com/exercism/cli/releases/latest). To unpack the `.tgz` file you will need a tool like `gzip`, `GNU tar`, or the [universal extractor "uniextract"](http://legroom.net/software/uniextract)". It seems like neither `jzip` or `7-zip` work.
+### Windows
+
+Get the [latest release](http://github.com/exercism/cli/releases/latest). To unpack the `.tgz` file you will need a tool like `gzip`, `GNU tar`, or the [universal extractor "uniextract"](http://legroom.net/software/uniextract)". It seems like neither `jzip` or `7-zip` work.
 
 The extracted binary is named `exercism.exe`.
 
 Put the binary in your PATH, or run it by calling the full path to the program: `C:\path\to\exercism\project\exercism.exe`.
 
 If you get stuck, post <a href="https://github.com/exercism/exercism.io/issues/new">an issue</a> so that we can figure out what's confusing, help you out, and then update this text so that the next person doesn't get stuck.
+
+
+### More information
+See the [CLI site](http://cli.exercism.io/).
