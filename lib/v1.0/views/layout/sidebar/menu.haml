@@ -10,7 +10,11 @@
           %li
             %a{:href => "#"}= team.name
         %li
-          = haml :"user/exercise/add_team"
+          %a.highlight.toggle-add-team{:href => "javascript:;"} + Add Team
+          %form.form.form-add-team.clearfix.hide-elem{:name => "add-team"}
+            %input{:name => "team[name]", :type => "text", :placeholder => "Team Name"}/
+            %textarea{:name => "team[members]", :placeholder => "username1, username2"}
+            %input.btn.btn-link.btn-submit{:type => "submit", :value => "Add Team"}/
 
     %li.list-menu
       %label.tree-toggler.nav-header
