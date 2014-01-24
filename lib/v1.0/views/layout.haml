@@ -8,10 +8,23 @@
   = haml :"layout/head"
   %body
     = haml :"layout/ie_warning"
-    = haml :"layout/header"
 
-    %section#section-content
-      = yield
+    - if current_user.guest?
+      = haml :"layout/topnav_guest"
+
+      %section#section-content
+        = yield
+    - else
+      .row.aside-show.unstyled
+
+        %aside#sidebar-first.col-md-3
+          = haml :"user/exercise/profile"
+          = haml :"user/exercise/menu"
+          = haml :"user/exercise/account"
+
+        .col-md-9.section-main
+          = haml :"layout/topnav_user"
+          = yield
 
     = haml :"layout/footer"
     = haml :"layout/foot"

@@ -17,7 +17,4 @@
           %a{:href => link_to('/help')} Help
       %ul.nav.navbar-nav.navbar-right
         %li
-          - if current_user.guest?
-            %a.sprite-icon-login{:href => link_to("/login")} Login with Github
-          - else
-            %a.sprite-icon-logout{:href => link_to("/logout")} Logout
+          %a.sprite-icon-login{:href => link_to("/login")} Login with Github

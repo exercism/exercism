@@ -1,0 +1,19 @@
+%header#section-header.navbar.navbar-default.navbar-top.logged-in
+  .container
+    .navbar-header
+      %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      %a.navbar-brand.visible-xs{:href => link_to('/')} Exercism.io
+
+    %nav.collapse.navbar-collapse.bs-navbar-collapse{:role => "navigation"}
+      %ul.nav.navbar-nav
+        %li
+          %a.sprite-icon-logout{:href => link_to("/logout")} Logout
+        %li
+          %a{:href => link_to('/about')} About Exercism
+        %li
+          %a{:href => link_to('/getting-started')} Getting Started
+        %li
+          %a{:href => link_to('/help')} Help
