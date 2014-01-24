@@ -3,10 +3,6 @@ class ExercismV1p0 < Sinatra::Base
     def nav
       @nav ||= App::User::Navigation.new(current_user)
     end
-
-    def account
-      @account ||= App::User::Account.new(current_user)
-    end
   end
 
   get '/:username/:key' do |username, key|
@@ -14,5 +10,11 @@ class ExercismV1p0 < Sinatra::Base
     user = User.find_by_username(username)
     exercise = user.exercises.find_by_key(key)
     haml :"user/exercise", locals: {exercise: App::User::Exercise.new(exercise)}
+  end
+
+  get '/account' do
+    please_login
+
+    haml :"user/account", locals: {account: App::User::Account.new(current_user)}
   end
 end
