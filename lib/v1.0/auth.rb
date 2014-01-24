@@ -29,7 +29,10 @@ class ExercismV1p0 < Sinatra::Base
     end
 
     path = params[:splat].first
-    path = nil if path == ""
-    redirect [root_path, path].compact.join('/')
+    if path.nil? || path.empty?
+      redirect link_to('/ohai')
+    else
+      redirect [root_path, path].compact.join('/')
+    end
   end
 end

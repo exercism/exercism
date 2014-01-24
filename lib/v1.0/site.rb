@@ -15,4 +15,8 @@ class ExercismV1p0 < Sinatra::Base
     slides = App::Site::Carousel.slides(code_dir)
     haml :"site/getting_started", locals: {languages: languages, slides: slides}
   end
+
+  get '/ohai' do
+    haml :"site/temporary_landing_page"
+  end
 end
