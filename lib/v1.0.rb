@@ -22,7 +22,7 @@ require 'app/site/languages'
   require File.join(Exercism::App.root, presenter)
 end
 
-['auth', 'site', 'help', 'user'].each do |controller|
+['auth', 'site', 'help', 'exercises', 'solutions', 'user'].each do |controller|
   require File.join(Exercism::App.root, controller)
 end
 
