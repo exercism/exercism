@@ -1,10 +1,4 @@
 class ExercismV1p0 < Sinatra::Base
-  helpers do
-    def nav
-      @nav ||= App::User::Navigation.new(current_user)
-    end
-  end
-
   get '/:username/:key' do |username, key|
     please_login
     user = User.find_by_username(username)

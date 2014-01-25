@@ -58,5 +58,9 @@ class ExercismV1p0 < Sinatra::Base
     def link_to(path)
       File.join(root_path, path)
     end
+
+    def nav
+      @nav ||= App::User::Navigation.new(current_user)
+    end
   end
 end
