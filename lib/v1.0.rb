@@ -48,7 +48,7 @@ class ExercismV1p0 < Sinatra::Base
     end
 
     def site_root
-      env.fetch 'HTTP_HOST', 'http://exercism.io'
+      env.fetch('HTTP_HOST') { 'http://exercism.io' } << root_path
     end
 
     def root_path

@@ -5,6 +5,10 @@ class ExercismV1p0 < Sinatra::Base
   end
 
   get '/please-login' do
+    unless current_user.guest?
+      redirect link_to(params[:return_path] || "/ohai")
+    end
+
     status 403
     haml :"auth/please_login", locals: {return_path: params[:return_path]}
   end
