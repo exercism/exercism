@@ -9,3 +9,7 @@
   background-color: #fff;
   margin-left: 264px;
 }
+
+.aside-show .col-md-9 #section-header, .aside-show .col-md-9 #section-content {
+  margin-left: 0;
+}

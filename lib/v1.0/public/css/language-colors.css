@@ -1,0 +1,342 @@
+.antlr {
+  color: #9DC3FF;
+}
+.asp {
+  color: #6a40fd;
+}
+.actionscript {
+  color: #e3491a;
+}
+.ada {
+  color: #02f88c;
+}
+.agda {
+  color: #467C91;
+}
+.arc {
+  color: #ca2afe;
+}
+.arduino {
+  color: #bd79d1;
+}
+.assembly {
+  color: #a67219;
+}
+.autohotkey {
+  color: #6594b9;
+}
+.autoit {
+  color: #36699B;
+}
+.boo {
+  color: #d4bec1;
+}
+.c {
+  color: #555;
+}
+.c-sharp {
+  color: #5a25a2;
+}
+.c++ {
+  color: #f34b7d;
+}
+.css {
+  color: #1f085e;
+}
+.cirru {
+  color: #aaaaff;
+}
+.clean {
+  color: #3a81ad;
+}
+.clojure {
+  color: #db5855;
+}
+.coffeescript {
+  color: #244776;
+}
+.coldfusion {
+  color: #ed2cd6;
+}
+.common-lisp {
+  color: #3fb68b;
+}
+.d {
+  color: #fcd46d;
+}
+.dm {
+  color: #075ff1;
+}
+.dart {
+  color: #98BAD6;
+}
+.dylan {
+  color: #3ebc27;
+}
+.ecl {
+  color: #8a1267;
+}
+.eiffel {
+  color: #946d57;
+}
+.elixir {
+  color: #6e4a7e;
+}
+.emacs-lisp {
+  color: #c065db;
+}
+.erlang {
+  color: #0faf8d;
+}
+.f-sharp {
+  color: #b845fc;
+}
+.fortran {
+  color: #4d41b1;
+}
+.factor {
+  color: #636746;
+}
+.fancy {
+  color: #7b9db4;
+}
+.fantom {
+  color: #dbded5;
+}
+.forth {
+  color: #341708;
+}
+.glyph {
+  color: #e4cc98;
+}
+.go {
+  color: #a89b4d;
+}
+.gosu {
+  color: #82937f;
+}
+.groovy {
+  color: #e69f56;
+}
+.harbour {
+  color: #0e60e3;
+}
+.haskell {
+  color: #29b544;
+}
+.haxe {
+  color: #346d51;
+}
+.hy {
+  color: #7891b1;
+}
+.idl {
+  color: #e3592c;
+}
+.io {
+  color: #a9188d;
+}
+.ioke {
+  color: #078193;
+}
+.java {
+  color: #b07219;
+}
+.javascript {
+  color: #f15501;
+}
+.julia {
+  color: #a270ba;
+}
+.krl {
+  color: #f5c800;
+}
+.lfe {
+  color: #004200;
+}
+.lasso {
+  color: #2584c3;
+}
+.livescript {
+  color: #499886;
+}
+.lua {
+  color: #fa1fa1;
+}
+.matlab {
+  color: #bb92ac;
+}
+.max {
+  color: #ce279c;
+}
+.mirah {
+  color: #c7a938;
+}
+.nemerle {
+  color: #0d3c6e;
+}
+.netlogo {
+  color: #ff2b2b;
+}
+.nimrod {
+  color: #37775b;
+}
+.nu {
+  color: #c9df40;
+}
+.ocaml {
+  color: #3be133;
+}
+.objective-c {
+  color: #438eff;
+}
+.objective-j {
+  color: #ff0c5a;
+}
+.omgrofl {
+  color: #cabbff;
+}
+.oxygene {
+  color: #5a63a3;
+}
+.pawn {
+  color: #dbb284;
+}
+.php {
+  color: #6e03c1;
+}
+.parrot {
+  color: #f3ca0a;
+}
+.pascal {
+  color: #b0ce4e;
+}
+.perl {
+  color: #0298c3;
+}
+.perl6 {
+  color: #0298c3;
+}
+.pike {
+  color: #066ab2;
+}
+.pogoscript {
+  color: #d80074;
+}
+.processing {
+  color: #2779ab;
+}
+.prolog {
+  color: #74283c;
+}
+.puppet {
+  color: #cc5555;
+}
+.pure-data {
+  color: #91de79;
+}
+.python {
+  color: #3581ba;
+}
+.qml {
+  color: #44a51c;
+}
+.r {
+  color: #198ce7;
+}
+.racket {
+  color: #ae17ff;
+}
+.ragel-in-ruby-host {
+  color: #ff9c2e;
+}
+.rebol {
+  color: #358a5b;
+}
+.rouge {
+  color: #cc0088;
+}
+.ruby {
+  color: #701516;
+}
+.rust {
+  color: #dea584;
+}
+.scala {
+  color: #7dd3b0;
+}
+.scheme {
+  color: #1e4aec;
+}
+.self {
+  color: #0579aa;
+}
+.shell {
+  color: #5861ce;
+}
+.slash {
+  color: #007eff;
+}
+.smalltalk {
+  color: #596706;
+}
+.standard-ml {
+  color: #dc566d;
+}
+.supercollider {
+  color: #46390b;
+}
+.tcl {
+  color: #e4cc98;
+}
+.tex {
+  color: #3D6117;
+}
+.turing {
+  color: #45f715;
+}
+.typescript {
+  color: #31859c;
+}
+.unified-parallel-c {
+  color: #755223;
+}
+.unrealscript {
+  color: #a54c4d;
+}
+.vhdl {
+  color: #543978;
+}
+.vala {
+  color: #ee7d06;
+}
+.verilog {
+  color: #848bf3;
+}
+.viml {
+  color: #199c4b;
+}
+.visual-basic {
+  color: #945db7;
+}
+.volt {
+  color: #0098db;
+}
+.xquery {
+  color: #2700e2;
+}
+.edn {
+  color: #db5855;
+}
+.nesc {
+  color: #ffce3b;
+}
+.ooc {
+  color: #b0b77e;
+}
+.wisp {
+  color: #7582D1;
+}
+.xbase {
+  color: #3a4040;
+}
