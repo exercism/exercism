@@ -1,6 +1,7 @@
 class Notification < ActiveRecord::Base
 
   belongs_to :user
+  belongs_to :alert
 
   scope :about_nitpicks, -> { where(type: 'SubmissionNotification').where(regarding: ['like', 'code', 'nitpick']) }
   scope :by_recency, -> { order("created_at DESC") }
