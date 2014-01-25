@@ -23,7 +23,8 @@
 
         .col-md-9.section-main
           = haml :"layout/topnav_user"
-          = yield
+          .section-content
+            = yield
 
     = haml :"layout/footer"
     = haml :"layout/foot"
