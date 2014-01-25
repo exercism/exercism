@@ -3,6 +3,8 @@ require 'sinatra/petroglyph'
 
 require 'app/helpers/fuzzy_time_helper'
 
+require 'api/notifications/alert'
+
 require 'api/assignments'
 require 'api/notifications'
 require 'api/stashes'

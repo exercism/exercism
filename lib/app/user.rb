@@ -37,4 +37,17 @@ class ExercismApp < Sinatra::Base
 
     erb :"user/history", locals: {nitpicks: nitpicks}
   end
+
+  get '/:username/:key' do |username, key|
+    please_login
+    user = User.find_by_username(username)
+    exercise = user.exercises.find_by_key(key)
+    if exercise.submissions.empty?
+      # We have orphan exercises at the moment.
+      flash[:notice] = "That submission no longer exists."
+      redirect '/'
+    else
+      redirect ["", "submissions", exercise.submissions.last.key].join('/')
+    end
+  end
 end

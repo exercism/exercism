@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   serialize :mastery, Array
 
   has_many :submissions
+  has_many :alerts
   has_many :notifications
   has_many :comments
   has_many :exercises, class_name: "UserExercise"

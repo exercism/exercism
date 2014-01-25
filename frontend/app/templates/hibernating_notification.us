@@ -1,4 +1,3 @@
 <span class="icon-moon"></span>
-<a href="<%= link %>"><%= language %>: <%= slug %></a>
-<br>
-hibernated <%= ago %>
+<%= note %>
+<br>Hibernated <%= ago %>.
