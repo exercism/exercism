@@ -5,7 +5,7 @@ class ExercismV1p0 < Sinatra::Base
   end
 
   get '/please-login' do
-    erb :"auth/please_login", locals: {return_path: params[:return_path]}
+    haml :"auth/please_login", locals: {return_path: params[:return_path]}
   end
 
   get '/login' do

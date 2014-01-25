@@ -47,6 +47,10 @@ class ExercismV1p0 < Sinatra::Base
       ENV.fetch('EXERCISM_V1P0_GITHUB_CLIENT_SECRET')
     end
 
+    def site_root
+      env.fetch 'HTTP_HOST', 'http://exercism.io'
+    end
+
     def root_path
       "/v1.0"
     end
