@@ -1,7 +1,6 @@
 class Notification < ActiveRecord::Base
 
   belongs_to :user
-  belongs_to :alert
 
   scope :about_nitpicks, -> { where(type: 'SubmissionNotification').without_alerts }
   scope :without_alerts, -> { where(regarding: ['like', 'code', 'nitpick']) }
