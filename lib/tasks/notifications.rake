@@ -6,6 +6,7 @@ namespace :notifications do
     require 'exercism'
 
     Notification.where('created_at < ?', (Date.today - 2)).where(:read => true).delete_all
+    Alert.where('created_at < ?', (Date.today - 2)).where(:read => true).delete_all
   end
 
   desc "copy hibernation notifications to system alerts"
