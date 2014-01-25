@@ -4,7 +4,6 @@ exercism.views.Notification = Backbone.View.extend({
   attemptTemplate: JST["app/templates/attempt_notification.us"],
   hibernatingTemplate: JST["app/templates/hibernating_notification.us"],
   likeTemplate: JST["app/templates/like_notification.us"],
-  customTemplate: JST["app/templates/custom_notification.us"],
   invitationTemplate: JST["app/templates/invitation_notification.us"],
 
   tagName: "li",
@@ -44,9 +43,6 @@ exercism.views.Notification = Backbone.View.extend({
         break;
       case "like":
         this.$el.html(this.likeTemplate(this.model.toJSON()));
-        break;
-      case "custom":
-        this.$el.html(this.customTemplate(this.model.toJSON()));
         break;
       case "nitpick":
           if (this.isSubmitter()) {

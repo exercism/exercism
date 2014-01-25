@@ -44,10 +44,6 @@ class Notification < ActiveRecord::Base
     read ? 'read' : 'unread'
   end
 
-  def custom?
-    regarding == 'custom'
-  end
-
   def recipient
     user
   end

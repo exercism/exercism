@@ -12,15 +12,6 @@ class Notify
     Participants.in(submission.user_exercise.submissions)
   end
 
-  def self.about(note, options)
-    data = {
-      note: note,
-      regarding: 'custom',
-      user: options[:to]
-    }
-    Notification.create(data)
-  end
-
   def self.source(submission, regarding)
     SubmissionNotification.on(submission, to: submission.user, regarding: regarding)
   end

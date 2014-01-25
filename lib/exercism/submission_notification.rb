@@ -44,8 +44,6 @@ class SubmissionNotification < Notification
     case regarding
     when "hibernating"
       "moon"
-    when "custom"
-      "info-sign"
     when "like"
       "thumbs-up"
     when "attempt"
