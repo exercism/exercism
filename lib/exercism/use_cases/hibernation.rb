@@ -30,7 +30,7 @@ class Hibernation
   end
 
   def notify
-    Notify.source(submission, 'hibernating')
+    alert_submitter
     begin
       HibernationMessage.ship(
         instigator: Hibernation.admin,
@@ -49,6 +49,17 @@ class Hibernation
 
   def stale?
     comment.user != submission.user && comment.created_at < cutoff
+  end
+
+  def alert_submitter
+    attributes = {
+      user_id: submission.user_id,
+      read: false,
+      url: ['', submission.user.username, submission.user_exercise.key].join('/'),
+      link_text: "View submission.",
+      text: "Your exercise #{submission.slug} in #{submission.language} has gone into hibernation."
+    }
+    Alert.create(attributes)
   end
 end
 

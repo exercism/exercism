@@ -21,6 +21,14 @@ class HibernationTest < MiniTest::Unit::TestCase
       Exercise.new('ruby', 'one')
     end
 
+    def user_exercise
+      obj = Object.new
+      def obj.key
+        'abc'
+      end
+      obj
+    end
+
     def id
       1
     end
@@ -32,6 +40,7 @@ class HibernationTest < MiniTest::Unit::TestCase
     # For the user exercise Hack.
     # Temporary measure.
     def user_id
+      1
     end
     def language
     end
