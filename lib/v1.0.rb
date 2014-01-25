@@ -17,7 +17,8 @@ require 'app/helpers/session_helper'
 require 'app/site/languages'
 [
   'site/carousel', 'user/navigation', 'user/account',
-  'user/track', 'user/exercise', 'user/comment'
+  'user/track', 'user/exercise', 'user/comment',
+  'user/active_exercise', 'user/notification'
 ].each do |presenter|
   require File.join(Exercism::App.root, presenter)
 end

@@ -22,8 +22,8 @@
         %span.count= nav.exercise_count
       %ul.nav.nav-list.tree.collapse.regular
         - nav.exercises.each do |exercise|
-          %li
-            %a{:href => "#"}
+          %li{class: exercise.read? ? 'read' : 'unread'}
+            %a{:href => link_to(exercise.path)}
               %span.cat= exercise.slug
               %span.topic{:class => exercise.language}= exercise.language
 
@@ -31,22 +31,19 @@
       %label.tree-toggler.nav-header
         Activity
         %span.count= nav.conversation_count
+
       %ul.nav.nav-list.tree.collapse.detailed
-        %li
-          %a{:href => "#"}
-          .sprite-icon-comment.menu-icon
-          .info
-            %p.cat
-              anagram
-              %span.topic Ruby
-            %p.name JonanMoses (1)
-            %p.fineprint About 7 hours ago
-        %li
-          %a{:href => "#"}
-          .sprite-icon-code.menu-icon
-          .info
-            %p.cat
-              anagram
-              %span.topic Javascript
-            %p.name wvmitchell
-            %p.fineprint New version about 7 hours ago
+        %a{href: link_to('/notifications/read?_method=delete')} Delete all read notifications
+
+        - nav.conversations.each do |conversation|
+          %li{class: conversation.read? ? 'read' : 'unread'}
+            %a{:href => link_to(conversation.path)}
+              .menu-icon{class: "sprite-icon-#{conversation.icon}"}
+              .info
+                %p.cat
+                  = conversation.slug
+                  %span.topic{:class => conversation.language}= conversation.language
+                %p.name= conversation.submitter
+                %p.fineprint
+                  = conversation.activity
+                  = ago(conversation.at)

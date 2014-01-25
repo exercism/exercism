@@ -28,25 +28,37 @@ module App
       end
 
       def exercises
-        @exercises ||= user.exercises.active
+        active_exercises.map {|exercise| App::User::ActiveExercise.new(exercise, alert(exercise))}
+      end
+
+      def notifications
+        personal_notifications
       end
 
       def conversation_count
-        "%02d" % notifications.unread.count
-      end
-
-      def alerts
-        user.notifications.personal.unread.by_recency
+        "%02d" % general_notifications.unread.count
       end
 
       def conversations
-        notifications.map {|note| App::User::Notification.new(note)}
+        general_notifications.map {|note| App::User::Notification.new(note)}
       end
 
       private
 
-      def notifications
+      def general_notifications
         user.notifications.general.by_recency
+      end
+
+      def personal_notifications
+        user.notifications.personal.unread.by_recency
+      end
+
+      def active_exercises
+        user.exercises.active
+      end
+
+      def alert(exercise)
+        personal_notifications.find {|note| exercise.submissions.any? {|s| s.id == note.item_id }}
       end
     end
   end
