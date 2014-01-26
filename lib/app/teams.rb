@@ -155,7 +155,13 @@ class ExercismApp < Sinatra::Base
 
   def notify(invitees, team)
     invitees.each do |invitee|
-      TeamNotification.on(team, to: invitee, regarding: 'invitation')
+      attributes = {
+        user_id: invitee.id,
+        url: '/account',
+        text: "#{team.creator.username} would like you to join the team #{team.name}. You can accept the invitation",
+        link_text: 'on your account page.'
+      }
+      Alert.create(attributes)
       begin
         TeamInvitationMessage.ship(
           instigator: team.creator,

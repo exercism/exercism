@@ -8,11 +8,18 @@ module Api
       end
 
       def hibernation?
-        text =~ /hibernation/i
+        regarding == 'hibernating'
       end
 
       def regarding
-        hibernation? ? 'hibernating' : 'info'
+        case text
+        when /hibernation/i
+          'hibernating'
+        when /invitation/i
+          'invitation'
+        else
+          'info'
+        end
       end
 
       def count

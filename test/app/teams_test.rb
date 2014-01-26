@@ -243,14 +243,15 @@ class TeamsTest < MiniTest::Unit::TestCase
 
   def test_notify_unconfirmed_members_of_invitation
     TeamInvitationMessage.stub(:ship, nil) do
-      post '/teams', {team: {slug: 'notify', usernames: bob.username}}, login(alice)
+      post '/teams', {team: {slug: 'abc', usernames: bob.username}}, login(alice)
 
-      assert_equal 0, alice.reload.notifications.count, "Shouldn't notify creator"
-      assert_equal 1, bob.reload.notifications.count, "Notify bob failed"
+      assert_equal 0, alice.reload.alerts.count, "Shouldn't notify creator"
+      assert_equal 1, bob.reload.alerts.count, "Notify bob failed"
 
-      post "/teams/notify/members", {usernames: john.username}, login(alice)
+      post "/teams/abc/members", {usernames: john.username}, login(alice)
 
-      assert_equal 1, john.reload.notifications.count, "Notify john failed"
+      assert_equal 1, bob.reload.alerts.count, "Bob should not have gotten notified again."
+      assert_equal 1, john.reload.alerts.count, "Notify john failed"
     end
   end
 end
