@@ -1,4 +1,4 @@
 ---
-blurb: "Write a program that, given a number, can find the sum of all the multiples of 3 or 5 up to and including that number."
+blurb: "Write a program that, given a number, can find the sum of all the multiples of 3 or 5 up to but not including that number."
 source: "A variation on Problem 1 at Project Euler"
 source_url: "http://projecteuler.net/problem=1"
