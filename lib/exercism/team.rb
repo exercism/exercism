@@ -6,10 +6,6 @@ class Team < ActiveRecord::Base
   has_many :members, through: :memberships, source: :user
   has_many :unconfirmed_members, through: :unconfirmed_memberships, source: :user
 
-  # I don't really want the notifications method,
-  # just the dependent destroy
-  has_many :notifications, dependent: :destroy, foreign_key: 'item_id', class_name: 'TeamNotification'
-
   validates :creator, presence: true
   validates :slug, presence: true,  uniqueness: true
 
