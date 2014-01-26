@@ -72,4 +72,8 @@ class Notification < ActiveRecord::Base
   def link
     "/submissions/#{submission.key}"
   end
+
+  # TODO: delete when v1.0 goes live
+  def note
+  end
 end
