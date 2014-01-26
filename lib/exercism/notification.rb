@@ -1,6 +1,7 @@
 class Notification < ActiveRecord::Base
 
   belongs_to :user
+  belongs_to :submission, foreign_key: 'item_id'
 
   scope :without_alerts, -> { where(regarding: ['like', 'code', 'nitpick']) }
   scope :by_recency, -> { order("created_at DESC") }
@@ -56,8 +57,19 @@ class Notification < ActiveRecord::Base
     save
   end
 
-  def icon
-    "info-sign"
+  def username
+    submission.user.username
+  end
+
+  def language
+    submission.language
+  end
+
+  def slug
+    submission.slug
+  end
+
+  def link
+    "/submissions/#{submission.key}"
   end
 end
-

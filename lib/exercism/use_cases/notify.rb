@@ -4,7 +4,7 @@ class Notify
     cohort = Cohort.for(submission.user)
     users = cohort.sees(submission.exercise) + participants_in(submission) - except
     users.each do |to|
-      SubmissionNotification.on(submission, to: to, regarding: regarding)
+      Notification.on(submission, to: to, regarding: regarding)
     end
   end
 
@@ -13,7 +13,7 @@ class Notify
   end
 
   def self.source(submission, regarding)
-    SubmissionNotification.on(submission, to: submission.user, regarding: regarding)
+    Notification.on(submission, to: submission.user, regarding: regarding)
   end
 end
 
