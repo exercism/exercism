@@ -8,7 +8,6 @@ require 'app/presenters/profile'
 require 'app/presenters/sharing'
 
 require 'app/stats' # must come before 'app/user'
-require 'app/notifications'
 require 'app/site'
 require 'app/account'
 require 'app/auth'

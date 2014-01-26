@@ -20,10 +20,6 @@ class SubmissionNotification < Notification
     regarding == 'like'
   end
 
-  def hibernating?
-    regarding == 'hibernating'
-  end
-
   def username
     submission.user.username
   end
@@ -38,22 +34,6 @@ class SubmissionNotification < Notification
 
   def link
     "/submissions/#{submission.key}"
-  end
-
-  def icon
-    case regarding
-    when "hibernating"
-      "moon"
-    when "like"
-      "thumbs-up"
-    when "attempt"
-      "code"
-    else
-      s = "comment"
-      s << "s" if count > 1
-      s << "-alt" if submission.user != recipient
-      s
-    end
   end
 end
 
