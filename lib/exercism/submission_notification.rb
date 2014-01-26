@@ -1,2 +1,0 @@
-class SubmissionNotification < Notification
-end

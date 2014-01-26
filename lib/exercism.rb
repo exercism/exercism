@@ -24,7 +24,6 @@ require 'exercism/nitstats'
 require 'exercism/null_submission'
 require 'exercism/submission'
 require 'exercism/notification'
-require 'exercism/submission_notification' # just until we can delete the :type column
 require 'exercism/submission_viewer'
 require 'exercism/team'
 require 'exercism/team_membership'
