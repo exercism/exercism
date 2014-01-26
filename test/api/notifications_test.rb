@@ -9,18 +9,13 @@ class NotificationsApiTest < MiniTest::Unit::TestCase
     ExercismAPI
   end
 
-  def teardown
+  attr_reader :alice, :submission
+  def setup
     super
-    @alice = nil
-    @submission = nil
-  end
-
-  def alice
-    @alice ||= User.create(username: 'alice', github_id: 1)
-  end
-
-  def submission
-    @submission ||= Submission.create(language: 'ruby', slug: 'bob', user: alice)
+    @alice = User.create(username: 'alice', github_id: 1)
+    @submission = Submission.create(language: 'ruby', slug: 'bob', user: alice)
+    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'bob').update
+    @submission.reload
   end
 
   def test_notifications_are_protected

@@ -2,7 +2,9 @@ class Notification < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :submission, foreign_key: 'item_id'
+  belongs_to :item, polymorphic: true
 
+  scope :on_submissions, -> { where(item_type: 'Submission') }
   scope :without_alerts, -> { where(regarding: ['like', 'code', 'nitpick']) }
   scope :by_recency, -> { order("created_at DESC") }
   scope :recent, -> { by_recency.limit(400) }
@@ -24,10 +26,21 @@ class Notification < ActiveRecord::Base
 
   def self.on(item, options)
     data = {
-      item_id: item.id,
       user_id: options.fetch(:to).id,
       regarding: options[:regarding]
     }
+    notification = on_item(item, data)
+    if item.is_a?(Submission)
+      on_item(item.user_exercise, data)
+    else
+      on_item(item.submissions.last, data)
+    end
+    notification
+  end
+
+  # Hack. Please ignore.
+  def self.on_item(item, data)
+    data = data.merge(item_id: item.id, item_type: item.class.to_s)
     notification = where(data.merge(read: false)).first || new(data)
     notification.increment
     notification.save
@@ -53,8 +66,18 @@ class Notification < ActiveRecord::Base
   end
 
   def read!
-    self.read = true
-    save
+    update_attributes(read: true)
+    related_notifications.each do |notification|
+      notification.update_attributes(read: true)
+    end
+  end
+
+  def related_notifications
+    if item_type == 'Submission'
+      Notification.where(user_id: user.id, item_type: 'UserExercise', item_id: item.user_exercise.id).to_a
+    else
+      Notification.where(user_id: user.id, item_type: 'Submission', item_id: item.submissions.map(&:id)).to_a
+    end
   end
 
   def username

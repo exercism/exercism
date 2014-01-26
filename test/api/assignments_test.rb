@@ -209,11 +209,11 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     assert_equal 201, last_response.status
 
     [alice, dave].each do |user|
-      assert_equal 1, user.reload.notifications.count, "Notify #{user.username} failed"
+      assert_equal 1, user.reload.notifications.on_submissions.count, "Notify #{user.username} failed"
     end
 
     [charlie, eve].each do |user|
-      assert_equal 0, user.reload.notifications.count, "#{user.username} was notified, but shouldn't have"
+      assert_equal 0, user.reload.notifications.on_submissions.count, "#{user.username} was notified, but shouldn't have"
     end
   end
 

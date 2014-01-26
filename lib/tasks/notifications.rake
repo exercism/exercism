@@ -9,15 +9,25 @@ namespace :notifications do
     Alert.where('created_at < ?', (Date.today - 2)).where(:read => true).delete_all
   end
 
-  namespace :migrate do
-    desc "migrate polymorphic type"
-    task :item_type do
+  namespace :sync do
+    desc "synchronize notifications submission -> exercise"
+    task :submission_notifications do
       require 'active_record'
       require 'db/connection'
+      require './lib/exercism/notification'
+      require './lib/exercism/submission'
+      require './lib/exercism/user_exercise'
+      require './lib/exercism/user'
+      require './lib/tasks/notifications/sync'
+
       DB::Connection.establish
 
-      sql = "UPDATE notifications SET item_type='Submission'"
-      ActiveRecord::Base.connection.execute(sql)
+      UserExercise.find_each do |exercise|
+        print '.'
+        Hack::Notifications::Sync.new(exercise).process
+      end
+      puts
     end
   end
+
 end
