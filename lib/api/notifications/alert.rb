@@ -7,8 +7,12 @@ module Api
         "alert-#{__getobj__.id}"
       end
 
+      def hibernation?
+        text =~ /hibernation/i
+      end
+
       def regarding
-        'hibernating'
+        hibernation? ? 'hibernating' : 'info'
       end
 
       def count

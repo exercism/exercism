@@ -2,8 +2,6 @@ class Notification < ActiveRecord::Base
 
   belongs_to :user
 
-  scope :about_nitpicks, -> { where(type: 'SubmissionNotification').without_alerts }
-  scope :without_alerts, -> { where(regarding: ['like', 'code', 'nitpick']) }
   scope :by_recency, -> { order("created_at DESC") }
   scope :recent, -> { by_recency.limit(400) }
   scope :unread, -> { where(read: false) }
