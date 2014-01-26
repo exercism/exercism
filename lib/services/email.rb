@@ -6,8 +6,8 @@ class Email
     @from = options.fetch(:from)
     @subject = options.fetch(:subject)
     @body = options.fetch(:body)
+    @html_body = options.fetch(:html_body) { false }
     @intercept_emails = options.fetch(:intercept_emails)
-    @html = options.fetch(:html) { false }
   end
 
   def ship
@@ -32,8 +32,8 @@ class Email
       body: @body
     }
 
-    if @html
-      options.merge(headers: { 'Content-Type' => 'text/html' })
+    if @html_body
+      options.merge(html_body: @html_body)
     else
       options
     end

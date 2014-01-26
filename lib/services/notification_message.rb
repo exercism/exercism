@@ -1,28 +1,15 @@
-class DailyMessage < Message
+class NotificationMessage < Message
   include Sinatra::FuzzyTimeHelper
 
   def initialize(options)
     @user = options.fetch(:user)
     @intercept_emails = options.fetch(:intercept_emails) { false }
     @site_root = options.fetch(:site_root) { 'http://exercism.io' }
-    @html = true
   end
 
   def subject
-    subject = []
-    if notifications.count > 0
-      subject << subject_pluralize(notifications.count, 'notification')
-    end
-
-    if pending_submissions.count > 0
-      subject << subject_pluralize(pending_submissions.count, 'submission') + ' needing review'
-    end
-
-    "Daily Digest: #{subject.join(', ')}"
-  end
-
-  def ship
-    send_email? ? super : false
+    # "You have 5 notifications"
+    "You have #{notifications.count} #{'notification'.pluralize(notifications.count)}"
   end
 
   def recipient
@@ -30,7 +17,24 @@ class DailyMessage < Message
   end
 
   def template_name
-    'daily'
+    'notifications'
+  end
+
+  def html_body
+    ERB.new(template('notifications.html')).result binding
+  end
+
+  def ship
+    return false unless send_email?
+    Email.new(
+      to: to,
+      from: from_email,
+      subject: full_subject,
+      body: body,
+      html_body: html_body,
+      intercept_emails: intercept_emails?
+    ).ship
+    self
   end
 
   private
@@ -40,7 +44,7 @@ class DailyMessage < Message
   end
 
   def send_email?
-    notifications.count > 0 || pending_submissions.count > 0
+    notifications.count > 0
   end
 
   def pending_submissions
@@ -52,7 +56,7 @@ class DailyMessage < Message
   end
 
   def notifications
-    @user.notifications.unread.by_recency
+    @user.notifications.on_submissions.unread.recent.by_recency
   end
 
 end

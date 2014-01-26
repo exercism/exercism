@@ -1,13 +1,11 @@
 <p>Hi <%= name %>,</p>
 
-<p>Here's your daily digest from Exercism.<p>
-
+<p><%= subject %> waiting for you at Exercism.io.<p>
 <% if notifications %>
   <p>
-    <h2> Notifications (<%= notifications.count %>) </h2>
     <% notifications.each do |notification| %>
       <li>
-        <a href="<%= notification.link %>">
+        <a href="<%= site_root + notification.link %>">
           <%= notification.language %>: <%= notification.slug %>
         </a>
         <%= notification.regarding %> from: <%= notification.username %> <i><%= ago(notification.created_at) %></i>
@@ -17,8 +15,9 @@
 <% end %>
 
 <% if pending_submissions %>
+*********
   <p>
-    <h2>Pending Submissions</h2>
+    Spare a few minutes? Help out others by reviewing these submissions.
     <% pending_submissions.each do |submission| %>
       <li>
         <a href="<%= site_root %>/submissions/<%= submission.key %>"><%= submission.language %>: <%= submission.slug %></a>
