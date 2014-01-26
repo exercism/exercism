@@ -7,7 +7,7 @@ require 'app/presenters/workload'
 require 'app/presenters/profile'
 require 'app/presenters/sharing'
 
-require 'app/stats' # must come before 'app/user'
+require 'app/stats'
 require 'app/site'
 require 'app/account'
 require 'app/auth'
@@ -17,10 +17,10 @@ require 'app/comments'
 require 'app/nitpick'
 require 'app/submissions'
 require 'app/teams'
-require 'app/user'
 
 # Must be included at this point in order
 require 'app/exercises'
+require 'app/user'
 require 'app/not_found'
 
 require 'app/helpers/article_helper'
