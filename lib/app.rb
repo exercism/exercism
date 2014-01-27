@@ -23,14 +23,14 @@ require 'app/exercises'
 require 'app/user'
 require 'app/not_found'
 
-require 'app/helpers/article_helper'
-require 'app/helpers/fuzzy_time_helper'
+require 'v1.0/helpers/article_helper'
+require 'v1.0/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/profile_helper'
-require 'app/helpers/session_helper'
+require 'v1.0/helpers/session_helper'
 require 'app/helpers/site_title_helper'
 require 'app/helpers/submissions_helper'
-require 'app/helpers/markdown_helper'
+require 'v1.0/helpers/markdown_helper'
 
 require 'services'
 

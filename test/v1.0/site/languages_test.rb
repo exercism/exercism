@@ -1,5 +1,5 @@
 require './test/test_helper'
-require 'app/site/languages'
+require 'v1.0/site/languages'
 
 class AppSiteLanguagesTest < MiniTest::Unit::TestCase
   def test_one_language

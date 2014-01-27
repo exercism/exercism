@@ -1,4 +1,4 @@
-require 'app/site/languages'
+require 'v1.0/site/languages'
 
 class ExercismApp < Sinatra::Base
 

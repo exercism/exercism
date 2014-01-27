@@ -1,6 +1,6 @@
 require './test/test_helper'
 require 'exercism/article'
-require 'app/helpers/article_helper'
+require 'v1.0/helpers/article_helper'
 
 class ArticleHelperTest < MiniTest::Unit::TestCase
 

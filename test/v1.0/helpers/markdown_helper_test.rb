@@ -1,5 +1,5 @@
 require './test/integration_helper'
-require 'app/helpers/markdown_helper'
+require 'v1.0/helpers/markdown_helper'
 
 class MarkdownHelperTest < MiniTest::Unit::TestCase
   def helper

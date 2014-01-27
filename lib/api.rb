@@ -1,7 +1,7 @@
 require 'exercism'
 require 'sinatra/petroglyph'
 
-require 'app/helpers/fuzzy_time_helper'
+require 'v1.0/helpers/fuzzy_time_helper'
 
 require 'api/notifications/alert'
 

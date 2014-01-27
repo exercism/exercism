@@ -9,16 +9,18 @@ class Exercism
   end
 end
 
-require 'app/helpers/article_helper'
-require 'app/helpers/fuzzy_time_helper'
-require 'app/helpers/markdown_helper'
-require 'app/helpers/session_helper'
+[
+  'article_helper', 'fuzzy_time_helper',
+  'markdown_helper', 'session_helper'
+].each do |helper|
+  require File.join(Exercism::App.root, 'helpers', helper)
+end
 
-require 'app/site/languages'
 [
   'site/carousel', 'user/navigation', 'user/account',
   'user/track', 'user/exercise', 'user/comment',
-  'user/active_exercise', 'user/notification'
+  'user/active_exercise', 'user/notification',
+  'site/languages'
 ].each do |presenter|
   require File.join(Exercism::App.root, presenter)
 end
