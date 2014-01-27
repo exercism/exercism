@@ -10,6 +10,7 @@ script:
   - '( cd frontend && npm install && lineman spec-ci )'
   - '( export PATH=/opt/hp-2013.2.0.0/bin:$PATH; runhaskell ./test/haskell/check-exercises.hs )'
   - 'make test --directory=assignments/javascript'
+  - 'make test --directory=assignments/php'
   - './test/rust/check-exercises.sh'
   - './test/python/check-exercises.py'
   - './test/erlang/check-exercises.sh'
