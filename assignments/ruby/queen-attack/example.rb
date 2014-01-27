@@ -34,7 +34,7 @@ class Queens
   end
 
   def on_diagonal?
-    white_diff == black_diff
+    white_diff.abs == black_diff.abs
   end
 
   def black_diff
