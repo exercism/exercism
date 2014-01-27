@@ -10,23 +10,23 @@ defmodule DNATest do
   use ExUnit.Case, async: true
   doctest DNA
 
-  test "transcribes cytidine unchanged" do
-    assert 'C' == DNA.to_rna('C')
+  test "transcribes guanine to cytosine" do
+    assert DNA.to_rna('G') == 'C'
   end
 
-  test "transcribes guanosine unchanged" do
-    # assert 'G' == DNA.to_rna('G')
+  test "transcribes cytosine to guanine" do
+    # assert DNA.to_rna('C') == 'G'
   end
 
-  test "transcribes adenosine unchanged" do
-    # assert 'A' == DNA.to_rna('A')
+  test "transcribes thymidine to adenine" do
+    # assert DNA.to_rna('T') == 'A'
   end
 
-  test "transcribes thymidine to uracil" do
-    # assert 'U' == DNA.to_rna('T')
+  test "transcribes adenine to uracil" do
+    # assert DNA.to_rna('A') == 'U'
   end
 
-  test "it transcribes all occurrences of thymidine to uracil" do
-    # assert 'ACGUGGUCUUAA' == DNA.to_rna('ACGTGGTCTTAA')
+  test "it transcribes all dna nucleotides to rna equivalents" do
+    # assert DNA.to_rna('ACGTGGTCTTAA') == 'UGCACCAGAAUU'
   end
 end
