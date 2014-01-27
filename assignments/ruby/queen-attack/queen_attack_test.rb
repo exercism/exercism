@@ -122,4 +122,4 @@ O O O O O O O O
     assert queens.attack?
   end
 end
-  
+
