@@ -6,10 +6,7 @@
   "scripts": {
     "test": "make test"
   },
-  "engines": {
-    "node": "~>0.10.5"
-  },
   "devDependencies": {
-    "jasmine-node": "~1.11.0"
+    "jasmine-node": "*"
   }
 }
