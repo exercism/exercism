@@ -5,13 +5,14 @@ defmodule DNA do
   ## Examples
 
   iex> DNA.to_rna('ACTG')
-  'ACUG'
+  'UGAC'
   """
   def to_rna(dna) do
     Enum.map dna, &transcribe(&1)
   end
 
-  # T -> U
-  defp transcribe(?T), do: ?U
-  defp transcribe(n),  do: n
+  defp transcribe(?C), do: ?G
+  defp transcribe(?G), do: ?C
+  defp transcribe(?A), do: ?U
+  defp transcribe(?T), do: ?A
 end

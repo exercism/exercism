@@ -5,7 +5,7 @@ defmodule DNA do
   ## Examples
 
   iex> DNA.to_rna('ACTG')
-  'ACUG'
+  'UGAC'
   """
   @spec to_rna([char]) :: [char]
   def to_rna(dna) do
