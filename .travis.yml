@@ -5,6 +5,7 @@ before_script:
   - './test/haskell/bootstrap.sh'
   - './test/rust/bootstrap.sh'
   - './test/erlang/bootstrap.sh'
+  - './test/php/bootstrap.sh'
 script:
   - 'RACK_ENV=test CI=1 bundle exec rake db:migrate test_with_coverage'
   - '( cd frontend && npm install && lineman spec-ci )'
