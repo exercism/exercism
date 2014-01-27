@@ -1,6 +1,6 @@
 <?php
 
-require realpath(__DIR__ . '/example.php');
+require realpath(__DIR__ . '/wordy.php');
 
 class WordProblemTest extends PHPUnit_Framework_TestCase
 {

@@ -1,5 +1,7 @@
 <?php
 
+error_reporting(-1);
+
 class Trinary
 {
   const BASE = 3;

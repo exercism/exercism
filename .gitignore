@@ -22,6 +22,9 @@ tmp
 # JavaScript
 node_modules
 
+# PHP
+phpunit.phar
+
 # OCaml
 *.native
 _build/
