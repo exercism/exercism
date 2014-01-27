@@ -1,11 +1,16 @@
-'use strict';
+"use strict";
 
-module.exports = function (nucleotides) {
-  var type = ({}).toString.call(nucleotides);
+module.exports = toRna;
 
-  if (type != '[object String]') {
-    throw new TypeError('Expected String but was given + ' + type);
-  }
-
-  return nucleotides.replace(/T/g, 'U');
+var dnaToRna = {
+  G: "C",
+  C: "G",
+  T: "A",
+  A: "U"
 };
+
+function toRna(dna) {
+  return dna.replace(/./g, function(dnaNucleotide) {
+    return dnaToRna[dnaNucleotide];
+  });
+}
