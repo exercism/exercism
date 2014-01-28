@@ -1,6 +1,6 @@
 #user-account.text-center
   %p
-    %a.toggle-account-settings{:href => "javascript:;"}
+    %a{:href => link_to('/account')}
       %img.img-circle{:src => nav.picture}/
   %p
-    %a.sprite-icon-settings.toggle-account-settings{:href => "#"}= nav.username
+    %a.sprite-icon-settings{:href => link_to('/account')}= nav.username

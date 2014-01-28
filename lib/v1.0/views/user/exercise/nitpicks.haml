@@ -1,13 +1,17 @@
-%aside#sidebar-second.col-md-4
+%aside#sidebar-second.col-md-5.my_code_right
   %h2
-    Nitpicks <
+    Nitpicks &lt;
     %span>= exercise.nitpick_count
-    >
+    \&gt;
+  .nitpick-area
+    %p
+      %a#hide1.nitpick-area-btn{:href => ""} LOOKS GREAT
+      %a#show1.nitpick-area-btn.nitpick{:href => "javascript:;"} Add Nitpick
 
   %form#add-nitpick
     %label Add Nitpick
     %p
-      %textarea{:rows => "8"}
+      %textarea{:rows => "5"}
     %p.text-right.btn-wrapper
       %a.btn.btn-link{:href => "#"} Preview
       %input.btn.btn-link.btn-submit{:type => "submit", :value => "Submit"}/

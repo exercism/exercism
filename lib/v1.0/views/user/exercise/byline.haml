@@ -1,6 +1,6 @@
 %header#section-header.section-header-code.clearfix
   .row
-    #title.col-md-4
+    #title.col-md-3.head_logo
       %p
         %span.lrg= exercise.slug
         %span.sml{:class => exercise.language}= exercise.language
@@ -18,5 +18,8 @@
           = exercise.iteration_qualifier
           %span.delim /
           %span.text-line= exercise.status
-    #logo.col-md-1
+        %p
+          %a#xclosee.same{:href => "", :style => "display:none;"}
+          %a#Re-Open.same{:href => ""}
+    #logo.col-md-2.charcoal_logo
       %a.sprite-logo-dark{:href => link_to('/')} Exercism.io
