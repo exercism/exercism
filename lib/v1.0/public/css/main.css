@@ -1674,7 +1674,7 @@ div.highlight .mi {
 {
   padding-right:5px;
 }
-@media only screen and (max-width :1342px){
+@media only screen and (max-width :1345px){
   /*.nitpick-area-btn
   {
   padding: 13px 11% 10px;
@@ -1689,6 +1689,9 @@ div.highlight .mi {
 .mysec_content .container.container-narrow {
   width: 100% !important;
 }
+.head_logo {
+  width: 18% !important;
+}
 }
 @media only screen and (max-width :1326px){
   .myright_sec {   width: 79% !important;}
@@ -1700,6 +1703,9 @@ div.highlight .mi {
   #account-settings1
   {
     width: 79%;
+  }
+  #logo.charcoal_logo {
+    padding: 9px 0 0 124px !important;
   }
 }
 @media only screen and (max-width :1290px){
@@ -1713,12 +1719,23 @@ div.highlight .mi {
   #account-settings1 {   width: 78%;}
   .myright_sec {   width: 78% !important;}
   .code_logout_right {  width: 52%;}
+  .head_logo {
+    width: 19% !important;
+  }
 }
 @media only screen and (max-width :1250px){
   .code_midd {
     width: 52.333%;
   }
   .sprite-icon-close {    right:4%;   }
+}
+@media only screen and (max-width :1236px){
+  .head_logo {
+    width: 20% !important;
+  }
+  #logo.charcoal_logo {
+    padding: 9px 0 0 100px !important;
+  }
 }
 @media only screen and (max-width :1210px){
   .myright_sec { width: 77% !important; }
@@ -1737,6 +1754,13 @@ div.highlight .mi {
   .code_logout_right {
     width: 55%;
   }
+  .head_logo {
+    width: 22% !important;
+  }
+  #logo.charcoal_logo {
+    padding: 9px 0 0 58px !important;
+  }
+
 }
 @media only screen and (max-width :1169px){
   .code_midd {
@@ -1785,6 +1809,9 @@ div.highlight .mi {
 }
 .myright_sec {
   width: 75% !important;
+}
+.head_logo {
+  width: 35% !important;
 }
 }
 @media only screen and (max-width :1085px){
@@ -1935,6 +1962,9 @@ div.highlight .mi {
   .myright_sec {
     width: 65% !important;
   }
+  .head_logo {
+    width: 50% !important;
+  }
 }
 @media only screen and (max-width :772px){
   #account-settings1 { width: 68%;}
@@ -1987,6 +2017,10 @@ div.highlight .mi {
 }
 @media only screen and (max-width :632px){
   .myright_sec {  width: 56% !important;  }
+  .head_logo {
+    margin: 0 !important;
+    width: 70% !important;
+  }
 }
 @media only screen and (max-width :615px){
   #account-settings1 { width: 61%;}
@@ -2025,6 +2059,9 @@ div.highlight .mi {
 }
 @media only screen and (max-width :515px){
   #account-settings1 { width: 52%;}
+  #section-header.section-header-code .row #title .lrg {
+    font-size: 50px !important;
+  }
 }
 @media only screen and (max-width :510px){
   .myright_sec {  width: 47% !important;  }
