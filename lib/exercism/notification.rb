@@ -92,6 +92,11 @@ class Notification < ActiveRecord::Base
     item.slug
   end
 
+  def link
+    # only used in API for old notifications
+    "/submissions/#{item.key}"
+  end
+
   # TODO: delete when v1.0 goes live
   def note
   end
