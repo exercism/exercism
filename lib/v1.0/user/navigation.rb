@@ -46,11 +46,11 @@ module App
       private
 
       def general_notifications
-        user.notifications.general.by_recency
+        user.notifications.on_exercises.general.by_recency
       end
 
       def personal_notifications
-        user.notifications.personal.unread.by_recency
+        user.notifications.on_exercises.personal.unread.by_recency
       end
 
       def active_exercises
@@ -58,7 +58,7 @@ module App
       end
 
       def alert(exercise)
-        personal_notifications.find {|note| exercise.submissions.any? {|s| s.id == note.item_id }}
+        personal_notifications.find {|note| note.item_id == exercise.id }}
       end
     end
   end

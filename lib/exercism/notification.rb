@@ -5,6 +5,7 @@ class Notification < ActiveRecord::Base
   belongs_to :item, polymorphic: true
 
   scope :on_submissions, -> { where(item_type: 'Submission') }
+  scope :on_exercises, -> { where(item_type: 'UserSubmission') }
   scope :without_alerts, -> { where(regarding: ['like', 'code', 'nitpick']) }
   scope :by_recency, -> { order("created_at DESC") }
   scope :recent, -> { by_recency.limit(400) }
