@@ -4,11 +4,11 @@ module App
   module User
     class Notification < SimpleDelegator
       def path
-        [submitter, submission.user_exercise.key].join('/')
+        [submitter, item.key].join('/')
       end
 
       def submitter
-        submission.user.username
+        item.user.username
       end
 
       def activity

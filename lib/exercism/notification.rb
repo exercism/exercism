@@ -10,9 +10,9 @@ class Notification < ActiveRecord::Base
   scope :recent, -> { by_recency.limit(400) }
   scope :unread, -> { where(read: false) }
   scope :read, -> { where(read: true) }
-  scope :joins_submissions, -> { joins('INNER JOIN submissions s ON s.id = notifications.item_id') }
-  scope :personal, -> { joins_submissions.where('s.user_id = notifications.user_id') }
-  scope :general, -> { joins_submissions.where('s.user_id != notifications.user_id') }
+  scope :joins_exercises, -> { joins('INNER JOIN user_exercises e ON e.id = notifications.item_id') }
+  scope :personal, -> {joins_exercises.where('e.user_id = notifications.user_id')}
+  scope :general, -> {joins_exercises.where('e.user_id != notifications.user_id')}
 
   before_create do
     self.read  ||= false
@@ -81,19 +81,15 @@ class Notification < ActiveRecord::Base
   end
 
   def username
-    submission.user.username
+    item.user.username
   end
 
   def language
-    submission.language
+    item.language
   end
 
   def slug
-    submission.slug
-  end
-
-  def link
-    "/submissions/#{submission.key}"
+    item.slug
   end
 
   # TODO: delete when v1.0 goes live
