@@ -58,7 +58,7 @@ module App
       end
 
       def alert(exercise)
-        personal_notifications.find {|note| note.item_id == exercise.id }}
+        personal_notifications.find {|note| note.item_id == exercise.id }
       end
     end
   end
