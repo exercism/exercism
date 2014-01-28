@@ -28,11 +28,9 @@ module App
       end
 
       def exercises
-        active_exercises.map {|exercise| App::User::ActiveExercise.new(exercise, alert(exercise))}
-      end
-
-      def notifications
-        personal_notifications
+        active_exercises.map {|exercise|
+          App::User::ActiveExercise.new(exercise, personal_notification(exercise))
+        }
       end
 
       def conversation_count
@@ -43,7 +41,15 @@ module App
         general_notifications.map {|note| App::User::Notification.new(note)}
       end
 
+      def alerts
+        user.alerts
+      end
+
       private
+
+      def active_exercises
+        user.exercises.active
+      end
 
       def general_notifications
         user.notifications.on_exercises.general.by_recency
@@ -53,11 +59,7 @@ module App
         user.notifications.on_exercises.personal.unread.by_recency
       end
 
-      def active_exercises
-        user.exercises.active
-      end
-
-      def alert(exercise)
+      def personal_notification(exercise)
         personal_notifications.find {|note| note.item_id == exercise.id }
       end
     end

@@ -1,0 +1,8 @@
+%ul
+  - nav.alerts.each do |alert|
+    %li
+      %a{href: '#'} x
+      = alert.text
+      - if alert.url
+        %a{href: link_to(alert.url)}= alert.link_text
+      = ago(alert.created_at)
