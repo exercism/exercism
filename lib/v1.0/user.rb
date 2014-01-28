@@ -18,4 +18,18 @@ class ExercismV1p0 < Sinatra::Base
     exercise = user.exercises.find_by_key(key)
     haml :"user/exercise", locals: {exercise: App::User::Exercise.new(exercise)}
   end
+
+  get '/:username/:key/close' do |username, key|
+    please_login
+    exercise = current_user.exercises.find_by_key(key)
+    exercise.close!
+    redirect link_to(File.join('/', username, key))
+  end
+
+  get '/:username/:key/reopen' do |username, key|
+    please_login
+    exercise = current_user.exercises.find_by_key(key)
+    exercise.reopen!
+    redirect link_to(File.join('/', username, key))
+  end
 end

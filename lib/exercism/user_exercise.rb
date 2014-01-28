@@ -14,6 +14,19 @@ class UserExercise < ActiveRecord::Base
     self.key = generate_key
   end
 
+  # close & reopen:
+  # Once v1.0 is launched we can ditch
+  # the state on submission.
+  def close!
+    update_attributes(state: 'done')
+    submissions.last.update_attributes(state: 'done')
+  end
+
+  def reopen!
+    update_attributes(state: 'pending')
+    submissions.last.update_attributes(state: 'pending')
+  end
+
   def generate_key
     Digest::SHA1.hexdigest(secret)[0..23]
   end

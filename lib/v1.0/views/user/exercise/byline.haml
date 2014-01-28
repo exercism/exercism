@@ -19,7 +19,10 @@
           %span.delim /
           %span.text-line= exercise.status
         %p
-          %a#xclosee.same{:href => "", :style => "display:none;"}
-          %a#Re-Open.same{:href => ""}
+          - if exercise.owned_by?(current_user)
+            - if exercise.active?
+              %a#close-exercise.same{:href => link_to(exercise.close_url)} close exercise
+            - else
+              %a#reopen-exercise.same{:href => link_to(exercise.reopen_url)} reopen exercise
     #logo.col-md-2.charcoal_logo
       %a.sprite-logo-dark{:href => link_to('/')} Exercism.io

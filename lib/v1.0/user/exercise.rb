@@ -3,8 +3,20 @@ module App
     class Exercise < SimpleDelegator
       include Named
 
+      def owned_by?(current_user)
+        current_user == user
+      end
+
       def url
-        '/' + File.join(user.username, key)
+        File.join('/', user.username, key)
+      end
+
+      def reopen_url
+        File.join(url, 'reopen')
+      end
+
+      def close_url
+        File.join(url, 'close')
       end
 
       def avatar_url
@@ -45,6 +57,10 @@ module App
 
       def iteration_qualifier
         iteration_count == 1 ? 'iteration' : 'iterations'
+      end
+
+      def active?
+        ['pending', 'hibernating'].include?(state)
       end
 
       def status

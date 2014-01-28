@@ -1320,15 +1320,15 @@ div.highlight .mi {
 {  width: 17%!important;
 }
 
-#xclosee {
+#close-exercise {
   background: url("../images/close.png") no-repeat scroll 0 3px rgba(0, 0, 0, 0);        /**** 1323 to 1336 *******/
   height: 18px;
   padding: 0;
   width: 135px;
   display: block;
 }
-#Re-Open {
-  background: url("../images/Re-open.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+#reopen-exercise {
+  background: url("../images/reopen.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
   height: 18px;
   padding: 0;
   width: 154px;
