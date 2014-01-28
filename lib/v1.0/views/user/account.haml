@@ -48,7 +48,7 @@
               %ul.unstyled
                 - track.exercises.each do |exercise|
                   %li
-                    %a{:href => exercise.url}= exercise.name
+                    %a{:href => link_to(exercise.url)}= exercise.name
                 - if track.more?
                   %li
                     %a.highlight{:href => "#"} + More
