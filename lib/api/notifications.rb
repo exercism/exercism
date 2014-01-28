@@ -1,7 +1,7 @@
 class ExercismAPI < Sinatra::Base
   get '/notifications' do
     require_user
-    notifications = current_user.notifications.on_submissions.recent.without_alerts
+    notifications = current_user.notifications.on_submissions.recent
     alerts = current_user.alerts.map {|alert| Api::Notifications::Alert.new(alert) }
     pg :notifications, locals: {notifications: alerts + notifications}
   end
