@@ -15,7 +15,16 @@
       "slug": "two",
       "files": {
         "README.md": "# Two\n\nThis is two.\n\n* two\n* two again\n\n\n## Source\n\nThe web. [view source](http://example.org)\n",
+        "two.rb": "CODE2RB",
         "two_test.rb": "require 'minitest/autorun'\nrequire_relative 'example'\nclass TwoTest < Minitest::Test\n  def test_two\n    assert_equal 2, Two.value\n  end\nend\n"
+      }
+    },
+    {
+      "track": "ruby",
+      "slug": "three",
+      "files": {
+        "README.md": "# Three\n\nThis is three.\n\n* three\n* three once more\n\n\n## Source\n\nOnline. [view source](http://www.example.org)\n",
+        "three_test.rb": "require 'minitest/autorun'\nrequire_relative 'example'\nclass ThreeTest < Minitest::Test\n  def test_three\n    assert_equal 3, Three.value\n  end\nend\n"
       }
     },
     {
