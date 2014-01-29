@@ -11,7 +11,7 @@ class Exercism
         series difference-of-squares secret-handshake linked-list wordy
         hexadecimal largest-series-product kindergarten-garden
         binary-search-tree matrix robot-simulator nth-prime food-chain
-        palindrome-products pascals-triangle say meetup
+        palindrome-products pascals-triangle say meetup custom-set
         sum-of-multiples queen-attack saddle-points ocr-numbers
         twelve-days simple-linked-list linked-list point-mutations
       )
