@@ -1,29 +1,38 @@
-(function() {
-  'use strict';
+module.exports = function School() {
 
-  function School() {
-    this.db = {};
+  var db = {};
+
+  function add(student, grade) {
+    if(db[grade]) {
+      db[grade].push(student);
+    } else {
+      db[grade] = [student];
+    }
   }
 
-  School.prototype.add = function(studentName,grade) {
-    var currentGrade = this.db[grade] || [];
-    currentGrade.push(studentName);
-    this.db[grade] = currentGrade;
+  function grade(level) {
+    return db[level] ? clone(db[level]).sort() : [];
+  }
+
+  function roster() {
+    return sortedGrades().reduce(function(sorted, grade) {
+      sorted[grade] = clone(db[grade]).sort();
+      return sorted;
+    }, {});
+  }
+
+  function sortedGrades() {
+    return Object.keys(db).sort();
+  }
+
+  return {
+    roster: roster,
+    add: add,
+    grade: grade
   };
 
-  School.prototype.grade = function(level) {
-    return this.db[level] || [];
-  };
+};
 
-  School.prototype.sort = function() {
-    var currentDb = this.db;
-    for (var grade in currentDb) {
-      if (currentDb.hasOwnProperty(grade)) {
-        currentDb[grade].sort();
-      }
-    }
-    return currentDb;
-  };
-
-  module.exports = School;
-})();
+function clone(array) {
+  return array.slice();
+}
