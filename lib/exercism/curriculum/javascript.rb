@@ -12,7 +12,7 @@ class Exercism
         series difference-of-squares secret-handshake linked-list wordy
         hexadecimal largest-series-product kindergarten-garden
         binary-search-tree matrix robot-simulator nth-prime
-        palindrome-products pascals-triangle say
+        palindrome-products pascals-triangle say custom-set
         sum-of-multiples queen-attack saddle-points ocr-numbers
         meetup
       )
