@@ -80,4 +80,8 @@ matrixTests =
   , testCase "matrix of strings" $ do
     fromList [["this one"], ["may be tricky!"]] @=?
       msString "\"this one\"\n\"may be tricky!\""
+  , testCase "matrix of strings 2" $ do
+    fromList [["this one", "one"], ["may be tricky!", "really tricky"]] @=?
+      msString "\"this one\" \"one\" \n\"may be tricky!\" \"really tricky\""
+
   ]
