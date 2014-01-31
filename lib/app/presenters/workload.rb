@@ -51,7 +51,7 @@ class Workload
 
   def next_submission(current_submission)
     current_index = submissions.index { |submission| submission.id == current_submission.id }
-    current_index ? submissions[current_index + 1] : nil
+    current_index ? submissions[current_index + 1] : submissions.first
   end
 
   def available_exercises
