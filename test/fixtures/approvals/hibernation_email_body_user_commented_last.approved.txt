@@ -1,6 +1,6 @@
 Hi bob,
 
-From what we can tell, there hasn't been any activity on your ruby word-count submission for over three weeks.
+From what we can tell, there hasn't been any activity on your ruby word-count submission (http://example.com/submissions/abc) for over three weeks.
 
 Your submission has gone into hibernation, which means that it is no longer showing up in the list of pending assignments.
 

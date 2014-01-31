@@ -1,5 +1,9 @@
 class HibernationMessage < Message
 
+  def url
+    "http://#{site_root}/submissions/#{submission.key}"
+  end
+
   def subject
     "Your #{exercise.language} #{exercise.slug} submission went into hibernation"
   end

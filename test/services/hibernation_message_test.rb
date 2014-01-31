@@ -7,7 +7,7 @@ require 'exercism/exercise'
 class HibernationMessageTest < MiniTest::Unit::TestCase
   FakeUser = Struct.new(:username, :email, :id)
   FakeComment = Struct.new(:user)
-  FakeSubmission = Struct.new(:user, :exercise, :comments)
+  FakeSubmission = Struct.new(:user, :exercise, :comments, :key)
 
   attr_reader :alice, :bob
 
@@ -29,19 +29,19 @@ class HibernationMessageTest < MiniTest::Unit::TestCase
   end
 
   def test_subject
-    submission = FakeSubmission.new(bob, exercise)
+    submission = FakeSubmission.new(bob, exercise, [], 'abc')
     assert_equal "Your ruby word-count submission went into hibernation", message_about(submission).subject
   end
 
   def test_body
     comments = [FakeComment.new(bob), FakeComment.new(alice)]
-    submission = FakeSubmission.new(bob, exercise, comments)
+    submission = FakeSubmission.new(bob, exercise, comments, 'abc')
     Approvals.verify(message_about(submission).body, name: 'hibernation_email_body')
   end
 
   def test_body_when_user_commented_last
     comments = [FakeComment.new(alice), FakeComment.new(bob)]
-    submission = FakeSubmission.new(bob, exercise, comments)
+    submission = FakeSubmission.new(bob, exercise, comments, 'abc')
     Approvals.verify(message_about(submission).body, name: 'hibernation_email_body_user_commented_last')
   end
 end
