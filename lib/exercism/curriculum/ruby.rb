@@ -9,7 +9,7 @@ class Exercism
         atbash-cipher accumulate crypto-square trinary rna-transcription
         sieve simple-cipher luhn pig-latin pythagorean-triplet allergies
         series difference-of-squares secret-handshake linked-list wordy
-        hexadecimal largest-series-product kindergarten-garden
+        hexadecimal largest-series-product kindergarten-garden binary-search
         binary-search-tree matrix robot-simulator nth-prime food-chain
         palindrome-products pascals-triangle say meetup custom-set
         sum-of-multiples queen-attack saddle-points ocr-numbers
