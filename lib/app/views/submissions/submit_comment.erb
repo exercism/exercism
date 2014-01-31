@@ -9,19 +9,19 @@
 
   <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
 
-  <% if current_user.owns?(submission) %>
-    <%= erb :"submissions/encourage_submitter", locals: {version: submission.version, nit_count: submission.nit_count} %>
-  <% else %>
-    <%= erb :"submissions/encourage_nitpicker", locals: {language: submission.language} %>
-  <% end %>
+    <% if current_user.owns?(submission) %>
+      <%= erb :"submissions/encourage_submitter", locals: {version: submission.version, nit_count: submission.nit_count} %>
+    <% else %>
+      <%= erb :"submissions/encourage_nitpicker", locals: {language: submission.language} %>
+    <% end %>
 
     <%= erb :"submissions/comment" %>
-     <span>parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></span>
     <% if current_user.owns?(submission) %>
       <button type="submit" name="nitpick" class="pull-right btn btn-primary">Submit Comment</button>
     <% else %>
       <button type="submit" name="nitpick" class="pull-right btn btn-primary">Nitpick</button>
     <% end %>
+    <span>Parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></span>
   </form>
 
 <% end %>
