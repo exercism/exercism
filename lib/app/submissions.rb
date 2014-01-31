@@ -80,7 +80,7 @@ class ExercismApp < Sinatra::Base
     submission = Submission.find_by_key(key)
     submission.mute!(current_user)
     flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
-    redirect '/'
+    redirect "/submissions/#{key}"
   end
 
   post '/submissions/:key/unmute' do |key|
@@ -88,7 +88,7 @@ class ExercismApp < Sinatra::Base
     submission = Submission.find_by_key(key)
     submission.unmute!(current_user)
     flash[:notice] = "The submission has been unmuted."
-    redirect '/'
+    redirect "/submissions/#{key}"
   end
 
   get '/submissions/:key/nits/:nit_id/edit' do |key, nit_id|
