@@ -16,8 +16,7 @@ module App
       end
 
       def api_key
-        # user.api_key
-        'fak3a41k37'
+        user.key
       end
 
       def email
