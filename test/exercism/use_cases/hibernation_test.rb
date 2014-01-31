@@ -6,6 +6,7 @@ require './lib/exercism/use_cases/notify'
 require './lib/services/message'
 require './lib/services/email'
 require './lib/services/hibernation_message'
+require './lib/exercism/alert'
 require './lib/exercism/notification'
 require './lib/exercism/named'
 require './lib/exercism/exercise'
@@ -68,8 +69,10 @@ class HibernationTest < MiniTest::Unit::TestCase
     submission = FakeSubmission.new(alice, [comment], 'pending')
     Hack::UpdatesUserExercise.stub(:new, NullHack.new) do
       Hibernation.stub(:admin, admin) do
-        Hibernation.new(submission, :intercept).process
-        assert_equal 'hibernating', submission.state
+        HibernationMessage.stub(:ship, nil) do
+          Hibernation.new(submission, :intercept).process
+          assert_equal 'hibernating', submission.state
+        end
       end
     end
   end
