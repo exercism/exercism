@@ -65,7 +65,7 @@ GEM
     polyglot (0.3.3)
     pony (1.6.2)
       mail (>= 2.0)
-    pry (0.9.12.4)
+    pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
