@@ -25,7 +25,7 @@ end
   require File.join(Exercism::App.root, presenter)
 end
 
-['auth', 'site', 'help', 'exercises', 'solutions', 'teams', 'user'].each do |controller|
+['auth', 'alerts', 'site', 'help', 'exercises', 'solutions', 'teams', 'user'].each do |controller|
   require File.join(Exercism::App.root, controller)
 end
 
@@ -33,6 +33,7 @@ class ExercismV1p0 < Sinatra::Base
   set :environment, ENV.fetch('RACK_ENV') { :development }.to_sym
   set :root, File.join('lib', Exercism::App.root)
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
+  set :method_override, true
 
   enable :sessions
 
