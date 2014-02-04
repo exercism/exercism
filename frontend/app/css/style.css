@@ -269,3 +269,15 @@ h2 .next-submission {
 #current_submission h2 a {
   font-size: 14px;
 }
+
+.code-table {
+  white-space: pre;
+  font-family: Monaco, Menlo, Consolas, "Courier New", monospace;
+  width: 100%;
+}
+
+.code-table .lineno {
+  text-align: right;
+  padding-left: 5px;
+  padding-right: 5px;
+}
