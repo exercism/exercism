@@ -7,5 +7,7 @@ repositories {
 }
 
 dependencies {
+  compile "joda-time:joda-time:2.3+"
   testCompile "junit:junit:4.10"
+  testCompile "org.easytesting:fest-assert-core:2.0M10"
 }
