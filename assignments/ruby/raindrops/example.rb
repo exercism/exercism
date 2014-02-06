@@ -1,28 +1,37 @@
 class Raindrops
 
-  def convert(i)
-    unless pling?(i) || plang?(i) || plong?(i)
-      return i.to_s
+  def self.convert(i)
+    new(i).convert
+  end
+
+  attr_reader :number
+  def initialize(number)
+    @number = number
+  end
+
+  def convert
+    unless pling? || plang? || plong?
+      return number.to_s
     end
 
     s = ''
-    s << 'Pling' if pling?(i)
-    s << 'Plang' if plang?(i)
-    s << 'Plong' if plong?(i)
+    s << 'Pling' if pling?
+    s << 'Plang' if plang?
+    s << 'Plong' if plong?
     s
   end
 
   private
 
-  def pling?(number)
+  def pling?
     (number % 3) == 0
   end
 
-  def plang?(number)
+  def plang?
     (number % 5) == 0
   end
 
-  def plong?(number)
+  def plong?
     (number % 7) == 0
   end
 
