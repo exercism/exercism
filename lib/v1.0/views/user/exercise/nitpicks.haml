@@ -34,4 +34,4 @@
         .item-info.pull-left
           %p.name= comment.username
           %p.time= ago(comment.created_at).capitalize
-      .item-description= md(comment.body)
+      .item-description= preserve md(comment.body)
