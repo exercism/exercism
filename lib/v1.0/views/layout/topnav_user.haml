@@ -1,7 +1,7 @@
-.code_logout
-  .code_logout_left
+%header#page-header.navbar-logged-in
+  .header-actions
     %a{:href => link_to("/logout")} Logout
-  .code_logout_right
+  %nav#main-nav
     %ul
       %li
         %a{:href => link_to('/about')} About Exercism
@@ -9,5 +9,3 @@
         %a{:href => link_to('/getting-started')} Getting Started
       %li
         %a{:href => link_to('/help')} Help
-    .clear
-  .clear

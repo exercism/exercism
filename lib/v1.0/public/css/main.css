@@ -854,7 +854,8 @@ h1, h2, h3{
   padding-bottom: 4px;
 }
 
-#section-header.navbar-default .navbar-brand, #section-header.navbar-default .navbar-nav>li>a{
+#section-header.navbar-default .navbar-brand,
+#section-header.navbar-default .navbar-nav>li>a{
   color: #7F7F7F;
   font-family: 'source_code_proextralight';
   font-size: 18px;
@@ -1604,14 +1605,15 @@ div.highlight .mi {
 
 
 /*********Lk***********/
-.code_logout
+#page-header
 {
+  background: none repeat scroll 0 0 #FFFFFF;
   border-left: 1px solid #DADADA;
   margin-left: 264px;
+  overflow: hidden;
   padding: 20px 22px;
-  background: none repeat scroll 0 0 #FFFFFF;
 }
-.code_logout_left
+.header-actions
 {
   float:left;
   font-size: 17px;
@@ -1619,7 +1621,7 @@ div.highlight .mi {
   color: #7F7F7F;
   padding: 5px 0 0;
 }
-.code_logout_right
+#main-nav
 {
   float: right;
   width: 48%;
@@ -1628,34 +1630,35 @@ div.highlight .mi {
 {
   clear:both;
 }
-.code_logout_right ul
+#main-nav ul
 {
   padding:0;
   margin:0;
 }
-.code_logout_right ul li
+#main-nav ul li
 {
   padding:0;
   margin: 0 0 0 30px;
   list-style-type:none;
   float:left;
 }
-.code_logout_right ul li a:hover, .code_logout_left a:hover, .code_logout_left a:focus, .code_logout_right ul li a:focus
+.navbar-logged-in a:hover,
+.navbar-logged-in a:focus
 {
   text-decoration:none;
 }
-.code_logout_right ul li a          /**** 1641 ***/
+#main-nav ul a          /**** 1641 ***/
 {
   color: #7F7F7F;
   font-family: 'source_code_proextralight';
   font-size: 18px;
   line-height: 18px;
 }
-.code_logout_right ul li a:hover
+#main-nav ul a:hover
 {
   color:#D81D4E;                              /***** 1648 *****/
 }
-.code_logout_left a
+.header-actions a
 {                                      /****** 1652 *****/
   background: url("../images/sprite.png") no-repeat scroll -387px -153px rgba(0, 0, 0, 0);
   color: #D81D4E;
@@ -1718,7 +1721,7 @@ div.highlight .mi {
   }
   #account-settings1 {   width: 78%;}
   .myright_sec {   width: 78% !important;}
-  .code_logout_right {  width: 52%;}
+  #main-nav {  width: 52%;}
   .head_logo {
     width: 19% !important;
   }
@@ -1751,7 +1754,7 @@ div.highlight .mi {
   .code_midd {
     width: 50.333%;
   }
-  .code_logout_right {
+  #main-nav {
     width: 55%;
   }
   .head_logo {
@@ -1789,7 +1792,7 @@ div.highlight .mi {
   .code_midd {
     width: 48%;
   }
-  .code_logout_right {
+  #main-nav {
     width: 60%;
   }
 }
@@ -1828,7 +1831,7 @@ div.highlight .mi {
 .myright_sec {
   width: 74% !important;
 }
-.code_logout_right {
+#main-nav {
   width: 65%;
 }
 }
@@ -1842,9 +1845,6 @@ div.highlight .mi {
 
 }
 @media only screen and (max-width :1024px){
-  .code_logout {
-    margin-left: 231px;
-  }
   #account-settings1
   {
     left: 231px;
@@ -1853,7 +1853,7 @@ div.highlight .mi {
   .myright_sec {
     width: 73% !important;
   }
-  .code_logout_right {
+  #main-nav {
     width: 70%;
   }
 }
@@ -1884,7 +1884,7 @@ div.highlight .mi {
   #account-settings1 { width: 75%; }
 }
 @media only screen and (max-width :950px){
-  .code_logout_right {
+  #main-nav {
     width: 75%;
   }
   .myright_sec {
@@ -1899,15 +1899,15 @@ div.highlight .mi {
   .myright_sec {
     width: 70% !important;
   }
-  .code_logout_left, .code_logout_right
+  .code_logout_left, #main-nav
   {
     float:none;
   }
-  .code_logout_right ul li
+  #main-nav ul li
   {
     margin: 0 20px 0 0;
   }
-  .code_logout_right
+  #main-nav
   {
     padding: 15px 0 0;
 
@@ -1928,7 +1928,7 @@ div.highlight .mi {
   .content_main_left, .content_main_right {
     float: none;
   }
-  .code_logout_right ul li {
+  #main-nav ul li {
     float: none;
     margin: 0 0 5px;
   }
@@ -1953,7 +1953,7 @@ div.highlight .mi {
   #account-settings1 { width: 70%;}
 }
 @media only screen and (max-width :812px){
-  .code_logout_right {    width: 80%;}
+  #main-nav {    width: 80%;}
   .myright_sec {
     width: 66% !important;
   }
@@ -1988,10 +1988,10 @@ div.highlight .mi {
   .myright_sec {   width: 62% !important;  }
 }
 @media only screen and (max-width :700px){
-  .code_logout_right {    width: 80%; float:none;}
-  .code_logout_left{ float:none; }
-  .code_logout_right {   padding: 10px 0 0;}
-  .code_logout_right ul li {   float: none;    margin: 0;}
+  #main-nav {    width: 80%; float:none;}
+  .header-actions { float:none; }
+  #main-nav {   padding: 10px 0 0;}
+  #main-nav ul li {   float: none;    margin: 0;}
   .section-header-code #logo {
     top: 170px;
   }
