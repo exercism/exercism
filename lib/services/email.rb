@@ -6,6 +6,7 @@ class Email
     @from = options.fetch(:from)
     @subject = options.fetch(:subject)
     @body = options.fetch(:body)
+    @html_body = options.fetch(:html_body) { false }
     @intercept_emails = options.fetch(:intercept_emails)
   end
 
@@ -24,12 +25,18 @@ class Email
   end
 
   def base_options
-    {
+    options = {
       to: @to,
       from: @from,
       subject: @subject,
       body: @body
     }
+
+    if @html_body
+      options.merge(html_body: @html_body)
+    else
+      options
+    end
   end
 
   def options_for_mailcatcher

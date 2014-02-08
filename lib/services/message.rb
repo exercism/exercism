@@ -66,7 +66,7 @@ class Message
       from: from_email,
       subject: full_subject,
       body: body,
-      intercept_emails: intercept_emails?,
+      intercept_emails: intercept_emails?
     ).ship
     self
   end
