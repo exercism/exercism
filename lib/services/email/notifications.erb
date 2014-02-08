@@ -5,7 +5,7 @@ Hi <%= name %>,
 <%= notification.language %>: <%= notification.slug %> (<%= site_root %><%= notification.link %>)
 <%= notification.regarding %> from: <%= notification.username %> <%= ago(notification.created_at) %>
 <% end %>
-<% if pending_submissions %>
+<% if pending_submissions.any? %>
 *********
 
 Spare a few minutes? Help out others by reviewing these submissions.

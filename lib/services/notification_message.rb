@@ -1,3 +1,5 @@
+require 'v1.0/helpers/fuzzy_time_helper'
+
 class NotificationMessage < Message
   include Sinatra::FuzzyTimeHelper
 
