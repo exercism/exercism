@@ -7,6 +7,8 @@ namespace :digest do
     require 'app/presenters/workload'
     require 'services'
     require 'services/notification_message'
+    env = ENV.fetch('RACK_ENV') { 'development' }
+    intercept = env != 'production'
 
     # Send daily notification email to all users with notifications in
     # past 24 hours
@@ -14,7 +16,7 @@ namespace :digest do
 
     user_ids.each do |user_id|
       user = User.find(user_id)
-      NotificationMessage.new(user: user).ship if user.email
+      NotificationMessage.new(user: user, intercept_emails: intercept).ship if user.email
     end
   end
 end
