@@ -14,9 +14,12 @@ namespace :digest do
     # past 24 hours
     user_ids = Notification.on_submissions.unread.where('created_at >= ?', 1.days.ago).pluck(:user_id).uniq
 
-    user_ids.each do |user_id|
-      user = User.find(user_id)
-      NotificationMessage.new(user: user, intercept_emails: intercept).ship if user.email
+    User.where('email IS NOT NULL').where(id: user_ids).find_each do |user|
+      begin
+        NotificationMessage.new(user: user, intercept_emails: intercept).ship
+      rescue => e
+        # Ignore errors. Really must add monitoring.
+      end
     end
   end
 end
