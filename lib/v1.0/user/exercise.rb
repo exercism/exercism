@@ -75,8 +75,8 @@ module App
       end
 
       def each_comment
-        submissions.each do |submission|
-          submission.comments.each do |comment|
+        submissions.reverse.each do |submission|
+          submission.comments.reverse.each do |comment|
             yield App::User::Comment.new(comment)
           end
         end
