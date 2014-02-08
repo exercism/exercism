@@ -11,7 +11,7 @@ class NotificationMessage < Message
 
   def subject
     # "You have 5 notifications"
-    "You have #{notifications.count} #{'notification'.pluralize(notifications.count)}"
+    "You have #{unread_notifications.count} #{'notification'.pluralize(notifications.count)}"
   end
 
   def recipient
@@ -46,7 +46,7 @@ class NotificationMessage < Message
   end
 
   def send_email?
-    notifications.count > 0
+    unread_notifications.count > 0
   end
 
   def pending_submissions
@@ -57,8 +57,15 @@ class NotificationMessage < Message
     pending_submissions.flatten
   end
 
-  def notifications
+  def unread_notifications
     @user.notifications.on_submissions.unread.recent.by_recency
   end
 
+  def notifications
+    unread_notifications.limit(5)
+  end
+
+  def truncated?
+    unread_notifications.count > notifications.count
+  end
 end

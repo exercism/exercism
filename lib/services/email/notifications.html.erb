@@ -1,6 +1,9 @@
 <p>Hi <%= name %>,</p>
 
 <p><%= subject %> waiting for you at Exercism.io.<p>
+<% if truncated? %>
+<p>Here are the most recent ones:</p>
+<% end %>
 <% if notifications %>
   <p>
     <% notifications.each do |notification| %>
@@ -27,7 +30,7 @@
     <% end %>
   </p>
 <% end %>
-  
+
 </br>
 --</br>
 If you'd like to stop receiving email notifications, go to <a href="<%= site_root %>/<%= @user.username %>"><%= site_root %>/<%= @user.username %></a> and delete your email address.

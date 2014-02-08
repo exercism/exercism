@@ -13,6 +13,10 @@ class NotificationMessageTest < MiniTest::Unit::TestCase
     super
     @alice = User.create(username: 'alice', email: 'test@exercism.io')
     @bob = User.create(username: 'bob')
+
+    Submission.create(language: 'ruby', slug: 'anagram', state: 'done', user: alice)
+    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'anagram').update
+
     @submission = Submission.create(language: 'ruby', slug: 'word-count', state: 'pending', user: alice)
     Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'word-count').update
     @submission.reload
@@ -37,10 +41,15 @@ class NotificationMessageTest < MiniTest::Unit::TestCase
   def test_sends_email
     return if ENV['CI'] == '1'
 
-    Notification.on(submission, to: alice, regarding: 'comment')
-    Notification.on(submission, to: alice, regarding: 'nitpick', created_at: 2.hours.ago)
+    Notification.on(submission, to: alice, regarding: 'strawberries')
+    Notification.on(submission, to: alice, regarding: 'bananas', created_at: 2.hours.ago)
+    Notification.on(submission, to: alice, regarding: 'apples', created_at: 4.hours.ago)
+    Notification.on(submission, to: alice, regarding: 'cherries', created_at: 6.hours.ago)
+    Notification.on(submission, to: alice, regarding: 'guavas', created_at: 8.hours.ago)
+    Notification.on(submission, to: alice, regarding: 'lilikoi', created_at: 10.hours.ago)
+    Notification.on(submission, to: alice, regarding: 'watermelon', created_at: 12.hours.ago)
     Submission.create(language: 'javascript', slug: 'word-count', state: 'pending', user: bob)
-    Submission.create(language: 'ruby', slug: 'leap', state: 'pending', user: bob, created_at: 1.days.ago)
+    Submission.create(language: 'ruby', slug: 'anagram', state: 'pending', user: bob, created_at: 4.hours.ago)
     notification_message.ship
 
     # integration test, view in mailcatcher.
