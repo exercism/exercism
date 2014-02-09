@@ -1,11 +1,12 @@
 class Readme
   include Named
 
-  attr_reader :slug, :dir
+  attr_reader :slug, :dir, :help
 
-  def initialize(slug, dir="./assignments")
+  def initialize(slug, dir="./assignments", help=nil)
     @slug = slug
     @dir = dir
+    @help = help
   end
 
   def text
@@ -15,7 +16,7 @@ class Readme
 #{blurb}
 
 #{instructions}
-
+#{help}
 ## Source
 
 #{source} [view source](#{source_url})

@@ -31,7 +31,7 @@ class Assignment
   end
 
   def readme
-    Readme.new(slug, data_dir).text
+    Readme.new(slug, data_dir, SetupHelp.new(language, data_dir)).text
   end
 
   private

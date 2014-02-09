@@ -3,23 +3,23 @@
     {
       "track": "ruby",
       "slug": "one",
-      "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
+      "readme": "# One\n\nThis is one.\n\n* one\n* one again\n\nSetup help.\n\n## Source\n\nThe internet. [view source](http://example.com)\n",
       "test_file": "one_test.rb",
       "tests": "require 'minitest/autorun'\nrequire_relative 'example'\nclass OneTest < Minitest::Test\n  def test_one\n    assert_equal 1, One.value\n  end\nend\n",
       "files": {
         "Fakefile": "Autorun fake code\n",
         "one_test.rb": "require 'minitest/autorun'\nrequire_relative 'example'\nclass OneTest < Minitest::Test\n  def test_one\n    assert_equal 1, One.value\n  end\nend\n",
-        "README.md": "# One\n\nThis is one.\n\n* one\n* one again\n\n\n## Source\n\nThe internet. [view source](http://example.com)\n"
+        "README.md": "# One\n\nThis is one.\n\n* one\n* one again\n\nSetup help.\n\n## Source\n\nThe internet. [view source](http://example.com)\n"
       }
     },
     {
       "track": "ruby",
       "slug": "two",
-      "readme": "# Two\n\nThis is two.\n\n* two\n* two again\n\n\n## Source\n\nThe web. [view source](http://example.org)\n",
+      "readme": "# Two\n\nThis is two.\n\n* two\n* two again\n\nSetup help.\n\n## Source\n\nThe web. [view source](http://example.org)\n",
       "test_file": "two_test.rb",
       "tests": "require 'minitest/autorun'\nrequire_relative 'example'\nclass TwoTest < Minitest::Test\n  def test_two\n    assert_equal 2, Two.value\n  end\nend\n",
       "files": {
-        "README.md": "# Two\n\nThis is two.\n\n* two\n* two again\n\n\n## Source\n\nThe web. [view source](http://example.org)\n",
+        "README.md": "# Two\n\nThis is two.\n\n* two\n* two again\n\nSetup help.\n\n## Source\n\nThe web. [view source](http://example.org)\n",
         "two_test.rb": "require 'minitest/autorun'\nrequire_relative 'example'\nclass TwoTest < Minitest::Test\n  def test_two\n    assert_equal 2, Two.value\n  end\nend\n"
       }
     },
