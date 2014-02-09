@@ -16,22 +16,15 @@
       %a.btn.btn-link{:href => "#"} Preview
       %input.btn.btn-link.btn-submit{:type => "submit", :value => "Submit"}/
 
-  .btn-group.text-left
-    %button.btn.btn-default.dropdown-toggle{"data-toggle" => "dropdown", :type => "button"}
-      View All Nitpicks
-      %span.caret
-    %ul.dropdown-menu{:role => "menu"}
-      %li
-        %a{:href => "#"} ABC
-      %li
-        %a{:href => "#"} XYZ
-
-  .col-md-12.blockquote-item.no-rpadding
-    - exercise.each_comment do |comment|
-      .item-heading.clearfix
+  - exercise.each_comment do |comment|
+    .col-md-12.blockquote-item.no-rpadding
+      .item-heading.clearfix{:class => comment.by?(current_user) ? 'by-current-user' : ''}
         %span.item-count.pull-right= comment.iteration
         %img.pull-left.img-circle{:src => comment.avatar_url}/
         .item-info.pull-left
           %p.name= comment.username
-          %p.time= ago(comment.created_at).capitalize
+          %p.time
+            - if comment.by_original_poster?
+              Original Poster
+            = ago(comment.created_at).capitalize
       .item-description= preserve md(comment.body)

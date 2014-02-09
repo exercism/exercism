@@ -13,6 +13,13 @@ module App
         user.username
       end
 
+      def by_original_poster?
+        submission.user == user
+      end
+
+      def by?(other)
+        user == other
+      end
     end
   end
 end
