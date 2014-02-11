@@ -34,10 +34,10 @@ defmodule SchoolTest do
     # assert actual == HashDict.new [{3, ["Chelsea"]}, {7, ["Logan"]}]
   end
 
-  test "get students in a grade" do
+  test "get students in a grade sorted alphabetically" do
     # actual = db
-    #   |> School.add("Franklin", 5)
     #   |> School.add("Bradley", 5)
+    #   |> School.add("Franklin", 5)
     #   |> School.add("Jeff", 1)
     #   |> School.grade(5)
     #
@@ -48,10 +48,10 @@ defmodule SchoolTest do
     # assert [] == School.grade(db, 1)
   end
 
-  test "sort school" do
+  test "sort school by grade and by student name" do
     # actual = db
-    #   |> School.add("Christopher", 4)
     #   |> School.add("Jennifer", 4)
+    #   |> School.add("Christopher", 4)
     #   |> School.add("Kareem", 6)
     #   |> School.add("Kyle", 3)
     #   |> School.sort
@@ -61,7 +61,8 @@ defmodule SchoolTest do
     #   {4, ["Christopher", "Jennifer"]},
     #   {6, ["Kareem"]}
     # ]
-    # 
+    #
     # assert expected == actual
   end
+
 end
