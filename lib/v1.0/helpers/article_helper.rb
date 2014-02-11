@@ -26,7 +26,7 @@ module Sinatra
     end
 
     def article_dir
-      File.join('lib', 'app', 'articles')
+      File.join('lib', 'v1.0', 'articles')
     end
   end
 end
