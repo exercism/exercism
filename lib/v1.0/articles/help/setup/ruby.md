@@ -10,6 +10,9 @@ Execute the tests with:
 $ ruby bob_test.rb
 ```
 
+Only the first test will be executed, all the others have been made pending
+using the `skip` method. Delete the next `skip` as you get each test passing.
+
 ## Recommended Learning Resources
 
 Exercism provides exercises and feedback but can be difficult to jump into for those learning Ruby for the first time. These resources can help you get started:
