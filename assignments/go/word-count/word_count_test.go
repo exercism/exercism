@@ -2,6 +2,7 @@ package wc
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -47,7 +48,7 @@ func TestWordCount(t *testing.T) {
 		expected := fmt.Sprintf("%v", tt.output)
 		actual := fmt.Sprintf("%v", WordCount(tt.input))
 
-		if expected != actual {
+		if !reflect.DeepEqual(tt.output, WordCount(tt.input)) {
 			t.Fatalf("%s\n\tExpected: %v\n\tGot: %v", tt.description, expected, actual)
 		} else {
 			t.Logf("PASS: %s - WordCount(%s)", tt.description, tt.input)
