@@ -4,7 +4,7 @@ class Exercism
       %w(
         bob leap grains raindrops hamming etl scrabble-score
         gigasecond word-count anagram grade-school proverb space-age
-        house roman-numerals prime-factors strain triangle
+        house roman-numerals clock prime-factors strain triangle
         beer-song nucleotide-count phone-number robot-name
         atbash-cipher accumulate crypto-square trinary rna-transcription
         sieve simple-cipher luhn pig-latin pythagorean-triplet allergies
