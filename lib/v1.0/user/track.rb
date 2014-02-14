@@ -3,22 +3,10 @@ module App
     class Track
       include Named
 
-      attr_reader :language
+      attr_reader :language, :exercises
       def initialize(language, exercises)
         @language = language
         @exercises = exercises
-      end
-
-      def more?
-        @exercises.count > limit
-      end
-
-      def exercises
-        @exercises.first(limit)
-      end
-
-      def limit
-        5
       end
 
       private

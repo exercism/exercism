@@ -43,12 +43,9 @@
           %a.toggle{:href => "javascript:;"} -
         .row.unstyled.blocks-grid.toggle-content
           - account.completed_in_tracks.each do |track|
-            .col-md-4
+            .col-md-4.completed.exercises
               %h4{:class => track.language}= track.name
-              %ul.unstyled
+              %ul
                 - track.exercises.each do |exercise|
                   %li
                     %a{:href => link_to(exercise.url)}= exercise.name
-                - if track.more?
-                  %li
-                    %a.highlight{:href => "#"} + More
