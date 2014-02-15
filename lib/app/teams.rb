@@ -147,7 +147,7 @@ class ExercismApp < Sinatra::Base
   end
 
   def team_invalid(slug)
-    flash[:error] = "Slug can't be blanked"
+    flash[:error] = "Slug can't be blank"
     redirect "/teams/#{slug}"
   end
 
