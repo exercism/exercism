@@ -26,7 +26,7 @@ describe 'Luhn', ->
     luhn = new Luhn(201773)
     expect(luhn.checksum).toEqual(21)
 
-  it "invalid number", ->
+  it "valid number", ->
     luhn = new Luhn(738)
     expect(luhn.valid).toEqual(false)
 
