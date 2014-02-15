@@ -38,7 +38,6 @@ class User < ActiveRecord::Base
     where('LOWER(username) = ?', username.downcase).first
   end
 
-
   def ongoing
     @ongoing ||= submissions.pending
   end

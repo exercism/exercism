@@ -19,6 +19,10 @@ class Team < ActiveRecord::Base
     team
   end
 
+  def self.find_by_slug(slug)
+    where('LOWER(slug) = ?', slug.downcase).first
+  end
+
   def managed_by?(user)
     managers.include?(user)
   end

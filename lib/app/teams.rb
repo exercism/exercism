@@ -22,7 +22,7 @@ class ExercismApp < Sinatra::Base
   get '/teams/:slug' do |slug|
     please_login
 
-    team = Team.where(slug: slug).first
+    team = Team.find_by_slug(slug)
 
     if team
 
@@ -41,7 +41,7 @@ class ExercismApp < Sinatra::Base
   delete '/teams/:slug' do |slug|
     please_login
 
-    team = Team.where(slug: slug).first
+    team = Team.find_by_slug(slug)
 
     if team
       unless team.creator == current_user
@@ -61,7 +61,7 @@ class ExercismApp < Sinatra::Base
   post '/teams/:slug/members' do |slug|
     please_login
 
-    team = Team.where(slug: slug).first
+    team = Team.find_by_slug(slug)
 
     if team
       unless team.creator == current_user
@@ -84,7 +84,7 @@ class ExercismApp < Sinatra::Base
   put '/teams/:slug/leave' do |slug|
     please_login
 
-    team = Team.where(slug: slug).first
+    team = Team.find_by_slug(slug)
 
     if team
       team.dismiss(current_user.username)
@@ -99,7 +99,7 @@ class ExercismApp < Sinatra::Base
   delete '/teams/:slug/members/:username' do |slug, username|
     please_login
 
-    team = Team.where(slug: slug).first
+    team = Team.find_by_slug(slug)
 
     if team
       unless team.creator == current_user
@@ -139,7 +139,7 @@ class ExercismApp < Sinatra::Base
   put '/teams/:slug/confirm' do |slug|
     please_login
 
-    team = Team.where(slug: slug).first
+    team = Team.find_by_slug(slug)
 
     if team
       unless team.unconfirmed_members.include?(current_user)

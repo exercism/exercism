@@ -14,6 +14,11 @@ class TeamTest < MiniTest::Unit::TestCase
     refute Team.new.valid?
   end
 
+  def test_case_insensitive_find_by_slug
+    Team.by(alice).defined_with(slug: 'orange').save
+    assert_equal 'orange', Team.find_by_slug('ORANGE').slug
+  end
+
   def test_team_has_unique_slug
     Team.create(slug: 'purple', creator: alice)
     team = Team.new(slug: 'purple', creator: alice)
