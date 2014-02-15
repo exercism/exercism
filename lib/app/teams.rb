@@ -27,7 +27,7 @@ class ExercismApp < Sinatra::Base
     if team
 
       unless team.includes?(current_user)
-        flash[:error] = "You may only view team pages for teams that you are on."
+        flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
         redirect "/"
       end
 
