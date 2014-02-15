@@ -46,7 +46,7 @@ class ExercismApp < Sinatra::Base
     if team
       unless team.creator == current_user
         flash[:error] = "You are not allowed to delete the team."
-        redirect '/'
+        redirect '/account'
       end
 
       team.destroy
@@ -66,7 +66,7 @@ class ExercismApp < Sinatra::Base
     if team
       unless team.creator == current_user
         flash[:error] = "You are not allowed to add team members."
-        redirect "/"
+        redirect "/account"
       end
 
       team.recruit(params[:usernames])
@@ -104,7 +104,7 @@ class ExercismApp < Sinatra::Base
     if team
       unless team.creator == current_user
         flash[:error] = "You are not allowed to remove team members."
-        redirect "/"
+        redirect "/account"
       end
 
       team.dismiss(username)
@@ -119,7 +119,21 @@ class ExercismApp < Sinatra::Base
   put '/teams/:slug' do |slug|
     please_login
 
-    EditsTeam.new(self).update(slug, params[:team])
+    team = Team.find_by_slug(slug)
+
+    if team
+      unless team.creator == current_user
+        flash[:error] = "You are not allowed to edit the team."
+        redirect '/account'
+      end
+
+      if team.defined_with(params[:team]).save
+        redirect "/teams/#{slug}"
+      else
+        flash[:error] = "Slug can't be blank"
+        redirect "/teams/#{slug}"
+      end
+    end
   end
 
   put '/teams/:slug/confirm' do |slug|
@@ -140,15 +154,6 @@ class ExercismApp < Sinatra::Base
       flash[:error] = "We don't know anything about team '#{slug}'"
       redirect '/'
     end
-  end
-
-  def team_updated(slug)
-    redirect "/teams/#{slug}"
-  end
-
-  def team_invalid(slug)
-    flash[:error] = "Slug can't be blank"
-    redirect "/teams/#{slug}"
   end
 
   private

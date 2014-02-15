@@ -27,25 +27,81 @@ class TeamsTest < MiniTest::Unit::TestCase
     }
   end
 
-  def john_attributes
+  def charlie_attributes
     {
-      username: 'john',
+      username: 'charlie',
       github_id: 3,
       mastery: ['ruby'],
-      email: "john@example.com"
+      email: "charlie@example.com"
     }
   end
 
-  attr_reader :alice, :bob, :john
+  attr_reader :alice, :bob, :charlie
   def setup
     super
     @alice = User.create(alice_attributes)
     @bob = User.create(bob_attributes)
-    @john = User.create(john_attributes)
+    @charlie = User.create(charlie_attributes)
   end
 
   def assert_response_status(expected_status)
     assert_equal expected_status, last_response.status
+  end
+
+  def test_user_must_be_logged_in
+    [
+      [:get, '/teams'],
+      [:post, '/teams'],
+      [:get, '/teams/abc'],
+      [:delete, '/teams/abc'],
+      [:post, '/teams/abc/members'],
+      [:put, '/teams/abc/leave'],
+      [:delete, '/teams/abc/members/alice'],
+      [:put, '/teams/abc'],
+      [:put, '/teams/abc/confirm']
+    ].each do |verb, endpoint|
+      send verb, endpoint
+      assert_equal 302, last_response.status
+      location = "http://example.org/please-login?return_path=#{endpoint}"
+      assert_equal location, last_response.location, "Wrong redirect for #{verb.to_s.upcase} #{endpoint}"
+    end
+  end
+
+  def test_user_must_be_manager
+    team = Team.by(alice).defined_with(slug: 'abc', usernames: bob.username)
+    team.save
+
+    [
+      [:delete, '/teams/abc', "delete a team"],
+      [:put, '/teams/abc', "edit a team"],
+      [:post, '/teams/abc/members', "add members"],
+      [:delete, '/teams/abc/members/bob', "dismiss members"],
+    ].each do |verb, path, action|
+      send verb, path, {}, login(bob)
+      assert_equal 302, last_response.status, "No redirect for #{verb.to_s.upcase} #{path}"
+      location = "http://example.org/account"
+      assert_equal location, last_response.location, "Only a manager my #{action}. (#{verb.to_s.upcase} #{path})"
+    end
+  end
+
+  def test_user_must_be_on_team_to_view_team_page
+    team = Team.by(alice).defined_with(slug: 'abc', usernames: bob.username)
+    team.save
+
+    get '/teams/abc', {}, login(alice)
+    assert_equal 200, last_response.status
+
+    get '/teams/abc', {}, login(bob)
+    assert_equal 302, last_response.status
+    assert_equal "http://example.org/", last_response.location
+
+    team.confirm(bob.username)
+    get '/teams/abc', {}, login(bob)
+    assert_equal 200, last_response.status
+
+    get '/teams/abc', {}, login(charlie)
+    assert_equal 302, last_response.status
+    assert_equal "http://example.org/", last_response.location
   end
 
   def test_team_creation_without_name_uses_slug
@@ -89,30 +145,30 @@ class TeamsTest < MiniTest::Unit::TestCase
 
   def test_team_creation_with_multiple_members
     TeamInvitationMessage.stub(:ship, nil) do
-      post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{john.username}"}}, login(alice)
+      post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{charlie.username}"}}, login(alice)
 
       team = Team.first
 
       bob.reload
-      john.reload
+      charlie.reload
 
       assert_equal 0, bob.teams.size
-      assert_equal 0, john.teams.size
+      assert_equal 0, charlie.teams.size
 
       assert team.includes?(alice)
       refute team.includes?(bob)
-      refute team.includes?(john)
+      refute team.includes?(charlie)
 
       put "/teams/#{team.slug}/confirm", {}, login(bob)
-      put "/teams/#{team.slug}/confirm", {}, login(john)
+      put "/teams/#{team.slug}/confirm", {}, login(charlie)
 
       bob.reload
-      john.reload
+      charlie.reload
 
       assert_equal 1, bob.teams.size
-      assert_equal 1, john.teams.size
+      assert_equal 1, charlie.teams.size
 
-      [alice, bob, john].each do |member|
+      [alice, bob, charlie].each do |member|
         assert team.includes?(member)
       end
     end
@@ -123,19 +179,19 @@ class TeamsTest < MiniTest::Unit::TestCase
       team = Team.by(alice).defined_with({slug: 'members'})
       team.save
 
-      post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{john.username}"}, login(alice)
+      post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{charlie.username}"}, login(alice)
 
       team.reload
 
       refute team.includes?(bob)
-      refute team.includes?(john)
+      refute team.includes?(charlie)
 
       put "/teams/#{team.slug}/confirm", {}, login(bob)
 
       team.reload
 
       assert team.includes?(bob)
-      refute team.includes?(john)
+      refute team.includes?(charlie)
     end
   end
 
@@ -143,16 +199,16 @@ class TeamsTest < MiniTest::Unit::TestCase
     team = Team.by(alice).defined_with({slug: 'members', usernames: bob.username})
     team.save
 
-    post "/teams/#{team.slug}/members", {usernames: john.username}, login(bob)
+    post "/teams/#{team.slug}/members", {usernames: charlie.username}, login(bob)
 
     team.reload
 
     assert_response_status(302)
-    refute team.includes?(john)
+    refute team.includes?(charlie)
   end
 
   def test_member_removal
-    team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{john.username}"})
+    team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{charlie.username}"})
     team.save
 
     put "/teams/#{team.slug}/confirm", {}, login(bob)
@@ -164,7 +220,7 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_leave_team
-    team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{john.username}"})
+    team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{charlie.username}"})
     team.save
 
     put "/teams/#{team.slug}/confirm", {}, login(bob)
@@ -176,20 +232,20 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_member_removal_without_being_creator
-    team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{john.username}"})
+    team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{charlie.username}"})
     team.save
 
-    put "/teams/#{team.slug}/confirm", {}, login(john)
-    delete "/teams/#{team.slug}/members/#{john.username}", {}, login(bob)
+    put "/teams/#{team.slug}/confirm", {}, login(charlie)
+    delete "/teams/#{team.slug}/members/#{charlie.username}", {}, login(bob)
 
     team.reload
 
     assert_response_status(302)
-    assert team.includes?(john)
+    assert team.includes?(charlie)
   end
 
   def test_view_a_team_as_a_member
-    team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{john.username}"})
+    team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{charlie.username}"})
     team.save
 
     get "/teams/#{team.slug}", {}, login(bob)
@@ -206,7 +262,7 @@ class TeamsTest < MiniTest::Unit::TestCase
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username}"})
     team.save
 
-    get "/teams/#{team.slug}", {}, login(john)
+    get "/teams/#{team.slug}", {}, login(charlie)
 
     assert_response_status(302)
   end
@@ -248,10 +304,10 @@ class TeamsTest < MiniTest::Unit::TestCase
       assert_equal 0, alice.reload.alerts.count, "Shouldn't notify creator"
       assert_equal 1, bob.reload.alerts.count, "Notify bob failed"
 
-      post "/teams/abc/members", {usernames: john.username}, login(alice)
+      post "/teams/abc/members", {usernames: charlie.username}, login(alice)
 
       assert_equal 1, bob.reload.alerts.count, "Bob should not have gotten notified again."
-      assert_equal 1, john.reload.alerts.count, "Notify john failed"
+      assert_equal 1, charlie.reload.alerts.count, "Notify charlie failed"
     end
   end
 end
