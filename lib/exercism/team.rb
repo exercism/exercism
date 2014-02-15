@@ -5,6 +5,8 @@ class Team < ActiveRecord::Base
   has_many :unconfirmed_memberships, ->{ where confirmed: false }, class_name: "TeamMembership"
   has_many :members, through: :memberships, source: :user
   has_many :unconfirmed_members, through: :unconfirmed_memberships, source: :user
+  has_many :management_contracts, class_name: "TeamManager"
+  has_many :managers, through: :management_contracts, source: :user
 
   validates :creator, presence: true
   validates :slug, presence: true,  uniqueness: true
@@ -12,7 +14,17 @@ class Team < ActiveRecord::Base
   before_save :provide_default_name, :normalize_slug
 
   def self.by(user)
-    new(creator: user)
+    team = new(creator: user)
+    team.managers << user
+    team
+  end
+
+  def managed_by?(user)
+    managers.include?(user)
+  end
+
+  def managed_by(user)
+    managers << user unless managed_by?(user)
   end
 
   def defined_with(options)
