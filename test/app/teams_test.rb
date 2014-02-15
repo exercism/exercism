@@ -310,14 +310,9 @@ class TeamsTest < MiniTest::Unit::TestCase
     assert_equal "http://example.org/teams/dragon", last_response.location
     assert_equal [alice.id, bob.id].sort, team.reload.managers.map(&:id).sort
 
-    post '/teams/dragon/managers', {username: charlie.username}, login(alice)
-    assert_response_status(302)
-    assert_equal "http://example.org/teams/dragon", last_response.location
-    assert_equal [alice.id, bob.id, charlie.id].sort, team.reload.managers.map(&:id).sort
-
     post '/teams/dragon/managers', {username: 'no-such-user'}, login(alice)
     assert_response_status(302)
     assert_equal "http://example.org/teams/dragon", last_response.location
-    assert_equal [alice.id, bob.id, charlie.id].sort, team.reload.managers.map(&:id).sort
+    assert_equal [alice.id, bob.id].sort, team.reload.managers.map(&:id).sort
   end
 end
