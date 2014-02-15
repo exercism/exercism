@@ -104,25 +104,25 @@ class TeamTest < MiniTest::Unit::TestCase
 
   def test_team_recruit
     charlie = User.create(username: 'charlie')
-    john = User.create(username: 'john-lennon')
+    david = User.create(username: 'david')
 
     team = Team.by(alice).defined_with(slug: 'blurple')
     team.save
 
     team.recruit(bob.username)
-    team.recruit("#{john.username},#{charlie.username}")
+    team.recruit("#{david.username},#{charlie.username}")
 
     refute team.includes?(bob)
     refute team.includes?(charlie)
-    refute team.includes?(john)
+    refute team.includes?(david)
 
     team.confirm(bob.username)
     team.confirm(charlie.username)
-    team.confirm(john.username)
+    team.confirm(david.username)
 
     assert team.includes?(bob)
     assert team.includes?(charlie)
-    assert team.includes?(john)
+    assert team.includes?(david)
   end
 
   def test_team_does_not_recruit_duplicates

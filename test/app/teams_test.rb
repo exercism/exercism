@@ -162,7 +162,7 @@ class TeamsTest < MiniTest::Unit::TestCase
 
   def test_member_addition
     TeamInvitationMessage.stub(:ship, nil) do
-      team = Team.by(alice).defined_with({slug: 'members'})
+      team = Team.by(alice).defined_with(slug: 'members')
       team.save
 
       post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{charlie.username}"}, login(alice)
@@ -182,7 +182,7 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_only_managers_can_invite_members
-    team = Team.by(alice).defined_with({slug: 'members', usernames: bob.username})
+    team = Team.by(alice).defined_with(slug: 'members', usernames: bob.username)
     team.save
 
     post "/teams/#{team.slug}/members", {usernames: charlie.username}, login(bob)
@@ -194,7 +194,7 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_member_removal
-    team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{charlie.username}"})
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: "#{bob.username},#{charlie.username}")
     team.save
 
     put "/teams/#{team.slug}/confirm", {}, login(bob)
@@ -206,7 +206,7 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_leave_team
-    team = Team.by(alice).defined_with({slug: 'awesome', usernames: "#{bob.username},#{charlie.username}"})
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: "#{bob.username},#{charlie.username}")
     team.save
 
     put "/teams/#{team.slug}/confirm", {}, login(bob)
@@ -231,9 +231,10 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_view_a_team_as_a_member
-    team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{charlie.username}"})
+    team = Team.by(alice).defined_with(slug: 'members', usernames: "#{bob.username},#{charlie.username}")
     team.save
 
+    # unconfirmed member
     get "/teams/#{team.slug}", {}, login(bob)
 
     assert_response_status(302)
@@ -245,7 +246,7 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_view_team_as_a_non_member
-    team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username}"})
+    team = Team.by(alice).defined_with(slug: 'members', usernames: "#{bob.username}")
     team.save
 
     get "/teams/#{team.slug}", {}, login(charlie)
@@ -274,7 +275,7 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_edit_teams_name_and_slug
-    team = Team.by(alice).defined_with({slug: 'edit', usernames: "#{bob.username}"})
+    team = Team.by(alice).defined_with(slug: 'edit', usernames: "#{bob.username}")
     team.save
 
     put "/teams/#{team.slug}", {team: {name: 'New name', slug: 'new_slug'}}, login(alice)
