@@ -1,4 +1,4 @@
-Binary = require('./binary');
+Binary = require './binary'
 
 describe 'binary', ->
 

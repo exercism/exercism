@@ -12,7 +12,7 @@ $ ->
     slug = $(@).data('team')
 
     if confirm("Are you sure you want to delete " + slug + "?")
-      destroyTeam(slug);
+      destroyTeam(slug)
 
   $('#edit_team').on 'click', (event) ->
     event.preventDefault()
@@ -46,7 +46,7 @@ destroyTeam = (slug) ->
 dismissTeamMember = (username, slug) ->
   href = "/teams/#{slug}/members/#{username}"
   form = $('<form method="post" action="' + href + '"></form>')
-  method_input = '<input name="_method" value="delete" type="hidden"/>';
+  method_input = '<input name="_method" value="delete" type="hidden"/>'
 
-  form.hide().append(method_input).appendTo('body');
-  form.submit();
+  form.hide().append(method_input).appendTo('body')
+  form.submit()
