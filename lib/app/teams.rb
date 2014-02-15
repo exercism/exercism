@@ -156,6 +156,27 @@ class ExercismApp < Sinatra::Base
     end
   end
 
+  post "/teams/:slug/managers" do |slug|
+    please_login
+
+    team = Team.find_by_slug(slug)
+
+    unless team.managed_by?(current_user)
+      flash[:error] = "You are not allowed to add managers to the team."
+      redirect "/teams/#{slug}"
+    end
+
+    user = User.find_by_username(params[:username])
+    unless user.present?
+      flash[:error] = "Unable to find user #{params[:username]}"
+      redirect "/teams/#{slug}"
+    end
+
+    team.managed_by(user)
+
+    redirect "/teams/#{slug}"
+  end
+
   private
 
   def notify(invitees, team)

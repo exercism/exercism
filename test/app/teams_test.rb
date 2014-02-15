@@ -58,7 +58,8 @@ class TeamsTest < MiniTest::Unit::TestCase
       [:put, '/teams/abc/leave'],
       [:delete, '/teams/abc/members/alice'],
       [:put, '/teams/abc'],
-      [:put, '/teams/abc/confirm']
+      [:put, '/teams/abc/confirm'],
+      [:post, '/teams/abc/managers']
     ].each do |verb, endpoint|
       send verb, endpoint
       assert_equal 302, last_response.status
@@ -70,12 +71,14 @@ class TeamsTest < MiniTest::Unit::TestCase
   def test_user_must_be_manager
     team = Team.by(alice).defined_with(slug: 'abc', usernames: bob.username)
     team.save
+    team.confirm(bob.username)
 
     [
       [:delete, '/teams/abc', "delete a team"],
       [:put, '/teams/abc', "edit a team"],
       [:post, '/teams/abc/members', "add members"],
       [:delete, '/teams/abc/members/bob', "dismiss members"],
+      [:post, '/teams/abc/managers', "add a manager"]
     ].each do |verb, path, action|
       send verb, path, {}, login(bob)
       assert_equal 302, last_response.status, "No redirect for #{verb.to_s.upcase} #{path}"
@@ -296,5 +299,25 @@ class TeamsTest < MiniTest::Unit::TestCase
       assert_equal 1, bob.reload.alerts.count, "Bob should not have gotten notified again."
       assert_equal 1, charlie.reload.alerts.count, "Notify charlie failed"
     end
+  end
+
+  def test_add_manager
+    team = Team.by(alice).defined_with(slug: 'dragon')
+    team.save
+
+    post '/teams/dragon/managers', {username: bob.username}, login(alice)
+    assert_response_status(302)
+    assert_equal "http://example.org/teams/dragon", last_response.location
+    assert_equal [alice.id, bob.id].sort, team.reload.managers.map(&:id).sort
+
+    post '/teams/dragon/managers', {username: charlie.username}, login(alice)
+    assert_response_status(302)
+    assert_equal "http://example.org/teams/dragon", last_response.location
+    assert_equal [alice.id, bob.id, charlie.id].sort, team.reload.managers.map(&:id).sort
+
+    post '/teams/dragon/managers', {username: 'no-such-user'}, login(alice)
+    assert_response_status(302)
+    assert_equal "http://example.org/teams/dragon", last_response.location
+    assert_equal [alice.id, bob.id, charlie.id].sort, team.reload.managers.map(&:id).sort
   end
 end

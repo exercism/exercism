@@ -32,6 +32,13 @@
       </div>
     </form>
 
+    <h3>Managers</h3>
+    <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/managers" %>" method="post">
+      <label  class="control-label" for="username">Username</label>
+      <input type="text" name="username" />
+      <button type="submit" class="btn btn-primary">Add managers</button>
+    </form>
+
     <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/members" %>" method="post">
       <legend>Members</legend>
 
