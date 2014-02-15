@@ -46,12 +46,12 @@ class ExercismApp < Sinatra::Base
     if team
       unless team.managed_by?(current_user)
         flash[:error] = "You are not allowed to delete the team."
-        redirect '/account'
+        redirect "/teams/#{slug}"
       end
 
       team.destroy
 
-      redirect '/account'
+      redirect "/teams/#{slug}"
     else
       flash[:error] = "We don't know anything about team '#{slug}'"
       redirect '/'
@@ -66,7 +66,7 @@ class ExercismApp < Sinatra::Base
     if team
       unless team.managed_by?(current_user)
         flash[:error] = "You are not allowed to add team members."
-        redirect "/account"
+        redirect "/teams/#{slug}"
       end
 
       team.recruit(params[:usernames])
@@ -74,7 +74,7 @@ class ExercismApp < Sinatra::Base
       invitees = User.find_in_usernames(params[:usernames].to_s.scan(/[\w-]+/))
       notify(invitees, team)
 
-      redirect "/teams/#{team.slug}"
+      redirect "/teams/#{slug}"
     else
       flash[:error] = "We don't know anything about team '#{slug}'"
       redirect '/'
@@ -104,12 +104,12 @@ class ExercismApp < Sinatra::Base
     if team
       unless team.managed_by?(current_user)
         flash[:error] = "You are not allowed to remove team members."
-        redirect "/account"
+        redirect "/teams/#{slug}"
       end
 
       team.dismiss(username)
 
-      redirect "/teams/#{team.slug}"
+      redirect "/teams/#{slug}"
     else
       flash[:error] = "We don't know anything about team '#{slug}'"
       redirect '/'
@@ -124,7 +124,7 @@ class ExercismApp < Sinatra::Base
     if team
       unless team.managed_by?(current_user)
         flash[:error] = "You are not allowed to edit the team."
-        redirect '/account'
+        redirect "/teams/#{slug}"
       end
 
       if team.defined_with(params[:team]).save
@@ -149,7 +149,7 @@ class ExercismApp < Sinatra::Base
 
       team.confirm(current_user.username)
 
-      redirect "/teams/#{team.slug}"
+      redirect "/teams/#{slug}"
     else
       flash[:error] = "We don't know anything about team '#{slug}'"
       redirect '/'

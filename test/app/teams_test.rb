@@ -79,8 +79,8 @@ class TeamsTest < MiniTest::Unit::TestCase
     ].each do |verb, path, action|
       send verb, path, {}, login(bob)
       assert_equal 302, last_response.status, "No redirect for #{verb.to_s.upcase} #{path}"
-      location = "http://example.org/account"
-      assert_equal location, last_response.location, "Only a manager my #{action}. (#{verb.to_s.upcase} #{path})"
+      location = "http://example.org/teams/abc"
+      assert_equal location, last_response.location, "Only a manager may #{action}. (#{verb.to_s.upcase} #{path})"
     end
   end
 
