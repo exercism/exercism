@@ -1,4 +1,4 @@
-exports.Hexadecimal = class Hexadecimal
+module.exports = class Hexadecimal
   constructor: (hex) ->
     @hex = hex
 

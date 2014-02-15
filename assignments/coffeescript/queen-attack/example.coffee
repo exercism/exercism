@@ -1,4 +1,4 @@
-exports.Queens = class Queens
+module.exports = class Queens
   constructor: (options) ->
     if options == undefined
       options = { white: [0,3], black: [7,3] }

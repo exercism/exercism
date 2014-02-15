@@ -1,4 +1,4 @@
-Hexadecimal = require('./hexadecimal').Hexadecimal
+Hexadecimal = require('./hexadecimal')
 
 describe "Hexadecimal", ->
 

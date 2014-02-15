@@ -1,4 +1,4 @@
-Queens = require('./queens').Queens
+Queens = require './queens'
 
 describe "Queens", ->
   it "has the correct default positions", ->

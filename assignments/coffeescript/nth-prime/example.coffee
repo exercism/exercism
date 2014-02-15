@@ -1,4 +1,4 @@
-exports.Prime = class Prime
+module.exports = class Prime
   @nth: (nthPrime) ->
     throw "Prime is not possible" if nthPrime == 0
     @generatePrimes(200000)
