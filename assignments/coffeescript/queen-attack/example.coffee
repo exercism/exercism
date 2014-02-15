@@ -19,16 +19,17 @@ module.exports = class Queens
     xDiagonal = @white[1] - @black[1]
 
     canAttack = true if xDiagonal == yDiagonal
+    canAttack = true if -xDiagonal == yDiagonal
     canAttack
 
   toString: ->
     @boardRepresentation()
 
   boardRow: (rowNumber) ->
-    row = (@boardPosition(rowNumber,rowColumn) for rowColumn in [0..7])
+    row = (@boardPosition(rowColumn, rowNumber) for rowColumn in [0..7])
     row.join(" ")
 
-  boardPosition: (rowNumber,rowColumn) ->
+  boardPosition: (rowNumber, rowColumn) ->
     if @white[0] == rowNumber && @white[1] == rowColumn
       "W"
     else if @black[0] == rowNumber && @black[1] == rowColumn

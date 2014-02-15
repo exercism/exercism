@@ -24,8 +24,8 @@ describe "Queens", ->
   it "toString representation", ->
     positioning = {white: [2, 4], black: [6, 6]}
     queens = new Queens(positioning)
-    board = "O O O O O O O O\nO O O O O O O O\nO O O O W O O O\nO O O O O O O O\n" +
-      "O O O O O O O O\nO O O O O O O O\nO O O O O O B O\nO O O O O O O O"
+    board = "O O O O O O O O\nO O O O O O O O\nO O O O O O O O\nO O O O O O O O\n" +
+      "O O W O O O O O\nO O O O O O O O\nO O O O O O B O\nO O O O O O O O"
     expect(queens.toString()).toEqual(board)
 
   it "queens cannot attack", ->
@@ -55,5 +55,9 @@ describe "Queens", ->
 
   it "queens can attack yet another diagonally", ->
     queens = new Queens({ white: [4, 1], black: [6, 3] })
+    expect(queens.canAttack()).toEqual(true)
+
+  it "queens can attack yet yet another diagonally", ->
+    queens = new Queens({ white: [6, 1], black: [1, 6] })
     expect(queens.canAttack()).toEqual(true)
 
