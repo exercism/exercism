@@ -27,12 +27,36 @@ class TeamTest < MiniTest::Unit::TestCase
     assert_equal 1, Team.count
   end
 
-  def test_team_has_default_name
+  def test_slug_normalization
+    team = Team.by(alice).defined_with(slug: 'the   amazing__A-team!!!^%')
+    team.save
+    refute team.new_record?
+    assert_equal 'the-amazing-a-team', team.slug
+  end
+
+  def test_slug_defaults_to_parameterized_version_of_name
+    team = Team.by(alice).defined_with(name: "Zombie Showdown")
+    team.save
+
+    refute team.new_record?
+    assert_equal "Zombie Showdown", team.name
+    assert_equal "zombie-showdown", team.slug
+  end
+
+  def test_name_defaults_to_nonnormalized_slug
     team = Team.by(alice).defined_with(slug: 'I <3 Exercism')
     team.save
 
+    refute team.new_record?
     assert_equal 'I <3 Exercism', team.name
     assert_equal 'i-3-exercism', team.slug
+
+    team = Team.by(alice).defined_with(slug: 'Jazz ~.~ Hands', name: "")
+    team.save
+
+    refute team.new_record?
+    assert_equal 'Jazz ~.~ Hands', team.name
+    assert_equal 'jazz-hands', team.slug
   end
 
   def test_team_has_explicit_name

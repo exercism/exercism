@@ -11,7 +11,7 @@ class Team < ActiveRecord::Base
   validates :creator, presence: true
   validates :slug, presence: true,  uniqueness: true
 
-  before_save :provide_default_name, :normalize_slug
+  before_validation :provide_default_name, :provide_default_slug, :normalize_slug
 
   def self.by(user)
     team = new(creator: user)
@@ -33,7 +33,7 @@ class Team < ActiveRecord::Base
 
   def defined_with(options)
     self.slug = options[:slug]
-    self.name = options[:name].present? && options[:name] || options[:slug]
+    self.name = options[:name]
     self.unconfirmed_members = User.find_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
     self
   end
@@ -70,10 +70,15 @@ class Team < ActiveRecord::Base
   private
 
   def normalize_slug
-    self.slug = slug.downcase.gsub(/\W/, {' ' => '-', /\S/ => ''})
+    return unless slug
+    self.slug = slug.gsub('_', '-').parameterize('-')
+  end
+
+  def provide_default_slug
+    self.slug ||= self.name
   end
 
   def provide_default_name
-    self.name ||= self.slug
+    self.name = self.slug if name.blank?
   end
 end
