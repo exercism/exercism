@@ -24,7 +24,7 @@ $ jasmine-node --coffee bob_test.spec.coffee
 
 ## Making Your First Node Module
 
-To create a module that can be loaded with `Bob = require './bob';`, put this code in `bob.coffee`:
+To create a module that can be loaded with `Bob = require './bob'`, put this code in `bob.coffee`:
 
 ```coffeescript
 class Bob

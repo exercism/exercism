@@ -1,8 +1,8 @@
 module.exports = class BinarySearchTree
 
   constructor: (@data) ->
-    @left  = undefined;
-    @right = undefined;
+    @left  = undefined
+    @right = undefined
 
   insert: (value) ->
     if value <= @data
