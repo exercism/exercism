@@ -60,7 +60,8 @@ class TeamsTest < MiniTest::Unit::TestCase
       [:put, '/teams/abc'],
       [:put, '/teams/abc/confirm'],
       [:post, '/teams/abc/managers'],
-      [:delete, '/teams/abc/managers']
+      [:delete, '/teams/abc/managers'],
+      [:post, '/teams/abc/disown']
     ].each do |verb, endpoint|
       send verb, endpoint
       assert_equal 302, last_response.status
@@ -80,7 +81,7 @@ class TeamsTest < MiniTest::Unit::TestCase
       [:post, '/teams/abc/members', "add members"],
       [:delete, '/teams/abc/members/bob', "dismiss members"],
       [:post, '/teams/abc/managers', "add a manager"],
-      [:delete, '/teams/abc/managers', "remove a manager"],
+      [:delete, '/teams/abc/managers', "remove a manager"]
     ].each do |verb, path, action|
       send verb, path, {}, login(bob)
       assert_equal 302, last_response.status, "No redirect for #{verb.to_s.upcase} #{path}"
@@ -331,6 +332,27 @@ class TeamsTest < MiniTest::Unit::TestCase
     delete '/teams/salamander/managers', {username: 'no-such-user'}, login(alice)
     assert_response_status 302
     assert_equal "http://example.org/teams/salamander", last_response.location
+    assert_equal [alice.id], team.reload.managers.map(&:id)
+  end
+
+  def test_disown_team_with_multiple_managers
+    team = Team.by(alice).defined_with(slug: 'rat')
+    team.save
+    team.managed_by(bob)
+
+    post '/teams/rat/disown', {}, login(alice)
+    assert_response_status 302
+    assert_equal "http://example.org/account", last_response.location
+    assert_equal [bob.id], team.reload.managers.map(&:id)
+  end
+
+  def test_cannot_disown_team_when_sole_manager
+    team = Team.by(alice).defined_with(slug: 'condor')
+    team.save
+
+    post '/teams/condor/disown', {}, login(alice)
+    assert_response_status 302
+    assert_equal "http://example.org/teams/condor", last_response.location
     assert_equal [alice.id], team.reload.managers.map(&:id)
   end
 end

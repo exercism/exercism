@@ -5,6 +5,11 @@
 <% if team.managed_by?(current_user) %>
   <a href="#" id="edit_team" class="btn btn-small">Edit</a>
   <a href="#" id="destroy_team" class="btn btn-small btn-danger" data-team=<%= team.slug %>>Destroy</a>
+  <% if team.managers.size > 1 %>
+    <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/disown" method="post">
+      <button type="submit" class="btn btn-primary btn-danger">Quit Managing</button>
+    </form>
+  <% end %>
 
   <div class="hidden" id="add_members">
     <br />

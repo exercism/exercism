@@ -192,6 +192,20 @@ class ExercismApp < Sinatra::Base
     redirect "/teams/#{slug}"
   end
 
+  post "/teams/:slug/disown" do |slug|
+    please_login("/teams/#{slug}")
+
+    team = Team.find_by_slug(slug)
+
+    if team.managers.size == 1
+      flash[:error] = "You can't quit when you're the only manager."
+      redirect "/teams/#{slug}"
+    else
+      team.managers.delete(current_user)
+      redirect "/account"
+    end
+  end
+
   private
 
   def notify(invitees, team)
