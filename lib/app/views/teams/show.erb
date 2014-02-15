@@ -33,6 +33,16 @@
     </form>
 
     <h3>Managers</h3>
+    <% if team.managers.count > 1 %>
+      <ul>
+      <% (team.managers - [current_user]).each do |manager| %>
+      <li>
+        <%= manager.username %>
+      </li>
+      <% end %>
+      </ul>
+    <% end %>
+
     <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/managers" %>" method="post">
       <label  class="control-label" for="username">Username</label>
       <input type="text" name="username" />
