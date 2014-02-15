@@ -158,5 +158,19 @@ class TeamTest < MiniTest::Unit::TestCase
 
     assert_equal 1, team.members.size
   end
+
+  def test_management
+    team = Team.by(alice).defined_with(slug: 'the-a-team')
+    team.managed_by(bob)
+    team.save
+
+    assert_equal [alice.id, bob.id].sort, team.managers.map(&:id).sort
+
+    alice.reload
+    assert_equal [team.id], alice.managed_teams.map(&:id)
+
+    bob.reload
+    assert_equal [team.id], bob.managed_teams.map(&:id)
+  end
 end
 
