@@ -2,7 +2,7 @@ class Exercism
   class ElixirCurriculum
     def slugs
       %w(
-        bob word-count list-ops anagram nucleotide-count
+        bob word-count list-ops sublist anagram nucleotide-count
         rna-transcription point-mutations phone-number
         grade-school leap etl meetup space-age grains
         gigasecond triangle scrabble-score roman-numerals
