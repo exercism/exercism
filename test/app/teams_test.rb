@@ -59,7 +59,8 @@ class TeamsTest < MiniTest::Unit::TestCase
       [:delete, '/teams/abc/members/alice'],
       [:put, '/teams/abc'],
       [:put, '/teams/abc/confirm'],
-      [:post, '/teams/abc/managers']
+      [:post, '/teams/abc/managers'],
+      [:delete, '/teams/abc/managers']
     ].each do |verb, endpoint|
       send verb, endpoint
       assert_equal 302, last_response.status
@@ -78,7 +79,8 @@ class TeamsTest < MiniTest::Unit::TestCase
       [:put, '/teams/abc', "edit a team"],
       [:post, '/teams/abc/members', "add members"],
       [:delete, '/teams/abc/members/bob', "dismiss members"],
-      [:post, '/teams/abc/managers', "add a manager"]
+      [:post, '/teams/abc/managers', "add a manager"],
+      [:delete, '/teams/abc/managers', "remove a manager"],
     ].each do |verb, path, action|
       send verb, path, {}, login(bob)
       assert_equal 302, last_response.status, "No redirect for #{verb.to_s.upcase} #{path}"
@@ -314,5 +316,21 @@ class TeamsTest < MiniTest::Unit::TestCase
     assert_response_status(302)
     assert_equal "http://example.org/teams/dragon", last_response.location
     assert_equal [alice.id, bob.id].sort, team.reload.managers.map(&:id).sort
+  end
+
+  def test_remove_manager
+    team = Team.by(alice).defined_with(slug: 'salamander')
+    team.save
+    team.managed_by(bob)
+
+    delete '/teams/salamander/managers', {username: bob.username}, login(alice)
+    assert_response_status 302
+    assert_equal "http://example.org/teams/salamander", last_response.location
+    assert_equal [alice.id], team.reload.managers.map(&:id)
+
+    delete '/teams/salamander/managers', {username: 'no-such-user'}, login(alice)
+    assert_response_status 302
+    assert_equal "http://example.org/teams/salamander", last_response.location
+    assert_equal [alice.id], team.reload.managers.map(&:id)
   end
 end

@@ -38,6 +38,11 @@
       <% (team.managers - [current_user]).each do |manager| %>
       <li>
         <%= manager.username %>
+        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/managers" method="post">
+          <input type="hidden" name="_method" value="delete" />
+          <input type="hidden" name="username" value="<%= manager.username %>" />
+          <button type="submit" class="btn btn-primary btn-danger">Remove</button>
+        </form>
       </li>
       <% end %>
       </ul>
