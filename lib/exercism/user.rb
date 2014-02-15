@@ -9,7 +9,8 @@ class User < ActiveRecord::Base
   has_many :comments
   has_many :exercises, class_name: "UserExercise"
 
-  has_many :teams_created, class_name: "Team", foreign_key: :creator_id
+  has_many :management_contracts, class_name: "TeamManager"
+  has_many :managed_teams, through: :management_contracts, source: :team
   has_many :team_memberships, ->{ where confirmed: true }, class_name: "TeamMembership"
   has_many :teams, through: :team_memberships
   has_many :unconfirmed_team_memberships, ->{ where confirmed: false }, class_name: "TeamMembership"

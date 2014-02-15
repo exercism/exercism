@@ -44,7 +44,7 @@ class ExercismApp < Sinatra::Base
     team = Team.find_by_slug(slug)
 
     if team
-      unless team.creator == current_user
+      unless team.managed_by?(current_user)
         flash[:error] = "You are not allowed to delete the team."
         redirect '/account'
       end
@@ -64,7 +64,7 @@ class ExercismApp < Sinatra::Base
     team = Team.find_by_slug(slug)
 
     if team
-      unless team.creator == current_user
+      unless team.managed_by?(current_user)
         flash[:error] = "You are not allowed to add team members."
         redirect "/account"
       end
@@ -102,7 +102,7 @@ class ExercismApp < Sinatra::Base
     team = Team.find_by_slug(slug)
 
     if team
-      unless team.creator == current_user
+      unless team.managed_by?(current_user)
         flash[:error] = "You are not allowed to remove team members."
         redirect "/account"
       end
@@ -122,16 +122,16 @@ class ExercismApp < Sinatra::Base
     team = Team.find_by_slug(slug)
 
     if team
-      unless team.creator == current_user
+      unless team.managed_by?(current_user)
         flash[:error] = "You are not allowed to edit the team."
         redirect '/account'
       end
 
       if team.defined_with(params[:team]).save
-        redirect "/teams/#{slug}"
+        redirect "/teams/#{team.slug}"
       else
         flash[:error] = "Slug can't be blank"
-        redirect "/teams/#{slug}"
+        redirect "/teams/#{team.slug}"
       end
     end
   end
@@ -163,13 +163,13 @@ class ExercismApp < Sinatra::Base
       attributes = {
         user_id: invitee.id,
         url: '/account',
-        text: "#{team.creator.username} would like you to join the team #{team.name}. You can accept the invitation",
+        text: "#{current_user.username} would like you to join the team #{team.name}. You can accept the invitation",
         link_text: 'on your account page.'
       }
       Alert.create(attributes)
       begin
         TeamInvitationMessage.ship(
-          instigator: team.creator,
+          instigator: current_user,
           target: {
             team_name: team.name,
             invitee: invitee

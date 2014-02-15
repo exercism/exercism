@@ -20,10 +20,12 @@ class TeamTest < MiniTest::Unit::TestCase
   end
 
   def test_team_has_unique_slug
-    Team.create(slug: 'purple', creator: alice)
-    team = Team.new(slug: 'purple', creator: alice)
-    refute team.valid?
-    team.save
+    team1 = Team.by(alice).defined_with(slug: 'purple')
+    team1.save
+    assert_equal 1, Team.count
+    team2 = Team.by(alice).defined_with(slug: 'purple')
+    refute team2.valid?
+    team2.save
     assert_equal 1, Team.count
   end
 
@@ -60,18 +62,23 @@ class TeamTest < MiniTest::Unit::TestCase
   end
 
   def test_team_has_explicit_name
-    team = Team.create(slug: 'harold', name: 'Purple Crayon', creator: alice)
+    team = Team.by(alice).defined_with(slug: 'harold', name: 'Purple Crayon')
+    team.save
+    assert_equal 1, Team.count
     assert_equal 'Purple Crayon', team.name
     assert_equal 'harold', team.slug
   end
 
   def test_normalize_slug
-    team = Team.create(slug: 'O HAI!', creator: alice)
+    team = Team.by(alice).defined_with(slug: 'O HAI!')
+    team.save
+    assert_equal 1, Team.count
     assert_equal 'o-hai', team.slug
   end
 
   def test_has_members
-    team = Team.create(slug: 'purple', unconfirmed_members: [alice], creator: bob)
+    team = Team.by(bob).defined_with(slug: 'purple', usernames: ['alice'])
+    team.save
 
     assert_equal [alice], team.unconfirmed_members
     assert_equal [], team.members
@@ -84,15 +91,9 @@ class TeamTest < MiniTest::Unit::TestCase
     assert alice.teams.include?(team)
   end
 
-  def test_has_creator
-    team = Team.create(slug: 'purple', creator: alice)
-    assert_equal alice, team.creator
-
-    assert alice.teams_created.include?(team)
-  end
-
   def test_team_inclusion
-    team = Team.create(slug: 'sparkle', creator: alice, unconfirmed_members: [bob])
+    team = Team.by(alice).defined_with(slug: 'sparkle', usernames: ['bob'])
+    team.save
 
     assert team.includes?(alice)
     refute team.includes?(bob)
@@ -105,7 +106,8 @@ class TeamTest < MiniTest::Unit::TestCase
     charlie = User.create(username: 'charlie')
     john = User.create(username: 'john-lennon')
 
-    team = Team.create(slug: 'blurple', creator: alice)
+    team = Team.by(alice).defined_with(slug: 'blurple')
+    team.save
 
     team.recruit(bob.username)
     team.recruit("#{john.username},#{charlie.username}")
@@ -124,7 +126,8 @@ class TeamTest < MiniTest::Unit::TestCase
   end
 
   def test_team_does_not_recruit_duplicates
-    team = Team.create(slug: 'awesome', creator: alice, unconfirmed_members: [bob])
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
+    team.save
     team.confirm(bob.username)
     assert_equal 1, team.members.size
 
@@ -133,7 +136,8 @@ class TeamTest < MiniTest::Unit::TestCase
   end
 
   def test_team_member_dismiss
-    team = Team.create(slug: 'awesome', creator: alice, unconfirmed_members: [bob])
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
+    team.save
 
     team.confirm(bob.username)
     team.dismiss(bob.username)
@@ -145,7 +149,8 @@ class TeamTest < MiniTest::Unit::TestCase
   end
 
   def test_team_member_dismiss_invalid_member
-    team = Team.create(slug: 'awesome', creator: alice, members: [bob])
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: bob.username)
+    team.save
 
     team.confirm(bob.username)
     team.dismiss(alice.username)

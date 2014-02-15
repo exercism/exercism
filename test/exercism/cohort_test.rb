@@ -13,8 +13,10 @@ class CohortTest < MiniTest::Unit::TestCase
     Submission.create(language: 'ruby', slug: 'cake', code: 'CODE', user: charlie)
     Submission.create(language: 'ruby', slug: 'cake', code: 'CODE', user: dave, state: 'done')
 
-    team1 = Team.create(slug: 'team1', unconfirmed_members: [bob, charlie], creator: alice)
-    team2 = Team.create(slug: 'team2', unconfirmed_members: [bob, dave, eve], creator: alice)
+    team1 = Team.by(alice).defined_with(slug: 'team1', usernames: [bob, charlie])
+    team1.save
+    team2 = Team.by(alice).defined_with(slug: 'team2', usernames: [bob, dave, eve])
+    team2.save
 
     team1.confirm(bob.username)
     team2.confirm(bob.username)

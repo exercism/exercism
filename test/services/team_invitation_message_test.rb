@@ -8,21 +8,19 @@ require 'exercism/exercise'
 class TeamInvitationMessageTest < MiniTest::Unit::TestCase
 
   FakeUser = Struct.new(:username, :email)
-  FakeTeam = Struct.new(:creator, :name)
+  FakeTeam = Struct.new(:name)
 
   attr_reader :alice, :bob, :team
 
   def setup
     @bob = FakeUser.new('bob', 'bob@example.com')
-    @team = FakeTeam.new(
-      FakeUser.new('alice', 'alice@example.com'),
-      'Test'
-    )
+    @alice = FakeUser.new('alice', 'alice@example.com')
+    @team = FakeTeam.new('Test')
   end
 
   def dispatch
     @dispatch ||= TeamInvitationMessage.new(
-      instigator: team.creator,
+      instigator: alice,
       target: {
         team_name: team.name,
         invitee: bob

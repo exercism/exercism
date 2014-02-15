@@ -1,6 +1,5 @@
 class Team < ActiveRecord::Base
 
-  belongs_to :creator, class_name: "User"
   has_many :memberships, ->{ where confirmed: true }, class_name: "TeamMembership"
   has_many :unconfirmed_memberships, ->{ where confirmed: false }, class_name: "TeamMembership"
   has_many :members, through: :memberships, source: :user
@@ -8,13 +7,12 @@ class Team < ActiveRecord::Base
   has_many :management_contracts, class_name: "TeamManager"
   has_many :managers, through: :management_contracts, source: :user
 
-  validates :creator, presence: true
   validates :slug, presence: true,  uniqueness: true
 
   before_validation :provide_default_name, :provide_default_slug, :normalize_slug
 
   def self.by(user)
-    team = new(creator: user)
+    team = new
     team.managers << user
     team
   end
@@ -43,13 +41,13 @@ class Team < ActiveRecord::Base
   end
 
   def dismiss(username)
-    user = User.where(username: username.to_s).first
+    user = User.find_by_username(username)
     self.members.delete(user)
     self.unconfirmed_members.delete(user)
   end
 
   def confirm(username)
-    user = User.where(username: username.to_s).first
+    user = User.find_by_username(username)
     self.unconfirmed_memberships.where(user_id: user.id).first.confirm!
     self.unconfirmed_members.reload
     self.members.reload
@@ -60,7 +58,7 @@ class Team < ActiveRecord::Base
   end
 
   def includes?(user)
-    creator == user || members.include?(user)
+    managers.include?(user) || members.include?(user)
   end
 
   def all_members

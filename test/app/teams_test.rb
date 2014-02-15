@@ -112,21 +112,21 @@ class TeamsTest < MiniTest::Unit::TestCase
   end
 
   def test_team_creation_with_no_members
-    assert_equal 0, alice.teams_created.size
+    assert_equal 0, alice.managed_teams.size
 
     post '/teams', {team: {slug: 'no_members', usernames: ""}}, login(alice)
 
     team = Team.first
 
     alice.reload
-    assert_equal 1, alice.teams_created.size
-    assert_equal alice, team.creator
+    assert_equal 1, alice.managed_teams.size
+    assert_equal [alice.id], team.managers.map(&:id)
   end
 
   def test_team_creation_with_no_slug
     post '/teams', {team: {usernames: bob.username}}, login(alice)
 
-    assert_equal 0, alice.teams_created.size
+    assert_equal 0, alice.managed_teams.size
   end
 
   def test_team_creation_with_multiple_members
@@ -181,7 +181,7 @@ class TeamsTest < MiniTest::Unit::TestCase
     end
   end
 
-  def test_member_addition_without_being_creator
+  def test_only_managers_can_invite_members
     team = Team.by(alice).defined_with({slug: 'members', usernames: bob.username})
     team.save
 
@@ -217,7 +217,7 @@ class TeamsTest < MiniTest::Unit::TestCase
     refute team.includes?(bob)
   end
 
-  def test_member_removal_without_being_creator
+  def test_only_managers_can_dismiss_other_members
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{charlie.username}"})
     team.save
 
@@ -253,8 +253,8 @@ class TeamsTest < MiniTest::Unit::TestCase
     assert_response_status(302)
   end
 
-  def test_delete_team_without_being_creator
-    team = Team.by(alice).defined_with({slug: 'delete', usernames: "#{bob.username}"})
+  def test_delete_team_without_being_manager
+    team = Team.by(alice).defined_with(slug: 'delete', usernames: "#{bob.username}")
     team.save
 
     delete "/teams/#{team.slug}", {}, login(bob)
@@ -263,8 +263,8 @@ class TeamsTest < MiniTest::Unit::TestCase
     assert Team.exists?(slug: 'delete')
   end
 
-  def test_delete_team_as_creator
-    team = Team.by(alice).defined_with({slug: 'delete', usernames: "#{bob.username}"})
+  def test_delete_team_as_manager
+    team = Team.by(alice).defined_with(slug: 'delete', usernames: "#{bob.username}")
     team.save
 
     delete "/teams/#{team.slug}", {}, login(alice)
@@ -287,7 +287,7 @@ class TeamsTest < MiniTest::Unit::TestCase
     TeamInvitationMessage.stub(:ship, nil) do
       post '/teams', {team: {slug: 'abc', usernames: bob.username}}, login(alice)
 
-      assert_equal 0, alice.reload.alerts.count, "Shouldn't notify creator"
+      assert_equal 0, alice.reload.alerts.count, "Shouldn't notify managers"
       assert_equal 1, bob.reload.alerts.count, "Notify bob failed"
 
       post "/teams/abc/members", {usernames: charlie.username}, login(alice)

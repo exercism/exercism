@@ -43,7 +43,7 @@ class Cohort
   def compute_managers
     managers = Set.new
     user.teams.each do |team|
-      managers.add team.creator
+      managers += team.managers
     end
     managers.delete user
   end

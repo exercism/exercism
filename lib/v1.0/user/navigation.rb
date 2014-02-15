@@ -20,7 +20,7 @@ module App
       end
 
       def teams
-        @teams ||= user.teams | user.teams_created
+        @teams ||= user.teams | user.managed_teams
       end
 
       def exercise_count

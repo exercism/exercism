@@ -2,7 +2,7 @@
   Team <%= team.name %>
 </h1>
 
-<% if current_user == team.creator %>
+<% if team.managed_by?(current_user) %>
   <a href="#" id="edit_team" class="btn btn-small">Edit</a>
   <a href="#" id="destroy_team" class="btn btn-small btn-danger" data-team=<%= team.slug %>>Destroy</a>
 
