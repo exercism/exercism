@@ -1,4 +1,4 @@
-exports.WordProblem = class WordProblem
+module.exports = class WordProblem
 
   BINARY_OPERATORS:
     'plus':          (l, r) -> l + r

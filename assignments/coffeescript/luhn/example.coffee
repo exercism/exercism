@@ -1,4 +1,4 @@
-exports.Luhn = class Luhn
+module.exports = class Luhn
   constructor: (number) ->
     @checkDigit = number % 10
     @addends = @calculateAddends(number)
@@ -32,15 +32,15 @@ exports.Luhn = class Luhn
     (sum % 10 == 0)
 
 
-Luhn.create = (number) ->
-  finalNumber = number * 10
-  luhnNumber = new Luhn(finalNumber)
-  index = 0
-
-  while(!luhnNumber.valid)
-    finalNumber = number * 10 + index
+  @create = (number) ->
+    finalNumber = number * 10
     luhnNumber = new Luhn(finalNumber)
-    break if luhnNumber.valid
-    index += 1
+    index = 0
 
-  finalNumber
+    while(!luhnNumber.valid)
+      finalNumber = number * 10 + index
+      luhnNumber = new Luhn(finalNumber)
+      break if luhnNumber.valid
+      index += 1
+
+    finalNumber

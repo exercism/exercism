@@ -1,4 +1,4 @@
-WordProblem = require('./example').WordProblem
+WordProblem = require './example'
 
 describe 'Word Problem', ->
 

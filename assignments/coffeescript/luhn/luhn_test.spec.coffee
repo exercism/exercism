@@ -1,4 +1,4 @@
-Luhn = require('./luhn').Luhn
+Luhn = require './luhn'
 
 describe 'Luhn', ->
 

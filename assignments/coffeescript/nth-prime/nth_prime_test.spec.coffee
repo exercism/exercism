@@ -1,4 +1,4 @@
-Prime = require('./prime').Prime
+Prime = require './prime'
 
 describe 'Prime', ->
 
