@@ -60,9 +60,9 @@ describe 'Word Problem', ->
 
   xit 'too advanced', ->
     problem = new WordProblem('What is 53 cubed?')
-    expect(problem.answer).toThrow(problem.ERROR.tooComplicated)
+    expect(-> problem.answer()).toThrow(problem.ERROR.tooComplicated)
 
   xit 'irrelevant', ->
     problem = new WordProblem('Who is the president of the United States?')
-    expect(problem.answer).toThrow(problem.ERROR.tooComplicated)
+    expect(-> problem.answer()).toThrow(problem.ERROR.tooComplicated)
 
