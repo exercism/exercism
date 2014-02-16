@@ -4,7 +4,7 @@ class Unsubmit
   class SubmissionTooOld   < StandardError; end
   class NothingToUnsubmit  < StandardError; end
 
-  TIMEOUT = 5.minutes
+  TIMEOUT = 6.hours
 
   attr_reader :user
   def initialize(user)
