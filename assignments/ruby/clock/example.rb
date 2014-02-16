@@ -9,7 +9,7 @@ class Clock
 
   attr_reader :time
   def initialize(hour, minutes)
-    @time = Time.new(1970, 1, 1, hour, minutes)
+    @time = Time.utc(1970, 1, 1, hour, minutes)
   end
 
   def +(minutes)
