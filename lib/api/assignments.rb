@@ -38,7 +38,7 @@ class ExercismAPI < Sinatra::Base
     require_user
     sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='done'" % current_user.id.to_s
     completed = Submission.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
-    sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='pending'" % current_user.id.to_s
+    sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='pending' OR state='hibernating'" % current_user.id.to_s
     current = Submission.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
 
     handler = API::Assignments::Fetch.new(completed, current, curriculum)
