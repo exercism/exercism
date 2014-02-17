@@ -88,6 +88,21 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     end
   end
 
+  def test_api_retrieves_next_assignments_even_when_there_are_hibernating_submissions
+    Submission.create(user: alice, language: 'ruby', slug: 'one', code: 'CODE', state: 'hibernating')
+    Submission.create(user: alice, language: 'go', slug: 'one', code: 'CODE', state: 'done')
+    Submission.create(user: alice, language: 'go', slug: 'two', code: 'CODE', state: 'pending')
+
+    Exercism.stub(:curriculum, curriculum) do
+
+      get '/user/assignments/current', {key: alice.key}
+
+      output = last_response.body
+      options = {format: :json, :name => 'api_current_assignment_data'}
+      Approvals.verify(output, options)
+    end
+  end
+
   def test_api_complains_if_no_key_is_submitted
     get '/user/assignments/current'
     assert_equal 401, last_response.status
