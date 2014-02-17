@@ -42,7 +42,7 @@ class ClockTest < MiniTest::Unit::TestCase
     clock2 = Clock.at(15, 37)
     assert_equal clock1, clock2
   end
-  
+
   def test_wrap_around_backwards
     clock = Clock.at(0, 30) - 60
     assert_equal "23:30", clock.to_s
