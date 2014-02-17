@@ -118,6 +118,7 @@ O O O O O O O O
   end
 
   def test_can_attack_on_a_diagonal_slanted_the_other_way
+    skip
     queens = Queens.new(white: [6, 1], black: [1, 6])
     assert queens.attack?
   end
