@@ -5,8 +5,6 @@ import (
 	"strings"
 )
 
-type Histogram map[string]int
-
 func (h Histogram) Equal(o Histogram) bool {
 	return h.sameLength(o) && h.sameMappings(o)
 }
