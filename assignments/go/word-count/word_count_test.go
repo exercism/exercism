@@ -45,9 +45,6 @@ var testCases = []struct {
 
 func TestWordCount(t *testing.T) {
 	for _, tt := range testCases {
-		expected := fmt.Sprintf("%v", tt.output)
-		actual := fmt.Sprintf("%v", WordCount(tt.input))
-
 		if !reflect.DeepEqual(tt.output, WordCount(tt.input)) {
 			t.Fatalf("%s\n\tExpected: %v\n\tGot: %v", tt.description, expected, actual)
 		} else {
