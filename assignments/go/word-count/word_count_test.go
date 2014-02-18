@@ -6,6 +6,8 @@ import (
 	"testing"
 )
 
+type Histogram map[string]int
+
 var testCases = []struct {
 	description string
 	input       string
