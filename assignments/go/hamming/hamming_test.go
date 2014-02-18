@@ -15,8 +15,8 @@ var testCases = []struct {
 	{1, "A", "G", "complete distance for single nucleotide strands"},
 	{1, "AT", "CT", "small hamming distance"},
 	{1, "GGACG", "GGTCG", "small hamming distance in longer strands"},
-	{0, "AAAG", "AAA", "ignores extra length on first strand when longer"},
-	{0, "AAA", "AAAG", "ignores extra length on second strand when longer"},
+	{1, "AATG", "AAA", "ignores extra length on first strand when longer"},
+	{2, "ATA", "AGTG", "ignores extra length on second strand when longer"},
 	{4, "GATACA", "GCATAA", "large hamming distance"},
 	{9, "GGACGGATTCTG", "AGGACGGATTCT", "hamming distance in very long strands"},
 }
