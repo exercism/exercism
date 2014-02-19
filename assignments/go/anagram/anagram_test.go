@@ -154,3 +154,26 @@ func TestDetectAnagrams(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkDetectAnagrams(b *testing.B) {
+
+	b.StopTimer()
+
+	subject := "corn"
+
+	candidates := []string{
+		"corn",
+		"dark",
+		"Corn",
+		"rank",
+		"CORN",
+		"cron",
+		"park",
+	}
+
+	b.StartTimer()
+
+	for i := 0; i < b.N; i++ {
+		Detect(subject, candidates)
+	}
+}
