@@ -23,3 +23,16 @@ func TestLeapYears(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkLeapYears(b *testing.B) {
+	b.StopTimer()
+	for _, test := range testCases {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			IsLeapYear(test.year)
+		}
+
+		b.StopTimer()
+	}
+}
