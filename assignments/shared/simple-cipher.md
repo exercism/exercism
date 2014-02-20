@@ -7,7 +7,7 @@ Ciphers are very straight-forward algorithms that allow us to render text less r
 
 The Caeser Cipher was used for some messages from Julius Caesar that were sent afield. Now Caeser knew that the cipher wasn't very good, but he had one ally in that respect: almost nobody could read well. So even being a couple letters off was sufficient so that people couldn't recognize the few words that they did know.
 
-Your task is to create a simple shift cipher like the Caesar Cipher. This image is a great example of the Caesar Cipher: ![Caesar Cipher](http://upload.wikimedia.org/wikipedia/en/thumb/4/4a/Caesar_cipher_left_shift_of_3.svg/320px-Caesar_cipher_left_shift_of_3.svg.png)
+Your task is to create a simple shift cipher like the Caesar Cipher. This image is a great example of the Caesar Cipher: ![Caesar Cipher](http://en.wikipedia.org/wiki/File:Caesar_cipher_left_shift_of_3.svg)
 
 Here are some examples:
 
@@ -24,7 +24,7 @@ Here's an example:
     @cipher = Cipher.new("aaaaaaaaaaaaaaaaaa")
     @cipher.encode("iamapandabear") #=> "iamapandabear"
     @cipher = Cipher.new("ddddddddddddddddd")
-    @cipher.encode("imapandabear") #=> "ldpdsdqgdehdu"
+    @cipher.encode("imapandabear") #=> "lpdsdqgdehdu"
 
 In the example above, we've set a = 0 for the key value. So when the plaintext is added to the key, we end up with the same message coming out. So "aaaa" is not an ideal key. But if we set the key to "dddd", we would get the same thing as the Caesar Cipher.
 
