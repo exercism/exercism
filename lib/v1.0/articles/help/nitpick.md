@@ -2,6 +2,8 @@
 
 **A practical guide to providing better feedback on solutions to exercises.**
 
+> You will not see the Nitpick menu until you have finished at least one exercise. You will only have the opportunity to nitpick exercises you have finished. Finishing an exercise is not the same thing as submitting it -- you need to go to your exercise page and indicate that you are done and don't want any more feedback to mark it as finished.
+
 When reviewing exercism submissions, it is possible and encouraged to share advice and insight on the style and approach of a given implementation.
 
 Nitpicks should provide positive and constructive criticism, subtly nudging a coder toward progressively better implementations of an exercise.
