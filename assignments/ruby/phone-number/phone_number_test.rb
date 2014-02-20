@@ -50,6 +50,12 @@ class PhoneNumberTest < MiniTest::Unit::TestCase
     assert_equal "0000000000", number
   end
 
+  def test_invalid_when_10_digits_with_extra_letters
+    skip
+    number = PhoneNumber.new("1a2a3a5a6a7a8a9a0a").number
+    assert_equal "0000000000", number
+  end
+
   def test_area_code
     skip
     number = PhoneNumber.new("1234567890")
