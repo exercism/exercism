@@ -1,7 +1,6 @@
 package wc
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -45,7 +44,9 @@ var testCases = []struct {
 
 func TestWordCount(t *testing.T) {
 	for _, tt := range testCases {
-		if !reflect.DeepEqual(tt.output, WordCount(tt.input)) {
+		expected := tt.output
+		actual := WordCount(tt.input)
+		if !reflect.DeepEqual(actual, expected) {
 			t.Fatalf("%s\n\tExpected: %v\n\tGot: %v", tt.description, expected, actual)
 		} else {
 			t.Logf("PASS: %s - WordCount(%s)", tt.description, tt.input)
