@@ -23,3 +23,16 @@ func TestBinary(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkBinary(b *testing.B) {
+	b.StopTimer()
+	for _, tt := range testCases {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			ToDecimal(tt.binary)
+		}
+
+		b.StopTimer()
+	}
+}
