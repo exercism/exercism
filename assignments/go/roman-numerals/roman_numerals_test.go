@@ -38,3 +38,16 @@ func TestRomanNumerals(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkRomanNumerals(b *testing.B) {
+	b.StopTimer()
+	for _, test := range romanNumeralTests {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			ToRomanNumeral(test.arabic)
+		}
+
+		b.StopTimer()
+	}
+}
