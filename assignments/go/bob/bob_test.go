@@ -113,3 +113,16 @@ func TestHeyBob(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkBob(b *testing.B) {
+	b.StopTimer()
+	for _, tt := range testCases {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			Hey(tt.input)
+		}
+
+		b.StopTimer()
+	}
+}
