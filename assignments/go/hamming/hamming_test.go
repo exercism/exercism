@@ -40,3 +40,17 @@ observed: %v`,
 		}
 	}
 }
+
+func BenchmarkHamming(b *testing.B) {
+	b.StopTimer()
+
+	for _, tc := range testCases {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			Distance(tc.strandA, tc.strandB)
+		}
+
+		b.StopTimer()
+	}
+}
