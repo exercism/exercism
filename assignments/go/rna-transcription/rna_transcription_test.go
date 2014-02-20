@@ -25,3 +25,15 @@ func TestRnaTranscription(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkRnaTranscription(b *testing.B) {
+	b.StopTimer()
+	for _, test := range rnaTests {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			ToRna(test.input)
+		}
+		b.StopTimer()
+	}
+}
