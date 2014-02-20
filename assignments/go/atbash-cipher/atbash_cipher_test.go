@@ -25,3 +25,16 @@ func TestAtbash(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkAtbash(b *testing.B) {
+	b.StopTimer()
+	for _, test := range tests {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			Atbash(test.s)
+		}
+
+		b.StopTimer()
+	}
+}
