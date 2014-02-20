@@ -101,6 +101,7 @@ GEM
     thread_safe (0.1.3)
       atomic
     tilt (1.4.1)
+    timecop (0.7.1)
     tins (0.13.1)
     treetop (1.4.15)
       polyglot
@@ -139,5 +140,6 @@ DEPENDENCIES
   simplecov
   sinatra (~> 1.4.4)
   sqlite3
+  timecop
   will_paginate
   will_paginate-bootstrap

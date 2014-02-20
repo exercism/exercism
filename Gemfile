@@ -33,5 +33,6 @@ group :test, :development do
   gem 'faker', '~> 1.2', require: false # for seed data
   gem 'foreman', require: false
   gem 'sqlite3'
+  gem 'timecop', require: false
 end
 
