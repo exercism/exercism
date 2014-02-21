@@ -1,6 +1,7 @@
 from roman import RomanNumeral
 import unittest
 
+
 class RomanTest(unittest.TestCase):
     numerals = {
         1: 'I',
