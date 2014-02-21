@@ -5,6 +5,7 @@ except ImportError:
 
 import unittest
 
+
 class BobTests(unittest.TestCase):
     def setUp(self):
         self.bob = bob.Bob()
@@ -106,4 +107,3 @@ class BobTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
-
