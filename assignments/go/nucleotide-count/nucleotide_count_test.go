@@ -92,3 +92,17 @@ func TestSequenceHistograms(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkSequenceHistograms(b *testing.B) {
+	b.StopTimer()
+	for _, tt := range histogramTests {
+		for i := 0; i < b.N; i++ {
+			dna := DNA{tt.strand}
+			b.StartTimer()
+
+			dna.Counts()
+
+			b.StopTimer()
+		}
+	}
+}
