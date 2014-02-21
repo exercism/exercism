@@ -1,6 +1,7 @@
 from prime_factors import prime_factors
 import unittest
 
+
 class PrimeFactorsTest(unittest.TestCase):
     def test_1(self):
         self.assertEqual([], prime_factors(1))

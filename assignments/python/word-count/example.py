@@ -1,6 +1,7 @@
 from collections import defaultdict
 import re
 
+
 class Phrase(object):
     def __init__(self, phrase):
         self.phrase = phrase
