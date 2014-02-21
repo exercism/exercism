@@ -1,13 +1,17 @@
 (ns dna)
 
-(def adenosine \A)
-(def cytadine  \C)
-(def guanosine \G)
-(def thymidine \T)
-(def uracil    \U)
+(def dna->rna {
+      \C \G
+      \G \C
+      \A \U
+      \T \A})
+
+(defn validate-strand [strand]
+  (let [valid-dna (set (keys dna->rna))]
+    (every? valid-dna strand)))
 
 (defn to-rna
   [strand]
-  {:pre [(every? #{adenosine cytadine guanosine thymidine}
-                 (set strand))]}
-  (clojure.string/replace strand thymidine uracil))
+  {:pre [(validate-strand strand)]}
+  (apply str
+    (map dna->rna (seq strand))))
