@@ -22,3 +22,17 @@ func TestToDecimal(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkToDecimal(b *testing.B) {
+	b.StopTimer()
+
+	for _, test := range testCases {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			ToDecimal(test.input)
+		}
+
+		b.StopTimer()
+	}
+}
