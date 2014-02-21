@@ -5,6 +5,7 @@ except ImportError:
 
 import unittest
 
+
 class YearTest(unittest.TestCase):
     def test_leap_year(self):
         self.assertTrue(Year(1996).is_leap_year())
