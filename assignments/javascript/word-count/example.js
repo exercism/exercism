@@ -1,12 +1,12 @@
 'use strict';
 
 module.exports = function (input) {
-  var counts = {};
+  var counts = Object.create(null);
   var tokens = String(input).match(/\b[a-z0-9]+\b/gi) || [];
 
   tokens.forEach(function (token) {
     var word = token.toLowerCase();
-    word in counts ? counts[word] += 1 : counts[word] =  1;
+    counts[word] = counts[word] ? counts[word] + 1 : 1;
   });
 
   return counts;
