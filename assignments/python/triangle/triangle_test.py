@@ -1,6 +1,7 @@
 from triangle import Triangle, TriangleError
 import unittest
 
+
 class TriangleTests(unittest.TestCase):
     def test_equilateral_triangles_have_equal_sides(self):
         self.assertEqual("equilateral", Triangle(2, 2, 2).kind())
