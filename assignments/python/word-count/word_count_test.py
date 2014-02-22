@@ -5,6 +5,7 @@ except ImportError:
 
 import unittest
 
+
 class WordCountTests(unittest.TestCase):
     def test_count_one_word(self):
         self.assertEqual(
