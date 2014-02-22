@@ -11,6 +11,7 @@ class UserTest < MiniTest::Unit::TestCase
   def test_user_is_nitpicker_on_completed_assignment
     user = User.create
     Submission.create(user: user, language: 'ruby', slug: 'one', state: 'done')
+    Hack::UpdatesUserExercise.new(user.id, 'ruby', 'one').update
     one = Exercise.new('ruby', 'one')
     assert user.nitpicker_on?(one)
   end

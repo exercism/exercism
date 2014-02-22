@@ -18,6 +18,7 @@ module Hack
       exercise.created_at ||= earliest_submission_at
       exercise.updated_at = most_recent_change_at
       exercise.completed_at = exercise.updated_at if done?
+      exercise.is_nitpicker = true
       exercise.iteration_count = submissions.count
       exercise.save
 

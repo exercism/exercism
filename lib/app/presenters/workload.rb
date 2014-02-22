@@ -43,7 +43,7 @@ class Workload
     end
 
     unless user.mastery.include?(language)
-      scope = scope.where(slug: user.completed[language])
+      scope = scope.where(slug: user.nitpicker[language])
     end
 
     @submissions = scope.includes(:user)
@@ -59,7 +59,7 @@ class Workload
     return exercises if user.mastery.include?(language)
 
     exercises.select {|exercise|
-      user.completed[language].include? exercise.slug
+      user.nitpicker[language].include? exercise.slug
     }
   end
 

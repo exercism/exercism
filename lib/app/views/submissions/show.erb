@@ -47,6 +47,12 @@
           </form>
         <% end %>
 
+        <% unless current_user.nitpicker_on?(submission.exercise) %>
+          <form accept-charset="UTF-8" action="/exercises/<%= submission.language %>/<%= submission.slug %>" method="POST">
+            <button type="submit" name="unlock" class="unlock-nitpicking" class="btn">Unlock Nitpicking</button>
+          </form>
+        <% end %>
+
       <% end %>
 
     </p>

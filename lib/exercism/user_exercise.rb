@@ -27,6 +27,10 @@ class UserExercise < ActiveRecord::Base
     submissions.last.update_attributes(state: 'pending')
   end
 
+  def unlock!
+    update_attributes(is_nitpicker: true)
+  end
+
   def generate_key
     Digest::SHA1.hexdigest(secret)[0..23]
   end

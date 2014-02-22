@@ -76,12 +76,25 @@ class User < ActiveRecord::Base
     end
   end
 
+  def nitpicker
+    @nitpicker ||= begin
+      sql = "SELECT language, slug FROM user_exercises WHERE user_id = %s AND is_nitpicker='t' ORDER BY created_at ASC" % id.to_s
+      User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, exercises|
+        exercises[result["language"]] << result["slug"]
+      end
+    end
+  end
+
   def is?(handle)
     username == handle
   end
 
   def nitpicker_on?(exercise)
-    mastery.include?(exercise.language) || completed?(exercise)
+    mastery.include?(exercise.language) || unlocked?(exercise)
+  end
+
+  def unlocked?(candidate)
+    exercises.where(language: candidate.language, slug: candidate.slug, is_nitpicker: true).count > 0
   end
 
   def completed?(candidate)
@@ -117,7 +130,7 @@ class User < ActiveRecord::Base
   end
 
   def worked_in_languages
-    @worked_in_languages ||= submissions.done.pluck('language').uniq
+    @worked_in_languages ||= exercises.where(is_nitpicker: true).pluck('language').uniq
   end
 
   def completed_submissions_in(language)
