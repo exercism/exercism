@@ -8,7 +8,7 @@
       %ul.nav.nav-list.tree.collapse.regular
         - nav.teams.each do |team|
           %li
-            %a{:href => "#"}= team.name
+            %a{:href => link_to("/teams/#{team.slug}")}= team.name
         %li
           %a.highlight.toggle-add-team{:href => "javascript:;"} + Add Team
           %form.form.form-add-team.clearfix.hide-elem{:name => "add-team"}

@@ -1,1 +1,17 @@
-%h1 placeholder
+%h1= team.name
+
+%ul
+  - team.members.each do |member|
+    %li
+      = member.username
+
+- team.members.each do |member|
+  .current.exercises{class: member.username}
+    %h3= member.username
+    %p
+      %a{href: link_to("/#{member.username}/profile")} profile
+    %ul
+      - member.exercises.active.each do |exercise|
+        %li
+          = exercise.language
+          = exercise.slug
