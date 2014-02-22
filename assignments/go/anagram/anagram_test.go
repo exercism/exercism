@@ -154,3 +154,19 @@ func TestDetectAnagrams(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkDetectAnagrams(b *testing.B) {
+
+	b.StopTimer()
+
+	for _, tt := range testCases {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			Detect(tt.subject, tt.candidates)
+		}
+
+		b.StopTimer()
+	}
+
+}

@@ -75,3 +75,16 @@ func TestTranform(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkTranform(b *testing.B) {
+	b.StopTimer()
+	for _, tt := range transformTests {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			Transform(tt.input)
+		}
+
+		b.StopTimer()
+	}
+}

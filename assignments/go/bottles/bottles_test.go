@@ -73,6 +73,19 @@ func TestSeveralVerses(t *testing.T) {
 	}
 }
 
+func BenchmarkSeveralVerses(b *testing.B) {
+	b.StopTimer()
+	for _, tt := range versesTestCases {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			Verses(tt.upperBound, tt.lowerBound)
+		}
+
+		b.StopTimer()
+	}
+}
+
 func TestSingAllVerses(t *testing.T) {
 	expected := Verses(99, 0)
 	actual := Sing()
@@ -90,5 +103,11 @@ func TestSingAllVerses(t *testing.T) {
 			%v
 		`
 		t.Fatalf(msg, expected, actual)
+	}
+}
+
+func BenchmarkSingAllVerses(b *testing.B) {
+	for i := 0; i < b.N; i++ {
+		Sing()
 	}
 }

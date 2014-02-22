@@ -31,6 +31,18 @@ func TestAllergies(t *testing.T) {
 	}
 }
 
+func BenchmarkAllergies(b *testing.B) {
+	b.StopTimer()
+	for _, test := range allergicToTests {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			Allergies(test.i)
+		}
+		b.StopTimer()
+	}
+}
+
 var allergicToTests = []struct {
 	expected bool
 	i        int
@@ -51,5 +63,17 @@ func TestAllergicTo(t *testing.T) {
 		} else {
 			t.Logf("PASS: AllergicTo(%d, %s) %t", test.i, test.allergen, actual)
 		}
+	}
+}
+
+func BenchmarkAllergicTo(b *testing.B) {
+	b.StopTimer()
+	for _, test := range allergicToTests {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			AllergicTo(test.i, test.allergen)
+		}
+		b.StopTimer()
 	}
 }

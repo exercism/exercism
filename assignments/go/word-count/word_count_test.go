@@ -53,3 +53,16 @@ func TestWordCount(t *testing.T) {
 		}
 	}
 }
+
+func BenchmarkWordCount(b *testing.B) {
+	b.StopTimer()
+	for _, tt := range testCases {
+		b.StartTimer()
+
+		for i := 0; i < b.N; i++ {
+			WordCount(tt.input)
+		}
+
+		b.StopTimer()
+	}
+}
