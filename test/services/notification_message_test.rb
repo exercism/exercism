@@ -27,8 +27,8 @@ class NotificationMessageTest < MiniTest::Unit::TestCase
   end
 
   def test_subject
-    Notification.on(submission, to: alice, regarding: 'dogs')
-    Notification.on(submission, to: alice, regarding: 'puppies')
+    Notification.on(submission, to: alice, regarding: 'dogs', creator: bob)
+    Notification.on(submission, to: alice, regarding: 'puppies', creator: bob)
 
     assert_equal 'You have 2 notifications', notification_message.subject
   end
@@ -41,13 +41,13 @@ class NotificationMessageTest < MiniTest::Unit::TestCase
   def test_sends_email
     return if ENV['CI'] == '1'
 
-    Notification.on(submission, to: alice, regarding: 'strawberries')
-    Notification.on(submission, to: alice, regarding: 'bananas', created_at: 2.hours.ago)
-    Notification.on(submission, to: alice, regarding: 'apples', created_at: 4.hours.ago)
-    Notification.on(submission, to: alice, regarding: 'cherries', created_at: 6.hours.ago)
-    Notification.on(submission, to: alice, regarding: 'guavas', created_at: 8.hours.ago)
-    Notification.on(submission, to: alice, regarding: 'lilikoi', created_at: 10.hours.ago)
-    Notification.on(submission, to: alice, regarding: 'watermelon', created_at: 12.hours.ago)
+    Notification.on(submission, to: alice, regarding: 'strawberries', creator: bob)
+    Notification.on(submission, to: alice, regarding: 'bananas', created_at: 2.hours.ago, creator: bob)
+    Notification.on(submission, to: alice, regarding: 'apples', created_at: 4.hours.ago, creator: bob)
+    Notification.on(submission, to: alice, regarding: 'cherries', created_at: 6.hours.ago, creator: bob)
+    Notification.on(submission, to: alice, regarding: 'guavas', created_at: 8.hours.ago, creator: bob)
+    Notification.on(submission, to: alice, regarding: 'lilikoi', created_at: 10.hours.ago, creator: bob)
+    Notification.on(submission, to: alice, regarding: 'watermelon', created_at: 12.hours.ago, creator: bob)
     Submission.create(language: 'javascript', slug: 'word-count', state: 'pending', user: bob)
     Submission.create(language: 'ruby', slug: 'anagram', state: 'pending', user: bob, created_at: 4.hours.ago)
     notification_message.ship

@@ -99,7 +99,7 @@ class ExercismAPI < Sinatra::Base
     end
 
     attempt.save
-    Notify.everyone(attempt.submission.reload, 'code', except: user)
+    Notify.everyone(attempt.submission.reload, 'code', user)
 
     status 201
     pg :attempt, locals: {submission: attempt.submission}

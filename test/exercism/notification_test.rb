@@ -21,7 +21,7 @@ class NotificationTest < MiniTest::Unit::TestCase
 
   def test_create_notification_on_submission
     assert_equal 0, Notification.count
-    Notification.on(submission, to: bob, regarding: 'stuff')
+    Notification.on(submission, to: bob, regarding: 'stuff', creator: alice)
     assert_equal 2, Notification.count
 
     n1, n2 = Notification.order('item_type ASC') # Submission, UserExercise
@@ -37,7 +37,7 @@ class NotificationTest < MiniTest::Unit::TestCase
 
   def test_create_notification_on_exercise
     assert_equal 0, Notification.count
-    Notification.on(exercise, to: bob, regarding: 'stuff')
+    Notification.on(exercise, to: bob, regarding: 'stuff', creator: alice)
     assert_equal 2, Notification.count
 
     n1, n2 = Notification.order('item_type ASC') # Submission, UserExercise
@@ -56,8 +56,8 @@ class NotificationTest < MiniTest::Unit::TestCase
     s2 = Submission.create(language: 'ruby', slug: 'one', code: 'code2', user: alice)
     Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
 
-    Notification.on(s1.reload, to: bob, regarding: 'stuff')
-    Notification.on(s2.reload, to: bob, regarding: 'stuff')
+    Notification.on(s1.reload, to: bob, regarding: 'stuff', creator: alice)
+    Notification.on(s2.reload, to: bob, regarding: 'stuff', creator: alice)
 
     assert_equal 3, Notification.count
     n1, n2, n3 = Notification.order('item_type ASC') # Submission, Submission, UserExercise
@@ -68,7 +68,7 @@ class NotificationTest < MiniTest::Unit::TestCase
   end
 
   def test_reading_a_submission_notification
-    Notification.on(submission, to: bob)
+    Notification.on(submission, to: bob, creator: alice)
 
     n1, n2 = Notification.order('item_type ASC') # Submission, UserExercise
     refute n1.read
@@ -79,7 +79,7 @@ class NotificationTest < MiniTest::Unit::TestCase
   end
 
   def test_reading_an_exercise_notification
-    Notification.on(exercise, to: bob)
+    Notification.on(exercise, to: bob, creator: alice)
 
     n1, n2 = Notification.order('item_type ASC') # Submission, UserExercise
     refute n1.read
@@ -90,8 +90,8 @@ class NotificationTest < MiniTest::Unit::TestCase
   end
 
   def test_increment_existing_notification
-    Notification.on(submission, to: bob, regarding: 'stuff')
-    Notification.on(submission, to: bob, regarding: 'stuff')
+    Notification.on(submission, to: bob, regarding: 'stuff', creator: alice)
+    Notification.on(submission, to: bob, regarding: 'stuff', creator: alice)
 
     assert_equal 2, Notification.count, "Total notifications"
     n1, n2 = Notification.order('item_type ASC') # Submission, UserExercise
@@ -103,9 +103,9 @@ class NotificationTest < MiniTest::Unit::TestCase
   end
 
   def test_do_not_increment_read_notification
-    Notification.on(submission, to: bob).read!
+    Notification.on(submission, to: bob, creator: alice).read!
     assert_equal 2, Notification.count, 'Total notifications before'
-    notification = Notification.on(submission, to: bob)
+    notification = Notification.on(submission, to: bob, creator: alice)
     assert_equal 4, Notification.count, 'Total notifications after'
     assert_equal 1, notification.count, "Activity count"
     refute notification.read
@@ -113,14 +113,14 @@ class NotificationTest < MiniTest::Unit::TestCase
 
   def test_do_not_get_notifications_confused_for_users
     charlie = User.create(username: 'charlie')
-    Notification.on(submission, to: charlie)
-    Notification.on(submission, to: bob)
+    Notification.on(submission, to: charlie, creator: alice)
+    Notification.on(submission, to: bob, creator: alice)
     assert_equal 4, Notification.count
   end
 
   def test_do_not_get_notifications_confused_for_topics
-    Notification.on(submission, to: bob, regarding: 'kittens')
-    Notification.on(submission, to: bob, regarding: 'food')
+    Notification.on(submission, to: bob, regarding: 'kittens', creator: alice)
+    Notification.on(submission, to: bob, regarding: 'food', creator: alice)
     assert_equal 4, Notification.count
   end
 end
