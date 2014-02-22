@@ -5,6 +5,7 @@ except ImportError:
 
 import unittest
 
+
 class DNATests(unittest.TestCase):
     def test_transcribes_cytidine_unchanged(self):
         self.assertEqual('C', dna.DNA('G').to_rna())

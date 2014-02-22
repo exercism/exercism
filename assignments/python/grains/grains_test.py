@@ -5,6 +5,7 @@ except ImportError:
 
 import unittest
 
+
 class GrainsTest(unittest.TestCase):
     def test_square_1(self):
         self.assertEqual(1, on_square(1))

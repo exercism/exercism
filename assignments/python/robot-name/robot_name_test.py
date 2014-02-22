@@ -5,6 +5,7 @@ except ImportError:
 
 import unittest
 
+
 class RobotTest(unittest.TestCase):
     name_re = r'\w{2}\d{3}'
 

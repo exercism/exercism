@@ -5,6 +5,7 @@ except ImportError:
 
 import unittest
 
+
 class DNATest(unittest.TestCase):
     def test_empty_dna_string_has_no_adenosine(self):
         self.assertEqual(0, DNA('').count('A'))
