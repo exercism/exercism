@@ -27,8 +27,8 @@ class Phone(object):
         )
 
     def _normalize(self, number):
-        valid = len(number) == (10 or len(number) == 11
-                                and number.startswith('1'))
+        valid = len(number) == 10 or \
+                len(number) == 11 and number.startswith('1')
 
         if valid:
             return number[-10:]
