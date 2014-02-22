@@ -2,11 +2,11 @@
 
 %ul
   - team.members.each do |member|
-    %li
-      = member.username
+    %li.team-member{:"data-username" => member.username}
+      %a{href: '#'}= member.username
 
 - team.members.each do |member|
-  .current.exercises{class: member.username}
+  .related-exercises.current.exercises.truncate{class: member.username}
     %h3= member.username
     %p
       %a{href: link_to("/#{member.username}/profile")} profile
