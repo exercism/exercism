@@ -3,7 +3,7 @@ Hi <%= name %>,
 <%= subject %> waiting for you at Exercism.io.
 <% notifications.each do |notification| %>
 <%= notification.language %>: <%= notification.slug %> (<%= site_root %><%= notification.link %>)
-<%= notification.regarding %> from: <%= notification.username %> <%= ago(notification.created_at) %>
+<%= notification.regarding %> <%= from(notification.creator) %> <%= ago(notification.created_at) %>
 <% end %>
 <% if pending_submissions.any? %>
 *********
@@ -13,9 +13,9 @@ Spare a few minutes? Help out others by reviewing these submissions.
 <%= submission.language %>: <%= submission.slug %>
 <%= submission.user.username %> submitted this exercise <%= ago(submission.created_at) %>
 url: <%= site_root %>/submissions/<%= submission.key %>"
-<% end %>  
+<% end %>
 
-<% end %>  
+<% end %>
 --
 If you'd like to stop receiving email notifications, go to <%= site_root %>/<%= @user.username %> and delete your email address.
 

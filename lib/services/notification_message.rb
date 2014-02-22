@@ -68,4 +68,8 @@ class NotificationMessage < Message
   def truncated?
     unread_notifications.count > notifications.count
   end
+
+  def from(user)
+    user ? "from: #{user.username}" : ""
+  end
 end

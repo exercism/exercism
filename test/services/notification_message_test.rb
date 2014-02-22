@@ -38,6 +38,29 @@ class NotificationMessageTest < MiniTest::Unit::TestCase
     assert_equal false, notification_message.ship
   end
 
+  def test_identifies_notification_creators
+    charlie = User.create(username: 'charlie')
+
+    Notification.on(submission, to: alice, regarding: 'like', creator: charlie)
+    Notification.on(submission, to: alice, regarding: 'nitpick', created_at: 2.hours.ago, creator: bob)
+
+    assert_includes(notification_message.body, "like from: charlie")
+    assert_includes(notification_message.body, "nitpick from: bob")
+    assert_includes(notification_message.html_body, "like from: charlie")
+    assert_includes(notification_message.html_body, "nitpick from: bob")
+  end
+
+  def test_allows_missing_notification_creator
+    # For backwards compatibility with notifications created before creator was recorded
+    notification = Notification.on(submission, to: alice, regarding: 'nitpick', creator: bob)
+    notification.update_attributes(creator: nil)
+
+    assert_includes(notification_message.body, "nitpick")
+    refute_includes(notification_message.body, "from:")
+    assert_includes(notification_message.html_body, "nitpick")
+    refute_includes(notification_message.html_body, "from:")
+  end
+
   def test_sends_email
     return if ENV['CI'] == '1'
 
