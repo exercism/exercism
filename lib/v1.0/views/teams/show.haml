@@ -6,7 +6,7 @@
       %a{href: '#'}= member.username
 
 - team.members.each do |member|
-  .related-exercises.current.exercises.truncate{class: member.username}
+  .related-exercises.current.exercises{class: member.username}
     %h3= member.username
     %p
       %a{href: link_to("/#{member.username}/profile")} profile
