@@ -1,6 +1,7 @@
 from binary import Binary
 import unittest
 
+
 class BinaryTests(unittest.TestCase):
     def test_binary_1_is_decimal_1(self):
         self.assertEqual(1, int(Binary("1")))

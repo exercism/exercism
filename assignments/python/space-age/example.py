@@ -1,5 +1,6 @@
 import math
 
+
 def period_converter(period):
     def inner(self):
         return round(
@@ -8,6 +9,7 @@ def period_converter(period):
         )
 
     return inner
+
 
 class SpaceAge(object):
 
