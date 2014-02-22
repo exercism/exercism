@@ -1,0 +1,12 @@
+.section-account.section-toggle
+  %h3
+    Completed
+    %a.toggle{:href => "javascript:;"} -
+  .row.unstyled.blocks-grid.toggle-content
+    - tracks.each do |track|
+      .col-md-4.completed.exercises.truncate
+        %h4{:class => track.language}= track.name
+        %ul
+          - track.exercises.each do |exercise|
+            %li
+              %a{:href => link_to(exercise.url)}= exercise.name

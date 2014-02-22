@@ -1,6 +1,6 @@
 module App
   module User
-    class Account
+    class Profile
       attr_reader :user
 
       def initialize(user)
@@ -15,16 +15,8 @@ module App
         "https://github.com/#{username}"
       end
 
-      def api_key
-        user.key
-      end
-
-      def email
-        user.email
-      end
-
-      def teams
-        @teams ||= user.teams | user.managed_teams
+      def active_exercises
+        user.exercises.active.map {|e| App::User::Exercise.new(e)}
       end
 
       def completed_in_tracks

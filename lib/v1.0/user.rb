@@ -9,7 +9,7 @@ class ExercismV1p0 < Sinatra::Base
     please_login
 
     user = User.find_by_username(username)
-    haml :"user/profile" #, locals: {profile: App::User::Profile.new(user)}
+    haml :"user/profile", locals: {profile: App::User::Profile.new(current_user)}
   end
 
   get '/:username/:key' do |username, key|
