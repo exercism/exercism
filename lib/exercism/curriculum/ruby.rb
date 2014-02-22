@@ -13,7 +13,7 @@ class Exercism
         binary-search-tree matrix robot-simulator nth-prime food-chain
         palindrome-products pascals-triangle say meetup custom-set
         sum-of-multiples queen-attack saddle-points ocr-numbers
-        twelve-days simple-linked-list linked-list point-mutations
+        twelve-days simple-linked-list linked-list
       )
     end
 
