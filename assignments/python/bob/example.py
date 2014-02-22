@@ -18,4 +18,3 @@ class Bob(object):
 
     def _is_question(self, stimulus):
         return stimulus.endswith('?')
-

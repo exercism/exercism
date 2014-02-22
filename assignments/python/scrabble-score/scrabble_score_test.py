@@ -1,6 +1,7 @@
 from scrabble import Word
 import unittest
 
+
 class WordTest(unittest.TestCase):
     def test_empty_word_scores_zero(self):
         self.assertEqual(0, Word("").score())

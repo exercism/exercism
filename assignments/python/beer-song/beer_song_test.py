@@ -5,6 +5,7 @@ except ImportError:
 
 import unittest
 
+
 class BeerTest(unittest.TestCase):
     def setUp(self):
         self.beer = Beer()

@@ -1,5 +1,6 @@
 import random
 
+
 class Robot(object):
     alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 

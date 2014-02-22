@@ -6,6 +6,7 @@ except ImportError:
 from datetime import date
 import unittest
 
+
 class GigasecondTest(unittest.TestCase):
     def test_1(self):
         self.assertEqual(
