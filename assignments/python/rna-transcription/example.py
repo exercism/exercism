@@ -1,5 +1,6 @@
 from string import maketrans
 
+
 class DNA(object):
     rna_translation = maketrans('AGCT', 'UCGA')
 
