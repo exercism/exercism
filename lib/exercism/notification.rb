@@ -3,6 +3,7 @@ class Notification < ActiveRecord::Base
   belongs_to :user
   belongs_to :submission, foreign_key: 'item_id'
   belongs_to :item, polymorphic: true
+  belongs_to :creator, class_name: "User"
 
   scope :on_submissions, -> { where(item_type: 'Submission') }
   scope :on_exercises, -> { where(item_type: 'UserExercise') }
@@ -27,7 +28,8 @@ class Notification < ActiveRecord::Base
   def self.on(item, options)
     data = {
       user_id: options.fetch(:to).id,
-      regarding: options[:regarding]
+      regarding: options[:regarding],
+      creator_id: options.fetch(:creator).id
     }
     notification = on_item(item, data)
     if item.is_a?(Submission)

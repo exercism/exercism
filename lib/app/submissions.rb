@@ -8,7 +8,7 @@ class ExercismApp < Sinatra::Base
       submission = Submission.find_by_key(key)
       comment = CreatesComment.create(submission.id, current_user, params[:body])
       unless comment.new_record?
-        Notify.everyone(submission, 'nitpick', except: current_user)
+        Notify.everyone(submission, 'nitpick', current_user)
         begin
           unless comment.nitpicker == submission.user
             CommentMessage.ship(
@@ -63,7 +63,7 @@ class ExercismApp < Sinatra::Base
     please_login "You have to be logged in to do that."
     submission = Submission.find_by_key(key)
     submission.like!(current_user)
-    Notify.source(submission, 'like')
+    Notify.source(submission, 'like', current_user)
     redirect "/submissions/#{key}"
   end
 

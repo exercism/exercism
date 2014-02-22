@@ -11,7 +11,7 @@
         <a href="<%= site_root + notification.link %>">
           <%= notification.language %>: <%= notification.slug %>
         </a>
-        <%= notification.regarding %> from: <%= notification.username %> <i><%= ago(notification.created_at) %></i>
+        <%= notification.regarding %> <%= from(notification.creator) %> <i><%= ago(notification.created_at) %></i>
       </li>
     <% end %>
   </p>
