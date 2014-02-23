@@ -17,3 +17,6 @@ script:
   - './test/erlang/check-exercises.sh'
 # - './test/scala/check-exercises.sh'
   - "! git grep ' $' -- \\*.rb | grep -v 'assignments/ruby/ocr-numbers/ocr_numbers_test.rb'"
+cache:
+  - bundler
+  - apt
