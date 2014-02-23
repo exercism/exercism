@@ -33,6 +33,21 @@ defmodule WordsTest do
     assert Words.count("testing, 1, 2 testing") == expected
   end
 
+  test "hyphens" do
+    expected = HashDict.new [{"co-operative", 1}]
+    assert Words.count("co-operative") == expected
+  end
+
+  test "ignore underscores" do
+    expected = HashDict.new [{"two", 1}, {"words", 1}]
+    assert Words.count("two_words") == expected
+  end
+
+  test "German" do
+    expected = HashDict.new [{"götterfunken", 1}, {"schöner", 1}, {"freude", 1}]
+    assert Words.count("Freude schöner Götterfunken") == expected
+  end
+
   test "normalize case" do
     expected = HashDict.new [{"go", 3}]
     assert Words.count("go Go GO") == expected
