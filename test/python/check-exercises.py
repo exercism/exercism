@@ -7,6 +7,7 @@ import shutil
 import subprocess
 import tempfile
 
+
 def check_assignment(name, test_file, example_name):
     # Returns the exit code of the tests
     workdir = tempfile.mkdtemp(name)
@@ -19,6 +20,7 @@ def check_assignment(name, test_file, example_name):
     finally:
         shutil.rmtree(workdir)
 
+
 def modname_heuristic(test_file):
     with open(test_file) as f:
         tree = ast.parse(f.read(), filename=test_file)
@@ -28,12 +30,14 @@ def modname_heuristic(test_file):
             if is_module_missing(modname):
                 return modname
 
+
 def possible_module_names(node):
     if isinstance(node, ast.Import):
         for alias in node.names:
             yield alias.name
     elif isinstance(node, ast.ImportFrom):
         yield node.module
+
 
 def is_module_missing(modname):
     try:
@@ -43,8 +47,10 @@ def is_module_missing(modname):
     else:
         return False
 
+
 def assignment_name(test_file):
     return os.path.basename(test_file).rpartition('_')[0]
+
 
 def main():
     failures = []
