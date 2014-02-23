@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   end
 
   def nitpicker_languages
-    (worked_in_languages + mastery).uniq
+    (unlocked_languages + mastery).uniq
   end
 
   def completed
@@ -129,8 +129,12 @@ class User < ActiveRecord::Base
     submissions.pending
   end
 
+  def unlocked_languages
+    @unlocked_languages ||= exercises.where(is_nitpicker: true).pluck('language').uniq
+  end
+
   def worked_in_languages
-    @worked_in_languages ||= exercises.where(is_nitpicker: true).pluck('language').uniq
+    @worked_in_languages ||= submissions.done.pluck('language').uniq
   end
 
   def completed_submissions_in(language)
