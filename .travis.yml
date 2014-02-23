@@ -6,6 +6,7 @@ before_script:
   - './test/rust/bootstrap.sh'
   - './test/erlang/bootstrap.sh'
   - './test/php/bootstrap.sh'
+  - './test/scala/bootstrap.sh'
 script:
   - 'RACK_ENV=test CI=1 bundle exec rake db:migrate test_with_coverage'
   - '( cd frontend && npm install && lineman spec-ci )'
@@ -15,7 +16,7 @@ script:
   - './test/rust/check-exercises.sh'
   - './test/python/check-exercises.py'
   - './test/erlang/check-exercises.sh'
-# - './test/scala/check-exercises.sh'
+  - './test/scala/check-exercises.sh'
   - "! git grep ' $' -- \\*.rb | grep -v 'assignments/ruby/ocr-numbers/ocr_numbers_test.rb'"
 cache:
   - bundler
