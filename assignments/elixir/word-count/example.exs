@@ -6,7 +6,7 @@ defmodule Words do
       |> summarize
   end
 
-  defp to_words(sentence), do: List.flatten Regex.scan(%r{\w+}, sentence)
+  defp to_words(sentence), do: List.flatten Regex.scan(%r/[\p{L}\p{N}-]+/, sentence)
 
   defp summarize(words) do
     Enum.reduce words, HashDict.new, &add_count/2
