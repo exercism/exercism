@@ -40,7 +40,7 @@ class User < ActiveRecord::Base
   end
 
   def ongoing
-    @ongoing ||= submissions.pending
+    @ongoing ||= active_submissions.order('updated_at DESC')
   end
 
   def submissions_on(exercise)

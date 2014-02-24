@@ -111,6 +111,22 @@ class UserTest < MiniTest::Unit::TestCase
     assert_equal ["s2"], user.ongoing.map(&:code)
   end
 
+  def test_user_ongoing_ordered_by_latest_updated
+    user = User.create
+    exercise = Exercise.new('ruby', 'one')
+
+    first = create_submission(exercise, :code => "s1", :updated_at => Date.yesterday)
+    second = create_submission(exercise, :code => "s2", :updated_at => Date.today)
+
+    user.submissions << second
+    user.submissions << first
+    user.save
+    user.reload
+
+    assert_equal second, user.ongoing.first
+    assert_equal first, user.ongoing.last
+  end
+
   def test_user_is_not_locksmith_by_default
     refute User.new.locksmith?
   end
