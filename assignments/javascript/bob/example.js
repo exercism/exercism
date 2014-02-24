@@ -27,3 +27,21 @@ function Bob() {
 }
 
 module.exports = Bob;
+
+
+//Another approach for Bob example.
+var Bob = function(){
+    this.regexes = ["^$|^ +$", "(?=.*[A-Z])^[^a-z\xE0-\xFF]+$", ".[?]$"];
+    this.response = ['Fine. Be that way!', 'Woah, chill out!', 'Sure.'];
+};
+
+Bob.prototype.hey = function (text) {
+    for (var i in this.regexes) {
+        if (text.match(new RegExp(this.regexes[i]))) {
+            return this.response[i];
+        }
+    }
+    return 'Whatever.';
+};
+
+module.exports = Bob;
