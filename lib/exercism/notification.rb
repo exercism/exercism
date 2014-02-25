@@ -22,7 +22,8 @@ class Notification < ActiveRecord::Base
   end
 
   def self.viewed!(item, user)
-    where(item_id: item.id, user_id: user.id).update_all(read: true)
+    type = item.is_a?(Submission) ? 'Submission' : 'UserExercise'
+    where(item_id: item.id, item_type: type, user_id: user.id).update_all(read: true)
   end
 
   def self.on(item, options)
