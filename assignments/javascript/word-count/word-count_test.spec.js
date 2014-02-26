@@ -31,8 +31,8 @@ describe("words()", function() {
     expect(words("go Go GO")).toEqual(expectedCounts);
   });
 
-  xit("counts special words properly", function() {
-    var expectedCounts = { constructor: 2, prototype: 1, keys: 1 };
-    expect(words("constructor Constructor prototype keys")).toEqual(expectedCounts);
+  xit("counts constructor", function() {
+    var expectedCounts = { constructor: 2 };
+    expect(words("constructor Constructor")).toEqual(expectedCounts);
   });
 });
