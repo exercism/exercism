@@ -12,7 +12,14 @@ exercism.views.ListNotifications = Backbone.View.extend({
     return this;
   },
 
+  canToggle: function() {
+    this.collection.models.length === 0;
+  },
+
   toggle: function() {
+    if (!this.canToggle()) {
+      return;
+    }
     this.$el.toggleClass("reveal-notifications");
     $("body").toggleClass("reveal-notifications");
   },
