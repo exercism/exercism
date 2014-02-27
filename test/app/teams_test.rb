@@ -277,6 +277,7 @@ class TeamsTest < MiniTest::Unit::TestCase
     delete "/teams/#{team.slug}", {}, login(alice)
 
     assert_response_status(302)
+    assert_equal "http://example.org/account", last_response.location
     refute Team.exists?(slug: 'delete')
   end
 

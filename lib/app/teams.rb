@@ -51,7 +51,8 @@ class ExercismApp < Sinatra::Base
 
       team.destroy
 
-      redirect "/teams/#{slug}"
+      flash[:success] = "Team #{slug} has been destroyed"
+      redirect "/account"
     else
       flash[:error] = "We don't know anything about team '#{slug}'"
       redirect '/'
