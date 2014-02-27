@@ -6,6 +6,12 @@
       <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
          class="btn btn-mini btn-danger hidden member_delete">Dismiss</a>
     <% end %>
+    <% if member == current_user %>
+      <form action="<%= "/teams/#{team.slug}/leave" %>" method="post" class="team-leave-form" style="float: left; padding-right: 10px">
+        <input type="hidden" name="_method" value="put" />
+        <input type="submit" name="update" value="Leave" class="btn btn-mini btn-danger"  />
+      </form>
+    <% end %>
   </h5>
   <p>
   <% if team.unconfirmed_members.include?(member) %>

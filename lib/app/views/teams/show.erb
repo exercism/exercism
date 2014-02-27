@@ -76,11 +76,6 @@
       </div>
     </form>
   </div>
-<% else %>
-  <form action="<%= "/teams/#{team.slug}/leave" %>" method="post" class="team-leave-form">
-    <input type="hidden" name="_method" value="put" />
-    <input type="submit" name="update" value="Leave" class="btn btn-mini btn-danger"  />
-  </form>
 <% end %>
 
 <% members.each_slice(3) do |row| %>
