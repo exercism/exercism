@@ -22,9 +22,17 @@ class UserExercise < ActiveRecord::Base
     submissions.last.update_attributes(state: 'done')
   end
 
+  def closed?
+    state == 'done'
+  end
+
   def reopen!
     update_attributes(state: 'pending')
     submissions.last.update_attributes(state: 'pending')
+  end
+
+  def open?
+    state == 'pending'
   end
 
   def unlock!
