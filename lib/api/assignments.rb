@@ -1,4 +1,3 @@
-require 'api/assignments/demo'
 require 'api/assignments/fetch'
 require 'api/assignments/restore'
 
@@ -10,8 +9,7 @@ class ExercismAPI < Sinatra::Base
   end
 
   get '/assignments/demo' do
-    demo = API::Assignments::Demo.new(curriculum)
-    pg :assignments, locals: {assignments: demo.assignments}
+    redirect ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" } + "/demo"
   end
 
   get '/assignments/:language/:slug' do |language, slug|

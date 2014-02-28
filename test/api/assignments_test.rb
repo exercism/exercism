@@ -169,16 +169,6 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     end
   end
 
-  def test_fetch_demo
-    Exercism.stub(:curriculum, curriculum) do
-      get '/assignments/demo'
-      assert_equal 200, last_response.status
-
-      options = {format: :json, :name => 'api_demo'}
-      Approvals.verify(last_response.body, options)
-    end
-  end
-
   def test_completed_sends_back_empty_list_for_new_user
     new_user = User.create(github_id: 2)
 
