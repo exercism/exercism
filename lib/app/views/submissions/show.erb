@@ -102,7 +102,7 @@
       <% if submission.nit_count == 1 %>
         <h2>1 Nitpick
       <% else %>
-      <h2><%= submission.nit_count %> Nitpicks
+      <h2 class="clearfix"><%= submission.nit_count %> Nitpicks
       <% end %>
     <% end %>
       <% if can_mute?(submission, current_user) %>
