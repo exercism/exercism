@@ -43,6 +43,10 @@ defmodule TeenagerTest do
     assert Sublist.compare([3,4,5],[1,2,3,4,5]) == :sublist
   end
 
+  test "partially matching sublist at start" do
+    assert Sublist.compare([1,1,2], [1,1,1,2]) == :sublist
+  end
+
   test "sublist early in huge list" do
     assert Sublist.compare([3,4,5], Enum.to_list(1..1_000_000)) == :sublist
   end
@@ -65,6 +69,10 @@ defmodule TeenagerTest do
     assert Sublist.compare([1,2,3,4,5],[3,4,5]) == :superlist
   end
   
+  test "partially matching superlist at start" do
+    assert Sublist.compare([1,1,1,2], [1,1,2]) == :superlist
+  end
+
   test "superlist early in huge list" do
     assert Sublist.compare(Enum.to_list(1..1_000_000), [3,4,5]) == :superlist
   end
