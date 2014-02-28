@@ -28,7 +28,7 @@ class BobSpecs extends FlatSpec with Matchers {
 
   it should "respond to talking forcefully" in {
     pending
-    val response = teenager.hey("Let's go make out behind the gym!")
+    val response = teenager.hey("Let's go work out at the gym!")
     response should be ("Whatever.")
   }
 
