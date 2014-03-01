@@ -28,26 +28,6 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     Exercism.instance_variable_set(:@languages, nil)
   end
 
-  def test_api_retrieves_completed_current_and_upcoming_assignments_for_each_track
-    Submission.create(user: alice, language: 'go', slug: 'one', code: 'CODE1GO', state: 'done', filename: 'one.go')
-    Submission.create(user: alice, language: 'go', slug: 'two', code: 'CODE2GO', state: 'pending', filename: 'two.go')
-    Submission.create(user: alice, language: 'ruby', slug: 'one', code: 'CODE1RB', state: 'pending', filename: 'one.rb')
-    Submission.create(user: alice, language: 'ruby', slug: 'two', code: 'CODE2RB', state: 'hibernating', filename: 'two.rb')
-    Hack::UpdatesUserExercise.new(alice.id, 'go', 'one').update
-    Hack::UpdatesUserExercise.new(alice.id, 'go', 'two').update
-    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
-    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'two').update
-
-    Exercism.stub(:curriculum, curriculum) do
-
-      get '/user/assignments/restore', {key: alice.key}
-
-      output = last_response.body
-      options = {format: :json, :name => 'api_restore_assignment_data'}
-      Approvals.verify(output, options)
-    end
-  end
-
   def test_api_complains_if_no_key_is_submitted
     get '/user/assignments/current'
     assert_equal 401, last_response.status

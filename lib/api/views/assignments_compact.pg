@@ -1,4 +1,0 @@
-collection assignments: assignments do |assignment|
-  node track: assignment.language
-  attributes :slug, :files
-end
