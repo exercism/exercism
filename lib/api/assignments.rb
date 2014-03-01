@@ -1,38 +1,18 @@
+require 'api/assignments/xapi'
+
 class ExercismAPI < Sinatra::Base
   helpers do
     def curriculum
       Exercism.curriculum
     end
-
-    def exercises_api_url
-      ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" }
-    end
-
-    def delegate_request(*path_segments)
-      options = {}
-      if path_segments.last.is_a?(Hash)
-        options = path_segments.pop
-      end
-      conn = Faraday.new(:url => exercises_api_url) do |c|
-        c.use Faraday::Response::Logger
-        c.use Faraday::Adapter::NetHttp
-      end
-
-      response = conn.get do |req|
-        req.url File.join('/', *path_segments)
-        req.headers['User-Agent'] = "github.com/exercism/exercism.io"
-        req.params = options
-      end
-      response.body
-    end
   end
 
   get '/assignments/demo' do
-    delegate_request("demo")
+    Xapi.get("demo")
   end
 
   get '/assignments/:language/:slug' do |language, slug|
-    delegate_request("exercises", language, slug)
+    Xapi.get("exercises", language, slug)
   end
 
   get '/user/assignments/completed' do
@@ -42,7 +22,7 @@ class ExercismAPI < Sinatra::Base
 
   get '/user/assignments/current' do
     require_user
-    delegate_request("exercises", key: current_user.key)
+    Xapi.get("exercises", key: current_user.key)
   end
 
   get '/user/assignments/next' do
@@ -51,7 +31,7 @@ class ExercismAPI < Sinatra::Base
 
   get '/user/assignments/restore' do
     require_user
-    delegate_request("exercises", "restore", key: current_user.key)
+    Xapi.get("exercises", "restore", key: current_user.key)
   end
 
   post '/user/assignments' do
