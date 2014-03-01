@@ -7,17 +7,30 @@ class ExercismAPI < Sinatra::Base
       Exercism.curriculum
     end
 
-    def exercises_url(*path_segments)
-      ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" } + File.join('/', *path_segments)
+    def exercises_api_url
+      ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" }
+    end
+
+    def delegate_request(*path_segments)
+      conn = Faraday.new(:url => exercises_api_url) do |c|
+        c.use Faraday::Response::Logger
+        c.use Faraday::Adapter::NetHttp
+      end
+
+      response = conn.get do |req|
+        req.url File.join('/', *path_segments)
+        req.headers['User-Agent'] = "github.com/exercism/exercism.io"
+      end
+      response.body
     end
   end
 
   get '/assignments/demo' do
-    redirect exercises_url("/demo")
+    delegate_request("demo")
   end
 
   get '/assignments/:language/:slug' do |language, slug|
-    redirect exercises_url('exercises', language, slug)
+    delegate_request("exercises", language, slug)
   end
 
   get '/user/assignments/completed' do
