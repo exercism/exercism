@@ -6,14 +6,18 @@ class ExercismAPI < Sinatra::Base
     def curriculum
       Exercism.curriculum
     end
+
+    def exercises_url(*path_segments)
+      ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" } + File.join('/', *path_segments)
+    end
   end
 
   get '/assignments/demo' do
-    redirect ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" } + "/demo"
+    redirect exercises_url("/demo")
   end
 
   get '/assignments/:language/:slug' do |language, slug|
-    redirect ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" } + "/exercises/#{language}/#{slug}"
+    redirect exercises_url('exercises', language, slug)
   end
 
   get '/user/assignments/completed' do
