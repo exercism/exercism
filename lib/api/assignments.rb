@@ -11,7 +11,7 @@ class ExercismAPI < Sinatra::Base
       ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" }
     end
 
-    def delegate_request(*path_segments, params)
+    def delegate_request(*path_segments, params={})
       conn = Faraday.new(:url => exercises_api_url) do |c|
         c.use Faraday::Response::Logger
         c.use Faraday::Adapter::NetHttp
