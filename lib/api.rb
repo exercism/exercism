@@ -7,6 +7,7 @@ require 'api/notifications/alert'
 
 require 'api/assignments'
 require 'api/exercises'
+require 'api/iterations'
 require 'api/notifications'
 require 'api/stashes'
 require 'api/stats'

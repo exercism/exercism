@@ -1,0 +1,25 @@
+{
+  "assignments": [
+    {
+      "slug": "one",
+      "track": "go",
+      "files": {
+        "one.go": "CODE1GO2"
+      }
+    },
+    {
+      "slug": "one",
+      "track": "ruby",
+      "files": {
+        "one.rb": "CODE1RB"
+      }
+    },
+    {
+      "slug": "two",
+      "track": "ruby",
+      "files": {
+        "two.rb": "CODE2RB"
+      }
+    }
+  ]
+}
