@@ -11,7 +11,7 @@ class ExercismAPI < Sinatra::Base
       ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" }
     end
 
-    def delegate_request(*path_segments)
+    def delegate_request(*path_segments, params)
       conn = Faraday.new(:url => exercises_api_url) do |c|
         c.use Faraday::Response::Logger
         c.use Faraday::Adapter::NetHttp
@@ -20,6 +20,7 @@ class ExercismAPI < Sinatra::Base
       response = conn.get do |req|
         req.url File.join('/', *path_segments)
         req.headers['User-Agent'] = "github.com/exercism/exercism.io"
+        req.params = params
       end
       response.body
     end
@@ -40,13 +41,7 @@ class ExercismAPI < Sinatra::Base
 
   get '/user/assignments/current' do
     require_user
-    sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='done'" % current_user.id.to_s
-    completed = Submission.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
-    sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND (state='pending' OR state='hibernating')" % current_user.id.to_s
-    current = Submission.connection.execute(sql).map {|result| [result["language"], result["slug"]]}
-
-    handler = API::Assignments::Fetch.new(completed, current, curriculum)
-    pg :assignments, locals: {assignments: handler.assignments}
+    delegate_request("exercises", key: current_user.key)
   end
 
   get '/user/assignments/next' do

@@ -28,21 +28,6 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     Exercism.instance_variable_set(:@languages, nil)
   end
 
-  def test_api_delivers_current_and_upcoming_assignments_for_each_track
-    Submission.create(user: alice, language: 'go', slug: 'one', code: 'CODE', state: 'done')
-    Submission.create(user: alice, language: 'go', slug: 'two', code: 'CODE', state: 'pending')
-    Submission.create(user: alice, language: 'ruby', slug: 'one', code: 'CODE', state: 'pending')
-
-    Exercism.stub(:curriculum, curriculum) do
-
-      get '/user/assignments/current', {key: alice.key}
-
-      output = last_response.body
-      options = {format: :json, :name => 'api_current_assignment_data'}
-      Approvals.verify(output, options)
-    end
-  end
-
   def test_api_retrieves_completed_current_and_upcoming_assignments_for_each_track
     Submission.create(user: alice, language: 'go', slug: 'one', code: 'CODE1GO', state: 'done', filename: 'one.go')
     Submission.create(user: alice, language: 'go', slug: 'two', code: 'CODE2GO', state: 'pending', filename: 'two.go')
@@ -59,21 +44,6 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
 
       output = last_response.body
       options = {format: :json, :name => 'api_restore_assignment_data'}
-      Approvals.verify(output, options)
-    end
-  end
-
-  def test_api_retrieves_next_assignments_even_when_there_are_hibernating_submissions
-    Submission.create(user: alice, language: 'ruby', slug: 'one', code: 'CODE', state: 'hibernating')
-    Submission.create(user: alice, language: 'go', slug: 'one', code: 'CODE', state: 'done')
-    Submission.create(user: alice, language: 'go', slug: 'two', code: 'CODE', state: 'pending')
-
-    Exercism.stub(:curriculum, curriculum) do
-
-      get '/user/assignments/current', {key: alice.key}
-
-      output = last_response.body
-      options = {format: :json, :name => 'api_current_assignment_data'}
       Approvals.verify(output, options)
     end
   end
@@ -130,17 +100,6 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
 
       options = {format: :json, :name => 'reject_nonexistent_exercise'}
       Approvals.verify(last_response.body, options)
-    end
-  end
-
-  def test_fetch_at_the_end_of_trail
-    Exercism.stub(:curriculum, curriculum) do
-      bob = User.create(github_id: 2)
-      trail = Exercism.curriculum.in('ruby')
-      exercise = trail.exercises.last
-      Submission.create(user: bob, language: exercise.language, slug: exercise.slug, state: 'done')
-      get '/user/assignments/current', {key: bob.key}
-      assert_equal 200, last_response.status
     end
   end
 
