@@ -6,6 +6,7 @@ require 'v1.0/helpers/fuzzy_time_helper'
 require 'api/notifications/alert'
 
 require 'api/assignments'
+require 'api/exercises'
 require 'api/notifications'
 require 'api/stashes'
 require 'api/stats'
