@@ -1,5 +1,3 @@
-require 'api/assignments/fetch'
-
 class ExercismAPI < Sinatra::Base
   helpers do
     def curriculum
