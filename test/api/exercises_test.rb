@@ -8,12 +8,12 @@ class ExercisesApiTest < MiniTest::Unit::TestCase
     ExercismAPI
   end
 
-  def test_active_exercises_requires_key
-    get '/exercises/active'
+  def test_exercises_requires_key
+    get '/exercises'
     assert_equal 401, last_response.status
   end
 
-  def test_active_exercises
+  def test_exercises
     alice = User.create(username: 'alice', github_id: 1)
 
     UserExercise.create(user: alice, language: 'go', slug: 'one', state: 'done')
@@ -21,10 +21,10 @@ class ExercisesApiTest < MiniTest::Unit::TestCase
     UserExercise.create(user: alice, language: 'ruby', slug: 'one', state: 'pending')
     UserExercise.create(user: alice, language: 'ruby', slug: 'two', state: 'pending')
 
-    get '/exercises/active', {key: alice.key}
+    get '/exercises', {key: alice.key}
 
     output = last_response.body
-    options = {format: :json, :name => 'api_active_exercises'}
+    options = {format: :json, :name => 'api_exercises'}
     Approvals.verify(output, options)
   end
 end
