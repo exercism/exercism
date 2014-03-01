@@ -24,7 +24,7 @@ class ExercisesApiTest < MiniTest::Unit::TestCase
     get '/exercises', {key: alice.key}
 
     output = last_response.body
-    options = {format: :json, :name => 'api_exercises'}
+    options = {:format => :json, :name => 'api_exercises'}
     Approvals.verify(output, options)
   end
 end

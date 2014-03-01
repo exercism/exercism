@@ -1,14 +1,10 @@
-[
-  {
-    "go": "one"
-  },
-  {
-    "go": "two"
-  },
-  {
-    "ruby": "one"
-  },
-  {
-    "ruby": "two"
-  }
-]
+{
+  "go": [
+    "one",
+    "two"
+  ],
+  "ruby": [
+    "one",
+    "two"
+  ]
+}
