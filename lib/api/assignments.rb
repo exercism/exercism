@@ -13,18 +13,7 @@ class ExercismAPI < Sinatra::Base
   end
 
   get '/assignments/:language/:slug' do |language, slug|
-    unless curriculum.available?(language)
-      halt 400, {error: "Sorry, we don't have exercises in '#{language}'."}.to_json
-    end
-
-    trail = curriculum.in(language)
-    exercise = trail.find(slug)
-    unless exercise
-      halt 400, {error: "Sorry, we don't have '#{slug}' in '#{language}'."}.to_json
-    end
-
-    # Is it gross to return an array?
-    pg :assignments, locals: {assignments: [trail.assign(slug)]}
+    redirect ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" } + "/exercises/#{language}/#{slug}"
   end
 
   get '/user/assignments/completed' do

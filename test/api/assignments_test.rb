@@ -28,31 +28,6 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     Exercism.instance_variable_set(:@languages, nil)
   end
 
-  def test_cannot_fetch_exercise_in_nonexistent_language
-    Exercism.stub(:curriculum, curriculum) do
-      get '/assignments/nosuch/one'
-      assert_equal 400, last_response.status
-      assert_match /sorry/i, JSON.parse(last_response.body)['error']
-    end
-  end
-
-  def test_cannot_fetch_nonexistent_exercise
-    Exercism.stub(:curriculum, curriculum) do
-      get '/assignments/ruby/million'
-      assert_equal 400, last_response.status
-      assert_match /sorry/i, JSON.parse(last_response.body)['error']
-    end
-  end
-
-  def test_fetch_exercise
-    Exercism.stub(:curriculum, curriculum) do
-      get '/assignments/ruby/one'
-      assert_equal 200, last_response.status
-      options = {format: :json, name: 'fetch_specific_exercise'}
-      Approvals.verify(last_response.body, options)
-    end
-  end
-
   def test_api_delivers_current_and_upcoming_assignments_for_each_track
     Submission.create(user: alice, language: 'go', slug: 'one', code: 'CODE', state: 'done')
     Submission.create(user: alice, language: 'go', slug: 'two', code: 'CODE', state: 'pending')
