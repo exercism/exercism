@@ -4,8 +4,8 @@ class ExercismApp < Sinatra::Base
 
   get '/' do
     if current_user.guest?
-      current = App::Site::Languages.new(Exercism.current)
-      upcoming = App::Site::Languages.new(Exercism.upcoming)
+      current = App::Site::Languages.new(Exercism::Config.current)
+      upcoming = App::Site::Languages.new(Exercism::Config.upcoming)
       erb :"site/index", locals: {current: current, upcoming: upcoming}
     else
       erb :"site/dashboard", locals: {submission: Work.new(current_user).random}

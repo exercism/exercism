@@ -113,7 +113,7 @@ class ExercismApp < Sinatra::Base
     end
 
     def nitpicker_languages
-      Exercism.languages.map(&:to_s) & current_user.nitpicker_languages
+      Exercism::Config.languages.map(&:to_s) & current_user.nitpicker_languages
     end
   end
 

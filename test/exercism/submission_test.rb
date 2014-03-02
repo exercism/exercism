@@ -1,5 +1,4 @@
 require './test/integration_helper'
-require './test/fixtures/fake_curricula'
 require "mocha/setup"
 
 class SubmissionTest < MiniTest::Unit::TestCase

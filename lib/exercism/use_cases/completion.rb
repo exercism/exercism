@@ -1,9 +1,8 @@
 class Completion
 
-  attr_reader :submission, :curriculum
-  def initialize(submission, curriculum = Exercism.curriculum)
+  attr_reader :submission
+  def initialize(submission)
     @submission = submission.user_exercise.submissions.last
-    @curriculum = curriculum
   end
 
   def user
@@ -12,10 +11,6 @@ class Completion
 
   def exercise
     submission.exercise
-  end
-
-  def trail
-    curriculum.in(submission.language)
   end
 
   def save

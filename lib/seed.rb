@@ -34,7 +34,7 @@ module Seed
     {
       username: 'master',
       github_id: 1,
-      mastery: Exercism.languages.map(&:to_s)
+      mastery: Exercism::Config.languages.map(&:to_s)
     }
   end
 

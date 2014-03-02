@@ -7,7 +7,7 @@ module Api
       def self.for(username, year, month)
         user = User.find_by_username(username)
         data = Api::Stats::NitpicksSQL.new(user.id, year, month).execute
-        Api::Stats::Streak.new(Exercism.languages, data, year, month).to_h
+        Api::Stats::Streak.new(Exercism::Config.languages, data, year, month).to_h
       end
     end
   end

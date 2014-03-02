@@ -2,16 +2,15 @@ require 'active_support' # Must be required before active_record
 require 'active_record'
 require 'faraday'
 
+require 'exercism/config'
 require 'exercism/alert'
 require 'exercism/named'
 require 'exercism/article'
-require 'exercism/setup_help'
 require 'exercism/authentication'
 require 'exercism/code'
 require 'exercism/cohort'
 require 'exercism/comment'
 require 'exercism/converts_markdown_to_html'
-require 'exercism/curriculum'
 require 'exercism/decaying_randomizer'
 require 'exercism/exercise'
 require 'exercism/github'
@@ -27,7 +26,6 @@ require 'exercism/submission_viewer'
 require 'exercism/team'
 require 'exercism/team_membership'
 require 'exercism/team_manager'
-require 'exercism/trail'
 require 'exercism/use_cases'
 require 'exercism/user'
 require 'exercism/user_exercise'
@@ -38,5 +36,4 @@ require 'db/connection'
 DB::Connection.establish
 
 class Exercism
-  # See lib/exercism/curriculum.rb for default curriculum setup
 end

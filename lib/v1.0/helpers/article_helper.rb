@@ -1,5 +1,9 @@
 module Sinatra
   module ArticleHelper
+    def namify(slug)
+      slug.to_s.split('-').map(&:capitalize).join('-')
+    end
+
     def help_topics
       [
         ['cli', 'Downloading the Command-Line Interface'],
@@ -8,8 +12,8 @@ module Sinatra
         ['nitpick', 'Nitpicking'],
         ['path', 'Understanding PATH'],
         ['troubleshooting', 'Troubleshooting'],
-      ] + Exercism.current.map { |language|
-        ["setup/#{language.downcase}", "Setting Up #{language}"]
+      ] + Exercism::Config.languages.map { |language|
+        ["setup/#{language}", "Setting Up #{namify(language)}"]
       }
     end
 

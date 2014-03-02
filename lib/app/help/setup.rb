@@ -28,11 +28,11 @@ module App
       end
 
       def current?
-        Exercism.languages.include?(slug.to_sym)
+        Exercism::Config.languages.include?(slug.to_sym)
       end
 
       def coming_soon?
-        Exercism.upcoming.map {|lang| lang.downcase.tr(' ', '-') }.include?(slug)
+        Exercism::Config.upcoming.map {|lang| lang.downcase.tr(' ', '-') }.include?(slug)
       end
     end
   end

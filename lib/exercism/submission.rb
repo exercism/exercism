@@ -212,8 +212,4 @@ class Submission < ActiveRecord::Base
   before_create do |document|
     self.version = Submission.related(self).count + 1
   end
-
-  def trail
-    Exercism.curriculum.in(language)
-  end
 end

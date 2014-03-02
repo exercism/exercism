@@ -109,7 +109,7 @@ class ExercismApp < Sinatra::Base
       flash[:notice] = "Only the submitter may complete the exercise."
       redirect "/submissions/#{key}"
     end
-    completion = Completion.new(submission).save
+    Completion.new(submission).save
     flash[:success] = "#{submission.name} in #{submission.language} will no longer appear in the nitpick lists."
     redirect "/"
   end
