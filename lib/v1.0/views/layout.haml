@@ -17,12 +17,12 @@
     - else
       .row.aside-show.unstyled
 
-        %aside#sidebar-first.col-md-3
+        %aside#sidebar-first
           = haml :"layout/sidebar/profile"
           = haml :"layout/sidebar/alerts"
           = haml :"layout/sidebar/menu"
 
-        .col-md-9.section-main
+        .section-main
           = haml :"layout/topnav_user"
           .section-content
             = yield

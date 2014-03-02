@@ -5,14 +5,6 @@
  * Feb 1, 2014, and should therefore not be touched
  */
 
-.aside-show .col-md-9 .section-content {
-  background-color: #fff;
-}
-
-.aside-show .col-md-9 #section-header, .aside-show .col-md-9 #section-content {
-  margin-left: 0;
-}
-
 .nav-list .nav-list.tree li.unread a .cat, .nav-list .nav-list.tree li.unread a .topic {
   font-family: 'source_code_probold';
 }
