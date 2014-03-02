@@ -19,13 +19,11 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     @curriculum.add FakeGoCurriculum.new
     @curriculum.add FakeScalaCurriculum.new
     Exercism.instance_variable_set(:@trails, nil)
-    Exercism.instance_variable_set(:@languages, nil)
   end
 
   def teardown
     super
     Exercism.instance_variable_set(:@trails, nil)
-    Exercism.instance_variable_set(:@languages, nil)
   end
 
   def test_api_complains_if_no_key_is_submitted

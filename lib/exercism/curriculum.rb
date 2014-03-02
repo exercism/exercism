@@ -42,18 +42,6 @@ class Exercism
   def self.trails
     @trails ||= curriculum.trails.values
   end
-
-  def self.languages
-    @languages ||= curriculum.trails.keys.sort
-  end
-
-  def self.current
-    @current ||= trails.map(&:name).sort
-  end
-
-  def self.upcoming
-    @upcoming ||= ['Java', 'Rust', 'Erlang', 'PHP', 'Common Lisp'] - current
-  end
 end
 
 class Curriculum

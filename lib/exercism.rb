@@ -2,6 +2,7 @@ require 'active_support' # Must be required before active_record
 require 'active_record'
 require 'faraday'
 
+require 'exercism/config'
 require 'exercism/alert'
 require 'exercism/named'
 require 'exercism/article'

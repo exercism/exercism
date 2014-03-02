@@ -33,19 +33,11 @@ class ConvenienceCurriculumTest < MiniTest::Unit::TestCase
     @curriculum.add FakeRubyCurriculum.new
     @curriculum.add FakeGoCurriculum.new
     Exercism.instance_variable_set(:@trails, nil)
-    Exercism.instance_variable_set(:@languages, nil)
   end
 
   def teardown
     super
     Exercism.instance_variable_set(:@trails, nil)
-    Exercism.instance_variable_set(:@languages, nil)
-  end
-
-  def test_languages
-    Exercism.stub(:curriculum, curriculum) do
-      assert_equal [:go, :ruby], Exercism.languages
-    end
   end
 
   def test_trails

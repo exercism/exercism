@@ -22,14 +22,14 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/stats' do
-    redirect "/stats/#{Exercism.languages.first}"
+    redirect "/stats/#{Exercism::Config.languages.first}"
   end
 
   get '/stats/:language' do |language|
     please_login
 
     trail = Exercism.curriculum.in(language.to_sym)
-    languages = Exercism.current
+    languages = Exercism::Config.languages
     progress = progress(language)
 
     erb :"stats/show", locals: { trail: trail, languages: languages, progress: progress }

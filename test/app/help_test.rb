@@ -9,13 +9,14 @@ class AppHelpTest < MiniTest::Unit::TestCase
 
   def visit_setup_page language
     get "/help/setup/#{language}"
-    assert last_response.body.include?(language), "Cannot find setup page for #{language}."
+    name = language.to_s.split('-').map(&:capitalize).join('-')
+    assert last_response.body.include?(name), "Cannot find setup page for #{language}."
     assert last_response.body.include?("Installing"), "Setup page for #{language} doesn't say 'Installation'."
     assert last_response.status == 200, "Did not get a 200 OK on setup page for #{language}"
   end
 
   def test_language_setup_pages
-    Exercism.current.each do |language|
+    Exercism::Config.languages.each do |language|
       visit_setup_page language
     end
   end
