@@ -119,6 +119,7 @@ Post text}
 end
 </pre></td>
 </tr></tbody></table></div>
+
 <p>Post text</p>}
 
     check_sanitisation(input, expected)

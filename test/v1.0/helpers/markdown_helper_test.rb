@@ -23,6 +23,7 @@ RUBY
 <td class="code"><pre><span class="no">CODE</span>
 </pre></td>
 </tr></tbody></table></div>
+
 &lt;script&gt;alert('hi, bob!')&lt;/script&gt;<div class="highlight plaintext"><table style=\"border-spacing: 0;\"><tbody><tr>
 <td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\">1</pre></td>
 <td class="code"><pre>
