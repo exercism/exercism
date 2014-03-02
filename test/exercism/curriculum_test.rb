@@ -6,21 +6,6 @@ require 'exercism/exercise'
 require 'exercism/trail'
 require 'exercism/curriculum'
 
-class CurriculumTest < MiniTest::Unit::TestCase
-
-  attr_reader :curriculum
-  def setup
-    @curriculum = Curriculum.new
-    curriculum.add FakeRubyCurriculum.new
-  end
-
-  def test_find_exercise_in_trail
-    ex = Exercise.new('ruby', 'one')
-    assert_equal ex, curriculum.in('ruby').find('one')
-  end
-
-end
-
 class ConvenienceCurriculumTest < MiniTest::Unit::TestCase
   attr_reader :curriculum
   def setup

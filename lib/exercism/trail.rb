@@ -1,27 +1,9 @@
 class Trail
+  attr_reader :exercises, :slugs, :language
 
-  attr_reader :exercises, :language, :slugs, :name
   def initialize(language, slugs)
     @slugs = slugs
-    @name = language
     @language = language.downcase.gsub(" ", "-")
     @exercises = slugs.map {|slug| Exercise.new(@language, slug)}
   end
-
-  def find(slug)
-    exercises.find {|ex| ex.slug == slug}
-  end
-
-  def after(exercise, completed = [])
-    exercises.find do |ex|
-      !completed.include?(ex.slug)
-    end
-  end
-
-  def upcoming(completed)
-    slugs.find do |slug|
-      !completed.include?(slug)
-    end
-  end
-
 end
