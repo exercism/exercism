@@ -55,7 +55,9 @@ class Workload
   end
 
   def available_exercises
-    exercises = Exercism.curriculum.in(language).exercises
+    exercises = Submission.select('distinct slug').where(language: language).map(&:slug).map {|slug|
+      Exercise.new(language, slug)
+    }
     return exercises if user.mastery.include?(language)
 
     exercises.select {|exercise|
