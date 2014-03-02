@@ -1,5 +1,4 @@
 require './test/test_helper'
-require './test/fixtures/fake_curricula'
 require 'seed/trail'
 require 'seed/pod'
 
