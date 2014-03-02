@@ -16,15 +16,31 @@ Please try and stick to the [GitHub Ruby Style Guidelines](https://github.com/st
 
 ## Creating a new Language Track
 
+Send an email to kytrinyx@exercism.io and ask to have a new repository created
+for the exercises in that language.
+
 Each language will need at least 10 exercises in order to launch, as well as a small handful of people who can kick off the nitpicking. These people should have a good grasp of the styles and idioms in use in that language.
 
-In addition to the exercises (test suites + example solution), it also requires:
+Each exercise requires:
+
+- a test suite
+- a sample solution that tests the test suite (this doesn't have to be
+  considered good code, as it will not be exposed in the application)
+
+Also, the metadata for the exercise must exist in
+[exercism/x-common](https://github.com/exercism/x-common).
+
+Within the language-specific repository, create an `EXERCISES.txt` file that
+lists the order of the exercises.
+
+Once the exercises have been implemented, then the repository must be included
+as a git submodule in [exercism/x-api](https://github.com/exercism/x-api).
+
+In addition to making the exercises available via `x-api`, the following needs
+to be added:
 
 1. A help file: `lib/app/articles/help/setup/$LANGUAGE.md`
-2. A require statement in `lib/exercism/curriculum.rb` (languages are listed alphabetically)
-3. A symbol with the language name in `self.subjects` in `lib/exercism/curriculum.rb`
-4. An entry in `lib/exercism/code.rb` to define the extension for that language.
-5. A curriculum definition in `lib/exercism/curriculum/$LANGUAGE.rb`
+,. An entry in `lib/exercism/code.rb` to define the extension for that language.
 
 Thank you again!
 :heart: :sparkling_heart: :heart:
