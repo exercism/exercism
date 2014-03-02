@@ -93,10 +93,6 @@ class Submission < ActiveRecord::Base
     @exercise ||= Exercise.new(language, slug)
   end
 
-  def assignment
-    @assignment ||= trail.assign(slug)
-  end
-
   def on(exercise)
     self.language = exercise.language
 

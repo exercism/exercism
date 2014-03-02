@@ -1,4 +1,0 @@
----
-blurb: "Write a program that, given a word and a list of possible anagrams, selects the correct sublist."
-source: "Inspired by the Extreme Startup game"
-source_url: "https://github.com/rchatley/extreme_startup"

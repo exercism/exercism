@@ -3,7 +3,6 @@ require './test/fixtures/fake_curricula'
 
 require 'exercism/named'
 require 'exercism/exercise'
-require 'exercism/assignment'
 require 'exercism/trail'
 require 'exercism/curriculum'
 
@@ -24,16 +23,6 @@ class CurriculumTest < MiniTest::Unit::TestCase
     assert_equal ex, curriculum.in('ruby').find('one')
   end
 
-  def test_get_assignment_from_trail
-    assignment = curriculum.in('ruby').assign('one')
-    assert_equal './test/fixtures/ruby/one', assignment.path
-  end
-
-  def test_get_assignment_from_curriculum
-    exercise = Exercise.new('ruby', 'one')
-    assignment = curriculum.assign(exercise)
-    assert_equal './test/fixtures/ruby/one', assignment.path
-  end
 end
 
 class ConvenienceCurriculumTest < MiniTest::Unit::TestCase

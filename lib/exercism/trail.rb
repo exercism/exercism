@@ -13,14 +13,6 @@ class Trail
     exercises.find {|ex| ex.slug == slug}
   end
 
-  def assign(slug, code=nil, filename=nil)
-    Assignment.new(language, slug, path, code, filename)
-  end
-
-  def first_assignment
-    assign(exercises.first.slug)
-  end
-
   def after(exercise, completed = [])
     exercises.find do |ex|
       !completed.include?(ex.slug)

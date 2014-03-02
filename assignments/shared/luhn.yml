@@ -1,4 +1,0 @@
----
-blurb: "Write a program that can take a number and determine whether or not it is valid per the Luhn formula."
-source: "The Luhn Algorithm on Wikipedia"
-source_url: "http://en.wikipedia.org/wiki/Luhn_algorithm"

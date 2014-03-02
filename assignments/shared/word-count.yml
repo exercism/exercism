@@ -1,5 +1,0 @@
----
-blurb: "Write a program that given a phrase can count the occurrences of each word in that phrase."
-source: "The golang tour"
-source_url: "http://tour.golang.org"
-

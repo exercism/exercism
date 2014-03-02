@@ -1,2 +1,0 @@
-clean:
-	@$(RM) -r *.beam

@@ -71,10 +71,6 @@ class Curriculum
     trails[language.to_sym]
   end
 
-  def assign(exercise)
-    self.in(exercise.language).assign(exercise.slug)
-  end
-
   def available?(language)
     languages.include?(language.to_sym)
   end
