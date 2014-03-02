@@ -22,8 +22,12 @@ class Work
 
   def mastered_slugs
     user.mastery.map do |language|
-      [language, Exercism.curriculum.in(language).slugs]
+      [language, slugs_in(language)]
     end
+  end
+
+  def slugs_in(language)
+    Submission.select('distinct slug').where(language: language).map(&:slug)
   end
 
   def nitpickables
