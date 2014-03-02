@@ -19,6 +19,10 @@ class ExercismApp < Sinatra::Base
       q = value.to_i
       q > 0 ? q : nil
     end
+
+    def namify(slug)
+      slug.to_s.split('-').map(&:capitalize).join('-')
+    end
   end
 
   get '/stats' do
@@ -28,11 +32,9 @@ class ExercismApp < Sinatra::Base
   get '/stats/:language' do |language|
     please_login
 
-    trail = Exercism.curriculum.in(language.to_sym)
     languages = Exercism::Config.languages
     progress = progress(language)
 
-    erb :"stats/show", locals: { trail: trail, languages: languages, progress: progress }
+    erb :"stats/show", locals: {trail: language, languages: languages, progress: progress}
   end
-
 end

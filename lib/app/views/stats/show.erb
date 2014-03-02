@@ -1,10 +1,10 @@
-<h1><%= trail.name %></h1>
+<h1><%= namify(trail) %></h1>
 
 <ul class="nav nav-tabs">
   <% languages.each do |language| %>
-    <% css_class = (language == trail.language.to_sym ? 'active' : '') %>
+    <% css_class = (language == trail.to_sym ? 'active' : '') %>
     <li class="<%= css_class %>">
-      <a href="/stats/<%= language %>"><%= language.to_s.split('-').map(&:capitalize).join('-') %></a>
+      <a href="/stats/<%= language %>"><%= namify(language) %></a>
     </li>
   <% end %>
 </ul>
@@ -22,14 +22,13 @@
     </tr>
   </thead>
   <tbody>
-  <% trail.exercises.each do |exercise| %>
-    <% summary = progress[exercise.slug.to_s] || {} %>
+  <% progress.each do |slug, summary|%>
     <tr>
       <td>
-        <% if current_user.mastery.include?(trail.language) %>
-          <a href="/submissions/<%= trail.language %>/<%= exercise.slug %>"><%= exercise.slug %></a>
+        <% if current_user.mastery.include?(trail) %>
+          <a href="/submissions/<%= trail %>/<%= slug %>"><%= slug %></a>
         <% else %>
-          <%= exercise.slug %>
+          <%= slug %>
         <% end %>
       </td>
       <td><%= quantify summary['pending'] %></td>
