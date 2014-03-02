@@ -8,11 +8,7 @@ end
 
 class SeedPodTest < MiniTest::Unit::TestCase
   def curricula
-    [
-      FakePythonCurriculum.new,
-      FakeRubyCurriculum.new,
-      FakeGoCurriculum.new
-    ]
+    ['python', 'ruby', 'go']
   end
 
   def test_random_size
@@ -34,8 +30,8 @@ class SeedPodTest < MiniTest::Unit::TestCase
 
   def test_subset_of_slugs
     sizes = (1..100).map do
-      Seed::Pod.new([FakeRubyCurriculum.new]).trails.map { |t| t.slugs.size }
+      Seed::Pod.new(['ruby']).trails.map { |t| t.slugs.size }
     end.uniq.flatten
-    assert_equal [1, 2, 3, 4], sizes.sort
+    assert_equal [1, 2, 3, 4, 5], sizes.sort
   end
 end

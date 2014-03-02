@@ -2,11 +2,10 @@ module Seed
   class Trail
     attr_reader :size, :language, :slugs
 
-    def initialize(trail, options = {})
-      min = [trail.slugs.size, 5].min
-      @size = options.fetch(:size) { rand(1..min) }
-      @language = trail.language
-      @slugs = trail.slugs[0...size]
+    def initialize(language, options = {})
+      @language = language
+      @size = options.fetch(:size) { rand(1..5) }
+      @slugs = %w(bob anagram leap word-count binary)[0...size]
     end
 
     def exercises

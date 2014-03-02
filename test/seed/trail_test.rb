@@ -5,30 +5,20 @@ require 'seed/exercise'
 require 'seed/trail'
 
 class SeedTrailTest < MiniTest::Unit::TestCase
-  class FakePythonCurriculum
-    def slugs
-      %w(one two three four five six seven)
-    end
-
-    def language
-      'python'
-    end
-  end
-
   def test_random_size
     sizes = (1..100).map do
-      Seed::Trail.new(FakePythonCurriculum.new).size
+      Seed::Trail.new('python').size
     end
     refute_equal 1, sizes.uniq.size
     refute sizes.include?(0)
     assert sizes.min >= 1, "expected: at least 1, got: #{sizes.min}"
-    assert sizes.max <= 7, "expected: no more than 7, got: #{sizes.max}"
+    assert sizes.max <= 5, "expected: no more than 5, got: #{sizes.max}"
   end
 
   def test_exercises
-    trail = Seed::Trail.new(FakePythonCurriculum.new, size: 3)
+    trail = Seed::Trail.new('python', size: 3)
     exercises = trail.exercises
-    assert_equal %w(one two three), exercises.map(&:slug)
+    assert_equal %w(bob anagram leap), exercises.map(&:slug)
     *completed, current = exercises
     completed.each do |exercise|
       assert_equal 'done', exercise.attempts.last.state
