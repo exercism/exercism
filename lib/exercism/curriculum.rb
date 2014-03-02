@@ -31,7 +31,7 @@ class Exercism
 
   def self.curriculum
     @curriculum ||= begin
-      Curriculum.new('./assignments').tap do |curriculum|
+      Curriculum.new.tap do |curriculum|
         subjects.each do |type|
           curriculum.add "exercism/#{type}_curriculum".classify.constantize.new
         end
@@ -45,14 +45,13 @@ class Exercism
 end
 
 class Curriculum
-  attr_reader :path, :trails
-  def initialize(path)
-    @path = path
+  attr_reader :trails
+  def initialize
     @trails = {}
   end
 
   def add(curriculum)
-    @trails[curriculum.language.downcase.to_sym] = Trail.new(curriculum.language, curriculum.slugs, path)
+    @trails[curriculum.language.downcase.to_sym] = Trail.new(curriculum.language, curriculum.slugs)
   end
 
   def in(language)

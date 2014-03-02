@@ -1,12 +1,11 @@
 class Trail
 
-  attr_reader :exercises, :language, :path, :slugs, :name
-  def initialize(language, slugs, path)
+  attr_reader :exercises, :language, :slugs, :name
+  def initialize(language, slugs)
     @slugs = slugs
     @name = language
     @language = language.downcase.gsub(" ", "-")
     @exercises = slugs.map {|slug| Exercise.new(@language, slug)}
-    @path = path
   end
 
   def find(slug)

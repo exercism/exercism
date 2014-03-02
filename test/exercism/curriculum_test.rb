@@ -10,12 +10,8 @@ class CurriculumTest < MiniTest::Unit::TestCase
 
   attr_reader :curriculum
   def setup
-    @curriculum = Curriculum.new('./test/fixtures')
+    @curriculum = Curriculum.new
     curriculum.add FakeRubyCurriculum.new
-  end
-
-  def test_curriculum_takes_a_path
-    assert_equal './test/fixtures', curriculum.path
   end
 
   def test_find_exercise_in_trail
@@ -29,7 +25,7 @@ class ConvenienceCurriculumTest < MiniTest::Unit::TestCase
   attr_reader :curriculum
   def setup
     super
-    @curriculum = Curriculum.new('./test/fixtures')
+    @curriculum = Curriculum.new
     @curriculum.add FakeRubyCurriculum.new
     @curriculum.add FakeGoCurriculum.new
     Exercism.instance_variable_set(:@trails, nil)

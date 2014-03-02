@@ -9,7 +9,7 @@ class TrailTest < MiniTest::Unit::TestCase
   attr_reader :trail, :one, :two
 
   def setup
-    @trail = Trail.new('Go', ['one', 'two'], '/tmp')
+    @trail = Trail.new('Go', ['one', 'two'])
     @one = Exercise.new('go', 'one')
     @two = Exercise.new('go', 'two')
   end
@@ -24,7 +24,7 @@ class TrailTest < MiniTest::Unit::TestCase
 
   def test_catch_up_missed_exercise
     slugs = %w(chicken suit one garden two cake)
-    trail = Trail.new('Go', slugs, '/tmp')
+    trail = Trail.new('Go', slugs)
 
     exercise = trail.after(two, %w(chicken suit garden))
     assert_equal one, exercise
@@ -35,7 +35,7 @@ class TrailTest < MiniTest::Unit::TestCase
   end
 
   def test_language_from_name_with_spaces
-    trail = Trail.new('Common Lisp', [], '/tmp')
+    trail = Trail.new('Common Lisp', [])
     assert_equal 'common-lisp', trail.language
   end
 end
