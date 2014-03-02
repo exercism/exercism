@@ -1,12 +1,6 @@
 require 'api/assignments/xapi'
 
 class ExercismAPI < Sinatra::Base
-  helpers do
-    def curriculum
-      Exercism.curriculum
-    end
-  end
-
   get '/assignments/demo' do
     Xapi.get("demo")
   end

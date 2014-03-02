@@ -1,5 +1,4 @@
 require './test/api_helper'
-require './test/fixtures/fake_curricula'
 require 'mocha/setup'
 
 class AssignmentsApiTest < MiniTest::Unit::TestCase
@@ -10,14 +9,10 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     ExercismAPI
   end
 
-  attr_reader :alice, :curriculum
+  attr_reader :alice
   def setup
     super
     @alice = User.create(username: 'alice', github_id: 1)
-    @curriculum = Curriculum.new('./test/fixtures')
-    @curriculum.add FakeRubyCurriculum.new
-    @curriculum.add FakeGoCurriculum.new
-    @curriculum.add FakeScalaCurriculum.new
     Exercism.instance_variable_set(:@trails, nil)
   end
 
@@ -37,35 +32,31 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
   end
 
   def test_api_accepts_submission_attempt
-    Exercism.stub(:curriculum, curriculum) do
-      Notify.stub(:everyone, nil) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
-      end
-
-      submission = Submission.first
-      ex = Exercise.new('ruby', 'one')
-      assert_equal ex, submission.exercise
-      assert_equal 201, last_response.status
-
-      options = {format: :json, :name => 'api_submission_accepted'}
-      Approvals.verify(last_response.body, options)
+    Notify.stub(:everyone, nil) do
+      post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
     end
+
+    submission = Submission.first
+    ex = Exercise.new('ruby', 'one')
+    assert_equal ex, submission.exercise
+    assert_equal 201, last_response.status
+
+    options = {format: :json, :name => 'api_submission_accepted'}
+    Approvals.verify(last_response.body, options)
   end
 
   def test_api_accepts_submission_on_completed_exercise
-    Exercism.stub(:curriculum, curriculum) do
-      Notify.stub(:everyone, nil) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.go'}.to_json
-      end
-
-      submission = Submission.first
-      ex = Exercise.new('go', 'one')
-      assert_equal ex, submission.exercise
-      assert_equal 201, last_response.status
-
-      options = {format: :json, :name => 'api_submission_accepted_on_completed'}
-      Approvals.verify(last_response.body, options)
+    Notify.stub(:everyone, nil) do
+      post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.go'}.to_json
     end
+
+    submission = Submission.first
+    ex = Exercise.new('go', 'one')
+    assert_equal ex, submission.exercise
+    assert_equal 201, last_response.status
+
+    options = {format: :json, :name => 'api_submission_accepted_on_completed'}
+    Approvals.verify(last_response.body, options)
   end
 
   def test_api_rejects_submission_on_nonexistent_exercise
@@ -90,16 +81,14 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
   end
 
   def test_completed_returns_the_names_of_completed_assignments
-    Exercism.stub(:curriculum, curriculum) do
-      user = User.create(github_id: 2)
-      Submission.create(user: user, code: 'CODE', state: 'done', language: 'ruby', slug: 'one')
-      Submission.create(user: user, code: 'CODE', state: 'done', language: 'ruby', slug: 'two')
-      Submission.create(user: user, code: 'CODE', state: 'done', language: 'python', slug: 'one')
+    user = User.create(github_id: 2)
+    Submission.create(user: user, code: 'CODE', state: 'done', language: 'ruby', slug: 'one')
+    Submission.create(user: user, code: 'CODE', state: 'done', language: 'ruby', slug: 'two')
+    Submission.create(user: user, code: 'CODE', state: 'done', language: 'python', slug: 'one')
 
-      get '/user/assignments/completed', {key: user.key}
+    get '/user/assignments/completed', {key: user.key}
 
-      assert_equal({"assignments" => {"ruby" => ['one', 'two'], 'python' => ['one']}}, JSON::parse(last_response.body))
-    end
+    assert_equal({"assignments" => {"ruby" => ['one', 'two'], 'python' => ['one']}}, JSON::parse(last_response.body))
   end
 
   def test_peek_is_deprecated
@@ -139,88 +128,74 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
   end
 
   def test_api_rejects_duplicates
-    Exercism.stub(:curriculum, curriculum) do
-      Attempt.new(alice, 'THE CODE', 'one/code.rb').save
-      Notify.stub(:everyone, nil) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
-      end
-
-      response_error = JSON.parse(last_response.body)['error']
-
-      assert_equal 400, last_response.status
-      assert_equal "This attempt is a duplicate of the previous one.", response_error
+    Attempt.new(alice, 'THE CODE', 'one/code.rb').save
+    Notify.stub(:everyone, nil) do
+      post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
     end
+
+    response_error = JSON.parse(last_response.body)['error']
+
+    assert_equal 400, last_response.status
+    assert_equal "This attempt is a duplicate of the previous one.", response_error
   end
 
   def test_unsubmit_success
-    Exercism.stub(:curriculum, curriculum) do
-      unsubmit_object = stub()
+    unsubmit_object = stub()
 
-      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
-      unsubmit_object.expects(:unsubmit)
+    Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+    unsubmit_object.expects(:unsubmit)
 
-      delete '/user/assignments', {key: alice.key}
-      assert_equal 204, last_response.status
-    end
+    delete '/user/assignments', {key: alice.key}
+    assert_equal 204, last_response.status
   end
 
   def test_unsubmit_fails_no_submission
-    Exercism.stub(:curriculum, curriculum) do
-      unsubmit_object = stub()
+    unsubmit_object = stub()
 
-      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
-      unsubmit_object.expects(:unsubmit).raises(Unsubmit::NothingToUnsubmit.new)
+    Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+    unsubmit_object.expects(:unsubmit).raises(Unsubmit::NothingToUnsubmit.new)
 
-      delete '/user/assignments', {key: alice.key}
-      assert_equal 404, last_response.status
-    end
+    delete '/user/assignments', {key: alice.key}
+    assert_equal 404, last_response.status
   end
 
   def test_unsubmit_fails_with_nits
-    Exercism.stub(:curriculum, curriculum) do
-      unsubmit_object = stub()
+    unsubmit_object = stub()
 
-      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
-      unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionHasNits.new)
+    Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+    unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionHasNits.new)
 
-      delete '/user/assignments', {key: alice.key}
-      assert_equal 403, last_response.status
-    end
+    delete '/user/assignments', {key: alice.key}
+    assert_equal 403, last_response.status
   end
 
   def test_unsubmit_fails_when_already_done
-    Exercism.stub(:curriculum, curriculum) do
-      unsubmit_object = stub()
+    unsubmit_object = stub()
 
-      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
-      unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionDone.new)
+    Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+    unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionDone.new)
 
-      delete '/user/assignments', {key: alice.key}
-      assert_equal 403, last_response.status
-    end
+    delete '/user/assignments', {key: alice.key}
+    assert_equal 403, last_response.status
   end
 
   def test_unsubmit_fails_too_old
-    Exercism.stub(:curriculum, curriculum) do
-      unsubmit_object = stub()
+    unsubmit_object = stub()
 
-      Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
-      unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionTooOld.new)
+    Unsubmit.expects(:new).with(alice).returns(unsubmit_object)
+    unsubmit_object.expects(:unsubmit).raises(Unsubmit::SubmissionTooOld.new)
 
-      delete '/user/assignments', {key: alice.key}
-      assert_equal 403, last_response.status
-    end
+    delete '/user/assignments', {key: alice.key}
+    assert_equal 403, last_response.status
   end
 
   def test_unsubmit_sets_previous_submission_to_pending_if_exists
-    Exercism.stub(:curriculum, curriculum) do
-      Submission.create(user: @alice, code: 'CODE', state: 'superseded', language: 'ruby', slug: 'one', version: 1)
-      Submission.create(user: @alice, code: 'CODE', state: 'pending', language: 'ruby', slug: 'one', version: 2)
+    Submission.create(user: @alice, code: 'CODE', state: 'superseded', language: 'ruby', slug: 'one', version: 1)
+    Submission.create(user: @alice, code: 'CODE', state: 'pending', language: 'ruby', slug: 'one', version: 2)
 
-      delete '/user/assignments', { key: @alice.key }
+    delete '/user/assignments', { key: @alice.key }
 
-      assert_equal 204, last_response.status
-      assert_equal 'pending', Submission.where({ version: 1 }).first.state
-    end
+    assert_equal 204, last_response.status
+    assert_equal 'pending', Submission.where({ version: 1 }).first.state
   end
 end
