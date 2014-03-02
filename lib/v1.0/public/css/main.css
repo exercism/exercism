@@ -1055,30 +1055,27 @@ h1, h2, h3{
 /* Aside */
 .aside-show{
   background-color: #F2F2F2;
+  position: relative;
 }
 
 #sidebar-first{
   background-color: #F2F2F2;
-  position: relative;
+  border-right: 1px solid #dadada;
+  height: 100%;
+  position: absolute;
+    top: 0;
+    bottom: 0;
   width: 264px;
   z-index: 100;
-  float: left;
 }
 
 .aside-show .col-md-9{
-  background-color: #F2F2F2;
-  margin-left: -264px;
-  width: 100%;
-  overflow: hidden;
-  padding-left: 0;
-  padding-right: 0;
+  background-color: #fff;
   float: left;
-}
-
-.aside-show .col-md-9 #section-header,
-.aside-show .col-md-9 #section-content{
-  border-left: 1px solid #dadada;
-  margin-left: 264px;
+  overflow: hidden;
+  padding-left: 264px;
+  padding-right: 0;
+  width: 100%;
 }
 
 /* User Account */
@@ -1168,12 +1165,7 @@ h1, h2, h3{
   }
 
   .aside-show .col-md-9{
-    margin-left: -230px;
-  }
-
-  .aside-show .col-md-9 #section-header,
-  .aside-show .col-md-9 #section-content{
-    margin-left: 230px;
+    padding-left: 230px;
   }
 
   #account-settings{
@@ -1608,8 +1600,6 @@ div.highlight .mi {
 #page-header
 {
   background: none repeat scroll 0 0 #FFFFFF;
-  border-left: 1px solid #DADADA;
-  margin-left: 264px;
   overflow: hidden;
   padding: 20px 22px;
 }
