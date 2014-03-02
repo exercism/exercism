@@ -11,7 +11,7 @@ class CompletionTest < MiniTest::Unit::TestCase
     @curriculum.add FakeRubyCurriculum.new
     @user = User.create(username: 'bob', github_id: 1)
 
-    attempt = Attempt.new(user, 'CODE', 'one/one.rb', curriculum).save
+    attempt = Attempt.new(user, 'CODE', 'one/one.rb').save
     @submission = Submission.first
   end
 

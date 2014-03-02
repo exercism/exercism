@@ -1,15 +1,10 @@
-class Exercism
-  class UnknownExercise < StandardError; end
-end
-
 class Attempt
 
-  attr_reader :user, :code, :file, :curriculum
-  def initialize(user, code, path, curriculum = Exercism.curriculum)
+  attr_reader :user, :code, :file
+  def initialize(user, code, path)
     @user = user
     @code = sanitize(code)
     @file = Code.new(path)
-    @curriculum = curriculum
   end
 
   def language
@@ -44,12 +39,6 @@ class Attempt
 
   def remove_from_completed(exercise)
     (user.completed[exercise.language] || []).delete(exercise.slug)
-  end
-
-  def validate!
-    unless curriculum.in(language).find(slug)
-      raise Exercism::UnknownExercise.new("Unknown exercise '#{slug}' in #{language}")
-    end
   end
 
   def duplicate?

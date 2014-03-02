@@ -56,14 +56,7 @@ class ExercismAPI < Sinatra::Base
       halt 401, {:error => message}.to_json
     end
 
-    begin
-      attempt = Attempt.new(user, data['code'], data['path'])
-      # TODO: refactor to ask about validity
-      attempt.exercise
-      attempt.validate!
-    rescue Exercism::UnknownExercise, Exercism::UnknownLanguage => e
-      halt 400, {:error => e.message}.to_json
-    end
+    attempt = Attempt.new(user, data['code'], data['path'])
 
     if attempt.duplicate?
       halt 400, {:error => "This attempt is a duplicate of the previous one."}.to_json
@@ -91,6 +84,4 @@ class ExercismAPI < Sinatra::Base
     end
     status 204
   end
-
 end
-

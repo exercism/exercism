@@ -59,19 +59,6 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     Approvals.verify(last_response.body, options)
   end
 
-  def test_api_rejects_submission_on_nonexistent_exercise
-    Exercism.stub(:curriculum, curriculum) do
-      Notify.stub(:everyone, nil) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'five/code.rb'}.to_json
-      end
-
-      assert_equal 400, last_response.status
-
-      options = {format: :json, :name => 'reject_nonexistent_exercise'}
-      Approvals.verify(last_response.body, options)
-    end
-  end
-
   def test_completed_sends_back_empty_list_for_new_user
     new_user = User.create(github_id: 2)
 
