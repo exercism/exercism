@@ -563,7 +563,7 @@ h1, h2, h3{
 
 /* Navigation */
 #menu-tree{
-  margin: 40px -15px 20px;
+  margin: 40px 0 20px;
 }
 
 .nav-list {
@@ -879,7 +879,6 @@ h1, h2, h3{
 /* Section Header Code */
 #section-header.section-header-code{
   background-color: #212121;
-  margin-left: -15px;
   margin-right: 0;
 }
 
@@ -1055,35 +1054,34 @@ h1, h2, h3{
 /* Aside */
 .aside-show{
   background-color: #F2F2F2;
+  position: relative;
 }
 
 #sidebar-first{
   background-color: #F2F2F2;
-  position: relative;
+  border-right: 1px solid #dadada;
+  height: 100%;
+  position: absolute;
+    top: 0;
+    bottom: 0;
   width: 264px;
   z-index: 100;
-  float: left;
 }
 
-.aside-show .col-md-9{
-  background-color: #F2F2F2;
-  margin-left: -264px;
-  width: 100%;
+.aside-show .section-main {
+  background-color: #fff;
+  float: left;
   overflow: hidden;
-  padding-left: 0;
+  padding-left: 264px;
   padding-right: 0;
-  float: left;
-}
-
-.aside-show .col-md-9 #section-header,
-.aside-show .col-md-9 #section-content{
-  border-left: 1px solid #dadada;
-  margin-left: 264px;
+  position: relative;
+  width: 100%;
 }
 
 /* User Account */
 #user-account{
   margin: 30px 0;
+  padding: 0 15px;
 }
 
 #user-account p{
@@ -1167,13 +1165,8 @@ h1, h2, h3{
     width: 230px;
   }
 
-  .aside-show .col-md-9{
-    margin-left: -230px;
-  }
-
-  .aside-show .col-md-9 #section-header,
-  .aside-show .col-md-9 #section-content{
-    margin-left: 230px;
+  .aside-show .section-main{
+    padding-left: 230px;
   }
 
   #account-settings{
@@ -1608,8 +1601,6 @@ div.highlight .mi {
 #page-header
 {
   background: none repeat scroll 0 0 #FFFFFF;
-  border-left: 1px solid #DADADA;
-  margin-left: 264px;
   overflow: hidden;
   padding: 20px 22px;
 }
