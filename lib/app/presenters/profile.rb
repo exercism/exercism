@@ -61,7 +61,7 @@ class Profile
     if narcissistic? || current_user.nitpicker_on?(submission.exercise)
      %{<a href="/submissions/#{submission.key}">#{submission.name}</a>}
     else
-     %{<a href="/exercises/#{submission.slug}">#{submission.name}</a>}
+     %{<a href="/exercises/#{submission.language}/#{submission.slug}">#{submission.name}</a>}
     end
   end
 
