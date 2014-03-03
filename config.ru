@@ -30,3 +30,7 @@ map '/v1.0/' do
   run ExercismV1p0
 end
 
+require 'redesign'
+map '/redesign/' do
+  run ExercismIO::Redesign
+end
