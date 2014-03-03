@@ -17,6 +17,15 @@ namespace :xapi do
     Hack::UpdatesUserExercise.new(user.id, 'go', 'leap').update
     Hack::UpdatesUserExercise.new(user.id, 'ruby', 'anagram').update
     Hack::UpdatesUserExercise.new(user.id, 'ruby', 'word-count').update
+
+
+    user = User.find_by_key('xyz456') || User.create(github_id: -2, key: 'xyz456', username: 'xapi-fake-user')
+    user.exercises.destroy_all
+    user.submissions.destroy_all
+
+    Submission.create(user: user, language: 'go', slug: 'no-such-exercise', code: '// iteration 1 (pending)', state: 'pending', filename: 'one.go', created_at: 10.minutes.ago)
+
+    Hack::UpdatesUserExercise.new(user.id, 'go', 'no-such-exercise').update
   end
 end
 
