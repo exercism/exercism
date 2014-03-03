@@ -1,7 +1,7 @@
 class HibernationMessage < Message
 
   def url
-    "http://#{site_root}/submissions/#{submission.key}"
+    "#{site_root}/submissions/#{submission.key}"
   end
 
   def subject
