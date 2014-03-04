@@ -727,6 +727,7 @@ h1, h2, h3{
 .nav-list .nav-list.tree.detailed a{
   overflow: hidden;
   border-bottom: 1px solid #d9d9d9;
+  display: block;
   padding: 15px;
 }
 
