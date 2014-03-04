@@ -1061,6 +1061,7 @@ h1, h2, h3{
   background-color: #F2F2F2;
   border-right: 1px solid #dadada;
   height: 100%;
+  overflow-y: scroll;
   position: absolute;
     top: 0;
     bottom: 0;
