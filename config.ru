@@ -8,7 +8,6 @@ require 'api'
 require 'v1.0'
 require 'sass/plugin/rack'
 
-#Sass::Plugin.options[:style] = :compressed
 use Sass::Plugin::Rack
 Sass::Plugin.options[:template_location] = "./lib/redesign/public/stylesheets/sass"
 Sass::Plugin.options[:css_location] = "./lib/redesign/public/css"
