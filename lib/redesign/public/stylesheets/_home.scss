@@ -1,3 +1,8 @@
+body {
+  font-family: $sans-regular;
+  font-size: $font-size-base
+}
+
 a {
   text-decoration: none
 }
@@ -23,6 +28,10 @@ a {
   padding-right: 2%;
 }
 
+.masthead {
+
+}
+
 .content {
 }
 
@@ -30,3 +39,33 @@ a {
   color: $berry;
   padding-right: 10%;
 }
+
+
+.main-sidebar {
+  background-color: $light-grey;
+  width: 15em;
+  float: left;
+  min-height: 85em;
+}
+
+.account-icon {
+  background: url(/redesign/icons/settings.svg) 2px -1px no-repeat;
+  background-size: 28px 28px;
+  padding:3px 0px 3px 35px;
+  font-family: $sans-extralight;
+  font-size: 1em;
+  color: $sidebar-text
+}
+
+.account-container {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.account-gravatar {
+  border-radius: 50%;
+  display: block;
+  width: 100px;
+  margin: 0 auto 12px auto;
+}
+

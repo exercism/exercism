@@ -1,0 +1,46 @@
+%aside.main-sidebar
+  %div.account-container
+    %img.account-gravatar{:src => "redesign/icons/katrina.png"}
+    %a.account-icon{:href => link_to('/account')} Katrina
+  %div.account-nav-container
+    %ul
+      %li
+        %a{:href => "#"} Teams
+        %span 02
+        %ul
+          %li
+            %a gschool1
+          %li
+            %a + Add Team
+            %form{ :action => "", :method => "post"}
+              %input{:type => "text", :name => "team-name", :class => "text", :value => "Team Name"}
+              %input{:type => "textarea", :name => "user-names", :class => "text", :value => "username1, username2"}
+              %input{:type => "submit", :value => "Add Team", :class => "button"}
+      %li
+        %a Exercises
+        %span 03
+        %ul
+          %li
+            %a exercise
+            %span LANGUAGE
+      %li
+        %a Nitpicks
+        %span 286
+        %ul
+          %a Delete All Read
+          %li
+            %a
+              %span exercise-title
+              %span LANGUAGE
+              %span user-name
+              %span last action w/ approximate timing
+
+      %li
+        %a Needs Nitpicked
+      %li
+        %a View Solutions
+
+
+/  = haml :"layout/sidebar/profile"
+/  = haml :"layout/sidebar/alerts"
+/  = haml :"layout/sidebar/menu"

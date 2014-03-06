@@ -208,6 +208,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+body {
+  font-family: "source_code_proregular", sans-serif;
+  font-size: 16px; }
+
 a {
   text-decoration: none; }
 
@@ -228,3 +232,27 @@ a {
 .logout {
   color: #d81d4e;
   padding-right: 10%; }
+
+.main-sidebar {
+  background-color: #f2f2f2;
+  width: 15em;
+  float: left;
+  min-height: 85em; }
+
+.account-icon {
+  background: url(/redesign/icons/settings.svg) 2px -1px no-repeat;
+  background-size: 28px 28px;
+  padding: 3px 0px 3px 35px;
+  font-family: "source_code_proextralight", sans-serif;
+  font-size: 1em;
+  color: #808285; }
+
+.account-container {
+  margin-top: 24px;
+  text-align: center; }
+
+.account-gravatar {
+  border-radius: 50%;
+  display: block;
+  width: 100px;
+  margin: 0 auto 12px auto; }

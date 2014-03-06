@@ -1,4 +1,5 @@
 %section.main
+  = haml :"layout/main-sidebar"
   %section.primary-nav
     %nav.primary-nav-inner
       %img{:src => "redesign/icons/logout.svg", :width => "25", :height => "25" }
@@ -7,7 +8,7 @@
       %a.utility-link{:href => link_to('/getting-started')} Getting Started
       %a.utility-link{:href => link_to('/help')} Help
 
-  %section.hero-content
+  %section.masthead
     %img{:src => "redesign/icons/logo.svg", :width => "250", :height => "250"}
     %h1 The Devil Is In The Details
     %h2 Crowd-sourced code reviews on daily practice problems
