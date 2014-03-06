@@ -298,14 +298,15 @@ a {
   overflow-x: hidden;
   width: 100%; }
 
+.primary-nav {
+  margin-top: 2%; }
+
 .utility-nav {
   list-style: none; }
 
 .utility-link {
-  float: left; }
-
-.content {
-  display: inline-block; }
+  padding-right: 2%; }
 
 .login {
-  color: magenta; }
+  color: magenta;
+  padding-right: 10%; }
