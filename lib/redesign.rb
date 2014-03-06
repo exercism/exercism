@@ -15,5 +15,6 @@ module ExercismIO
     use Routes::Home
     use Routes::Static
     use Routes::Help
+    use Routes::Account
   end
 end
