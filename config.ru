@@ -9,7 +9,7 @@ require 'v1.0'
 require 'sass/plugin/rack'
 
 use Sass::Plugin::Rack
-Sass::Plugin.options[:template_location] = "./lib/redesign/public/stylesheets/sass"
+Sass::Plugin.options[:template_location] = "./lib/redesign/public/stylesheets/"
 Sass::Plugin.options[:css_location] = "./lib/redesign/public/css"
 
 ENV['RACK_ENV'] ||= 'development'

@@ -1,13 +1,14 @@
 %section.main
   %section.primary-nav
     %nav.primary-nav-inner
-      %a.login{:href => link_to("/login")} Login with GitHub
+      %img{:src => "redesign/icons/logout.svg", :width => "25", :height => "25" }
+      %a.logout{:href => link_to("/logout")} Logout
       %a.utility-link{:href => link_to('/about')} About Exercism
       %a.utility-link{:href => link_to('/getting-started')} Getting Started
       %a.utility-link{:href => link_to('/help')} Help
 
   %section.hero-content
-    %img{:src => "redesign/ico/svg/logo.svg", :width => "250", :height => "250"}
+    %img{:src => "redesign/icons/logo.svg", :width => "250", :height => "250"}
     %h1 The Devil Is In The Details
     %h2 Crowd-sourced code reviews on daily practice problems
     %p Get Started via Github

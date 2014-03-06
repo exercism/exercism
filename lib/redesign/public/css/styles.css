@@ -225,6 +225,6 @@ a {
 .utility-link {
   padding-right: 2%; }
 
-.login {
-  color: magenta;
+.logout {
+  color: #d81d4e;
   padding-right: 10%; }
