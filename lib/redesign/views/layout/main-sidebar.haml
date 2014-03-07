@@ -17,27 +17,27 @@
   %nav.account-nav-container
     %ul.account-nav-tree
       %li
-        %a{:href => "#"} Teams
-        %span 02
+        %a.account-nav-section-title{:href => "#"} Teams
+        %span.account-nav-counter 02
         %ul.account-nav-teams
           %li
             %a gschool1
           %li
-            %a{:href => "#"} + Add Team
-            %form{ :action => "", :method => "post"}
+            %a.account-nav-add-team{:href => "#"} + Add Team
+            %form.account-nav-add-team-form{ :action => "", :method => "post"}
               %input{:type => "text", :name => "team-name", :class => "text", :value => "Team Name"}
-              %input{:type => "textarea", :name => "user-names", :class => "text", :value => "username1, username2"}
+              %input{:type => "text", :name => "user-names", :class => "text", :value => "username1, username2"}
               %input{:type => "submit", :value => "Add Team", :class => "button"}
       %li
-        %a{:href => "#"} Exercises
-        %span 03
+        %a.account-nav-section-title{:href => "#"} Exercises
+        %span.account-nav-counter 03
         %ul.account-nav-exercises
           %li
             %a exercise
             %span LANGUAGE
       %li
-        %a{:href => "#"} Nitpicks
-        %span 286
+        %a.account-nav-section-title{:href => "#"} Nitpicks
+        %span.account-nav-counter 286
         %ul.account-nav-nitpicks
           %a{:href => "#"} Delete All Read
           %li
@@ -48,9 +48,9 @@
               %span last action w/ approximate timing
 
       %li
-        %a{:href => "#"} Needs Nitpicked
+        %a.account-nav-section-title{:href => "#"} Needs Nitpicked
       %li
-        %a{:href => "#"} View Solutions
+        %a.account-nav-section-title{:href => "#"} View Solutions
 
 
 /  = haml :"layout/sidebar/profile"
