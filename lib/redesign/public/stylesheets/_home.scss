@@ -1,9 +1,12 @@
 body {
-  font-family: $sans-regular;
-  font-size: $font-size-base
+  font-family: $sans-arial;
+  font-size: $font-size-base;
+  color: $medium-grey;
 }
 
 a {
+  color: $dark-grey;
+  font-weight: bold;
   text-decoration: none
 }
 
@@ -43,7 +46,8 @@ a {
 
 .main-sidebar {
   background-color: $light-grey;
-  width: 15em;
+  border: 1px solid $border-grey;
+  width: 16.25em;
   float: left;
   min-height: 85em;
 }
@@ -69,3 +73,131 @@ a {
   margin: 0 auto 12px auto;
 }
 
+.account-alerts {
+  background-color: $light-berry;
+  border: 1px solid $berry;
+  border-radius: 5px;
+  width: 212px;
+  margin: 20px auto 15px auto;
+  padding: 10px;
+ }
+
+.alert-flag {
+  width: 25px;
+  margin-left: -4px;
+  margin-bottom: 4px;
+}
+
+.alert-close {
+  width: 14px;
+  float: right;
+}
+
+.alert-message {
+  color: $berry;
+  display: block;
+  float: left;
+  margin: 0;
+  width: 175px;
+}
+
+.alert-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    font-family: $sans-arial;
+    font-size: .80em;
+    margin-bottom: 1em;
+    overflow: hidden;
+  }
+  li:last-child {
+    margin-bottom: 4px;
+  }
+}
+
+.account-nav-container {
+  border-top: 1px solid $border-grey;
+  border-bottom: 1px solid $border-grey;
+  padding: 22px 12px 26px 0px;
+}
+
+.account-nav-section-title {
+  padding-left: 22px;
+}
+
+.account-nav-counter {
+  float: right;
+  display: inline-block;
+  background-color: $medium-grey;
+  color: white;
+  width: 40px;
+  text-align: center;
+  border-radius: 4px;
+  font-family: source_code_proregular;
+  font-size: 0.9375em;
+  padding: 2px 0;
+}
+
+.account-nav-tree {
+  font-family: $sans-extralight;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.account-nav-teams {
+  font-family: $sans-arial;
+  list-style: none;
+  margin: 15px 0px;
+  padding: 0 0 0 27px;
+  border-left: 3px solid $medium-grey;
+  li {
+    margin: 12px 0px;
+  }
+  li a {
+    font-weight: normal;
+    color: $medium-grey;
+  }
+}
+
+li a.account-nav-add-team {
+  color: $berry;
+}
+
+.account-nav-add-team-form {
+  margin-top: 20px;
+  overflow: hidden;
+  input[type=text] { 
+    border: 1px solid $border-grey;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    padding: 10px 5px;
+    color: $medium-grey;
+    width: 207px;
+  }
+  input[type=submit] {
+    background-color: $berry;
+    border: 0;
+    padding: 15px 30px;
+    border-radius: 4px;
+    color: white;
+    text-transform: uppercase;
+    font-family: $sans-regular;
+    font-size: 0.875em;
+    float: right;
+
+  }
+}
+.account-nav-exercises {
+  font-family: $sans-arial;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 27px;
+}
+.account-nav-nitpicks {
+  font-family: $sans-arial;
+  list-style: none;
+  margin: 0;
+  padding: 0 0 0 27px;
+}
