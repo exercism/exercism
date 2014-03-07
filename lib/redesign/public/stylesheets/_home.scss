@@ -1,9 +1,12 @@
 body {
-  font-family: $sans-regular;
-  font-size: $font-size-base
+  font-family: $sans-arial;
+  font-size: $font-size-base;
+  color: $medium-grey;
 }
 
 a {
+  color: $dark-grey;
+  font-weight: bold;
   text-decoration: none
 }
 
@@ -43,7 +46,8 @@ a {
 
 .main-sidebar {
   background-color: $light-grey;
-  width: 15em;
+  border: 1px solid $border-grey;
+  width: 16.25em;
   float: left;
   min-height: 85em;
 }
@@ -69,3 +73,76 @@ a {
   margin: 0 auto 12px auto;
 }
 
+.account-alerts {
+  background-color: $light-berry;
+  border: 1px solid $berry;
+  border-radius: 5px;
+  width: 212px;
+  margin: 20px auto 15px auto;
+  padding: 10px;
+ }
+
+.alert-flag {
+  width: 25px;
+  margin-left: -4px;
+  margin-bottom: 4px;
+}
+
+.alert-close {
+  width: 14px;
+  float: right;
+}
+
+.alert-message {
+  color: $berry;
+  display: block;
+  float: left;
+  margin: 0;
+  width: 175px;
+}
+
+.alert-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  li {
+    font-family: $sans-arial;
+    font-size: .80em;
+    margin-bottom: 1em;
+    overflow: hidden;
+  }
+  li:last-child {
+    margin-bottom: 4px;
+  }
+}
+
+.account-nav-container {
+  border-top: 1px solid $border-grey;
+  border-bottom: 1px solid $border-grey;
+}
+
+.account-nav-tree {
+  font-family: $sans-extralight;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.account-nav-teams {
+  font-family: $sans-arial;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.account-nav-exercises {
+  font-family: $sans-arial;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.account-nav-nitpicks {
+  font-family: $sans-arial;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}

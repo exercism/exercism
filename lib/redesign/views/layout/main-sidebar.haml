@@ -2,32 +2,44 @@
   %div.account-container
     %img.account-gravatar{:src => "redesign/icons/katrina.png"}
     %a.account-icon{:href => link_to('/account')} Katrina
-  %div.account-nav-container
-    %ul
+  %div.account-alerts
+    %img.alert-flag{:src => "redesign/icons/flag.svg"}
+    %ul.alert-list
+      %li
+        %p.alert-message 01 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        %a{:href => "#"}
+          %img.alert-close{:src => "redesign/icons/close-red.svg"}
+      %li
+        %p.alert-message 02 Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        %a{:href => "#"}
+          %img.alert-close{:src => "redesign/icons/close-red.svg"}
+
+  %nav.account-nav-container
+    %ul.account-nav-tree
       %li
         %a{:href => "#"} Teams
         %span 02
-        %ul
+        %ul.account-nav-teams
           %li
             %a gschool1
           %li
-            %a + Add Team
+            %a{:href => "#"} + Add Team
             %form{ :action => "", :method => "post"}
               %input{:type => "text", :name => "team-name", :class => "text", :value => "Team Name"}
               %input{:type => "textarea", :name => "user-names", :class => "text", :value => "username1, username2"}
               %input{:type => "submit", :value => "Add Team", :class => "button"}
       %li
-        %a Exercises
+        %a{:href => "#"} Exercises
         %span 03
-        %ul
+        %ul.account-nav-exercises
           %li
             %a exercise
             %span LANGUAGE
       %li
-        %a Nitpicks
+        %a{:href => "#"} Nitpicks
         %span 286
-        %ul
-          %a Delete All Read
+        %ul.account-nav-nitpicks
+          %a{:href => "#"} Delete All Read
           %li
             %a
               %span exercise-title
@@ -36,9 +48,9 @@
               %span last action w/ approximate timing
 
       %li
-        %a Needs Nitpicked
+        %a{:href => "#"} Needs Nitpicked
       %li
-        %a View Solutions
+        %a{:href => "#"} View Solutions
 
 
 /  = haml :"layout/sidebar/profile"
