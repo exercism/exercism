@@ -11,6 +11,12 @@ $ cd exercism/project/directory/go/bob
 $ go test
 ```
 
+## Linting
+
+Remember to run [`go fmt`](http://blog.golang.org/go-fmt-your-code) on your code before submitting it.
+
+You might also look at `go vet`, which warns about potential problems in your code.
+
 ## Recommended Learning Resources
 
 Exercism provides exercises and feedback but can be difficult to jump into for those learning Go for the first time. These resources can help you get started:
