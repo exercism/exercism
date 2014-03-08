@@ -69,7 +69,7 @@ GEM
       coderay (~> 1.0)
       method_source (~> 0.8)
       slop (~> 3.4)
-    puma (2.7.1)
+    puma (2.8.1)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
     rack-flash3 (1.0.5)
