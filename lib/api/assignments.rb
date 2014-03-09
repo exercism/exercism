@@ -43,15 +43,8 @@ class ExercismAPI < Sinatra::Base
     end
     unless user
       message = <<-MESSAGE
-      Beloved user,
-
-      We have changed your API key (and everyone else's).
-
-      You will need to log out from the exercism command line client
-      (`exercism logout`) and log back in using the new API key in
-      your account on the website.
-
-      Sorry about the inconvenience!
+      Please double-check the API key in your exercism account page and
+      ensure you have logged into the CLI using the correct key.
       MESSAGE
       halt 401, {:error => message}.to_json
     end
