@@ -9,6 +9,11 @@ class AttemptTest < MiniTest::Unit::TestCase
     @user = User.create
   end
 
+  def test_validity
+    assert Attempt.new(user, 'CODE', 'two/two.py').valid?
+    refute Attempt.new(user, 'CODE', 'two.py').valid?
+  end
+
   def test_saving_an_attempt_constructs_a_submission
     assert_equal 0, Submission.count # guard
 

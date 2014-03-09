@@ -51,6 +51,10 @@ class ExercismAPI < Sinatra::Base
 
     attempt = Attempt.new(user, data['code'], data['path'])
 
+    unless attempt.valid?
+      halt 400, {:error => "We are unable to determine which exercise you're submitting #{data['path']} to."}
+    end
+
     if attempt.duplicate?
       halt 400, {:error => "This attempt is a duplicate of the previous one."}.to_json
     end

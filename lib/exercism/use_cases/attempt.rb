@@ -7,6 +7,10 @@ class Attempt
     @file = Code.new(path)
   end
 
+  def valid?
+    !!slug
+  end
+
   def language
     file.language
   end
