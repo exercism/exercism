@@ -236,6 +236,9 @@ a {
   color: #d81d4e;
   padding-right: 10%; }
 
+.account-nav-section-title {
+  padding-left: 22px; }
+
 .main-sidebar {
   background-color: #f2f2f2;
   border: 1px solid #d8d8d8;
@@ -299,10 +302,10 @@ a {
 
 .account-nav-container {
   border-top: 1px solid #d8d8d8;
-  border-bottom: 1px solid #d8d8d8;
-  padding: 22px 12px 26px 0px; }
+  border-bottom: 1px solid #d8d8d8; }
 
 .account-nav-section-title {
+  font-size: 1.125em;
   padding-left: 22px; }
 
 .account-nav-counter {
@@ -310,6 +313,7 @@ a {
   display: inline-block;
   background-color: #999999;
   color: white;
+  margin-right: 15px;
   width: 40px;
   text-align: center;
   border-radius: 4px;
@@ -323,17 +327,20 @@ a {
   margin: 0;
   padding: 0; }
 
+.nav-tree-item {
+  padding-top: 22px; }
+
 .account-nav-teams {
   font-family: Arial, sans-serif;
   list-style: none;
   margin: 15px 0px;
   padding: 0 0 0 27px;
   border-left: 3px solid #999999; }
-  .account-nav-teams li {
-    margin: 12px 0px; }
   .account-nav-teams li a {
+    display: block;
     font-weight: normal;
-    color: #999999; }
+    color: #999999;
+    margin: 5px 0px; }
 
 li a.account-nav-add-team {
   color: #d81d4e; }
@@ -345,14 +352,14 @@ li a.account-nav-add-team {
     border: 1px solid #d8d8d8;
     border-radius: 4px;
     margin-bottom: 10px;
-    padding: 10px 5px;
+    padding: 10px 3px;
     color: #999999;
     width: 207px; }
   .account-nav-add-team-form input[type=submit] {
     background-color: #d81d4e;
     border: 0;
-    padding: 15px 30px;
-    border-radius: 4px;
+    padding: 10px 30px;
+    margin-right: 15px;
     color: white;
     text-transform: uppercase;
     font-family: "source_code_proregular", sans-serif;
@@ -360,13 +367,46 @@ li a.account-nav-add-team {
     float: right; }
 
 .account-nav-exercises {
+  border-left: 3px solid #999999;
   font-family: Arial, sans-serif;
   list-style: none;
   margin: 0;
-  padding: 0 0 0 27px; }
+  padding: 0; }
+  .account-nav-exercises li:last-child {
+    border-bottom: 1px solid #d8d8d8; }
+
+.account-exercise {
+  margin: 12px 0px;
+  border-top: 1px solid #d8d8d8;
+  padding-left: 27px; }
+
+.exercise-title {
+  display: block;
+  font-weight: 300;
+  margin-top: 5px;
+  color: #414042; }
+
+.exercise-language {
+  display: block;
+  font-variant: small-caps; }
 
 .account-nav-nitpicks {
+  border-left: 3px solid #999999;
   font-family: Arial, sans-serif;
   list-style: none;
   margin: 0;
   padding: 0 0 0 27px; }
+  .account-nav-nitpicks img {
+    margin-left: -16px;
+    width: 30px; }
+
+.delete-all-read {
+  font-family: "source_code_proextralight", sans-serif;
+  font-weight: 600;
+  color: #d81d4e;
+  display: block;
+  margin: 15px 0px 8px -8px; }
+
+.nitpick-container {
+  display: inline-block;
+  margin: -31px 8px 12px 25px; }

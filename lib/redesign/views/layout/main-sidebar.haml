@@ -16,40 +16,65 @@
 
   %nav.account-nav-container
     %ul.account-nav-tree
-      %li
+      %li.nav-tree-item
         %a.account-nav-section-title{:href => "#"} Teams
         %span.account-nav-counter 02
         %ul.account-nav-teams
           %li
-            %a gschool1
+            %a Hungry-academy
+            %a Jumpstartlab
+            %a Turing
           %li
             %a.account-nav-add-team{:href => "#"} + Add Team
             %form.account-nav-add-team-form{ :action => "", :method => "post"}
               %input{:type => "text", :name => "team-name", :class => "text", :value => "Team Name"}
               %input{:type => "text", :name => "user-names", :class => "text", :value => "username1, username2"}
               %input{:type => "submit", :value => "Add Team", :class => "button"}
-      %li
+      %li.nav-tree-item
         %a.account-nav-section-title{:href => "#"} Exercises
         %span.account-nav-counter 03
         %ul.account-nav-exercises
           %li
-            %a exercise
-            %span LANGUAGE
-      %li
+            %div.account-exercise
+              %a.exercise-title commented-exercise
+              %a.exercise-language ruby
+            %div.account-exercise
+              %a.exercise-title no-new-comments-exercise
+              %a.exercise-language javascript
+      %li.nav-tree-item
         %a.account-nav-section-title{:href => "#"} Nitpicks
         %span.account-nav-counter 286
         %ul.account-nav-nitpicks
-          %a{:href => "#"} Delete All Read
-          %li
-            %a
-              %span exercise-title
-              %span LANGUAGE
-              %span user-name
-              %span last action w/ approximate timing
+          %a.delete-all-read{:href => "#"} Delete All Read
+          %li.nitpicks-list
+            %img.nitpick-icon{:src => "redesign/icons/nitpick.svg"}
+            %a.nitpick-container{:href => "#"}
+              %div unread-exercise
+              %div Clojure
+              %div UserName (2)
+              %div last action w/ approximate timing
+            %img.nitpick-icon{:src => "redesign/icons/nitpick.svg"}
+            %a.nitpick-container{:href => "#"}
+              %div unread-exercise
+              %div Scala
+              %div UserName (3)
+              %div last action w/ approximate timing
+            %img.iteration-icon{:src => "redesign/icons/iteration.svg"}
+            %a.nitpick-container{:href => "#"}
+              %div unread-exercise
+              %div Ruby
+              %div UserName (1)
+              %div last action w/ approximate timing
+            %img.iteration-icon{:src => "redesign/icons/iteration.svg"}
+            %a.nitpick-container{:href => "#"}
+              %div unread-exercise
+              %div Javascript
+              %div UserName (5)
+              %div last action w/ approximate timing
 
-      %li
+      %li.nav-tree-item
         %a.account-nav-section-title{:href => "#"} Needs Nitpicked
-      %li
+      %li.nav-tree-item
         %a.account-nav-section-title{:href => "#"} View Solutions
 
 
