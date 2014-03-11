@@ -12,16 +12,34 @@ class Hibernation
   end
 
   def process
-    if stale?
+    if qualifies_for_hibernation?
       hibernate and notify
-      Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
     end
+
+    if qualifies_for_needing_input?
+      needs_input
+    end
+
+    update_user_exercise
+  end
+
+  def update_user_exercise
+    Hack::UpdatesUserExercise.new(
+        submission.user_id,
+        submission.language,
+        submission.slug
+    ).update
   end
 
   private
 
   def cutoff
     Time.now - Hibernation::WINDOW
+  end
+
+  def needs_input
+    submission.state = 'needs_input'
+    submission.save
   end
 
   def hibernate
@@ -47,8 +65,20 @@ class Hibernation
     submission.comments.last
   end
 
-  def stale?
-    comment.user != submission.user && comment.created_at < cutoff
+  def qualifies_for_needing_input?
+    last_commenter_is_submitter? and stale_comment?
+  end
+
+  def qualifies_for_hibernation?
+    !last_commenter_is_submitter? && stale_comment?
+  end
+
+  def stale_comment?
+    comment.created_at < cutoff
+  end
+
+  def last_commenter_is_submitter?
+    comment.user == submission.user
   end
 
   def alert_submitter
