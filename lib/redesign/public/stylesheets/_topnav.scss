@@ -1,0 +1,28 @@
+.topnav {
+  height: 70px;
+  border-bottom: 1px solid magenta;
+  padding-top: 1em;
+}
+
+.logout {
+  margin-left: 1em;
+}
+
+.logout-icon {
+  width: 30px;
+  margin-right: 1%;
+}
+
+.logout-text {
+  font-family: $sans-light;
+  color: $berry;
+  display: inline-block;
+}
+
+.primary-nav {
+  float: right;
+}
+
+.topnav-link {
+  font-family: $sans-light;
+}

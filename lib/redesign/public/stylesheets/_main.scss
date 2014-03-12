@@ -1,0 +1,16 @@
+body {
+  font-family: $sans-arial;
+  font-size: $font-size-base;
+  color: $medium-grey;
+}
+
+a {
+  color: $dark-grey;
+  font-weight: bold;
+  text-decoration: none
+}
+.main {
+  min-height: 100%;
+  overflow-x: hidden;
+  width: 100%;
+}

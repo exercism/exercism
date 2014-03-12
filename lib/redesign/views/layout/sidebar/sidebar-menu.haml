@@ -1,0 +1,65 @@
+%nav.account-nav-container
+  %ul.account-nav-tree
+    %li.nav-tree-item
+      %a.account-nav-section-title{:href => "#"} Teams
+      %span.account-nav-counter 02
+      %ul.account-nav-teams
+        %li
+          %a Hungry-academy
+          %a Jumpstartlab
+          %a Turing
+        %li
+          %a.account-nav-add-team{:href => "#"} + Add Team
+          %form.account-nav-add-team-form{ :action => "", :method => "post"}
+            %input{:type => "text", :name => "team-name", :class => "text", :value => "Team Name"}
+            %input{:type => "text", :name => "user-names", :class => "text", :value => "username1, username2"}
+            %input{:type => "submit", :value => "Add Team", :class => "button"}
+    %li.nav-tree-item
+      %a.account-nav-section-title{:href => "#"} Exercises
+      %span.account-nav-counter 03
+      %ul.account-nav-exercises
+        %li
+          %div.account-exercise
+            %a.exercise-title binary search tree
+            %a.exercise-language ruby
+          %div.account-exercise
+            %a.exercise-title difference of squares
+            %a.exercise-language javascript
+    %li.nav-tree-item
+      %a.account-nav-section-title{:href => "#"} Nitpicks
+      %span.account-nav-counter 286
+      %ul.account-nav-nitpicks
+        %a.delete-all-read{:href => "#"} Delete All Read
+        %li.nitpick-container
+          %img{:src => "redesign/icons/nitpick.svg"}
+          %a.nitpick-details{:href => "#"}
+            %div.exercise-title palindrome products
+            %div.exercise-language clojure
+            %div.exercise-username UserName (2)
+            %div.exercise-time-note last action w/ approximate timing
+        %li.nitpick-container
+          %img{:src => "redesign/icons/nitpick.svg"}
+          %a.nitpick-details{:href => "#"}
+            %div.exercise-title largest serie product
+            %div.exercise-language scala
+            %div.exercise-username UserName (3)
+            %div.exercise-time-note last action w/ approximate timing
+        %li.nitpick-container
+          %img{:src => "redesign/icons/iteration.svg"}
+          %a.nitpick-details{:href => "#"}
+            %div.exercise-title grains 
+            %div.exercise-language ruby
+            %div.exercise-username UserName (1)
+            %div.exercise-time-note last action w/ approximate timing
+        %li.nitpick-container
+          %img{:src => "redesign/icons/iteration.svg"}
+          %a.nitpick-details{:href => "#"}
+            %div.exercise-title space age
+            %div.exercise-language javascript
+            %div.exercise-username UserName (5)
+            %div.exercise-time-note last action w/ approximate timing
+
+    %li.nav-tree-item
+      %a.account-nav-section-title{:href => "#"} Needs Nitpicked
+    %li.nav-tree-item
+      %a.account-nav-section-title{:href => "#"} View Solutions

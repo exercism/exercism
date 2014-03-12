@@ -1,48 +1,36 @@
-body {
-  font-family: $sans-arial;
-  font-size: $font-size-base;
-  color: $medium-grey;
-}
-
-a {
-  color: $dark-grey;
-  font-weight: bold;
-  text-decoration: none
-}
-
-.main {
-  min-height: 100%;
-  overflow-x: hidden;
-  width: 100%;
-}
-
-.primary-nav {
-  margin-top: 2%;
-}
-
-.primary-nav-inner {
-}
-
-.utility-nav {
-  list-style: none;
-}
-
-.utility-link {
-  padding-right: 2%;
-}
-
 .masthead {
-
+  background: $berry;
+  height: 608px;
+  text-align: center;
 }
 
-.content {
+.logo {
+  width: 218px;
+  padding-top: 100px;
 }
 
-.logout {
+.headline {
+  color: $white;
+  font-family: $sans-light;
+  font-size: 2.375em;
+  font-weight: 100;
+  margin: 0;
+}
+
+.sub-head {
+  font-family: $sans-regular;
+  font-size: .95em;
+  margin: 0;
+  color: $dark-berry;
+}
+
+.login-gh {
+  display: inline-block;
+  font-family: $sans-regular;
+  font-variant: small-caps;
+  font-size: 1.2em;
+  margin-top: 1em;
+  padding: 6px 25px;
+  background: $dark-berry;
   color: $berry;
-  padding-right: 10%;
-}
-
-.account-nav-section-title {
-  padding-left: 22px;
 }
