@@ -17,13 +17,13 @@
   width: 40px;
   text-align: center;
   border-radius: 4px;
-  font-family: source_code_proregular;
+  font-family: $sans-regular;
   font-size: 0.9375em;
   padding: 2px 0;
 }
 
 .account-nav-tree {
-  font-family: $sans-extralight;
+  font-family: $sans-light;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -44,6 +44,7 @@
   li a {
     display: block;
     font-weight: normal;
+    font-size: 0.95em;
     color: $medium-grey;
     margin: 5px 0px;
   }
@@ -59,8 +60,9 @@ li a.account-nav-add-team {
   input[type=text] { 
     border: 1px solid $border-grey;
     border-radius: 4px;
+    font-size: 0.95em;
     margin-bottom: 10px;
-    padding: 10px 3px;
+    padding: 10px;
     color: $medium-grey;
     width: 207px;
   }
@@ -99,6 +101,7 @@ li a.account-nav-add-team {
 .exercise-title {
   display: block;
   font-weight: 300;
+  font-size: 0.95em;
   margin-top: 5px;
   color: $exercise-title-grey;
 }
@@ -114,28 +117,47 @@ li a.account-nav-add-team {
   font-family: $sans-arial;
   list-style: none;
   margin: 0;
-  padding: 0 0 0 27px;
+  padding: 0;
   img {
-    margin-left: -16px;
     width: 30px;
+    margin-left: 12px;
+  }
+  li:last-child {
+   border-bottom: 1px solid $border-grey;
   }
 }
 
 .delete-all-read {
-  font-family: $sans-extralight;
-  font-weight: 600;
+  font-family: $sans-light;
+  font-size: 0.9375em;
   color: $berry;
   display: block;
-  margin: 15px 0px 8px -8px;
-}
-
-.nitpicks-list {
-
+  margin: 15px 0px 8px 20px;
 }
 
 .nitpick-container {
-  display: inline-block;
-  margin: -31px 8px 12px 25px;
+  border-top: 1px solid $border-grey;
+  padding-top: 8px;
 }
 
+.nitpick-details {
+  display: block;
+  margin: -36px 8px 12px 50px;
+}
+
+.exercise-username {
+  color: $medium-grey;
+  font-size: 0.875em;
+  font-weight: normal;
+  margin-top: 5px;
+
+}
+
+.exercise-time-note {
+  color: $medium-grey;
+  font-size: 0.75em;
+  font-weight: 100;
+  font-style: italic;
+  margin-top: 5px;
+}
 
