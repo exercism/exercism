@@ -1,5 +1,16 @@
-%p this is the footer
-%p
-  email me at
-  %a{href: "mailto:#{email}"}= email
+%section.footer
+  %img.url-logo{:src => 'redesign/icons/logo-url.svg'}
+  %div.details-container
+    %p &copy; 2013 Katrina Owen  /  Source:
+    %a{:href => link_to("/")} Exercism.io.
+    %p Report bugs and submit feedback on
+    %a{:href => "http://github.com/exercism/exercism.io/issues"} GitHub.
+    %p Email me at
+    %a{:href => "mailto:kytrinyx@exercism.io"} kytrinyx@exercism.io.
+  %section.footer-sponsors<>
+    %p.sponsor-text Sponsored by
+    %div.sponsor-logo-container<>
+      %img.sponsor-logo{:src => 'redesign/icons/rackspace-logo.png'}
+      %img.sponsor-logo{:src => 'redesign/icons/sendgrid-logo.png'}
+
 

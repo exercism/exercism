@@ -1,8 +1,18 @@
-@import "typography";
-@import "normalize";
-@import "config";
-@import "home";
-@import "sidebar";
-@import "account-alerts";
-@import "sidebar-menu"
+// base //
+@import "base/normalize";
+@import "base/config";
+@import "base/scaffold";
+@import "base/typography";
+@import "base/iconography";
+@import "base/containers";
+
+// components//
+@import "components/sidebar-profile";
+@import "components/sidebar-alerts";
+@import "components/sidebar-menu";
+
+// views //
+@import "views/topnav";
+@import "views/home";
+@import "views/footer";
 
