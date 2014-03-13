@@ -3,6 +3,9 @@ require 'v1.0/site/languages'
 class ExercismApp < Sinatra::Base
 
   get '/' do
+    if settings.development?
+      @assumable_users = User.all
+    end
     if current_user.guest?
       current = App::Site::Languages.new(Exercism::Config.current)
       upcoming = App::Site::Languages.new(Exercism::Config.upcoming)
