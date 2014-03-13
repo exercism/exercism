@@ -4,7 +4,7 @@ class ExercismApp < Sinatra::Base
     redirect root_path
   end
 
-  if ENV['RACK_ENV'] == 'development'
+  if settings.development?
     get '/backdoor' do
       if User.count == 0
         flash[:error] = "You'll want to run the seed script: `rake db:seed`"
