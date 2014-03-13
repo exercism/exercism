@@ -489,3 +489,27 @@ li a.account-nav-add-team {
   padding: 6px 25px;
   background: #770428;
   color: #d81d4e; }
+
+.content-primary {
+  height: 435px;
+  border-bottom: 1px solid magenta; }
+
+.badge {
+  width: 128px; }
+
+.badge-title {
+  color: #d81d4e;
+  font-family: "source_code_prolight", sans-serif;
+  font-size: 2.25em;
+  font-weight: normal; }
+
+.badge-details {
+  color: #b2b2b2;
+  font-family: Arial, sans-serif;
+  font-size: 0.875em;
+  font-weight: normal; }
+
+.column {
+  display: inline-block;
+  width: 25%;
+  text-align: center; }

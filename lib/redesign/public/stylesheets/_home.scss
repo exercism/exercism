@@ -1,36 +1,40 @@
-.masthead {
-  background: $berry;
-  height: 608px;
+.content-primary {
+  height: 435px;
+  border-bottom: 1px solid magenta;
+}
+
+.badge {
+  width: 128px;
+}
+.badge-title {
+  color: $berry;
+  font-family: $sans-light;
+  font-size: 2.25em;
+  font-weight: normal;
+}
+
+.badge-details {
+  color: $grey;
+  font-family: $sans-arial;
+  font-size: 0.875em;
+  font-weight: normal;
+}
+
+.left-column {
+  display:inline-block;
+  width: 25%;
   text-align: center;
 }
 
-.logo {
-  width: 218px;
-  padding-top: 100px;
+.middle-column {
+  display:inline-block;
+  width: 25%;
+  text-align: center;
 }
 
-.headline {
-  color: $white;
-  font-family: $sans-light;
-  font-size: 2.375em;
-  font-weight: 100;
-  margin: 0;
+.right-column {
+  display:inline-block;
+  width: 25%;
+  text-align: center;
 }
 
-.sub-head {
-  font-family: $sans-regular;
-  font-size: .95em;
-  margin: 0;
-  color: $dark-berry;
-}
-
-.login-gh {
-  display: inline-block;
-  font-family: $sans-regular;
-  font-variant: small-caps;
-  font-size: 1.2em;
-  margin-top: 1em;
-  padding: 6px 25px;
-  background: $dark-berry;
-  color: $berry;
-}
