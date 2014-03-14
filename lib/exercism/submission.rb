@@ -33,6 +33,7 @@ class Submission < ActiveRecord::Base
   scope :done, ->{ where(state: 'done') }
   scope :pending, ->{ where(state: 'pending') }
   scope :hibernating, ->{ where(state: 'hibernating') }
+  scope :needs_input, ->{ where(state: 'needs_input') }
   scope :aging, lambda {
     three_weeks_ago = Time.now - (60*60*24*7*3)
     cutoff = three_weeks_ago.strftime('%Y-%m-%d %H:%M:%S')
