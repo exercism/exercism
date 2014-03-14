@@ -5,7 +5,9 @@
       <ul class="nav nav-tabs nav-stacked">
         <% if language %>
           <% if exercises.any? %>
-            <%= dashboard_assignment_nav(language, 'no-nits') %>
+            <%= dashboard_assignment_section_nav(language, 'no-nits') %>
+            <%= dashboard_assignment_section_nav(language, 'needs-input') %>
+
             <% exercises.each do |exercise| %>
               <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise.slug]) %>
             <% end %>
