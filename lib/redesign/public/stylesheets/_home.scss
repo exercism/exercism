@@ -1,40 +1,57 @@
-.content-primary {
+*, *:before, *:after {
+  -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box;
+ }
+ 
+ .content-primary {
+  font-size: 0;
   height: 435px;
   border-bottom: 1px solid magenta;
 }
 
 .badge {
-  width: 128px;
+  width: 145px;
 }
 .badge-title {
   color: $berry;
   font-family: $sans-light;
-  font-size: 2.25em;
+  font-size: 1.75rem;
   font-weight: normal;
+  margin: 0;
 }
 
 .badge-details {
   color: $grey;
   font-family: $sans-arial;
-  font-size: 0.875em;
   font-weight: normal;
+  font-size: 0.85rem;
 }
 
-.left-column {
+.column {
+  font-size:0;
   display:inline-block;
-  width: 25%;
+  margin: 0 6%;
+  width: 16%;
   text-align: center;
 }
 
-.middle-column {
-  display:inline-block;
-  width: 25%;
-  text-align: center;
-}
-
-.right-column {
-  display:inline-block;
-  width: 25%;
-  text-align: center;
-}
-
+//.left-column {
+//  font-size:0;
+//  display:inline-block;
+//  width: 25%;
+//  text-align: center;
+//}
+//
+//.middle-column {
+//  font-size:0;
+//  display:inline-block;
+//  width: 25%;
+//  text-align: center;
+//}
+//
+//.right-column {
+//  font-size:0;
+//  display:inline-block;
+//  width: 25%;
+//  text-align: center;
+//}
+//

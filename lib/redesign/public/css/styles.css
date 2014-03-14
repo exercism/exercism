@@ -461,6 +461,7 @@ li a.account-nav-add-team {
 .masthead {
   background: #d81d4e;
   height: 608px;
+  margin-bottom: 2%;
   text-align: center; }
 
 .logo {
@@ -490,26 +491,35 @@ li a.account-nav-add-team {
   background: #770428;
   color: #d81d4e; }
 
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box; }
+
 .content-primary {
+  font-size: 0;
   height: 435px;
   border-bottom: 1px solid magenta; }
 
 .badge {
-  width: 128px; }
+  width: 145px; }
 
 .badge-title {
   color: #d81d4e;
   font-family: "source_code_prolight", sans-serif;
-  font-size: 2.25em;
-  font-weight: normal; }
+  font-size: 1.75rem;
+  font-weight: normal;
+  margin: 0; }
 
 .badge-details {
   color: #b2b2b2;
   font-family: Arial, sans-serif;
-  font-size: 0.875em;
-  font-weight: normal; }
+  font-weight: normal;
+  font-size: 0.85rem; }
 
 .column {
+  font-size: 0;
   display: inline-block;
-  width: 25%;
+  margin: 0 6%;
+  width: 16%;
   text-align: center; }
