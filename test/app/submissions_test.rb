@@ -282,4 +282,9 @@ class SubmissionsTest < MiniTest::Unit::TestCase
     assert_equal 'superseded', s1.reload.state
     assert_equal 'pending', s2.reload.state
   end
+
+  def test_do_not_save_submission_with_nil_slug
+    attempt = Attempt.new(alice, 'CODE', 'file.rb').save
+    assert_equal attempt, false
+  end
 end

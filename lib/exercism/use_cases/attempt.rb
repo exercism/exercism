@@ -28,6 +28,7 @@ class Attempt
   end
 
   def save
+    return false if slug.nil?
     user.submissions_on(exercise).each do |sub|
       sub.supersede!
       sub.unmute_all!
