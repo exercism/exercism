@@ -66,7 +66,7 @@ class Hibernation
   end
 
   def qualifies_for_needing_input?
-    last_commenter_is_submitter? and stale_comment?
+    last_commenter_is_submitter? && stale_comment?
   end
 
   def qualifies_for_hibernation?
