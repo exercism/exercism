@@ -219,29 +219,18 @@ a {
   text-decoration: none; }
 
 .main {
-  min-height: 100%;
-  overflow-x: hidden;
-  width: 100%; }
-
-.topnav {
-  height: 70px;
-  border-bottom: 1px solid magenta;
-  padding-top: 1em; }
+  overflow-x: hidden; }
 
 .logout {
-  margin-left: 1em; }
+  display: block; }
 
 .logout-icon {
-  width: 30px;
-  margin-right: 1%; }
+  width: 30px; }
 
 .logout-text {
+  display: inline;
   font-family: "source_code_prolight", sans-serif;
-  color: #d81d4e;
-  display: inline-block; }
-
-.primary-nav {
-  float: right; }
+  color: #d81d4e; }
 
 .topnav-link {
   font-family: "source_code_prolight", sans-serif; }
@@ -498,8 +487,7 @@ li a.account-nav-add-team {
 
 .content-primary {
   font-size: 0;
-  height: 435px;
-  border-bottom: 1px solid magenta; }
+  height: 435px; }
 
 .badge {
   width: 145px; }
@@ -523,3 +511,37 @@ li a.account-nav-add-team {
   margin: 0 6%;
   width: 16%;
   text-align: center; }
+
+.content-secondary {
+  height: 455px;
+  border-top: 1px solid #d8d8d8; }
+
+.footer {
+  display: inline-block;
+  width: 100%; }
+
+.footer-text {
+  font-size: .85em;
+  display: inline-block; }
+
+.url-logo-container {
+  border-top: 1px solid #d8d8d8;
+  text-align: center; }
+
+.url-logo {
+  display: inline;
+  margin-bottom: -16px;
+  margin-top: -95px;
+  width: 166px; }
+
+.details-container {
+  text-align: center;
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 25px; }
+
+.footer-sponsors {
+  text-align: center; }
+
+.sponsor-logo {
+  margin-right: 35px;
+  width: 100px; }

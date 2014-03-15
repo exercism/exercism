@@ -5,7 +5,6 @@
  .content-primary {
   font-size: 0;
   height: 435px;
-  border-bottom: 1px solid magenta;
 }
 
 .badge {
@@ -32,6 +31,11 @@
   margin: 0 6%;
   width: 16%;
   text-align: center;
+}
+
+.content-secondary {
+  height: 455px;
+  border-top: 1px solid $border-grey;
 }
 
 //.left-column {

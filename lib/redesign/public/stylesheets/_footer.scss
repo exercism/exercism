@@ -1,0 +1,40 @@
+.footer {
+  display: inline-block;
+  width: 100%;
+}
+
+.footer-text {
+  font-size: .85em;
+  display: inline-block;
+}
+
+.url-logo-container {
+  border-top: 1px solid $border-grey;
+  text-align: center;
+}
+
+.url-logo {
+  display: inline;
+  margin-bottom: -16px;
+  margin-top: -95px;
+  width: 166px;
+
+}
+
+.details-container {
+  text-align: center;
+  border-bottom: 1px solid $border-grey;
+  padding-bottom: 25px;
+}
+
+.footer-sponsors {
+  text-align: center;
+}
+
+.sponsor-logo-container {
+}
+
+.sponsor-logo {
+  margin-right: 35px;
+  width: 100px;
+}
