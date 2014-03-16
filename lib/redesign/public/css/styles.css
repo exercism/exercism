@@ -450,7 +450,6 @@ li a.account-nav-add-team {
 .masthead {
   background: #d81d4e;
   height: 608px;
-  margin-bottom: 2%;
   text-align: center; }
 
 .logo {
@@ -506,7 +505,6 @@ li a.account-nav-add-team {
   font-size: 0.85rem; }
 
 .column {
-  font-size: 0;
   display: inline-block;
   margin: 0 6%;
   width: 16%;
