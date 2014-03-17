@@ -1,0 +1,40 @@
+/* For footer container settings see _containers.scss */
+
+.footer {
+  border-top: 1px solid $border-grey;
+  font-size: .85em;
+  text-align: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+.details-container p,
+.details-container a {
+  display: inline-block;
+}
+
+.url-logo {
+  display: inline-block;
+  width: 166px;
+  height: 23px;
+}
+
+.details-container {
+  border-bottom: 1px solid $border-grey;
+  padding-bottom: 25px;
+}
+
+.sponsor-text,
+.sponsor-logo-container {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.sponsor-text {
+  margin-right: 1em;
+}
+
+.sponsor-logo {
+  margin-right: 35px;
+  width: 100px;
+}

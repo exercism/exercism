@@ -8,7 +8,7 @@
 
   %section.content-primary
     %div.column-container
-      %div.column
+      %div.column<>
         %img.badge{:src => "redesign/icons/badge-iteration.svg"}
         %h2.badge-title Practice
         %h3.badge-details
@@ -18,13 +18,13 @@
             %a{:href => link_to('/about')} in multiple languages
           Work locally in your usual environment using your usual tools.
 
-      %div.column
+      %div.column<>
         %img.badge{:src => "redesign/icons/badge-people.svg"}
         %h2.badge-title Get Feedback
         %h3.badge-details
           This is a conversation about what good code might look like. This may be a question of idiom, or context, or style. There's no right answer, and many good questions.
 
-      %div.column
+      %div.column<>
         %img.badge{:src => "redesign/icons/badge-nitpick.svg"}
         %h2.badge-title Nitpick
         %h3.badge-details
@@ -32,13 +32,14 @@
           This means that the people who review your code are your peers, not a small handful of so-called experts.
 
   %section.content-secondary
-    %h2 Try It
-    %p You don't need to log in to try it out. Go to a temporary directory.
-    %pre $ cd /tmp
-    %p
-      Download the
-      = succeed "," do
-        %a{:href => "https://github.com/exercism/cli/releases/latest"} command line client
-      unpack it into a temporary directory.
-    %p The binary is named <kbd>exercism</kbd>. Fetch the first exercise available for each language:
-    %pre $ ./exercism demo
+    %div.content-secondary-details
+      %h2 Try It
+      %p You don't need to log in to try it out. Go to a temporary directory.
+      %pre $ cd /tmp
+      %p
+        Download the
+        = succeed "," do
+          %a{:href => "https://github.com/exercism/cli/releases/latest"} command line client
+        unpack it into a temporary directory.
+      %p The binary is named <kbd>exercism</kbd>. Fetch the first exercise available for each language:
+      %pre $ ./exercism demo

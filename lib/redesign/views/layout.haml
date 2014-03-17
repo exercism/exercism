@@ -20,3 +20,10 @@
     = haml :"layout/sidebar-main"
     = yield
     = haml :"layout/footer", locals: {email: '_@kytrinyx.com'}
+
+    :javascript
+      document.getElementById('sidebar_toggle').addEventListener('click', function(e) {
+        e.preventDefault()
+        document.body.classList.toggle('sidebar--closed')
+      })
+

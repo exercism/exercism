@@ -1,0 +1,34 @@
+*, *:before, *:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html {
+  color: $medium-grey;
+  font-size: $font-size-base;
+  line-height: 1.4;
+}
+
+body {
+  font-family: $sans-arial;
+}
+
+a {
+  color: $dark-grey;
+  font-weight: bold;
+  text-decoration: none
+}
+
+::-moz-selection {
+  background: $berry;
+  color: white;
+  text-shadow: none;
+}
+
+::selection {
+  background: $berry;
+  color: white;
+  text-shadow: none;
+}
+

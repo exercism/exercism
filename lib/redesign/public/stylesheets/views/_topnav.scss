@@ -1,0 +1,39 @@
+.topnav {
+  padding: 30px;
+}
+
+
+.logout,
+.primary-nav {
+  display: inline-block;
+  width: 50%;
+}
+
+
+.primary-nav {
+  text-align: right;
+}
+
+.topnav-link + .topnav-link {
+  margin-left: 40px;
+}
+
+
+.logout-icon,
+.logout-text {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.logout-icon {
+  width: 30px;
+}
+
+.logout-text {
+  font-family: $sans-light;
+  color: $berry;
+}
+
+.topnav-link {
+  font-family: $sans-light;
+}

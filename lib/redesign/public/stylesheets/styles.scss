@@ -1,13 +1,18 @@
-@import "typography";
-@import "normalize";
-@import "config";
-@import "main";
-@import "topnav";
-@import "sidebar-main";
-@import "sidebar-profile";
-@import "sidebar-alerts";
-@import "sidebar-menu";
-@import "masthead";
-@import "home";
-@import "footer"
+@import "base/normalize";
+@import "base/config";
+@import "base/scaffold";
+@import "base/typography";
+/* @import "base/iconography"; svgs, etc*/
+@import "base/containers";
+/* @import "base/forms"; */
+/* @import "base/elements"; tables, images, svg, audio */
+
+@import "components/sidebar-profile";
+@import "components/sidebar-alerts";
+@import "components/sidebar-menu";
+
+
+@import "views/topnav";
+@import "views/home";
+@import "views/footer";
 
