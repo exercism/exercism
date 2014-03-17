@@ -485,7 +485,6 @@ li a.account-nav-add-team {
   box-sizing: border-box; }
 
 .content-primary {
-  font-size: 0;
   height: 435px; }
 
 .badge {
@@ -504,15 +503,47 @@ li a.account-nav-add-team {
   font-weight: normal;
   font-size: 0.85rem; }
 
+.column-container {
+  width: 1336px;
+  margin: 0 32%; }
+
 .column {
-  display: inline-block;
-  margin: 0 6%;
+  float: left;
+  margin: 0 auto;
   width: 16%;
   text-align: center; }
 
 .content-secondary {
+  background: #f2f2f2;
+  display: inline-block;
+  width: 100%;
   height: 455px;
-  border-top: 1px solid #d8d8d8; }
+  border-top: 1px solid #d8d8d8;
+  text-align: center;
+  padding-top: 5%; }
+  .content-secondary h2 {
+    font-family: "source_code_prolight", sans-serif;
+    font-size: 1.75em;
+    font-weight: normal;
+    color: #262626;
+    margin: 0 0 2% 0; }
+  .content-secondary pre {
+    background: white;
+    display: inline-block;
+    width: 440px;
+    height: 35px;
+    border: 1px solid #d8d8d8;
+    padding-top: 8px;
+    padding-left: 12px;
+    text-align: left;
+    margin: 2% 0 5% 0;
+    color: #262626;
+    font-size: .875rem; }
+  .content-secondary p {
+    font-size: 0.85rem;
+    font-weight: normal;
+    line-height: 1.5;
+    margin: 0; }
 
 .footer {
   display: inline-block;
