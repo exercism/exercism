@@ -1,24 +1,15 @@
-.account-nav-container {
-  border-top: 1px solid $border-grey;
-  border-bottom: 1px solid $border-grey;
-}
-
-.account-nav-section-title {
-  font-size: 1.125em;
+.nav-tree-title {
   padding-left: 22px;
 }
 
-.account-nav-counter {
+.counter {
   float: right;
   display: inline-block;
   background-color: $medium-grey;
-  color: white;
   margin-right: 15px;
   width: 40px;
   text-align: center;
   border-radius: 4px;
-  font-family: $sans-regular;
-  font-size: 0.9375em;
   padding: 2px 0;
 }
 
@@ -132,9 +123,6 @@ li a.account-nav-add-team {
 }
 
 .delete-all-read {
-  font-family: $sans-light;
-  font-size: 0.9375em;
-  color: $berry;
   display: block;
   margin: 15px 0px 8px 20px;
 }
@@ -150,18 +138,6 @@ li a.account-nav-add-team {
 }
 
 .exercise-username {
-  color: $medium-grey;
-  font-size: 0.875em;
-  font-weight: normal;
-  margin-top: 5px;
-
-}
-
-.exercise-time-note {
-  color: $medium-grey;
-  font-size: 0.75em;
-  font-weight: 100;
-  font-style: italic;
   margin-top: 5px;
 }
 

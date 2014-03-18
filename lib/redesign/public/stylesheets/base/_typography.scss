@@ -88,8 +88,34 @@ pre {
   font-weight: normal;
 }
 
+.counter {
+  font-family: $sans-regular;
+  font-size: 0.9375em;
+  color: white;
+}
+
 .settings-text {
   font-family: $sans-light;
   font-size: 1em;
   color: $sidebar-text
+}
+
+.posted-at {
+  color: $medium-grey;
+  font-size: 0.75em;
+  font-weight: 100;
+  font-style: italic;
+  margin-top: 5px;
+}
+
+.exercise-username {
+  color: $medium-grey;
+  font-size: 0.875em;
+  font-weight: normal;
+}
+
+.delete-all-read {
+  font-family: $sans-light;
+  font-size: 0.9375em;
+  color: $berry;
 }

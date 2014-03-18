@@ -211,6 +211,9 @@ a {
   color: #4c4c4c;
   text-decoration: none; }
 
+ul {
+  list-style: none; }
+
 ::-moz-selection {
   background: #d81d4e;
   color: white;
@@ -295,10 +298,32 @@ pre {
   font-size: 1.125em;
   font-weight: normal; }
 
+.counter {
+  font-family: "source_code_proregular", sans-serif;
+  font-size: 0.9375em;
+  color: white; }
+
 .settings-text {
   font-family: "source_code_prolight", sans-serif;
   font-size: 1em;
   color: #808285; }
+
+.posted-at {
+  color: #999999;
+  font-size: 0.75em;
+  font-weight: 100;
+  font-style: italic;
+  margin-top: 5px; }
+
+.exercise-username {
+  color: #999999;
+  font-size: 0.875em;
+  font-weight: normal; }
+
+.delete-all-read {
+  font-family: "source_code_prolight", sans-serif;
+  font-size: 0.9375em;
+  color: #d81d4e; }
 
 .logo {
   width: 218px; }
@@ -322,6 +347,12 @@ pre {
 
 .settings-icon {
   width: 25px; }
+
+.alert-flag {
+  width: 25px; }
+
+.alert-close {
+  width: 14px; }
 
 .main-sidebar {
   -webkit-transition: width 150ms ease;
@@ -355,7 +386,9 @@ pre {
   margin-left: 0; }
 
 .account-container {
-  text-align: center; }
+  text-align: center;
+  border-bottom: 1px solid #d8d8d8;
+  padding-bottom: 2em; }
 
 .profile-settings {
   display: block; }
@@ -377,12 +410,10 @@ pre {
   padding: 10px; }
 
 .alert-flag {
-  width: 25px;
   margin-left: -4px;
   margin-bottom: 4px; }
 
 .alert-close {
-  width: 14px;
   float: right; }
 
 .alert-message {
@@ -393,7 +424,6 @@ pre {
   width: 175px; }
 
 .alert-list {
-  list-style: none;
   margin: 0;
   padding: 0; }
   .alert-list li {
@@ -404,25 +434,17 @@ pre {
   .alert-list li:last-child {
     margin-bottom: 4px; }
 
-.account-nav-container {
-  border-top: 1px solid #d8d8d8;
-  border-bottom: 1px solid #d8d8d8; }
-
-.account-nav-section-title {
-  font-size: 1.125em;
+.nav-tree-title {
   padding-left: 22px; }
 
-.account-nav-counter {
+.counter {
   float: right;
   display: inline-block;
   background-color: #999999;
-  color: white;
   margin-right: 15px;
   width: 40px;
   text-align: center;
   border-radius: 4px;
-  font-family: "source_code_proregular", sans-serif;
-  font-size: 0.9375em;
   padding: 2px 0; }
 
 .account-nav-tree {
@@ -514,9 +536,6 @@ li a.account-nav-add-team {
     border-bottom: 1px solid #d8d8d8; }
 
 .delete-all-read {
-  font-family: "source_code_prolight", sans-serif;
-  font-size: 0.9375em;
-  color: #d81d4e;
   display: block;
   margin: 15px 0px 8px 20px; }
 
@@ -529,16 +548,6 @@ li a.account-nav-add-team {
   margin: -36px 8px 12px 50px; }
 
 .exercise-username {
-  color: #999999;
-  font-size: 0.875em;
-  font-weight: normal;
-  margin-top: 5px; }
-
-.exercise-time-note {
-  color: #999999;
-  font-size: 0.75em;
-  font-weight: 100;
-  font-style: italic;
   margin-top: 5px; }
 
 .topnav {

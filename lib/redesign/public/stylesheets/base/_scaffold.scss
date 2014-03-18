@@ -19,6 +19,10 @@ a {
   text-decoration: none;
 }
 
+ul {
+  list-style: none;
+}
+
 ::-moz-selection {
   background: $berry;
   color: white;
