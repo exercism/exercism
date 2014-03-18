@@ -60,16 +60,36 @@ pre {
   box-shadow: 0px 3px 2px #f7f7f7 inset;
 }
 
+.headline {
+  color: $white;
+  font-family: $sans-light;
+  font-size: 2.375em;
+  font-weight: 100;
+  margin: 0;
+}
+
 .header {
+  color: $berry;
+  font-family: $sans-light;
+  font-size: 1.75rem;
+  font-weight: normal;
+}
+
+.sub-head {
   font-family: $sans-regular;
   font-size: .95em;
   margin: 0;
   color: $dark-berry;
 }
 
-.topnav-link {
+.nav-link {
   font-family: $sans-light;
-  font-size: 1.275em;
+  font-size: 1.125em;
   font-weight: normal;
 }
 
+.settings-text {
+  font-family: $sans-light;
+  font-size: 1em;
+  color: $sidebar-text
+}

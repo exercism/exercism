@@ -1,3 +1,6 @@
 %div.account-container
-  %img.account-gravatar{:src => "redesign/icons/katrina.png"}
-  %a.account-icon{:href => link_to('/account')} Katrina
+  %img.gravatar{:src => "redesign/icons/katrina.png"}
+  %a.profile-settings{:href => link_to('/account')}<>
+    %img.settings-icon(src="redesign/icons/settings.svg")<>
+    %span.settings-text Katrina
+

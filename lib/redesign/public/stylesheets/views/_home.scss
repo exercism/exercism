@@ -1,29 +1,5 @@
-.badge {
-  width: 145px;
-}
-.badge-title {
-  color: $berry;
-  font-family: $sans-light;
-  font-size: 1.75rem;
-  font-weight: normal;
-  margin: 0 0 .5em 0;
-}
-
-.badge-details {
-  color: $type-grey;
-  font-family: $sans-arial;
-  font-weight: normal;
-  font-size: 0.85rem;
-}
-
-@media(min-width: 45em) {
-  .column {
-    display: inline-block;
-    vertical-align: top;
-    width: 33.33333%;
-    padding: 0 30px;
-    text-align: center;
-  }
+.logo {
+  padding-top: 100px;
 }
 
 .content-primary {
@@ -47,25 +23,11 @@
     margin: 0 0 15px 0;
   }
 }
-.masthead {
+.banner {
   background: $berry;
   height: 608px;
   text-align: center;
 }
-
-.logo {
-  width: 218px;
-  padding-top: 100px;
-}
-
-.headline {
-  color: $white;
-  font-family: $sans-light;
-  font-size: 2.375em;
-  font-weight: 100;
-  margin: 0;
-}
-
 
 .login-gh {
   display: inline-block;
@@ -77,3 +39,24 @@
   background: $dark-berry;
   color: $berry;
 }
+
+@media(min-width: 45em) {
+  .column {
+    display: inline-block;
+    vertical-align: top;
+    width: 33.33333%;
+    padding: 0 30px;
+    text-align: center;
+  }
+}
+
+@media(max-width: 45em) {
+  .column {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 30px;
+    text-align: center;
+  }
+
+}
+

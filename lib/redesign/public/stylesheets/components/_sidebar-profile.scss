@@ -1,21 +1,18 @@
-.account-icon {
-  background: url(/redesign/icons/settings.svg) 2px -1px no-repeat;
-  background-size: 28px 28px;
-  padding:3px 0px 3px 35px;
-  font-family: $sans-light;
-  font-size: 1em;
-  color: $sidebar-text
-}
-
 .account-container {
-  margin-top: 24px;
   text-align: center;
 }
 
-.account-gravatar {
-  border-radius: 50%;
+.profile-settings {
   display: block;
-  width: 100px;
-  margin: 0 auto 12px auto;
+}
+
+.settings-icon {
+  margin-right: 5px;
+}
+
+.settings-icon,
+.settings-text {
+  display: inline-block;
+  vertical-align: middle;
 }
 

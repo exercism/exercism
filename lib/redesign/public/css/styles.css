@@ -271,23 +271,64 @@ pre {
   -moz-box-shadow: 0px 3px 2px #f7f7f7 inset;
   box-shadow: 0px 3px 2px #f7f7f7 inset; }
 
+.headline {
+  color: white;
+  font-family: "source_code_prolight", sans-serif;
+  font-size: 2.375em;
+  font-weight: 100;
+  margin: 0; }
+
 .header {
+  color: #d81d4e;
+  font-family: "source_code_prolight", sans-serif;
+  font-size: 1.75rem;
+  font-weight: normal; }
+
+.sub-head {
   font-family: "source_code_proregular", sans-serif;
   font-size: .95em;
   margin: 0;
   color: #770428; }
 
-.topnav-link {
+.nav-link {
   font-family: "source_code_prolight", sans-serif;
-  font-size: 1.275em;
+  font-size: 1.125em;
   font-weight: normal; }
 
-/* @import "base/iconography"; svgs, etc*/
+.settings-text {
+  font-family: "source_code_prolight", sans-serif;
+  font-size: 1em;
+  color: #808285; }
+
+.logo {
+  width: 218px; }
+
+.badge {
+  width: 145px; }
+
+.sponsor-logo {
+  width: 100px; }
+
+.url-logo {
+  width: 166px;
+  height: 23px; }
+
+.logout-icon {
+  width: 30px; }
+
+.gravatar {
+  border-radius: 50%;
+  width: 100px; }
+
+.settings-icon {
+  width: 25px; }
+
 .main-sidebar {
   -webkit-transition: width 150ms ease;
   transition: width 150ms ease;
   background-color: #f2f2f2;
   border: 1px solid #d8d8d8;
+  padding-top: 20px;
   width: 16.25em;
   position: fixed;
   top: 0;
@@ -313,25 +354,19 @@ pre {
 .sidebar--closed .footer {
   margin-left: 0; }
 
-/* @import "base/forms"; */
-/* @import "base/elements"; tables, images, svg, audio */
-.account-icon {
-  background: url(/redesign/icons/settings.svg) 2px -1px no-repeat;
-  background-size: 28px 28px;
-  padding: 3px 0px 3px 35px;
-  font-family: "source_code_prolight", sans-serif;
-  font-size: 1em;
-  color: #808285; }
-
 .account-container {
-  margin-top: 24px;
   text-align: center; }
 
-.account-gravatar {
-  border-radius: 50%;
-  display: block;
-  width: 100px;
-  margin: 0 auto 12px auto; }
+.profile-settings {
+  display: block; }
+
+.settings-icon {
+  margin-right: 5px; }
+
+.settings-icon,
+.settings-text {
+  display: inline-block;
+  vertical-align: middle; }
 
 .account-alerts {
   background-color: #ead3da;
@@ -517,7 +552,7 @@ li a.account-nav-add-team {
 .primary-nav {
   text-align: right; }
 
-.topnav-link + .topnav-link {
+.nav-link + .nav-link {
   margin-left: 40px; }
 
 .logout-icon,
@@ -525,36 +560,13 @@ li a.account-nav-add-team {
   display: inline-block;
   vertical-align: middle; }
 
-.logout-icon {
-  width: 30px; }
-
 .logout-text {
   font-family: "source_code_prolight", sans-serif;
   color: #d81d4e; }
 
-.badge {
-  width: 145px; }
+.logo {
+  padding-top: 100px; }
 
-.badge-title {
-  color: #d81d4e;
-  font-family: "source_code_prolight", sans-serif;
-  font-size: 1.75rem;
-  font-weight: normal;
-  margin: 0 0 .5em 0; }
-
-.badge-details {
-  color: #b2b2b2;
-  font-family: Arial, sans-serif;
-  font-weight: normal;
-  font-size: 0.85rem; }
-
-@media (min-width: 45em) {
-  .column {
-    display: inline-block;
-    vertical-align: top;
-    width: 33.33333%;
-    padding: 0 30px;
-    text-align: center; } }
 .content-primary {
   padding-top: 2em;
   padding-bottom: 6em; }
@@ -572,21 +584,10 @@ li a.account-nav-add-team {
   color: #262626;
   margin: 0 0 15px 0; }
 
-.masthead {
+.banner {
   background: #d81d4e;
   height: 608px;
   text-align: center; }
-
-.logo {
-  width: 218px;
-  padding-top: 100px; }
-
-.headline {
-  color: white;
-  font-family: "source_code_prolight", sans-serif;
-  font-size: 2.375em;
-  font-weight: 100;
-  margin: 0; }
 
 .login-gh {
   display: inline-block;
@@ -598,6 +599,19 @@ li a.account-nav-add-team {
   background: #770428;
   color: #d81d4e; }
 
+@media (min-width: 45em) {
+  .column {
+    display: inline-block;
+    vertical-align: top;
+    width: 33.33333%;
+    padding: 0 30px;
+    text-align: center; } }
+@media (max-width: 45em) {
+  .column {
+    display: inline-block;
+    vertical-align: top;
+    padding: 0 30px;
+    text-align: center; } }
 /* For footer container settings see _containers.scss */
 .footer {
   border-top: 1px solid #d8d8d8;
@@ -612,8 +626,6 @@ li a.account-nav-add-team {
 
 .url-logo {
   display: inline-block;
-  width: 166px;
-  height: 23px;
   margin-bottom: 1em; }
 
 .details-container {
@@ -628,9 +640,8 @@ li a.account-nav-add-team {
   display: inline-block;
   vertical-align: middle; }
 
-.sponsor-text {
+.sponsor-logo {
   margin-right: 1.75em; }
 
-.sponsor-logo {
-  margin-right: 1.75em;
-  width: 100px; }
+.sponsor-text {
+  margin-right: 1.75em; }

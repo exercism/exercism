@@ -13,7 +13,7 @@
   text-align: right;
 }
 
-.topnav-link + .topnav-link {
+.nav-link + .nav-link {
   margin-left: 40px;
 }
 
@@ -22,10 +22,6 @@
 .logout-text {
   display: inline-block;
   vertical-align: middle;
-}
-
-.logout-icon {
-  width: 30px;
 }
 
 .logout-text {
