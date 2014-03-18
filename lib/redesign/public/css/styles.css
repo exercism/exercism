@@ -201,7 +201,7 @@ table {
 
 html {
   color: #999999;
-  font-size: 16px;
+  font-size: 100%;
   line-height: 1.4; }
 
 body {
@@ -209,7 +209,6 @@ body {
 
 a {
   color: #4c4c4c;
-  font-weight: bold;
   text-decoration: none; }
 
 ::-moz-selection {
@@ -243,6 +242,45 @@ hr {
   border-top: 1px solid #f2f2f2;
   margin: 1em 0;
   padding: 0; }
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0; }
+
+p {
+  color: #b2b2b2;
+  font-family: Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: normal;
+  line-height: 1.4;
+  margin: 0; }
+
+pre {
+  background: white;
+  display: inline-block;
+  width: 440px;
+  height: 35px;
+  border: 1px solid #d8d8d8;
+  border-radius: 3px;
+  padding-top: 8px;
+  padding-left: 12px;
+  text-align: left;
+  margin: 15px 0 30px 0;
+  color: #262626;
+  font-size: .875rem;
+  -webkit-box-shadow: 0px 3px 2px #f7f7f7 inset;
+  -moz-box-shadow: 0px 3px 2px #f7f7f7 inset;
+  box-shadow: 0px 3px 2px #f7f7f7 inset; }
+
+.header {
+  font-family: "source_code_proregular", sans-serif;
+  font-size: .95em;
+  margin: 0;
+  color: #770428; }
+
+.topnav-link {
+  font-family: "source_code_prolight", sans-serif;
+  font-size: 1.275em;
+  font-weight: normal; }
 
 /* @import "base/iconography"; svgs, etc*/
 .main-sidebar {
@@ -469,7 +507,7 @@ li a.account-nav-add-team {
   margin-top: 5px; }
 
 .topnav {
-  padding: 30px; }
+  padding: 20px; }
 
 .logout,
 .primary-nav {
@@ -494,12 +532,6 @@ li a.account-nav-add-team {
   font-family: "source_code_prolight", sans-serif;
   color: #d81d4e; }
 
-.topnav-link {
-  font-family: "source_code_prolight", sans-serif; }
-
-/* .content-primary { */
-/* height: 435px; */
-/* } */
 .badge {
   width: 145px; }
 
@@ -508,7 +540,7 @@ li a.account-nav-add-team {
   font-family: "source_code_prolight", sans-serif;
   font-size: 1.75rem;
   font-weight: normal;
-  margin: 0; }
+  margin: 0 0 .5em 0; }
 
 .badge-details {
   color: #b2b2b2;
@@ -523,39 +555,22 @@ li a.account-nav-add-team {
     width: 33.33333%;
     padding: 0 30px;
     text-align: center; } }
+.content-primary {
+  padding-top: 2em;
+  padding-bottom: 6em; }
+
 .content-secondary {
   background: #f2f2f2;
   border-top: 1px solid #d8d8d8;
   text-align: center;
-  padding-top: 3.5em; }
+  padding: 3.5em 0 6em 0; }
 
 .content-secondary-details h2 {
   font-family: "source_code_prolight", sans-serif;
   font-size: 1.75em;
   font-weight: normal;
   color: #262626;
-  margin: 0 0 2% 0; }
-.content-secondary-details pre {
-  background: white;
-  display: inline-block;
-  width: 440px;
-  height: 35px;
-  border: 1px solid #d8d8d8;
-  border-radius: 3px;
-  padding-top: 8px;
-  padding-left: 12px;
-  text-align: left;
-  margin: 2% 0 5% 0;
-  color: #262626;
-  font-size: .875rem;
-  -webkit-box-shadow: 0px 3px 2px #f7f7f7 inset;
-  -moz-box-shadow: 0px 3px 2px #f7f7f7 inset;
-  box-shadow: 0px 3px 2px #f7f7f7 inset; }
-.content-secondary-details p {
-  font-size: 0.85rem;
-  font-weight: normal;
-  line-height: 1.5;
-  margin: 0; }
+  margin: 0 0 15px 0; }
 
 .masthead {
   background: #d81d4e;
@@ -572,12 +587,6 @@ li a.account-nav-add-team {
   font-size: 2.375em;
   font-weight: 100;
   margin: 0; }
-
-.sub-head {
-  font-family: "source_code_proregular", sans-serif;
-  font-size: .95em;
-  margin: 0;
-  color: #770428; }
 
 .login-gh {
   display: inline-block;
@@ -604,11 +613,15 @@ li a.account-nav-add-team {
 .url-logo {
   display: inline-block;
   width: 166px;
-  height: 23px; }
+  height: 23px;
+  margin-bottom: 1em; }
 
 .details-container {
   border-bottom: 1px solid #d8d8d8;
   padding-bottom: 25px; }
+
+.footer-sponsors {
+  padding-top: 1.25em; }
 
 .sponsor-text,
 .sponsor-logo-container {
@@ -616,8 +629,8 @@ li a.account-nav-add-team {
   vertical-align: middle; }
 
 .sponsor-text {
-  margin-right: 1em; }
+  margin-right: 1.75em; }
 
 .sponsor-logo {
-  margin-right: 35px;
+  margin-right: 1.75em;
   width: 100px; }

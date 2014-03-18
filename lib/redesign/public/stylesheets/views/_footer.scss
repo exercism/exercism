@@ -17,11 +17,16 @@
   display: inline-block;
   width: 166px;
   height: 23px;
+  margin-bottom: 1em;
 }
 
 .details-container {
   border-bottom: 1px solid $border-grey;
   padding-bottom: 25px;
+}
+
+.footer-sponsors {
+  padding-top: 1.25em;
 }
 
 .sponsor-text,
@@ -31,10 +36,10 @@
 }
 
 .sponsor-text {
-  margin-right: 1em;
+  margin-right: 1.75em;
 }
 
 .sponsor-logo {
-  margin-right: 35px;
+  margin-right: 1.75em;
   width: 100px;
 }

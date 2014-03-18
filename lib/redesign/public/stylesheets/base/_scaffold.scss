@@ -6,7 +6,7 @@
 
 html {
   color: $medium-grey;
-  font-size: $font-size-base;
+  font-size: 100%;
   line-height: 1.4;
 }
 
@@ -16,8 +16,7 @@ body {
 
 a {
   color: $dark-grey;
-  font-weight: bold;
-  text-decoration: none
+  text-decoration: none;
 }
 
 ::-moz-selection {
