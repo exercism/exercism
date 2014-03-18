@@ -5,6 +5,7 @@ ruby "2.0.0"
 gem 'activerecord', '~> 4.0'
 gem 'faraday'
 gem 'haml', require: false
+gem 'sass'
 gem 'loofah'
 gem 'newrelic_rpm', '~>3.7' # used both in production and development
 gem 'petroglyph'

@@ -11,12 +11,19 @@
     %title Exercism Redesign
     %meta{:content => "", :name => "description"}/
     %meta{:content => "width=device-width, initial-scale=1.0", :name => "viewport"}/
-    %link{:href => link_to("css/style.css"), :rel => "stylesheet"}/
-    %link{:href => link_to("ico/favicon.ico"), :rel => "shortcut icon"}/
+    %link{:href => link_to("css/styles.css"), :rel => "stylesheet"}/
+    %link{:href => link_to("icons/favicon.ico"), :rel => "shortcut icon"}/
   %body
     /[if lt IE 7]
       <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
 
+    = haml :"layout/sidebar-main"
     = yield
-
     = haml :"layout/footer", locals: {email: '_@kytrinyx.com'}
+
+    :javascript
+      document.getElementById('sidebar_toggle').addEventListener('click', function(e) {
+        e.preventDefault()
+        document.body.classList.toggle('sidebar--closed')
+      })
+
