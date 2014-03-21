@@ -1,14 +1,16 @@
 namespace :db do
   desc "generate seed data"
-  task :seed, :size do |t, args|
-    args.with_defaults(size: 10)
+  task :seed do
+
+    %x{dropdb exercism_development}
+    %x{createdb -O exercism exercism_development}
+    %x{psql -U exercism -d exercism_development -f db/seeds.sql}
+
     require 'bundler'
     Bundler.require
     require 'exercism'
-    require 'seed'
+    # Trigger generation of html body
+    Comment.find_each { |comment| comment.save }
 
-    Seed.reset
-    Seed.generate(args[:size].to_i)
-    Seed.generate_default_users
   end
 end
