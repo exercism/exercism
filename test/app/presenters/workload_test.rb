@@ -39,6 +39,7 @@ class WorkloadTest < MiniTest::Unit::TestCase
     Attempt.new(marjo, "code", "word_count/word_count.rb").save
 
     alex.submissions.first.like!(marjo)
+    alex.submissions.last.update_attributes(state: 'needs_input')
     marjo.submissions.first.like!(alex)
   end
 
@@ -60,6 +61,12 @@ class WorkloadTest < MiniTest::Unit::TestCase
 
   def test_submissions_with_given_looks_great_as_slug
     workload = Workload.new(master, "ruby", "looks-great")
+
+    assert_equal 2, workload.submissions.count
+  end
+
+  def test_submissions_with_given_needs_input_as_slug
+    workload = Workload.new(master, "ruby", "bob")
 
     assert_equal 2, workload.submissions.count
   end
