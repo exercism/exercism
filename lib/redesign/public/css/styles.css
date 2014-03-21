@@ -378,6 +378,9 @@ pre {
   transition: margin-left 150ms ease;
   margin-left: 16.25em; }
 
+.topnav {
+  margin-left: 16.25em; }
+
 .sidebar--closed .main-sidebar {
   width: 0; }
 
