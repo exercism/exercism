@@ -23,10 +23,16 @@
   -webkit-transition: margin-left 150ms ease;
   transition: margin-left 150ms ease;
   margin-left: 16.25em;
+  padding-top: 4.5em;
 }
 
 .topnav {
+  background-color: $white;
   margin-left: 16.25em;
+  position: fixed;
+  height: 4.5em;
+  width: 100%;
+  z-index: 10;
 }
 
 .sidebar--closed .main-sidebar {
