@@ -1,7 +1,6 @@
 %section.main
-  = haml :"home/topnav-user"
   %section.banner
-    %img.logo{:src => "redesign/icons/logo.svg"}
+    %img.logo(src="/redesign/icons/logo.svg")
     %h1.headline The Devil Is In The Details
     %h2.sub-head Crowd-sourced code reviews on daily practice problems
     %a.login-gh(src="#") get started via github
@@ -9,7 +8,7 @@
   %section.content-primary
     %div.column-container
       %div.column<>
-        %img.badge(src="redesign/icons/badge-iteration.svg")
+        %img.badge(src="/redesign/icons/badge-iteration.svg")
         %h2.header Practice
         %p
           We give you a README and a test suite. You make the tests pass...but that's just the first step.
@@ -19,13 +18,13 @@
           Work locally in your usual environment using your usual tools.
 
       %div.column<>
-        %img.badge(src="redesign/icons/badge-people.svg")
+        %img.badge(src="/redesign/icons/badge-people.svg")
         %h2.header Get Feedback
         %p
           This is a conversation about what good code might look like. This may be a question of idiom, or context, or style. There's no right answer, and many good questions.
 
       %div.column<>
-        %img.badge(src="redesign/icons/badge-nitpick.svg")
+        %img.badge(src="/redesign/icons/badge-nitpick.svg")
         %h2.header Nitpick
         %p
           Once you've completed an exercise, you are invited to provide feedback to other participants working on the exercise.

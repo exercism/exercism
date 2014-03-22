@@ -325,6 +325,14 @@ pre {
   font-size: 0.9375em;
   color: #d81d4e; }
 
+.list {
+  padding: 0; }
+  .list li {
+    margin: 2px 0;
+    padding-left: 25px;
+    background: url("/redesign/icons/hyphen.png") no-repeat left 9px;
+    display: block; }
+
 .logo {
   width: 218px; }
 
@@ -354,6 +362,9 @@ pre {
 .alert-close {
   width: 14px; }
 
+.mast-logo {
+  width: 152px; }
+
 .main-sidebar {
   -webkit-transition: width 150ms ease;
   transition: width 150ms ease;
@@ -376,7 +387,16 @@ pre {
 .footer {
   -webkit-transition: margin-left 150ms ease;
   transition: margin-left 150ms ease;
-  margin-left: 16.25em; }
+  margin-left: 16.25em;
+  padding-top: 4.5em; }
+
+.topnav {
+  background-color: white;
+  margin-left: 16.25em;
+  position: fixed;
+  height: 4.5em;
+  width: 100%;
+  z-index: 10; }
 
 .sidebar--closed .main-sidebar {
   width: 0; }
@@ -549,6 +569,28 @@ li a.account-nav-add-team {
 
 .exercise-username {
   margin-top: 5px; }
+
+.masthead {
+  background-color: #d81d4e;
+  height: 15em; }
+
+.mast-contents {
+  padding: 38px 0 0 15%; }
+
+.mast-logo {
+  vertical-align: middle; }
+
+.article-block {
+  padding: 20px;
+  border-bottom: 1px solid #d8d8d8; }
+  .article-block h2 {
+    margin-bottom: 10px; }
+
+article:last-child {
+  border-bottom: 0px; }
+
+.article-contents {
+  padding: 15px 0 20px 16%; }
 
 .topnav {
   padding: 20px; }
