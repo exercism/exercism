@@ -119,3 +119,13 @@ pre {
   font-size: 0.9375em;
   color: $berry;
 }
+
+.list {
+  padding: 0;
+  li {
+    margin: 2px 0;
+    padding-left: 25px;
+    background: url("/redesign/icons/hyphen.png") no-repeat left 9px;
+    display: block;
+  }
+}
