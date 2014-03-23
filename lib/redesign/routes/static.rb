@@ -8,6 +8,10 @@ module ExercismIO
       get '/getting-started' do
         haml :"static/getting-started"
       end
+
+      get '/blog' do
+        haml :"static/blog"
+      end
     end
   end
 end
