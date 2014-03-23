@@ -88,6 +88,13 @@ pre {
   font-weight: normal;
 }
 
+.code-type {
+  color: $type-grey;
+  font-family: $sans-light;
+  font-size: .875rem;
+  font-weight: normal;
+}
+
 .counter {
   font-family: $sans-regular;
   font-size: 0.9375em;

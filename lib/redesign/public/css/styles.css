@@ -298,6 +298,12 @@ pre {
   font-size: 1.125em;
   font-weight: normal; }
 
+.code-type {
+  color: #b2b2b2;
+  font-family: "source_code_prolight", sans-serif;
+  font-size: .875rem;
+  font-weight: normal; }
+
 .counter {
   font-family: "source_code_proregular", sans-serif;
   font-size: 0.9375em;
@@ -365,6 +371,9 @@ pre {
 .mast-logo {
   width: 152px; }
 
+.caret {
+  width: 20px; }
+
 .main-sidebar {
   -webkit-transition: width 150ms ease;
   transition: width 150ms ease;
@@ -392,10 +401,10 @@ pre {
 
 .topnav {
   background-color: white;
-  margin-left: 16.25em;
   position: fixed;
   height: 4.5em;
-  width: 100%;
+  left: 16.25em;
+  right: 0em;
   z-index: 10; }
 
 .sidebar--closed .main-sidebar {
@@ -592,19 +601,18 @@ article:last-child {
 .article-contents {
   padding: 15px 0 20px 16%; }
 
-.topnav {
+.full-nav {
   padding: 20px; }
 
 .logout,
 .primary-nav {
-  display: inline-block;
-  width: 45%; }
+  display: inline-block; }
 
 .sidebar-toggle {
   margin-right: 40px; }
 
 .primary-nav {
-  text-align: right; }
+  float: right; }
 
 .nav-link + .nav-link {
   margin-left: 40px; }

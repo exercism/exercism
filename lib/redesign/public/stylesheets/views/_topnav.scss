@@ -1,11 +1,10 @@
-.topnav {
+.full-nav {
   padding: 20px;
 }
 
 .logout,
 .primary-nav {
   display: inline-block;
-  width: 45%;
 }
 
 .sidebar-toggle {
@@ -13,7 +12,7 @@
 }
 
 .primary-nav {
-  text-align: right;
+  float: right;
 }
 
 .nav-link + .nav-link {
