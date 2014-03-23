@@ -5,6 +5,7 @@ module ExercismIO
         set :root, './lib/redesign'
       end
 
+      helpers ExercismIO::Helpers::Config
       helpers ExercismIO::Helpers::URL
     end
   end

@@ -1,6 +1,6 @@
 module ExercismIO
   module Helpers
+    autoload :Config, 'redesign/helpers/config'
     autoload :URL, 'redesign/helpers/url'
-    autoload :ENV, 'redesign/helpers/env'
   end
 end
