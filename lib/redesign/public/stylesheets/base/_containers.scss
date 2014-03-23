@@ -28,10 +28,10 @@
 
 .topnav {
   background-color: $white;
-  margin-left: 16.25em;
   position: fixed;
   height: 4.5em;
-  width: 100%;
+  left: 16.25em;
+  right: 0em;
   z-index: 10;
 }
 
