@@ -20,7 +20,7 @@
     = haml :"layout/sidebar-main"
     = haml :"layout/topnav"
     = yield
-    = haml :"layout/footer", locals: {email: '_@kytrinyx.com'}
+    = haml :"layout/footer", locals: {email: 'kytrinyx@exercism.io'}
 
     :javascript
       document.getElementById('sidebar_toggle').addEventListener('click', function(e) {
