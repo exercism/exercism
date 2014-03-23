@@ -5,6 +5,10 @@ module ExercismIO
         '/redesign'
       end
 
+      def host
+        request.host_with_port + root_path
+      end
+
       def github_client_id
         ENV.fetch('EXERCISM_REDESIGN_GITHUB_CLIENT_ID')
       end

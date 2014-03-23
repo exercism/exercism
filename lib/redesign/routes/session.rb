@@ -1,0 +1,38 @@
+module ExercismIO
+  module Routes
+    class Session < Core
+      get '/login' do
+        redirect login_url
+      end
+
+      get '/logout' do
+        logout
+        redirect root_path
+      end
+
+      get '/github/callback/?*' do
+        unless params[:code]
+          halt 400, "Must provide parameter 'code'"
+        end
+
+        begin
+          user = Authentication.perform(params[:code], github_client_id, github_client_secret)
+          login(user)
+        rescue => e
+          flash[:error] = "We're having trouble with logins right now. Please come back later."
+        end
+
+        if current_user.guest?
+          flash[:error] = "We're having trouble with logins right now. Please come back later."
+        end
+
+        path = params[:splat].first
+        if path.nil? || path.empty?
+          redirect root_path
+        else
+          redirect [root_path, path].compact.join('/')
+        end
+      end
+    end
+  end
+end

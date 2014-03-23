@@ -6,6 +6,7 @@ module ExercismIO
       end
 
       helpers ExercismIO::Helpers::Config
+      helpers ExercismIO::Helpers::Session
       helpers ExercismIO::Helpers::URL
     end
   end
