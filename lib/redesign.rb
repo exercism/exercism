@@ -1,6 +1,7 @@
 require 'sinatra/base'
 require 'redesign/routes'
 require 'redesign/helpers'
+require 'redesign/presenters'
 
 module ExercismIO
   class Redesign < Sinatra::Application

@@ -21,10 +21,10 @@ end
   'user/track', 'user/exercise', 'user/comment',
   'user/active_exercise', 'user/notification',
   'user/truncated_exercises', 'user/profile',
-  'site/languages'
 ].each do |presenter|
   require File.join(Exercism::App.root, presenter)
 end
+require File.join('redesign', 'presenters', 'languages')
 
 ['auth', 'alerts', 'site', 'help', 'exercises', 'solutions', 'teams', 'user'].each do |controller|
   require File.join(Exercism::App.root, controller)

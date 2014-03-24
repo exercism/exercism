@@ -1,4 +1,4 @@
-require 'v1.0/site/languages'
+require 'redesign/presenters/languages'
 
 class ExercismApp < Sinatra::Base
 
@@ -7,8 +7,8 @@ class ExercismApp < Sinatra::Base
       @assumable_users = User.all
     end
     if current_user.guest?
-      current = App::Site::Languages.new(Exercism::Config.current)
-      upcoming = App::Site::Languages.new(Exercism::Config.upcoming)
+      current = ExercismIO::Presenters::Languages.new(Exercism::Config.current)
+      upcoming = ExercismIO::Presenters::Languages.new(Exercism::Config.upcoming)
       erb :"site/index", locals: {current: current, upcoming: upcoming}
     else
       erb :"site/dashboard", locals: {submission: Work.new(current_user).random}

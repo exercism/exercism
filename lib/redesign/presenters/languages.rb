@@ -1,5 +1,5 @@
-module App
-  module Site
+module ExercismIO
+  module Presenters
     class Languages
       attr_reader :names
 
@@ -25,4 +25,3 @@ module App
     end
   end
 end
-
