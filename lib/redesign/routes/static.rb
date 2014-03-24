@@ -6,7 +6,8 @@ module ExercismIO
       end
 
       get '/getting-started' do
-        haml :"static/getting-started"
+        languages = ExercismIO::Presenters::Languages.new(Exercism::Config.current)
+        haml :"static/getting-started", locals: {languages: languages}
       end
 
       get '/blog' do

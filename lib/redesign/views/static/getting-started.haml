@@ -1,7 +1,7 @@
 %section.main
   %section.masthead
     %div.mast-contents
-      %img.mast-logo(src="/redesign/icons/logo.svg")
+      %img.mast-logo{:src => link_to("/icons/logo.svg")}
       %span.headline Getting Started
 
   %article.article-block
@@ -9,6 +9,8 @@
       %h2.header Exercises
       %p
         Fetch the current exercises using the command-line client. Exercises consisting of a test suite and a README are available in
+        = succeed "." do
+          = languages
       %p
         Write code using your usual tools. Make the tests pass. Keep the code as simple, readable, and expressive as you can.
       %p
