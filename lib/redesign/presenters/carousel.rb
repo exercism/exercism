@@ -1,7 +1,11 @@
-module App
-  module Site
+module ExercismIO
+  module Presenters
     class Carousel
-      class Nitpicker < Struct.new(:username, :comment); end
+      class Nitpicker < Struct.new(:username, :comment)
+        def avatar
+          "/images/carousel/#{username}.jpg"
+        end
+      end
 
       def self.slides(path)
         @slides ||= nitpicks.map.with_index do |nitpick, i|
@@ -45,6 +49,10 @@ module App
 
       def username
         nitpicker.username
+      end
+
+      def avatar
+        nitpicker.avatar
       end
 
       def comment

@@ -17,7 +17,7 @@ end
 end
 
 [
-  'site/carousel', 'user/navigation', 'user/account',
+  'user/navigation', 'user/account',
   'user/track', 'user/exercise', 'user/comment',
   'user/active_exercise', 'user/notification',
   'user/truncated_exercises', 'user/profile',
@@ -25,6 +25,7 @@ end
   require File.join(Exercism::App.root, presenter)
 end
 require File.join('redesign', 'presenters', 'languages')
+require File.join('redesign', 'presenters', 'carousel')
 
 ['auth', 'alerts', 'site', 'help', 'exercises', 'solutions', 'teams', 'user'].each do |controller|
   require File.join(Exercism::App.root, controller)

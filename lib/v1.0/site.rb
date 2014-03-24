@@ -11,8 +11,8 @@ class ExercismV1p0 < Sinatra::Base
 
   get '/getting-started' do
     languages = ExercismIO::Presenters::Languages.new(Exercism::Config.current)
-    code_dir = File.join('./lib', Exercism::App.root, 'site', 'carousel')
-    slides = App::Site::Carousel.slides(code_dir)
+    code_dir = File.join('./lib', 'redesign', 'presenters', 'carousel')
+    slides = ExercismIO::Presenters::Carousel.slides(code_dir)
     haml :"site/getting_started", locals: {languages: languages, slides: slides}
   end
 
