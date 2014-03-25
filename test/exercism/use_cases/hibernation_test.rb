@@ -90,7 +90,7 @@ class HibernationTest < MiniTest::Unit::TestCase
     end
   end
 
-  def test_skip_a_submission_where_submitter_is_most_recent_commenter
+  def test_mark_submission_where_submitter_is_most_recent_as_needing_input
     alice = FakeUser.new(2, 'alice', 'alice@example.com')
     bob = FakeUser.new(3, 'bob', 'bob@example.com')
     comment1 = FakeComment.new(bob, cutoff - 2)
@@ -99,7 +99,7 @@ class HibernationTest < MiniTest::Unit::TestCase
     Hack::UpdatesUserExercise.stub(:new, NullHack.new) do
       Hibernation.stub(:admin, admin) do
         Hibernation.new(submission, :intercept).process
-        assert_equal 'pending', submission.state
+        assert_equal 'needs_input', submission.state
       end
     end
   end

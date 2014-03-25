@@ -38,6 +38,8 @@ class Workload
       scope = scope.where(is_liked: true)
     when 'no-nits'
       scope = scope.where(nit_count: 0)
+    when 'needs-input'
+      scope = needs_input.order('created_at ASC')
     else
       scope = scope.where(slug: slug)
     end
@@ -69,5 +71,9 @@ class Workload
 
   def pending
     @pending ||= Submission.pending.where(language: language).unmuted_for(user)
+  end
+
+  def needs_input
+    @needs_input ||= Submission.needs_input.where(language: language).unmuted_for(user)
   end
 end

@@ -87,6 +87,10 @@ class ExercismApp < Sinatra::Base
       end
     end
 
+    def language_path_for_slug(language, slug)
+      path_for(language) + "/#{slug}"
+    end
+
     def active_nav(path)
       if path == request.path_info
         "active"
@@ -99,13 +103,20 @@ class ExercismApp < Sinatra::Base
       slug.split("-").map(&:capitalize).join(" ")
     end
 
-    def dashboard_assignment_nav(language, slug=nil, counts=nil)
-      return if slug != 'no-nits' && (!counts || counts.zero?)
+    def dashboard_assignment_section_nav(language, slug)
+      path = language_path_for_slug(language, slug)
+      %{<li class="#{active_nav(path)}">
+          <a href="#{path}">#{nav_text(slug)}</a>
+        </li>}
+    end
 
-      path = path_for(language)
-      path += "/#{slug}" if slug
-      tally = counts ? " (#{counts})" : ""
-      %{<li class="#{active_nav(path)}"><a href="#{path}">#{nav_text(slug)}#{tally}</a></li>}
+    def dashboard_assignment_nav(language, slug=nil, counts=nil)
+      return if !counts || counts.zero?
+
+      path = language_path_for_slug(language, slug)
+      %{<li class="#{active_nav(path)}">
+          <a href="#{path}">#{nav_text(slug)} (#{counts})</a>
+        </li>}
     end
 
     def show_pending_submissions?(language)
@@ -116,5 +127,4 @@ class ExercismApp < Sinatra::Base
       Exercism::Config.languages.map(&:to_s) & current_user.nitpicker_languages
     end
   end
-
 end
