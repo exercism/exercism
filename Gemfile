@@ -1,6 +1,6 @@
 source "http://rubygems.org"
 
-ruby "2.0.0"
+ruby "2.1.1"
 
 gem 'activerecord', '~> 4.0'
 gem 'faraday'
@@ -36,4 +36,3 @@ group :test, :development do
   gem 'sqlite3'
   gem 'timecop', require: false
 end
-
