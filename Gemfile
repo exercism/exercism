@@ -2,7 +2,9 @@ source "http://rubygems.org"
 
 ruby "2.0.0"
 
-gem 'activerecord', '~> 4.0'
+gem 'activesupport', '~> 4.0.4'
+gem 'activerecord', '~> 4.0.4'
+
 gem 'faraday'
 gem 'haml', require: false
 gem 'sass'
@@ -36,4 +38,3 @@ group :test, :development do
   gem 'sqlite3'
   gem 'timecop', require: false
 end
-
