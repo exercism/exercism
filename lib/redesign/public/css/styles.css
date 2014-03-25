@@ -601,6 +601,33 @@ article:last-child {
 .article-contents {
   padding: 15px 0 20px 16%; }
 
+.code-header {
+  background: #262626;
+  padding: 35px 27px;
+  overflow: hidden; }
+  .code-header .exercise-name {
+    font-family: "source_code_prolight", sans-serif;
+    font-size: 3.75em;
+    color: #e6e7e8;
+    display: inline-block; }
+  .code-header .exercise-language {
+    font-family: "source_code_proregular", sans-serif;
+    font-size: 1.25em;
+    color: #a0041e;
+    text-transform: uppercase;
+    display: inline-block; }
+  .code-header .quick-stats {
+    display: inline-block;
+    margin-left: 67px; }
+  .code-header .small-avatar {
+    display: inline;
+    border-radius: 50%;
+    width: 80px;
+    vertical-align: middle; }
+  .code-header .stats {
+    display: inline-block;
+    margin-left: 15px; }
+
 .full-nav {
   padding: 20px; }
 
