@@ -1,9 +1,10 @@
 %section.main
   %div.code-header
-    %h1.exercise-name
-      bob
-    %span.exercise-language
-      ruby
+    %div.exercise-info
+      %h1.exercise-name
+        bob
+      %span.exercise-language
+        ruby
 
     %div.quick-stats
       %img.small-avatar{:src => "/redesign/icons/katrina.png"}
@@ -14,3 +15,6 @@
           Submitted about 21 hours ago / 0 views
         %p.status
           Iteration 3 of 3 / Exercise in progress
+
+    %a.logo{:href => link_to(root_path)}
+      %img{:src => "/redesign/icons/logo-exercise.svg"}

@@ -1,20 +1,23 @@
 .code-header {
   background: $charcoal;
-  padding: 35px 27px;
+  padding: 35px 27px 30px;
   overflow:hidden;
-  .exercise-name {
-    font-family: $sans-light;
-    font-size: 3.75em;
-    line-height: 1em;
-    color: $code-header-grey;
+  .exercise-info {
     display: inline-block;
-  }
-  .exercise-language {
-    font-family: $sans-regular;
-    font-size: 1.25em;
-    color: $bright-red;
-    text-transform: uppercase;
-    display: inline-block;
+    .exercise-name {
+      font-family: $sans-light;
+      font-size: 3.75em;
+      line-height: 1em;
+      color: $code-header-grey;
+      display: inline-block;
+    }
+    .exercise-language {
+      font-family: $sans-regular;
+      font-size: 1.25em;
+      color: $bright-red;
+      text-transform: uppercase;
+      display: inline-block;
+    }
   }
   .quick-stats {
     display: inline-block;
@@ -38,6 +41,13 @@
       font-family: $sans-regular;
       color: $medium-grey;
     }
+  }
+  a.logo {
+    float: right;
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+    padding-top:0px;
   }
 }
 

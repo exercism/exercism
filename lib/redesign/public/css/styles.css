@@ -603,20 +603,22 @@ article:last-child {
 
 .code-header {
   background: #262626;
-  padding: 35px 27px;
+  padding: 35px 27px 30px;
   overflow: hidden; }
-  .code-header .exercise-name {
-    font-family: "source_code_prolight", sans-serif;
-    font-size: 3.75em;
-    line-height: 1em;
-    color: #e6e7e8;
+  .code-header .exercise-info {
     display: inline-block; }
-  .code-header .exercise-language {
-    font-family: "source_code_proregular", sans-serif;
-    font-size: 1.25em;
-    color: #a0041e;
-    text-transform: uppercase;
-    display: inline-block; }
+    .code-header .exercise-info .exercise-name {
+      font-family: "source_code_prolight", sans-serif;
+      font-size: 3.75em;
+      line-height: 1em;
+      color: #e6e7e8;
+      display: inline-block; }
+    .code-header .exercise-info .exercise-language {
+      font-family: "source_code_proregular", sans-serif;
+      font-size: 1.25em;
+      color: #a0041e;
+      text-transform: uppercase;
+      display: inline-block; }
   .code-header .quick-stats {
     display: inline-block;
     margin-left: 67px;
@@ -635,6 +637,12 @@ article:last-child {
     .code-header .stats p {
       font-family: "source_code_proregular", sans-serif;
       color: #999999; }
+  .code-header a.logo {
+    float: right;
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+    padding-top: 0px; }
 
 .full-nav {
   padding: 20px; }
