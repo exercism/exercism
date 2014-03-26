@@ -1,2 +1,20 @@
 %section.main
-  %p this is the main code page
+  %div.code-header
+    %div.exercise-info
+      %h1.exercise-name
+        bob
+      %span.exercise-language
+        ruby
+
+    %div.quick-stats
+      %img.small-avatar{:src => "/redesign/icons/katrina.png"}
+      %div.stats
+        %a{:href => link_to(root_path)}
+          username
+        %p.time-ago
+          Submitted about 21 hours ago / 0 views
+        %p.status
+          Iteration 3 of 3 / Exercise in progress
+
+    %a.logo{:href => link_to(root_path)}
+      %img{:src => "/redesign/icons/logo-exercise.svg"}
