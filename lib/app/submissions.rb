@@ -67,28 +67,19 @@ class ExercismApp < Sinatra::Base
     redirect "/submissions/#{key}"
   end
 
-  post '/submissions/:key/unlike' do |key|
-    please_login "You have to be logged in to do that."
-    submission = Submission.find_by_key(key)
-    submission.unlike!(current_user)
-    flash[:notice] = "The submission has been unliked."
-    redirect "/submissions/#{key}"
-  end
-
-  post '/submissions/:key/mute' do |key|
-    please_login "You have to be logged in to do that."
-    submission = Submission.find_by_key(key)
-    submission.mute!(current_user)
-    flash[:notice] = "The submission has been muted. It will reappear when there has been some activity."
-    redirect "/submissions/#{key}"
-  end
-
-  post '/submissions/:key/unmute' do |key|
-    please_login "You have to be logged in to do that."
-    submission = Submission.find_by_key(key)
-    submission.unmute!(current_user)
-    flash[:notice] = "The submission has been unmuted."
-    redirect "/submissions/#{key}"
+  # Provide unlike, mute, and unmute actions.
+  {
+    "unlike" => "The submission has been unliked.",
+    "mute" => "The submission has been muted. It will reappear when there has been some activity.",
+    "unmute" => "The submission has been unmuted."
+  }.each do |action, confirmation|
+    post "/submissions/:key/#{action}" do |key|
+      please_login "You have to be logged in to do that."
+      submission = Submission.find_by_key(key)
+      submission.send("#{action}!", current_user)
+      flash[:notice] = confirmation
+      redirect "/submissions/#{key}"
+    end
   end
 
   get '/submissions/:key/nits/:nit_id/edit' do |key, nit_id|
