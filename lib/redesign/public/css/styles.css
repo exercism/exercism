@@ -608,6 +608,7 @@ article:last-child {
   .code-header .exercise-name {
     font-family: "source_code_prolight", sans-serif;
     font-size: 3.75em;
+    line-height: 1em;
     color: #e6e7e8;
     display: inline-block; }
   .code-header .exercise-language {
@@ -618,15 +619,22 @@ article:last-child {
     display: inline-block; }
   .code-header .quick-stats {
     display: inline-block;
-    margin-left: 67px; }
+    margin-left: 67px;
+    font-family: "source_code_proregular", sans-serif; }
   .code-header .small-avatar {
     display: inline;
     border-radius: 50%;
-    width: 80px;
-    vertical-align: middle; }
+    width: 70px;
+    vertical-align: text-bottom; }
   .code-header .stats {
     display: inline-block;
     margin-left: 15px; }
+    .code-header .stats a {
+      color: #f2f2f2;
+      line-height: 1.25em; }
+    .code-header .stats p {
+      font-family: "source_code_proregular", sans-serif;
+      color: #999999; }
 
 .full-nav {
   padding: 20px; }

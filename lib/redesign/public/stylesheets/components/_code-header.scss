@@ -5,6 +5,7 @@
   .exercise-name {
     font-family: $sans-light;
     font-size: 3.75em;
+    line-height: 1em;
     color: $code-header-grey;
     display: inline-block;
   }
@@ -18,16 +19,25 @@
   .quick-stats {
     display: inline-block;
     margin-left: 67px;
+    font-family: $sans-regular;
   }
   .small-avatar {
     display: inline;
     border-radius: 50%;
-    width: 80px;
-    vertical-align: middle;
+    width: 70px;
+    vertical-align: text-bottom;
   }
   .stats {
     display: inline-block;
     margin-left: 15px;
+    a {
+      color: $fill-grey;
+      line-height: 1.25em;
+    }
+    p {
+      font-family: $sans-regular;
+      color: $medium-grey;
+    }
   }
 }
 
