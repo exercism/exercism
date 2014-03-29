@@ -1,6 +1,10 @@
 module ExercismIO
   module Routes
     class Static < Core
+      get '/' do
+        haml :"home/index", locals: {email: '_@kytrinyx.com'}
+      end
+
       get '/about' do
         haml :"static/about"
       end

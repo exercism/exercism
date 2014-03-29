@@ -13,7 +13,6 @@ module ExercismIO
         :secret => ENV.fetch('SESSION_SECRET') { 'Need to know only.' } + 'redesign'
     end
 
-    use Routes::Home
     use Routes::Static
     use Routes::Help
     use Routes::Account
