@@ -4,7 +4,7 @@
 # Hand-rolling.
 module ExercismIO
   module Helpers
-    module FuzzyTimeHelper
+    module FuzzyTime
       def ago(timestamp)
         diff = (now - timestamp).to_i.to_f
         case diff

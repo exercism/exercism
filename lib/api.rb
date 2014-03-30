@@ -1,7 +1,7 @@
 require 'exercism'
 require 'sinatra/petroglyph'
 
-require 'redesign/helpers/fuzzy_time_helper'
+require 'redesign/helpers/fuzzy_time'
 
 require 'api/notifications/alert'
 
@@ -21,7 +21,7 @@ class ExercismAPI < Sinatra::Base
   set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
   use Rack::Flash
 
-  helpers ExercismIO::Helpers::FuzzyTimeHelper
+  helpers ExercismIO::Helpers::FuzzyTime
 
   helpers do
     def require_user

@@ -1,12 +1,12 @@
 require './test/test_helper'
-require 'redesign/helpers/fuzzy_time_helper'
+require 'redesign/helpers/fuzzy_time'
 
 class FuzzyTimeHelperTest < MiniTest::Unit::TestCase
 
   def helper
     return @helper if @helper
     @helper = Object.new
-    @helper.extend(ExercismIO::Helpers::FuzzyTimeHelper)
+    @helper.extend(ExercismIO::Helpers::FuzzyTime)
     def @helper.now
       Time.utc(2013, 1, 2, 3, 4)
     end

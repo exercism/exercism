@@ -16,7 +16,7 @@ end
 end
 
 [
-  'article_helper', 'fuzzy_time_helper'
+  'article_helper', 'fuzzy_time'
 ].each do |helper|
   require File.join('redesign', 'helpers', helper)
 end
