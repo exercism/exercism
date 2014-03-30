@@ -1,12 +1,12 @@
 require './test/test_helper'
-require 'v1.0/helpers/fuzzy_time_helper'
+require 'redesign/helpers/fuzzy_time_helper'
 
 class FuzzyTimeHelperTest < MiniTest::Unit::TestCase
 
   def helper
     return @helper if @helper
     @helper = Object.new
-    @helper.extend(Sinatra::FuzzyTimeHelper)
+    @helper.extend(ExercismIO::Helpers::FuzzyTimeHelper)
     def @helper.now
       Time.utc(2013, 1, 2, 3, 4)
     end

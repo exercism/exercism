@@ -10,11 +10,13 @@ class Exercism
 end
 
 [
-  'article_helper', 'fuzzy_time_helper',
+  'article_helper',
   'markdown_helper', 'session_helper'
 ].each do |helper|
   require File.join(Exercism::App.root, 'helpers', helper)
 end
+
+require 'redesign/helpers/fuzzy_time_helper'
 
 [
   'user/navigation', 'user/account',
@@ -40,7 +42,7 @@ class ExercismV1p0 < Sinatra::Base
   enable :sessions
 
   helpers Sinatra::ArticleHelper
-  helpers Sinatra::FuzzyTimeHelper
+  helpers ExercismIO::Helpers::FuzzyTimeHelper
   helpers Sinatra::MarkdownHelper
   helpers Sinatra::SessionHelper
 
