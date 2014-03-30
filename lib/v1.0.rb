@@ -10,13 +10,7 @@ class Exercism
 end
 
 [
-  'session_helper'
-].each do |helper|
-  require File.join(Exercism::App.root, 'helpers', helper)
-end
-
-[
-  'markdown', 'article', 'fuzzy_time'
+  'markdown', 'article', 'fuzzy_time', 'session'
 ].each do |helper|
   require File.join('redesign', 'helpers', helper)
 end
@@ -47,7 +41,7 @@ class ExercismV1p0 < Sinatra::Base
   helpers ExercismIO::Helpers::FuzzyTimeHelper
   helpers ExercismIO::Helpers::Article
   helpers ExercismIO::Helpers::Markdown
-  helpers Sinatra::SessionHelper
+  helpers ExercismIO::Helpers::Session
 
   helpers do
     def github_client_id

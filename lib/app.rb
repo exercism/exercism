@@ -25,9 +25,9 @@ require 'app/not_found'
 
 require 'redesign/helpers/article'
 require 'redesign/helpers/fuzzy_time'
+require 'redesign/helpers/session'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/profile_helper'
-require 'v1.0/helpers/session_helper'
 require 'app/helpers/site_title_helper'
 require 'app/helpers/submissions_helper'
 require 'redesign/helpers/markdown'
@@ -52,7 +52,7 @@ class ExercismApp < Sinatra::Base
   helpers Sinatra::SiteTitleHelper
   helpers Sinatra::GravatarHelper
   helpers Sinatra::ProfileHelper
-  helpers Sinatra::SessionHelper
+  helpers ExercismIO::Helpers::Session
 
   helpers do
     def github_client_id
@@ -63,8 +63,12 @@ class ExercismApp < Sinatra::Base
       ENV.fetch('EXERCISM_GITHUB_CLIENT_SECRET')
     end
 
+    def host
+      request.host_with_port + root_path
+    end
+
     def site_root
-      env.fetch 'HTTP_HOST', 'http://exercism.io'
+      host
     end
 
     def root_path

@@ -21,6 +21,13 @@ module ExercismIO
         url
       end
 
+      def please_login(notice = nil)
+        if current_user.guest?
+          flash[:notice] = notice if notice
+          redirect link_to("/please-login?return_path=#{request.path_info}")
+        end
+      end
+
       private
 
       def redirect_uri(return_path)
