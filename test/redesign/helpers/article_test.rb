@@ -1,13 +1,13 @@
 require './test/test_helper'
 require 'exercism/article'
-require 'v1.0/helpers/article_helper'
+require 'redesign/helpers/article'
 
 class ArticleHelperTest < MiniTest::Unit::TestCase
 
   def helper
     return @helper if @helper
     @helper = Object.new
-    @helper.extend(Sinatra::ArticleHelper)
+    @helper.extend(ExercismIO::Helpers::Article)
     def @helper.article_dir
       './test/fixtures/articles'
     end

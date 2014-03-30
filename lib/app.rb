@@ -23,7 +23,7 @@ require 'app/exercises'
 require 'app/user'
 require 'app/not_found'
 
-require 'v1.0/helpers/article_helper'
+require 'redesign/helpers/article'
 require 'redesign/helpers/fuzzy_time_helper'
 require 'app/helpers/gravatar_helper'
 require 'app/helpers/profile_helper'
@@ -45,8 +45,8 @@ class ExercismApp < Sinatra::Base
   use Rack::Flash
 
   helpers ExercismIO::Helpers::FuzzyTimeHelper
+  helpers ExercismIO::Helpers::Article
   helpers WillPaginate::Sinatra::Helpers
-  helpers Sinatra::ArticleHelper
   helpers Sinatra::SubmissionsHelper
   helpers Sinatra::SiteTitleHelper
   helpers Sinatra::GravatarHelper
