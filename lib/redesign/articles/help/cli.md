@@ -14,7 +14,7 @@ You can install the CLI with the following command [view source](http://cli.exer
 $ curl -s http://cli.exercism.io/install | sh
 ```
 
-Or, download the [latest release](http://github.com/exercism/cli/releases/latest) for your operating system and architecture (32-bit or 64-bit), and place the binary [in your PATH](/v1.0/help/path).
+Or, download the [latest release](http://github.com/exercism/cli/releases/latest) for your operating system and architecture (32-bit or 64-bit), and place the binary [in your PATH](/help/path).
 
 To determine your processor architecture, try `uname -m`.
 

@@ -31,7 +31,7 @@ module ExercismIO
       end
 
       def article_dir
-        File.join('lib', 'v1.0', 'articles')
+        File.join('lib', 'redesign', 'articles')
       end
     end
   end

@@ -1,6 +1,6 @@
 ## Submitting Code
 
-After you've [fetched the exercises](/v1.0/help/fetch) and written an implementation that gets the tests passing, then you're ready to submit the code to the website so you can discuss its merits and receive feedback.
+After you've [fetched the exercises](/help/fetch) and written an implementation that gets the tests passing, then you're ready to submit the code to the website so you can discuss its merits and receive feedback.
 
 ```bash
 $ exercism submit path/to/your/code.ext
