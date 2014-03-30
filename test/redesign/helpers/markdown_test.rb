@@ -1,11 +1,12 @@
-require './test/integration_helper'
-require 'v1.0/helpers/markdown_helper'
+require './test/test_helper'
+require 'exercism/converts_markdown_to_html'
+require 'redesign/helpers/markdown'
 
 class MarkdownHelperTest < MiniTest::Unit::TestCase
   def helper
     return @helper if @helper
     @helper = Object.new
-    @helper.extend(Sinatra::MarkdownHelper)
+    @helper.extend(ExercismIO::Helpers::Markdown)
     @helper
   end
 

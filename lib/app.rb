@@ -30,7 +30,7 @@ require 'app/helpers/profile_helper'
 require 'v1.0/helpers/session_helper'
 require 'app/helpers/site_title_helper'
 require 'app/helpers/submissions_helper'
-require 'v1.0/helpers/markdown_helper'
+require 'redesign/helpers/markdown'
 
 require 'services'
 
@@ -46,12 +46,12 @@ class ExercismApp < Sinatra::Base
 
   helpers ExercismIO::Helpers::FuzzyTime
   helpers ExercismIO::Helpers::Article
+  helpers ExercismIO::Helpers::Markdown
   helpers WillPaginate::Sinatra::Helpers
   helpers Sinatra::SubmissionsHelper
   helpers Sinatra::SiteTitleHelper
   helpers Sinatra::GravatarHelper
   helpers Sinatra::ProfileHelper
-  helpers Sinatra::MarkdownHelper
   helpers Sinatra::SessionHelper
 
   helpers do
