@@ -32,8 +32,6 @@ GEM
     database_cleaner (1.2.0)
     docile (1.1.1)
     dotenv (0.9.0)
-    faker (1.2.0)
-      i18n (~> 0.5)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
     foreman (0.63.0)
@@ -122,7 +120,6 @@ DEPENDENCIES
   approvals
   coveralls
   database_cleaner
-  faker (~> 1.2)
   faraday
   foreman
   haml

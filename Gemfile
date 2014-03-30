@@ -33,7 +33,6 @@ group :test, :development do
   gem 'mocha', require: false
   gem 'simplecov', require: false
   gem 'coveralls', require: false
-  gem 'faker', '~> 1.2', require: false # for seed data
   gem 'foreman', require: false
   gem 'sqlite3'
   gem 'timecop', require: false
