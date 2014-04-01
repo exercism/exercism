@@ -3,7 +3,7 @@ class ExercismAPI < Sinatra::Base
     require_user
     content_type 'application/json', :charset => 'utf-8'
 
-    submissions = current_user.exercises.map {|exercise|
+    submissions = current_user.exercises.order(:language, :slug).map {|exercise|
       exercise.submissions.last
     }
     pg :iterations, locals: {submissions: submissions}
