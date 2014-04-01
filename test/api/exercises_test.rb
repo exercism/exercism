@@ -18,13 +18,28 @@ class ExercisesApiTest < MiniTest::Unit::TestCase
 
     UserExercise.create(user: alice, language: 'go', slug: 'one', state: 'done')
     UserExercise.create(user: alice, language: 'go', slug: 'two', state: 'pending')
-    UserExercise.create(user: alice, language: 'ruby', slug: 'one', state: 'pending')
+    UserExercise.create(user: alice, language: 'ruby', slug: 'one', state: 'hibernating')
     UserExercise.create(user: alice, language: 'ruby', slug: 'two', state: 'pending')
 
     get '/exercises', {key: alice.key}
 
     output = last_response.body
     options = {:format => :json, :name => 'api_exercises'}
+    Approvals.verify(output, options)
+  end
+
+  def test_current_exercises
+    alice = User.create(username: 'alice', github_id: 1)
+
+    UserExercise.create(user: alice, language: 'go', slug: 'one', state: 'done')
+    UserExercise.create(user: alice, language: 'go', slug: 'two', state: 'pending')
+    UserExercise.create(user: alice, language: 'ruby', slug: 'one', state: 'hibernating')
+    UserExercise.create(user: alice, language: 'ruby', slug: 'two', state: 'pending')
+
+    get '/exercises/current', {key: alice.key}
+
+    output = last_response.body
+    options = {:format => :json, :name => 'api_active_exercises'}
     Approvals.verify(output, options)
   end
 end
