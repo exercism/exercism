@@ -68,21 +68,11 @@ class User < ActiveRecord::Base
   end
 
   def completed
-    @completed ||= begin
-      sql = "SELECT language, slug FROM submissions WHERE user_id = %s AND state='done' ORDER BY created_at ASC" % id.to_s
-      User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, exercises|
-        exercises[result["language"]] << result["slug"]
-      end
-    end
+    @completed ||= items_where "submissions", "state='done'"
   end
 
   def nitpicker
-    @nitpicker ||= begin
-      sql = "SELECT language, slug FROM user_exercises WHERE user_id = %s AND is_nitpicker='t' ORDER BY created_at ASC" % id.to_s
-      User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, exercises|
-        exercises[result["language"]] << result["slug"]
-      end
-    end
+    @nitpicker ||= items_where "user_exercises", "is_nitpicker='t'"
   end
 
   def is?(handle)
@@ -154,5 +144,11 @@ class User < ActiveRecord::Base
       "There is solemn satisfaction in doing the best you can for #{github_id} billion people."
     end
   end
-end
 
+  def items_where(table, condition)
+    sql = "SELECT language, slug FROM #{table} WHERE user_id = %s AND #{condition} ORDER BY created_at ASC" % id.to_s
+    User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, exercises|
+      exercises[result["language"]] << result["slug"]
+    end
+  end
+end
