@@ -5,6 +5,11 @@ class ExercismAPI < Sinatra::Base
     Xapi.get("demo")
   end
 
+  get '/assignments/:language' do |language|
+    require_user
+    Xapi.get("exercises", language, key: current_user.key)
+  end
+
   get '/assignments/:language/:slug' do |language, slug|
     Xapi.get("exercises", language, slug)
   end
