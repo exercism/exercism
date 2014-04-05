@@ -1,10 +1,22 @@
 {
   "go": [
-    "one",
-    "two"
+    {
+      "slug": "one",
+      "state": "done"
+    },
+    {
+      "slug": "two",
+      "state": "pending"
+    }
   ],
   "ruby": [
-    "one",
-    "two"
+    {
+      "slug": "one",
+      "state": "hibernating"
+    },
+    {
+      "slug": "two",
+      "state": "pending"
+    }
   ]
 }

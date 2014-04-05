@@ -6,10 +6,4 @@ class ExercismAPI < Sinatra::Base
     content_type 'application/json', :charset => 'utf-8'
     Homework.new(current_user).all.to_json
   end
-
-  get '/exercises/current' do
-    require_user
-    content_type 'application/json', :charset => 'utf-8'
-    Homework.new(current_user).current.to_json
-  end
 end
