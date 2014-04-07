@@ -31,7 +31,7 @@ module ExercismIO
       private
 
       def redirect_uri(return_path)
-        "&redirect_uri=http://#{host}/github/callback#{return_path}"
+        "&redirect_uri=http://#{host.chomp('/')}/github/callback#{return_path}"
       end
 
       def logged_in_user
