@@ -33,7 +33,7 @@
               %div.exercise-title= conversation.name
               %div.exercise-language= conversation.language
               %div.exercise-username= conversation.username
-              %div.posted-at= ago(conversation.at)
+              %div.posted-at= ago(conversation.at) #conversation.activity
 
     %li.nav-tree-item
       %a.nav-tree-title.nav-link{:href => link_to('/exercises/active')} Needs Nitpicked
