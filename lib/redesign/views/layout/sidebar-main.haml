@@ -1,4 +1,4 @@
 %aside.main-sidebar
-  = haml :"layout/sidebar/sidebar-profile"
-  = haml :"layout/sidebar/sidebar-alerts"
-  = haml :"layout/sidebar/sidebar-menu"
+  = haml :"layout/sidebar/sidebar-profile", locals: {nav: nav}
+  = haml :"layout/sidebar/sidebar-alerts", locals: {nav: nav}
+  = haml :"layout/sidebar/sidebar-menu", locals: {nav: nav}
