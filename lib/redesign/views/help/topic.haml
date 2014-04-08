@@ -6,6 +6,4 @@
 
   %article.article-block
     %div.article-contents
-      - help_topics.each do |slug, title|
-        %li
-          %a{:href => link_to("/help/#{slug}")}= title
+      = article('help', topic, substitutions).to_html

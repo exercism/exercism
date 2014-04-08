@@ -1,5 +1,5 @@
-module App
-  module Help
+module ExercismIO
+  module Presenters
     class Setup
       attr_reader :name
 

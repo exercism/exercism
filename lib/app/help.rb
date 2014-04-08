@@ -1,4 +1,4 @@
-require 'app/help/setup'
+require 'redesign/presenters/setup'
 
 class ExercismApp < Sinatra::Base
   get '/help/:topic' do |slug|
@@ -12,7 +12,7 @@ class ExercismApp < Sinatra::Base
   end
 
   get '/help/setup/:language' do |language|
-    language = App::Help::Setup.new(language)
+    language = ExercismIO::Presenters::Setup.new(language)
     if language.not_found?
       status 404
     end

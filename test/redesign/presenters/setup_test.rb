@@ -1,8 +1,8 @@
 require './test/test_helper'
-require 'app/help/setup'
+require 'redesign/presenters/setup'
 require 'exercism/config'
 
-class AppHelpSetupTest < MiniTest::Unit::TestCase
+class SetupPresenterTest < MiniTest::Unit::TestCase
   def with_stubbed_languages(&block)
     Exercism::Config.stub(:languages, [:ruby]) do
       Exercism::Config.stub(:upcoming, ["PHP"]) do
@@ -13,7 +13,7 @@ class AppHelpSetupTest < MiniTest::Unit::TestCase
 
   def test_current_language
     with_stubbed_languages do
-      language = App::Help::Setup.new('Ruby')
+      language = ExercismIO::Presenters::Setup.new('Ruby')
       assert_equal 'Ruby', language.name
       assert_equal 'ruby', language.topic
       refute language.not_found?
@@ -22,7 +22,7 @@ class AppHelpSetupTest < MiniTest::Unit::TestCase
 
   def test_upcoming_language
     with_stubbed_languages do
-      language = App::Help::Setup.new('PHP')
+      language = ExercismIO::Presenters::Setup.new('PHP')
       assert_equal 'PHP', language.name
       assert_equal 'coming-soon', language.topic
       refute language.not_found?
@@ -31,7 +31,7 @@ class AppHelpSetupTest < MiniTest::Unit::TestCase
 
   def test_no_such_language
     with_stubbed_languages do
-      language = App::Help::Setup.new('Fortran')
+      language = ExercismIO::Presenters::Setup.new('Fortran')
       assert_equal 'Fortran', language.name
       assert_equal '404', language.topic
       assert language.not_found?
