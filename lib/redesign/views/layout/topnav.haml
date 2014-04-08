@@ -1,9 +1,14 @@
 %header.topnav<>
   %div.full-nav
-    %a#sidebar_toggle.sidebar-toggle.nav-link(href="#sidebar") &larr; Close
-    %a.logout{:href => link_to("/logout")}<>
-      %img.logout-icon{:src => link_to("/icons/logout.svg")}
-      %span.logout-text.nav-link Logout
+    - if current_user.guest?
+      %a.login{:href => link_to("/login")}<>
+        %img.login-icon{:src => link_to("/icons/login.svg")}
+        %span.login-text.nav-link Login
+    - else
+      %a#sidebar_toggle.sidebar-toggle.nav-link(href="#sidebar") &larr; Close
+      %a.logout{:href => link_to("/logout")}<>
+        %img.logout-icon{:src => link_to("/icons/logout.svg")}
+        %span.logout-text.nav-link Logout
 
     %nav.primary-nav<>
       %a.nav-link{:href => link_to('/about')} About Exercism
