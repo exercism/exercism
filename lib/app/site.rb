@@ -3,9 +3,6 @@ require 'redesign/presenters/languages'
 class ExercismApp < Sinatra::Base
 
   get '/' do
-    if settings.development?
-      @assumable_users = User.all
-    end
     if current_user.guest?
       current = ExercismIO::Presenters::Languages.new(Exercism::Config.current)
       upcoming = ExercismIO::Presenters::Languages.new(Exercism::Config.upcoming)

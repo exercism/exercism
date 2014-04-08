@@ -95,6 +95,10 @@ class ExercismApp < Sinatra::Base
       path_for(language) + "/#{slug}"
     end
 
+    def assumable_users
+      User.all
+    end
+
     def active_nav(path)
       if path == request.path_info
         "active"

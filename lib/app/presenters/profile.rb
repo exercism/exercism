@@ -58,7 +58,7 @@ class Profile
   end
 
   def submission_link(submission)
-    if narcissistic? || current_user.nitpicker_on?(submission.exercise)
+    if narcissistic? || manager? || current_user.nitpicker_on?(submission.exercise)
      %{<a href="/submissions/#{submission.key}">#{submission.name}</a>}
     else
      %{<a href="/exercises/#{submission.language}/#{submission.slug}">#{submission.name}</a>}
@@ -83,6 +83,10 @@ class Profile
 
   def narcissistic?
     current_user.is?(user.username)
+  end
+
+  def manager?
+    !(current_user.managed_teams & user.teams).empty?
   end
 
   attr_reader :user, :current_user
