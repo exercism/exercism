@@ -18,5 +18,6 @@ module ExercismIO
     use Routes::Account
     use Routes::Session
     use Routes::Exercises
+    use Routes::User
   end
 end

@@ -7,7 +7,7 @@ class UserExercise < ActiveRecord::Base
 
   belongs_to :user
 
-  scope :active,    ->{ where(state: 'pending') }
+  scope :active,    ->{ where(state: ['pending', 'needs_input', 'hibernating']) }
   scope :completed, ->{ where(state: 'done') }
 
   before_create do

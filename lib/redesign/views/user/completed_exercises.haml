@@ -1,0 +1,9 @@
+%p Completed
+
+- tracks.each do |track|
+  %p{:class => track.language}= track.name
+
+  %ul
+    - track.exercises.each do |exercise|
+      %li
+        %a{:href => link_to(exercise.url)}= exercise.name
