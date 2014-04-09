@@ -1,7 +1,12 @@
 require 'sinatra/base'
-require 'redesign/routes'
-require 'redesign/helpers'
-require 'redesign/presenters'
+
+module ExercismIO
+  ROOT = 'redesign'
+end
+
+['routes', 'helpers', 'presenters'].each do |file|
+  require [ExercismIO::ROOT, file].join('/')
+end
 
 module ExercismIO
   class Redesign < Sinatra::Application
@@ -10,7 +15,7 @@ module ExercismIO
         :key => 'rack.session',
         :path => '/redesign',
         :expire_after => 2592000,
-        :secret => ENV.fetch('SESSION_SECRET') { 'Need to know only.' } + 'redesign'
+        :secret => ENV.fetch('SESSION_SECRET') { 'Need to know only.' } + ExercismIO::ROOT
     end
 
     use Routes::Static

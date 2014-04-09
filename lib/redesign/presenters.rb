@@ -1,12 +1,16 @@
 module ExercismIO
   module Presenters
-    autoload :Carousel, 'redesign/presenters/carousel'
-    autoload :Languages, 'redesign/presenters/languages'
-    autoload :Profile, 'redesign/presenters/profile'
-    autoload :Track, 'redesign/presenters/track'
-    autoload :ExerciseLink, 'redesign/presenters/exercise_link'
-    autoload :Navigation, 'redesign/presenters/navigation'
-    autoload :ActiveExercise, 'redesign/presenters/active_exercise'
-    autoload :Notification, 'redesign/presenters/notification'
+    {
+      :Carousel => 'carousel',
+      :Languages => 'languages',
+      :Profile => 'profile',
+      :Track => 'track',
+      :ExerciseLink => 'exercise_link',
+      :Navigation => 'navigation',
+      :ActiveExercise => 'active_exercise',
+      :Notification => 'notification'
+    }.each do |name, file|
+      autoload name, [ExercismIO::ROOT, 'presenters', file].join('/')
+    end
   end
 end

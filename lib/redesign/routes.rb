@@ -1,12 +1,16 @@
 module ExercismIO
   module Routes
-    autoload :Core, 'redesign/routes/core'
-    autoload :Static, 'redesign/routes/static'
-    autoload :Help, 'redesign/routes/help'
-    autoload :Account, 'redesign/routes/account'
-    autoload :Session, 'redesign/routes/session'
-    autoload :Exercises, 'redesign/routes/exercises'
-    autoload :User, 'redesign/routes/user'
-    autoload :Teams, 'redesign/routes/teams'
+    {
+      :Core => 'core',
+      :Static => 'static',
+      :Help => 'help',
+      :Account => 'account',
+      :Session => 'session',
+      :User => 'user',
+      :Exercises => 'exercises',
+      :Teams => 'teams'
+    }.each do |name, file|
+      autoload name, [ExercismIO::ROOT, 'routes', file].join('/')
+    end
   end
 end

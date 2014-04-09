@@ -1,10 +1,14 @@
 module ExercismIO
   module Helpers
-    autoload :Config, 'redesign/helpers/config'
-    autoload :Session, 'redesign/helpers/session'
-    autoload :URL, 'redesign/helpers/url'
-    autoload :Article, 'redesign/helpers/article'
-    autoload :Component, 'redesign/helpers/component'
-    autoload :FuzzyTime, 'redesign/helpers/fuzzy_time'
+    {
+      :URL => 'url',
+      :Config => 'config',
+      :Session => 'session',
+      :Article => 'article',
+      :Component => 'component',
+      :FuzzyTime => 'fuzzy_time'
+    }.each do |name, file|
+      autoload name, [ExercismIO::ROOT, 'helpers', file].join('/')
+    end
   end
 end
