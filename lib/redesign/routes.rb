@@ -7,5 +7,6 @@ module ExercismIO
     autoload :Session, 'redesign/routes/session'
     autoload :Exercises, 'redesign/routes/exercises'
     autoload :User, 'redesign/routes/user'
+    autoload :Teams, 'redesign/routes/teams'
   end
 end

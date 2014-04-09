@@ -19,5 +19,6 @@ module ExercismIO
     use Routes::Session
     use Routes::Exercises
     use Routes::User
+    use Routes::Teams
   end
 end
