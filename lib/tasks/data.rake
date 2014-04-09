@@ -20,7 +20,7 @@ namespace :data do
       Submission.find_each do |submission|
         ext = Code::LANGUAGES.invert[submission.language]
         filename = "#{submission.slug}.#{ext}"
-        submission.filename = filename
+        submission.filename ||= filename
         submission.save
       end
     end
