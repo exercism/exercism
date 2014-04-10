@@ -1,8 +1,8 @@
 require 'date'
 require './test/approval_helper'
-require 'api/stats/streak'
+require 'exercism/stats/streak'
 
-class ApiStatsStreakTest < MiniTest::Unit::TestCase
+class StatsStreakTest < MiniTest::Unit::TestCase
 
   def data
     [
@@ -13,12 +13,12 @@ class ApiStatsStreakTest < MiniTest::Unit::TestCase
   end
 
   def test_stats_by_language_and_date
-    streak = Api::Stats::Streak.new([:ruby, :python, :go], data, 2013, 12)
+    streak = Stats::Streak.new([:ruby, :python, :go], data, 2013, 12)
     Approvals.verify(streak.by_language_and_date, name: 'stats_by_language_and_date')
   end
 
   def test_all_the_data
-    streak = Api::Stats::Streak.new([:ruby, :python, :go], data, 2013, 12)
+    streak = Stats::Streak.new([:ruby, :python, :go], data, 2013, 12)
     Approvals.verify(streak.to_h, name: 'complete_streak_stats')
   end
 end

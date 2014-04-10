@@ -1,4 +1,4 @@
-require 'api/assignments/xapi'
+require 'exercism/xapi'
 
 class ExercismApp < Sinatra::Base
   get '/exercises/:language/:slug' do |language, slug|

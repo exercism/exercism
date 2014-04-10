@@ -1,7 +1,8 @@
 require 'delegate'
 
-module Api
-  module Notifications
+# LEGACY. Delete when redesign launches.
+module ExercismAPI
+  module Presenters
     class Alert < SimpleDelegator
       def id
         "alert-#{__getobj__.id}"

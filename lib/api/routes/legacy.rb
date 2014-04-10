@@ -98,7 +98,7 @@ module ExercismAPI
       get '/notifications' do
         require_user
         notifications = current_user.notifications.on_submissions.recent
-        alerts = current_user.alerts.map {|alert| Api::Notifications::Alert.new(alert) }
+        alerts = current_user.alerts.map {|alert| ExercismAPI::Presenters::Alert.new(alert) }
         pg :notifications, locals: {notifications: alerts + notifications}
       end
 
@@ -118,11 +118,11 @@ module ExercismAPI
       end
 
       get '/stats/:username/nitpicks/:year/:month' do |username, year, month|
-        Api::Stats::NitStreak.for(username, year.to_i, month.to_i).to_json
+        Stats::NitStreak.for(username, year.to_i, month.to_i).to_json
       end
 
       get '/stats/:username/submissions/:year/:month' do |username, year, month|
-        Api::Stats::SubmissionStreak.for(username, year.to_i, month.to_i).to_json
+        Stats::SubmissionStreak.for(username, year.to_i, month.to_i).to_json
       end
 
       get '/stats/:username/snapshot' do |username|
@@ -130,7 +130,7 @@ module ExercismAPI
         if !user
           halt 400, {error: "Unknown user #{username}"}
         end
-        snapshot = Api::Stats::Snapshot.new(user)
+        snapshot = Stats::Snapshot.new(user)
         pg :"stats/snapshot", locals: {snapshot: snapshot}
       end
     end

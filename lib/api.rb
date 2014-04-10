@@ -5,13 +5,13 @@ module ExercismAPI
   ROOT = 'api'
 end
 
-require 'api/stats/nit_streak'
-require 'api/stats/submission_streak'
-require 'api/stats/snapshot'
-require 'api/notifications/alert'
-require 'api/exercises/homework'
-require 'api/assignments/xapi'
+require 'exercism/stats/nit_streak'
+require 'exercism/stats/submission_streak'
+require 'exercism/stats/snapshot'
+require 'exercism/homework'
+require 'exercism/xapi'
 
+require 'api/presenters'
 require 'api/routes'
 
 module ExercismAPI
