@@ -24,6 +24,7 @@ module ExercismAPI
         :secret => ENV.fetch('SESSION_SECRET') { 'Need to know only.' } + ExercismAPI::ROOT
     end
 
+    use Routes::Demo
     use Routes::Legacy
   end
 end

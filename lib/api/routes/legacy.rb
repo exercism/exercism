@@ -2,7 +2,7 @@ module ExercismAPI
   module Routes
     class Legacy < Core
       get '/assignments/demo' do
-        Xapi.get("demo")
+        redirect '/api/v1/demo'
       end
 
       get '/assignments/:language/:slug' do |language, slug|
