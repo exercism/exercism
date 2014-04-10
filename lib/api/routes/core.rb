@@ -7,6 +7,10 @@ module ExercismAPI
         set :root, ['.', 'lib', ExercismAPI::ROOT].join('/')
       end
 
+      before do
+        content_type 'application/json', :charset => 'utf-8'
+      end
+
       helpers ExercismIO::Helpers::FuzzyTime
 
       helpers do
@@ -28,7 +32,6 @@ module ExercismAPI
           end
         end
       end
-
     end
   end
 end

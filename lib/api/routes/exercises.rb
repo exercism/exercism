@@ -3,7 +3,6 @@ module ExercismAPI
     class Exercises < Core
       get '/exercises' do
         require_user
-        content_type 'application/json', :charset => 'utf-8'
         Homework.new(current_user).all.to_json
       end
 
