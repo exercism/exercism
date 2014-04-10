@@ -26,9 +26,17 @@ end
 use ActiveRecord::ConnectionAdapters::ConnectionManagement
 run ExercismApp
 
+require 'legacy'
+map '/api/v1/notifications' do
+  # Notification endpoints are only used in the prototype.
+  # Delete when redesign launches.
+  run ExercismLegacy::App
+end
+
 map '/api/v1/' do
   run ExercismAPI::App
 end
+
 
 require 'redesign'
 map '/redesign/' do

@@ -40,7 +40,7 @@ module ExercismAPI
       end
 
       delete '/user/assignments' do
-        require_user
+        require_key
         begin
           Unsubmit.new(current_user).unsubmit
         rescue Unsubmit::NothingToUnsubmit
@@ -56,7 +56,7 @@ module ExercismAPI
       end
 
       get '/iterations/latest' do
-        require_user
+        require_key
 
         submissions = current_user.exercises.order(:language, :slug).map {|exercise|
           exercise.submissions.last

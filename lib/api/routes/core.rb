@@ -11,10 +11,8 @@ module ExercismAPI
         content_type 'application/json', :charset => 'utf-8'
       end
 
-      helpers ExercismIO::Helpers::FuzzyTime
-
       helpers do
-        def require_user
+        def require_key
           if current_user.guest?
             halt 401, {error: "You must be logged in to access this feature. Please double-check your API key."}.to_json
           end
@@ -25,9 +23,7 @@ module ExercismAPI
         end
 
         def find_user
-          if session[:github_id]
-            User.where(github_id: session[:github_id]).first
-          elsif params[:key]
+          if params[:key]
             User.where(key: params[:key]).first
           end
         end

@@ -2,7 +2,7 @@ module ExercismAPI
   module Routes
     class Exercises < Core
       get '/exercises' do
-        require_user
+        require_key
         Homework.new(current_user).all.to_json
       end
 
