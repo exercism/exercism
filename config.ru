@@ -27,7 +27,7 @@ use ActiveRecord::ConnectionAdapters::ConnectionManagement
 run ExercismApp
 
 map '/api/v1/' do
-  run ExercismAPI
+  run ExercismAPI::App
 end
 
 require 'redesign'

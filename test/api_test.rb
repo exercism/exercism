@@ -1,9 +1,11 @@
 require './test/api_helper'
 
-class ExercismAPI < Sinatra::Base
-  get '/' do
-    require_user
-    "OK"
+module ExercismAPI
+  class App < Sinatra::Base
+    get '/' do
+      require_user
+      "OK"
+    end
   end
 end
 
@@ -13,7 +15,7 @@ class ApiTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def app
-    ExercismAPI
+    ExercismAPI::App
   end
 
   def alice

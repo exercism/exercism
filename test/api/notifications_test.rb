@@ -6,7 +6,7 @@ class NotificationsApiTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def app
-    ExercismAPI
+    ExercismAPI::App
   end
 
   attr_reader :alice, :bob, :submission

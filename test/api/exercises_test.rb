@@ -5,7 +5,7 @@ class ExercisesApiTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def app
-    ExercismAPI
+    ExercismAPI::App
   end
 
   def test_exercises_requires_key

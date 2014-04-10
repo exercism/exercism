@@ -5,7 +5,7 @@ class ItertaionsApiTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def app
-    ExercismAPI
+    ExercismAPI::App
   end
 
   def test_latest_iterations_requires_key
