@@ -92,30 +92,6 @@ module ExercismAPI
         pg :iterations, locals: {submissions: submissions}
       end
 
-      # Notification endpoints are only used in the prototype.
-      # Delete when redesign launches.
-      get '/notifications' do
-        require_user
-        notifications = current_user.notifications.on_submissions.recent
-        alerts = current_user.alerts.map {|alert| ExercismAPI::Presenters::Alert.new(alert) }
-        pg :notifications, locals: {notifications: alerts + notifications}
-      end
-
-      # I think this should be
-      # POST /notifications/:id/read
-      put '/notifications/:id' do |id|
-        require_user
-
-        if id =~ /alert/
-          notification = current_user.alerts.find(id.split('alert-').last)
-        else
-          notification = current_user.notifications.find(id)
-        end
-
-        notification.read!
-        pg :notification, locals: {notification: notification}
-      end
-
       get '/stats/:username/nitpicks/:year/:month' do |username, year, month|
         Stats::NitStreak.for(username, year.to_i, month.to_i).to_json
       end
