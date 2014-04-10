@@ -17,11 +17,14 @@ require 'api/routes'
 module ExercismAPI
   class App < Sinatra::Base
     configure do
+      # When redesign goes live, we can stop using sessions.
+      # The notification endpoints need to share
+      # the same session store as the main app.
       use Rack::Session::Cookie,
         :key => 'rack.session',
-        :path => '/api/v1',
+        :path => '/',
         :expire_after => 2592000,
-        :secret => ENV.fetch('SESSION_SECRET') { 'Need to know only.' } + ExercismAPI::ROOT
+        :secret => ENV.fetch('SESSION_SECRET') { 'Need to know only.' }
     end
 
     use Routes::Demo
