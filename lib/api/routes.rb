@@ -4,6 +4,7 @@ module ExercismAPI
       :Core => 'core',
       :Demo => 'demo',
       :Exercises => 'exercises',
+      :Stats => 'stats',
       :Notifications => 'notifications',
       :Legacy => 'legacy',
     }.each do |name, file|

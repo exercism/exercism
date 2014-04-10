@@ -26,6 +26,7 @@ module ExercismAPI
 
     use Routes::Demo
     use Routes::Exercises
+    use Routes::Stats
     use Routes::Notifications
     use Routes::Legacy
   end
