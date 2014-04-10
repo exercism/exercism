@@ -1,10 +1,12 @@
 require './test/api_helper'
 
 module ExercismAPI
-  class App < Sinatra::Base
-    get '/' do
-      require_user
-      "OK"
+  module Routes
+    class Legacy < Core
+      get '/' do
+        require_user
+        "OK"
+      end
     end
   end
 end
