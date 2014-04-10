@@ -9,11 +9,6 @@ module ExercismAPI
         Xapi.get("exercises", language, slug)
       end
 
-      get '/user/assignments/completed' do
-        require_user
-        {assignments: current_user.completed}.to_json
-      end
-
       get '/user/assignments/current' do
         require_user
         Xapi.get("exercises", key: current_user.key)
