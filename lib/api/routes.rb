@@ -4,6 +4,7 @@ module ExercismAPI
       :Core => 'core',
       :Demo => 'demo',
       :Exercises => 'exercises',
+      :Iterations => 'iterations',
       :Stats => 'stats',
       :Notifications => 'notifications',
       :Legacy => 'legacy',
