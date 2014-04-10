@@ -5,22 +5,27 @@ module ExercismAPI
         redirect '/api/v1/demo'
       end
 
+      get '/assignments/:language' do |language|
+        redirect "/api/v1/exercises/#{language}"
+      end
+
       get '/assignments/:language/:slug' do |language, slug|
-        Xapi.get("exercises", language, slug)
+        redirect "/api/v1/exercises/#{language}/#{slug}"
       end
 
       get '/user/assignments/current' do
-        require_user
-        Xapi.get("exercises", key: current_user.key)
+        unless params[:key]
+          halt 401, {error: "API key is required. Please log in."}.to_json
+        end
+        Xapi.get("exercises", key: params[:key])
+      end
+
+      get '/user/assignments/restore' do
+        Xapi.get("exercises", "restore", key: params[:key])
       end
 
       get '/user/assignments/next' do
         halt 410, {error: "`peek` is deprecated. `fetch` always delivers the next exercise."}.to_json
-      end
-
-      get '/user/assignments/restore' do
-        require_user
-        Xapi.get("exercises", "restore", key: current_user.key)
       end
 
       post '/user/assignments' do
@@ -75,12 +80,6 @@ module ExercismAPI
           halt 403, {error: "The submission is too old to be deleted."}.to_json
         end
         status 204
-      end
-
-      get '/exercises' do
-        require_user
-        content_type 'application/json', :charset => 'utf-8'
-        Homework.new(current_user).all.to_json
       end
 
       get '/iterations/latest' do
