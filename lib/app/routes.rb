@@ -5,6 +5,7 @@ module ExercismWeb
       :Legacy => 'legacy',
       :Stats => 'stats',
       :Static => 'static',
+      :Help => 'help',
     }.each do |name, file|
       autoload name, ['app', 'routes', file].join('/')
     end
