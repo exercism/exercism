@@ -37,6 +37,7 @@ module ExercismWeb
     use ExercismWeb::Routes::Help
     use ExercismWeb::Routes::Account
     use ExercismWeb::Routes::Solutions
+    use ExercismWeb::Routes::Comments
     use ExercismWeb::Routes::Legacy
   end
 end
