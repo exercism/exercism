@@ -14,6 +14,7 @@ module ExercismWeb
       :Exercises => 'exercises',
       :Metadata => 'metadata',
       :Teams => 'teams',
+      :User => 'user',
     }.each do |name, file|
       autoload name, ['app', 'routes', file].join('/')
     end

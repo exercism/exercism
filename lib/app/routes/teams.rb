@@ -73,7 +73,7 @@ module ExercismWeb
 
           team.recruit(params[:usernames])
           team.save
-          invitees = User.find_in_usernames(params[:usernames].to_s.scan(/[\w-]+/))
+          invitees = ::User.find_in_usernames(params[:usernames].to_s.scan(/[\w-]+/))
           notify(invitees, team)
 
           redirect "/teams/#{slug}"
@@ -168,7 +168,7 @@ module ExercismWeb
           redirect "/teams/#{slug}"
         end
 
-        user = User.find_by_username(params[:username])
+        user = ::User.find_by_username(params[:username])
         unless user.present?
           flash[:error] = "Unable to find user #{params[:username]}"
           redirect "/teams/#{slug}"
@@ -189,7 +189,7 @@ module ExercismWeb
           redirect "/teams/#{slug}"
         end
 
-        user = User.find_by_username(params[:username])
+        user = ::User.find_by_username(params[:username])
         team.managers.delete(user) if user
         redirect "/teams/#{slug}"
       end
