@@ -22,25 +22,28 @@ require 'app/routes'
 
 module ExercismWeb
   class App < Sinatra::Base
-    enable :sessions
-    set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
+    configure do
+      enable :sessions
+      set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
+    end
 
     if settings.development?
-      use ExercismWeb::Routes::Backdoor
+      use Routes::Backdoor
     end
 
     use ExercismIO::Routes::Help
-    use ExercismWeb::Routes::Legacy
-    use ExercismWeb::Routes::Sessions
-    use ExercismWeb::Routes::Stats
-    use ExercismWeb::Routes::Static
-    use ExercismWeb::Routes::Account
-    use ExercismWeb::Routes::Metadata
-    use ExercismWeb::Routes::Exercises
-    use ExercismWeb::Routes::Solutions
-    use ExercismWeb::Routes::Comments
-    use ExercismWeb::Routes::Teams
-    use ExercismWeb::Routes::User
-    use ExercismWeb::Routes::Errors
+
+    use Routes::Legacy
+    use Routes::Sessions
+    use Routes::Stats
+    use Routes::Static
+    use Routes::Account
+    use Routes::Metadata
+    use Routes::Exercises
+    use Routes::Solutions
+    use Routes::Comments
+    use Routes::Teams
+    use Routes::User
+    use Routes::Errors
   end
 end
