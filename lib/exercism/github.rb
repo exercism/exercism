@@ -3,11 +3,15 @@ class Github
     "https://github.com/login/oauth/authorize?client_id=#{client_id}"
   end
 
-  def self.authenticate(code, client_id, client_secret)
-    conn = Faraday.new(:url => 'https://github.com') do |c|
+  def self.connect_to(url)
+    Faraday.new(:url => url) do |c|
       c.use Faraday::Response::Logger
       c.use Faraday::Adapter::NetHttp
     end
+  end
+
+  def self.authenticate(code, client_id, client_secret)
+    conn = connect_to('https://github.com')
 
     response = conn.post do |req|
       req.url '/login/oauth/access_token'
@@ -18,11 +22,7 @@ class Github
     end
     access_token = JSON.parse(response.body)['access_token']
 
-    conn = Faraday.new(:url => 'https://api.github.com') do |c|
-      c.use Faraday::Response::Logger
-      c.use Faraday::Adapter::NetHttp
-    end
-
+    conn = connect_to 'https://api.github.com'
     response = conn.get do |req|
       req.url '/user'
       req.headers['User-Agent'] = user_agent
