@@ -12,7 +12,7 @@ module ExercismWeb
 
       get '/:username' do |username|
         please_login
-        user = User.find_by_username(username)
+        user = ::User.find_by_username(username)
 
         if user
           title(user.username)
@@ -25,7 +25,7 @@ module ExercismWeb
 
       get '/:username/nitstats' do |username|
         please_login
-        user = User.find_by_username(username)
+        user = ::User.find_by_username(username)
         if user
           stats = Nitstats.new(user)
           title("#{user.username} - Nit Stats")
@@ -50,7 +50,7 @@ module ExercismWeb
 
       get '/:username/:key' do |username, key|
         please_login
-        user = User.find_by_username(username)
+        user = ::User.find_by_username(username)
         exercise = user.exercises.find_by_key(key)
         if exercise.submissions.empty?
           # We have orphan exercises at the moment.

@@ -61,7 +61,7 @@ module ExercismWeb
         end
 
         def assumable_users
-          User.all
+          ::User.all
         end
 
         def active_nav(path)
