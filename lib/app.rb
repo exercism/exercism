@@ -30,6 +30,7 @@ module ExercismWeb
     use ExercismWeb::Routes::Stats
     use ExercismWeb::Routes::Static
     use ExercismWeb::Routes::Help
+    use ExercismWeb::Routes::Account
     use ExercismWeb::Routes::Legacy
   end
 end
