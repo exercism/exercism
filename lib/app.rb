@@ -27,6 +27,7 @@ module ExercismWeb
     enable :sessions
     set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
 
+    use ExercismWeb::Routes::Stats
     use ExercismWeb::Routes::Legacy
   end
 end

@@ -1,19 +1,6 @@
 module ExercismWeb
   module Routes
     class Legacy < Core
-      get '/stats' do
-        redirect "/stats/#{Exercism::Config.languages.first}"
-      end
-
-      get '/stats/:language' do |language|
-        please_login
-
-        languages = Exercism::Config.languages
-        progress = progress(language)
-
-        erb :"stats/show", locals: {trail: language, languages: languages, progress: progress}
-      end
-
       get '/' do
         if current_user.guest?
           current = ExercismIO::Presenters::Languages.new(Exercism::Config.current)
