@@ -7,7 +7,7 @@ class TeamsTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def app
-    ExercismApp
+    ExercismWeb::App
   end
 
   def alice_attributes

@@ -6,7 +6,7 @@ class AppExercisesTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def app
-    ExercismApp
+    ExercismWeb::App
   end
 
   def test_unlock_nitpicking

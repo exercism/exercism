@@ -24,7 +24,7 @@ if ENV['RACK_ENV'].to_sym == :development
 end
 
 use ActiveRecord::ConnectionAdapters::ConnectionManagement
-run ExercismApp
+run ExercismWeb::App
 
 require 'legacy'
 map '/api/v1/notifications' do
