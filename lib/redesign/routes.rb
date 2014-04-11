@@ -8,7 +8,8 @@ module ExercismIO
       :Session => 'session',
       :User => 'user',
       :Exercises => 'exercises',
-      :Teams => 'teams'
+      :Teams => 'teams',
+      :GithubCallback => 'github_callback',
     }.each do |name, file|
       autoload name, ['redesign', 'routes', file].join('/')
     end
