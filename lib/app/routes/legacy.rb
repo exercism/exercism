@@ -17,21 +17,6 @@ module ExercismWeb
         redirect "/submissions/#{key}"
       end
 
-      get '/submissions/:language/:assignment' do |language, assignment|
-        please_login
-
-        unless current_user.locksmith?
-          flash[:notice] = "This is an admin-only area. Sorry."
-          redirect '/'
-        end
-
-        submissions = Submission.where(language: language, slug: assignment, state: ['pending', 'done'])
-        .includes(:user)
-        .order('created_at DESC').to_a
-
-        erb :"submissions/assignment", locals: {submissions: submissions, language: language, assignment: assignment}
-      end
-
       get '/teams/?' do
         please_login
 
