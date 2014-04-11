@@ -6,9 +6,10 @@ module ExercismIO
       :Session => 'session',
       :Article => 'article',
       :Component => 'component',
-      :FuzzyTime => 'fuzzy_time'
+      :FuzzyTime => 'fuzzy_time',
+      :Markdown => 'markdown'
     }.each do |name, file|
-      autoload name, [ExercismIO::ROOT, 'helpers', file].join('/')
+      autoload name, ['redesign', 'helpers', file].join('/')
     end
   end
 end

@@ -2,7 +2,7 @@ module ExercismIO
   module Routes
     class Core < Sinatra::Application
       configure do
-        set :root, ['.', 'lib', ExercismIO::ROOT].join('/')
+        set :root, ['.', 'lib', 'redesign'].join('/')
       end
 
       helpers ExercismIO::Helpers::Config

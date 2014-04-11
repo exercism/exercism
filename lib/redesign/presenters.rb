@@ -10,7 +10,7 @@ module ExercismIO
       :ActiveExercise => 'active_exercise',
       :Notification => 'notification'
     }.each do |name, file|
-      autoload name, [ExercismIO::ROOT, 'presenters', file].join('/')
+      autoload name, ['redesign', 'presenters', file].join('/')
     end
   end
 end

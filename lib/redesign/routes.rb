@@ -10,7 +10,7 @@ module ExercismIO
       :Exercises => 'exercises',
       :Teams => 'teams'
     }.each do |name, file|
-      autoload name, [ExercismIO::ROOT, 'routes', file].join('/')
+      autoload name, ['redesign', 'routes', file].join('/')
     end
   end
 end
