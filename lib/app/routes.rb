@@ -8,6 +8,7 @@ module ExercismWeb
       :Help => 'help',
       :Account => 'account',
       :Backdoor => 'backdoor',
+      :Sessions => 'sessions',
     }.each do |name, file|
       autoload name, ['app', 'routes', file].join('/')
     end

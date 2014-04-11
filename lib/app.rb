@@ -31,6 +31,7 @@ module ExercismWeb
       use ExercismWeb::Routes::Backdoor
     end
 
+    use ExercismWeb::Routes::Sessions
     use ExercismWeb::Routes::Stats
     use ExercismWeb::Routes::Static
     use ExercismWeb::Routes::Help
