@@ -6,7 +6,7 @@ class NitpickAppTest < MiniTest::Unit::TestCase
   include DBCleaner
 
   def app
-    ExercismApp
+    ExercismWeb::App
   end
 
   attr_reader :master

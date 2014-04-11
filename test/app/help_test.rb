@@ -4,7 +4,7 @@ class AppHelpTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods
 
   def app
-    ExercismApp
+    ExercismWeb::App
   end
 
   def visit_setup_page language
