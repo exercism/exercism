@@ -36,6 +36,7 @@ module ExercismWeb
     use ExercismWeb::Routes::Static
     use ExercismWeb::Routes::Help
     use ExercismWeb::Routes::Account
+    use ExercismWeb::Routes::Metadata
     use ExercismWeb::Routes::Exercises
     use ExercismWeb::Routes::Solutions
     use ExercismWeb::Routes::Comments
