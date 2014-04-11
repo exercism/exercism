@@ -7,6 +7,7 @@ module ExercismWeb
       :Static => 'static',
       :Help => 'help',
       :Account => 'account',
+      :Backdoor => 'backdoor',
     }.each do |name, file|
       autoload name, ['app', 'routes', file].join('/')
     end

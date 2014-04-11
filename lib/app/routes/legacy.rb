@@ -6,17 +6,6 @@ module ExercismWeb
         redirect root_path
       end
 
-      if settings.development?
-        get '/backdoor' do
-          if User.count == 0
-            flash[:error] = "You'll want to run the seed script: `rake db:seed`"
-            redirect root_path
-          end
-
-          login(User.find_by_github_id(params[:id]))
-          redirect root_path
-        end
-      end
 
       get '/please-login' do
         erb :"auth/please_login", locals: {return_path: params[:return_path]}

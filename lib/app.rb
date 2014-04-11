@@ -27,6 +27,10 @@ module ExercismWeb
     enable :sessions
     set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
 
+    if settings.development?
+      use ExercismWeb::Routes::Backdoor
+    end
+
     use ExercismWeb::Routes::Stats
     use ExercismWeb::Routes::Static
     use ExercismWeb::Routes::Help
