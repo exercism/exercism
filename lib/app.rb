@@ -40,6 +40,7 @@ module ExercismWeb
     use ExercismWeb::Routes::Exercises
     use ExercismWeb::Routes::Solutions
     use ExercismWeb::Routes::Comments
+    use ExercismWeb::Routes::Teams
     use ExercismWeb::Routes::Legacy
   end
 end
