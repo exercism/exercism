@@ -15,4 +15,4 @@
           - member.exercises.active.each do |exercise|
             %li
               = exercise.language
-              = exercise.slug
+              = "#{exercise.slug}: #{exercise.nit_count}"
