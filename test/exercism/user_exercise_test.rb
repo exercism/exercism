@@ -20,5 +20,20 @@ class UserExerciseTest < MiniTest::Unit::TestCase
     exercise.reopen!
     refute exercise.reload.closed?
   end
+
+  def test_nit_count
+    alice = User.create!(username: 'alice')
+    exercise = UserExercise.create!(
+        user: alice,
+        state: 'done',
+        submissions: [
+            Submission.create!(user: alice, nit_count: 5),
+            Submission.create!(user: alice, nit_count: 7)
+        ]
+    )
+
+    exercise.reload
+    assert_equal 12, exercise.nit_count
+  end
 end
 

@@ -55,6 +55,10 @@ class UserExercise < ActiveRecord::Base
     state == 'hibernating'
   end
 
+  def nit_count
+    submissions.pluck(:nit_count).sum
+  end
+
   private
 
   def secret
