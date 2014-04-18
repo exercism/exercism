@@ -51,6 +51,10 @@ class ExercismAPI < Sinatra::Base
 
     attempt = Attempt.new(user, data['code'], data['path'])
 
+    unless attempt.valid_language?
+      halt 404, {:error => "We are unable to find what language exercise #{data['path']} belongs to."}
+    end
+
     unless attempt.valid?
       halt 400, {:error => "We are unable to determine which exercise you're submitting #{data['path']} to."}
     end

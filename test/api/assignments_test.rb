@@ -31,6 +31,14 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     assert_equal 401, last_response.status
   end
 
+  def test_api_complains_if_invalid_language_is_submitted
+    Notify.stub(:everyone, nil) do
+      post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.invalid'}.to_json
+    end
+
+    assert_equal 404, last_response.status
+  end
+
   def test_api_accepts_submission_attempt
     Notify.stub(:everyone, nil) do
       post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json

@@ -15,6 +15,10 @@ class Attempt
     file.language
   end
 
+  def valid_language?
+    language.present? rescue false
+  end
+
   def slug
     file.slug
   end
