@@ -14,6 +14,11 @@ class AttemptTest < MiniTest::Unit::TestCase
     refute Attempt.new(user, 'CODE', 'two.py').valid?
   end
 
+  def test_language_validity
+    assert Attempt.new(user, 'CODE', 'two/two.py').valid_language?
+    refute Attempt.new(user, 'CODE', 'two/two.invalid').valid_language?
+  end
+
   def test_saving_an_attempt_constructs_a_submission
     assert_equal 0, Submission.count # guard
 
