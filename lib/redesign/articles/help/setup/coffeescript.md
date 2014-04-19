@@ -2,11 +2,12 @@
 
 Make sure you have [Node.js installed](http://nodejs.org/) [via package manager](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager)
 
-Install jasmine-node:
+Install jasmine-node and coffee:
 
 ```bash
-$ npm install jasmine-node -g
+$ npm install jasmine-node coffee -g
 ```
+
 
 Update your `PATH` to include the npm binaries by adding the following to either `~/.bash_profile` or `~/.zshrc`:
 
