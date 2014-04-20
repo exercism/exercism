@@ -3,7 +3,7 @@ require 'db/config'
 
 class DB::ConfigTest < MiniTest::Unit::TestCase
   def test_default_file
-    file = './config/database.yml'
+    file = File.expand_path(File.join(__FILE__, '..', '..', '..', 'config', 'database.yml'))
     assert_equal file, DB::Config.new('env').file
   end
 

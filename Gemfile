@@ -37,3 +37,7 @@ group :test, :development do
   gem 'sqlite3'
   gem 'timecop', require: false
 end
+
+group :test do
+  gem 'capybara'
+end
