@@ -6,9 +6,13 @@ module DB
     class UnconfiguredEnvironment < StandardError; end
 
     attr_reader :file, :environment
-    def initialize(environment, file='./config/database.yml')
+    def initialize(environment, file=default_database_config)
       @environment = environment
       @file = file
+    end
+
+    def default_database_config
+      File.expand_path File.join(__FILE__, '..', '..', '..', 'config', 'database.yml')
     end
 
     def options
