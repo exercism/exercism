@@ -42,5 +42,19 @@ to be added:
 1. A help file: `lib/app/articles/help/setup/$LANGUAGE.md`
 ,. An entry in `lib/exercism/code.rb` to define the extension for that language.
 
+## Using the CLI Locally
+
+The `~/.exercism.go` configuration file for the CLI contains a field
+'hostname' which defaults to 'http://exercism.io'. You can change this to
+'http://localhost:4567' to run against your development environment.
+
+If you are also serving exercises locally via `x-api`, you can configure the
+exercism.io app to talk to `x-api` locally by exporting an environment
+variable:
+
+```bash
+$ export EXERCISES_API_URL=http://localhost:9292
+```
+
 Thank you again!
 :heart: :sparkling_heart: :heart:
