@@ -1,18 +1,3 @@
-$(function() {
-  var notification = new exercism.models.Notification(),
-  notificationList = new exercism.collections.NotificationList({
-    model: notification
-  });
-  $('.dropdown-toggle').dropdown();
-  exercism.collections.notificationsList = new exercism.collections.NotificationList({
-    model: notification
-  });
-  exercism.views.toggleNotifications = new exercism.views.ToggleNotifications({
-    el: $("#toggle-notifications"),
-    collection: notificationList
-  });
-});
-
 //TODO move all variable declaration to the tops of functions.
 $(function() {
   $('.notifications li.unread a').on("click", function() {
