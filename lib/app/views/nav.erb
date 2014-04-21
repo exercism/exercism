@@ -1,16 +1,6 @@
 <ul class="nav">
   <li><a href="/about">About</a></li>
-
-  <li class="dropdown">
-    <a class="dropdown-toggle" id="drop-setup" href="#" data-toggle="dropdown">
-      Help <b class="caret"></b></a>
-
-    <ul class="dropdown-menu" id="menu-setup" role="menu" area-labelledby="drop-setup">
-      <% help_topics.each do |slug, title| %>
-        <li><a role="menuitem" tabindex="-1" href="/help/<%= slug %>"><%= title %></a></li>
-      <% end %>
-    </ul>
-  </li>
+  <li><a href="/help">Help</a></li>
 </ul>
 
 <ul class="nav pull-right">

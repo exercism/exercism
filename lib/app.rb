@@ -32,12 +32,11 @@ module ExercismWeb
       use Routes::Backdoor
     end
 
-    use ExercismIO::Routes::Help
-
     use Routes::Legacy
     use Routes::Sessions
     use Routes::Stats
     use Routes::Static
+    use Routes::Help
     use Routes::Account
     use Routes::Metadata
     use Routes::Looks
