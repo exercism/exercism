@@ -269,3 +269,37 @@ h2 .next-submission {
 #current_submission h2 a {
   font-size: 14px;
 }
+
+.home img.medallion {
+  display: block;
+  margin: 0 auto;
+  height: 100px;
+}
+
+.home h2, .home p {
+  text-align: center;
+}
+.logo {
+  height: 218px;
+  padding-top: 100px; }
+
+.content-primary {
+  padding-top: 2em;
+  padding-bottom: 6em; }
+
+.content-secondary {
+  background: #f2f2f2;
+  border-top: 1px solid #d8d8d8;
+  text-align: center;
+  padding: 3.5em 0 6em 0; }
+
+.content-secondary-details h2 {
+  color: #262626;
+  margin: 0 0 15px 0; }
+
+.content-secondary-details pre {
+  background: #fff;
+  margin: 0 auto;
+  width: 580px;
+}
+

@@ -5,7 +5,7 @@ module ExercismWeb
         if current_user.guest?
           current = ExercismIO::Presenters::Languages.new(Exercism::Config.current)
           upcoming = ExercismIO::Presenters::Languages.new(Exercism::Config.upcoming)
-          erb :"site/index", locals: {current: current, upcoming: upcoming}
+          haml :"site/index", locals: {current: current, upcoming: upcoming}
         else
           erb :"site/dashboard", locals: {submission: Work.new(current_user).random}
         end
