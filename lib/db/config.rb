@@ -27,7 +27,10 @@ module DB
         raise UnconfiguredEnvironment.new(error)
       end
 
-      result['database'] = relative_to_root(result['database'].split('/'))
+      if result['adapter'] == 'sqlite3'
+        result['database'] = relative_to_root(result['database'].split('/'))
+      end
+
       result
     end
 

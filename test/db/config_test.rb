@@ -11,11 +11,15 @@ class DB::ConfigTest < MiniTest::Unit::TestCase
     assert_equal file, DB::Config.new('env').file
   end
 
-  def test_sets_the_database_setting_relative_to_root
+  def test_sets_the_database_setting_relative_to_root_if_sqlite
     file = relative_to_root('config', 'database.yml')
     db_connection_string = relative_to_root('db', 'exercism_test.sqlite')
 
     assert_equal db_connection_string, DB::Config.new('test').options['database']
+  end
+
+  def test_dont_change_database_setting_if_anything_else
+    assert_equal 'exercism_development', DB::Config.new('development').options['database']
   end
 
   def test_override_file
