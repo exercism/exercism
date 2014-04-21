@@ -27,6 +27,7 @@ module ExercismWeb
         end
 
         submission.viewed!(current_user)
+        Look.check!(submission.user_exercise_id, current_user.id)
         Notification.viewed!(submission, current_user)
 
         title(submission.slug + " in " + submission.language + " by " + submission.user.username)
