@@ -1,3 +1,0 @@
-<span class="icon-user"></span>
-<%= note %>
-<br>Sent <%= ago %>.
