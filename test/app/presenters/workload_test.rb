@@ -1,4 +1,4 @@
-require './test/app_helper'
+require_relative '../../app_helper'
 require 'mocha/setup'
 
 require 'exercism/submission'

@@ -1,4 +1,4 @@
-require './test/integration_helper'
+require_relative '../../integration_helper'
 require 'app/helpers/submissions_helper'
 
 class SubmissionsHelperTest < MiniTest::Unit::TestCase

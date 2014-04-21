@@ -11,7 +11,7 @@ module ExercismIO
       :Teams => 'teams',
       :GithubCallback => 'github_callback',
     }.each do |name, file|
-      autoload name, ['redesign', 'routes', file].join('/')
+      autoload name, Exercism.relative_to_root('lib', 'redesign', 'routes', file)
     end
   end
 end

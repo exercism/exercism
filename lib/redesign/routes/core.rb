@@ -1,10 +1,8 @@
 module ExercismIO
   module Routes
     class Core < Sinatra::Application
-      APP_ROOT = File.expand_path(File.join(__FILE__, '..', '..'))
-
       configure do
-        set :root, APP_ROOT
+        set :root, Exercism.relative_to_root('lib', 'redesign')
       end
 
       helpers ExercismIO::Helpers::Config

@@ -76,6 +76,6 @@ class Message
   end
 
   def template(name)
-    File.read("./lib/services/email/#{name}.erb")
+    File.read Exercism.relative_to_root("lib", "services", "email", "#{name}.erb")
   end
 end

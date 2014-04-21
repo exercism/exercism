@@ -1,4 +1,4 @@
-require './test/integration_helper'
+require_relative '../../integration_helper'
 
 class UnsubmitTest < MiniTest::Unit::TestCase
   include DBCleaner

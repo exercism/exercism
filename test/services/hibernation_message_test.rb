@@ -1,4 +1,4 @@
-require './test/approval_helper'
+require_relative '../approval_helper'
 require 'services/message'
 require 'services/hibernation_message'
 require 'exercism/named'

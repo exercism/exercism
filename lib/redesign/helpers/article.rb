@@ -31,7 +31,7 @@ module ExercismIO
       end
 
       def article_dir
-        File.join('lib', 'redesign', 'articles')
+        Exercism.relative_to_root('lib', 'redesign', 'articles')
       end
     end
   end

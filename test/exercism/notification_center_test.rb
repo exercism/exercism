@@ -1,7 +1,7 @@
-require './test/active_record_helper'
-require './lib/exercism/user'
-require './lib/exercism/notification'
-require './lib/exercism/notification_center'
+require_relative '../active_record_helper'
+require 'exercism/user'
+require 'exercism/notification'
+require 'exercism/notification_center'
 
 class NotificationCenterTest < MiniTest::Unit::TestCase
   include DBCleaner

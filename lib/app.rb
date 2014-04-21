@@ -1,24 +1,25 @@
-require 'exercism'
+require_relative './exercism'
+
 require 'sinatra/petroglyph'
 require 'will_paginate'
 require 'will_paginate/active_record'
 
-require 'app/presenters/workload'
-require 'app/presenters/profile'
-require 'app/presenters/sharing'
-require 'exercism/xapi'
+require_relative './app/presenters/workload'
+require_relative './app/presenters/profile'
+require_relative './app/presenters/sharing'
+require_relative './exercism/xapi'
 
-require 'app/helpers/gravatar_helper'
-require 'app/helpers/profile_helper'
-require 'app/helpers/site_title_helper'
-require 'app/helpers/submissions_helper'
+require_relative './app/helpers/gravatar_helper'
+require_relative './app/helpers/profile_helper'
+require_relative './app/helpers/site_title_helper'
+require_relative './app/helpers/submissions_helper'
 
-require 'redesign/routes'
-require 'redesign/helpers'
-require 'redesign/presenters'
+require_relative './redesign/presenters'
+require_relative './redesign/helpers'
+require_relative './redesign/routes'
 
-require 'services'
-require 'app/routes'
+require_relative './services'
+require_relative './app/routes'
 
 module ExercismWeb
   class App < Sinatra::Base

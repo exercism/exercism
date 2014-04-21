@@ -1,4 +1,4 @@
-require './test/api_helper'
+require_relative '../api_helper'
 require 'mocha/setup'
 
 class AssignmentsApiTest < MiniTest::Unit::TestCase

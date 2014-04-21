@@ -2,7 +2,7 @@ require 'exercism'
 require 'sinatra/petroglyph'
 
 module ExercismAPI
-  ROOT = 'api'
+  ROOT = Exercism.relative_to_root('lib', 'api')
 end
 
 require 'exercism/stats/nit_streak'

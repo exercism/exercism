@@ -4,7 +4,7 @@ module ExercismAPI
   module Routes
     class Core < Sinatra::Application
       configure do
-        set :root, ['.', 'lib', ExercismAPI::ROOT].join('/')
+        set :root, ExercismAPI::ROOT
       end
 
       before do

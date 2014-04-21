@@ -1,5 +1,5 @@
 module ExercismLegacy
   module Helpers
-    autoload :Session, "legacy/helpers/session"
+    autoload :Session, Exercism.relative_to_root("lib", "legacy", "helpers", "session")
   end
 end

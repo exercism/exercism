@@ -1,8 +1,8 @@
 require 'bundler'
 Bundler.setup
-require './test/test_helper'
-require './lib/exercism/markdown'
-require './lib/exercism/converts_markdown_to_html'
+require_relative '../test_helper'
+require 'exercism/markdown'
+require 'exercism/converts_markdown_to_html'
 require 'mocha/setup'
 
 class ConvertsMarkdownToHTMLTest < MiniTest::Unit::TestCase
