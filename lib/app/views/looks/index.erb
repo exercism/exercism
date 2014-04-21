@@ -1,0 +1,13 @@
+<h3>Recently Viewed</h3>
+
+<% if looks.empty? %>
+  <p>No exercises viewed in the past 2 days.</p>
+<% else %>
+  <ul>
+    <% looks.each do |look| %>
+      <li>
+        <a href="<%= look.path %>"><%= look.name %></a> (<%= look.language %>) by <%= look.username %>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

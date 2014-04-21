@@ -9,6 +9,7 @@ module ExercismWeb
       :Account => 'account',
       :Backdoor => 'backdoor',
       :Sessions => 'sessions',
+      :Looks => 'looks',
       :Solutions => 'solutions',
       :Comments => 'comments',
       :Exercises => 'exercises',

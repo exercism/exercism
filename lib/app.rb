@@ -39,6 +39,7 @@ module ExercismWeb
     use Routes::Static
     use Routes::Account
     use Routes::Metadata
+    use Routes::Looks
     use Routes::Exercises
     use Routes::Solutions
     use Routes::Comments
