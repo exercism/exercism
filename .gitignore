@@ -44,3 +44,7 @@ db/*sqlite
 
 # RubyMine
 .idea
+*.iml
+
+# sass
+.sass-cache/
