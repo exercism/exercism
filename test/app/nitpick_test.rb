@@ -1,4 +1,4 @@
-require './test/app_helper'
+require_relative '../app_helper'
 
 class NitpickAppTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods

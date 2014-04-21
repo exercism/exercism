@@ -1,5 +1,5 @@
-require './test/api_helper'
-require './lib/legacy'
+require_relative './api_helper'
+require_relative '../lib/legacy'
 
 class LegacyNotificationsApiTest < MiniTest::Unit::TestCase
   include Rack::Test::Methods

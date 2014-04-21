@@ -1,4 +1,4 @@
-require './test/integration_helper'
+require_relative '../integration_helper'
 require "mocha/setup"
 
 class SubmissionTest < MiniTest::Unit::TestCase

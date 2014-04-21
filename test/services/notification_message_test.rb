@@ -1,4 +1,4 @@
-require './test/app_helper'
+require_relative '../app_helper'
 
 require 'services/message'
 require 'services/notification_message'

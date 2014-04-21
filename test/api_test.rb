@@ -1,4 +1,4 @@
-require './test/api_helper'
+require_relative './api_helper'
 
 module ExercismAPI
   module Routes

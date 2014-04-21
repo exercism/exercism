@@ -18,7 +18,7 @@ module ExercismWeb
       :User => 'user',
       :Errors => 'errors',
     }.each do |name, file|
-      autoload name, ['app', 'routes', file].join('/')
+      autoload name, Exercism.relative_to_root('lib', 'app', 'routes', file)
     end
   end
 end

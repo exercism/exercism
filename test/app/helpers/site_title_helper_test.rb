@@ -1,4 +1,4 @@
-require './test/test_helper'
+require_relative '../../test_helper'
 require 'app/helpers/site_title_helper'
 
 class SiteTitleHelperTest < MiniTest::Unit::TestCase

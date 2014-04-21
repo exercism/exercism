@@ -1,5 +1,5 @@
 require 'date'
-require './test/approval_helper'
+require_relative '../../approval_helper'
 require 'exercism/stats/streak'
 
 class StatsStreakTest < MiniTest::Unit::TestCase

@@ -1,4 +1,5 @@
-require './test/test_helper'
+require_relative '../../test_helper'
+require 'exercism'
 require 'exercism/article'
 require 'redesign/helpers/article'
 
@@ -9,7 +10,7 @@ class ArticleHelperTest < MiniTest::Unit::TestCase
     @helper = Object.new
     @helper.extend(ExercismIO::Helpers::Article)
     def @helper.article_dir
-      './test/fixtures/articles'
+      Exercism.relative_to_root('test', 'fixtures', 'articles')
     end
     @helper
   end

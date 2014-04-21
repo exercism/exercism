@@ -8,7 +8,7 @@ module ExercismAPI
       :Stats => 'stats',
       :Legacy => 'legacy',
     }.each do |name, file|
-      autoload name, [ExercismAPI::ROOT, 'routes', file].join('/')
+      autoload name, Exercism.relative_to_root('lib', 'api', 'routes', file)
     end
   end
 end

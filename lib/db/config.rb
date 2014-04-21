@@ -3,6 +3,10 @@ require 'erb'
 
 module DB
   class Config
+    def relative_to_root(*paths)
+      File.expand_path(File.join(__FILE__, '..', '..', '..', *paths))
+    end
+
     class UnconfiguredEnvironment < StandardError; end
 
     attr_reader :file, :environment
@@ -12,15 +16,18 @@ module DB
     end
 
     def default_database_config
-      File.expand_path File.join(__FILE__, '..', '..', '..', 'config', 'database.yml')
+      relative_to_root('config', 'database.yml')
     end
 
     def options
       result = YAML.load(yaml)[environment]
+
       unless result
         error = "No environment '#{environment}' configured in #{file}"
         raise UnconfiguredEnvironment.new(error)
       end
+
+      result['database'] = relative_to_root(result['database'].split('/'))
       result
     end
 

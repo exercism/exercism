@@ -1,4 +1,4 @@
-require './test/test_helper'
+require_relative '../test_helper'
 require 'exercism/named'
 require 'exercism/exercise'
 

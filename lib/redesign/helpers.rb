@@ -9,7 +9,7 @@ module ExercismIO
       :FuzzyTime => 'fuzzy_time',
       :Markdown => 'markdown'
     }.each do |name, file|
-      autoload name, ['redesign', 'helpers', file].join('/')
+      autoload name, Exercism.relative_to_root('lib', 'redesign', 'helpers', file)
     end
   end
 end

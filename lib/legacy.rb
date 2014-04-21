@@ -1,13 +1,13 @@
 require 'sinatra'
 require 'sinatra/petroglyph'
-require './lib/redesign/helpers/fuzzy_time'
-require './lib/legacy/helpers'
-require './lib/legacy/alert'
+require_relative './redesign/helpers/fuzzy_time'
+require_relative './legacy/helpers'
+require_relative './legacy/alert'
 
 module ExercismLegacy
   class App < Sinatra::Base
     configure do
-      set :root, ['.', 'lib', 'legacy'].join('/')
+      set :root, Exercism.relative_to_root('lib', 'legacy')
     end
 
     configure do
