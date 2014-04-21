@@ -1,3 +1,0 @@
-<span class="icon-moon"></span>
-<%= note %>
-<br>Hibernated <%= ago %>.

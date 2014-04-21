@@ -1,4 +1,0 @@
-<span class="icon-comment<% count == 1 ? "" : "s" %>"></span>
-<a href="<%= link %>"><%= language %>: <%= slug %></a>
-<br>
-<%= count %> new <%= count == 1 ? "nitpick" : "nitpicks" %> <%= ago %>

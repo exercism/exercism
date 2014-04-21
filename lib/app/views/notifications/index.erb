@@ -1,0 +1,57 @@
+<div class="row">
+  <div class="span6">
+    <h2>Notifications (<%= inbox.notifications.count %>)</h2>
+
+    <p><a href="/looks">Recently viewed submissions.</a></p>
+
+    <ul style="list-style-type: none; margin: 0;">
+      <% inbox.notifications.each do |notification| %>
+      <li style="padding: 5px 0;">
+
+        <% if notification.regarding == 'code' %>
+          <span style="padding-right: 5px;" class="icon-code"></span>
+        <% else %>
+          <span style="padding-right: 5px;" class="icon-comment-alt"></span>
+        <% end %>
+
+        <a href="/submissions/<%= notification.item.key %>">
+          <%= notification.language %>:
+          <%= notification.slug %> &middot;
+          <%= notification.item.user.username %>
+        </a>
+
+        <br>
+
+        <p style="padding-left: 24px;">
+        <% if notification.regarding == 'code' %>
+          New iteration
+        <% else %>
+          <b><%= notification.creator.username %></b> commented
+        <% end %>
+        about <%= ago(notification.created_at) %>
+        </p>
+      </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="span4">
+    <% if inbox.has_alerts? %>
+      <h2>Alerts</h2>
+      <ul style="list-style-type: none; margin: 0;">
+        <% inbox.alerts.each do |alert| %>
+        <li>
+          <form action="/notifications/alert-<%= alert.id %>" method='POST' style="float: right; padding-left: 10px;">
+            <input type="hidden" name="_method" value="delete">
+            <div>
+              <button type="submit" class="btn btn-danger" name="delete">x</button>
+            </div>
+          </form>
+          <%= alert.text %>
+          <a href="<%= alert.url %>"><%= alert.link_text %></a>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
+  </div>
+</div>

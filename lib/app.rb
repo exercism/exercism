@@ -41,6 +41,7 @@ module ExercismWeb
     use Routes::Account
     use Routes::Metadata
     use Routes::Looks
+    use Routes::Notifications
     use Routes::Exercises
     use Routes::Solutions
     use Routes::Comments

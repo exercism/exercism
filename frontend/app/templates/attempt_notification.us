@@ -1,5 +1,0 @@
-<span class="icon-code"></span>
-<a href="<%= link %>"><%= language %>: <%= slug %></a>
-&middot; <%= username %>
-<br>
-new version <%= ago %>

@@ -56,6 +56,7 @@
     <% end %>
   <% end %>
 
+  <li><a role="menuitem" tabindex="-1" href="/notifications">Notifications (<%= current_user.alerts.count + current_user.notifications.on_submissions.unread.recent.count %>)</a></li>
   <% if current_user.guest? %>
     <li><a href="/login">Log in with GitHub</a></li>
   <% else %>
