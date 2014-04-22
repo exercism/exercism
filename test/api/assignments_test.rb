@@ -28,7 +28,9 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
 
   def test_api_accepts_submission_attempt
     Notify.stub(:everyone, nil) do
-      post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+      Xapi.stub(:exists?, true) do
+        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+      end
     end
 
     submission = Submission.first
@@ -42,7 +44,9 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
 
   def test_api_accepts_submission_on_completed_exercise
     Notify.stub(:everyone, nil) do
-      post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.go'}.to_json
+      Xapi.stub(:exists?, true) do
+        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.go'}.to_json
+      end
     end
 
     submission = Submission.first
@@ -78,7 +82,9 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     team2.confirm(dave.username)
     team2.confirm(eve.username)
 
-    post '/user/assignments', {key: bob.key, code: 'THE CODE', path: 'bob/code.rb'}.to_json
+    Xapi.stub(:exists?, true) do
+      post '/user/assignments', {key: bob.key, code: 'THE CODE', path: 'bob/code.rb'}.to_json
+    end
     assert_equal 201, last_response.status
 
     [alice, dave].each do |user|
@@ -93,7 +99,9 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
   def test_api_rejects_duplicates
     Attempt.new(alice, 'THE CODE', 'one/code.rb').save
     Notify.stub(:everyone, nil) do
-      post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+      Xapi.stub(:exists?, true) do
+        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+      end
     end
 
     response_error = JSON.parse(last_response.body)['error']

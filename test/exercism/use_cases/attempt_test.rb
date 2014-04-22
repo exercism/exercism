@@ -10,8 +10,14 @@ class AttemptTest < MiniTest::Unit::TestCase
   end
 
   def test_validity
-    assert Attempt.new(user, 'CODE', 'two/two.py').valid?
-    refute Attempt.new(user, 'CODE', 'two.py').valid?
+    Xapi.stub(:exists?, true) do
+      refute Attempt.new(user, 'CODE', 'two.py').valid?
+      assert Attempt.new(user, 'CODE', 'two/two.py').valid?
+    end
+
+    Xapi.stub(:exists?, false) do
+      refute Attempt.new(user, 'CODE', 'two/two.py').valid?
+    end
   end
 
   def test_saving_an_attempt_constructs_a_submission

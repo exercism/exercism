@@ -25,7 +25,7 @@ module ExercismAPI
         attempt = Attempt.new(user, data['code'], data['path'])
 
         unless attempt.valid?
-          halt 400, {:error => "We are unable to determine which exercise you're submitting #{data['path']} to."}
+          halt 400, {:error => "We are unable to determine which exercise you're submitting #{data['path']} to."}.to_json
         end
 
         if attempt.duplicate?

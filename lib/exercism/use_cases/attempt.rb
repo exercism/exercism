@@ -1,3 +1,5 @@
+require 'exercism/xapi'
+
 class Attempt
 
   attr_reader :user, :code, :file
@@ -8,7 +10,7 @@ class Attempt
   end
 
   def valid?
-    !!slug
+    !!slug && Xapi.exists?(language, slug)
   end
 
   def language
