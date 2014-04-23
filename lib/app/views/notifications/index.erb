@@ -35,7 +35,7 @@
         <% else %>
           <b><%= notification.creator.username %></b> commented
         <% end %>
-        about <%= ago(notification.created_at) %>
+        <%= ago(notification.created_at) %>
         </p>
       </li>
       <% end %>
