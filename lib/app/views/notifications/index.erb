@@ -1,5 +1,12 @@
 <div class="row">
   <div class="span6">
+
+    <form action="/notifications/read" method='POST' style="float: right; margin: 18px 120px 0 0;">
+      <div>
+        <button type="submit" class="btn btn-danger" name="mark-all-read">Mark all as read</button>
+      </div>
+    </form>
+
     <h2>Notifications (<%= inbox.notifications.count %>)</h2>
 
     <p><a href="/looks">Recently viewed submissions.</a></p>

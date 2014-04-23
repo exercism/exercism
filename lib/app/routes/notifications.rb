@@ -16,6 +16,13 @@ module ExercismWeb
         current_user.alerts.where(id: id).destroy_all
         redirect '/notifications'
       end
+
+      post '/notifications/read' do
+        please_login
+
+        current_user.notifications.update_all(read: true)
+        redirect '/notifications'
+      end
     end
   end
 end
