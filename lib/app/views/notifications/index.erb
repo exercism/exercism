@@ -47,7 +47,7 @@
       <h2>Alerts</h2>
       <ul style="list-style-type: none; margin: 0;">
         <% inbox.alerts.each do |alert| %>
-        <li>
+        <li style="padding: 5px 0;">
           <form action="/notifications/alert-<%= alert.id %>" method='POST' style="float: right; padding-left: 10px;">
             <input type="hidden" name="_method" value="delete">
             <div>
