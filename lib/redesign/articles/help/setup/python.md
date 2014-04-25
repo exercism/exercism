@@ -1,17 +1,32 @@
 ## Installing Python
 
-On the Mac, use Homebrew to install Python 2.x:
+Follow the instructions at [the Hitchhiker's Guide to Python](http://docs.python-guide.org/en/latest/#getting-started) to install Python on your computer.
+
+
+## Which version should I use?
+
+All exercises have been tested with Python3.3 and Python2.7. If you want to use a different version you should be able solve most exercises just fine but may run into a SyntaxError here and there.
+
+
+## Running a first test
+
+In the `python/bob` directory, create a file `bob.py`.
+Then run
 
 ```bash
-brew install python
+$ python3 bob_test.py
 ```
 
-If you're not using a mac, check out [python.org](https://wiki.python.org/moin/BeginnersGuide/Download) for instructions on downloading Python  and information on getting started.
-
-## Running tests
-
-Execute tests with:
+or
 
 ```bash
 $ python bob_test.py
 ```
+
+
+## Recommended learning ressources
+
+* [The Python Tutorial](https://docs.python.org/3/tutorial/)
+* [Learn Python The Hard Way](http://learnpythonthehardway.org/book/)
+* [Think Python](http://www.greenteapress.com/thinkpython/html/index.html)
+* [The Python Library Reference](https://docs.python.org/3/library/index.html)
