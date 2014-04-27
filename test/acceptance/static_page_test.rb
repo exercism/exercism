@@ -4,12 +4,28 @@ class StaticPageTest < AcceptanceTestCase
   def test_homepage_exists
     visit '/'
 
-    assert page.has_content?('exercism')
+    assert_content 'exercism'
   end
 
   def test_about_exists
-    visit '/about'
+    visit '/'
+    click_on 'About'
 
-    assert page.has_content?('About Exercism')
+    assert_content 'About Exercism'
+  end
+
+  def test_getting_started_exists
+    visit '/'
+    click_on 'Getting Started'
+
+    assert_content 'Exercises'
+    assert_content 'Nitpicking'
+  end
+
+  def test_help_exists
+    visit '/'
+    click_on 'Help'
+
+    assert_content 'Available Help Topics'
   end
 end
