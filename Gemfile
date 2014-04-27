@@ -39,5 +39,5 @@ group :test, :development do
 end
 
 group :test do
-  gem 'capybara'
+  gem 'minitest-capybara'
 end
