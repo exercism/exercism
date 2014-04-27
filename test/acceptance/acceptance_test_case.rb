@@ -6,4 +6,3 @@ class AcceptanceTestCase < MiniTest::Unit::TestCase
     Capybara.use_default_driver
   end
 end
-

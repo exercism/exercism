@@ -1,4 +1,4 @@
-require_relative '../../acceptance_helper'
+require_relative '../acceptance_helper'
 
 class StaticPageTest < AcceptanceTestCase
   def test_homepage_exists

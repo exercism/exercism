@@ -3,8 +3,8 @@ require 'bundler'
 Bundler.require
 require_relative './active_record_helper'
 require 'exercism'
-require 'redesign'
+require 'app'
 require 'capybara'
-require_relative './redesign/acceptance/acceptance_test_case'
+require_relative './acceptance/acceptance_test_case'
 
-Capybara.app = ExercismIO::Redesign
+Capybara.app = ExercismWeb::App
