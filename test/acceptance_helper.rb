@@ -1,10 +1,15 @@
 ENV['RACK_ENV'] = 'test'
 require 'bundler'
 Bundler.require
+require 'debugger'
 require_relative './active_record_helper'
 require 'exercism'
-require 'redesign'
+require 'app'
 require 'capybara'
-require_relative './redesign/acceptance/acceptance_test_case'
+require 'minitest-capybara'
+require_relative './acceptance/acceptance_test_case'
 
-Capybara.app = ExercismIO::Redesign
+ENV['EXERCISM_GITHUB_CLIENT_ID'] = 'abc123'
+ENV['EXERCISM_GITHUB_CLIENT_SECRET'] = 'abcdef123456'
+
+Capybara.app = ExercismWeb::App
