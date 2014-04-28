@@ -8,7 +8,8 @@ require 'app'
 require 'capybara'
 require 'minitest-capybara'
 require_relative './acceptance/acceptance_test_case'
-require 'dotenv'
-Dotenv.load!
+
+ENV['EXERCISM_GITHUB_CLIENT_ID'] = 'abc123'
+ENV['EXERCISM_GITHUB_CLIENT_SECRET'] = 'abcdef123456'
 
 Capybara.app = ExercismWeb::App
