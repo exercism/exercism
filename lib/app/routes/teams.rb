@@ -229,7 +229,9 @@ module ExercismWeb
               site_root: site_root
             )
           rescue => e
-            puts "Failed to send email. #{e.message}."
+            unless ENV['RACK_ENV'] == 'test'
+              puts "Failed to send email. #{e.message}."
+            end
           end
         end
       end
