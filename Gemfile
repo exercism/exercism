@@ -36,8 +36,10 @@ group :test, :development do
   gem 'foreman', require: false
   gem 'sqlite3'
   gem 'timecop', require: false
+  gem 'debugger'
 end
 
 group :test do
+  gem 'launchy'
   gem 'minitest-capybara'
 end

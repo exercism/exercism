@@ -10,7 +10,7 @@ module ExercismIO
           begin
             user = Authentication.perform(params[:code], github_client_id, github_client_secret)
             login(user)
-          rescue => e
+          rescue
             flash[:error] = "We're having trouble with logins right now. Please come back later."
           end
 
