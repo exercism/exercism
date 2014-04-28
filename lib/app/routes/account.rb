@@ -15,7 +15,8 @@ module ExercismWeb
 
         current_user.email = params[:email]
         current_user.save
-        redirect "/#{current_user.username}"
+        flash[:success] = 'Updated email address.'
+        redirect "/account"
       end
     end
   end
