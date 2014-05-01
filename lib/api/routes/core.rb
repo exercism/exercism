@@ -13,7 +13,7 @@ module ExercismAPI
 
       helpers do
         def require_key
-          if current_user.guest?
+          unless params[:key]
             halt 401, {error: "You must be logged in to access this feature. Please double-check your API key."}.to_json
           end
         end
