@@ -17,6 +17,10 @@ module ExercismWeb
       def notifications
         user.notifications.on_submissions.unread.recent
       end
+
+      def has_notifications?
+        notifications.count > 0
+      end
     end
   end
 end
