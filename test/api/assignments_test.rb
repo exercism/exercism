@@ -42,6 +42,15 @@ class AssignmentsApiTest < MiniTest::Unit::TestCase
     Approvals.verify(last_response.body, options)
   end
 
+  def test_provides_a_useful_error_message_when_key_is_wrong
+    Notify.stub(:everyone, nil) do
+      Xapi.stub(:exists?, true) do
+        post '/user/assignments', {key: 'no-such-key', code: 'THE CODE', path: 'one/code.rb'}.to_json
+      end
+    end
+    assert_equal 401, last_response.status
+  end
+
   def test_api_accepts_submission_on_completed_exercise
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do

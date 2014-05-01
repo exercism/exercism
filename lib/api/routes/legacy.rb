@@ -17,11 +17,14 @@ module ExercismAPI
         unless params[:key]
           halt 401, {error: "API key is required. Please log in."}.to_json
         end
-        Xapi.get("exercises", key: params[:key])
+        if current_user.guest?
+          halt 401, {error: "Please double-check your API key in your account page."}.to_json
+        end
+        halt *Xapi.get("exercises", key: params[:key])
       end
 
       get '/user/assignments/restore' do
-        Xapi.get("exercises", "restore", key: params[:key])
+        halt *Xapi.get("exercises", "restore", key: params[:key])
       end
 
       get '/user/assignments/next' do

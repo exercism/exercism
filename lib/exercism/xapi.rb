@@ -28,6 +28,7 @@ module Xapi
   end
 
   def self.get(*path_segments)
-    request(*path_segments).body
+    req = request(*path_segments)
+    [req.status, req.body]
   end
 end
