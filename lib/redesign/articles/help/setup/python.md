@@ -5,7 +5,7 @@ Follow the instructions at [the Hitchhiker's Guide to Python](http://docs.python
 
 ## Which version should I use?
 
-All exercises have been tested with Python3.3 and Python2.7. If you want to use a different version you should be able solve most exercises just fine but may run into a SyntaxError here and there.
+All exercises have been tested with Python 3.4, 3.3 and 2.7. If you want to use a different version you should be able solve most exercises just fine but may run into a SyntaxError here and there.
 
 
 ## Running a first test
