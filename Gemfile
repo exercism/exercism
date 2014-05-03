@@ -9,7 +9,7 @@ gem 'faraday'
 gem 'haml', require: false
 gem 'sass', '~> 3.3'
 gem 'loofah'
-gem 'newrelic_rpm', '~>3.7' # used both in production and development
+gem 'newrelic_rpm', '~>3.8' # used both in production and development
 gem 'petroglyph'
 gem 'pg'
 # Pony must not be required. See
