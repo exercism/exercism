@@ -57,7 +57,7 @@ class Workload
   end
 
   def available_exercises
-    exercises = Submission.select('distinct slug').where(language: language).map(&:slug).map {|slug|
+    exercises = pending.select('distinct slug').where(language: language).map(&:slug).map {|slug|
       Exercise.new(language, slug)
     }
     return exercises if user.mastery.include?(language)
@@ -70,10 +70,10 @@ class Workload
   private
 
   def pending
-    @pending ||= Submission.pending.where(language: language).unmuted_for(user)
+    @pending ||= Submission.pending.where(language: language).where('user_id != ?', user.id).unmuted_for(user)
   end
 
   def needs_input
-    @needs_input ||= Submission.needs_input.where(language: language).unmuted_for(user)
+    @needs_input ||= Submission.needs_input.where(language: language).where('user_id != ?', user.id).unmuted_for(user)
   end
 end

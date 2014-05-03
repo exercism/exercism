@@ -77,9 +77,10 @@ class WorkloadTest < MiniTest::Unit::TestCase
     assert_equal 2, workload.submissions.count
   end
 
-  def test_available_exercises
+  def test_doesnt_see_own_exercises
     workload = Workload.new(marjo, "ruby", "bob")
 
-    assert_equal 2, workload.available_exercises.count
+    assert_equal 1, workload.submissions.count
+    assert_equal 1, workload.available_exercises.count
   end
 end
