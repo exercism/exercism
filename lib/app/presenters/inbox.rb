@@ -6,20 +6,28 @@ module ExercismWeb
         @user = user
       end
 
-      def alerts
-        user.alerts
+      def count
+        alerts.count + notifications.count
       end
 
-      def has_alerts?
-        user.alerts.count > 0
-      end
-
-      def notifications
-        user.notifications.on_submissions.unread.recent
+      def has_stuff?
+        has_notifications? || has_alerts?
       end
 
       def has_notifications?
         notifications.count > 0
+      end
+
+      def has_alerts?
+        alerts.count > 0
+      end
+
+      def alerts
+        user.alerts
+      end
+
+      def notifications
+        user.notifications.on_submissions.unread.recent
       end
     end
   end

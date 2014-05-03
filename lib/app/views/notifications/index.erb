@@ -9,14 +9,33 @@
     </form>
     <% end %>
 
-    <h2>Notifications (<%= inbox.notifications.count %>)</h2>
+    <h2>Notifications (<%= inbox.count %>)</h2>
 
-    <% unless inbox.has_notifications? %>
-    <p>Notifications tell you about new comments or iterations in conversations that you are participating in. If you are on a team, you will also get notifications about activity from your team members.</p>
-    <p>At the moment this is not configurable. Making it possible to turn off certain notifications, or follow specific people, languages, or exercises would be a huge improvement to this feature, and this work is planned, but not yet started. See issues <a href="https://github.com/exercism/exercism.io/issues/519">#519</a> and <a href="https://github.com/exercism/exercism.io/issues/1527">#1527</a> on GitHub for more discussion about this feature.</p>
+    <% unless inbox.has_stuff? %>
+      <p>Notifications tell you about new comments or iterations in conversations that you are participating in. If you are on a team, you will also get notifications about activity from your team members.</p>
+      <p>At the moment this is not configurable.</p>
+      <p>You will also receive system-level alerts here, such as team invitations or notifications about feature changes on the site.</p>
     <% end %>
 
     <p>Are you looking for a discussion you recently viewed? There's a <a href="/looks">list of these</a> available.</p>
+
+    <% if inbox.has_alerts? %>
+      <ul style="list-style-type: none; margin: 0;">
+        <% inbox.alerts.each do |alert| %>
+        <li style="padding: 5px 0;">
+          <span style="padding-right: 5px;" class="icon-bell"></span>
+          <form action="/notifications/alert-<%= alert.id %>" method='POST' style="float: right; padding-left: 10px;">
+            <input type="hidden" name="_method" value="delete">
+            <div>
+              <button type="submit" class="btn btn-danger" name="delete">x</button>
+            </div>
+          </form>
+          <%= alert.text %>
+          <a href="<%= alert.url %>"><%= alert.link_text %></a>
+        </li>
+        <% end %>
+      </ul>
+    <% end %>
 
     <ul style="list-style-type: none; margin: 0;">
       <% inbox.notifications.each do |notification| %>
@@ -47,27 +66,5 @@
       </li>
       <% end %>
     </ul>
-  </div>
-
-  <div class="span4">
-    <h2>Alerts (<%= inbox.alerts.count %>)</h2>
-    <% if inbox.has_alerts? %>
-      <ul style="list-style-type: none; margin: 0;">
-        <% inbox.alerts.each do |alert| %>
-        <li style="padding: 5px 0;">
-          <form action="/notifications/alert-<%= alert.id %>" method='POST' style="float: right; padding-left: 10px;">
-            <input type="hidden" name="_method" value="delete">
-            <div>
-              <button type="submit" class="btn btn-danger" name="delete">x</button>
-            </div>
-          </form>
-          <%= alert.text %>
-          <a href="<%= alert.url %>"><%= alert.link_text %></a>
-        </li>
-        <% end %>
-      </ul>
-    <% else %>
-    <p>Alerts are system-level notifications. They might be about invitations to join teams, or changes in the command-line client or the features on the site.</p>
-    <% end %>
   </div>
 </div>
