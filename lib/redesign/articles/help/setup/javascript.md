@@ -22,6 +22,9 @@ Execute the tests with:
 $ jasmine-node bob_test.spec.js
 ```
 
+All but the first test are skipped. Once you get a test passing,
+unskip the next one by changing `xit` to `it`.
+
 ## Making Your First Node Module
 
 To create a module that can be loaded with `var Bob = require('./bob');`, put this code in `bob.js`:
