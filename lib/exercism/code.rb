@@ -20,6 +20,7 @@ class Code
     'pm' => 'perl5',
     'ml' => 'ocaml',
     'coffee' => 'coffeescript',
+    'cs' => 'csharp',
   }
 
   attr_reader :path
