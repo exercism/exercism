@@ -40,6 +40,10 @@ module ExercismWeb
           '/'
         end
 
+        def h(value)
+          Rack::Utils.escape_html value
+        end
+
         def link_to(path)
           File.join(root_path, path)
         end

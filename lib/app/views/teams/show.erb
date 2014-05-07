@@ -1,5 +1,5 @@
 <h1>
-  Team <%= team.name %>
+  Team <%= h(team.name) %>
 </h1>
 
 <% if team.managed_by?(current_user) %>
