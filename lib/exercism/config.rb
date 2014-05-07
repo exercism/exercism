@@ -4,6 +4,7 @@ class Exercism
       [
         :clojure,
         :coffeescript,
+        :csharp,
         :elixir,
         :go,
         :haskell,
