@@ -251,6 +251,16 @@ class TeamsTest < MiniTest::Unit::TestCase
     assert_response_status(200)
   end
 
+  def test_view_an_escaped_team_name
+    team = Team.by(alice).defined_with(slug: 'members', name: "<script>alert('esc_test');</script>", usernames: "#{bob.username},#{charlie.username}")
+    team.save
+
+    get "/teams/#{team.slug}", {}, login(alice)
+
+    assert_response_status(200)
+    assert last_response.body.include?('&lt;script&gt;alert(&#x27;esc_test&#x27;)')
+  end
+
   def test_view_team_as_a_non_member
     team = Team.by(alice).defined_with(slug: 'members', usernames: "#{bob.username}")
     team.save
