@@ -19,7 +19,7 @@ class Exercism
     end
 
     def self.current
-      languages.each_value.to_a
+      languages.values
     end
 
     def self.upcoming
