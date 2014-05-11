@@ -9,7 +9,7 @@ class Exercism
         go: 'Go',
         haskell: 'Haskell',
         javascript: 'JavaScript',
-        "objective-c" => 'Objective-C',
+        :"objective-c" => 'Objective-C',
         ocaml: 'OCaml',
         perl5: 'Perl5',
         python: 'Python',
