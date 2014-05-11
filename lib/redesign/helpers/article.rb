@@ -13,8 +13,8 @@ module ExercismIO
           ['nitpick', 'Nitpicking'],
           ['path', 'Understanding PATH'],
           ['troubleshooting', 'Troubleshooting'],
-        ] + Exercism::Config.languages.map { |language|
-          ["setup/#{language}", "Setting Up #{namify(language)}"]
+        ] + Exercism::Config.languages.map { |slug, name|
+          ["setup/#{slug}", "Setting Up #{name}"]
         }
       end
 

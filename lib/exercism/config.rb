@@ -1,25 +1,25 @@
 class Exercism
   class Config
     def self.languages
-      [
-        :clojure,
-        :coffeescript,
-        :csharp,
-        :elixir,
-        :go,
-        :haskell,
-        :javascript,
-        :"objective-c",
-        :ocaml,
-        :perl5,
-        :python,
-        :ruby,
-        :scala,
-      ]
+      {
+        clojure: 'Clojure',
+        coffeescript: 'CoffeeScript',
+        csharp: 'C#',
+        elixir: 'Elixer',
+        go: 'Go',
+        haskell: 'Haskell',
+        javascript: 'JavaScript',
+        :"objective-c" => 'Objective-C',
+        ocaml: 'OCaml',
+        perl5: 'Perl5',
+        python: 'Python',
+        ruby: 'Ruby',
+        scala: 'Scala',
+      }
     end
 
     def self.current
-      languages.map {|language| language.to_s.split('-').map(&:capitalize).join(' ')}.sort
+      languages.values
     end
 
     def self.upcoming

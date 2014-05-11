@@ -16,7 +16,8 @@ module ExercismWeb
       end
 
       get '/about' do
-        erb :"site/about"
+        languages = ExercismIO::Presenters::Languages.new(Exercism::Config.current)
+        erb :"site/about", locals: {languages: languages}
       end
 
       get '/getting-started' do
