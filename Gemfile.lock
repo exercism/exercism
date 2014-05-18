@@ -97,7 +97,7 @@ GEM
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    rake (10.3.1)
+    rake (10.3.2)
     redcarpet (3.1.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
