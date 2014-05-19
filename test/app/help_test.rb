@@ -14,7 +14,7 @@ class AppHelpTest < MiniTest::Unit::TestCase
   end
 
   def test_language_setup_pages
-    Exercism::Config.languages.each_key do |language|
+    Exercism::Config.languages.each do |language, _|
       visit_setup_page language
     end
   end

@@ -28,7 +28,7 @@ module ExercismIO
       end
 
       def current?
-        Exercism::Config.languages.include?(slug.to_sym)
+        Exercism::Config.languages.keys.include?(slug.to_sym)
       end
 
       def coming_soon?

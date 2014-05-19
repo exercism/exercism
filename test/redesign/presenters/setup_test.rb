@@ -4,7 +4,7 @@ require 'exercism/config'
 
 class SetupPresenterTest < MiniTest::Unit::TestCase
   def with_stubbed_languages(&block)
-    Exercism::Config.stub(:languages, [:ruby]) do
+    Exercism::Config.stub(:languages, {:ruby => 'Ruby'}) do
       Exercism::Config.stub(:upcoming, ["PHP"]) do
         block.call
       end
