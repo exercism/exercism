@@ -11,6 +11,7 @@ class Code
     'hs' => 'haskell',
     'java' => 'java',
     'js' => 'javascript',
+    'lisp' => 'lisp',
     'py' => 'python',
     'rb' => 'ruby',
     'rs' => 'rust',
