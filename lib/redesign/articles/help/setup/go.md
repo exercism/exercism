@@ -11,11 +11,20 @@ $ cd exercism/project/directory/go/bob
 $ go test
 ```
 
+## Benchmarks
+
+Many test suites contain benchmarks that allow you to easily determine how changes to your solution affect its performance.
+Use the command below to run the benchmarks:
+
+```bash
+$ go test -bench exercism/project/directory/go/exercise-name
+```
+
 ## Linting
 
 Remember to run [`go fmt`](http://blog.golang.org/go-fmt-your-code) on your code before submitting it.
 
-You might also look at `go vet`, which warns about potential problems in your code.
+You might also look at [`golint`](https://github.com/golang/lint) and [`go vet`](http://godoc.org/code.google.com/p/go.tools/cmd/vet), which warn about potential problems in your code.
 
 ## Recommended Learning Resources
 
