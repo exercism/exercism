@@ -17,7 +17,7 @@ module ExercismAPI
       end
 
       get '/exercises/:language' do |language|
-        halt *Xapi.get("exercises", language)
+        halt *Xapi.get("exercises", language, :key => current_user.key)
       end
 
       get '/exercises/:language/:slug' do |language, slug|

@@ -6,7 +6,7 @@ module ExercismAPI
       end
 
       get '/assignments/:language' do |language|
-        redirect "/api/v1/exercises/#{language}"
+        redirect "/api/v1/exercises/#{language}?key=#{params[:key]}"
       end
 
       get '/assignments/:language/:slug' do |language, slug|
