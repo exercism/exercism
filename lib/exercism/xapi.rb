@@ -4,7 +4,7 @@ module Xapi
   end
 
   def self.exists?(language, slug)
-    request('exercises', language, slug).status != 404
+    request('problems', language, slug).status != 404
   end
 
   def self.conn
