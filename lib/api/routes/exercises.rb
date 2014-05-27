@@ -21,7 +21,7 @@ module ExercismAPI
       end
 
       get '/exercises/:language/:slug' do |language, slug|
-        halt *Xapi.get("exercises", language, slug)
+        halt *Xapi.get("problems", language, slug)
       end
     end
   end
