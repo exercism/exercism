@@ -6,7 +6,7 @@ module ExercismWeb
         exercise = JSON.parse(response)["assignments"].first
         language = exercise["track"]
         slug = exercise["slug"]
-        text = exercise["files"].find {|filename, code| filename =~ /test/i}.last
+        text = exercise["files"].find {|filename, code| filename =~ /test/i || filename =~ /\.t$/}.last
         erb :"exercises/test_suite", locals: {language: language, slug: slug, text: text}
       end
 
