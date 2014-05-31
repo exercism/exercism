@@ -50,29 +50,20 @@ class SubmissionsHelperTest < MiniTest::Unit::TestCase
     assert_equal "/submissions/#{@submission.key}/unmute", helper.mute_button_action_for(@submission, @fred)
   end
 
-  def test_no_likes
-    assert_equal '', helper.these_people_like_it([])
+  def test_sentencify_none
+    assert_equal '', helper.sentencify([])
   end
 
-  def test_one_like
-    assert_equal '@alice thinks this looks great', helper.these_people_like_it([User.new(username: 'alice')])
+  def test_sentencify_one
+    assert_equal 'alice', helper.sentencify(['alice'])
   end
 
-  def test_two_likes
-    users = [
-      User.new(username: 'alice'),
-      User.new(username: 'bob')
-    ]
-    assert_equal '@alice and @bob think this looks great', helper.these_people_like_it(users)
+  def test_sentencify_two
+    assert_equal 'alice and bob', helper.sentencify(%w(alice bob))
   end
 
-  def test_many_likes
-    users = [
-      User.new(username: 'alice'),
-      User.new(username: 'bob'),
-      User.new(username: 'charlie')
-    ]
-    assert_equal '@alice, @bob, and @charlie think this looks great', helper.these_people_like_it(users)
+  def test_sentencify_three
+    assert_equal 'alice, bob, and charlie', helper.sentencify(%w(alice bob charlie))
   end
 
   def test_like_submission_button_for_non_nitpicker

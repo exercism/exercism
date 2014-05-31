@@ -14,19 +14,25 @@ module Sinatra
       "#{count} " + "view".pluralize(count)
     end
 
-    def these_people_like_it(liked_by)
-      everyone = liked_by.map {|user| "@#{user.username}"}
-      case everyone.size
-        when 0
-          ""
-        when 1
-          "#{everyone.first} thinks this looks great"
-        when 2
-          "#{everyone.join(' and ')} think this looks great"
-        else
-          last = everyone.pop
-          "#{everyone.join(', ')}, and #{last} think this looks great"
+    def sentencify(names)
+      case names.size
+      when 0
+        ""
+      when 1
+        "#{names.first}"
+      when 2
+        "#{names.join(' and ')}"
+      else
+        last = names.pop
+        "#{names.join(', ')}, and #{last}"
       end
+    end
+
+    def these_people_like_it(liked_by)
+      return "" if liked_by.empty?
+
+      everyone = liked_by.map {|user| "<a href='/#{user.username}'>@#{user.username}</a>"}
+      "#{sentencify(everyone)} thinks this looks great"
     end
 
     def like_submission_button(submission, user)
