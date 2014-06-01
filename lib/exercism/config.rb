@@ -5,7 +5,7 @@ class Exercism
         clojure: 'Clojure',
         coffeescript: 'CoffeeScript',
         csharp: 'C#',
-        elixir: 'Elixer',
+        elixir: 'Elixir',
         go: 'Go',
         haskell: 'Haskell',
         javascript: 'JavaScript',
