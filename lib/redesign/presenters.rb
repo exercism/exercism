@@ -1,10 +1,7 @@
-require_relative './presenters/setup'
-
 module ExercismIO
   module Presenters
     {
       :Carousel => 'carousel',
-      :Languages => 'languages',
       :Profile => 'profile',
       :Track => 'track',
       :ExerciseLink => 'exercise_link',

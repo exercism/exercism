@@ -1,4 +1,4 @@
-module ExercismIO
+module ExercismWeb
   module Helpers
     module Article
       def namify(slug)
@@ -31,7 +31,7 @@ module ExercismIO
       end
 
       def article_dir
-        Exercism.relative_to_root('lib', 'redesign', 'articles')
+        Exercism.relative_to_root('lib', 'app', 'articles')
       end
     end
   end

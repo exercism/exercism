@@ -9,6 +9,7 @@ module ExercismWeb
       :Account => 'account',
       :Backdoor => 'backdoor',
       :Sessions => 'sessions',
+      :GithubCallback => 'github_callback',
       :Notifications => 'notifications',
       :Looks => 'looks',
       :Solutions => 'solutions',

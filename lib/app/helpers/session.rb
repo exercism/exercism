@@ -1,4 +1,4 @@
-module ExercismIO
+module ExercismWeb
   module Helpers
     module Session
       def login(user)

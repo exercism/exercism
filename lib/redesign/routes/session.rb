@@ -1,7 +1,7 @@
 module ExercismIO
   module Routes
     class Session < Core
-      register GithubCallback
+      register ExercismWeb::Routes::GithubCallback
 
       get '/login' do
         redirect login_url

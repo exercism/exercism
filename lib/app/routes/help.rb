@@ -16,7 +16,7 @@ module ExercismWeb
       end
 
       get '/help/setup/:language' do |language|
-        language = ExercismIO::Presenters::Setup.new(language)
+        language = ExercismWeb::Presenters::Setup.new(language)
         if language.not_found?
           status 404
         end

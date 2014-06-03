@@ -1,7 +1,7 @@
 require 'exercism/markdown'
 require 'loofah'
 
-module ExercismIO
+module ExercismWeb
   module Helpers
     module Markdown
       def md(text, language = nil)

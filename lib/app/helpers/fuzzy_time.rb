@@ -2,7 +2,7 @@
 # pulled in all sorts of unnecessary code,
 # including all of nokogiri and, apparently, bson_ext.
 # Hand-rolling.
-module ExercismIO
+module ExercismWeb
   module Helpers
     module FuzzyTime
       def ago(timestamp)

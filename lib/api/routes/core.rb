@@ -1,5 +1,3 @@
-require 'redesign/helpers/fuzzy_time'
-
 module ExercismAPI
   module Routes
     class Core < Sinatra::Application

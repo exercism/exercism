@@ -1,7 +1,7 @@
-require 'redesign/helpers/fuzzy_time'
+require 'app/helpers/fuzzy_time'
 
 class NotificationMessage < Message
-  include ExercismIO::Helpers::FuzzyTime
+  include ExercismWeb::Helpers::FuzzyTime
 
   def initialize(options)
     @user = options.fetch(:user)

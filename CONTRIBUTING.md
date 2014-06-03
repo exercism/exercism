@@ -48,7 +48,7 @@ See the existing [ruby repository](https://github.com/exercism/xruby) for refere
 In addition to making the problems available in the language-specific
 repository, the following needs to be added:
 
-1. A help topic: [`lib/redesign/articles/help/setup/$LANGUAGE.md`](https://github.com/exercism/exercism.io/blob/master/lib/redesign/articles/help/setup/)
+1. A help topic: [`lib/app/articles/help/setup/$LANGUAGE.md`](https://github.com/exercism/exercism.io/blob/master/lib/redesign/articles/help/setup/)
 2. An entry in [`lib/exercism/code.rb`](https://github.com/exercism/exercism.io/blob/master/lib/exercism/code.rb) to define the extension for that language.
 
 Once the language is ready to launch, let me know and I'll include it as a git

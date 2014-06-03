@@ -1,4 +1,4 @@
-module ExercismIO
+module ExercismWeb
   module Routes
     module GithubCallback
       def self.registered(app)

@@ -1,4 +1,4 @@
-module ExercismIO
+module ExercismWeb
   module Presenters
     class Setup
       attr_reader :name

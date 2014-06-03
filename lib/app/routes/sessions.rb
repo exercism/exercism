@@ -1,7 +1,7 @@
 module ExercismWeb
   module Routes
     class Sessions < Core
-      register ExercismIO::Routes::GithubCallback
+      register ExercismWeb::Routes::GithubCallback
 
       get '/please-login' do
         erb :"auth/please_login", locals: {return_path: params[:return_path]}

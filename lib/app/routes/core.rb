@@ -9,15 +9,15 @@ module ExercismWeb
 
       use Rack::Flash
 
-      helpers ExercismIO::Helpers::FuzzyTime
-      helpers ExercismIO::Helpers::Article
-      helpers ExercismIO::Helpers::Markdown
+      helpers Helpers::FuzzyTime
+      helpers Helpers::Article
+      helpers Helpers::Markdown
+      helpers Helpers::Session
       helpers WillPaginate::Sinatra::Helpers
       helpers Sinatra::SubmissionsHelper
       helpers Sinatra::SiteTitleHelper
       helpers Sinatra::GravatarHelper
       helpers Sinatra::ProfileHelper
-      helpers ExercismIO::Helpers::Session
 
       helpers do
         def github_client_id

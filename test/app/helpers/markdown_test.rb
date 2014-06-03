@@ -1,12 +1,12 @@
 require_relative '../../test_helper'
 require 'exercism/converts_markdown_to_html'
-require 'redesign/helpers/markdown'
+require 'app/helpers/markdown'
 
 class MarkdownHelperTest < MiniTest::Unit::TestCase
   def helper
     return @helper if @helper
     @helper = Object.new
-    @helper.extend(ExercismIO::Helpers::Markdown)
+    @helper.extend(ExercismWeb::Helpers::Markdown)
     @helper
   end
 

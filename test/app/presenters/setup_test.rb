@@ -1,5 +1,5 @@
 require_relative '../../test_helper'
-require 'redesign/presenters/setup'
+require 'app/presenters/setup'
 require 'exercism/config'
 
 class SetupPresenterTest < MiniTest::Unit::TestCase
@@ -13,7 +13,7 @@ class SetupPresenterTest < MiniTest::Unit::TestCase
 
   def test_current_language
     with_stubbed_languages do
-      language = ExercismIO::Presenters::Setup.new('Ruby')
+      language = ExercismWeb::Presenters::Setup.new('Ruby')
       assert_equal 'Ruby', language.name
       assert_equal 'ruby', language.topic
       refute language.not_found?
@@ -22,7 +22,7 @@ class SetupPresenterTest < MiniTest::Unit::TestCase
 
   def test_upcoming_language
     with_stubbed_languages do
-      language = ExercismIO::Presenters::Setup.new('PHP')
+      language = ExercismWeb::Presenters::Setup.new('PHP')
       assert_equal 'PHP', language.name
       assert_equal 'coming-soon', language.topic
       refute language.not_found?
@@ -31,7 +31,7 @@ class SetupPresenterTest < MiniTest::Unit::TestCase
 
   def test_no_such_language
     with_stubbed_languages do
-      language = ExercismIO::Presenters::Setup.new('Fortran')
+      language = ExercismWeb::Presenters::Setup.new('Fortran')
       assert_equal 'Fortran', language.name
       assert_equal '404', language.topic
       assert language.not_found?

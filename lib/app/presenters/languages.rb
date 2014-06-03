@@ -1,4 +1,4 @@
-module ExercismIO
+module ExercismWeb
   module Presenters
     class Languages
       attr_reader :names

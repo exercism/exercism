@@ -4,19 +4,17 @@ require 'sinatra/petroglyph'
 require 'will_paginate'
 require 'will_paginate/active_record'
 
+require_relative './app/presenters'
 require_relative './app/presenters/workload'
 require_relative './app/presenters/profile'
 require_relative './app/presenters/sharing'
 require_relative './exercism/xapi'
 
+require_relative './app/helpers'
 require_relative './app/helpers/gravatar_helper'
 require_relative './app/helpers/profile_helper'
 require_relative './app/helpers/site_title_helper'
 require_relative './app/helpers/submissions_helper'
-
-require_relative './redesign/presenters'
-require_relative './redesign/helpers'
-require_relative './redesign/routes'
 
 require_relative './services'
 require_relative './app/routes'
