@@ -21,11 +21,4 @@ class StaticPageTest < AcceptanceTestCase
     assert_content 'Exercises'
     assert_content 'Nitpicking'
   end
-
-  def test_help_exists
-    visit '/'
-    click_on 'Help'
-
-    assert_content 'Available Help Topics'
-  end
 end

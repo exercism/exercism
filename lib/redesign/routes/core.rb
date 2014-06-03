@@ -8,7 +8,6 @@ module ExercismIO
       helpers ExercismIO::Helpers::Config
       helpers ExercismWeb::Helpers::Session
       helpers ExercismIO::Helpers::URL
-      helpers ExercismWeb::Helpers::Article
       helpers ExercismIO::Helpers::Component
       helpers ExercismWeb::Helpers::FuzzyTime
     end

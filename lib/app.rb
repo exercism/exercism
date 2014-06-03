@@ -34,7 +34,6 @@ module ExercismWeb
     use Routes::Sessions
     use Routes::Stats
     use Routes::Static
-    use Routes::Help
     use Routes::Account
     use Routes::Metadata
     use Routes::Looks

@@ -10,7 +10,6 @@ module ExercismWeb
       use Rack::Flash
 
       helpers Helpers::FuzzyTime
-      helpers Helpers::Article
       helpers Helpers::Markdown
       helpers Helpers::Session
       helpers WillPaginate::Sinatra::Helpers

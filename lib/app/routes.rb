@@ -5,7 +5,6 @@ module ExercismWeb
       :Legacy => 'legacy',
       :Stats => 'stats',
       :Static => 'static',
-      :Help => 'help',
       :Account => 'account',
       :Backdoor => 'backdoor',
       :Sessions => 'sessions',

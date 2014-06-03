@@ -2,7 +2,6 @@ module ExercismWeb
   module Helpers
     {
       :Session => 'session',
-      :Article => 'article',
       :FuzzyTime => 'fuzzy_time',
       :Markdown => 'markdown',
       :Setup => 'setup'
