@@ -16,6 +16,10 @@ module ExercismWeb
       get '/user/submissions/:key' do |key|
         redirect "/submissions/#{key}"
       end
+
+      get '/help/?*' do
+        redirect "http://help.exercism.io"
+      end
     end
   end
 end
