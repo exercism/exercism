@@ -5,11 +5,6 @@ Bundler.require
 
 require 'app'
 require 'api'
-require 'sass/plugin/rack'
-
-use Sass::Plugin::Rack
-Sass::Plugin.options[:template_location] = "./lib/redesign/public/stylesheets/"
-Sass::Plugin.options[:css_location] = "./lib/redesign/public/css"
 
 ENV['RACK_ENV'] ||= 'development'
 
@@ -28,10 +23,4 @@ run ExercismWeb::App
 
 map '/api/v1/' do
   run ExercismAPI::App
-end
-
-
-require 'redesign'
-map '/redesign/' do
-  run ExercismIO::Redesign
 end

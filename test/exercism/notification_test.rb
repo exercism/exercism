@@ -3,12 +3,6 @@ require_relative '../integration_helper'
 class NotificationTest < MiniTest::Unit::TestCase
   include DBCleaner
 
-  # This entire test suite is a temporary hack to allow both
-  # the beta app and the redesign app to run in production
-  # simultaneously. Once the beta app is retired, this
-  # test suite should be rewritten to remove all
-  # notifications on individual submissions.
-
   attr_reader :alice, :bob, :submission, :exercise
   def setup
     super
