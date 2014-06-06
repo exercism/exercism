@@ -1,5 +1,27 @@
 namespace :data do
   namespace :migrate do
+    desc "migrate deprecated problems"
+    task :deprecated_problems do
+      require 'bundler'
+      Bundler.require
+      require_relative '../exercism'
+      # in Ruby
+      {
+        'point-mutations' => 'hamming'
+      }.each do |deprecated, replacement|
+        UserExercise.where(language: 'ruby', slug: deprecated).each do |exercise|
+          unless UserExercise.where(language: 'ruby', slug: replacement, user_id: exercise.user_id).count > 0
+            exercise.slug = replacement
+            exercise.save
+            exercise.submissions.each do |submission|
+              submission.slug = replacement
+              submission.save
+            end
+          end
+        end
+      end
+    end
+
     desc "migrate nitpicker status"
     task :nitpicker_status do
       require 'bundler'
