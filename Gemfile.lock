@@ -36,7 +36,7 @@ GEM
       simplecov (>= 0.7)
       term-ansicolor
       thor
-    database_cleaner (1.2.0)
+    database_cleaner (1.3.0)
     docile (1.1.1)
     dotenv (0.9.0)
     faraday (0.9.0)
