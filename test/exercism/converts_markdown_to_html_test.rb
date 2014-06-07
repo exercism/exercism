@@ -40,32 +40,38 @@ class ConvertsMarkdownToHTMLTest < MiniTest::Unit::TestCase
 
   def test_markdown_code_with_ampersands
     input = "```\nbig && strong\n```"
-    expected = %q{<div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
+    expected = %q{<div class="highlight plaintext">
+<table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
 <td class="code"><pre>big &amp;&amp; strong
 </pre></td>
-</tr></tbody></table></div>}
+</tr></tbody></table>
+</div>}
     check_sanitisation(input, expected)
   end
 
   def test_markdown_code_with_text_and_double_braces
     input = "```\nx{{current}}y\n```"
-    expected = %q{<div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
+    expected = %q{<div class="highlight plaintext">
+<table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
 <td class="code"><pre>x{{current}}y
 </pre></td>
-</tr></tbody></table></div>}
+</tr></tbody></table>
+</div>}
 
     check_sanitisation(input, expected)
   end
 
   def test_markdown_code_with_double_braces
     input = "```\n{{x: y}}\n```"
-    expected = %q{<div class="highlight json"><table style="border-spacing: 0;"><tbody><tr>
+    expected = %q{<div class="highlight json">
+<table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
 <td class="code"><pre><span class="p">{</span><span class="err">{x</span><span class="p">:</span><span class="w"> </span><span class="err">y</span><span class="p">}</span><span class="err">}</span><span class="w">
 </span></pre></td>
-</tr></tbody></table></div>}
+</tr></tbody></table>
+</div>}
 
     check_sanitisation(input, expected)
   end
@@ -76,7 +82,8 @@ class ConvertsMarkdownToHTMLTest < MiniTest::Unit::TestCase
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
                  "{{action}}, {{remaining}} of beer on the wall.\n";}
 
-    expected = %Q{<div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
+    expected = %Q{<div class="highlight plaintext">
+<table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno">1
 2
 3
@@ -86,7 +93,8 @@ class ConvertsMarkdownToHTMLTest < MiniTest::Unit::TestCase
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
                  "{{action}}, {{remaining}} of beer on the wall.\n";
 </pre></td>
-</tr></tbody></table></div>}
+</tr></tbody></table>
+</div>}
 
     converter = ConvertsMarkdownToHTML.new(input)
     converter.convert
@@ -106,7 +114,8 @@ end
 Post text}
 
     expected = %q{<p>Pre text</p>
-<div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
+<div class="highlight plaintext">
+<table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno">1
 2
 3</pre></td>
@@ -114,7 +123,8 @@ Post text}
   foos.each { |foo| foo.bar &gt; 10 }
 end
 </pre></td>
-</tr></tbody></table></div>
+</tr></tbody></table>
+</div>
 
 <p>Post text</p>}
 
@@ -131,7 +141,8 @@ end
 ```}
 
     expected = %q{<p>Check out this code:</p>
-<div class="highlight clojure"><table style="border-spacing: 0;"><tbody><tr>
+<div class="highlight clojure">
+<table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno">1
 2
 3</pre></td>
@@ -139,7 +150,8 @@ end
   </span><span class="p">[</span><span class="n">dna-string</span><span class="p">]</span><span class="w">
   </span><span class="p">(</span><span class="nf">clojure.string/replace</span><span class="w"> </span><span class="n">dna-string</span><span class="w"> </span><span class="sc">\T</span><span class="w"> </span><span class="sc">\U</span><span class="p">))</span><span class="w">
 </span></pre></td>
-</tr></tbody></table></div>}
+</tr></tbody></table>
+</div>}
     check_sanitisation(input, expected)
   end
 
