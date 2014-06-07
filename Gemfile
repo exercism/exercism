@@ -25,7 +25,7 @@ gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
 group :test, :development do
-  gem 'ruby-prof', '~> 0.14'
+  # gem 'ruby-prof', '~> 0.14'
   gem 'database_cleaner', require: false
   gem 'approvals', require: false
   gem 'rack-test', require: false
