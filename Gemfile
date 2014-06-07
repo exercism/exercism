@@ -7,7 +7,6 @@ gem 'activerecord', '~> 4.0.4'
 
 gem 'faraday'
 gem 'haml', require: false
-gem 'sass', '~> 3.3'
 gem 'loofah'
 gem 'newrelic_rpm', '~>3.8' # used both in production and development
 gem 'petroglyph'
