@@ -55,7 +55,7 @@ GEM
       activesupport (>= 2.3.6)
       mime-types
       treetop (>= 1.4.5)
-    metaclass (0.0.2)
+    metaclass (0.0.4)
     method_source (0.8.2)
     mime-types (2.2)
     mini_portile (0.6.0)
@@ -64,7 +64,7 @@ GEM
       capybara (~> 2.1.0)
       minitest (~> 4.0)
       rake
-    mocha (1.0.0)
+    mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.9.2)
     multipart-post (2.0.0)
