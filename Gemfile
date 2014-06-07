@@ -35,7 +35,7 @@ group :test, :development do
   gem 'foreman', require: false
   gem 'sqlite3'
   gem 'timecop', require: false
-  gem 'debugger'
+  # gem 'debugger'
 end
 
 group :test do
