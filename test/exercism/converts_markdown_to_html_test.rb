@@ -77,13 +77,11 @@ class ConvertsMarkdownToHTMLTest < MiniTest::Unit::TestCase
                  "{{action}}, {{remaining}} of beer on the wall.\n";}
 
     expected = %Q{<div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
-<td class="gutter gl" style="text-align: right;">
-<pre class="lineno">1</pre>
-<pre class="lineno">2</pre>
-<pre class="lineno">3</pre>
-<pre class="lineno">4</pre>
-<pre class="lineno">5</pre>
-</td>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno">1
+2
+3
+4
+5</pre></td>
 <td class="code"><pre>  var refill = 99
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
                  "{{action}}, {{remaining}} of beer on the wall.\n";
@@ -109,11 +107,9 @@ Post text}
 
     expected = %q{<p>Pre text</p>
 <div class="highlight plaintext"><table style="border-spacing: 0;"><tbody><tr>
-<td class="gutter gl" style="text-align: right;">
-<pre class="lineno">1</pre>
-<pre class="lineno">2</pre>
-<pre class="lineno">3</pre>
-</td>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno">1
+2
+3</pre></td>
 <td class="code"><pre>class Foobar
   foos.each { |foo| foo.bar &gt; 10 }
 end
@@ -136,11 +132,9 @@ end
 
     expected = %q{<p>Check out this code:</p>
 <div class="highlight clojure"><table style="border-spacing: 0;"><tbody><tr>
-<td class="gutter gl" style="text-align: right;">
-<pre class="lineno">1</pre>
-<pre class="lineno">2</pre>
-<pre class="lineno">3</pre>
-</td>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno">1
+2
+3</pre></td>
 <td class="code"><pre><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">to-rna</span><span class="w">
   </span><span class="p">[</span><span class="n">dna-string</span><span class="p">]</span><span class="w">
   </span><span class="p">(</span><span class="nf">clojure.string/replace</span><span class="w"> </span><span class="n">dna-string</span><span class="w"> </span><span class="sc">\T</span><span class="w"> </span><span class="sc">\U</span><span class="p">))</span><span class="w">

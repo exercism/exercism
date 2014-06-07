@@ -101,7 +101,7 @@ GEM
     redcarpet (3.1.1)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rouge (1.3.3)
+    rouge (1.4.0)
     ruby-prof (0.14.2)
     sass (3.3.7)
     simplecov (0.8.2)
