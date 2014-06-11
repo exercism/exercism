@@ -7,6 +7,7 @@ class Code
     'clj' => 'clojure',
     'exs' => 'elixir',
     'erl' => 'erlang',
+    'fs' => 'fsharp',
     'go' => 'go',
     'hs' => 'haskell',
     'java' => 'java',
