@@ -20,7 +20,7 @@ class CodeTest < MiniTest::Unit::TestCase
 
   def test_unknown_language
     assert_raises Exercism::UnknownLanguage do
-      code = Code.new('/path/to/file.cpp')
+      code = Code.new('/path/to/file.unknown')
       code.language
     end
   end

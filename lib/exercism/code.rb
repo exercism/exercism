@@ -5,8 +5,12 @@ end
 class Code
   LANGUAGES = {
     'clj' => 'clojure',
-    'exs' => 'elixir',
+    'coffee' => 'coffeescript',
+    'cpp' => 'cpp',
+    'cs' => 'csharp',
+    'd' => 'dlang',
     'erl' => 'erlang',
+    'exs' => 'elixir',
     'fs' => 'fsharp',
     'go' => 'go',
     'hs' => 'haskell',
@@ -14,16 +18,16 @@ class Code
     'js' => 'javascript',
     'lisp' => 'lisp',
     'lua' => 'lua',
+    'm' => 'objective-c',
+    'ml' => 'ocaml',
+    'php' => 'php',
+    'pl' => 'perl5', # Usually .pl for scripts, .pm for modules, .t for test files
+    'pm' => 'perl5',
     'py' => 'python',
     'rb' => 'ruby',
     'rs' => 'rust',
-    'm' => 'objective-c',
     'scala' => 'scala',
-    'pl' => 'perl5', # Usually .pl for scripts, .pm for modules, .t for test files
-    'pm' => 'perl5',
-    'ml' => 'ocaml',
-    'coffee' => 'coffeescript',
-    'cs' => 'csharp',
+    'swift' => 'swift'
   }
 
   attr_reader :path
