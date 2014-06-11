@@ -13,6 +13,7 @@ class Code
     'java' => 'java',
     'js' => 'javascript',
     'lisp' => 'lisp',
+    'lua' => 'lua',
     'py' => 'python',
     'rb' => 'ruby',
     'rs' => 'rust',
