@@ -1,0 +1,15 @@
+.tabbable.tabs-left
+  %ul.nav.nav-tabs
+    - (1..iterations.count).each do |i|
+      %li{:class => i == 1 ? 'active' : ''}
+        %a{:href => "#tab#{i}", "data-toggle" => "tab"}= "Section #{i}"
+  .tab-content
+    - iterations.each_with_index do |iteration, i|
+      .tab-pane{:id => "tab#{i}", :class => i+1 == 1 ? "active" : ''}
+        = preserve md(iteration.code, iteration.language)
+        %ul.comments
+          - iteration.comments.each do |comment|
+            %li{class: comment.author? ? 'author' : 'peer'}
+              = comment.username
+              %img{src: "/img/#{comment.avatar}", width: "80"}
+              = preserve md(comment.text)
