@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/JacobNinja/exercism-analysis.git
+  revision: a4f2d9edd5b2a6ec7cba17b6626dc5fac06cf9c2
+  specs:
+    exercism-analysis (0.1.0)
+      roodi (~> 4.0)
+      ruby_parser (~> 3.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -102,7 +110,12 @@ GEM
     redcarpet (3.1.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    roodi (4.0.0)
+      ruby_parser (~> 3.2, >= 3.2.2)
     rouge (1.4.0)
+    ruby_parser (3.6.1)
+      sexp_processor (~> 4.1)
+    sexp_processor (4.4.3)
     simplecov (0.8.2)
       docile (~> 1.1.0)
       multi_json
@@ -142,6 +155,7 @@ DEPENDENCIES
   bugsnag
   coveralls
   database_cleaner
+  exercism-analysis!
   faraday
   foreman
   haml

@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span11">
+  <div class="span6">
     <%= erb :"submissions/byline", locals: {exercise: submission.exercise, user: submission.user} %>
     <p><% if current_user.owns?(submission) %>
       <%= sharing.twitter_link(submission) %>
@@ -61,6 +61,16 @@
       <% end %>
 
     </p>
+  </div>
+  <div class="span5">
+    <h1>Analysis</h1>
+    <ul>
+      <% analysis.each do |_, results| %>
+        <% results.each do |result| %>
+          <li><strong><%= result.message.chomp('.') %></strong> on line <%= result.line %></li>
+        <% end %>
+      <% end %>
+    </ul>
   </div>
 </div>
 

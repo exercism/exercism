@@ -6,6 +6,7 @@ require 'exercism/explore'
 
 require 'exercism/config'
 require 'exercism/alert'
+require 'exercism/analysis'
 require 'exercism/named'
 require 'exercism/authentication'
 require 'exercism/code'
