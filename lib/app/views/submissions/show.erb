@@ -36,6 +36,11 @@
       <% end %>
 
       <% if current_user.owns?(submission) %>
+        <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>" method="POST">
+          <input type="hidden" name="_method" value="delete">
+          <button type="submit" class="btn btn-danger" name="delete">Delete Submission?</button>
+        </form>
+
 
         <% if submission.user.completed?(submission.exercise) %>
           <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/reopen" method="POST">
