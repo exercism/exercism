@@ -282,4 +282,44 @@ class SubmissionsTest < MiniTest::Unit::TestCase
     assert_equal 'superseded', s1.reload.state
     assert_equal 'pending', s2.reload.state
   end
+
+  def test_deleting_submission
+    data = {
+      user: alice,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
+    delete "/submissions/#{sub.key}", {}, login(alice)
+    assert_equal nil, Submission.find_by_key(sub.key)
+  end
+
+  def test_cant_delete_submission_user_doesnt_own
+    data = {
+      user: bob,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
+    delete "/submissions/#{sub.key}", {}, login(alice)
+    assert_equal sub, Submission.find_by_key(sub.key)
+  end
+
+  def test_redirects_to_index_page_after_deleting
+    data = {
+      user: bob,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
+    delete "/submissions/#{sub.key}", {}, login(bob)
+    assert_equal 302, last_response.status
+    assert_equal "http://example.org/", last_response.location
+  end
 end

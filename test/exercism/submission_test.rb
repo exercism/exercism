@@ -52,7 +52,6 @@ class SubmissionTest < MiniTest::Unit::TestCase
     assert_equal 'superseded', submission.state
   end
 
-
   def test_supersede_completed_submissions
     submission.state = 'done'
     submission.done_at = Time.now

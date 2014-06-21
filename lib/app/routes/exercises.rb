@@ -88,6 +88,18 @@ module ExercismWeb
         Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
         redirect "/submissions/#{submission.key}"
       end
+
+      delete '/submissions/:key' do |key|
+        please_login
+        selected_submission = Submission.find_by_key(key)
+        unless current_user.owns?(selected_submission)
+          flash[:notice] = "Only the current submitter may delete the exercise."
+          redirect '/'
+        end
+
+        selected_submission.delete
+        redirect "/"
+      end
     end
   end
 end
