@@ -39,33 +39,33 @@
 
     <ul style="list-style-type: none; margin: 0;">
       <% inbox.notifications.each do |notification| %>
-      <li style="padding: 5px 0;">
-
-        <% if notification.regarding == 'code' %>
-          <span style="padding-right: 5px;" class="icon-code"></span>
-        <% else %>
-          <span style="padding-right: 5px;" class="icon-comment-alt"></span>
-        <% end %>
-
         <% if notification.item %>
-          <a href="/submissions/<%= notification.item.key %>">
-            <%= notification.language %>:
-            <%= notification.slug %> &middot;
-            <%= notification.item.user.username %>
-          </a>
-        <% end %>
+          <li style="padding: 5px 0;">
 
-        <br>
+            <% if notification.regarding == 'code' %>
+              <span style="padding-right: 5px;" class="icon-code"></span>
+            <% else %>
+              <span style="padding-right: 5px;" class="icon-comment-alt"></span>
+            <% end %>
 
-        <p style="padding-left: 24px;">
-        <% if notification.regarding == 'code' %>
-          New iteration
-        <% else %>
-          <b><%= notification.creator.username %></b> commented
-        <% end %>
-        <%= ago(notification.created_at) %>
-        </p>
-      </li>
+            <a href="/submissions/<%= notification.item.key %>">
+              <%= notification.language %>:
+              <%= notification.slug %> &middot;
+              <%= notification.item.user.username %>
+            </a>
+
+            <br>
+
+            <p style="padding-left: 24px;">
+            <% if notification.regarding == 'code' %>
+              New iteration
+            <% else %>
+              <b><%= notification.creator.username %></b> commented
+            <% end %>
+            <%= ago(notification.created_at) %>
+            </p>
+          </li>
+          <% end %>
       <% end %>
     </ul>
   </div>

@@ -9,6 +9,7 @@ module ExercismWeb
 
       use Rack::Flash
 
+      helpers Helpers::NotificationCount # total hack
       helpers Helpers::FuzzyTime
       helpers Helpers::Markdown
       helpers Helpers::Session

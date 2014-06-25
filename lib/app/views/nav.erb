@@ -50,7 +50,7 @@
   <% if current_user.guest? %>
     <li><a href="/login">Log in with GitHub</a></li>
   <% else %>
-  <li><a role="menuitem" tabindex="-1" href="/notifications">Notifications (<%= current_user.notifications.on_submissions.unread.recent.count + current_user.alerts.count %>)</a></li>
+  <li><a role="menuitem" tabindex="-1" href="/notifications">Notifications (<%= notification_count %>)</a></li>
     <li class="dropdown">
   <a class="dropdown-toggle" id="drop-account" href="#" data-toggle="dropdown">
     <%= gravatar_tag current_user.avatar_url, size: 20 %>
