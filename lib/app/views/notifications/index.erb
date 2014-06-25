@@ -47,11 +47,13 @@
           <span style="padding-right: 5px;" class="icon-comment-alt"></span>
         <% end %>
 
-        <a href="/submissions/<%= notification.item.key %>">
-          <%= notification.language %>:
-          <%= notification.slug %> &middot;
-          <%= notification.item.user.username %>
-        </a>
+        <% if notification.item %>
+          <a href="/submissions/<%= notification.item.key %>">
+            <%= notification.language %>:
+            <%= notification.slug %> &middot;
+            <%= notification.item.user.username %>
+          </a>
+        <% end %>
 
         <br>
 
