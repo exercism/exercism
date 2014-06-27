@@ -80,10 +80,11 @@
     <div class"btn-group">
       <%= like_submission_button(submission, current_user) %>
 
+
       <a class="btn" data-action="enlarge">
         <i class="icon-resize-full"></i>
       </a>
-
+      <a class="btn" href="#" title="Copy to clipboard" id="copy-code"><img src="/icons/paste.svg" class="clipboard-paste" alt="Copy to clipboard"></a>
       <a style="display: none;" class="btn" data-action="shrink">
         <i class="icon-resize-small"></i>
       </a>
@@ -93,6 +94,10 @@
     <div style="padding-top: 2px;">
       <%= md(submission.code, submission.language) %>
     </div>
+    <div id="submission-code" style="display:none">
+      <%= submission.code %>
+    </div>
+    <br/>
   </div>
 
   <div class="comments span6">

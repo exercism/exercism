@@ -303,3 +303,6 @@ h2 .next-submission {
   width: 580px;
 }
 
+.clipboard-paste {
+  height: 16px;
+}
