@@ -2,7 +2,7 @@
   %ul.nav.nav-tabs
     - (1..iterations.count).each do |i|
       %li{:class => i == 1 ? 'active' : ''}
-        %a{:href => "#tab#{i}", "data-toggle" => "tab"}= "Section #{i}"
+        %a{:href => "#tab#{i}", "data-toggle" => "tab"}= "Iteration #{i}"
   .tab-content
     - iterations.each_with_index do |iteration, i|
       .tab-pane{:id => "tab#{i}", :class => i+1 == 1 ? "active" : ''}
