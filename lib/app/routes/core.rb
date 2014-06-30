@@ -8,6 +8,7 @@ module ExercismWeb
       end
 
       use Rack::Flash
+      use Bugsnag::Rack
 
       helpers Helpers::NotificationCount # total hack
       helpers Helpers::FuzzyTime

@@ -22,6 +22,9 @@ GEM
       thor (~> 0.18)
     arel (4.0.2)
     atomic (1.1.16)
+    bugsnag (2.1.0)
+      httparty (>= 0.6, < 1.0)
+      multi_json (~> 1.0)
     builder (3.1.4)
     capybara (2.1.0)
       mime-types (>= 1.16)
@@ -46,7 +49,11 @@ GEM
       thor (>= 0.13.6)
     haml (4.0.5)
       tilt
+    httparty (0.13.1)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
+    json (1.8.1)
     launchy (2.4.2)
       addressable (~> 2.3)
     loofah (2.0.0)
@@ -67,6 +74,7 @@ GEM
     mocha (1.1.0)
       metaclass (~> 0.0.1)
     multi_json (1.9.2)
+    multi_xml (0.5.5)
     multipart-post (2.0.0)
     newrelic_rpm (3.8.1.221)
     nokogiri (1.6.2.1)
@@ -131,6 +139,7 @@ DEPENDENCIES
   activerecord (~> 4.0.4)
   activesupport (~> 4.0.4)
   approvals
+  bugsnag
   coveralls
   database_cleaner
   faraday

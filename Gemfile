@@ -5,6 +5,7 @@ ruby "2.1.1"
 gem 'activesupport', '~> 4.0.4'
 gem 'activerecord', '~> 4.0.4'
 
+gem 'bugsnag'
 gem 'faraday'
 gem 'haml', require: false
 gem 'loofah'
