@@ -1,3 +1,4 @@
+require './config/bugsnag'
 require 'exercism'
 require 'sinatra/petroglyph'
 

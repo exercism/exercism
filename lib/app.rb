@@ -1,4 +1,5 @@
-require_relative './exercism'
+require './config/bugsnag'
+require_relative 'exercism'
 
 require 'sinatra/petroglyph'
 require 'will_paginate'
