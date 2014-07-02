@@ -7714,13 +7714,17 @@ h2 .next-submission {
 
 .content-primary {
   padding-top: 2em;
-  padding-bottom: 6em; }
+  padding-bottom: 3em;
+}
 
 .content-secondary {
-  background: #f2f2f2;
   border-top: 1px solid #d8d8d8;
+  padding: 2.5em 0 6em 0; }
+
+.try-it {
   text-align: center;
-  padding: 3.5em 0 6em 0; }
+  background: #f2f2f2;
+}
 
 .content-secondary-details h2 {
   color: #262626;
