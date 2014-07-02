@@ -7740,4 +7740,22 @@ h2 .next-submission {
   height: 16px;
 }
 
-/*# sourceMappingURL=app.css.map */
+.gutter a.warning {
+    background: orange;
+    display: inline-block;
+    border-radius: 20px;
+    height: 25px;
+    width: 25px;
+}
+
+.analysis-feedback .original {
+    float: left;
+    width: 49%;
+}
+
+.analysis-feedback .replacement {
+    float: right;
+    width: 49%;
+}
+
+/*# sourceMappingURL=app.css.map*/

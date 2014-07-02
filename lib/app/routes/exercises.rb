@@ -35,7 +35,13 @@ module ExercismWeb
         workload = Workload.new(current_user, submission.language, submission.slug)
         next_submission = workload.next_submission(submission)
 
-        erb :"submissions/show", locals: {submission: submission, next_submission: next_submission, sharing: Sharing.new}
+        if analyzer_config = ANALYZER_CONFIG[submission.language]
+          analysis = Exercism::Analysis.new(analyzer_config.adapter.new(submission.code)).run(*analyzer_config.analyzers)
+        else
+          analysis = {}
+        end
+
+        erb :"submissions/show", locals: {submission: submission, next_submission: next_submission, sharing: Sharing.new, analysis: analysis}
       end
 
       post '/submissions/:key/like' do |key|

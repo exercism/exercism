@@ -1,3 +1,17 @@
+GIT
+  remote: git://github.com/JacobNinja/codeminer.git
+  revision: 6db82aaeead2b842d2731f338215cdde2e883244
+  specs:
+    codeminer (0.1.0)
+
+GIT
+  remote: git://github.com/JacobNinja/exercism-analysis.git
+  revision: c351612429650113e15d88e9a70d07c4978ca428
+  specs:
+    exercism-analysis (0.1.0)
+      roodi (~> 4.0)
+      ruby_parser (~> 3.6)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -102,7 +116,12 @@ GEM
     redcarpet (3.1.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
+    roodi (4.0.0)
+      ruby_parser (~> 3.2, >= 3.2.2)
     rouge (1.4.0)
+    ruby_parser (3.6.1)
+      sexp_processor (~> 4.1)
+    sexp_processor (4.4.3)
     simplecov (0.8.2)
       docile (~> 1.1.0)
       multi_json
@@ -140,8 +159,10 @@ DEPENDENCIES
   activesupport (~> 4.0.4)
   approvals
   bugsnag
+  codeminer!
   coveralls
   database_cleaner
+  exercism-analysis!
   faraday
   foreman
   haml

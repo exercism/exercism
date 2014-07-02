@@ -25,6 +25,9 @@ gem 'sinatra', '~> 1.4.4', require: 'sinatra/base'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
+gem 'codeminer', github: 'JacobNinja/codeminer'
+gem 'exercism-analysis', github: 'JacobNinja/exercism-analysis'
+
 group :test, :development do
   # gem 'ruby-prof', '~> 0.14'
   gem 'database_cleaner', require: false
