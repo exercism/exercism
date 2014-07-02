@@ -1,11 +1,11 @@
 module Explore
   class Conversation
     def self.load(path)
-      JSON.parse(File.read(path)).map do |iteration|
+      JSON.parse(File.read(path)).map.with_index do |iteration, i|
         code = iteration['code']
         language = iteration['language']
         comments = iteration['comments'].map {|comment| Comment.new(comment)}
-        Iteration.new(code, language, comments)
+        Iteration.new(code, language, comments, i+1)
       end
     end
   end
@@ -26,9 +26,9 @@ module Explore
   end
 
   class Iteration
-    attr_reader :code, :language, :comments
-    def initialize(code, language, comments)
-      @code, @language, @comments = code, language, comments
+    attr_reader :code, :language, :comments, :number
+    def initialize(code, language, comments, number)
+      @code, @language, @comments, @number = code, language, comments, number
     end
   end
 end

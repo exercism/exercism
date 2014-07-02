@@ -7,7 +7,7 @@
         "username": "kytrinyx",
         "author": false,
         "avatar": "kytrinyx.png",
-        "text": "This is very succinct!\r\n\r\nThe `return` keyword is unnecessary in Ruby. Some people like to stick it on there anyway, but most people I work with prefer to only use explicit returns in guard clauses.\r\n\r\nDid you consider naming each of the chunks? If you were going to explain the rules of leap year to your friends, what words would you use?"
+        "text": "This is very succinct.\r\n\r\nThe `return` keyword is unnecessary in Ruby. Some people like to stick it on there anyway, but most people I work with prefer to only use explicit returns in guard clauses.\r\n\r\nDid you consider naming each of the chunks? If you were going to explain the rules of leap year to your friends, what words would you use?"
       },
       {
         "username": "DataWraith",
@@ -43,7 +43,7 @@
         "username": "kytrinyx",
         "author": false,
         "avatar": "kytrinyx.png",
-        "text": "Oh wow, yes! I find this much more understandable with 400 and 100 handled separately as edge cases.\r\n\r\nI notice that the comments use the term `divisible_by?`. Would it make sense to introduce that idea into the code itself so that you can delete the comments? (You know the saying: _comments are lies waiting to happen_).\r\n\r\nYou mentioned that you have the `return` keyword on the last line for symmetry with the others. Now that the two first are edge cases and the last one is not, is the symmetry still appropriate?"
+        "text": "Yeah, I find this much more understandable with 400 and 100 handled separately as edge cases.\r\n\r\nI notice that the comments use the term `divisible_by?`. Would it make sense to introduce that idea into the code itself so that you can delete the comments? (You know the saying: _comments are lies waiting to happen_).\r\n\r\nYou mentioned that you have the `return` keyword on the last line for symmetry with the others. Now that the two first are edge cases and the last one is not, is the symmetry still appropriate?"
       }
     ]
   },
@@ -61,7 +61,7 @@
         "username": "kytrinyx",
         "author": false,
         "avatar": "kytrinyx.png",
-        "text": "I really, really love the name `divisible_by?`. It's at the perfect level of abstraction, to my taste.\r\n\r\nMonkey-patching is generally something I would do only if I could find no other way to do what I wanted. If you monkey-patch in a production system, you can be certain that it will be scrutinized in detail during code review!\r\n\r\nI, personally, like the version that you've submitted more than the more verbose one with explicit `return false` at the end, but I know that other people would say the reverse. I think at this point both of them are completely readable and you just have to make a choice based on some intangible quality that you make up on your own :)\r\n\r\nYou're right that `divisible_by?` with two parameters could get confusing. If you want to keep the `divisible_by?` idea without having two parameters, you have a couple of choices:\r\n\r\n* create an instance of year that has the method, and delegate from the class method, or\r\n* use a lambda\r\n\r\nBoth of these can be interesting approaches (very readable), and a good learning experience to play with. It all comes down to trade-offs, of course."
+        "text": "I really like the name `divisible_by?`. It's at the perfect level of abstraction, to my taste.\r\n\r\nMonkey-patching is generally something I would do only if I could find no other way to do what I wanted. If you monkey-patch in a production system, you can be certain that it will be scrutinized in detail during code review!\r\n\r\nI, personally, like the version that you've submitted more than the more verbose one with explicit `return false` at the end, but I know that other people would say the reverse. I think at this point both of them are completely readable and you just have to make a choice based on some intangible quality that you make up on your own :)\r\n\r\nYou're right that `divisible_by?` with two parameters could get confusing. If you want to keep the `divisible_by?` idea without having two parameters, you have a couple of choices:\r\n\r\n* create an instance of year that has the method, and delegate from the class method, or\r\n* use a lambda\r\n\r\nBoth of these can be interesting approaches (very readable), and a good learning experience to play with. It all comes down to trade-offs, of course."
       }
     ]
   },
