@@ -13,7 +13,9 @@ class Message
     @instigator = options.fetch(:instigator)
     @target = options.fetch(:target)
     @site_root = options.fetch(:site_root)
-    @intercept_emails = options.fetch(:intercept_emails) { false }
+    @intercept_emails = options.fetch(:intercept_emails) {
+      development? && !configured?
+    }
   end
 
   def exercise
@@ -78,4 +80,15 @@ class Message
   def template(name)
     File.read Exercism.relative_to_root("lib", "services", "email", "#{name}.erb")
   end
+
+  private
+
+  def configured?
+    !!ENV['EMAIL_DOMAIN']
+  end
+
+  def development?
+    ENV['RACK_ENV'] == 'development'
+  end
+
 end
