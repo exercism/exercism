@@ -5,14 +5,15 @@ class ConvertsMarkdownToHTML
 
   attr_reader :content
 
-  def self.convert(input)
-    converter = new(input)
+  def self.convert(input, analysis_results=[])
+    converter = new(input, analysis_results)
     converter.convert
     converter.content
   end
 
-  def initialize(input)
+  def initialize(input, analysis_results)
     @content = (input || "").dup
+    @analysis_results = analysis_results
   end
 
   def convert
@@ -27,6 +28,6 @@ class ConvertsMarkdownToHTML
   end
 
   def convert_markdown_to_html
-    @content = Markdown.render(@content)
+    @content = Markdown.render(@content, @analysis_results)
   end
 end

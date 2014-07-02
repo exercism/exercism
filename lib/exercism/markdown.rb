@@ -36,10 +36,15 @@ end
 
 class Markdown < Redcarpet::Render::XHTML
 
-  def self.render(content)
-    renderer = new(renderer_options)
+  def self.render(content, analysis_results=[])
+    renderer = new(renderer_options, analysis_results)
     markdown = Redcarpet::Markdown.new(renderer, options)
     markdown.render(content)
+  end
+
+  def initialize(render_options, analysis_results=[])
+    super(render_options)
+    @analysis_results = analysis_results
   end
 
   def self.renderer_options
@@ -73,21 +78,7 @@ class Markdown < Redcarpet::Render::XHTML
   end
 
   def block_code(code, language)
-    lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::PlainText
-
-    # XXX HACK: Redcarpet strips hard tabs out of code blocks,
-    # so we assume you're not using leading spaces that aren't tabs,
-    # and just replace them here.
-    if lexer.tag == 'make'
-      code.gsub! /^    /, "\t"
-    end
-
-    formatter = Rouge::Formatters::HTML.new(
-      :css_class => "highlight #{lexer.tag}",
-      :line_numbers => true
-    )
-
-    formatter.format(lexer.lex(code))
+    CodeViewer.make(language, code, 1, @analysis_results)
   end
 
 end

@@ -1,6 +1,12 @@
 GIT
+  remote: git://github.com/JacobNinja/codeminer.git
+  revision: 6db82aaeead2b842d2731f338215cdde2e883244
+  specs:
+    codeminer (0.1.0)
+
+GIT
   remote: git://github.com/JacobNinja/exercism-analysis.git
-  revision: a962bde4cf4d20bb47ee7ec8c3f6fa92a8c2e2f7
+  revision: c351612429650113e15d88e9a70d07c4978ca428
   specs:
     exercism-analysis (0.1.0)
       roodi (~> 4.0)
@@ -153,6 +159,7 @@ DEPENDENCIES
   activesupport (~> 4.0.4)
   approvals
   bugsnag
+  codeminer!
   coveralls
   database_cleaner
   exercism-analysis!

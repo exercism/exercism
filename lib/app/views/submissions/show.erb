@@ -1,5 +1,5 @@
 <div class="row">
-  <div class="span6">
+  <div class="span11">
     <%= erb :"submissions/byline", locals: {exercise: submission.exercise, user: submission.user} %>
     <p><% if current_user.owns?(submission) %>
       <%= sharing.twitter_link(submission) %>
@@ -62,16 +62,6 @@
 
     </p>
   </div>
-  <div class="span5">
-    <h1>Analysis</h1>
-    <ul>
-      <% analysis.each do |_, results| %>
-        <% results.each do |result| %>
-          <li><strong><%= result.message.chomp('.') %></strong> on line <%= result.line %></li>
-        <% end %>
-      <% end %>
-    </ul>
-  </div>
 </div>
 
 <div class="row">
@@ -90,7 +80,6 @@
     <div class"btn-group">
       <%= like_submission_button(submission, current_user) %>
 
-
       <a class="btn" data-action="enlarge">
         <i class="icon-resize-full"></i>
       </a>
@@ -102,7 +91,28 @@
 
     </div>
     <div style="padding-top: 2px;">
-      <%= md(submission.code, submission.language) %>
+      <%= md(submission.code, submission.language, analysis.values.flatten) %>
+      <div class="analysis-results">
+        <h2>Analysis Results</h2>
+        <% analysis.values.flatten.each do |result| %>
+            <div class="analysis-result" id="result-<%= result.type %>">
+              <p><%= ANALYZER_MESSAGES[result.type] %></p>
+              <% result.feedback.each do |feedback| %>
+                  <div class="analysis-feedback" id="feedback<%= feedback.line %>">
+                    <div class="original">
+                      <h5>Original</h5>
+                      <%= CodeViewer.make(submission.language, indent_first_line(feedback.src.extract, feedback.column), feedback.line) %>
+                    </div>
+
+                    <div class="replacement">
+                      <h5>Example</h5>
+                      <%= CodeViewer.make(submission.language, feedback.replacement, feedback.line) %>
+                    </div>
+                  </div>
+              <% end %>
+            </div>
+        <% end %>
+      </div>
     </div>
     <div id="submission-code" style="display:none">
       <%= submission.code %>
