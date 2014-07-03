@@ -49,16 +49,15 @@
 
   %section.content-secondary.try-it
     %div.row
-      %div.span6.shell
-        %pre $ cd /tmp
-        %pre $ cp ~/Downloads/exercism-darwin-amd64.tgz .
-        %pre $ tar xvf exercism-darwin-amd64.tgz
-        %pre $ ./exercism demo
-
-      %div.span6
-        %h3 Try it instantly.  No need to log in.
-        %p You don't need to log in to try it out. All you need is a temporary directory.
-        %p
-          Download the
-          %a(href="https://github.com/exercism/cli/releases/latest" target="_blank") command line client
-          and follow the instructions to the left to unpack and give it a spin!
+      %div.span12
+        %div.content-secondary-details
+          %h2 Try It
+          %p You don't need to log in to try it out. Go to a temporary directory.
+          %pre $ cd /tmp
+          %p
+            Download the
+            = succeed "," do
+              %a(href="https://github.com/exercism/cli/releases/latest") command line client
+            unpack it into a temporary directory.
+          %p The binary is named <kbd>exercism</kbd>. Fetch the first exercise available for each language:
+          %pre $ ./exercism demo
