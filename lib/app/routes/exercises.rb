@@ -5,7 +5,7 @@ module ExercismWeb
         please_login
 
         presenter = current_user.nitpicks_trail?(language) ? Workload : NullWorkload
-        workload = presenter.new(current_user, language, slug || 'no-nits')
+        workload = presenter.new(current_user, language, slug || 'recent')
 
         locals = {
           submissions: workload.submissions,

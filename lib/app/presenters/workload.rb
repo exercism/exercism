@@ -33,11 +33,21 @@ class Workload
     return @submissions if @submissions
 
     scope = pending.order('created_at ASC')
+    no_nits = scope.where(nit_count: 0)
+
     case slug
     when 'looks-great'
       scope = scope.where(is_liked: true)
-    when 'no-nits'
-      scope = scope.where(nit_count: 0)
+    when 'no-nits', 'recent'
+      scope = no_nits.since(1.day.ago)
+    when 'last-week'
+      scope = no_nits.between(1.day.ago, 1.week.ago)
+    when 'last-month'
+      scope = no_nits.between(1.week.ago, 1.month.ago)
+    when 'last-quarter'
+      scope = no_nits.between(1.month.ago, 3.months.ago)
+    when 'aging'
+      scope = no_nits.older_than(3.months.ago)
     when 'needs-input'
       scope = needs_input.order('created_at ASC')
     else

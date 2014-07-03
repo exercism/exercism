@@ -50,6 +50,18 @@ class Submission < ActiveRecord::Base
     where('already_liked.submission_id IS NULL')
   }
 
+  scope :between, ->(upper_bound, lower_bound) {
+    where('created_at < ? AND created_at > ?', upper_bound, lower_bound)
+  }
+
+  scope :older_than, ->(timestamp) {
+    where('created_at < ?', timestamp)
+  }
+
+  scope :since, ->(timestamp) {
+    where('created_at > ?', timestamp)
+  }
+
   def self.completed_for(exercise)
     done.where(language: exercise.language, slug: exercise.slug)
   end
