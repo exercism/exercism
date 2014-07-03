@@ -7718,23 +7718,35 @@ h2 .next-submission {
 }
 
 .content-secondary {
-  border-top: 1px solid #d8d8d8;
-  padding: 2.5em 0 6em 0; }
+  padding: 3em 0; }
 
-.try-it {
-  text-align: center;
-  background: #f2f2f2;
+.see-it {
+  border-top: 1px solid #d8d8d8; }
+
+.see-it img {
+  border: 1px solid #ebeaef;
+  border-radius: 4px;
+}
+
+.try-it .shell {
+  border: 4px solid #ebeaef;
+  border-top-width: 24px;
+  box-sizing: border-box;
+  border-radius: 3px;
+  background: white;
+  padding: 20px;
+}
+
+.try-it .shell pre {
+  background-color: white;
+  border: none;
+  margin: 0;
+  padding: 7px;
 }
 
 .content-secondary-details h2 {
   color: #262626;
   margin: 0 0 15px 0; }
-
-.content-secondary-details pre {
-  background: #fff;
-  margin: 0 auto;
-  width: 50%;
-}
 
 .clipboard-paste {
   height: 16px;
