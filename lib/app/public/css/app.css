@@ -7740,4 +7740,8 @@ h2 .next-submission {
   height: 16px;
 }
 
+.footer .details-container img {
+  vertical-align: baseline;
+}
+
 /*# sourceMappingURL=app.css.map */
