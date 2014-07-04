@@ -69,6 +69,7 @@ module ExercismWeb
           redirect "/submissions/#{key}"
         end
         Completion.new(submission).save
+        LifecycleEvent.track('complete', current_user.id)
         flash[:success] = "#{submission.name} in #{submission.language} will no longer appear in the nitpick lists."
         redirect "/"
       end

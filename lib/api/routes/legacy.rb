@@ -20,7 +20,9 @@ module ExercismAPI
         if current_user.guest?
           halt 401, {error: "Please double-check your API key in your account page."}.to_json
         end
-        halt *Xapi.get("exercises", key: params[:key])
+        status, data = Xapi.get("exercises", key: params[:key])
+        LifecycleEvent.track('fetch', current_user.id)
+        halt status, data
       end
 
       get '/user/assignments/restore' do

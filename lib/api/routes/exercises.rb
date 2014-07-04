@@ -9,7 +9,9 @@ module ExercismAPI
         end
 
         exercises = begin
-          Homework.new(current_user).all.to_json
+          result = Homework.new(current_user).all.to_json
+          LifecycleEvent.track('fetch', current_user.id)
+          result
         rescue Exception => e
           Bugsnag.notify(e)
           halt 500, {error: "Something went wrong, and it's not clear what it was. The error has been sent to our tracker. If you want to get involved, post an issue to GitHub so we can figure it out! https://github.com/exercism/exercism.io/issues"}.to_json
@@ -17,11 +19,15 @@ module ExercismAPI
       end
 
       get '/exercises/:language' do |language|
-        halt *Xapi.get("exercises", language, :key => current_user.key)
+        status, data = Xapi.get("exercises", language, :key => current_user.key)
+        LifecycleEvent.track('fetch', current_user.id)
+        halt status, data
       end
 
       get '/exercises/:language/:slug' do |language, slug|
-        halt *Xapi.get("assignments", language, slug)
+        status, data = Xapi.get("assignments", language, slug)
+        LifecycleEvent.track('fetch', current_user.id)
+        halt status, data
       end
     end
   end

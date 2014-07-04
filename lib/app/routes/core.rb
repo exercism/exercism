@@ -127,28 +127,6 @@ module ExercismWeb
         def namify(slug)
           slug.to_s.split('-').map(&:capitalize).join('-')
         end
-
-        def nitpick(key)
-          notice = "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
-          please_login(notice)
-
-          submission = Submission.find_by_key(key)
-          comment = CreatesComment.create(submission.id, current_user, params[:body])
-          unless comment.new_record?
-            Notify.everyone(submission, 'nitpick', current_user)
-            begin
-              unless comment.nitpicker == submission.user
-                CommentMessage.ship(
-                  instigator: comment.nitpicker,
-                  target: comment,
-                  site_root: site_root
-                )
-              end
-            rescue => e
-              puts "Failed to send email. #{e.message}."
-            end
-          end
-        end
       end
 
     end

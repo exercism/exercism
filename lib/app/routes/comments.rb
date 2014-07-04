@@ -2,7 +2,28 @@ module ExercismWeb
   module Routes
     class Comments < Core
       post '/submissions/:key/nitpick' do |key|
-        nitpick(key)
+        notice = "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
+        please_login(notice)
+        submission = Submission.find_by_key(key)
+        comment = CreatesComment.create(submission.id, current_user, params[:body])
+        unless comment.new_record?
+          Notify.everyone(submission, 'nitpick', current_user)
+          unless current_user == submission.user
+            begin
+              if !!current_user.email
+                CommentMessage.ship(
+                  instigator: current_user,
+                  target: comment,
+                  site_root: site_root
+                )
+              end
+            rescue => e
+              puts "Failed to send email. #{e.message}."
+            end
+            LifecycleEvent.track('received_feedback', submission.user_id)
+            LifecycleEvent.track('commented', current_user.id)
+          end
+        end
         redirect "/submissions/#{key}"
       end
 
