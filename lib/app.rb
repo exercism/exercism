@@ -1,5 +1,6 @@
 require './config/bugsnag'
 require_relative 'exercism'
+require 'haml'
 
 require 'sinatra/petroglyph'
 require 'will_paginate'
