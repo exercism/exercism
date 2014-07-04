@@ -1,6 +1,6 @@
 require_relative '../integration_helper'
 
-class UserExerciseTest < MiniTest::Unit::TestCase
+class UserExerciseTest < MiniTest::Test
   include DBCleaner
 
   def test_close_an_exercise

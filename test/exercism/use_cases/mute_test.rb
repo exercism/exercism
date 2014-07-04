@@ -1,6 +1,6 @@
 require_relative '../../integration_helper'
 
-class MuteTest < MiniTest::Unit::TestCase
+class MuteTest < MiniTest::Test
   include DBCleaner
 
   def teardown

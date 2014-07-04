@@ -74,7 +74,7 @@ module Stats
     end
 
     def time_of(timestamp)
-      Time.strptime(timestamp.gsub(/\.\d+$/, '') + " UTC", "%Y-%m-%d %H:%M:%S %Z")
+      Time.strptime(timestamp.gsub(/\.\d+$/, '') + " UTC", "%Y-%m-%d %H:%M:%S %Z").iso8601
     end
   end
 end

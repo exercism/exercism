@@ -1,7 +1,7 @@
 require_relative '../../test_helper'
 require 'app/helpers/fuzzy_time'
 
-class FuzzyTimeHelperTest < MiniTest::Unit::TestCase
+class FuzzyTimeHelperTest < MiniTest::Test
 
   def helper
     return @helper if @helper

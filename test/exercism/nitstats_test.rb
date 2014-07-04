@@ -2,7 +2,7 @@ require_relative '../integration_helper'
 require 'mocha/setup'
 require 'active_support/all'
 
-class NitstatsTest < MiniTest::Unit::TestCase
+class NitstatsTest < MiniTest::Test
   include DBCleaner
 
   def user

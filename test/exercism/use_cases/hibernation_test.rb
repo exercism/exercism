@@ -11,7 +11,7 @@ require 'exercism/notification'
 require 'exercism/named'
 require 'exercism/exercise'
 
-class HibernationTest < MiniTest::Unit::TestCase
+class HibernationTest < MiniTest::Test
   include DBCleaner
 
   FakeUser = Struct.new(:id, :username, :email)

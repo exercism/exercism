@@ -1,7 +1,7 @@
 require_relative '../app_helper'
 require 'mocha/setup'
 
-class TeamsTest < MiniTest::Unit::TestCase
+class TeamsTest < MiniTest::Test
   include Rack::Test::Methods
   include AppTestHelper
   include DBCleaner

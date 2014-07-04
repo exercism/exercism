@@ -1,7 +1,7 @@
 require_relative '../../test_helper'
 require 'app/presenters/languages'
 
-class PresentersLanguagesTest < MiniTest::Unit::TestCase
+class PresentersLanguagesTest < MiniTest::Test
   def test_one_language
     assert_equal "Python", ExercismWeb::Presenters::Languages.new(['Python']).to_s
   end

@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 require 'app/presenters/profile.rb'
 require 'mocha/setup'
 
-class ProfileTest < MiniTest::Unit::TestCase
+class ProfileTest < MiniTest::Test
 
   def setup
     super

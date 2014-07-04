@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 require 'exercism/code'
 
-class CodeTest < MiniTest::Unit::TestCase
+class CodeTest < MiniTest::Test
 
   def test_extension
     code = Code.new('/path/to/file.rb')

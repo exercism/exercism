@@ -4,7 +4,7 @@ require 'services/message'
 require 'services/notification_message'
 require 'mocha/setup'
 
-class NotificationMessageTest < MiniTest::Unit::TestCase
+class NotificationMessageTest < MiniTest::Test
   include DBCleaner
 
   attr_reader :alice, :bob, :submission

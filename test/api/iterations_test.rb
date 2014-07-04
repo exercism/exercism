@@ -1,6 +1,6 @@
 require_relative '../api_helper'
 
-class ItertaionsApiTest < MiniTest::Unit::TestCase
+class ItertaionsApiTest < MiniTest::Test
   include Rack::Test::Methods
   include DBCleaner
 
