@@ -12,6 +12,7 @@ module ExercismAPI
         begin
           LogEntry.create(user: user, body: data.merge(user_agent: request.user_agent).to_json)
         rescue => e
+          Bugsnag.notify(e)
           # ignore failures
         end
         unless user
