@@ -1,6 +1,6 @@
 require_relative '../integration_helper'
 
-class NotificationTest < MiniTest::Unit::TestCase
+class NotificationTest < MiniTest::Test
   include DBCleaner
 
   attr_reader :alice, :bob, :submission, :exercise

@@ -2,7 +2,7 @@ require 'date'
 require_relative '../../approval_helper'
 require 'exercism/stats/streak'
 
-class StatsStreakTest < MiniTest::Unit::TestCase
+class StatsStreakTest < MiniTest::Test
 
   def data
     [

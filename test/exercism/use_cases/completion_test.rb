@@ -1,6 +1,6 @@
 require_relative '../../integration_helper'
 
-class CompletionTest < MiniTest::Unit::TestCase
+class CompletionTest < MiniTest::Test
   include DBCleaner
 
   attr_reader :submission, :user

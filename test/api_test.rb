@@ -11,7 +11,7 @@ module ExercismAPI
   end
 end
 
-class ApiTest < MiniTest::Unit::TestCase
+class ApiTest < MiniTest::Test
   include Rack::Test::Methods
   include AppTestHelper
   include DBCleaner

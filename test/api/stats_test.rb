@@ -1,7 +1,7 @@
 require_relative '../api_helper'
 require 'timecop'
 
-class StatsApiTest < MiniTest::Unit::TestCase
+class StatsApiTest < MiniTest::Test
   include Rack::Test::Methods
   include AppTestHelper
   include DBCleaner

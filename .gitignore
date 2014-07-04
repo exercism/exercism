@@ -50,3 +50,6 @@ db/*sqlite
 
 # sass
 .sass-cache/
+
+# github access tokens
+.access_tokens

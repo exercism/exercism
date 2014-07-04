@@ -9,4 +9,4 @@ development:
   pool: 5
   host: localhost
   username: exercism
-  password:
+  password: apples
