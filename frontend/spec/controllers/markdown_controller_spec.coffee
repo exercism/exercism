@@ -34,4 +34,15 @@ describe "MarkdownCtrl", ->
       @$httpBackend.flush()
       expect(@scope.data.preview).toEqual("test_response")
 
+  describe "mentioning a user", ->
+    it "posts a search to the backend", ->
+      @$httpBackend.expectPOST("/api/v1/user/find", "query=al").respond(200, JSON.stringify(['alice']))
+      spy = spyOn($.fn, 'atwho')
+      @scope.data.body = '@al'
+      @scope.$digest()
+      @$httpBackend.flush()
+      expect(spy).toHaveBeenCalledWith({
+        at: '@',
+        data: ['alice']
+      })
 
