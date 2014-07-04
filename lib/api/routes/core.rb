@@ -27,7 +27,14 @@ module ExercismAPI
             User.where(key: params[:key]).first
           end
         end
+
+        def query_user
+          if params[:query]
+            User.where('username LIKE ?', '%' + params[:query] + '%').pluck(:username)
+          end
+        end
       end
+
     end
   end
 end
