@@ -70,7 +70,7 @@ class SubmissionsTest < MiniTest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
-    url = "/submissions/#{submission.key}/respond"
+    url = "/submissions/#{submission.key}/nitpick"
     Message.stub(:ship, nil) do
       post url, {body: "good"}, login(bob)
     end
@@ -81,7 +81,7 @@ class SubmissionsTest < MiniTest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
-    url = "/submissions/#{submission.key}/respond"
+    url = "/submissions/#{submission.key}/nitpick"
     Message.stub(:ship, nil) do
       post url, {body: "good"}, login(bob)
     end
@@ -93,7 +93,7 @@ class SubmissionsTest < MiniTest::Test
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
 
-    url = "/submissions/#{submission.key}/respond"
+    url = "/submissions/#{submission.key}/nitpick"
     Message.stub(:ship, nil) do
       post url, {body: "good"}, login(alice)
     end
@@ -108,7 +108,7 @@ class SubmissionsTest < MiniTest::Test
     submission.save
 
     # sanitizes response
-    url = "/submissions/#{submission.key}/respond"
+    url = "/submissions/#{submission.key}/nitpick"
     Message.stub(:ship, nil) do
       post url, {body: "<script type=\"text/javascript\">bad();</script>good"}, login(bob)
     end
@@ -162,7 +162,7 @@ class SubmissionsTest < MiniTest::Test
   def test_unmute_all_on_new_nitpick
     submission = generate_attempt.submission
 
-    url = "/submissions/#{submission.key}/respond"
+    url = "/submissions/#{submission.key}/nitpick"
     Message.stub(:ship, nil) do
       Submission.any_instance.expects(:unmute_all!)
       post url, {body: "good"}, login(bob)

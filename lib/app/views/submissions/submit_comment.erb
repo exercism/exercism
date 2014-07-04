@@ -1,6 +1,6 @@
 <% if submission.user.completed?(submission.exercise) %>
 
-  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/respond" method="POST">
+  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
     <%= erb :"submissions/small_comment" %>
     <button type="submit" name="nitpick" class="btn btn-primary">Comment</button>
   </form>

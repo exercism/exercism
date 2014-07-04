@@ -1,13 +1,7 @@
 module ExercismWeb
   module Routes
     class Comments < Core
-      # TODO: Submit to this endpoint rather than the `respond` one.
       post '/submissions/:key/nitpick' do |key|
-        nitpick(key)
-        redirect "/submissions/#{key}"
-      end
-
-      post '/submissions/:key/respond' do |key|
         nitpick(key)
         redirect "/submissions/#{key}"
       end
