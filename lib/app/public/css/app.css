@@ -7718,8 +7718,15 @@ h2 .next-submission {
 }
 
 .content-secondary {
-  border-top: 1px solid #d8d8d8;
-  padding: 2.5em 0 6em 0; }
+  padding: 3em 0; }
+
+.see-it {
+  border-top: 1px solid #d8d8d8; }
+
+.see-it img {
+  border: 1px solid #ebeaef;
+  border-radius: 4px;
+}
 
 .try-it {
   text-align: center;

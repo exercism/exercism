@@ -36,21 +36,28 @@
         %p
           Articulate what you like and dislike in other people's code. Have a thoughtful, nuanced discussion, deepening your own understanding of the design choices that you make every day.
 
-  %section.content-secondary
+  %section.content-secondary.see-it
     %div.row
-      %div.span12
-        %h2.header See It
+      %div.span6
+        %h3.header Better code through conversations.
         %p Thousands of conversations are happening on exercism. <a href="/conversations/1">Here's one of them.</a>
+        %p You start with some code.  Talk about it a little.  Rewrite the code a bit, then post the new version.  Make it better.  After a few cycles you've got improved code, and perhaps even a new friend!
+
+      %div.span6
+        %a(href="/conversations/1")
+          %img{:src => link_to("/img/conversation.jpg")}
 
   %section.content-secondary.try-it
-    %div.content-secondary-details
-      %h2 Try It
-      %p You don't need to log in to try it out. Go to a temporary directory.
-      %pre $ cd /tmp
-      %p
-        Download the
-        = succeed "," do
-          %a(href="https://github.com/exercism/cli/releases/latest") command line client
-        unpack it into a temporary directory.
-      %p The binary is named <kbd>exercism</kbd>. Fetch the first exercise available for each language:
-      %pre $ ./exercism demo
+    %div.row
+      %div.span12
+        %div.content-secondary-details
+          %h2 Try It
+          %p You don't need to log in to try it out. Go to a temporary directory.
+          %pre $ cd /tmp
+          %p
+            Download the
+            = succeed "," do
+              %a(href="https://github.com/exercism/cli/releases/latest") command line client
+            unpack it into a temporary directory.
+          %p The binary is named <kbd>exercism</kbd>. Fetch the first exercise available for each language:
+          %pre $ ./exercism demo
