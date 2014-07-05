@@ -1,62 +1,64 @@
-<% if current_user.new? %>
+<div class="container">
+  <% if current_user.new? %>
 
-  <h3>The Process</h3>
+    <h3>The Process</h3>
 
-  <ol>
-    <li>Submit your code.</li>
-    <li>Receive feedback.</li>
-    <li>Resubmit your code. Rinse. Repeat.</li>
-  </ol>
+    <ol>
+      <li>Submit your code.</li>
+      <li>Receive feedback.</li>
+      <li>Resubmit your code. Rinse. Repeat.</li>
+    </ol>
 
-  <p>Once you feel like the discussion has wound down, click the "ok, I'm done" button, and the exercise will no longer appear in the lists of exercises for others to nitpick.</p>
+    <p>Once you feel like the discussion has wound down, click the "ok, I'm done" button, and the exercise will no longer appear in the lists of exercises for others to nitpick.</p>
 
-  <p>As soon as you submit code to an assignment, <kbd>exercism fetch</kbd> will give you the next exercise so you have something to work on while you're waiting for feedback.</p>
+    <p>As soon as you submit code to an assignment, <kbd>exercism fetch</kbd> will give you the next exercise so you have something to work on while you're waiting for feedback.</p>
 
-  <p>You can always submit new versions of completed exercises. This will reopen the exercise for feedback.</p>
+    <p>You can always submit new versions of completed exercises. This will reopen the exercise for feedback.</p>
 
-  <h3>Nitpick Others</h3>
+    <h3>Nitpick Others</h3>
 
-  <p>When you've completed the first exercise, you will gain access to the exercises that are awaiting feedback.</p>
+    <p>When you've completed the first exercise, you will gain access to the exercises that are awaiting feedback.</p>
 
-  <h3>Wondering where to start?</h3>
-  <p>The <a href="http://help.exercism.io">help site</a> should get you going. If you get stuck, <a href="mailto:kytrinyx@exercism.io">email me</a>!</p>
-<% else %>
+    <h3>Wondering where to start?</h3>
+    <p>The <a href="http://help.exercism.io">help site</a> should get you going. If you get stuck, <a href="mailto:kytrinyx@exercism.io">email me</a>!</p>
+  <% else %>
 
-<div class="row">
-  <div class="span4">
-    <% if current_user.ongoing.any? %>
-      <h4>Current Exercises</h4>
-      <ul>
-        <% current_user.ongoing.each do |submission| %>
-          <li>
-            <p>
-              <a href="/submissions/<%= submission.key %>">
-                <%= submission.language.capitalize + ': ' + submission.slug %>
-              </a> (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
-            </p>
-          </li>
-        <% end %>
-      </ul>
-    <% else %>
-      <h4>Next Steps</h4>
-      <p>You don't currently have any pending submissions.</p>
-      <p>Fetch the next exercises using the command line client:</p>
-      <pre>
-        exercism fetch
-      </pre>
-      <p>When the tests are passing, submit the exercise with:</p>
-      <pre>
-        exercism submit path/to/file.ext
-      </pre>
-    <% end %>
+  <div class="row">
+    <div class="span4">
+      <% if current_user.ongoing.any? %>
+        <h4>Current Exercises</h4>
+        <ul>
+          <% current_user.ongoing.each do |submission| %>
+            <li>
+              <p>
+                <a href="/submissions/<%= submission.key %>">
+                  <%= submission.language.capitalize + ': ' + submission.slug %>
+                </a> (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
+              </p>
+            </li>
+          <% end %>
+        </ul>
+      <% else %>
+        <h4>Next Steps</h4>
+        <p>You don't currently have any pending submissions.</p>
+        <p>Fetch the next exercises using the command line client:</p>
+        <pre>
+          exercism fetch
+        </pre>
+        <p>When the tests are passing, submit the exercise with:</p>
+        <pre>
+          exercism submit path/to/file.ext
+        </pre>
+      <% end %>
+    </div>
+
+    <div class="span8">
+      <% if submission %>
+        <h4>Got a few minutes to spare?</h4>
+        <p>Go and help <b>@<%= submission.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= submission.key %>"><%= submission.slug %> in <%= submission.language.capitalize %></a>.</p>
+      <% end %>
+    </div>
   </div>
 
-  <div class="span8">
-    <% if submission %>
-      <h4>Got a few minutes to spare?</h4>
-      <p>Go and help <b>@<%= submission.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= submission.key %>"><%= submission.slug %> in <%= submission.language.capitalize %></a>.</p>
-    <% end %>
-  </div>
+  <% end %>
 </div>
-
-<% end %>

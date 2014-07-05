@@ -31,8 +31,7 @@
           %a.close{:href => '#', "data-dismiss" => 'alert'} x
           = flash[level]
 
-    .container
-      = yield
+    = yield
 
     = haml :"layout/footer", locals: {email: 'kytrinyx@exercism.io'}
 

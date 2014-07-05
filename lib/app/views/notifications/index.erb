@@ -1,72 +1,74 @@
-<div class="row">
-  <div class="span6">
+<div class="container">
+  <div class="row">
+    <div class="span6">
 
-    <% if inbox.has_notifications? %>
-    <form action="/notifications/read" method='POST' style="float: right; margin: 18px 120px 0 0;">
-      <div>
-        <button type="submit" class="btn btn-danger" name="mark-all-read">Mark all as read</button>
-      </div>
-    </form>
-    <% end %>
+      <% if inbox.has_notifications? %>
+      <form action="/notifications/read" method='POST' style="float: right; margin: 18px 120px 0 0;">
+        <div>
+          <button type="submit" class="btn btn-danger" name="mark-all-read">Mark all as read</button>
+        </div>
+      </form>
+      <% end %>
 
-    <h2>Notifications (<%= inbox.count %>)</h2>
+      <h2>Notifications (<%= inbox.count %>)</h2>
 
-    <% unless inbox.has_stuff? %>
-      <p>Notifications tell you about new comments or iterations in conversations that you are participating in. If you are on a team, you will also get notifications about activity from your team members.</p>
-      <p>At the moment this is not configurable.</p>
-      <p>You will also receive system-level alerts here, such as team invitations or notifications about feature changes on the site.</p>
-    <% end %>
+      <% unless inbox.has_stuff? %>
+        <p>Notifications tell you about new comments or iterations in conversations that you are participating in. If you are on a team, you will also get notifications about activity from your team members.</p>
+        <p>At the moment this is not configurable.</p>
+        <p>You will also receive system-level alerts here, such as team invitations or notifications about feature changes on the site.</p>
+      <% end %>
 
-    <p>Are you looking for a discussion you recently viewed? There's a <a href="/looks">list of these</a> available.</p>
+      <p>Are you looking for a discussion you recently viewed? There's a <a href="/looks">list of these</a> available.</p>
 
-    <% if inbox.has_alerts? %>
-      <ul style="list-style-type: none; margin: 0;">
-        <% inbox.alerts.each do |alert| %>
-        <li style="padding: 5px 0;">
-          <span style="padding-right: 5px;" class="icon-bell"></span>
-          <form action="/notifications/alert-<%= alert.id %>" method='POST' style="float: right; padding-left: 10px;">
-            <input type="hidden" name="_method" value="delete">
-            <div>
-              <button type="submit" class="btn btn-danger" name="delete">x</button>
-            </div>
-          </form>
-          <%= alert.text %>
-          <a href="<%= alert.url %>"><%= alert.link_text %></a>
-        </li>
-        <% end %>
-      </ul>
-    <% end %>
-
-    <ul style="list-style-type: none; margin: 0;">
-      <% inbox.notifications.each do |notification| %>
-        <% if notification.item %>
+      <% if inbox.has_alerts? %>
+        <ul style="list-style-type: none; margin: 0;">
+          <% inbox.alerts.each do |alert| %>
           <li style="padding: 5px 0;">
-
-            <% if notification.regarding == 'code' %>
-              <span style="padding-right: 5px;" class="icon-code"></span>
-            <% else %>
-              <span style="padding-right: 5px;" class="icon-comment-alt"></span>
-            <% end %>
-
-            <a href="/submissions/<%= notification.item.key %>">
-              <%= notification.language %>:
-              <%= notification.slug %> &middot;
-              <%= notification.item.user.username %>
-            </a>
-
-            <br>
-
-            <p style="padding-left: 24px;">
-            <% if notification.regarding == 'code' %>
-              New iteration
-            <% else %>
-              <b><%= notification.creator.username %></b> commented
-            <% end %>
-            <%= ago(notification.created_at) %>
-            </p>
+            <span style="padding-right: 5px;" class="icon-bell"></span>
+            <form action="/notifications/alert-<%= alert.id %>" method='POST' style="float: right; padding-left: 10px;">
+              <input type="hidden" name="_method" value="delete">
+              <div>
+                <button type="submit" class="btn btn-danger" name="delete">x</button>
+              </div>
+            </form>
+            <%= alert.text %>
+            <a href="<%= alert.url %>"><%= alert.link_text %></a>
           </li>
           <% end %>
+        </ul>
       <% end %>
-    </ul>
+
+      <ul style="list-style-type: none; margin: 0;">
+        <% inbox.notifications.each do |notification| %>
+          <% if notification.item %>
+            <li style="padding: 5px 0;">
+
+              <% if notification.regarding == 'code' %>
+                <span style="padding-right: 5px;" class="icon-code"></span>
+              <% else %>
+                <span style="padding-right: 5px;" class="icon-comment-alt"></span>
+              <% end %>
+
+              <a href="/submissions/<%= notification.item.key %>">
+                <%= notification.language %>:
+                <%= notification.slug %> &middot;
+                <%= notification.item.user.username %>
+              </a>
+
+              <br>
+
+              <p style="padding-left: 24px;">
+              <% if notification.regarding == 'code' %>
+                New iteration
+              <% else %>
+                <b><%= notification.creator.username %></b> commented
+              <% end %>
+              <%= ago(notification.created_at) %>
+              </p>
+            </li>
+            <% end %>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>

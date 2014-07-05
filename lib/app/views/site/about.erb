@@ -1,94 +1,96 @@
-<section class="main">
-  <article class="article-block">
-    <div class="article-contents">
-      <h2 class="header">About</h2>
-      <p>Exercism provides a space to think deeply about simple, expressive, and readable code, and experiment and discuss what <em>good code</em> looks like.</p>
-      <ul class="list">
-        <li>
-          Practice writing expressive code.
-        </li>
-        <li>
-          Practice accepting feedback graciously.
-        </li>
-        <li>
-          Practice giving feedback respectfully.
-        </li>
-      </ul>
-    </div>
-  </article>
-  <article class="article-block">
-    <div class="article-contents">
-      <h2 class="header">Languages</h2>
-      <p>
-      Exercises are currently available in <%= languages %>.
-        Coming Up: Java, Rust, Erlang, PHP, and Common Lisp.
-      </p>
-    </div>
-  </article>
-  <article class="article-block">
-    <div class="article-contents">
-      <h2 class="header">Future</h2>
-      <p>
-        I don't yet know what exercism.io is or will become. It helps that so many people are thinking out loud, sharing ideas, and submitting bugs, feature requests, and pull requests.
-      </p>
-      <p>
-        I hope that it will develop into a place where you can learn, play, experiment, and discuss.
-      </p>
-    </div>
-  </article>
-  <article class="article-block">
-    <div class="article-contents">
-      <h2 class="header">Open Source</h2>
-      <p>Exercism.io is free and open source.</p>
-      <p>
-        The
-        <a href="https://github.com/exercism/exercism.io" target="blank">website</a>
-        is written in Ruby using the Sinatra web framework. It is licensed under the GNU Affero General Public License.
-      </p>
-      <p>
-        The
-        <a href="https://github.com/exercism/cli" target="blank">command-line client</a>
-        is written in Go, and uses the MIT license.
-      </p>
-      <p>
-        An overwhelmingly large number of people have
-        <a href="https://github.com/exercism/exercism.io/graphs/contributors" target="blank">contributed to the codebase</a>.
-      </p>
-      <p>An even larger number of people have contributed by doing exercises and participating in the discussions about code.</p>
-    </div>
-  </article>
-  <article class="article-block">
-    <div class="article-contents">
-      <h2 class="header">Open Source Love</h2>
-      <p><a href="https://bugsnag.com">Bugsnag</a> has gifted us with monitoring. It's an awesome service, and you should try it!</p>
-      <p>Emails get delivered courtesy of <a href="http://sendgrid.com/">SendGrid</a>. They've been incredibly helpful in getting the whole email thing set up right.</p>
-    </div>
-  </article>
+<div class="container">
+  <section class="main">
+    <article class="article-block">
+      <div class="article-contents">
+        <h2 class="header">About</h2>
+        <p>Exercism provides a space to think deeply about simple, expressive, and readable code, and experiment and discuss what <em>good code</em> looks like.</p>
+        <ul class="list">
+          <li>
+            Practice writing expressive code.
+          </li>
+          <li>
+            Practice accepting feedback graciously.
+          </li>
+          <li>
+            Practice giving feedback respectfully.
+          </li>
+        </ul>
+      </div>
+    </article>
+    <article class="article-block">
+      <div class="article-contents">
+        <h2 class="header">Languages</h2>
+        <p>
+        Exercises are currently available in <%= languages %>.
+          Coming Up: Java, Rust, Erlang, PHP, and Common Lisp.
+        </p>
+      </div>
+    </article>
+    <article class="article-block">
+      <div class="article-contents">
+        <h2 class="header">Future</h2>
+        <p>
+          I don't yet know what exercism.io is or will become. It helps that so many people are thinking out loud, sharing ideas, and submitting bugs, feature requests, and pull requests.
+        </p>
+        <p>
+          I hope that it will develop into a place where you can learn, play, experiment, and discuss.
+        </p>
+      </div>
+    </article>
+    <article class="article-block">
+      <div class="article-contents">
+        <h2 class="header">Open Source</h2>
+        <p>Exercism.io is free and open source.</p>
+        <p>
+          The
+          <a href="https://github.com/exercism/exercism.io" target="blank">website</a>
+          is written in Ruby using the Sinatra web framework. It is licensed under the GNU Affero General Public License.
+        </p>
+        <p>
+          The
+          <a href="https://github.com/exercism/cli" target="blank">command-line client</a>
+          is written in Go, and uses the MIT license.
+        </p>
+        <p>
+          An overwhelmingly large number of people have
+          <a href="https://github.com/exercism/exercism.io/graphs/contributors" target="blank">contributed to the codebase</a>.
+        </p>
+        <p>An even larger number of people have contributed by doing exercises and participating in the discussions about code.</p>
+      </div>
+    </article>
+    <article class="article-block">
+      <div class="article-contents">
+        <h2 class="header">Open Source Love</h2>
+        <p><a href="https://bugsnag.com">Bugsnag</a> has gifted us with monitoring. It's an awesome service, and you should try it!</p>
+        <p>Emails get delivered courtesy of <a href="http://sendgrid.com/">SendGrid</a>. They've been incredibly helpful in getting the whole email thing set up right.</p>
+      </div>
+    </article>
 
-  <article class="article-block">
-    <div class="article-contents">
-      <h2 class="header">Origins</h2>
-      <p>
-        In November 2006 I joined the Cattle Drive on the JavaRanch. In short, you send in a assignment by email, and a real person gives you comments
-        back. It didn't take long until I was nitpicking other people's code, and I have been doing so on a daily basis since then.
-      </p>
-      <p>
-        Reviewing other people's code has taught me more about writing readable code, than receiving feedback on my own code. I wondered if it would be possible to have
-        people first get nitpicked, then turn around and nitpick new people, and spread the effort of giving feedback across a larger group.
-      </p>
-      <p>
-        In February 2013 I joined Jumpstart Lab as a developer and co-instructor for their 6-month full-time developer training program. One of the things we implemented
-        was a daily programming warm-up exercise. At first, this was simply a README, then we added a test suite to help guide the students and let them get a taste of what TDD feels like. After a few months we had a number of pain points that we wanted to address:
-      </p>
-      <p>We had to manually upload a new warmup every morning</p>
-      <ul class="list">
-        <li>The students often did not finish exercises</li>
-        <li>The students didn't get feedback on the code they wrote</li>
-      </ul>
-      <p>I decided to try to combine these ideas into an app, and launched a very rough prototype to the students in late June 2013.</p>
-      <p>
-        It came as a complete surprise to me that the project hit a nerve with people. I expected dozens of people to use the site. Within the first couple of months, over 1,000 people had submitted over 10,000 pieces of code.
-      </p>
-    </div>
-  </article>
-</section>
+    <article class="article-block">
+      <div class="article-contents">
+        <h2 class="header">Origins</h2>
+        <p>
+          In November 2006 I joined the Cattle Drive on the JavaRanch. In short, you send in a assignment by email, and a real person gives you comments
+          back. It didn't take long until I was nitpicking other people's code, and I have been doing so on a daily basis since then.
+        </p>
+        <p>
+          Reviewing other people's code has taught me more about writing readable code, than receiving feedback on my own code. I wondered if it would be possible to have
+          people first get nitpicked, then turn around and nitpick new people, and spread the effort of giving feedback across a larger group.
+        </p>
+        <p>
+          In February 2013 I joined Jumpstart Lab as a developer and co-instructor for their 6-month full-time developer training program. One of the things we implemented
+          was a daily programming warm-up exercise. At first, this was simply a README, then we added a test suite to help guide the students and let them get a taste of what TDD feels like. After a few months we had a number of pain points that we wanted to address:
+        </p>
+        <p>We had to manually upload a new warmup every morning</p>
+        <ul class="list">
+          <li>The students often did not finish exercises</li>
+          <li>The students didn't get feedback on the code they wrote</li>
+        </ul>
+        <p>I decided to try to combine these ideas into an app, and launched a very rough prototype to the students in late June 2013.</p>
+        <p>
+          It came as a complete surprise to me that the project hit a nerve with people. I expected dozens of people to use the site. Within the first couple of months, over 1,000 people had submitted over 10,000 pieces of code.
+        </p>
+      </div>
+    </article>
+  </section>
+</div>
