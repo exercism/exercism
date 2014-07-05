@@ -1,145 +1,147 @@
-<h1>Account</h1>
-<div class="row">
-  <div class="span8">
+<div class="container">
+  <h1>Account</h1>
+  <div class="row">
+    <div class="span8">
 
-    <h2>Teams</h2>
-    <% if profile.has_teams? %>
-      <ul>
-        <% profile.teams.each do |team| %>
-          <li>
-            <% if team.unconfirmed_members.include?(profile.user) %>
-              <ul class="inline">
-                <li style="padding-left: 0;"><%= team.slug %></li>
-                <li>
-                  <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
-                    <input type="hidden" name="_method" value="put" />
-                    <input type="submit" name="update" value="Accept invitation" class="btn btn-mini btn-success"/>
-                  </form>
-                </li>
-                <li>
-                  <form action="<%= "/teams/#{team.slug}/leave" %>" method="post">
-                    <input type="hidden" name="_method" value="put" />
-                    <input type="submit" name="update" value="Decline" class="btn btn-mini btn-danger"/>
-                  </form>
-                </li>
-              </ul>
-            <% else %>
-              <a href="/teams/<%= team.slug %>"><%= team.slug %></a>
-            <% end %>
-          </li>
-        <% end %>
-      </ul>
-    <% end %>
-    <p>Create a <a href="/teams">new team</a>.</p>
+      <h2>Teams</h2>
+      <% if profile.has_teams? %>
+        <ul>
+          <% profile.teams.each do |team| %>
+            <li>
+              <% if team.unconfirmed_members.include?(profile.user) %>
+                <ul class="inline">
+                  <li style="padding-left: 0;"><%= team.slug %></li>
+                  <li>
+                    <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
+                      <input type="hidden" name="_method" value="put" />
+                      <input type="submit" name="update" value="Accept invitation" class="btn btn-mini btn-success"/>
+                    </form>
+                  </li>
+                  <li>
+                    <form action="<%= "/teams/#{team.slug}/leave" %>" method="post">
+                      <input type="hidden" name="_method" value="put" />
+                      <input type="submit" name="update" value="Decline" class="btn btn-mini btn-danger"/>
+                    </form>
+                  </li>
+                </ul>
+              <% else %>
+                <a href="/teams/<%= team.slug %>"><%= team.slug %></a>
+              <% end %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <p>Create a <a href="/teams">new team</a>.</p>
 
-    <% if profile.has_nitpicked? %>
-      <p>You've left <a href="/<%= profile.username %>/history"><%= profile.nitpicks.count %> nits</a>.</p>
-    <% end %>
+      <% if profile.has_nitpicked? %>
+        <p>You've left <a href="/<%= profile.username %>/history"><%= profile.nitpicks.count %> nits</a>.</p>
+      <% end %>
 
-    <h2>Exercises</h2>
-    <h3>Current</h3>
-    <% if profile.has_current_submissions? %>
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Exercise</th>
-            <th>Language</th>
-            <th>Iterations</th>
-            <th>Nits</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% profile.current.each do |submission| %>
-          <tr>
-            <td><%= profile.submission_link(submission) %></td>
-            <td><%= submission.language.titleize %></td>
-            <td><%= submission.version %></td>
-            <td><%= submission.nit_count %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p><%= profile.no_current_sumbissions_message %></p>
-    <% end %>
-
-    <% if profile.has_hibernating_submissions? %>
-      <h3>Hibernating</h3>
-      <p>To make a hibernating exercise active again, either comment on it, or submit a new iteration.</p>
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Exercise</th>
-            <th>Language</th>
-            <th>Iterations</th>
-            <th>Nits</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% profile.hibernating_submissions.each do |submission| %>
-          <tr>
-            <td><%= profile.submission_link(submission) %></td>
-            <td><%= submission.language.titleize %></td>
-            <td><%= submission.version %></td>
-            <td><%= submission.nit_count %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    <% end %>
-
-  </div>
-
-  <div class="span4">
-    <dl>
-      <dt>Api key:</dt>
-      <dd><%= current_user.key %></dd>
-    </dl>
-    <p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on
-      <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
-    <p>
-      The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
-      <form action="/account/email" method="post">
-        <input type="hidden" name="_method" value="put" />
-        <div class="input-append">
-          <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
-          <input type="submit" name="update" value="Update" class="btn" />
-        </div>
-      </form>
-    </p>
-  </div>
-</div>
-
-<div class="row">
-  <div class="span12">
-    <h3>Completed</h3>
-    <% if profile.has_completed_submissions? %>
-      <table class="table table-bordered table-striped">
-        <col />
-        <col width="100%" />
-        <thead>
-          <tr>
-            <th>Language</th>
-            <th>Exercises</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% profile.languages.each do |language| %>
+      <h2>Exercises</h2>
+      <h3>Current</h3>
+      <% if profile.has_current_submissions? %>
+        <table class="table table-bordered table-striped">
+          <thead>
             <tr>
-              <td><%= language.titleize %></td>
-              <td>
-                <% profile.completed_in(language).each do |submission| %>
-                  <span class="completed-exercise">
-                    <%= profile.submission_link(submission) %>
-                  </span>
-                <% end %>
-              </td>
+              <th>Exercise</th>
+              <th>Language</th>
+              <th>Iterations</th>
+              <th>Nits</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% profile.current.each do |submission| %>
+            <tr>
+              <td><%= profile.submission_link(submission) %></td>
+              <td><%= submission.language.titleize %></td>
+              <td><%= submission.version %></td>
+              <td><%= submission.nit_count %></td>
             </tr>
           <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p><%= profile.no_completed_sumbissions_message %></p>
-    <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p><%= profile.no_current_sumbissions_message %></p>
+      <% end %>
+
+      <% if profile.has_hibernating_submissions? %>
+        <h3>Hibernating</h3>
+        <p>To make a hibernating exercise active again, either comment on it, or submit a new iteration.</p>
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Exercise</th>
+              <th>Language</th>
+              <th>Iterations</th>
+              <th>Nits</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% profile.hibernating_submissions.each do |submission| %>
+            <tr>
+              <td><%= profile.submission_link(submission) %></td>
+              <td><%= submission.language.titleize %></td>
+              <td><%= submission.version %></td>
+              <td><%= submission.nit_count %></td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
+
+    </div>
+
+    <div class="span4">
+      <dl>
+        <dt>Api key:</dt>
+        <dd><%= current_user.key %></dd>
+      </dl>
+      <p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on
+        <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
+      <p>
+        The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
+        <form action="/account/email" method="post">
+          <input type="hidden" name="_method" value="put" />
+          <div class="input-append">
+            <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
+            <input type="submit" name="update" value="Update" class="btn" />
+          </div>
+        </form>
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+      <h3>Completed</h3>
+      <% if profile.has_completed_submissions? %>
+        <table class="table table-bordered table-striped">
+          <col />
+          <col width="100%" />
+          <thead>
+            <tr>
+              <th>Language</th>
+              <th>Exercises</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% profile.languages.each do |language| %>
+              <tr>
+                <td><%= language.titleize %></td>
+                <td>
+                  <% profile.completed_in(language).each do |submission| %>
+                    <span class="completed-exercise">
+                      <%= profile.submission_link(submission) %>
+                    </span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p><%= profile.no_completed_sumbissions_message %></p>
+      <% end %>
+    </div>
   </div>
 </div>

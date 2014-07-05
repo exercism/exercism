@@ -1,19 +1,21 @@
-<div class="row">
-  <div class="code span12">
-    <h1>
-      <%= submission.language.capitalize %>:
-      <%= submission.exercise.name %>
-    </h1>
-    <p>
-    <% if total == 1 %>
-    You are seeing the only available implementation of the exercise.
-    <% elsif total > 1 %>
-    Take a look at one of the <a href="/code/<%= submission.language %>/<%= submission.slug %>/random"><%= total %> available implementations</a> of the exercise.
-    <% end %>
-    This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.exercise.name %> in <%= submission.language.capitalize %>. Interested? Read the <a href="/submissions/<%= submission.key %>">related discussion</a>.
-    </p>
-    <div style="padding-top: 2px;">
-      <%= md(submission.code, submission.language) %>
+<div class="container">
+  <div class="row">
+    <div class="code span12">
+      <h1>
+        <%= submission.language.capitalize %>:
+        <%= submission.exercise.name %>
+      </h1>
+      <p>
+      <% if total == 1 %>
+      You are seeing the only available implementation of the exercise.
+      <% elsif total > 1 %>
+      Take a look at one of the <a href="/code/<%= submission.language %>/<%= submission.slug %>/random"><%= total %> available implementations</a> of the exercise.
+      <% end %>
+      This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.exercise.name %> in <%= submission.language.capitalize %>. Interested? Read the <a href="/submissions/<%= submission.key %>">related discussion</a>.
+      </p>
+      <div style="padding-top: 2px;">
+        <%= md(submission.code, submission.language) %>
+      </div>
     </div>
   </div>
 </div>

@@ -7447,7 +7447,7 @@ div.home {
   background: url('/img/blackboard.jpg') repeat center center;
   min-height: 300px;
   min-width: 100%;
-  padding: 60px 5px 10px;
+  padding: 60px 0 10px;
 }
 
 h1.home {
@@ -7718,15 +7718,8 @@ h2 .next-submission {
 }
 
 .content-secondary {
-  padding: 3em 0; }
-
-.see-it {
-  border-top: 1px solid #d8d8d8; }
-
-.see-it img {
-  border: 1px solid #ebeaef;
-  border-radius: 4px;
-}
+  border-top: 1px solid #d8d8d8;
+  padding: 2.5em 0 6em 0; }
 
 .try-it {
   text-align: center;

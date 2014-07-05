@@ -18,7 +18,7 @@ div.home {
   background: url('/img/blackboard.jpg') repeat center center;
   min-height: 300px;
   min-width: 100%;
-  padding: 60px 5px 10px;
+  padding: 60px 0 10px;
 }
 
 h1.home {

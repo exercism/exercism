@@ -1,69 +1,71 @@
-<div class="row">
-  <div class="span8">
+<div class="container">
+  <div class="row">
+    <div class="span8">
 
-    <h1><%= profile.username %></h1>
-    <p>GitHub Profile: <%= profile.github_link %></p>
+      <h1><%= profile.username %></h1>
+      <p>GitHub Profile: <%= profile.github_link %></p>
 
-    <h3>Exercises</h3>
+      <h3>Exercises</h3>
 
-    <h4>Current</h4>
-    <% if profile.has_current_submissions? %>
-      <table class="table table-bordered table-striped">
-        <thead>
-          <tr>
-            <th>Exercise</th>
-            <th>Language</th>
-            <th>Iteration</th>
-            <th>Nits</th>
-          </tr>
-        </thead>
-        <tbody>
-        <% profile.current.each do |submission| %>
-          <tr>
-            <td><%= profile.submission_link(submission) %></td>
-            <td><%= submission.language.titleize %></td>
-            <td><%= submission.version %></td>
-            <td><%= submission.nit_count %></td>
-          </tr>
-        <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p><%= profile.no_current_sumbissions_message %></p>
-    <% end %>
-  </div>
-</div>
-
-<div class="row">
-  <div class="span12">
-    <h4>Completed</h4>
-    <% if profile.has_completed_submissions? %>
-      <table class="table table-bordered table-striped">
-        <col />
-        <col width="100%" />
-        <thead>
-          <tr>
-            <th>Language</th>
-            <th>Exercises</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% profile.languages.each do |language| %>
+      <h4>Current</h4>
+      <% if profile.has_current_submissions? %>
+        <table class="table table-bordered table-striped">
+          <thead>
             <tr>
-              <td><%= language.titleize %></td>
-              <td>
-                <% profile.completed_in(language).each do |submission| %>
-                  <span class="completed-exercise">
-                    <%= profile.submission_link(submission) %>
-                  </span>
-                <% end %>
-              </td>
+              <th>Exercise</th>
+              <th>Language</th>
+              <th>Iteration</th>
+              <th>Nits</th>
+            </tr>
+          </thead>
+          <tbody>
+          <% profile.current.each do |submission| %>
+            <tr>
+              <td><%= profile.submission_link(submission) %></td>
+              <td><%= submission.language.titleize %></td>
+              <td><%= submission.version %></td>
+              <td><%= submission.nit_count %></td>
             </tr>
           <% end %>
-        </tbody>
-      </table>
-    <% else %>
-      <p><%= profile.no_completed_sumbissions_message %></p>
-    <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p><%= profile.no_current_sumbissions_message %></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span12">
+      <h4>Completed</h4>
+      <% if profile.has_completed_submissions? %>
+        <table class="table table-bordered table-striped">
+          <col />
+          <col width="100%" />
+          <thead>
+            <tr>
+              <th>Language</th>
+              <th>Exercises</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% profile.languages.each do |language| %>
+              <tr>
+                <td><%= language.titleize %></td>
+                <td>
+                  <% profile.completed_in(language).each do |submission| %>
+                    <span class="completed-exercise">
+                      <%= profile.submission_link(submission) %>
+                    </span>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        <p><%= profile.no_completed_sumbissions_message %></p>
+      <% end %>
+    </div>
   </div>
 </div>

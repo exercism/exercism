@@ -1,41 +1,43 @@
-<h1><%= namify(trail) %></h1>
+<div class="container">
+  <h1><%= namify(trail) %></h1>
 
-<ul class="nav nav-tabs">
-  <% languages.each do |language| %>
-    <% css_class = (language == trail.to_sym ? 'active' : '') %>
-    <li class="<%= css_class %>">
-      <a href="/stats/<%= language %>"><%= namify(language) %></a>
-    </li>
-  <% end %>
-</ul>
+  <ul class="nav nav-tabs">
+    <% languages.each do |language| %>
+      <% css_class = (language == trail.to_sym ? 'active' : '') %>
+      <li class="<%= css_class %>">
+        <a href="/stats/<%= language %>"><%= namify(language) %></a>
+      </li>
+    <% end %>
+  </ul>
 
-<h2>Exercises</h2>
+  <h2>Exercises</h2>
 
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Pending Submissions</th>
-      <th>Superseded Submissions</th>
-      <th>Completed Submissions</th>
-      <th>Nitpicks</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% progress.each do |slug, summary|%>
-    <tr>
-      <td>
-        <% if current_user.mastery.include?(trail) %>
-          <a href="/submissions/<%= trail %>/<%= slug %>"><%= slug %></a>
-        <% else %>
-          <%= slug %>
-        <% end %>
-      </td>
-      <td><%= quantify summary['pending'] %></td>
-      <td><%= quantify summary['superseded'] %></td>
-      <td><%= quantify summary['done'] %></td>
-      <td><%= quantify summary['nits'] %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Pending Submissions</th>
+        <th>Superseded Submissions</th>
+        <th>Completed Submissions</th>
+        <th>Nitpicks</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% progress.each do |slug, summary|%>
+      <tr>
+        <td>
+          <% if current_user.mastery.include?(trail) %>
+            <a href="/submissions/<%= trail %>/<%= slug %>"><%= slug %></a>
+          <% else %>
+            <%= slug %>
+          <% end %>
+        </td>
+        <td><%= quantify summary['pending'] %></td>
+        <td><%= quantify summary['superseded'] %></td>
+        <td><%= quantify summary['done'] %></td>
+        <td><%= quantify summary['nits'] %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
