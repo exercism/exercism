@@ -53,5 +53,15 @@ module Sinatra
         </form>
       }
     end
+
+    def decrement_version(deleted_submission)
+      submission_collection = deleted_submission.user_exercise.submissions
+      pivot = deleted_submission.version
+
+      Array(submission_collection[pivot...submission_collection.size]).each do |submission|
+        submission.version -= 1
+        submission.save!
+      end
+    end
   end
 end
