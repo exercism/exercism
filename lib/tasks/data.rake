@@ -22,29 +22,65 @@ namespace :data do
       end
     end
 
-    desc "migrate nitpicker status"
-    task :nitpicker_status do
-      require 'bundler'
-      Bundler.require
-      require_relative '../db/connection'
-      DB::Connection.establish
-
-      sql = "UPDATE user_exercises SET is_nitpicker='t' WHERE state='done'"
-      ActiveRecord::Base.connection.execute(sql)
+    def earliest_submission(key)
+      <<-SQL
+        INSERT INTO lifecycle_events
+        (user_id, key, happened_at, created_at, updated_at)
+        SELECT user_id, '#{key}', MIN(created_at), MIN(created_at), MIN(created_at)
+        FROM submissions s
+        GROUP BY user_id
+      SQL
     end
 
-    desc "migrate file names"
-    task :file_names do
+    def earliest_comment_given
+      <<-SQL
+        INSERT INTO lifecycle_events
+        (user_id, key, happened_at, created_at, updated_at)
+        SELECT c.user_id, 'commented', MIN(c.created_at), MIN(c.created_at), MIN(c.created_at)
+        FROM comments c
+        INNER JOIN submissions s
+        ON c.submission_id=s.id
+        WHERE s.user_id != c.user_id
+        GROUP BY c.user_id
+      SQL
+    end
+
+    def earliest_comment_received
+      <<-SQL
+        INSERT INTO lifecycle_events
+        (user_id, key, happened_at, created_at, updated_at)
+        SELECT s.user_id, 'received_feedback', MIN(c.created_at), MIN(c.created_at), MIN(c.created_at)
+        FROM comments c
+        INNER JOIN submissions s
+        ON c.submission_id=s.id
+        WHERE s.user_id != c.user_id
+        GROUP BY s.user_id
+      SQL
+    end
+
+    def earliest_submission_completed
+      <<-SQL
+        INSERT INTO lifecycle_events
+        (user_id, key, happened_at, created_at, updated_at)
+        SELECT s.user_id, 'completed', MIN(s.done_at), MIN(s.done_at), MIN(s.done_at)
+        FROM submissions s
+        WHERE s.done_at IS NOT NULL
+        GROUP BY s.user_id
+      SQL
+    end
+
+    desc "migrate lifecycle events"
+    task :lifecycle do
       require 'bundler'
       Bundler.require
-      require 'exercism'
+      require_relative '../exercism'
 
-      Submission.find_each do |submission|
-        ext = Code::LANGUAGES.invert[submission.language]
-        filename = "#{submission.slug}.#{ext}"
-        submission.filename ||= filename
-        submission.save
-      end
+      # We're missing data for 'fetch'. Inserting submit as placeholder.
+      User.connection.execute(earliest_submission('fetched'))
+      User.connection.execute(earliest_submission('submitted'))
+      User.connection.execute(earliest_comment_received)
+      User.connection.execute(earliest_comment_given)
+      User.connection.execute(earliest_submission_completed)
     end
   end
 end
