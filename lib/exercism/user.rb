@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :notifications
   has_many :comments
   has_many :exercises, class_name: "UserExercise"
+  has_many :lifecycle_events, ->{ order 'created_at ASC' }, class_name: "LifecycleEvent"
 
   has_many :management_contracts, class_name: "TeamManager"
   has_many :managed_teams, through: :management_contracts, source: :team
@@ -37,6 +38,10 @@ class User < ActiveRecord::Base
 
   def self.find_by_username(username)
     where('LOWER(username) = ?', username.downcase).first
+  end
+
+  def onboarding_steps
+    @onboarding_steps ||= lifecycle_events.map(&:key)
   end
 
   def ongoing

@@ -4,6 +4,7 @@ require 'faraday'
 
 require 'exercism/explore'
 
+require 'exercism/assumable_user'
 require 'exercism/config'
 require 'exercism/alert'
 require 'exercism/named'
