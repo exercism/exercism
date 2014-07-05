@@ -1,29 +1,31 @@
-<div class="row">
-
-  <aside class="span4">
-    <nav>
-      <ul class="nav nav-tabs nav-stacked">
-        <% if language %>
-          <% if exercises.any? %>
-            <% %w(recent last-week last-month last-quarter aging).each do |slug| %>
-              <%= dashboard_assignment_section_nav(language, slug) %>
-            <% end %>
-            <%= dashboard_assignment_section_nav(language, 'needs-input') %>
-          </ul>
-          <ul class="nav nav-tabs nav-stacked">
-            <% exercises.each do |exercise| %>
-              <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise.slug]) %>
+<div class="container">
+  <div class="row">
+    <br>
+    <aside class="span4">
+      <nav>
+        <ul class="nav nav-tabs nav-stacked">
+          <% if language %>
+            <% if exercises.any? %>
+              <% %w(recent last-week last-month last-quarter aging).each do |slug| %>
+                <%= dashboard_assignment_section_nav(language, slug) %>
+              <% end %>
+              <%= dashboard_assignment_section_nav(language, 'needs-input') %>
+            </ul>
+            <ul class="nav nav-tabs nav-stacked">
+              <% exercises.each do |exercise| %>
+                <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise.slug]) %>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-      </ul>
-    </nav>
-    </br>
-  </aside>
+        </ul>
+      </nav>
+      </br>
+    </aside>
 
-  <main id="pending-submissions" class="span8">
-  <% if show_pending_submissions?(language) %>
-    <%= erb :"nitpick/pending", locals: {submissions: submissions, language: language} %>
-  <% end %>
-  </main>
+    <main id="pending-submissions" class="span8">
+    <% if show_pending_submissions?(language) %>
+      <%= erb :"nitpick/pending", locals: {submissions: submissions, language: language} %>
+    <% end %>
+    </main>
+  </div>
 </div>
