@@ -61,7 +61,7 @@ module ExercismAPI
 
         submissions = current_user.exercises.order(:language, :slug).map {|exercise|
           exercise.submissions.last
-        }
+        }.compact
         pg :iterations, locals: {submissions: submissions}
       end
     end
