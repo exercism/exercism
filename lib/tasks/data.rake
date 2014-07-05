@@ -22,6 +22,15 @@ namespace :data do
       end
     end
 
+    def joined_at
+      <<-SQL
+        INSERT INTO lifecycle_events
+        (user_id, key, happened_at, created_at, updated_at)
+        SELECT id, 'joined', created_at, created_at, created_at
+        FROM users
+      SQL
+    end
+
     def earliest_submission(key)
       <<-SQL
         INSERT INTO lifecycle_events
@@ -75,6 +84,7 @@ namespace :data do
       Bundler.require
       require_relative '../exercism'
 
+      User.connection.execute(joined_at)
       # We're missing data for 'fetch'. Inserting submit as placeholder.
       User.connection.execute(earliest_submission('fetched'))
       User.connection.execute(earliest_submission('submitted'))
