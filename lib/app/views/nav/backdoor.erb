@@ -1,0 +1,16 @@
+<li class="dropdown">
+  <a class="dropdown-toggle" id="drop-account" href="#" data-toggle="dropdown">
+    Assume
+    <b class="caret"></b>
+  </a>
+
+  <ul class="dropdown-menu" role="menu">
+    <% assumable_users.each do |user| %>
+      <li>
+        <a role="menuitem" tabindex="-1" href="/backdoor?id=<%= user.github_id %>">
+          <%= user.username %>
+        </a>
+      </li>
+    <% end %>
+  </ul>
+</li>

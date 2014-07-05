@@ -5,66 +5,15 @@
 </ul>
 
 <ul class="nav pull-right">
-  <% if nitpicker_languages.any? %>
-    <li class="dropdown">
-  <a class="dropdown-toggle" id="drop-nitpick" href="#" data-toggle="dropdown">
-    Nitpick <b class="caret"></b></a>
-
-  <ul class="dropdown-menu" id="menu-nitpick" role="menu" area-labelledby="drop-nitpick">
-    <% nitpicker_languages.each do |language| %>
-      <li><a role="menuitem" tabindex="-1" href="<%= path_for(language) %>">
-      <%= language.to_s.capitalize %></a>
-    </li>
-    <% end %>
-  </ul>
-  <% end %>
-
-  <% if current_user.ongoing.any? %>
-    <li class="dropdown">
-  <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">
-    Current Exercises <b class="caret"></b></a>
-
-  <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
-    <% current_user.ongoing.each do |submission| %>
-      <li><a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>">
-      <%= submission.language + ' ' + submission.slug %></a>
-    </li>
-    <% end %>
-  </ul>
-  <% end %>
-
-  <% if !current_user.guest? %> 
-    <% if (current_user.teams | current_user.managed_teams).any? %>
-    <li class="dropdown">
-    <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">
-    Your Teams<b class="caret"></b></a>
-
-    <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
-    <% (current_user.teams | current_user.managed_teams).each do |team| %>
-      <li><a role="menuitem" tabindex="-1" href="/teams/<%= team.slug %>"><%= team.slug %></a></li>
-    <% end %>
-    </ul>
-    <% end %>
-  <% end %>
-
-  <% if current_user.guest? %>
-    <li><a href="/login">Log in with GitHub</a></li>
+  <% if !current_user.guest? %>
+    <%= erb :"nav/nitpicker_languages" %>
+    <%= erb :"nav/ongoing_exercises" %>
+    <%= erb :"nav/teams" %>
+    <%= erb :"nav/notifications" %>
+    <%= erb :"nav/account" %>
   <% else %>
-  <li><a role="menuitem" tabindex="-1" href="/notifications">Notifications (<%= notification_count %>)</a></li>
-    <li class="dropdown">
-  <a class="dropdown-toggle" id="drop-account" href="#" data-toggle="dropdown">
-    <%= gravatar_tag current_user.avatar_url, size: 20 %>
-    <%= current_user.username %> <b class="caret"></b>
-  </a>
-  <%= erb :"auth/backdoor" %>
-
-  <ul class="dropdown-menu" role="menu">
-    <li><a role="menuitem" tabindex="-1" href="/account">Account</a></li>
-    <li><a role="menuitem" tabindex="-1" href="/<%= current_user.username %>/nitstats">Nit stats</a></li>
-    <li><a role="menuitem" tabindex="-1" href="/looks">Recently Viewed</a></li>
-    <li><a role="menuitem" tabindex="-1" href="/logout">Log Out</a></li>
-  </ul>
-  </li>
+    <li><a href="/login">Log in with GitHub</a></li>
   <% end %>
+  <%= erb :"nav/backdoor" %>
 </ul>
 

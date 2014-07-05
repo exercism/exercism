@@ -1,0 +1,14 @@
+<% if nitpicker_languages.any? %>
+  <li class="dropdown">
+    <a class="dropdown-toggle" id="drop-nitpick" href="#" data-toggle="dropdown">Nitpick <b class="caret"></b></a>
+
+    <ul class="dropdown-menu" id="menu-nitpick" role="menu" area-labelledby="drop-nitpick">
+      <% nitpicker_languages.each do |language| %>
+        <li>
+          <a role="menuitem" tabindex="-1" href="<%= path_for(language) %>">
+          <%= language.to_s.capitalize %></a>
+        </li>
+      <% end %>
+    </ul>
+  </li>
+<% end %>
