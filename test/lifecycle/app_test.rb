@@ -54,7 +54,7 @@ class LifecycleAppTest < MiniTest::Test
 
     assert_equal 1, LifecycleEvent.count
     event = LifecycleEvent.first
-    assert_equal 'complete', event.key
+    assert_equal 'completed', event.key
     assert_equal alice.id, event.user_id
   end
 end

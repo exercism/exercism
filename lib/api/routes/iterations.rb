@@ -35,7 +35,7 @@ module ExercismAPI
 
         attempt.save
         Notify.everyone(attempt.submission.reload, 'code', user)
-        LifecycleEvent.track('submit', user.id)
+        LifecycleEvent.track('submitted', user.id)
         status 201
         pg :attempt, locals: {submission: attempt.submission}
       end

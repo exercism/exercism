@@ -25,7 +25,7 @@ class LifecycleApiTest < MiniTest::Test
     end
 
     assert_equal 1, LifecycleEvent.count
-    assert_tracked LifecycleEvent.first, 'submit', alice.id
+    assert_tracked LifecycleEvent.first, 'submitted', alice.id
   end
 
   def test_tracks_fetch_when_all
@@ -34,7 +34,7 @@ class LifecycleApiTest < MiniTest::Test
     end
 
     assert_equal 1, LifecycleEvent.count
-    assert_tracked LifecycleEvent.first, 'fetch', alice.id
+    assert_tracked LifecycleEvent.first, 'fetched', alice.id
   end
 
   def test_tracks_fetch_when_language
@@ -43,7 +43,7 @@ class LifecycleApiTest < MiniTest::Test
     end
 
     assert_equal 1, LifecycleEvent.count
-    assert_tracked LifecycleEvent.first, 'fetch', alice.id
+    assert_tracked LifecycleEvent.first, 'fetched', alice.id
   end
 
   def test_tracks_fetch_when_exercise
@@ -52,6 +52,6 @@ class LifecycleApiTest < MiniTest::Test
     end
 
     assert_equal 1, LifecycleEvent.count
-    assert_tracked LifecycleEvent.first, 'fetch', alice.id
+    assert_tracked LifecycleEvent.first, 'fetched', alice.id
   end
 end

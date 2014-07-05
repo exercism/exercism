@@ -10,7 +10,7 @@ module ExercismAPI
 
         exercises = begin
           result = Homework.new(current_user).all.to_json
-          LifecycleEvent.track('fetch', current_user.id)
+          LifecycleEvent.track('fetched', current_user.id)
           result
         rescue Exception => e
           Bugsnag.notify(e)
@@ -20,13 +20,13 @@ module ExercismAPI
 
       get '/exercises/:language' do |language|
         status, data = Xapi.get("exercises", language, :key => current_user.key)
-        LifecycleEvent.track('fetch', current_user.id)
+        LifecycleEvent.track('fetched', current_user.id)
         halt status, data
       end
 
       get '/exercises/:language/:slug' do |language, slug|
         status, data = Xapi.get("assignments", language, slug)
-        LifecycleEvent.track('fetch', current_user.id)
+        LifecycleEvent.track('fetched', current_user.id)
         halt status, data
       end
     end

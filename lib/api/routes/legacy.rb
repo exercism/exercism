@@ -21,7 +21,7 @@ module ExercismAPI
           halt 401, {error: "Please double-check your API key in your account page."}.to_json
         end
         status, data = Xapi.get("exercises", key: params[:key])
-        LifecycleEvent.track('fetch', current_user.id)
+        LifecycleEvent.track('fetched', current_user.id)
         halt status, data
       end
 
