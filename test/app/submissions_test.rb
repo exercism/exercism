@@ -292,6 +292,8 @@ class SubmissionsTest < MiniTest::Test
     }
 
     sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
+    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'word-count').update
+
     delete "/submissions/#{sub.key}", {}, login(alice)
     assert_equal nil, Submission.find_by_key(sub.key)
   end
@@ -309,6 +311,23 @@ class SubmissionsTest < MiniTest::Test
     assert_equal sub, Submission.find_by_key(sub.key)
   end
 
+  def test_delete_submission_decrements_version_number
+    data = {
+      user: bob,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    sub  = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10, version: 1))
+    sub2 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10, version: 2))
+    sub3 = Submission.create(data.merge(state: 'apples', created_at: Time.now - 10, version: 3))
+    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
+
+    delete "/submissions/#{sub2.key}", {}, login(bob)
+    assert_equal 2, Submission.find_by_key(sub3.key).version
+  end
+
   def test_redirects_to_index_page_after_deleting
     data = {
       user: bob,
@@ -318,6 +337,8 @@ class SubmissionsTest < MiniTest::Test
     }
 
     sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
+    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
+
     delete "/submissions/#{sub.key}", {}, login(bob)
     assert_equal 302, last_response.status
     assert_equal "http://example.org/", last_response.location

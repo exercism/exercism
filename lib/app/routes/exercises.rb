@@ -98,6 +98,7 @@ module ExercismWeb
           redirect '/'
         end
 
+        decrement_version(selected_submission)
         selected_submission.delete
         redirect "/"
       end
