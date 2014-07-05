@@ -1,4 +1,5 @@
 require_relative '../acceptance_helper'
+require 'haml'
 
 class StaticPageTest < AcceptanceTestCase
   def test_homepage_exists
