@@ -66,7 +66,7 @@ module ExercismWeb
         end
 
         def assumable_users
-          ::User.all
+          ::User.order('created_at DESC').limit(100)
         end
 
         def active_nav(path)
