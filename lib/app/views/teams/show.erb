@@ -1,8 +1,7 @@
 <div class="container">
-  <h1>
-    Team <%= h(team.name) %>
-  </h1>
-
+  <section class="page-header">
+    <h1>Team <%= h(team.name) %></h1>
+  </section>
   <% if team.managed_by?(current_user) %>
     <a href="#" id="edit_team" class="btn btn-small">Edit</a>
     <a href="#" id="destroy_team" class="btn btn-small btn-danger" data-team=<%= team.slug %>>Destroy</a>

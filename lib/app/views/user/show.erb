@@ -1,13 +1,12 @@
 <div class="container">
+  <section class="page-header">
+    <h1><%= profile.username %></h1>
+  </section>
   <div class="row">
     <div class="span8">
-
-      <h1><%= profile.username %></h1>
       <p>GitHub Profile: <%= profile.github_link %></p>
-
       <h3>Exercises</h3>
-
-      <h4>Current</h4>
+      <h6>Current</h6>
       <% if profile.has_current_submissions? %>
         <table class="table table-bordered table-striped">
           <thead>
@@ -34,10 +33,9 @@
       <% end %>
     </div>
   </div>
-
   <div class="row">
     <div class="span12">
-      <h4>Completed</h4>
+      <h6>Completed</h6>
       <% if profile.has_completed_submissions? %>
         <table class="table table-bordered table-striped">
           <col />

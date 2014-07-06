@@ -14,7 +14,7 @@ module ExercismWeb
         _, response = Xapi.get("assignments", language, slug)
         exercise = JSON.parse(response)["assignments"].first
         text = exercise["files"].find {|key, value| key == "README.md"}.last
-        erb :"exercises/readme", locals: {text: text}
+        erb :"exercises/readme", locals: {text: text, exercise: exercise}
       end
     end
   end

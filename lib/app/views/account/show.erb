@@ -1,11 +1,12 @@
 <div class="container">
-  <h1>Account</h1>
+  <section class="page-header">
+    <h1>Account</h1>
+  </section>
   <div class="row">
     <div class="span8">
-
       <h2>Teams</h2>
       <% if profile.has_teams? %>
-        <ul>
+        <ul class="nav nav-tabs nav-stacked">
           <% profile.teams.each do |team| %>
             <li>
               <% if team.unconfirmed_members.include?(profile.user) %>
@@ -38,7 +39,7 @@
       <% end %>
 
       <h2>Exercises</h2>
-      <h3>Current</h3>
+      <h6>Current</h6>
       <% if profile.has_current_submissions? %>
         <table class="table table-bordered table-striped">
           <thead>
@@ -65,7 +66,7 @@
       <% end %>
 
       <% if profile.has_hibernating_submissions? %>
-        <h3>Hibernating</h3>
+        <h6>Hibernating</h6>
         <p>To make a hibernating exercise active again, either comment on it, or submit a new iteration.</p>
         <table class="table table-bordered table-striped">
           <thead>
@@ -89,32 +90,8 @@
         </table>
       <% end %>
 
-    </div>
-
-    <div class="span4">
-      <dl>
-        <dt>Api key:</dt>
-        <dd><%= current_user.key %></dd>
-      </dl>
-      <p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on
-        <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
-      <p>
-        The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
-        <form action="/account/email" method="post">
-          <input type="hidden" name="_method" value="put" />
-          <div class="input-append">
-            <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
-            <input type="submit" name="update" value="Update" class="btn" />
-          </div>
-        </form>
-      </p>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="span12">
-      <h3>Completed</h3>
       <% if profile.has_completed_submissions? %>
+        <h6>Completed</h6>
         <table class="table table-bordered table-striped">
           <col />
           <col width="100%" />
@@ -142,6 +119,26 @@
       <% else %>
         <p><%= profile.no_completed_sumbissions_message %></p>
       <% end %>
+
+    </div>
+
+    <div class="span4">
+      <dl>
+        <dt>Api key:</dt>
+        <dd><%= current_user.key %></dd>
+      </dl>
+      <p>You can update your <%= gravatar_tag current_user.avatar_url %> Gravatar on
+        <a href="http://www.gravatar.com/">the Gravatar website.</a></p>
+      <p>
+        The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
+        <form action="/account/email" method="post">
+          <input type="hidden" name="_method" value="put" />
+          <div class="input-append">
+            <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
+            <input type="submit" name="update" value="Update" class="btn" />
+          </div>
+        </form>
+      </p>
     </div>
   </div>
 </div>

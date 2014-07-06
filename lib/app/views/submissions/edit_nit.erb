@@ -1,15 +1,19 @@
 <div class="container">
-  <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
-    <textarea name="body" class="span6 offset3" rows="10"><%= nit.body %></textarea>
-    <div>
-      <button type="submit" class="btn btn-primary">Submit</button>
-    </div>
-  </form>
-
-  <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
-    <input type="hidden" name="_method" value="delete">
-    <div>
-      <button type="submit" class="btn btn-danger" name="delete">Delete</button>
-    </div>
-  </form>
+  <section class="page-header">
+    <h1>Edit Nitpick</h1>
+  </section>
+  <section>
+    <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
+      <textarea name="body" class="span6 offset3" rows="10"><%= nit.body %></textarea>
+      <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+    <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
+      <input type="hidden" name="_method" value="delete">
+      <div>
+        <button type="submit" class="btn btn-danger" name="delete">Delete</button>
+      </div>
+    </form>
+  </section>
 </div>
