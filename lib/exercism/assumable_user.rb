@@ -8,29 +8,12 @@ class AssumableUser
       @steps = steps
     end
 
-    def progression
-      %w(
-       joined
-       fetched
-       submitted
-       received_feedback
-       completed
-       commented
-       rinse
-       repeat
-      )
-    end
-
     def progress
       steps.count
     end
 
     def status
-      steps.last
-    end
-
-    def upcoming
-      progression - steps
+      @status ||= Onboarding.status(steps)
     end
   end
 
