@@ -14,5 +14,8 @@
   <% else %>
     <li><a href="/login">Log in with GitHub</a></li>
   <% end %>
+  <% if settings.development? %>
+    <%= erb :"nav/backdoor" %>
+  <% end %>
 </ul>
 
