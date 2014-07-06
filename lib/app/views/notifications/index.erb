@@ -1,4 +1,7 @@
 <div class="container">
+  <section class="page-header">
+    <h1>Notifications (<%= inbox.count %>)</h1>
+  </section>
   <div class="row">
     <div class="span6">
 
@@ -10,15 +13,13 @@
       </form>
       <% end %>
 
-      <h2>Notifications (<%= inbox.count %>)</h2>
-
       <% unless inbox.has_stuff? %>
         <p>Notifications tell you about new comments or iterations in conversations that you are participating in. If you are on a team, you will also get notifications about activity from your team members.</p>
         <p>At the moment this is not configurable.</p>
         <p>You will also receive system-level alerts here, such as team invitations or notifications about feature changes on the site.</p>
       <% end %>
 
-      <p>Are you looking for a discussion you recently viewed? There's a <a href="/looks">list of these</a> available.</p>
+      <p class="well">Are you looking for a discussion you recently viewed? There's a <a href="/looks">list of these</a> available.</p>
 
       <% if inbox.has_alerts? %>
         <ul style="list-style-type: none; margin: 0;">
@@ -28,7 +29,9 @@
             <form action="/notifications/alert-<%= alert.id %>" method='POST' style="float: right; padding-left: 10px;">
               <input type="hidden" name="_method" value="delete">
               <div>
-                <button type="submit" class="btn btn-danger" name="delete">x</button>
+                <button type="submit" class="btn btn-danger" name="delete">
+                  <i class="icon-remove"></i> 
+                </button>
               </div>
             </form>
             <%= alert.text %>
