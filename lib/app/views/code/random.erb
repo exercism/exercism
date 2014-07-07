@@ -1,11 +1,13 @@
 <div class="container">
+  <section class="page-header">
+    <h1>
+      <%= submission.language.capitalize %>:
+      <%= submission.exercise.name %>
+    </h1>
+  </section>
   <div class="row">
     <div class="code span12">
-      <h1>
-        <%= submission.language.capitalize %>:
-        <%= submission.exercise.name %>
-      </h1>
-      <p>
+      <p class="well">
       <% if total == 1 %>
       You are seeing the only available implementation of the exercise.
       <% elsif total > 1 %>

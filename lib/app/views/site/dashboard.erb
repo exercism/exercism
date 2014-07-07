@@ -22,19 +22,20 @@
     <h3>Wondering where to start?</h3>
     <p>The <a href="http://help.exercism.io">help site</a> should get you going. If you get stuck, <a href="mailto:kytrinyx@exercism.io">email me</a>!</p>
   <% else %>
-
+  <section class="page-header">
+    <h1>Dashboard</h1>
+  </section>
   <div class="row">
     <div class="span4">
       <% if current_user.ongoing.any? %>
         <h4>Current Exercises</h4>
-        <ul>
+        <ul class="nav nav-tabs nav-stacked">
           <% current_user.ongoing.each do |submission| %>
             <li>
-              <p>
-                <a href="/submissions/<%= submission.key %>">
-                  <%= submission.language.capitalize + ': ' + submission.slug %>
-                </a> (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
-              </p>
+              <a href="/submissions/<%= submission.key %>">
+                <%= submission.language.capitalize + ': ' + submission.slug %>
+                (iteration: <%= submission.version %>, nits: <%= submission.nit_count %>)
+              </a>
             </li>
           <% end %>
         </ul>

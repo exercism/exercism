@@ -1,15 +1,24 @@
 <div class="container">
-  <h3>Recently Viewed</h3>
-
-  <% if looks.empty? %>
-    <p>No exercises viewed in the past 2 days.</p>
-  <% else %>
-    <ul>
-      <% looks.each do |look| %>
-        <li>
-          <a href="<%= look.path %>"><%= look.name %></a> (<%= look.language %>) by <%= look.username %>
-        </li>
-      <% end %>
-    </ul>
-  <% end %>
+  <section class="page-header">
+    <h1>Recently Viewed</h1>
+  </section>
+  <section>
+    <div class="row">
+      <div class="span6">
+        <% if looks.empty? %>
+          <p>No exercises viewed in the past 2 days.</p>
+        <% else %>
+          <ul class="nav nav-tabs nav-stacked">
+            <% looks.each do |look| %>
+              <li>
+                <a href="<%= look.path %>">
+                  <%= look.name %> (<%= look.language %>) by <%= look.username %>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </section>
 </div>
