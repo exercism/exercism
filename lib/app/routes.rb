@@ -3,6 +3,7 @@ module ExercismWeb
     {
       :Core => 'core',
       :Legacy => 'legacy',
+      :Main => 'main',
       :Stats => 'stats',
       :Static => 'static',
       :Conversations => 'conversations',
