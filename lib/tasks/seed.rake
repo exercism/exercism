@@ -5,8 +5,8 @@ namespace :db do
     Bundler.require
     require 'exercism'
 
-    %x{dropdb exercism_development -U exercism}
-    %x{createdb -O exercism exercism_development -U exercism}
+    # %x{dropdb exercism_development -U exercism}
+    # %x{createdb -O exercism exercism_development -U exercism}
 
     conn = Faraday.new(:url => "https://raw.githubusercontent.com") do |c|
       c.use Faraday::Response::Logger
