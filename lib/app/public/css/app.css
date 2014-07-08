@@ -7474,7 +7474,29 @@ td.gutter {
 .highlight.javascript .k{color:#008080;font-weight:bold;}
 .highlight.javascript .na{color:#777;font-weight:bold;}
 
-/*HOME*/
+/*
+---------------------------------
+| Exercism.IO # Styles
+---------------------------------
+*/
+
+/*
+| Modular UI
+--------------------------------- */
+
+.contain-centered {
+  text-align: center;
+}
+
+.screen-reader-text {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
+/*
+| Nav
+--------------------------------- */
 
 .navbar .brand {
   padding-right: 0;
@@ -7490,34 +7512,40 @@ div.navbar-inner {
   padding-left: 2em;
 }
 
-div.home {
+/*
+| Home
+--------------------------------- */
+
+div.home-top {
   background: url('/img/blackboard.jpg') repeat center center;
+  box-shadow: 0 10px 0 #f1f1f1;
   min-height: 300px;
   min-width: 100%;
-  padding: 60px 0 10px;
+  padding: 40px 0;
 }
 
-h1.home {
+h1.home-top-header {
   color: white;
   font-size: 4em;
   letter-spacing: -.05em;
-  margin: 30px 0px;
+  margin: 20px 0 0;
   opacity: 0.8;
   text-align: center;
   line-height: 1em;
 }
 
-.screen-reader-text {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
+.home-top-subheader {
+  background: rgba(0,0,0,0.3);
+  display: inline-block;
+  font-size: 1.2em;
+  padding: 0 15px;
 }
 
+.home-top-subheader,
 .lead.home {
   color: white;
   margin: 30px 0px;
   opacity: 0.8;
-  text-align: center;
 }
 
 .btn-large.home {
@@ -7529,6 +7557,42 @@ h1.home {
   margin-top: 30px;
   width: 200px;
 }
+
+.home-third-subheader {
+  background: #eee;
+  color: #575757;
+  display: inline-block;
+  padding: 7px 10px;
+  text-shadow: 0 -1px 0 rgba(255,255,255,0.9);
+}
+
+.home-p-text {
+  line-height: 26px;
+}
+
+.home img.medallion {
+  display: block;
+  margin: 0 auto;
+  height: 100px;
+}
+
+.home h2, .home p {
+  text-align: center;
+}
+
+.content-primary {
+  padding-top: 2em;
+  padding-bottom: 3em;
+}
+
+.content-secondary {
+  border-top: 1px solid #d8d8d8;
+  padding: 2.5em 0 6em 0; }
+
+.content-secondary-details pre {
+  background: #eee;
+}
+
 
 /*APPLICATION*/
 
@@ -7746,45 +7810,13 @@ h2 .next-submission {
   font-size: 14px;
 }
 
-.home img.medallion {
-  display: block;
-  margin: 0 auto;
-  height: 100px;
-}
-
-.home h2, .home p {
-  text-align: center;
-}
-.logo {
-  height: 218px;
-  padding-top: 100px; }
-
-.content-primary {
-  padding-top: 2em;
-  padding-bottom: 3em;
-}
-
-.content-secondary {
-  border-top: 1px solid #d8d8d8;
-  padding: 2.5em 0 6em 0; }
-
-.try-it {
-  text-align: center;
-  background: #f2f2f2;
-}
-
-.content-secondary-details h2 {
-  color: #262626;
-  margin: 0 0 15px 0; }
-
-.content-secondary-details pre {
-  background: #fff;
-  margin: 0 auto;
-  width: 50%;
-}
-
 .clipboard-paste {
   height: 16px;
+}
+
+.logo {
+  height: 218px;
+  padding-top: 100px;
 }
 
 /*
@@ -7825,6 +7857,14 @@ h6 {
 
 p {
   margin: 0 0 20px;
+}
+
+a {
+  color: #d81d4e;
+}
+
+a:hover {
+  color: #d81d4e; 
 }
 
 /*# sourceMappingURL=app.css.map */
