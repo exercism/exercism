@@ -4,7 +4,7 @@ require 'services/hibernation_message'
 require 'exercism/named'
 require 'exercism/exercise'
 
-class HibernationMessageTest < MiniTest::Test
+class HibernationMessageTest < Minitest::Test
   FakeUser = Struct.new(:username, :email, :id)
   FakeComment = Struct.new(:user)
   FakeSubmission = Struct.new(:user, :exercise, :comments, :key)

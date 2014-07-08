@@ -1,7 +1,7 @@
 require_relative '../integration_helper'
 require "mocha/setup"
 
-class SubmissionTest < MiniTest::Test
+class SubmissionTest < Minitest::Test
   include DBCleaner
 
   def exercise

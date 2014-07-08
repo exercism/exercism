@@ -1,6 +1,6 @@
 require_relative '../../integration_helper'
 
-class UnsubmitTest < MiniTest::Test
+class UnsubmitTest < Minitest::Test
   include DBCleaner
 
   def teardown

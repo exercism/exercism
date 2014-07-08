@@ -5,7 +5,7 @@ require 'services/comment_message'
 require 'exercism/named'
 require 'exercism/exercise'
 
-class CommentMessageTest < MiniTest::Test
+class CommentMessageTest < Minitest::Test
 
   FakeUser = Struct.new(:username, :email)
   FakeSubmission = Struct.new(:key, :user, :exercise)

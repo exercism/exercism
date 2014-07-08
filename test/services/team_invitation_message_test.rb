@@ -5,7 +5,7 @@ require 'services/team_invitation_message'
 require 'exercism/named'
 require 'exercism/exercise'
 
-class TeamInvitationMessageTest < MiniTest::Test
+class TeamInvitationMessageTest < Minitest::Test
 
   FakeUser = Struct.new(:username, :email)
   FakeTeam = Struct.new(:name)

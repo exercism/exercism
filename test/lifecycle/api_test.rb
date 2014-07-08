@@ -1,6 +1,6 @@
 require_relative '../api_helper'
 
-class LifecycleApiTest < MiniTest::Test
+class LifecycleApiTest < Minitest::Test
   include Rack::Test::Methods
   include DBCleaner
 

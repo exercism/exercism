@@ -4,7 +4,7 @@ require 'mocha/setup'
 require 'exercism/submission'
 require 'app/presenters/workload'
 
-class WorkloadTest < MiniTest::Test
+class WorkloadTest < Minitest::Test
   include Rack::Test::Methods
   include DBCleaner
 

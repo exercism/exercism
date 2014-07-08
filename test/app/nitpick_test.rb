@@ -1,6 +1,6 @@
 require_relative '../app_helper'
 
-class NitpickAppTest < MiniTest::Test
+class NitpickAppTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
   include DBCleaner

@@ -1,6 +1,6 @@
 require_relative '../app_helper'
 
-class AppExercisesTest < MiniTest::Test
+class AppExercisesTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
   include DBCleaner

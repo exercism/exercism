@@ -1,6 +1,6 @@
 require_relative '../../integration_helper'
 
-class ExtractsMentionsFromMarkdownTest < MiniTest::Test
+class ExtractsMentionsFromMarkdownTest < Minitest::Test
   include DBCleaner
 
   attr_reader :user

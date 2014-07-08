@@ -3,7 +3,7 @@ require 'exercism/user'
 require 'exercism/notification'
 require 'exercism/notification_center'
 
-class NotificationCenterTest < MiniTest::Test
+class NotificationCenterTest < Minitest::Test
   include DBCleaner
 
   def test_garbage_collection

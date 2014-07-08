@@ -1,7 +1,7 @@
 require_relative "../test_helper"
 require 'services'
 
-class MessageTest < MiniTest::Test
+class MessageTest < Minitest::Test
   class FakeMessage < Message
     def subject
       "Fake message to #{recipient.username} from #{from}"

@@ -1,6 +1,6 @@
 require_relative '../integration_helper'
 
-class UserTest < MiniTest::Test
+class UserTest < Minitest::Test
   include DBCleaner
 
   def test_user_create_key

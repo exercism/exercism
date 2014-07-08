@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 require 'db/config'
 
-class DB::ConfigTest < MiniTest::Test
+class DB::ConfigTest < Minitest::Test
   def relative_to_root(*paths)
     File.expand_path(File.join(__FILE__, '..', '..', '..', *paths))
   end
