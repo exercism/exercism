@@ -1,4 +1,4 @@
-class AcceptanceTestCase < MiniTest::Test
+class AcceptanceTestCase < Minitest::Test
   include Capybara::DSL
   include Capybara::Assertions
   include DBCleaner

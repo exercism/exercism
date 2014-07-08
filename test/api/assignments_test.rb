@@ -1,7 +1,7 @@
 require_relative '../api_helper'
 require 'mocha/setup'
 
-class AssignmentsApiTest < MiniTest::Test
+class AssignmentsApiTest < Minitest::Test
   include Rack::Test::Methods
   include DBCleaner
 

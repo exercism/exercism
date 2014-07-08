@@ -1,7 +1,7 @@
 require_relative '../../test_helper'
 require 'app/helpers/site_title_helper'
 
-class SiteTitleHelperTest < MiniTest::Test
+class SiteTitleHelperTest < Minitest::Test
 
   def helper
     return @helper if @helper

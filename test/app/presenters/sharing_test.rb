@@ -1,7 +1,7 @@
 require_relative '../../test_helper'
 require 'app/presenters/sharing.rb'
 
-class SharingTest < MiniTest::Test
+class SharingTest < Minitest::Test
 
   def submission
     submission = Object.new

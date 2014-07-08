@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 require 'app/presenters/setup'
 require 'exercism/config'
 
-class SetupPresenterTest < MiniTest::Test
+class SetupPresenterTest < Minitest::Test
   def with_stubbed_languages(&block)
     Exercism::Config.stub(:languages, {:ruby => 'Ruby'}) do
       Exercism::Config.stub(:upcoming, ["PHP"]) do

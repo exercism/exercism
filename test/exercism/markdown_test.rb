@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 require 'exercism/markdown'
 
-class MarkdownTest < MiniTest::Test
+class MarkdownTest < Minitest::Test
   def test_mention
     markdown = "u @goose."
     expected = "<p>u <a class=\"mention\" href=\"/goose\">@goose</a>.</p>\n"

@@ -1,6 +1,6 @@
 require_relative '../../integration_helper'
 
-class AttemptTest < MiniTest::Test
+class AttemptTest < Minitest::Test
   include DBCleaner
 
   attr_reader :user

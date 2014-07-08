@@ -1,6 +1,6 @@
 require_relative '../integration_helper'
 
-class TeamTest < MiniTest::Test
+class TeamTest < Minitest::Test
   include DBCleaner
 
   attr_reader :alice, :bob

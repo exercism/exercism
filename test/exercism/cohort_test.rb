@@ -1,6 +1,6 @@
 require_relative '../integration_helper'
 
-class CohortTest < MiniTest::Test
+class CohortTest < Minitest::Test
   include DBCleaner
 
   def test_team_members_and_managers

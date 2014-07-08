@@ -1,7 +1,7 @@
 require_relative '../integration_helper'
 require_relative '../../lib/exercism/lifecycle_event'
 
-class LifecycleEventTest < MiniTest::Test
+class LifecycleEventTest < Minitest::Test
   include DBCleaner
 
   def test_tracks_successfully

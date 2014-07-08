@@ -1,6 +1,6 @@
 require './test/app_helper'
 
-class AppNotificationsTest < MiniTest::Test
+class AppNotificationsTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
   include DBCleaner
