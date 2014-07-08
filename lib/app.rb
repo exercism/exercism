@@ -33,6 +33,7 @@ module ExercismWeb
     end
 
     use Routes::Legacy
+    use Routes::Main
     use Routes::Sessions
     use Routes::Stats
     use Routes::Static

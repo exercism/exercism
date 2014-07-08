@@ -11,9 +11,10 @@ class Notification < ActiveRecord::Base
   scope :recent, -> { by_recency.limit(400) }
   scope :unread, -> { where(read: false) }
   scope :read, -> { where(read: true) }
-  scope :joins_exercises, -> { joins('INNER JOIN user_exercises e ON e.id = notifications.item_id') }
-  scope :personal, -> {joins_exercises.where('e.user_id = notifications.user_id')}
-  scope :general, -> {joins_exercises.where('e.user_id != notifications.user_id')}
+  scope :joins_exercises, -> { on_exercises.joins('INNER JOIN user_exercises e ON e.id = notifications.item_id') }
+  scope :joins_submissions , -> { on_submissions.joins('INNER JOIN submissions e ON e.id = notifications.item_id') }
+  scope :personal, -> {joins_submissions.where('e.user_id = notifications.user_id')}
+  scope :general, -> {joins_submissions.where('e.user_id != notifications.user_id')}
 
   before_create do
     self.read  ||= false

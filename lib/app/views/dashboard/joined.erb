@@ -1,0 +1,48 @@
+<section class="page-header">
+  <h1>Welcome to Exercism!</h1>
+</section>
+<section class="main">
+  <article class="article-block">
+    <div class="article-contents">
+
+      <p>Exercism is about having conversations about code. In order to start having those conversations, you'll need some code that can act as a conversation starter.</p>
+
+      <h2>Overview</h2>
+
+      <p>The overall process on Exercism looks like this:</p>
+
+      <ol>
+        <li>Fetch some problems in the form of READMEs with associated test suites.</li>
+        <li>Write some code, getting the test suite to pass.</li>
+        <li>Submit the code, and have a conversation with others about it.</li>
+        <li>Iterate until you feel that you're done.</li>
+        <li>Have a conversation with others about how they are solving the same problem.</li>
+      </ol>
+
+      <h2>Getting Started</h2>
+
+      <p>The first step is to install the <code>exercism</code> command-line tool (known as the CLI, short for <em>Command-Line Interface</em>)</p>
+      <p>Check out the <a href="http://cli.exercism.io/">CLI's homepage</a> for installation instructions.</p>
+
+      <h2>After that...</h2>
+
+      <p>Once the CLI is installed, you'll need to configure it using the <code>login</code> command. It will interactively ask for your API key, which is listed below. You can always find your API key in your <a href="/account">account page</a>.</p>
+
+      <pre>
+      exercism login
+      Your GitHub username: <%= current_user.username %>
+      Your exercism.io API key: <%= current_user.key %>
+      What is your exercism exercises project path?
+      Press Enter to select the default (/path/to/current/dir):
+      </pre>
+
+      <p>Then you can fetch problems using the following command:</p>
+
+      <pre>
+      exercism fetch
+      </pre>
+
+      <p>Then come back here for more guidance if you need it.</p>
+    </div>
+  </article>
+</section>
