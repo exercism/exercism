@@ -92,9 +92,9 @@
     </div>
     <div style="padding-top: 2px;">
       <%= md(submission.code, submission.language, analysis.values.flatten) %>
-      <div class="analysis-results">
+      <div class="analysis-results span11">
         <h2>Analysis Results</h2>
-        <% analysis.values.flatten.each do |result| %>
+        <% analysis.values.flatten.reject{|r| r.feedback.empty? }.each do |result| %>
             <div class="analysis-result" id="result-<%= result.type %>">
               <p><%= ANALYZER_MESSAGES[result.type] %></p>
               <% result.feedback.each do |feedback| %>

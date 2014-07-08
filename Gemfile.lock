@@ -1,16 +1,15 @@
 GIT
   remote: git://github.com/JacobNinja/codeminer.git
-  revision: 6db82aaeead2b842d2731f338215cdde2e883244
+  revision: a84f0a8cc07e1104df69071d0243fb0ec603c1ea
   specs:
     codeminer (0.1.0)
 
 GIT
   remote: git://github.com/JacobNinja/exercism-analysis.git
-  revision: c351612429650113e15d88e9a70d07c4978ca428
+  revision: ac05ce059a569c6e7d6037e207f35114339d403f
   specs:
     exercism-analysis (0.1.0)
       roodi (~> 4.0)
-      ruby_parser (~> 3.6)
 
 GEM
   remote: https://rubygems.org/

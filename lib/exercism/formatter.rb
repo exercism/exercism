@@ -1,3 +1,5 @@
+require 'rouge'
+
 class AnalysisFormatter < Rouge::Formatters::HTML
 
   TEMPLATE = <<-TEMPLATE
