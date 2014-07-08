@@ -1,11 +1,12 @@
 %section.main
   %section
-    .home
+    .home-top
       %div.container
-        %h1.home exercism.io
-        %p.lead.home The Devil is in the Details
-        %p.lead.home Crowd-sourced mentorship. Public Prototype.
-        %a.btn.btn-large.btn-success.home{href: '/login'} Start Now (via GitHub)
+        %section.contain-centered
+          %h1.home-top-header exercism.io
+          %h2.home-top-subheader The Devil is in the Details
+          %p.lead.home Crowd-sourced mentorship. Public prototype.
+          %a.btn.btn-large.btn-success.home{href: '/login'} Start Now (via GitHub)
 
 %div.container
   %section.content-primary.home
@@ -13,10 +14,11 @@
       %div.span4
         %img.medallion{:src => link_to("/icons/badge-iteration.svg")}
         %h2.header Practice
-        %p
-          Focus on expressive, readable code.
+        %p.contain-centered
+          %span.home-third-subheader
+            Focus on expressive, readable code.
 
-        %p
+        %p.home-p-text
           Work in your local development environment using your usual tools
           = succeed "." do
             %a{:href => link_to('/about')} in multiple languages
@@ -25,41 +27,46 @@
       %div.span4
         %img.medallion{:src => link_to("/icons/badge-people.svg")}
         %h2.header Communicate
-        %p
-          The code is a conversation starter.
-        %p
+        %p.contain-centered
+          %span.home-third-subheader
+            The code is a conversation starter.
+        %p.home-p-text
           Have a thoughtful discussion with your peers about the choices that you made. Take this opportunity to explore idioms, style, and trade-offs.  There's no right answer, and many good questions.
 
       %div.span4
         %img.medallion{:src => link_to("/icons/badge-nitpick.svg")}
         %h2.header Pay it Forward
-        %p
-          Explore other people's solutions.
-        %p
+        %p.contain-centered
+          %span.home-third-subheader
+            Explore other people's solutions.
+        %p.home-p-text
           Articulate what you like and dislike in other people's code. Have a thoughtful, nuanced discussion, deepening your own understanding of the design choices that you make every day.
 
   %section.content-secondary.see-it
     %div.row
       %div.span6
         %h3.header Better code through conversations.
-        %p Thousands of conversations are happening on exercism. <a href="/conversations/1">Here's one of them.</a>
-        %p You start with some code.  Talk about it a little.  Rewrite the code a bit, then post the new version.  Make it better.  After a few cycles you've got improved code, and perhaps even a new friend!
+        %p.home-p-text Thousands of conversations are happening on exercism. <a href="/conversations/1">Here's one of them.</a>
+        %p.home-p-text You start with some code.  Talk about it a little.  Rewrite the code a bit, then post the new version.  Make it better.  After a few cycles you've got improved code, and perhaps even a new friend!
 
       %div.span6
         %a(href="/conversations/1")
-          %img{:src => link_to("/img/conversation.jpg")}
+          %img{:src => link_to("/img/conversation.jpg"), alt: "Exercism code conversation."}
 
-  %section.content-secondary.try-it
+  %section.content-secondary
     %div.row
-      %div.span12
+      %div.span6
         %div.content-secondary-details
-          %h2 Try It
-          %p You don't need to log in to try it out. Go to a temporary directory.
+          %h2 Try it.
+          %p.home-p-text You don't need to log in to try it out. Go to a temporary directory.
           %pre $ cd /tmp
-          %p
+          %p.home-p-text
             Download the
             = succeed "," do
               %a(href="https://github.com/exercism/cli/releases/latest") command line client
             unpack it into a temporary directory.
-          %p The binary is named <kbd>exercism</kbd>. Fetch the first exercise available for each language:
+          %p.home-p-text The binary is named <kbd>exercism</kbd>. Fetch the first exercise available for each language:
           %pre $ ./exercism demo
+
+      %div.span6
+        %img{:src => link_to("/img/home-try-it.png"), alt: "A text editor with an Exercism exercise."}
