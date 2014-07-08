@@ -99,6 +99,7 @@ module ExercismWeb
         end
 
         decrement_version(selected_submission)
+        delete_related_notifications(selected_submission)
         selected_submission.delete
         redirect "/"
       end
