@@ -343,4 +343,20 @@ class SubmissionsTest < Minitest::Test
     assert_equal 302, last_response.status
     assert_equal "http://example.org/", last_response.location
   end
+
+  def test_dependent_destroy_of_notifications
+    data = {
+      user: alice,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
+    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'word-count').update
+    note = Notification.create(user_id: alice.id, item_id: sub.id, item_type: sub.class.to_s, creator_id: bob.id)
+
+    delete "/submissions/#{sub.key}", {}, login(alice)
+    assert_equal nil, Notification.find_by_id(note.id)
+  end
 end
