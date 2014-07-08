@@ -37,3 +37,11 @@ h6 {
 p {
   margin: 0 0 20px;
 }
+
+a {
+  color: #d81d4e;
+}
+
+a:hover {
+  color: #d81d4e; 
+}
