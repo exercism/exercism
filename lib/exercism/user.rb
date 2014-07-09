@@ -28,7 +28,9 @@ class User < ActiveRecord::Base
 
     user.username   = username
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url && !user.avatar_url
+    track_event = user.new_record?
     user.save
+    LifecycleEvent.track('joined', user.id) if track_event
     user
   end
 
