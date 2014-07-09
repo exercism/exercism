@@ -1,4 +1,26 @@
 namespace :data do
+  namespace :cleanup do
+    desc "delete orphan notifications"
+    task :notifications do
+      require 'active_record'
+      require 'db/connection'
+
+      DB::Connection.establish
+
+      sql = <<-SQL
+      DELETE FROM notifications WHERE id IN (
+        SELECT n.id
+        FROM notifications n
+        LEFT JOIN submissions s ON n.item_id=s.id
+        WHERE n.item_type='Submission'
+        AND s.id IS NULL
+      )
+      SQL
+
+      ActiveRecord::Base.connection.execute(sql)
+    end
+  end
+
   namespace :migrate do
     desc "migrate deprecated problems"
     task :deprecated_problems do
