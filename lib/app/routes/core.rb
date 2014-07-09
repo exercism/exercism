@@ -6,8 +6,17 @@ module ExercismWeb
         set :environment, ENV.fetch('RACK_ENV') { :development }.to_sym
         set :method_override, true
 
-        disable :show_exceptions
         enable :raise_errors
+      end
+
+      configure :production do
+        disable :show_exceptions
+      end
+
+      configure :development do
+        # Comment out this line if you want
+        # to see the gorgeous 500 page
+        enable :show_exceptions
       end
 
       error 500 do
