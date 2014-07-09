@@ -5,11 +5,13 @@ module ExercismWeb
         set :root, Exercism.relative_to_root('lib', 'app')
         set :environment, ENV.fetch('RACK_ENV') { :development }.to_sym
         set :method_override, true
-        # View 500 error page in development
-        # disable :show_exceptions
+
+        disable :show_exceptions
+        enable :raise_errors
       end
 
       error 500 do
+        Bugsnag.auto_notify($!)
         erb :"errors/internal"
       end
 
