@@ -13,6 +13,10 @@ module ExercismWeb
         haml :"site/getting-started", locals: {languages: current_languages}
       end
 
+      get '/bork' do
+        raise RuntimeError.new("Hi Bugsnag, you're awesome!")
+      end
+
       private
 
       def current_languages
