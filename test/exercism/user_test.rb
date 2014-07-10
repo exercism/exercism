@@ -103,8 +103,8 @@ class UserTest < Minitest::Test
     user = User.create
     exercise = Exercise.new('ruby', 'one')
 
-    user.submissions << create_submission(exercise, :code => "s1", state: 'superseded')
-    user.submissions << create_submission(exercise, :code => "s2")
+    user.submissions << create_submission(exercise, code: "s1", state: 'superseded')
+    user.submissions << create_submission(exercise, code: "s2")
     user.save
     user.reload
 
@@ -115,8 +115,8 @@ class UserTest < Minitest::Test
     user = User.create
     exercise = Exercise.new('ruby', 'one')
 
-    first = create_submission(exercise, :code => "s1", :updated_at => Date.yesterday)
-    second = create_submission(exercise, :code => "s2", :updated_at => Date.today)
+    first = create_submission(exercise, code: "s1", updated_at: Date.yesterday)
+    second = create_submission(exercise, code: "s2", updated_at: Date.today)
 
     user.submissions << second
     user.submissions << first

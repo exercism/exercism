@@ -8,7 +8,7 @@ module Xapi
   end
 
   def self.conn
-    Faraday.new(:url => exercises_api_url) do |c|
+    Faraday.new(url: exercises_api_url) do |c|
       c.use Faraday::Response::Logger
       c.use Faraday::Adapter::NetHttp
     end

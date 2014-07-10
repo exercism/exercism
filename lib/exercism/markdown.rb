@@ -83,8 +83,8 @@ class Markdown < Redcarpet::Render::XHTML
     end
 
     formatter = Rouge::Formatters::HTML.new(
-      :css_class => "highlight #{lexer.tag}",
-      :line_numbers => true
+      css_class: "highlight #{lexer.tag}",
+      line_numbers: true
     )
 
     formatter.format(lexer.lex(code))

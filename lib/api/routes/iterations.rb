@@ -5,7 +5,7 @@ module ExercismAPI
         request.body.rewind
         data = request.body.read
         if data.empty?
-          halt 400, {:error => "Must send key and code as json."}.to_json
+          halt 400, {error: "Must send key and code as json."}.to_json
         end
         data = JSON.parse(data)
         user = User.where(key: data['key']).first
@@ -20,17 +20,17 @@ module ExercismAPI
       Please double-check the API key in your exercism account page and
       ensure you have logged into the CLI using the correct key.
           MESSAGE
-          halt 401, {:error => message}.to_json
+          halt 401, {error: message}.to_json
         end
 
         attempt = Attempt.new(user, data['code'], data['path'])
 
         unless attempt.valid?
-          halt 400, {:error => "We are unable to determine which exercise you're submitting #{data['path']} to."}.to_json
+          halt 400, {error: "We are unable to determine which exercise you're submitting #{data['path']} to."}.to_json
         end
 
         if attempt.duplicate?
-          halt 400, {:error => "This attempt is a duplicate of the previous one."}.to_json
+          halt 400, {error: "This attempt is a duplicate of the previous one."}.to_json
         end
 
         attempt.save

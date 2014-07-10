@@ -43,23 +43,23 @@ class Email
     base_options.merge(
       via: :smtp,
       via_options: {
-        :address => "localhost",
-        :port => 1025
+        address: "localhost",
+        port: 1025
       }
     )
   end
 
   def options_for_humans
     base_options.merge(
-      :via => :smtp,
-      :via_options => {
-        :address => ENV.fetch('EMAIL_SMTP_ADDRESS'),
-        :port => ENV.fetch('EMAIL_SMTP_PORT'),
-        :domain => ENV.fetch('EMAIL_DOMAIN'),
-        :user_name => ENV.fetch('EMAIL_USERNAME'),
-        :password => ENV.fetch('EMAIL_PASSWORD'),
-        :authentication => :plain,
-        :enable_starttls_auto => true
+      via: :smtp,
+      via_options: {
+        address: ENV.fetch('EMAIL_SMTP_ADDRESS'),
+        port: ENV.fetch('EMAIL_SMTP_PORT'),
+        domain: ENV.fetch('EMAIL_DOMAIN'),
+        user_name: ENV.fetch('EMAIL_USERNAME'),
+        password: ENV.fetch('EMAIL_PASSWORD'),
+        authentication: :plain,
+        enable_starttls_auto: true
       }
     )
   end
