@@ -35,6 +35,8 @@ module ExercismAPI
 
         attempt.save
         Notify.everyone(attempt.submission.reload, 'code', user)
+        # if we don't have a 'fetched' event, we want to hack one in.
+        LifecycleEvent.track('fetched', user.id)
         LifecycleEvent.track('submitted', user.id)
         status 201
         pg :attempt, locals: {submission: attempt.submission}

@@ -17,15 +17,16 @@ class LifecycleApiTest < Minitest::Test
     assert_equal user_id, event.user_id
   end
 
-  def test_tracks_submit_submit
+  def test_tracks_submit
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
         post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
       end
     end
 
-    assert_equal 1, LifecycleEvent.count
-    assert_tracked LifecycleEvent.first, 'submitted', alice.id
+    assert_equal 2, LifecycleEvent.count
+    assert_tracked LifecycleEvent.first, 'fetched', alice.id
+    assert_tracked LifecycleEvent.last, 'submitted', alice.id
   end
 
   def test_tracks_fetch_when_all
