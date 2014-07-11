@@ -27,7 +27,7 @@ class ItertaionsApiTest < Minitest::Test
     get '/iterations/latest', {key: alice.key}
 
     output = last_response.body
-    options = {:format => :json, :name => 'api_iterations'}
+    options = {format: :json, :name => 'api_iterations'}
     Approvals.verify(output, options)
   end
 end

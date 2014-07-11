@@ -4,13 +4,13 @@
       .tabbable.tabs-left
         %ul.nav.nav-pills.nav-stacked
           - iterations.each do |iteration|
-            %li{:class => iteration.number == 1 ? 'active' : ''}
-              %a{:href => "#tab#{iteration.number}", "data-toggle" => "tab"}= "Iteration #{iteration.number}"
+            %li{class: iteration.number == 1 ? 'active' : ''}
+              %a{href: "#tab#{iteration.number}", "data-toggle" => "tab"}= "Iteration #{iteration.number}"
 
     .span10
       .tab-content
         - iterations.each do |iteration|
-          .tab-pane{:id => "tab#{iteration.number}", :class => iteration.number == 1 ? "active" : ''}
+          .tab-pane{id: "tab#{iteration.number}", :class => iteration.number == 1 ? "active" : ''}
             = preserve md(iteration.code, iteration.language)
 
             .comments(style="margin-top: 20px;")

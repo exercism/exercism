@@ -38,7 +38,7 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal ex, submission.exercise
     assert_equal 201, last_response.status
 
-    options = {format: :json, :name => 'api_submission_accepted'}
+    options = {format: :json, name: 'api_submission_accepted'}
     Approvals.verify(last_response.body, options)
   end
 
@@ -63,7 +63,7 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal ex, submission.exercise
     assert_equal 201, last_response.status
 
-    options = {format: :json, :name => 'api_submission_accepted_on_completed'}
+    options = {format: :json, name: 'api_submission_accepted_on_completed'}
     Approvals.verify(last_response.body, options)
   end
 

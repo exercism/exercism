@@ -19,7 +19,7 @@ module ExercismAPI
       end
 
       get '/exercises/:language' do |language|
-        status, data = Xapi.get("exercises", language, :key => current_user.key)
+        status, data = Xapi.get("exercises", language, key: current_user.key)
         LifecycleEvent.track('fetched', current_user.id)
         halt status, data
       end

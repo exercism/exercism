@@ -8,7 +8,7 @@ namespace :db do
     # %x{dropdb exercism_development -U exercism}
     # %x{createdb -O exercism exercism_development -U exercism}
 
-    conn = Faraday.new(:url => "https://raw.githubusercontent.com") do |c|
+    conn = Faraday.new(url: "https://raw.githubusercontent.com") do |c|
       c.use Faraday::Response::Logger
       c.use Faraday::Adapter::NetHttp
     end

@@ -12,7 +12,7 @@
   %section.content-primary.home
     %div.row
       %div.span4
-        %img.medallion{:src => link_to("/icons/badge-iteration.svg")}
+        %img.medallion{src: link_to("/icons/badge-iteration.svg")}
         %h2.header Practice
         %p.contain-centered
           %span.home-third-subheader
@@ -21,11 +21,11 @@
         %p.home-p-text
           Work in your local development environment using your usual tools
           = succeed "." do
-            %a{:href => link_to('/about')} in multiple languages
+            %a{href: link_to('/about')} in multiple languages
           We give you a test suite, and you make the tests pass... but that's just the first step.
 
       %div.span4
-        %img.medallion{:src => link_to("/icons/badge-people.svg")}
+        %img.medallion{src: link_to("/icons/badge-people.svg")}
         %h2.header Communicate
         %p.contain-centered
           %span.home-third-subheader
@@ -34,7 +34,7 @@
           Have a thoughtful discussion with your peers about the choices that you made. Take this opportunity to explore idioms, style, and trade-offs.  There's no right answer, and many good questions.
 
       %div.span4
-        %img.medallion{:src => link_to("/icons/badge-nitpick.svg")}
+        %img.medallion{src: link_to("/icons/badge-nitpick.svg")}
         %h2.header Pay it Forward
         %p.contain-centered
           %span.home-third-subheader
@@ -51,7 +51,7 @@
 
       %div.span6
         %a(href="/conversations/1")
-          %img{:src => link_to("/img/conversation.jpg"), alt: "Exercism code conversation."}
+          %img{src: link_to("/img/conversation.jpg"), alt: "Exercism code conversation."}
 
   %section.content-secondary
     %div.row
@@ -69,4 +69,4 @@
           %pre $ ./exercism demo
 
       %div.span6
-        %img{:src => link_to("/img/home-try-it.png"), alt: ""}
+        %img{src: link_to("/img/home-try-it.png"), alt: ""}

@@ -5,8 +5,8 @@ namespace :notifications do
     Bundler.require
     require 'exercism'
 
-    Notification.where('created_at < ?', (Date.today - 2)).where(:read => true).delete_all
-    Alert.where('created_at < ?', (Date.today - 2)).where(:read => true).delete_all
+    Notification.where('created_at < ?', (Date.today - 2)).where(read: true).delete_all
+    Alert.where('created_at < ?', (Date.today - 2)).where(read: true).delete_all
   end
 
   desc "alert everyone about new notification page"
@@ -17,10 +17,10 @@ namespace :notifications do
 
     User.all.find_each do |user|
       attributes = {
-        :user_id => user.id,
-        :text => "Does the new notifications page work for you? If you have thoughts, please ",
-        :link_text => "join the discussion on GitHub.",
-        :url => "https://github.com/exercism/exercism.io/issues/1559",
+        user_id: user.id,
+        text: "Does the new notifications page work for you? If you have thoughts, please ",
+        link_text: "join the discussion on GitHub.",
+        url: "https://github.com/exercism/exercism.io/issues/1559",
       }
       Alert.create(attributes)
     end

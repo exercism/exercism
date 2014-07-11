@@ -4,7 +4,7 @@ class Github
   end
 
   def self.connect_to(url)
-    Faraday.new(:url => url) do |c|
+    Faraday.new(url: url) do |c|
       c.use Faraday::Response::Logger
       c.use Faraday::Adapter::NetHttp
     end

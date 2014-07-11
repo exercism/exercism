@@ -36,7 +36,7 @@ class UnsubmitTest < Minitest::Test
   end
 
   def test_fails_when_already_done
-    bob.submissions.create(:state => "done")
+    bob.submissions.create(state: "done")
 
     assert_raises Unsubmit::SubmissionDone do
       Unsubmit.new(bob).unsubmit
@@ -44,7 +44,7 @@ class UnsubmitTest < Minitest::Test
   end
 
   def test_fails_when_too_old
-    bob.submissions.create(:created_at => Time.now - Unsubmit::TIMEOUT - 1)
+    bob.submissions.create(created_at: Time.now - Unsubmit::TIMEOUT - 1)
 
     assert_raises Unsubmit::SubmissionTooOld do
       Unsubmit.new(bob).unsubmit
