@@ -120,7 +120,7 @@ GEM
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
     will_paginate (3.0.7)
-    will_paginate-bootstrap (1.0.0)
+    will_paginate-bootstrap (1.0.1)
       will_paginate (>= 3.0.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
