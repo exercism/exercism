@@ -98,7 +98,7 @@ GEM
     redcarpet (3.1.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rouge (1.4.0)
+    rouge (1.5.0)
     simplecov (0.8.2)
       docile (~> 1.1.0)
       multi_json
