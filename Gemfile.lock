@@ -79,7 +79,7 @@ GEM
     petroglyph (0.0.7)
       tilt
     pg (0.17.1)
-    pony (1.9)
+    pony (1.10)
       mail (>= 2.0)
     pry (0.10.0)
       coderay (~> 1.1.0)
