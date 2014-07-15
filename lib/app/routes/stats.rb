@@ -9,9 +9,8 @@ module ExercismWeb
         please_login
 
         languages = Exercism::Config.languages.keys
-        progress = progress(language)
-
-        erb :"stats/show", locals: {trail: language, languages: languages, progress: progress}
+        progress = ExercismWeb::Presenters::Progress.new(language)
+        erb :"stats/show", locals: {languages: languages, progress: progress}
       end
     end
   end

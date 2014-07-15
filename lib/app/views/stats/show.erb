@@ -1,11 +1,11 @@
 <div class="container">
   <section class="page-header">
-    <h1>Stats: <small><%= namify(trail) %></small></h1>
+    <h1>Stats: <small><%= namify(progress.language) %></small></h1>
   </section>
 
   <ul class="nav nav-tabs">
     <% languages.each do |language| %>
-      <% css_class = (language == trail.to_sym ? 'active' : '') %>
+      <% css_class = (language == progress.language.to_sym ? 'active' : '') %>
       <li class="<%= css_class %>">
         <a href="/stats/<%= language %>"><%= namify(language) %></a>
       </li>
@@ -19,25 +19,29 @@
       <tr>
         <th>Name</th>
         <th>Pending Submissions</th>
+        <th>Needs Input Submissions</th>
         <th>Superseded Submissions</th>
         <th>Completed Submissions</th>
+        <th>Hibernating Submissions</th>
         <th>Nitpicks</th>
       </tr>
     </thead>
     <tbody>
-    <% progress.each do |slug, summary|%>
+    <% progress.metrics.each do |metric|%>
       <tr>
         <td>
-          <% if current_user.mastery.include?(trail) %>
-            <a href="/submissions/<%= trail %>/<%= slug %>"><%= slug %></a>
+          <% if current_user.mastery.include?(progress.language) %>
+            <a href="/submissions/<%= progress.language %>/<%= metric.slug %>"><%= metric.slug %></a>
           <% else %>
-            <%= slug %>
+            <%= metric.slug %>
           <% end %>
         </td>
-        <td><%= quantify summary['pending'] %></td>
-        <td><%= quantify summary['superseded'] %></td>
-        <td><%= quantify summary['done'] %></td>
-        <td><%= quantify summary['nits'] %></td>
+        <td><%= metric.pending %></td>
+        <td><%= metric.needs_input %></td>
+        <td><%= metric.superseded %></td>
+        <td><%= metric.done %></td>
+        <td><%= metric.hibernating %></td>
+        <td><%= metric.nits %></td>
       </tr>
     <% end %>
     </tbody>
