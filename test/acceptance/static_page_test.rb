@@ -11,7 +11,7 @@ class StaticPageTest < AcceptanceTestCase
     visit '/'
     click_on 'About'
 
-    assert_content 'About Exercism'
+    assert_content 'About'
   end
 
   def test_getting_started_exists
