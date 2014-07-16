@@ -1,21 +1,22 @@
-<ul class="nav">
-  <li><a href="/about">About</a></li>
-  <li><a href="/getting-started">Getting Started</a></li>
-  <li><a href="http://help.exercism.io">Help</a></li>
-</ul>
+<div class="nav-collapse collapse">
+  <ul class="nav">
+    <li><a href="/about">About</a></li>
+    <li><a href="/getting-started">Getting Started</a></li>
+    <li><a href="http://help.exercism.io">Help</a></li>
+  </ul>
 
-<ul class="nav pull-right">
-  <% if !current_user.guest? %>
-    <%= erb :"nav/nitpicker_languages" %>
-    <%= erb :"nav/ongoing_exercises" %>
-    <%= erb :"nav/teams" %>
-    <%= erb :"nav/notifications" %>
-    <%= erb :"nav/account" %>
-  <% else %>
-    <li><a href="/login">Log in with GitHub</a></li>
-  <% end %>
-  <% if settings.development? %>
-    <%= erb :"nav/backdoor" %>
-  <% end %>
-</ul>
-
+  <ul class="nav pull-right">
+    <% if !current_user.guest? %>
+      <%= erb :"nav/nitpicker_languages" %>
+      <%= erb :"nav/ongoing_exercises" %>
+      <%= erb :"nav/teams" %>
+      <%= erb :"nav/notifications" %>
+      <%= erb :"nav/account" %>
+    <% else %>
+      <li><a href="/login">Log in with GitHub</a></li>
+    <% end %>
+    <% if settings.development? %>
+      <%= erb :"nav/backdoor" %>
+    <% end %>
+  </ul>
+</div>
