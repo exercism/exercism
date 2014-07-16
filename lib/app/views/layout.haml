@@ -22,6 +22,10 @@
 
     .navbar.navbar-static-top
       .navbar-inner
+        %a.btn.btn-navbar{"data-toggle" => 'collapse', "data-target" => '.nav-collapse'}
+          %span.icon-bar
+          %span.icon-bar
+          %span.icon-bar
         %a.brand{href: '/'}
           %img{width: '25', src: link_to('/img/e.png')}
         = erb :nav

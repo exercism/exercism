@@ -14,8 +14,15 @@
   <body>
     <div class='navbar navbar-static-top'>
       <div class='navbar-inner'>
-        <a class="brand" href="/"><img width="25" src="/img/e.png" /></a>
-        <%= erb :nav %>
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="/"><img width="25" src="/img/e.png" /></a>
+          <%= erb :nav %>
+        </div>
       </div>
     </div>
 
