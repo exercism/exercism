@@ -63,11 +63,5 @@ module Sinatra
         submission.save!
       end
     end
-
-    def delete_related_notifications(selected_submission)
-      selected_submission.notifications.each do |notification|
-        notification.delete
-      end
-    end
   end
 end
