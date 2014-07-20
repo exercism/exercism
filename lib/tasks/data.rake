@@ -1,19 +1,18 @@
 namespace :data do
   namespace :cleanup do
-    desc "delete orphan notifications"
-    task :notifications do
+    desc "delete orphan comments"
+    task :comments do
       require 'active_record'
       require 'db/connection'
 
       DB::Connection.establish
 
       sql = <<-SQL
-      DELETE FROM notifications WHERE id IN (
-        SELECT n.id
-        FROM notifications n
-        LEFT JOIN submissions s ON n.item_id=s.id
-        WHERE n.item_type='Submission'
-        AND s.id IS NULL
+      DELETE FROM comments WHERE id IN (
+        SELECT c.id
+        FROM comments c
+        LEFT JOIN submissions s ON c.submission_id=s.id
+        WHERE s.id IS NULL
       )
       SQL
 
