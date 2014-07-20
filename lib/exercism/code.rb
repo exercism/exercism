@@ -20,6 +20,7 @@ class Code
     'lua' => 'lua',
     'm' => 'objective-c',
     'ml' => 'ocaml',
+    'nim' => 'nimrod',
     'php' => 'php',
     'pl' => 'perl5', # Usually .pl for scripts, .pm for modules, .t for test files
     'pm' => 'perl5',
