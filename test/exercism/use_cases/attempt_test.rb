@@ -12,18 +12,18 @@ class AttemptTest < Minitest::Test
   def test_validity
     Xapi.stub(:exists?, true) do
       refute Attempt.new(user, 'CODE', 'two.py').valid?
-      assert Attempt.new(user, 'CODE', 'two/two.py').valid?
+      assert Attempt.new(user, 'CODE', 'python/two/two.py').valid?
     end
 
     Xapi.stub(:exists?, false) do
-      refute Attempt.new(user, 'CODE', 'two/two.py').valid?
+      refute Attempt.new(user, 'CODE', 'python/two/two.py').valid?
     end
   end
 
   def test_saving_an_attempt_constructs_a_submission
     assert_equal 0, Submission.count # guard
 
-    Attempt.new(user, 'CODE', 'two/two.py').save
+    Attempt.new(user, 'CODE', 'python/two/two.py').save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -35,7 +35,7 @@ class AttemptTest < Minitest::Test
   def test_attempt_is_created_for_current_exercise
     assert_equal 0, Submission.count # guard
 
-    Attempt.new(user, 'CODE', 'two/two.rb').save
+    Attempt.new(user, 'CODE', 'ruby/two/two.rb').save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -48,7 +48,7 @@ class AttemptTest < Minitest::Test
   def test_attempt_is_created_for_completed_exercise
     assert_equal 0, Submission.count # guard
 
-    Attempt.new(user, 'CODE', 'one/one.rb').save
+    Attempt.new(user, 'CODE', 'ruby/one/one.rb').save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -59,8 +59,8 @@ class AttemptTest < Minitest::Test
   end
 
   def test_a_new_attempt_supersedes_the_previous_one
-    Attempt.new(user, 'CODE 1', 'two/two.rb').save
-    Attempt.new(user, 'CODE 2', 'two/two.rb').save
+    Attempt.new(user, 'CODE 1', 'ruby/two/two.rb').save
+    Attempt.new(user, 'CODE 2', 'ruby/two/two.rb').save
     one, two = user.submissions
     assert_equal 'superseded', one.reload.state
     assert_equal 'pending', two.reload.state
@@ -68,7 +68,7 @@ class AttemptTest < Minitest::Test
 
   def test_a_new_attempt_supersedes_the_previous_hibernating_one
     submission = Submission.create(user: user, language: 'ruby', slug: 'two', created_at: Time.now, state: 'hibernating')
-    Attempt.new(user, 'CODE 2', 'two/two.rb').save
+    Attempt.new(user, 'CODE 2', 'ruby/two/two.rb').save
     one, two = user.reload.submissions
     assert one.superseded?
     assert two.pending?
@@ -80,7 +80,7 @@ class AttemptTest < Minitest::Test
     submission = Submission.create(user: user, language: 'ruby', slug: 'two', created_at: Time.now)
     submission.mute! tom
     submission.mute! jerry
-    Attempt.new(user, 'CODE 2', 'two/two.rb').save
+    Attempt.new(user, 'CODE 2', 'ruby/two/two.rb').save
     assert_equal [], submission.reload.muted_by
   end
 
@@ -103,8 +103,8 @@ class AttemptTest < Minitest::Test
   end
 
   def test_previous_submission_after_first_attempt_in_new_language
-    Attempt.new(user, 'CODE 1', 'two/two.rb').save
-    attempt = Attempt.new(user, 'CODE 2', 'two/two.py').save
+    Attempt.new(user, 'CODE 1', 'ruby/two/two.rb').save
+    attempt = Attempt.new(user, 'CODE 2', 'python/two/two.py').save
     assert_equal attempt.previous_submission.language, "python"
   end
 
@@ -128,30 +128,30 @@ class AttemptTest < Minitest::Test
   end
 
   def test_newlines_are_removed_at_the_beginning_of_the_file
-    Attempt.new(user, "\nCODE1\n\nCODE2", 'two/two.rb').save
+    Attempt.new(user, "\nCODE1\n\nCODE2", 'ruby/two/two.rb').save
     assert_equal "CODE1\n\nCODE2", user.submissions.first.code
   end
 
   def test_rejects_duplicates
-    first_attempt = Attempt.new(user, "CODE", 'two/two.rb').save
-    second_attempt =  Attempt.new(user, "CODE", 'two/two.rb')
+    first_attempt = Attempt.new(user, "CODE", 'ruby/two/two.rb').save
+    second_attempt =  Attempt.new(user, "CODE", 'ruby/two/two.rb')
 
     assert second_attempt.duplicate?
   end
 
   def test_no_reject_without_previous
-    attempt = Attempt.new(user, "CODE", 'two/two.rb')
+    attempt = Attempt.new(user, "CODE", 'ruby/two/two.rb')
     refute attempt.duplicate?
   end
 
   def test_attempt_sets_exercise_as_current
-    attempt = Attempt.new(user, "CODE", 'two/two.rb').save
+    attempt = Attempt.new(user, "CODE", 'ruby/two/two.rb').save
     assert user.working_on?(Exercise.new('ruby', 'two'))
   end
 
   def test_attempt_sets_completed_exercises_as_current
     refute user.working_on?(Exercise.new('ruby', 'one'))
-    attempt = Attempt.new(user, "CODE", 'one/one.rb').save
+    attempt = Attempt.new(user, "CODE", 'ruby/one/one.rb').save
     assert user.working_on?(Exercise.new('ruby', 'one'))
   end
 end

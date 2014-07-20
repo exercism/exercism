@@ -33,10 +33,10 @@ class WorkloadTest < Minitest::Test
   end
 
   def create_submissions
-    Attempt.new(alex, "code", 'beer-song/beer-song.rb').save
-    Attempt.new(alex, "code", 'bob/bob.rb').save
-    Attempt.new(marjo, "code", "bob/bob.rb").save
-    Attempt.new(marjo, "code", "word_count/word_count.rb").save
+    Attempt.new(alex, "code", 'ruby/beer-song/beer-song.rb').save
+    Attempt.new(alex, "code", 'ruby/bob/bob.rb').save
+    Attempt.new(marjo, "code", "ruby/bob/bob.rb").save
+    Attempt.new(marjo, "code", "ruby/word_count/word_count.rb").save
 
     alex.submissions.first.like!(marjo)
     alex.submissions.last.update_attributes(state: 'needs_input')

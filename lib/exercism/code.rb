@@ -36,12 +36,6 @@ class Code
     @path = path
   end
 
-  def language
-    LANGUAGES.fetch(extension) do
-      raise Exercism::UnknownLanguage.new("Cannot determine language of #{filename}")
-    end
-  end
-
   def filename
     @filename ||= path_segments.last
   end
@@ -51,13 +45,17 @@ class Code
   end
 
   def slug
-    path_segments[-2].downcase if path_segments[-2]
+    path_segments[1].downcase if path_segments[1]
+  end
+
+  def track
+    path_segments[0].downcase if path_segments[0]
   end
 
   private
 
   def path_segments
-    @path_segments = path.gsub(/src[\/\\]+main[\/\\]+scala[\/\\]+/, "").split(/\/|\\/)
+    @path_segments ||= path.split(/\/|\\/).reject(&:empty?)
   end
 end
 

@@ -10,11 +10,15 @@ class Attempt
   end
 
   def valid?
-    !!slug && Xapi.exists?(language, slug)
+    !!slug && Xapi.exists?(track, slug)
   end
 
   def language
-    file.language
+    file.track
+  end
+
+  def track
+    file.track
   end
 
   def slug
@@ -22,7 +26,7 @@ class Attempt
   end
 
   def exercise
-    @exercise ||= Exercise.new(language, slug)
+    @exercise ||= Exercise.new(track, slug)
   end
 
   def submission
