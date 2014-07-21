@@ -12,6 +12,10 @@ module ExercismWeb
       get '/help/?*' do
         redirect "http://help.exercism.io"
       end
+
+      get '/setup/?*' do
+        redirect "http://help.exercism.io"
+      end
     end
   end
 end
