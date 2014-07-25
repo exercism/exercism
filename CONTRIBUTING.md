@@ -17,6 +17,9 @@ pull request that implements it. Tests would be wonderful.
 There are full instructions on getting the app running [in the
 README](https://github.com/exercism/exercism.io/blob/master/README.md).
 
+Please read and abide by the [Code of
+  Conduct](https://github.com/exercism/exercism.io/blob/master/CODE_OF_CONDUCT.md).
+
 Please try and stick to the [GitHub Ruby Style
 Guidelines](https://github.com/styleguide/ruby).
 
