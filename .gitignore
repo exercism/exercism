@@ -20,6 +20,7 @@ test/version_tmp
 tmp
 .ruby-version
 db/seeds.sql
+db/schema.sql
 
 # JavaScript
 node_modules
