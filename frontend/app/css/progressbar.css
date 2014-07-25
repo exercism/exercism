@@ -142,4 +142,9 @@ ul.progress-bar li:nth-child(4):before {
     width: 100%;
     z-index: 99;
   }
+
+  ul.progress-bar li.last:after {
+    border-radius: 15px;
+    width: 60%;
+  }
 }

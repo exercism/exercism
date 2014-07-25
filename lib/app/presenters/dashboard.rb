@@ -29,6 +29,7 @@ module ExercismWeb
         when "submitted"         then two_fill
         when "received_feedback" then two_fill
         when "completed"         then three_fill
+        when "commented"         then four_fill
         else
           ""
         end
@@ -81,7 +82,7 @@ module ExercismWeb
          <span class='progress-text'>Install CLI</span></li>
          <li class='visited'><span class='progress-text'>Submit Code</span></li>
          <li class='visited'><span class='progress-text'>Have a Conversation</span></li>
-         <li class='visited'><span class='progress-text'>Pay it Forward</span></li>")
+         <li class='last visited'><span class='progress-text'>Pay it Forward</span></li>")
       end
     end
   end
