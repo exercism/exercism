@@ -9,7 +9,7 @@ class AssumableUser
     end
 
     def progress
-      steps.count
+      @progress ||= Onboarding.step(steps)
     end
 
     def status

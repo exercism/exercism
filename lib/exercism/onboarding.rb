@@ -13,4 +13,8 @@ class Onboarding
   def self.status(events)
     (progression & events).last
   end
+
+  def self.step(events)
+    progression.index(status(events))
+  end
 end
