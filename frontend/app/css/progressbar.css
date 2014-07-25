@@ -39,18 +39,9 @@ ul.progress-bar li.active {
   background: #eef1f6;
 }
 
-ul.progress-bar li.active:before {
-  z-index: 99999;
-}
-
-ul.progress-bar li.visited {
-  z-index: 99999;
-}
-
 ul.progress-bar li.visited:before {
   color: #fff;
   background: #d81d4e;
-  z-index: 99999;
 }
 
 ul.progress-bar li:nth-child(1):before {
