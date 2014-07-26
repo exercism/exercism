@@ -6,7 +6,7 @@ namespace :db do
       c.use Faraday::Adapter::NetHttp
     end
 
-    files = %w(schema seeds)
+    files = %w(schema seeds migrations)
     files.each do |file|
       response = conn.get do |req|
         req.url "/exercism/seeds/master/db/#{file}.sql"
