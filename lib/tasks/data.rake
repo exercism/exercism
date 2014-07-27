@@ -21,6 +21,50 @@ namespace :data do
   end
 
   namespace :migrate do
+    desc "migrate onboarded_at for users"
+    task :onboarded_at do
+      require 'active_record'
+      require 'db/connection'
+      DB::Connection.establish
+
+      sql = <<-SQL
+      SELECT
+        c.user_id
+      FROM comments c
+      INNER JOIN submissions s
+      ON c.submission_id=s.id
+      WHERE c.user_id != s.user_id
+      GROUP BY c.user_id
+      HAVING COUNT(DISTINCT s.user_id) > 3
+      SQL
+      rows = ActiveRecord::Base.connection.execute(sql)
+      rows.each do |row|
+        id = row['user_id']
+        sql2 = <<-SQL
+        SELECT commented_at FROM
+        (
+          SELECT MIN(c.created_at) AS commented_at
+          FROM comments c
+          INNER JOIN submissions s
+          ON c.submission_id=s.id
+          WHERE c.user_id != s.user_id
+          AND c.user_id=#{id}
+          GROUP BY s.user_id
+        ) t
+        ORDER BY commented_at ASC
+        LIMIT 1 OFFSET 2
+        SQL
+        onboarded_at = ActiveRecord::Base.connection.execute(sql2).to_a.first['commented_at']
+        ActiveRecord::Base.connection.execute(
+          "UPDATE users SET onboarded_at='#{onboarded_at}' WHERE id=#{id}"
+        )
+        ActiveRecord::Base.connection.execute(
+          "INSERT INTO lifecycle_events (key, user_id, happened_at, created_at, updated_at) VALUES ('onboarded', #{id}, '#{onboarded_at}', '#{onboarded_at}', '#{onboarded_at}')"
+        )
+      end
+    end
+
+
     desc "migrate deprecated problems"
     task :deprecated_problems do
       require 'bundler'
