@@ -6,8 +6,7 @@ namespace :db do
       c.use Faraday::Adapter::NetHttp
     end
 
-    files = %w(schema seeds migrations)
-    files.each do |file|
+    %w(schema migrations seeds).each do |file|
       response = conn.get do |req|
         req.url "/exercism/seeds/master/db/#{file}.sql"
         req.headers['User-Agent'] = "github.com/exercism/exercism.io"
@@ -27,7 +26,9 @@ namespace :db do
     %x{dropdb exercism_development -U exercism}
     %x{createdb -O exercism exercism_development -U exercism}
     Rake::Task['db:seeds:fetch'].invoke
-    %x{psql -U exercism -d exercism_development -f db/seeds.sql}
+    %w(schema migrations seeds).each do |file|
+      %x{psql -U exercism -d exercism_development -f db/#{file}.sql}
+    end
 
     # Trigger generation of html body
     Comment.find_each { |comment| comment.save }
