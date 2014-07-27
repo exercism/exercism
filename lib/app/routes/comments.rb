@@ -22,6 +22,9 @@ module ExercismWeb
             end
             LifecycleEvent.track('received_feedback', submission.user_id)
             LifecycleEvent.track('commented', current_user.id)
+            unless current_user.onboarded?
+              LifecycleEvent.commented(current_user.id)
+            end
           end
         end
         redirect "/submissions/#{key}"
