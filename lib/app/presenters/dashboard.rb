@@ -22,8 +22,12 @@ module ExercismWeb
         @notifications ||= user.notifications.unread.personal
       end
 
+      def status
+        @status ||= Onboarding.status(user.onboarding_steps)
+      end
+
       def progress_bar
-        case user.onboarding_steps.last
+        case status
         when "joined"            then no_fill
         when "fetched"           then one_fill
         when "submitted"         then two_fill
