@@ -21,6 +21,7 @@ tmp
 .ruby-version
 db/seeds.sql
 db/schema.sql
+db/migrations.sql
 
 # JavaScript
 node_modules
