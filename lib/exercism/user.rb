@@ -50,6 +50,10 @@ class User < ActiveRecord::Base
     @ongoing ||= active_submissions.order('updated_at DESC')
   end
 
+  def onboarded?
+    !!onboarded_at
+  end
+
   def submissions_on(exercise)
     submissions.order('id DESC').where(language: exercise.language, slug: exercise.slug)
   end
