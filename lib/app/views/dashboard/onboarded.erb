@@ -1,0 +1,35 @@
+<% if dashboard.has_activity? %>
+  <div class="span4">
+    <h2>Activity</h2>
+    <ul style="list-style-type: none; margin: 0;">
+      <% dashboard.notifications.each do |notification| %>
+        <% if notification.item %>
+          <li style="padding: 5px 0;">
+            <span style="padding-right: 5px;" class="icon-comment-alt"></span>
+
+            <a href="/submissions/<%= notification.item.key %>">
+              <%= notification.slug %>
+            </a> in <%= notification.language %>
+          </li>
+        <% end %>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<% if dashboard.pay_it_forward? %>
+  <div class="span4">
+    <h2>Have a moment?</h2>
+    <p>Help <b>@<%= dashboard.suggestion.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= dashboard.suggestion.key %>"><%= dashboard.suggestion.slug %> in <%= dashboard.suggestion.language.capitalize %></a>.</p>
+  </div>
+<% end %>
+
+<div class="span4">
+  <h2>History</h2>
+  <p class="well">See a list of exercises that you <a href="/looks">recently viewed</a>.</p>
+</div>
+
+<div class="span4">
+  <h2>Improvements</h2>
+  <p>The dashboard could use a little love. What do you want to see here? If you have ideas or suggestions, please let us know in this <a href="https://github.com/exercism/exercism.io/issues/1654">GitHub issue</a>.</p>
+</div>

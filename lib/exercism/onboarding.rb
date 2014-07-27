@@ -7,6 +7,7 @@ class Onboarding
       received_feedback
       completed
       commented
+      onboarded
     )
   end
 
