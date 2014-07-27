@@ -32,16 +32,20 @@
 
   <p>With the CLI installed, configure it using the <code>login</code> command. It will interactively ask for your API key, which is listed below. You can always find your API key on your <a href="/account">account page</a>.
 
-<pre><code>
-        $ exercism login
-        Your GitHub username: <%= current_user.username %>
-        Your exercism.io API key: <%= current_user.key %>
-        What is your exercism exercises project path?    Press Enter to select the default (/path/to/current/dir):
-</code></pre>
+  <pre><code>  exercism login</code></pre>
+
+  <p>It will ask you for your GitHub username and your exercism.io API key:</p>
+
+  <pre><code>  Your GitHub username: <%= current_user.username %>
+  Your exercism.io API key: <%= current_user.key %></code></pre>
+
+  <p>Finally, you need to tell it where to put the problems:
+
+  <pre><code>  What is your exercism exercises project path?    Press Enter to select the default (/path/to/current/dir):</code></pre>
 
   <p>Fetch problems with this simple command:<br />
 
-<pre><code>$   exercism fetch</code></pre>
-  </div>
-  </article>
-  </section>
+<pre><code>  exercism fetch</code></pre>
+</div>
+</article>
+</section>
