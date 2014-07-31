@@ -1,8 +1,9 @@
 namespace :db do
-  task "seeds:fetch" do
+  task "seeds:fetch", %s(debug) do |t, args|
+    args.with_defaults(debug: ENV["DEBUG"])
     puts "fetching over the wire"
     conn = Faraday.new(url: "https://raw.githubusercontent.com") do |c|
-      c.use Faraday::Response::Logger
+      c.use Faraday::Response::Logger if args.debug
       c.use Faraday::Adapter::NetHttp
     end
 
