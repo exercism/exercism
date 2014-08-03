@@ -18,12 +18,13 @@ module ExercismAPI
           halt 400, {error: "cannot find rikki- the robot - #{key}"}.to_json
         end
 
-        body = params[:body].to_s.strip
-        if body.empty?
-          halt 400, {error: "no body submitted - #{key}"}.to_json
+        body = request.body.read.to_s
+        comment = JSON.parse(body)["comment"]
+        if comment.empty?
+          halt 400, {error: "no comment submitted - #{key}"}.to_json
         end
 
-        submission.comments.create(user: user, body: body)
+        submission.comments.create(user: user, body: comment)
         halt 204
       end
     end

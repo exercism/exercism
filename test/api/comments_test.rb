@@ -18,11 +18,11 @@ class CommentsApiTest < Minitest::Test
     user = User.create(username: 'alice')
     submission = Submission.create(user: user)
     Rikki.stub(:shared_key, 'ok') do
-      post "/submissions/#{submission.key}/comments", shared_key: 'ok', body: 'comment'
+      post "/submissions/#{submission.key}/comments?shared_key=ok", {comment: 'a comment'}.to_json
     end
 
     comment = Comment.first
-    assert_equal "comment", comment.body
+    assert_equal "a comment", comment.body
     assert_equal rikki.id, comment.user_id
     assert_equal 0, submission.reload.nit_count
   end
