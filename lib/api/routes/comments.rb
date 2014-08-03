@@ -15,13 +15,13 @@ module ExercismAPI
 
         user = User.find_by_username('rikki-')
         if user.nil?
-          halt 400, {error: "cannot find rikki- the robot - #{key}"}.to_json
+          halt 400, {error: "cannot find rikki- the robot (submission: #{key})"}.to_json
         end
 
         body = request.body.read.to_s
-        comment = JSON.parse(body)["comment"]
+        comment = JSON.parse(body)["comment"].to_s
         if comment.empty?
-          halt 400, {error: "no comment submitted - #{key}"}.to_json
+          halt 400, {error: "no comment submitted (submission: #{key})"}.to_json
         end
 
         submission.comments.create(user: user, body: comment)
