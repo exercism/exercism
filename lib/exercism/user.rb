@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_many :unconfirmed_team_memberships, ->{ where confirmed: false }, class_name: "TeamMembership"
   has_many :unconfirmed_teams, through: :unconfirmed_team_memberships, source: :team
 
-  before_create do
+  before_save do
     self.key ||= create_key
     true
   end
