@@ -12,17 +12,6 @@ class Comment < ActiveRecord::Base
     true
   end
 
-  # Experiment: Implement manual counter-cache
-  # to see if this affects load time of dashboard pages.
-  # preliminary testing in development suggests a 40% decrease
-  # in load time
-  after_create do
-    unless user.owns?(submission)
-      submission.nit_count += 1
-      submission.save
-    end
-  end
-
   def nitpicker
     user
   end
