@@ -25,6 +25,7 @@ module ExercismAPI
         end
 
         submission.comments.create(user: user, body: comment)
+        Notification.on(submission, to: submission.user, regarding: 'nitpick', creator: user)
         halt 204
       end
     end
