@@ -26,4 +26,23 @@ class CommentsApiTest < Minitest::Test
     assert_equal rikki.id, comment.user_id
     assert_equal 0, submission.reload.nit_count
   end
+
+  def test_only_save_comment_if_rikki_has_not_commented
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    rikki = User.create(username: 'rikki-')
+    submission = Submission.create(user: alice)
+
+    submission.comments.create(user: alice, body: 'abc comment')
+    submission.comments.create(user: rikki, body: 'prq comment')
+    submission.comments.create(user: bob, body: 'xyz comment')
+
+    assert_equal 3, Comment.count
+
+    Rikki.stub(:shared_key, 'ok') do
+      post "/submissions/#{submission.key}/comments?shared_key=ok", {comment: 'a comment'}.to_json
+    end
+
+    assert_equal 3, Comment.count
+  end
 end

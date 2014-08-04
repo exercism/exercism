@@ -24,6 +24,10 @@ module ExercismAPI
           halt 400, {error: "no comment submitted (submission: #{key})"}.to_json
         end
 
+        if submission.comments.where(user_id: user.id).count > 0
+          halt 204
+        end
+
         submission.comments.create(user: user, body: comment)
         Notification.on(submission, to: submission.user, regarding: 'nitpick', creator: user)
         halt 204
