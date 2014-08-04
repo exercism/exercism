@@ -22,6 +22,7 @@ gem 'rake'
 gem 'redcarpet', '~> 3.1'
 gem 'rouge', '~> 1.3'
 gem 'sinatra', '~> 1.4.4', require: 'sinatra/base'
+gem 'sidekiq'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
