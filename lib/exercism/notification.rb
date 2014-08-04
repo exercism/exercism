@@ -33,11 +33,17 @@ class Notification < ActiveRecord::Base
       regarding: options[:regarding],
       creator_id: options.fetch(:creator).id
     }
+    # trigger usual notification
     notification = on_item(item, data)
+    # trigger shadow notification
     if item.is_a?(Submission)
-      on_item(item.user_exercise, data)
+      if item.user_exercise
+        on_item(item.user_exercise, data)
+      end
     else
-      on_item(item.submissions.last, data)
+      unless item.submissions.empty?
+        on_item(item.submissions.last, data)
+      end
     end
     notification
   end
