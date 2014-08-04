@@ -1,6 +1,10 @@
 module ExercismWeb
   module Routes
     class Static < Core
+      get '/rikki' do
+        erb :"site/rikki"
+      end
+
       get '/privacy' do
         erb :"site/privacy"
       end
