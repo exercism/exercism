@@ -104,7 +104,7 @@ GEM
       redis (~> 3.0, >= 3.0.4)
     rest-client (1.6.7)
       mime-types (>= 1.16)
-    rouge (1.5.0)
+    rouge (1.6.1)
     sidekiq (3.2.1)
       celluloid (>= 0.15.2)
       connection_pool (>= 2.0.0)
