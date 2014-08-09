@@ -19,7 +19,7 @@ GEM
       nokogiri (~> 1.6)
       thor (~> 0.18)
     arel (5.0.1.20140414130214)
-    bugsnag (2.1.0)
+    bugsnag (2.2.1)
       httparty (>= 0.6, < 1.0)
       multi_json (~> 1.0)
     builder (3.2.2)
