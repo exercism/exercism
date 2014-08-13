@@ -22,6 +22,6 @@ class SharingTest < Minitest::Test
   end
 
   def test_creates_twitter_sharing_link
-    assert_equal "<a href=\"https://twitter.com/intent/tweet?text=I just submitted the ruby bob exercise at exercism.io. Leave me a nitpick at http://exercism.io/submissions/123456789\" id='twitter-share'>Share with Twitter</a>", Sharing.new.twitter_link(submission)
+    assert_equal "<a href=\"https://twitter.com/intent/tweet?text=I just submitted the ruby bob exercise at @exercism_io - Leave me a nitpick at http://exercism.io/submissions/123456789\" id='twitter-share'>Share with Twitter</a>", Sharing.new.twitter_link(submission)
   end
 end
