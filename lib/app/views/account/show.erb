@@ -54,7 +54,7 @@
           <% profile.current.each do |submission| %>
             <tr>
               <td><%= profile.submission_link(submission) %></td>
-              <td><%= submission.language.titleize %></td>
+              <td><%= Language.of(submission.language) %></td>
               <td><%= submission.version %></td>
               <td><%= submission.nit_count %></td>
             </tr>
@@ -81,7 +81,7 @@
           <% profile.hibernating_submissions.each do |submission| %>
             <tr>
               <td><%= profile.submission_link(submission) %></td>
-              <td><%= submission.language.titleize %></td>
+              <td><%= Language.of(submission.language) %></td>
               <td><%= submission.version %></td>
               <td><%= submission.nit_count %></td>
             </tr>
@@ -104,7 +104,7 @@
           <tbody>
             <% profile.languages.each do |language| %>
               <tr>
-                <td><%= language.titleize %></td>
+                <td><%= Language.of(language) %></td>
                 <td>
                   <% profile.completed_in(language).each do |submission| %>
                     <span class="completed-exercise">
