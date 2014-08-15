@@ -53,9 +53,27 @@ repository, the following needs to be added:
 
 1. A help topic: [`lib/app/articles/help/setup/$LANGUAGE.md`](https://github.com/exercism/exercism.io/blob/master/lib/redesign/articles/help/setup/)
 2. An entry in [`lib/exercism/code.rb`](https://github.com/exercism/exercism.io/blob/master/lib/exercism/code.rb) to define the extension for that language.
+3. An entry in [`cli/main.go`](https://github.com/exercism/cli/blob/master/main.go)
+   that instructs the cli application how to recognize test files to prevent
+   students from accidentally submitting tests as solutions.
 
 Once the language is ready to launch, let me know and I'll include it as a git
 submodule in the [Problems API](https://github.com/exercism/x-api).
+
+To beta-test your language set `active` to `false` in the `config.json`
+for your language and submit a pull request for your initial problem set.
+Once the pull request has been deployed, you can beta test your new language
+track by fetching the assignments directly, i.e. `exercism fetch cpp bob`.
+This will allow you to do some dry-run tests of fetching exercises,
+double checking the instructions for each problem and submitting the
+problem solution for peer review.
+
+It is recommended that you configure a [Travis continuous integration build](http://travis-ci.org)
+with your language track to verify that your example problem solutions
+satisfy the tests provided for each problem.
+
+You can include advice and helpful links for your language track in the
+`SETUP.md` file.
 
 ## Adding a Problem
 
