@@ -6,7 +6,7 @@
       <% nitpicker_languages.each do |language| %>
         <li>
           <a role="menuitem" tabindex="-1" href="<%= path_for(language) %>">
-          <%= language.to_s.capitalize %></a>
+          <%= Language.of(language) || language %></a>
         </li>
       <% end %>
     </ul>
