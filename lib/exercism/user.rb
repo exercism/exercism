@@ -54,8 +54,8 @@ class User < ActiveRecord::Base
     !!onboarded_at
   end
 
-  def submissions_on(exercise)
-    submissions.order('id DESC').where(language: exercise.language, slug: exercise.slug)
+  def submissions_on(problem)
+    submissions.order('id DESC').where(language: problem.track_id, slug: problem.slug)
   end
 
   def most_recent_submission
@@ -66,8 +66,8 @@ class User < ActiveRecord::Base
     false
   end
 
-  def working_on?(candidate)
-    active_submissions.where(language: candidate.language, slug: candidate.slug).count > 0
+  def working_on?(problem)
+    active_submissions.where(language: problem.track_id, slug: problem.slug).count > 0
   end
 
   def nitpicks_trail?(language)
@@ -90,16 +90,16 @@ class User < ActiveRecord::Base
     username == handle
   end
 
-  def nitpicker_on?(exercise)
-    mastery.include?(exercise.language) || unlocked?(exercise)
+  def nitpicker_on?(problem)
+    mastery.include?(problem.track_id) || unlocked?(problem)
   end
 
-  def unlocked?(candidate)
-    exercises.where(language: candidate.language, slug: candidate.slug, is_nitpicker: true).count > 0
+  def unlocked?(problem)
+    exercises.where(language: problem.track_id, slug: problem.slug, is_nitpicker: true).count > 0
   end
 
-  def completed?(candidate)
-    submissions.where(language: candidate.language, slug: candidate.slug, state: 'done').count > 0
+  def completed?(problem)
+    submissions.where(language: problem.track_id, slug: problem.slug, state: 'done').count > 0
   end
 
   def locksmith?
@@ -122,8 +122,8 @@ class User < ActiveRecord::Base
     @latest_submission ||= submissions.pending.order(created_at: :desc).first
   end
 
-  def latest_submission_on(exercise)
-    submissions_on(exercise).first
+  def latest_submission_on(problem)
+    submissions_on(problem).first
   end
 
   def active_submissions
@@ -157,9 +157,9 @@ class User < ActiveRecord::Base
   end
 
   def items_where(table, condition)
-    sql = "SELECT language, slug FROM #{table} WHERE user_id = %s AND #{condition} ORDER BY created_at ASC" % id.to_s
-    User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, exercises|
-      exercises[result["language"]] << result["slug"]
+    sql = "SELECT language AS track_id, slug FROM #{table} WHERE user_id = %s AND #{condition} ORDER BY created_at ASC" % id.to_s
+    User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, problems|
+      problems[result["track_id"]] << result["slug"]
     end
   end
 end
