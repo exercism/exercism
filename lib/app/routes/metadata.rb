@@ -1,20 +1,20 @@
 module ExercismWeb
   module Routes
     class Metadata < Core
-      get '/exercises/:language/:slug' do |language, slug|
-        _, response = Xapi.get("assignments", language, slug)
-        exercise = JSON.parse(response)["assignments"].first
-        language = exercise["track"]
-        slug = exercise["slug"]
-        text = exercise["files"].find {|filename, code| filename =~ /test/i || filename =~ /\.t$/}.last
-        erb :"exercises/test_suite", locals: {language: language, slug: slug, text: text}
+      get '/exercises/:track_id/:slug' do |track_id, slug|
+        _, response = Xapi.get("assignments", track_id, slug)
+        data = JSON.parse(response)["assignments"].first
+        problem = Problem.new(data['track'], data['slug'])
+        text = data["files"].find {|filename, code| filename =~ /test/i || filename =~ /\.t$/}.last
+        erb :"exercises/test_suite", locals: {problem: problem, text: text}
       end
 
-      get '/exercises/:language/:slug/readme' do |language, slug|
-        _, response = Xapi.get("assignments", language, slug)
-        exercise = JSON.parse(response)["assignments"].first
-        text = exercise["files"].find {|key, value| key == "README.md"}.last
-        erb :"exercises/readme", locals: {text: text, exercise: exercise}
+      get '/exercises/:track_id/:slug/readme' do |track_id, slug|
+        _, response = Xapi.get("assignments", track_id, slug)
+        data = JSON.parse(response)["assignments"].first
+        problem = Problem.new(data['track'], data['slug'])
+        text = data["files"].find {|key, value| key == "README.md"}.last
+        erb :"exercises/readme", locals: {problem: problem, text: text}
       end
     end
   end
