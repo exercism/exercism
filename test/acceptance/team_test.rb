@@ -13,7 +13,7 @@ class TeamAcceptanceTest < AcceptanceTestCase
     with_login(joining_user) do
       click_on 'Account'
 
-      assert_content 'some-team'
+      assert_content 'Some Name'
 
       click_on 'Accept invitation'
 

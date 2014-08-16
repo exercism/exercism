@@ -11,7 +11,7 @@
             <li>
               <% if team.unconfirmed_members.include?(profile.user) %>
                 <ul class="inline">
-                  <li style="padding-left: 0;"><%= team.slug %></li>
+                  <li style="padding-left: 0;"><%= team.name %></li>
                   <li>
                     <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
                       <input type="hidden" name="_method" value="put" />
@@ -26,7 +26,7 @@
                   </li>
                 </ul>
               <% else %>
-                <a href="/teams/<%= team.slug %>"><%= team.slug %></a>
+                <a href="/teams/<%= team.slug %>"><%= team.name %></a>
               <% end %>
             </li>
           <% end %>
