@@ -101,10 +101,10 @@ class UserTest < Minitest::Test
 
   def test_user_ongoing_with_submissions
     user = User.create
-    exercise = Exercise.new('ruby', 'one')
+    problem = Problem.new('ruby', 'one')
 
-    user.submissions << create_submission(exercise, code: "s1", state: 'superseded')
-    user.submissions << create_submission(exercise, code: "s2")
+    user.submissions << create_submission(problem, code: "s1", state: 'superseded')
+    user.submissions << create_submission(problem, code: "s2")
     user.save
     user.reload
 
@@ -113,10 +113,10 @@ class UserTest < Minitest::Test
 
   def test_user_ongoing_ordered_by_latest_updated
     user = User.create
-    exercise = Exercise.new('ruby', 'one')
+    problem = Problem.new('ruby', 'one')
 
-    first = create_submission(exercise, code: "s1", updated_at: Date.yesterday)
-    second = create_submission(exercise, code: "s2", updated_at: Date.today)
+    first = create_submission(problem, code: "s1", updated_at: Date.yesterday)
+    second = create_submission(problem, code: "s2", updated_at: Date.today)
 
     user.submissions << second
     user.submissions << first
@@ -143,8 +143,8 @@ class UserTest < Minitest::Test
 
   private
 
-  def create_submission(exercise, attributes={})
-    submission = Submission.on(exercise)
+  def create_submission(problem, attributes={})
+    submission = Submission.on(problem)
     attributes.each { |key, value| submission[key] = value }
     submission
   end

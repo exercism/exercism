@@ -1,4 +1,4 @@
-<% if submission.user.completed?(submission.exercise) %>
+<% if submission.user.completed?(submission.problem) %>
 
   <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
     <%= erb :"submissions/small_comment" %>

@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="span11">
-      <%= erb :"submissions/byline", locals: {exercise: submission.exercise, user: submission.user} %>
+      <%= erb :"submissions/byline", locals: {problem: submission.problem, user: submission.user} %>
       <p><% if current_user.owns?(submission) %>
         <%= sharing.twitter_link(submission) %>
       <% end %>
@@ -43,7 +43,7 @@
           </form>
 
 
-          <% if submission.user.completed?(submission.exercise) %>
+          <% if submission.user.completed?(submission.problem) %>
             <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/reopen" method="POST">
               <button type="submit" name="reopen" class="btn btn-default">Reopen Exercise</button>
             </form>
@@ -53,7 +53,7 @@
             </form>
           <% end %>
 
-          <% unless current_user.nitpicker_on?(submission.exercise) %>
+          <% unless current_user.nitpicker_on?(submission.problem) %>
             <form accept-charset="UTF-8" action="/exercises/<%= submission.language %>/<%= submission.slug %>" method="POST">
               <button type="submit" name="unlock" class="unlock-nitpicking" class="btn">Unlock Nitpicking</button>
             </form>
@@ -70,8 +70,8 @@
     <div id="current_submission" class="code span6">
       <h2>
         Code
-        <small><a href="/exercises/<%= submission.exercise.language %>/<%= submission.exercise.slug %>/readme">Readme</a></small>
-        <small><a href="/exercises/<%= submission.exercise.language %>/<%= submission.exercise.slug %>">Test Suite</a></small>
+        <small><a href="/exercises/<%= submission.language %>/<%= submission.slug %>/readme">Readme</a></small>
+        <small><a href="/exercises/<%= submission.language %>/<%= submission.slug %>">Test Suite</a></small>
       </h2>
 
       <% if submission.liked? %>

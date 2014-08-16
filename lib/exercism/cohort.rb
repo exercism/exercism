@@ -20,16 +20,16 @@ class Cohort
     @managers ||= compute_managers
   end
 
-  def sees(exercise)
+  def sees(problem)
     managers + members.select do |member|
-      sees?(member, exercise)
+      sees?(member, problem)
     end
   end
 
   private
 
-  def sees?(member, exercise)
-    member.completed?(exercise) || member.working_on?(exercise)
+  def sees?(member, problem)
+    member.completed?(problem) || member.working_on?(problem)
   end
 
   def compute_members

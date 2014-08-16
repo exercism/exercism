@@ -76,7 +76,7 @@ class SubmissionsHelperTest < Minitest::Test
 
   def test_like_submission_button_for_nitpicker
     @fred.mastery << 'ruby'
-    @submission.exercise.language = 'ruby'
+    @submission.problem.track_id = 'ruby'
     expected = %Q{
       <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/like" method="POST" class="pull-left" style="display: inline;">
         <button type="submit" name="like" class="btn">Looks great!</button>
@@ -88,7 +88,7 @@ class SubmissionsHelperTest < Minitest::Test
 
   def test_like_submission_button_for_nitpicker_who_has_liked
     @fred.mastery << 'ruby'
-    @submission.exercise.language = 'ruby'
+    @submission.problem.track_id = 'ruby'
     @submission.liked_by << @fred
     expected = %Q{
       <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/unlike" method="POST" class="pull-left" style="display: inline;">

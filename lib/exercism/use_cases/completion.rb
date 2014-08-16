@@ -9,10 +9,6 @@ class Completion
     submission.user
   end
 
-  def exercise
-    submission.exercise
-  end
-
   def save
     submission.state = 'done'
     submission.done_at = Time.now.utc

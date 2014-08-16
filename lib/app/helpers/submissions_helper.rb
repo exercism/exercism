@@ -37,7 +37,7 @@ module Sinatra
 
     def like_submission_button(submission, user)
 
-      return unless user.nitpicker_on?(submission.exercise) && !user.owns?(submission)
+      return unless user.nitpicker_on?(submission.problem) && !user.owns?(submission)
 
       if submission.liked_by.include?(user)
         action = "unlike"

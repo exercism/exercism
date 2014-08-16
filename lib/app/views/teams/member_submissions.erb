@@ -22,13 +22,13 @@
     <ul>
       <% submissions.each do |submission| %>
         <li>
-          <% if current_user.working_on?(submission.exercise) || team.managed_by?(current_user) || current_user.nitpicker_on?(submission.exercise) %>
+          <% if current_user.working_on?(submission.problem) || team.managed_by?(current_user) || current_user.nitpicker_on?(submission.problem) %>
             <a href="/submissions/<%= submission.key %>">
-              <%= submission.exercise.name %>
+              <%= submission.problem.name %>
               (<%= Language.of(submission.language) %>: <%= submission.nit_count %>)
             </a>
         <% else %>
-          <%= submission.exercise.name %>
+          <%= submission.problem.name %>
           (<%= submission.language.capitalize %>)
         <% end %>
         </li>

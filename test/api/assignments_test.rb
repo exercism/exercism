@@ -34,8 +34,8 @@ class AssignmentsApiTest < Minitest::Test
     end
 
     submission = Submission.first
-    ex = Exercise.new('ruby', 'one')
-    assert_equal ex, submission.exercise
+    problem = Problem.new('ruby', 'one')
+    assert_equal problem, submission.problem
     assert_equal 201, last_response.status
 
     options = {format: :json, name: 'api_submission_accepted'}
@@ -59,8 +59,8 @@ class AssignmentsApiTest < Minitest::Test
     end
 
     submission = Submission.first
-    ex = Exercise.new('go', 'one')
-    assert_equal ex, submission.exercise
+    problem = Problem.new('go', 'one')
+    assert_equal problem, submission.problem
     assert_equal 201, last_response.status
 
     options = {format: :json, name: 'api_submission_accepted_on_completed'}
