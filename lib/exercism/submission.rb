@@ -62,15 +62,15 @@ class Submission < ActiveRecord::Base
     where('created_at > ?', timestamp)
   }
 
-  def self.completed_for(exercise)
-    done.where(language: exercise.language, slug: exercise.slug)
+  def self.completed_for(problem)
+    done.where(language: problem.track_id, slug: problem.slug)
   end
 
-  def self.random_completed_for(exercise)
+  def self.random_completed_for(problem)
     where(
       state: 'done',
-      language: exercise.language,
-      slug: exercise.slug
+      language: problem.track_id,
+      slug: problem.slug
     ).order('RANDOM()').limit(1).first
   end
 
@@ -79,9 +79,9 @@ class Submission < ActiveRecord::Base
       where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
   end
 
-  def self.on(exercise)
+  def self.on(problem)
     submission = new
-    submission.on exercise
+    submission.on problem
     submission.save
     submission
   end
@@ -111,13 +111,13 @@ class Submission < ActiveRecord::Base
   end
 
   def exercise
-    @exercise ||= Exercise.new(language, slug)
+    @exercise ||= Exercise.new(track_id, slug)
   end
 
-  def on(exercise)
-    self.language = exercise.language
+  def on(problem)
+    self.language = problem.track_id
 
-    self.slug = exercise.slug
+    self.slug = problem.slug
   end
 
   def supersede!
