@@ -18,6 +18,10 @@ class UserExercise < ActiveRecord::Base
     @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
 
+  def track_id
+    language
+  end
+
   # close & reopen:
   # Once v1.0 is launched we can ditch
   # the state on submission.

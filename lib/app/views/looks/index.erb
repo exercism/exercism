@@ -12,7 +12,7 @@
             <% looks.each do |look| %>
               <li>
                 <a href="<%= look.path %>">
-                  <%= look.name %> (<%= look.language %>) by <%= look.username %>
+                  <%= look.problem.name %> (<%= look.problem.language %>) by <%= look.username %>
                 </a>
               </li>
             <% end %>
