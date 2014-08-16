@@ -106,6 +106,28 @@ are available and active in a particular language, as well as their ordering
 
 An exercise may have supporting files, such as type definitions.
 
+## config.json
+
+There are a number of keys in the `config.json` of each language repository.
+
+* `problems` - these are actively served via `exercism fetch`
+* `deprecated` - these were implemented, but aren't served anymore
+* `foregone` - these must not be implemented in this language
+* `ignored` - these directories do not contain problems
+
+The `configlet` tool uses those categories to ensure that
+
+1. all the `problems` are implemented,
+2. `deprecated` problems are not actively served as problems, and
+3. `foregone` problems are not implemented.
+
+In addition, it will complain about problems that are implemented but are not
+listed in the config under the `problems` key. This is where the `ignored` key
+is useful. Ignored directories don't get flagged as unimplemented problems.
+
+A problem might be foregone for a number of reasons, typically because it's a
+bad exercise for the language.
+
 ## Using the CLI Locally
 
 The `~/.exercism.go` configuration file for the CLI contains a field
