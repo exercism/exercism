@@ -5,7 +5,7 @@
       <% (current_user.teams | current_user.managed_teams).each do |team| %>
         <li>
           <a role="menuitem" tabindex="-1" href="/teams/<%= team.slug %>">
-            <%= team.slug %>
+            <%= team.name %>
           </a>
         </li>
       <% end %>
