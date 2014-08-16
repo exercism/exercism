@@ -1,7 +1,7 @@
 <section class="page-header">
   <h1>
     <%= exercise.slug %>
-    <small>in <%= exercise.language %></small>
+    <small>in <%= Language.of(exercise.language) %></small>
   </h1>
   submitted by <%= gravatar_tag user.avatar_url, size: 30 %>
   <%= profile_link(user) %>

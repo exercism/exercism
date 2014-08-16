@@ -25,7 +25,7 @@
           <% if current_user.working_on?(submission.exercise) || team.managed_by?(current_user) || current_user.nitpicker_on?(submission.exercise) %>
             <a href="/submissions/<%= submission.key %>">
               <%= submission.exercise.name %>
-              (<%= submission.language.capitalize %>: <%= submission.nit_count %>)
+              (<%= Language.of(submission.language) %>: <%= submission.nit_count %>)
             </a>
         <% else %>
           <%= submission.exercise.name %>
