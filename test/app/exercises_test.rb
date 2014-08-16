@@ -16,15 +16,13 @@ class AppExercisesTest < Minitest::Test
 
     post '/exercises/ruby/bob', {}, login(alice)
 
-    exercise = Exercise.new('ruby', 'bob')
-    assert alice.reload.nitpicker_on?(exercise)
+    assert alice.reload.nitpicker_on?(Problem.new('ruby', 'bob'))
   end
 
   def test_unlock_nitpicking_fails_if_no_submissions
     alice = User.create(username: 'alice', github_id: 1)
     post '/exercises/ruby/bob', {}, login(alice)
 
-    exercise = Exercise.new('ruby', 'bob')
-    refute alice.reload.nitpicker_on?(exercise)
+    refute alice.reload.nitpicker_on?(Problem.new('ruby', 'bob'))
   end
 end

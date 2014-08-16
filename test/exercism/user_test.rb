@@ -12,14 +12,14 @@ class UserTest < Minitest::Test
     user = User.create
     Submission.create(user: user, language: 'ruby', slug: 'one', state: 'done')
     Hack::UpdatesUserExercise.new(user.id, 'ruby', 'one').update
-    one = Exercise.new('ruby', 'one')
+    one = Problem.new('ruby', 'one')
     assert user.nitpicker_on?(one)
   end
 
   def test_user_is_not_nitpicker_on_current_assignment
     user = User.create
     Submission.create(user: user, language: 'ruby', slug: 'one', state: 'pending')
-    one = Exercise.new('ruby', 'one')
+    one = Problem.new('ruby', 'one')
     refute user.nitpicker_on?(one)
   end
 

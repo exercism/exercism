@@ -4,14 +4,14 @@ require 'mocha/setup'
 class CreatesCommentTest < Minitest::Test
   include DBCleaner
 
-  def exercise
-    Exercise.new('ruby', 'one')
+  def problem
+    Problem.new('ruby', 'one')
   end
 
   def submission
     return @submission if @submission
 
-    @submission = Submission.on(exercise)
+    @submission = Submission.on(problem)
     @submission.user = User.create(username: 'bob')
     @submission.save
     @submission

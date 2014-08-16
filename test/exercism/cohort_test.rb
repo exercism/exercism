@@ -23,13 +23,13 @@ class CohortTest < Minitest::Test
 
     assert_equal Set.new, Cohort.for(alice).users
 
-    exercise = Exercise.new('ruby', 'cake')
+    problem = Problem.new('ruby', 'cake')
 
     cohort = Cohort.for(bob)
     assert_equal [], cohort.members.map(&:username)
     assert_equal ['alice'], cohort.managers.map(&:username)
     assert_equal ['alice'], cohort.users.map(&:username).sort
-    assert_equal ['alice'], cohort.sees(exercise).map(&:username)
+    assert_equal ['alice'], cohort.sees(problem).map(&:username)
 
     team2.confirm(dave.username)
     team2.confirm(eve.username)
@@ -40,7 +40,7 @@ class CohortTest < Minitest::Test
     assert_equal %w(dave eve), cohort.members.map(&:username)
     assert_equal ['alice'], cohort.managers.map(&:username)
     assert_equal %w(alice dave eve), cohort.users.map(&:username).sort
-    assert_equal %w(alice dave), cohort.sees(exercise).map(&:username)
+    assert_equal %w(alice dave), cohort.sees(problem).map(&:username)
   end
 
 end

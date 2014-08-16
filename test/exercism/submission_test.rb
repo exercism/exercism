@@ -4,13 +4,13 @@ require "mocha/setup"
 class SubmissionTest < Minitest::Test
   include DBCleaner
 
-  def exercise
-    Exercise.new('ruby', 'one')
+  def problem
+    Problem.new('ruby', 'one')
   end
 
   def submission
     @submission ||= begin
-      Submission.on(exercise).tap do |submission|
+      Submission.on(problem).tap do |submission|
         submission.user = User.create(username: 'charlie')
         submission.save
       end

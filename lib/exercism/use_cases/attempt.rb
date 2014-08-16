@@ -13,10 +13,6 @@ class Attempt
     !!slug && Xapi.exists?(track, slug)
   end
 
-  def language
-    file.track
-  end
-
   def track
     file.track
   end
@@ -25,20 +21,20 @@ class Attempt
     file.slug
   end
 
-  def exercise
-    @exercise ||= Exercise.new(track, slug)
+  def submission
+    @submission ||= Submission.on(problem)
   end
 
-  def submission
-    @submission ||= Submission.on(exercise)
+  def problem
+    Problem.new(track, slug)
   end
 
   def save
-    user.submissions_on(exercise).each do |sub|
+    user.submissions_on(problem).each do |sub|
       sub.supersede!
       sub.unmute_all!
     end
-    remove_from_completed(exercise)
+    remove_from_completed(problem)
     submission.code = code
     submission.filename = file.filename
     user.submissions << submission
@@ -47,8 +43,8 @@ class Attempt
     self
   end
 
-  def remove_from_completed(exercise)
-    (user.completed[exercise.language] || []).delete(exercise.slug)
+  def remove_from_completed(problem)
+    (user.completed[problem.track_id] || []).delete(problem.slug)
   end
 
   def duplicate?
@@ -56,11 +52,11 @@ class Attempt
   end
 
   def previous_submissions
-    @previous_submissions ||= user.submissions_on(exercise).reject {|s| s == submission}
+    @previous_submissions ||= user.submissions_on(problem).reject {|s| s == submission}
   end
 
   def previous_submission
-    @previous_submission ||= previous_submissions.first || NullSubmission.new(exercise)
+    @previous_submission ||= previous_submissions.first || NullSubmission.new(problem)
   end
 
   private

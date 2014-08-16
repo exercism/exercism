@@ -6,15 +6,15 @@ module ExercismWeb
 
         language, slug = language.downcase, slug.downcase
 
-        exercise = Exercise.new(language, slug)
+        problem = Problem.new(language, slug)
 
-        unless current_user.nitpicker_on?(exercise)
+        unless current_user.nitpicker_on?(problem)
           flash[:notice] = "You'll have access to that page when you complete #{slug} in #{language}"
           redirect '/'
         end
 
-        submission = Submission.random_completed_for(exercise)
-        total = Submission.completed_for(exercise).count
+        submission = Submission.random_completed_for(problem)
+        total = Submission.completed_for(problem).count
 
         erb :"code/random", locals: {submission: submission, total: total}
       end

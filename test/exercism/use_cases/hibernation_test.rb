@@ -8,8 +8,6 @@ require 'services/email'
 require 'services/hibernation_message'
 require 'exercism/alert'
 require 'exercism/notification'
-require 'exercism/named'
-require 'exercism/exercise'
 
 class HibernationTest < Minitest::Test
   include DBCleaner
@@ -24,10 +22,6 @@ class HibernationTest < Minitest::Test
 
     def problem
       Problem.new('ruby', 'one')
-    end
-
-    def exercise
-      Exercise.new('ruby', 'one')
     end
 
     def user_exercise

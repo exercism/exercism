@@ -110,10 +110,6 @@ class Submission < ActiveRecord::Base
     @problem ||= Problem.new(track_id, slug)
   end
 
-  def exercise
-    @exercise ||= Exercise.new(track_id, slug)
-  end
-
   def on(problem)
     self.language = problem.track_id
 

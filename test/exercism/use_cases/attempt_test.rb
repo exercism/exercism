@@ -146,13 +146,13 @@ class AttemptTest < Minitest::Test
 
   def test_attempt_sets_exercise_as_current
     attempt = Attempt.new(user, "CODE", 'ruby/two/two.rb').save
-    assert user.working_on?(Exercise.new('ruby', 'two'))
+    assert user.working_on?(Problem.new('ruby', 'two'))
   end
 
   def test_attempt_sets_completed_exercises_as_current
-    refute user.working_on?(Exercise.new('ruby', 'one'))
+    refute user.working_on?(Problem.new('ruby', 'one'))
     attempt = Attempt.new(user, "CODE", 'ruby/one/one.rb').save
-    assert user.working_on?(Exercise.new('ruby', 'one'))
+    assert user.working_on?(Problem.new('ruby', 'one'))
   end
 end
 
