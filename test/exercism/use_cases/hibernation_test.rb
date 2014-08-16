@@ -18,6 +18,14 @@ class HibernationTest < Minitest::Test
 
   FakeComment = Struct.new(:user, :created_at)
   FakeSubmission = Struct.new(:user, :comments, :state) do
+    def track_id
+      'ruby'
+    end
+
+    def problem
+      Problem.new('ruby', 'one')
+    end
+
     def exercise
       Exercise.new('ruby', 'one')
     end

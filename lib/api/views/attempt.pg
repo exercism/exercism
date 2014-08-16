@@ -1,5 +1,6 @@
 node id: submission.key
 node status: 'saved'
-node language: submission.language
+node language: submission.track_id
+node track: submission.track_id
 node exercise: submission.slug
 node submission_path: "/submissions/#{submission.key}"

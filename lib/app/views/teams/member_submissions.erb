@@ -25,11 +25,11 @@
           <% if current_user.working_on?(submission.problem) || team.managed_by?(current_user) || current_user.nitpicker_on?(submission.problem) %>
             <a href="/submissions/<%= submission.key %>">
               <%= submission.problem.name %>
-              (<%= Language.of(submission.language) %>: <%= submission.nit_count %>)
+              (<%= submission.problem.language %>: <%= submission.nit_count %>)
             </a>
         <% else %>
           <%= submission.problem.name %>
-          (<%= submission.language.capitalize %>)
+          (<%= submission.problem.language %>)
         <% end %>
         </li>
       <% end %>

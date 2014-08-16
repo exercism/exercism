@@ -1,7 +1,11 @@
 class NullWorkload
-  attr_reader :user, :language, :slug
-  def initialize(user, language, slug)
-    @user, @language, @slug = user, language, slug
+  attr_reader :user, :track_id, :slug
+  def initialize(user, track_id, slug)
+    @user, @track_id, @slug = user, track_id, slug
+  end
+
+  def language
+    track_id
   end
 
   def breakdown
@@ -18,10 +22,10 @@ class NullWorkload
 end
 
 class Workload
-  attr_reader :user, :language, :slug
-  def initialize(user, language, slug)
+  attr_reader :user, :track_id, :slug
+  def initialize(user, track_id, slug)
     @user = user
-    @language = language
+    @track_id = track_id
     @slug = slug
   end
 
@@ -54,8 +58,8 @@ class Workload
       scope = scope.where(slug: slug)
     end
 
-    unless user.mastery.include?(language)
-      scope = scope.where(slug: user.nitpicker[language])
+    unless user.mastery.include?(track_id)
+      scope = scope.where(slug: user.nitpicker[track_id])
     end
 
     @submissions = scope.includes(:user)
@@ -67,23 +71,23 @@ class Workload
   end
 
   def available_exercises
-    exercises = pending.select('distinct slug').where(language: language).map(&:slug).map {|slug|
-      Exercise.new(language, slug)
+    problems = pending.select('distinct slug').where(language: track_id).map(&:slug).map {|slug|
+      Problem.new(track_id, slug)
     }
-    return exercises if user.mastery.include?(language)
+    return problems if user.mastery.include?(track_id)
 
-    exercises.select {|exercise|
-      user.nitpicker[language].include? exercise.slug
+    problems.select {|problem|
+      user.nitpicker[track_id].include? problem.slug
     }
   end
 
   private
 
   def pending
-    @pending ||= Submission.pending.where(language: language).where('user_id != ?', user.id).unmuted_for(user)
+    @pending ||= Submission.pending.where(language: track_id).where('user_id != ?', user.id).unmuted_for(user)
   end
 
   def needs_input
-    @needs_input ||= Submission.needs_input.where(language: language).where('user_id != ?', user.id).unmuted_for(user)
+    @needs_input ||= Submission.needs_input.where(language: track_id).where('user_id != ?', user.id).unmuted_for(user)
   end
 end

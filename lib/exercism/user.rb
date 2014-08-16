@@ -70,8 +70,8 @@ class User < ActiveRecord::Base
     active_submissions.where(language: problem.track_id, slug: problem.slug).count > 0
   end
 
-  def nitpicks_trail?(language)
-    nitpicker_languages.include?(language)
+  def nitpicks_trail?(track_id)
+    nitpicker_languages.include?(track_id)
   end
 
   def nitpicker_languages
@@ -134,12 +134,8 @@ class User < ActiveRecord::Base
     @unlocked_languages ||= exercises.where(is_nitpicker: true).pluck('language').uniq
   end
 
-  def worked_in_languages
-    @worked_in_languages ||= submissions.done.pluck('language').uniq
-  end
-
-  def completed_submissions_in(language)
-    submissions.done.where(language: language)
+  def completed_submissions_in(track_id)
+    submissions.done.where(language: track_id)
   end
 
   private

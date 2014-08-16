@@ -14,7 +14,7 @@
         <% if submission.exercise_completed? %>
           This exercise has been completed.
           <% if submission.user.is?(current_user.username) %>
-            See <a href="/code/<%= submission.language %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.
+            See <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.
           <% end %>
         <% elsif submission.exercise_hibernating? %>
           This exercise is hibernating.
@@ -54,7 +54,7 @@
           <% end %>
 
           <% unless current_user.nitpicker_on?(submission.problem) %>
-            <form accept-charset="UTF-8" action="/exercises/<%= submission.language %>/<%= submission.slug %>" method="POST">
+            <form accept-charset="UTF-8" action="/exercises/<%= submission.track_id %>/<%= submission.slug %>" method="POST">
               <button type="submit" name="unlock" class="unlock-nitpicking" class="btn">Unlock Nitpicking</button>
             </form>
           <% end %>
@@ -70,8 +70,8 @@
     <div id="current_submission" class="code span6">
       <h2>
         Code
-        <small><a href="/exercises/<%= submission.language %>/<%= submission.slug %>/readme">Readme</a></small>
-        <small><a href="/exercises/<%= submission.language %>/<%= submission.slug %>">Test Suite</a></small>
+        <small><a href="/exercises/<%= submission.track_id %>/<%= submission.slug %>/readme">Readme</a></small>
+        <small><a href="/exercises/<%= submission.track_id %>/<%= submission.slug %>">Test Suite</a></small>
       </h2>
 
       <% if submission.liked? %>
@@ -93,7 +93,7 @@
 
       </div>
       <div style="padding-top: 2px;">
-        <%= md(submission.code, submission.language) %>
+        <%= md(submission.code, submission.track_id) %>
       </div>
       <div id="submission-code" style="display:none">
         <%= submission.code %>

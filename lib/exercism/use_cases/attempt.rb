@@ -43,7 +43,7 @@ class Attempt
     submission.filename = file.filename
     user.submissions << submission
     user.save
-    Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
+    Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
     self
   end
 

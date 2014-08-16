@@ -21,7 +21,7 @@
           <% profile.current.each do |submission| %>
             <tr>
               <td><%= profile.submission_link(submission) %></td>
-              <td><%= Language.of(submission.language) %></td>
+              <td><%= submission.problem.language %></td>
               <td><%= submission.version %></td>
               <td><%= submission.nit_count %></td>
             </tr>
@@ -47,11 +47,11 @@
             </tr>
           </thead>
           <tbody>
-            <% profile.languages.each do |language| %>
+            <% profile.track_ids.each do |track_id| %>
               <tr>
-                <td><%= Language.of(language) %></td>
+                <td><%= Language.of(track_id) %></td>
                 <td>
-                  <% profile.completed_in(language).each do |submission| %>
+                  <% profile.completed_in(track_id).each do |submission| %>
                     <span class="completed-exercise">
                       <%= profile.submission_link(submission) %>
                     </span>

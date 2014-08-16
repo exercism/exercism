@@ -7,7 +7,7 @@ module ExercismAPI
           halt 404, {error: "unknown submission #{key}"}.to_json
         end
 
-        {language: submission.language, code: submission.code}.to_json
+        {language: submission.track_id, code: submission.code}.to_json
       end
     end
   end

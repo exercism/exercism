@@ -21,7 +21,7 @@ class Unsubmit
 
     options = {
       user_id: @user,
-      language: submission.language,
+      language: submission.track_id,
       slug: submission.slug,
       version: submission.version - 1
     }
@@ -32,6 +32,6 @@ class Unsubmit
       previous_submission.save
     end
     submission.destroy
-    Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
+    Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
   end
 end

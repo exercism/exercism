@@ -23,7 +23,7 @@
     Spare a few minutes? Help out others by reviewing these submissions.
     <% pending_submissions.each do |submission| %>
       <li>
-        <a href="<%= site_root %>/submissions/<%= submission.key %>"><%= submission.language %>: <%= submission.slug %></a>
+        <a href="<%= site_root %>/submissions/<%= submission.key %>"><%= submission.track_id %>: <%= submission.slug %></a>
         <%= submission.user.username %>
         submitted this exercise <%= ago(submission.created_at) %>
       </li>

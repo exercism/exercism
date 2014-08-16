@@ -20,13 +20,13 @@ class NitpickAppTest < Minitest::Test
     })
   end
 
-  def generate_submission(language, exe)
+  def generate_submission(track_id, exe)
     user = User.create({
-      username: "#{language}_user",
-      github_id: language,
-      email: "#{language}_coder@example.com"
+      username: "#{track_id}_user",
+      github_id: track_id,
+      email: "#{track_id}_coder@example.com"
     })
-    attempt = Attempt.new(user, "class Bob\nend", "#{language}/bob/bob.#{exe}").save
+    attempt = Attempt.new(user, "class Bob\nend", "#{track_id}/bob/bob.#{exe}").save
   end
 
   def generate_nitpick(attempt)

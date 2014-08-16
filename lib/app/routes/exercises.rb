@@ -1,15 +1,15 @@
 module ExercismWeb
   module Routes
     class Exercises < Core
-      get '/nitpick/:language/:slug/?' do |language, slug|
+      get '/nitpick/:language/:slug/?' do |track_id, slug|
         please_login
 
-        presenter = current_user.nitpicks_trail?(language) ? Workload : NullWorkload
-        workload = presenter.new(current_user, language, slug || 'recent')
+        presenter = current_user.nitpicks_trail?(track_id) ? Workload : NullWorkload
+        workload = presenter.new(current_user, track_id, slug || 'recent')
 
         locals = {
           submissions: workload.submissions,
-          language: workload.language,
+          language: workload.track_id,
           exercise: workload.slug,
           exercises: workload.available_exercises,
           breakdown: workload.breakdown
@@ -30,9 +30,9 @@ module ExercismWeb
         Look.check!(submission.user_exercise_id, current_user.id)
         Notification.viewed!(submission, current_user)
 
-        title(submission.slug + " in " + submission.language + " by " + submission.user.username)
+        title(submission.slug + " in " + submission.track_id + " by " + submission.user.username)
 
-        workload = Workload.new(current_user, submission.language, submission.slug)
+        workload = Workload.new(current_user, submission.track_id, submission.slug)
         next_submission = workload.next_submission(submission)
 
         erb :"submissions/show", locals: {submission: submission, next_submission: next_submission, sharing: Sharing.new}
@@ -70,7 +70,7 @@ module ExercismWeb
         end
         Completion.new(submission).save
         LifecycleEvent.track('completed', current_user.id)
-        flash[:success] = "#{submission.name} in #{submission.language} will no longer appear in the nitpick lists."
+        flash[:success] = "#{submission.name} in #{submission.track_id} will no longer appear in the nitpick lists."
         redirect "/"
       end
 
@@ -82,11 +82,11 @@ module ExercismWeb
           redirect '/'
         end
 
-        submission = Submission.where(user_id: current_user.id, language: selected_submission.language, slug: selected_submission.slug, state: 'done').first
+        submission = Submission.where(user_id: current_user.id, language: selected_submission.track_id, slug: selected_submission.slug, state: 'done').first
         submission.state = 'pending'
         submission.done_at = nil
         submission.save
-        Hack::UpdatesUserExercise.new(submission.user_id, submission.language, submission.slug).update
+        Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
         redirect "/submissions/#{submission.key}"
       end
 

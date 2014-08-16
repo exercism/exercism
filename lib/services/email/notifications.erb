@@ -10,7 +10,7 @@ Hi <%= name %>,
 
 Spare a few minutes? Help out others by reviewing these submissions.
 <% pending_submissions.each do |submission| %>
-<%= submission.language %>: <%= submission.slug %>
+<%= submission.track_id %>: <%= submission.slug %>
 <%= submission.user.username %> submitted this exercise <%= ago(submission.created_at) %>
 url: <%= site_root %>/submissions/<%= submission.key %>"
 <% end %>

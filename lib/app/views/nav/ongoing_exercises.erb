@@ -6,7 +6,7 @@
       <% current_user.ongoing.each do |submission| %>
         <li>
           <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>">
-            <%= submission.language + ' ' + submission.slug %>
+            <%= submission.problem.language + ' ' + submission.problem.name %>
           </a>
         </li>
       <% end %>

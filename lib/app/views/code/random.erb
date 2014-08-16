@@ -1,7 +1,7 @@
 <div class="container">
   <section class="page-header">
     <h1>
-      <%= submission.language.capitalize %>:
+      <%= submission.problem.language %>:
       <%= submission.problem.name %>
     </h1>
   </section>
@@ -11,12 +11,12 @@
       <% if total == 1 %>
       You are seeing the only available implementation of the exercise.
       <% elsif total > 1 %>
-      Take a look at one of the <a href="/code/<%= submission.language %>/<%= submission.slug %>/random"><%= total %> available implementations</a> of the exercise.
+      Take a look at one of the <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random"><%= total %> available implementations</a> of the exercise.
       <% end %>
-      This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.problem.name %> in <%= submission.language.capitalize %>. Interested? Read the <a href="/submissions/<%= submission.key %>">related discussion</a>.
+      This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.problem.name %> in <%= Language.of(submission.track_id) %>. Interested? Read the <a href="/submissions/<%= submission.key %>">related discussion</a>.
       </p>
       <div style="padding-top: 2px;">
-        <%= md(submission.code, submission.language) %>
+        <%= md(submission.code, submission.track_id) %>
       </div>
     </div>
   </div>

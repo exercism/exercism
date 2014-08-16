@@ -45,12 +45,12 @@ class Profile
     user.submissions.hibernating
   end
 
-  def completed_in(language)
-    user.completed_submissions_in(language).reverse
+  def completed_in(track_id)
+    user.completed_submissions_in(track_id).reverse
   end
 
-  def languages
-    user.worked_in_languages
+  def track_ids
+    @track_ids ||= user.submissions.done.pluck('language').uniq
   end
 
   def github_link
@@ -61,7 +61,7 @@ class Profile
     if narcissistic? || manager? || current_user.nitpicker_on?(submission.problem)
      %{<a href="/submissions/#{submission.key}">#{submission.name}</a>}
     else
-     %{<a href="/exercises/#{submission.language}/#{submission.slug}">#{submission.name}</a>}
+     %{<a href="/exercises/#{submission.track_id}/#{submission.slug}">#{submission.name}</a>}
     end
   end
 

@@ -27,7 +27,7 @@ class AttemptTest < Minitest::Test
 
     assert_equal 1, Submission.count
     submission = Submission.first
-    assert_equal 'python', submission.language
+    assert_equal 'python', submission.track_id
     assert_equal 'two', submission.slug
     assert_equal user, submission.user
   end
@@ -39,7 +39,7 @@ class AttemptTest < Minitest::Test
 
     assert_equal 1, Submission.count
     submission = Submission.first
-    assert_equal 'ruby', submission.language
+    assert_equal 'ruby', submission.track_id
     assert_equal 'two', submission.slug
     assert submission.pending?
     assert_equal user, submission.user
@@ -52,7 +52,7 @@ class AttemptTest < Minitest::Test
 
     assert_equal 1, Submission.count
     submission = Submission.first
-    assert_equal 'ruby', submission.language
+    assert_equal 'ruby', submission.track_id
     assert_equal 'one', submission.slug
     assert submission.pending?, "Expected submission to be pending but was #{submission.state}"
     assert_equal user, submission.user
@@ -105,7 +105,7 @@ class AttemptTest < Minitest::Test
   def test_previous_submission_after_first_attempt_in_new_language
     Attempt.new(user, 'CODE 1', 'ruby/two/two.rb').save
     attempt = Attempt.new(user, 'CODE 2', 'python/two/two.py').save
-    assert_equal attempt.previous_submission.language, "python"
+    assert_equal attempt.previous_submission.track_id, "python"
   end
 
   def test_previous_submission_after_superseding

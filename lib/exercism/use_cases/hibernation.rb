@@ -26,7 +26,7 @@ class Hibernation
   def update_user_exercise
     Hack::UpdatesUserExercise.new(
         submission.user_id,
-        submission.language,
+        submission.track_id,
         submission.slug
     ).update
   end
@@ -87,7 +87,7 @@ class Hibernation
       read: false,
       url: ['', submission.user.username, submission.user_exercise.key].join('/'),
       link_text: "View submission.",
-      text: "Your exercise #{submission.slug} in #{submission.language} has gone into hibernation."
+      text: "Your exercise #{submission.slug} in #{submission.track_id} has gone into hibernation."
     }
     Alert.create(attributes)
   end

@@ -10,7 +10,7 @@ class SharingTest < Minitest::Test
       "123456789"
     end
 
-    def submission.language
+    def submission.track_id
       "ruby"
     end
 

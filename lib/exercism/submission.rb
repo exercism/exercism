@@ -76,7 +76,7 @@ class Submission < ActiveRecord::Base
 
   def self.related(submission)
     order('created_at ASC').
-      where(user_id: submission.user.id, language: submission.language, slug: submission.slug)
+      where(user_id: submission.user.id, language: submission.track_id, slug: submission.slug)
   end
 
   def self.on(problem)

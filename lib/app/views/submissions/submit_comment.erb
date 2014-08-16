@@ -12,7 +12,7 @@
     <% if current_user.owns?(submission) %>
       <%= erb :"submissions/encourage_submitter", locals: {version: submission.version, nit_count: submission.nit_count} %>
     <% else %>
-      <%= erb :"submissions/encourage_nitpicker", locals: {language: submission.language} %>
+      <%= erb :"submissions/encourage_nitpicker", locals: {language: submission.problem.language} %>
     <% end %>
 
     <%= erb :"submissions/comment" %>
