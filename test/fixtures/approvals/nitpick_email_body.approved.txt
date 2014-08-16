@@ -1,6 +1,6 @@
 Hi bob,
 
-Your submission on Word Count in ruby has received the following feedback from alice!
+Your submission on Word Count in Ruby has received the following feedback from alice!
 
 This is awesome!!!
 

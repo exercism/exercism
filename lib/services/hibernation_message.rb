@@ -5,7 +5,7 @@ class HibernationMessage < Message
   end
 
   def subject
-    "Your #{problem.track_id} #{problem.slug} submission went into hibernation"
+    "Your #{problem.name} exercise in #{problem.language} went into hibernation"
   end
 
   def template_name

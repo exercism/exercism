@@ -1,7 +1,6 @@
 require_relative '../approval_helper'
 require 'services/message'
 require 'services/hibernation_message'
-require 'exercism/named'
 require 'exercism/problem'
 
 class HibernationMessageTest < Minitest::Test
@@ -30,7 +29,7 @@ class HibernationMessageTest < Minitest::Test
 
   def test_subject
     submission = FakeSubmission.new(bob, [], 'abc', problem)
-    assert_equal "Your ruby word-count submission went into hibernation", message_about(submission).subject
+    assert_equal "Your Word Count exercise in Ruby went into hibernation", message_about(submission).subject
   end
 
   def test_body

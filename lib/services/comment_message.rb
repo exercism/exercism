@@ -1,7 +1,7 @@
 class CommentMessage < Message
 
   def subject
-    "Your #{problem.track_id} #{problem.slug} exercise got a new comment"
+    "Your #{problem.name} exercise in #{problem.language} got a new comment"
   end
 
   def template_name
