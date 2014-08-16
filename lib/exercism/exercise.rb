@@ -1,6 +1,10 @@
 Exercise = Struct.new(:language, :slug) do
   include Named
 
+  def track_id
+    language
+  end
+
   def to_s
     "Exercise: #{slug} (#{namify(language)})"
   end

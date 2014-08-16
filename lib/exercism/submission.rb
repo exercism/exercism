@@ -102,6 +102,14 @@ class Submission < ActiveRecord::Base
     self.created_at.utc < (Time.now.utc - time)
   end
 
+  def track_id
+    language
+  end
+
+  def problem
+    @problem ||= Problem.new(track_id, slug)
+  end
+
   def exercise
     @exercise ||= Exercise.new(language, slug)
   end
