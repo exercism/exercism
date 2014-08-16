@@ -18,8 +18,8 @@ class Message
     }
   end
 
-  def exercise
-    submission.exercise
+  def problem
+    submission.problem
   end
 
   def recipient

@@ -2,13 +2,12 @@ require_relative '../approval_helper'
 
 require 'services/message'
 require 'services/comment_message'
-require 'exercism/named'
-require 'exercism/exercise'
+require 'exercism/problem'
 
 class CommentMessageTest < Minitest::Test
 
   FakeUser = Struct.new(:username, :email)
-  FakeSubmission = Struct.new(:key, :user, :exercise)
+  FakeSubmission = Struct.new(:key, :user, :problem)
   FakeComment = Struct.new(:body, :submission)
 
   attr_reader :alice, :submission, :comment
@@ -18,7 +17,7 @@ class CommentMessageTest < Minitest::Test
     @submission = FakeSubmission.new(
       'KEY',
       FakeUser.new('bob', 'bob@example.com'),
-      Exercise.new('ruby', 'word-count'),
+      Problem.new('ruby', 'word-count'),
     )
     @comment = FakeComment.new('This is awesome!!!', @submission)
   end

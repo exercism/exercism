@@ -2,8 +2,6 @@ require_relative '../approval_helper'
 
 require 'services/message'
 require 'services/team_invitation_message'
-require 'exercism/named'
-require 'exercism/exercise'
 
 class TeamInvitationMessageTest < Minitest::Test
 
