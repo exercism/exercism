@@ -128,6 +128,20 @@ is useful. Ignored directories don't get flagged as unimplemented problems.
 A problem might be foregone for a number of reasons, typically because it's a
 bad exercise for the language.
 
+## Nitpicking a Problem You Created
+
+Once you've created a problem, you'll probably want to provide feedback to people who
+submit solutions to it. Once the problem goes live, you can fetch it using the CLI:
+
+```bash
+$ exercism fetch <language> <problem>
+```
+
+Then submit the example solution that you wrote when creating the problem. This makes
+the problem available to you in the nitpick menu.
+
+Remember to mark it with "OK, I'm done" if you don't want other people to comment on it.
+
 ## Using the CLI Locally
 
 The `~/.exercism.go` configuration file for the CLI contains a field
