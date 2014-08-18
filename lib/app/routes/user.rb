@@ -19,7 +19,7 @@ module ExercismWeb
           erb :"user/show", locals: { profile: Profile.new(user, current_user) }
         else
           status 404
-          erb :not_found
+          erb :"errors/not_found"
         end
       end
 
@@ -32,7 +32,7 @@ module ExercismWeb
           erb :"user/nitstats", locals: {user: user, stats: stats }
         else
           status 404
-          erb :not_found
+          erb :"errors/not_found"
         end
       end
 
