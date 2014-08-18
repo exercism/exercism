@@ -18,14 +18,14 @@ module ExercismAPI
         end
       end
 
-      get '/exercises/:language' do |language|
-        status, data = Xapi.get("exercises", language, key: current_user.key)
+      get '/exercises/:track_id' do |track_id|
+        status, data = Xapi.get("exercises", track_id, key: current_user.key)
         LifecycleEvent.track('fetched', current_user.id)
         halt status, data
       end
 
-      get '/exercises/:language/:slug' do |language, slug|
-        status, data = Xapi.get("assignments", language, slug)
+      get '/exercises/:track_id/:slug' do |track_id, slug|
+        status, data = Xapi.get("assignments", track_id, slug)
         LifecycleEvent.track('fetched', current_user.id)
         halt status, data
       end

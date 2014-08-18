@@ -5,12 +5,12 @@ module ExercismAPI
         redirect '/api/v1/demo'
       end
 
-      get '/assignments/:language' do |language|
-        redirect "/api/v1/exercises/#{language}?key=#{params[:key]}"
+      get '/assignments/:track_id' do |track_id|
+        redirect "/api/v1/exercises/#{track_id}?key=#{params[:key]}"
       end
 
-      get '/assignments/:language/:slug' do |language, slug|
-        redirect "/api/v1/exercises/#{language}/#{slug}"
+      get '/assignments/:track_id/:slug' do |track_id, slug|
+        redirect "/api/v1/exercises/#{track_id}/#{slug}"
       end
 
       get '/user/assignments/current' do
