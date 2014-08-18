@@ -1,1 +1,1 @@
-BuildID = ENV['BUILD_ID'] || 'unknown'
+BuildID = (ENV['BUILD_ID'] || 'unknown').strip
