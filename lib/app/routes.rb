@@ -4,6 +4,7 @@ module ExercismWeb
       Core: 'core',
       Legacy: 'legacy',
       Main: 'main',
+      OnboardingSteps: 'onboarding_steps',
       Stats: 'stats',
       Static: 'static',
       Conversations: 'conversations',
