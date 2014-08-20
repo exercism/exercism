@@ -51,42 +51,42 @@ module ExercismWeb
 
       def no_fill
         progress_bar_outer("<li class='first'>
-         <span class='progress-text'>Install CLI</span></li>
-         <li><span class='progress-text'>Submit Code</span></li>
-         <li><span class='progress-text'>Have a Conversation</span></li>
-         <li><span class='progress-text'>Pay it Forward</span></li>")
+         <span class='progress-text'><a href='../onboarding/joined'>Install CLI</a></span></li>
+         <li><span class='progress-text'><a href='../onboarding/'>Submit Code</a></span></li>
+         <li><span class='progress-text'><a href='../onboarding/received_feedback'>Have a Conversation</a></span></li>
+         <li><span class='progress-text'><a href='../onboarding/submitted'>Pay it Forward</a></span></li>")
       end
 
       def one_fill
         progress_bar_outer("<li class='first visited'>
-         <span class='progress-text'>Install CLI</span></li>
-         <li class='active'><span class='progress-text'>Submit Code</span></li>
-         <li><span class='progress-text'>Have a Conversation</span></li>
-         <li><span class='progress-text'>Pay it Forward</span></li>")
+         <span class='progress-text'><a href='../onboarding/joined'>Install CLI</a></span></li>
+         <li class='active'><span class='progress-text'><a href='../onboarding/'>Submit Code</a></span></li>
+         <li><span class='progress-text'><a href='../onboarding/received_feedback'>Have a Conversation</a></span></li>
+         <li><span class='progress-text'><a href='../onboarding/submitted'>Pay it Forward</a></span></li>")
       end
 
       def two_fill
         progress_bar_outer("<li class='first visited'>
-         <span class='progress-text'>Install CLI</span></li>
-         <li class='visited'><span class='progress-text'>Submit Code</span></li>
-         <li class='active'><span class='progress-text'>Have a Conversation</span></li>
-         <li><span class='progress-text'>Pay it Forward</span></li>")
+         <span class='progress-text'><a href='../onboarding/joined'>Install CLI</a></span></li>
+         <li class='visited'><span class='progress-text'><a href='../onboarding/'>Submit Code</a></span></li>
+         <li class='active'><span class='progress-text'><a href='../onboarding/received_feedback'>Have a Conversation</a></span></li>
+         <li><span class='progress-text'><a href='../onboarding/submitted'>Pay it Forward</a></span></li>")
       end
 
       def three_fill
         progress_bar_outer("<li class='first visited'>
-         <span class='progress-text'>Install CLI</span></li>
-         <li class='visited'><span class='progress-text'>Submit Code</span></li>
-         <li class='visited'><span class='progress-text'>Have a Conversation</span></li>
-         <li class='active'><span class='progress-text'>Pay it Forward</span></li>")
+         <span class='progress-text'><a href='../onboarding/joined'>Install CLI</a></span></li>
+         <li class='visited'><span class='progress-text'><a href='../onboarding/'>Submit Code</a></span></li>
+         <li class='visited'><span class='progress-text'><a href='../onboarding/received_feedback'>Have a Conversation</a></span></li>
+         <li class='active'><span class='progress-text'><a href='../onboarding/submitted'>Pay it Forward</a></span></li>")
       end
 
       def four_fill
         progress_bar_outer("<li class='first visited'>
-         <span class='progress-text'>Install CLI</span></li>
-         <li class='visited'><span class='progress-text'>Submit Code</span></li>
-         <li class='visited'><span class='progress-text'>Have a Conversation</span></li>
-         <li class='last visited'><span class='progress-text'>Pay it Forward</span></li>")
+         <span class='progress-text'><a href='../onboarding/joined'>Install CLI</a></span></li>
+         <li class='visited'><span class='progress-text'><a href='../onboarding/'>Submit Code</a></span></li>
+         <li class='visited'><span class='progress-text'><a href='../onboarding/received_feedback'>Have a Conversation</a></span></li>
+         <li class='last visited'><span class='progress-text'><a href='../onboarding/submitted'>Pay it Forward</a></span></li>")
       end
     end
   end

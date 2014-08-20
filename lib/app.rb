@@ -36,6 +36,7 @@ module ExercismWeb
     use Routes::Static
     use Routes::Legacy
     use Routes::Main
+    use Routes::OnboardingSteps
     use Routes::Sessions
     use Routes::Stats
     use Routes::Conversations
