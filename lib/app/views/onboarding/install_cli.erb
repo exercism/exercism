@@ -1,0 +1,51 @@
+<div class="container">
+  <%= erb :"onboarding/progress_bar", locals: {step: dashboard.next_action} %>
+  <section class="main">
+    <article class="article-block">
+      <div class="article-contents">
+        <h1>Introducing the Command Line Client</h1>
+        <p>Exercism is all about having conversations about code. In order to start having those conversations, you need to install the exercism command line client. The exercism command line client is the all-in-one tool for fetching and submitting code. Let's get started.</p>
+
+        <h2>Start a conversation with your code</h2>
+
+        <p>Software development is an activity that should not be performed in isolation.  Exercism is intended to help you interact with other developers by way of your software code.</p>
+        <p>Exercism provides a launching point for this to occur.  Here's how it works:<br />
+        <ul>
+          <li>You fetch some challenges in the form of README documents.  These include associated test suites</li>
+          <li>Then write code in order to make the tests pass</li>
+          <li>Submit the code and begin the conversation with others</li>
+        </ul>
+        </p>
+
+        <p>By repeating this process you will:<br />
+        <ul>
+          <li>Share while discussing how YOU solved the problem</li>
+          <li>Learn from others as you discover how they solved the same problem</li>
+          <li>Gain experience through repeated practice solving problems</li>
+        </ul>
+        </p>
+
+        <h3>Don't be shy - start right now</h3>
+
+        <p>Begin by installing the <code>exercism</code> CLI (<em>Command-Line Interface</em>) tool.  <a href="http://cli.exercism.io/" title="Installing the Exercism CLI">Details here</a></p>
+
+        <p>With the CLI installed, configure it using the <code>login</code> command. It will interactively ask for your API key, which is listed below. You can always find your API key on your <a href="/account">account page</a>.
+
+        <pre><code>  exercism login</code></pre>
+
+        <p>It will ask you for your GitHub username and your exercism.io API key:</p>
+
+        <pre><code>  Your GitHub username: <%= current_user.username %>
+        Your exercism.io API key: <%= current_user.key %></code></pre>
+
+        <p>Finally, you need to tell it where to put the problems:
+
+        <pre><code>  What is your exercism exercises project path?    Press Enter to select the default (/path/to/current/dir):</code></pre>
+
+        <p>Fetch problems with this simple command:<br />
+
+      <pre><code>  exercism fetch</code></pre>
+      </div>
+    </article>
+  </section>
+</div>

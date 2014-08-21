@@ -1,42 +1,33 @@
 module ExercismWeb
   module Routes
     class OnboardingSteps < Core
-
-      get '/onboarding/joined' do
-        dashboard_layout_for("joined")
+      get '/onboarding/?' do
+        if current_user.onboarded?
+          redirect '/'
+        else
+          redirect "/onboarding/#{Onboarding.current_step(current_user.onboarding_steps)}"
+        end
       end
 
-      get '/onboarding/fetched' do
-        dashboard_layout_for("fetched")
+      get '/onboarding/install-cli' do
+        erb :"onboarding/install_cli", locals: {dashboard: dashboard}
       end
 
-      get '/onboarding/submitted' do
-        dashboard_layout_for("submitted")
+      get '/onboarding/submit-code' do
+        erb :"onboarding/submit_code", locals: {dashboard: dashboard}
       end
 
-      get '/onboarding/received_feedback' do
-        dashboard_layout_for("received_feedback")
+      get '/onboarding/have-a-conversation' do
+        erb :"onboarding/have_a_conversation", locals: {dashboard: dashboard}
       end
 
-      get '/onboarding/completed' do
-        dashboard_layout_for("completed")
-      end
-
-      get '/onboarding/commented' do
-        dashboard_layout_for("commented")
-      end
-
-      get '/onboarding/onboarded' do
-        dashboard_layout_for("onboarded")
+      get '/onboarding/pay-it-forward' do
+        erb :"onboarding/pay_it_forward", locals: {dashboard: dashboard}
       end
 
       private
-      def current_users_dashboard
+      def dashboard
         ExercismWeb::Presenters::Dashboard.new(current_user)
-      end
-
-      def dashboard_layout_for(status)
-        erb :"dashboard", locals: {status: status, dashboard: current_users_dashboard}
       end
     end
   end

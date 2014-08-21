@@ -26,6 +26,10 @@ module ExercismWeb
         @status ||= Onboarding.status(user.onboarding_steps)
       end
 
+      def next_action
+        Onboarding.next_action(user.onboarding_steps)
+      end
+
       def progress_bar
         case status
         when "joined"            then no_fill
