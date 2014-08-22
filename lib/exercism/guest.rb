@@ -2,6 +2,10 @@ class Guest
   def id
   end
 
+  def onboarding_steps
+    []
+  end
+
   def nitpicks_trail?(language)
     false
   end

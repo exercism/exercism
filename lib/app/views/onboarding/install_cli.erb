@@ -33,10 +33,12 @@
 
         <pre><code>  exercism login</code></pre>
 
-        <p>It will ask you for your GitHub username and your exercism.io API key:</p>
+        <p>It will ask you for your GitHub username and your exercism.io API key.</p>
 
+        <% if !current_user.guest? %>
         <pre><code>  Your GitHub username: <%= current_user.username %>
         Your exercism.io API key: <%= current_user.key %></code></pre>
+        <% end %>
 
         <p>Finally, you need to tell it where to put the problems:
 

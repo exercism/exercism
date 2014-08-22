@@ -12,11 +12,11 @@ class Onboarding
   end
 
   def self.status(events)
-    (progression & events).last
+    (progression & events).last || 'guest'
   end
 
   def self.step(events)
-    progression.index(status(events))
+    progression.index(status(events)) || -1
   end
 
   def self.next_action(events)
