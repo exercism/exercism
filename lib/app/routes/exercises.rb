@@ -30,7 +30,7 @@ module ExercismWeb
         Look.check!(submission.user_exercise_id, current_user.id)
         Notification.viewed!(submission, current_user)
 
-        title(submission.slug + " in " + submission.track_id + " by " + submission.user.username)
+        title("%s by %s in %s" % [submission.problem.name, submission.user.username, submission.problem.language])
 
         workload = Workload.new(current_user, submission.track_id, submission.slug)
         next_submission = workload.next_submission(submission)
