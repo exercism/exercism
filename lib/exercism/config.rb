@@ -5,6 +5,7 @@ class Exercism
         clojure: 'Clojure',
         coffeescript: 'CoffeeScript',
         csharp: 'C#',
+        cpp: 'C++',
         elixir: 'Elixir',
         erlang: 'Erlang',
         fsharp: 'F#',
