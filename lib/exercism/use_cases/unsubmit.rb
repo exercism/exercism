@@ -25,7 +25,7 @@ class Unsubmit
       slug: submission.slug,
       version: submission.version - 1
     }
-    previous_submission = Submission.where(options).first
+    previous_submission = Submission.reversed.where(options).limit(1).first
 
     unless previous_submission.nil?
       previous_submission.state = 'pending'
