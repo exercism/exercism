@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
   end
 
   def nitpicker_languages
-    (unlocked_languages + mastery).uniq
+    unlocked_languages | mastery
   end
 
   def completed
