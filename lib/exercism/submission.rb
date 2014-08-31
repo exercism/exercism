@@ -212,6 +212,14 @@ class Submission < ActiveRecord::Base
     user_exercise.hibernating?
   end
 
+  def prior
+    @prior ||= related.where(version: version-1).first
+  end
+
+  def related
+    @related ||= Submission.related(self)
+  end
+
   private
 
   def secret
