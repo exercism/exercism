@@ -84,10 +84,14 @@ class Workload
   private
 
   def pending
-    @pending ||= Submission.pending.for_language(track_id).excluding(user).unmuted_for(user)
+    @pending ||= unmuted_submissions.pending
   end
 
   def needs_input
-    @needs_input ||= Submission.needs_input.for_language(track_id).excluding(user).unmuted_for(user)
+    @needs_input ||= unmuted_submissions.needs_input
+  end
+
+  def unmuted_submissions
+    Submission.excluding(user).unmuted_for(user).for_language(track_id)
   end
 end
