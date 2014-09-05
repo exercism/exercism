@@ -66,6 +66,10 @@ class Submission < ActiveRecord::Base
     where(language: language)
   }
 
+  scope :excluding, ->(user) {
+    where.not(user: user)
+  }
+
   def self.completed_for(problem)
     done.where(language: problem.track_id, slug: problem.slug)
   end
