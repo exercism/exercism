@@ -1,4 +1,5 @@
 class UserExercise < ActiveRecord::Base
+  include Named
   has_many :submissions, ->{ order 'created_at ASC' }
 
   # I don't really want the notifications method,
@@ -12,10 +13,6 @@ class UserExercise < ActiveRecord::Base
 
   before_create do
     self.key = generate_key
-  end
-
-  def name
-    @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
 
   def track_id
