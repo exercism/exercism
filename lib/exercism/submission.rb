@@ -62,6 +62,10 @@ class Submission < ActiveRecord::Base
     where('created_at > ?', timestamp)
   }
 
+  scope :for_language, ->(language) {
+    where(language: language)
+  }
+
   def self.completed_for(problem)
     done.where(language: problem.track_id, slug: problem.slug)
   end
