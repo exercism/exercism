@@ -1,6 +1,10 @@
 module ExercismAPI
   module Routes
     class Iterations < Core
+      get '/iterations/:key/restore' do |key|
+        halt *Xapi.get("v2", "exercises", "restore", key: key)
+      end
+
       post '/user/assignments' do
         request.body.rewind
         data = request.body.read
