@@ -1,6 +1,4 @@
 class Submission < ActiveRecord::Base
-  include Named
-
   belongs_to :user
   belongs_to :user_exercise
   has_many :comments, ->{ order 'created_at ASC' }, dependent: :destroy
@@ -96,6 +94,10 @@ class Submission < ActiveRecord::Base
 
   def self.unmuted_for(user)
     joins("left join (select submission_id from muted_submissions ms where user_id=#{user.id}) as t ON t.submission_id=submissions.id").where('t.submission_id is null')
+  end
+
+  def name
+    @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
 
   def discussion_involves_user?
