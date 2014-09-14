@@ -68,7 +68,7 @@ Different languages/trails do not need to have the same assignments or the same 
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
 6. Presuming you have Postgres installed (if not: `brew install postgres`):
-  * create db user with: `createuser exercism`.
+  * create db user with: `createuser -s exercism`.
   * create database with: `createdb -O exercism exercism_development`.
 7. Run the database migrations with `rake db:migrate`.
 8. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
