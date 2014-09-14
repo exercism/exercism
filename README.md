@@ -73,7 +73,7 @@ Different languages/trails do not need to have the same assignments or the same 
 7. Run the database migrations with `rake db:migrate`.
 8. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
 9. Copy `config/env` to `.env`
-10. Edit `.env` to fill in the correct values, including the GitHub client id/secret procured earlier. (you will likely need to cd out of the directory and back in for the `.env` config to be available)
+10. Edit `.env` to fill in the correct values, including the GitHub client id/secret procured earlier.
 11. Start the server with `foreman start`
 12. Login at http://localhost:4567.
 13. You can view the emails sent in [MailCatcher](http://mailcatcher.me/) in your browser at [localhost:1080](http://localhost:1080).
