@@ -76,7 +76,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
-    newrelic_rpm (3.9.1.236)
+    newrelic_rpm (3.9.4.245)
     nokogiri (1.6.2.1)
       mini_portile (= 0.6.0)
     petroglyph (0.0.7)
