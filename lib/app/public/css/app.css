@@ -7999,6 +7999,10 @@ h2 .next-submission {
   height: 218px;
 }
 
+.pagination-controls {
+  margin-top: 10px;
+}
+
 /*
 ---------------------------------
 | Exercism.IO # Typography

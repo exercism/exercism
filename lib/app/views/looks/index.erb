@@ -6,16 +6,22 @@
     <div class="row">
       <div class="span6">
         <% if looks.empty? %>
-          <p>No exercises viewed in the past 2 days.</p>
+          <p>No exercises viewed in the past 30 days.</p>
         <% else %>
-          <ul class="nav nav-tabs nav-stacked">
-            <% looks.each do |look| %>
-              <li>
-                <a href="<%= look.path %>">
-                  <%= look.problem.name %> (<%= look.problem.language %>) by <%= look.username %>
-                </a>
-              </li>
-            <% end %>
+          <h3>Submissions viewed in the past 30 days</h3>
+          <ul ng-controller="PaginationCtrl" ng-show="looks.length" class="nav nav-tabs nav-stacked">
+            <li ng-repeat="look in looks | startFrom:currentPage*pageSize | limitTo:pageSize" class="looks-list-item">
+              <a ng-href="{{look.path}}">{{look.name}} ({{look.language}}) by {{look.username}}</a>
+            </li>
+            <div class="pagination-controls">
+              <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-default">
+                 Previous
+              </button>
+              Page {{currentPage+1}}/{{numberOfPages()}}
+              <button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1" class="btn btn-default">
+                 Next
+              </button>
+            </div>
           </ul>
         <% end %>
       </div>

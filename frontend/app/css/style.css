@@ -380,3 +380,7 @@ h2 .next-submission {
 .logo {
   height: 218px;
 }
+
+.pagination-controls {
+  margin-top: 10px;
+}
