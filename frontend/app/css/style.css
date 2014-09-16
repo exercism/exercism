@@ -56,38 +56,29 @@ div.navbar-inner {
 --------------------------------- */
 
 div.home-top {
-  background: url('/img/blackboard.jpg') repeat center center;
+  background: #D81D4E;
   box-shadow: 0 10px 0 #f1f1f1;
   min-height: 300px;
   min-width: 100%;
   padding: 40px 0;
 }
 
-h1.home-top-header {
+h2.home-top-header {
   color: white;
-  font-size: 4em;
-  letter-spacing: -.05em;
-  margin: 20px 0 0;
-  opacity: 0.8;
-  text-align: center;
-  line-height: 1em;
+  letter-spacing: -0.05em;
+  margin-bottom: 0px;
 }
 
-.home-top-subheader {
-  background: rgba(0,0,0,0.3);
-  display: inline-block;
-  font-size: 1.2em;
-  padding: 0 15px;
-}
-
-.home-top-subheader,
-.lead.home {
-  color: white;
-  margin: 30px 0px;
-  opacity: 0.8;
+p.home-top-subheader {
+  color: rgba(0,0,0,0.3);
+  letter-spacing: -0.08em;
+  font-family: 'Source Code Pro', sans-serif;
 }
 
 .btn-large.home {
+  background: #770428;
+  font-family: 'Source Code Pro', sans-serif;
+  font-variant: small-caps;
   display: block;
   margin: 0 auto;
   position: relative;
@@ -95,6 +86,9 @@ h1.home-top-header {
   margin-bottom: 30px;
   margin-top: 30px;
   width: 200px;
+  border-radius: 0;
+  -moz-border-radius: 0;
+  -webkit-border-radius: 0;
 }
 
 .home-third-subheader {
@@ -385,5 +379,4 @@ h2 .next-submission {
 
 .logo {
   height: 218px;
-  padding-top: 100px;
 }
