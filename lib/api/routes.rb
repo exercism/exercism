@@ -7,6 +7,7 @@ module ExercismAPI
       Iterations: 'iterations',
       Submissions: 'submissions',
       Comments: 'comments',
+      Looks: 'looks',
       Stats: 'stats',
       Users: 'users',
       Legacy: 'legacy',

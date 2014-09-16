@@ -1,0 +1,6 @@
+collection looks: looks do |look|
+  node language: look.problem.language
+  node name: look.problem.name
+  node username: look.exercise.user.username
+  node path: "/#{look.exercise.user.username}/#{look.exercise.key}"
+end
