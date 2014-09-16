@@ -13,6 +13,7 @@ require 'exercism/homework'
 require 'exercism/xapi'
 
 require 'api/routes'
+require 'api/presenters'
 
 module ExercismAPI
   class App < Sinatra::Base

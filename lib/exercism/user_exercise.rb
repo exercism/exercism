@@ -12,7 +12,7 @@ class UserExercise < ActiveRecord::Base
   scope :completed, ->{ where(state: 'done') }
 
   before_create do
-    self.key = generate_key
+    self.key ||= generate_key
   end
 
   def track_id
