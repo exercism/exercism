@@ -1,7 +1,11 @@
 {
+  "url": "<url>",
+  "track_id": "<id>",
+  "language": "Go",
+  "slug": "one",
+  "name": "One",
   "id": "<id>",
   "status": "saved",
-  "language": "go",
   "track": "go",
   "exercise": "one",
   "submission_path": "<submission_path>"

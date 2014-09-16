@@ -43,7 +43,7 @@ module ExercismAPI
         LifecycleEvent.track('fetched', user.id)
         LifecycleEvent.track('submitted', user.id)
         status 201
-        pg :attempt, locals: {submission: attempt.submission}
+        pg :attempt, locals: {submission: attempt.submission, domain: request.host}
       end
 
       delete '/user/assignments' do

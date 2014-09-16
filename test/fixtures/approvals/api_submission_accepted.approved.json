@@ -1,7 +1,11 @@
 {
+  "url": "<url>",
+  "track_id": "<id>",
+  "language": "Ruby",
+  "slug": "one",
+  "name": "One",
   "id": "<id>",
   "status": "saved",
-  "language": "ruby",
   "track": "ruby",
   "exercise": "one",
   "submission_path": "<submission_path>"

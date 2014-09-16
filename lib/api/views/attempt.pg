@@ -1,6 +1,12 @@
+node url: "http://#{domain}/submissions/#{submission.key}"
+node track_id: submission.track_id
+node language: submission.problem.language
+node slug: submission.slug
+node name: submission.problem.name
+
+# deprecated
 node id: submission.key
 node status: 'saved'
-node language: submission.track_id
 node track: submission.track_id
 node exercise: submission.slug
 node submission_path: "/submissions/#{submission.key}"
