@@ -94,4 +94,11 @@ class WorkTest < Minitest::Test
     assert_equal sub1, work.random
   end
 
+  def test_dont_suggest_submissions_user_has_submitted
+    bob = User.create(username: "bob", mastery: ["ruby"])
+    Submission.create(state: "pending", user: bob, language: "ruby", slug: "leap")
+
+    assert_nil Work.new(bob).random
+  end
+
 end
