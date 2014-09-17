@@ -47,6 +47,7 @@ class Submission < ActiveRecord::Base
     joins("LEFT JOIN (SELECT submission_id FROM likes WHERE user_id=#{user.id}) AS already_liked ON submissions.id=already_liked.submission_id").
     where('already_liked.submission_id IS NULL')
   }
+  scope :not_submitted_by, ->(user) { where.not(user: user) }
 
   scope :between, ->(upper_bound, lower_bound) {
     where('created_at < ? AND created_at > ?', upper_bound, lower_bound)
