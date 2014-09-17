@@ -58,7 +58,7 @@ class Work
       @choices ||= Submission.pending.
         where(language: language, slug: slug).
         not_commented_on_by(user).not_liked_by(user).
-        unmuted_for(user).
+        not_submitted_by(user).unmuted_for(user).
         order("updated_at DESC")
     end
 
