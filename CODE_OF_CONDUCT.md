@@ -11,4 +11,4 @@ Instances of abusive, harassing, or otherwise unacceptable behavior may be repor
 
 We promise to extend courtesy and respect to everyone involved in this project regardless of gender, gender identity, sexual orientation, ability or disability, ethnicity, religion, or level of experience.
 
-*This Code of Conduct is provided by the open sourced [Contributor Covenent](https://github.com/Bantik/contributor_covenant)*
+*This Code of Conduct is provided by the open sourced [Contributor Covenant](https://github.com/Bantik/contributor_covenant)*
