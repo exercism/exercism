@@ -7745,15 +7745,15 @@ p.home-top-subheader {
 }
 
 /*
-| Server Error
+| Error Page
 --------------------------------- */
 
-.server-error-container {
+.error-page-container {
   margin: 70px auto;
   max-width: 700px;
 }
 
-.server-error-container img {
+.error-page-container img {
   height: 150px;
   margin: 40px auto;
   transform: rotate(45deg);
@@ -7763,16 +7763,31 @@ p.home-top-subheader {
   width: 150px;
 }
 
-.server-error-container p {
+.error-page-container p {
   line-height: 30px;
 }
 
-.server-error-featured-message {
+.error-page-featured-message {
   display: inline-block;
   font-size: 18px;
   font-style: italic;
 }
 
+.four-zero-four {
+  font-size: 70px; 
+  line-height: 150px;
+  margin: 50px 0;
+}
+
+.four-zero-four span {
+  background: url('/img/e.png') no-repeat;
+  background-size: cover;
+  display: inline-block;
+  height: 150px;
+  margin: 0 10px;
+  text-indent: -9999px;
+  width: 150px;
+}
 
 
 /*APPLICATION*/
