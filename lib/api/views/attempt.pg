@@ -1,4 +1,4 @@
-node url: "http://#{domain}/submissions/#{submission.key}"
+node url: "#{domain}/submissions/#{submission.key}"
 node track_id: submission.track_id
 node language: submission.problem.language
 node slug: submission.slug
