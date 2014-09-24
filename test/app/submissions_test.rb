@@ -351,6 +351,23 @@ class SubmissionsTest < Minitest::Test
     assert_equal "http://example.org/", last_response.location
   end
 
+  def test_delete_submission_changes_state_of_previous_submission
+    data = {
+      user: bob,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    sub  = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 10, version: 1))
+    sub2 = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 9, version: 2))
+    sub3 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 8, version: 3))
+    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
+
+    delete "/submissions/#{sub2.key}", {}, login(bob)
+    assert_equal sub.state, 'superseeded'
+  end
+
   def test_dependent_destroy_of_notifications
     data = {
       user: alice,

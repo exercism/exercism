@@ -100,7 +100,8 @@ module ExercismWeb
 
         decrement_version(submission)
         prior = submission.prior
-        if prior
+        last_submission = submission.user_exercise.submissions.last
+        if prior && (submission == last_submission)
           prior.state = 'pending'
           prior.save
         end
