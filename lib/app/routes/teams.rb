@@ -44,9 +44,9 @@ module ExercismWeb
 
       post '/teams/:slug/members' do |slug|
         only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
+          invitees = ::User.find_in_usernames(params[:usernames].to_s.scan(/[\w-]+/)) - team.all_members
           team.recruit(params[:usernames])
           team.save
-          invitees = ::User.find_in_usernames(params[:usernames].to_s.scan(/[\w-]+/))
           notify(invitees, team)
 
           redirect "/teams/#{slug}"

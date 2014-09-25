@@ -37,7 +37,8 @@ class Team < ActiveRecord::Base
   end
 
   def recruit(usernames)
-    self.unconfirmed_members += User.find_in_usernames(usernames.to_s.scan(/[\w-]+/))
+    recruits = User.find_in_usernames(usernames.to_s.scan(/[\w-]+/)) - self.all_members
+    self.unconfirmed_members += recruits
   end
 
   def dismiss(username)
