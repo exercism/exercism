@@ -128,11 +128,11 @@ class TeamTest < Minitest::Test
   def test_team_does_not_recruit_duplicates
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
     team.save
+    member_count = team.all_members.count
     team.confirm(bob.username)
-    assert_equal 1, team.members.size
-
     team.recruit(bob.username)
-    assert_equal 1, team.members.size
+
+    assert_equal member_count, team.all_members.count
   end
 
   def test_team_member_dismiss
