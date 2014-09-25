@@ -5,6 +5,10 @@ module ExercismWeb
         erb :"site/rikki"
       end
 
+      get '/hello' do
+        erb :"site/hello"
+      end
+
       get '/privacy' do
         erb :"site/privacy"
       end
