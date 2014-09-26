@@ -14,7 +14,7 @@ module ExercismAPI
         data = JSON.parse(data)
         user = User.where(key: data['key']).first
         begin
-          LogEntry.create(user: user, body: data.merge(user_agent: request.user_agent).to_json)
+          LogEntry.create(user: user, key: data['key'], body: data.merge(user_agent: request.user_agent).to_json)
         rescue => e
           Bugsnag.notify(e)
           # ignore failures
