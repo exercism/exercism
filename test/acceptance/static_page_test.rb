@@ -16,7 +16,7 @@ class StaticPageTest < AcceptanceTestCase
 
   def test_getting_started_exists
     visit '/'
-    click_on 'Getting Started'
+    click_on 'Welcome'
 
     assert_content 'Exercises'
     assert_content 'Nitpicking'
