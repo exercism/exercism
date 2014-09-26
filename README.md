@@ -10,7 +10,7 @@ crowd-sourced code reviews.
 
 ## WARNING
 
-This an experiment, and the code reflects that. Many features have been thrown
+This is an experiment, and the code reflects that. Many features have been thrown
 in, only to be deprecated shortly thereafter, and there's scar tissue
 throughout the system.
 
