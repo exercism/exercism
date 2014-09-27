@@ -25,6 +25,11 @@ module ExercismWeb
         raise RuntimeError.new("Hi Bugsnag, you're awesome!")
       end
 
+      get '/no-such-page' do
+        status 404
+        erb :"errors/not_found"
+      end
+
       private
 
       def current_languages
