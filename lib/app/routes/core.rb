@@ -119,7 +119,7 @@ module ExercismWeb
         end
 
         def nitpicker_languages
-          Exercism::Config.languages.keys.map(&:to_s) & current_user.nitpicker_languages
+          Exercism::Config.tracks.keys.map(&:to_s) & current_user.nitpicker_languages
         end
 
         def namify(slug)
