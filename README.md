@@ -1,12 +1,20 @@
 # exercism.io
-[![Stories in Ready](https://badge.waffle.io/exercism/exercism.io.svg?label=ready)](https://waffle.io/exercism/exercism.io)
 [![Build Status](https://travis-ci.org/exercism/exercism.io.png?branch=master)](https://travis-ci.org/exercism/exercism.io)
 [![Code Climate](https://codeclimate.com/github/exercism/exercism.io.png)](https://codeclimate.com/github/exercism/exercism.io)
 [![Gemnasium](https://gemnasium.com/exercism/exercism.io.png)](https://gemnasium.com/exercism/exercism.io)
 [![Coverage Status](https://coveralls.io/repos/exercism/exercism.io/badge.png?branch=master)](https://coveralls.io/r/exercism/exercism.io?branch=master)
 
-Application to support working through sequential programming problems, with
-crowd-sourced code reviews.
+Programming practice with crowd-sourced mentorship.
+
+## Using Exercism
+
+To get started, please check out the [help site](http://help.exercism.io/installing-the-cli.html).
+
+Installing the CLI is complicated if you're not used to working on the command-line. There are a couple
+of screencasts available to help guide you through the steps:
+
+- Windows: https://www.youtube.com/watch?v=7IE0fzbuEdQ
+- Mac: https://www.youtube.com/watch?v=TCT4eHGwfaE
 
 ## WARNING
 
@@ -16,19 +24,15 @@ throughout the system.
 
 Features may be here today, gone tomorrow.
 
-Things do seem to have settled a bit in the past couple of months, so there's
-a chance that we'll reach some sort of 1.0 in early 2014.
-
-The messaging right now is a disaster. The site is confusing, the process is
-opaque, and it's hard to figure out where you need to look to figure stuff
-out.
+The site is confusing, the process is opaque, and it's hard to figure out where you
+need to look to figure stuff out.
 
 ### What we think we know
 
 This is a process with two parts:
 
 * practice (writing code, iterating)
-* nitpicking (looking at code, providing insights and asking questions)
+* mentorship (looking at code, asking questions, and articulating insights)
 
 It's not about getting code perfect or right, but using the pieces of code to
 talk about the little details of what makes code simple, readable, and/or
@@ -36,48 +40,40 @@ expressive.
 
 ## The Data
 
-The warmup exercises are collected from all over the web.
+The problems are collected from all over the web.
 
-The common data for assignments are in
-
-```bash
-assignments/shared
-```
+The common data for problems are in the
+[exercism/x-common](http://github.com/exercism/x-common) repository.
 
 This includes some metadata that gets sewn into a README.
 
-Not all assignments will be appropriate for all languages.
+Not all problems will be appropriate for all languages.
 
-The actual assignment consists of a test suite, where all test are pending
-except the first one.
-
-The languages paths are configured in `lib/exercism/curriculum/LANGUAGE.rb`.
-
-The list of assignments is just a really big array of assignment slugs in the order that they will be assigned.
-
-Different languages/trails do not need to have the same assignments or the same order.
+The actual problem consists of this README and a test suite. In some
+languages all tests except the first one are pending. This helps newer programmers
+get a feel for the rhythm that Test-Driven Development gives you.
 
 ## Setup
 
 1. Install postgresql with: `brew install postgresql` or `apt-get install postgresql-9.2`
-2. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
-3. Install gems with: `bundle`
-4. Install `mailcatcher` with `gem install mailcatcher`
-5. Get a client id/secret from GitHub at https://github.com/settings/applications/new.
+1. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
+1. Install gems with: `bundle`
+1. Install `mailcatcher` with `gem install mailcatcher`
+1. Get a client id/secret from GitHub at https://github.com/settings/applications/new.
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-6. Presuming you have Postgres installed (if not: `brew install postgres`):
+1. Presuming you have Postgres installed (if not: `brew install postgres`):
   * create db user with: `createuser -s exercism`.
   * create database with: `createdb -O exercism exercism_development`.
-7. Run the database migrations with `rake db:migrate`.
-8. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
-9. Copy `config/env` to `.env`
-10. Edit `.env` to fill in the correct values, including the GitHub client id/secret procured earlier.
-11. Start the server with `foreman start`
-12. Login at http://localhost:4567.
-13. You can view the emails sent in [MailCatcher](http://mailcatcher.me/) in your browser at [localhost:1080](http://localhost:1080).
-14. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
+1. Run the database migrations with `rake db:migrate`.
+1. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
+1. Copy `config/env` to `.env`
+1. Edit `.env` to fill in the correct values, including the GitHub client id/secret procured earlier.
+1. Start the server with `foreman start`
+1. Login at http://localhost:4567.
+1. You can view the emails sent in [MailCatcher](http://mailcatcher.me/) in your browser at [localhost:1080](http://localhost:1080).
+1. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
 
 ## Frontend development setup
 1. Install node and npm
