@@ -8,7 +8,7 @@ class Notify
   end
 
   def self.participants_in(submission)
-    Participants.in(submission.user_exercise.submissions)
+    Participants.in(submission.user_exercise.submissions, submission.id)
   end
 
   def self.source(submission, regarding, creator)

@@ -18,7 +18,7 @@ class ParticipantTest < Minitest::Test
 
     Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
 
-    participants = Participants.in([s1, s2]).map(&:username).sort
+    participants = Participants.in([s1, s2], s2.id).map(&:username).sort
 
     assert_equal %w(alice bob charlie), participants
   end
@@ -39,9 +39,9 @@ class ParticipantTest < Minitest::Test
 
     Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
 
-    participants = Participants.in([s1, s2]).map(&:username).sort
+    participants = Participants.in([s1, s2], s2.id).map(&:username).sort
 
-    assert_equal %w(alice bob charlie mention_user), participants
+    assert_equal %w(alice charlie mention_user), participants
   end
 
 end
