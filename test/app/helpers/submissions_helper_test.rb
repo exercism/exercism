@@ -66,10 +66,6 @@ class SubmissionsHelperTest < Minitest::Test
     assert_equal 'alice, bob, and charlie', helper.sentencify(%w(alice bob charlie))
   end
 
-  def test_like_submission_button_for_non_nitpicker
-    refute helper.like_submission_button(@submission, @fred)
-  end
-
   def test_like_submission_button_for_owner
     refute helper.like_submission_button(@submission, @alice)
   end
@@ -86,7 +82,7 @@ class SubmissionsHelperTest < Minitest::Test
     assert_equal expected, actual
   end
 
-  def test_like_submission_button_for_nitpicker_who_has_liked
+  def test_like_submission_button_for_someone_who_has_liked
     @fred.mastery << 'ruby'
     @submission.problem.track_id = 'ruby'
     @submission.liked_by << @fred
