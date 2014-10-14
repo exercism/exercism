@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :unconfirmed_teams, through: :unconfirmed_team_memberships, source: :team
 
   before_save do
-    self.key ||= create_key
+    reset_key if !key
     true
   end
 
@@ -138,19 +138,11 @@ class User < ActiveRecord::Base
     submissions.done.where(language: track_id)
   end
 
+  def reset_key
+    self.key = SecureRandom.uuid.tr('-', '')
+  end
+
   private
-
-  def create_key
-    Digest::SHA1.hexdigest(secret)
-  end
-
-  def secret
-    if ENV['USER_API_KEY']
-      "#{ENV['USER_API_KEY']} #{github_id}"
-    else
-      "There is solemn satisfaction in doing the best you can for #{github_id} billion people."
-    end
-  end
 
   def items_where(table, condition)
     sql = "SELECT language AS track_id, slug FROM #{table} WHERE user_id = %s AND #{condition} ORDER BY created_at ASC" % id.to_s

@@ -5,7 +5,7 @@ class UserTest < Minitest::Test
 
   def test_user_create_key
     user = User.create
-    assert_match %r{\A[a-z0-9]{40}\z}, user.key
+    assert_match %r{\A[a-z0-9]{32}\z}, user.key
   end
 
   def test_user_is_nitpicker_on_completed_assignment
