@@ -60,6 +60,17 @@ module ExercismWeb
           redirect ["", "submissions", exercise.submissions.last.key].join('/')
         end
       end
+
+      put '/me/uuid/reset' do
+        please_login
+
+        # This could fail, but I don't know
+        # what the user should see in that case.
+        # Do we even have a way of showing a message?
+        current_user.reset_key
+        current_user.save
+        redirect "/account"
+      end
     end
   end
 end
