@@ -8,7 +8,7 @@ Please file issues on the [GitHub issues
 list](https://github.com/exercism/exercism.io/issues) and give as much detail
 as possible.
 
-## Features / Pull Requests
+## Features
 
 This is a prototype, and as such we're quite open to feature experiments. If
 you want a feature implemented, the best way to get it done is to submit a
@@ -22,6 +22,23 @@ Please read and abide by the [Code of
 
 Please try and stick to the [GitHub Ruby Style
 Guidelines](https://github.com/styleguide/ruby).
+
+## Pull Requests
+
+When submitting a pull request, sometimes we'll ask you to make changes before
+we accept the patch.
+
+Please do not close the first pull request and open a second one with these
+changes. If you push more commits to a branch that you've opened a pull
+request for, it automatically updates the pull request. This is also the case
+if you change the history (rebase, squash, amend), and use git push --force to
+update the branch on your fork. The pull request points to that branch, not to
+specific commits.
+
+For more resources see:
+
+* [Git Workflow](http://help.exercism.io/git-workflow.html) in the exercism.io documentation
+* [How to Squash Commits in a GitHub Pull Request](http://blog.steveklabnik.com/posts/2012-11-08-how-to-squash-commits-in-a-github-pull-request)
 
 ## Creating a new Language Track
 
