@@ -1,6 +1,6 @@
 require_relative '../acceptance_helper'
 
-class AccountTest < AcceptanceTestCase
+class ProfileTest < AcceptanceTestCase
   def setup
     super
     @user = create_user
