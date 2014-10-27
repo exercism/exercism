@@ -14,7 +14,8 @@
         <% if submission.exercise_completed? %>
           This exercise has been completed.
           <% if submission.user.is?(current_user.username) %>
-            See <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.
+            <p>See <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.</p>
+            <p>View <a href="<%= language_path_for_slug(submission.language, submission.slug) %>">all other solutions</a> to this problem.</p>
           <% end %>
         <% elsif submission.exercise_hibernating? %>
           This exercise is hibernating.
