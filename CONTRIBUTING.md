@@ -100,13 +100,16 @@ A problem must have a unique slug. This slug is used as
 * the entry in `config.json`
 * the basename for the metadata files
 
-There are two metadata files that go in the
+There are three metadata files that go in the
 [x-common](https://github.com/exercism/x-common) repository.
 
-* `<slug>.yml` - contains `blurb`, `source`, and `source_url`.
+* `<slug>.yml` - contains `blurb`, `source`, and `source_url`
 * `<slug>.md` - contains the long-form description of the exercise
+* `<slug>.json` - contains standard test data for the exercise
 
-These get sewn into a README that gets delivered with the exercise.
+The .md and .yml are sewn into a README that gets delivered with the exercise.
+The .json can be used as a source of test cases for the test program.
+See [exercism/x-common/README.md](https://github.com/exercism/x-common/blob/master/README.md) for more details of the .json file.
 
 If you are adding an exercise that already exists in another language, then
 the metadata files will already be present.
