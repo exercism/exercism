@@ -11,12 +11,12 @@ namespace :xapi do
 
     Submission.create(user: user, language: 'go', slug: 'leap', code: '// iteration 1 (superseded)', state: 'superseded', filename: 'leap.go', created_at: 10.minutes.ago)
     Submission.create(user: user, language: 'go', slug: 'leap', code: '// iteration 2 (done)', state: 'done', filename: 'leap.go', created_at: 5.minutes.ago)
-    Submission.create(user: user, language: 'ruby', slug: 'anagram', code: '// iteration 1 (pending)', state: 'pending', filename: 'anagram.rb')
-    Submission.create(user: user, language: 'ruby', slug: 'word-count', code: '// iteration 1 (hibernating)', state: 'hibernating', filename: 'word-count.rb')
+    Submission.create(user: user, language: 'haskell', slug: 'list-ops', code: '// iteration 1 (pending)', state: 'pending', filename: 'ListOps.hs')
+    Submission.create(user: user, language: 'haskell', slug: 'word-count', code: '// iteration 1 (hibernating)', state: 'hibernating', filename: 'WordCount.hs')
 
     Hack::UpdatesUserExercise.new(user.id, 'go', 'leap').update
-    Hack::UpdatesUserExercise.new(user.id, 'ruby', 'anagram').update
-    Hack::UpdatesUserExercise.new(user.id, 'ruby', 'word-count').update
+    Hack::UpdatesUserExercise.new(user.id, 'haskell', 'list-ops').update
+    Hack::UpdatesUserExercise.new(user.id, 'haskell', 'word-count').update
   end
 end
 
