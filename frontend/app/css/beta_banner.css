@@ -1,0 +1,49 @@
+.beta-banner-wrapper {
+  right: 0;
+  width: 150px;
+  height: 150px;
+  position: fixed;
+  overflow: hidden;
+  top: inherit;
+  bottom: 0;
+  z-index: 999;
+  pointer-events: none;
+}
+.beta-banner {
+  top: 80px;
+  right: -43px;
+  background: #d35270; /* Old browsers */
+  background: -moz-linear-gradient(top,  #d35270 0%, #d60a3d 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#d35270), color-stop(100%,#d60a3d)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #d35270 0%,#d60a3d 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #d35270 0%,#d60a3d 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #d35270 0%,#d60a3d 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #d35270 0%,#d60a3d 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#d35270', endColorstr='#d60a3d',GradientType=0 ); /* IE6-9 */
+  position: absolute;
+  padding: 2px 0;
+  font: 700 13px "Helvetica Neue", Helvetica, Arial, sans-serif;
+  z-index: 999;
+  pointer-events: auto;
+  transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -o-transform: rotate(-45deg);
+  -webkit-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+  -moz-box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);
+}
+.beta-banner span {
+  color: #fff;
+  text-decoration: none;
+  text-shadow: 0 -1px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 200px;
+  line-height: 20px;
+  display: inline-block;
+  padding: 2px 0;
+  border-width: 1px 0;
+  border-style: dotted;
+  border-color: #fff;
+  border-color: rgba(255, 255, 255, 0.7);
+}
