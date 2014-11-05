@@ -1,0 +1,11 @@
+@import "compass/typography/text/replacement";
+
+#brand {
+  @include hide-text;
+  background: url('/img/e_small.png') center no-repeat;
+  min-width: 32px;
+  padding-left: 50px;
+  &:hover {
+    background: url('/img/e_red_small.png') center no-repeat;
+  }
+}

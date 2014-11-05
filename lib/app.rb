@@ -1,11 +1,7 @@
 require './config/build_id'
 require './config/bugsnag'
 require_relative 'exercism'
-require 'haml'
 
-require 'sass'
-require 'compass'
-require 'bootstrap-sass'
 require 'sinatra/petroglyph'
 require 'sinatra/reloader'
 require 'will_paginate'

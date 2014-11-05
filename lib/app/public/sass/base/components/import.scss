@@ -4,7 +4,6 @@
 @import 'progressbar';
 @import 'pygments';
 @import 'main';
-@import 'navbar';
-// TODO: Have layouts with IDs (Jalyna)
-@import 'home';
-@import 'error';
+@import 'brand';
+@import 'nav_bordered';
+@import 'pending_submission';

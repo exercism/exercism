@@ -58,3 +58,7 @@ db/*sqlite
 
 # ctags
 ./tags
+
+# compiled css
+lib/app/public/css
+!.application.css

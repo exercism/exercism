@@ -3,10 +3,10 @@
     <h1><%= profile.username %></h1>
   </section>
   <div class="row">
-    <div class="span8">
+    <div class="col-md-8">
       <p>GitHub Profile: <%= profile.github_link %></p>
       <h3>Exercises</h3>
-      <h6>Current</h6>
+      <h4>Current</h4>
       <% if profile.has_current_submissions? %>
         <table class="table table-bordered table-striped">
           <thead>
@@ -34,8 +34,8 @@
     </div>
   </div>
   <div class="row">
-    <div class="span12">
-      <h6>Completed</h6>
+    <div class="col-md-12">
+      <h4>Completed</h4>
       <% if profile.has_completed_submissions? %>
         <table class="table table-bordered table-striped">
           <col />

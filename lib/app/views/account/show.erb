@@ -3,25 +3,25 @@
     <h1>Account</h1>
   </section>
   <div class="row">
-    <div class="span8">
+    <div class="col-md-8">
       <h2>Teams</h2>
       <% if profile.has_teams? %>
-        <ul class="nav nav-tabs nav-stacked">
+        <ul class="nav nav-stacked nav-bordered">
           <% profile.teams.each do |team| %>
             <li>
               <% if team.unconfirmed_members.include?(profile.user) %>
-                <ul class="inline">
+                <ul class="list-inline">
                   <li style="padding-left: 0;"><%= team.name %></li>
                   <li>
                     <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
                       <input type="hidden" name="_method" value="put" />
-                      <input type="submit" name="update" value="Accept invitation" class="btn btn-mini btn-success"/>
+                      <input type="submit" name="update" value="Accept invitation" class="btn btn-xs btn-success"/>
                     </form>
                   </li>
                   <li>
                     <form action="<%= "/teams/#{team.slug}/leave" %>" method="post">
                       <input type="hidden" name="_method" value="put" />
-                      <input type="submit" name="update" value="Decline" class="btn btn-mini btn-danger"/>
+                      <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger"/>
                     </form>
                   </li>
                 </ul>
@@ -39,7 +39,7 @@
       <% end %>
 
       <h2>Exercises</h2>
-      <h6>Current</h6>
+      <h4>Current</h4>
       <% if profile.has_current_submissions? %>
         <table class="table table-bordered table-striped">
           <thead>
@@ -66,7 +66,7 @@
       <% end %>
 
       <% if profile.has_hibernating_submissions? %>
-        <h6>Hibernating</h6>
+        <h4>Hibernating</h4>
         <p>To make a hibernating exercise active again, either comment on it, or submit a new iteration.</p>
         <table class="table table-bordered table-striped">
           <thead>
@@ -91,7 +91,7 @@
       <% end %>
 
       <% if profile.has_completed_submissions? %>
-        <h6>Completed</h6>
+        <h4>Completed</h4>
         <table class="table table-bordered table-striped">
           <col />
           <col width="100%" />
@@ -122,14 +122,14 @@
 
     </div>
 
-    <div class="span4">
+    <div class="col-md-4">
       <dl>
         <dt>Api key:</dt>
         <dd>
           <%= current_user.key %>
           <form action="/me/uuid/reset" method="post">
             <input type="hidden" name="_method" value="put">
-            <input type="submit" value="reset">
+            <input type="submit" value="reset" class="btn btn-default">
           </form>
         </dd>
       </dl>
@@ -137,11 +137,11 @@
         <a href="https://github.com/settings/profile">GitHub</a>.</p>
       <p>
         The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
-        <form action="/account/email" method="post">
+        <form action="/account/email" method="post" class="form-inline">
           <input type="hidden" name="_method" value="put" />
-          <div class="input-append">
-            <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
-            <input type="submit" name="update" value="Update" class="btn" />
+          <div class="form-group">
+            <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" class="form-control" />
+            <input type="submit" name="update" value="Update" class="btn btn-default" />
           </div>
         </form>
       </p>

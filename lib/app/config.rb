@@ -1,4 +1,5 @@
 require 'bootstrap-sass'
+require 'font-awesome-sass'
 
 # Set this to the root of your project when deployed:
 http_path = "/"
