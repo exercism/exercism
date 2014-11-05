@@ -139,6 +139,12 @@ class AttemptTest < Minitest::Test
     assert second_attempt.duplicate?
   end
 
+  def test_does_not_reject_empty_first_submission_as_duplicate
+    attempt = Attempt.new(user, "", 'ruby/two/two.rb').save
+
+    refute attempt.duplicate?
+  end
+
   def test_no_reject_without_previous
     attempt = Attempt.new(user, "CODE", 'ruby/two/two.rb')
     refute attempt.duplicate?

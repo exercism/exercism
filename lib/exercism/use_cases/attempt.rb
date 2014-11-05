@@ -48,7 +48,7 @@ class Attempt
   end
 
   def duplicate?
-    previous_submission.code == code
+    !code.empty? && previous_submission.code == code
   end
 
   def previous_submissions
