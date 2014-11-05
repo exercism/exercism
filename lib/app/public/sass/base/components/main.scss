@@ -1,13 +1,3 @@
-/*
----------------------------------
-| Exercism.IO # Styles
----------------------------------
-*/
-
-/*
-| Modular UI
---------------------------------- */
-
 .contain-centered {
   text-align: center;
 }
@@ -17,163 +7,14 @@
   margin: 20px auto;
 }
 
+// TODO: Use bootstrap's sr-only (Jalyna)
 .screen-reader-text {
   position: absolute;
   top: -9999px;
   left: -9999px;
 }
 
-/*
-| Nav
---------------------------------- */
-
-.navbar .brand {
-  padding-right: 0;
-  padding-left: 0;
-}
-
-.navbar .nav > li > a {
-  padding-top: 14px;
-}
-
-div.navbar-inner {
-  padding-right: 3em;
-  padding-left: 2em;
-}
-
-@media (max-width: 979px) {
-  .navbar .nav > li:first-child > a {
-    margin-left: 0;
-  }
-}
-
-.navbar .navbar-inner > a.btn-navbar {
-  margin-top: 8px;
-}
-
-/*
-| Home
---------------------------------- */
-
-div.home-top {
-  background: #D81D4E;
-  box-shadow: 0 10px 0 #f1f1f1;
-  min-height: 300px;
-  min-width: 100%;
-  padding: 40px 0;
-}
-
-h2.home-top-header {
-  color: white;
-  letter-spacing: -0.05em;
-  margin-bottom: 0px;
-}
-
-p.home-top-subheader {
-  color: rgba(0,0,0,0.3);
-  letter-spacing: -0.08em;
-  font-family: 'Source Code Pro', sans-serif;
-}
-
-.btn-large.home {
-  background: #770428;
-  font-family: 'Source Code Pro', sans-serif;
-  font-variant: small-caps;
-  display: block;
-  margin: 0 auto;
-  position: relative;
-  text-align: center;
-  margin-bottom: 30px;
-  margin-top: 30px;
-  width: 200px;
-  border-radius: 0;
-  -moz-border-radius: 0;
-  -webkit-border-radius: 0;
-}
-
-.home-third-subheader {
-  background: #eee;
-  color: #575757;
-  display: inline-block;
-  padding: 7px 10px;
-  text-shadow: 0 -1px 0 rgba(255,255,255,0.9);
-}
-
-.home-p-text {
-  line-height: 26px;
-}
-
-.home img.medallion {
-  display: block;
-  margin: 0 auto;
-  height: 100px;
-}
-
-.home h2, .home p {
-  text-align: center;
-}
-
-.content-primary {
-  padding-top: 2em;
-  padding-bottom: 3em;
-}
-
-.content-secondary {
-  border-top: 1px solid #d8d8d8;
-  padding: 2.5em 0 6em 0; }
-
-.content-secondary-details pre {
-  background: #eee;
-}
-
-/*
-| Error Page
---------------------------------- */
-
-.error-page-container {
-  margin: 70px auto;
-  max-width: 700px;
-}
-
-.error-page-container img {
-  height: 150px;
-  margin: 40px auto;
-  transform: rotate(45deg);
-  -webkit-transform: rotate(45deg);
-  -moz-transform: rotate(45deg);
-  -ms-transform: rotate(45deg);
-  width: 150px;
-}
-
-.error-page-container p {
-  line-height: 30px;
-}
-
-.error-page-featured-message {
-  display: inline-block;
-  font-size: 18px;
-  font-style: italic;
-}
-
-.four-zero-four {
-  font-size: 70px; 
-  line-height: 150px;
-  margin: 50px 0;
-}
-
-.four-zero-four span {
-  background: url('/img/e.png') no-repeat;
-  background-size: cover;
-  display: inline-block;
-  height: 150px;
-  margin: 0 10px;
-  text-indent: -9999px;
-  width: 150px;
-}
-
-
-/*APPLICATION*/
-
+// TODO clean up (Jalyna)
 .pending-submission {
   padding-top: 10px;
   padding-bottom: 10px;
