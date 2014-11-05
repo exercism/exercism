@@ -1,0 +1,8 @@
+// Global variables (not the theme)
+@import 'variables';
+// Bootstrap Theme
+@import 'themes/exercism';
+// Global mixins (e.g. for variants)
+@import 'mixins/import';
+// Self made components like the ribbon
+@import 'components/import';

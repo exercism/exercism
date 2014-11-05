@@ -3,7 +3,11 @@ require './config/bugsnag'
 require_relative 'exercism'
 require 'haml'
 
+require 'sass'
+require 'compass'
+require 'bootstrap-sass'
 require 'sinatra/petroglyph'
+require 'sinatra/reloader'
 require 'will_paginate'
 require 'will_paginate/active_record'
 
@@ -27,10 +31,16 @@ module ExercismWeb
     configure do
       enable :sessions
       set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
+      #Compass.configuration do |config|
+      #  config.project_path = File.dirname(__FILE__)
+      #  config.sass_dir = 'public/sass'
+      #end
+      #set :scss, Compass.sass_engine_options
     end
 
     if settings.development?
       use Routes::Backdoor
+      register Sinatra::Reloader
     end
 
     use Routes::Static
