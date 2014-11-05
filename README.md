@@ -83,6 +83,10 @@ get a feel for the rhythm that Test-Driven Development gives you.
 3. `cd frontend` and start lineman with `lineman run`
   * note lineman watches for file changes and compiles them automatically, it is not required to be running for the server to run
 
+### CSS
+1. `compass watch lib/app`
+2. to compile `compass compile lib/app`
+
 ## Sending Emails
 
 If you want to send emails, you will need to fill out the relevant environment variables in `.env` and uncomment the lines so that the variables get exported.

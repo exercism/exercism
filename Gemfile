@@ -22,9 +22,15 @@ gem 'rake'
 gem 'redcarpet', '~> 3.1'
 gem 'rouge', '~> 1.3'
 gem 'sinatra', '~> 1.4.4', require: 'sinatra/base'
+gem 'sinatra-contrib'
 gem 'sidekiq'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+
+# Frontend Gems
+gem 'sass'
+gem 'compass'
+gem 'bootstrap-sass'
 
 group :test, :development do
   # gem 'ruby-prof', '~> 0.14'
