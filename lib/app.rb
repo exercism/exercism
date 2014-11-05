@@ -31,11 +31,6 @@ module ExercismWeb
     configure do
       enable :sessions
       set :session_secret, ENV.fetch('SESSION_SECRET') { "Need to know only." }
-      #Compass.configuration do |config|
-      #  config.project_path = File.dirname(__FILE__)
-      #  config.sass_dir = 'public/sass'
-      #end
-      #set :scss, Compass.sass_engine_options
     end
 
     if settings.development?
