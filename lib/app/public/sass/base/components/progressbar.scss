@@ -8,60 +8,53 @@
 
 ul.progress-bar {
   margin: 0 20px;
-}
-
-ul.progress-bar li {
-  color: #afb4bc;
-  display: block;
-  font-size: 16px;
-  text-align: center;
-  padding: 14px 20px 14px 80px;
-  position: relative;
-}
-
-ul.progress-bar li:before {
-  background: #e1e4e9;
-  border: 2px solid #FFF;
-  border-radius: 50%;
-  color: #afb4bc;
-  font-size: 16px;
-  left: 20px;
-  line-height: 37px;
-  height: 35px;
-  position: absolute;
-  top: 4px;
-  width: 35px;
-  z-index: 999;
-}
-
-ul.progress-bar li.active {
-  font-weight: 700;
-  background: #eef1f6;
-}
-
-ul.progress-bar li.visited:before {
-  color: #fff;
-  background: #d81d4e;
-}
-
-ul.progress-bar li:nth-child(1):before {
-  content: "1";
-}
-
-ul.progress-bar li:nth-child(2):before {
-  content: "2";
-}
-
-ul.progress-bar li:nth-child(3):before {
-  content: "3";
-}
-
-ul.progress-bar li:nth-child(4):before {
-  content: "4";
+  li {
+    color: #afb4bc;
+    display: block;
+    font-size: 16px;
+    text-align: center;
+    padding: 14px 20px 14px 80px;
+    position: relative;
+    &.active {
+      font-weight: 700;
+      background: #eef1f6;
+    }
+    &:before {
+      background: #e1e4e9;
+      border: 2px solid #FFF;
+      border-radius: 50%;
+      color: #afb4bc;
+      font-size: 16px;
+      left: 20px;
+      line-height: 37px;
+      height: 35px;
+      position: absolute;
+      top: 4px;
+      width: 35px;
+      z-index: 999;
+    }
+    &.visited:before {
+      color: #fff;
+      background: #d81d4e;
+    }
+    // TODO: Use CSS Counter (Jalyna)
+    &:nth-child(1):before {
+      content: "1";
+    }
+    &:nth-child(2):before {
+      content: "2";
+    }
+    &:nth-child(3):before {
+      content: "3";
+    }
+    &:nth-child(4):before {
+      content: "4";
+    }
+  }
 }
 
 @media all and (min-width: 800px) {
-  .progress-bar li.active:after {
+  .progress-bar li .active:after {
     content: "";
     height: 15px;
     width: 100%;
