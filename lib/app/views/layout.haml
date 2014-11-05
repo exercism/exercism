@@ -28,7 +28,7 @@
           %span.icon-bar
         %a.brand{href: '/'}
           %img{width: '25', src: link_to('/img/e.png')}
-        = erb :nav
+        = erb :"application/_nav"
 
     - [:notice, :error, :alert, :success].each do |level|
       - unless flash[level].blank?
