@@ -84,11 +84,11 @@
 
 
         <a class="btn btn-default" data-action="enlarge">
-          <i class="icon-resize-full"></i>
+          <i class="fa fa-expand"></i>
         </a>
         <a class="btn btn-default" href="#" title="Copy to clipboard" id="copy-code"><img src="/icons/paste.svg" class="clipboard-paste" alt="Copy to clipboard"></a>
         <a style="display: none;" class="btn" data-action="shrink">
-          <i class="icon-resize-small"></i>
+          <i class="fa fa-compress"></i>
         </a>
         <br />
 
@@ -120,13 +120,13 @@
         <% if can_mute?(submission, current_user) %>
           <form accept-charset="UTF-8" action="<%= mute_button_action_for(submission, current_user) %>" method="POST" style="display: inline; float: right;">
             <% if submission.muted_by?(current_user) %>
-            <button type="submit" class="btn btn-default unmute-btn"><i class="icon-microphone"></i>unmute</button>
+            <button type="submit" class="btn btn-default unmute-btn"><i class="fa fa-microphone"></i>unmute</button>
             <% else %>
-            <button type="submit" class="btn btn-default mute-btn"><i class="icon-microphone-off"></i>mute</button>
+            <button type="submit" class="btn btn-default mute-btn"><i class="fa fa-microphone-slash"></i>mute</button>
             <% end %>
 
             <% if next_submission %>
-              <a href="/submissions/<%= next_submission.key %>" class="btn btn-default next-submission">Next Submission <i class="icon-arrow-right"></i></a>
+              <a href="/submissions/<%= next_submission.key %>" class="btn btn-default next-submission">Next Submission <i class="fa fa-arrow-right"></i></a>
             <% end %>
           </form>
         <% end %>

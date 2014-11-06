@@ -30,6 +30,7 @@ gem 'will_paginate-bootstrap'
 gem 'sass'
 gem 'compass'
 gem 'bootstrap-sass'
+gem 'font-awesome-sass'
 
 group :test, :development do
   # gem 'ruby-prof', '~> 0.14'
