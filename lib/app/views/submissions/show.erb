@@ -31,7 +31,7 @@
           <% if s == submission %>
             <span class="btn btn-link btn-no-link"><%= s.version %></span>
           <% elsif s.comments.to_a.length == 0  && submission.user_exercise.submissions.last != s %>
-            <a class="btn btn-deemphasized" href="/submissions/<%= s.key %>"> <%= s.version %></a>
+            <a class="btn btn-default btn-deemphasized" href="/submissions/<%= s.key %>"> <%= s.version %></a>
           <% else %>
             <a class="btn btn-default" href="/submissions/<%= s.key %>"> <%= s.version %></a>
           <% end %>
@@ -56,7 +56,7 @@
 
           <% unless current_user.nitpicker_on?(submission.problem) %>
             <form accept-charset="UTF-8" action="/exercises/<%= submission.track_id %>/<%= submission.slug %>" method="POST">
-              <button type="submit" name="unlock" class="unlock-nitpicking" class="btn">Unlock Nitpicking</button>
+              <button type="submit" name="unlock" class="unlock-nitpicking btn btn-default">Unlock Nitpicking</button>
             </form>
           <% end %>
 
@@ -83,10 +83,10 @@
         <%= like_submission_button(submission, current_user) %>
 
 
-        <a class="btn" data-action="enlarge">
+        <a class="btn btn-default" data-action="enlarge">
           <i class="icon-resize-full"></i>
         </a>
-        <a class="btn" href="#" title="Copy to clipboard" id="copy-code"><img src="/icons/paste.svg" class="clipboard-paste" alt="Copy to clipboard"></a>
+        <a class="btn btn-default" href="#" title="Copy to clipboard" id="copy-code"><img src="/icons/paste.svg" class="clipboard-paste" alt="Copy to clipboard"></a>
         <a style="display: none;" class="btn" data-action="shrink">
           <i class="icon-resize-small"></i>
         </a>
@@ -120,13 +120,13 @@
         <% if can_mute?(submission, current_user) %>
           <form accept-charset="UTF-8" action="<%= mute_button_action_for(submission, current_user) %>" method="POST" style="display: inline; float: right;">
             <% if submission.muted_by?(current_user) %>
-            <button type="submit" class="btn unmute-btn"><i class="icon-microphone"></i>unmute</button>
+            <button type="submit" class="btn btn-default unmute-btn"><i class="icon-microphone"></i>unmute</button>
             <% else %>
-            <button type="submit" class="btn mute-btn"><i class="icon-microphone-off"></i>mute</button>
+            <button type="submit" class="btn btn-default mute-btn"><i class="icon-microphone-off"></i>mute</button>
             <% end %>
 
             <% if next_submission %>
-              <a href="/submissions/<%= next_submission.key %>" class="btn next-submission">Next Submission <i class="icon-arrow-right"></i></a>
+              <a href="/submissions/<%= next_submission.key %>" class="btn btn-default next-submission">Next Submission <i class="icon-arrow-right"></i></a>
             <% end %>
           </form>
         <% end %>

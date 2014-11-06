@@ -15,13 +15,13 @@
                   <li>
                     <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
                       <input type="hidden" name="_method" value="put" />
-                      <input type="submit" name="update" value="Accept invitation" class="btn btn-mini btn-success"/>
+                      <input type="submit" name="update" value="Accept invitation" class="btn btn-xs btn-success"/>
                     </form>
                   </li>
                   <li>
                     <form action="<%= "/teams/#{team.slug}/leave" %>" method="post">
                       <input type="hidden" name="_method" value="put" />
-                      <input type="submit" name="update" value="Decline" class="btn btn-mini btn-danger"/>
+                      <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger"/>
                     </form>
                   </li>
                 </ul>
@@ -141,7 +141,7 @@
           <input type="hidden" name="_method" value="put" />
           <div class="input-append">
             <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
-            <input type="submit" name="update" value="Update" class="btn" />
+            <input type="submit" name="update" value="Update" class="btn btn-default" />
           </div>
         </form>
       </p>
