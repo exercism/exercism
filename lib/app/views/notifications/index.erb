@@ -3,7 +3,7 @@
     <h1>Notifications (<%= inbox.count %>)</h1>
   </section>
   <div class="row">
-    <div class="span12">
+    <div class="col-md-12">
 
       <% if inbox.has_notifications? %>
       <form action="/notifications/read" method='POST' style="float: right; margin: 18px 120px 0 0;">

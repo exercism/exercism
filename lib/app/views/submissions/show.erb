@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="span11">
+    <div class="col-md-11">
       <%= erb :"submissions/byline", locals: {problem: submission.problem, user: submission.user} %>
       <p><% if current_user.owns?(submission) %>
         <%= sharing.twitter_link(submission) %>
@@ -68,7 +68,7 @@
 
   <div class="row">
 
-    <div id="current_submission" class="code span6">
+    <div id="current_submission" class="code col-md-6">
       <h2>
         Code
         <small><a href="/exercises/<%= submission.track_id %>/<%= submission.slug %>/readme">Readme</a></small>
@@ -102,7 +102,7 @@
       <br/>
     </div>
 
-    <div class="comments span6">
+    <div class="comments col-md-6">
 
       <% if submission.comments.empty? %>
         <% if current_user.is?(submission.user.username) %>

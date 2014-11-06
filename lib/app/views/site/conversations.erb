@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row" style="margin-top: 40px;">
-    <div class="span2">
+    <div class="col-md-2">
       <div class="tabbable tabs-left">
         <ul class="nav nav-pills nav-stacked">
           <% iterations.each do |iteration| %>
@@ -13,7 +13,7 @@
         </ul>
       </div>
     </div>
-    <div class="span10">
+    <div class="col-md-10">
       <div class="tab-content">
         <% iterations.each do |iteration| %>
           <div class="<%= (iteration.number == 1 ? "active" : '') %> tab-pane" id="tab<%= iteration.number %>">

@@ -1,4 +1,4 @@
-<div class="pending-submission span8"
+<div class="pending-submission col-md-8"
   data-user="<%= submission.user.username %>"
   data-exercise="<%= submission.slug %>"
   data-language="<%= submission.track_id %>"
@@ -6,11 +6,11 @@
   data-versions="<%= submission.version %>"
   data-url="/submissions/<%= submission.key %>">
 
-  <h3 class="span8">
+  <h3 class="col-md-8">
     <a href="/submissions/<%= submission.key %>"><%= submission.slug %></a>
   </h3>
 
-  <div class="user span4">
+  <div class="user col-md-4">
     <h3>
       <small>
         <div class="avatar">
@@ -22,16 +22,16 @@
     </h3>
   </div>
 
-  <div class="nits circle span1">
+  <div class="nits circle col-md-1">
     <%= submission.nit_count %>
   </div>
 
-  <div class="versions circle span1">
+  <div class="versions circle col-md-1">
     <%= submission.version %>
   </div>
 
   <% if submission.liked? %>
-    <div class="circle span1">
+    <div class="circle col-md-1">
       <i class="icon-ok"></i>
     </div>
   <% end %>

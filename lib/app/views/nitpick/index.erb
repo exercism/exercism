@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <br>
-    <aside class="span4">
+    <aside class="col-md-4">
       <nav>
         <ul class="nav nav-tabs nav-stacked">
           <% if language %>
@@ -22,7 +22,7 @@
       </br>
     </aside>
 
-    <main id="pending-submissions" class="span8">
+    <main id="pending-submissions" class="col-md-8">
     <% if show_pending_submissions?(language) %>
       <%= erb :"nitpick/pending", locals: {submissions: submissions, language: language} %>
     <% end %>
