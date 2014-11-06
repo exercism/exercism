@@ -90,7 +90,7 @@ ul.progress-bar {
     height: 15px;
     left: 0;
     position: absolute;
-    width: 10%;
+    width: 11%;
   }
 
   ul.progress-bar li {
@@ -103,8 +103,9 @@ ul.progress-bar {
 
   ul.progress-bar li:before {
     height: 45px;
-    left: 35%;
+    left: 50%;
     line-height: 45px;
+    margin-left: -22.5px;
     position: absolute;
     top: -65px;
     width: 45px;
@@ -121,6 +122,7 @@ ul.progress-bar {
     content: "";
     height: 15px;
     left: 50%;
+    margin-left: 22.5px;
     position: absolute;
     top: -50px;
     width: 100%;
