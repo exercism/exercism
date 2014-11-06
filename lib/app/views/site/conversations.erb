@@ -1,0 +1,44 @@
+<div class="container">
+  <div class="row" style="margin-top: 40px;">
+    <div class="span2">
+      <div class="tabbable tabs-left">
+        <ul class="nav nav-pills nav-stacked">
+          <% iterations.each do |iteration| %>
+            <li class="<%= (iteration.number == 1 ? 'active' : '') %>">
+              <a data-toggle="tab" href="#tab<%= iteration.number %>">
+                <%= "Iteration #{iteration.number}" %>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+    <div class="span10">
+      <div class="tab-content">
+        <% iterations.each do |iteration| %>
+          <div class="<%= (iteration.number == 1 ? "active" : '') %> tab-pane" id="tab<%= iteration.number %>">
+            <%= md(iteration.code, iteration.language) %>
+            <div class="comments" style="margin-top: 20px;">
+              <% iteration.comments.each do |comment| %>
+                <div class="media">
+                  <a class="pull-left">
+                    <img class="media-object" src="/img/<%= comment.avatar %>" width="48"/>
+                  </a>
+                  <div class="media-body">
+                    <h4 class="media-heading">
+                      <%= comment.username %>
+                      <small class="label">(style="position: relative; bottom: 2px;")
+                        <%= comment.author? ? 'author' : 'peer' %>
+                      </small>
+                    </h4>
+                    <%= md(comment.text) %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,7 +1,6 @@
 require './config/build_id'
 require './config/bugsnag'
 require_relative 'exercism'
-require 'haml'
 
 require 'sass'
 require 'compass'
