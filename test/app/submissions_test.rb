@@ -400,4 +400,38 @@ class SubmissionsTest < Minitest::Test
     delete "/submissions/#{sub.key}", {}, login(alice)
     assert_equal nil, Notification.find_by_id(note.id)
   end
+
+  def test_closing_exercise_for_submission_that_needs_input_changes_state_to_done
+    data = {
+      user: bob,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    s1 = Submission.create(data.merge(state: 'needs_input', created_at: Time.now - 5))
+    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
+
+    post "/submissions/#{s1.key}/done", {}, login(bob)
+
+    assert_equal 'done', s1.reload.state
+  end
+
+  def test_posting_a_new_submission_changes_the_state_of_the_previous_submission
+    data = {
+      user: bob,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count',
+      filename: 'word-count.rb',
+    }
+
+    s1 = Submission.create(data.merge(state: 'needs_input', created_at: Time.now - 5))
+    s2 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 4))
+    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
+
+    post "/submissions/#{s2.key}/done", {}, login(bob)
+
+    assert_equal 'superseded', s1.reload.state
+  end
 end
