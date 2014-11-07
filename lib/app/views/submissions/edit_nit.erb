@@ -4,16 +4,17 @@
   </section>
   <section>
     <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
-      <textarea name="body" class="span6 offset3" rows="10"><%= nit.body %></textarea>
-      <div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
+      <%= erb :"submissions/comment", locals: {nit: nit} %>
+      <button type="submit" name="nitpick" class="btn btn-primary">Update</button>
     </form>
+
     <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
       <input type="hidden" name="_method" value="delete">
       <div>
         <button type="submit" class="btn btn-danger" name="delete">Delete</button>
       </div>
     </form>
+
+    <span>Parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></span>
   </section>
 </div>
