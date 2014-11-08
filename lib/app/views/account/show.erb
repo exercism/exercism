@@ -6,7 +6,7 @@
     <div class="col-md-8">
       <h2>Teams</h2>
       <% if profile.has_teams? %>
-        <ul class="nav nav-tabs nav-stacked">
+        <ul class="nav nav-stacked nav-bordered">
           <% profile.teams.each do |team| %>
             <li>
               <% if team.unconfirmed_members.include?(profile.user) %>
