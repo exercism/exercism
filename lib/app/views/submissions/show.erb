@@ -1,71 +1,68 @@
 <div class="container">
-  <div class="row">
-    <div class="col-md-11">
-      <%= erb :"submissions/byline", locals: {problem: submission.problem, user: submission.user} %>
-      <p><% if current_user.owns?(submission) %>
-        <%= sharing.twitter_link(submission) %>
+  <%= erb :"submissions/byline", locals: {problem: submission.problem, user: submission.user} %>
+  <p><% if current_user.owns?(submission) %>
+    <%= sharing.twitter_link(submission) %>
+  <% end %>
+  </p>
+
+  <p>Submitted <%= ago(submission.created_at) %>.</p>
+  <p><%= view_count_for(submission) %>.</p>
+  <p>
+    Iteration <b><%= submission.version %></b> of <b><%= submission.user_exercise.iteration_count %></b>.
+    <% if submission.exercise_completed? %>
+      This exercise has been completed.
+      <% if submission.user.is?(current_user.username) %>
+        <p>See <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.</p>
+        <p>View <a href="<%= language_path_for_slug(submission.language, submission.slug) %>">all other solutions</a> to this problem.</p>
       <% end %>
-      </p>
+    <% elsif submission.exercise_hibernating? %>
+      This exercise is hibernating.
+      <% if current_user.owns?(submission) %>
+      To take the submission back out of hibernation either respond to the nitpicks, or submit a new version.
+      <% end %>
+    <% else %>
+      This exercise is still in progress.
+    <% end %>
+  </p>
+  <p> 
+    View iteration:
+    <% submission.user_exercise.submissions.each do |s| %>
+      <% if s == submission %>
+        <span class="btn btn-link btn-no-link"><%= s.version %></span>
+      <% elsif s.comments.to_a.length == 0  && submission.user_exercise.submissions.last != s %>
+        <a class="btn btn-default btn-deemphasized" href="/submissions/<%= s.key %>"> <%= s.version %></a>
+      <% else %>
+        <a class="btn btn-default" href="/submissions/<%= s.key %>"> <%= s.version %></a>
+      <% end %>
+    <% end %>
 
-      <p>Submitted <%= ago(submission.created_at) %>.</p>
-      <p><%= view_count_for(submission) %>.</p>
-      <p>
-        Iteration <b><%= submission.version %></b> of <b><%= submission.user_exercise.iteration_count %></b>.
-        <% if submission.exercise_completed? %>
-          This exercise has been completed.
-          <% if submission.user.is?(current_user.username) %>
-            <p>See <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.</p>
-            <p>View <a href="<%= language_path_for_slug(submission.language, submission.slug) %>">all other solutions</a> to this problem.</p>
-          <% end %>
-        <% elsif submission.exercise_hibernating? %>
-          This exercise is hibernating.
-          <% if current_user.owns?(submission) %>
-          To take the submission back out of hibernation either respond to the nitpicks, or submit a new version.
-          <% end %>
-        <% else %>
-          This exercise is still in progress.
-        <% end %>
-      </p>
-      <p> View iteration:
-        <% submission.user_exercise.submissions.each do |s| %>
-          <% if s == submission %>
-            <span class="btn btn-link btn-no-link"><%= s.version %></span>
-          <% elsif s.comments.to_a.length == 0  && submission.user_exercise.submissions.last != s %>
-            <a class="btn btn-default btn-deemphasized" href="/submissions/<%= s.key %>"> <%= s.version %></a>
-          <% else %>
-            <a class="btn btn-default" href="/submissions/<%= s.key %>"> <%= s.version %></a>
-          <% end %>
-        <% end %>
+    <% if current_user.owns?(submission) %>
+      <br />
+      <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>" method="POST">
+        <input type="hidden" name="_method" value="delete">
+        <button type="submit" class="btn btn-danger" name="delete" onclick="return confirm('Are you sure you want to delete?');">Delete Submission?</button>
+      </form>
 
-        <% if current_user.owns?(submission) %>
-          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>" method="POST">
-            <input type="hidden" name="_method" value="delete">
-            <button type="submit" class="btn btn-danger" name="delete" onclick="return confirm('Are you sure you want to delete?');">Delete Submission?</button>
-          </form>
+      <% if submission.user.completed?(submission.problem) %>
+        <br />
+        <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/reopen" method="POST">
+          <button type="submit" name="reopen" class="btn btn-default">Reopen Exercise</button>
+        </form>
+      <% else %>
+        <br />
+        <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/done" method="POST">
+          <button type="submit" name="done" class="btn btn-default">OK, I'm done. I don't need any more feedback on this.</button>
+        </form>
+      <% end %>
 
-
-          <% if submission.user.completed?(submission.problem) %>
-            <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/reopen" method="POST">
-              <button type="submit" name="reopen" class="btn btn-default">Reopen Exercise</button>
-            </form>
-          <% else %>
-            <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/done" method="POST">
-              <button type="submit" name="done" class="btn btn-default">OK, I'm done. I don't need any more feedback on this.</button>
-            </form>
-          <% end %>
-
-          <% unless current_user.nitpicker_on?(submission.problem) %>
-            <form accept-charset="UTF-8" action="/exercises/<%= submission.track_id %>/<%= submission.slug %>" method="POST">
-              <button type="submit" name="unlock" class="unlock-nitpicking btn btn-default">Unlock Nitpicking</button>
-            </form>
-          <% end %>
-
-        <% end %>
-
-      </p>
-    </div>
-  </div>
-
+      <% unless current_user.nitpicker_on?(submission.problem) %>
+        <br />
+        <form accept-charset="UTF-8" action="/exercises/<%= submission.track_id %>/<%= submission.slug %>" method="POST">
+          <button type="submit" name="unlock" class="unlock-nitpicking btn btn-default">Unlock Nitpicking</button>
+        </form>
+      <% end %>
+    <% end %>
+  </p>
   <div class="row">
 
     <div id="current_submission" class="code col-md-6">
@@ -81,13 +78,11 @@
 
       <div class"btn-group">
         <%= like_submission_button(submission, current_user) %>
-
-
-        <a class="btn btn-default" data-action="enlarge">
+        <a class="btn btn-default" data-action="enlarge" data-new-class="col-md-12" data-old-class="col-md-6">
           <i class="fa fa-expand"></i>
         </a>
         <a class="btn btn-default" href="#" title="Copy to clipboard" id="copy-code"><img src="/icons/paste.svg" class="clipboard-paste" alt="Copy to clipboard"></a>
-        <a style="display: none;" class="btn" data-action="shrink">
+        <a style="display: none;" class="btn" data-action="shrink"  data-new-class="col-md-6" data-old-class="col-md-12">
           <i class="fa fa-compress"></i>
         </a>
         <br />
