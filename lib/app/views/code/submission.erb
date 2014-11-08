@@ -1,6 +1,6 @@
 <div <%= "id='#{html[:id]}'" if html[:id] %>
   <%= "style='#{html[:style]}'" if html[:style] %>
-  class="revision code span6">
+  class="revision code col-md-6">
   <h2>
     <a href="/submissions/<%= submission.key %>">
       <%= title %>
@@ -18,11 +18,11 @@
     </small>
   </h3>
   <div class"btn-group">
-    <a class="btn" data-action="enlarge">
-      <i class="icon-resize-full"></i>
+    <a class="btn btn-default" data-action="enlarge">
+      <i class="fa fa-expand"></i>
     </a>
-    <a style="display: none;" class="btn" data-action="shrink">
-      <i class="icon-resize-small"></i>
+    <a style="display: none;" class="btn btn-default" data-action="shrink">
+      <i class="fa fa-compress"></i>
     </a>
     <br />
   </div>

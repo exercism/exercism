@@ -4,8 +4,15 @@
   </section>
   <section>
     <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
+<<<<<<< HEAD
       <%= erb :"submissions/comment", locals: {nit: nit} %>
       <button type="submit" name="nitpick" class="btn btn-primary">Update</button>
+=======
+      <textarea name="body" class="col-md-6 col-md-offset-3" rows="10"><%= nit.body %></textarea>
+      <div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+>>>>>>> Migrate bootstrap grid
     </form>
 
     <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>

@@ -16,6 +16,7 @@
     <% end %>
 
     <%= erb :"submissions/comment" %>
+    <br />
     <% if current_user.owns?(submission) %>
       <button type="submit" name="nitpick" class="pull-right btn btn-primary">Submit Comment</button>
     <% else %>

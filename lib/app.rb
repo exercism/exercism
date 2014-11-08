@@ -1,9 +1,9 @@
 require './config/build_id'
 require './config/bugsnag'
 require_relative 'exercism'
-require 'haml'
 
 require 'sinatra/petroglyph'
+require 'sinatra/reloader'
 require 'will_paginate'
 require 'will_paginate/active_record'
 
@@ -31,6 +31,7 @@ module ExercismWeb
 
     if settings.development?
       use Routes::Backdoor
+      register Sinatra::Reloader
     end
 
     use Routes::Static

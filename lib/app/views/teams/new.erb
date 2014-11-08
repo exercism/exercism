@@ -4,30 +4,30 @@
   </section>
   <section>
     <div class="row">
-      <div class="span8">
-        <form accept-charset="UTF-8" action="/teams" method="POST">
+      <div class="col-md-8">
+        <form accept-charset="UTF-8" action="/teams" method="POST" class="form-horizontal">
           <% team.errors.full_messages.each do |error| %>
           <p class="error"><%= error %></p>
           <% end %>
-          <div class="control-group">
-            <label class="control-label" for="team_slug">Slug</label>
-            <div class="controls">
-              <input type="text" name="team[slug]" id="team_slug" placeholder="e.g.,  gocowboys" value="<%= team.slug %>">
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="team_slug">Slug</label>
+            <div class="col-sm-9">
+              <input type="text" name="team[slug]" id="team_slug" placeholder="e.g.,  gocowboys" value="<%= team.slug %>" class="form-control">
             </div>
           </div>
-          <div class="control-group">
-            <label class="control-group" for="team_name">Name (optional; defaults to slug)</label>
-            <div class="controls">
-              <input type="text" name="team[name]" id="team_name" placeholder="e.g.,  Go Cowboys" value="<%= team.name %>">
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="team_name">Name (optional; defaults to slug)</label>
+            <div class="col-sm-9">
+              <input type="text" name="team[name]" id="team_name" placeholder="e.g.,  Go Cowboys" value="<%= team.name %>" class="form-control">
             </div>
           </div>
-          <div class="control-group">
-            <label class="control-group" for="team_usernames">Usernames (comma-separated list)</label>
-            <div class="controls">
-              <textarea rows="5" name="team[usernames]" id="team_usernames" placeholder="e.g.,  kytrinyx, seeflanigan, rubysolo, theotherzach"><%= team.usernames.join(", ") %></textarea>
+          <div class="form-group">
+            <label class="control-label col-sm-3" for="team_usernames">Usernames (comma-separated list)</label>
+            <div class="col-sm-9">
+              <textarea rows="5" class="form-control" name="team[usernames]" id="team_usernames" placeholder="e.g.,  kytrinyx, seeflanigan, rubysolo, theotherzach"><%= team.usernames.join(", ") %></textarea>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Save</button>
+          <div class="col-sm-offset-3"><button type="submit" class="btn btn-primary">Save</button></div>
         </form>
       </div>
     </div>

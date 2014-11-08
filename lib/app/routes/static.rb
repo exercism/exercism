@@ -18,7 +18,7 @@ module ExercismWeb
       end
 
       get '/getting-started' do
-        haml :"site/getting-started", locals: {languages: current_languages}
+        erb :"site/getting-started", locals: {languages: current_languages}
       end
 
       get '/bork' do
