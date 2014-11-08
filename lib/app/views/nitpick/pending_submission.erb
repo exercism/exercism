@@ -1,4 +1,4 @@
-<div class="pending-submission col-md-8"
+<div class="pending-submission"
   data-user="<%= submission.user.username %>"
   data-exercise="<%= submission.slug %>"
   data-language="<%= submission.track_id %>"
@@ -6,32 +6,30 @@
   data-versions="<%= submission.version %>"
   data-url="/submissions/<%= submission.key %>">
 
-  <h3 class="col-md-8">
+  <h3>
     <a href="/submissions/<%= submission.key %>"><%= submission.slug %></a>
   </h3>
 
-  <div class="user col-md-4">
-    <h3>
-      <small>
-        <div class="avatar">
-        <%= gravatar_tag submission.user.avatar_url, size: 30 %>
-        </div>
+  <div class="user col-md-7">
+    <div class="avatar pull-left">
+      <%= gravatar_tag submission.user.avatar_url, size: 30 %>
+    </div>
+    <div class="h5 muted">
       <%= submission.user.username %>
       submitted this exercise <%= ago(submission.created_at) %>
-      </small>
-    </h3>
+    </div>
   </div>
 
-  <div class="nits circle col-md-1">
-    <%= submission.nit_count %>
+  <div class="nits col-md-1">
+    <span class="circle"><%= submission.nit_count %></span>
   </div>
 
-  <div class="versions circle col-md-1">
-    <%= submission.version %>
+  <div class="versions col-md-1">
+    <span class="circle"><%= submission.version %></span>
   </div>
 
   <% if submission.liked? %>
-    <div class="circle col-md-1">
+    <div class="col-md-1">
       <i class="fa fa-ok"></i>
     </div>
   <% end %>

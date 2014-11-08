@@ -29,7 +29,7 @@
     <div class="col-md-4">
       <% if current_user.ongoing.any? %>
         <h4>Current Exercises</h4>
-        <ul class="nav nav-tabs nav-stacked">
+        <ul class="nav nav-stacked nav-bordered">
           <% current_user.ongoing.each do |submission| %>
             <li>
               <a href="/submissions/<%= submission.key %>">

@@ -1,0 +1,39 @@
+@import 'bootstrap/mixins';
+
+.pending-submission {
+  padding: 10px;
+  margin-left: 0px;
+  border-radius: 5px;
+  @include clearfix;
+
+  &:hover {
+    background: #EEE;
+  }
+
+  h3 {
+    margin-top: 0px;
+  }
+
+  .h5 {
+    margin-top: 0px;
+  }
+
+  .circle {
+    font-size: 14px;
+    line-height: 14px;
+    padding: 8px 12px;
+    color: #fff;
+    border-radius: 100%;
+  }
+
+  .avatar {
+    padding-right: 10px;
+  }
+}
+
+.nits .circle {
+  background: #da4f49;
+}
+.versions .circle {
+  background: #717979;
+}

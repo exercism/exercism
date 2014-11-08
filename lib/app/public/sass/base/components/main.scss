@@ -20,40 +20,6 @@ body {
 }
 
 // TODO clean up (Jalyna)
-.pending-submission {
-  padding-top: 10px;
-  padding-bottom: 10px;
-  margin-left: 0px;
-}
-
-.pending-submission:hover {
-  background: #EEE;
-  border-radius: 5px;
-}
-
-.pending-submission h3 {
-  font-size: 30px;
-  line-height: 0px;
-}
-
-.circle {
-  border-radius: 50%;
-  display: inline-block;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  cursor: default;
-}
-
-.pending-submission .user {
-  padding-top: 4px;
-  height: 50px;
-}
-.pending-submission .user .avatar {
-  float: left;
-  padding-right: 10px;
-}
-
 .language {
   text-align: center;
   line-height: 30px;
@@ -62,6 +28,12 @@ body {
   background-position: center center;
   background-size: 20px 20px;
   background-repeat:no-repeat;
+  border-radius: 50%;
+  display: inline-block;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: default;
 }
 
 .ruby-icon {
@@ -114,19 +86,6 @@ body {
 
 .perl5-icon {
   background-image: url('/img/perl5.png');
-}
-.nits {
-  text-align: center;
-  line-height: 30px;
-  color: #fff;
-  background: #da4f49;
-}
-
-.versions {
-  text-align: center;
-  line-height: 30px;
-  color: #fff;
-  background: #717979;
 }
 
 .code .btn { float: right; }

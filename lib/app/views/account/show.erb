@@ -39,7 +39,7 @@
       <% end %>
 
       <h2>Exercises</h2>
-      <h6>Current</h6>
+      <h4>Current</h4>
       <% if profile.has_current_submissions? %>
         <table class="table table-bordered table-striped">
           <thead>
@@ -66,7 +66,7 @@
       <% end %>
 
       <% if profile.has_hibernating_submissions? %>
-        <h6>Hibernating</h6>
+        <h4>Hibernating</h4>
         <p>To make a hibernating exercise active again, either comment on it, or submit a new iteration.</p>
         <table class="table table-bordered table-striped">
           <thead>
@@ -91,7 +91,7 @@
       <% end %>
 
       <% if profile.has_completed_submissions? %>
-        <h6>Completed</h6>
+        <h4>Completed</h4>
         <table class="table table-bordered table-striped">
           <col />
           <col width="100%" />
@@ -129,7 +129,7 @@
           <%= current_user.key %>
           <form action="/me/uuid/reset" method="post">
             <input type="hidden" name="_method" value="put">
-            <input type="submit" value="reset">
+            <input type="submit" value="reset" class="btn btn-default">
           </form>
         </dd>
       </dl>
@@ -137,11 +137,11 @@
         <a href="https://github.com/settings/profile">GitHub</a>.</p>
       <p>
         The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
-        <form action="/account/email" method="post">
+        <form action="/account/email" method="post" class="form-inline">
           <input type="hidden" name="_method" value="put" />
-          <div class="input-group">
-            <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" />
-            <input type="submit" name="update" value="Update" class="btn btn-default input-group-addon" />
+          <div class="form-group">
+            <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" class="form-control" />
+            <input type="submit" name="update" value="Update" class="btn btn-default" />
           </div>
         </form>
       </p>
