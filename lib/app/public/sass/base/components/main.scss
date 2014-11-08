@@ -1,3 +1,5 @@
+@import "compass/typography/text/replacement";
+
 body {
   padding-top: 50px;
   padding-bottom: 40px;
@@ -12,18 +14,14 @@ body {
   margin: 20px auto;
 }
 
-// TODO: Use bootstrap's sr-only (Jalyna)
 .screen-reader-text {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
+  @include hide-text;
 }
 
 // TODO clean up (Jalyna)
 .language {
   text-align: center;
   line-height: 30px;
-
   background: #ffcf8c;
   background-position: center center;
   background-size: 20px 20px;
