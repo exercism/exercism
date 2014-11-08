@@ -1,0 +1,40 @@
+.error-page-container {
+  margin: 70px auto;
+  max-width: 700px;
+}
+
+.error-page-container img {
+  height: 150px;
+  margin: 40px auto;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  width: 150px;
+}
+
+.error-page-container p {
+  line-height: 30px;
+}
+
+.error-page-featured-message {
+  display: inline-block;
+  font-size: 18px;
+  font-style: italic;
+}
+
+.four-zero-four {
+  font-size: 70px; 
+  line-height: 150px;
+  margin: 50px 0;
+}
+
+.four-zero-four span {
+  background: url('/img/e.png') no-repeat;
+  background-size: cover;
+  display: inline-block;
+  height: 150px;
+  margin: 0 10px;
+  text-indent: -9999px;
+  width: 150px;
+}

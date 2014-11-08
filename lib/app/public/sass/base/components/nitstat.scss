@@ -1,0 +1,27 @@
+#nitstat-chart {
+  padding: 0;
+  margin-left: -10px;
+}
+.graph-legend {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  text-align: center;
+  li {
+    margin: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    list-style: none;
+    display: inline;
+    font-weight: bold;
+    font-size: 0.9em;
+  }
+  .nits-picked {
+    color: #666;
+    background-color: rgba(151,187,205,0.5);
+  }
+  .nits-received {
+    color: #666;
+    background-color: rgba(220,220,220,0.5);
+  }
+}

@@ -1,0 +1,15 @@
+@import '../themes/exercism';
+
+.nav-bordered {
+  border: 1px solid $nav-tabs-link-hover-border-color;
+  border-radius: $nav-pills-border-radius;
+  > li {
+    + li {
+      margin-top: 0px;
+    }
+    border-bottom: 1px solid $nav-tabs-link-hover-border-color;
+    &:last-child {
+      border-bottom: 0px;
+    }
+  }
+}

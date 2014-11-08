@@ -1,11 +1,12 @@
 <div ng-controller="MarkdownCtrl">
   <tabset>
     <tab heading="Write">
-    <% if defined? nit %>
-      <textarea name="body" class="span6 comment" rows="8" ng-model="data.body" ng-init="data.body='<%= nit.body %>'"></textarea>
-    <% else %>
-      <textarea name="body" class="span6 comment" rows="8" ng-model="data.body"></textarea>
-    <% end %>
+      <br />
+      <% if defined? nit %>
+        <textarea name="body" class="comment form-control" rows="8" ng-model="data.body" ng-init="data.body='<%= nit.body %>'"></textarea>
+      <% else %>
+        <textarea name="body" class="comment form-control" rows="8" ng-model="data.body"></textarea>
+      <% end %>
     </tab>
     <tab heading="Preview" select="preview()">
       <div class="preview" ng-bind-html-unsafe="data.preview">
