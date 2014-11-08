@@ -3,6 +3,7 @@ module ExercismWeb
     {
       Session: 'session',
       FuzzyTime: 'fuzzy_time',
+      NgEsc: 'ng_esc',
       Markdown: 'markdown',
       Setup: 'setup',
       NotificationCount: 'notification_count'

@@ -2,7 +2,7 @@
   <tabset>
     <tab heading="Write">
     <% if defined? nit %>
-      <textarea name="body" class="span6 comment" rows="8" ng-model="data.body" ng-init="data.body='<%= nit.body %>'"></textarea>
+      <textarea name="body" class="span6 comment" rows="8" ng-model="data.body" ng-init="data.body='<%= ng_esc(nit.body) %>'"></textarea>
     <% else %>
       <textarea name="body" class="span6 comment" rows="8" ng-model="data.body"></textarea>
     <% end %>

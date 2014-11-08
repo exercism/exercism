@@ -29,6 +29,7 @@ module ExercismWeb
 
       helpers Helpers::NotificationCount # total hack
       helpers Helpers::FuzzyTime
+      helpers Helpers::NgEsc
       helpers Helpers::Markdown
       helpers Helpers::Session
       helpers WillPaginate::Sinatra::Helpers
