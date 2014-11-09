@@ -1,9 +1,12 @@
+@import 'bootstrap/mixins';
+
 .progress-bar-wrap {
   color: #afb4bc;
   font-family: 'PT Sans Caption', sans-serif;
   margin: 40px auto;
   max-width: 960px;
   position: relative;
+  @include clearfix;
 }
 
 ul.progress-bar {
@@ -49,6 +52,11 @@ ul.progress-bar {
     }
     &:nth-child(4):before {
       content: "4";
+    }
+    .progress-text {
+      display: block;
+      text-align: left;
+      white-space: nowrap;
     }
   }
 }
@@ -132,5 +140,9 @@ ul.progress-bar {
   ul.progress-bar li.last:after {
     border-radius: 15px;
     width: 60%;
+  }
+  ul.progress-bar li .progress-text {
+    display: inline;
+    text-align: center;
   }
 }
