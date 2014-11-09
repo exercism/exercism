@@ -73,6 +73,7 @@ GEM
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
     json (1.8.1)
+    kss (0.5.0)
     launchy (2.4.2)
       addressable (~> 2.3)
     loofah (2.0.1)
@@ -181,6 +182,7 @@ DEPENDENCIES
   faraday
   font-awesome-sass
   foreman
+  kss
   launchy
   loofah
   minitest-capybara

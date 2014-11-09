@@ -1,3 +1,30 @@
+/*
+A component for pending submissions.
+
+<div class="pending-submission">
+  <h3>
+    <a href="/submissions/c595b4cf4f14ae8e703111fe">bob</a>
+  </h3>
+  <div class="user col-md-7">
+    <div class="avatar pull-left">
+      <img alt="" src="https://s3.amazonaws.com/uifaces/faces/twitter/ManikRathee/128.jpg?s=30" width="30" height="30">
+    </div>
+    <div class="h5 muted">
+      quentin
+      submitted this exercise about 7 months ago
+    </div>
+  </div>
+  <div class="nits col-md-1" data-original-title="" title="">
+    <span class="circle">0</span>
+  </div>
+  <div class="versions col-md-1" data-original-title="" title="">
+    <span class="circle">2</span>
+  </div>
+</div>
+
+Styleguide Components - Pending Submission.
+*/
+
 @import 'bootstrap/mixins';
 
 .pending-submission {

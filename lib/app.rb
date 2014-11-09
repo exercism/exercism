@@ -6,6 +6,7 @@ require 'sinatra/petroglyph'
 require 'sinatra/reloader'
 require 'will_paginate'
 require 'will_paginate/active_record'
+require 'kss'
 
 require_relative './app/presenters'
 require_relative './app/presenters/workload'
@@ -49,6 +50,7 @@ module ExercismWeb
     use Routes::Solutions
     use Routes::Comments
     use Routes::Teams
+    use Routes::Styleguide
     use Routes::User
     use Routes::Errors
   end
