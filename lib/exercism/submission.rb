@@ -23,7 +23,7 @@ class Submission < ActiveRecord::Base
     self.nit_count      ||= 0
     self.version        ||= 0
     self.is_liked       ||= false
-    self.key            ||= generate_key
+    self.key            ||= Exercism.uuid
     true
   end
 
@@ -207,10 +207,6 @@ class Submission < ActiveRecord::Base
     viewers.count
   end
 
-  def generate_key
-    Digest::SHA1.hexdigest(secret)[0..23]
-  end
-
   def exercise_completed?
     user_exercise.completed?
   end
@@ -228,14 +224,6 @@ class Submission < ActiveRecord::Base
   end
 
   private
-
-  def secret
-    if ENV['SUBMISSION_SECRET']
-      "#{ENV['SUBMISSION_SECRET']} #{rand(10**10)}"
-    else
-      "There is solemn satisfaction in doing the best you can for #{rand(10**10)} billion people."
-    end
-  end
 
   # Experiment: Cache the iteration number so that we can display it
   # on the dashboard without pulling down all the related versions
