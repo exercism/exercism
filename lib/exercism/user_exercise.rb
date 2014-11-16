@@ -12,7 +12,7 @@ class UserExercise < ActiveRecord::Base
   scope :completed, ->{ where(state: 'done') }
 
   before_create do
-    self.key ||= generate_key
+    self.key ||= Exercism.uuid
   end
 
   def track_id
@@ -44,10 +44,6 @@ class UserExercise < ActiveRecord::Base
     update_attributes(is_nitpicker: true)
   end
 
-  def generate_key
-    Digest::SHA1.hexdigest(secret)[0..23]
-  end
-
   def completed?
     state == 'done'
   end
@@ -58,15 +54,5 @@ class UserExercise < ActiveRecord::Base
 
   def nit_count
     submissions.pluck(:nit_count).sum
-  end
-
-  private
-
-  def secret
-    if ENV['USER_EXERCISE_SECRET']
-      "#{ENV['USER_EXERCISE_SECRET']} #{rand(10**10)}"
-    else
-      "There is solemn satisfaction in doing the best you can for #{rand(10**10)} billion people."
-    end
   end
 end
