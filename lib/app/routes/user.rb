@@ -23,7 +23,7 @@ module ExercismWeb
         end
       end
 
-      get '/:username/nitstats' do |username|
+      get '/nits/:username/stats' do |username|
         please_login
         user = ::User.find_by_username(username)
         if user
@@ -36,16 +36,24 @@ module ExercismWeb
         end
       end
 
-      get '/:username/history' do
+      get '/nits/:username/given' do
         please_login
 
-        per_page = params[:per_page] || 10
-
         nitpicks = current_user.comments
-        .order('created_at DESC')
-        .paginate(page: params[:page], per_page: per_page)
+        .reversed
+        .paginate_by_params(params)
 
-        erb :"user/history", locals: {nitpicks: nitpicks}
+        erb :"user/nits_given", locals: {nitpicks: nitpicks}
+      end
+
+      get '/nits/:username/received' do
+        please_login
+
+        nitpicks = Comment.received_by(current_user)
+        .reversed
+        .paginate_by_params(params)
+
+        erb :"user/nits_received", locals: {nitpicks: nitpicks}
       end
 
       get '/:username/:key' do |username, key|

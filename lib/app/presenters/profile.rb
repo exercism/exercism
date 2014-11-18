@@ -29,14 +29,6 @@ class Profile
     teams.any?
   end
 
-  def has_nitpicked?
-    user.comments.any?
-  end
-
-  def nitpicks
-    user.comments
-  end
-
   def current
     user.active_submissions
   end
