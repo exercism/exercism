@@ -1,0 +1,30 @@
+<div class="container">
+  <section class="page-header">
+    <h1>Nits given</h1>
+  </section>
+
+  <% if nitpicks.any? %>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <th>Given to</th>
+          <th>Submission</th>
+          <th>Nitpick</th>
+          <th>Submitted</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% nitpicks.all.each do |nitpick| %>
+          <%= erb :"user/nit", locals: { nitpick: nitpick, user: nitpick.submission_user } %>
+        <% end %>
+      </tbody>
+    </table>
+    <div class="pagination">
+      <%= will_paginate nitpicks, renderer: BootstrapPagination::Sinatra %>
+    </div>
+  <% else %>
+    <p>
+      <b>You haven't given any nitpicks yet.</b>
+    </p>
+  <% end %>
+</div>

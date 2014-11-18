@@ -5,7 +5,10 @@
   <div class="row">
     <div class="col-md-8">
       <p class="well">
-        Nits picked v. nits received over the past 30 days
+        <a href="/nits/<%= user.username %>/given">Nits picked</a>
+        v.
+        <a href="/nits/<%= user.username %>/received">nits received</a>
+        over the past 30 days
       </p>
       <ul class="graph-legend">
         <li class="nits-picked">Nits picked</li>
