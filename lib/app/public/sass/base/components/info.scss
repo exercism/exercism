@@ -1,0 +1,29 @@
+@media only screen and (min-width: 992px) {
+  .about, .getting-started {
+    width: 720px;
+  }
+}
+
+.about, .getting-started {
+  .header {
+    font-size: 24px;
+    font-weight: 400;
+    margin-top: 20px;
+    margin-bottom: 16px;
+  }
+  p {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+  }
+}
+
+.getting-started {
+  .article-block {
+    border-bottom: 1px solid #eee;
+    padding-bottom: 12px;
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+}
