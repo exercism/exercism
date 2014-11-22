@@ -8,6 +8,10 @@
   <p>Submitted <%= ago(submission.created_at) %>.</p>
   <p><%= view_count_for(submission) %>.</p>
   <p>
+    <a href="<%= language_path_for_slug(submission.problem.language, submission.user_exercise.slug) %>">View other submissions</a>
+  </p>
+
+  <p>
     Iteration <b><%= submission.version %></b> of <b><%= submission.user_exercise.iteration_count %></b>.
     <% if submission.exercise_completed? %>
       This exercise has been completed.
