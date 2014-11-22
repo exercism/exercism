@@ -1,0 +1,14 @@
+<div class="bs-docs-section">
+  <h1 id="section-<%= section.section.gsub(/\s+/, "") %>" class="page-header">
+    <%= section.section.split(" - ").last  %>
+  </h1>
+  <% unless section.comment_sections.empty? %>
+    <p class="lead"><%= section.comment_sections.first %></p>
+  <% end %>
+  <% section.comment_sections[1..-3].each do |comment| %>
+    <p><%= comment %></p>
+  <% end %>
+  <% if section.comment_sections.size >= 3 %>
+    <%= erb :"styleguide/_example", locals: { example: section.comment_sections[-2] } %>
+  <% end %>
+</div>

@@ -1,0 +1,25 @@
+<div class="container bs-docs-container">
+  <div class="row">
+    <div class="col-md-9" role="main">
+      <% @styleguide.sections.each do |section| %>
+        <%= erb :"styleguide/_section", locals: { section: section[1] } %>
+      <% end %>
+    </div>
+
+    <div class="col-md-3">
+      <div class="bs-docs-sidebar hidden-print hidden-xs hidden-sm" role="complementary">
+        <ul class="nav bs-docs-sidenav">
+          <% @styleguide.sections.each do |section| %>
+            <li>
+              <a href="#section-<%= section[1].section.gsub(/\s+/, "") %>"><%= section[1].section.split(" - ").last %></a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="bs-docs-footer" role="contentinfo">
+  <a href="/"><img width="120" src="/img/logo.png" /></a>
+</footer>

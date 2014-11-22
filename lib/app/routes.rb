@@ -19,6 +19,7 @@ module ExercismWeb
       Exercises: 'exercises',
       Metadata: 'metadata',
       Teams: 'teams',
+      Styleguide: 'styleguide',
       User: 'user',
       Errors: 'errors',
     }.each do |name, file|

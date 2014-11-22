@@ -1,3 +1,15 @@
+/*
+Bordered navigation for bootstrap.
+
+This component should be used together with <code>.nav-stacked</code> and <code>.nav-bordered</code>.
+
+<ul class="nav nav-stacked nav-bordered">
+  <li><a href="#">Link</a></li>
+  <li><a href="#">Link</a></li>
+</ul>
+
+Styleguide Components - Bordered Navbar.
+*/
 @import '../themes/exercism';
 
 .nav-bordered {

@@ -84,12 +84,16 @@ get a feel for the rhythm that Test-Driven Development gives you.
   * note lineman watches for file changes and compiles them automatically, it is not required to be running for the server to run
 
 ### SCSS
-1. Start compass with `compass watch lib/app`
-2. to compile `compass compile lib/app`
+1. Start compass with `compass watch`
+2. to compile `compass compile`
 
 For CSS we are using Sass (with `.scss`). Feel free to use [Bootstrap 3](http://getbootstrap.com/) components and mixins. Or if you want to use even more mixins you can use [Compass](http://compass-style.org/reference/compass/). Structurewise we try to seperate components, mixins and layouts. Where layouts should be a single page (using an HTML id as a selector) and components should be reusable partials, which can look different by layout.
 
 You can find the compass config in `lib/app/config.rb`.
+
+### Styleguide
+
+Our styleguide is reachable under (/styleguide)[http://exercism.io/styleguide] and built with [KSS](https://github.com/kneath/kss), which enables you to write examples to `*.scss` files
 
 ## Sending Emails
 
