@@ -1,11 +1,10 @@
 <div class="container">
-  <%= erb :"submissions/byline", locals: {problem: submission.problem, user: submission.user} %>
+  <%= erb :"submissions/byline", locals: {problem: submission.problem, user: submission.user, created_at: submission.created_at} %>
   <p><% if current_user.owns?(submission) %>
     <%= sharing.twitter_link(submission) %>
   <% end %>
   </p>
 
-  <p>Submitted <%= ago(submission.created_at) %>.</p>
   <p><%= view_count_for(submission) %>.</p>
   <p>
     Iteration <b><%= submission.version %></b> of <b><%= submission.user_exercise.iteration_count %></b>.

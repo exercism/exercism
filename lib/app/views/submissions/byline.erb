@@ -4,5 +4,5 @@
     <small>in <%= problem.language %></small>
   </h1>
   submitted by <%= gravatar_tag user.avatar_url, size: 30 %>
-  <%= profile_link(user) %>
+  <%= profile_link(user) %> <%= ago(created_at) %>.
 </section>
