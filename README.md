@@ -102,6 +102,11 @@ If you want to send emails, you will need to fill out the relevant environment v
 ## Console
 
 There's a script in `bin/console` that will load pry with the exercism environment loaded.
+This will let you poke around at the objects in the system, such as finding users and changing
+things about submissions or comments, making it easier to test specific things.
+
+   user = User.find_by_username 'whatever'
+   user.submissions
 
 ## Testing
 
