@@ -1,0 +1,99 @@
+/*
+Design for Nitpicks / Comments on submission page
+<div class="comment comment-submitter">
+  <div class="comment-author">
+    <a href="#">
+      <img src="https://s3.amazonaws.com/uifaces/faces/twitter/michzen/128.jpg?s=20" alt="mike" class="img-responsive img-rounded">
+    </a>
+  </div>
+  <div class="comment-body">
+    <p>What do you think everyone?</p>
+    <div class="comment-meta">
+      <a href="#">quentin</a>
+      commented just now
+    </div>
+  </div>
+</div>
+<div class="comment">
+  <div class="comment-author">
+    <a href="#">
+      <img src="https://s3.amazonaws.com/uifaces/faces/twitter/ManikRathee/128.jpg?s=20" alt="quentin" class="img-responsive img-rounded">
+    </a>
+  </div>
+  <div class="comment-body">
+    <p>I think this exercise is very good but one thing maybe should be changed:</p>
+<div class="highlight ruby">
+<table style="border-spacing: 0;"><tbody><tr>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno">1
+2
+3</pre></td>
+<td class="code"><pre><span class="k">def</span> <span class="nf">hello_world</span>
+  <span class="s2">"hello world"</span>
+<span class="k">end</span>
+</pre></td>
+</tr></tbody></table>
+</div>
+    <div class="comment-meta">
+      <a href="#">quentin</a>
+      commented just now
+      <a href="#" class="pull-right btn btn-default btn-xs edit-text"><i class="fa fa-pencil"></i> Edit</a>
+    </div>
+  </div>
+</div>
+
+Styleguide Components - Comment.
+*/
+
+@import 'bootstrap/mixins';
+@import '../themes/exercism';
+@import '../mixins/triangle';
+
+.comment {
+  @include clearfix;
+  margin: 10px 0px;
+  p {
+    margin: 10px 0px;
+  }
+  .highlight {
+    padding: 5px 0px;
+    margin: 10px 0px;
+  }
+  .comment-author {
+    @include make-sm-column(1.5);
+    @include make-xs-column(2.5);
+    padding-left: 0px;
+    padding-right: ($grid-gutter-width / 2);
+    img {
+      border: 3px solid $gray-lighter;
+    }
+  }
+  .comment-body {
+    @include make-sm-column(10.5);
+    @include make-xs-column(9.5);
+    border: 1px solid $gray-lighter;
+    border-radius: $border-radius-base;
+    @include default-triangle("left");
+  }
+  .comment-meta {
+    border: 1px solid darken($gray-lighter, 10%);
+    border-top-color: darken($gray-lighter, 3%);
+    margin: 0px (-$grid-gutter-width / 2 - 1);
+    margin-bottom: -1px;
+    padding: 10px ($grid-gutter-width / 2);
+    background: lighten($gray-lighter, 4%);
+    border-bottom-left-radius: $border-radius-base;
+    border-bottom-right-radius: $border-radius-base;
+    color: $gray-light;
+  }
+
+  &.comment-submitter {
+    .comment-author {
+      float: right;
+      padding-right: 0px;
+      padding-left: ($grid-gutter-width / 2);
+    }
+    .comment-body {
+      @include default-triangle("right");
+    }
+  }
+}

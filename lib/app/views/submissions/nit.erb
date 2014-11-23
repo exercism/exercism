@@ -1,28 +1,29 @@
-<% if nit.nitpicker == submission.user %>
-  <blockquote class="submitter">
-<% else %>
-  <blockquote>
-<% end %>
-  <%= nit.html_body %>
-  <cite>
-    <%= gravatar_tag nit.user.avatar_url, size: 20 %>
-    <em><%= profile_link(nit.user) %></em>, <%= ago(nit.created_at) %>
-  </cite>
-  <% unless nit.mentions.empty? %>
-    <aside>
-      Mentions:
-      <% nit.mentions.each do |mention| %>
-	<em><%= profile_link(mention) %></em>
-      <% end %>
-    </aside>
-  <% end %>
-
-  <% if current_user == nit.nitpicker %>
-    <a href="/submissions/<%= submission.key %>/nits/<%= nit.id %>/edit">
-      <button class="btn btn-default btn-sm edit-text">
-        <span aria-hidden="true" data-icon="✎"></span>
-        <span class="screen-reader-text">Edit</span>
-      </button>
+<div class="comment <%= "comment-submitter" if nit.nitpicker == submission.user %>">
+  <div class="comment-author">
+    <a href="/<%= nit.user.username %>">
+      <img src="<%= nit.user.avatar_url %>" class="img-responsive img-rounded" />
     </a>
-  <% end %>
-</blockquote>
+  </div>
+  <div class="comment-body">
+    <%= nit.html_body %>
+    <div class="comment-meta">
+      <%= profile_link(nit.user) %>
+      commented <%= ago(nit.created_at) %>
+
+      <% unless nit.mentions.empty? %>
+        <span>
+          | Mentions:
+          <% nit.mentions.each do |mention| %>
+      <em><%= profile_link(mention) %></em>
+          <% end %>
+        </span>
+      <% end %>
+
+      <% if current_user == nit.nitpicker %>
+        <a href="/submissions/<%= submission.key %>/nits/<%= nit.id %>/edit" class="pull-right btn btn-default btn-xs edit-text">
+          <i class="fa fa-pencil"></i> Edit
+        </a>
+      <% end %>
+    </div>
+  </div>
+</div>

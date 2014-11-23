@@ -1,0 +1,41 @@
+@mixin triangle($dir, $size, $color) {
+  border: $size transparent solid;
+
+  @if ($dir == "top" or $dir == "up") {
+      border-bottom-color: $color;
+  }
+  @else if ($dir == "right" or $dir == "after") {
+      border-left-color: $color;
+  }
+  @else if ($dir == "bottom" or $dir == "down") {
+      border-top-color: $color;
+  }
+  @else if ($dir == "left" or $dir == "before") {
+      border-right-color: $color;
+  }
+}
+
+@mixin default-triangle($dir, $size: 8px, $color: $gray-lighter, $bg: #fff) {
+  position: relative;
+  &:before, &:after {
+    content: "";
+    position: absolute;
+    @if ($dir == "right") {
+      left: auto;
+    } @else if ($dir == "left") {
+      right: auto;
+    }
+  }
+  &:before {
+    top: 10px;
+    #{$dir}: -($grid-gutter-width / 2 + 1);
+    @include triangle($dir, $size, $color);
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    top: 11px;
+    #{$dir}: -($grid-gutter-width / 2 - 1);
+    @include triangle($dir, ($size - 1), $bg);
+  }
+}
