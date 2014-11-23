@@ -1,0 +1,26 @@
+<div class="submission-header page-header">
+  <h1 class="pull-left">
+    <span class="submission-language">
+      <a
+        href="<%= path_for(submission.problem.language) %>"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="<%= submission.problem.language %>">
+        <%
+          lang = case submission.language
+          when "go" then "golang"
+          else submission.language
+          end
+          %>
+        <%= language_icon(lang) %>
+      </a>
+    </span>
+    <%= submission.problem.name %>
+  </h1>
+  <%= erb :"submissions/toolbar", locals: { submission: submission, next_submission: next_submission } %>
+  <div class="clearfix"></div>
+  <div class="submission-author text-muted">
+    submitted by <%= profile_link(submission.user) %>
+    <%= ago(submission.created_at) %>
+  </div>
+</div>

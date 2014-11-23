@@ -74,8 +74,8 @@ class SubmissionsHelperTest < Minitest::Test
     @fred.mastery << 'ruby'
     @submission.problem.track_id = 'ruby'
     expected = %Q{
-      <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/like" method="POST" class="pull-left" style="display: inline;">
-        <button type="submit" name="like" class="btn">Looks great!</button>
+      <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/like" method="POST" class="submission-like-button">
+        <button type="submit" name="like" class="btn"><i class="fa"></i> Looks great!</button>
       </form>
     }.strip.squeeze(" ")
     actual = helper.like_submission_button(@submission, @fred).strip.squeeze(" ")
@@ -87,8 +87,8 @@ class SubmissionsHelperTest < Minitest::Test
     @submission.problem.track_id = 'ruby'
     @submission.liked_by << @fred
     expected = %Q{
-      <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/unlike" method="POST" class="pull-left" style="display: inline;">
-        <button type="submit" name="unlike" class="btn">I didn't mean to like this!</button>
+      <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/unlike" method="POST" class="submission-like-button">
+        <button type="submit" name="unlike" class="btn"><i class="fa"></i> I didn't mean to like this!</button>
       </form>
     }.strip.squeeze(" ")
     actual = helper.like_submission_button(@submission, @fred).strip.squeeze(" ")

@@ -1,0 +1,125 @@
+@import 'bootstrap';
+@import '../base/themes/exercism';
+@import '../base/variables';
+@import 'font-awesome';
+
+#submission {
+  .submission-header {
+    @include clearfix;
+    margin-bottom: 0px;
+    h1 {
+      margin-top: 0px;
+    }
+    .submission-language {
+      float: left;
+      margin-right: 10px;
+      a {
+        display: block;
+        &:hover {
+          text-decoration: none;
+        }
+      }
+      .language {
+        cursor: pointer;
+      }
+    }
+  }
+  .submission-toolbar {
+    margin-top: 10px;
+  }
+  .submission-user-actions {
+    form {
+      display: block;
+      button {
+        display: block;
+        border: 0px;
+        width: 100%;
+        text-align: left;
+        border-radius: 0px;
+      }
+    }
+  }
+  .submission-author {
+    margin-top: 0px;
+  }
+  .submission-alerts {
+    margin-top: 10px;
+  }
+  .submission-iterations {
+    margin-top: 10px;
+    .iterations-nav {
+      font-size: $font-size-large;
+      .iteration-label {
+        padding-top: 8px;
+        padding-right: 10px;
+        .label {
+          background: $gray-light;
+        }
+      }
+      li {
+        &.active a {
+          font-weight: bold;
+        }
+        a {
+          min-width: 60px;
+          text-align: center;
+          color: $text-color;
+        }
+      }
+      li:last-child .fa {
+        @extend .fa-refresh;
+        color: $brand-info;
+      }
+      &.completed li:last-child .fa {
+        @extend .fa-check;
+        color: $brand-success;
+      }
+      &.hibernating li:last-child .fa {
+        @extend .fa-check;
+        color: $brand-warning;
+      }
+    }
+  }
+  .submission-iteration {
+    margin-top: 10px;
+    .code {
+      .highlight {
+        padding: 5px 0px;
+      }
+    }
+  }
+  .submission-like-button {
+    button {
+      @extend .btn-default;
+      @extend .btn-xs;
+      .fa {
+        @extend .fa-thumbs-up;
+      }
+    }
+    button[name=unlike] .fa {
+      @extend .fa-thumbs-down;
+    }
+  }
+  .submission-likes {
+    margin-top: 15px;
+  }
+  .md-markdown-preview {
+    a {
+      cursor: pointer;
+    }
+    .preview {
+      margin: 10px 0px;
+    }
+  }
+  .submission-code-actions {
+    margin-bottom: -100%;
+    .btn {
+      border-radius: 0px;
+    }
+  }
+  .comments {
+    h3 {
+      margin-top: 0px;
+    }
+  }
+}

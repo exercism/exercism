@@ -1,0 +1,14 @@
+<% if current_user.owns?(submission) %>
+  <div class="submission-alerts">
+    <% if submission.exercise_completed? %>
+      <div class="alert alert-info" role="alert">
+        <p>See <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.</p>
+        <p>View <a href="<%= language_path_for_slug(submission.language, submission.slug) %>">all other solutions</a> to this problem.</p>
+      </div>
+    <% elsif submission.exercise_hibernating? %>
+      <div class="alert alert-warning" role="alert">
+        This exercise is hibernating. To take the submission back out of hibernation either respond to the nitpicks, or submit a new version.
+      </div>
+    <% end %>
+  </div>
+<% end %>

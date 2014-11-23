@@ -1,29 +1,24 @@
-<% if submission.user.completed?(submission.problem) %>
+<form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
 
-  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
-    <%= erb :"submissions/small_comment" %>
-    <button type="submit" name="nitpick" class="btn btn-primary">Comment</button>
-  </form>
-
-<% else %>
-
-  <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
-
+  <div class="hidden" id="encourage">
     <% if current_user.owns?(submission) %>
       <%= erb :"submissions/encourage_submitter", locals: {version: submission.version, nit_count: submission.nit_count} %>
     <% else %>
       <%= erb :"submissions/encourage_nitpicker", locals: {language: submission.problem.language} %>
     <% end %>
+  </div>
 
-    <%= erb :"submissions/comment" %>
-    <br />
-    <% if current_user.owns?(submission) %>
-      <button type="submit" name="nitpick" class="pull-right btn btn-primary">Submit Comment</button>
+  <%= erb :"submissions/comment" %>
+
+  <button type="submit" name="nitpick" class="pull-right btn btn-primary btn-lg">
+    <% if current_user.owns?(submission) || submission.exercise_completed? %>
+      Submit Comment
     <% else %>
-      <button type="submit" name="nitpick" class="pull-right btn btn-primary">Nitpick</button>
+      Nitpick
     <% end %>
-    <span>Parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></span>
-  </form>
+  </button>
 
-<% end %>
-
+  <small class="hidden-xs">
+    Parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a>
+  </small>
+</form>

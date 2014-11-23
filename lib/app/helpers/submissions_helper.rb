@@ -47,8 +47,8 @@ module Sinatra
       end
 
       %Q{
-        <form accept-charset="UTF-8" action="/submissions/#{submission.key}/#{action}" method="POST" class="pull-left" style="display: inline;">
-          <button type="submit" name="#{action}" class="btn">#{text}</button>
+        <form accept-charset="UTF-8" action="/submissions/#{submission.key}/#{action}" method="POST" class="submission-like-button">
+          <button type="submit" name="#{action}" class="btn"><i class="fa"></i> #{text}</button>
         </form>
       }
     end

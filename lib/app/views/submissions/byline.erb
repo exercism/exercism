@@ -1,8 +1,0 @@
-<section class="page-header">
-  <h1>
-    <%= problem.name %>
-    <small>in <a href="<%= path_for(problem.language) %>"><%= problem.language %></a></small>
-  </h1>
-  submitted by <%= gravatar_tag user.avatar_url, size: 30 %>
-  <%= profile_link(user) %> <%= ago(created_at) %>.
-</section>
