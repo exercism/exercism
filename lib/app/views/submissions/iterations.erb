@@ -16,8 +16,11 @@
     <% submission.user_exercise.submissions.each do |s| %>
       <li class="<%= "active" if s == submission %>">
         <a href="/submissions/<%= s.key %>">
-          <%= s.version %>
           <i class="fa"></i>
+          <%= s.version %>
+          <% unless s.comments.empty? %>
+            <span class="badge"><%= s.comments.size %></span>
+          <% end %>
         </a>
       </li>
     <% end %>

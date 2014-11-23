@@ -49,6 +49,14 @@
     margin-top: 10px;
     .iterations-nav {
       font-size: $font-size-large;
+      .badge {
+        position: absolute;
+        background: darken($gray-lighter, 10%);
+        font-size: $font-size-small;
+        padding: 3px 6px;
+        right: 5px;
+        top: 5px;
+      }
       .iteration-label {
         padding-top: 8px;
         padding-right: 10px;
@@ -57,14 +65,18 @@
         }
       }
       li {
+        position: relative;
         &.active a {
           font-weight: bold;
         }
         a {
-          min-width: 60px;
+          min-width: 65px;
           text-align: center;
           color: $text-color;
         }
+      }
+      li:last-child a {
+        min-width: 80px;
       }
       li:last-child .fa {
         @extend .fa-refresh;
