@@ -1,16 +1,21 @@
-<div ng-controller="MarkdownCtrl">
+<div ng-controller="MarkdownCtrl" class="md-markdown-preview">
   <tabset>
     <tab heading="Write">
-      <br />
-      <% if defined? nit %>
-        <textarea name="body" class="comment form-control" rows="8" ng-model="data.body" ng-init="data.body='<%= ng_esc(nit.body) %>'"></textarea>
-      <% else %>
-        <textarea name="body" class="comment form-control" rows="8" ng-model="data.body"></textarea>
-      <% end %>
+      <textarea
+        id="submission_comment"
+        name="body"
+        class="comment form-control"
+        rows="8"
+        ng-model="data.body"
+        data-toggle="popover"
+        data-trigger="focusin"
+        data-placement="left"
+        data-title="Things to keep in mind"
+        <%= "ng-init=\"data.body='#{ng_esc(nit.body)}'\"" if defined? nit %>></textarea>
     </tab>
     <tab heading="Preview" select="preview()">
-      <div class="preview" ng-bind-html-unsafe="data.preview">
-      </div>
+      <div class="preview" ng-bind-html-unsafe="data.preview"></div>
+      <hr>
     </tab>
   </tabset>
 </div>

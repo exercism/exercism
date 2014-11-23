@@ -1,6 +1,9 @@
 angular.module('exercism', ['ui.bootstrap'])
 
 $ ->
+  $("[data-toggle=tooltip]").tooltip();
+  $("#submission_comment").popover({ content: $("#encourage").html(), html: true });
+
   $('.member_delete').on 'click', ->
     username = $(@).data('username')
     slug = $(@).data('team')

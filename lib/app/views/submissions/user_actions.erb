@@ -1,0 +1,56 @@
+<% if current_user.owns?(submission) %>
+  <div class="btn-group submission-user-actions">
+    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+      Manage <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" role="menu">
+      <li>
+        <% if submission.user.completed?(submission.problem) %>
+          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/reopen" method="POST">
+            <button type="submit" name="reopen" class="btn btn-default">Reopen Exercise</button>
+          </form>
+        <% else %>
+          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/done" method="POST">
+            <button
+              type="submit"
+              name="done"
+              class="btn btn-default"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="I don't need any more feedback on this.">
+              Mark as done
+            </button>
+          </form>
+        <% end %>
+      </li>
+
+      <% unless current_user.nitpicker_on?(submission.problem) %>
+        <li>
+          <form accept-charset="UTF-8" action="/exercises/<%= submission.track_id %>/<%= submission.slug %>" method="POST">
+            <button
+              type="submit"
+              name="unlock"
+              class="unlock-nitpicking btn btn-default">
+              <i class="fa fa-unlock"></i> Unlock Nitpicking
+            </button>
+          </form>
+        </li>
+      <% end %>
+
+      <li class="divider"></li>
+
+      <li>
+        <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>" method="POST">
+          <input type="hidden" name="_method" value="delete">
+          <button
+            type="submit"
+            class="btn btn-default"
+            name="delete"
+            onclick="return confirm('Are you sure you want to delete?');">
+            <i class="fa fa-trash"></i> Delete
+          </button>
+        </form>
+      </li>
+    </ul>
+  </div>
+<% end %>

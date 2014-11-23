@@ -1,0 +1,39 @@
+<div class="pull-right submission-toolbar hidden-xs">
+
+  <div class="btn-group">
+    <%= erb :"submissions/user_actions", locals: { submission: submission } %>
+
+    <% if current_user.owns?(submission) %>
+      <a
+        href="https://twitter.com/intent/tweet?text=I just submitted the <%= submission.track_id %> <%= submission.slug %> exercise at @exercism_io - Leave me a nitpick at http://exercism.io/submissions/<%= submission.key %>"
+        class="btn btn-default"
+        data-toggle="tooltip"
+        data-placement="bottom"
+        title="Share with Twitter"
+        target="_blank">
+        <i class="fa fa-twitter"></i>
+      </a>
+    <% end %>
+    <a
+      href="<%= language_path_for_slug(submission.problem.language, submission.user_exercise.slug) %>"
+      class="btn btn-default"
+      data-toggle="tooltip"
+      data-placement="bottom"
+      title="View other submissions">
+      <i class="fa fa-binoculars"></i>
+    </a>
+
+    <% if next_submission %>
+      <a
+        href="/submissions/<%= next_submission.key %>"
+        class="btn btn-default next-submission">
+        Next Submission <i class="fa fa-arrow-right"></i>
+      </a>
+    <% end %>
+  </div>
+
+  <span class="btn">
+    <i class="fa fa-eye"></i>
+    <%= view_count_for(submission) %>
+  </span>
+</div>

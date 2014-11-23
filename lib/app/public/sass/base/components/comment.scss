@@ -7,6 +7,10 @@ Design for Nitpicks / Comments on submission page
     </a>
   </div>
   <div class="comment-body">
+    <ul>
+      <li>The use of <code>#zip</code> was recommended to me for this issue but I didn't understand how to use it properly until looking at your solution.</li>
+      <li>I'm not very keen on using one name for different types, but that may be because I'm new to Ruby.  I can see where it makes sense to use a name for a concept and not restrict that concept to a data type.</li>
+    </ul>
     <p>What do you think everyone?</p>
     <div class="comment-meta">
       <a href="#">quentin</a>
@@ -51,8 +55,11 @@ Styleguide Components - Comment.
 .comment {
   @include clearfix;
   margin: 10px 0px;
-  p {
+  p, ol, ul, li {
     margin: 10px 0px;
+  }
+  ol, ul {
+    padding-left: 20px;
   }
   .highlight {
     padding: 5px 0px;
