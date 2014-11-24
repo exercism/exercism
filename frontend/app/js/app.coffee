@@ -2,7 +2,13 @@ angular.module('exercism', ['ui.bootstrap'])
 
 $ ->
   $("[data-toggle=tooltip]").tooltip();
-  $("#submission_comment").popover({ content: $("#encourage").html(), html: true });
+  $("#feedback_guide").popover(content: $("#encourage").html(), html: true)
+  $("#feedback_guide_alert .close").click (e) ->
+    e.preventDefault()
+    $.cookie 'feedback_guide_alert', 'closed', { path: '/' }
+  console.log $.cookie()
+  unless $.cookie('feedback_guide_alert') == 'closed'
+    $("#feedback_guide_alert").removeClass("hidden")
 
   $('.member_delete').on 'click', ->
     username = $(@).data('username')

@@ -7,10 +7,6 @@
         class="comment form-control"
         rows="8"
         ng-model="data.body"
-        data-toggle="popover"
-        data-trigger="focusin"
-        data-placement="left"
-        data-title="Things to keep in mind"
         <%= "ng-init=\"data.body='#{ng_esc(nit.body)}'\"" if defined? nit %>></textarea>
     </tab>
     <tab heading="Preview" select="preview()">
