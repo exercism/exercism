@@ -20,7 +20,8 @@ class LifecycleEventTest < Minitest::Test
     LifecycleEvent.track('something_else', 1, now+5.minutes)
 
     assert_equal 2, LifecycleEvent.count
-    event1, event2 = LifecycleEvent.all
+    event1 = LifecycleEvent.find_by(key: 'something')
+    event2 = LifecycleEvent.find_by(key: 'something_else')
 
     assert_equal 'something', event1.key
     assert_equal 1, event1.user_id

@@ -111,9 +111,10 @@ user.submissions
 
 ## Testing
 
-1. Prepare the test environment with `RACK_ENV=test rake db:migrate`.
-2. Make sure that `mailcatcher` is running.
-3. Run the test suite with `rake` or `rake test`.
+1. Create test database with: `createdb -O exercism exercism_test`.
+2. Prepare the test environment with `RACK_ENV=test rake db:migrate`.
+3. Make sure that `mailcatcher` is running.
+4. Run the test suite with `rake` or `rake test`.
 
 To run a single test suite, you can do so with:
 

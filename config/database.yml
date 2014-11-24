@@ -1,12 +1,16 @@
 ---
-test:
-  adapter: sqlite3
-  database: db/exercism_test.sqlite
-development:
+postgres: &postgres
   adapter: postgresql
   encoding: unicode
-  database: exercism_development
   pool: 5
   host: localhost
   username: exercism
   password: apples
+
+test:
+  <<: *postgres
+  database: exercism_test
+
+development:
+  <<: *postgres
+  database: exercism_development

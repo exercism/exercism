@@ -61,15 +61,17 @@ class AttemptTest < Minitest::Test
   def test_a_new_attempt_supersedes_the_previous_one
     Attempt.new(user, 'CODE 1', 'ruby/two/two.rb').save
     Attempt.new(user, 'CODE 2', 'ruby/two/two.rb').save
-    one, two = user.submissions
+    one = Submission.find_by(code: 'CODE 1')
+    two = Submission.find_by(code: 'CODE 2')
     assert_equal 'superseded', one.reload.state
     assert_equal 'pending', two.reload.state
   end
 
   def test_a_new_attempt_supersedes_the_previous_hibernating_one
-    submission = Submission.create(user: user, language: 'ruby', slug: 'two', created_at: Time.now, state: 'hibernating')
+    submission = Submission.create(user: user, code: 'CODE 1', language: 'ruby', slug: 'two', created_at: Time.now, state: 'hibernating')
     Attempt.new(user, 'CODE 2', 'ruby/two/two.rb').save
-    one, two = user.reload.submissions
+    one = Submission.find_by(code: 'CODE 1')
+    two = Submission.find_by(code: 'CODE 2')
     assert one.superseded?
     assert two.pending?
   end
@@ -85,9 +87,10 @@ class AttemptTest < Minitest::Test
   end
 
   def test_an_attempt_does_not_supersede_other_languages
-    Attempt.new(user, 'CODE', 'two/two.py').save
-    Attempt.new(user, 'CODE', 'two/two.rb').save
-    one, two = user.submissions
+    Attempt.new(user, 'CODE 1', 'two/two.py').save
+    Attempt.new(user, 'CODE 2', 'two/two.rb').save
+    one = Submission.find_by(code: 'CODE 1')
+    two = Submission.find_by(code: 'CODE 2')
     assert_equal 'pending', one.reload.state
     assert_equal 'pending', two.reload.state
   end
@@ -110,8 +113,8 @@ class AttemptTest < Minitest::Test
 
   def test_previous_submission_after_superseding
     Attempt.new(user, 'CODE 1', 'two/two.rb').save
+    one = Submission.find_by(code: 'CODE 1')
     attempt = Attempt.new(user, 'CODE 2', 'two/two.rb').save
-    one = user.submissions.first
     assert_equal attempt.previous_submission, one
   end
 

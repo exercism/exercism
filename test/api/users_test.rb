@@ -8,14 +8,14 @@ class UsersApiTest < Minitest::Test
     ExercismAPI::App
   end
 
-  def test_query_users
-    User.create(username: 'alice', github_id: 1)
+  def test_query_users_is_case_insensitive
+    User.create(username: 'Alice', github_id: 1)
     User.create(username: 'mallory', github_id: 2)
     User.create(username: 'bob', github_id: 3)
 
     post '/user/find', { query: 'al' }
 
     result = last_response.body
-    assert_equal ['alice', 'mallory'], JSON.parse(result)
+    assert_equal ['Alice', 'mallory'], JSON.parse(result)
   end
 end

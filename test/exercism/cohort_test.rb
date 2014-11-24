@@ -37,10 +37,10 @@ class CohortTest < Minitest::Test
     bob.reload
     cohort = Cohort.for(bob)
 
-    assert_equal %w(dave eve), cohort.members.map(&:username)
-    assert_equal ['alice'], cohort.managers.map(&:username)
+    assert_equal %w(dave eve), cohort.members.map(&:username).sort
+    assert_equal ['alice'], cohort.managers.map(&:username).sort
     assert_equal %w(alice dave eve), cohort.users.map(&:username).sort
-    assert_equal %w(alice dave), cohort.sees(problem).map(&:username)
+    assert_equal %w(alice dave), cohort.sees(problem).map(&:username).sort
   end
 
 end
