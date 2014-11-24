@@ -1,13 +1,13 @@
 <div class="container">
   <section class="page-header">
-    <h1>Nits given</h1>
+    <h1>Nits received</h1>
   </section>
 
   <% if nitpicks.any? %>
     <table class="table table-bordered table-striped">
       <thead>
         <tr>
-          <th>Given to</th>
+          <th>Received from</th>
           <th>Submission</th>
           <th>Nitpick</th>
           <th>Submitted</th>
@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         <% nitpicks.all.each do |nitpick| %>
-          <%= erb :"user/nit", locals: { nitpick: nitpick, user: nitpick.submission_user } %>
+          <%= erb :"nits/nit", locals: { nitpick: nitpick, user: nitpick.user } %>
         <% end %>
       </tbody>
     </table>
@@ -24,7 +24,7 @@
     </div>
   <% else %>
     <p>
-      <b>You haven't given any nitpicks yet.</b>
+      <b>You haven't received any nitpicks yet.</b>
     </p>
   <% end %>
 </div>

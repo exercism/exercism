@@ -49,6 +49,7 @@ module ExercismWeb
     use Routes::Exercises
     use Routes::Solutions
     use Routes::Comments
+    use Routes::Nits
     use Routes::Teams
     use Routes::Styleguide
     use Routes::User

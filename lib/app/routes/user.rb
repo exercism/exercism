@@ -23,39 +23,6 @@ module ExercismWeb
         end
       end
 
-      get '/nits/:username/stats' do |username|
-        please_login
-        user = ::User.find_by_username(username)
-        if user
-          stats = Nitstats.new(user)
-          title("#{user.username} - Nit Stats")
-          erb :"user/nitstats", locals: {user: user, stats: stats }
-        else
-          status 404
-          erb :"errors/not_found"
-        end
-      end
-
-      get '/nits/:username/given' do
-        please_login
-
-        nitpicks = current_user.comments
-        .reversed
-        .paginate_by_params(params)
-
-        erb :"user/nits_given", locals: {nitpicks: nitpicks}
-      end
-
-      get '/nits/:username/received' do
-        please_login
-
-        nitpicks = Comment.received_by(current_user)
-        .reversed
-        .paginate_by_params(params)
-
-        erb :"user/nits_received", locals: {nitpicks: nitpicks}
-      end
-
       get '/:username/:key' do |username, key|
         please_login
         user = ::User.find_by_username(username)
