@@ -1,0 +1,43 @@
+@import 'bootstrap';
+@import '../base/themes/exercism';
+@import '../base/variables';
+
+#footer {
+  background: lighten($gray-lighter, 3%);
+  padding: 30px 0px;
+  margin-top: 40px;
+
+  a {
+    color: $gray;
+    &:hover {
+      text-decoration: none;
+      color: $exercism-red;
+    }
+  }
+
+  .nav {
+    > li > a {
+      padding: 6px 12px;
+    }
+  }
+
+  .footer-social {
+    li {
+      margin-bottom: 10px;
+    }
+    .fa {
+      margin-right: 4px;
+    }
+  }
+}
+
+@media (max-width: $screen-xs-max) {
+  #footer {
+    .footer-social {
+      text-align:left;
+    }
+    .footer-logo {
+      margin-bottom: 20px;
+    }
+  }
+}
