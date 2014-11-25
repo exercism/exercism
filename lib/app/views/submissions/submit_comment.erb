@@ -1,12 +1,6 @@
 <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
 
-  <div class="hidden" id="encourage">
-    <% if current_user.owns?(submission) %>
-      <%= erb :"submissions/encourage_submitter", locals: {version: submission.version, nit_count: submission.nit_count} %>
-    <% else %>
-      <%= erb :"submissions/encourage_nitpicker", locals: {language: submission.problem.language} %>
-    <% end %>
-  </div>
+  <%= erb :"submissions/feedback_guide", locals: { submission: submission } %>
 
   <%= erb :"submissions/comment" %>
 
