@@ -1,0 +1,12 @@
+{
+  "language": "Ruby",
+  "track_id": "<id>",
+  "slug": "leap",
+  "username": "alice",
+  "problem": {
+    "test.rb": "assert true"
+  },
+  "solution": {
+    "leap.rb": "CODE"
+  }
+}
