@@ -27,7 +27,11 @@ module ExercismWeb
         please_login
         user = ::User.find_by_username(username)
         exercise = user.exercises.find_by_key(key)
-        if exercise.submissions.empty?
+        if exercise.nil?
+          # Should this be a 404?
+          flash[:notice] = "Couldn't find that exercise."
+          redirect '/'
+        elsif exercise.submissions.empty?
           # We have orphan exercises at the moment.
           flash[:notice] = "That submission no longer exists."
           redirect '/'
