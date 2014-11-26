@@ -1,4 +1,5 @@
 class Submission < ActiveRecord::Base
+  serialize :solution, JSON
   belongs_to :user
   belongs_to :user_exercise
   has_many :comments, ->{ order 'created_at ASC' }, dependent: :destroy
