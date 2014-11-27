@@ -3,10 +3,10 @@
   "track_id": "<id>",
   "slug": "leap",
   "username": "alice",
-  "problem": {
+  "problem_files": {
     "test.rb": "assert true"
   },
-  "solution": {
+  "solution_files": {
     "leap.rb": "CODE"
   }
 }

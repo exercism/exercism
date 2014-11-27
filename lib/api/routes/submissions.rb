@@ -33,8 +33,8 @@ module ExercismAPI
           track_id: submission.track_id,
           slug: submission.slug,
           username: submission.user.username,
-          problem: exercise['files'],
-          solution: {submission.filename => submission.code}
+          problem_files: exercise['files'],
+          solution_files: {submission.filename => submission.code}
         }.to_json
       end
     end
