@@ -15,7 +15,7 @@
       </a>
     <% end %>
     <a
-      href="<%= language_path_for_slug(submission.problem.language, submission.user_exercise.slug) %>"
+      href="<%= language_path_for_slug(submission.problem.track_id, submission.user_exercise.slug) %>"
       class="btn btn-default"
       data-toggle="tooltip"
       data-placement="bottom"
