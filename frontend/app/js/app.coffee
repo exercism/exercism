@@ -6,7 +6,9 @@ $ ->
   $("#feedback_guide_alert .close").click (e) ->
     e.preventDefault()
     $.cookie 'feedback_guide_alert', 'closed', { path: '/' }
-  console.log $.cookie()
+
+  $("#current_submission").theiaStickySidebar(additionalMarginTop: 70)
+
   unless $.cookie('feedback_guide_alert') == 'closed'
     $("#feedback_guide_alert").removeClass("hidden")
 
