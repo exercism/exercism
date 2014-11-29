@@ -1,14 +1,12 @@
 <div class="container">
-  <section class="page-header">
-    <h1>Nit Stats: <small><%= user.username %></small></h1>
-  </section>
+  <div class="row page-header">
+    <h1 class="pull-left">Nit Stats: <small><%= user.username %></small></h1>
+    <%= erb :"nits/nav_links", locals: { user: user, current_page: "stats" } %>
+  </div>
   <div class="row">
     <div class="col-md-8">
       <p class="well">
-        <a href="/nits/<%= user.username %>/given">Nits picked</a>
-        vs.
-        <a href="/nits/<%= user.username %>/received">nits received</a>
-        over the past 30 days
+        Nits picked vs. nits received over the past 30 days
       </p>
       <ul class="graph-legend">
         <li class="nits-picked">Nits picked</li>
