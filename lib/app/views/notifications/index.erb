@@ -30,7 +30,7 @@
               <input type="hidden" name="_method" value="delete">
               <div>
                 <button type="submit" class="btn btn-danger" name="delete">
-                  <i class="fa fa-times"></i> 
+                  <i class="fa fa-times"></i>
                 </button>
               </div>
             </form>
@@ -63,8 +63,10 @@
               <p style="padding-left: 24px;">
               <% if notification.regarding == 'code' %>
                 New iteration
-              <% else %>
+              <% elsif notification.regarding == 'nitpick' %>
                 <b><%= notification.creator.username %></b> commented
+              <% elsif notification.regarding == 'like' %>
+                <b><%= notification.creator.username %></b> liked
               <% end %>
               <%= ago(notification.created_at) %>
               </p>
