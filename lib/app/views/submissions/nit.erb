@@ -7,6 +7,12 @@
   <div class="comment-body">
     <%= nit.html_body %>
     <div class="comment-meta">
+      <% if current_user == nit.nitpicker %>
+        <a href="/submissions/<%= submission.key %>/nits/<%= nit.id %>/edit" class="pull-right btn btn-default btn-xs edit-text">
+          <i class="fa fa-pencil"></i> Edit
+        </a>
+      <% end %>
+
       <%= profile_link(nit.user) %>
       commented <%= ago(nit.created_at) %>
 
@@ -17,12 +23,6 @@
       <em><%= profile_link(mention) %></em>
           <% end %>
         </span>
-      <% end %>
-
-      <% if current_user == nit.nitpicker %>
-        <a href="/submissions/<%= submission.key %>/nits/<%= nit.id %>/edit" class="pull-right btn btn-default btn-xs edit-text">
-          <i class="fa fa-pencil"></i> Edit
-        </a>
       <% end %>
     </div>
   </div>
