@@ -67,6 +67,7 @@ get a feel for the rhythm that Test-Driven Development gives you.
   * create db user with: `createuser -s exercism`.
   * create database with: `createdb -O exercism exercism_development`.
 1. Run the database migrations with `rake db:migrate`.
+1. Fetch the seed data with `rake db:seeds:fetch`.
 1. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
 1. Copy `config/env` to `.env`
 1. Edit `.env` to fill in the correct values, including the GitHub client id/secret procured earlier.
