@@ -5,6 +5,20 @@ module ExercismAPI
 
       configure do
         set :root, ExercismAPI::ROOT
+        enable :raise_errors
+      end
+
+      configure :production do
+        disable :show_exceptions
+      end
+
+      configure :development do
+        enable :show_exceptions
+      end
+
+      error 500 do
+        Bugsnag.auto_notify($!)
+        {error: "Sorry, something went wrong. We've been notified and will look into it."}.to_json
       end
 
       before do
