@@ -1,8 +1,6 @@
 module ExercismAPI
   module Routes
     class Core < Sinatra::Application
-      use Bugsnag::Rack
-
       configure do
         set :root, ExercismAPI::ROOT
         enable :raise_errors
