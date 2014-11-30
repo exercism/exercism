@@ -29,6 +29,22 @@
       margin-right: 4px;
     }
   }
+
+  .footer-sponsors {
+    @include clearfix;
+    .h6 {
+      text-transform: uppercase;
+      color: #fff;
+      background: $gray-light;
+      padding: 3px 6px;
+    }
+    ul {
+      margin-top: 6px;
+      li:last-child {
+        padding-right: 0px;
+      }
+    }
+  }
 }
 
 @media (max-width: $screen-xs-max) {
