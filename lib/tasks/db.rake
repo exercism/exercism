@@ -6,6 +6,7 @@ namespace :db do
     require_relative '../db/connection'
     DB::Connection.establish
     ActiveRecord::Migrator.migrate('./db/migrate')
+  end
 
   desc "set up your database"
   task :setup do
