@@ -63,9 +63,7 @@ get a feel for the rhythm that Test-Driven Development gives you.
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-1. Presuming you have Postgres installed:
-  * create db user with: `createuser -s exercism`.
-  * create database with: `createdb -O exercism exercism_development`.
+1. Presuming you have Postgres installed, run `rake db:setup`
 1. Run the database migrations with `rake db:migrate`.
 1. Fetch the seed data with `rake db:seeds:fetch`.
 1. Run the database seed with `rake db:seed`.
