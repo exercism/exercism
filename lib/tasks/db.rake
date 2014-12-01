@@ -6,6 +6,17 @@ namespace :db do
     require_relative '../db/connection'
     DB::Connection.establish
     ActiveRecord::Migrator.migrate('./db/migrate')
+
+  desc "set up your database"
+  task :setup do
+    `createuser -s exercism`
+    `createdb -O exercism exercism_development`
+  end
+
+  desc "drop and recreate your database"
+  task :reset do
+    `dropdb exercism_development`
+    `createdb -O exercism exercism_development`
   end
 
   namespace :generate do
