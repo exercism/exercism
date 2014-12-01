@@ -63,12 +63,12 @@ get a feel for the rhythm that Test-Driven Development gives you.
   * Name: whatever
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-1. Presuming you have Postgres installed (if not: `brew install postgres`):
+1. Presuming you have Postgres installed:
   * create db user with: `createuser -s exercism`.
   * create database with: `createdb -O exercism exercism_development`.
 1. Run the database migrations with `rake db:migrate`.
 1. Fetch the seed data with `rake db:seeds:fetch`.
-1. Run the database seed with `rake db:seed`. If you want LOTS of data: `rake db:seed[1000]` or some other big number.
+1. Run the database seed with `rake db:seed`.
 1. Copy `config/env` to `.env`
 1. Edit `.env` to fill in the correct values, including the GitHub client id/secret procured earlier.
 1. Start the server with `foreman start`
@@ -106,8 +106,10 @@ There's a script in `bin/console` that will load pry with the exercism environme
 This will let you poke around at the objects in the system, such as finding users and changing
 things about submissions or comments, making it easier to test specific things.
 
-   user = User.find_by_username 'whatever'
-   user.submissions
+```ruby
+user = User.find_by_username 'whatever'
+user.submissions
+```
 
 ## Testing
 
