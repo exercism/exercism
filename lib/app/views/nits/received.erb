@@ -1,7 +1,8 @@
 <div class="container">
-  <section class="page-header">
-    <h1>Nits received</h1>
-  </section>
+  <div class="row page-header">
+    <h1 class="pull-left">Nits received</h1>
+    <%= erb :"nits/nav_links", locals: { user: user, current_page: "received" } %>
+  </div>
 
   <% if nitpicks.any? %>
     <table class="table table-bordered table-striped">

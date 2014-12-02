@@ -4,3 +4,8 @@
 @import 'layouts/import';
 
 @import 'vendor/jquery.atwho';
+
+.nit-links.nav-pills {
+  margin-top: $line-height-computed;
+  margin-bottom: ($line-height-computed / 2);
+}

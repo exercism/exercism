@@ -21,7 +21,7 @@ module ExercismWeb
         .reversed
         .paginate_by_params(params)
 
-        erb :"nits/given", locals: {nitpicks: nitpicks}
+        erb :"nits/given", locals: {user: current_user, nitpicks: nitpicks}
       end
 
       get '/nits/:username/received' do
@@ -31,7 +31,7 @@ module ExercismWeb
         .reversed
         .paginate_by_params(params)
 
-        erb :"nits/received", locals: {nitpicks: nitpicks}
+        erb :"nits/received", locals: {user: current_user, nitpicks: nitpicks}
       end
     end
   end
