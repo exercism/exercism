@@ -32,7 +32,7 @@ module Sinatra
       return "" if liked_by.empty?
 
       everyone = liked_by.map {|user| "<a href='/#{user.username}'>@#{user.username}</a>"}
-      "#{sentencify(everyone)} thinks this looks great"
+      "#{sentencify(everyone)} think#{everyone.one? ? 's' : ''} this looks great"
     end
 
     def like_submission_button(submission, user)
