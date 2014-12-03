@@ -16,6 +16,13 @@ module ExercismWeb
         submission = Submission.random_completed_for(problem)
         total = Submission.completed_for(problem).count
 
+        if submission.problem.nil?
+          # Need more info
+          Bugsnag.notify("WARN: unknown problem for submission #{submission.key}")
+          # try again
+          redirect "/code/%s/%s/random" % [language, slug]
+        end
+
         erb :"code/random", locals: {submission: submission, total: total}
       end
     end
