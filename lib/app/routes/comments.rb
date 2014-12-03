@@ -37,6 +37,10 @@ module ExercismWeb
       get '/submissions/:key/nits/:nit_id/edit' do |key, nit_id|
         please_login("You have to be logged in to do that")
         submission = Submission.find_by_key(key)
+        if submission.nil?
+          redirect '/'
+        end
+
         nit = submission.comments.where(id: nit_id).first
         unless current_user == nit.nitpicker
           flash[:notice] = "Only the author may edit the text."
