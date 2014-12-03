@@ -25,19 +25,25 @@ module ExercismWeb
 
       get '/:username/:key' do |username, key|
         please_login
+
         user = ::User.find_by_username(username)
+        if user.nil?
+          flash[:notice] = "Couldn't find that user."
+          redirect '/'
+        end
+
         exercise = user.exercises.find_by_key(key)
         if exercise.nil?
-          # Should this be a 404?
           flash[:notice] = "Couldn't find that exercise."
           redirect '/'
-        elsif exercise.submissions.empty?
+        end
+
+        if exercise.submissions.empty?
           # We have orphan exercises at the moment.
           flash[:notice] = "That submission no longer exists."
           redirect '/'
-        else
-          redirect ["", "submissions", exercise.submissions.last.key].join('/')
         end
+        redirect "/submissions/%s" % exercise.submissions.last.key
       end
 
       put '/me/uuid/reset' do
