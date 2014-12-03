@@ -1,6 +1,10 @@
 module ExercismWeb
   module Routes
     class Nits < Core
+      get '/nits/:username' do |username|
+        redirect "/nits/%s/stats" % username
+      end
+
       get '/nits/:username/stats' do |username|
         please_login
         user = ::User.find_by_username(username)
