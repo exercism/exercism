@@ -1,6 +1,10 @@
 module ExercismWeb
   module Routes
     class Legacy < Core
+      get '/:username/nitstats' do |username|
+        redirect '/nits/%s/stats' % username
+      end
+
       get '/nitpick/:language/?' do |language|
         redirect "/nitpick/#{language}/recent"
       end
