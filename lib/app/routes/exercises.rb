@@ -41,6 +41,11 @@ module ExercismWeb
       post '/submissions/:key/like' do |key|
         please_login "You have to be logged in to do that."
         submission = Submission.find_by_key(key)
+        if submission.nil?
+          flash[:notice] = "No such exercise found"
+          redirect "/"
+        end
+
         submission.like!(current_user)
         Notify.source(submission, 'like', current_user)
         redirect "/submissions/#{key}"
