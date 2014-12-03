@@ -88,6 +88,11 @@ module ExercismWeb
         end
 
         submission = Submission.where(user_id: current_user.id, language: selected_submission.track_id, slug: selected_submission.slug, state: 'done').first
+        if submission.nil?
+          flash[:notice] = "No such submission"
+          redirect "/"
+        end
+
         submission.state = 'pending'
         submission.done_at = nil
         submission.save
