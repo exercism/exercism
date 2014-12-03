@@ -5,6 +5,10 @@ module ExercismWeb
         notice = "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
         please_login(notice)
         submission = Submission.find_by_key(key)
+        if submission.nil?
+          flash[:notice] = "Cannot comment on this submission anymore, because it has been deleted."
+          redirect "/"
+        end
         comment = CreatesComment.create(submission.id, current_user, params[:body])
         unless comment.new_record?
           Notify.everyone(submission, 'nitpick', current_user)
