@@ -31,7 +31,7 @@ module ExercismWeb
 
       def by_status
         summary = Hash.new {|hash, key| hash[key] = Metric.new(key)}
-        Submission.select('slug, state, count(id)').where(language: language).group(:slug, :state).each do |submission|
+        Submission.where("state != 'deleted'").select('slug, state, count(id)').where(language: language).group(:slug, :state).each do |submission|
           summary[submission.slug].send("#{submission.state}=", submission.count.to_i)
         end
         summary
