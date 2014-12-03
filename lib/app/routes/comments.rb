@@ -47,6 +47,10 @@ module ExercismWeb
 
       post '/submissions/:key/nits/:nit_id' do |key, nit_id|
         nit = Submission.find_by_key(key).comments.where(id: nit_id).first
+        if nit.nil?
+          redirect "/submissions/#{key}"
+        end
+
         unless current_user == nit.nitpicker
           flash[:notice] = "Only the author may edit the text."
           redirect '/'
