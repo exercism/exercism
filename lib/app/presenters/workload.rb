@@ -71,12 +71,16 @@ class Workload
   end
 
   def available_exercises
-    problems = pending.select('distinct slug').where(language: track_id).map(&:slug).map {|slug|
-      Problem.new(track_id, slug)
-    }
-    return problems if user.mastery.include?(track_id)
+    lt = LanguageTrack.new(track_id)
+    problems = pending.select('distinct slug').where(language: track_id).map(&:slug)
 
-    problems.select {|problem|
+    ordered_problems = (lt.ordered_exercises & problems).map do |slug|
+      Problem.new(track_id, slug)
+    end
+
+    return ordered_problems if user.mastery.include?(track_id)
+
+    ordered_problems.select {|problem|
       user.nitpicker[track_id].include? problem.slug
     }
   end
