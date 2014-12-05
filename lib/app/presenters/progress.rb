@@ -26,7 +26,17 @@ module ExercismWeb
         nit_counts.each do |record|
           data[record["slug"]].nits = record["nits"].to_i
         end
-        data.values
+
+        language_tracks = JSON.parse Xapi.get("tracks")[1]
+        ordered_problems = language_tracks["tracks"].select{|x| x['slug'] == language}[0]["problems"]
+        ordered_problems.map! {|x| x.split("#{language}/")[1]}
+
+        new_data = {}
+        ordered_problems.each do |exercise|
+          new_data[exercise] = data[exercise]
+        end
+
+        new_data.values
       end
 
       def by_status
