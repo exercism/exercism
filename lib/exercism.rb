@@ -38,6 +38,7 @@ require 'exercism/user'
 require 'exercism/user_exercise'
 require 'exercism/work'
 require 'exercism/log_entry'
+require 'exercism/language_track'
 
 require 'db/connection'
 DB::Connection.establish

@@ -27,12 +27,9 @@ module ExercismWeb
           data[record["slug"]].nits = record["nits"].to_i
         end
 
-        language_tracks = JSON.parse Xapi.get("tracks")[1]
-        ordered_problems = language_tracks["tracks"].select{|x| x['slug'] == language}[0]["problems"]
-        ordered_problems.map! {|x| x.split("#{language}/")[1]}
-
         new_data = {}
-        ordered_problems.each do |exercise|
+        language_track = LanguageTrack.new(language)
+        language_track.ordered_exercises.each do |exercise|
           next if data[exercise].nil?
           new_data[exercise] = data[exercise]
         end
