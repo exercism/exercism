@@ -33,7 +33,7 @@
           <% if current_user.mastery.include?(progress.language) %>
             <a href="/submissions/<%= progress.language %>/<%= metric.slug %>"><%= metric.slug %></a>
           <% else %>
-            <%= metric.slug %>
+            <%= metric.slug.titleize %>
           <% end %>
         </td>
         <td><%= metric.pending %></td>

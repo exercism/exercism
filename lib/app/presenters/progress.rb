@@ -26,12 +26,21 @@ module ExercismWeb
         nit_counts.each do |record|
           data[record["slug"]].nits = record["nits"].to_i
         end
-        data.values
+
+        new_data = {}
+        language_track = LanguageTrack.new(language)
+        language_track.ordered_exercises.each do |exercise|
+          next if data[exercise].nil?
+          new_data[exercise] = data[exercise]
+        end
+
+        new_data.values
       end
 
       def by_status
-        summary = Hash.new {|hash, key| hash[key] = Metric.new(key)}
+        summary = {}
         Submission.where("state != 'deleted'").select('slug, state, count(id)').where(language: language).group(:slug, :state).each do |submission|
+          summary[submission.slug] ||= Metric.new(submission.slug)
           summary[submission.slug].send("#{submission.state}=", submission.count.to_i)
         end
         summary
