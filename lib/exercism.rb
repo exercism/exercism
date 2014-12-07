@@ -42,6 +42,7 @@ require 'exercism/language_track'
 
 require 'db/connection'
 DB::Connection.establish
+require 'exercism/active_record_citext'
 
 class Exercism
   def self.root

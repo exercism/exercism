@@ -11,14 +11,7 @@ class DB::ConfigTest < Minitest::Test
     assert_equal file, DB::Config.new('env').file
   end
 
-  def test_sets_the_database_setting_relative_to_root_if_sqlite
-    file = relative_to_root('config', 'database.yml')
-    db_connection_string = relative_to_root('db', 'exercism_test.sqlite')
-
-    assert_equal db_connection_string, DB::Config.new('test').options['database']
-  end
-
-  def test_dont_change_database_setting_if_anything_else
+  def test_database_name_comes_from_environment_by_default
     assert_equal 'exercism_development', DB::Config.new('development').options['database']
   end
 
@@ -31,8 +24,8 @@ class DB::ConfigTest < Minitest::Test
     file = relative_to_root('test', 'fixtures', 'database.yml')
     config = DB::Config.new('fake', file)
     options = {
-      'adapter' => 'sqlite3',
-      'database' => relative_to_root('db/betterful_fake')
+      'adapter' => 'postgresql',
+      'database' => 'betterful_fake'
     }
     assert_equal options, config.options
   end

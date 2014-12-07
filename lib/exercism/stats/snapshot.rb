@@ -22,41 +22,41 @@ module Stats
 
     def active_exercise_count
       sql = "SELECT COUNT(id) AS tally FROM user_exercises WHERE user_id = #{user.id} AND state='pending'"
-      execute(sql)["tally"]
+      execute(sql)["tally"].to_i
     end
 
     def hibernating_exercise_count
       sql = "SELECT COUNT(id) AS tally FROM user_exercises WHERE user_id = #{user.id} AND state='hibernating'"
-      execute(sql)["tally"]
+      execute(sql)["tally"].to_i
     end
 
     def completed_exercise_count
       sql = "SELECT COUNT(id) AS tally FROM user_exercises WHERE user_id = #{user.id} AND state='done'"
-      execute(sql)["tally"]
+      execute(sql)["tally"].to_i
     end
 
     def total_nitpick_count
       sql = "SELECT COUNT(c.id) AS tally FROM comments c INNER JOIN submissions s ON c.submission_id=s.id WHERE c.user_id = #{user.id} AND s.user_id != #{user.id}"
-      execute(sql)["tally"]
+      execute(sql)["tally"].to_i
     end
 
     def total_submission_count
       sql = "SELECT count(id) AS tally FROM submissions WHERE user_id=#{user.id}"
-      execute(sql)["tally"]
+      execute(sql)["tally"].to_i
     end
 
     def total_language_count
-      user.submissions.pluck(:language).uniq.count
+      user.submissions.pluck(:language).uniq.count.to_i
     end
 
     def recent_nitpick_count
       sql = "SELECT COUNT(c.id) AS tally FROM comments c INNER JOIN submissions s ON c.submission_id=s.id WHERE c.user_id = #{user.id} AND s.user_id != #{user.id} AND c.created_at > '#{7.days.ago}'"
-      execute(sql)["tally"]
+      execute(sql)["tally"].to_i
     end
 
     def recent_submission_count
       sql = "SELECT count(id) AS tally FROM submissions WHERE user_id=#{user.id} AND created_at > '#{7.days.ago}'"
-      execute(sql)["tally"]
+      execute(sql)["tally"].to_i
     end
 
     def recent_language_count

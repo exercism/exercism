@@ -23,7 +23,7 @@ class NitpickAppTest < Minitest::Test
   def generate_submission(track_id, exe)
     user = User.create({
       username: "#{track_id}_user",
-      github_id: track_id,
+      github_id: User.count,
       email: "#{track_id}_coder@example.com"
     })
     attempt = Attempt.new(user, "class Bob\nend", "#{track_id}/bob/bob.#{exe}").save
