@@ -2,7 +2,7 @@ class Submission < ActiveRecord::Base
   serialize :solution, JSON
   belongs_to :user
   belongs_to :user_exercise
-  has_many :comments, ->{ order 'created_at ASC' }, dependent: :destroy
+  has_many :comments, ->{ order(created_at: :asc) }, dependent: :destroy
 
   # I don't really want the notifications method,
   # just the dependent destroy
@@ -39,7 +39,7 @@ class Submission < ActiveRecord::Base
     pending.where('nit_count > 0').where('created_at < ?', cutoff)
   }
   scope :chronologically, -> { order('created_at ASC') }
-  scope :reversed, -> { order('created_at DESC') }
+  scope :reversed, -> { order(created_at: :desc) }
   scope :not_commented_on_by, ->(user) {
     joins("LEFT JOIN (SELECT submission_id FROM comments WHERE user_id=#{user.id}) AS already_commented ON submissions.id=already_commented.submission_id").
     where('already_commented.submission_id IS NULL')
@@ -69,6 +69,8 @@ class Submission < ActiveRecord::Base
   scope :excluding, ->(user) {
     where.not(user: user)
   }
+
+  scope :recent, -> { where('submissions.created_at > ?', 7.days.ago) }
 
   def self.completed_for(problem)
     done.where(language: problem.track_id, slug: problem.slug)
