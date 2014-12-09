@@ -18,7 +18,7 @@ question with #exercism). Another option is to submit the code even though it
 doesn't pass the tests yet, and then go to your submission page to explain
 where you're stuck.
 
-We welcome questions, and will do your best to help you out!
+We welcome questions, and will do our best to help you out!
 
 Follow us on [twitter @exercism_io](https://twitter.com/exercism_io).
 
