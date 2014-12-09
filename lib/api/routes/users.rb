@@ -1,13 +1,9 @@
 module ExercismAPI
   module Routes
     class Users < Core
-      post '/user/find' do
+      get '/user/find' do
         content_type :json
-        if params[:query]
-          User.where('username LIKE ?', '%' + params[:query] + '%').pluck(:username).to_json
-        else
-          "[]"
-        end
+        UserLookup.new(params).lookup.to_json
       end
     end
   end

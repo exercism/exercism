@@ -6,10 +6,10 @@ angular.module('exercism').controller "MarkdownCtrl", ($scope, $http) ->
   $scope.$watch 'data.body', (body) ->
     if body && PATTERN.test(body)
       query = body.match(PATTERN)[0].replace('@', '')
-      $http.post "/api/v1/user/find",
-          $.param({ "query": query }),
-          headers:
-            "Content-Type": 'application/x-www-form-urlencoded'
+      submission_key = $('.md-markdown-preview textarea').attr('data-submission-key')
+      $http.get("/api/v1/user/find", {
+        params: { query: query, submission_key: submission_key }
+      })
       .success (data, status, headers) ->
         $('.comment').atwho({
           at: '@',
