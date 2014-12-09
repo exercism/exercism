@@ -4,7 +4,9 @@
 [![Gemnasium](https://gemnasium.com/exercism/exercism.io.png)](https://gemnasium.com/exercism/exercism.io)
 [![Coverage Status](https://coveralls.io/repos/exercism/exercism.io/badge.png?branch=master)](https://coveralls.io/r/exercism/exercism.io?branch=master)
 
-To get started using exercism.io check out the [getting started](http://exercism.io/getting-started) page on the website.
+To get started using exercism.io to practice or provide feedback on other
+people's code, check out the [getting
+started](http://exercism.io/getting-started) page on the website.
 
 ## Contact Us
 
@@ -28,44 +30,41 @@ For occasional updates, such as new language tracks being launched,
 Exercism.io was started by Katrina. To get in touch with her, send an email to
 [kytrinyx@exercism.io](mailto:kytrinyx@exercism.io).
 
-## WARNING
+## Contributing
 
-This is an experiment, and the code reflects that. Many features have been thrown
-in, only to be deprecated shortly thereafter, and there's scar tissue
-throughout the system.
+We're working on improving the
+[CONTRIBUTING.md](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md)
+document, which will describe the various parts of the system and how they fit
+together.
 
-Features may be here today, gone tomorrow.
+Exercism.io is free and open source, and many, many people have contributed to
+the project by:
 
-The site is confusing, the process is opaque, and it's hard to figure out where you
-need to look to figure stuff out.
+* Reporting, reproducing, or fixing bugs
+* Triaging issues
+* Suggesting, discussing, or implementing features
+* Refactoring
+* Improving the design of the site
+* Adding tests
+* Improving documentation
+* Improving test suites for the language tracks
+* Adding new problems to existing tracks
+* Porting problems to new tracks
+* Providing feedback on people's code
+* Reviewing pull requests
+* ... and more
 
-### What we think we know
+This is a project that started by accident and could never have gotten off the
+ground by the efforts of any single person.
 
-This is a process with two parts:
-
-* practice (writing code, iterating)
-* mentorship (looking at code, asking questions, and articulating insights)
-
-It's not about getting code perfect or right, but using the pieces of code to
-talk about the little details of what makes code simple, readable, and/or
-expressive.
-
-## The Data
-
-The problems are collected from all over the web.
-
-The common data for problems are in the
-[exercism/x-common](http://github.com/exercism/x-common) repository.
-
-This includes some metadata that gets sewn into a README.
-
-Not all problems will be appropriate for all languages.
-
-The actual problem consists of this README and a test suite. In some
-languages all tests except the first one are pending. This helps newer programmers
-get a feel for the rhythm that Test-Driven Development gives you.
+**Thank you!**
 
 ## Setup
+
+At the moment the setup instructions are skewed heavily in favor of linux and
+Mac OS X. This doesn't mean you can't develop on Windows, only that we don't
+yet know how to get everything set up for Windows. We're hoping to address
+that soon!
 
 1. Install postgresql with: `brew install postgresql` or `apt-get install postgresql-9.2`
 1. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
