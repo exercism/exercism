@@ -35,11 +35,11 @@ class User < ActiveRecord::Base
   end
 
   def self.find_in_usernames(usernames)
-    where('LOWER(username) IN (?)', usernames.map(&:downcase))
+    where(username: usernames)
   end
 
   def self.find_by_username(username)
-    where('LOWER(username) = ?', username.downcase).first
+    find_by(username: username)
   end
 
   def onboarding_steps
