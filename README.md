@@ -4,17 +4,29 @@
 [![Gemnasium](https://gemnasium.com/exercism/exercism.io.png)](https://gemnasium.com/exercism/exercism.io)
 [![Coverage Status](https://coveralls.io/repos/exercism/exercism.io/badge.png?branch=master)](https://coveralls.io/r/exercism/exercism.io?branch=master)
 
-Programming practice with crowd-sourced mentorship.
+To get started using exercism.io check out the [getting started](http://exercism.io/getting-started) page on the website.
 
-## Using Exercism
+## Contact Us
 
-To get started, please check out the [help site](http://help.exercism.io/installing-the-cli.html).
+To report a bug, suggest improvements to exercism.io, or if you're having trouble
+installing or using the CLI, please **[open a GitHub
+issue](https://github.com/exercism/exercism.io/issues)**.
 
-Installing the CLI is complicated if you're not used to working on the command-line. There are a couple
-of screencasts available to help guide you through the steps:
+If you're having trouble writing the code to solve a problem, then your best
+bet is [StackOverflow](http://stackoverflow.com/) (remember to tag the
+question with #exercism). Another option is to submit the code even though it
+doesn't pass the tests yet, and then go to your submission page to explain
+where you're stuck.
 
-- Windows: https://www.youtube.com/watch?v=7IE0fzbuEdQ
-- Mac: https://www.youtube.com/watch?v=TCT4eHGwfaE
+We welcome questions, and will do your best to help you out!
+
+Follow us on [twitter @exercism_io](https://twitter.com/exercism_io).
+
+For occasional updates, such as new language tracks being launched,
+[sign up for the newsletter](http://exercism.us9.list-manage.com/subscribe?u=c5ed2d182b80db686ffa4025a&id=cdcdca241e).
+
+Exercism.io was started by Katrina. To get in touch with her, send an email to
+[kytrinyx@exercism.io](mailto:kytrinyx@exercism.io).
 
 ## WARNING
 
