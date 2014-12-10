@@ -9,3 +9,16 @@
   margin-top: $line-height-computed;
   margin-bottom: ($line-height-computed / 2);
 }
+
+.alert-notice {
+  @extend .alert-info;
+}
+
+.alert-error {
+  @extend .alert-danger;
+}
+
+.alert-alert {
+  @extend .alert-warning;
+}
+
