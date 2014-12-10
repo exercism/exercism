@@ -29,6 +29,10 @@ module ExercismAPI
         attempt = Attempt.new(user, data['code'], data['path'])
 
         unless attempt.valid?
+          Bugsnag.before_notify_callbacks << lambda { |notif|
+            notif.add_tab(:data, {user: user.username, code: data['code'], path: data['path']})
+          }
+          Bugsnag.notify(Attempt::InvalidAttemptError.new("Invalid attempt submitted"))
           error = "unknown problem (track: #{attempt.file.track}, slug: #{attempt.file.slug}, path: #{data['path']})"
           halt 400, {error: error}.to_json
         end

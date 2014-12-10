@@ -59,6 +59,8 @@ class Attempt
     @previous_submission ||= previous_submissions.first || NullSubmission.new(problem)
   end
 
+  class InvalidAttemptError < StandardError; end
+
   private
 
   def sanitize(code)
