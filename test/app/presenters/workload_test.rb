@@ -5,6 +5,7 @@ require 'exercism/submission'
 require 'app/presenters/workload'
 
 class WorkloadTest < Minitest::Test
+  include AppTestHelper
   include Rack::Test::Methods
   include DBCleaner
 
@@ -36,7 +37,7 @@ class WorkloadTest < Minitest::Test
     Attempt.new(alex, "code", 'ruby/beer-song/beer-song.rb').save
     Attempt.new(alex, "code", 'ruby/bob/bob.rb').save
     Attempt.new(marjo, "code", "ruby/bob/bob.rb").save
-    Attempt.new(marjo, "code", "ruby/word_count/word_count.rb").save
+    Attempt.new(marjo, "code", "ruby/word-count/word-count.rb").save
 
     alex.submissions.first.like!(marjo)
     alex.submissions.last.update_attributes(state: 'needs_input')
@@ -47,7 +48,7 @@ class WorkloadTest < Minitest::Test
     workload = Workload.new(master, "ruby", "bob")
 
     expected = {
-      "beer-song" => 1, "bob" => 2, "word_count" => 1
+      "beer-song" => 1, "bob" => 2, "word-count" => 1
     }
 
     assert_equal expected, workload.breakdown
@@ -81,6 +82,16 @@ class WorkloadTest < Minitest::Test
     workload = Workload.new(marjo, "ruby", "bob")
 
     assert_equal 1, workload.submissions.count
-    assert_equal 1, workload.available_exercises.count
+    Xapi.stub(:get, [200, language_tracks_json]) do
+      assert_equal 1, workload.available_exercises.count
+    end
+  end
+
+  def test_sort_exercises_by_language_track
+    workload = Workload.new(master, "ruby", "aging")
+
+    Xapi.stub(:get, [200, language_tracks_json]) do
+      assert_equal %w(word-count bob beer-song), workload.available_exercises.map(&:slug)
+    end
   end
 end

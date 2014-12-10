@@ -35,18 +35,24 @@ class NitpickAppTest < Minitest::Test
 
   def test_language_when_and_submission_present
     generate_submission("clojure", "clj")
-    get '/nitpick/clojure/no-nits', {}, login(master)
-    assert last_response.body.include?("the_master"), "visible username"
-    assert last_response.body.include?("bob"), "visible submission"
-    assert_equal last_response.status, 200
+
+    Xapi.stub(:get, [200, language_tracks_json]) do
+      get '/nitpick/clojure/no-nits', {}, login(master)
+      assert last_response.body.include?("the_master"), "visible username"
+      assert last_response.body.include?("bob"), "visible submission"
+      assert_equal last_response.status, 200
+    end
   end
 
   def test_language_when_submission_is_nitted
     generate_nitpick(generate_submission("clojure", "clj"))
-    get '/nitpick/clojure/no-nits', {}, login(master)
-    assert last_response.body.include?("the_master"), "visible username"
-    refute last_response.body.include?("bob"), "submission should have been muted"
-    assert_equal last_response.status, 200
+
+    Xapi.stub(:get, [200, language_tracks_json]) do
+      get '/nitpick/clojure/no-nits', {}, login(master)
+      assert last_response.body.include?("the_master"), "visible username"
+      refute last_response.body.include?("bob"), "submission should have been muted"
+      assert_equal last_response.status, 200
+    end
   end
 end
 
