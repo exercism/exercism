@@ -6,8 +6,6 @@ module ExercismWeb
       end
 
       get '/stats/:track_id' do |track_id|
-        please_login
-
         track_ids = Exercism::Config.languages.keys
         progress = ExercismWeb::Presenters::Progress.new(track_id)
         erb :"stats/show", locals: {track_ids: track_ids, progress: progress}
