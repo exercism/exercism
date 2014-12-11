@@ -24,6 +24,9 @@ We welcome questions, and will do our best to help you out!
 
 Follow us on [twitter @exercism_io](https://twitter.com/exercism_io).
 
+Jump in and chat with other exercism enthusiasts on the #exercism channel on irc.freenode.net.
+It's not a very active channel, but we're a friendly bunch.
+
 For occasional updates, such as new language tracks being launched,
 [sign up for the newsletter](http://exercism.us9.list-manage.com/subscribe?u=c5ed2d182b80db686ffa4025a&id=cdcdca241e).
 
