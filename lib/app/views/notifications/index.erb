@@ -24,15 +24,11 @@
       <% if inbox.has_alerts? %>
         <ul style="list-style-type: none; margin: 0;">
           <% inbox.alerts.each do |alert| %>
-          <li style="padding: 5px 0;">
-            <span style="padding-right: 5px;" class="fa fa-bell-o"></span>
-            <form action="/notifications/alert-<%= alert.id %>" method='POST' style="float: right; padding-left: 10px;">
+          <li class="alert-row">
+            <span class="fa fa-bell-o alert-icon"></span>
+            <form action="/notifications/alert-<%= alert.id %>" method='POST' class="delete-alert">
               <input type="hidden" name="_method" value="delete">
-              <div>
-                <button type="submit" class="btn btn-danger" name="delete">
-                  <i class="fa fa-times"></i>
-                </button>
-              </div>
+              <button type="submit" class="btn btn-danger" name="delete"><i class="fa fa-times"></i></button>
             </form>
             <%= alert.text %>
             <a href="<%= alert.url %>"><%= alert.link_text %></a>

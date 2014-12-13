@@ -22,3 +22,16 @@
   @extend .alert-warning;
 }
 
+li.alert-row {
+  @include make-row();
+  padding: 5px 0;
+
+  .alert-icon {
+    padding-right: 5px;
+  }
+
+  .delete-alert {
+   float: right;
+   padding-left: 10px;
+  }
+}
