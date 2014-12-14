@@ -100,6 +100,11 @@ class AttemptTest < Minitest::Test
     assert_equal 'CODE 123', user.submissions.first.reload.code
   end
 
+  def test_an_attempt_includes_the_code_and_filename_in_the_submissions_solution
+    Attempt.new(user, 'CODE 123', 'two/two.py').save
+    assert_equal({'two.py' => 'CODE 123'}, user.submissions.first.reload.solution)
+  end
+
   def test_previous_submission_after_first_attempt
     attempt = Attempt.new(user, 'CODE', 'two/two.rb').save
     assert_equal attempt.previous_submission.class, NullSubmission

@@ -37,6 +37,7 @@ class Attempt
     remove_from_completed(problem)
     submission.code = code
     submission.filename = file.filename
+    submission.solution = {file.filename => code}
     user.submissions << submission
     user.save
     Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
