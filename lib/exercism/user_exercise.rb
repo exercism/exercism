@@ -13,6 +13,7 @@ class UserExercise < ActiveRecord::Base
 
   before_create do
     self.key ||= Exercism.uuid
+    true
   end
 
   def track_id
