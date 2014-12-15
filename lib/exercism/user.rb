@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   has_many :unconfirmed_teams, through: :unconfirmed_team_memberships, source: :team
 
   before_save do
-    reset_key if !key
+    self.key ||= Exercism.uuid
     true
   end
 
@@ -136,10 +136,6 @@ class User < ActiveRecord::Base
 
   def completed_submissions_in(track_id)
     submissions.done.where(language: track_id)
-  end
-
-  def reset_key
-    self.key = SecureRandom.uuid.tr('-', '')
   end
 
   private
