@@ -28,25 +28,20 @@ class Submission < ActiveRecord::Base
     true
   end
 
-
   scope :done, ->{ where(state: 'done') }
   scope :pending, ->{ where(state: %w(needs_input pending)) }
   scope :hibernating, ->{ where(state: 'hibernating') }
   scope :needs_input, ->{ where(state: 'needs_input') }
   scope :aging, lambda {
-    three_weeks_ago = Time.now - (60*60*24*7*3)
-    cutoff = three_weeks_ago.strftime('%Y-%m-%d %H:%M:%S')
-    pending.where('nit_count > 0').where('created_at < ?', cutoff)
+    pending.where('nit_count > 0').where('created_at < ?', 3.weeks.ago)
   }
-  scope :chronologically, -> { order('created_at ASC') }
+  scope :chronologically, -> { order(created_at: :asc) }
   scope :reversed, -> { order(created_at: :desc) }
   scope :not_commented_on_by, ->(user) {
-    joins("LEFT JOIN (SELECT submission_id FROM comments WHERE user_id=#{user.id}) AS already_commented ON submissions.id=already_commented.submission_id").
-    where('already_commented.submission_id IS NULL')
+    where("id NOT IN (#{Comment.where(user: user).select(:submission_id).to_sql})")
   }
   scope :not_liked_by, ->(user) {
-    joins("LEFT JOIN (SELECT submission_id FROM likes WHERE user_id=#{user.id}) AS already_liked ON submissions.id=already_liked.submission_id").
-    where('already_liked.submission_id IS NULL')
+    where("id NOT IN (#{Like.where(user: user).select(:submission_id).to_sql})")
   }
   scope :not_submitted_by, ->(user) { where.not(user: user) }
 
@@ -77,11 +72,10 @@ class Submission < ActiveRecord::Base
   end
 
   def self.random_completed_for(problem)
-    where(
-      state: 'done',
+    done.find_by(
       language: problem.track_id,
       slug: problem.slug
-    ).order('RANDOM()').limit(1).first
+    ).order('RANDOM()')
   end
 
   def self.related(submission)
@@ -130,10 +124,6 @@ class Submission < ActiveRecord::Base
     self.state   = 'superseded'
     self.done_at = nil
     save
-  end
-
-  def submitted?
-    true
   end
 
   def like!(user)
