@@ -53,6 +53,7 @@ module ExercismWeb
     use Routes::Teams
     use Routes::Styleguide
     use Routes::User
+    use Routes::CommentThreads
     use Routes::Errors
   end
 end

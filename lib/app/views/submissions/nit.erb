@@ -15,15 +15,19 @@
 
       <%= profile_link(nit.user) %>
       commented <%= ago(nit.created_at) %>
-
-      <% unless nit.mentions.empty? %>
-        <span>
-          | Mentions:
-          <% nit.mentions.each do |mention| %>
-      <em><%= profile_link(mention) %></em>
-          <% end %>
-        </span>
-      <% end %>
     </div>
   </div>
+</div>
+
+<div ng-controller="CommentsCtrl">
+  <ul ng-init='commentThreads = <%= nit.comment_threads.to_json %>'>
+    <li ng-repeat='ct in commentThreads' ng-bind-html-unsafe="ct.html_body"></li>
+  </ul>
+  <a class="btn btn-default" ng-show="hideCommentForm" ng-click="showCommentForm()">add comment</a>
+  <form class="add-comment" ng-hide="hideCommentForm">
+    <textarea cols="58" rows="3" ng-model="commentThread.body"></textarea>
+
+    <button ng-click="addComment(<%= nit.id %>)">Add Comment</button>
+    <button ng-click="hideCommentFormFn()">Close</button>
+  </form>
 </div>

@@ -22,6 +22,7 @@ module ExercismWeb
       Teams: 'teams',
       Styleguide: 'styleguide',
       User: 'user',
+      CommentThreads: 'comment_threads',
       Errors: 'errors',
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('lib', 'app', 'routes', file)
