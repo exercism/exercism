@@ -17,6 +17,10 @@ class SubmissionTest < Minitest::Test
     end
   end
 
+  def create_submission
+    Submission.create!(user: User.create!)
+  end
+
   def alice
     @alice ||= User.create(username: 'alice')
   end
@@ -184,12 +188,13 @@ class SubmissionTest < Minitest::Test
 
   def test_aging_submissions
     # not old
-    s1 = Submission.create(user: alice, state: 'pending')
+    s1 = Submission.create(user: alice, state: 'pending', created_at: 20.days.ago, nit_count: 1)
     # no nits
-    s2 = Submission.create(user: alice, state: 'pending', created_at: (Date.today - 22).to_time, nit_count: 0)
+    s2 = Submission.create(user: alice, state: 'pending', created_at: 22.days.ago, nit_count: 0)
     # not pending
-    s3 = Submission.create(user: alice, state: 'completed')
-    s4 = Submission.create(user: alice, state: 'pending', created_at: (Date.today - 22).to_time, nit_count: 1)
+    s3 = Submission.create(user: alice, state: 'completed', created_at: 22.days.ago, nit_count: 1)
+    # Meets criteria: old, pending, and with nits
+    s4 = Submission.create(user: alice, state: 'pending', created_at: 22.days.ago, nit_count: 1)
 
     # Guard clause.
     # All the expected submissions got created
@@ -197,5 +202,19 @@ class SubmissionTest < Minitest::Test
 
     ids = Submission.aging.map(&:id)
     assert_equal [s4.id], ids
+  end
+
+  def test_not_commented_on_by
+    user = User.create!
+    commented_on_by_user = create_submission
+    Comment.create!(submission: commented_on_by_user, user: user, body: 'test')
+
+    commented_on_by_someone_else = create_submission
+    Comment.create!(submission: commented_on_by_someone_else, user: User.create!, body: 'test')
+
+    not_commented_on_at_all = create_submission
+
+    expected = [commented_on_by_someone_else, not_commented_on_at_all].sort
+    assert_equal expected, Submission.not_commented_on_by(user).sort
   end
 end

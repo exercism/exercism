@@ -96,6 +96,6 @@ class Workload
   end
 
   def unmuted_submissions
-    Submission.excluding(user).unmuted_for(user).for_language(track_id)
+    Submission.not_submitted_by(user).unmuted_for(user).for_language(track_id)
   end
 end
