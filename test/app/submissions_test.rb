@@ -31,6 +31,10 @@ class SubmissionsTest < Minitest::Test
     Attempt.new(alice, code, 'word-count/file.rb').save
   end
 
+  def create_submission
+    Submission.create!(user: User.create!)
+  end
+
   attr_reader :alice, :bob
   def setup
     super
@@ -433,5 +437,19 @@ class SubmissionsTest < Minitest::Test
     post "/submissions/#{s2.key}/done", {}, login(bob)
 
     assert_equal 'superseded', s1.reload.state
+  end
+
+  def test_not_commented_on_by
+    user = User.create!
+    commented_on_by_user = create_submission
+    Comment.create!(submission: commented_on_by_user, user: user, body: 'test')
+
+    commented_on_by_someone_else = create_submission
+    Comment.create!(submission: commented_on_by_someone_else, user: User.create!, body: 'test')
+
+    not_commented_on_at_all = create_submission
+
+    expected = [commented_on_by_someone_else, not_commented_on_at_all].sort
+    assert_equal expected, Submission.not_commented_on_by(user).sort
   end
 end
