@@ -106,7 +106,7 @@ You can find the compass config in `lib/app/config.rb`.
 
 ### Styleguide
 
-Our styleguide is reachable under (/styleguide)[http://exercism.io/styleguide] and built with [KSS](https://github.com/kneath/kss), which enables you to write examples to `*.scss` files
+Our styleguide is reachable under [/styleguide](http://exercism.io/styleguide) and built with [KSS](https://github.com/kneath/kss), which enables you to write examples to `*.scss` files
 
 ## Sending Emails
 
