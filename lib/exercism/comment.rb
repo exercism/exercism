@@ -16,7 +16,7 @@ class Comment < ActiveRecord::Base
   scope :received_by, ->(user) { where(submission_id: user.submissions.pluck(:id)) }
   scope :paginate_by_params, ->(params) { paginate(page: params[:page], per_page: params[:per_page] || 10) }
 
-  scope :except_on_submissions_by, ->(user) { joins(:submission).merge(Submission.excluding(user)) }
+  scope :except_on_submissions_by, ->(user) { joins(:submission).merge(Submission.not_submitted_by(user)) }
 
   def nitpicker
     user

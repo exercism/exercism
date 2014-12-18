@@ -33,7 +33,7 @@ class Submission < ActiveRecord::Base
   scope :hibernating, ->{ where(state: 'hibernating') }
   scope :needs_input, ->{ where(state: 'needs_input') }
   scope :aging, lambda {
-    pending.where('nit_count > 0').where('created_at < ?', 3.weeks.ago)
+    pending.where('nit_count > 0').older_than(3.weeks.ago)
   }
   scope :chronologically, -> { order(created_at: :asc) }
   scope :reversed, -> { order(created_at: :desc) }
@@ -43,45 +43,39 @@ class Submission < ActiveRecord::Base
   scope :not_liked_by, ->(user) {
     where("id NOT IN (#{Like.where(user: user).select(:submission_id).to_sql})")
   }
+
   scope :not_submitted_by, ->(user) { where.not(user: user) }
 
   scope :between, ->(upper_bound, lower_bound) {
-    where('created_at < ? AND created_at > ?', upper_bound, lower_bound)
+    where(created_at: upper_bound..lower_bound)
   }
 
   scope :older_than, ->(timestamp) {
-    where('created_at < ?', timestamp)
+    where('submissions.created_at < ?', timestamp)
   }
 
   scope :since, ->(timestamp) {
-    where('created_at > ?', timestamp)
+    where('submissions.created_at > ?', timestamp)
   }
 
   scope :for_language, ->(language) {
     where(language: language)
   }
 
-  scope :excluding, ->(user) {
-    where.not(user: user)
+  scope :recent, -> { since(7.days.ago) }
+
+  scope :completed_for, -> (problem) {
+    done.where(language: problem.track_id, slug: problem.slug)
   }
 
-  scope :recent, -> { where('submissions.created_at > ?', 7.days.ago) }
+  scope :random_completed_for, -> (problem) {
+    completed_for(problem).order('RANDOM()').limit(1).first
+  }
 
-  def self.completed_for(problem)
-    done.where(language: problem.track_id, slug: problem.slug)
-  end
-
-  def self.random_completed_for(problem)
-    done.find_by(
-      language: problem.track_id,
-      slug: problem.slug
-    ).order('RANDOM()')
-  end
-
-  def self.related(submission)
-    order('created_at ASC').
-      where(user_id: submission.user.id, language: submission.track_id, slug: submission.slug)
-  end
+  scope :related, -> (submission) {
+    chronologically
+      .where(user_id: submission.user.id, language: submission.track_id, slug: submission.slug)
+  }
 
   def self.on(problem)
     submission = new
@@ -90,9 +84,9 @@ class Submission < ActiveRecord::Base
     submission
   end
 
-  def self.unmuted_for(user)
-    joins("left join (select submission_id from muted_submissions ms where user_id=#{user.id}) as t ON t.submission_id=submissions.id").where('t.submission_id is null')
-  end
+  scope :unmuted_for, ->(user) {
+    where("id NOT IN (#{MutedSubmission.where(user: user).select(:submission_id).to_sql})")
+  }
 
   def name
     @name ||= slug.split('-').map(&:capitalize).join(' ')
