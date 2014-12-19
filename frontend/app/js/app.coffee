@@ -16,7 +16,7 @@ $ ->
     username = $(@).data('username')
     slug = $(@).data('team')
 
-    if confirm("Are you sure you want to dismiss #{username}")
+    if confirm("Are you sure you want to remove #{username}?")
       dismissTeamMember(username, slug)
 
   $('#destroy_team').on 'click', ->

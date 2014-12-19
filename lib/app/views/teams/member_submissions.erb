@@ -4,7 +4,7 @@
     <a href="/<%= member.username %>"><%= member.username %></a>
     <% if team.managed_by?(current_user) %>
       <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
-         class="btn btn-xs btn-danger hidden member_delete">Dismiss</a>
+         class="btn btn-xs btn-danger hidden member_delete">Remove</a>
     <% end %>
     <% if member == current_user %>
       <form action="<%= "/teams/#{team.slug}/leave" %>" method="post" class="team-leave-form" style="float: left; padding-right: 10px">
