@@ -14,6 +14,8 @@ module ExercismWeb
         team = Team.by(current_user).defined_with(params[:team])
         if team.valid?
           team.save
+          team.recruit(current_user.username)
+          team.confirm(current_user.username)
           notify(team.unconfirmed_members, team)
           redirect "/teams/#{team.slug}"
         else
