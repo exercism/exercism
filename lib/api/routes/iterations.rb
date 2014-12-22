@@ -76,6 +76,10 @@ module ExercismAPI
       get '/iterations/latest' do
         require_key
 
+        if current_user.guest?
+          halt 401, {error: "Please double-check your exercism API key."}.to_json
+        end
+
         submissions = current_user.exercises.order(:language, :slug).map {|exercise|
           exercise.submissions.last
         }.compact
