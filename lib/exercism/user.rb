@@ -22,6 +22,11 @@ class User < ActiveRecord::Base
     true
   end
 
+  def reset_key
+    self.key = Exercism.uuid
+    save
+  end
+
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first ||
            User.new(github_id: id, email: email)

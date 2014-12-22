@@ -53,7 +53,6 @@ module ExercismWeb
         # what the user should see in that case.
         # Do we even have a way of showing a message?
         current_user.reset_key
-        current_user.save
         redirect "/account"
       end
     end
