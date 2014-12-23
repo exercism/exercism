@@ -27,6 +27,11 @@ namespace :db do
 
     # Trigger generation of html body
     Comment.find_each { |comment| comment.save }
+    # Update nit_count from comments
+    Submission.all.each do |s|
+      s.nit_count = s.comments.size
+      s.save
+    end
   end
 
   desc "add recently viewed data for a specific (test) user by username"
