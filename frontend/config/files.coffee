@@ -11,7 +11,7 @@
  # To see the default definitions for all of Lineman's file paths and globs, look at:
  # https://github.com/testdouble/lineman/blob/master/config/files.coffee
  #
- 
+
 module.exports = require(process.env['LINEMAN_MAIN']).config.extend('files', {
   js:
     vendor: [
