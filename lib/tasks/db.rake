@@ -1,11 +1,25 @@
 namespace :db do
+  require 'bundler'
+  Bundler.require
+  require_relative '../db/connection'
+  DB::Connection.establish
+
   desc "migrate your database"
   task :migrate do
-    require 'bundler'
-    Bundler.require
-    require_relative '../db/connection'
-    DB::Connection.establish
     ActiveRecord::Migrator.migrate('./db/migrate')
+  end
+
+  task :rollback do
+    step = ENV['STEP'] ? ENV['STEP'].to_i : 1
+    ActiveRecord::Migrator.rollback('./db/migrate', step)
+  end
+
+  namespace :migrate do
+    task :down do
+      version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
+      raise 'VERSION is required - To go down one migration, run db:rollback' unless version
+      ActiveRecord::Migrator.run(:down, './db/migrate', version)
+    end
   end
 
   desc "set up your database"
