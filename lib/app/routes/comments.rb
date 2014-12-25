@@ -44,8 +44,11 @@ module ExercismWeb
         if submission.nil?
           redirect '/'
         end
-
         nit = submission.comments.where(id: nit_id).first
+        if nit.nil?
+          flash[:notice] = "no such comment"
+          redirect "/submissions/#{key}"
+        end
         unless current_user == nit.nitpicker
           flash[:notice] = "Only the author may edit the text."
           redirect "/submissions/#{key}"
