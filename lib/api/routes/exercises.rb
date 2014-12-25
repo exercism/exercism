@@ -19,6 +19,12 @@ module ExercismAPI
       end
 
       get '/exercises/:track_id' do |track_id|
+        require_key
+
+        if current_user.guest?
+          halt 400, {error: "Sorry—we can't figure out who you are. Double-check your API key in your exercism.io account page."}.to_json
+        end
+
         status, data = Xapi.get("exercises", track_id, key: current_user.key)
         LifecycleEvent.track('fetched', current_user.id)
         halt status, data
