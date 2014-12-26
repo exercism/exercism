@@ -26,10 +26,10 @@
 
     <div class="clearfix"></div>
 
-    <%= md(submission.code, submission.track_id) %>
+    <%= md(submission.solution.values.first, submission.track_id) %>
 
     <div id="submission-code" class="hidden">
-      <%= h submission.code %>
+      <%= h submission.solution.values.first %>
     </div>
 
     <div class="submission-likes">
