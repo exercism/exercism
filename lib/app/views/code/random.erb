@@ -16,7 +16,7 @@
       This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.problem.name %> in <%= Language.of(submission.track_id) %>. Interested? Read the <a href="/submissions/<%= submission.key %>">related discussion</a>.
       </p>
       <div style="padding-top: 2px;">
-        <%= md(submission.code, submission.track_id) %>
+        <%= md(submission.solution.values.first, submission.track_id) %>
       </div>
     </div>
   </div>
