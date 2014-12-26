@@ -37,7 +37,7 @@ module ExercismAPI
               track: attempt.file.track,
               slug: attempt.file.slug,
             }
-            notif.add_tab(:data, )
+            notif.add_tab(:data, data)
           }
           Bugsnag.notify(Attempt::InvalidAttemptError.new("Invalid attempt submitted"))
           error = "unknown problem (track: #{attempt.file.track}, slug: #{attempt.file.slug}, path: #{data['path']})"
