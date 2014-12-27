@@ -32,6 +32,20 @@ class AttemptTest < Minitest::Test
     assert_equal user, submission.user
   end
 
+  def test_saving_a_multi_file_attempt_constructs_a_submission
+    assert_equal 0, Submission.count # guard
+    solution = {'python/two/two.py' => 'CODE'}
+
+    Attempt.new(user, nil, nil, Iteration.new(solution)).save
+
+    assert_equal 1, Submission.count
+    submission = Submission.first
+    assert_equal 'python', submission.track_id
+    assert_equal 'two', submission.slug
+    assert_equal solution, submission.solution
+    assert_equal user, submission.user
+  end
+
   def test_attempt_is_created_for_current_exercise
     assert_equal 0, Submission.count # guard
 
@@ -102,7 +116,7 @@ class AttemptTest < Minitest::Test
 
   def test_an_attempt_includes_the_code_and_filename_in_the_submissions_solution
     Attempt.new(user, 'CODE 123', 'two/two.py').save
-    assert_equal({'two.py' => 'CODE 123'}, user.submissions.first.reload.solution)
+    assert_equal({'two/two.py' => 'CODE 123'}, user.submissions.first.reload.solution)
   end
 
   def test_previous_submission_after_first_attempt

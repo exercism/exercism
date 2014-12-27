@@ -42,6 +42,26 @@ class AssignmentsApiTest < Minitest::Test
     Approvals.verify(last_response.body, options)
   end
 
+  def test_api_accepts_submission_attempt_with_multi_file_solution
+    Notify.stub(:everyone, nil) do
+      Xapi.stub(:exists?, true) do
+        solution = {
+          'ruby/one/file1.rb' => 'code 1',
+          'ruby/one/file2.rb' => 'code 2'
+        }
+        post '/user/assignments', {key: alice.key, solution: solution}.to_json
+      end
+    end
+
+    submission = Submission.first
+    problem = Problem.new('ruby', 'one')
+    assert_equal problem, submission.problem
+    assert_equal 201, last_response.status
+
+    options = {format: :json, name: 'api_multifile_submission_accepted'}
+    Approvals.verify(last_response.body, options)
+  end
+
   def test_provides_a_useful_error_message_when_key_is_wrong
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
