@@ -30,7 +30,7 @@ namespace :data do
       require './lib/exercism/submission'
       require './lib/exercism/user'
 
-      Submission.where('solution IS NULL').find_each do |submission|
+      Submission.where(solution: 'null').find_each do |submission|
         submission.solution = {submission.filename => submission.code}
         submission.save
         puts "updated submission %d" % submission.id
