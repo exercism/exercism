@@ -37,22 +37,6 @@ namespace :data do
       end
     end
 
-    desc "migrate logentry keys"
-    task :logentries do
-      require 'active_record'
-      require 'db/connection'
-      DB::Connection.establish
-      require 'json'
-      require './lib/exercism/log_entry'
-      require './lib/exercism/user'
-
-      LogEntry.find_each do |entry|
-        body = JSON.parse(entry.body)
-        entry.key = body['key']
-        entry.save
-      end
-    end
-
     desc "migrate deprecated problems"
     task :deprecated_problems do
       require 'bundler'
