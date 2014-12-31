@@ -114,10 +114,6 @@ module ExercismWeb
         </li>}
         end
 
-        def show_pending_submissions?(language)
-          (!language && current_user.nitpicker?) || (language && current_user.nitpicks_trail?(language))
-        end
-
         def nitpicker_languages
           Exercism::Config.tracks.keys.map(&:to_s) & current_user.nitpicker_languages
         end

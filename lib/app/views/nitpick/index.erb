@@ -3,14 +3,14 @@
     <br>
     <aside class="col-md-4">
       <nav>
-        <% if language && exercises.any? %>
-          <ul class="nav nav-stacked nav-bordered">
-            <% %w(recent last-week last-month last-quarter aging).each do |slug| %>
-              <%= dashboard_assignment_section_nav(language, slug) %>
-            <% end %>
-            <%= dashboard_assignment_section_nav(language, 'needs-input') %>
-          </ul>
-          <br />
+        <ul class="nav nav-stacked nav-bordered">
+          <% %w(recent last-week last-month last-quarter aging).each do |slug| %>
+            <%= dashboard_assignment_section_nav(language, slug) %>
+          <% end %>
+          <%= dashboard_assignment_section_nav(language, 'needs-input') %>
+        </ul>
+        <br />
+        <% if exercises.any? %>
           <ul class="nav nav-stacked nav-bordered">
             <% exercises.each do |exercise| %>
               <%= dashboard_assignment_nav(language, exercise.slug, breakdown[exercise.slug]) %>
@@ -22,9 +22,7 @@
     </aside>
 
     <main id="pending-submissions" class="col-md-8">
-    <% if show_pending_submissions?(language) %>
       <%= erb :"nitpick/pending", locals: {submissions: submissions, language: language} %>
-    <% end %>
     </main>
   </div>
 </div>

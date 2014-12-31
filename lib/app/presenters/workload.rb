@@ -1,23 +1,5 @@
 class NullWorkload
-  attr_reader :user, :track_id, :slug
-  def initialize(user, track_id, slug)
-    @user, @track_id, @slug = user, track_id, slug
-  end
-
-  def language
-    track_id
-  end
-
-  def breakdown
-    {}
-  end
-
-  def submissions
-    []
-  end
-
-  def available_exercises
-    []
+  def next_submission(submission)
   end
 end
 

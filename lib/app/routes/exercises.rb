@@ -4,8 +4,7 @@ module ExercismWeb
       get '/nitpick/:language/:slug/?' do |track_id, slug|
         please_login
 
-        presenter = current_user.nitpicks_trail?(track_id) ? Workload : NullWorkload
-        workload = presenter.new(current_user, track_id, slug || 'recent')
+        workload = Workload.new(current_user, track_id, slug || 'recent')
 
         locals = {
           submissions: workload.submissions,
@@ -18,22 +17,23 @@ module ExercismWeb
       end
 
       get '/submissions/:key' do |key|
-        please_login
-
         submission = Submission.includes(:user, comments: :user).find_by_key(key)
         unless submission
           flash[:error] = "We can't find that submission."
           redirect '/'
         end
 
-        submission.viewed!(current_user)
-        Look.check!(submission.user_exercise_id, current_user.id)
-        Notification.viewed!(submission, current_user)
+        if current_user.guest?
+          workload = NullWorkload.new
+        else
+          submission.viewed!(current_user)
+          Look.check!(submission.user_exercise_id, current_user.id)
+          Notification.viewed!(submission, current_user)
+          workload = Workload.new(current_user, submission.track_id, submission.slug)
+        end
+        next_submission = workload.next_submission(submission)
 
         title("%s by %s in %s" % [submission.problem.name, submission.user.username, submission.problem.language])
-
-        workload = Workload.new(current_user, submission.track_id, submission.slug)
-        next_submission = workload.next_submission(submission)
 
         erb :"submissions/show", locals: {submission: submission, next_submission: next_submission, sharing: Sharing.new}
       end

@@ -45,5 +45,9 @@ class Guest
   def nitpicker?
     false
   end
+
+  def owns?(submission)
+    false
+  end
 end
 
