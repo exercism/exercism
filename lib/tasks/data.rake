@@ -21,6 +21,32 @@ namespace :data do
   end
 
   namespace :migrate do
+    desc "move comment-threads into regular comments"
+    task :comments do
+      require 'active_record'
+      require 'db/connection'
+      DB::Connection.establish
+      require 'json'
+      require './lib/exercism/comment'
+      require './lib/exercism/comment_thread'
+      require './lib/exercism/submission'
+      require './lib/exercism/converts_markdown_to_html'
+
+      CommentThread.find_each do |ct|
+        s = ct.comment.submission
+
+        Comment.create(
+          user_id: ct.user_id,
+          body: ct.body,
+          submission_id: s.id,
+          created_at: ct.created_at,
+          updated_at: ct.updated_at
+        )
+
+        ct.destroy
+      end
+    end
+
     desc "allow multiple files in solutions"
     task :solutions do
       require 'active_record'
