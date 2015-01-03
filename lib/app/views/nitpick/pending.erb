@@ -1,11 +1,11 @@
+<h2>
+  <%= language_icon(language) %>
+  Pending Submissions
+</h2>
+
+<hr/>
+
 <% if submissions.any? %>
-  <h2>
-    <%= language_icon(language) %>
-    Pending Submissions
-  </h2>
-
-  <hr/>
-
   <div class="pending-submissions">
     <% submissions.each do |submission| %>
       <%= erb :"nitpick/pending_submission", locals: { submission: submission } %>

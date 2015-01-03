@@ -42,6 +42,12 @@ class SubmissionsTest < Minitest::Test
     assert_equal expected_status, last_response.status
   end
 
+  def test_guests_can_view_submissions
+    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
+    get "/submissions/#{Submission.first.key}"
+    assert_response_status(200)
+  end
+
   def test_submission_view_count
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
@@ -50,7 +56,6 @@ class SubmissionsTest < Minitest::Test
 
     get "/submissions/#{submission.key}", {}, login(bob)
 
-    submission = Submission.first
     assert_equal 1, submission.view_count
   end
 
@@ -62,7 +67,6 @@ class SubmissionsTest < Minitest::Test
 
     get "/submissions/#{submission.key}"
 
-    submission = Submission.first
     assert_equal 0, submission.view_count
   end
 
