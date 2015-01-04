@@ -18,6 +18,36 @@ namespace :data do
 
       ActiveRecord::Base.connection.execute(sql)
     end
+
+    # One-off to fix a data problem that I believe
+    # was caused by a bug that has since been fixed.
+    desc "fix weird state in current submissions"
+    task :submissions do
+      require 'active_record'
+      require 'db/connection'
+      DB::Connection.establish
+      require './lib/exercism/user_exercise'
+      require './lib/exercism/submission'
+      require './lib/exercism/user'
+
+      sql = <<-SQL
+        SELECT * FROM user_exercises WHERE id IN (
+          SELECT user_exercise_id FROM submissions
+          WHERE state IN ('needs_input', 'pending')
+          GROUP BY user_exercise_id
+          HAVING COUNT(id) > 1
+        )
+      SQL
+      # I checked the production database
+      # and there are only a handful of matches, so
+      # we don't risk running out of memory.
+      UserExercise.find_by_sql(sql).each do |exercise|
+        *superseded, _ = exercise.submissions.order('created_at ASC').to_a
+        superseded.each do |submission|
+          submission.update_attribute(:state, 'superseded')
+        end
+      end
+    end
   end
 
   namespace :migrate do
