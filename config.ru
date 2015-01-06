@@ -4,6 +4,9 @@ require 'bundler'
 Bundler.require
 I18n.enforce_available_locales = false
 
+require 'dotenv'
+Dotenv.load
+
 require 'app'
 require 'api'
 
