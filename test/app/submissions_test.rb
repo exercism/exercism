@@ -438,4 +438,22 @@ class SubmissionsTest < Minitest::Test
 
     assert_equal 'superseded', s1.reload.state
   end
+
+  def test_redirects_to_submission_page_when_comment_like_or_mute_with_get
+    data = {
+      user: bob,
+      code: 'code',
+      language: 'ruby',
+      slug: 'word-count'
+    }
+
+    sub = Submission.create(data.merge(state: 'needs_input', created_at: Time.now - 5))
+
+    %w(nitpick like unlike mute unmute).each do |action|
+      get "/submissions/#{sub.key}/#{action}", {}, login(bob)
+
+      assert_response_status(302)
+      assert_equal "http://example.org/submissions/#{sub.key}", last_response.location
+    end
+  end
 end

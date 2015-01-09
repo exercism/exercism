@@ -22,7 +22,7 @@ module ExercismWeb
           if path.nil? || path.empty?
             redirect root_path
           else
-            redirect [root_path, path].compact.join('/')
+            redirect File.join([root_path, path].compact)
           end
         end
       end
