@@ -4,8 +4,10 @@ require 'bundler'
 Bundler.require
 I18n.enforce_available_locales = false
 
-require 'dotenv'
-Dotenv.load
+if ENV['RACK_ENV'] != 'production'
+  require 'dotenv'
+  Dotenv.load
+end
 
 require 'app'
 require 'api'
