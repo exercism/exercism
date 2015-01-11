@@ -66,6 +66,10 @@ module ExercismWeb
         end
       end
 
+      get %r{/submissions/(?<key>\w+)/(nitpick$|(\+?un)?like$|(\+?un)?mute$)} do |key|
+        redirect "/submissions/#{key}"
+      end
+
       post '/submissions/:key/done' do |key|
         please_login("You have to be logged in to do that")
         submission = Submission.find_by_key(key)
