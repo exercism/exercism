@@ -8,14 +8,53 @@ class UsersApiTest < Minitest::Test
     ExercismAPI::App
   end
 
-  def test_query_users_is_case_insensitive
-    User.create(username: 'Alice', github_id: 1)
-    User.create(username: 'mallory', github_id: 2)
+  def test_users_query_sorts_alphabetically
+    User.create(github_id: 1, username: 'Aliah')
+    User.create(github_id: 3, username: 'Alicia')
+    User.create(github_id: 2, username: 'Aisha')
+
+    get '/user/find', { query: 'A' }
+
+    assert_equal ['Aisha', 'Aliah', 'Alicia'], JSON.parse(last_response.body)
+  end
+
+  def test_users_query_is_case_insensitive
+    User.create(username: 'Bill', github_id: 1)
     User.create(username: 'bob', github_id: 3)
 
-    post '/user/find', { query: 'al' }
+    get '/user/find', { query: 'b' }
 
-    result = last_response.body
-    assert_equal ['Alice', 'mallory'], JSON.parse(result)
+    assert_equal ['Bill', 'bob'], JSON.parse(last_response.body)
+  end
+
+  def test_users_query_sorts_participating_users_higher
+    cassidy = User.create!(github_id: 1, username: 'cassidy')
+    christa = User.create!(github_id: 2, username: 'christa')
+    connie  = User.create!(github_id: 3, username: 'connie')
+
+    submission = Submission.create!(user: User.create!)
+    Comment.create!(submission: submission, body: 'test', user: cassidy)
+    Comment.create!(submission: submission, body: 'test', user: connie)
+
+    get '/user/find', { query: 'c', submission_key: submission.key }
+
+    assert_equal ['cassidy', 'connie', 'christa'], JSON.parse(last_response.body)
+  end
+
+  def test_users_query_matches_based_on_start_of_username
+    User.create!(github_id: 1, username: 'aa')
+    User.create!(github_id: 1, username: 'ba')
+
+    get '/user/find', { query: 'a' }
+
+    assert_equal ['aa'], JSON.parse(last_response.body)
+  end
+
+  def test_empty_users_query
+    User.create!(github_id: 1, username: 'whoever')
+
+    get '/user/find', { query: '' }
+
+    assert_equal [], JSON.parse(last_response.body)
   end
 end

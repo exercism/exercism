@@ -2,7 +2,7 @@
 
   <%= erb :"submissions/feedback_guide", locals: { submission: submission } %>
 
-  <%= erb :"submissions/comment" %>
+  <%= erb :"submissions/comment", locals: { submission: submission } %>
 
   <button type="submit" name="nitpick" class="pull-right btn btn-primary btn-lg">
     <% if current_user.owns?(submission) || submission.exercise_completed? %>
