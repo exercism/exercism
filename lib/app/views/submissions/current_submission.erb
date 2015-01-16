@@ -26,11 +26,14 @@
 
     <div class="clearfix"></div>
 
-    <%= md(submission.solution.values.first, submission.track_id) %>
+    <% submission.solution.each do |filename, code| %>
+      <h3><%= filename %></h3>
+      <%= md(code) %>
 
-    <div id="submission-code" class="hidden">
-      <%= h submission.solution.values.first %>
-    </div>
+      <div id="submission-code" class="hidden">
+        <%= h code %>
+      </div>
+    <% end %>
 
     <div class="submission-likes">
       <%= like_submission_button(submission, current_user) %>
