@@ -4,7 +4,7 @@
   </section>
   <section>
     <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
-      <%= erb :"submissions/comment", locals: {nit: nit} %>
+      <%= erb :"submissions/comment", locals: {nit: nit, submission: submission} %>
       <div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </div>
