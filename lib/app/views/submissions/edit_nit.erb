@@ -3,20 +3,17 @@
     <h1>Edit Nitpick</h1>
   </section>
   <section>
-    <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
+    <form class="inline" action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
       <%= erb :"submissions/comment", locals: {nit: nit, submission: submission} %>
-      <div>
-        <button type="submit" class="btn btn-primary">Submit</button>
-      </div>
+      <p>Parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></p>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 
-    <form action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
+    <form class="inline" action="/submissions/<%= submission.key %>/nits/<%= nit.id %>" method='POST'>
       <input type="hidden" name="_method" value="delete">
-      <div>
         <button type="submit" class="btn btn-danger" name="delete">Delete</button>
-      </div>
     </form>
 
-    <span>Parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a></span>
+
   </section>
 </div>
