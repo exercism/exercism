@@ -27,8 +27,8 @@
     <div class="clearfix"></div>
 
     <% submission.solution.each do |filename, code| %>
-      <h3><%= filename %></h3>
-      <%= md(code) %>
+      <h4><%= filename %></h4>
+      <%= md(code, filename) %>
 
       <div id="submission-code" class="hidden">
         <%= h code %>
