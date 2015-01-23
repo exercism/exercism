@@ -18,7 +18,7 @@ class Workload
   def submissions
     return @submissions if @submissions
 
-    scope = pending.order('created_at ASC')
+    scope = pending.order('created_at DESC')
     no_nits = scope.where(nit_count: 0)
 
     case slug
