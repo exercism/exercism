@@ -2,27 +2,52 @@
 
 First of all, **thank you** for helping with Exercism.io!
 
-## Issues
-
-Please file issues on the [GitHub issues
-list](https://github.com/exercism/exercism.io/issues) and give as much detail
-as possible.
-
-## Features
-
-This is a prototype, and as such we're quite open to feature experiments. If
-you want a feature implemented, the best way to get it done is to submit a
-pull request that implements it. Tests would be wonderful.
-
 There are full instructions on getting the app running [in the
 README](https://github.com/exercism/exercism.io/blob/master/README.md).
 
 Please read and abide by the [Code of
   Conduct](https://github.com/exercism/exercism.io/blob/master/CODE_OF_CONDUCT.md).
 
-We're not really sticklers about style in this prototype, and things are fairly messy,
-but do try to stick to the [GitHub Ruby Style Guidelines](https://github.com/styleguide/ruby),
-it will make it easier to clean things up later when we kind of know what we're doing.
+We're not really sticklers about style in this prototype, and things are
+fairly messy, but do try to stick to the [GitHub Ruby Style
+Guidelines](https://github.com/styleguide/ruby), it will make it easier to
+clean things up later when we know about where this is headed.
+
+## The Ecosystem
+
+Exercism actually consists of several different parts, many of which are in
+separate repositories. Most people will be familiar with **the website** where
+they have conversations with people about the various exercises, as well as
+**the command-line client**, which is used to fetch problems and submit
+solutions.
+
+In addition to these, there is the **problems API**, which is what the
+command-line client talks to when fetching problems.
+
+For example, if you say `exercism fetch go clock`, then the CLI makes a call
+to http://x.exercism.io/problems/go/clock, and then uses that data to create
+the files on the user's computer.
+
+* website: https://github.com/exercism/exercism.io (Ruby, JavaScript)
+* problems API: https://github.com/exercism/x-api (Ruby)
+* command-line client: https://github.com/exercism/cli (Go)
+
+## Languages and Practice Problems
+
+The problems (test suites) for each language are in separate repositories.
+This is useful since different people contribute to different languages, and
+it allows us to have people manage pull requests and contributions to a
+specific language without being overwhelmed by irrelevant issues and tickets.
+
+If you'd like to
+
+* fix inconsistencies in READMEs or test suites
+* improve existing problems in existing language tracks
+* contribute new problems in existing language tracks
+* contribute problems in a new language track
+
+then please see the [Problem API's CONTRIBUTING
+guide](https://github.com/exercism/x-api/blob/master/CONTRIBUTING.md).
 
 ## Pull Requests
 
@@ -54,18 +79,3 @@ For more resources see:
 
 * [Git Workflow](http://help.exercism.io/git-workflow.html) in the exercism.io documentation
 * [How to Squash Commits in a GitHub Pull Request](http://blog.steveklabnik.com/posts/2012-11-08-how-to-squash-commits-in-a-github-pull-request)
-
-## Languages and Practice Problems
-
-If you'd like to
-
-* fix inconsistencies in READMEs or test suites
-* improve existing problems in existing language tracks
-* contribute new problems in existing language tracks
-* contribute problems in a new language track
-
-then please see the [Problem API's CONTRIBUTING
-guide](https://github.com/exercism/x-api/blob/master/CONTRIBUTING.md).
-
-Thank you again!
-:heart: :sparkling_heart: :heart:

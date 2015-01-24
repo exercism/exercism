@@ -14,10 +14,10 @@ To report a bug, suggest improvements to exercism.io, or if you're having troubl
 installing or using the CLI, please **[open a GitHub
 issue](https://github.com/exercism/exercism.io/issues)**.
 
-If you're having trouble writing the code to solve a problem, then your best
-bet is [StackOverflow](http://stackoverflow.com/) (remember to tag the
-question with #exercism). Another option is to submit the code even though it
-doesn't pass the tests yet, and then go to your submission page to explain
+If you're having trouble writing the code for an exercise on exercism.io, then
+your best bet is [StackOverflow](http://stackoverflow.com/) (remember to tag
+the question with #exercism). Another option is to submit the code even though
+it doesn't pass the tests yet, and then go to your submission page to explain
 where you're stuck.
 
 We welcome questions, and will do our best to help you out!
@@ -33,12 +33,7 @@ For occasional updates, such as new language tracks being launched,
 Exercism.io was started by Katrina. To get in touch with her, send an email to
 [kytrinyx@exercism.io](mailto:kytrinyx@exercism.io).
 
-## Contributing
-
-We're working on improving the
-[CONTRIBUTING.md](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md)
-document, which will describe the various parts of the system and how they fit
-together.
+## Contributions
 
 Exercism.io is free and open source, and many, many people have contributed to
 the project by:
@@ -62,43 +57,115 @@ ground by the efforts of any single person.
 
 **Thank you!**
 
+## Contributing
+
+If you would like to contribute to exercism, then please read the
+[CONTRIBUTING.md](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md)
+document, which describes the various parts of the system and how they fit together.
+
+We are working to improve this document, and if you find any part of it confusing, or if
+you can't figure out how to get started with something, then rest assured it's not you,
+it's us! Please open up a new issue to describe what you were hoping to contribute with,
+and what you're wondering about, and we'll figure out together how to improve the
+documentation.
+
 ## Setup
 
-At the moment the setup instructions are skewed heavily in favor of linux and
-Mac OS X. This doesn't mean you can't develop on Windows, only that we don't
-yet know how to get everything set up for Windows. We're hoping to address
-that soon!
+If you'd like to do work on the exercism.io app, then you'll need to have it
+running locally.
 
-1. Install postgresql with: `brew install postgresql` or `apt-get install postgresql-9.2`
-1. Copy `.ruby-version.example` to `.ruby-version` if you use a Ruby version manager such as RVM, rbenv or chruby
-1. Install gems with: `bundle`
-1. Install `mailcatcher` with `gem install mailcatcher`
-1. Get a client id/secret from GitHub at https://github.com/settings/applications/new.
-  * Name: whatever
+### Prerequisites
+
+For working on the backend you'll need both Ruby and Postgresql. Front-end development uses node.js
+
+To install Ruby, check out [rvm](https://rvm.io/), [rbenv](https://github.com/sstephenson/rbenv), or [chruby](https://github.com/postmodern/chruby).
+
+Postgresql can be installed with brew on Mac OS X (`brew install postgresql`). If you're on a linux system
+that uses apt-get then run `apt-get install postgresql-9.2`.
+
+Install node and npm on Mac OS X using brew (`brew install node`). On other systems see the [node docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
+
+### GitHub OAuth
+
+In order to be able to log into your local version of the application, you will
+need to set up some keys on GitHub that the app can talk to.
+
+Go to https://github.com/settings/applications/new
+
+You can name it whatever you want. I have _Exercism (Dev)_.
+
   * URL: http://localhost:4567
   * Callback url: http://localhost:4567/github/callback
-1. Presuming you have Postgres installed, run `rake db:setup`
-1. Run the database migrations with `rake db:migrate`.
-1. Fetch the seed data with `rake db:seeds:fetch`.
-1. Run the database seed with `rake db:seed`.
-1. Copy `config/env` to `.env`
-1. Edit `.env` to fill in the correct values, including the GitHub client id/secret procured earlier.
-1. Start the server with `foreman start`
-1. Login at http://localhost:4567.
-1. You can view the emails sent in [MailCatcher](http://mailcatcher.me/) in your browser at [localhost:1080](http://localhost:1080).
-1. Work through 'Frontend development setup' below and run lineman for correct styling at http://localhost:4567
+
+Click _Register application_, and you'll see something like this:
+
+![](/exercism/exercism.io/blob/master/docs/oauth-client-secret.png)
+
+Later you will add the **Client ID** and **Client Secret** to a configuration file.
+
+### The Code
+
+If you're unfamiliar with git and GitHub, don't worry. We'll gladly help you out if you get stuck.
+
+First, you need to get ahold of the code, so you have a copy of it locally that you can make changes to.
+
+* [Fork](https://github.com/exercism/exercism.io/fork) this codebase to your own GitHub account.
+* Clone your fork, and change directory into the root of the exercism.io project.
+
+### Configuration
+
+If you use a Ruby version manager such as RVM, rbenv or chruby, then copy `.ruby-version.example`
+to `.ruby-version`.
+
+* Copy the environment config: `cp config/env .env`
+* Edit `.env` to fill in the GitHub client id/secret from earlier.
+
+All the commented out values can be left alone for now.
+
+You don't need to fill in the values for email stuff unless you're going to be
+working on the emails specifically.
+
+You don't need to fill in the EXERCISES_API value unless you're going to be
+working on the x-api codebase.
+
+### Dependencies
+
+Next, make sure all the application dependencies are installed:
+
+* Install gems with `bundle install`
+* Install `mailcatcher` with `gem install mailcatcher`
+
+### Data
+
+Finally, set up the database. This means both creating the underlying database, and migrating so that it
+has all the correct tables, as well as running a script to add fake data, so that there are things to click
+around and look at while working on the app.
+
+* Run `rake db:setup` to create the postgresql database.
+* Run the database migrations with `rake db:migrate`.
+* Fetch the seed data with `rake db:seeds:fetch`.
+* Run the database seed with `rake db:seed`.
+
+### Run the application
+
+You can start the server with `foreman start` (sometimes you have to say `bundle exec foreman start`).
+
+Then you can log in at [localhost:4567](http://localhost:4567)
+
+You can view the emails sent in [MailCatcher](http://mailcatcher.me/) in your browser at [localhost:1080](http://localhost:1080).
 
 ## Frontend development setup
-1. Install node and npm
-  * osx: brew install node
-  * others see: https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager
-2. Install lineman via `sudo npm install -g lineman`
-3. `cd frontend` and start lineman with `lineman run`
-  * note lineman watches for file changes and compiles them automatically, it is not required to be running for the server to run
+
+Lineman watches for file changes and compiles them automatically. It is not
+required to be running for the server to run, though.
+
+* Install lineman via `sudo npm install -g lineman`
+* To run: `cd frontend` and start lineman with `lineman run`
 
 ### SCSS
-1. Start compass with `compass watch`
-2. to compile `compass compile`
+
+* Start compass with `compass watch`
+* to compile `compass compile`
 
 For CSS we are using Sass (with `.scss`). Feel free to use [Bootstrap 3](http://getbootstrap.com/) components and mixins. Or if you want to use even more mixins you can use [Compass](http://compass-style.org/reference/compass/). Structurewise we try to separate components, mixins and layouts. Where layouts should be a single page (using an HTML id as a selector) and components should be reusable partials, which can look different by layout.
 
@@ -163,22 +230,11 @@ Let Heroku know that Lineman will be building our assets. From the command line:
 heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-lineman-ruby.git
 ```
 
-## Contributing
-
-Thank you for wanting to contribute! :heart::sparkling_heart::heart:
-
-Fork and clone. Hack hack hack.
-Submit a pull request and tell us why your idea is awesome.
-
-For more details, please read the [contributing guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md).
-
-To join the mailing list, send an email to exercism@librelist.com to be automatically subscribed or check out the [Archives](http://librelist.com/browser/exercism/).
-
 ## License
 
 GNU Affero General Public License
 
-Copyright (C) 2013 Katrina Owen, _@kytrinyx.com
+Copyright (C) 2015 Katrina Owen, _@kytrinyx.com
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as published by
