@@ -10,14 +10,17 @@
       <p class="well">
       <% if total == 1 %>
       You are seeing the only available implementation of the exercise.
-      <% elsif total > 1 %>
+    <% elsif total > 1 %>
       Take a look at one of the <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random"><%= total %> available implementations</a> of the exercise.
+    <% end %>
+    This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.problem.name %> in <%= Language.of(submission.track_id) %>. Interested? Read the <a href="/submissions/<%= submission.key %>">related discussion</a>.
+    </p>
+    <div style="padding-top: 2px;">
+      <% submission.solution.each do |filename, code| %>
+      <h3><%= filename %></h3>
+        <%= md(code, filename) %>
       <% end %>
-      This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.problem.name %> in <%= Language.of(submission.track_id) %>. Interested? Read the <a href="/submissions/<%= submission.key %>">related discussion</a>.
-      </p>
-      <div style="padding-top: 2px;">
-        <%= md(submission.solution.values.first, submission.track_id) %>
-      </div>
     </div>
   </div>
+</div>
 </div>
