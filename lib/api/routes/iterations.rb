@@ -64,6 +64,11 @@ module ExercismAPI
 
       delete '/user/assignments' do
         require_key
+
+        if current_user.guest?
+          halt 401, {error: "Please double-check your exercism API key."}.to_json
+        end
+
         begin
           Unsubmit.new(current_user).unsubmit
         rescue Unsubmit::NothingToUnsubmit
