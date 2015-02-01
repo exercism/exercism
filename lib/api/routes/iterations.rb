@@ -58,6 +58,10 @@ module ExercismAPI
         # if we don't have a 'fetched' event, we want to hack one in.
         LifecycleEvent.track('fetched', user.id)
         LifecycleEvent.track('submitted', user.id)
+        # for now, let's just give rikki hamming exercises in Ruby.
+        if attempt.track == 'ruby' && attempt.slug == 'hamming'
+          Jobs::Analyze.perform_async(attempt.submission.key)
+        end
         status 201
         pg :attempt, locals: {submission: attempt.submission, domain: request.url.gsub(/#{request.path}$/, "")}
       end
