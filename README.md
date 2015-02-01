@@ -22,7 +22,7 @@ where you're stuck.
 
 We welcome questions, and will do our best to help you out!
 
-Follow us on [twitter @exercism_io](https://twitter.com/exercism_io).
+Follow us on Twitter [@exercism_io](https://twitter.com/exercism_io).
 
 Jump in and chat with other exercism enthusiasts on the #exercism channel on irc.freenode.net.
 It's not a very active channel, but we're a friendly bunch.
@@ -76,36 +76,36 @@ running locally.
 
 ### Prerequisites
 
-For working on the backend you'll need both Ruby and Postgresql. Front-end development uses node.js
+For working on the backend you'll need both Ruby and PostgreSQL. Frontend development uses Node.js.
 
-To install Ruby, check out [rvm](https://rvm.io/), [rbenv](https://github.com/sstephenson/rbenv), or [chruby](https://github.com/postmodern/chruby).
+To install Ruby, check out [RVM](https://rvm.io), [rbenv](https://github.com/sstephenson/rbenv) or [chruby](https://github.com/postmodern/chruby).
 
-Postgresql can be installed with brew on Mac OS X (`brew install postgresql`). If you're on a linux system
-that uses apt-get then run `apt-get install postgresql-9.2`.
+PostgreSQL can be installed with [Homebrew](http://brew.sh) on Mac OS X: `brew install postgresql`  
+If you're on a Linux system with apt-get then run: `apt-get install postgresql-9.2`
 
-Install node and npm on Mac OS X using brew (`brew install node`). On other systems see the [node docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
+Install Node.js and npm on Mac OS X with Homebrew:  `brew install node`  
+On other systems see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
 ### GitHub OAuth
 
 In order to be able to log into your local version of the application, you will
-need to set up some keys on GitHub that the app can talk to.
+need to create some keys on GitHub that the app can talk to.
 
-Go to https://github.com/settings/applications/new
+Go to https://github.com/settings/applications/new and enter the following:
 
-You can name it whatever you want. I have _Exercism (Dev)_.
-
-  * URL: http://localhost:4567
-  * Callback url: http://localhost:4567/github/callback
+* Application name: You can name it whatever you want. I have _Exercism (Dev)_.
+* Homepage URL: http://localhost:4567
+* Authorization callback URL: http://localhost:4567/github/callback
 
 Click _Register application_, and you'll see something like this:
 
-![](/exercism/exercism.io/blob/master/docs/oauth-client-secret.png)
+![](/docs/oauth-client-secret.png)
 
 Later you will add the **Client ID** and **Client Secret** to a configuration file.
 
 ### The Code
 
-If you're unfamiliar with git and GitHub, don't worry. We'll gladly help you out if you get stuck.
+If you're unfamiliar with git and GitHub, don't worry. We'll gladly help you out if you get stuck. GitHub also has some [helpful guides](https://guides.github.com) for getting started.
 
 First, you need to get ahold of the code, so you have a copy of it locally that you can make changes to.
 
@@ -114,70 +114,65 @@ First, you need to get ahold of the code, so you have a copy of it locally that 
 
 ### Configuration
 
-If you use a Ruby version manager such as RVM, rbenv or chruby, then copy `.ruby-version.example`
-to `.ruby-version`.
-
+* If you use a Ruby version manager such as RVM, rbenv or chruby, then: `cp .ruby-version.example .ruby-version`
 * Copy the environment config: `cp config/env .env`
-* Edit `.env` to fill in the GitHub client id/secret from earlier.
+* Open `.env` and add the **Client ID** and **Client Secret** from the previous GitHub OAuth steps.
 
-All the commented out values can be left alone for now.
+All the commented out values in `.env` can be left alone for now.
 
-You don't need to fill in the values for email stuff unless you're going to be
-working on the emails specifically.
+You don't need to fill in the values for email stuff unless you're going to be working on the emails specifically.
 
-You don't need to fill in the EXERCISES_API value unless you're going to be
-working on the x-api codebase.
+You don't need to fill in the EXERCISES_API value unless you're going to be working on the x-api codebase.
 
 ### Dependencies
 
 Next, make sure all the application dependencies are installed:
 
-* Install gems with `bundle install`
-* Install `mailcatcher` with `gem install mailcatcher`
+* Install gems with: `bundle install`
+* Install `mailcatcher` with: `gem install mailcatcher`
 
 ### Data
 
 Finally, set up the database. This means both creating the underlying database, and migrating so that it
-has all the correct tables, as well as running a script to add fake data, so that there are things to click
-around and look at while working on the app.
+has all the correct tables. Also run a script to add fake data, so there are things to click on and look at while working on the app.
 
-* Run `rake db:setup` to create the postgresql database.
-* Run the database migrations with `rake db:migrate`.
-* Fetch the seed data with `rake db:seeds:fetch`.
-* Run the database seed with `rake db:seed`.
+* Create the PostgreSQL database: `rake db:setup`
+* Run the database migrations: `rake db:migrate`
+* Fetch the seed data: `rake db:seeds:fetch`
+* Seed the database: `rake db:seed`
 
-### Run the application
+### Run The Application
 
-You can start the server with `foreman start` (sometimes you have to say `bundle exec foreman start`).
+Start the server with `foreman start` (sometimes you have to `bundle exec foreman start`).
 
 Then you can log in at [localhost:4567](http://localhost:4567)
 
-You can view the emails sent in [MailCatcher](http://mailcatcher.me/) in your browser at [localhost:1080](http://localhost:1080).
+You can view the emails sent in [MailCatcher](http://mailcatcher.me) in your browser at [localhost:1080](http://localhost:1080)
 
-## Frontend development setup
+## Frontend Development Setup
 
-Lineman watches for file changes and compiles them automatically. It is not
-required to be running for the server to run, though.
+[Lineman](http://linemanjs.com) watches for file changes and compiles them automatically. It is not
+required to be running for the server to run though.
 
-* Install lineman via `sudo npm install -g lineman`
-* To run: `cd frontend` and start lineman with `lineman run`
+* Install Lineman with: `sudo npm install -g lineman`
+* To run: `cd frontend` and start Lineman with `lineman run`
 
 ### SCSS
 
-* Start compass with `compass watch`
-* to compile `compass compile`
+* Start Compass with: `compass watch`
+* To compile: `compass compile`
 
-For CSS we are using Sass (with `.scss`). Feel free to use [Bootstrap 3](http://getbootstrap.com/) components and mixins. Or if you want to use even more mixins you can use [Compass](http://compass-style.org/reference/compass/). Structurewise we try to separate components, mixins and layouts. Where layouts should be a single page (using an HTML id as a selector) and components should be reusable partials, which can look different by layout.
+For CSS we are using Sass (with `.scss`). Feel free to use [Bootstrap 3](http://getbootstrap.com) components and mixins. Or if you want to use even more mixins you can use [Compass](http://compass-style.org/reference/compass/). Structurewise we try to separate components, mixins and layouts. Where layouts should be a single page (using an HTML id as a selector) and components should be reusable partials, which can look different by layout.
 
-You can find the compass config in `lib/app/config.rb`.
+You can find the Compass config in `lib/app/config.rb`.
 
 ### Styleguide
 
-Our styleguide is reachable under [/styleguide](http://exercism.io/styleguide) and built with [KSS](https://github.com/kneath/kss), which enables you to write examples to `*.scss` files
+Our styleguide is under [/styleguide](http://exercism.io/styleguide) and built with [KSS](https://github.com/kneath/kss), which enables you to write examples to `*.scss` files.
 
 ## Sending Emails
 
-If you want to send emails, you will need to fill out the relevant environment variables in `.env` and uncomment the lines so that the variables get exported.
+If you want to send emails, you will need to fill out the relevant environment variables in `.env` and uncomment the lines so the variables get exported.
 
 ## Console
 
@@ -192,10 +187,10 @@ user.submissions
 
 ## Testing
 
-1. Create test database with: `createdb -O exercism exercism_test`.
-2. Prepare the test environment with `RACK_ENV=test rake db:migrate`.
-3. Make sure that `mailcatcher` is running.
-4. Run the test suite with `rake` or `rake test`.
+1. Create a test database: `createdb -O exercism exercism_test`
+2. Prepare the test environment: `RACK_ENV=test rake db:migrate`
+3. Make sure `mailcatcher` is running: `mailcatcher`
+4. Run the test suite: `rake` or `rake test`
 
 To run a single test suite, you can do so with:
 
@@ -203,7 +198,7 @@ To run a single test suite, you can do so with:
 ruby path/to/the_test.rb
 ```
 
-If it complains about dependencies, then either we forgot to require the correct dependencies (a distinct possibility), or we are dependening on a particular tag of a gem installed directly from github (this happens on occasion).
+If it complains about dependencies, then either we forgot to require the correct dependencies (a distinct possibility), or we are dependening on a particular tag of a gem installed directly from GitHub (this happens on occasion).
 
 If there's a git dependency, you can do this:
 
@@ -211,9 +206,10 @@ If there's a git dependency, you can do this:
 bundle exec ruby path/to/the_test.rb
 ```
 
-For the require, you'll need to figure out what the missing dependency is. Feel free to open an issue on github. It's likely that someone familiar with the codebase will be able to identify the problem immediately.
+For the require, you'll need to figure out what the missing dependency is. Feel free to [open a GitHub
+issue](https://github.com/exercism/exercism.io/issues). It's likely that someone familiar with the codebase will be able to identify the problem immediately.
 
-### Code coverage
+### Code Coverage
 
 To enable code coverage run:
 
@@ -226,7 +222,7 @@ Browse the results located in `coverage/index.html`
 ## Deployment
 
 Let Heroku know that Lineman will be building our assets. From the command line:
-```
+```bash
 heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-lineman-ruby.git
 ```
 
@@ -245,4 +241,3 @@ This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 GNU Affero General Public License for more details.
-
