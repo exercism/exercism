@@ -1,3 +1,5 @@
+require './lib/jobs/analyze'
+
 module ExercismAPI
   module Routes
     class Iterations < Core
