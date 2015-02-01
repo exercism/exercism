@@ -26,6 +26,7 @@ class Exercism
         perl5: 'Perl 5',
         perl6: 'Perl 6',
         php: 'PHP',
+        plsql: 'PL/SQL',
         powershell: 'Windows PowerShell',
         proofs: 'Mathematical Proofs',
         python: 'Python',
@@ -44,7 +45,7 @@ class Exercism
         %i(
           clojure coffeescript csharp cpp elixir erlang
           fsharp go haskell javascript lua lisp objective-c
-          ocaml perl5 python ruby scala swift
+          ocaml perl5 plsql python ruby scala swift
         ).include?(slug)
       }
     end

@@ -63,3 +63,4 @@ db/*sqlite
 lib/app/public/css
 !.application.css
 !.styleguide.css
+/.project
