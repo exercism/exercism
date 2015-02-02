@@ -35,11 +35,11 @@ class AccountsTest < Minitest::Test
     put '/account'
 
     assert_equal last_response.status, 403
-    assert_equal 'You must be logged in to edit your email settings', last_response.body
+    assert_equal 'You must be logged in to edit your account settings', last_response.body
   end
 
   def test_account_update_with_user
-    put '/account', {}, login(bob)
+    put '/account', {account: {email: 'test@example.com'}}, login(bob)
 
     assert_equal last_response.status, 302
   end
