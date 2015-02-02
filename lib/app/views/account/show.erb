@@ -133,10 +133,13 @@
         <a href="https://github.com/settings/profile">GitHub</a>.</p>
       <p>
         The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
-        <form action="/account/email" method="post" class="form-inline">
+        <form action="/account" method="post" class="form-inline">
           <input type="hidden" name="_method" value="put" />
           <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" class="form-control" />
+            <input type="email" id="email" name="account[email]" placeholder="Email" value="<%= current_user.email %>" class="form-control" />
+            <select name="account[source_type]" class="form-control">
+              <%= account_source_options %>
+            </select>
             <input type="submit" name="update" value="Update" class="btn btn-default" />
           </div>
         </form>
