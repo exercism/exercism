@@ -8,7 +8,7 @@ module ExercismWeb
         erb :"account/show", locals: { profile: Profile.new(current_user) }
       end
 
-      put '/account/email' do
+      put '/account' do
         if current_user.guest?
           halt 403, "You must be logged in to edit your email settings"
         end
