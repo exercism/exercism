@@ -8,15 +8,19 @@ class StaticPageTest < AcceptanceTestCase
   end
 
   def test_about_exists
-    visit '/'
-    click_on 'About'
+    Xapi.stub(:get, [200, File.read("./test/fixtures/tracks.json")]) do
+      visit '/'
+      click_on 'About'
+    end
 
     assert_content 'About'
   end
 
   def test_getting_started_exists
-    visit '/'
-    click_on 'Welcome'
+    Xapi.stub(:get, [200, File.read("./test/fixtures/tracks.json")]) do
+      visit '/'
+      click_on 'Welcome'
+    end
 
     assert_content 'Exercises'
     assert_content 'Nitpicking'

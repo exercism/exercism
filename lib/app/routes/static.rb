@@ -14,11 +14,11 @@ module ExercismWeb
       end
 
       get '/about' do
-        erb :"site/about", locals: {languages: current_languages}
+        erb :"site/about", locals: {active_languages: active_languages, upcoming_languages: upcoming_languages, planned_languages: planned_languages}
       end
 
       get '/getting-started' do
-        erb :"site/getting-started", locals: {languages: current_languages}
+        erb :"site/getting-started", locals: {active_languages: active_languages}
       end
 
       get '/bork' do
@@ -32,8 +32,20 @@ module ExercismWeb
 
       private
 
-      def current_languages
-        ExercismWeb::Presenters::Languages.new(Exercism::Config.current)
+      def active_languages
+        ExercismWeb::Presenters::Languages.new(tracks.active)
+      end
+
+      def upcoming_languages
+        ExercismWeb::Presenters::Languages.new(tracks.upcoming)
+      end
+
+      def planned_languages
+        ExercismWeb::Presenters::Languages.new(tracks.planned)
+      end
+
+      def tracks
+        @tracks ||= ExercismWeb::Presenters::Tracks.xapi
       end
     end
   end

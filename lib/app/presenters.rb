@@ -2,6 +2,7 @@ module ExercismWeb
   module Presenters
     {
       Languages: 'languages',
+      Tracks: 'tracks',
       Setup: 'setup',
       Dashboard: 'dashboard',
       Progress: 'progress',
