@@ -44,8 +44,8 @@ class Exercism
       @languages ||= tracks.select {|slug, name|
         %i(
           clojure coffeescript csharp cpp elixir erlang
-          fsharp go haskell javascript lua lisp objective-c
-          ocaml perl5 plsql python ruby scala swift
+          fsharp go haskell java javascript lua lisp objective-c
+          ocaml perl5 plsql python r ruby scala swift
         ).include?(slug)
       }
     end
@@ -55,7 +55,7 @@ class Exercism
     end
 
     def self.upcoming
-      ['D', 'ECMAScript', 'Java', 'Rust', 'PHP'] - current
+      ['D', 'ECMAScript', 'Rust', 'PHP'] - current
     end
   end
 end
