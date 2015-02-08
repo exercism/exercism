@@ -25,6 +25,21 @@
     </div>
   <% end %>
 
+  <% if current_user.ongoing.any? %>
+    <div>
+      <h2>Current Exercises</h2>
+      <ul class="nav nav-stacked" id="menu-current" role="menu">
+        <% current_user.ongoing.each do |submission| %>
+          <li class="looks-list-item">
+            <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>">
+              <%= submission.problem.language + ' ' + submission.problem.name %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="span4">
     <h2>History</h2>
     <p class="well">See a list of exercises that you <a href="/looks">recently viewed</a>.</p>
