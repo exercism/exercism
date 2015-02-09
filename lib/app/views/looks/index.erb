@@ -13,12 +13,12 @@
             <li ng-repeat="look in looks | startFrom:currentPage*pageSize | limitTo:pageSize" class="looks-list-item">
               <a ng-href="{{look.path}}">{{look.name}} ({{look.language}}) by {{look.username}}</a>
             </li>
-            <div class="pagination-controls">
+            <div class="pagination-controls" ng-show="looks.length > pageSize">
               <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-default">
                  Previous
               </button>
               Page {{currentPage+1}}/{{numberOfPages()}}
-              <button ng-disabled="currentPage >= data.length/pageSize - 1" ng-click="currentPage=currentPage+1" class="btn btn-default">
+              <button ng-disabled="currentPage >= looks.length/pageSize - 1" ng-click="currentPage=currentPage+1" class="btn btn-default">
                  Next
               </button>
             </div>
