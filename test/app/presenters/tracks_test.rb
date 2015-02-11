@@ -9,9 +9,9 @@ class PresentersTracksTest < Minitest::Test
     upcoming = ["Groovy", "Nimrod", "Perl 6", "PHP", "Rust", "VB.NET"]
     planned = ["Assembly", "Bash", "C", "D", "ECMAScript", "Windows PowerShell", "Mathematical Proofs", "R", "Standard ML"]
 
-    assert_equal active, tracks.active
-    assert_equal upcoming, tracks.upcoming
-    assert_equal planned, tracks.planned
+    assert_equal active, tracks.active.map(&:language)
+    assert_equal upcoming, tracks.upcoming.map(&:language)
+    assert_equal planned, tracks.planned.map(&:language)
   end
 end
 

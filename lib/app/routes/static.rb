@@ -33,15 +33,15 @@ module ExercismWeb
       private
 
       def active_languages
-        ExercismWeb::Presenters::Languages.new(tracks.active)
+        ExercismWeb::Presenters::Languages.new(tracks.active.map(&:language))
       end
 
       def upcoming_languages
-        ExercismWeb::Presenters::Languages.new(tracks.upcoming)
+        ExercismWeb::Presenters::Languages.new(tracks.upcoming.map(&:language))
       end
 
       def planned_languages
-        ExercismWeb::Presenters::Languages.new(tracks.planned)
+        ExercismWeb::Presenters::Languages.new(tracks.planned.map(&:language))
       end
 
       def tracks

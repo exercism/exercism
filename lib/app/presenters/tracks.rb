@@ -31,15 +31,15 @@ module ExercismWeb
       end
 
       def active
-        tracks.select(&:active?).map(&:language)
+        @active ||= tracks.select(&:active?)
       end
 
       def upcoming
-        tracks.select(&:upcoming?).map(&:language)
+        @upcoming ||= tracks.select(&:upcoming?)
       end
 
       def planned
-        tracks.select(&:planned?).map(&:language)
+        @planned ||= tracks.select(&:planned?)
       end
     end
   end
