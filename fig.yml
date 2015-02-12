@@ -1,0 +1,19 @@
+db:
+  build: ./db
+  environment:
+    POSTGRES_USER: exercism
+    POSTGRES_PASSWORD: apples
+
+web:
+  build: .
+  links:
+    - db
+  command: foreman start
+  volumes:
+    - .:/exercism
+  ports:
+    - "4567:4567"
+  environment:
+    EXERCISM_GITHUB_CLIENT_ID: your_git_client_id
+    EXERCISM_GITHUB_CLIENT_SECRET: your_git_client_secret
+    PORT: 4567
