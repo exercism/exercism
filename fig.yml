@@ -1,0 +1,15 @@
+db:
+  build: ./db
+  environment:
+    POSTGRES_USER: exercism
+    POSTGRES_PASSWORD: apples
+
+web:
+  build: .
+  links:
+    - db
+  working_dir: /exercism
+  entrypoint: /exercism/run.sh
+  command: web
+  ports:
+    - "4567:4567"
