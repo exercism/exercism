@@ -11,3 +11,7 @@ web:
   command: foreman start
   ports:
     - "4567:4567"
+  environment:
+    EXERCISM_GITHUB_CLIENT_ID: your_git_client_id
+    EXERCISM_GITHUB_CLIENT_SECRET: your_git_client_secret
+    PORT: 4567
