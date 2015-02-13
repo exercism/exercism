@@ -8,8 +8,6 @@ web:
   build: .
   links:
     - db
-  working_dir: /exercism
-  entrypoint: /exercism/run.sh
-  command: web
+  command: foreman start
   ports:
     - "4567:4567"
