@@ -1,6 +1,21 @@
 module ExercismAPI
   module Routes
     class Submissions < Core
+      get '/submissions/:language/:slug' do |language, slug|
+        require_key
+
+        if current_user.guest?
+          halt 401, {error: "Please double-check your exercism API key."}.to_json
+        end
+
+        key = current_user.submissions.where(language: language, slug: slug).order('id DESC').limit(1).pluck(:key).first
+        if key.nil?
+          halt 404, {error: "No solutions found for exercise '#{slug}' in #{language}"}.to_json
+        end
+
+        {url: "#{request.scheme}://#{request.host_with_port}/submissions/#{key}", track_id: language, slug: slug}.to_json
+      end
+
       get '/submissions/:key' do |key|
         submission = Submission.find_by_key(key)
         if submission.nil?
