@@ -154,7 +154,7 @@ You can view the emails sent in [MailCatcher](http://mailcatcher.me) in your bro
 [Lineman](http://linemanjs.com) watches for file changes and compiles them automatically. It is not
 required to be running for the server to run though.
 
-* Install Lineman with: `sudo npm install -g lineman`
+* Install Lineman with: `npm install -g lineman`
 * To run: `cd frontend` and start Lineman with `lineman run`
 
 ### SCSS
