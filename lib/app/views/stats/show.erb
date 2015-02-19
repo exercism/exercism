@@ -1,13 +1,13 @@
 <div class="container">
   <section class="page-header">
-    <h1>Stats: <small><%= Language.of(progress.track_id) %></small></h1>
+    <h1>Stats: <small><%= progress.language %></small></h1>
   </section>
 
   <ul class="nav nav-tabs">
-    <% track_ids.each do |track_id| %>
-      <% css_class = (track_id == progress.track_id.to_sym ? 'active' : '') %>
+    <% tracks.each do |track| %>
+      <% css_class = (track.id == progress.track_id ? 'active' : '') %>
       <li class="<%= css_class %>">
-        <a href="/stats/<%= track_id %>"><%= Language.of(track_id) %></a>
+        <a href="/stats/<%= track.id %>"><%= track.language %></a>
       </li>
     <% end %>
   </ul>

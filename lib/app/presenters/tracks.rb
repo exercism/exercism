@@ -30,6 +30,10 @@ module ExercismWeb
         @tracks = tracks.map {|track| Track.new(track)}
       end
 
+      def find(id)
+        tracks.find {|track| track.id == id}
+      end
+
       def active
         @active ||= tracks.select(&:active?)
       end

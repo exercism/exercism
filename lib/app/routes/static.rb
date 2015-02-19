@@ -29,24 +29,6 @@ module ExercismWeb
         status 404
         erb :"errors/not_found"
       end
-
-      private
-
-      def active_languages
-        ExercismWeb::Presenters::Languages.new(tracks.active.map(&:language))
-      end
-
-      def upcoming_languages
-        ExercismWeb::Presenters::Languages.new(tracks.upcoming.map(&:language))
-      end
-
-      def planned_languages
-        ExercismWeb::Presenters::Languages.new(tracks.planned.map(&:language))
-      end
-
-      def tracks
-        @tracks ||= ExercismWeb::Presenters::Tracks.xapi
-      end
     end
   end
 end

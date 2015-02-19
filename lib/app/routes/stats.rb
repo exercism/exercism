@@ -2,13 +2,18 @@ module ExercismWeb
   module Routes
     class Stats < Core
       get '/stats' do
-        redirect "/stats/#{Exercism::Config.languages.keys.first}"
+        redirect "/stats/#{tracks.active.first.track_id}"
       end
 
       get '/stats/:track_id' do |track_id|
-        track_ids = Exercism::Config.languages.keys
-        progress = ExercismWeb::Presenters::Progress.new(track_id)
-        erb :"stats/show", locals: {track_ids: track_ids, progress: progress}
+        track = tracks.find(track_id)
+        if track.nil?
+          status 404
+          erb :"errors/not_found"
+        else
+          progress = ExercismWeb::Presenters::Progress.new(track.id, track.language)
+          erb :"stats/show", locals: {tracks: tracks.active, progress: progress}
+        end
       end
     end
   end

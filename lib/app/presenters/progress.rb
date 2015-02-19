@@ -10,9 +10,10 @@ module ExercismWeb
     end
 
     class Progress
-      attr_reader :track_id
-      def initialize(track_id)
+      attr_reader :track_id, :language
+      def initialize(track_id, language)
         @track_id = track_id
+        @language = language
       end
 
       def metrics
