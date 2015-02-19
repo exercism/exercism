@@ -24,6 +24,7 @@ gem 'sinatra-contrib'
 gem 'sidekiq'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+gem 'github_api'
 
 # Frontend Gems
 gem 'sass'
@@ -45,6 +46,7 @@ group :test, :development do
   gem 'foreman', require: false
   gem 'sqlite3'
   gem 'timecop', require: false
+  gem 'thin'
   # gem 'debugger'
 end
 

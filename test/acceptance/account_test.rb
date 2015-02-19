@@ -22,8 +22,8 @@ class AccountTest < AcceptanceTestCase
       fill_in 'email', with: 'some@email.com'
       click_on 'Update'
 
-      assert_content 'Updated email address.'
-      assert_equal 'some@email.com', find('[name=email]').value
+      assert_content 'Updated account settings.'
+      assert_equal 'some@email.com', find("[name='account[email]']").value
     end
   end
 

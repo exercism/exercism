@@ -21,6 +21,10 @@ class User < ActiveRecord::Base
     self.key ||= Exercism.uuid
     true
   end
+  
+  def source_klass
+    "#{source_type.downcase.titlecase}Source".constantize
+  end
 
   def reset_key
     self.key = Exercism.uuid

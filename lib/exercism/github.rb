@@ -1,4 +1,4 @@
-class Github
+module Github
   def self.login_url(client_id)
     "https://github.com/login/oauth/authorize?client_id=#{client_id}"
   end

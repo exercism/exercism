@@ -43,6 +43,8 @@ require 'exercism/work'
 require 'exercism/log_entry'
 require 'exercism/language_track'
 require 'exercism/user_lookup'
+require 'exercism/db_source'
+require 'exercism/github_source'
 
 require 'db/connection'
 DB::Connection.establish

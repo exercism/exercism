@@ -26,13 +26,9 @@
 
     <div class="clearfix"></div>
 
-    <% submission.solution.each do |filename, code| %>
+    <% solution.each do |filename, code| %>
       <h4><%= filename %></h4>
-      <%= md(code, submission.track_id) %>
-
-      <div id="submission-code" class="hidden">
-        <%= h code %>
-      </div>
+      <%= md(code, filename) %>
     <% end %>
 
     <div class="submission-likes">
