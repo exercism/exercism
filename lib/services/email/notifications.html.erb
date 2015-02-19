@@ -1,8 +1,9 @@
 <p>Hi <%= name %>,</p>
 
 <p><%= subject %> waiting for you at Exercism.io.<p>
+<p>Check them out here: <a href="<%= site_root %>/<%= template_name %>">notifications</a></p>
 <% if truncated? %>
-<p>Here are the most recent ones:</p>
+<p>Or, here are some of the most recent ones:</p>
 <% end %>
 <% if notifications %>
   <p>
