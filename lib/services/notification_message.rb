@@ -9,9 +9,14 @@ class NotificationMessage < Message
     @site_root = options.fetch(:site_root) { 'http://exercism.io' }
   end
 
+  def notifications_count
+    # "5 notifications"
+    "#{unread_notifications.count} #{'notification'.pluralize(notifications.count)}"
+  end
+
   def subject
     # "You have 5 notifications"
-    "You have #{unread_notifications.count} #{'notification'.pluralize(notifications.count)}"
+    "You have #{notifications_count}"
   end
 
   def recipient

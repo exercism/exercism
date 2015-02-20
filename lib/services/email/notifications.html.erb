@@ -1,6 +1,6 @@
 <p>Hi <%= name %>,</p>
 
-<p><%= subject %> waiting for you at Exercism.io.<p>
+<p>You have <a href="<%= site_root %>/notifications"><%= notifications_count %></a> waiting for you at Exercism.io.<p>
 <% if truncated? %>
 <p>Here are the most recent ones:</p>
 <% end %>
