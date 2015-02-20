@@ -129,7 +129,7 @@ You don't need to fill in the EXERCISES_API value unless you're going to be work
 Next, make sure all the application dependencies are installed:
 
 * Install gems with: `bundle install`
-* Install `mailcatcher` with: `gem install mailcatcher`
+* Install MailCatcher with: `gem install mailcatcher`
 
 ### Data
 
@@ -146,8 +146,6 @@ has all the correct tables. Also run a script to add fake data, so there are thi
 Start the server with `foreman start` (sometimes you have to `bundle exec foreman start`).
 
 Then you can log in at [localhost:4567](http://localhost:4567)
-
-You can view the emails sent in [MailCatcher](http://mailcatcher.me) in your browser at [localhost:1080](http://localhost:1080)
 
 ## Frontend Development Setup
 
@@ -172,6 +170,14 @@ Our styleguide is under [/styleguide](http://exercism.io/styleguide) and built w
 
 ## Sending Emails
 
+[MailCatcher](http://mailcatcher.me) is used to catch and view emails locally.
+
+Do the following to test an email:
+
+* Start MailCatcher: `mailcatcher` or `mailcatcher -f` to run in the foreground
+* Send a test message. For example, `ruby test/services/notification_message_test.rb` will send a test notification email.
+* Open [localhost:1080](http://localhost:1080) and you should see the test email
+
 If you want to send emails, you will need to fill out the relevant environment variables in `.env` and uncomment the lines so the variables get exported.
 
 ## Console
@@ -189,7 +195,7 @@ user.submissions
 
 1. Create a test database: `createdb -O exercism exercism_test`
 2. Prepare the test environment: `RACK_ENV=test rake db:migrate`
-3. Make sure `mailcatcher` is running: `mailcatcher`
+3. Make sure MailCatcher is running: `mailcatcher`
 4. Run the test suite: `rake` or `rake test`
 
 To run a single test suite, you can do so with:
