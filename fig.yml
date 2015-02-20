@@ -3,12 +3,16 @@ db:
   environment:
     POSTGRES_USER: exercism
     POSTGRES_PASSWORD: apples
+  volumes:
+    - "/home/vamsi/postgres/data:/var/lib/postgresql/data"
 
 web:
   build: .
   links:
     - db
   command: foreman start
+  volumes:
+    - .:/exercism
   ports:
     - "4567:4567"
   environment:
