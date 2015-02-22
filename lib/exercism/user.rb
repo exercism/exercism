@@ -28,15 +28,23 @@ class User < ActiveRecord::Base
   end
 
   def self.from_github(id, username, email, avatar_url)
-    user = User.where(github_id: id).first ||
-           User.new(github_id: id, email: email)
+    user = User.where("github_id = ? or username = ?", id, username).first ||
+      User.new(github_id: id, email: email)
 
+    user.github_id  = id if !user.github_id
+    user.email      = email if !user.email
     user.username   = username
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url && !user.avatar_url
     track_event = user.new_record?
     user.save
     LifecycleEvent.track('joined', user.id) if track_event
     user
+  end
+
+  def self.find_or_create_in_usernames(usernames)
+    recruits = usernames - find_in_usernames(usernames).map(&:username)
+    User.create recruits.reduce([]) { |acc, curr| acc.push username: curr } unless recruits.empty?
+    find_in_usernames(usernames)
   end
 
   def self.find_in_usernames(usernames)

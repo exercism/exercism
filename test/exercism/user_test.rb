@@ -68,6 +68,28 @@ class UserTest < Minitest::Test
     assert_equal 'bob', user.username
   end
 
+  def test_update_user_if_username_present
+    User.create(username: 'alice')
+    user = User.from_github(23, 'alice', 'alice@example.com', 'avatar_url')
+    assert_equal 1, User.count
+    assert_equal 23, user.github_id
+    assert_equal 'alice', user.username
+    assert_equal 'alice@example.com', user.email
+    assert_equal 'avatar_url', user.avatar_url
+  end
+
+  def test_does_not_overwrite_github_id_if_present
+    User.create(github_id: 23, username: 'alice')
+    user = User.from_github(123, 'alice', nil, nil).reload
+    assert_equal 23, user.github_id
+  end
+
+  def test_does_not_overwrite_email_if_present
+    User.create(github_id: 23, email: 'alice@example.com')
+    user = User.from_github(23, nil, 'new@example.com', nil).reload
+    assert_equal 'alice@example.com', user.email
+  end
+
   def test_sets_avatar_url_unless_present
     User.create(github_id: 23)
     user = User.from_github(23, nil, nil, 'new?1234').reload
@@ -139,6 +161,11 @@ class UserTest < Minitest::Test
   def test_find_a_bunch_of_users_by_case_insensitive_username
     %w{alice bob fred}.each do |name| User.create username: name end
     assert_equal ['alice', 'bob'], User.find_in_usernames(['ALICE', 'BOB']).map(&:username)
+  end
+
+  def test_create_users_unless_present
+    User.create username: 'alice'
+    assert_equal ['alice', 'bob'], User.find_or_create_in_usernames(['alice', 'bob']).map(&:username)
   end
 
   private

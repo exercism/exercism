@@ -32,12 +32,12 @@ class Team < ActiveRecord::Base
   def defined_with(options)
     self.slug = options[:slug]
     self.name = options[:name]
-    self.unconfirmed_members = User.find_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
+    self.unconfirmed_members = User.find_or_create_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
     self
   end
 
   def recruit(usernames)
-    recruits = User.find_in_usernames(usernames.to_s.scan(/[\w-]+/)) - self.all_members
+    recruits = User.find_or_create_in_usernames(usernames.to_s.scan(/[\w-]+/)) - self.all_members
     self.unconfirmed_members += recruits
   end
 
