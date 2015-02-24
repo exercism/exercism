@@ -3,6 +3,10 @@ db:
   environment:
     POSTGRES_USER: exercism
     POSTGRES_PASSWORD: apples
+  volumes_from:
+    - dbdata
+dbdata:
+  image: postgres:9.4
   volumes:
     - "/home/vamsi/postgres/data:/var/lib/postgresql/data"
 
@@ -16,6 +20,6 @@ web:
   ports:
     - "4567:4567"
   environment:
-    EXERCISM_GITHUB_CLIENT_ID: your_git_client_id
-    EXERCISM_GITHUB_CLIENT_SECRET: your_git_client_secret
+    EXERCISM_GITHUB_CLIENT_ID: your_github_client_id
+    EXERCISM_GITHUB_CLIENT_SECRET: your_github_client_secret_key
     PORT: 4567
