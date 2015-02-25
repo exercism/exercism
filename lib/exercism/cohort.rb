@@ -4,48 +4,54 @@ class Cohort
   end
 
   attr_reader :user
+
   def initialize(user)
     @user = user
   end
 
-  def users
-    members | managers
+  def sees(problem)
+    (other_users(problem) + managers).uniq { |member|
+      member.id
+    }
+  end
+
+  def team_members_and_managers
+    fetch_user_records(confirmed_team_member_ids + team_manager_ids)
   end
 
   def members
-    @members ||= compute_members
+    fetch_user_records confirmed_team_member_ids
   end
 
   def managers
-    @managers ||= compute_managers
-  end
-
-  def sees(problem)
-    managers + members.select do |member|
-      sees?(member, problem)
-    end
+    fetch_user_records team_manager_ids
   end
 
   private
 
-  def sees?(member, problem)
-    member.completed?(problem) || member.working_on?(problem)
+  def fetch_user_records(ids)
+    User.where(id: ids)
   end
 
-  def compute_members
-    members = Set.new
-    user.teams.each do |team|
-      members += team.members
-    end
-    members.delete user
+  def other_users(problem)
+    SubmissionStatus.users_who_have_completed_or_are_working_on(problem, user_relation: members)
   end
 
-  def compute_managers
-    managers = Set.new
-    user.teams.each do |team|
-      managers += team.managers
-    end
-    managers.delete user
+  def confirmed_team_member_ids
+    TeamMembership.confirmed.where(team_id: team_ids).where.not(user_id: @user.id).pluck(:user_id)
+  end
+
+  def team_member_ids
+    TeamMembership.where(team_id: team_ids).where.not(user_id: @user.id).pluck(:user_id)
+  end
+
+  def team_manager_ids
+    TeamManager.where(team_id: team_ids).where.not(user_id: @user.id).pluck(:user_id)
+  end
+
+  def team_ids
+    @team_ids = user.team_memberships.pluck(:team_id).uniq if @team_ids.nil?
+    @team_ids
   end
 
 end
