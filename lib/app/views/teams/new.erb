@@ -7,7 +7,11 @@
       <div class="col-md-8">
         <form accept-charset="UTF-8" action="/teams" method="POST" class="form-horizontal">
           <% team.errors.full_messages.each do |error| %>
-          <p class="error"><%= error %></p>
+            <div class="form-group">
+              <div class="col-sm-offset-3 col-sm-9">
+                <%= error %>
+              </div>
+            </div>
           <% end %>
           <div class="form-group">
             <label class="control-label col-sm-3" for="team_slug">Slug</label>
@@ -27,7 +31,11 @@
               <textarea rows="5" class="form-control" name="team[usernames]" id="team_usernames" placeholder="e.g.,  kytrinyx, seeflanigan, rubysolo, theotherzach"><%= team.usernames.join(", ") %></textarea>
             </div>
           </div>
-          <div class="col-sm-offset-3"><button type="submit" class="btn btn-primary">Save</button></div>
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-9">
+              <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+          </div>
         </form>
       </div>
     </div>
