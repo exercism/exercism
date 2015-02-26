@@ -4,6 +4,14 @@ namespace :db do
   require_relative '../db/connection'
   DB::Connection.establish
 
+  desc 'Creates the database from DATABASE_URL or config/database.yml for the current RACK_ENV (use db:create:all to create all databases in the config). Without RACK_ENV it defaults to creating the development and test databases.'
+  task :create do
+    env = ENV['RACK_ENV'] || 'development'
+    db_config = DB::Config.new(env)
+    ActiveRecord::Base.configurations = YAML.load(db_config.yaml)
+    ActiveRecord::Tasks::DatabaseTasks.create_current(env)
+  end
+
   desc "migrate your database"
   task :migrate do
     ActiveRecord::Migrator.migrate('./db/migrate')

@@ -1,5 +1,5 @@
 db:
-  build: ./db
+  image: postgres:9.4
   environment:
     POSTGRES_USER: exercism
     POSTGRES_PASSWORD: apples
