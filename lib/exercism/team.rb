@@ -32,7 +32,8 @@ class Team < ActiveRecord::Base
   def defined_with(options)
     self.slug = options[:slug]
     self.name = options[:name]
-    self.unconfirmed_members = User.find_or_create_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
+    self.unconfirmed_members << User.find_or_create_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
+    self.unconfirmed_members << options[:users] if options[:users]
     self
   end
 

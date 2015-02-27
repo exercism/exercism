@@ -13,22 +13,20 @@ class CohortTest < Minitest::Test
     Submission.create(language: 'ruby', slug: 'cake', code: 'CODE', user: charlie)
     Submission.create(language: 'ruby', slug: 'cake', code: 'CODE', user: dave, state: 'done')
 
-    team1 = Team.by(alice).defined_with(slug: 'team1', usernames: [bob, charlie])
+    team1 = Team.by(alice).defined_with(slug: 'team1', users: [bob, charlie])
     team1.save
-    team2 = Team.by(alice).defined_with(slug: 'team2', usernames: [bob, dave, eve])
+    team2 = Team.by(alice).defined_with(slug: 'team2', users: [bob, dave, eve])
     team2.save
 
     team1.confirm(bob.username)
     team2.confirm(bob.username)
-
-    assert_equal Set.new, Cohort.for(alice).users
 
     problem = Problem.new('ruby', 'cake')
 
     cohort = Cohort.for(bob)
     assert_equal [], cohort.members.map(&:username)
     assert_equal ['alice'], cohort.managers.map(&:username)
-    assert_equal ['alice'], cohort.users.map(&:username).sort
+    assert_equal ['alice'], cohort.team_members_and_managers.map(&:username)
     assert_equal ['alice'], cohort.sees(problem).map(&:username)
 
     team2.confirm(dave.username)
@@ -39,7 +37,7 @@ class CohortTest < Minitest::Test
 
     assert_equal %w(dave eve), cohort.members.map(&:username).sort
     assert_equal ['alice'], cohort.managers.map(&:username).sort
-    assert_equal %w(alice dave eve), cohort.users.map(&:username).sort
+    assert_equal %w(alice dave eve), cohort.team_members_and_managers.map(&:username).sort
     assert_equal %w(alice dave), cohort.sees(problem).map(&:username).sort
   end
 

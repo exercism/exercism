@@ -80,7 +80,7 @@ class User < ActiveRecord::Base
   end
 
   def working_on?(problem)
-    active_submissions.where(language: problem.track_id, slug: problem.slug).count > 0
+    SubmissionStatus.is_user_working_on?(self, problem)
   end
 
   def nitpicks_trail?(track_id)
@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
   end
 
   def completed?(problem)
-    submissions.where(language: problem.track_id, slug: problem.slug, state: 'done').count > 0
+    SubmissionStatus.is_user_done_with?(self, problem)
   end
 
   def locksmith?

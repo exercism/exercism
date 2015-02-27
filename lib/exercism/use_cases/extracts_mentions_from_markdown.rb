@@ -13,17 +13,13 @@ class ExtractsMentionsFromMarkdown
   end
 
   def extract
-    @mentions = []
-    candidates.each do |username|
-      user = User.where(username: username.sub(/\@/, '')).first rescue nil
-      @mentions << user if user
-    end
+    @mentions = User.where(username: candidates)
   end
 
   private
 
   def candidates
-    html_content_without_code.scan(/\@\w+/).uniq
+    html_content_without_code.scan(/\@(\w+)/).uniq.flatten
   end
 
   def html_content_without_code

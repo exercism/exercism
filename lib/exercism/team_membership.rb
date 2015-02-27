@@ -3,6 +3,7 @@ class TeamMembership < ActiveRecord::Base
   belongs_to :user
 
   validates :user, uniqueness: { scope: :team }
+  scope :confirmed, ->{ where(confirmed: true) }
 
   before_create do
     self.confirmed = false
