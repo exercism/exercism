@@ -73,10 +73,18 @@ class CreatesCommentTest < Minitest::Test
   def test_nitpicking_hibernating_exercise_sets_it_to_pending
     submission.state = 'hibernating'
     submission.save
+
     nitpicker = User.new(username: 'alice')
+    UserExercise.create(
+      user: nitpicker,
+      state: 'hibernating',
+      submissions: [ submission ]
+    )
+
     nitpick = CreatesComment.new(submission.id, nitpicker, 'a comment').create
     submission.reload
     assert submission.pending?
+    assert submission.exercise_pending?
   end
 
   def test_do_not_change_state_of_completed_submission

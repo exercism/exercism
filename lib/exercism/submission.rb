@@ -202,6 +202,10 @@ class Submission < ActiveRecord::Base
     user_exercise.hibernating?
   end
 
+  def exercise_pending?
+    user_exercise.pending?
+  end
+
   def prior
     @prior ||= related.where(version: version-1).first
   end
