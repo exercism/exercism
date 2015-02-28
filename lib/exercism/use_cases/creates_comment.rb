@@ -22,7 +22,7 @@ class CreatesComment
     @comment = submission.comments.create(user: commenter, body: body)
     unless @comment.new_record?
       submission.unmute_all!
-      submission.state = 'pending' if submission.hibernating?
+      submission.user_exercise.reopen! if submission.hibernating?
       submission.mute(commenter)
       unless submission.user == commenter
         submission.nit_count += 1
