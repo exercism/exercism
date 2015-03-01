@@ -30,4 +30,14 @@ class ItertaionsApiTest < Minitest::Test
     options = {format: :json, :name => 'api_iterations'}
     Approvals.verify(output, options)
   end
+
+  def test_skip_problem
+    alice = User.create(username: 'alice', github_id: 1)
+
+    post '/iterations/ruby/one/skip', {key: alice.key}
+
+    exercise = alice.exercises.first
+    assert_equal 'ruby', exercise.language
+    assert_equal 'one', exercise.slug
+  end
 end

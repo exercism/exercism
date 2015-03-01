@@ -7,6 +7,20 @@ module ExercismAPI
         halt *Xapi.get("v2", "exercises", "restore", key: key)
       end
 
+      post '/iterations/:language/:slug/skip' do |language, slug|
+        require_key
+
+        if current_user.guest?
+          halt 401, {error: "Please double-check your exercism API key."}.to_json
+        end
+
+        if UserExercise.new(user_id: current_user.id, language: language, slug: slug, iteration_count: 0, state: 'unstarted').save
+          halt 204
+        else
+          halt 400, {error: "Failed to skip '#{slug}' in '#{language}'."}.to_json
+        end
+      end
+
       post '/user/assignments' do
         request.body.rewind
         data = request.body.read
