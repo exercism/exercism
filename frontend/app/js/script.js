@@ -30,7 +30,7 @@ $(function() {
   });
 
   $('form').on('submit', function() {
-    var $this = $(this).find('button');
+    var $this = $(this).find(':submit');
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
 
