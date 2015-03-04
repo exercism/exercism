@@ -29,10 +29,17 @@ $(function() {
     $("a[data-action='enlarge']",codeDiv).show();
   });
 
-  $('form input[type=submit], form button[type=submit]').on('click', function() {
-    var $this = $(this);
+  $('form').on('submit', function() {
+    var $this = $(this).find('button');
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
+
+  $("form").submit(function() {
+    $(this).submit(function() {
+      return false;
+    });
+  });
+
 
   $('textarea').each(function () {
     var $this = $(this);
