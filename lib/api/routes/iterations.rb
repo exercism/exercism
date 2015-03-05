@@ -14,10 +14,16 @@ module ExercismAPI
           halt 401, {error: "Please double-check your exercism API key."}.to_json
         end
 
-        if UserExercise.new(user_id: current_user.id, language: language, slug: slug, iteration_count: 0, state: 'unstarted').save
+        exercise = UserExercise.where(user_id: current_user.id, language: language, slug: slug).first_or_initialize(iteration_count: 0, state: 'unstarted')
+        if exercise.new_record?
+          exercise.save!
+
           halt 204
         else
-          halt 400, {error: "Failed to skip '#{slug}' in '#{language}'."}.to_json
+          message = "Exercise '#{slug}' in '#{language}' has already been "
+          message += exercise.state == "unstarted" ? "skipped." : "started."
+
+          halt 400, {error: message}.to_json
         end
       end
 
