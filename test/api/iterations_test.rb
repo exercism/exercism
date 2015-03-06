@@ -39,5 +39,28 @@ class ItertaionsApiTest < Minitest::Test
     exercise = alice.exercises.first
     assert_equal 'ruby', exercise.language
     assert_equal 'one', exercise.slug
+    assert_equal 'unstarted', exercise.state
+  end
+
+  def test_skip_skipped_problem
+    alice = User.create(username: 'alice', github_id: 1)
+
+    post '/iterations/ruby/one/skip', {key: alice.key}
+    post '/iterations/ruby/one/skip', {key: alice.key}
+
+    assert_equal 400, last_response.status
+    assert last_response.body.include?('already been skipped')
+  end
+
+  def test_skip_started_problem
+    alice = User.create(username: 'alice', github_id: 1)
+
+    Submission.create(user: alice, language: 'ruby', slug: 'one', code: 'CODE1RB', state: 'pending', filename: 'one.rb')
+    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
+
+    post '/iterations/ruby/one/skip', {key: alice.key}
+
+    assert_equal 400, last_response.status
+    assert last_response.body.include?('already been started')
   end
 end
