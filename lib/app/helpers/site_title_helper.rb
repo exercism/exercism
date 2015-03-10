@@ -4,8 +4,7 @@ module Sinatra
     def title(value = nil)
       @title = value if value
       @title ? "#{@title}" : "exercism.io"
-    end
-    
+    end 
     def account_source_options
       txt = ""
 
@@ -23,7 +22,5 @@ module Sinatra
     def source_types
       %w(DB GITHUB)
     end
-
   end
-  
 end
