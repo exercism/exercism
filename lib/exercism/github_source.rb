@@ -1,6 +1,5 @@
 class GithubSource
-
-  attr_reader :github,:user,:slug,:code
+  attr_reader :github, :user, :slug, :code
 
   def initialize(submission)
     @github = Github.new
@@ -10,7 +9,7 @@ class GithubSource
   end
 
   def solution
-    trees = github.git_data.trees.get user.username,slug,code
+    trees = github.git_data.trees.get user.username, slug, code
 
     res = {}
     trees.tree.each do |tree_item|
