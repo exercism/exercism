@@ -11,7 +11,7 @@ class ExtractsMentionsFromMarkdownTest < Minitest::Test
 
   def test_basic_mentions
     content = "Mention @#{user.username}"
-    assert_equal [user], ExtractsMentionsFromMarkdown.extract(content)
+    assert ExtractsMentionsFromMarkdown.extract(content).where(id: user.id).exists?, "Did not return #{user.username}"
   end
 
   def test_ignore_mentions_in_code_spans
@@ -30,6 +30,8 @@ class ExtractsMentionsFromMarkdownTest < Minitest::Test
 
   def test_only_return_mentions_for_existing_usernames
     content = "Mention @alice and @bob"
-    assert_equal [user], ExtractsMentionsFromMarkdown.extract(content)
+    assert ExtractsMentionsFromMarkdown.extract(content).where(id: user.id).exists?, "Did not return #{user.username}"
+    assert_equal 1, ExtractsMentionsFromMarkdown.extract(content).count, "Returned more than one user"
+    assert_equal 'alice', ExtractsMentionsFromMarkdown.extract(content).first.username, "Did not return alice"
   end
 end

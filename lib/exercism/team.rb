@@ -32,7 +32,8 @@ class Team < ActiveRecord::Base
   def defined_with(options)
     self.slug = options[:slug]
     self.name = options[:name]
-    self.unconfirmed_members = User.find_or_create_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
+    self.unconfirmed_members << User.find_or_create_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
+    self.unconfirmed_members << options[:users] if options[:users]
     self
   end
 
@@ -47,11 +48,16 @@ class Team < ActiveRecord::Base
     self.unconfirmed_members.delete(user)
   end
 
+  # TODO: let's confirm on user, not username, since
+  # we can't report errors if we don't find the user or they're already a member.
   def confirm(username)
     user = User.find_by_username(username)
-    self.unconfirmed_memberships.where(user_id: user.id).first.confirm!
-    self.unconfirmed_members.reload
-    self.members.reload
+    member = unconfirmed_memberships.where(user_id: user.id).first
+    if member
+      member.confirm!
+      self.unconfirmed_members.reload
+      self.members.reload
+    end
   end
 
   def usernames

@@ -28,7 +28,7 @@ class Submission < ActiveRecord::Base
     true
   end
 
-  scope :done, ->{ where(state: 'done') }
+  scope :done, ->{ SubmissionStatus.done_submissions }
   scope :pending, ->{ where(state: %w(needs_input pending)) }
   scope :hibernating, ->{ where(state: 'hibernating') }
   scope :needs_input, ->{ where(state: 'needs_input') }
@@ -65,7 +65,7 @@ class Submission < ActiveRecord::Base
   scope :recent, -> { since(7.days.ago) }
 
   scope :completed_for, -> (problem) {
-    done.where(language: problem.track_id, slug: problem.slug)
+    SubmissionStatus.submissions_completed_for(problem, relation: self)
   }
 
   scope :random_completed_for, -> (problem) {
@@ -77,16 +77,16 @@ class Submission < ActiveRecord::Base
       .where(user_id: submission.user.id, language: submission.track_id, slug: submission.slug)
   }
 
+  scope :unmuted_for, ->(user) {
+    where("id NOT IN (#{MutedSubmission.where(user: user).select(:submission_id).to_sql})")
+  }
+
   def self.on(problem)
     submission = new
     submission.on problem
     submission.save
     submission
   end
-
-  scope :unmuted_for, ->(user) {
-    where("id NOT IN (#{MutedSubmission.where(user: user).select(:submission_id).to_sql})")
-  }
 
   def name
     @name ||= slug.split('-').map(&:capitalize).join(' ')
@@ -200,6 +200,10 @@ class Submission < ActiveRecord::Base
 
   def exercise_hibernating?
     user_exercise.hibernating?
+  end
+
+  def exercise_pending?
+    user_exercise.pending?
   end
 
   def prior

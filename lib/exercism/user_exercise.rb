@@ -53,6 +53,10 @@ class UserExercise < ActiveRecord::Base
     state == 'hibernating'
   end
 
+  def pending?
+    state == 'pending'
+  end
+
   def nit_count
     submissions.pluck(:nit_count).sum
   end

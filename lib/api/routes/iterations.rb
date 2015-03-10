@@ -7,6 +7,26 @@ module ExercismAPI
         halt *Xapi.get("v2", "exercises", "restore", key: key)
       end
 
+      post '/iterations/:language/:slug/skip' do |language, slug|
+        require_key
+
+        if current_user.guest?
+          halt 401, {error: "Please double-check your exercism API key."}.to_json
+        end
+
+        exercise = UserExercise.where(user_id: current_user.id, language: language, slug: slug).first_or_initialize(iteration_count: 0, state: 'unstarted')
+        if exercise.new_record?
+          exercise.save!
+
+          halt 204
+        else
+          message = "Exercise '#{slug}' in '#{language}' has already been "
+          message += exercise.state == "unstarted" ? "skipped." : "started."
+
+          halt 400, {error: message}.to_json
+        end
+      end
+
       post '/user/assignments' do
         request.body.rewind
         data = request.body.read
