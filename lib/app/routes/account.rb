@@ -15,6 +15,7 @@ module ExercismWeb
 
         if current_user.update(params[:account])
           flash[:success] = "Updated account settings."
+          
         else
           flash[:error] = current_user.errors.full_messages.join(", ")
         end

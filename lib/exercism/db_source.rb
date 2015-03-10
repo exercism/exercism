@@ -1,12 +1,12 @@
 class DbSource
 	attr_reader :submission
 
-		def initialize(submission)
-	   	@submission = submission
-	  end
+	def initialize(submission)
+		submission = submission
+	end
 
  # we can use delegate method as well
-	  def solution
+	def solution
 	   	submission.solution
-	  end
+	end
 end
