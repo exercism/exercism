@@ -14,7 +14,6 @@ gem 'pg'
 # Pony must not be required. See
 # http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
 gem 'pony', '~> 1.6', require: false
-gem 'pry', require: false
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'rake'
@@ -34,6 +33,8 @@ gem 'font-awesome-sass'
 gem 'kss'
 
 group :test, :development do
+  gem 'pry'
+  gem 'thin'
   # gem 'ruby-prof', '~> 0.14'
   gem 'database_cleaner', require: false
   gem 'approvals', require: false
