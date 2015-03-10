@@ -1,6 +1,6 @@
 <div class="submission-iteration">
   <div class="row">
-    <%= erb :"submissions/current_submission", locals: { submission: submission } %>
+    <%= erb :"submissions/current_submission", locals: { submission: submission, solution: solution } %>
     <%= erb :"submissions/nitpicks", locals: { submission: submission } %>
   </div>
 </div>

@@ -1,10 +1,11 @@
 db:
-  image: postgres:9.4
+  image: db/
   environment:
     POSTGRES_USER: exercism
     POSTGRES_PASSWORD: apples
   volumes_from:
     - dbdata
+
 dbdata:
   image: postgres:9.4
   volumes:
@@ -15,8 +16,6 @@ web:
   links:
     - db
   command: foreman start
-  volumes:
-    - .:/exercism
   ports:
     - "4567:4567"
   environment:
