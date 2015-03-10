@@ -21,16 +21,16 @@ module ExercismWeb
         erb :"site/getting-started", locals: {active_languages: active_languages}
       end
 
-      get '/installing-cli' do
-        erb :"site/installing-cli", locals: {active_languages: active_languages}
+      get "/installing-cli" do
+        erb :"site/installing-cli", locals: { active_languages: active_languages }
       end
   
-      get '/create-assignment' do
-        erb :"site/create-assignment", locals: {active_languages: active_languages}
+      get "/create-assignment" do
+        erb :"site/create-assignment", locals: { active_languages: active_languages }
       end
 
-      get '/submit-assignment' do
-        erb :"site/submit-assignment", locals: {active_languages: active_languages}
+      get "/submit-assignment" do
+        erb :"site/submit-assignment", locals: { active_languages: active_languages }
       end
 
       get '/bork' do
