@@ -1,5 +1,5 @@
 db:
-  image: db/
+  image: postgres:9.4
   environment:
     POSTGRES_USER: exercism
     POSTGRES_PASSWORD: apples
@@ -7,7 +7,7 @@ db:
     - dbdata
 
 dbdata:
-  image: postgres:9.4
+  image: ubuntu:latest
   volumes:
     - "/home/vamsi/postgres/data:/var/lib/postgresql/data"
 
@@ -17,8 +17,8 @@ web:
     - db
   command: foreman start
   ports:
-    - "4567:4567"
+    - "80:4567"
   environment:
-    EXERCISM_GITHUB_CLIENT_ID: your_github_client_id
-    EXERCISM_GITHUB_CLIENT_SECRET: your_github_client_secret_key
+    EXERCISM_GITHUB_CLIENT_ID: b589dcac66a1c6326ddc
+    EXERCISM_GITHUB_CLIENT_SECRET: 57e204a4e24e78a44a4642efd93934252cb0f180
     PORT: 4567
