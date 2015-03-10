@@ -8,7 +8,6 @@ module Sinatra
     
     def account_source_options
       txt = ""
-
       source_types.each do |source|
         if current_user.source_type == source
           txt << "<option selected value='#{source}'>#{source}</option>"
