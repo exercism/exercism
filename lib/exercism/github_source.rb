@@ -10,7 +10,6 @@ class GithubSource
 
   def solution
     trees = github.git_data.trees.get user.username, slug, code
-    src_url = trees.tree.last.url
 
     res = {}
     trees.tree.each do |tree_item|

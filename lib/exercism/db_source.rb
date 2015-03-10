@@ -5,7 +5,7 @@ class DbSource
     @submission = submission
   end
 
-  #we can use delegate method as well
+ # we can use delegate method as well
   def solution
     submission.solution
   end
