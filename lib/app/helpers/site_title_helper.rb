@@ -5,6 +5,7 @@ module Sinatra
       @title = value if value
       @title ? "#{@title}" : "exercism.io"
     end 
+    
     def account_source_options
       txt = ""
 
