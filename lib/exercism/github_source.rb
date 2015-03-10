@@ -14,9 +14,11 @@ class GithubSource
 
     res = {}
     trees.tree.each do |tree_item|
-      uri = URI(tree_item.url)
-      resp = JSON.parse(Net::HTTP.get(uri))
-      res[tree_item.path] = Base64.decode64(resp["content"])
+      if tree_item.type == 'blob'
+        uri = URI(tree_item.url)
+        resp = JSON.parse(Net::HTTP.get(uri))
+        res[tree_item.path] = Base64.decode64(resp["content"])
+      end
     end
 
     res
