@@ -22,7 +22,7 @@ module ExercismWeb
       end
 
       get "/installing-cli" do
-        erb :"site/installing-cli", locals: { active_languages: 
+        erb :"site/installing-cli", locals: { active_languages:
 active_languages }
       end
   
@@ -32,7 +32,7 @@ active_languages }
       end
 
       get "/submit-assignment" do
-        erb :"site/submit-assignment", locals: { active_languages: 
+        erb :"site/submit-assignment", locals: { active_languages:
 active_languages }
       end
 
