@@ -3,22 +3,20 @@ db:
   environment:
     POSTGRES_USER: exercism
     POSTGRES_PASSWORD: apples
-  volumes_from:
-    - dbdata
-
-dbdata:
-  image: ubuntu:latest
   volumes:
     - "/home/vamsi/postgres/data:/var/lib/postgresql/data"
 
 web:
-  build: .
+  image: exercism-web
   links:
     - db
   command: foreman start
+  volumes:
+    - ".:/exercism"
   ports:
     - "80:4567"
   environment:
+    RACK_ENV: production
     EXERCISM_GITHUB_CLIENT_ID: b589dcac66a1c6326ddc
     EXERCISM_GITHUB_CLIENT_SECRET: 57e204a4e24e78a44a4642efd93934252cb0f180
     PORT: 4567

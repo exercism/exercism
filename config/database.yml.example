@@ -4,8 +4,8 @@ postgres: &postgres
   encoding: unicode
   pool: 5
   host: db
-  username: exercism
-  password: apples
+  username: db_username
+  password: secret
 
 test:
   <<: *postgres
@@ -14,7 +14,3 @@ test:
 development:
   <<: *postgres
   database: db_development
-
-production:
-  <<: *postgres
-  database: exercism_production

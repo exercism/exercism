@@ -129,6 +129,18 @@
           </form>
         </dd>
       </dl>
+      
+      <dl>
+        <dt>Update Exercises:</dt>
+        <dd>
+          <%#= current_user.key %>
+          <form action="/update_assignment" method="post">
+            <input type="hidden" name="_method" value="put">
+            <input type="submit" value="Update Assignment" class="btn btn-default">
+          </form>
+        </dd>
+      </dl>
+      
       <p>You can update your <%= gravatar_tag current_user.avatar_url %> avatar on
         <a href="https://github.com/settings/profile">GitHub</a>.</p>
       <p>

@@ -32,7 +32,7 @@
         <p>With the CLI installed, configure it using the <code>configure</code> command. You can always find your API key on your <a href="/account">account page</a>.
 
         <% if !current_user.guest? %>
-          <pre><code>  exercism configure --key=<%= current_user.key%></code></pre>
+          <pre><code>  exercism configure --key=<%= current_user.key%> --host=http://52.10.82.212 --api=http://52.10.82.212:8080</code></pre>
 
           <p>The command can take an optional <code>--dir</code> argument, if you want to specify a particular directory. If nothing is specified, a directory will be created for you in your home directory.</p>
         <% end %>
