@@ -165,7 +165,7 @@ class UserTest < Minitest::Test
 
   def test_create_users_unless_present
     User.create username: 'alice'
-    assert_equal ['alice', 'bob'], User.find_or_create_in_usernames(['alice', 'bob']).map(&:username)
+    assert_equal ['alice', 'bob'], User.find_or_create_in_usernames(['alice', 'bob']).map(&:username).sort
   end
 
   private
