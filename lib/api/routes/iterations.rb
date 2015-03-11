@@ -53,7 +53,7 @@ module ExercismAPI
           solution = {data['path'] => data['code']}
         end
 
-        attempt = Attempt.new(user, Iteration.new(solution))
+        attempt = Attempt.new(user, Iteration.new(solution, data['language'], data['problem']))
 
         unless attempt.valid?
           Bugsnag.before_notify_callbacks << lambda { |notif|

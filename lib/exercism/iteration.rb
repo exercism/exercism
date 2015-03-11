@@ -1,7 +1,9 @@
 class Iteration
   attr_reader :solution
 
-  def initialize(solution)
+  def initialize(solution, track_id=nil, slug=nil)
+    @track_id = track_id
+    @slug = slug
     @solution = {}
     solution.each do |filename, contents|
       @solution[filename] = contents.strip
@@ -13,10 +15,10 @@ class Iteration
   end
 
   def track_id
-    paths.map(&:track).group_by {|k| k}.sort_by {|k, v| v.size}.last.first
+    @track_id || paths.map(&:track).group_by {|k| k}.sort_by {|k, v| v.size}.last.first
   end
 
   def slug
-    paths.map(&:slug).group_by {|k| k}.sort_by {|k, v| v.size}.last.first
+    @slug || paths.map(&:slug).group_by {|k| k}.sort_by {|k, v| v.size}.last.first
   end
 end
