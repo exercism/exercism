@@ -22,7 +22,6 @@ tmp
 db/seeds.sql
 db/schema.sql
 db/migrations.sql
-.capistrano/metrics
 
 # JavaScript
 node_modules
