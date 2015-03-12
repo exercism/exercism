@@ -10,7 +10,7 @@ web:
   image: exercism-web
   links:
     - db
-  command: foreman start
+  command: NEWRELIC_ENABLE=false foreman start
   volumes:
     - ".:/exercism"
   ports:
