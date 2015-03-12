@@ -10,13 +10,14 @@ web:
   image: exercism-web
   links:
     - db
-  command: NEWRELIC_ENABLE=false foreman start
+  command: foreman start
   volumes:
     - ".:/exercism"
   ports:
     - "80:4567"
   environment:
     RACK_ENV: production
+    NEWRELIC_ENABLE: false
     EXERCISM_GITHUB_CLIENT_ID: b589dcac66a1c6326ddc
     EXERCISM_GITHUB_CLIENT_SECRET: 57e204a4e24e78a44a4642efd93934252cb0f180
     PORT: 4567
