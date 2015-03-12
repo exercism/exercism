@@ -33,6 +33,7 @@ gem 'font-awesome-sass'
 gem 'kss'
 
 group :test, :development do
+  gem 'capistrano'
   gem 'pry'
   gem 'thin'
   # gem 'ruby-prof', '~> 0.14'
