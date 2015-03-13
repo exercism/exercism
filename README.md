@@ -1,4 +1,4 @@
-# exercism.io
+## exercism.io
 [![Build Status](https://travis-ci.org/exercism/exercism.io.png?branch=master)](https://travis-ci.org/exercism/exercism.io)
 [![Code Climate](https://codeclimate.com/github/exercism/exercism.io.png)](https://codeclimate.com/github/exercism/exercism.io)
 [![Gemnasium](https://gemnasium.com/exercism/exercism.io.png)](https://gemnasium.com/exercism/exercism.io)
@@ -7,6 +7,7 @@
 To get started using exercism.io to practice or provide feedback on other
 people's code, check out the [getting
 started](http://exercism.io/getting-started) page on the website.
+
 
 ## Contact Us
 

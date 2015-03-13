@@ -5,16 +5,16 @@ postgres: &postgres
   pool: 5
   host: db
   username: exercism
-  password: apples
+  password: apples2
 
 test:
   <<: *postgres
-  database: db_test
+  database: exercism_test
 
 development:
   <<: *postgres
-  database: db_development
+  database: exercism_development
 
 production:
   <<: *postgres
-  database: exercism_production
+  database: exercism_development

@@ -1,5 +1,4 @@
-source "https://rubygems.org"
-
+source "http://rubygems.org"
 ruby "2.1.5"
 
 gem 'activesupport', '~> 4.1.4'
@@ -14,7 +13,6 @@ gem 'pg'
 # Pony must not be required. See
 # http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
 gem 'pony', '~> 1.6', require: false
-gem 'pry', require: false
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'rake'
@@ -25,6 +23,7 @@ gem 'sinatra-contrib'
 gem 'sidekiq'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+gem 'github_api'
 
 # Frontend Gems
 gem 'sass'
@@ -34,6 +33,9 @@ gem 'font-awesome-sass'
 gem 'kss'
 
 group :test, :development do
+  gem 'capistrano'
+  gem 'pry'
+  gem 'thin'
   # gem 'ruby-prof', '~> 0.14'
   gem 'database_cleaner', require: false
   gem 'approvals', require: false
@@ -44,6 +46,7 @@ group :test, :development do
   gem 'foreman', require: false
   gem 'sqlite3'
   gem 'timecop', require: false
+  gem 'thin'
   # gem 'debugger'
 end
 

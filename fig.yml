@@ -1,0 +1,24 @@
+db:
+  image: postgres:9.4
+  environment:
+    POSTGRES_USER: exercism
+    POSTGRES_PASSWORD: apples
+  volumes:
+    - "/home/vamsi/postgres/data:/var/lib/postgresql/data"
+
+web:
+  image: exercism-web
+  links:
+    - db
+  command: foreman start
+  volumes:
+    - ".:/exercism"
+  ports:
+    - "80:4567"
+  environment:
+    EXERCISES_API_URL: http://52.10.82.212:8080
+    RACK_ENV: production
+    NEWRELIC_ENABLE: false
+    EXERCISM_GITHUB_CLIENT_ID: b589dcac66a1c6326ddc
+    EXERCISM_GITHUB_CLIENT_SECRET: 57e204a4e24e78a44a4642efd93934252cb0f180
+    PORT: 4567

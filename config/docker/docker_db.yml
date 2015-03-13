@@ -9,11 +9,11 @@ postgres: &postgres
 
 test:
   <<: *postgres
-  database: db_test
+  database: exercism_test
 
 development:
   <<: *postgres
-  database: db_development
+  database: exercism_development
 
 production:
   <<: *postgres

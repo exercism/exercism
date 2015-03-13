@@ -1,7 +1,22 @@
 <div id="navbar" class="navbar-collapse collapse">
   <ul class="nav navbar-nav">
-    <li><a href="http://help.exercism.io">Help</a></li>
-    <li><a href="/getting-started">Welcome new users</a></li>
+
+   <li class="dropdown">
+     <a class="dropdown-toggle" id="drop-account" href="#" data-toggle="dropdown">
+        Help
+        <b class="caret"></b>
+      </a>
+
+     <ul class="dropdown-menu" role="menu">
+        <li>
+          <a role="menuitem" tabindex="-1" href="/installing-cli">Install CLI</a>
+          <a role="menuitem" tabindex="-1" href="/create-assignment">Create Assignment</a>
+          <a role="menuitem" tabindex="-1" href="/submit-assignment">Submit Assignment</a>
+        </li>
+     </ul>
+   </li>
+
+    <li><a href="/getting-started">Welcome Pramatians</a></li>
   </ul>
 
   <ul class="nav navbar-nav navbar-right">
