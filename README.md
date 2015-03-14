@@ -15,10 +15,12 @@ installing or using the CLI, please **[open a GitHub
 issue](https://github.com/exercism/exercism.io/issues)**.
 
 If you're having trouble writing the code for an exercise on exercism.io, then
-your best bet is [StackOverflow](http://stackoverflow.com/) (remember to tag
-the question with #exercism). Another option is to submit the code even though
-it doesn't pass the tests yet, and then go to your submission page to explain
-where you're stuck.
+your best bet might be [StackOverflow](http://stackoverflow.com/). Remember to search
+first, before posting, and remember that you're asking about the _programming language_
+problem, not the _exercism_ problem.
+
+Another option is to submit the code even though it doesn't pass the tests yet, and then
+go to your submission page to explain where you're stuck.
 
 We welcome questions, and will do our best to help you out!
 
