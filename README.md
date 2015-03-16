@@ -71,6 +71,10 @@ it's us! Please open up a new issue to describe what you were hoping to contribu
 and what you're wondering about, and we'll figure out together how to improve the
 documentation.
 
+We're trying to label issues with "good first patch" if we think that these can be solved
+without too much context about exercism.io's codebase or functionality. To find them, you
+can do an [organization-wide search](https://github.com/search?utf8=%E2%9C%93&q=is%3Aopen+label%3A%22good+first+patch%22+user%3Aexercism).
+
 ## Setup
 
 If you'd like to do work on the exercism.io app, then you'll need to have it
