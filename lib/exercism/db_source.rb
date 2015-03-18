@@ -1,6 +1,6 @@
 class DbSource
   attr_reader :submission
-  
+
   def initialize(submission)
     @submission = submission
   end

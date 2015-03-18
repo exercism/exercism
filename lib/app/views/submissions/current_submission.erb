@@ -26,6 +26,14 @@
 
     <div class="clearfix"></div>
 
+    <% if submission.test_data.present? %>
+      <span> Build Status <a class='test_output' href="javascript:;">more >></a></span>
+      <p class='show-test-output'><h5><b><%= submission.test_data %></b><h5></p>
+      <p class='show-test-output' style="display:none">
+        <%= submission.test_output %>
+      </p>
+    <% end %>
+
     <% solution.each do |filename, code| %>
       <h4><%= filename %></h4>
       <%= md(code, filename) %>

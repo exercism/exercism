@@ -30,6 +30,7 @@ module ExercismAPI
       post '/user/assignments' do
         request.body.rewind
         data = request.body.read
+
         if data.empty?
           halt 400, {error: "must send key and code as json"}.to_json
         end
@@ -61,7 +62,6 @@ module ExercismAPI
           solution = {data['path'] => data['code']}
         end
         attempt = Attempt.new(user, Iteration.new(solution, analysis))
-
         unless attempt.valid?
           Bugsnag.before_notify_callbacks << lambda { |notif|
             data = {
@@ -89,7 +89,7 @@ module ExercismAPI
         LifecycleEvent.track('submitted', user.id)
         # for now, let's just give rikki hamming exercises in Ruby.
         if attempt.track == 'ruby' && attempt.slug == 'hamming'
-          Jobs::Analyze.perform_async(attempt.submission.key)
+          # Jobs::Analyze.perform_async(attempt.submission.key)
         end
         status 201
         pg :attempt, locals: {submission: attempt.submission, domain: request.url.gsub(/#{request.path}$/, "")}
