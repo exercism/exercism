@@ -36,6 +36,8 @@ class Attempt
   end
 
   def save
+    require 'pry'
+    binding.pry
     user.submissions_on(problem).each do |sub|
       sub.supersede!
       sub.unmute_all!
@@ -43,6 +45,7 @@ class Attempt
     remove_from_completed(problem)
     submission.solution = iteration.solution
     submission.code = code
+    submission.analysis = iteration.analysis
     submission.filename = filename
     user.submissions << submission
     user.save

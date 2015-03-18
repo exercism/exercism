@@ -30,6 +30,15 @@
       <h4><%= filename %></h4>
       <%= md(code, filename) %>
     <% end %>
+    
+    <br/>
+    <span> Analysis Summary <a class='analysis' href="javascript:;">more >></a></span>
+    <p class='show-analysis'><h4><b><%= submission.analysis.split("\n").last %></b><h4></p>
+    <p class='show-analysis' style="display:none">
+      <% submission.analysis.split("C:").each do |txt| %>
+          <%= txt %><br/><br/>
+      <%end%>  
+    </p>
 
     <div class="submission-likes">
       <%= like_submission_button(submission, current_user) %>
