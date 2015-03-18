@@ -10,6 +10,7 @@ gem 'loofah'
 gem 'newrelic_rpm', '~>3.8' # used both in production and development
 gem 'petroglyph'
 gem 'pg'
+gem 'rubocop'
 # Pony must not be required. See
 # http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
 gem 'pony', '~> 1.6', require: false

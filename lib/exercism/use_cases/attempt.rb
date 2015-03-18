@@ -43,6 +43,7 @@ class Attempt
     remove_from_completed(problem)
     submission.solution = iteration.solution
     submission.code = code
+    submission.analysis = iteration.analysis
     submission.filename = filename
     user.submissions << submission
     user.save

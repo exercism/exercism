@@ -40,7 +40,8 @@ module ExercismWeb
           submission: submission,
           next_submission: next_submission,
           sharing: Sharing.new,
-          solution: src_obj.solution
+          solution: src_obj.solution,
+          analysis: submission.analysis
         }
         erb :"submissions/show", locals: data
       end
