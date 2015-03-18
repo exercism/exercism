@@ -49,11 +49,12 @@ module ExercismAPI
         end
 
         #rubocop code analysis start
-         rubocop_code_file = File.new("#{settings.root}/tmp/test.rb", 'w+')
-         rubocop_analysis_file =File.new("#{settings.root}/tmp/test.text", 'w+')
+         Dir.mkdir("#{settings.root}/rubocop_tmp/") unless Dir.exist?("#{settings.root}/rubocop_tmp/")
+         rubocop_code_file = File.new("#{settings.root}/rubocop_tmp/test.rb", 'w+')
+         rubocop_analysis_file =File.new("#{settings.root}/rubocop_tmp/analysis.text", 'w+')
          rubocop_code_file.write data['code']
          rubocop_code_file.close
-         rubocop_code_file = File.new("#{settings.root}/tmp/test.rb", 'r')
+         rubocop_code_file = File.new("#{settings.root}/rubocop_tmp/test.rb", 'r')
          system("rubocop #{rubocop_code_file.path} --out #{rubocop_analysis_file.path}")
          rubocop_code_file.close
         #rubocop code ends
@@ -62,8 +63,8 @@ module ExercismAPI
         if solution.nil?
           solution = {data['path'] => data['code']}
         end
-        attempt = Attempt.new(user, analysis_result, Iteration.new(solution, rubocop_analysis_file.read))
-        
+        attempt = Attempt.new(user, Iteration.new(solution, rubocop_analysis_file.read))
+
         rubocop_analysis_file.close
 
         unless attempt.valid?

@@ -36,8 +36,6 @@ class Attempt
   end
 
   def save
-    require 'pry'
-    binding.pry
     user.submissions_on(problem).each do |sub|
       sub.supersede!
       sub.unmute_all!
