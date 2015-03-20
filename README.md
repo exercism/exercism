@@ -3,6 +3,7 @@
 [![Code Climate](https://codeclimate.com/github/exercism/exercism.io.png)](https://codeclimate.com/github/exercism/exercism.io)
 [![Gemnasium](https://gemnasium.com/exercism/exercism.io.png)](https://gemnasium.com/exercism/exercism.io)
 [![Coverage Status](https://coveralls.io/repos/exercism/exercism.io/badge.png?branch=master)](https://coveralls.io/r/exercism/exercism.io?branch=master)
+[![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
 To get started using exercism.io to practice or provide feedback on other
 people's code, check out the [getting
@@ -13,6 +14,10 @@ started](http://exercism.io/getting-started) page on the website.
 To report a bug, suggest improvements to exercism.io, or if you're having trouble
 installing or using the CLI, please **[open a GitHub
 issue](https://github.com/exercism/exercism.io/issues)**.
+
+You can also visit our [support chat](https://gitter.im/exercism/support). We're just
+getting started with this, so activity is quite low, but the more people chat there, the
+more people will hang out.
 
 If you're having trouble writing the code for an exercise on exercism.io, then
 your best bet might be [StackOverflow](http://stackoverflow.com/). Remember to search
