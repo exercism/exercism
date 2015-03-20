@@ -81,6 +81,10 @@ class Submission < ActiveRecord::Base
     where("id NOT IN (#{MutedSubmission.where(user: user).select(:submission_id).to_sql})")
   }
 
+  def test_data
+    test_output.split("\n").grep(/failures/).last
+  end
+
   def self.on(problem)
     submission = new
     submission.on problem

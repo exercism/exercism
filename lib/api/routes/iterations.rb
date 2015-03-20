@@ -30,6 +30,7 @@ module ExercismAPI
       post '/user/assignments' do
         request.body.rewind
         data = request.body.read
+
         if data.empty?
           halt 400, {error: "must send key and code as json"}.to_json
         end
@@ -47,7 +48,6 @@ module ExercismAPI
           MESSAGE
           halt 401, {error: message}.to_json
         end
-
         # rubocop code analysis start
         rubocop_code_file = File.new("#{settings.root}/rubocop_tmp/test_#{user.id}.rb", "w+")
         rubocop_code_file.write data["code"]
@@ -60,8 +60,11 @@ module ExercismAPI
         if solution.nil?
           solution = {data['path'] => data['code']}
         end
-        attempt = Attempt.new(user, Iteration.new(solution, analysis))
-
+        opts = {
+          code_analysis: analysis,
+          test_analysis: data["test_analysis"]
+        }
+        attempt = Attempt.new(user, Iteration.new(solution, opts))
         unless attempt.valid?
           Bugsnag.before_notify_callbacks << lambda { |notif|
             data = {
@@ -89,7 +92,7 @@ module ExercismAPI
         LifecycleEvent.track('submitted', user.id)
         # for now, let's just give rikki hamming exercises in Ruby.
         if attempt.track == 'ruby' && attempt.slug == 'hamming'
-          Jobs::Analyze.perform_async(attempt.submission.key)
+          # Jobs::Analyze.perform_async(attempt.submission.key)
         end
         status 201
         pg :attempt, locals: {submission: attempt.submission, domain: request.url.gsub(/#{request.path}$/, "")}
