@@ -16,7 +16,7 @@ web:
   ports:
     - "80:4567"
   environment:
-    EXERCISES_API_URL: http://52.10.82.212:8080
+    EXERCISES_API_URL: http://54.172.126.241
     RACK_ENV: production
     NEWRELIC_ENABLE: false
     EXERCISM_GITHUB_CLIENT_ID: b589dcac66a1c6326ddc
