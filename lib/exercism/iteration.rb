@@ -1,11 +1,12 @@
 class Iteration
-  attr_reader :solution
+  attr_reader :solution, :analysis
 
-  def initialize(solution)
+  def initialize(solution, *stuff)
     @solution = {}
     solution.each do |filename, contents|
       @solution[filename] = contents.strip
     end
+    @analysis = stuff.last
   end
 
   def paths

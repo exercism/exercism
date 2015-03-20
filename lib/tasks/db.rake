@@ -14,6 +14,9 @@ namespace :db do
 
   desc "migrate your database"
   task :migrate do
+    env = ENV['RACK_ENV'] || 'development'
+    db_config = DB::Config.new(env)
+    ActiveRecord::Base.configurations = YAML.load(db_config.yaml)
     ActiveRecord::Migrator.migrate('./db/migrate')
   end
 
