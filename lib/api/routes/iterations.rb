@@ -55,14 +55,15 @@ module ExercismAPI
         analysis = `rubocop "#{rubocop_code_file.path}"`
         File.delete rubocop_code_file.path
         # rubocop code ends
-
         solution = data['solution']
         if solution.nil?
           solution = {data['path'] => data['code']}
         end
         opts = {
           code_analysis: analysis,
-          test_analysis: data["test_analysis"]
+          test_analysis: data["test_analysis"],
+          track: data["language"],
+          slug: data["problem"]
         }
         attempt = Attempt.new(user, Iteration.new(solution, opts))
         unless attempt.valid?

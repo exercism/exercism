@@ -16,7 +16,7 @@ class Attempt
       @iteration = Iteration.new({path => code})
     end
     @slug = iteration.slug
-    @track = iteration.track_id
+    @track = iteration.track
 
     # hack
     @code = iteration.solution.values.first
