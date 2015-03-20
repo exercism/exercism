@@ -48,13 +48,13 @@ module ExercismAPI
           halt 401, {error: message}.to_json
         end
 
-        #rubocop code analysis start
-         rubocop_code_file = File.new("#{settings.root}/rubocop_tmp/test_#{user.id}.rb", 'w+')
-         rubocop_code_file.write data['code']
-         rubocop_code_file.rewind
-         analysis = `rubocop "#{rubocop_code_file.path}"`
-         File.delete rubocop_code_file.path
-        #rubocop code ends
+        # rubocop code analysis start
+        rubocop_code_file = File.new("#{settings.root}/rubocop_tmp/test_#{user.id}.rb", "w+")
+        rubocop_code_file.write data["code"]
+        rubocop_code_file.rewind
+        analysis = `rubocop "#{rubocop_code_file.path}"`
+        File.delete rubocop_code_file.path
+        # rubocop code ends
 
         solution = data['solution']
         if solution.nil?
@@ -73,7 +73,6 @@ module ExercismAPI
             }
             notif.add_tab(:data, data)
           }
-          
           Bugsnag.notify(Attempt::InvalidAttemptError.new("Invalid attempt submitted"))
           error = "unknown problem (track: #{attempt.track}, slug: #{attempt.slug}, path: #{data['path']})"
           halt 400, {error: error}.to_json

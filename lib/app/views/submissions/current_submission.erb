@@ -32,7 +32,7 @@
     <% end %>
     
     <br/>
-    <% unless submission.analysis.nil? %>
+    <% if submission.analysis.present? %>
       <span> Analysis Summary <a class='analysis' href="javascript:;">more >></a></span>
       <p class='show-analysis'><h4><b><%= submission.analysis.split("\n").last %></b><h4></p>
       <p class='show-analysis' style="display:none">
