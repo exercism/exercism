@@ -9,7 +9,6 @@ module DB
 
     def establish
       ActiveRecord::Base.establish_connection(config)
-      self
     end
 
     def config
