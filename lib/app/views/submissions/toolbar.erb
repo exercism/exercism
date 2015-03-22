@@ -13,6 +13,19 @@
         target="_blank">
         <i class="fa fa-twitter"></i>
       </a>
+    <% else %>
+      <% if my_submission = their_submission_to(current_user, submission) %>
+        <a
+          href="/submissions/<%= my_submission.key %>"
+          class="btn btn-default"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="My submission for this exercise"
+          target="_blank">
+          <i class="fa fa-rocket"></i>
+        </a>
+      <% end %>
+
     <% end %>
     <a
       href="<%= language_path_for_slug(submission.problem.track_id, submission.problem.slug) %>"
