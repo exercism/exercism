@@ -1,7 +1,7 @@
 <div class="comment <%= "comment-submitter" if nit.nitpicker == submission.user %>">
   <div class="comment-author">
-    <a href="/<%= nit.user.username %>">
-      <img src="<%= nit.user.avatar_url %>" class="img-responsive img-rounded" />
+    <a href="/<%= nit.nitpicker.username %>">
+      <img src="<%= nit.nitpicker.avatar_url %>" class="img-responsive img-rounded" />
     </a>
   </div>
   <div class="comment-body">
@@ -11,10 +11,24 @@
         <a href="/submissions/<%= submission.key %>/nits/<%= nit.id %>/edit" class="pull-right btn btn-default btn-xs edit-text">
           <i class="fa fa-pencil"></i> Edit
         </a>
+
+      <% elsif submission.user != nit.nitpicker %>
+        <% if their_submission = their_submission_to(nit.nitpicker, submission) %>
+          <a
+            href="/submissions/<%= their_submission.key %>"
+            class="pull-right btn btn-default btn-xs"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="<%= nit.nitpicker.username %>'s submission for this exercise"
+            target="_blank">
+            <i class="fa fa-rocket"></i>
+          </a>
+        <% end %>
       <% end %>
 
-      <%= profile_link(nit.user) %>
+      <%= profile_link(nit.nitpicker) %>
       commented <%= ago(nit.created_at) %>
+      
     </div>
   </div>
 </div>

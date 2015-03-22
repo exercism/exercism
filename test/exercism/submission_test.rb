@@ -9,11 +9,13 @@ class SubmissionTest < Minitest::Test
   end
 
   def submission
-    @submission ||= begin
-      Submission.on(problem).tap do |submission|
-        submission.user = User.create(username: 'charlie')
-        submission.save
-      end
+    @submission ||= problem_submission_for(User.create(username: 'charlie'))
+  end
+
+  def problem_submission_for(user)
+    Submission.on(problem).tap do |submission|
+      submission.user = user
+      submission.save
     end
   end
 
@@ -216,5 +218,29 @@ class SubmissionTest < Minitest::Test
 
     expected = [commented_on_by_someone_else, not_commented_on_at_all].sort
     assert_equal expected, Submission.not_commented_on_by(user).sort
+  end
+
+  def test_participant_submissions
+    user = User.create!
+    user_submission = problem_submission_for(user)
+
+    commenter = User.create!
+    commenter_submission = problem_submission_for(commenter)
+    submission.comments << Comment.new(body: 'test', user: commenter)
+
+    expected = [user_submission, commenter_submission].sort
+    assert_equal expected, submission.participant_submissions(user).sort
+  end
+
+  def test_participant_submissions_finds_last
+    commenter = User.create!
+    superseeded_submission = problem_submission_for(commenter).tap do |submission|
+      submission.supersede!
+    end
+    submission = problem_submission_for(commenter)
+
+    submission.comments << Comment.new(body: 'test', user: commenter)
+
+    assert_equal [submission], submission.participant_submissions.sort
   end
 end

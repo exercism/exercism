@@ -62,5 +62,9 @@ module Sinatra
         submission.save!
       end
     end
+
+    def their_submission_to(user, submission)
+      submission.participant_submissions(current_user).find { |s| s.user == user }
+    end
   end
 end
