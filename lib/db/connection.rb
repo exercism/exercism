@@ -11,10 +11,11 @@ module DB
 
     def establish
       ActiveRecord::Base.establish_connection(config)
+      self
     end
 
     def environment
-      ENV.fetch('RACK_ENV') { 'development'}
+      ENV.fetch('RACK_ENV') { 'development' }
     end
 
     def config
