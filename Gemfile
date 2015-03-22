@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.1.5"
+ruby "2.2.1"
 
 gem 'activesupport', '~> 4.1.4'
 gem 'activerecord', '~> 4.1.4'
