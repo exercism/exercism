@@ -2,7 +2,7 @@ namespace :db do
   require 'bundler'
   Bundler.require
   require_relative '../db/connection'
-  DB::Connection.establish
+  conn = DB::Connection.establish
 
   desc "migrate your database"
   task :migrate do
@@ -24,8 +24,12 @@ namespace :db do
 
   desc "set up your database"
   task :setup do
-    `createuser -s exercism`
-    `createdb -O exercism exercism_development`
+    db, host, user, pass = conn.config.values_at('database', 'host',
+                                                 'username', 'password')
+    sql = "CREATE USER #{user} PASSWORD '#{pass}' " \
+          'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
+    system 'psql', '-h', host, '-c', sql
+    system 'createdb', '-h', host, '-O', user, db
   end
 
   desc "drop and recreate your database"
