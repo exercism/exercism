@@ -89,7 +89,7 @@ running locally.
 
 For working on the backend you'll need both Ruby and PostgreSQL. Frontend development uses Node.js.
 
-To install Ruby, check out [RVM](https://rvm.io), [rbenv](https://github.com/sstephenson/rbenv) or [chruby](https://github.com/postmodern/chruby).
+To install Ruby, check out [RVM](https://rvm.io), [rbenv](https://github.com/sstephenson/rbenv) or [ruby-install](https://github.com/postmodern/ruby-install).
 
 PostgreSQL can be installed with [Homebrew](http://brew.sh) on Mac OS X: `brew install postgresql`  
 If you're on a Linux system with apt-get then run: `apt-get install postgresql-9.2`
