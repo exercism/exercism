@@ -1,8 +1,9 @@
 namespace :db do
   require 'bundler'
   Bundler.require
+  require_relative '../db/config'
   require_relative '../db/connection'
-  conn = DB::Connection.establish
+  DB::Connection.establish
 
   desc "migrate your database"
   task :migrate do
@@ -24,20 +25,22 @@ namespace :db do
 
   desc "set up your database"
   task :setup do
-    db, host, user, pass = conn.config.values_at('database', 'host',
-                                                 'username', 'password')
-    sql = "CREATE USER #{user} PASSWORD '#{pass}' " \
+    config = DB::Config.new
+    sql = "CREATE USER #{config.username} PASSWORD '#{config.password}' " \
           'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
-    system 'psql', '-h', host, '-c', sql
-    system 'createdb', '-h', host, '-O', user, db
+    system 'psql', '-h', config.host, '-c', sql
+    system 'createdb', '-h', config.host, '-O', config.username, config.database
   end
 
   desc "drop and recreate your database"
   task :reset do
-    db, host, user = conn.config.values_at('database', 'host', 'username')
-    system 'dropdb', '-h', host, db
-    system 'createdb', '-h', host, '-O', user, db
+    config = DB::Config.new
+    system 'dropdb', '-h', config.host, config.database
+    system 'createdb', '-h', config.host, '-O', config.user, config.database
   end
+
+  desc 'set the database up from scratch'
+  task from_scratch: %i(setup migrate seeds:fetch seed)
 
   namespace :generate do
     desc "generate migration"

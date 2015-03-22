@@ -57,4 +57,20 @@ class DB::ConfigTest < Minitest::Test
       config.options
     end
   end
+
+  def test_exposes_database
+    assert_equal 'exercism_test', DB::Config.new.database
+  end
+
+  def test_exposes_host
+    assert_equal 'localhost', DB::Config.new.host
+  end
+
+  def test_exposes_password
+    assert_equal 'apples', DB::Config.new.password
+  end
+
+  def test_exposes_username
+    assert_equal 'exercism', DB::Config.new.username
+  end
 end

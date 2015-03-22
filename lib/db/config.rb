@@ -17,6 +17,10 @@ module DB
       @file = file
     end
 
+    %i(database host password username).each do |field|
+      define_method(field) { options[field.to_s] }
+    end
+
     def options
       result = YAML.load(yaml)[environment]
 

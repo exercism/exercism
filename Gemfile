@@ -34,17 +34,16 @@ gem 'font-awesome-sass'
 gem 'kss'
 
 group :test, :development do
-  # gem 'ruby-prof', '~> 0.14'
-  gem 'database_cleaner', require: false
   gem 'approvals', require: false
-  gem 'rack-test', require: false
-  gem 'mocha', require: false
-  gem 'simplecov', require: false
   gem 'coveralls', require: false
+  gem 'database_cleaner', require: false
   gem 'foreman', require: false
+  gem 'mailcatcher', require: false
+  gem 'mocha', require: false
+  gem 'rack-test', require: false
+  gem 'simplecov', require: false
   gem 'sqlite3'
   gem 'timecop', require: false
-  # gem 'debugger'
 end
 
 group :test do

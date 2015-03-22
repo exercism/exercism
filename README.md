@@ -140,12 +140,15 @@ You don't need to fill in the EXERCISES_API value unless you're going to be work
 Next, make sure all the application dependencies are installed:
 
 * Install gems with: `bundle install`
-* Install MailCatcher with: `gem install mailcatcher`
 
 ### Data
 
 Finally, set up the database. This means both creating the underlying database, and migrating so that it
 has all the correct tables. Also run a script to add fake data, so there are things to click on and look at while working on the app.
+
+* Do all of it in one go: `rake db:from_scratch`
+
+Alternatively (or to debug if the above blows up), do it one-by-one:
 
 * Create the PostgreSQL database: `rake db:setup`
 * Run the database migrations: `rake db:migrate`
@@ -204,10 +207,9 @@ user.submissions
 
 ## Testing
 
-1. Create a test database: `createdb -O exercism exercism_test`
-2. Prepare the test environment: `RACK_ENV=test rake db:migrate`
-3. Make sure MailCatcher is running: `mailcatcher`
-4. Run the test suite: `rake` or `rake test`
+1. Create and migrate a test database: `RACK_ENV=test rake db:setup db:migrate`
+1. Make sure MailCatcher is running: `mailcatcher`
+1. Run the test suite: `rake` or `rake test`
 
 To run a single test suite, you can do so with:
 
