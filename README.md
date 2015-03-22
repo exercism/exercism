@@ -140,7 +140,6 @@ You don't need to fill in the EXERCISES_API value unless you're going to be work
 Next, make sure all the application dependencies are installed:
 
 * Install gems with: `bundle install`
-* Install MailCatcher with: `gem install mailcatcher`
 
 ### Data
 
