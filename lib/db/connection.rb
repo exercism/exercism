@@ -1,10 +1,8 @@
 require 'active_record'
-require 'db/config'
-# require 'pg'
+require_relative 'config'
 
 module DB
   class Connection
-
     def self.establish
       new.establish
     end
@@ -14,12 +12,8 @@ module DB
       self
     end
 
-    def environment
-      ENV.fetch('RACK_ENV') { 'development' }
-    end
-
     def config
-      @config ||= DB::Config.new(environment).options
+      @config ||= DB::Config.new.options
     end
   end
 end
