@@ -147,6 +147,10 @@ Next, make sure all the application dependencies are installed:
 Finally, set up the database. This means both creating the underlying database, and migrating so that it
 has all the correct tables. Also run a script to add fake data, so there are things to click on and look at while working on the app.
 
+* Do all of it in one go: `rake db:from_scratch`
+
+Alternatively (or to debug if the above blows up), do it one-by-one:
+
 * Create the PostgreSQL database: `rake db:setup`
 * Run the database migrations: `rake db:migrate`
 * Fetch the seed data: `rake db:seeds:fetch`
