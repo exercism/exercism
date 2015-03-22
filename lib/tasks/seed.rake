@@ -22,13 +22,12 @@ namespace :db do
     require 'bundler'
     Bundler.require
     require 'exercism'
-    require_relative '../db/connection'
+    require_relative '../db/config'
 
-    config = DB::Connection.new.config
-    db, host, user, pass = config.values_at('database', 'host',
-                                            'username', 'password')
-    system({ 'PGPASSWORD' => pass },
-           'psql', '-h', host, '-U', user, '-d', db, '-f', 'db/seeds.sql')
+    config = DB::Config.new
+    system({ 'PGPASSWORD' => config.password },
+           'psql', '-h', config.host, '-U', config.username,
+                   '-d', config.database, '-f', 'db/seeds.sql')
 
     # Trigger generation of html body
     Comment.find_each { |comment| comment.save }
