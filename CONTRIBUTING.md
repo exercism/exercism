@@ -49,6 +49,21 @@ If you'd like to
 then please see the [Problem API's CONTRIBUTING
 guide](https://github.com/exercism/x-api/blob/master/CONTRIBUTING.md).
 
+## Labels
+
+[TODO: explain the various labels as we settle on useful ones]
+
+### Future Roadmap
+
+The focus of the development efforts at the moment are about making the core
+experience good: smooth onboarding, rich conversations, high quality feedback,
+and getting feedback quickly.
+
+Sometimes we get suggestions for things that would be great, but they're not
+part of locking down the core behavior of the app. In this case we'll close
+and label it ["future roadmap"](https://github.com/exercism/exercism.io/labels/future%20roadmap)
+to make it easy to search for later.
+
 ## Pull Requests
 
 When submitting a pull request, sometimes we'll ask you to make changes before
