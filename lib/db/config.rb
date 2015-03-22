@@ -1,5 +1,5 @@
-require 'yaml'
 require 'erb'
+require 'yaml'
 
 module DB
   class Config
@@ -10,13 +10,11 @@ module DB
     class UnconfiguredEnvironment < StandardError; end
 
     attr_reader :file, :environment
-    def initialize(environment, file=default_database_config)
+
+    def initialize(environment = default_environment,
+                   file = default_database_config)
       @environment = environment
       @file = file
-    end
-
-    def default_database_config
-      relative_to_root('config', 'database.yml')
     end
 
     def options
@@ -30,13 +28,18 @@ module DB
       result
     end
 
+    private
+
+    def default_database_config
+      relative_to_root('config', 'database.yml')
+    end
+
+    def default_environment
+      ENV.fetch('RACK_ENV') { 'development' }
+    end
+
     def yaml
-      if ENV['RACK_ENV'] == 'production'
-        ERB.new(File.read(file)).result binding
-      else
-        File.read(file)
-      end
+      ERB.new(File.read(file)).result(binding)
     end
   end
-
 end

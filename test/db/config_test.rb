@@ -15,6 +15,25 @@ class DB::ConfigTest < Minitest::Test
     assert_equal 'exercism_development', DB::Config.new('development').options['database']
   end
 
+  def test_defaults_to_the_current_environment
+    assert_equal 'test', DB::Config.new.environment
+  end
+
+  def test_uses_environment_from_RACK_ENV
+    original_rack_env = ENV.delete('RACK_ENV')
+    ENV['RACK_ENV'] = 'custom'
+    assert_equal 'custom', DB::Config.new.environment
+  ensure
+    ENV['RACK_ENV'] = original_rack_env if original_rack_env
+  end
+
+  def test_defaults_to_development_if_RACK_ENV_unset
+    original_rack_env = ENV.delete('RACK_ENV')
+    assert_equal 'development', DB::Config.new.environment
+  ensure
+    ENV['RACK_ENV'] = original_rack_env if original_rack_env
+  end
+
   def test_override_file
     file = relative_to_root('test', 'fixtures', 'database.yml')
     assert_equal file, DB::Config.new('env', file).file
