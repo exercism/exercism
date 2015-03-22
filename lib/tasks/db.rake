@@ -34,8 +34,9 @@ namespace :db do
 
   desc "drop and recreate your database"
   task :reset do
-    `dropdb exercism_development`
-    `createdb -O exercism exercism_development`
+    db, host, user = conn.config.values_at('database', 'host', 'username')
+    system 'dropdb', '-h', host, db
+    system 'createdb', '-h', host, '-O', user, db
   end
 
   namespace :generate do
