@@ -29,8 +29,8 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_accepts_submission_attempt
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'ruby/one/code.rb', 'language' => 'ruby',
-          'problem' => 'one'}.to_json
+        post '/user/assignments',  { key: alice.key, code: 'THE CODE', path: 'ruby/one/code.rb', 
+          'language' => 'ruby','problem' => 'one' }.to_json
       end
     end
 
@@ -46,8 +46,8 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_accepts_submission_attempt_with_multi_file_solution
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'ruby/one/code.rb', 'language' => 'ruby',
-          'problem' => 'one'}.to_json
+        post '/user/assignments', {  key: alice.key, code: 'THE CODE', path: 'ruby/one/code.rb', 
+          'language' => 'ruby','problem' => 'one' }.to_json
       end
     end
 
@@ -72,8 +72,8 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_accepts_submission_on_completed_exercise
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'go/one/code.go', 'language' => 'go',
-          'problem' => 'one'}.to_json
+        post '/user/assignments', { key: alice.key, code: 'THE CODE', path: 'go/one/code.go', 
+          'language' => 'go', 'problem' => 'one' }.to_json
       end
     end
 
@@ -111,8 +111,8 @@ class AssignmentsApiTest < Minitest::Test
     team2.confirm(eve.username)
 
     Xapi.stub(:exists?, true) do
-      post '/user/assignments', {key: bob.key, code: 'THE CODE', path: 'ruby/bob/code.rb','language' => 'ruby',
-      'problem' => 'bob'}.to_json
+      post '/user/assignments', { key: bob.key, code: 'THE CODE', path: 'ruby/bob/code.rb',
+        'language' => 'ruby', 'problem' => 'bob' }.to_json
     end
     assert_equal 201, last_response.status
 
@@ -126,11 +126,12 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_rejects_duplicates
-    Attempt.new(alice, Iteration.new({code: 'THE CODE', path: 'ruby/one/code.rb'}, {track: 'ruby', slug: 'one'})).save
+    Attempt.new(alice, Iteration.new({ code: 'THE CODE', path: 'ruby/one/code.rb'}, 
+    {track: 'ruby', slug: 'one' })).save
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'ruby/one/code.rb', 'language' => 'ruby',
-          'problem' => 'one' }.to_json
+        post '/user/assignments', { key: alice.key, code: 'THE CODE', path: 'ruby/one/code.rb', 
+          'language' => 'ruby', 'problem' => 'one' }.to_json
       end
     end
 
