@@ -26,7 +26,7 @@ class NitpickAppTest < Minitest::Test
       github_id: User.count,
       email: "#{track_id}_coder@example.com"
     })
-    attempt = Attempt.new(user, "class Bob\nend", "#{track_id}/bob/bob.#{exe}").save
+    attempt = Attempt.new(user, Iteration.new({"class Bob\nend" => "#{track_id}/bob/bob.#{exe}"}, {track: track_id, slug: 'bob'})).save
   end
 
   def generate_nitpick(attempt)
