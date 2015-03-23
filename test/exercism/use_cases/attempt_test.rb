@@ -23,7 +23,9 @@ class AttemptTest < Minitest::Test
   def test_saving_an_attempt_constructs_a_submission
     assert_equal 0, Submission.count # guard
 
-    Attempt.new(user, 'CODE', 'python/two/two.py').save
+    solution = {'python/two/two.py' => 'CODE'}
+    opts = {code_analysis: 'a1', test_analysis: 't', track: 'python' , slug: 'two'}
+    Attempt.new(user, Iteration.new(solution, opts)).save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -36,7 +38,9 @@ class AttemptTest < Minitest::Test
     assert_equal 0, Submission.count # guard
     solution = {'python/two/two.py' => 'CODE'}
 
-    Attempt.new(user, nil, nil, Iteration.new(solution)).save
+    opts = {code_analysis: 'a1', test_analysis: 't', track: 'python' ,slug: 'two'}
+		
+    Attempt.new(user, nil, nil, Iteration.new(solution, opts)).save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -48,8 +52,11 @@ class AttemptTest < Minitest::Test
 
   def test_attempt_is_created_for_current_exercise
     assert_equal 0, Submission.count # guard
-
-    Attempt.new(user, 'CODE', 'ruby/two/two.rb').save
+    solution = {'ruby/two/two.rb' => 'CODE'}
+    
+    opts = {code_analysis: 'a1', test_analysis: 't', track: 'ruby' ,slug: 'two'}
+		
+    Attempt.new(user, 'CODE', 'ruby/two/two.rb', Iteration.new(solution, opts)).save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -62,7 +69,7 @@ class AttemptTest < Minitest::Test
   def test_attempt_is_created_for_completed_exercise
     assert_equal 0, Submission.count # guard
 
-    Attempt.new(user, 'CODE', 'ruby/one/one.rb').save
+    Attempt.new(user, Iteration.new({'ruby/one/one.rb' => 'CODE'}, {track: 'ruby', slug: 'one'})).save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -83,7 +90,7 @@ class AttemptTest < Minitest::Test
 
   def test_a_new_attempt_supersedes_the_previous_hibernating_one
     submission = Submission.create(user: user, code: 'CODE 1', language: 'ruby', slug: 'two', created_at: Time.now, state: 'hibernating')
-    Attempt.new(user, 'CODE 2', 'ruby/two/two.rb').save
+    Attempt.new(user, Iteration.new({'ruby/two/two.rb' => 'CODE 2'}, {track: 'ruby', slug: 'two '})).save
     one = Submission.find_by(code: 'CODE 1')
     two = Submission.find_by(code: 'CODE 2')
     assert one.superseded?
@@ -96,13 +103,13 @@ class AttemptTest < Minitest::Test
     submission = Submission.create(user: user, language: 'ruby', slug: 'two', created_at: Time.now)
     submission.mute! tom
     submission.mute! jerry
-    Attempt.new(user, 'CODE 2', 'ruby/two/two.rb').save
+    Attempt.new(user, Iteration.new({'ruby/two/two.rb' => 'CODE'}, {track: 'ruby', slug: 'two'})).save
     assert_equal [], submission.reload.muted_by
   end
 
   def test_an_attempt_does_not_supersede_other_languages
-    Attempt.new(user, 'CODE 1', 'two/two.py').save
-    Attempt.new(user, 'CODE 2', 'two/two.rb').save
+    Attempt.new(user, Iteration.new({'two/two.py' => 'CODE 1'}, {track: 'python', slug: 'two'})).save
+    Attempt.new(user, Iteration.new({'one/one.rb' => 'CODE 2'}, {track: 'ruby', slug: 'one'})).save
     one = Submission.find_by(code: 'CODE 1')
     two = Submission.find_by(code: 'CODE 2')
     assert_equal 'pending', one.reload.state
@@ -125,8 +132,12 @@ class AttemptTest < Minitest::Test
   end
 
   def test_previous_submission_after_first_attempt_in_new_language
-    Attempt.new(user, 'CODE 1', 'ruby/two/two.rb').save
-    attempt = Attempt.new(user, 'CODE 2', 'python/two/two.py').save
+   
+    opts = {code_analysis: 'a1', test_analysis: 't', track: 'ruby' ,slug: 'two'}
+    solution = {'ruby/two/two.rb' => 'CODE 1'}
+    Attempt.new(user, Iteration.new(solution, opts)).save
+    attempt = Attempt.new(user, Iteration.new({'python/two/two.py' => 'CODE 2'}, 
+    {code_analysis: 'a1', test_analysis: 't', track: 'python' ,slug: 'two'})).save
     assert_equal attempt.previous_submission.track_id, "python"
   end
 
@@ -140,7 +151,7 @@ class AttemptTest < Minitest::Test
   def test_previous_submission_with_new_language_sandwich
     Attempt.new(user, 'CODE 1', 'two/two.rb').save
     Attempt.new(user, 'CODE 2', 'two/two.py').save
-    attempt = Attempt.new(user, 'CODE 3', 'two/two.rb').save
+    attempt = Attempt.new(user, Iteration.new({'ruby/two/two.rb' => 'CODE'}, {track: 'ruby', slug: 'two'})).save
     assert_equal attempt.previous_submission, user.submissions.first
   end
 
@@ -173,7 +184,7 @@ class AttemptTest < Minitest::Test
   end
 
   def test_attempt_sets_exercise_as_current
-    attempt = Attempt.new(user, "CODE", 'ruby/two/two.rb').save
+    attempt = Attempt.new(user, Iteration.new({'ruby/two/two.rb' => 'CODE'}, {track: 'ruby', slug: 'two'})).save
     assert user.working_on?(Problem.new('ruby', 'two'))
   end
 
