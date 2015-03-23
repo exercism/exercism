@@ -82,7 +82,7 @@ class Submission < ActiveRecord::Base
   }
 
   def test_data
-    test_output.split("\n").grep(/failures/).last
+    test_output.split("\n").grep(/failures/).last if test_output.present?
   end
 
   def self.on(problem)
