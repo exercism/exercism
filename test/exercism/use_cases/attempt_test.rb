@@ -152,12 +152,12 @@ class AttemptTest < Minitest::Test
   end
 
   def test_previous_submission_with_new_language_sandwich
-    Attempt.new(user, Iteration.new({'two/two.rb' => 'CODE 1'}, 
-    {track: 'ruby', slug: 'two'})).save
-    Attempt.new(user, Iteration.new({'two/two.py' => 'CODE 2'}, 
-    {track: 'python', slug: 'two'})).save
+    Attempt.new(user, Iteration.new({ "two/two.rb" => "CODE 1" }, 
+    { track: "ruby", slug: "two"} )).save
+    Attempt.new(user, Iteration.new({ "two/two.py" => "CODE 2" }, 
+    { track: "python", slug: "two" })).save
     attempt = Attempt.new(user, Iteration.new({'ruby/two/two.rb' => 'CODE'}, 
-    {track: 'ruby', slug: 'two'})).save
+    { track: "ruby", slug: "two"})).save
     assert_equal attempt.previous_submission, user.submissions.first
   end
 
