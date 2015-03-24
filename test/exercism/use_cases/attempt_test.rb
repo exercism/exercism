@@ -92,8 +92,8 @@ class AttemptTest < Minitest::Test
 
   def test_a_new_attempt_supersedes_the_previous_hibernating_one
     submission = Submission.create(user: user, code: 'CODE 1', language: 'ruby', slug: 'two', created_at: Time.now, state: 'hibernating')
-    solution = {'ruby/two/two.rb' => 'CODE 2'}
-    opts = {track: 'ruby', slug: 'two'}
+    solution = { "ruby/two/two.rb" => "CODE 2" }
+    opts = { track: "ruby", slug: "two" }
     Attempt.new(user, Iteration.new(solution, opts)).save
     one = Submission.find_by(code: 'CODE 1')
     two = Submission.find_by(code: 'CODE 2')
@@ -196,8 +196,8 @@ class AttemptTest < Minitest::Test
 
   def test_attempt_sets_completed_exercises_as_current
     refute user.working_on?(Problem.new('ruby', 'one'))
-    solution = {'ruby/one/one.rb' => 'CODE'}
-    opts = {track: 'ruby', slug: 'one'}
+    solution = { "ruby/one/one.rb" => "CODE" }
+    opts = { track: "ruby", slug: "one" }
     Attempt.new(user, Iteration.new(solution, opts)).save
     assert_equal true, user.working_on?(Problem.new('ruby', 'one'))
   end
