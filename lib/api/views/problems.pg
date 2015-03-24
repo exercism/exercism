@@ -1,0 +1,7 @@
+collection problems: exercises do |exercise|
+  attributes :track_id, :state
+  node :language => exercise.problem.language
+  node :problem_id => exercise.slug
+  node :problem_name => exercise.problem.name
+  node :iterations => exercise.iteration_count
+end

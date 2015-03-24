@@ -19,6 +19,7 @@ module ExercismAPI
     use Routes::Exercises
     use Routes::Iterations
     use Routes::Submissions
+    use Routes::Problems
     use Routes::Comments
     use Routes::Looks
     use Routes::Stats
