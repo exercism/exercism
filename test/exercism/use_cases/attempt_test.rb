@@ -195,11 +195,11 @@ class AttemptTest < Minitest::Test
   end
 
   def test_attempt_sets_completed_exercises_as_current
-    refute user.working_on?(Problem.new('ruby', 'one'))
+    refute user.working_on?(Problem.new("ruby", "one"))
     solution = { "ruby/one/one.rb" => "CODE" }
     opts = { track: "ruby", slug: "one" }
     Attempt.new(user, Iteration.new(solution, opts)).save
-    assert_equal true, user.working_on?(Problem.new('ruby', 'one'))
+    assert_equal true, user.working_on?(Problem.new("ruby", "one"))
   end
 end
 
