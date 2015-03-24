@@ -156,8 +156,8 @@ class AttemptTest < Minitest::Test
     { track: "ruby", slug: "two"} )).save
     Attempt.new(user, Iteration.new({ "two/two.py" => "CODE 2" }, 
     { track: "python", slug: "two" })).save
-    attempt = Attempt.new(user, Iteration.new({'ruby/two/two.rb' => 'CODE'}, 
-    { track: "ruby", slug: "two"})).save
+    attempt = Attempt.new(user, Iteration.new({ "ruby/two/two.rb" => "CODE" }, 
+    { track: "ruby", slug: "two" })).save
     assert_equal attempt.previous_submission, user.submissions.first
   end
 
