@@ -55,15 +55,17 @@ class NotificationMessage < Message
   end
 
   def pending_submissions
-    pending_submissions = []
-    @user.nitpicker_languages.each do |language|
-      pending_submissions << Workload.new(@user, language, 'no-nits').submissions.limit(5)
-    end
-    pending_submissions.flatten
+    @pending_submissions ||= @user.nitpicker_languages.map do |language|
+      Workload.new(@user, language, 'no-nits').submissions.limit(5)
+    end.flatten - unread_submissions
   end
 
   def unread_notifications
-    @user.notifications.on_submissions.unread.recent.by_recency
+    @unread_notifications ||= @user.notifications.on_submissions.unread.recent.by_recency
+  end
+
+  def unread_submissions
+    @unread_submissions ||= unread_notifications.map(&:submission)
   end
 
   def notifications
