@@ -12,7 +12,9 @@ class AttemptTest < Minitest::Test
   def test_validity
     Xapi.stub(:exists?, true) do
       refute Attempt.new(user, 'CODE', 'two.py').valid?
-      assert Attempt.new(user, 'CODE', 'python/two/two.py').valid?
+      solution = { "ruby/two/two.py" => "CODE" }
+      opts = { track: "ruby", slug: "two" }
+      assert_equal true, Attempt.new(user, Iteration.new(solution, opts)).valid?
     end
 
     Xapi.stub(:exists?, false) do
@@ -90,11 +92,13 @@ class AttemptTest < Minitest::Test
 
   def test_a_new_attempt_supersedes_the_previous_hibernating_one
     submission = Submission.create(user: user, code: 'CODE 1', language: 'ruby', slug: 'two', created_at: Time.now, state: 'hibernating')
-    Attempt.new(user, Iteration.new({'ruby/two/two.rb' => 'CODE 2'}, {track: 'ruby', slug: 'two '})).save
+    solution = { "ruby/two/two.rb" => "CODE 2" }
+    opts = { track: "ruby", slug: "two" }
+    Attempt.new(user, Iteration.new(solution, opts)).save
     one = Submission.find_by(code: 'CODE 1')
     two = Submission.find_by(code: 'CODE 2')
-    assert one.superseded?
-    assert two.pending?
+    assert_equal true, one.superseded?
+    assert_equal true, two.pending?
   end
 
   def test_a_new_attempt_unmutes_previous_attempt
@@ -132,7 +136,6 @@ class AttemptTest < Minitest::Test
   end
 
   def test_previous_submission_after_first_attempt_in_new_language
-   
     opts = {code_analysis: 'a1', test_analysis: 't', track: 'ruby' ,slug: 'two'}
     solution = {'ruby/two/two.rb' => 'CODE 1'}
     Attempt.new(user, Iteration.new(solution, opts)).save
@@ -149,9 +152,12 @@ class AttemptTest < Minitest::Test
   end
 
   def test_previous_submission_with_new_language_sandwich
-    Attempt.new(user, 'CODE 1', 'two/two.rb').save
-    Attempt.new(user, 'CODE 2', 'two/two.py').save
-    attempt = Attempt.new(user, Iteration.new({'ruby/two/two.rb' => 'CODE'}, {track: 'ruby', slug: 'two'})).save
+    Attempt.new(user, Iteration.new({ "two/two.rb" => "CODE 1" }, 
+                                    { track: "ruby", slug: "two" })).save
+    Attempt.new(user, Iteration.new({ "two/two.py" => "CODE 2" }, 
+                                    { track: "python", slug: "two" })).save
+    attempt = Attempt.new(user, Iteration.new({ "ruby/two/two.rb" => "CODE" }, 
+                                    { track: "ruby", slug: "two" })).save
     assert_equal attempt.previous_submission, user.submissions.first
   end
 
@@ -189,9 +195,11 @@ class AttemptTest < Minitest::Test
   end
 
   def test_attempt_sets_completed_exercises_as_current
-    refute user.working_on?(Problem.new('ruby', 'one'))
-    attempt = Attempt.new(user, "CODE", 'ruby/one/one.rb').save
-    assert user.working_on?(Problem.new('ruby', 'one'))
+    refute user.working_on?(Problem.new("ruby", "one"))
+    solution = { "ruby/one/one.rb" => "CODE" }
+    opts = { track: "ruby", slug: "one" }
+    Attempt.new(user, Iteration.new(solution, opts)).save
+    assert_equal true, user.working_on?(Problem.new("ruby", "one"))
   end
 end
 
