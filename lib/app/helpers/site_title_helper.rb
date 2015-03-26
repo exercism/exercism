@@ -3,7 +3,7 @@ module Sinatra
 
     def title(value = nil)
       @title = value if value
-      @title ? "#{@title}" : "exercism.io"
+      @title ? "#{@title}" : "Hootcode"
     end
     
     def account_source_options

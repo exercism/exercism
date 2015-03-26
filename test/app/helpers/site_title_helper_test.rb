@@ -11,7 +11,7 @@ class SiteTitleHelperTest < Minitest::Test
   end
 
   def test_default_title
-    assert_equal "exercism.io", helper.title
+    assert_equal "Hootcode", helper.title
   end
 
   def test_title

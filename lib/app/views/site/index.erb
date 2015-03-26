@@ -1,97 +1,114 @@
-<div id="home">
-  <div class="container">
-  <section class="content-primary home">
-      <div class="row">
-        <div class="col-md-4">
-          <img class="medallion" src="<%= link_to("/icons/badge-iteration.svg") %>"/>
-          <h2 class="header">Practice</h2>
-          <p class="contain-centered">
-            <span class="home-third-subheader">
-              Focus on expressive, readable code.
-            </span>
-          </p>
-          <p class="home-p-text">
-            Work in your local development environment using your usual tools
-            <a href="<%= link_to('/about') %>">in multiple languages</a>.
-            We give you a test suite, and you make the tests pass... but that's just the first step.
-          </p>
+<div class="jumbotron">
+
+    <div class="container landing-image-container">
+        <div class="row">
+            <div class="col-xs-12 carousel">
+                <h1>Because exercises will make you perfect</h1>
+                <img src="img/image1.png" title="Landing"/>
+            </div>
         </div>
-        <div class="col-md-4">
-          <img class="medallion" src="<%= link_to("/icons/badge-people.svg") %>"/>
-          <h2 class="header">Communicate</h2>
-          <p class="contain-centered">
-            <span class="home-third-subheader">
-              The code is a conversation starter.
-            </span>
-          </p>
-          <p class="home-p-text">
-            Have a thoughtful discussion with your peers about the choices that you made. Take this opportunity to explore idioms, style, and trade-offs.  There's no right answer, and many good questions.
-          </p>
+    </div>
+
+
+    <div class="container steps">
+        <div class="row">
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <a href="/installing-cli" class="step">
+                    <div class="circle-outer">
+                        <div class="circle-inner">
+                            <div class="hex hex-small">
+                                <span class="step-number">1</span>
+                            </div>
+                            <i class="step-icon install-cli"></i>
+                        </div>
+                    </div>
+                    <p class="step-name">Install CLI</p>
+                </a>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <a href="#" class="step">
+                    <div class="circle-outer">
+                        <div class="circle-inner">
+                            <div class="hex hex-small">
+                                <span class="step-number">2</span>
+                            </div>
+                            <i class="step-icon work-exercise"></i>
+                        </div>
+                    </div>
+                    <p class="step-name">Work on Exercises</p>
+                </a>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <a href="/submit-assignment" class="step">
+                    <div class="circle-outer">
+                        <div class="circle-inner">
+                            <div class="hex hex-small">
+                                <span class="step-number">3</span>
+                            </div>
+                            <i class="step-icon submit-iteration"></i>
+                        </div>
+                    </div>
+                    <p class="step-name">Submit Iteration</p>
+                </a>
+            </div>
+
+            <div class="col-xs-12 col-sm-6 col-md-3">
+                <a href="#" class="step">
+                    <div class="circle-outer">
+                        <div class="circle-inner">
+                            <div class="hex hex-small">
+                                <span class="step-number">4</span>
+                            </div>
+                            <i class="step-icon get-reviews"></i>
+                        </div>
+                    </div>
+                    <p class="step-name">Get Reviews</p>
+                </a>
+            </div>
+
         </div>
-        <div class="col-md-4">
-          <img class="medallion" src="<%= link_to("/icons/badge-nitpick.svg") %>"/>
-          <h2 class="header">Pay it Forward</h2>
-          <p class="contain-centered">
-            <span class="home-third-subheader">
-              Explore other people's solutions.
-            </span>
-          </p>
-          <p class="home-p-text">
-            Articulate what you like and dislike in other people's code. Have a thoughtful, nuanced discussion, deepening your own understanding of the design choices that you make every day.
-          </p>
+    </div>
+</div>
+
+<div class="container languages">
+    <h2>We have tons of exercises for you. In your favorite languages!!</h2>
+    <div class="row">
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <a href="#" class="lang">
+                <div class="hex blue hex-big">
+                    <i class="java"></i>
+                </div>
+                <p class="lang-name">Java</p>
+                <p class="view-exercises">View Exercises</p>
+            </a>
         </div>
-      </div>
-    </section>
-    <hr/>
-    <section class="content-primary">
-      <div class="row">
-        <div class="col-md-6">
-          <h2 class="header">Practice</h2>
-          <p>Deliberately focus on improving your skills.</p>
-          <p>Gain a deep understanding of the fundamentals of your craft.</p>
-          <p>Experiment in a place where bugs don't inconvenience anyone.</p>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <a href="#" class="lang">
+                <div class="hex red hex-big">
+                    <i class="ruby"></i>
+                </div>
+                <p class="lang-name">Ruby</p>
+                <p class="view-exercises">View Exercises</p>
+            </a>
         </div>
-        <div class="col-md-6">
-          <h2 class="header">Mentorship</h2>
-          <p>Practice providing useful critique.</p>
-          <p>Discuss code in both subjective and objective terms.</p>
-          <p>Strengthen your problem-solving skills by guiding others through the process.</p>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <a href="#" class="lang">
+                <div class="hex yellow hex-big">
+                    <i class="javascript"></i>
+                </div>
+                <p class="lang-name">Javascript</p>
+                <p class="view-exercises">View Exercises</p>
+            </a>
         </div>
-      </div>
-    </section>
-    <section class="content-secondary see-it">
-      <div class="row">
-        <div class="col-md-6">
-          <h2 class="header">Better code through conversations.</h2>
-          <p class="home-p-text">Thousands of conversations are happening on exercism. <a href="/conversations/1">Here's one of them.</a></p>
-          <p class="home-p-text">You start with some code.  Talk about it a little.  Rewrite the code a bit, then post the new version.  Make it better.  After a few cycles you've got improved code, and perhaps even a new friend!</p>
+        <div class="col-xs-12 col-sm-6 col-md-3">
+            <a href="#" class="lang">
+                <div class="hex purple hex-big">
+                    <i class="upcoming"></i>
+                </div>
+                <p class="lang-name">Coming Soon...</p>
+            </a>
         </div>
-        <div class="col-md-6">
-          <a href="/conversations/1">
-            <img alt="Exercism code conversation." class="img-responsive" src="<%= link_to("/img/conversation.jpg") %>"/>
-          </a>
-        </div>
-      </div>
-    </section>
-    <section class="content-secondary">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="content-secondary-details">
-            <h2>Try it.</h2>
-            <p class="home-p-text">You don't need to log in to check out the problems.</p>
-            <p class="home-p-text">
-              Download the
-              <a href="https://github.com/exercism/cli/releases/latest">command line client</a>,
-              and extract it.
-            </p>
-            <p class="home-p-text">The binary is named <kbd>exercism</kbd>. Fetch the first exercise available for each language:</p>
-            <pre>$ ./exercism demo</pre>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <img class="img-responsive" src="<%= link_to("/img/home-try-it.png") %>"/>
-        </div>
-      </div>
-    </section>
-  </div>
+    </div>
 </div>
