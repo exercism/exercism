@@ -3,7 +3,7 @@ module ExercismWeb
     class Main < Core
       get '/' do
         if current_user.guest?
-          erb :"site/index"
+          erb :"site/index", layout: :hootcode
         elsif current_user.onboarded?
           status = Onboarding.status(current_user.onboarding_steps)
           dashboard = ExercismWeb::Presenters::Dashboard.new(current_user)
