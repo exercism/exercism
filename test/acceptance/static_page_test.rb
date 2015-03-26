@@ -4,7 +4,7 @@ class StaticPageTest < AcceptanceTestCase
   def test_homepage_exists
     visit '/'
 
-    assert_content 'Hootcode'
+    assert_content "Hootcode"
   end
 
   def test_about_exists
@@ -19,10 +19,10 @@ class StaticPageTest < AcceptanceTestCase
   def test_getting_started_exists
     Xapi.stub(:get, [200, File.read("./test/fixtures/tracks.json")]) do
       visit '/'
-      #click_on 'Welcome'
+      # click_on 'Welcome'
     end
 
-    assert_content 'How it works'
-    assert_content 'Help'
+    assert_content "How it works"
+    assert_content "Help"
   end
 end
