@@ -1,28 +1,35 @@
-<footer id="footer">
-  <div class="container">
-    <div class="row">
-      <div class="col-xs-6 col-sm-3 col-md-2 footer-logo">
-        <a href="/"><img class="img-responsive" src="/img/logo.png" /></a>
-        <hr />
-        <p>
-          <a href="/about">About</a>
-        </p>
-      </div>
-      <div class="clearfix visible-xs"></div>
-      <div class="col-sm-3 col-md-offset-2 col-md-2 hidden-xs">
-        <%= erb :"application/footer/links" %>
-      </div>
-      <div class="col-xs-12 col-sm-6 col-md-6 text-right footer-social">
-        <br>
-        <p class=" text-muted small">
-          &copy; <%= Date.today.year %> Imaginea
-        </p>
-      </div>
+<footer style="position:absolute;bottom:0px;">
+    <div class="container footer-container">
+        <div class="row" style="margin-top:12px">
+            <div class="footer-header">
+                <a class="navbar-brand" href="#">
+                    <img src="/img/logo2.png" width="50px" />
+                </a>
+            </div>
+            <ul class="nav navbar-nav" style="margin-top:-3px">
+                <li>
+                    <a href="#">
+                        About Hootcode
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Support us
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Supported Languages
+                    </a>
+                </li>
+            </ul>
+            <div class="footer-copyright pull-right">
+                &copy; Copyright 2013 Imaginea Technologies Inc. All Rights Reserved.
+            </div>
+        </div>
     </div>
-  </div>
 </footer>
 
 <div id="list-notifications"></div>
 
 <script src="/js/app.js"></script>
-
