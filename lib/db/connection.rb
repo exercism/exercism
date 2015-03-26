@@ -18,7 +18,13 @@ module DB
     end
 
     def config
-      @config ||= DB::Config.new(environment).options
+      if environment == "development"
+        args = ['..', '..', '..', 'config', 'database_dev.yml']
+        dev_db_yml_path = File.expand_path(File.join(__FILE__, *args))
+        @config ||= DB::Config.new(environment, dev_db_yml_path).options
+      else
+        @config ||= DB::Config.new(environment).options
+      end
     end
   end
 end
