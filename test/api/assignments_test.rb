@@ -135,11 +135,11 @@ class AssignmentsApiTest < Minitest::Test
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
         solution = { "THE CODE" => "ruby/one/code.rb" }
-        post '/user/assignments', { key: alice.key, code: 'THE CODE', path: 'ruby/one/code.rb', 
-        'language' => 'ruby', 'problem' => 'one', solution: solution }.to_json
+        post '/user/assignments', { key: alice.key, code: "THE CODE", path: "ruby/one/code.rb",
+                                   "language" => "ruby", "problem" => "one", 
+                                    solution: solution }.to_json
       end
     end
-
     response_error = JSON.parse(last_response.body)['error']
 
     assert_equal 400, last_response.status
