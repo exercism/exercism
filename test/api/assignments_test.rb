@@ -130,7 +130,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_rejects_duplicates
-    Attempt.new(alice, Iteration.new({ "THE CODE" => "ruby/one/code.rb" }, 
+    Attempt.new(alice, Iteration.new({"THE CODE" => "ruby/one/code.rb"}, 
     {track: 'ruby', slug: 'one' })).save
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
