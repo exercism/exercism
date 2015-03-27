@@ -36,7 +36,6 @@ gem 'kss'
 group :test, :development do
   gem 'capistrano'
   gem 'pry'
-  gem 'thin'
   # gem 'ruby-prof', '~> 0.14'
   gem 'database_cleaner', require: false
   gem 'approvals', require: false

@@ -45,6 +45,7 @@ require "exercism/language_track"
 require "exercism/user_lookup"
 require "exercism/db_source"
 require "exercism/github_source"
+require "pry" unless ENV["RACK_ENV"] == "production"
 
 require "db/connection"
 DB::Connection.establish
