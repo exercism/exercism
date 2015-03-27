@@ -51,36 +51,6 @@
     </header>
     <%= yield%>
 
-    <footer>
-        <div class="container footer-container">
-            <div class="row" style="margin-top:12px">
-                <div class="footer-header">
-                    <a class="navbar-brand" href="#">
-                        <img src="/img/logo2.png" width="50px" />
-                    </a>
-                </div>
-                <ul class="nav navbar-nav" style="margin-top:-3px">
-                    <li>
-                        <a href="#">
-                            About Hootcode
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Support us
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            Supported Languages
-                        </a>
-                    </li>
-                </ul>
-                <div class="footer-copyright pull-right">
-                    Copyright 2013 Imaginea Technologies Inc. All Rights Reserved.
-                </div>
-            </div>
-        </div>
-    </footer>
+    <%= erb :"application/_footer" %>
 </body>
 </html>
