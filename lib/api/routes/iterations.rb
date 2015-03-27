@@ -50,7 +50,7 @@ module ExercismAPI
         end
         # rubocop code analysis start
         rubocop_code_file = File.new("#{settings.root}/rubocop_tmp/test_#{user.id}.rb", "w+")
-        rubocop_code_file.write data["solution"].values.first
+        rubocop_code_file.write data["solution"].values.first unless data["solution"].empty?
         rubocop_code_file.rewind
         analysis = `rubocop "#{rubocop_code_file.path}"`
         File.delete rubocop_code_file.path
