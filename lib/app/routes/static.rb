@@ -24,19 +24,19 @@ module ExercismWeb
       get "/installing-cli" do
         erb :"site/installing-cli", locals: { active_languages: active_languages }
       end
-      
+
       get "/java-exercises" do
         erb :"site/java-exercises"
       end
-      
+
       get "/ruby-exercises" do
         erb :"site/ruby-exercises"
       end
-      
+
       get "/javascript-exercises" do
         erb :"site/javascript-exercises"
       end
-  
+
       get "/create-assignment" do
         erb :"site/create-assignment", locals: { active_languages: active_languages }
       end

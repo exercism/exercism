@@ -1,3 +1,4 @@
+require 'sourceclassifier'
 module ExercismWeb
   module Routes
     class Exercises < Core
@@ -36,12 +37,19 @@ module ExercismWeb
         title("%s by %s in %s" % [submission.problem.name, submission.user.username, submission.problem.language])
         src_klass = submission.user.source_klass
         src_obj = src_klass.new(submission)
-        data = {
-          submission: submission,
-          next_submission: next_submission,
-          sharing: Sharing.new,
-          solution: src_obj.solution,
-        }
+        if src_klass == GithubSource
+          data = {submission: submission,
+                  next_submission: next_submission,
+                  sharing: Sharing.new,
+                  solution: get_tree(submission)}
+        else
+          data = {
+            submission: submission,
+            next_submission: next_submission,
+            sharing: Sharing.new,
+            solution: src_obj.solution,
+          }
+        end
         erb :"submissions/show", locals: data
       end
 
@@ -132,6 +140,52 @@ module ExercismWeb
         submission.destroy
         Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
         redirect "/"
+      end
+
+      get '/submissions/blob/content' do
+        content_type :json
+        submission = Submission.find_by_key(params[:key])
+        blob = Octokit.blob("#{submission.user.username}/#{submission.slug}", params[:sha])
+        #blob = Octokit.blob("hanumakanthvvn/exercism.io", params[:sha])
+        s = SourceClassifier.new(File.join(File.dirname(__FILE__), '../../../bin/', 'trainer.bin'))
+        result =  Base64.decode64(blob.content)
+        source_language = s.identify(result)
+        marked_content = ConvertsMarkdownToHTML.convert("```#{source_language.downcase}\n#{result}\n```")
+        content = { data: marked_content } 
+        content.to_json
+      end
+
+      def get_tree(submission)
+        Octokit.configure do |c|
+          c.login = 'SaiPramati'
+          c.password = 'pramati123'
+        end
+        git_tree_source = Octokit.tree("#{submission.user.username}/#{submission.slug}",
+                                        submission.solution.values.first, recursive: true)
+        # git_tree_source = Octokit.tree("hanumakanthvvn/exercism.io",
+        #                                 "5def0c8bffba83662c7bcf9c5f6eb249f52a0a26", recursive: true)
+
+        result = []
+        sorted_blobs = git_tree_source.tree.select{|node| node.type == 'blob'}
+        sorted_trees = git_tree_source.tree.select{|node| node.type == 'tree'}
+
+        (sorted_trees + sorted_blobs).each do |node|
+          node_contents = {}
+          node_contents[:id] = node.path
+          git_path_names = node.path.split("/")
+          node_contents[:text] = git_path_names.last
+          if git_path_names.size == 1
+            parent = "#"
+          else
+            git_path_names.pop
+            parent = git_path_names.join("/")
+          end
+          node_contents[:parent] = parent
+          node_contents[:icon] = node.type.eql?('tree') ? '' : 'file'
+          node_contents[:data] = { sha: node.sha, type: node_contents[:icon] }
+          result << node_contents
+        end
+        result.to_json
       end
     end
   end

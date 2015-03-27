@@ -43,7 +43,11 @@ GEM
       xpath (~> 2.0)
     celluloid (0.15.2)
       timers (~> 1.1.0)
+    chrislo-sourceclassifier (0.2.3)
+      classifier
     chunky_png (1.3.3)
+    classifier (1.3.4)
+      fast-stemmer (>= 1.0.0)
     coderay (1.1.0)
     colorize (0.7.5)
     compass (1.0.1)
@@ -76,6 +80,7 @@ GEM
     eventmachine (1.0.3)
     faraday (0.9.0)
       multipart-post (>= 1.2, < 3)
+    fast-stemmer (1.0.2)
     ffi (1.9.6)
     font-awesome-sass (4.2.1)
       sass (~> 3.2)
@@ -95,6 +100,7 @@ GEM
       json (~> 1.8)
       multi_xml (>= 0.5.2)
     i18n (0.6.11)
+    interception (0.5)
     json (1.8.1)
     jwt (1.2.1)
     kss (0.5.0)
@@ -130,6 +136,8 @@ GEM
       multi_json (~> 1.3)
       multi_xml (~> 0.5)
       rack (~> 1.2)
+    octokit (3.8.0)
+      sawyer (~> 0.6.0, >= 0.5.3)
     parser (2.2.0.3)
       ast (>= 1.1, < 3.0)
     petroglyph (0.0.7)
@@ -142,6 +150,9 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry-rescue (1.4.1)
+      interception (>= 0.5)
+      pry
     puma (2.9.1)
       rack (>= 1.1, < 2.0)
     rack (1.5.2)
@@ -171,6 +182,9 @@ GEM
       ruby-progressbar (~> 1.4)
     ruby-progressbar (1.7.1)
     sass (3.4.7)
+    sawyer (0.6.0)
+      addressable (~> 2.3.5)
+      faraday (~> 0.8, < 0.10)
     sidekiq (3.2.5)
       celluloid (= 0.15.2)
       connection_pool (>= 2.0.0)
@@ -229,6 +243,7 @@ DEPENDENCIES
   bootstrap-sass
   bugsnag
   capistrano
+  chrislo-sourceclassifier
   compass
   coveralls
   database_cleaner
@@ -242,10 +257,12 @@ DEPENDENCIES
   minitest-capybara
   mocha
   newrelic_rpm (~> 3.8)
+  octokit
   petroglyph
   pg
   pony (~> 1.6)
   pry
+  pry-rescue
   puma
   rack-flash3
   rack-test
