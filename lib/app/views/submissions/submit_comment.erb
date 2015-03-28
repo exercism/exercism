@@ -16,3 +16,34 @@
     Parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a>
   </small>
 </form>
+
+<!-- pulled in jquery here, not sure where to put all this to load properly" -->
+<script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+<script>
+  function userIsInSession() {
+    return $('#navbar a[href="/login"]').length == 0;
+  }
+
+  function sessionHasKey(key) {
+    return localStorage.getItem(key) !== null;
+  }
+  // if user is not logged in
+  if (!userIsInSession()) {
+    // bind to the form with the submission key pattern
+    $('form[action^="/submissions/"]').on('submit', function(event){
+      // save nitpick comment in sessionStorage
+      var nitPickText = $(this).find('#submission_comment').val();
+      localStorage.setItem(location.pathname, nitPickText);
+    });
+  } else if (sessionHasKey(location.pathname)) {
+    // update input with nitpick
+    // had to use setTimeout, I think something is going on with the angular that causes
+    // a race condition
+    setTimeout(function(){
+      console.log($('#submission_comment'));
+      console.log(localStorage.getItem(location.pathname));
+      $('#submission_comment').val(localStorage.getItem(location.pathname));
+      localStorage.clear();
+    }, 1000);
+  }
+</script>
