@@ -40,8 +40,6 @@
     // had to use setTimeout, I think something is going on with the angular that causes
     // a race condition
     setTimeout(function(){
-      console.log($('#submission_comment'));
-      console.log(localStorage.getItem(location.pathname));
       $('#submission_comment').val(localStorage.getItem(location.pathname));
       localStorage.clear();
     }, 1000);
