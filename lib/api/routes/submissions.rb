@@ -49,7 +49,7 @@ module ExercismAPI
           slug: submission.slug,
           username: submission.user.username,
           problem_files: exercise['files'],
-          solution_files: {submission.filename => submission.code}
+          solution_files: submission.solution
         }.to_json
       end
     end

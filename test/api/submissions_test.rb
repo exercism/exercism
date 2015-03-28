@@ -10,7 +10,7 @@ class SubmissionsApiTest < Minitest::Test
 
   def test_returns_submission_code
     user = User.create(username: 'alice')
-    submission = Submission.create(user: user, code: 'CODE', language: 'ruby', slug: 'leap', filename: 'leap.rb')
+    submission = Submission.create(user: user, language: 'ruby', slug: 'leap', solution: {'leap.rb': 'CODE'})
     response = {
       "problems" => [
         {
