@@ -1,15 +1,8 @@
 module ExercismWeb
   module Routes
     class User < Core
-      # Become nitpicker. How did I decide on this particular route?
-      post '/exercises/:language/:slug' do |language, slug|
-        please_login
-
-        exercise = current_user.exercises.where(language: language, slug: slug).first
-        exercise.unlock! if exercise
-        redirect back
-      end
-
+      # User's profile page.
+      # This is going to get a serious overhaul.
       get '/:username' do |username|
         please_login
         user = ::User.find_by_username(username)
@@ -23,29 +16,7 @@ module ExercismWeb
         end
       end
 
-      get '/:username/:key' do |username, key|
-        please_login
-
-        user = ::User.find_by_username(username)
-        if user.nil?
-          flash[:notice] = "Couldn't find that user."
-          redirect '/'
-        end
-
-        exercise = user.exercises.find_by_key(key)
-        if exercise.nil?
-          flash[:notice] = "Couldn't find that exercise."
-          redirect '/'
-        end
-
-        if exercise.submissions.empty?
-          # We have orphan exercises at the moment.
-          flash[:notice] = "That submission no longer exists."
-          redirect '/'
-        end
-        redirect "/submissions/%s" % exercise.submissions.last.key
-      end
-
+      # Reset exercism API key
       put '/me/uuid/reset' do
         please_login
 
