@@ -2,7 +2,7 @@ module ExercismWeb
   module Routes
     class Comments < Core
       post '/submissions/:key/nitpick' do |key|
-        notice = "You're not logged in right now. Go back, copy the text, log in, and try again. Sorry about that."
+        notice = "You're not logged in right now. Please log in via GitHub to comment."
         please_login(notice)
         submission = Submission.find_by({key: key})
         if submission.nil?
