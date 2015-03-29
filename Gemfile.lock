@@ -63,6 +63,9 @@ GEM
     docile (1.1.5)
     domain_name (0.5.23)
       unf (>= 0.0.5, < 1.0.0)
+    dotenv (0.11.1)
+      dotenv-deployment (~> 0.0.2)
+    dotenv-deployment (0.0.2)
     eventmachine (1.0.5)
     execjs (2.4.0)
     faraday (0.9.1)
@@ -204,6 +207,7 @@ DEPENDENCIES
   compass
   coveralls
   database_cleaner
+  dotenv
   faraday
   font-awesome-sass
   foreman

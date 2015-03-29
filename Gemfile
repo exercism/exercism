@@ -37,6 +37,7 @@ group :test, :development do
   gem 'approvals', require: false
   gem 'coveralls', require: false
   gem 'database_cleaner', require: false
+  gem 'dotenv', require: false
   gem 'foreman', require: false
   gem 'mailcatcher', require: false
   gem 'mocha', require: false
