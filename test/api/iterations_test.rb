@@ -121,4 +121,15 @@ class ItertaionsApiTest < Minitest::Test
     assert_equal 404, last_response.status
     assert last_response.body.include?(expected_message)
   end
+
+  def test_skip_problem_as_guest
+    Xapi.stub(:exists?, true) do
+      post '/iterations/ruby/one/skip', { key: 'invalid-api-key' }
+    end
+
+    expected_message = "Please double-check your exercism API key."
+
+    assert_equal 401, last_response.status
+    assert last_response.body.include?(expected_message)
+  end
 end
