@@ -157,9 +157,9 @@ Alternatively (or to debug if the above blows up), do it one-by-one:
 
 ### Run The Application
 
-Start the server with `foreman start` (sometimes you have to `bundle exec foreman start`).
-
-Then you can log in at [localhost:4567](http://localhost:4567)
+* Start the server with: `foreman s -p 4567`
+* Sometimes you need to: `bundle exec foreman s -p 4567`
+* Then you can log in at: [localhost:4567](http://localhost:4567)
 
 ## Frontend Development Setup
 
