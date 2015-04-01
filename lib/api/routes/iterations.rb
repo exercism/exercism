@@ -11,17 +11,29 @@ module ExercismAPI
         require_key
 
         if current_user.guest?
-          halt 401, {error: "Please double-check your exercism API key."}.to_json
+          message = "Please double-check your exercism API key."
+          halt 401, { error: message }.to_json
         end
 
-        exercise = UserExercise.where(user_id: current_user.id, language: language, slug: slug).first_or_initialize(iteration_count: 0, state: 'unstarted')
+        if !Xapi.exists?(language, slug)
+          message = "Exercise '#{slug}' in language '#{language}' doesn't exist. "
+          message << "Maybe you mispelled it?"
+          halt 404, { error: message }.to_json
+        end
+
+        exercise = UserExercise.where(
+          user_id: current_user.id,
+          language: language,
+          slug: slug
+        ).first_or_initialize(iteration_count: 0, state: 'unstarted')
+
         if exercise.new_record?
           exercise.save!
 
           halt 204
         else
           message = "Exercise '#{slug}' in '#{language}' has already been "
-          message += exercise.state == "unstarted" ? "skipped." : "started."
+          message += (exercise.state == "unstarted") ? "skipped." : "started."
 
           halt 400, {error: message}.to_json
         end
@@ -36,24 +48,28 @@ module ExercismAPI
         data = JSON.parse(data)
         user = User.where(key: data['key']).first
         begin
-          LogEntry.create(user: user, key: data['key'], body: data.merge(user_agent: request.user_agent).to_json)
+          log_entry_body = data.merge(user_agent: request.user_agent).to_json
+          LogEntry.create(
+            user: user,
+            key: data['key'],
+            body: log_entry_body)
         rescue => e
           Bugsnag.notify(e)
           # ignore failures
         end
         unless user
-          message = <<-MESSAGE
-          unknown api key '#{data['key']}', please check your exercism.io account page and reconfigure
-          MESSAGE
-          halt 401, {error: message}.to_json
+          message = "unknown api key '#{data['key']}', "
+          message << "please check your exercism.io account page and reconfigure"
+          halt 401, { error: message }.to_json
         end
 
         solution = data['solution']
         if solution.nil?
-          solution = {data['path'] => data['code']}
+          solution = { data['path'] => data['code'] }
         end
 
-        attempt = Attempt.new(user, Iteration.new(solution, data['language'], data['problem']))
+        iteration = Iteration.new(solution, data['language'], data['problem'])
+        attempt = Attempt.new(user, iteration)
 
         unless attempt.valid?
           Bugsnag.before_notify_callbacks << lambda { |notif|
@@ -66,7 +82,10 @@ module ExercismAPI
             }
             notif.add_tab(:data, data)
           }
-          Bugsnag.notify(Attempt::InvalidAttemptError.new("Invalid attempt submitted"))
+
+          error = Attempt::InvalidAttemptError.new("Invalid attempt submitted")
+          Bugsnag.notify(error)
+
           error = "unknown problem (track: #{attempt.track}, slug: #{attempt.slug}, path: #{data['path']})"
           halt 400, {error: error}.to_json
         end
@@ -85,7 +104,11 @@ module ExercismAPI
           Jobs::Analyze.perform_async(attempt.submission.key)
         end
         status 201
-        pg :attempt, locals: {submission: attempt.submission, domain: request.url.gsub(/#{request.path}$/, "")}
+        locals = {
+          submission: attempt.submission,
+          domain: request.url.gsub(/#{request.path}$/, "")
+        }
+        pg :attempt, locals: locals
       end
 
       delete '/user/assignments' do
