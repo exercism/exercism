@@ -29,7 +29,7 @@ class NitsTest < AcceptanceTestCase
   def test_navigation_to_nitstats_page
     with_login(@user) do
       visit "/#{@user.username}"
-      click_on "Nit stats"
+      click_on "Nit Stats"
       assert_css 'h1', text: "Nit Stats"
     end
   end
@@ -37,16 +37,16 @@ class NitsTest < AcceptanceTestCase
   def test_navigation_to_nits_given_page
     with_login(@user) do
       visit_nitstats_page
-      click_on "Nits given"
-      assert_css 'h1', text: 'Nits given'
+      click_on "Nits Given"
+      assert_css 'h1', text: 'Nits Given'
     end
   end
 
   def test_navigation_to_nits_received_page
     with_login(@user) do
       visit_nitstats_page
-      click_on "Nits received"
-      assert_css 'h1', text: 'Nits received'
+      click_on "Nits Received"
+      assert_css 'h1', text: 'Nits Received'
     end
   end
 
