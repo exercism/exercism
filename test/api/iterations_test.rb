@@ -1,11 +1,15 @@
 require_relative '../api_helper'
 
-class ItertaionsApiTest < Minitest::Test
+class IterationsApiTest < Minitest::Test
   include Rack::Test::Methods
   include DBCleaner
 
   def app
     ExercismAPI::App
+  end
+
+  def setup
+    @alice = User.create!(username: 'alice', github_id: 1)
   end
 
   def test_latest_iterations_requires_key
@@ -14,60 +18,58 @@ class ItertaionsApiTest < Minitest::Test
   end
 
   def test_latest_iterations
-    alice = User.create(username: 'alice', github_id: 1)
-
-    sub1 = {
-      user: alice,
+    submissions = [{
+      user: @alice,
       language: 'go',
       slug: 'one',
       solution: {'oneA.go' => 'CODE1AGO', 'oneB.go' => 'CODE1BGO'},
       state: 'superseded',
       created_at: 10.minutes.ago,
-    }
-    sub2 = {
-      user: alice,
+    }, {
+      user: @alice,
       language: 'go',
       slug: 'two',
       solution: {'two.go' => 'CODE2GO'},
       state: 'superseded',
       created_at: 10.minutes.ago,
-    }
-    sub3 = {
-      user: alice,
+    }, {
+      user: @alice,
       language: 'ruby',
       slug: 'one',
       state: 'pending',
       solution: {'one.rb': 'CODE1RUBY'},
-    }
-    sub4 = {
-      user: alice,
+    }, {
+      user: @alice,
       language: 'ruby',
       slug: 'two',
       state: 'hibernating',
       solution: {'two.rb': 'CODE2RUBY'},
-    }
-    [sub1, sub2, sub3, sub4].each {|sub| Submission.create(sub)}
-    Hack::UpdatesUserExercise.new(alice.id, 'go', 'one').update
-    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
-    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'two').update
+    }]
+
+    Submission.create!(submissions)
+
+    submissions.delete_at(1)
+
+    submissions.each do |submission|
+      args = [submission[:user].id, submission[:language], submission[:slug]]
+      Hack::UpdatesUserExercise.new(*args).update
+    end
 
     Xapi.stub(:exists?, true) do
-      get '/iterations/latest', {key: alice.key}
+      get '/iterations/latest', { key: @alice.key }
     end
 
     output = last_response.body
-    options = {format: :json, :name => 'api_iterations'}
+    options = { format: :json, :name => 'api_iterations' }
     Approvals.verify(output, options)
   end
 
   def test_skip_problem
-    alice = User.create(username: 'alice', github_id: 1)
-
     Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', {key: alice.key}
+      post '/iterations/ruby/one/skip', { key: @alice.key }
     end
 
-    exercise = alice.exercises.first
+    exercise = @alice.exercises.first
     assert_equal 'ruby', exercise.language
     assert_equal 'one', exercise.slug
     assert_equal 'unstarted', exercise.state
@@ -75,11 +77,9 @@ class ItertaionsApiTest < Minitest::Test
   end
 
   def test_skip_skipped_problem
-    alice = User.create(username: 'alice', github_id: 1)
-
     Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', {key: alice.key}
-      post '/iterations/ruby/one/skip', {key: alice.key}
+      post '/iterations/ruby/one/skip', { key: @alice.key }
+      post '/iterations/ruby/one/skip', { key: @alice.key }
     end
 
     assert_equal 400, last_response.status
@@ -87,10 +87,8 @@ class ItertaionsApiTest < Minitest::Test
   end
 
   def test_skip_started_problem
-    alice = User.create(username: 'alice', github_id: 1)
-
-    Submission.create(
-      user: alice,
+    submission = Submission.create!(
+      user: @alice,
       language: 'ruby',
       slug: 'one',
       code: 'CODE1RB',
@@ -98,10 +96,11 @@ class ItertaionsApiTest < Minitest::Test
       filename: 'one.rb'
     )
 
-    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
+    args = [submission.user.id, submission.language, submission.slug]
+    Hack::UpdatesUserExercise.new(*args).update
 
     Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', {key: alice.key}
+      post '/iterations/ruby/one/skip', { key: @alice.key }
     end
 
     assert_equal 400, last_response.status
@@ -109,10 +108,8 @@ class ItertaionsApiTest < Minitest::Test
   end
 
   def test_skip_non_existent_problem
-    alice = User.create(username: 'alice', github_id: 1)
-
     Xapi.stub(:exists?, false) do
-      post '/iterations/ruby/not-found/skip', {key: alice.key}
+      post '/iterations/ruby/not-found/skip', { key: @alice.key }
     end
 
     expected_message = "Exercise 'not-found' in language 'ruby' doesn't exist. "
