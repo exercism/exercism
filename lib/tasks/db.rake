@@ -39,6 +39,18 @@ namespace :db do
     system 'createdb', '-h', config.host, '-O', config.username, config.database
   end
 
+  desc "drop your databas"
+  task :drop do
+    config = DB::Config.new
+    system 'dropdb', '-h', config.host, config.database
+  end
+
+  desc "create your database"
+  task :create do
+    config = DB::Config.new
+    system 'createdb', '-h', config.host, '-O', config.username, config.database
+  end
+
   desc 'set the database up from scratch'
   task from_scratch: %i(setup migrate seeds:fetch seed)
 
