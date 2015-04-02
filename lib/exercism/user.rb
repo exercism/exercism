@@ -28,7 +28,8 @@ class User < ActiveRecord::Base
   end
 
   def self.from_github(id, username, email, avatar_url)
-    user = User.where("github_id = ? ", id).first ||
+    conflict = User.where(username: username).first
+    user = User.where(github_id: id).first ||
       User.new(github_id: id, email: email)
 
     user.email      = email if !user.email
@@ -36,6 +37,10 @@ class User < ActiveRecord::Base
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url && !user.avatar_url
     track_event = user.new_record?
     user.save
+    if conflict.present? && conflict.github_id != user.github_id
+      conflict.username = ''
+      conflict.save
+    end
     LifecycleEvent.track('joined', user.id) if track_event
     user
   end

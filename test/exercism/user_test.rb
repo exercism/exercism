@@ -86,6 +86,17 @@ class UserTest < Minitest::Test
     assert_equal 'old', user.avatar_url
   end
 
+  def test_from_github_unsets_old_duplicate_username
+    u1 = User.create(github_id: 23, username: 'alice')
+    u2 = User.from_github(31, 'alice', nil, nil).reload
+    assert_equal 'alice', u2.username
+    assert_equal '', u1.reload.username
+
+    # it doesn't overwrite it's own username next time
+    u3 = User.from_github(31, 'alice', nil, nil).reload
+    assert_equal 'alice', u3.username
+  end
+
   def test_locksmith_is_nitpicker
     locksmith = User.new
     def locksmith.locksmith?
