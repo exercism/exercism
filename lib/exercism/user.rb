@@ -28,15 +28,23 @@ class User < ActiveRecord::Base
   end
 
   def self.from_github(id, username, email, avatar_url)
-    conflict = User.where(username: username).first
-    user = User.where(github_id: id).first ||
-      User.new(github_id: id, email: email)
+    user = User.where(github_id: id).first
+    if user.nil?
+      # try to match an invitation that has been sent.
+      # GitHub ID will only be nil if the user has never logged in.
+      user = User.where(username: username, github_id: nil).first
+    end
+    if user.nil?
+      user = User.new(github_id: id, email: email)
+    end
 
     user.email      = email if !user.email
     user.username   = username
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url && !user.avatar_url
     track_event = user.new_record?
     user.save
+
+    conflict = User.where(username: username).first
     if conflict.present? && conflict.github_id != user.github_id
       conflict.username = ''
       conflict.save

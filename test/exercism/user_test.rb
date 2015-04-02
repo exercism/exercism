@@ -97,6 +97,13 @@ class UserTest < Minitest::Test
     assert_equal 'alice', u3.username
   end
 
+  def test_from_github_connects_invited_user
+    u1 = User.create(username: 'alice')
+    u2 = User.from_github(42, 'alice', 'alice@example.com', 'avatar').reload
+
+    assert_equal u1.id, u2.id
+  end
+
   def test_locksmith_is_nitpicker
     locksmith = User.new
     def locksmith.locksmith?
