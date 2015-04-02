@@ -28,8 +28,8 @@ For example, if you say `exercism fetch go clock`, then the CLI makes a call
 to http://x.exercism.io/problems/go/clock, and then uses that data to create
 the files on the user's computer.
 
-* website: https://github.com/exercism/exercism.io (Ruby, JavaScript)
-* problems API: https://github.com/exercism/x-api (Ruby)
+* website: https://github.com/exercism/exercism.io (Ruby using Sinatra, JavaScript using Angular)
+* problems API: https://github.com/exercism/x-api (Ruby using Sinatra)
 * command-line client: https://github.com/exercism/cli (Go)
 
 ## Languages and Practice Problems
