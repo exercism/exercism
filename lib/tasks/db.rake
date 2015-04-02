@@ -25,7 +25,6 @@ namespace :db do
 
   desc "set up your database"
   task :setup do
-    config = DB::Config.new
     sql = "CREATE USER #{config.username} PASSWORD '#{config.password}' " \
           'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
     system 'psql', '-h', config.host, '-c', sql
@@ -33,10 +32,16 @@ namespace :db do
   end
 
   desc "drop and recreate your database"
-  task :reset do
-    config = DB::Config.new
+  task reset: %i(drop create)
+
+  desc "drop your databas"
+  task :drop do
     system 'dropdb', '-h', config.host, config.database
-    system 'createdb', '-h', config.host, '-O', config.user, config.database
+  end
+
+  desc "create your database"
+  task :create do
+    system 'createdb', '-h', config.host, '-O', config.username, config.database
   end
 
   desc 'set the database up from scratch'
@@ -64,5 +69,9 @@ end
         f.puts text
       end
     end
+  end
+
+  def config
+    DB::Config.new
   end
 end
