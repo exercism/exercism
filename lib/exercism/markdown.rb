@@ -78,9 +78,7 @@ class Markdown < Redcarpet::Render::XHTML
     # XXX HACK: Redcarpet strips hard tabs out of code blocks,
     # so we assume you're not using leading spaces that aren't tabs,
     # and just replace them here.
-    if lexer.tag == 'make'
-      code.gsub! /^    /, "\t"
-    end
+    code.gsub! /^    /, "\t" if lexer.tag == 'make'
 
     formatter = Rouge::Formatters::HTML.new(
       css_class: "highlight #{lexer.tag}",
