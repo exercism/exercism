@@ -28,10 +28,9 @@ class User < ActiveRecord::Base
   end
 
   def self.from_github(id, username, email, avatar_url)
-    user = User.where("github_id = ? or username = ?", id, username).first ||
+    user = User.where("github_id = ? ", id).first ||
       User.new(github_id: id, email: email)
 
-    user.github_id  = id if !user.github_id
     user.email      = email if !user.email
     user.username   = username
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url && !user.avatar_url

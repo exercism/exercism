@@ -68,22 +68,6 @@ class UserTest < Minitest::Test
     assert_equal 'bob', user.username
   end
 
-  def test_update_user_if_username_present
-    User.create(username: 'alice')
-    user = User.from_github(23, 'alice', 'alice@example.com', 'avatar_url')
-    assert_equal 1, User.count
-    assert_equal 23, user.github_id
-    assert_equal 'alice', user.username
-    assert_equal 'alice@example.com', user.email
-    assert_equal 'avatar_url', user.avatar_url
-  end
-
-  def test_does_not_overwrite_github_id_if_present
-    User.create(github_id: 23, username: 'alice')
-    user = User.from_github(123, 'alice', nil, nil).reload
-    assert_equal 23, user.github_id
-  end
-
   def test_does_not_overwrite_email_if_present
     User.create(github_id: 23, email: 'alice@example.com')
     user = User.from_github(23, nil, 'new@example.com', nil).reload
