@@ -1,18 +1,20 @@
-$('#git_tree_content').on("select_node.jstree", function(e, data){
-  var git_node = data.node.data;
-  if(git_node.type === "file"){
-  $.ajax('blob/content', {
+$('#git-tree-content').on('select_node.jstree', function(e, data){
+  var gitNode = data.node.data;
+  var sha = gitNode.sha;
+  if(gitNode.type === 'file'){
+  $.ajax({
     type: 'get',
-    data: { sha: git_node.sha , key: key},
+    dataType: 'json',
+    url: '/submissions/'+key+'/blobs/'+sha,
     success : function(response) {
-      $("#git_code").html(response.data);
+      $('#git-code').html(response.data);
     },
-    error: function() {
-      alert("Error");
+    error: function(xhr, status, error) {
+      alert('Error' );
     }
   });
 }
 }).jstree({ 'core' : {
-  'data' : tree_content 
+  'data' : treeContent 
    } 
 });

@@ -35,11 +35,11 @@
     <% end %>
 
     <% if submission.user.source_type == 'GITHUB' %>
-      <div id="git_tree_content"></div>
-      <div id="git_code"></div>
+      <div id="git-tree-content"></div>
+      <div id="git-code"></div>
 
       <script>
-        var tree_content = <%= solution %>;
+        var treeContent = <%= solution %>;
         var key = "<%= params[:key] %>".toString();
       </script>
     <%else%>
