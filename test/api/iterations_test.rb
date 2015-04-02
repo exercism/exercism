@@ -9,6 +9,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def setup
+    super
     @alice = User.create!(username: 'alice', github_id: 1)
   end
 
