@@ -36,7 +36,7 @@ namespace :db do
   task :reset do
     config = DB::Config.new
     system 'dropdb', '-h', config.host, config.database
-    system 'createdb', '-h', config.host, '-O', config.user, config.database
+    system 'createdb', '-h', config.host, '-O', config.username, config.database
   end
 
   desc 'set the database up from scratch'
