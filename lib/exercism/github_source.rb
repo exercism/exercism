@@ -16,8 +16,8 @@ class GithubSource
     git_tree_source = Octokit.tree("#{submission.user.username}/#{submission.slug}",
                                     submission.solution.values.first, recursive: true)
     result = []
-    sorted_blobs = git_tree_source.tree.select{|node| node.type == 'blob'}
-    sorted_trees = git_tree_source.tree.select{|node| node.type == 'tree'}
+    sorted_blobs = git_tree_source.tree.select{ |node| node.type == "blob" }
+    sorted_trees = git_tree_source.tree.select{ |node| node.type == "tree" }
 
     (sorted_trees + sorted_blobs).each do |node|
       node_contents = {}
