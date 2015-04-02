@@ -21,11 +21,14 @@ module ExercismAPI
           halt 404, { error: message }.to_json
         end
 
-        exercise = UserExercise.where(
+        exercise_attrs = {
           user_id: current_user.id,
           language: language,
           slug: slug
-        ).first_or_initialize(iteration_count: 0, state: 'unstarted')
+        }
+
+        exercise = UserExercise.where(exercise_attrs)
+          .first_or_initialize(iteration_count: 0, state: 'unstarted')
 
         if exercise.new_record?
           exercise.save!
@@ -42,21 +45,26 @@ module ExercismAPI
       post '/user/assignments' do
         request.body.rewind
         data = request.body.read
+
         if data.empty?
-          halt 400, {error: "must send key and code as json"}.to_json
+          halt 400, { error: "must send key and code as json" }.to_json
         end
+
         data = JSON.parse(data)
         user = User.where(key: data['key']).first
+
         begin
           log_entry_body = data.merge(user_agent: request.user_agent).to_json
           LogEntry.create(
             user: user,
             key: data['key'],
-            body: log_entry_body)
+            body: log_entry_body
+          )
         rescue => e
           Bugsnag.notify(e)
           # ignore failures
         end
+
         unless user
           message = "unknown api key '#{data['key']}', "
           message << "please check your exercism.io account page and reconfigure"
@@ -72,7 +80,7 @@ module ExercismAPI
         attempt = Attempt.new(user, iteration)
 
         unless attempt.valid?
-          Bugsnag.before_notify_callbacks << lambda { |notif|
+          Bugsnag.before_notify_callbacks << lambda do |notif|
             data = {
               user: user.username,
               code: data['code'],
@@ -81,28 +89,33 @@ module ExercismAPI
               slug: attempt.slug,
             }
             notif.add_tab(:data, data)
-          }
+          end
 
           error = Attempt::InvalidAttemptError.new("Invalid attempt submitted")
           Bugsnag.notify(error)
 
-          error = "unknown problem (track: #{attempt.track}, slug: #{attempt.slug}, path: #{data['path']})"
-          halt 400, {error: error}.to_json
+          error = "unknown problem (track: #{attempt.track}, "
+          error << "slug: #{attempt.slug}, path: #{data['path']})"
+          halt 400, { error: error }.to_json
         end
 
         if attempt.duplicate?
-          halt 400, {error: "duplicate of previous iteration"}.to_json
+          halt 400, { error: "duplicate of previous iteration" }.to_json
         end
 
         attempt.save
+
         Notify.everyone(attempt.submission.reload, 'code', user)
+
         # if we don't have a 'fetched' event, we want to hack one in.
         LifecycleEvent.track('fetched', user.id)
         LifecycleEvent.track('submitted', user.id)
+
         # for now, let's just give rikki hamming exercises in Ruby.
         if attempt.track == 'ruby' && attempt.slug == 'hamming'
           Jobs::Analyze.perform_async(attempt.submission.key)
         end
+
         status 201
         locals = {
           submission: attempt.submission,
@@ -121,14 +134,20 @@ module ExercismAPI
         begin
           Unsubmit.new(current_user).unsubmit
         rescue Unsubmit::NothingToUnsubmit
-          halt 404, {error: "Nothing to unsubmit."}.to_json
+          message = "Nothing to unsubmit."
+          halt 404, { error: message }.to_json
         rescue Unsubmit::SubmissionHasNits
-          halt 403, {error: "The submission has nitpicks, so can't be deleted."}.to_json
+          message = "The submission has nitpicks, so can't be deleted."
+          halt 403, { error: message }.to_json
         rescue Unsubmit::SubmissionDone
-          halt 403, {error: "The submission has been already completed, so can't be deleted."}.to_json
+          message = "The submission has been already completed, "
+          message << "so can't be deleted."
+          halt 403, { error: message }.to_json
         rescue Unsubmit::SubmissionTooOld
-          halt 403, {error: "The submission is too old to be deleted."}.to_json
+          message = "The submission is too old to be deleted."
+          halt 403, {error: message }.to_json
         end
+
         status 204
       end
 
@@ -136,12 +155,14 @@ module ExercismAPI
         require_key
 
         if current_user.guest?
-          halt 401, {error: "Please double-check your exercism API key."}.to_json
+          message = "Please double-check your exercism API key."
+          halt 401, { error: message }.to_json
         end
 
-        submissions = current_user.exercises.order(:language, :slug).map {|exercise|
-          exercise.submissions.last
-        }.compact
+        exercises = current_user.exercises.order(:language, :slug)
+
+        submissions = exercises.map { |e| e.submissions.last }.compact
+
         pg :iterations, locals: {submissions: submissions}
       end
     end
