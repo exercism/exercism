@@ -28,7 +28,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def generate_attempt(code = 'CODE')
-    Attempt.new(alice, code, 'word-count/file.rb').save
+    Attempt.new(alice, Iteration.new('word-count/file.rb' => code)).save
   end
 
   attr_reader :alice, :bob
@@ -196,9 +196,9 @@ class SubmissionsTest < Minitest::Test
   def test_clicking_complete_on_earlier_version_completes_last_exercise
     data = {
       user: alice,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
     s1 = Submission.create(data.merge(state: 'superseded', created_at: Time.now - 5))
     s2 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 2))
@@ -244,13 +244,13 @@ class SubmissionsTest < Minitest::Test
   def test_reopen_exercise
     data = {
       user: alice,
-      code: 'code',
       slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
       state: 'done',
       created_at: Time.now - 2,
       done_at: Time.now
     }
-    s1 = Submission.create(data.merge(language: 'python'))
+    _ = Submission.create(data.merge(language: 'python'))
     s2 = Submission.create(data.merge(language: 'ruby'))
 
     post "/submissions/#{s2.key}/reopen", {}, login(alice)
@@ -263,9 +263,9 @@ class SubmissionsTest < Minitest::Test
   def test_must_be_owner_to_reopen_exercise
     data = {
       user: alice,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
     submission = Submission.create(data.merge(state: 'done', created_at: Time.now - 2, done_at: Time.now))
@@ -280,9 +280,9 @@ class SubmissionsTest < Minitest::Test
   def test_reopen_exercise_sets_latest_submission_to_pending
     data = {
       user: alice,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
     s1 = Submission.create(data.merge(state: 'superseded', created_at: Time.now - 10))
@@ -297,9 +297,9 @@ class SubmissionsTest < Minitest::Test
   def test_deleting_submission
     data = {
       user: alice,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
     sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
@@ -312,9 +312,9 @@ class SubmissionsTest < Minitest::Test
   def test_cant_delete_submission_user_doesnt_own
     data = {
       user: bob,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
     sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
@@ -325,12 +325,12 @@ class SubmissionsTest < Minitest::Test
   def test_delete_submission_decrements_version_number
     data = {
       user: bob,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
-    sub  = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10, version: 1))
+    _ = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10, version: 1))
     sub2 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10, version: 2))
     sub3 = Submission.create(data.merge(state: 'apples', created_at: Time.now - 10, version: 3))
     Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
@@ -342,9 +342,9 @@ class SubmissionsTest < Minitest::Test
   def test_redirects_to_index_page_after_deleting
     data = {
       user: bob,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
     sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
@@ -358,14 +358,14 @@ class SubmissionsTest < Minitest::Test
   def test_delete_superseeded_submission_does_not_change_state_of_prior_submission
     data = {
       user: bob,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
     sub  = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 10, version: 1))
     sub2 = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 9, version: 2))
-    sub3 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 8, version: 3))
+    _ = Submission.create(data.merge(state: 'pending', created_at: Time.now - 8, version: 3))
     Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
 
     delete "/submissions/#{sub2.key}", {}, login(bob)
@@ -375,12 +375,12 @@ class SubmissionsTest < Minitest::Test
   def test_delete_pending_submission_changes_state_of_prior_submission
     data = {
       user: bob,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
-    sub  = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 10, version: 1))
+    _ = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 10, version: 1))
     sub2 = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 9, version: 2))
     sub3 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 8, version: 3))
     Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
@@ -392,9 +392,9 @@ class SubmissionsTest < Minitest::Test
   def test_dependent_destroy_of_notifications
     data = {
       user: alice,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
     sub = Submission.create(data.merge(state: 'pending', created_at: Time.now - 10))
@@ -408,9 +408,9 @@ class SubmissionsTest < Minitest::Test
   def test_closing_exercise_for_submission_that_needs_input_changes_state_to_done
     data = {
       user: bob,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
     s1 = Submission.create(data.merge(state: 'needs_input', created_at: Time.now - 5))
@@ -424,10 +424,9 @@ class SubmissionsTest < Minitest::Test
   def test_posting_a_new_submission_changes_the_state_of_the_previous_submission
     data = {
       user: bob,
-      code: 'code',
       language: 'ruby',
       slug: 'word-count',
-      filename: 'word-count.rb',
+      solution: {'word-count.rb' => 'code'},
     }
 
     s1 = Submission.create(data.merge(state: 'needs_input', created_at: Time.now - 5))
@@ -442,9 +441,9 @@ class SubmissionsTest < Minitest::Test
   def test_redirects_to_submission_page_when_comment_like_or_mute_with_get
     data = {
       user: bob,
-      code: 'code',
       language: 'ruby',
-      slug: 'word-count'
+      slug: 'word-count',
+      solution: {'word-count.rb' => 'code'},
     }
 
     sub = Submission.create(data.merge(state: 'needs_input', created_at: Time.now - 5))
