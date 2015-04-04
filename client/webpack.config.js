@@ -7,6 +7,13 @@ module.exports = {
     path: '../lib/app/public/js',
     filename: 'bundle.js'
   },
+  module: {
+    preLoaders: [{
+      test: /\.js$/,
+      loader: 'jshint-loader',
+      exclude: ['./node_modules/', './bower_components/']
+    }]
+  },
   resolve: {
     root: ['./bower_components']
   },

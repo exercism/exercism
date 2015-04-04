@@ -26,6 +26,8 @@
     "gulp-livereload": "^3.8.0",
     "gulp-watch": "^4.2.2",
     "gulp-webpack-build": "^0.6.1",
+    "jshint": "^2.6.3",
+    "jshint-loader": "^0.8.3",
     "require-dir": "^0.3.0",
     "webpack": "^1.7.3"
   }
