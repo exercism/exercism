@@ -30,7 +30,7 @@ module.exports = {
     ),
     new webpack.DefinePlugin({
       getEnv: function() {
-        return 'production'
+        return 'test'
       }
     })
   ]

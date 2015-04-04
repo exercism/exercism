@@ -4,7 +4,9 @@
   "description": "Client application for exercism.io",
   "main": "app.js",
   "scripts": {
-    "test": "test"
+    "test": "karma run",
+    "test-e2e": "protractor protractor.config.js",
+    "e2e-dev": "protractor protractor.config.js --chrome"
   },
   "repository": {
     "type": "git",
@@ -20,15 +22,29 @@
   },
   "homepage": "http://exercism.io/",
   "devDependencies": {
+    "angular": "^1.3.15",
     "bower": "^1.4.1",
+    "css-loader": "^0.9.1",
     "gulp": "^3.8.11",
     "gulp-clean": "^0.3.1",
+    "gulp-karma": "0.0.4",
     "gulp-livereload": "^3.8.0",
+    "gulp-protractor": "0.0.12",
     "gulp-watch": "^4.2.2",
     "gulp-webpack-build": "^0.6.1",
+    "jasmine-core": "^2.2.0",
     "jshint": "^2.6.3",
     "jshint-loader": "^0.8.3",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-jasmine": "^0.3.5",
+    "karma-webpack": "^1.5.0",
+    "node-sass": "^2.1.1",
+    "protractor": "^2.0.0",
+    "raw-loader": "^0.5.1",
     "require-dir": "^0.3.0",
+    "sass-loader": "^0.6.0",
+    "style-loader": "^0.9.0",
     "webpack": "^1.7.3"
   }
 }

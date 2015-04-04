@@ -123,6 +123,8 @@ In the root application directory:
 * `gulp build` - bundle all the modules together and output `bundle.js` file into `./lib/app/public/js` directory
 * `gulp copy` - copy `bundle.js` and images to `lib/app/public/` directory
 * `gulp watch` - watch for changes in js/css/html files
+* `gulp test` - run karma tests
+* `gulp e2e` - run protractor end-to-end tests
 
 ### Deployment
 TODO
