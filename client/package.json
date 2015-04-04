@@ -1,0 +1,31 @@
+{
+  "name": "exercism.io",
+  "version": "0.0.1",
+  "description": "Client application for exercism.io",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/exercism/exercism.io"
+  },
+  "keywords": [
+    "exercism"
+  ],
+  "author": "",
+  "license": "GNU Affero General Public License",
+  "bugs": {
+    "url": "https://github.com/exercism/exercism.io/issues"
+  },
+  "homepage": "http://exercism.io/",
+  "devDependencies": {
+    "gulp": "^3.8.11",
+    "gulp-clean": "^0.3.1",
+    "gulp-livereload": "^3.8.0",
+    "gulp-watch": "^4.2.2",
+    "gulp-webpack-build": "^0.6.1",
+    "require-dir": "^0.3.0",
+    "webpack": "^1.7.3"
+  }
+}

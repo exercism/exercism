@@ -76,12 +76,8 @@ client/
           config.js
           index.js
         ...
-        app.js                              // main application file - entry point, requires all the needed modules
+        main.js                              // main application file - entry point, requires all the needed modules
         index.html                          // main html file - layout (we don't actually need it now)
-    dist/                                   // all the modules bundled together
-      bundle.js                             // actual bundled application - the only file that needs to be deployed into production
-      bundle.js.map
-      images/
     e2e/                                    // end-to-end tests, split into directories by modules, one file for one feature
       submissions/
         create_submission_spec.js           // spec testing creating of new submission
@@ -90,7 +86,7 @@ client/
         edit_submission_page.js
       helpers/                              // common functions neede in end-to-end tests
       ...
-    gulp/                                   // individual Gulp tasks required, one file = one task
+    tasks/                                   // individual Gulp tasks required, one file = one task
     node_modules/                           // installed node modules, not checked in to the repo
     .gitignore
     bower.json                              // Bower configuration
@@ -103,31 +99,30 @@ client/
 ## How it works
 
 Long story short (lots of details ommited):
-Client files are bundled into single js file by Webpack and together with any images moved into `client/dist/` folder,
-gulp task copies everything from this folder into `lib/app/public/` and `lib/app/views/layout.erb` then requires `bundle.js`
-file, which will load all needed dependencies. (NOTE: Find a way how to make webpack load only needed modules for current view).
+Client files are bundled into single js file by Webpack and together with any images moved into `./lib/app/public/js` folder,
+and `./lib/app/views/layout.erb` then requires `bundle.js` file, which will load all the needed dependencies. (NOTE: Find a
+way how to make webpack load only needed modules for current view).
 
 ## Development
 
 ### Prerequsities
 Installed NodeJS and npm
 
-In the root application directory:
-1. run `foreman start`
-
-In the `client/` directory:
+In the `./client` directory:
 run commands:
 1. `npm install` - install all npm dependencies
 2. `bower install` - install all bower dependencies
-3. `gulp` - run Gulp's default task (this will bundle all client side files into single file, copy it into `lib/app/public/` and start watching the files for changes NOTE: find out if we can somehow enable livereloding for development server)
+3. `gulp` - run Gulp's default task (this will bundle all client side files into single file, copy it into `./lib/app/public/js` and start watching the files with enabled live reloading)
+
+In the root application directory:
+1. run `foreman start`
 
 ### Tasks
-* `gulp` - default task, runs `gulp clean:dist`, gulp clean:public`, gulp build`, `gulp copy` and `gulp watch`
-* `gulp build` - bundle all the modules together and output `bundle.js` file into `client/dist/` directory
+* `gulp` - default task, runs `gulp clean`, `gulp build` and `gulp watch`
+* `gulp clean` - delete contents of `./lib/app/public` folder
+* `gulp build` - bundle all the modules together and output `bundle.js` file into `./lib/app/public/js` directory
 * `gulp copy` - copy `bundle.js` and images to `lib/app/public/` directory
-* `gulp watch` - watch for changes in js/css/html files (ideally we'll come up with a way hot to enable live reloading of the development server)
-* `gulp clean:dist` - delete contents of `client/dist/` folder
-* `gulp clean:public` - delete contents of `lib/app/public` folder
+* `gulp watch` - watch for changes in js/css/html files
 
 ### Deployment
 TODO
