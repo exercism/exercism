@@ -1,0 +1,20 @@
+{
+  "name": "exercism.io",
+  "version": "0.0.1",
+  "homepage": "http://exercism.io/",
+  "authors": [],
+  "description": "Exercism.io front end",
+  "moduleType": [
+    "amd",
+    "es6",
+    "globals",
+    "node",
+    "yui"
+  ],
+  "keywords": [
+    "exercism"
+  ],
+  "license": "GNU Affero General Public License",
+  "devDependencies": {
+  }
+}

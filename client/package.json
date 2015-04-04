@@ -20,6 +20,7 @@
   },
   "homepage": "http://exercism.io/",
   "devDependencies": {
+    "bower": "^1.4.1",
     "gulp": "^3.8.11",
     "gulp-clean": "^0.3.1",
     "gulp-livereload": "^3.8.0",
