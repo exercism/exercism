@@ -64,3 +64,9 @@ lib/app/public/css
 !.application.css
 !.styleguide.css
 /.project
+
+# client
+client/npm-debug.log
+client/node_modules
+client/bower_components
+lib/app/public/js/bundle.js
