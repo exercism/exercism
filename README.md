@@ -164,7 +164,8 @@ from their perspective.
 
 * Start the server with: `foreman s -p 4567`
 * Sometimes you need to: `bundle exec foreman s -p 4567`
-* Then you can log in at: [localhost:4567](http://localhost:4567)
+* Then you can access the local server at [localhost:4567](http://localhost:4567).
+* You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
 
 ## Frontend Development Setup
 
