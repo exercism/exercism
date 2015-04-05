@@ -91,10 +91,10 @@ For working on the backend you'll need both Ruby and PostgreSQL. Frontend develo
 
 To install Ruby, check out [RVM](https://rvm.io), [rbenv](https://github.com/sstephenson/rbenv) or [ruby-install](https://github.com/postmodern/ruby-install).
 
-PostgreSQL can be installed with [Homebrew](http://brew.sh) on Mac OS X: `brew install postgresql`  
+PostgreSQL can be installed with [Homebrew](http://brew.sh) on Mac OS X: `brew install postgresql`
 If you're on a Linux system with apt-get then run: `apt-get install postgresql postgresql-contrib`
 
-Install Node.js and npm on Mac OS X with Homebrew:  `brew install node`  
+Install Node.js and npm on Mac OS X with Homebrew:  `brew install node`
 On other systems see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
 ### GitHub OAuth
@@ -154,6 +154,11 @@ Alternatively (or to debug if the above blows up), do it one-by-one:
 * Run the database migrations: `rake db:migrate`
 * Fetch the seed data: `rake db:seeds:fetch`
 * Seed the database: `rake db:seed`
+
+The seed data gives you a bunch of fake user accounts with submissions in multiple languages as well
+as fake comments. In development mode there is an "Assume" menu item to the far right of the
+nav bar. This will let you easily assume different fake identities to see the site
+from their perspective.
 
 ### Run The Application
 
