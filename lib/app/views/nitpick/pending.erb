@@ -2,8 +2,12 @@
   <%= language_icon(language) %>
   Pending Submissions
 </h2>
-
 <hr/>
+<div class="label-counts">
+	<span class="label-count">Nits</span>
+	<span class="label-count">Revisions</span>
+</div>
+
 
 <% if submissions.any? %>
   <div class="pending-submissions">
