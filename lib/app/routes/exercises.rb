@@ -141,8 +141,8 @@ module ExercismWeb
         begin
           blob = Octokit.blob("#{submission.user.username}/#{submission.slug}",
                                params[:sha])
-          src_classifer = SourceClassifier.new(File.join(File.dirname(__FILE__), "../../../bin/",
-                                               "trainer.bin"))
+          src_classifer = SourceClassifier.new(File.join(File.dirname(__FILE__), 
+                                                "../../../bin/", "trainer.bin"))
           result =  Base64.decode64(blob.content)
           source_language = src_classifer.identify(result)
           marked_content = ConvertsMarkdownToHTML.convert("```#{source_language.downcase}\n
@@ -151,7 +151,7 @@ module ExercismWeb
           content.to_json
         rescue StandardError => e
           status 422
-          { "error_msg" => "#{e.message} - Invalid sha or key" }.to_json
+          { message: "#{e.message} - Invalid sha or key" }.to_json
         end  
       end
     end

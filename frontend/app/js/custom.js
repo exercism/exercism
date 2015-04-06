@@ -10,8 +10,8 @@ $('#git-tree-content').on('select_node.jstree', function(e, data){
       $('#git-code').html(response.data);
     },
     error: function(xhr, status, error) {
-      var err = JSON.parse(xhr.responseText);
-      alert('Error '+ err.error_msg);
+      var errorResponse = JSON.parse(xhr.responseText);
+      alert('Error '+ errorResponse.message);
     }
   });
 }
