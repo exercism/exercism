@@ -141,7 +141,7 @@ module ExercismWeb
         begin
           blob = Octokit.blob("#{submission.user.username}/#{submission.slug}",
                                params[:sha])
-          src_classifer = SourceClassifier.new(File.join(File.dirname(__FILE__), 
+          src_classifer = SourceClassifier.new(File.join(File.dirname(__FILE__),
                                                 "../../../bin/", "trainer.bin"))
           result =  Base64.decode64(blob.content)
           source_language = src_classifer.identify(result)
