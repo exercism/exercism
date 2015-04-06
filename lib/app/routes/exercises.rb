@@ -135,7 +135,7 @@ module ExercismWeb
         redirect "/"
       end
 
-      get '/submissions/:key/blobs/:sha' do
+      get '/submissions/:key/blobs/:sha', :provides => [:json] do
         content_type :json
         submission = Submission.find_by_key(params[:key])
         begin
@@ -149,8 +149,9 @@ module ExercismWeb
                                                             #{result}\n```")
           content = { data: marked_content } 
           content.to_json
-        rescue Exception => e
-          render json: { error_msg: "#{e.message}  - Invalid sha or key" }, status: 422
+        rescue StandardError => e
+          status 422
+          { "error_msg" => "#{e.message}  - Invalid sha or key" }.to_json
         end  
       end
     end
