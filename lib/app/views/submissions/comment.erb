@@ -11,7 +11,8 @@
         <%= "ng-init=\"data.body='#{ng_esc(nit.body)}'\"" if defined? nit %>></textarea>
     </tab>
     <tab heading="Preview" select="preview()">
-      <div class="preview" ng-bind-html-unsafe="data.preview"></div>
+      <div class="preview" ng-bind-html="data.preview">
+      </div>
       <hr>
     </tab>
   </tabset>

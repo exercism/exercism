@@ -7,7 +7,6 @@ module.exports = {
     path: '../lib/app/public/js',
     filename: 'bundle.js'
   },
-  devtool: 'eval',
   module: {
     loaders: [{
       test: /\.html$/,
@@ -31,7 +30,15 @@ module.exports = {
     ),
     new webpack.DefinePlugin({
       getEnv: function() {
-        return 'development'
+        return 'production'
+      }
+    }),
+    new ngAnnotatePlugin({
+      add: true
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
       }
     })
   ]
