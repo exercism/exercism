@@ -8,16 +8,16 @@ class GithubSource
   end
 
   def solution
-    (trees + blobs).map{ |node|  Node.new(node).get_hash }.to_json
+    (trees + blobs).map { |node|  Node.new(node).get_hash }.to_json
   end
 
   private 
 
   def blobs
-    tree_source.tree.select{ |node| node.type == "blob" }
+    tree_source.tree.select { |node| node.type == "blob" }
   end
 
   def trees
-    tree_source.tree.select{ |node| node.type == "tree" }
+    tree_source.tree.select { |node| node.type == "tree" }
   end
 end
