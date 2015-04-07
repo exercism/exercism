@@ -10,8 +10,8 @@ class GithubSource
 
   def solution
     Octokit.configure do |c|
-      c.login = 'SaiPramati'
-      c.password = 'pramati123'
+      c.login = "SaiPramati"
+      c.password = "pramati123"
     end
     result = []
 
@@ -27,7 +27,7 @@ class GithubSource
         parent = git_path_names.join("/")
       end
       node_contents[:parent] = parent
-      node_contents[:icon] = node.type.eql?('tree') ? '' : 'file'
+      node_contents[:icon] = node.type.eql?("tree") ? "" : "file"
       node_contents[:data] = { sha: node.sha, type: node_contents[:icon] }
       result << node_contents
     end
