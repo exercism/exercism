@@ -3,7 +3,7 @@ class GithubSource
 
   def initialize(submission)
     @submission = submission
-    @tree_source = Octokit.tree(submission.git_rep_info, submission.commit_id, 
+    @tree_source = Octokit.tree(submission.git_rep_info, submission.commit_id,
                                 recursive: true)
   end
 
