@@ -11,7 +11,7 @@ class GithubSource
     (trees + blobs).map { |node|  Node.new(node).get_hash }.to_json
   end
 
-  private 
+  private
 
   def blobs
     tree_source.tree.select { |node| node.type == "blob" }
