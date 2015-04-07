@@ -1,4 +1,4 @@
-require 'sourceclassifier'
+require "sourceclassifier"
 module ExercismWeb
   module Routes
     class Exercises < Core
@@ -140,13 +140,13 @@ module ExercismWeb
         submission = Submission.find_by_key(params[:key])
         begin
           blob = Octokit.blob("#{submission.user.username}/#{submission.slug}",
-                               params[:sha])
+                              params[:sha])
           src_classifer = SourceClassifier.new(File.join(File.dirname(__FILE__),
                                                 "../../../bin/", "trainer.bin"))
           result =  Base64.decode64(blob.content)
           source_language = src_classifer.identify(result)
           marked_content = ConvertsMarkdownToHTML.convert("```#{source_language.downcase}\n
-                                                            #{result}\n```")
+                                                          #{result}\n```")
           content = { data: marked_content }
           content.to_json
         rescue StandardError => e
