@@ -37,12 +37,12 @@ module ExercismWeb
         title("%s by %s in %s" % [submission.problem.name, submission.user.username, submission.problem.language])
         src_klass = submission.user.source_klass
         src_obj = src_klass.new(submission)
-          data = {
-            submission: submission,
-            next_submission: next_submission,
-            sharing: Sharing.new,
-            solution: src_obj.solution,
-          }
+        data = {
+          submission: submission,
+          next_submission: next_submission,
+          sharing: Sharing.new,
+          solution: src_obj.solution,
+        }
         erb :"submissions/show", locals: data
       end
 
@@ -135,7 +135,7 @@ module ExercismWeb
         redirect "/"
       end
 
-      get '/submissions/:key/blobs/:sha', :provides => [:json] do
+      get '/submissions/:key/blobs/:sha' do
         content_type :json
         submission = Submission.find_by_key(params[:key])
         begin
