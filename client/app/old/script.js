@@ -1,5 +1,4 @@
-//TODO move all variable declaration to the tops of functions.
-$(function() {
+!function() {
   $(".pending-submission, .work").each(function(index,element) {
     var elem = $(element);
 
@@ -90,4 +89,4 @@ $(function() {
     $(".mute-btn",elem).tooltip({ placement: "bottom", title: "Mute this submission until there is further activity." });
     $(".unmute-btn",elem).tooltip({ placement: "bottom", title: "Unmute this sumission." });
   });
-});
+}(this);

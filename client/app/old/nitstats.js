@@ -1,6 +1,5 @@
-$(function () {
+!function() {
   if ($('#nitstat-chart').length !== 0) {
-
     var stats = $('#nitstat-chart').data('stats');
 
     var data = {
@@ -22,12 +21,15 @@ $(function () {
          }
        ]
     };
+
     var ctx = $("#nitstat-chart").get(0).getContext("2d");
+
     new Chart(ctx).Line(data, {
       scaleOverride : true,
       scaleSteps : stats.steps,
       scaleStepWidth : stats.step,
       scaleStartValue : 0,
-      bezierCurve: false });
+      bezierCurve: false
+    });
   }
-});
+}(this);
