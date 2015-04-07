@@ -2,146 +2,157 @@
   <section class="page-header">
     <h1>Account</h1>
   </section>
-  <div class="row">
+  <article>
     <div class="col-md-8">
-      <h2>Teams</h2>
-      <% if profile.has_teams? %>
-        <ul class="nav nav-stacked nav-bordered">
-          <% profile.teams.each do |team| %>
-            <li>
-              <% if team.unconfirmed_members.include?(profile.user) %>
-                <ul class="list-inline">
-                  <li style="padding-left: 0;"><%= team.name %></li>
-                  <li>
-                    <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
-                      <input type="hidden" name="_method" value="put" />
-                      <input type="submit" name="update" value="Accept invitation" class="btn btn-xs btn-success"/>
-                    </form>
-                  </li>
-                  <li>
-                    <form action="<%= "/teams/#{team.slug}/leave" %>" method="post">
-                      <input type="hidden" name="_method" value="put" />
-                      <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger"/>
-                    </form>
-                  </li>
-                </ul>
-              <% else %>
-                <a href="/teams/<%= team.slug %>"><%= team.name %></a>
-              <% end %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-      <p/>
-      <p>Create a <a href="/teams">new team</a>.</p>
-
-      <h2>Exercises</h2>
-      <h4>Current</h4>
-      <% if profile.has_current_submissions? %>
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Exercise</th>
-              <th>Language</th>
-              <th>Current Iteration</th>
-              <th>Nits</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% profile.current.each do |submission| %>
-            <tr>
-              <td><%= profile.submission_link(submission) %></td>
-              <td><%= Language.of(submission.track_id) %></td>
-              <td><%= submission.version %></td>
-              <td><%= submission.nit_count %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p><%= profile.no_current_sumbissions_message %></p>
-      <% end %>
-
-      <% if profile.has_hibernating_submissions? %>
-        <h4>Hibernating</h4>
-        <p>To make a hibernating exercise active again, either comment on it, or submit a new iteration.</p>
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Exercise</th>
-              <th>Language</th>
-              <th>Current Iteration</th>
-              <th>Nits</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% profile.hibernating_submissions.each do |submission| %>
-            <tr>
-              <td><%= profile.submission_link(submission) %></td>
-              <td><%= Language.of(submission.track_id) %></td>
-              <td><%= submission.version %></td>
-              <td><%= submission.nit_count %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
-      <% end %>
-
-      <% if profile.has_completed_submissions? %>
-        <h4>Completed</h4>
-        <table class="table table-bordered table-striped">
-          <col />
-          <col width="100%" />
-          <thead>
-            <tr>
-              <th>Language</th>
-              <th>Exercises</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% profile.track_ids.each do |track_id| %>
-              <tr>
-                <td><%= Language.of(track_id) %></td>
-                <td>
-                  <% profile.completed_in(track_id).each do |submission| %>
-                    <span class="completed-exercise">
-                      <%= profile.submission_link(submission) %>
-                    </span>
+      <ul class="nav nav-pills nav-stacked col-md-4">
+        <li class="active"><a href="#teams_tab" data-toggle="pill">Teams</a></li>
+        <li><a href="#exercises_tab" data-toggle="pill">Exercises</a></li>
+        <li><a href="#settings_tab" data-toggle="pill">Settings</a></li>
+      </ul>
+      <div class="tab-content col-md-8">
+        <div class="tab-pane active" id="teams_tab">
+          <h2>Teams</h2>
+          <% if profile.has_teams? %>
+            <ul class="nav nav-stacked nav-bordered">
+              <% profile.teams.each do |team| %>
+                <li>
+                  <% if team.unconfirmed_members.include?(profile.user) %>
+                    <ul class="list-inline">
+                      <li style="padding-left: 0;"><%= team.name %></li>
+                      <li>
+                        <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
+                          <input type="hidden" name="_method" value="put" />
+                          <input type="submit" name="update" value="Accept invitation" class="btn btn-xs btn-success"/>
+                        </form>
+                      </li>
+                      <li>
+                        <form action="<%= "/teams/#{team.slug}/leave" %>" method="post">
+                          <input type="hidden" name="_method" value="put" />
+                          <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger"/>
+                        </form>
+                      </li>
+                    </ul>
+                  <% else %>
+                    <a href="/teams/<%= team.slug %>"><%= team.name %></a>
                   <% end %>
-                </td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
-      <% else %>
-        <p><%= profile.no_completed_sumbissions_message %></p>
-      <% end %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+          <p/>
+          <p>Create a <a href="/teams">new team</a>.</p>
+        </div>
 
-    </div>
+        <div class="tab-pane" id="exercises_tab">
+          <h2>Exercises</h2>
+          <h4>Current</h4>
+          <% if profile.has_current_submissions? %>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Exercise</th>
+                  <th>Language</th>
+                  <th>Current Iteration</th>
+                  <th>Nits</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% profile.current.each do |submission| %>
+                <tr>
+                  <td><%= profile.submission_link(submission) %></td>
+                  <td><%= Language.of(submission.track_id) %></td>
+                  <td><%= submission.version %></td>
+                  <td><%= submission.nit_count %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <p><%= profile.no_current_sumbissions_message %></p>
+          <% end %>
 
-    <div class="col-md-4">
-      <dl>
-        <dt>Api key:</dt>
-        <dd>
-          <%= current_user.key %>
-          <form action="/me/uuid/reset" method="post">
-            <input type="hidden" name="_method" value="put">
-            <input type="submit" value="reset" class="btn btn-default">
-          </form>
-        </dd>
-      </dl>
-      <p>You can update your <%= gravatar_tag current_user.avatar_url %> avatar on
-        <a href="https://github.com/settings/profile">GitHub</a>.</p>
-      <p>
-        The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
-        <form action="/account/email" method="post" class="form-inline">
-          <input type="hidden" name="_method" value="put" />
-          <div class="form-group">
-            <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" class="form-control" />
-            <input type="submit" name="update" value="Update" class="btn btn-default" />
-          </div>
-        </form>
-      </p>
+          <% if profile.has_hibernating_submissions? %>
+            <h4>Hibernating</h4>
+            <p>To make a hibernating exercise active again, either comment on it, or submit a new iteration.</p>
+            <table class="table table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>Exercise</th>
+                  <th>Language</th>
+                  <th>Current Iteration</th>
+                  <th>Nits</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% profile.hibernating_submissions.each do |submission| %>
+                <tr>
+                  <td><%= profile.submission_link(submission) %></td>
+                  <td><%= Language.of(submission.track_id) %></td>
+                  <td><%= submission.version %></td>
+                  <td><%= submission.nit_count %></td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% end %>
+
+          <% if profile.has_completed_submissions? %>
+            <h4>Completed</h4>
+            <table class="table table-bordered table-striped">
+              <col />
+              <col width="100%" />
+              <thead>
+                <tr>
+                  <th>Language</th>
+                  <th>Exercises</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% profile.track_ids.each do |track_id| %>
+                  <tr>
+                    <td><%= Language.of(track_id) %></td>
+                    <td>
+                      <% profile.completed_in(track_id).each do |submission| %>
+                        <span class="completed-exercise">
+                          <%= profile.submission_link(submission) %>
+                        </span>
+                      <% end %>
+                    </td>
+                  </tr>
+                <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <p><%= profile.no_completed_sumbissions_message %></p>
+          <% end %>
+        </div>
+
+        <div class="tab-pane" id="settings_tab">
+          <h2>Settings</h2>
+          <dl>
+            <dt>Api key:</dt>
+            <dd>
+              <%= current_user.key %>
+              <form action="/me/uuid/reset" method="post">
+                <input type="hidden" name="_method" value="put">
+                <input type="submit" value="reset" class="btn btn-default">
+              </form>
+            </dd>
+          </dl>
+          <p>You can update your <%= gravatar_tag current_user.avatar_url %> avatar on
+            <a href="https://github.com/settings/profile">GitHub</a>.</p>
+          <p>
+            The following email address will be used to send you notifications. If you do not want notifications, delete your email address and click update.
+            <form action="/account/email" method="post" class="form-inline">
+              <input type="hidden" name="_method" value="put" />
+              <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Email" value="<%= current_user.email %>" class="form-control" />
+                <input type="submit" name="update" value="Update" class="btn btn-default" />
+              </div>
+            </form>
+          </p>
+        </div>
+      </div>
     </div>
-  </div>
+  </article>
 </div>
