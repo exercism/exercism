@@ -45,11 +45,14 @@ require "exercism/language_track"
 require "exercism/user_lookup"
 require "exercism/db_source"
 require "exercism/github_source"
+require "exercism/node"
 require "pry" unless ENV["RACK_ENV"] == "production"
 
 require "db/connection"
 DB::Connection.establish
 require "exercism/active_record_citext"
+
+Github.configure_octokit
 
 class Exercism
   def self.root
