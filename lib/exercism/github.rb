@@ -37,9 +37,9 @@ module Github
   end
 
   def self.configure_octokit
-      Octokit.configure do |c|
-        c.login = 'SaiPramati'
-        c.password = 'pramati123'
-      end
+    Octokit.configure do |c|
+      c.login = 'SaiPramati'
+      c.password = 'pramati123'
     end
+  end
 end

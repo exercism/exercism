@@ -137,7 +137,7 @@ module ExercismWeb
 
       get '/submissions/:key/blobs/:sha' do
         content_type :json
-        submission = Submission.find_by_key(params[:key])
+        submission = Submission.find_by(key: params[:key])
         begin
           blob = Octokit.blob("#{submission.user.username}/#{submission.slug}",
                               params[:sha])
