@@ -48,7 +48,7 @@ class Node
     path_names.size == 1 
   end
 
-   def path_names
+  def path_names
     node.path.split("/")
   end
 end
