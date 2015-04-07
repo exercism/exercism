@@ -1,5 +1,5 @@
 !function() {
-  $('[data-toggle=tooltip').tooltip();
+  // $('[data-toggle=tooltip').tooltip();
   $('#feedback_guide').popover({
     content: $('#encourage').html(),
     html: true

@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
   context: __dirname,
@@ -7,6 +8,7 @@ module.exports = {
     path: '../lib/app/public/js',
     filename: 'bundle.js'
   },
+  devtool: 'source-map',
   module: {
     loaders: [{
       test: /\.html$/,
