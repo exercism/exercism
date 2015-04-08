@@ -43,7 +43,7 @@ class Node
     { id: id, parent: parent, icon: icon, data: data }
   end
 
- private
+  private
 
   def root_node?
     path_names.size == 1 
