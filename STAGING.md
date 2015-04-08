@@ -1,5 +1,34 @@
 # Staging Environment
 
+## Testing Stuff
+
+To configure the client to use the staging environment for submitting solutions,
+use the following command:
+
+    exercism configure --key=abc --host=http://exercism-theory.herokuapp.com --api=http://x.exercism.io
+
+You can also use a local copy of the x-api if you have specific problems you're testing there.
+Or we can add exercism-xapi-theory as well.
+
+## Deploying a branch to staging
+
+If you have a branch that you want to test on staging, you can push that branch
+to the remote master:
+
+    git push -f heroku my-branch:master
+
+## TODO
+
+We may want to tweak the app so we can set RACK_ENV=staging and perhaps have a
+specific header or different website colour (or at the very least a different
+favicon colour), just so that we don't accidentally go to staging thinking it's
+production.
+
+We may want to add seed data in staging; It downloads some flat files, which I'm
+not sure we can do. We'd have to try it.
+
+## Creating the staging environment
+
 This is a log of what I did in order to set up the staging environment.
 It's a work in progress, and mostly just a "note to self" type thing.
 
