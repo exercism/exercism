@@ -51,22 +51,6 @@ namespace :data do
   end
 
   namespace :migrate do
-    desc "allow multiple files in solutions"
-    task :solutions do
-      require 'active_record'
-      require 'db/connection'
-      DB::Connection.establish
-      require 'json'
-      require './lib/exercism/submission'
-      require './lib/exercism/user'
-
-      Submission.where(solution: 'null').find_each do |submission|
-        submission.solution = {submission.filename => submission.code}
-        submission.save
-        puts "updated submission %d" % submission.id
-      end
-    end
-
     desc "migrate deprecated problems"
     task :deprecated_problems do
       require 'bundler'
