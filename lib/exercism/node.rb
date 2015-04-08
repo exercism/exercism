@@ -10,7 +10,6 @@
 # "[{\"id\":\"README.txt\",\"parent\":\"#\",\"icon\":\"file\",
 #    \"data\":{\"sha\":\"e69de29bb2d1d6434b8b29ae775ad8c2e48c5391\",
 #    \"type\":\"file\"}}]"
-
 class Node
   attr_reader :node
 
@@ -53,4 +52,3 @@ class Node
     node.path.split("/")
   end
 end
-
