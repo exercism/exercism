@@ -135,7 +135,7 @@ module ExercismWeb
         redirect "/"
       end
 
-      get '/submissions/:key/blobs/:sha' do
+      get "/submissions/:key/blobs/:sh" do
         content_type :json
         submission = Submission.find_by(key: params[:key])
         begin
