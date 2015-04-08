@@ -32,7 +32,7 @@ class Node
   end
 
   def icon
-    node.type.eql?('tree') ? '' : 'file'
+    node.type.eql?("tree") ? "" : "file"
   end
 
   def data
@@ -46,7 +46,7 @@ class Node
   private
 
   def root_node?
-    path_names.size == 1 
+    path_names.size == 1
   end
 
   def path_names

@@ -152,7 +152,7 @@ module ExercismWeb
         rescue StandardError => e
           status 422
           { message: "#{e.message} - Invalid sha or key" }.to_json
-        end  
+        end
       end
     end
   end
