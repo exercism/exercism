@@ -69,6 +69,4 @@ lib/app/public/css
 client/npm-debug.log
 client/node_modules
 client/bower_components
-lib/app/public/js/bundle.js
-lib/app/public/js/bundle.js.map
 npm-debug.log
