@@ -49,7 +49,7 @@ client/
             top_nav_directive.spec.js
             top_nav.scss
             logo.png
-            index.js                        // every module needs index.js so we can load it as
+            index.js                        // every module needs index.js so we can load it as one
           /comment_box
             comment_box.tmpl.html
             comment_box_directive.js
@@ -84,10 +84,10 @@ client/
         create_submission_page.js           // helper page object
         edit_submission_spec.js
         edit_submission_page.js
-      helpers/                              // common functions neede in end-to-end tests
+      helpers/                              // common functions needed in end-to-end tests
       ...
     tasks/                                   // individual Gulp tasks required, one file = one task
-    node_modules/                           // installed node modules, not checked in to the repo
+    node_modules/                           // installed node modules, not checked in to git
     .gitignore
     bower.json                              // Bower configuration
     gulpfile.js                             // Gulp configuration
@@ -106,15 +106,17 @@ way how to make webpack load only needed modules for current view).
 ## Development
 
 ### Prerequsities
-Installed NodeJS and npm
+Installed NodeJS and npm. Instructions can be found [here](http://blog.nodeknockout.com/post/65463770933/how-to-install-node-js-and-npm).
 
 In the `./client` directory:
 run commands:
+
 1. `npm install` - install all npm dependencies
 2. `bower install` - install all bower dependencies
 3. `gulp` - run Gulp's default task (this will bundle all client side files into single file, copy it into `./lib/app/public/js` and start watching the files with enabled live reloading)
 
 In the root application directory:
+
 1. run `foreman start`
 
 ### Tasks
@@ -142,12 +144,18 @@ TODO
 
 ### Styles
 
-## Usefull resources
-* https://github.com/johnpapa/angular-styleguide
-* https://github.com/johnpapa/ng-demos/tree/master/modular
-* https://github.com/petehunt/webpack-howto
-* http://labs.bench.co/2015/1/21/componentized-angular
-* http://www.reddit.com/r/angularjs/comments/252z6x/what_are_best_practices_for_bundling_angularjs/
-* https://egghead.io/ (partialy paid)
-* https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1
-* http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml
+## Useful resources
+
+### AngularJS
+* [AngularJS styleguide](https://github.com/johnpapa/angular-styleguide)
+* [AngularJS modular demo](https://github.com/johnpapa/ng-demos/tree/master/modular)
+* [Guide to componentized AngularJS](http://labs.bench.co/2015/1/21/componentized-angular)
+* [Google's AngularJS app structure best practices](https://docs.google.com/document/d/1XXMvReO8-Awi1EZXAXS4PzDzdNvV6pGcuaF4Q9821Es/mobilebasic?pli=1)
+* [Egghead tutorials](https://egghead.io/) (partially paid)
+
+### Webpack
+* [Webpack guide](https://github.com/petehunt/webpack-howto)
+* [AngularJS bundling best practices](http://www.reddit.com/r/angularjs/comments/252z6x/what_are_best_practices_for_bundling_angularjs/)
+
+### JavaScript
+* [Google's JavaScript styleguide](http://google-styleguide.googlecode.com/svn/trunk/javascriptguide.xml)
