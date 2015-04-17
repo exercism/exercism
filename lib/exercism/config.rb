@@ -40,23 +40,5 @@ class Exercism
         vbnet: 'VB.NET',
       }
     end
-
-    def self.languages
-      @languages ||= tracks.select {|slug, name|
-        %i(
-          clojure coffeescript csharp cpp elixir erlang
-          fsharp go haskell javascript lua lisp objective-c
-          ocaml perl5 plsql python ruby scala swift
-        ).include?(slug)
-      }
-    end
-
-    def self.current
-      languages.values
-    end
-
-    def self.upcoming
-      ['D', 'ECMAScript', 'Java', 'Rust', 'PHP'] - current
-    end
   end
 end
