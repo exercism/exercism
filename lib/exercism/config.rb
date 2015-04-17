@@ -34,6 +34,7 @@ class Exercism
         ruby: 'Ruby',
         rust: 'Rust',
         scala: 'Scala',
+        scheme: 'Scheme',
         sml: 'Standard ML',
         swift: 'Swift',
         vbnet: 'VB.NET',
