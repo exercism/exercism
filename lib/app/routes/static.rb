@@ -17,6 +17,18 @@ module ExercismWeb
         erb :"site/about", locals: {active_languages: active_languages, upcoming_languages: upcoming_languages, planned_languages: planned_languages}
       end
 
+      get '/submitter-workflow' do
+         erb :"site/submitter-workflow",locals: { active_languages: active_languages }
+      end
+
+      get '/reviewer-workflow' do
+         erb :"site/reviewer-workflow"#,locals: { active_languages: active_languages }
+      end
+
+      get '/nitpicking-code' do
+         erb :"site/nitpicking-code"
+      end
+
       get '/getting-started' do
         erb :"site/getting-started", locals: {active_languages: active_languages}
       end
