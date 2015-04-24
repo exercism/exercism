@@ -16,20 +16,22 @@ class CodeAnalyzer
     if options[:language].strip.empty?
       CodeAnalyzer.new(options)
     else
-      const_get(options[:language].strip.capitalize).new(options)
+      const_get(options[:language].strip.capitalize).new(options) rescue CodeAnalyzer.new(options)
     end
   end
 end
 
 class Ruby < CodeAnalyzer
   def run
-    file_name = "#{settings.root}/rubocop_tmp/test_#{user.id}.rb"
-    rubocop_code_file = File.new(file_name, "w+")
-    rubocop_code_file.write code
-    rubocop_code_file.rewind
-    analysis = `rubocop "#{rubocop_code_file.path}"`
-    File.delete rubocop_code_file.path
-    analysis
+    unless ENV.fetch('RACK_ENV') == "test"
+      file_name = "#{settings.root}/rubocop_tmp/test_#{user.id}.rb"
+      rubocop_code_file = File.new(file_name, "w+")
+      rubocop_code_file.write code
+      rubocop_code_file.rewind
+      analysis = `rubocop "#{rubocop_code_file.path}"`
+      File.delete rubocop_code_file.path
+      analysis
+    end
   end
 end
 
