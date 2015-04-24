@@ -46,6 +46,7 @@ require "exercism/user_lookup"
 require "exercism/db_source"
 require "exercism/github_source"
 require "exercism/node"
+require "exercism/code_analyzer"
 require "pry" unless ENV["RACK_ENV"] == "production"
 
 require "db/connection"

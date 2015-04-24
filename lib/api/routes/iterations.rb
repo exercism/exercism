@@ -48,19 +48,12 @@ module ExercismAPI
           MESSAGE
           halt 401, {error: message}.to_json
         end
-        # rubocop code analysis start
-        rubocop_code_file = File.new("#{settings.root}/rubocop_tmp/test_#{user.id}.rb", "w+")
-        rubocop_code_file.write data["code"]
-        rubocop_code_file.rewind
-        analysis = `rubocop "#{rubocop_code_file.path}"`
-        File.delete rubocop_code_file.path
-        # rubocop code ends
         solution = data['solution']
         if solution.nil?
           solution = {data['path'] => data['code']}
         end
         opts = {
-          code_analysis: analysis,
+          code_analysis: CodeAnalyzer.build({ language: data['language'], code:  data['code'] }).run,
           test_analysis: data["test_analysis"],
           track: data["language"],
           slug: data["problem"]

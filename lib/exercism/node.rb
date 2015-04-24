@@ -17,16 +17,21 @@ class Node
     @node = node
   end
 
-  def id
+  def text
     path_names.last
   end
-  
+
+  def id
+    node.path
+  end
+
   def parent
     if root_node?
       "#"
     else
-      path_names.pop
-      path_names.join("/")
+      names = path_names
+      names.pop
+      names.join("/")
     end
   end
 
@@ -39,10 +44,8 @@ class Node
   end
 
   def get_hash
-    { id: id, parent: parent, icon: icon, data: data }
+    { id: id, parent: parent, icon: icon, data: data, text: id }
   end
-
-  private
 
   def root_node?
     path_names.size == 1
