@@ -23,7 +23,8 @@ end
 
 class Ruby < CodeAnalyzer
   def run
-    rubocop_code_file = File.new("#{settings.root}/rubocop_tmp/test_#{user.id}.rb", "w+")
+    file_name = "#{settings.root}/rubocop_tmp/test_#{user.id}.rb"
+    rubocop_code_file = File.new(file_name,"w+")
     rubocop_code_file.write code
     rubocop_code_file.rewind
     analysis = `rubocop "#{rubocop_code_file.path}"`
