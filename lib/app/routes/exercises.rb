@@ -143,7 +143,7 @@ module ExercismWeb
                               params[:sha])
           src_classifer = SourceClassifier.new(File.join(File.dirname(__FILE__),
                                                 "../../../bin/", "trainer.bin"))
-          result =  Base64.decode64(blob.content)
+          result = Base64.decode64(blob.content)
           source_language = src_classifer.identify(result)
           marked_content = ConvertsMarkdownToHTML.convert("```#{source_language.downcase}\n
                                                           #{result}\n```")

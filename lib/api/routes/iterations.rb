@@ -53,7 +53,8 @@ module ExercismAPI
           solution = {data['path'] => data['code']}
         end
         opts = {
-          code_analysis: CodeAnalyzer.build({ language: data['language'], code:  data['code'] }).run,
+          code_analysis: CodeAnalyzer.build({ language: data["language"],
+                                              code: data["code"] }).run,
           test_analysis: data["test_analysis"],
           track: data["language"],
           slug: data["problem"]

@@ -8,7 +8,7 @@ class GithubSource
   end
 
   def solution
-    (trees + blobs).map { |node|  Node.new(node).get_hash }.to_json
+    (trees + blobs).map { |node| Node.new(node).get_hash }.to_json
   end
 
   private

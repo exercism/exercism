@@ -1,9 +1,10 @@
 class CodeAnalyzer
   attr_reader :language, :code, :commit_id
+
   def initialize(options = {})
     @language = options[:language]
     @code = options[:code]
-    @commit_id =  options[:commit_id]
+    @commit_id = options[:commit_id]
   end
 
   def run
