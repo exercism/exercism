@@ -38,6 +38,7 @@ class User < ActiveRecord::Base
       user = User.new(github_id: id, email: email)
     end
 
+    user.github_id  = id
     user.email      = email if !user.email
     user.username   = username
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url && !user.avatar_url
