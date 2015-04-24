@@ -1,6 +1,5 @@
 class CodeAnalyzer
   attr_reader :language, :code, :commit_id
-
   def initialize(options = {})
     @language = options[:language]
     @code = options[:code]
@@ -8,7 +7,7 @@ class CodeAnalyzer
   end
 
   def run
-    '---common---'
+    "---common---"
   end
 
   def self.build(options = {})
@@ -34,6 +33,6 @@ end
 
 class Java < CodeAnalyzer
   def run
-    '---java---'
+    "---java---"
   end
 end
