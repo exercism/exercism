@@ -8,5 +8,5 @@ require 'rack/test'
 require 'rack-flash'
 
 require 'api'
+require_relative './tracks_helper'
 require_relative './app_test_helper'
-
