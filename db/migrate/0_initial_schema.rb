@@ -7,7 +7,7 @@ class InitialSchema < ActiveRecord::Migration
       t.text     :body
       t.text     :html_body
 
-      t.timestamps
+      t.timestamps               null: false
     end
 
     create_table :notifications do |t|
@@ -19,7 +19,7 @@ class InitialSchema < ActiveRecord::Migration
       t.boolean  :read
       t.integer  :count,         null: false, default: 0
 
-      t.timestamps
+      t.timestamps               null: false
     end
 
     create_table :submissions do |t|
@@ -37,7 +37,7 @@ class InitialSchema < ActiveRecord::Migration
       t.integer  :user_exercise_id
       t.string   :filename
 
-      t.timestamps
+      t.timestamps                null: false
     end
     add_index :submissions, :key
     add_index :submissions, :user_exercise_id
@@ -51,7 +51,7 @@ class InitialSchema < ActiveRecord::Migration
 
       t.text :mastery
 
-      t.timestamps
+      t.timestamps null: false
     end
     add_index :users, :username
 
@@ -60,7 +60,7 @@ class InitialSchema < ActiveRecord::Migration
       t.string  :slug,       null: false
       t.string  :name
 
-      t.timestamps
+      t.timestamps           null: false
     end
 
     add_index :teams, :slug, unique: true
@@ -70,14 +70,14 @@ class InitialSchema < ActiveRecord::Migration
       t.integer :user_id, null: false
       t.boolean :confirmed
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :submission_viewers do |t|
       t.integer :submission_id, null: false
       t.integer :viewer_id, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     add_index :submission_viewers, [:submission_id, :viewer_id], unique: true, name: 'by_submission'
@@ -86,20 +86,20 @@ class InitialSchema < ActiveRecord::Migration
       t.integer :submission_id, null: false
       t.integer :user_id, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :likes do |t|
       t.integer :submission_id, null: false
       t.integer :user_id, null: false
 
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :log_entries do |t|
       t.integer  :user_id
       t.text     :body
-      t.timestamps
+      t.timestamps null: false
     end
 
     create_table :user_exercises do |t|
@@ -111,7 +111,7 @@ class InitialSchema < ActiveRecord::Migration
       t.timestamp :completed_at
       t.string    :key
 
-      t.timestamps
+      t.timestamps                null: false
     end
 
     add_index :user_exercises, :user_id
@@ -125,7 +125,7 @@ class InitialSchema < ActiveRecord::Migration
       t.string    :url
       t.string    :link_text
       t.boolean   :read
-      t.timestamps
+      t.timestamps                null: false
     end
 
     add_index :alerts, :user_id
