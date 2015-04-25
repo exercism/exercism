@@ -37,7 +37,7 @@ namespace :db do
   desc "drop and recreate your database"
   task reset: %i(drop create)
 
-  desc "drop your databas"
+  desc "drop your database"
   task :drop do
     system 'dropdb', '-h', config.host, config.database
     raise "Failed to drop database" unless $?.success?
