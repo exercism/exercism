@@ -26,7 +26,8 @@ namespace :db do
 
     config = DB::Config.new
     system({ 'PGPASSWORD' => config.password },
-           'psql', '-h', config.host, '-U', config.username,
+           'psql', '-h', config.host, '-p', config.port,
+                   '-U', config.username,
                    '-d', config.database, '-f', 'db/seeds.sql')
 
     # Trigger generation of html body

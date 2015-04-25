@@ -17,8 +17,8 @@ module DB
       @file = file
     end
 
-    %i(database host password username).each do |field|
-      define_method(field) { options[field.to_s] }
+    %i(database host password username port).each do |field|
+      define_method(field) { options[field.to_s].to_s }
     end
 
     def options

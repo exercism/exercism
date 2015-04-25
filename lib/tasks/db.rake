@@ -25,10 +25,14 @@ namespace :db do
 
   desc "set up your database"
   task :setup do
-    sql = "CREATE USER #{config.username} PASSWORD '#{config.password}' " \
-          'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
-    system 'psql', '-h', config.host, '-p', config.port, '-c', sql
-    raise "Failed to create database user" unless $?.success?
+    # Only create user if it doesn't already exist
+    query_result = ActiveRecord::Base.connection.execute("SELECT 1 FROM pg_user WHERE usename = '#{config.username}';")
+    if query_result.ntuples == 0
+      sql = "CREATE USER #{config.username} PASSWORD '#{config.password}' " \
+            'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
+      system 'psql', '-h', config.host, '-p', config.port, '-c', sql
+    end
+
     system 'createdb', '-h', config.host, '-p', config.port, '-O', config.username, config.database
     raise "Failed to create database" unless $?.success?
   end
