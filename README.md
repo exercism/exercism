@@ -148,6 +148,8 @@ has all the correct tables. Also run a script to add fake data, so there are thi
 
 * Do all of it in one go: `rake db:from_scratch`
 
+Please note that this will call `psql`, and `createdb`. If you need to set PostgreSQL parameters like the user, port, and/or database used during setup, set `PGUSER`, `PGPORT`, and/or `PGDATABASE` environment values respectively. Example: `PGUSER=pgsql PGPORT=6543 PGDATABASE=postgres rake db:from_scratch`
+
 Alternatively (or to debug if the above blows up), do it one-by-one:
 
 * Create the PostgreSQL database: `rake db:setup`
