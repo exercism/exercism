@@ -23,7 +23,7 @@ class ExtractsMentionsFromMarkdown
   end
 
   def html_content_without_code
-    html_content = Markdown.render(@content)
+    html_content = ExercismLib::Markdown.render(@content)
     dom = Nokogiri::HTML(html_content)
     dom.css("code").remove
     dom.css("td[class='code']").remove

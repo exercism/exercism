@@ -1,6 +1,6 @@
 language: ruby
 rvm:
-  - 2.2.1
+  - 2.2.2
 script:
   - 'createuser exercism --superuser && createdb -O exercism exercism_test'
   - 'RACK_ENV=test CI=1 bundle exec rake db:migrate test_with_coverage'

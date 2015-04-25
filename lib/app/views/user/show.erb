@@ -8,28 +8,7 @@
       <h3>Exercises</h3>
       <h4>Current</h4>
       <% if profile.has_current_submissions? %>
-        <table class="table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Exercise</th>
-              <th>Language</th>
-              <th>Iteration</th>
-              <th>Nits</th>
-              <th>Date Submitted</th>
-            </tr>
-          </thead>
-          <tbody>
-          <% profile.current.each do |submission| %>
-            <tr>
-              <td><%= profile.submission_link(submission) %></td>
-              <td><%= submission.problem.language %></td>
-              <td><%= submission.version %></td>
-              <td><%= submission.nit_count %></td>
-              <td><%= submission.created_at.strftime("%m-%d-%Y") %></td>
-            </tr>
-          <% end %>
-          </tbody>
-        </table>
+        <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.current } %>
       <% else %>
         <p><%= profile.no_current_sumbissions_message %></p>
       <% end %>

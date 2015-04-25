@@ -3,6 +3,7 @@ node track_id: submission.track_id
 node language: submission.problem.language
 node slug: submission.slug
 node name: submission.problem.name
+node iteration: submission.version
 
 # deprecated
 node id: submission.key

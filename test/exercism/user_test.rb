@@ -101,7 +101,10 @@ class UserTest < Minitest::Test
     u1 = User.create(username: 'alice')
     u2 = User.from_github(42, 'alice', 'alice@example.com', 'avatar').reload
 
-    assert_equal u1.id, u2.id
+    u1.reload
+
+    assert_equal u2.id, u1.id
+    assert_equal 42, u1.github_id
   end
 
   def test_locksmith_is_nitpicker

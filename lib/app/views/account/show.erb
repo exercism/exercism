@@ -47,26 +47,7 @@
           <h2>Exercises</h2>
           <h4>Current</h4>
           <% if profile.has_current_submissions? %>
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Exercise</th>
-                  <th>Language</th>
-                  <th>Current Iteration</th>
-                  <th>Nits</th>
-                </tr>
-              </thead>
-              <tbody>
-              <% profile.current.each do |submission| %>
-                <tr>
-                  <td><%= profile.submission_link(submission) %></td>
-                  <td><%= Language.of(submission.track_id) %></td>
-                  <td><%= submission.version %></td>
-                  <td><%= submission.nit_count %></td>
-                </tr>
-              <% end %>
-              </tbody>
-            </table>
+            <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.current } %>
           <% else %>
             <p><%= profile.no_current_sumbissions_message %></p>
           <% end %>
@@ -74,26 +55,7 @@
           <% if profile.has_hibernating_submissions? %>
             <h4>Hibernating</h4>
             <p>To make a hibernating exercise active again, either comment on it, or submit a new iteration.</p>
-            <table class="table table-bordered table-striped">
-              <thead>
-                <tr>
-                  <th>Exercise</th>
-                  <th>Language</th>
-                  <th>Current Iteration</th>
-                  <th>Nits</th>
-                </tr>
-              </thead>
-              <tbody>
-              <% profile.hibernating_submissions.each do |submission| %>
-                <tr>
-                  <td><%= profile.submission_link(submission) %></td>
-                  <td><%= Language.of(submission.track_id) %></td>
-                  <td><%= submission.version %></td>
-                  <td><%= submission.nit_count %></td>
-                </tr>
-              <% end %>
-              </tbody>
-            </table>
+            <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.hibernating_submissions } %>
           <% end %>
 
           <% if profile.has_completed_submissions? %>
