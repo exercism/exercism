@@ -34,58 +34,59 @@ def hyperlink_mentions!(node)
   end
 end
 
-class Markdown < Redcarpet::Render::XHTML
+module ExercismLib
+  class Markdown < Redcarpet::Render::XHTML
 
-  def self.render(content)
-    renderer = new(renderer_options)
-    markdown = Redcarpet::Markdown.new(renderer, options)
-    markdown.render(content)
-  end
-
-  def self.renderer_options
-    {
-      hard_wrap: true
-    }
-  end
-
-  def self.options
-    {
-      fenced_code_blocks: true,
-      no_intra_emphasis: true,
-      autolink: true,
-      strikethrough: true,
-      lax_html_blocks: true,
-      superscript: true,
-      tables: true,
-      space_after_headers: true,
-      xhtml: true
-    }
-  end
-
-  def postprocess(html_content)
-    dom = Nokogiri::HTML(html_content)
-    body = dom.css("body").first
-    if body
-      hyperlink_mentions! body
-      return body.inner_html
+    def self.render(content)
+      renderer = new(renderer_options)
+      markdown = Redcarpet::Markdown.new(renderer, options)
+      markdown.render(content)
     end
-    ""
+
+    def self.renderer_options
+      {
+        hard_wrap: true
+      }
+    end
+
+    def self.options
+      {
+        fenced_code_blocks: true,
+        no_intra_emphasis: true,
+        autolink: true,
+        strikethrough: true,
+        lax_html_blocks: true,
+        superscript: true,
+        tables: true,
+        space_after_headers: true,
+        xhtml: true
+      }
+    end
+
+    def postprocess(html_content)
+      dom = Nokogiri::HTML(html_content)
+      body = dom.css("body").first
+      if body
+        hyperlink_mentions! body
+        return body.inner_html
+      end
+      ""
+    end
+
+    def block_code(code, language)
+      lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::PlainText
+
+      # XXX HACK: Redcarpet strips hard tabs out of code blocks,
+      # so we assume you're not using leading spaces that aren't tabs,
+      # and just replace them here.
+      code.gsub!(/^    /, "\t") if lexer.tag == 'make'
+
+      formatter = Rouge::Formatters::HTML.new(
+        css_class: "highlight #{lexer.tag}",
+        line_numbers: true
+      )
+
+      formatter.format(lexer.lex(code))
+    end
   end
-
-  def block_code(code, language)
-    lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::PlainText
-
-    # XXX HACK: Redcarpet strips hard tabs out of code blocks,
-    # so we assume you're not using leading spaces that aren't tabs,
-    # and just replace them here.
-    code.gsub! /^    /, "\t" if lexer.tag == 'make'
-
-    formatter = Rouge::Formatters::HTML.new(
-      css_class: "highlight #{lexer.tag}",
-      line_numbers: true
-    )
-
-    formatter.format(lexer.lex(code))
-  end
-
 end
