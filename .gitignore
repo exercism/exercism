@@ -22,6 +22,7 @@ tmp
 db/seeds.sql
 db/schema.sql
 db/migrations.sql
+config/database.yml
 
 # JavaScript
 node_modules

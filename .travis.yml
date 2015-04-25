@@ -3,6 +3,7 @@ rvm:
   - 2.2.2
 script:
   - 'createuser exercism --superuser && createdb -O exercism exercism_test'
+  - 'cp config/database.example.yml config/database.yml'
   - 'RACK_ENV=test CI=1 bundle exec rake db:migrate test_with_coverage'
   - '( cd frontend && npm install && lineman spec-ci )'
   - "! git grep ' $' -- \\*.rb"
