@@ -28,8 +28,11 @@ namespace :db do
     sql = "CREATE USER #{config.username} PASSWORD '#{config.password}' " \
           'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
     system 'psql', '-h', config.host, '-c', sql
+    raise "Failed to create database user" unless $?.success?
     system 'createdb', '-h', config.host, '-O', config.username, config.database
+    raise "Failed to create database" unless $?.success?
   end
+
 
   desc "drop and recreate your database"
   task reset: %i(drop create)
@@ -37,11 +40,13 @@ namespace :db do
   desc "drop your databas"
   task :drop do
     system 'dropdb', '-h', config.host, config.database
+    raise "Failed to drop database" unless $?.success?
   end
 
   desc "create your database"
   task :create do
     system 'createdb', '-h', config.host, '-O', config.username, config.database
+    raise "Failed to create database" unless $?.success?
   end
 
   desc 'set the database up from scratch'
