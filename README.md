@@ -163,6 +163,9 @@ Alternatively (or to debug if the above blows up), do it one-by-one:
 * Fetch the seed data: `rake db:seeds:fetch`
 * Seed the database: `rake db:seed`
 
+The setup task will create a PostgreSQL user called exercism with super user permissions.
+If you want to avoid this you may create a user manually and add the needed extensions manually as well.
+
 The seed data gives you a bunch of fake user accounts with submissions in multiple languages as well
 as fake comments. In development mode there is an "Assume" menu item to the far right of the
 nav bar. This will let you easily assume different fake identities to see the site
