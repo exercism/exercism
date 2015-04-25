@@ -4,7 +4,7 @@ class CreateLooks < ActiveRecord::Migration
       t.integer  :user_id,       null: false
       t.integer  :exercise_id,   null: false
 
-      t.timestamps
+      t.timestamps               null: false
     end
   end
 end

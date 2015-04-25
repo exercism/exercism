@@ -4,7 +4,7 @@ class CreateLifecycleEvents < ActiveRecord::Migration
       t.integer   :user_id
       t.string    :key
       t.timestamp :happened_at
-      t.timestamps
+      t.timestamps               null: false
     end
   end
 end

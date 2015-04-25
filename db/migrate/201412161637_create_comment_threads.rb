@@ -7,7 +7,7 @@ class CreateCommentThreads < ActiveRecord::Migration
       t.text      :body
       t.text      :html_body
 
-      t.timestamps
+      t.timestamps               null: false
     end
   end
 end
