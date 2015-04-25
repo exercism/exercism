@@ -27,6 +27,6 @@ class ConvertsMarkdownToHTML
   end
 
   def convert_markdown_to_html
-    @content = Markdown.render(@content)
+    @content = ExercismLib::Markdown.render(@content)
   end
 end
