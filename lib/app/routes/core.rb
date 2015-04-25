@@ -115,7 +115,7 @@ module ExercismWeb
         end
 
         def nitpicker_languages
-          Exercism::Config.tracks.keys.map(&:to_s) & current_user.nitpicker_languages
+          tracks.ids & current_user.nitpicker_languages
         end
 
         def namify(slug)
@@ -137,7 +137,7 @@ module ExercismWeb
         end
 
         def tracks
-          @tracks ||= ExercismWeb::Presenters::Tracks.xapi
+          ExercismWeb::Presenters::Tracks
         end
       end
     end
