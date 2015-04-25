@@ -4,6 +4,7 @@ postgres: &postgres
   encoding: unicode
   pool: 5
   host: localhost
+  port: 5432
   username: exercism
   password: apples
 

@@ -27,9 +27,9 @@ namespace :db do
   task :setup do
     sql = "CREATE USER #{config.username} PASSWORD '#{config.password}' " \
           'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
-    system 'psql', '-h', config.host, '-c', sql
+    system 'psql', '-h', config.host, '-p', config.port, '-c', sql
     raise "Failed to create database user" unless $?.success?
-    system 'createdb', '-h', config.host, '-O', config.username, config.database
+    system 'createdb', '-h', config.host, '-p', config.port, '-O', config.username, config.database
     raise "Failed to create database" unless $?.success?
   end
 
