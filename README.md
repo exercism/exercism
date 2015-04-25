@@ -144,11 +144,17 @@ Next, make sure all the application dependencies are installed:
 ### Data
 
 Finally, set up the database. This means both creating the underlying database, and migrating so that it
-has all the correct tables. Also run a script to add fake data, so there are things to click on and look at while working on the app.
+has all the correct tables. Also runs a script to add fake data, so there are things to click on and look at while working on the app.
+
+First of all, copy the database config file:
+
+* `cp config/database.example.yml config/database.yml`
+
+Update any settings (like the port your database runs on) as needed. You can now set up the database for development:
 
 * Do all of it in one go: `rake db:from_scratch`
 
-Please note that this will call `psql`, and `createdb`. If you need to set PostgreSQL parameters like the user, port, and/or database used during setup, set `PGUSER`, `PGPORT`, and/or `PGDATABASE` environment values respectively. Example: `PGUSER=pgsql PGPORT=6543 PGDATABASE=postgres rake db:from_scratch`
+Please note that this will call `psql`, and `createdb`. If you need to set PostgreSQL parameters like the user and/or database name to use during setup, set `PGUSER` and/or `PGDATABASE` environment values respectively. Example: `PGUSER=pgsql PGDATABASE=postgres rake db:from_scratch`
 
 Alternatively (or to debug if the above blows up), do it one-by-one:
 
