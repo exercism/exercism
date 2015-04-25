@@ -17,33 +17,39 @@ module ExercismWeb
     end
 
     class Tracks
-      def self.xapi
+      def self.tracks
+        @@tracks ||= fetch_tracks
+      end
+
+      def self.find(id)
+        tracks.find {|track| track.id == id}
+      end
+
+      def self.ids
+        tracks.map(&:id)
+      end
+
+      def self.active
+        @@active ||= tracks.select(&:active?)
+      end
+
+      def self.upcoming
+        @@upcoming ||= tracks.select(&:upcoming?)
+      end
+
+      def self.planned
+        @@planned ||= tracks.select(&:planned?)
+      end
+
+      private
+
+      def self.fetch_tracks
         status, body = Xapi.get("tracks")
         if status != 200
           raise "something fishy in x-api: (#{status}) - #{body}"
         end
-        new(JSON.parse(body)["tracks"])
-      end
-
-      attr_reader :tracks
-      def initialize(tracks)
-        @tracks = tracks.map {|track| Track.new(track)}
-      end
-
-      def find(id)
-        tracks.find {|track| track.id == id}
-      end
-
-      def active
-        @active ||= tracks.select(&:active?)
-      end
-
-      def upcoming
-        @upcoming ||= tracks.select(&:upcoming?)
-      end
-
-      def planned
-        @planned ||= tracks.select(&:planned?)
+        tracks = JSON.parse(body)["tracks"]
+        tracks.map {|track| Track.new(track)}
       end
     end
   end
