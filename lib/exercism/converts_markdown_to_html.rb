@@ -16,6 +16,7 @@ class ConvertsMarkdownToHTML
   end
 
   def convert
+    preprocess_markdown
     convert_markdown_to_html
     sanitize_html
   end
@@ -28,5 +29,9 @@ class ConvertsMarkdownToHTML
 
   def convert_markdown_to_html
     @content = ExercismLib::Markdown.render(@content)
+  end
+
+  def preprocess_markdown
+    @content = @content.gsub(/^`{3}(.*?)`{3}$/im) { "\n#{$&}\n" }
   end
 end
