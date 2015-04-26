@@ -245,6 +245,25 @@ bundle exec ruby path/to/the_test.rb
 For the require, you'll need to figure out what the missing dependency is. Feel free to [open a GitHub
 issue](https://github.com/exercism/exercism.io/issues). It's likely that someone familiar with the codebase will be able to identify the problem immediately.
 
+### Test Order
+
+The tests are run in a randomized order by default. If you have an
+intermittent failure, it could be useful to seed the test suite with
+a specific value, in order to reproduce the test run.
+
+When running minitest directly, you can pass the seed value:
+
+```
+ruby path/to/the_test.rb --seed 1234
+```
+
+If running the entire test suite with rake, then you need to pass the options
+as an environment variable:
+
+```
+TESTOPTS="--seed=44377" rake test
+```
+
 ### Code Coverage
 
 To enable code coverage run:
