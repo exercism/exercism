@@ -1,8 +1,8 @@
 # exercism.io
-[![Build Status](https://travis-ci.org/exercism/exercism.io.png?branch=master)](https://travis-ci.org/exercism/exercism.io)
-[![Code Climate](https://codeclimate.com/github/exercism/exercism.io.png)](https://codeclimate.com/github/exercism/exercism.io)
-[![Gemnasium](https://gemnasium.com/exercism/exercism.io.png)](https://gemnasium.com/exercism/exercism.io)
-[![Coverage Status](https://coveralls.io/repos/exercism/exercism.io/badge.png?branch=master)](https://coveralls.io/r/exercism/exercism.io?branch=master)
+[![Build Status](https://img.shields.io/travis/exercism/exercism.io.svg)](https://travis-ci.org/exercism/exercism.io)
+[![Code Climate](https://img.shields.io/codeclimate/github/exercism/exercism.io.svg)](https://codeclimate.com/github/exercism/exercism.io)
+[![Gemnasium](https://img.shields.io/gemnasium/exercism/exercism.io.svg)](https://gemnasium.com/exercism/exercism.io)
+[![Coverage Status](https://img.shields.io/coveralls/exercism/exercism.io.svg)](https://coveralls.io/r/exercism/exercism.io)
 [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
 To get started using exercism.io to practice or provide feedback on other
