@@ -1,7 +1,7 @@
 class Team < ActiveRecord::Base
 
-  has_many :memberships, ->{ where confirmed: true }, class_name: "TeamMembership"
-  has_many :unconfirmed_memberships, ->{ where confirmed: false }, class_name: "TeamMembership"
+  has_many :memberships, ->{ where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
+  has_many :unconfirmed_memberships, ->{ where confirmed: false }, class_name: "TeamMembership", dependent: :destroy
   has_many :members, through: :memberships, source: :user
   has_many :unconfirmed_members, through: :unconfirmed_memberships, source: :user
   has_many :management_contracts, class_name: "TeamManager"
@@ -29,17 +29,27 @@ class Team < ActiveRecord::Base
     managers << user unless managed_by?(user)
   end
 
-  def defined_with(options)
+  def defined_with(options, inviter = nil)
     self.slug = options[:slug]
     self.name = options[:name]
-    self.unconfirmed_members << User.find_or_create_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
-    self.unconfirmed_members << options[:users] if options[:users]
+    recruits = User.find_or_create_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
+    recruits = options[:users] if options[:users]
+
+    if recruits
+      recruits.each do |recruit|
+        TeamMembership.create(user: recruit, team: self, inviter: inviter)
+      end
+    end
+
     self
   end
 
-  def recruit(usernames)
+  def recruit(usernames, inviter)
     recruits = User.find_or_create_in_usernames(usernames.to_s.scan(/[\w-]+/)) - self.all_members
-    self.unconfirmed_members += recruits
+
+    recruits.each do |recruit|
+      TeamMembership.create(user: recruit, team: self, inviter: inviter)
+    end
   end
 
   def dismiss(username)

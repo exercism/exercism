@@ -21,6 +21,29 @@
 
       <p class="well">Are you looking for a discussion you recently viewed? There's a <a href="/looks">list of these</a> available.</p>
 
+      <% if inbox.has_unconfirmed_team_memberships? %>
+        <ul style="list-style-type: none; margin: 0;">
+          <% inbox.unconfirmed_team_memberships.each do |team_membership| %>
+          <li class="alert-row">
+            <span class="fa fa-bell-o alert-icon"></span>
+            <% if team_membership.inviter.present? %>
+            <a href="<%= team_membership.inviter.username %>"><%= team_membership.inviter.username.capitalize %></a> would like you to join the team <%= team_membership.team.name %>.
+            <% else %>
+            You are invited to join the team <%= team_membership.team.name %>.
+            <% end %>
+            <form action="<%= "/teams/#{team_membership.team.slug}/confirm" %>" method="post" class="inline">
+              <input type="hidden" name="_method" value="put"/>
+              <input type="submit" name="update" value="Accept invitation" class="btn btn-xs btn-success"/>
+            </form>
+            <form action="<%= "/teams/#{team_membership.team.slug}/leave" %>" method="post" class="inline">
+              <input type="hidden" name="_method" value="put" />
+              <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger"/>
+            </form>
+          </li>
+          <% end %>
+        </ul>
+      <% end %>
+
       <% if inbox.has_alerts? %>
         <ul style="list-style-type: none; margin: 0;">
           <% inbox.alerts.each do |alert| %>

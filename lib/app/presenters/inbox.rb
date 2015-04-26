@@ -7,7 +7,7 @@ module ExercismWeb
       end
 
       def count
-        alerts.count + notifications.count
+        alerts.count + notifications.count + unconfirmed_team_memberships.count
       end
 
       def has_stuff?
@@ -22,12 +22,20 @@ module ExercismWeb
         alerts.count > 0
       end
 
+      def has_unconfirmed_team_memberships?
+        unconfirmed_team_memberships.count > 0
+      end
+
       def alerts
         user.alerts
       end
 
       def notifications
         user.notifications.on_submissions.unread.recent
+      end
+
+      def unconfirmed_team_memberships
+        user.unconfirmed_team_memberships
       end
     end
   end

@@ -301,17 +301,24 @@ class TeamsTest < Minitest::Test
     assert team.reload.name == 'New name'
   end
 
-  def test_notify_unconfirmed_members_of_invitation
+  def test_unconfirmed_memberships_after_invitation
     TeamInvitationMessage.stub(:ship, nil) do
-      post '/teams', {team: {slug: 'abc', usernames: bob.username}}, login(alice)
+      team_name = 'abc'
+      post '/teams', {team: {slug: team_name, usernames: bob.username}}, login(alice)
 
-      assert_equal 0, alice.reload.alerts.count, "Shouldn't notify managers"
-      assert_equal 1, bob.reload.alerts.count, "Notify bob failed"
+      assert_equal 0, alice.unconfirmed_team_memberships.count, "Managers don't have unconfirmed memberships at the created team."
+      assert_equal 1, bob.unconfirmed_team_memberships.count, "Bob has one unconfirmed membership at the created team."
+
+      assert_equal 1, alice.team_memberships.count, "Managers have a confirmed membership at the created team."
+      assert_equal 0, bob.team_memberships.count, "Bob doesn't have a confirmed membership at the created team."
 
       post "/teams/abc/members", {usernames: charlie.username}, login(alice)
 
-      assert_equal 1, bob.reload.alerts.count, "Bob should not have gotten notified again."
-      assert_equal 1, charlie.reload.alerts.count, "Notify charlie failed"
+      assert_equal 1, bob.reload.unconfirmed_team_memberships.count, "Bob should not have gotten an unconfirmed membership again."
+      assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Notify charlie failed"
+
+      assert_equal 0, charlie.reload.team_memberships.count, "Bob still doesn't have a confirmed membership at the created team."
+      assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Charlie has one unconfirmed membership at the created team."
     end
   end
 
