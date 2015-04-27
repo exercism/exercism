@@ -16,7 +16,12 @@ class CodeAnalyzer
     if options[:language].strip.empty?
       CodeAnalyzer.new(options)
     else
-      const_get(options[:language].strip.capitalize).new(options) rescue CodeAnalyzer.new(options)
+      klass = options[:language].strip.capitalize
+      if defined?(klass) && klass.is_a?(Class)
+        const_get(klass).new(options)
+      else
+        CodeAnalyzer.new(options)
+      end
     end
   end
 end
