@@ -5,7 +5,10 @@
   </div>
   <br/>
   <section>
-    <pre><code class="lang-bash">curl -O http://cli.exercism.io/install && chmod +x install</code> && ./install</pre>
+    <pre><code class="lang-bash">
+      sudo su
+      curl -L http://hootcode.com/downloads/exercism > /usr/local/bin/exercism; chmod +x /usr/local/bin/exercism
+    </pre>
     <p>Read it before you run it, people.</p>
     <p>By default, the installer will try to put it in <code>/usr/local/bin/</code> or <code>$HOME/bin/</code>.</p>
     <p>If you'd like it to live somewhere else, you can specify it up front:</p>
