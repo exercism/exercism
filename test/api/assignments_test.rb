@@ -21,11 +21,6 @@ class AssignmentsApiTest < Minitest::Test
     Exercism.instance_variable_set(:@trails, nil)
   end
 
-  def test_api_complains_if_no_key_is_submitted
-    get '/user/assignments/current'
-    assert_equal 401, last_response.status
-  end
-
   def test_api_accepts_submission_attempt
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
@@ -85,11 +80,6 @@ class AssignmentsApiTest < Minitest::Test
 
     options = {format: :json, name: 'api_submission_accepted_on_completed'}
     Approvals.verify(last_response.body, options)
-  end
-
-  def test_peek_is_deprecated
-    get '/user/assignments/next'
-    assert_equal 410, last_response.status
   end
 
   def test_notify_team_members_about_submission

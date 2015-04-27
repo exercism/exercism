@@ -2,7 +2,6 @@ module ExercismAPI
   module Routes
     {
       Core: 'core',
-      Demo: 'demo',
       Exercises: 'exercises',
       Iterations: 'iterations',
       Submissions: 'submissions',

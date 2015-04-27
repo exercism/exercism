@@ -15,7 +15,6 @@ require 'api/presenters'
 
 module ExercismAPI
   class App < Sinatra::Base
-    use Routes::Demo
     use Routes::Exercises
     use Routes::Iterations
     use Routes::Submissions

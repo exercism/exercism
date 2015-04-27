@@ -2,12 +2,18 @@ require_relative './api_helper'
 
 module ExercismAPI
   module Routes
-    class Legacy < Core
+    class AuthTest < Core
       get '/' do
         require_key
         "OK"
       end
     end
+  end
+end
+
+module ExercismAPI
+  class App < Sinatra::Base
+    use Routes::AuthTest
   end
 end
 
