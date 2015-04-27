@@ -28,6 +28,8 @@ class Submission < ActiveRecord::Base
     true
   end
 
+  delegate :username, to: :user
+
   scope :done, ->{ SubmissionStatus.done_submissions }
   scope :pending, ->{ where(state: %w(needs_input pending)) }
   scope :hibernating, ->{ where(state: 'hibernating') }
@@ -216,6 +218,14 @@ class Submission < ActiveRecord::Base
 
   def related
     @related ||= Submission.related(self)
+  end
+
+  def commit_id
+    solution.values.first
+  end
+
+  def git_rep_info
+    "#{username}/#{slug}"
   end
 
   private

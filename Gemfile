@@ -24,7 +24,8 @@ gem 'sinatra-contrib'
 gem 'sidekiq'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
-gem 'github_api'
+gem 'octokit'
+gem 'chrislo-sourceclassifier'
 
 # Frontend Gems
 gem 'sass'
@@ -36,6 +37,7 @@ gem 'kss'
 group :test, :development do
   gem 'capistrano'
   gem 'pry'
+  gem 'pry-rescue'
   # gem 'ruby-prof', '~> 0.14'
   gem 'database_cleaner', require: false
   gem 'approvals', require: false

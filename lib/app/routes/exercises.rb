@@ -1,3 +1,4 @@
+require "sourceclassifier"
 module ExercismWeb
   module Routes
     class Exercises < Core
@@ -132,6 +133,26 @@ module ExercismWeb
         submission.destroy
         Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
         redirect "/"
+      end
+
+      get "/submissions/:key/blobs/:sha" do
+        content_type :json
+        submission = Submission.find_by(key: params[:key])
+        begin
+          blob = Octokit.blob("#{submission.user.username}/#{submission.slug}",
+                              params[:sha])
+          src_classifer = SourceClassifier.new(File.join(File.dirname(__FILE__),
+                                                "../../../bin/", "trainer.bin"))
+          result = Base64.decode64(blob.content)
+          source_language = src_classifer.identify(result)
+          marked_content = ConvertsMarkdownToHTML.convert("```#{source_language.downcase}\n
+                                                          #{result}\n```")
+          content = { data: marked_content }
+          content.to_json
+        rescue StandardError => e
+          status 422
+          { message: "#{e.message} - Invalid sha or key" }.to_json
+        end
       end
     end
   end

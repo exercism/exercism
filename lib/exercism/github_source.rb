@@ -1,25 +1,23 @@
 class GithubSource
-  attr_reader :github, :user, :slug, :code
+  attr_reader :submission, :tree_source
 
   def initialize(submission)
-    @github = Github.new
-    @user = submission.user
-    @slug = submission.slug
-    @code = submission.code
+    @submission = submission
+    @tree_source = Octokit.tree(submission.git_rep_info, submission.commit_id,
+                                recursive: true)
   end
 
   def solution
-    trees = github.git_data.trees.get user.username, slug, code
+    (trees + blobs).map { |node| Node.new(node).get_hash }.to_json
+  end
 
-    res = {}
-    trees.tree.each do |tree_item|
-      if tree_item.type == "blob"
-        uri = URI(tree_item.url)
-        resp = JSON.parse(Net::HTTP.get(uri))
-        res[tree_item.path] = Base64.decode64(resp["content"])
-      end
-    end
+  private
 
-    res
+  def blobs
+    tree_source.tree.select { |node| node.type == "blob" }
+  end
+
+  def trees
+    tree_source.tree.select { |node| node.type == "tree" }
   end
 end

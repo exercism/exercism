@@ -34,9 +34,20 @@
       </p>
     <% end %>
 
-    <% solution.each do |filename, code| %>
-      <h4><%= filename %></h4>
-      <%= md(code, filename) %>
+    <% if submission.user.source_type == 'GITHUB' %>
+      <div id="git-tree-content"></div>
+      <div id="error-message"></div>
+      <div id="git-code"></div>
+
+      <script>
+        var treeContent = <%= solution %>;
+        var key = "<%= params[:key] %>".toString();
+      </script>
+    <%else%>
+      <% solution.each do |filename, code| %>
+        <h4><%= filename %></h4>
+        <%= md(code, filename) %>
+      <% end %>
     <% end %>
     
     <br/>
