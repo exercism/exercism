@@ -15,10 +15,16 @@ class Iteration
   end
 
   def track_id
-    @track_id || paths.map(&:track).group_by {|k| k}.sort_by {|k, v| v.size}.last.first
+    @track_id || max_occurrences(paths.map(&:track))
   end
 
   def slug
-    @slug || paths.map(&:slug).group_by {|k| k}.sort_by {|k, v| v.size}.last.first
+    @slug || max_occurrences(paths.map(&:slug))
+  end
+
+  private
+
+  def max_occurrences(ary)
+    ary.group_by(&:itself).values.max_by(&:size).first
   end
 end
