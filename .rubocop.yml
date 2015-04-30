@@ -1,0 +1,23 @@
+inherit_from: .rubocop_todo.yml
+
+Style/StringLiterals:
+  Enabled: false
+Style/SpaceAroundEqualsInParameterDefault:
+  EnforcedStyle: no_space
+Style/TrailingComma:
+  EnforcedStyleForMultiline: comma
+Style/RaiseArgs:
+  Enabled: true
+  EnforcedStyle: compact
+Style/AndOr:
+  Enabled: true
+  EnforcedStyle: conditionals
+Style/FormatString:
+  Enabled: true
+  EnforcedStyle: percent
+Metrics/LineLength:
+  Max: 80
+  AllowURI: true
+  URISchemes:
+    - http
+    - https
