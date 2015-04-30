@@ -13,9 +13,9 @@ class CohortTest < Minitest::Test
     Submission.create(language: 'ruby', slug: 'cake', code: 'CODE', user: charlie)
     Submission.create(language: 'ruby', slug: 'cake', code: 'CODE', user: dave, state: 'done')
 
-    team1 = Team.by(alice).defined_with(slug: 'team1', users: [bob, charlie])
+    team1 = Team.by(alice).defined_with(slug: 'team1', users: [bob, charlie], inviter: alice)
     team1.save
-    team2 = Team.by(alice).defined_with(slug: 'team2', users: [bob, dave, eve])
+    team2 = Team.by(alice).defined_with(slug: 'team2', users: [bob, dave, eve], inviter: alice)
     team2.save
 
     team1.confirm(bob.username)

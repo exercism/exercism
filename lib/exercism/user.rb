@@ -12,9 +12,10 @@ class User < ActiveRecord::Base
 
   has_many :management_contracts, class_name: "TeamManager"
   has_many :managed_teams, through: :management_contracts, source: :team
-  has_many :team_memberships, ->{ where confirmed: true }, class_name: "TeamMembership"
+  has_many :team_memberships, ->{ where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
   has_many :teams, through: :team_memberships
-  has_many :unconfirmed_team_memberships, ->{ where confirmed: false }, class_name: "TeamMembership"
+  has_many :inviters, through: :team_memberships, class_name: "User", foreign_key: :inviter_id
+  has_many :unconfirmed_team_memberships, ->{ where confirmed: false }, class_name: "TeamMembership", dependent: :destroy
   has_many :unconfirmed_teams, through: :unconfirmed_team_memberships, source: :team
 
   before_save do

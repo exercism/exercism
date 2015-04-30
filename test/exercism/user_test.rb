@@ -159,18 +159,38 @@ class UserTest < Minitest::Test
   end
 
   def test_find_user_by_case_insensitive_username
-    %w{alice bob}.each do |name| User.create username: name end
+    %w{alice bob}.each do |name| User.create(username: name) end
     assert_equal 'alice', User.find_by_username('ALICE').username
   end
 
   def test_find_a_bunch_of_users_by_case_insensitive_username
-    %w{alice bob fred}.each do |name| User.create username: name end
+    %w{alice bob fred}.each do |name| User.create(username: name) end
     assert_equal ['alice', 'bob'], User.find_in_usernames(['ALICE', 'BOB']).map(&:username)
   end
 
   def test_create_users_unless_present
-    User.create username: 'alice'
+    User.create(username: 'alice')
     assert_equal ['alice', 'bob'], User.find_or_create_in_usernames(['alice', 'bob']).map(&:username).sort
+  end
+
+  def test_delete_team_memberships_with_user
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+
+    team = Team.by(alice).defined_with({ slug: 'team a', usernames: bob.username }, alice)
+    other_team = Team.by(alice).defined_with({ slug: 'team b', usernames: bob.username }, alice)
+
+    team.save
+    other_team.save
+    TeamMembership.where(user: bob).first.confirm!
+
+    assert TeamMembership.exists?(team: team, user: bob, inviter: alice), 'Confirmed TeamMembership for bob was created.'
+    assert TeamMembership.exists?(team: other_team, user: bob, inviter: alice), 'Unconfirmed TeamMembership for charlie was created.'
+
+    bob.destroy
+
+    refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'Confirmed TeamMembership was deleted.'
+    refute TeamMembership.exists?(team: other_team, user: bob, inviter: alice), 'Unconfirmed TeamMembership was deleted.'
   end
 
   private

@@ -5,10 +5,8 @@ class TeamAcceptanceTest < AcceptanceTestCase
     creating_user = create_user(username: 'creating_user')
     joining_user = create_user(username: 'joining_user', github_id: 123)
 
-    Team.by(creating_user).defined_with(slug: 'some-team',
-                                        name: 'Some Name',
-                                        usernames: 'joining_user')
-        .save!
+    attributes = { slug: 'some-team', name: 'Some Name', usernames: 'joining_user' }
+    Team.by(creating_user).defined_with(attributes, creating_user).save!
 
     with_login(joining_user) do
       click_on 'Account'

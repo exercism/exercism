@@ -105,12 +105,13 @@ class TeamTest < Minitest::Test
   def test_team_recruit
     charlie = User.create(username: 'charlie')
     david = User.create(username: 'david')
+    inviter = User.create(username: 'inviter')
 
     team = Team.by(alice).defined_with(slug: 'blurple')
     team.save
 
-    team.recruit(bob.username)
-    team.recruit("#{david.username},#{charlie.username}")
+    team.recruit(bob.username, inviter)
+    team.recruit("#{david.username},#{charlie.username}", inviter)
 
     refute team.includes?(bob)
     refute team.includes?(charlie)
@@ -123,14 +124,19 @@ class TeamTest < Minitest::Test
     assert team.includes?(bob)
     assert team.includes?(charlie)
     assert team.includes?(david)
+
+    team.members.each do |user|
+      assert user.inviters.include? inviter
+    end
   end
 
   def test_team_does_not_recruit_duplicates
+    inviter = User.create(username: 'inviter')
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
     team.save
     member_count = team.all_members.count
     team.confirm(bob.username)
-    team.recruit(bob.username)
+    team.recruit(bob.username, inviter)
 
     assert_equal member_count, team.all_members.count
   end
@@ -171,6 +177,16 @@ class TeamTest < Minitest::Test
 
     bob.reload
     assert_equal [team.id], bob.managed_teams.map(&:id)
+  end
+
+  def test_delete_memberships_with_team
+    attributes = { slug: 'delete', usernames: "#{bob.username}" }
+    team = Team.by(alice).defined_with(attributes, alice)
+    team.save
+
+    assert TeamMembership.exists?(team: team, user: bob, inviter: alice), 'TeamMembership was created.'
+    team.destroy
+    refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'TeamMembership was deleted.'
   end
 end
 

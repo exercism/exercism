@@ -11,10 +11,10 @@ module ExercismWeb
       end
 
       post '/teams/?' do
-        team = Team.by(current_user).defined_with(params[:team])
+        team = Team.by(current_user).defined_with(params[:team], current_user)
         if team.valid?
           team.save
-          team.recruit(current_user.username)
+          team.recruit(current_user.username, current_user)
           team.confirm(current_user.username)
           notify(team.unconfirmed_members, team)
           redirect "/teams/#{team.slug}"
@@ -47,7 +47,7 @@ module ExercismWeb
       post '/teams/:slug/members' do |slug|
         only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
           invitees = ::User.find_or_create_in_usernames(params[:usernames].to_s.scan(/[\w-]+/)) - team.all_members
-          team.recruit(params[:usernames])
+          team.recruit(params[:usernames], current_user)
           team.save
           notify(invitees, team)
 
@@ -73,7 +73,7 @@ module ExercismWeb
 
       put '/teams/:slug' do |slug|
         only_for_team_managers(slug, "You are not allowed to edit the team.") do |team|
-          if team.defined_with(params[:team]).save
+          if team.defined_with(params[:team], current_user).save
             redirect "/teams/#{team.slug}"
           else
             flash[:error] = "Slug can't be blank"
@@ -159,13 +159,6 @@ module ExercismWeb
 
       def notify(invitees, team)
         invitees.each do |invitee|
-          attributes = {
-            user_id: invitee.id,
-            url: '/account',
-            text: "#{current_user.username} would like you to join the team #{team.name}. You can accept the invitation",
-            link_text: 'on your account page.'
-          }
-          Alert.create(attributes)
           begin
             TeamInvitationMessage.ship(
               instigator: current_user,
