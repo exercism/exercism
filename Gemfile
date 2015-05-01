@@ -1,4 +1,4 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
 ruby '2.2.2'
 
@@ -45,6 +45,10 @@ group :test, :development do
   gem 'simplecov', require: false
   gem 'sqlite3'
   gem 'timecop', require: false
+end
+
+group :development do
+  gem 'rubocop', require: false
 end
 
 group :test do
