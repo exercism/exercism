@@ -48,17 +48,14 @@ class Hibernation
   end
 
   def notify
-    alert_submitter
-    begin
-      HibernationMessage.ship(
-        instigator: Hibernation.admin,
-        target: submission,
-        site_root: 'http://exercism.io',
-        intercept_emails: @intercept
-      )
-    rescue => e
-      puts "Unable to email #{submission.user.username}. #{e}."
-    end
+    attributes = {
+      user_id: submission.user_id,
+      read: false,
+      url: ['', submission.user.username, submission.user_exercise.key].join('/'),
+      link_text: "View submission.",
+      text: "Your exercise #{submission.slug} in #{submission.track_id} has gone into hibernation."
+    }
+    Alert.create(attributes)
   end
 
   def comment
@@ -79,17 +76,6 @@ class Hibernation
 
   def last_commenter_is_submitter?
     comment.user == submission.user
-  end
-
-  def alert_submitter
-    attributes = {
-      user_id: submission.user_id,
-      read: false,
-      url: ['', submission.user.username, submission.user_exercise.key].join('/'),
-      link_text: "View submission.",
-      text: "Your exercise #{submission.slug} in #{submission.track_id} has gone into hibernation."
-    }
-    Alert.create(attributes)
   end
 end
 
