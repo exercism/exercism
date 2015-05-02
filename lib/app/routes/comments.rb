@@ -13,17 +13,6 @@ module ExercismWeb
         unless comment.new_record?
           Notify.everyone(submission, 'nitpick', current_user)
           unless current_user == submission.user
-            begin
-              if !!current_user.email
-                CommentMessage.ship(
-                  instigator: current_user,
-                  target: comment,
-                  site_root: site_root
-                )
-              end
-            rescue => e
-              puts "Failed to send email. #{e.message}."
-            end
             LifecycleEvent.track('received_feedback', submission.user_id)
             LifecycleEvent.track('commented', current_user.id)
             unless current_user.onboarded?
