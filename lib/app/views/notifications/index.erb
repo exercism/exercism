@@ -74,7 +74,9 @@
               <a href="/submissions/<%= notification.item.key %>">
                 <%= notification.language %>:
                 <%= notification.slug %> &middot;
-                <%= notification.item.user.username %>
+                <% if notification.item.user %>
+                  <%= notification.item.user.username %>
+                <% end %>
               </a>
 
               <br>
