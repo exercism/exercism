@@ -3,9 +3,6 @@ require_relative '../../active_record_helper'
 require 'exercism/use_cases/updates_user_exercise'
 require 'exercism/use_cases/hibernation'
 require 'exercism/use_cases/notify'
-require 'services/message'
-require 'services/email'
-require 'services/hibernation_message'
 require 'exercism/alert'
 require 'exercism/notification'
 
@@ -71,10 +68,8 @@ class HibernationTest < Minitest::Test
     submission = FakeSubmission.new(alice, [comment], 'pending')
     Hack::UpdatesUserExercise.stub(:new, NullHack.new) do
       Hibernation.stub(:admin, admin) do
-        HibernationMessage.stub(:ship, nil) do
-          Hibernation.new(submission, :intercept).process
-          assert_equal 'hibernating', submission.state
-        end
+        Hibernation.new(submission, :intercept).process
+        assert_equal 'hibernating', submission.state
       end
     end
   end

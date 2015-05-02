@@ -5,7 +5,6 @@ namespace :submissions do
     Bundler.require
     require 'exercism'
     require './lib/exercism/use_cases/hibernation'
-    require './lib/services'
 
     Submission.aging.find_each do |submission|
       Hibernation.new(submission).process
