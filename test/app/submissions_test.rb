@@ -75,9 +75,7 @@ class SubmissionsTest < Minitest::Test
     submission = Submission.first
 
     url = "/submissions/#{submission.key}/nitpick"
-    Message.stub(:ship, nil) do
-      post url, {body: "good"}, login(bob)
-    end
+    post url, {body: "good"}, login(bob)
     assert_equal 1, submission.reload.comments.count
   end
 
@@ -86,9 +84,7 @@ class SubmissionsTest < Minitest::Test
     submission = Submission.first
 
     url = "/submissions/#{submission.key}/nitpick"
-    Message.stub(:ship, nil) do
-      post url, {body: "good"}, login(bob)
-    end
+    post url, {body: "good"}, login(bob)
     assert_equal 1, MutedSubmission.count
     assert submission.reload.muted_by?(bob.reload)
   end
@@ -98,9 +94,7 @@ class SubmissionsTest < Minitest::Test
     submission = Submission.first
 
     url = "/submissions/#{submission.key}/nitpick"
-    Message.stub(:ship, nil) do
-      post url, {body: "good"}, login(alice)
-    end
+    post url, {body: "good"}, login(alice)
     assert_equal 1, submission.reload.comments.count
   end
 
@@ -113,9 +107,7 @@ class SubmissionsTest < Minitest::Test
 
     # sanitizes response
     url = "/submissions/#{submission.key}/nitpick"
-    Message.stub(:ship, nil) do
-      post url, {body: "<script type=\"text/javascript\">bad();</script>good"}, login(bob)
-    end
+    post url, {body: "<script type=\"text/javascript\">bad();</script>good"}, login(bob)
 
     nit = submission.reload.comments.last
     expected = "<p>&lt;script type=\"text/javascript\"&gt;bad();&lt;/script&gt;good</p>"
@@ -145,21 +137,13 @@ class SubmissionsTest < Minitest::Test
 
   def test_mute_submission
     submission = generate_attempt.submission
-
-    Message.stub(:ship, nil) do
-      post "/submissions/#{submission.key}/mute", {}, login(alice)
-    end
-
+    post "/submissions/#{submission.key}/mute", {}, login(alice)
     assert submission.reload.muted_by?(alice)
   end
 
   def test_unmute_submission
     submission = generate_attempt.submission
-
-    Message.stub(:ship, nil) do
-      post "/submissions/#{submission.key}/unmute", {}, login(alice)
-    end
-
+    post "/submissions/#{submission.key}/unmute", {}, login(alice)
     refute submission.reload.muted_by?(alice)
   end
 
@@ -167,10 +151,8 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
 
     url = "/submissions/#{submission.key}/nitpick"
-    Message.stub(:ship, nil) do
-      Submission.any_instance.expects(:unmute_all!)
-      post url, {body: "good"}, login(bob)
-    end
+    Submission.any_instance.expects(:unmute_all!)
+    post url, {body: "good"}, login(bob)
   end
 
   def test_must_be_logged_in_to_complete_exercise

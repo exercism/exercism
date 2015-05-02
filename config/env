@@ -1,9 +1,4 @@
 export PORT=4567
 export EXERCISM_GITHUB_CLIENT_ID=abc123
 export EXERCISM_GITHUB_CLIENT_SECRET=abcdef123456
-# export EMAIL_DOMAIN=yourdomain.com
-# export EMAIL_PASSWORD=secret
-# export EMAIL_SMTP_ADDRESS=smtp.yourdomain.com
-# export EMAIL_SMTP_PORT=587
-# export EMAIL_USERNAME=you
 # export EXERCISES_API_URL=http://localhost:9292

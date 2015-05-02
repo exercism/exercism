@@ -11,9 +11,6 @@ gem 'loofah'
 gem 'newrelic_rpm', '~>3.8' # used both in production and development
 gem 'petroglyph'
 gem 'pg'
-# Pony must not be required. See
-# http://stackoverflow.com/questions/14824179/typeerror-cannot-visit-mailmultibytechars
-gem 'pony', '~> 1.6', require: false
 gem 'pry', require: false
 gem 'puma'
 gem 'rack-flash3', require: 'rack-flash'
@@ -39,7 +36,6 @@ group :test, :development do
   gem 'database_cleaner', require: false
   gem 'dotenv', require: false
   gem 'foreman', require: false
-  gem 'mailcatcher', require: false
   gem 'mocha', require: false
   gem 'rack-test', require: false
   gem 'simplecov', require: false

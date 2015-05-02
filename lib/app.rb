@@ -20,7 +20,6 @@ require_relative './app/helpers/profile_helper'
 require_relative './app/helpers/site_title_helper'
 require_relative './app/helpers/submissions_helper'
 
-require_relative './services'
 require_relative './app/routes'
 
 module ExercismWeb
