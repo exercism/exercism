@@ -136,55 +136,51 @@ class TeamsTest < Minitest::Test
   end
 
   def test_team_creation_with_multiple_members
-    TeamInvitationMessage.stub(:ship, nil) do
-      post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{charlie.username}"}}, login(alice)
+    post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{charlie.username}"}}, login(alice)
 
-      team = Team.first
+    team = Team.first
 
-      bob.reload
-      charlie.reload
+    bob.reload
+    charlie.reload
 
-      assert_equal 0, bob.teams.size
-      assert_equal 0, charlie.teams.size
+    assert_equal 0, bob.teams.size
+    assert_equal 0, charlie.teams.size
 
-      assert team.includes?(alice)
-      refute team.includes?(bob)
-      refute team.includes?(charlie)
+    assert team.includes?(alice)
+    refute team.includes?(bob)
+    refute team.includes?(charlie)
 
-      put "/teams/#{team.slug}/confirm", {}, login(bob)
-      put "/teams/#{team.slug}/confirm", {}, login(charlie)
+    put "/teams/#{team.slug}/confirm", {}, login(bob)
+    put "/teams/#{team.slug}/confirm", {}, login(charlie)
 
-      bob.reload
-      charlie.reload
+    bob.reload
+    charlie.reload
 
-      assert_equal 1, bob.teams.size
-      assert_equal 1, charlie.teams.size
+    assert_equal 1, bob.teams.size
+    assert_equal 1, charlie.teams.size
 
-      [alice, bob, charlie].each do |member|
-        assert team.includes?(member)
-      end
+    [alice, bob, charlie].each do |member|
+      assert team.includes?(member)
     end
   end
 
   def test_member_addition
-    TeamInvitationMessage.stub(:ship, nil) do
-      team = Team.by(alice).defined_with(slug: 'members')
-      team.save
+    team = Team.by(alice).defined_with(slug: 'members')
+    team.save
 
-      post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{charlie.username}"}, login(alice)
+    post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{charlie.username}"}, login(alice)
 
-      team.reload
+    team.reload
 
-      refute team.includes?(bob)
-      refute team.includes?(charlie)
+    refute team.includes?(bob)
+    refute team.includes?(charlie)
 
-      put "/teams/#{team.slug}/confirm", {}, login(bob)
+    put "/teams/#{team.slug}/confirm", {}, login(bob)
 
-      team.reload
+    team.reload
 
-      assert team.includes?(bob)
-      refute team.includes?(charlie)
-    end
+    assert team.includes?(bob)
+    refute team.includes?(charlie)
   end
 
   def test_only_managers_can_invite_members
@@ -302,24 +298,22 @@ class TeamsTest < Minitest::Test
   end
 
   def test_unconfirmed_memberships_after_invitation
-    TeamInvitationMessage.stub(:ship, nil) do
-      team_name = 'abc'
-      post '/teams', {team: {slug: team_name, usernames: bob.username}}, login(alice)
+    team_name = 'abc'
+    post '/teams', {team: {slug: team_name, usernames: bob.username}}, login(alice)
 
-      assert_equal 0, alice.unconfirmed_team_memberships.count, "Managers don't have unconfirmed memberships at the created team."
-      assert_equal 1, bob.unconfirmed_team_memberships.count, "Bob has one unconfirmed membership at the created team."
+    assert_equal 0, alice.unconfirmed_team_memberships.count, "Managers don't have unconfirmed memberships at the created team."
+    assert_equal 1, bob.unconfirmed_team_memberships.count, "Bob has one unconfirmed membership at the created team."
 
-      assert_equal 1, alice.team_memberships.count, "Managers have a confirmed membership at the created team."
-      assert_equal 0, bob.team_memberships.count, "Bob doesn't have a confirmed membership at the created team."
+    assert_equal 1, alice.team_memberships.count, "Managers have a confirmed membership at the created team."
+    assert_equal 0, bob.team_memberships.count, "Bob doesn't have a confirmed membership at the created team."
 
-      post "/teams/abc/members", {usernames: charlie.username}, login(alice)
+    post "/teams/abc/members", {usernames: charlie.username}, login(alice)
 
-      assert_equal 1, bob.reload.unconfirmed_team_memberships.count, "Bob should not have gotten an unconfirmed membership again."
-      assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Notify charlie failed"
+    assert_equal 1, bob.reload.unconfirmed_team_memberships.count, "Bob should not have gotten an unconfirmed membership again."
+    assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Notify charlie failed"
 
-      assert_equal 0, charlie.reload.team_memberships.count, "Bob still doesn't have a confirmed membership at the created team."
-      assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Charlie has one unconfirmed membership at the created team."
-    end
+    assert_equal 0, charlie.reload.team_memberships.count, "Bob still doesn't have a confirmed membership at the created team."
+    assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Charlie has one unconfirmed membership at the created team."
   end
 
   def test_add_manager

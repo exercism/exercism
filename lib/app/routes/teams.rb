@@ -16,7 +16,6 @@ module ExercismWeb
           team.save
           team.recruit(current_user.username, current_user)
           team.confirm(current_user.username)
-          notify(team.unconfirmed_members, team)
           redirect "/teams/#{team.slug}"
         else
           erb :"teams/new", locals: {team: team}
@@ -46,10 +45,8 @@ module ExercismWeb
 
       post '/teams/:slug/members' do |slug|
         only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
-          invitees = ::User.find_or_create_in_usernames(params[:usernames].to_s.scan(/[\w-]+/)) - team.all_members
           team.recruit(params[:usernames], current_user)
           team.save
-          notify(invitees, team)
 
           redirect "/teams/#{slug}"
         end
@@ -154,25 +151,6 @@ module ExercismWeb
         else
           flash[:error] = "We don't know anything about team '#{slug}'"
           redirect '/'
-        end
-      end
-
-      def notify(invitees, team)
-        invitees.each do |invitee|
-          begin
-            TeamInvitationMessage.ship(
-              instigator: current_user,
-              target: {
-                team_name: team.name,
-                invitee: invitee
-              },
-              site_root: site_root
-            )
-          rescue => e
-            unless ENV['RACK_ENV'] == 'test'
-              puts "Failed to send email. #{e.message}."
-            end
-          end
         end
       end
     end
