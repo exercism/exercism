@@ -6,7 +6,6 @@ We are working to improve this document, and if you find any part of it confusin
 
 * [The ecosystem](#the-ecosystem)
 * [Get set up](#setup)
-    - [Sending emails](example.com)
     - [Console](example.com)
     - [Testing](example.com)
     - [Frontend development setup](example.com)
@@ -111,8 +110,6 @@ First, you need to get ahold of the code, so you have a copy of it locally that 
 
 All the commented out values in `.env` can be left alone for now.
 
-You don't need to fill in the values for email stuff unless you're going to be working on the emails specifically.
-
 You don't need to fill in the EXERCISES_API value unless you're going to be working on the x-api codebase.
 
 ### Dependencies
@@ -158,18 +155,6 @@ from their perspective.
 * Then you can access the local server at [localhost:4567](http://localhost:4567).
 * You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
 
-### Sending Emails
-
-[MailCatcher](http://mailcatcher.me) is used to catch and view emails locally.
-
-Do the following to test an email:
-
-* Start MailCatcher: `mailcatcher` or `mailcatcher -f` to run in the foreground
-* Send a test message. For example, `ruby test/services/notification_message_test.rb` will send a test notification email.
-* Open [localhost:1080](http://localhost:1080) and you should see the test email
-
-If you want to send emails, you will need to fill out the relevant environment variables in `.env` and uncomment the lines so the variables get exported.
-
 ### Console
 
 There's a script in `bin/console` that will load pry with the exercism environment loaded.
@@ -184,7 +169,6 @@ user.submissions
 ### Testing
 
 1. Create and migrate a test database: `RACK_ENV=test rake db:setup db:migrate`
-1. Make sure MailCatcher is running: `mailcatcher`
 1. Run the test suite: `rake` or `rake test`
 
 To run a single test suite, you can do so with:
