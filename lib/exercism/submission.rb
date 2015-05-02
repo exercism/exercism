@@ -182,12 +182,10 @@ class Submission < ActiveRecord::Base
   end
 
   def viewed!(user)
-    begin
-      self.viewers << user unless viewers.include?(user)
-    rescue => e
-      # Temporarily output this to the logs
-      puts "#{e.class}: #{e.message}"
-    end
+    self.viewers << user unless viewers.include?(user)
+  rescue => e
+    # Temporarily output this to the logs
+    puts "#{e.class}: #{e.message}"
   end
 
   def view_count

@@ -4,20 +4,20 @@ First of all, **thank you** for helping with Exercism.io!
 
 We are working to improve this document, and if you find any part of it confusing, or if you can't figure out how to get started with something, then rest assured it's not you, it's us! Please open up a new issue to describe what you were hoping to contribute with, and what you're wondering about, and we'll figure out together how to improve the documentation.
 
-* [The ecosystem](#the-ecosystem)
-* [Get set up](#setup)
-    - [Sending emails](example.com)
-    - [Console](example.com)
-    - [Testing](example.com)
-    - [Frontend development setup](example.com)
-    - [Deployment](example.com)
-* [Write some code](example.com)
-    - [Workflow](example.com)
-    - [Issues](example.com)
-    - [Good first fatch](example.com)
-    - [Style](example.com)
-    - [Pull Requests](example.com)
-* [Roadmap](example.com)
+* [The Ecosystem](#the-ecosystem)
+* [Get Set Up](#setup)
+    - [Sending Emails](#sending-emails)
+    - [Console](#console)
+    - [Testing](#testing)
+    - [Frontend Development Setup](#frontend-development-setup)
+    - [Deployment](#deployment)
+* [Write Some Code](#write-some-code)
+    - [Workflow](#workflow)
+    - [Issues](#issues)
+    - [Good First Patch](#good-first-patch)
+    - [Style](#style-rubyrails)
+    - [Pull Requests](#pull-requests)
+* [Roadmap](#future-roadmap)
 
 ## Code of Conduct
 
@@ -263,7 +263,7 @@ heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-l
 
 ## Write Some Code
 
-These instructions should get you closer to getting a commit into the 
+These instructions should get you closer to getting a commit into the
 repository.
 
 ### Workflow
