@@ -15,18 +15,6 @@ class AccountTest < AcceptanceTestCase
     end
   end
 
-  def test_changing_email
-    with_login(@user) do
-      click_on 'Account'
-
-      fill_in 'email', with: 'some@email.com'
-      click_on 'Update'
-
-      assert_content 'Updated email address.'
-      assert_equal 'some@email.com', find('[name=email]').value
-    end
-  end
-
   def test_creating_a_team
     create_user(username: 'one_username', github_id: 12345)
     create_user(username: 'two_username', github_id: 4567)
