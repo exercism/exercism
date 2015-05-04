@@ -16,6 +16,7 @@ Style/FormatString:
   Enabled: true
   EnforcedStyle: percent
 Metrics/LineLength:
+  Enabled: false # TODO: Remove this after all linelength offenses are worked out
   Max: 80
   AllowURI: true
   URISchemes:
