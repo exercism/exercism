@@ -1,21 +1,21 @@
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped" data-sortable>
   <thead>
     <tr>
       <th>Exercise</th>
       <th>Language</th>
       <th>Iteration</th>
       <th>Nits</th>
-      <th>Date Submitted</th>
+      <th data-sorted="true" data-sorted-direction="descending">Date Submitted</th>
     </tr>
   </thead>
   <tbody>
-  <% exercises.each do |submission| %>
+  <% exercises.order(created_at: :desc).each do |submission| %>
     <tr>
       <td><%= profile.submission_link(submission) %></td>
       <td><%= submission.problem.language %></td>
       <td><%= submission.version %></td>
       <td><%= submission.nit_count %></td>
-      <td><%= submission.created_at.strftime("%m-%d-%Y") %></td>
+      <td data-value="<%= submission.created_at.to_i %>"><%= submission.created_at.strftime("%m-%d-%Y") %></td>
     </tr>
   <% end %>
   </tbody>
