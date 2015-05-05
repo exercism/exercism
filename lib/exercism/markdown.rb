@@ -9,7 +9,7 @@ USERNAME_REGEX = /(@[0-9a-zA-z][0-9a-zA-Z\-]*)/
 
 def hyperlink_mentions!(node)
   node.children.each do |child|
-    if child.node_type == Nokogiri::XML::Node::ELEMENT_NODE and
+    if child.node_type == Nokogiri::XML::Node::ELEMENT_NODE &&
         !child.matches?('code,td[class=code]')
       hyperlink_mentions! child
     elsif child.node_type == Nokogiri::XML::Node::TEXT_NODE
