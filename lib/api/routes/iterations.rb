@@ -54,7 +54,9 @@ module ExercismAPI
         end
         opts = {
           code_analysis: CodeAnalyzer.build({ language: data["language"],
-                                              code: data["code"] }).run,
+                                              code: data["code"],
+                                              git_rep_info: user.username+"/"+data['problem'],
+                                              user: user }).run,
           test_analysis: data["test_analysis"],
           track: data["language"],
           slug: data["problem"]
