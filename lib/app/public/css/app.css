@@ -36,7 +36,7 @@
 }
 
 footer {
-  position: fixed;
+  position: relative;
   bottom: 0px;
   background: #fff url("../img/bg_footer.png") repeat-x;
   height: 60px;
