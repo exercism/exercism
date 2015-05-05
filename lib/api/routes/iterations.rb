@@ -4,7 +4,7 @@ module ExercismAPI
   module Routes
     class Iterations < Core
       get '/iterations/:key/restore' do |key|
-        halt *Xapi.get("v2", "exercises", "restore", key: key)
+        halt(*Xapi.get("v2", "exercises", "restore", key: key))
       end
 
       post '/iterations/:language/:slug/skip' do |language, slug|

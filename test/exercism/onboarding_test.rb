@@ -5,7 +5,7 @@ require_relative '../../lib/exercism/progress_bar'
 class OnboardingTest < Minitest::Test
   def test_status_of_guest
     assert_equal 'guest', Onboarding.status([])
-    assert_equal -1, Onboarding.step([])
+    assert_equal(-1, Onboarding.step([]))
   end
 
   def test_status_at_the_start
