@@ -19,7 +19,7 @@ class AppNotificationsTest < Minitest::Test
     }
     Alert.create(attributes)
     get '/notifications', {}, login(alice)
-    assert_match /This is the test/, last_response.body
+    assert_match(/This is the test/, last_response.body)
   end
 
   def test_delete_alert
