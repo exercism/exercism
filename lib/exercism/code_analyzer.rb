@@ -75,7 +75,7 @@ class Java < CodeAnalyzer
       <scm class='hudson.plugins.git.GitSCM' plugin='git@2.3.5'>
         <configVersion>2</configVersion>
         <userRemoteConfigs><hudson.plugins.git.UserRemoteConfig>
-           <url>https://github.com/#{git_rep_info}.git</url></hudson.plugins.git.UserRemoteConfig>
+          <url>https://github.com/#{git_rep_info}.git</url></hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
         <branches>
           <hudson.plugins.git.BranchSpec><name>*/master</name></hudson.plugins.git.BranchSpec>
@@ -91,16 +91,16 @@ class Java < CodeAnalyzer
       <concurrentBuild>false</concurrentBuild>
       <builders>
         <hudson.plugins.sonar.SonarRunnerBuilder plugin='sonar@2.2.1'><project/>
-          <properties># required metadata
-            sonar.projectKey=#{projectName}
-            sonar.projectName=#{projectName}
-            sonar.projectVersion=2.0
-            # path to source directories (required)
-            sonar.sources=src
-          </properties>
-          <javaOpts/>
-          <jdk>(Inherit From Job)</jdk>
-          <task/>
+        <properties># required metadata
+          sonar.projectKey=#{projectName}
+          sonar.projectName=#{projectName}
+          sonar.projectVersion=2.0
+          # path to source directories (required)
+          sonar.sources=src
+        </properties>
+        <javaOpts/>
+        <jdk>(Inherit From Job)</jdk>
+        <task/>
         </hudson.plugins.sonar.SonarRunnerBuilder>
       </builders>
       <publishers/><buildWrappers/>
