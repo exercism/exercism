@@ -11,6 +11,14 @@ class CodeAnalyzer
     @user = options[:user]
   end
 
+  def self.jenkins_url
+    ENV.fetch('JENKINS_URL') { "http://localhost:8080" }
+  end
+
+  def self.sonarqube_url
+    ENV.fetch('SONARQUBE_URL') { "http://localhost:9000" }
+  end
+
   def run
     "---common---"
   end
@@ -82,18 +90,18 @@ class Java < CodeAnalyzer
     </hudson.plugins.sonar.SonarRunnerBuilder></builders>
     <publishers/><buildWrappers/></project>"
 
-    jobs = RestClient.get 'http://localhost:8080/api/json?tree=jobs[name]', {:content_type => 'application/json'}
+    jobs = RestClient.get "#{JENKINS_URL}/api/json?tree=jobs[name]", {:content_type => "application/json"}
     jobs = JSON.parse(jobs)
     jobs_exist = jobs["jobs"].select{|job| job["name"] == projectName}
-    new_job_url = "http://localhost:8080/createItem?name=#{projectName}"
-    create_job_response = RestClient.post new_job_url, xml, {:content_type => 'application/xml'}  if jobs_exist.empty?
+    new_job_url = "#{JENKINS_URL}/createItem?name=#{projectName}"
+    create_job_response = RestClient.post new_job_url, xml, {:content_type => "application/xml"}  if jobs_exist.empty?
     build_job_response = nil
     if jobs_exist.size > 0 || create_job_response.code == 200
-      build_job_response = RestClient.post "http://localhost:8080/job/"+projectName+"/build", {:content_type => 'application/json'}
+      build_job_response = RestClient.post "#{JENKINS_URL}/job/"+projectName+"/build", {:content_type => "application/json"}
     end
 
     if build_job_response.code == 201
-      return "http://localhost:8455/dashboard/index/"+projectName
+      return "#{SONARQUBE_URL}dashboard/index/"+projectName
     else
       return "--error--"
     end
