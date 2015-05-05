@@ -18,7 +18,7 @@ web:
   environment:
     EXERCISES_API_URL: http://54.172.126.241
     JENKINS_URL: http://hootcode.com:8081
-    SONARQUBE_URL: http://localhost:9000
+    SONARQUBE_URL: http://192.168.2.24:9001/
     RACK_ENV: production
     NEWRELIC_ENABLE: false
     EXERCISM_GITHUB_CLIENT_ID: b589dcac66a1c6326ddc
