@@ -9,7 +9,7 @@ module ExercismWeb
         end
       end
 
-      get '/onboarding/get_configuration_key' do
+      get '/onboarding/install-cli' do
         erb :"onboarding/get_configuration_key", locals: {dashboard: dashboard}
       end
 
