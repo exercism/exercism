@@ -12,9 +12,12 @@ class Homework
   private
 
   def extract(sql)
-    exercises = Hash.new {|exercises, key| exercises[key] = []}
-    UserExercise.connection.execute(sql).each_with_object(exercises) {|row, exercises|
-      exercises[row['language']] << {"slug" => row["slug"], "state" => row["state"]}
-    }
+    UserExercise.connection.execute(sql).each_with_object(empty_hash) do |row, exercises|
+      exercises[row['language']] << { 'slug' => row['slug'], 'state' => row['state'] }
+    end
+  end
+
+  def empty_hash
+    Hash.new { |hash, key| hash[key] = [] }
   end
 end
