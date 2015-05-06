@@ -1,5 +1,13 @@
 class ChangeDefaultValueToUserSource < ActiveRecord::Migration
-  def change
-    change_column_default :users, :source_type, "GITHUB"
+  
+  def up
+    #execute "CREATE EXTENSION SOURCE TYPE"
+    change_column :users, :source_type, :string, :default => "GITHUB"
   end
-end
+
+  def down
+   # change_column :users, :username, :string
+    change_column :users, :source_type, :string, :default => "DB"
+  end
+  
+ end
