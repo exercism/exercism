@@ -8,7 +8,7 @@ class CreatesComment
     obj.comment
   end
 
-  def initialize(submission_id, commenter, body, options = {})
+  def initialize(submission_id, commenter, body, _ = {})
     @id = submission_id
     @commenter = commenter
     @body = body.to_s

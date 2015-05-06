@@ -10,7 +10,7 @@ class Guest
     []
   end
 
-  def nitpicks_trail?(language)
+  def nitpicks_trail?(_)
     false
   end
 
@@ -34,7 +34,7 @@ class Guest
     false
   end
 
-  def is?(username)
+  def is?(_)
     false
   end
 
@@ -46,8 +46,7 @@ class Guest
     false
   end
 
-  def owns?(submission)
+  def owns?(_)
     false
   end
 end
-

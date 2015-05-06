@@ -1,5 +1,5 @@
 class NullWorkload
-  def next_submission(submission)
+  def next_submission(_)
   end
 end
 
