@@ -20,16 +20,20 @@ module ExercismWeb
         redirect "/account"
       end
 
-      put "/update_assignment" do
+      get "/update_assignment" do
         if current_user.guest?
           halt 403, "You must be logged in to edit your account settings"
         else
           if settings.production?
-            `cd ~/home/ubuntu/exercism/x-api && git submodule init && git submodule update --remote --merge`
-            flash[:success] = "Assignment Updated Successfully"
+            status, message = Xapi.get("problems", "remote", "update", "all")
+            if status == 200
+              flash[:success] = message
+            else
+              flash[:error] = "Error in updating assignments. Please try later."
+            end
           end
         end
-          redirect "/account"
+        redirect "/account"
       end
     end
   end
