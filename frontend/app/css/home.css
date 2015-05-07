@@ -273,3 +273,7 @@ footer nav li a:hover {
   color:#fff;
   margin-top:13px;
 }
+
+.landing-image-container img {
+  max-width:100%;
+}
