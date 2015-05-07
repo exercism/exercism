@@ -11,11 +11,11 @@ class CodeAnalyzer
     @user = options[:user]
   end
 
-  def self.jenkins_url
+  def jenkins_url
     ENV.fetch('JENKINS_URL') { "http://localhost:8080" }
   end
 
-  def self.sonarqube_url
+  def sonarqube_url
     ENV.fetch('SONARQUBE_URL') { "http://localhost:9000" }
   end
 
@@ -106,20 +106,20 @@ class Java < CodeAnalyzer
       <publishers/><buildWrappers/>
     </project>"
     json_params = { :content_type => "application/json" }
-    jobs = RestClient.get "#{JENKINS_URL}/api/json?tree=jobs[name]", json_params
+    jobs = RestClient.get "#{jenkins_url}/api/json?tree=jobs[name]", json_params
     jobs = JSON.parse(jobs)
     jobs_exist = jobs["jobs"].select{|job| job["name"] == projectName}
-    new_job_url = "#{JENKINS_URL}/createItem?name=#{projectName}"
+    new_job_url = "#{jenkins_url}/createItem?name=#{projectName}"
     if jobs_exist.empty?
       create_job_response = RestClient.post new_job_url, xml, { :content_type => "application/xml" }
     end
     build_job_response = nil
     if jobs_exist.size > 0 || create_job_response.code == 200
-      build_job_response = RestClient.post "#{JENKINS_URL}/job/"+projectName+"/build", json_params
+      build_job_response = RestClient.post "#{jenkins_url}/job/"+projectName+"/build", json_params
     end
 
     if build_job_response.code == 201
-      return "#{SONARQUBE_URL}dashboard/index/"+projectName
+      return "#{sonarqube_url}dashboard/index/"+projectName
     else
       return "--error--"
     end
