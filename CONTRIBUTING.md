@@ -280,10 +280,11 @@ can do an [organization-wide search](https://github.com/search?utf8=%E2%9C%93&q=
 
 ### Style (Ruby/Rails)
 
-We're not really sticklers about style in this prototype, and things are
-fairly messy, but do try to stick to the [GitHub Ruby Style
-Guidelines](https://github.com/styleguide/ruby), it will make it easier to
-clean things up later when we know about where this is headed.
+We have [Rubocop](https://github.com/bbatsov/rubocop) integrated.
+It is based on the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide).
+Help keep us our code clean by following the style guide.
+Run the command `rubocop` to check for any style violations before
+submitting pull requests.
 
 ### Pull Requests
 
