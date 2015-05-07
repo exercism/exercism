@@ -119,7 +119,7 @@ class Java < CodeAnalyzer
     end
 
     if build_job_response.code == 201
-      return "#{sonarqube_url}dashboard/index/"+projectName
+      return "#{sonarqube_url}/dashboard/index/"+projectName
     else
       return "--error--"
     end

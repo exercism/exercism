@@ -20,16 +20,16 @@ module ExercismWeb
         redirect "/account"
       end
 
-      get "/update_assignment" do
+      get "/fetch_git_submodules" do
         if current_user.guest?
           halt 403, "You must be logged in to edit your account settings"
         else
           if settings.production?
-            status, message = Xapi.get("problems", "remote", "update", "all")
+            status, message = Xapi.get("problems", "fetch", "git", "submodules")
             if status == 200
               flash[:success] = message
             else
-              flash[:error] = "Error in updating assignments. Please try later."
+              flash[:error] = "Error in fetching assignments. Please try later."
             end
           end
         end
