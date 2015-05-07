@@ -1,0 +1,48 @@
+table[data-sortable]
+    border-collapse: collapse
+    border-spacing: 0
+
+    th
+        vertical-align: bottom
+        font-weight: bold
+
+    th, td
+        text-align: left
+        padding: 10px
+
+    th:not([data-sortable="false"])
+        -webkit-user-select: none
+        -moz-user-select: none
+        -ms-user-select: none
+        -o-user-select: none
+        user-select: none
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+        -webkit-touch-callout: none
+        cursor: pointer
+
+    th
+
+        &:after
+            content: ""
+            visibility: hidden
+            display: inline-block
+            vertical-align: inherit
+            height: 0
+            width: 0
+            border-width: 5px
+            border-style: solid
+            border-color: transparent
+            margin-right: 1px
+            margin-left: 10px
+            float: right
+
+        &[data-sorted="true"]:after
+            visibility: visible
+
+        &[data-sorted-direction="descending"]:after
+            border-top-color: black
+            margin-top: 8px
+
+        &[data-sorted-direction="ascending"]:after
+            border-bottom-color: black
+            margin-top: 8px - 5px
