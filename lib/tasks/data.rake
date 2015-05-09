@@ -1,4 +1,29 @@
 namespace :data do
+  desc "prevent people from getting hello world problem in tracks they're already doing."
+  task :hello do
+    require 'active_record'
+    require 'db/connection'
+    require './lib/exercism/user_exercise'
+    DB::Connection.establish
+
+    default_attributes = {
+      slug: 'hello-world',
+      state: 'done',
+      completed_at: Time.now,
+      is_nitpicker: false,
+      iteration_count: 0,
+    }
+    sql = "SELECT DISTINCT user_id, language FROM user_exercises"
+    ActiveRecord::Base.connection.execute(sql).to_a.each do |row|
+      attributes = {
+        user_id: row['user_id'],
+        language: row['language'],
+        key: SecureRandom.uuid.tr('-', ''),
+      }.merge(default_attributes)
+      UserExercise.create(attributes)
+    end
+  end
+
   namespace :cleanup do
     desc "delete orphan comments"
     task :comments do
