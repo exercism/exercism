@@ -43,6 +43,7 @@ class Submission < ActiveRecord::Base
   scope :not_liked_by, ->(user) {
     where("id NOT IN (#{Like.where(user: user).select(:submission_id).to_sql})")
   }
+  scope :excluding_hello, ->{ where("slug != 'hello-world'") }
 
   scope :not_submitted_by, ->(user) { where.not(user: user) }
 
