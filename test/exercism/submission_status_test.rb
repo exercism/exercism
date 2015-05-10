@@ -14,19 +14,19 @@ class SubmissionStatusTest < Minitest::Test
 
     @problem = Problem.new('scala', 'pancakes')
 
-    @alice.submissions << new_done_submission(@problem)
-    @frank.submissions << new_done_submission(@problem)
-    @kimo.submissions << new_working_submission(@problem)
-    @junior.submissions << new_working_submission(@problem)
+    @alice.submissions << new_done_submission
+    @frank.submissions << new_done_submission
+    @kimo.submissions << new_working_submission
+    @junior.submissions << new_working_submission
   end
 
-  def new_done_submission(problem)
+  def new_done_submission
     submission = Submission.on(@problem)
     submission.state = 'done'
     submission
   end
 
-  def new_working_submission(problem)
+  def new_working_submission
     submission = Submission.on(@problem)
     submission.state = 'pending'
     submission
@@ -86,4 +86,3 @@ class SubmissionStatusTest < Minitest::Test
   end
 
 end
-

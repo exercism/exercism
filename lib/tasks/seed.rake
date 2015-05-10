@@ -1,6 +1,6 @@
 namespace :db do
   desc "Fetch seed data from github and save to db/seeds.sql"
-  task "seeds:fetch", %s(debug) do |t, args|
+  task "seeds:fetch", %s(debug) do |_, args|
     args.with_defaults(debug: ENV["DEBUG"])
     puts "fetching over the wire"
     conn = Faraday.new(url: "https://raw.githubusercontent.com") do |c|
@@ -40,7 +40,7 @@ namespace :db do
   end
 
   desc "add recently viewed data for a specific (test) user by username"
-  task "seed:looks", [:username, :count] do |t, args|
+  task "seed:looks", [:username, :count] do |_, args|
     if args[:username].nil?
       puts "USAGE: rake db:seed:looks[username]\n   OR: rake db:seed:looks[username,count]"
       exit 1

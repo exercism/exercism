@@ -228,7 +228,7 @@ class Submission < ActiveRecord::Base
   # on the dashboard without pulling down all the related versions
   # of the submission.
   # Preliminary testing in development suggests an 80% improvement.
-  before_create do |document|
+  before_create do |_|
     self.version = Submission.related(self).count + 1
   end
 end

@@ -31,7 +31,7 @@ class Work
   end
 
   def nitpickables
-    Hash[mastered_slugs].merge(user.completed) do |key, a, b|
+    Hash[mastered_slugs].merge(user.completed) do |_, a, b|
       (a + b).uniq
     end
   end

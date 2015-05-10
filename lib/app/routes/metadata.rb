@@ -10,7 +10,7 @@ module ExercismWeb
         end
         data = data["assignments"].first
         problem = Problem.new(data['track'], data['slug'])
-        text = data["files"].find {|filename, code|
+        text = data["files"].find {|filename, _|
           filename =~ /test/i || filename =~ /\.t$/ || filename =~ /ut_.*#\.plsql\Z/}.last
         erb :"exercises/test_suite", locals: {problem: problem, text: text}
       end
@@ -24,7 +24,7 @@ module ExercismWeb
         end
         data = data["assignments"].first
         problem = Problem.new(data['track'], data['slug'])
-        text = data["files"].find {|key, value| key == "README.md"}.last
+        text = data["files"].find {|key, _| key == "README.md"}.last
         erb :"exercises/readme", locals: {problem: problem, text: text}
       end
     end
