@@ -1,4 +1,5 @@
 require './lib/jobs/analyze'
+require './lib/jobs/hello'
 
 module ExercismAPI
   module Routes
@@ -114,6 +115,9 @@ module ExercismAPI
         # for now, let's just give rikki hamming exercises in Ruby.
         if attempt.track == 'ruby' && attempt.slug == 'hamming'
           Jobs::Analyze.perform_async(attempt.submission.key)
+        end
+        if attempt.slug == 'hello-world'
+          Jobs::Hello.perform_async(attempt.submission.key)
         end
 
         status 201
