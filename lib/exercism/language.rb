@@ -1,3 +1,6 @@
+# rubocop:disable Lint/HandleExceptions, Lint/RescueException
+# Allow all exceptions to be reported to Bugsnag
+
 require 'app/presenters/tracks'
 
 class Language

@@ -1,3 +1,7 @@
+# coding: utf-8
+# rubocop:disable Lint/HandleExceptions, Lint/RescueException
+# Allow all exceptions to be reported to Bugsnag
+
 module ExercismAPI
   module Routes
     class Exercises < Core
