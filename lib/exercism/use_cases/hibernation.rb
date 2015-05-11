@@ -51,7 +51,7 @@ class Hibernation
     attributes = {
       user_id: submission.user_id,
       read: false,
-      url: ['', submission.user.username, submission.user_exercise.key].join('/'),
+      url: "/exercises/#{submission.user_exercise.key}",
       link_text: "View submission.",
       text: "Your exercise #{submission.slug} in #{submission.track_id} has gone into hibernation."
     }
@@ -78,4 +78,3 @@ class Hibernation
     comment.user == submission.user
   end
 end
-
