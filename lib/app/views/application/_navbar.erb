@@ -1,96 +1,53 @@
 <nav class="navbar navbar-inverse navbar-fixed-top">
-            <div class="container">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="/">
-                        <img src="/img/logo.svg" height="80px" width="260px">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">
+                <img src="/img/logo.svg" height="80px" width="260px">
+            </a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="/getting-started">
+                        <span class="nav-links how-it-works"></span>
+                        How it works
                     </a>
-                </div>
-                <div id="navbar" class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav pull-right">
-                        <li>
-                            <a href="/getting-started">
-                                <span class="nav-links how-it-works"></span>
-                                How it works
-                            </a>
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="nav-links help"></span>
-                                Help&nbsp;<span class="caret"></span>
-                            </a>
-                                <ul class="dropdown-menu" role="menu">
-                                  <li><a href="/submitter-workflow">Submitter Workflow</a></li>
-                                  <li><a href="/reviewer-workflow">Reviewer Workflow</a></li>
-                                  <li class="dropdown-submenu"><a tabindex="-1" href="#">Manage Assignment</a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="/create-assignment">Create Assignment</a></li>
-                                        <li><a href="/">Update Assignment</a></li>
-                                    </ul>
-                                  </li>
-                                </ul>
-                        </li>
-                        <% if !current_user.guest? %>
-                          <%= erb :"application/nav/nitpicker_languages" %>
-                          <%= erb :"application/nav/teams" %>
-                          <%= erb :"application/nav/notifications" %>
-                          <%= erb :"application/nav/account" %>
-                        <% else %>
-                          <li><a href="/login"><span class="nav-links login"></span>
-                                Login</a></li>
-                        <% end %>
-                        <% if settings.development? %>
-                          <%= erb :"application/nav/backdoor" %>
-                        <% end %>
-                    </ul>
-                </div>
-                <!--/.nav-collapse -->
-            </div>
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false"><span class="nav-links help"></span>
+                        Help&nbsp;<span class="caret"></span>
+                    </a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="/submitter-workflow">Submitter Workflow</a></li>
+                          <li><a href="/reviewer-workflow">Reviewer Workflow</a></li>
+                          <li class="dropdown-submenu"><a tabindex="-1" href="#">Manage Assignment</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/create-assignment">Create Assignment</a></li>
+                                <li><a href="/">Update Assignment</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                </li>
+                <% if !current_user.guest? %>
+                  <%= erb :"application/nav/nitpicker_languages" %>
+                  <%= erb :"application/nav/teams" %>
+                  <%= erb :"application/nav/notifications" %>
+                  <%= erb :"application/nav/account" %>
+                <% else %>
+                  <li><a href="/login"><span class="nav-links login"></span>
+                        Login</a></li>
+                <% end %>
+                <% if settings.development? %>
+                  <%= erb :"application/nav/backdoor" %>
+                <% end %>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
 </nav>
-<style>
-.dropdown-submenu {
-    position:relative;
-}
-.dropdown-submenu>.dropdown-menu {
-    top:0;
-    left:100%;
-    margin-top:-6px;
-    margin-left:-1px;
-    -webkit-border-radius:0 6px 6px 6px;
-    -moz-border-radius:0 6px 6px 6px;
-    border-radius:0 6px 6px 6px;
-}
-.dropdown-submenu:hover>.dropdown-menu {
-    display:block;
-}
-.dropdown-submenu>a:after {
-    display:block;
-    content:" ";
-    float:right;
-    width:0;
-    height:0;
-    border-color:transparent;
-    border-style:solid;
-    border-width:5px 0 5px 5px;
-    border-left-color:#cccccc;
-    margin-top:5px;
-    margin-right:-10px;
-}
-.dropdown-submenu:hover>a:after {
-    border-left-color:#ffffff;
-}
-.dropdown-submenu.pull-left {
-    float:none;
-}
-.dropdown-submenu.pull-left>.dropdown-menu {
-    left:-100%;
-    margin-left:10px;
-    -webkit-border-radius:6px 0 6px 6px;
-    -moz-border-radius:6px 0 6px 6px;
-    border-radius:6px 0 6px 6px;
-}
-</style>

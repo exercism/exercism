@@ -1,270 +1,330 @@
-.header {
-  height: 390px;
-  background: #fff url("../img/bg_header_big.png") repeat-x;
+html {
+  min-height:100%;
+  position:relative;
 }
-
+.header {
+  height:390px;
+  background:#fff url("../img/bg_header_big.png") repeat-x;
+}
 footer {
-  position: relative;
-  bottom: 0px;
-  background: #fff url("../img/bg_footer.png") repeat-x;
-  height: 60px;
-  width:  100%;
+  position:absolute;
+  bottom:0;
+  background:#fff url("../img/bg_footer.png") repeat-x;
+  height:60px;
+  width:100%;
 }
 
 .landing-image-container {
-  margin-top: -250px;
+  margin-top:-250px;
 }
 
 .jumbotron {
-  background-color: #F1F1F1;
+  background-color:#f1f1f1;
 }
 
 .navbar {
   /*background-image: none;
   background-color: transparent;*/
-  border: 0;
+  border:0;
 }
 
 .steps {
-  margin-top: 40px;
-  margin-bottom: 30px;
+  margin-top:40px;
+  margin-bottom:30px;
 }
 
-.lang .hex{
-  margin: 0 auto;
+.lang .hex {
+  margin:0 auto;
 }
 
-.step, .languages .lang {
-  display: block;
-  width: 100%;
-  height: 228px;
-  position: relative;
-  margin: auto;
-  max-width: 256px;
+.step,
+.languages .lang {
+  display:block;
+  width:100%;
+  height:228px;
+  position:relative;
+  margin:auto;
+  max-width:256px;
   /*background-color:  #E1E1E1;*/
-  padding-top: 50px;
+  padding-top:50px;
 }
 
-.step:hover, .lang:hover {
-  background-color:  #E1E1E1;
-  text-decoration: none;
+.step:hover,
+.lang:hover {
+  background-color:#e1e1e1;
+  text-decoration:none;
 }
 
-.lang:visited{
-  text-decoration: none;
+.lang:visited {
+  text-decoration:none;
 }
 
 .step:hover .step-name {
-  display: block;
+  display:block;
 }
 
 
-.jumbotron h1{
-  font-size: 4em;
-  text-align: center;
+.jumbotron h1 {
+  font-size:4em;
+  text-align:center;
 }
 
 .see-how {
-  font-size: .8em;
+  font-size:0.8em;
 }
 
 .step-icon {
-  width: 60px;
-  height: 60px;
-  background-color: #0de5f4;
-  margin-top: 18px;
-  display: inline-block;
+  width:60px;
+  height:60px;
+  background-color:#0de5f4;
+  margin-top:18px;
+  display:inline-block;
 }
 
 .step-number {
-  color: #f1f1f1;
-  display: inline-block;
-  margin: -8px auto 0 auto;
-  font-size: 2em;
+  color:#f1f1f1;
+  display:inline-block;
+  margin:-8px auto 0 auto;
+  font-size:2em;
 }
 
 .step-icon.install-cli {
-  background: url("../img/install-cli.png") center no-repeat;
+  background:url("../img/install-cli.png") center no-repeat;
 }
 
 .step:hover .step-icon.install-cli {
-  background: url("../img/install-cli.gif") center no-repeat;
+  background:url("../img/install-cli.gif") center no-repeat;
 }
 
 .step-icon.work-exercise {
-  background: url("../img/work-exercise.png") center no-repeat;
+  background:url("../img/work-exercise.png") center no-repeat;
 }
 
 .step:hover  .step-icon.work-exercise {
-  background: url("../img/work-exercise.gif") center no-repeat;
+  background:url("../img/work-exercise.gif") center no-repeat;
 }
 
 .step-icon.submit-iteration {
-  background: url("../img/submit-iteration.png") center no-repeat;
+  background:url("../img/submit-iteration.png") center no-repeat;
 }
 
 .step:hover .step-icon.submit-iteration {
-  background: url("../img/submit-iteration.gif") center no-repeat;
+  background:url("../img/submit-iteration.gif") center no-repeat;
 }
 
 .step-icon.get-reviews {
-  background: url("../img/get-reviews.png") center no-repeat;
+  background:url("../img/get-reviews.png") center no-repeat;
 }
 
 .step:hover .step-icon.get-reviews {
-  background: url("../img/get-reviews.gif") center no-repeat;
+  background:url("../img/get-reviews.gif") center no-repeat;
 }
 
 .lang:hover .view-exercises {
-  display: block;
+  display:block;
 }
 
-.lang .view-exercises{
-  display: none;
-  font-size: 13px;
-  color: #7c7c7c;
-  text-align: center;
-  text-decoration: underline;
-  margin-top: -7px;
+.lang .view-exercises {
+  display:none;
+  font-size:13px;
+  color:#7c7c7c;
+  text-align:center;
+  text-decoration:underline;
+  margin-top:-7px;
 }
 
-.step .step-name, .lang .lang-name{
-  font-size: 21px;
+.step .step-name,
+.lang .lang-name {
+  font-size:21px;
   /*font-weight: bold;*/
-  color: #7c7c7c;
-  text-align: center;
+  color:#7c7c7c;
+  text-align:center;
 }
 
-.languages .lang .hex{
-  margin-bottom: 46px;
+.languages .lang .hex {
+  margin-bottom:46px;
 }
 
-.lang i{
-  width: 80px;
-  height: 80px;
-  display: inline-block;
-  margin-top: -5px;
+.lang i {
+  width:80px;
+  height:80px;
+  display:inline-block;
+  margin-top:-5px;
 }
 
 .java {
-  background: url("../img/java.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+  background:url("../img/java.png") no-repeat scroll center center rgba(0, 0, 0, 0);
 }
 
 .ruby {
-  background: url("../img/ruby.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+  background:url("../img/ruby.png") no-repeat scroll center center rgba(0, 0, 0, 0);
 }
 
 .javascript {
-  background: url("../img/javascript.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+  background:url("../img/javascript.png") no-repeat scroll center center rgba(0, 0, 0, 0);
 }
 
 .upcoming {
-  background: url("../img/upcoming.png") no-repeat scroll center center rgba(0, 0, 0, 0);
+  background:url("../img/upcoming.png") no-repeat scroll center center rgba(0, 0, 0, 0);
 }
 
-.languages{
-  margin-bottom: 50px;
+.languages {
+  margin-bottom:50px;
 }
 
-.navbar-inverse{
-  background: #fff url("../img/bg_header_big.png") repeat-x;
-  height: 80px;
+.navbar-inverse {
+  background:#fff url("../img/bg_header_big.png") repeat-x;
+  height:80px;
 }
 
-.navbar-brand{
-  height: auto;
-  padding: 0;
+.navbar-brand {
+  height:auto;
+  padding:0;
 }
 
 #navbar ul li a {
-  color: #f3dac0;
-  font-size: 18px;
+  color:#f3dac0;
+  font-size:18px;
 }
 
+/* using icon fonts would be better.*/
 .nav-links {
-  vertical-align: sub;
-  width: 32px;
-  height: 32px;
-  margin-top: 6px;
-  display: inline-block;
+  width:32px;
+  height:32px;
+  margin-top:-6px;
+  display:inline-block;
+  float:left;
+  margin-right:5px;
 }
 
-.how-it-works{
-  background: url("../img/how-it-works-off.png") no-repeat 0 100%;
+.how-it-works {
+  background:url("../img/how-it-works-off.png") no-repeat 0 100%;
 }
 
-.help{
-  background: url("../img/help-off.png") no-repeat 0 100%;
+.help {
+  background:url("../img/help-off.png") no-repeat 0 100%;
 }
 
-.login{
-  background: url("../img/login-github-off.png") no-repeat 0 100%;
+.login {
+  background:url("../img/login-github-off.png") no-repeat 0 100%;
 }
 
 #navbar a:hover .how-it-works {
-  background: url("../img/how-it-works-on.png") no-repeat 0 100%;
+  background:url("../img/how-it-works-on.png") no-repeat 0 100%;
 }
 
-#navbar a:hover .help{
-  background: url("../img/help-on.png") no-repeat 0 100%;
+#navbar a:hover .help {
+  background:url("../img/help-on.png") no-repeat 0 100%;
 }
 
-#navbar a:hover .login{
-  background: url("../img/login-github-on.png") no-repeat 0 100%;
+#navbar a:hover .login {
+  background:url("../img/login-github-on.png") no-repeat 0 100%;
 }
 
-#navbar ul li a:hover{
-  color: #fff;
+#navbar ul li a:hover {
+  color:#fff;
 }
 
 
 @font-face {
-  font-family: "As cute as heavy";
-  src: url("../fonts/font.ttf");
+  font-family:"As cute as heavy";
+  src:url("../fonts/font.ttf");
 }
 
 .landing-image-container h1 {
-  font-family: "As cute as heavy";
-  margin-bottom: 20px;
-  color: #fff;
-  font-size: 42px;
+  font-family:"As cute as heavy";
+  margin-bottom:20px;
+  color:#fff;
+  font-size:42px;
 }
 
-.languages h2{
-  color: #CF7320;
-  text-align: center;
-  margin-bottom: 35px;
-  font-family: "As cute as heavy";
-  font-size: 26px;
+.languages h2 {
+  color:#cf7320;
+  text-align:center;
+  margin-bottom:35px;
+  font-family:"As cute as heavy";
+  font-size:26px;
 }
 
 /*body{
   font-family: 'Segoe UI';
 }
 */
-.footer-container .row{
-  margin-top: 30px;
+.footer-container .row {
+  margin-top:30px;
 }
 
-nav .container{
-  margin-top: 4px;
+nav .container {
+  margin-top:4px;
 }
 
-.landing-image-container .carousel{
-  text-align: center;
+.landing-image-container .carousel {
+  text-align:center;
 }
 
-footer a{
-  color: #f1f1f1;
-  text-decoration: none;
+footer a {
+  color:#f1f1f1;
+  text-decoration:none;
 }
 
-footer nav li a:hover{
-  text-decoration: none;
-  background-color: transparent;
+footer nav li a:hover {
+  text-decoration:none;
+  background-color:transparent;
 }
 
-.footer-copyright{
-  color: #fff;
-  margin-top:13px
+.footer-copyright {
+  color:#fff;
+  margin-top:13px;
 }
+
+.landing-image-container img {
+  max-width:100%;
+}
+
+/*======================================
+=            Navbar Submenu            =
+======================================*/
+
+.dropdown-submenu {
+  position:relative;
+}
+.dropdown-submenu > .dropdown-menu {
+  top:0;
+  left:100%;
+  margin-top:-6px;
+  margin-left:-1px;
+  -webkit-border-radius:0 6px 6px 6px;
+     -moz-border-radius:0 6px 6px 6px;
+          border-radius:0 6px 6px 6px;
+}
+.dropdown-submenu:hover > .dropdown-menu {
+  display:block;
+}
+.dropdown-submenu > a:after {
+  display:block;
+  content:" ";
+  float:right;
+  width:0;
+  height:0;
+  border-color:transparent;
+  border-style:solid;
+  border-width:5px 0 5px 5px;
+  border-left-color:#ccc;
+  margin-top:5px;
+  margin-right:-10px;
+}
+.dropdown-submenu:hover > a:after {
+  border-left-color:#fff;
+}
+.dropdown-submenu.pull-left {
+  float:none;
+}
+.dropdown-submenu.pull-left > .dropdown-menu {
+  left:-100%;
+  margin-left:10px;
+  -webkit-border-radius:6px 0 6px 6px;
+     -moz-border-radius:6px 0 6px 6px;
+          border-radius:6px 0 6px 6px;
+}
+
+/*-----  End of Navbar Submenu  ------*/

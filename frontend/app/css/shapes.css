@@ -1,136 +1,136 @@
 /*START - Css for circles***************************************************************/
 
 .circle-outer {
-    border-radius: 50%;
-    width: 113px;
-    height: 113px;
-    background: #DDA163;
-    padding: 7px;
-    margin: 0 auto;
-    margin-bottom: 12px;
+  border-radius:50%;
+  width:113px;
+  height:113px;
+  background:#dda163;
+  padding:7px;
+  margin:0 auto;
+  margin-bottom:12px;
 }
 
 .circle-inner {
-    border-radius: 50%;
-    width: 100px;
-    height: 100px;
-    background: #DDA163;
-    border: 1px solid #f1f1f1;
-    position: relative;
-    text-align: center;
+  border-radius:50%;
+  width:100px;
+  height:100px;
+  background:#dda163;
+  border:1px solid #f1f1f1;
+  position:relative;
+  text-align:center;
 }
 
 .circle-inner .hex {
-    position: absolute;
-    margin-top: -20px;
-    left: 50%;
-    margin-left: -22px;
+  position:absolute;
+  margin-top:-20px;
+  left:50%;
+  margin-left:-22px;
 }
 
 /*END - Css for circles***************************************************************/
 
 /*Css for regular hexagons*/
 .hex {
-    position: relative;
-    text-align: center;
+  position:relative;
+  text-align:center;
 }
 
 .hex:before {
-    content: " ";
-    width: 0;
-    position: absolute;
-    left: 0;
+  content:" ";
+  width:0;
+  position:absolute;
+  left:0;
 }
 
 .hex:after {
-    content: " ";
-    width: 0;
-    position: absolute;
-    left: 0;
+  content:" ";
+  width:0;
+  position:absolute;
+  left:0;
 }
 
 .hex-small {
-    width: 45px;
-    height: 26px;
-    background-color: #DDA163;
+  width:45px;
+  height:26px;
+  background-color:#dda163;
 }
 
 .hex-small:before {
-    border-bottom: 13px solid #DDA163;
-    border-left: 22px solid transparent;
-    border-right: 22px solid transparent;
-    top: -13px;
+  border-bottom:13px solid #dda163;
+  border-left:22px solid transparent;
+  border-right:22px solid transparent;
+  top:-13px;
 }
 
 .hex-small:after {
-    border-top: 13px solid #DDA163;
-    border-left: 22px solid transparent;
-    border-right: 22px solid transparent;
-    bottom: -13px;
+  border-top:13px solid #dda163;
+  border-left:22px solid transparent;
+  border-right:22px solid transparent;
+  bottom:-13px;
 }
 
 
 .hex-big {
-    width: 117px;
-    height: 68px;
+  width:117px;
+  height:68px;
 }
 
 .hex-big:before {
-    border-left: 59px solid transparent;
-    border-right: 59px solid transparent;
-    top: -34px;
+  border-left:59px solid transparent;
+  border-right:59px solid transparent;
+  top:-34px;
 }
 
 .hex-big:after {
-    border-left: 59px solid transparent;
-    border-right: 59px solid transparent;
-    bottom: -34px;
+  border-left:59px solid transparent;
+  border-right:59px solid transparent;
+  bottom:-34px;
 }
 
-.blue:before{
-  border-bottom: 34px solid #5483A1;
+.blue:before {
+  border-bottom:34px solid #5483a1;
 }
 
-.blue.hex-big{
-    background-color: #5483A1;
+.blue.hex-big {
+  background-color:#5483a1;
 }
 
-.blue.hex-big:after{
-    border-top: 34px solid #5483A1;
+.blue.hex-big:after {
+  border-top:34px solid #5483a1;
 }
 
-.red.hex-big:before{
-  border-bottom: 34px solid #EE1E12;
+.red.hex-big:before {
+  border-bottom:34px solid #ee1e12;
 }
 
-.red.hex-big{
-    background-color: #EE1E12;
+.red.hex-big {
+  background-color:#ee1e12;
 }
 
-.red.hex-big:after{
-    border-top: 34px solid #EE1E12;
+.red.hex-big:after {
+  border-top:34px solid #ee1e12;
 }
 
-.yellow.hex-big:before{
-  border-bottom: 34px solid #E6A128;
+.yellow.hex-big:before {
+  border-bottom:34px solid #e6a128;
 }
 
-.yellow.hex-big{
-    background-color: #E6A128;
+.yellow.hex-big {
+  background-color:#e6a128;
 }
 
-.yellow.hex-big:after{
-    border-top: 34px solid #E6A128;
+.yellow.hex-big:after {
+  border-top:34px solid #e6a128;
 }
 
-.purple.hex-big:before{
-  border-bottom: 34px solid #A194FE;
+.purple.hex-big:before {
+  border-bottom:34px solid #a194fe;
 }
 
-.purple.hex-big{
-    background-color: #A194FE;
+.purple.hex-big {
+  background-color:#a194fe;
 }
 
-.purple.hex-big:after{
-    border-top: 34px solid #A194FE;
+.purple.hex-big:after {
+  border-top:34px solid #a194fe;
 }
