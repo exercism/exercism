@@ -4,5 +4,10 @@
       <small><%= problem.name %> in <%= problem.language %></small>
     </h1>
   </section>
-  <%= md(text, problem.track_id) %>
+  <% testfiles.each do |f| %>
+    <div>
+      <h4><%= f.filename %></h4>
+      <%= md(f.content, f.extension) %>
+    </div>
+  <% end %>
 </div>
