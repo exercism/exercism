@@ -22,10 +22,9 @@ module ExercismWeb
           flash[:notice] = data['error']
           redirect '/'
         end
-        data = data["assignments"].first
-        problem = Problem.new(data['track'], data['slug'])
-        text = data["files"].find {|key, _| key == "README.md"}.last
-        erb :"exercises/readme", locals: {problem: problem, text: text}
+
+        locals = Presenters::Assignment.from_json_data(data).to_locals
+        erb :"exercises/readme", locals: locals
       end
     end
   end

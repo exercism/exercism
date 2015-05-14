@@ -43,4 +43,16 @@ class PresentersAssignmentTest < Minitest::Test
     assert_equal 'po', pipa.extension
     assert_equal '2', pipa.content
   end
+
+  def test_find_readme
+    assert_equal 'readme_content', assignment.readme_file.content
+  end
+
+  def test_fallback_readme
+    files = { 'no' => 'readme' }
+    assignment = ewpa.new('track', 'slug', files)
+
+    assert_equal 'This exercise has no readme.',
+                 assignment.readme_file.content
+  end
 end

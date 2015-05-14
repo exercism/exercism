@@ -19,6 +19,10 @@ module ExercismWeb
             filename =~ /\.t$/ ||
             filename =~ /ut_.*#\.plsql\Z/
         end
+
+        def readme_file?
+          filename == 'README.md'
+        end
       end
 
       def self.from_json_data(data)
@@ -44,12 +48,21 @@ module ExercismWeb
         files.select(&:testfile?)
       end
 
+      def readme_file
+        files.find(&:readme_file?) ||
+          Testfile.new('README.md', 'This exercise has no readme.')
+      end
+
       def problem
         Problem.new(@track, @slug)
       end
 
       def to_locals
-        {problem: problem, testfiles: testfiles}
+        {
+          problem: problem,
+          testfiles: testfiles,
+          readme_file: readme_file
+        }
       end
     end
   end
