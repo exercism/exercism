@@ -24,7 +24,17 @@
       <p>Help <b>@<%= dashboard.suggestion.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= dashboard.suggestion.key %>"><%= dashboard.suggestion.slug %> in <%= dashboard.suggestion.language.capitalize %></a>.</p>
     </div>
   <% end %>
-
+  <div class="span4">
+    <h2>Currently Trending</h2>
+    <ul class="nav nav-stacked" id="menu-current" role="menu">
+      <% dashboard.trending.each do |trending| %>
+      <li class="looks-list-item">
+        <a role="menuitem" tabindex="-1" href="/submissions/<%= trending.key %>">
+          <%= trending.problem.language + ' ' + trending.problem.name + ' ' + trending.total_activity.to_s %>        </a>
+        </a>
+      <% end %>
+    </ul>
+  </div>
   <% if current_user.ongoing.any? %>
     <div>
       <h2>Current Exercises</h2>

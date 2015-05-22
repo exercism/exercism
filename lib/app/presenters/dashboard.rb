@@ -14,6 +14,10 @@ module ExercismWeb
         @suggestion ||= Work.new(user).random
       end
 
+      def trending
+        Submission.trending(user)
+      end
+
       def has_activity?
         notifications.count > 0
       end
