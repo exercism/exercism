@@ -35,8 +35,6 @@ class SubmissionStatus
     user_relation.includes(:submissions).where(*working_or_done_sql_query(problem)).references(:submissions)
   end
 
-  private
-
   def self.completed_problem_hash(problem)
     {
       :language => problem.track_id,
@@ -65,4 +63,3 @@ class SubmissionStatus
   end
 
 end
-
