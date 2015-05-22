@@ -2,6 +2,9 @@ html {
   min-height:100%;
   position:relative;
 }
+body {
+  padding-bottom:60px;
+}
 .header {
   height:390px;
   background:#fff url("../img/bg_header_big.png") repeat-x;
