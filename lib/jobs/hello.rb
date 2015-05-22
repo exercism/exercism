@@ -5,7 +5,7 @@ module Jobs
     include Sidekiq::Worker
     sidekiq_options :queue => :hello
 
-    def perform(submission_uuid)
+    def perform(_)
       # This exists solely to get the job scheduled.
       # There is a stand-alone worker that processes
       # the jobs.

@@ -222,8 +222,6 @@ class Submission < ActiveRecord::Base
     end
   end
 
-  private
-
   # Experiment: Cache the iteration number so that we can display it
   # on the dashboard without pulling down all the related versions
   # of the submission.

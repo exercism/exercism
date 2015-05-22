@@ -41,8 +41,6 @@ module ExercismWeb
         @@planned ||= tracks.select(&:planned?)
       end
 
-      private
-
       def self.fetch_tracks
         status, body = Xapi.get("tracks")
         if status != 200
