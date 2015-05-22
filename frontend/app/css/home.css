@@ -292,6 +292,7 @@ footer nav li a:hover {
   position:relative;
 }
 .dropdown-submenu > .dropdown-menu {
+  width:100%;
   top:0;
   left:100%;
   margin-top:-6px;
