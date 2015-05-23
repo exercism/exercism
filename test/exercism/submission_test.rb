@@ -264,7 +264,7 @@ class SubmissionTest < Minitest::Test
     Comment.create!(submission: s1, user: fred, body: ' hope that after I die, people will say of me: "That guy sure owed me a lot of money."')
     Like.create!(submission: s1, user: fred)
     Comment.create!(submission: s1, user: fred, body: 'If you ever drop your keys into a river of molten lava, let em go, because, man, theyre gone.', created_at: Time.now - 12.hours)
-    trending = Submission.trending(alice)
+    trending = Submission.trending(alice, 4.hours)
     assert trending.first.total_activity, 2
   end
 end
