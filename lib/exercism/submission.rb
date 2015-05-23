@@ -90,22 +90,23 @@ class Submission < ActiveRecord::Base
   end
 
   def self.likes_by_submission
-    select('count(*) as total_likes, submission_id')
+    select('count(*) as total_likes, submissions.id')
       .joins(:likes)
-      .group(:submission_id)
+      .group(:id)
   end
 
   def self.comments_by_submission
-    select('count(*) as total_comments, submission_id')
+    select('count(*) as total_comments, submissions.id')
       .joins(:comments)
-      .group(:submission_id)
+      .group(:id)
   end
 
   def self.trending(user)
-    select("submissions.*, total_likes, total_comments, (COALESCE(total_likes,0) + COALESCE(total_comments,0)) As total_activity")
-      .joins("LEFT JOIN (#{comments_by_submission.where(comments: { created_at: (Time.now - 8.hours)..Time.now }).to_sql}) c on c.submission_id = submissions.id")
-      .joins("LEFT JOIN (#{likes_by_submission.where(likes: { created_at: (Time.now - 8.hours)..Time.now }).to_sql}) l on l.submission_id = submissions.id")
+    select("submissions.*, username, total_likes, total_comments, (COALESCE(total_likes,0) + COALESCE(total_comments,0)) As total_activity")
+      .joins("LEFT JOIN (#{comments_by_submission.where(comments: { created_at: (Time.now - 8.hours)..Time.now }).to_sql}) c on c.id = submissions.id")
+      .joins("LEFT JOIN (#{likes_by_submission.where(likes: { created_at: (Time.now - 8.hours)..Time.now }).to_sql}) l on l.id = submissions.id")
       .joins("INNER JOIN (SELECT language, slug FROM user_exercises WHERE user_id = #{user.id} AND is_nitpicker = TRUE) u on u.language = submissions.language AND u.slug = submissions.slug")
+      .joins(:user)
       .order("COALESCE(total_likes,0) + COALESCE(total_comments,0) DESC")
       .where('COALESCE(total_likes,0) + COALESCE(total_comments,0) > 0')
       .limit(10)
