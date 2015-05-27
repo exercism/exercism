@@ -1,3 +1,10 @@
+/**
+
+    TODO:
+    - Reduce selector specificity. 
+
+**/
+
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:focus,
 .navbar-inverse .navbar-nav > .open > a:hover {
@@ -10,7 +17,7 @@
   background-color:#ce6b05;
 }
 #navbar > ul {
-  margin-top:10px;
+  margin-top:15px;
 }
 #navbar .dropdown.open a {
   color:#222;
@@ -21,4 +28,9 @@
 .nav > li > a:focus,
 .nav > li > a:hover {
   background-color:transparent;
+}
+
+/*Footer Links*/
+.footer-container .nav a:hover {
+    color:#fff;
 }

@@ -8,27 +8,32 @@ body {
 .header {
   height:390px;
   background:#fff url("../img/bg_header_big.png") repeat-x;
+  -ms-background-position-y:-50px;
+      background-position-y:-50px;
 }
 footer {
   position:absolute;
   bottom:0;
   background:#fff url("../img/bg_footer.png") repeat-x;
-  height:60px;
   width:100%;
 }
 
 .landing-image-container {
-  margin-top:-250px;
+  margin-top:-325px;
 }
 
 .jumbotron {
-  background-color:#f1f1f1;
+  background-color:#fff;
 }
 
 .navbar {
-  /*background-image: none;
-  background-color: transparent;*/
   border:0;
+  -webkit-transition:0.3s;
+       -o-transition:0.3s;
+          transition:0.3s;
+}
+.navbar.scrolled {
+  box-shadow:0 4px 10px 0 rgba(0,0,0,0.4);
 }
 
 .steps {
@@ -54,7 +59,7 @@ footer {
 
 .step:hover,
 .lang:hover {
-  background-color:#e1e1e1;
+  background-color:#eee;
   text-decoration:none;
 }
 
@@ -187,7 +192,7 @@ footer {
 
 #navbar ul li a {
   color:#f3dac0;
-  font-size:18px;
+  font-size:16px;
 }
 
 /* using icon fonts would be better.*/
@@ -248,25 +253,12 @@ footer {
   font-family:"As cute as heavy";
   font-size:26px;
 }
-
-/*body{
-  font-family: 'Segoe UI';
-}
-*/
-.footer-container .row {
-  margin-top:30px;
-}
-
-nav .container {
-  margin-top:4px;
-}
-
 .landing-image-container .carousel {
   text-align:center;
 }
 
 footer a {
-  color:#f1f1f1;
+  color:#ddd;
   text-decoration:none;
 }
 
@@ -274,10 +266,12 @@ footer nav li a:hover {
   text-decoration:none;
   background-color:transparent;
 }
-
+.footer-header .navbar-brand {
+  margin-top:5px;
+}
 .footer-copyright {
   color:#fff;
-  margin-top:13px;
+  margin-top:15px;
 }
 
 .landing-image-container img {
