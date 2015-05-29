@@ -326,3 +326,15 @@ footer nav li a:hover {
 }
 
 /*-----  End of Navbar Submenu  ------*/
+
+/*=======================================
+=            Temporary Fixes            =
+=======================================*/
+
+#git-tree-content {
+  overflow-x: auto;
+  border:1px solid #ccc;
+}
+
+/*-----  End of Temporary Fixes  ------*/
+
