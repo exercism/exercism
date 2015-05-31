@@ -20,7 +20,7 @@ module ExercismWeb
       end
 
       error 500 do
-        Bugsnag.auto_notify($!)
+        Bugsnag.auto_notify($!, nil, request)
         erb :"errors/internal"
       end
 
