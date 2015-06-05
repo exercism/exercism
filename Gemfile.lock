@@ -227,3 +227,6 @@ DEPENDENCIES
   timecop
   will_paginate
   will_paginate-bootstrap
+
+BUNDLED WITH
+   1.10.3

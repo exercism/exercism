@@ -1,3 +1,5 @@
+require './lib/exercism/team_membership'
+
 class Team < ActiveRecord::Base
 
   has_many :memberships, ->{ where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
@@ -19,6 +21,11 @@ class Team < ActiveRecord::Base
 
   def self.find_by_slug(slug)
     where('LOWER(slug) = ?', slug.downcase).first
+  end
+
+  def destroy_with_memberships!
+    TeamMembership.destroy_for_team(self.id)
+    self.destroy
   end
 
   def managed_by?(user)
@@ -54,6 +61,7 @@ class Team < ActiveRecord::Base
 
   def dismiss(username)
     user = User.find_by_username(username)
+    TeamMembership.where(team_id: self.id, user_id: user.id).map(&:destroy)
     self.members.delete(user)
     self.unconfirmed_members.delete(user)
   end
