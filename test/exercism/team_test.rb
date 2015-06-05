@@ -151,7 +151,26 @@ class TeamTest < Minitest::Test
 
     refute team.includes?(bob)
     assert_equal 0, team.members.size
-    assert User.where(username: bob.username).first
+  end
+
+  def test_team_memberships_dismissed
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
+    team.save
+
+    team.confirm(bob.username)
+    team.dismiss(bob.username)
+    team.reload
+
+    assert_equal [], TeamMembership.where(team_id: team.id, user_id: bob.id)
+  end
+
+  def test_destroy_doesnt_leave_orphan_team_memberships
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
+    team.save
+
+    team.confirm(bob.username)
+    assert_equal 1, TeamMembership.all.size
+    team.destroy!
   end
 
   def test_team_member_dismiss_invalid_member

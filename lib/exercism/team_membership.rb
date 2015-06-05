@@ -5,6 +5,7 @@ class TeamMembership < ActiveRecord::Base
 
   validates :user, uniqueness: { scope: :team }
   scope :confirmed, ->{ where(confirmed: true) }
+  scope :for_team,-> (team_id) {where(team_id: team_id)}
 
   before_create do
     self.confirmed = false
@@ -14,6 +15,10 @@ class TeamMembership < ActiveRecord::Base
   def confirm!
     self.confirmed = true
     save
+  end
+
+  def self.destroy_for_team(id)
+    self.for_team(id).map(&:destroy)
   end
 
 end

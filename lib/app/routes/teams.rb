@@ -36,7 +36,7 @@ module ExercismWeb
 
       delete '/teams/:slug' do |slug|
         only_for_team_managers(slug, "You are not allowed to delete the team.") do |team|
-          team.destroy
+          team.destroy_with_memberships!
 
           flash[:success] = "Team #{slug} has been destroyed"
           redirect "/account"
