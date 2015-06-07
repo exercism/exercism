@@ -1,9 +1,18 @@
 <div class="container">
   <section class="page-header">
-  <h1>
-    README:
-    <small><%= problem.name %> in <%= problem.language %></small>
-  </h1>
+    <h1>
+      <%= problem.name %> in <%= problem.language %>
+    </h1>
   </section>
-  <%= md(text) %>
+  <nav role="navigation">
+    <ul class="nav nav-tabs">
+      <li role="presentation" class="active">
+        <a href="readme">Readme</a>
+      </li>
+      <li role="presentation">
+        <a href="../<%= problem.name.downcase %>"> Test Suite</a>
+      </li>
+    </ul>
+  </nav>
+  <%= md(readme_file.content) %>
 </div>

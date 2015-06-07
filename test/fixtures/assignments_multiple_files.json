@@ -1,0 +1,18 @@
+{
+  "assignments": [
+    {
+      "track_id": "go",
+      "id": "leap",
+      "track": "go",
+      "slug": "leap",
+      "files": {
+        "file1_test.name": "file1_content",
+        "file2_test.name": "file2_content",
+        "file3.name": "file3_content",
+        "README.md": "readme_content",
+        "Readme2.md": "readme2_content"
+      },
+      "fresh": false
+    }
+  ]
+}
