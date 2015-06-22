@@ -35,7 +35,7 @@ In addition to these, there is the **problems API**, which is what the
 command-line client talks to when fetching problems.
 
 For example, if you say `exercism fetch go clock`, then the CLI makes a call
-to http://x.exercism.io/problems/go/clock, and then uses that data to create
+to http://x.exercism.io/tracks/go/clock, and then uses that data to create
 the files on the user's computer.
 
 * website: https://github.com/exercism/exercism.io (Ruby using Sinatra, JavaScript using Angular)
