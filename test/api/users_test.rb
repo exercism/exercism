@@ -29,7 +29,7 @@ class UsersApiTest < Minitest::Test
 
   def test_users_query_sorts_participating_users_higher
     cassidy = User.create!(github_id: 1, username: 'cassidy')
-    christa = User.create!(github_id: 2, username: 'christa')
+    _ = User.create!(github_id: 2, username: 'christa')
     connie  = User.create!(github_id: 3, username: 'connie')
 
     submission = Submission.create!(user: User.create!)

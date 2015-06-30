@@ -26,9 +26,9 @@ class ParticipantTest < Minitest::Test
 
   def test_participants_with_mentions
     alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
+    _ = User.create(username: 'bob')
     charlie = User.create(username: 'charlie')
-    mention_user = User.create(username: 'mention_user')
+    _ = User.create(username: 'mention_user')
 
     s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
     s1.comments << Comment.new(user: alice, body: 'What about @bob?')

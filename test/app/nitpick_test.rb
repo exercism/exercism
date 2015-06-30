@@ -26,7 +26,7 @@ class NitpickAppTest < Minitest::Test
       github_id: User.count,
       email: "#{track_id}_coder@example.com"
     })
-    attempt = Attempt.new(user, "class Bob\nend", "#{track_id}/bob/bob.#{exe}").save
+    Attempt.new(user, "class Bob\nend", "#{track_id}/bob/bob.#{exe}").save
   end
 
   def generate_nitpick(attempt)
@@ -55,4 +55,3 @@ class NitpickAppTest < Minitest::Test
     end
   end
 end
-

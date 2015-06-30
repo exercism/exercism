@@ -41,7 +41,7 @@ class WorkTest < Minitest::Test
   def test_completed_exercise_latest_first_in_70_percent_of_cases
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
-    sub1 = Submission.create(state: 'pending', user: bob, language: 'python', slug: 'one')
+    _ = Submission.create(state: 'pending', user: bob, language: 'python', slug: 'one')
     sub2 = Submission.create(state: 'pending', user: alice, language: 'python', slug: 'two')
 
     user = User.create
@@ -58,7 +58,7 @@ class WorkTest < Minitest::Test
     bob = User.create(username: 'bob')
 
     sub1 = Submission.create(state: 'pending', user: bob, language: 'python', slug: 'one')
-    sub2 = Submission.create(state: 'pending', user: alice, language: 'python', slug: 'two')
+    _ = Submission.create(state: 'pending', user: alice, language: 'python', slug: 'two')
 
     user = User.create
     Submission.create(state: 'done', user: user, language: 'python', slug: 'one')

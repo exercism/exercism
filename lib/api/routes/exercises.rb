@@ -12,7 +12,7 @@ module ExercismAPI
           halt 400, {error: "Sorry—we can't figure out who you are. Double-check your API key in your exercism.io account page."}.to_json
         end
 
-        exercises = begin
+        begin
           result = Homework.new(current_user).all.to_json
           LifecycleEvent.track('fetched', current_user.id)
           result

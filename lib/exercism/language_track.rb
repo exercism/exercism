@@ -18,7 +18,7 @@ class LanguageTrack
     end
 
     def all_tracks
-      status, body = Xapi.get('tracks')
+      _, body = Xapi.get('tracks')
       JSON.parse body
     end
 end
