@@ -190,11 +190,11 @@ class SubmissionTest < Minitest::Test
 
   def test_aging_submissions
     # not old
-    s1 = Submission.create(user: alice, state: 'pending', created_at: 20.days.ago, nit_count: 1)
+    Submission.create(user: alice, state: 'pending', created_at: 20.days.ago, nit_count: 1)
     # no nits
-    s2 = Submission.create(user: alice, state: 'pending', created_at: 22.days.ago, nit_count: 0)
+    Submission.create(user: alice, state: 'pending', created_at: 22.days.ago, nit_count: 0)
     # not pending
-    s3 = Submission.create(user: alice, state: 'completed', created_at: 22.days.ago, nit_count: 1)
+    Submission.create(user: alice, state: 'completed', created_at: 22.days.ago, nit_count: 1)
     # Meets criteria: old, pending, and with nits
     s4 = Submission.create(user: alice, state: 'pending', created_at: 22.days.ago, nit_count: 1)
 
@@ -234,7 +234,7 @@ class SubmissionTest < Minitest::Test
 
   def test_participant_submissions_finds_last
     commenter = User.create!
-    superseeded_submission = problem_submission_for(commenter).tap do |submission|
+    problem_submission_for(commenter).tap do |submission|
       submission.supersede!
     end
     submission = problem_submission_for(commenter)

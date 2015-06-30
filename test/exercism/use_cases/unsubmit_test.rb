@@ -13,7 +13,7 @@ class UnsubmitTest < Minitest::Test
   end
 
   def test_success
-    submission = bob.submissions.create
+    bob.submissions.create
     Unsubmit.new(bob).unsubmit
 
     assert_equal 0, bob.submissions.count
