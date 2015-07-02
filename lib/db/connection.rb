@@ -1,8 +1,15 @@
 require 'active_record'
+require 'pg'
 require_relative 'config'
 
 module DB
   class Connection
+    def self.escape(string)
+      # escape strings passed to SQL using PG::Connection instance method as per
+      # http://deveiate.org/code/pg/PG/Connection.html#method-i-escape_string
+      PG::Connection.new.escape_string(string)
+    end
+
     def self.establish
       new.establish
     end
