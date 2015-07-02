@@ -58,19 +58,24 @@ class DB::ConfigTest < Minitest::Test
     end
   end
 
+  def example_config
+    file = relative_to_root('config', 'database.example.yml')
+    config = DB::Config.new('test', file)
+  end
+
   def test_exposes_database
-    assert_equal 'exercism_test', DB::Config.new.database
+    assert_equal 'exercism_test', example_config.database
   end
 
   def test_exposes_host
-    assert_equal 'localhost', DB::Config.new.host
+    assert_equal 'localhost', example_config.host
   end
 
   def test_exposes_password
-    assert_equal 'apples', DB::Config.new.password
+    assert_equal 'apples', example_config.password
   end
 
   def test_exposes_username
-    assert_equal 'exercism', DB::Config.new.username
+    assert_equal 'exercism', example_config.username
   end
 end
