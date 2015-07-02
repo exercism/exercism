@@ -2,6 +2,22 @@
   <ul class="nav navbar-nav">
     <li><a href="http://help.exercism.io">Help</a></li>
     <li><a href="/getting-started">Welcome new users</a></li>
+    <li class="dropdown">
+      <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">Languages<b class="caret"></b></a>
+    <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
+          <% tracks.each do |t| %>
+            <% if t.active? %>
+              <li>
+                <a role="menuitem" tabindex="-1" href="http://help.exercism.io/getting-started-with-<%= t.slug %>.html">
+                  <%= t.language %>
+                </a>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </li>
+
+
   </ul>
 
   <ul class="nav navbar-nav navbar-right">
