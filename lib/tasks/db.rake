@@ -1,4 +1,5 @@
 namespace :db do
+  require 'open3'
   require 'bundler'
   Bundler.require
   require_relative '../db/config'
@@ -25,10 +26,14 @@ namespace :db do
 
   desc "set up your database"
   task :setup do
+    user = DB::Connection.escape(config.username)
+    pass = DB::Connection.escape(config.password)
     # Only create user if it doesn't already exist
-    query_result = ActiveRecord::Base.connection.execute("SELECT 1 FROM pg_user WHERE usename = '#{config.username}';")
-    if query_result.ntuples == 0
-      sql = "CREATE USER #{config.username} PASSWORD '#{config.password}' " \
+    sql = "SELECT 'user exists' FROM pg_user WHERE usename = '#{user}'"
+    out, _, status = Open3.capture3('psql', '-t', '-h', config.host,
+                                    '-p', config.port, '-c', sql)
+    if status.success? and not out.include?('user exists')
+      sql = "CREATE USER #{user} PASSWORD '#{pass}' " \
             'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
       system 'psql', '-h', config.host, '-p', config.port, '-c', sql
     end
