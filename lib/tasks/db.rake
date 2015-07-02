@@ -1,12 +1,16 @@
 namespace :db do
-  require 'bundler'
-  Bundler.require
   require_relative '../db/config'
-  require_relative '../db/connection'
-  DB::Connection.establish
+
+  desc "connect to the exercism database"
+  task :connect do
+    require 'bundler'
+    Bundler.require
+    require_relative '../db/connection'
+    DB::Connection.establish
+  end
 
   desc "migrate your database"
-  task :migrate do
+  task :migrate => [:connect] do
     ActiveRecord::Migrator.migrate('./db/migrate')
   end
 
@@ -16,7 +20,7 @@ namespace :db do
   end
 
   namespace :migrate do
-    task :down do
+    task :down => [:connect] do
       version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
       raise 'VERSION is required - To go down one migration, run db:rollback' unless version
       ActiveRecord::Migrator.run(:down, './db/migrate', version)
@@ -26,13 +30,17 @@ namespace :db do
   desc "set up your database"
   task :setup do
     # Only create user if it doesn't already exist
-    query_result = ActiveRecord::Base.connection.execute("SELECT 1 FROM pg_user WHERE usename = '#{config.username}';")
-    if query_result.ntuples == 0
-      sql = "CREATE USER #{config.username} PASSWORD '#{config.password}' " \
-            'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
-      system 'psql', '-h', config.host, '-p', config.port, '-c', sql
+    stmt = "SELECT 1 AS exists FROM pg_user WHERE usename = '#{config.username}';"
+    result = %x|psql -h #{config.host} -p #{config.port} -d postgres -c "#{stmt}"|
+    exists = result.split("\n").reject(&:empty?).select {|s| s.strip == "1"}.count == 1
+    if !exists
+      stmt = <<-STMT
+        CREATE USER #{config.username} PASSWORD '#{config.password}' SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN
+      STMT
+      system 'psql', '-d', 'postgres', '-h', config.host, '-p', config.port, '-c', stmt
     end
 
+    # create the database
     system 'createdb', '-h', config.host, '-p', config.port, '-O', config.username, config.database
     raise "Failed to create database" unless $?.success?
   end
