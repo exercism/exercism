@@ -1,6 +1,10 @@
 module ExercismWeb
   module Routes
     class Static < Core
+      before do
+        cache_control :public
+      end
+
       get '/rikki' do
         erb :"site/rikki"
       end

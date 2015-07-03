@@ -23,6 +23,10 @@ module ExercismAPI
         content_type 'application/json', charset: 'utf-8'
       end
 
+      before do
+        cache_control :private
+      end
+
       helpers do
         def require_key
           unless params[:key]

@@ -24,6 +24,10 @@ module ExercismWeb
         erb :"errors/internal"
       end
 
+      before do
+        cache_control :private
+      end
+
       use Rack::Flash
 
       helpers Helpers::NotificationCount # total hack
