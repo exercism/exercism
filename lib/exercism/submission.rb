@@ -89,6 +89,29 @@ class Submission < ActiveRecord::Base
     submission
   end
 
+  def self.likes_by_submission
+    select('count(*) as total_likes, submissions.id')
+      .joins(:likes)
+      .group(:id)
+  end
+
+  def self.comments_by_submission
+    select('count(*) as total_comments, submissions.id')
+      .joins(:comments)
+      .group(:id)
+  end
+
+  def self.trending(user, timeframe)
+    select("submissions.*, username, total_likes, total_comments, (COALESCE(total_likes,0) + COALESCE(total_comments,0)) As total_activity")
+      .joins("LEFT JOIN (#{comments_by_submission.where(comments: { created_at: (Time.now - timeframe)..Time.now }).to_sql}) c on c.id = submissions.id")
+      .joins("LEFT JOIN (#{likes_by_submission.where(likes: { created_at: (Time.now - timeframe)..Time.now }).to_sql}) l on l.id = submissions.id")
+      .joins("INNER JOIN (SELECT language, slug FROM user_exercises WHERE user_id = #{user.id} AND is_nitpicker = TRUE) u on u.language = submissions.language AND u.slug = submissions.slug")
+      .joins(:user)
+      .order("COALESCE(total_likes,0) + COALESCE(total_comments,0) DESC")
+      .where('COALESCE(total_likes,0) + COALESCE(total_comments,0) > 0')
+      .limit(10)
+  end
+
   def name
     @name ||= slug.split('-').map(&:capitalize).join(' ')
   end

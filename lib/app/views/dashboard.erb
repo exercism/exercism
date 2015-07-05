@@ -1,6 +1,13 @@
 <div class="container">
+  <% if dashboard.pay_it_forward? %>
+    <div class="col-lg-12">
+      <h2>Have a moment?</h2>
+      <span>Help <b>@<%= dashboard.suggestion.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= dashboard.suggestion.key %>"><%= dashboard.suggestion.slug %> in <%= dashboard.suggestion.language.capitalize %></a>.</span>
+    </div>
+  <% end %>
+
   <% if dashboard.has_activity? %>
-    <div class="span4">
+    <div class="col-lg-6">
       <h2>Activity</h2>
       <ul style="list-style-type: none; margin: 0;">
         <% dashboard.notifications.each do |notification| %>
@@ -18,15 +25,21 @@
     </div>
   <% end %>
 
-  <% if dashboard.pay_it_forward? %>
-    <div class="span4">
-      <h2>Have a moment?</h2>
-      <p>Help <b>@<%= dashboard.suggestion.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= dashboard.suggestion.key %>"><%= dashboard.suggestion.slug %> in <%= dashboard.suggestion.language.capitalize %></a>.</p>
+  <% if dashboard.trending.any? %>
+    <div class="col-lg-6">
+      <h2>Currently Trending</h2>
+      <ul class="nav nav-stacked" id="menu-current" role="menu">
+        <% dashboard.trending.each do |trending| %>
+        <li class="looks-list-item">
+          <a role="menuitem" tabindex="-1" href="/submissions/<%= trending.key %>">
+            <%= trending.problem.language + ' ' + trending.problem.name + ' by @' + trending.username %>
+          </a>
+        <% end %>
+      </ul>
     </div>
   <% end %>
-
   <% if current_user.ongoing.any? %>
-    <div>
+    <div class="col-lg-6">
       <h2>Current Exercises</h2>
       <ul class="nav nav-stacked" id="menu-current" role="menu">
         <% current_user.ongoing.each do |submission| %>
@@ -40,12 +53,12 @@
     </div>
   <% end %>
 
-  <div class="span4">
+  <div class="col-lg-6">
     <h2>History</h2>
     <p class="well">See a list of exercises that you <a href="/looks">recently viewed</a>.</p>
   </div>
 
-  <div class="span4">
+  <div class="col-lg-6">
     <h2>Improvements</h2>
     <p>The dashboard could use a little love. What do you want to see here? If you have ideas or suggestions, please let us know in this <a href="https://github.com/exercism/exercism.io/issues/1654">GitHub issue</a>.</p>
   </div>
