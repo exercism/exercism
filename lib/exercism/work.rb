@@ -27,13 +27,17 @@ class Work
   end
 
   def slugs_in(language)
-    Submission.select('distinct slug').where(language: language).map(&:slug)
+    Submission.select('distinct slug').where(language: language).map(&:slug) - ['hello-world']
   end
 
   def nitpickables
-    Hash[mastered_slugs].merge(user.completed) do |_, a, b|
+    Hash[mastered_slugs].merge(completed) do |_, a, b|
       (a + b).uniq
     end
+  end
+
+  def completed
+    @completed ||= user.send(:items_where, "submissions", "state='done' AND slug != 'hello-world'")
   end
 
   class Pick

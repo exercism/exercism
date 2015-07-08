@@ -24,7 +24,24 @@ class WorkTest < Minitest::Test
     assert_equal submission, Work.new(alice).random
   end
 
-  def test_work_where_alice_is_locksmith
+  def test_exclude_hello_world
+    alice = User.create(username: 'alice', mastery: ['ruby'])
+    bob = User.create(username: 'bob')
+    Submission.create(user: alice, language: 'ruby', slug: 'hello-world', state: 'done')
+    Submission.create(user: bob, language: 'ruby', slug: 'hello-world')
+
+    assert_nil Work.new(alice).random
+  end
+
+  def test_exclude_hello_world_for_track_mentors
+    alice = User.create(username: 'alice', mastery: ['ruby'])
+    bob = User.create(username: 'bob')
+    Submission.create(user: bob, language: 'ruby', slug: 'hello-world')
+
+    assert_nil Work.new(alice).random
+  end
+
+  def test_work_where_alice_is_mentor
     alice = User.create(username: 'alice', mastery: ['ruby'])
     bob = User.create(username: 'bob')
     submission = Submission.create(user: bob, language: 'ruby', slug: 'word-count')
@@ -66,7 +83,7 @@ class WorkTest < Minitest::Test
 
     work = Work.new(user)
     work.stubs(:rand).returns(0.8)
-    user.completed['python'].expects(:shuffle).returns(['one', 'two'])
+    work.send(:completed)['python'].expects(:shuffle).returns(['one', 'two'])
     assert_equal work.random, sub1
   end
 
