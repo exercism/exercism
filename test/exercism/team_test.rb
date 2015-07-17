@@ -3,11 +3,12 @@ require_relative '../integration_helper'
 class TeamTest < Minitest::Test
   include DBCleaner
 
-  attr_reader :alice, :bob
+  attr_reader :alice, :bob, :charlie
   def setup
     super
     @alice = User.create(username: 'alice')
     @bob = User.create(username: 'bob')
+    @charlie = User.create(username: 'charlie-brown')
   end
 
   def test_team_requires_slug
@@ -77,22 +78,22 @@ class TeamTest < Minitest::Test
   end
 
   def test_has_members
-    team = Team.by(bob).defined_with(slug: 'purple', usernames: ['alice'])
+    team = Team.by(bob).defined_with(slug: 'purple', usernames: '  alice    , charlie-brown ')
     team.save
 
-    assert_equal [alice], team.unconfirmed_members
+    assert_equal [alice, charlie], team.unconfirmed_members
     assert_equal [], team.members
     refute alice.teams.include?(team)
 
     team.confirm(alice.username)
 
-    assert_equal [], team.unconfirmed_members
+    assert_equal [charlie], team.unconfirmed_members
     assert_equal [alice], team.members
     assert alice.teams.include?(team)
   end
 
   def test_team_inclusion
-    team = Team.by(alice).defined_with(slug: 'sparkle', usernames: ['bob'])
+    team = Team.by(alice).defined_with(slug: 'sparkle', usernames: 'bob')
     team.save
 
     assert team.includes?(alice)
@@ -132,7 +133,7 @@ class TeamTest < Minitest::Test
 
   def test_team_does_not_recruit_duplicates
     inviter = User.create(username: 'inviter')
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
     team.save
     member_count = team.all_members.count
     team.confirm(bob.username)
@@ -142,7 +143,7 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_member_dismiss
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
     team.save
 
     team.confirm(bob.username)
@@ -154,7 +155,7 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_memberships_dismissed
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
     team.save
 
     team.confirm(bob.username)
@@ -165,7 +166,7 @@ class TeamTest < Minitest::Test
   end
 
   def test_destroy_doesnt_leave_orphan_team_memberships
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: ['bob'])
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
     team.save
 
     team.confirm(bob.username)

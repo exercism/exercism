@@ -39,7 +39,7 @@ class Team < ActiveRecord::Base
   def defined_with(options, inviter = nil)
     self.slug = options[:slug]
     self.name = options[:name]
-    recruits = User.find_or_create_in_usernames(options[:usernames].to_s.scan(/\w+/)) if options[:usernames]
+    recruits = User.find_or_create_in_usernames(potential_recruits(options[:usernames])) if options[:usernames]
     recruits = options[:users] if options[:users]
 
     if recruits
@@ -52,7 +52,7 @@ class Team < ActiveRecord::Base
   end
 
   def recruit(usernames, inviter)
-    recruits = User.find_or_create_in_usernames(usernames.to_s.scan(/[\w-]+/)) - self.all_members
+    recruits = User.find_or_create_in_usernames(potential_recruits(usernames.to_s)) - self.all_members
 
     recruits.each do |recruit|
       TeamMembership.create(user: recruit, team: self, inviter: inviter)
@@ -91,6 +91,10 @@ class Team < ActiveRecord::Base
   end
 
   private
+
+  def potential_recruits(comma_delimited_names)
+    comma_delimited_names.to_s.split(/\s*,\s*/).map(&:strip)
+  end
 
   def normalize_slug
     return unless slug
