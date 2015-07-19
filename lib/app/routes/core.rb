@@ -119,7 +119,7 @@ module ExercismWeb
         end
 
         def nitpicker_languages
-          tracks.ids & current_user.nitpicker_languages
+          tracks.map(&:id) & current_user.nitpicker_languages
         end
 
         def namify(slug)
@@ -127,21 +127,8 @@ module ExercismWeb
         end
 
         private
-
-        def active_languages
-          ExercismWeb::Presenters::Languages.new(tracks.active.map(&:language))
-        end
-
-        def upcoming_languages
-          ExercismWeb::Presenters::Languages.new(tracks.upcoming.map(&:language))
-        end
-
-        def planned_languages
-          ExercismWeb::Presenters::Languages.new(tracks.planned.map(&:language))
-        end
-
         def tracks
-          ExercismWeb::Presenters::Tracks
+          ExercismWeb::Presenters::Tracks.tracks
         end
       end
     end

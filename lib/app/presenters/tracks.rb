@@ -17,16 +17,16 @@ module ExercismWeb
     end
 
     class Tracks
+      # def initialize(track)
+      #   @track = track
+      # end
+
       def self.tracks
         @@tracks ||= fetch_tracks
       end
 
       def self.find(id)
         tracks.find {|track| track.id == id}
-      end
-
-      def self.ids
-        tracks.map(&:id)
       end
 
       def self.active

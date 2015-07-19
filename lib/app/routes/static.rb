@@ -14,11 +14,13 @@ module ExercismWeb
       end
 
       get '/about' do
-        erb :"site/about", locals: {active_languages: active_languages, upcoming_languages: upcoming_languages, planned_languages: planned_languages}
+        erb :"site/about", locals: {active_languages: ExercismWeb::Presenters::Languages.new(tracks.select(&:active?).map(&:language)).to_s,
+                                    upcoming_languages: ExercismWeb::Presenters::Languages.new(tracks.select(&:upcoming?).map(&:language)).to_s,
+                                    planned_languages: ExercismWeb::Presenters::Languages.new(tracks.select(&:planned?).map(&:language)).to_s}
       end
 
       get '/getting-started' do
-        erb :"site/getting-started", locals: {active_languages: active_languages}
+        erb :"site/getting-started", locals: {active_languages: ExercismWeb::Presenters::Languages.new(tracks.select(&:active?).map(&:language)).to_s}
       end
 
       get '/bork' do
