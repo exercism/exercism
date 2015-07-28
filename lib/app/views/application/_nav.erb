@@ -1,7 +1,9 @@
 <div id="navbar" class="navbar-collapse collapse">
   <ul class="nav navbar-nav">
     <li><a href="http://help.exercism.io">Help</a></li>
-    <li><a href="/getting-started">Welcome new users</a></li>
+    <% unless current_user.onboarded? %>
+      <li><a href="/getting-started">Welcome new users</a></li>
+    <% end %>
     <li class="dropdown">
       <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">Languages<b class="caret"></b></a>
     <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
