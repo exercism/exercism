@@ -126,7 +126,6 @@ module ExercismWeb
           slug.to_s.split('-').map(&:capitalize).join('-')
         end
 
-        private
         def tracks
           ExercismWeb::Presenters::Tracks.tracks
         end

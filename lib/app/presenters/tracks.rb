@@ -17,10 +17,6 @@ module ExercismWeb
     end
 
     class Tracks
-      # def initialize(track)
-      #   @track = track
-      # end
-
       def self.tracks
         @@tracks ||= fetch_tracks
       end
