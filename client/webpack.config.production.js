@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var ngAnnotatePlugin = require('ng-annotate-webpack-plugin');
 
 module.exports = {
   context: __dirname,
@@ -7,7 +8,7 @@ module.exports = {
     path: '../lib/app/public/js',
     filename: 'bundle.js'
   },
-  devtool: 'eval',
+  devtool: 'source-map',
   module: {
     loaders: [{
       test: /\.html$/,
@@ -31,7 +32,15 @@ module.exports = {
     ),
     new webpack.DefinePlugin({
       getEnv: function() {
-        return 'test'
+        return 'production'
+      }
+    }),
+    new ngAnnotatePlugin({
+      add: true
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
       }
     })
   ]

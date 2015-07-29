@@ -1,4 +1,4 @@
-var webpack = require("webpack");
+var webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
@@ -7,6 +7,7 @@ module.exports = {
     path: '../lib/app/public/js',
     filename: 'bundle.js'
   },
+  devtool: 'eval',
   module: {
     loaders: [{
       test: /\.html$/,
@@ -30,7 +31,7 @@ module.exports = {
     ),
     new webpack.DefinePlugin({
       getEnv: function() {
-        return 'production'
+        return 'development'
       }
     })
   ]

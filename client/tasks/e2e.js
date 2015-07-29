@@ -4,12 +4,12 @@ var protractor = require('gulp-protractor').protractor;
 /*
  * Download and update the selenium driver
  */
-var webdriver_update = require('gulp-protractor').webdriver_update;
+var webdriverUpdate = require('gulp-protractor').webdriver_update;
 
 /*
  * Download the selenium webdriver
  */
-gulp.task('webdriver_update', webdriver_update);
+gulp.task('webdriver-update', webdriverUpdate);
 
 /*
  * Run protractor e2e tests
