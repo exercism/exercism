@@ -49,7 +49,7 @@
           <% if profile.has_current_submissions? %>
             <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.current } %>
           <% else %>
-            <p><%= profile.no_current_sumbissions_message %></p>
+            <p><%= profile.no_current_submissions_message %></p>
           <% end %>
 
           <% if profile.has_hibernating_submissions? %>
@@ -85,7 +85,7 @@
               </tbody>
             </table>
           <% else %>
-            <p><%= profile.no_completed_sumbissions_message %></p>
+            <p><%= profile.no_completed_submissions_message %></p>
           <% end %>
         </div>
 
