@@ -57,7 +57,7 @@ class Profile
     end
   end
 
-  def no_current_sumbissions_message
+  def no_current_submissions_message
     if narcissistic?
       "You have not submitted any exercises lately."
     else
@@ -65,7 +65,7 @@ class Profile
     end
   end
 
-  def no_completed_sumbissions_message
+  def no_completed_submissions_message
     if narcissistic?
       "You have not completed any exercises yet."
     else

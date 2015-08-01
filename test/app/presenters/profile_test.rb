@@ -29,18 +29,18 @@ class ProfileTest < Minitest::Test
   end
 
   def test_no_current_submissions_message
-    assert_equal "Lucy has not submitted any exercises lately.", profile.no_current_sumbissions_message
+    assert_equal "Lucy has not submitted any exercises lately.", profile.no_current_submissions_message
   end
 
   def test_narcissistic_no_current_submissions_message
-    assert_equal "You have not submitted any exercises lately.", narcissistic_profile.no_current_sumbissions_message
+    assert_equal "You have not submitted any exercises lately.", narcissistic_profile.no_current_submissions_message
   end
 
   def test_no_completed_submissions_message
-    assert_equal "Lucy has not completed any exercises yet.", profile.no_completed_sumbissions_message
+    assert_equal "Lucy has not completed any exercises yet.", profile.no_completed_submissions_message
   end
 
   def test_narcissistic_no_completed_submissions_message
-    assert_equal "You have not completed any exercises yet.", narcissistic_profile.no_completed_sumbissions_message
+    assert_equal "You have not completed any exercises yet.", narcissistic_profile.no_completed_submissions_message
   end
 end
