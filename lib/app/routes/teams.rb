@@ -2,15 +2,13 @@ module ExercismWeb
   module Routes
     class Teams < Core
 
-      before do
-        please_login
-      end
-
       get '/teams/?' do
+        please_login
         erb :"teams/new", locals: {team: Team.new}
       end
 
       post '/teams/?' do
+        please_login
         team = Team.by(current_user).defined_with(params[:team], current_user)
         if team.valid?
           team.save
@@ -23,6 +21,7 @@ module ExercismWeb
       end
 
       get '/teams/:slug' do |slug|
+        please_login
         only_with_existing_team(slug) do |team|
 
           unless team.includes?(current_user)
@@ -35,6 +34,7 @@ module ExercismWeb
       end
 
       delete '/teams/:slug' do |slug|
+        please_login
         only_for_team_managers(slug, "You are not allowed to delete the team.") do |team|
           team.destroy_with_memberships!
 
@@ -44,6 +44,7 @@ module ExercismWeb
       end
 
       post '/teams/:slug/members' do |slug|
+        please_login
         only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
           team.recruit(params[:usernames], current_user)
           team.save
@@ -53,6 +54,7 @@ module ExercismWeb
       end
 
       put '/teams/:slug/leave' do |slug|
+        please_login
         only_with_existing_team(slug) do |team|
           team.dismiss(current_user.username)
 
@@ -61,6 +63,7 @@ module ExercismWeb
       end
 
       delete '/teams/:slug/members/:username' do |slug, username|
+        please_login
         only_for_team_managers(slug, "You are not allowed to remove team members.") do |team|
           team.dismiss(username)
 
@@ -69,6 +72,7 @@ module ExercismWeb
       end
 
       put '/teams/:slug' do |slug|
+        please_login
         only_for_team_managers(slug, "You are not allowed to edit the team.") do |team|
           if team.defined_with(params[:team], current_user).save
             redirect "/teams/#{team.slug}"
@@ -80,6 +84,7 @@ module ExercismWeb
       end
 
       put '/teams/:slug/confirm' do |slug|
+        please_login
         only_with_existing_team(slug) do |team|
 
           unless team.unconfirmed_members.include?(current_user)
@@ -94,6 +99,7 @@ module ExercismWeb
       end
 
       post "/teams/:slug/managers" do |slug|
+        please_login
         only_for_team_managers(slug, "You are not allowed to add managers to the team.") do |team|
           user = ::User.find_by_username(params[:username])
           unless user.present?
@@ -108,6 +114,7 @@ module ExercismWeb
       end
 
       delete "/teams/:slug/managers" do |slug|
+        please_login
         only_for_team_managers(slug, "You are not allowed to add managers to the team.") do |team|
           user = ::User.find_by_username(params[:username])
           team.managers.delete(user) if user
@@ -117,6 +124,7 @@ module ExercismWeb
       end
 
       post "/teams/:slug/disown" do |slug|
+        please_login
         # please_login("/teams/#{slug}") ? What with this?
 
         only_with_existing_team(slug) do |team|
