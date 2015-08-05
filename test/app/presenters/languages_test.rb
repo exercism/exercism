@@ -14,4 +14,3 @@ class PresentersLanguagesTest < Minitest::Test
     assert_equal "Python, Scala, and Go", ExercismWeb::Presenters::Languages.new(['Python', 'Scala', 'Go']).to_s
   end
 end
-

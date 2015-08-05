@@ -13,6 +13,7 @@ require_relative './app/presenters/workload'
 require_relative './app/presenters/profile'
 require_relative './app/presenters/sharing'
 require_relative './exercism/xapi'
+require_relative './app/presenters/problems'
 
 require_relative './app/helpers'
 require_relative './app/helpers/gravatar_helper'
@@ -34,6 +35,7 @@ module ExercismWeb
       register Sinatra::Reloader
     end
 
+    use Routes::Languages
     use Routes::Static
     use Routes::Legacy
     use Routes::Main

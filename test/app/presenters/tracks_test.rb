@@ -1,4 +1,5 @@
 require_relative '../../test_helper'
+require_relative '../../tracks_helper'
 require 'app/presenters/tracks'
 require 'exercism/xapi.rb'
 require 'faraday'
