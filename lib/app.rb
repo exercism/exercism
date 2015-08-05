@@ -38,7 +38,6 @@ module ExercismWeb
     use Routes::Legacy
     use Routes::Main
     use Routes::OnboardingSteps
-    use Routes::Sessions
     use Routes::Stats
     use Routes::Conversations
     use Routes::Account
@@ -50,9 +49,10 @@ module ExercismWeb
     use Routes::Comments
     use Routes::Nits
     use Routes::Teams
+    use Routes::Sessions
     use Routes::Styleguide
-    use Routes::User
     use Routes::CommentThreads
     use Routes::Errors
+    use Routes::User
   end
 end
