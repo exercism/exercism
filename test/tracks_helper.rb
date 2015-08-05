@@ -5,7 +5,7 @@ module ExercismWeb
     class Tracks
       def self.load_tracks
         tracks = JSON.parse(File.read("./test/fixtures/tracks.json"))["tracks"]
-        @@tracks = tracks {|track| Track.new(track)}
+        @@tracks = tracks.map {|track| Track.new(track)}
       end
     end
   end
