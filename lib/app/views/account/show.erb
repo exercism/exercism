@@ -17,7 +17,7 @@
               <% profile.teams.each do |team| %>
                 <li>
                   <% if team.unconfirmed_members.include?(profile.user) %>
-                    <ul class="list-inline">
+                    <ul class="list-inline" style="padding:10px 20px;">
                       <li style="padding-left: 0;"><%= team.name %></li>
                       <li>
                         <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
