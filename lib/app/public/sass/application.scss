@@ -40,3 +40,9 @@ li.alert-row {
 .inline {
   display: inline;
 }
+
+.dropdown-menu {
+  height: auto;
+  max-height: 400px;
+  overflow-x: scroll;
+}

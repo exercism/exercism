@@ -1,5 +1,7 @@
 require_relative '../../test_helper'
 require 'app/presenters/tracks'
+require 'exercism/xapi.rb'
+require 'faraday'
 
 class PresentersTracksTest < Minitest::Test
   def test_stuff
@@ -8,8 +10,8 @@ class PresentersTracksTest < Minitest::Test
     upcoming = ["Groovy", "Nimrod", "Perl 6", "PHP", "Rust", "VB.NET"]
     planned = ["Assembly", "Bash", "C", "D", "ECMAScript", "Windows PowerShell", "Mathematical Proofs", "R", "Standard ML"]
 
-    assert_equal active, active
-    assert_equal upcoming, upcoming
-    assert_equal planned, planned
+    assert_equal active, tracks.active.map(&:language)
+    assert_equal upcoming, tracks.upcoming.map(&:language)
+    assert_equal planned, tracks.planned.map(&:language)
   end
 end
