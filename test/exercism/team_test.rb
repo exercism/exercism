@@ -208,5 +208,20 @@ class TeamTest < Minitest::Test
     team.destroy
     refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'TeamMembership was deleted.'
   end
+
+
+  def test_invite_user_with_incorrect_case_in_username
+    team = Team.by(alice).defined_with(slug: 'bizard')
+    team.save
+
+    team.recruit('BOB', alice)
+
+    assert_equal 1, User.where(username: 'bob').count
+
+    refute team.includes?(bob), "bob should not be a member (yet)"
+
+    team.confirm(bob.username)
+    assert team.includes?(bob), "bob should now be a member"
+  end
 end
 

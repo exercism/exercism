@@ -170,7 +170,8 @@ class UserTest < Minitest::Test
 
   def test_create_users_unless_present
     User.create(username: 'alice')
-    assert_equal ['alice', 'bob'], User.find_or_create_in_usernames(['alice', 'bob']).map(&:username).sort
+    User.create(username: 'bob')
+    assert_equal ['alice', 'bob', 'charlie'], User.find_or_create_in_usernames(['alice', 'BOB', 'charlie']).map(&:username).sort
   end
 
   def test_delete_team_memberships_with_user

@@ -56,8 +56,10 @@ class User < ActiveRecord::Base
   end
 
   def self.find_or_create_in_usernames(usernames)
-    recruits = usernames - find_in_usernames(usernames).map(&:username)
-    User.create recruits.reduce([]) { |acc, curr| acc.push username: curr } unless recruits.empty?
+    members = find_in_usernames(usernames).map(&:username).map(&:downcase)
+    usernames.reject {|username| members.include?(username.downcase)}.each do |username|
+      User.create(username: username)
+    end
     find_in_usernames(usernames)
   end
 
