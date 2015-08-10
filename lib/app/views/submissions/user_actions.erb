@@ -24,7 +24,7 @@
         <% end %>
       </li>
 
-      <% unless submission.state == "hibernating" %>
+      <% unless submission.state == "hibernating" || submission.state == "done" %>
         <li>
           <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/hibernate" method="POST">
             <button
