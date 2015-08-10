@@ -119,6 +119,19 @@ module ExercismWeb
         redirect "/submissions/#{submission.key}"
       end
 
+      post '/submissions/:key/hibernate' do |key|
+        please_login("You have to be logged in to do that")
+        submission = Submission.find_by_key(key)
+        unless current_user.owns?(submission)
+          flash[:notice] = "Only the submitter may hibernate this exercise."
+          redirect "/submissions/#{key}"
+        end
+        submission.state = "hibernating"
+        submission.save
+        flash[:success] = "#{submission.name} in #{submission.track_id} is now hibernating."
+        redirect "/"
+      end
+
       delete '/submissions/:key' do |key|
         please_login
         submission = Submission.find_by_key(key)
