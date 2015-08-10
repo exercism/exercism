@@ -52,7 +52,7 @@ module ExercismWeb
     use Routes::Sessions
     use Routes::Styleguide
     use Routes::CommentThreads
-    use Routes::Errors
     use Routes::User
+    use Routes::Errors
   end
 end
