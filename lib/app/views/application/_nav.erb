@@ -1,5 +1,8 @@
 <div id="navbar" class="navbar-collapse collapse">
   <ul class="nav navbar-nav">
+    <% if !current_user.guest? %>
+    <li><a href="/">Dashboard</a></li>
+    <% end %>
     <li><a href="http://help.exercism.io">Help</a></li>
     <% unless current_user.onboarded? %>
       <li><a href="/getting-started">Welcome new users</a></li>
