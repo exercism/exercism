@@ -24,6 +24,22 @@
         <% end %>
       </li>
 
+      <% unless submission.user_exercise.state == "hibernating" || submission.state == "done" %>
+        <li>
+          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/hibernate" method="POST">
+            <button
+              type="submit"
+              name="hibernate"
+              class="btn btn-default"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="I'd like a break from this for a while.">
+              Hibernate
+            </button>
+          </form>
+        </li>
+      <% end %>
+
       <% unless current_user.nitpicker_on?(submission.problem) %>
         <li>
           <form accept-charset="UTF-8" action="/exercises/<%= submission.track_id %>/<%= submission.slug %>" method="POST">

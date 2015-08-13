@@ -107,6 +107,7 @@ module ExercismWeb
         end
 
         submission = Submission.where(user_id: current_user.id, language: selected_submission.track_id, slug: selected_submission.slug, state: 'done').first
+
         if submission.nil?
           flash[:notice] = "No such submission"
           redirect "/"
@@ -117,6 +118,20 @@ module ExercismWeb
         submission.save
         Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
         redirect "/submissions/#{submission.key}"
+      end
+
+      post '/submissions/:key/hibernate' do |key|
+        please_login("You have to be logged in to do that")
+        submission = Submission.find_by_key(key).participant_submissions.last
+        unless current_user.owns?(submission)
+          flash[:notice] = "Only the submitter may hibernate this exercise."
+          redirect "/submissions/#{key}"
+        end
+        submission.state = "hibernating"
+        submission.save
+        Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
+        flash[:success] = "#{submission.name} in #{submission.track_id} is now hibernating."
+        redirect "/"
       end
 
       delete '/submissions/:key' do |key|
