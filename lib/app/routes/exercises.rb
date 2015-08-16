@@ -134,6 +134,13 @@ module ExercismWeb
         redirect "/"
       end
 
+      post '/submissions/:key/wakeup' do |key|
+        submission = Submission.find_by_key(key)
+        submission.user_exercise.reopen!
+        flash[:success] = "#{submission.name} in #{submission.track_id} is now active."
+        redirect '/'
+      end
+
       delete '/submissions/:key' do |key|
         please_login
         submission = Submission.find_by_key(key)
