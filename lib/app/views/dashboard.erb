@@ -1,65 +1,110 @@
 <div class="container">
+  <h1>Welcome, <%= user.username %>!</h1>
+
   <% if dashboard.pay_it_forward? %>
     <div class="col-lg-12">
-      <h2>Have a moment?</h2>
+      <h3>Have a moment?</h3>
       <span>Help <b>@<%= dashboard.suggestion.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= dashboard.suggestion.key %>"><%= dashboard.suggestion.slug %> in <%= dashboard.suggestion.language.capitalize %></a>.</span>
     </div>
   <% end %>
 
-  <% if dashboard.has_activity? %>
-    <div class="col-lg-6">
-      <h2>Activity</h2>
-      <ul style="list-style-type: none; margin: 0;">
-        <% dashboard.notifications.each do |notification| %>
-          <% if notification.item %>
-            <li style="padding: 5px 0;">
-              <span style="padding-right: 5px;" class="icon-comment-alt"></span>
-
-              <a href="/submissions/<%= notification.item.key %>">
-                <%= notification.slug %>
-              </a> in <%= notification.language %>
-            </li>
+  <div class="row">
+    <div class="col-md-6">
+      <h2><a href="/<%= user.username %>">Your exercises in progress</a></h2>
+        <div class="well">
+          <% if current_user.ongoing.any? %>
+            <p>Keep working on these problems, or mark them as done.</p>
+            <ul class="nav nav-stacked" id="menu-current" role="menu">
+              <% current_user.ongoing.each do |submission| %>
+                <li class="looks-list-item">
+                  <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>">
+                    <%= submission.problem.name + ' (' + submission.problem.language + ') - version ' + submission.version.to_s + ' - ' + submission.nit_count.to_s + ' nits' %>
+                  </a>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>You are not currently working on any exercises.</p>
           <% end %>
-        <% end %>
-      </ul>
+        </div>
     </div>
-  <% end %>
 
-  <% if dashboard.trending.any? %>
-    <div class="col-lg-6">
-      <h2>Currently Trending</h2>
-      <ul class="nav nav-stacked" id="menu-current" role="menu">
-        <% dashboard.trending.each do |trending| %>
-        <li class="looks-list-item">
-          <a role="menuitem" tabindex="-1" href="/submissions/<%= trending.key %>">
-            <%= trending.problem.language + ' ' + trending.problem.name + ' by @' + trending.username %>
-          </a>
-        <% end %>
-      </ul>
+    <div class="col-md-6">
+      <h2><a href="/nits/<%= user.username %>">Nitpicking statistics</a></h2>
+        <ul class="graph-legend">
+          <li class="nits-picked">Nits picked</li>
+          <li class="nits-received">Nits received</li>
+        </ul>
+        <canvas id="nitstat-chart" data-stats='<%= stats.data.to_json %>' width="600" height="300"></canvas>
     </div>
-  <% end %>
-  <% if current_user.ongoing.any? %>
-    <div class="col-lg-6">
-      <h2>Current Exercises</h2>
-      <ul class="nav nav-stacked" id="menu-current" role="menu">
-        <% current_user.ongoing.each do |submission| %>
-          <li class="looks-list-item">
-            <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>">
-              <%= submission.problem.language + ' ' + submission.problem.name %>
-            </a>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="col-lg-6">
-    <h2>History</h2>
-    <p class="well">See a list of exercises that you <a href="/looks">recently viewed</a>.</p>
   </div>
 
-  <div class="col-lg-6">
-    <h2>Improvements</h2>
-    <p>The dashboard could use a little love. What do you want to see here? If you have ideas or suggestions, please let us know in this <a href="https://github.com/exercism/exercism.io/issues/1654">GitHub issue</a>.</p>
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>Activity</h2>
+        <div class="well">
+          <% if dashboard.has_activity? %>
+            <% dashboard.notifications.each do |notification| %>
+              <% if notification.item %>
+                <li style="list-style-type: none; margin: 0;">
+                  <span style="padding-right: 5px;" class="icon-comment-alt"></span>
+                  <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> on <a href="/submissions/<%= notification.item.key %>">
+                    <%= notification.submission.name %> (<%= notification.language.capitalize %>)
+                  </a>
+                </li>
+              <% end %>
+            <% end %>
+          <% else %>
+            <p>No activity to show.</p>
+          <% end %>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+      <h2>Trending</h2>
+        <div class="well">
+          <% if dashboard.trending.any? %>
+            <ul class="nav nav-stacked" id="menu-current" role="menu">
+              <% dashboard.trending.each do |trending| %>
+              <li class="looks-list-item">
+                <p><a role="menuitem" tabindex="-1" href="/submissions/<%= trending.key %>">
+                  <%= trending.problem.name + ' (' + trending.problem.language + ') ' %></a>by <a href="/<%= trending.username %>"><%= trending.username %></a></p>
+              </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>No exercises currently trending.</p>
+          <% end %>
+        </div>
+    </div>
+
+    <div class="col-sm-4">
+      <h2>Recently viewed</h2>
+        <div class="well">
+          <% if looks.empty? %>
+            <p>No exercises viewed in the past 30 days.</p>
+          <% else %>
+            <ul ng-controller="PaginationCtrl" ng-show="looks.length" class="nav nav-tabs nav-stacked">
+              <li ng-repeat="look in looks | startFrom:currentPage*pageSize | limitTo:pageSize" class="looks-list-item">
+                <p><a ng-href="{{look.path}}">{{look.name}} ({{look.language}}) </a>by <a ng-href="{{look.username}}">{{look.username}}</a></p>
+              </li>
+              <div class="pagination-controls" ng-show="looks.length > pageSize">
+                <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-default">
+                   Previous
+                </button>
+                Page {{currentPage+1}}/{{numberOfPages()}}
+                <button ng-disabled="currentPage >= looks.length/pageSize - 1" ng-click="currentPage=currentPage+1" class="btn btn-default">
+                   Next
+                </button>
+              </div>
+            </ul>
+          <% end %>
+        </div>
+    </div>
+  </div>
+
+  <div class="col-lg-12">
+      <h2>Improvements</h2>
+      <p>The dashboard could use a little love. What do you want to see here? If you have ideas or suggestions, please let us know in this <a href="https://github.com/exercism/exercism.io/issues/1654">GitHub issue</a>.</p>
   </div>
 </div>
