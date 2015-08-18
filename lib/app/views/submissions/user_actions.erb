@@ -40,6 +40,22 @@
         </li>
       <% end %>
 
+      <% if submission.user_exercise.state == "hibernating" %>
+        <li>
+          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/wakeup" method="POST">
+            <button
+              type="submit"
+              name="wakeup"
+              class="btn btn-default"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Wake up from hibernation.">
+              Wake up
+            </button>
+          </form>
+        </li>
+      <% end %>
+
       <% unless current_user.nitpicker_on?(submission.problem) %>
         <li>
           <form accept-charset="UTF-8" action="/exercises/<%= submission.track_id %>/<%= submission.slug %>" method="POST">
