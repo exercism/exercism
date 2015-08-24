@@ -140,6 +140,13 @@ Alternatively (or to debug if the above blows up), do it one-by-one:
 * Fetch the seed data: `rake db:seeds:fetch`
 * Seed the database: `rake db:seed`
 
+Alternatively if you are having 'PG::Connection ...' or 'Peer authentication failed for user ...' issues you can follow these steps (this is assuming that you modified the database.yml file and your changes are not being accessed properly. Anywhere that it is stated "PGUSER=postgres" replace "postgres" with your specified username that you use for your postgresql databases):
+
+* Create the PostgreSQL database (this will prompt you to input a password allowing you to authenticate and create your databases that are specified in your database.yml file): `PGUSER=postgres rake db:create`
+* Run the database migrations: `rake db:migrate`
+* Fetch the seed data: `rake db:seeds:fetch`
+* Seed the database: `rake db:seed`
+
 The setup task will create a PostgreSQL user called exercism with super user permissions.
 If you want to avoid this you may create a user manually and add the needed extensions manually as well.
 
@@ -154,6 +161,17 @@ from their perspective.
 * Sometimes you need to: `bundle exec foreman s -p 4567`
 * Then you can access the local server at [localhost:4567](http://localhost:4567).
 * You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
+
+### Running The Application In A Vagrant Environment
+_The following assumes your Vagrantfile is configured to forward port 3000 to 3030, adjust the port number to suit your environment_
+
+* Install Shotgun gem (this will be necessary to run on 0.0.0.0 loopback required in this instance by Vagrant): 'gem install shotgun'
+* Start the server with: `shotgun -o 0.0.0.0 -p 3000`
+* Sometimes you need to: `bundle exec shotgun -o 0.0.0.0 -p 3000`
+* Then you can access the local server at [localhost:3030](http://localhost:3030).
+* You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
+
+_Again this is assuming you are forwarding port 3000 to 3030 in your Vagrantfile, adjust accordingly to your environment_
 
 ### Console
 
