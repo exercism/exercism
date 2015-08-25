@@ -28,6 +28,8 @@ $(function () {
       scaleSteps : stats.steps,
       scaleStepWidth : stats.step,
       scaleStartValue : 0,
-      bezierCurve: false });
+      responsive: true,
+      bezierCurve: false 
+    });
   }
 });
