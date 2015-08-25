@@ -2,9 +2,11 @@ module ExercismWeb
   module Routes
     class Main < Core
       get '/' do
-        if current_user.guest?
-          erb :"site/index"
-        elsif current_user.onboarded?
+        erb :"site/index"
+      end
+
+      get '/dashboard' do
+        if current_user.onboarded?
           status = Onboarding.status(current_user.onboarding_steps)
           dashboard = ExercismWeb::Presenters::Dashboard.new(current_user)
           looks = ExercismWeb::Presenters::Look.wrap(Look.recent_for(current_user))
@@ -14,7 +16,6 @@ module ExercismWeb
           redirect "/onboarding"
         end
       end
-
     end
   end
 end
