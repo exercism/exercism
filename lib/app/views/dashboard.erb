@@ -17,7 +17,7 @@
           <% if current_user.ongoing.any? %>
             <p>Keep working on these problems, or mark them as done.</p>
             <ul class="nav nav-stacked" id="menu-current" role="menu">
-              <% current_user.ongoing[0..4].each do |submission| %>
+              <% current_user.ongoing.limit(5).each do |submission| %>
                 <li class="looks-list-item">
                   <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>">
                     <table width="100%">
