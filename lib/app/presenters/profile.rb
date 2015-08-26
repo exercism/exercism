@@ -51,7 +51,7 @@ class Profile
 
   def submission_link(submission)
     if narcissistic? || manager? || current_user.nitpicker_on?(submission.problem)
-     %{<a href="/submissions/#{submission.key}">#{submission.name}</a>}
+     %{<a href="/submissions/#{submission.key}">#{submission.name}&nbsp;<i class="fa fa-star"></i></a>}
     else
      %{<a href="/exercises/#{submission.track_id}/#{submission.slug}">#{submission.name}</a>}
     end
