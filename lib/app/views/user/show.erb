@@ -35,7 +35,7 @@
               <tr>
                 <td>
                   <% profile.completed_in(track_id).each do |submission| %>
-                    <%= profile.submission_link(submission) %>
+                    <%= profile.submission_link(submission) %><br/>
                   <% end %>
                 </td>
                 <td><%= Language.of(track_id) %></td>
