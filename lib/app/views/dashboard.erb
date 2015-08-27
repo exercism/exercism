@@ -1,5 +1,7 @@
 <div class="container">
-  <h1>Welcome, <%= user.username %>!</h1>
+  <section class="page-header">
+    <h1>Welcome, <%= user.username %>!</h1>
+  </section>
 
   <% if dashboard.pay_it_forward? %>
     <div class="col-lg-12">
@@ -15,12 +17,27 @@
           <% if current_user.ongoing.any? %>
             <p>Keep working on these problems, or mark them as done.</p>
             <ul class="nav nav-stacked" id="menu-current" role="menu">
-              <% current_user.ongoing.each do |submission| %>
+              <% current_user.ongoing.limit(5).each do |submission| %>
                 <li class="looks-list-item">
                   <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>">
-                    <%= submission.problem.name + ' (' + submission.problem.language + ') - version ' + submission.version.to_s + ' - ' + submission.nit_count.to_s + ' nits' %>
+                    <table width="100%">
+                      <tr>
+                        <td width="60%">
+                          <%= submission.problem.name + ' (' + submission.problem.language %>)
+                        </td>
+                        <td width="25%">
+                          <%= submission.nit_count.to_s %> nits
+                        </td>
+                        <td width="15%">
+                          version <%= submission.version.to_s %>
+                        </td>
+                      </tr>
+                    </table>
                   </a>
                 </li>
+              <% end %>
+              <% if current_user.ongoing.length > 5 %>
+                <p>You have <%= current_user.ongoing.length %> active problems - <a href="/<%= user.username %>">see all</a></p>
               <% end %>
             </ul>
           <% else %>
