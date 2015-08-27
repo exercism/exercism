@@ -4,6 +4,7 @@ module ExercismWeb
       Core: 'core',
       Inbox: 'inbox',
       Languages: 'languages',
+      Docs: 'docs',
       Legacy: 'legacy',
       Main: 'main',
       OnboardingSteps: 'onboarding_steps',

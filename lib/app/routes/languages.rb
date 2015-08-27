@@ -14,11 +14,12 @@ module ExercismWeb
         end
 
 				locals = {
-          problems: Presenters::Special::Problems.new(track_id).track_problems,
-		      language: Language.of(track_id),
-          slug: track_id,
-          active: active,
-          exists: exists
+					problems: Presenters::Special::Problems.new(track_id).track_problems,
+					docs: Presenters::Docs.new(track_id),
+					language: Language.of(track_id),
+					slug: track_id,
+					active: active,
+					exists: exists
 			    }
         erb :"languages/languages", locals: locals
 			end

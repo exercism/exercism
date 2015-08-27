@@ -13,6 +13,7 @@ require_relative './app/presenters/profile'
 require_relative './app/presenters/sharing'
 require_relative './exercism/xapi'
 require_relative './app/presenters/problems'
+require_relative './app/presenters/docs'
 
 require_relative './app/helpers'
 require_relative './app/helpers/gravatar_helper'

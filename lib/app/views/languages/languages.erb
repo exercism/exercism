@@ -5,6 +5,12 @@
 	<% if active %>
 		<article class="article-block">
 			<div class="article-contents">
+				<% if !docs.about.empty? %>
+					<h2 class="header">About <%= language %></h2>
+						<p>
+							<%= docs.about %>
+						</p>
+				<% end %>
 				<h2 class="header">Available Exercises</h2>
 				<% problems.each do |problem| %>
 					<h5><a href="/exercises/<%= slug %>/<%= problem.slug %>/readme"><%= problem.name %></a></h5>
