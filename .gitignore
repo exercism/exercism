@@ -23,7 +23,6 @@ tmp
 db/seeds.sql
 db/schema.sql
 db/migrations.sql
-config/database.yml
 Procfile_Vagrant
 
 # JavaScript

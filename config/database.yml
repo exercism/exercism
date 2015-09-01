@@ -15,3 +15,6 @@ test:
 development:
   <<: *postgres
   database: exercism_development
+
+production:
+  url: <%= ENV["DATABASE_URL"] %>

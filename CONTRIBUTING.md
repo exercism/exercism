@@ -123,11 +123,7 @@ Next, make sure all the application dependencies are installed:
 Finally, set up the database. This means both creating the underlying database, and migrating so that it
 has all the correct tables. Also runs a script to add fake data, so there are things to click on and look at while working on the app.
 
-First of all, copy the database config file:
-
-* `cp config/database.example.yml config/database.yml`
-
-Update any settings (like the port your database runs on) as needed. You can now set up the database for development:
+You can now set up the database for development:
 
 * Do all of it in one go: `rake db:from_scratch`
 
@@ -154,6 +150,8 @@ The seed data gives you a bunch of fake user accounts with submissions in multip
 as fake comments. In development mode there is an "Assume" menu item to the far right of the
 nav bar. This will let you easily assume different fake identities to see the site
 from their perspective.
+
+You may need to edit the `config/database.yml` file to specify non-default values. If you do, please edit (or create) a `.git/info/exclude` file so that your changes don't get committed. Unfortunately we have to commit the database.yml file, because heroku no longer creates a default one.
 
 ### Run The Application
 
