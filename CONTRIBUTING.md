@@ -165,9 +165,11 @@ from their perspective.
 ### Running The Application In A Vagrant Environment
 _The following assumes your Vagrantfile is configured to forward port 3000 to 3030, adjust the port number to suit your environment_
 
-* Install Shotgun gem (this will be necessary to run on 0.0.0.0 loopback required in this instance by Vagrant): 'gem install shotgun'
-* Start the server with: `shotgun -o 0.0.0.0 -p 3000`
-* Sometimes you need to: `bundle exec shotgun -o 0.0.0.0 -p 3000`
+If you are using a different port than 3000 to forward outside of your Vagrant environment you will need to go into `Procfile_Vagrant` and adjust the port number that applies to your needs.
+
+* Copy the Vagrant Procfile example `cp Procfile_Vagrant.example Procfile_Vagrant`
+* Start the server with: `foreman s -f Procfile_Vagrant` (the `-f` explicitly states which Procfile to use and we don't want to use the original Procfile in our vagrant environments)
+* Sometimes you need to: `bundle exec foreman s -f Procfile_Vagrant`
 * Then you can access the local server at [localhost:3030](http://localhost:3030).
 * You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
 
