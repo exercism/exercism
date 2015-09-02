@@ -29,13 +29,13 @@ module ExercismWeb
         exercise = user.exercises.find_by_key(key)
         if exercise.nil?
           flash[:notice] = "Couldn't find that exercise."
-          redirect '/'
+          redirect '/dashboard'
         end
 
         if exercise.submissions.empty?
           # We have orphan exercises at the moment.
           flash[:notice] = "That submission no longer exists."
-          redirect '/'
+          redirect '/dashboard'
         end
         redirect "/submissions/%s" % exercise.submissions.last.key
       end

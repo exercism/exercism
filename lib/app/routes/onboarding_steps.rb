@@ -3,7 +3,7 @@ module ExercismWeb
     class OnboardingSteps < Core
       get '/onboarding/?' do
         if current_user.onboarded?
-          redirect '/'
+          redirect '/dashboard'
         else
           redirect "/onboarding/#{Onboarding.current_step(current_user.onboarding_steps)}"
         end

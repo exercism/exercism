@@ -21,7 +21,7 @@ module ExercismWeb
 
           path = params[:splat].first
           if path.nil? || path.empty?
-            redirect root_path
+            redirect '/dashboard'
           else
             redirect File.join([root_path, path].compact)
           end

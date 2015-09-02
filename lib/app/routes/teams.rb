@@ -26,7 +26,7 @@ module ExercismWeb
 
           unless team.includes?(current_user)
             flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
-            redirect "/"
+            redirect '/'
           end
 
           erb :"teams/show", locals: {team: team, members: team.all_members.sort_by {|m| m.username.downcase}}
