@@ -76,6 +76,17 @@ namespace :data do
   end
 
   namespace :migrate do
+    desc "migrate archived flag on exercises"
+    task :archived do
+      require 'active_record'
+      require 'db/connection'
+      require './lib/exercism/user_exercise'
+      DB::Connection.establish
+
+      sql = "UPDATE user_exercises SET archived='t' WHERE state='done';"
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     desc "migrate deprecated problems"
     task :deprecated_problems do
       require 'bundler'

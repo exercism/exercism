@@ -20,6 +20,7 @@ module Hack
       exercise.completed_at = exercise.updated_at if done?
       exercise.is_nitpicker = true
       exercise.iteration_count = submissions.count
+      exercise.archived = exercise.state == 'done'
       exercise.save
 
       submissions.each do |s|

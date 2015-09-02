@@ -20,20 +20,12 @@ class UserExercise < ActiveRecord::Base
     language
   end
 
-  # close & reopen:
-  # Once v1.0 is launched we can ditch
-  # the state on submission.
-  def close!
-    update_attributes(state: 'done')
-    submissions.last.update_attributes(state: 'done')
-  end
-
   def closed?
     state == 'done'
   end
 
   def reopen!
-    update_attributes(state: 'pending')
+    update_attributes(state: 'pending', archived: false)
     submissions.last.update_attributes(state: 'pending')
   end
 
