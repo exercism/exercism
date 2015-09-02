@@ -1,79 +1,15 @@
 <div class="container">
   <section class="page-header">
-    <h1>Team <%= h(team.name) %></h1>
-  </section>
-  <% if team.managed_by?(current_user) %>
-    <a href="#" id="edit_team" class="btn btn-sm">Edit</a>
-    <a href="#" id="destroy_team" class="btn btn-sm btn-danger" data-team=<%= team.slug %>>Destroy</a>
-    <% if team.managers.size > 1 %>
-      <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/disown" method="post">
-        <button type="submit" class="btn btn-primary btn-danger">Quit Managing</button>
-      </form>
-    <% end %>
-
-    <div class="hidden" id="add_members">
-      <br />
-      <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}" %>" method="post">
-        <input type="hidden" name="_method" value="put" />
-
-        <div class="form-group">
-          <label for="team_slug">Slug</label>
-          <div class="controls">
-            <input type="text" name="team[slug]" id="team_slug" placeholder="e.g. gocowboys" value="<%= team.slug %>" class="form-control">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="team_name">Name (optional; defaults to slug)</label>
-          <div class="controls">
-            <input type="text" name="team[name]" id="team_name" placeholder="e.g. Go Cowboys" value="<%= team.name %>" class="form-control">
-          </div>
-        </div>
-
-        <button type="submit" class="btn btn-primary">Update</button>
-      </form>
-
-      <h3>Managers</h3>
-      <% if team.managers.count > 1 %>
-        <ul>
-        <% (team.managers - [current_user]).each do |manager| %>
-        <li>
-          <%= manager.username %>
-          <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/managers" method="post">
-            <input type="hidden" name="_method" value="delete" />
-            <input type="hidden" name="username" value="<%= manager.username %>" />
-            <button type="submit" class="btn btn-primary btn-danger">Remove</button>
-          </form>
-        </li>
-        <% end %>
-        </ul>
+    <h1>
+      Team <%= h(team.name) %>
+      <% if team.managed_by?(current_user) %>
+        <a href="/teams/<%= team.slug %>/manage" class="btn btn-default">Manage</a>
       <% end %>
-
-      <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/managers" %>" method="post" class="form-inline">
-        <label  class="control-label" for="username">Username</label>
-        <input type="text" name="username" class="form-control" />
-        <button type="submit" class="btn btn-primary">Add manager</button>
-      </form>
-
-      <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/members" %>" method="post">
-        <legend>Members</legend>
-
-        <div class="control-group">
-          <label  class="control-label" for="usernames">Usernames (comma-separated list)</label>
-          <div class="controls">
-            <textarea name="usernames" id="usernames" class="form-control" placeholder="e.g. kytrinyx, seeflanigan, rubysolo, theotherzach"></textarea>
-          </div>
-        </div>
-
-        <div class="control-group">
-          <div class="controls">
-            <button type="submit" class="btn btn-primary">Invite</button>
-          </div>
-        </div>
-      </form>
-    </div>
-  <% end %>
-
+    </h1>
+  </section>
+  
+  <h3><%= team.members.length %> members</h3>
+ 
   <% members.each_slice(3) do |row| %>
     <div class="row">
       <% row.each do |member| %>

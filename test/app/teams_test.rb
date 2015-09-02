@@ -61,7 +61,8 @@ class TeamsTest < Minitest::Test
       [:put, '/teams/abc/confirm'],
       [:post, '/teams/abc/managers'],
       [:delete, '/teams/abc/managers'],
-      [:post, '/teams/abc/disown']
+      [:post, '/teams/abc/disown'],
+      [:get, '/teams/:slug/manage']
     ].each do |verb, endpoint|
       send verb, endpoint
       assert_equal 302, last_response.status
@@ -322,12 +323,12 @@ class TeamsTest < Minitest::Test
 
     post '/teams/dragon/managers', {username: bob.username}, login(alice)
     assert_response_status(302)
-    assert_equal "http://example.org/teams/dragon", last_response.location
+    assert_equal "http://example.org/teams/dragon/manage", last_response.location
     assert_equal [alice.id, bob.id].sort, team.reload.managers.map(&:id).sort
 
     post '/teams/dragon/managers', {username: 'no-such-user'}, login(alice)
     assert_response_status(302)
-    assert_equal "http://example.org/teams/dragon", last_response.location
+    assert_equal "http://example.org/teams/dragon/manage", last_response.location
     assert_equal [alice.id, bob.id].sort, team.reload.managers.map(&:id).sort
   end
 
@@ -338,12 +339,12 @@ class TeamsTest < Minitest::Test
 
     delete '/teams/salamander/managers', {username: bob.username}, login(alice)
     assert_response_status 302
-    assert_equal "http://example.org/teams/salamander", last_response.location
+    assert_equal "http://example.org/teams/salamander/manage", last_response.location
     assert_equal [alice.id], team.reload.managers.map(&:id)
 
     delete '/teams/salamander/managers', {username: 'no-such-user'}, login(alice)
     assert_response_status 302
-    assert_equal "http://example.org/teams/salamander", last_response.location
+    assert_equal "http://example.org/teams/salamander/manage", last_response.location
     assert_equal [alice.id], team.reload.managers.map(&:id)
   end
 
@@ -364,7 +365,7 @@ class TeamsTest < Minitest::Test
 
     post '/teams/condor/disown', {}, login(alice)
     assert_response_status 302
-    assert_equal "http://example.org/teams/condor", last_response.location
+    assert_equal "http://example.org/teams/condor/manage", last_response.location
     assert_equal [alice.id], team.reload.managers.map(&:id)
   end
 end
