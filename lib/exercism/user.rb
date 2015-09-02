@@ -96,7 +96,7 @@ class User < ActiveRecord::Base
   end
 
   def working_on?(problem)
-    SubmissionStatus.is_user_working_on?(self, problem)
+    submissions.where(language: problem.track_id, slug: problem.slug, state: %w(needs_input pending)).count > 0
   end
 
   def nitpicks_trail?(track_id)
@@ -112,7 +112,7 @@ class User < ActiveRecord::Base
   end
 
   def nitpicker
-    @nitpicker ||= items_where "user_exercises", "is_nitpicker='t'"
+    @nitpicker ||= items_where "user_exercises", "iteration_count > 0"
   end
 
   def is?(handle)
@@ -120,27 +120,23 @@ class User < ActiveRecord::Base
   end
 
   def nitpicker_on?(problem)
-    mastery.include?(problem.track_id) || unlocked?(problem)
+    mastery.include?(problem.track_id) || submitted?(problem)
   end
 
-  def unlocked?(problem)
-    exercises.where(language: problem.track_id, slug: problem.slug, is_nitpicker: true).count > 0
+  def submitted?(problem)
+    exercises.where(language: problem.track_id, slug: problem.slug).count > 0
   end
 
   def completed?(problem)
-    SubmissionStatus.is_user_done_with?(self, problem)
-  end
-
-  def locksmith?
-    !mastery.empty?
+    exercises.where(language: problem.track_id, slug: problem.slug, state: 'done')
   end
 
   def nitpicker?
-    locksmith? || completed.size > 0
+    !mastery.empty? || submissions.count > 0
   end
 
   def new?
-    !locksmith? && submissions.count == 0
+    mastery.empty? && submissions.count == 0
   end
 
   def owns?(submission)
@@ -160,7 +156,7 @@ class User < ActiveRecord::Base
   end
 
   def unlocked_languages
-    @unlocked_languages ||= exercises.where(is_nitpicker: true).pluck('language').uniq
+    @unlocked_languages ||= exercises.where('iteration_count > 0').pluck('language').uniq
   end
 
   def completed_submissions_in(track_id)

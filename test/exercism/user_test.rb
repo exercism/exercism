@@ -45,14 +45,6 @@ class UserTest < Minitest::Test
     refute user.new?
   end
 
-  def test_locksmith_isnt_new
-    locksmith = User.new
-    def locksmith.locksmith?
-      true
-    end
-    refute locksmith.new?
-  end
-
   def test_create_user_from_github
     user = User.from_github(23, 'alice', 'alice@example.com', 'avatar_url')
     assert_equal 1, User.count
@@ -107,20 +99,6 @@ class UserTest < Minitest::Test
     assert_equal 42, u1.github_id
   end
 
-  def test_locksmith_is_nitpicker
-    locksmith = User.new
-    def locksmith.locksmith?
-      true
-    end
-    assert locksmith.nitpicker?
-  end
-
-  def test_user_with_completed_exercises_is_nitpicker
-    user = User.new
-    def user.completed; [:some]; end
-    assert user.nitpicker?
-  end
-
   def test_user_no_ongoing_without_exercises
     user = User.new
     assert_equal [], user.ongoing
@@ -152,10 +130,6 @@ class UserTest < Minitest::Test
 
     assert_equal second, user.ongoing.first
     assert_equal first, user.ongoing.last
-  end
-
-  def test_user_is_not_locksmith_by_default
-    refute User.new.locksmith?
   end
 
   def test_find_user_by_case_insensitive_username

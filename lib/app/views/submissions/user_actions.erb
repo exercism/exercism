@@ -56,19 +56,6 @@
         </li>
       <% end %>
 
-      <% unless current_user.nitpicker_on?(submission.problem) %>
-        <li>
-          <form accept-charset="UTF-8" action="/exercises/<%= submission.track_id %>/<%= submission.slug %>" method="POST">
-            <button
-              type="submit"
-              name="unlock"
-              class="unlock-nitpicking btn btn-default">
-              <i class="fa fa-unlock"></i> Unlock Nitpicking
-            </button>
-          </form>
-        </li>
-      <% end %>
-
       <li class="divider"></li>
 
       <li>

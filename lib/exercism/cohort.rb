@@ -10,9 +10,7 @@ class Cohort
   end
 
   def sees(problem)
-    (other_users(problem) + managers).uniq { |member|
-      member.id
-    }
+    (other_users(problem) + managers).uniq {|u| u.id}
   end
 
   def team_members_and_managers
@@ -34,7 +32,7 @@ class Cohort
   end
 
   def other_users(problem)
-    SubmissionStatus.users_who_have_completed_or_are_working_on(problem, user_relation: members)
+    members.includes(:submissions).where(:submissions => {language: problem.track_id, slug: problem.slug}).references(:submissions)
   end
 
   def confirmed_team_member_ids

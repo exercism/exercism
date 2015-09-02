@@ -28,7 +28,7 @@ class Submission < ActiveRecord::Base
     true
   end
 
-  scope :done, ->{ SubmissionStatus.done_submissions }
+  scope :done, ->{ where(state: "done") }
   scope :pending, ->{ where(state: %w(needs_input pending)) }
   scope :hibernating, ->{ where(state: 'hibernating') }
   scope :needs_input, ->{ where(state: 'needs_input') }
@@ -66,7 +66,7 @@ class Submission < ActiveRecord::Base
   scope :recent, -> { since(7.days.ago) }
 
   scope :completed_for, -> (problem) {
-    SubmissionStatus.submissions_completed_for(problem, relation: self)
+    where(language: problem.track_id, slug: problem.slug, state: 'done')
   }
 
   scope :random_completed_for, -> (problem) {
