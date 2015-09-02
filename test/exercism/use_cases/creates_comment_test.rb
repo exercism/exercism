@@ -27,7 +27,6 @@ class CreatesCommentTest < Minitest::Test
     nitpicker = User.new(username: 'alice')
     CreatesComment.new(submission.id, nitpicker, 'Too many variables').create
     nit = submission.reload.comments.first
-    assert submission.pending?, "Should be pending"
     assert_equal 'Too many variables', nit.body
     refute submission.liked?, "Should NOT be liked"
   end
@@ -70,22 +69,17 @@ class CreatesCommentTest < Minitest::Test
     refute submission.reload.muted_by?(nitpicker)
   end
 
-  def test_do_not_change_state_of_completed_submission
-    submission.state = 'done'
-    submission.save
+  def test_nitpicking_archived_exercise_does_not_reactivate_it
     nitpicker = User.new(username: 'alice')
-    CreatesComment.new(submission.id, nitpicker, 'a comment').create
-    submission.reload
-    assert submission.done?
-  end
+    exercise = UserExercise.create(
+      user: nitpicker,
+      archived: true,
+      submissions: [ submission ]
+    )
 
-  def test_do_not_change_state_of_superseded_submission
-    submission.state = 'superseded'
-    submission.save
-    nitpicker = User.new(username: 'alice')
     CreatesComment.new(submission.id, nitpicker, 'a comment').create
-    submission.reload
-    assert submission.superseded?
+    exercise.reload
+    assert exercise.archived?
   end
 
   def test_nitpick_with_mentions
