@@ -44,7 +44,7 @@ class DB::ConfigTest < Minitest::Test
     config = DB::Config.new('fake', file)
     options = {
       'adapter' => 'postgresql',
-      'database' => 'betterful_fake'
+      'database' => 'exercism_fake'
     }
     assert_equal options, config.options
   end
@@ -59,8 +59,7 @@ class DB::ConfigTest < Minitest::Test
   end
 
   def example_config
-    file = relative_to_root('config', 'database.example.yml')
-    config = DB::Config.new('test', file)
+    DB::Config.new('test', relative_to_root('test', 'fixtures', 'database.yml'))
   end
 
   def test_exposes_database
@@ -72,10 +71,10 @@ class DB::ConfigTest < Minitest::Test
   end
 
   def test_exposes_password
-    assert_equal 'apples', example_config.password
+    assert_equal 'secret', example_config.password
   end
 
   def test_exposes_username
-    assert_equal 'exercism', example_config.username
+    assert_equal 'alice', example_config.username
   end
 end

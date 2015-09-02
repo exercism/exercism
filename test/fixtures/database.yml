@@ -1,3 +1,17 @@
+---
+postgres: &postgres
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: localhost
+  port: 8888
+  username: alice
+  password: secret
+
+test:
+  <<: *postgres
+  database: exercism_test
+
 fake:
   adapter: postgresql
-  database: betterful_fake
+  database: exercism_fake
