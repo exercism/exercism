@@ -1,7 +1,7 @@
 <div class="pull-right submission-toolbar hidden-xs">
 
   <div class="btn-group">
-    <%= erb :"submissions/user_actions", locals: { submission: submission } %>
+    <%= erb :"submissions/user_actions", locals: { submission: submission, exercise: submission.user_exercise } %>
 
     <% if current_user.owns?(submission) %>
       <a

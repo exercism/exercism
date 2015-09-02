@@ -3,15 +3,19 @@ require_relative '../integration_helper'
 class UserExerciseTest < Minitest::Test
   include DBCleaner
 
-  def test_reopen_an_exercise
+  def test_archive_and_unarchive
     alice = User.create(username: 'alice')
-    exercise = UserExercise.create(user: alice, state: 'done')
+    exercise = UserExercise.create(user: alice, state: 'pending', archived: false)
     exercise.submissions << Submission.create(user: alice) # temporary measure
-    assert exercise.closed?
-    exercise.reopen!
+    refute exercise.archived?
+
+    exercise.archive!
     exercise.reload
-    refute exercise.closed?
-    refute exercise.archived
+    assert exercise.archived?
+
+    exercise.unarchive!
+    exercise.reload
+    refute exercise.archived?
   end
 
   def test_nit_count

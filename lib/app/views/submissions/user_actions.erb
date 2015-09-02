@@ -5,12 +5,12 @@
     </button>
     <ul class="dropdown-menu" role="menu">
       <li>
-        <% if submission.user.completed?(submission.problem) %>
-          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/reopen" method="POST">
-            <button type="submit" name="reopen" class="btn btn-default">Reopen Exercise</button>
+        <% if exercise.archived? %>
+          <form accept-charset="UTF-8" action="/exercises/<%= exercise.key %>/unarchive" method="POST">
+            <button type="submit" name="reopen" class="btn btn-default">Reactivate Exercise</button>
           </form>
         <% else %>
-          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/done" method="POST">
+          <form accept-charset="UTF-8" action="/exercises/<%= exercise.key %>/archive" method="POST">
             <button
               type="submit"
               name="done"
@@ -18,43 +18,11 @@
               data-toggle="tooltip"
               data-placement="bottom"
               title="I don't need any more feedback on this.">
-              Mark as done
+              Archive Exercise
             </button>
           </form>
         <% end %>
       </li>
-
-      <% unless submission.user_exercise.state == "hibernating" || submission.state == "done" %>
-        <li>
-          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/hibernate" method="POST">
-            <button
-              type="submit"
-              name="hibernate"
-              class="btn btn-default"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="I'd like a break from this for a while.">
-              Hibernate
-            </button>
-          </form>
-        </li>
-      <% end %>
-
-      <% if submission.user_exercise.state == "hibernating" %>
-        <li>
-          <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/wakeup" method="POST">
-            <button
-              type="submit"
-              name="wakeup"
-              class="btn btn-default"
-              data-toggle="tooltip"
-              data-placement="bottom"
-              title="Wake up from hibernation.">
-              Wake up
-            </button>
-          </form>
-        </li>
-      <% end %>
 
       <li class="divider"></li>
 

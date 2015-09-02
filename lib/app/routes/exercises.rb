@@ -46,6 +46,29 @@ module ExercismWeb
 
         redirect ["", "tracks", exercise.track_id, "exercises"].join('/')
       end
+
+      post '/exercises/:key/archive' do |key|
+        exercise = UserExercise.find_by_key(key)
+        unless current_user.owns?(exercise)
+          flash[:notice] = "Only the author may archive the exercise."
+          redirect "/exercises/#{key}"
+        end
+        exercise.archive!
+        LifecycleEvent.track('completed', current_user.id)
+        flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now archived."
+        redirect '/'
+      end
+
+      post '/exercises/:key/unarchive' do |key|
+        exercise = UserExercise.find_by_key(key)
+        unless current_user.owns?(exercise)
+          flash[:notice] = "Only the author may reactivate the exercise."
+          redirect "/exercises/#{key}"
+        end
+        exercise.unarchive!
+        flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now reactivated."
+        redirect '/'
+      end
     end
   end
 end

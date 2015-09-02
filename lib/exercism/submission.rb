@@ -226,18 +226,6 @@ class Submission < ActiveRecord::Base
     viewers.count
   end
 
-  def exercise_completed?
-    user_exercise.completed?
-  end
-
-  def exercise_hibernating?
-    user_exercise.hibernating?
-  end
-
-  def exercise_pending?
-    user_exercise.pending?
-  end
-
   def prior
     @prior ||= related.where(version: version-1).first
   end

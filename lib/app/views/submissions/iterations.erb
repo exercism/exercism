@@ -8,8 +8,7 @@
     </li>
   </ul>
   <ul class="nav nav-tabs iterations-nav
-    <%= "completed"   if submission.exercise_completed? %>
-    <%= "hibernating" if submission.exercise_hibernating? %>">
+    <%= "completed"   if submission.user_exercise.archived? %>
     <li class="iteration-label hidden-xs">
       <span class="label label-default">Iterations</span>
     </li>
