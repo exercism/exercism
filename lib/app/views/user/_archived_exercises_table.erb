@@ -1,0 +1,30 @@
+<table class="table table-bordered table-striped">
+  <col width="25%" />
+  <col width="75%" />
+  <thead>
+    <tr>
+      <th>Exercises</th>
+      <th>Language</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% profile.track_ids.each do |track_id| %>
+      <tr>
+        <td>
+          <% profile.archived_in(track_id).each do |exercise| %>
+              <% if profile.can_access?(exercise) %>
+                <a href="/exercises/<%= exercise.key %>">
+                  <%= exercise.problem.name %>
+                  &nbsp;<i class="fa fa-star"></i>
+                </a>
+              <% else %>
+                <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
+              <% end %>
+              <br/>
+          <% end %>
+        </td>
+        <td><%= Language.of(track_id) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -4,47 +4,30 @@
   </section>
   <div class="row">
     <div class="col-md-12">
+      <p>
+        GitHub Profile:
+        <a target="_blank" href="https://github.com/<%= profile.username %>">
+          <%= profile.username %>
+        </a>
+      </p>
       <% unless profile.narcissistic? %>
-        <p>GitHub Profile: <%= profile.github_link %></p>
         <p>You will only be able to see <%= profile.username %>'s solutions to problems that you have completed yourself, indicated by stars <i class="fa fa-star"></i>. Otherwise, you'll find a Readme and test suite.</p>
       <% end %>
       <h3>Exercises</h3>
-      <h4>Current</h4> 
-      <% if profile.has_current_submissions? %>
-        <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.current } %>
+      <% if profile.has_current_exercises? %>
+        <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.exercises } %>
       <% else %>
-        <p><%= profile.no_current_submissions_message %></p>
+        <p>No current exercises.</p>
       <% end %>
     </div>
   </div>
   <div class="row">
     <div class="col-md-12">
-      <h4>Completed</h4>
-      <% if profile.has_completed_submissions? %>
-        <table class="table table-bordered table-striped">
-          <col width="25%" />
-          <col width="75%" />
-          <thead>
-            <tr>
-              <th>Exercises</th>
-              <th>Language</th>
-            </tr>
-          </thead>
-          <tbody>
-            <% profile.track_ids.each do |track_id| %>
-              <tr>
-                <td>
-                  <% profile.completed_in(track_id).each do |submission| %>
-                    <%= profile.submission_link(submission) %><br/>
-                  <% end %>
-                </td>
-                <td><%= Language.of(track_id) %></td>
-              </tr>
-            <% end %>
-          </tbody>
-        </table>
+      <h4>Archived</h4>
+      <% if profile.has_archived_exercises? %>
+        <%= erb :"user/_archived_exercises_table", locals: { profile: profile } %>
       <% else %>
-        <p><%= profile.no_completed_submissions_message %></p>
+        <p>No archived exercises.</p>
       <% end %>
     </div>
   </div>
