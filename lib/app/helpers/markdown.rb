@@ -6,7 +6,8 @@ module ExercismWeb
     module Markdown
       ROUGUE_LANG = {
         'objective-c' => 'objective_c',
-        'elisp' => 'common_lisp'
+        'elisp' => 'common_lisp',
+        'plsql' => 'sql'
       }
 
       def md(text, language=nil)
