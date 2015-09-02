@@ -47,6 +47,7 @@ module ExercismWeb
     use Routes::Looks
     use Routes::Notifications
     use Routes::Exercises
+    use Routes::Submissions
     use Routes::Solutions
     use Routes::Comments
     use Routes::Nits

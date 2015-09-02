@@ -18,6 +18,7 @@ module ExercismWeb
       Comments: 'comments',
       Nits: 'nits',
       Exercises: 'exercises',
+      Submissions: 'submissions',
       Metadata: 'metadata',
       Teams: 'teams',
       Styleguide: 'styleguide',
