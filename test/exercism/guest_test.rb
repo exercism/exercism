@@ -20,10 +20,6 @@ class GuestTest < Minitest::Test
     refute guest.nitpicker?
   end
 
-  def test_guest_is_not_locksmith
-    refute guest.locksmith?
-  end
-
   private
 
   def guest

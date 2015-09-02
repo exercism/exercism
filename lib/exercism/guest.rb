@@ -30,10 +30,6 @@ class Guest
     true
   end
 
-  def locksmith?
-    false
-  end
-
   def is?(_)
     false
   end
