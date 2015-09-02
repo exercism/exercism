@@ -20,6 +20,14 @@ module ExercismWeb
         end
       end
 
+      get '/teams/:slug/manage' do |slug|
+        please_login
+        team = Team.find_by_slug(slug)
+        only_for_team_managers(slug, "You are not allowed to manage this team.") do |team|
+          erb :"teams/manage", locals: {team: team, members: team.all_members.sort_by {|m| m.username.downcase}}
+        end
+      end
+
       get '/teams/:slug' do |slug|
         please_login
         only_with_existing_team(slug) do |team|
@@ -49,7 +57,7 @@ module ExercismWeb
           team.recruit(params[:usernames], current_user)
           team.save
 
-          redirect "/teams/#{slug}"
+          redirect "/teams/#{slug}/manage"
         end
       end
 
@@ -67,7 +75,7 @@ module ExercismWeb
         only_for_team_managers(slug, "You are not allowed to remove team members.") do |team|
           team.dismiss(username)
 
-          redirect "/teams/#{slug}"
+          redirect "/teams/#{slug}/manage"
         end
       end
 
@@ -104,33 +112,31 @@ module ExercismWeb
           user = ::User.find_by_username(params[:username])
           unless user.present?
             flash[:error] = "Unable to find user #{params[:username]}"
-            redirect "/teams/#{slug}"
+            redirect "/teams/#{slug}/manage"
           end
 
           team.managed_by(user)
 
-          redirect "/teams/#{slug}"
+          redirect "/teams/#{slug}/manage"
         end
       end
 
       delete "/teams/:slug/managers" do |slug|
         please_login
-        only_for_team_managers(slug, "You are not allowed to add managers to the team.") do |team|
+        only_for_team_managers(slug, "You are not allowed to remove managers from the team.") do |team|
           user = ::User.find_by_username(params[:username])
           team.managers.delete(user) if user
 
-          redirect "/teams/#{slug}"
+          redirect "/teams/#{slug}/manage"
         end
       end
 
       post "/teams/:slug/disown" do |slug|
         please_login
-        # please_login("/teams/#{slug}") ? What with this?
-
         only_with_existing_team(slug) do |team|
           if team.managers.size == 1
             flash[:error] = "You can't quit when you're the only manager."
-            redirect "/teams/#{slug}"
+            redirect "/teams/#{slug}/manage"
           else
             team.managers.delete(current_user)
             redirect "/account"

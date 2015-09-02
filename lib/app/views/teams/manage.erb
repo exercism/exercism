@@ -1,0 +1,108 @@
+<div class="container">
+  <section class="page-header">
+    <h1>
+      Manage Team <%= h(team.name) %>
+      <a href="/teams/<%= team.slug %>" class="btn btn-default">Go back to team</a>
+    </h1>
+  </section>
+
+  <div id="team_settings">
+    <h3>Team Settings</h3>
+    <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}" %>" method="post">
+      <div class="row">
+        <div class="form-group col-sm-4">
+          <label for="team_slug">Slug (in URL)</label>
+          <div class="controls">
+            <input type="text" name="team[slug]" id="team_slug" placeholder="e.g. gocowboys" value="<%= team.slug %>" class="form-control" />
+          </div>
+        </div>
+
+        <div class="form-group col-sm-4">
+          <label for="team_name">Name (optional, defaults to slug)</label>
+          <div class="controls">
+            <input type="text" name="team[name]" id="team_name" placeholder="e.g. Go Cowboys" value="<%= team.name %>" class="form-control" />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <button type="submit" class="btn btn-primary" style="margin-left: 15px">Update</button>
+      </div>
+    </form><br/>
+
+    <div id="danger_buttons" class="row">
+      <div class="col-md-2" style="margin: 0 10px 10px 0">
+        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>" method="delete">
+          <button type="submit" class="btn btn-primary btn-danger">Delete Team</button>
+        </form>
+      </div>
+      <div class="col-md-2" style="margin: 0 10px 10px 0">
+        <% if team.managers.size > 1 %>
+          <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/disown" method="post">
+            <button type="submit" class="btn btn-primary btn-danger">Resign as Manager</button>
+          </form>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+<hr>
+
+  <div id="managers">
+    <h3>Managers</h3>
+    <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/managers" %>" method="post">
+      <div class="row">
+        <div class="form-group col-sm-4">
+          <label class="control-label" for="username">Username</label>
+          <div class="controls">
+            <input type="text" name="username" class="form-control" />
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Add manager</button>
+    </form>
+
+    <% if team.managers.count > 1 %>
+        <% (team.managers - [current_user]).each do |manager| %>
+          
+          <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/managers" method="post">
+            <input type="hidden" name="_method" value="delete" />
+            <input type="hidden" name="username" value="<%= manager.username %>" />
+            <button type="submit" class="btn btn-xs btn-danger manager_delete" data-username="<%= manager.username %>" style="margin: 10px 10px 10px 0">Remove</button>
+            <%= gravatar_tag manager.avatar_url, size: 20 %>
+            <a href="/<%= manager.username %>"><%= manager.username %></a>
+          </form>
+        <% end %>
+    <% end %>
+  </div>
+
+<hr>
+
+  <div id="members">
+    <h3>Members</h3>
+    <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/members" %>" method="post">
+      <div class="row">
+        <div class="control-group col-md-8">
+          <label  class="control-label" for="usernames">Usernames (comma-separated list)</label>
+          <div class="controls">
+            <textarea name="usernames" id="usernames" class="form-control" placeholder="e.g. kytrinyx, seeflanigan, rubysolo, theotherzach"></textarea>
+          </div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary" style="margin-top: 15px">Invite</button>
+    </form>
+
+    <br/>
+    
+    <div class="row">
+      <% members.each do |member| %>
+        <div class="col-sm-3">
+          <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
+          class="btn btn-xs btn-danger member_delete" style="margin: 10px 10px 10px 0">X</a>
+          <%= gravatar_tag member.avatar_url, size: 20 %>
+          <a href="/<%= member.username %>"><%= member.username %></a>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

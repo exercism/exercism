@@ -12,11 +12,18 @@ $ ->
   unless $.cookie('feedback_guide_alert') == 'closed'
     $("#feedback_guide_alert").removeClass("hidden")
 
+  $('.manager_delete').on 'click', ->
+    username = $(@).data('username')
+    slug = $(@).data('team')
+
+    if confirm("Are you sure you want to remove #{username} as a team manager?")
+      dismissTeamManager(username, slug)
+
   $('.member_delete').on 'click', ->
     username = $(@).data('username')
     slug = $(@).data('team')
 
-    if confirm("Are you sure you want to remove #{username}?")
+    if confirm("Are you sure you want to remove #{username} as a member?")
       dismissTeamMember(username, slug)
 
   $('#destroy_team').on 'click', ->
@@ -33,17 +40,7 @@ $ ->
     emojify.setConfig(emoticons_enabled: false)
     emojify.run(document.getElementsByClassName("comments")[0])
 
-toggleTeamEdit = ->
-  members_box = $('#add_members')
-  delete_buttons = $('.member_delete')
-  if members_box.hasClass('hidden')
-    delete_buttons.removeClass('hidden')
-    members_box.slideDown()
-    members_box.removeClass('hidden')
-  else
-    members_box.slideUp ->
-      delete_buttons.addClass('hidden')
-      members_box.addClass('hidden')
+
 
 destroyTeam = (slug) ->
   href = "/teams/" + slug
@@ -60,6 +57,16 @@ dismissTeamMember = (username, slug) ->
   method_input = '<input name="_method" value="delete" type="hidden"/>'
 
   form.hide().append(method_input).appendTo('body')
+  form.submit()
+
+dismissTeamManager = (username, slug) ->
+  href = "/teams/#{slug}/managers"
+  form = $('<form method="post" action="' + href + '"></form>')
+  method_input = '<input name="_method" value="delete" type="hidden"/>'
+  username_input = '<input name="username" type="hidden" value="#{username}" />'
+
+  form.hide().append(method_input).appendTo('body')
+  form.hide().append(username_input).appendTo('body')
   form.submit()
 
 ((i, s, o, g, r, a, m) ->

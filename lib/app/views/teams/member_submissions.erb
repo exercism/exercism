@@ -1,5 +1,5 @@
 <div class="col-md-4" id="<%= member.username %>">
-  <h5>
+  <h5 class="well">
     <%= gravatar_tag member.avatar_url, size: 20 %>
     <a href="/<%= member.username %>"><%= member.username %></a>
     <% if team.managed_by?(current_user) %>
