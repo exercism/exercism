@@ -89,7 +89,7 @@ module ExercismWeb
         please_login("You have to be logged in to do that")
         submission = Submission.find_by_key(key)
         unless current_user.owns?(submission)
-          flash[:notice] = "Only the submitter may complete the exercise."
+          flash[:notice] = "Only the author may complete the exercise."
           redirect "/submissions/#{key}"
         end
         Completion.new(submission).save
@@ -102,7 +102,7 @@ module ExercismWeb
         please_login
         selected_submission = Submission.find_by_key(key)
         unless current_user.owns?(selected_submission)
-          flash[:notice] = "Only the current submitter may reopen the exercise"
+          flash[:notice] = "Only the current author may reopen the exercise"
           redirect '/'
         end
 
@@ -124,7 +124,7 @@ module ExercismWeb
         please_login("You have to be logged in to do that")
         submission = Submission.find_by_key(key).participant_submissions.last
         unless current_user.owns?(submission)
-          flash[:notice] = "Only the submitter may hibernate this exercise."
+          flash[:notice] = "Only the author may hibernate this exercise."
           redirect "/submissions/#{key}"
         end
         submission.state = "hibernating"
@@ -136,6 +136,10 @@ module ExercismWeb
 
       post '/submissions/:key/wakeup' do |key|
         submission = Submission.find_by_key(key)
+        unless current_user.owns?(submission)
+          flash[:notice] = "Only the author may reactivate the exercise."
+          redirect "/submissions/#{key}"
+        end
         submission.user_exercise.reopen!
         flash[:success] = "#{submission.name} in #{submission.track_id} is now active."
         redirect '/'
@@ -149,7 +153,7 @@ module ExercismWeb
         end
 
         unless current_user.owns?(submission)
-          flash[:notice] = "Only the current submitter may delete the exercise."
+          flash[:notice] = "Only the author may delete the exercise."
           redirect '/'
         end
 
