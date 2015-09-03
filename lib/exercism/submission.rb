@@ -173,10 +173,6 @@ class Submission < ActiveRecord::Base
     state == 'done'
   end
 
-  def pending?
-    state == 'pending'
-  end
-
   def hibernating?
     state == 'hibernating'
   end
