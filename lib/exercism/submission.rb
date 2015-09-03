@@ -145,12 +145,6 @@ class Submission < ActiveRecord::Base
     self.slug = problem.slug
   end
 
-  def supersede!
-    self.state   = 'superseded'
-    self.done_at = nil
-    save
-  end
-
   def like!(user)
     self.is_liked = true
     self.liked_by << user unless liked_by.include?(user)

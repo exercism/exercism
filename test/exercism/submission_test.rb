@@ -44,29 +44,6 @@ class SubmissionTest < Minitest::Test
     refute_nil submission.key
   end
 
-  def test_supersede_pending_submission
-    assert_equal 'pending', submission.state
-    submission.supersede!
-    submission.reload
-    assert_equal 'superseded', submission.state
-  end
-
-  def test_supersede_hibernating_submission
-    submission.state = 'hibernating'
-    submission.supersede!
-    submission.reload
-    assert_equal 'superseded', submission.state
-  end
-
-  def test_supersede_completed_submissions
-    submission.state = 'done'
-    submission.done_at = Time.now
-    submission.save
-    submission.supersede!
-    assert_equal 'superseded', submission.state
-    assert_nil   submission.done_at
-  end
-
   def test_like_sets_is_liked
     submission = Submission.new(state: 'pending')
     submission.like!(alice)
@@ -230,18 +207,6 @@ class SubmissionTest < Minitest::Test
 
     expected = [user_submission, commenter_submission].sort
     assert_equal expected, submission.participant_submissions(user).sort
-  end
-
-  def test_participant_submissions_finds_last
-    commenter = User.create!
-    problem_submission_for(commenter).tap do |submission|
-      submission.supersede!
-    end
-    submission = problem_submission_for(commenter)
-
-    submission.comments << Comment.new(body: 'test', user: commenter)
-
-    assert_equal [submission], submission.participant_submissions.sort
   end
 
   def test_likes_by_submission
