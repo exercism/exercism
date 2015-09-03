@@ -173,14 +173,6 @@ class Submission < ActiveRecord::Base
     state == 'done'
   end
 
-  def hibernating?
-    state == 'hibernating'
-  end
-
-  def superseded?
-    state == 'superseded'
-  end
-
   def muted_by?(user)
     muted_submissions.where(user_id: user.id).exists?
   end
