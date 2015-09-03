@@ -31,13 +31,13 @@ class Work
   end
 
   def nitpickables
-    Hash[mastered_slugs].merge(completed) do |_, a, b|
+    Hash[mastered_slugs].merge(submitted) do |_, a, b|
       (a + b).uniq
     end
   end
 
-  def completed
-    @completed ||= user.send(:items_where, "submissions", "state='done' AND slug != 'hello-world'")
+  def submitted
+    @submitted ||= user.send(:items_where, "submissions", "slug != 'hello-world'")
   end
 
   class Pick
@@ -59,12 +59,11 @@ class Work
     end
 
     def choices
-      @choices ||= Submission.pending.
-        where(language: language, slug: slug).
+      @choices ||= Submission.
+        where('submissions.language' => language, 'submissions.slug' => slug).
         not_commented_on_by(user).not_liked_by(user).
         not_submitted_by(user).unmuted_for(user).
         order("updated_at DESC")
     end
-
   end
 end

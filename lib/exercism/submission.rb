@@ -38,10 +38,10 @@ class Submission < ActiveRecord::Base
   scope :chronologically, -> { order(created_at: :asc) }
   scope :reversed, -> { order(created_at: :desc) }
   scope :not_commented_on_by, ->(user) {
-    where("id NOT IN (#{Comment.where(user: user).select(:submission_id).to_sql})")
+    where("submissions.id NOT IN (#{Comment.where(user: user).select(:submission_id).to_sql})")
   }
   scope :not_liked_by, ->(user) {
-    where("id NOT IN (#{Like.where(user: user).select(:submission_id).to_sql})")
+    where("submissions.id NOT IN (#{Like.where(user: user).select(:submission_id).to_sql})")
   }
   scope :excluding_hello, ->{ where("slug != 'hello-world'") }
 
@@ -79,7 +79,7 @@ class Submission < ActiveRecord::Base
   }
 
   scope :unmuted_for, ->(user) {
-    where("id NOT IN (#{MutedSubmission.where(user: user).select(:submission_id).to_sql})")
+    where("submissions.id NOT IN (#{MutedSubmission.where(user: user).select(:submission_id).to_sql})")
   }
 
   def self.on(problem)
