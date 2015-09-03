@@ -169,10 +169,6 @@ class Submission < ActiveRecord::Base
     is_liked
   end
 
-  def done?
-    state == 'done'
-  end
-
   def muted_by?(user)
     muted_submissions.where(user_id: user.id).exists?
   end
