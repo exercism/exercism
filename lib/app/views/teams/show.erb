@@ -9,7 +9,8 @@
   </section>
   
   <h3><%= team.members.length %> members</h3>
- 
+  <p>Click on a team member's name to see their full list of exercises.</p>
+
   <% members.each_slice(3) do |row| %>
     <div class="row">
       <% row.each do |member| %>

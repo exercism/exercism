@@ -25,7 +25,7 @@
   </p>
   <% if submissions.any? %>
     <ul>
-      <% submissions.each do |submission| %>
+      <% submissions.reversed.limit(5).each do |submission| %>
         <li>
           <% if current_user.working_on?(submission.problem) || team.managed_by?(current_user) || current_user.nitpicker_on?(submission.problem) %>
             <a href="/submissions/<%= submission.key %>">
