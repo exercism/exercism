@@ -37,10 +37,8 @@ class Attempt
 
   def save
     user.submissions_on(problem).each do |sub|
-      sub.supersede!
       sub.unmute_all!
     end
-    remove_from_completed(problem)
     submission.solution = iteration.solution
     submission.code = code
     submission.filename = filename
@@ -49,10 +47,6 @@ class Attempt
     Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
     submission.reload.viewed_by(user)
     self
-  end
-
-  def remove_from_completed(problem)
-    (user.completed[problem.track_id] || []).delete(problem.slug)
   end
 
   def duplicate?

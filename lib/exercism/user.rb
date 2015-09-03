@@ -107,10 +107,6 @@ class User < ActiveRecord::Base
     unlocked_languages | mastery
   end
 
-  def completed
-    @completed ||= items_where "submissions", "state='done'"
-  end
-
   def nitpicker
     @nitpicker ||= items_where "user_exercises", "iteration_count > 0"
   end
