@@ -7,7 +7,6 @@
           <% %w(recent last-week last-month last-quarter aging).each do |slug| %>
             <%= dashboard_assignment_section_nav(language, slug) %>
           <% end %>
-          <%= dashboard_assignment_section_nav(language, 'needs-input') %>
         </ul>
         <br />
         <% if exercises.any? %>
