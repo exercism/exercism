@@ -6,7 +6,6 @@ module ExercismAPI
   ROOT = Exercism.relative_to_root('lib', 'api')
 end
 
-require 'exercism/stats/snapshot'
 require 'exercism/homework'
 require 'exercism/xapi'
 
@@ -21,7 +20,6 @@ module ExercismAPI
     use Routes::Problems
     use Routes::Comments
     use Routes::Looks
-    use Routes::Stats
     use Routes::Users
     use Routes::Legacy
   end
