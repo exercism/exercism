@@ -100,6 +100,40 @@ namespace :data do
       ActiveRecord::Base.connection.execute(sql)
     end
 
+    desc "migrate acls"
+    task :acls do
+      require 'active_record'
+      require 'db/connection'
+      require './lib/exercism/acl'
+      require './lib/exercism/named'
+      require './lib/exercism/problem'
+      require './lib/exercism/submission'
+      require './lib/exercism/user'
+      DB::Connection.establish
+
+      Submission.find_each do |submission|
+        ACL.authorize(submission.user, submission.problem)
+      end
+    end
+
+    desc "migrate mentor acls"
+    task :mentor_acls do
+      require 'active_record'
+      require 'db/connection'
+      require './lib/exercism/acl'
+      require './lib/exercism/named'
+      require './lib/exercism/problem'
+      require './lib/exercism/submission'
+      require './lib/exercism/user'
+      DB::Connection.establish
+
+      User.where('mastery IS NOT NULL').where("mastery != '--- []\n'").find_each do |user|
+        Submission.select('DISTINCT language, slug').where(language: user.mastery).each do |submission|
+          ACL.authorize(user, submission.problem)
+        end
+      end
+    end
+
     desc "migrate archived flag on exercises"
     task :archived do
       require 'active_record'
