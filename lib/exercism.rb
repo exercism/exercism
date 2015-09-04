@@ -4,6 +4,7 @@ require 'faraday'
 
 require 'exercism/explore'
 
+require 'exercism/acl'
 require 'exercism/assumable_user'
 require 'exercism/onboarding'
 require 'exercism/progress_bar'

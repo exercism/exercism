@@ -106,6 +106,8 @@ module ExercismAPI
 
         attempt.save
 
+        ACL.authorize(user, attempt.submission.problem)
+
         Notify.everyone(attempt.submission.reload, 'code', user)
 
         # if we don't have a 'fetched' event, we want to hack one in.
