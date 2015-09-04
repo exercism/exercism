@@ -128,7 +128,7 @@ class User < ActiveRecord::Base
   end
 
   def completed?(problem)
-    exercises.where(language: problem.track_id, slug: problem.slug, state: 'done')
+    exercises.where(language: problem.track_id, slug: problem.slug, state: 'done').count > 0
   end
 
   def nitpicker?
