@@ -21,6 +21,7 @@ module Hack
       exercise.is_nitpicker = true
       exercise.iteration_count = submissions.count
       exercise.archived = exercise.state == 'done'
+      exercise.last_iteration_at = latest.created_at
       exercise.save
 
       submissions.each do |s|
