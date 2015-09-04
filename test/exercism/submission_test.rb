@@ -267,4 +267,27 @@ class SubmissionTest < Minitest::Test
     trending = Submission.trending(alice, 4.hours)
     assert trending.first.total_activity, 2
   end
+
+  def test_exercise_viewed_updates_single_record_per_user_and_exercise
+    alice = User.create!(username: 'alice')
+    bob = User.create!(username: 'bob')
+    submission = Submission.create!(user: alice, language: 'rust', slug: 'pong')
+    exercise = UserExercise.create!(user: alice, language: 'rust', slug: 'pong', submissions: [submission])
+    submission.reload
+
+    submission.viewed_by(alice)
+    assert_equal 1, View.count
+
+    v1 = View.first
+    assert_equal alice.id, v1.user_id
+    assert_equal exercise.id, v1.exercise_id
+    refute_equal nil, v1.last_viewed_at
+
+    yesterday = 1.day.ago
+    v2 = View.create(user_id: bob.id, exercise_id: exercise.id, last_viewed_at: yesterday)
+
+    submission.viewed_by(bob)
+    assert_equal 2, View.count
+    assert_in_delta 1, v2.last_viewed_at.to_i, Time.now.utc.to_i
+  end
 end

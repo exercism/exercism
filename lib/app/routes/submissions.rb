@@ -11,8 +11,9 @@ module ExercismWeb
         if current_user.guest?
           workload = NullWorkload.new
         else
-          submission.viewed!(current_user)
-          Look.check!(submission.user_exercise_id, current_user.id)
+          submission.viewed_by(current_user) # in support of inbox
+          submission.viewed!(current_user) # legacy?
+          Look.check!(submission.user_exercise_id, current_user.id) # legacy?
           Notification.viewed!(submission, current_user)
           workload = Workload.new(current_user, submission.track_id, submission.slug)
         end

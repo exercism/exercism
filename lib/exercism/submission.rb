@@ -112,6 +112,12 @@ class Submission < ActiveRecord::Base
       .limit(10)
   end
 
+  def viewed_by(user)
+    View.create(user_id: user.id, exercise_id: user_exercise_id, last_viewed_at: Time.now.utc)
+  rescue ActiveRecord::RecordNotUnique
+    View.where(user_id: user.id, exercise_id: user_exercise_id).update_all(last_viewed_at: Time.now.utc)
+  end
+
   def name
     @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
