@@ -76,6 +76,30 @@ namespace :data do
   end
 
   namespace :migrate do
+    desc "migrate last viewed"
+    task :viewed do
+      require 'active_record'
+      require 'db/connection'
+      DB::Connection.establish
+
+      sql = <<-SQL
+      INSERT INTO views ( user_id, exercise_id, last_viewed_at, updated_at, created_at ) (
+        SELECT
+          looks.user_id,
+          looks.exercise_id,
+          MAX(looks.created_at),
+          MAX(looks.created_at),
+          MAX(looks.created_at)
+        FROM looks
+        LEFT JOIN views
+        ON looks.user_id=views.user_id AND looks.exercise_id=views.exercise_id
+        WHERE views.id IS NULL
+        GROUP BY looks.user_id, looks.exercise_id
+      )
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     desc "migrate archived flag on exercises"
     task :archived do
       require 'active_record'
