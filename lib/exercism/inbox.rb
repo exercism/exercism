@@ -20,7 +20,7 @@ class Inbox
   end
 
   def total_pages
-    @total_pages ||= (tracks.find {|track| track.id == track_id}.total/per_page.to_f).ceil
+    @total_pages ||= (current_track.total/per_page.to_f).ceil
   end
 
   def previous_page
@@ -48,6 +48,10 @@ class Inbox
   end
 
   private
+
+  def current_track
+    @current_track ||= tracks.find {|track| track.id == track_id} || UserTrack.new(track_id, 0, 0)
+  end
 
   # This becomes unbearably slow if we do a left join on views to get the unread value
   # up front.
