@@ -21,6 +21,7 @@ class UserTrack
       WHERE acls.user_id=#{user_id}
         AND ex.archived='f'
         AND ex.slug != 'hello-world'
+        AND ex.iteration_count > 0
       GROUP BY ex.language
       SQL
     end
@@ -42,6 +43,7 @@ class UserTrack
         AND views.last_viewed_at > ex.last_activity_at
         AND ex.archived='f'
         AND ex.slug != 'hello-world'
+        AND ex.iteration_count > 0
       GROUP BY ex.language
       SQL
     end

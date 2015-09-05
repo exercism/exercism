@@ -93,6 +93,7 @@ class Inbox
         AND ex.archived='f'
         AND ex.language='#{track_id}'
         AND ex.slug != 'hello-world'
+        AND ex.iteration_count > 0
         AND ex.id IN ('#{ids.join("','")}')
     SQL
   end
@@ -118,6 +119,7 @@ class Inbox
         AND ex.language='#{track_id}'
         AND ex.archived='f'
         AND ex.slug != 'hello-world'
+        AND ex.iteration_count > 0
       ORDER BY ex.last_activity_at DESC
       LIMIT #{per_page} OFFSET #{offset}
     SQL

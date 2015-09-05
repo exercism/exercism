@@ -21,12 +21,14 @@ class InboxTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'clock', archived: false, auth: false, viewed: -1},
       {user: alice, language: 'go', slug: 'leap', archived: true, auth: true, viewed: +1},
       {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1},
+      {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0},
       {user: alice, language: 'go', slug: 'hamming', archived: false, auth: true, viewed: +1},
     ].each.with_index do |exercise, i|
       ts = i.days.ago
       auth = exercise.delete(:auth)
       viewed_diff_in_seconds = exercise.delete(:viewed)
 
+      exercise[:iteration_count] ||= 1
       exercise = UserExercise.create(exercise.merge(last_activity_at: ts))
       if auth
         ACL.authorize(alice, exercise.problem)

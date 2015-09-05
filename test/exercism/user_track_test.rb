@@ -22,11 +22,13 @@ class UserTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1},
       {user: bob, language: 'elixir', slug: 'triangle', archived: false, auth: true, viewed: -1},
       {user: bob, language: 'go', slug: 'hello-world', archived: false, auth: true, viewed: -1},
+      {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0},
     ].each do |exercise|
       ts = Time.now.utc
       auth = exercise.delete(:auth)
       viewed_diff_in_seconds = exercise.delete(:viewed)
 
+      exercise[:iteration_count] ||= 1
       exercise = UserExercise.create(exercise.merge(last_activity_at: ts))
       if auth
         ACL.authorize(alice, exercise.problem)
