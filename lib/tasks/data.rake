@@ -131,7 +131,9 @@ namespace :data do
       DB::Connection.establish
 
       Submission.find_each do |submission|
-        ACL.authorize(submission.user, submission.problem)
+        if submission.user.present?
+          ACL.authorize(submission.user, submission.problem)
+        end
       end
     end
 
