@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row">
+    <br>
+    <aside class="col-md-4">
+      <nav>
+        <ul class="nav nav-stacked nav-bordered">
+          <% inbox.tracks.each do |track|%>
+          <li class="<%= 'active' if track.id==inbox.track_id %>">
+            <a href="/tracks/<%= track.id %>/exercises">
+              <%= track.name %>
+              (<%= "%d %s" % [track.total, "exercise".pluralize(track.total)] %> | <b><%= track.unread %></b> unread)
+            </a>
+          </li>
+          <% end %>
+        </ul>
+      </nav>
+      </br>
+    </aside>
+
+    <main id="track-exercises" class="col-md-8">
+
+      <h2>Solutions in <%= inbox.language %></h2>
+
+      <% if inbox.exercises.any? %>
+        <ul class="active-exercises">
+          <% inbox.exercises.each do |exercise| %>
+          <li class="<%= 'unread' if exercise.unread %>">
+            <img src="<%= exercise.avatar_url%>" width="20" height="20" alt="">
+            <a href="/exercises/<%= exercise.uuid %>" style="color: #000; <%= 'font-weight: bold' if exercise.unread %>">
+              <%= exercise.problem.name %>
+            </a> by
+            <a href="/<%= exercise.username %>">
+              <%= exercise.username %>
+            </a>
+          </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <div class="pagination">
+        <ul class="pagination">
+          <li class="prev <%= 'disabled' if inbox.page == 1 %>">
+            <a href="/tracks/<%= inbox.track_id %>/exercises?page=<%= inbox.previous_page %>">&larr; Previous</a>
+          </li>
+          <% (1..inbox.total_pages).each do |page| %>
+            <li class="<%= 'active' if inbox.page == page  %>">
+              <a href="/tracks/<%= inbox.track_id %>/exercises?page=<%= page %>">
+                <%= page %>
+              </a>
+            </li>
+          <% end %>
+          <li class="next <%= 'disabled' if inbox.page == inbox.total_pages %>">
+            <a href="/tracks/<%= inbox.track_id %>/exercises?page=<%= inbox.next_page %>">
+              Next &rarr;
+            </a>
+          </li>
+        </ul>
+      </div>
+    </main>
+  </div>
+</div>
