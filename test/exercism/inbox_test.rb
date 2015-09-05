@@ -16,6 +16,7 @@ class InboxTrackTest < Minitest::Test
       {user: bob, language: 'elixir', slug: 'triangle', archived: false, auth: true, viewed: -1},
       {user: bob, language: 'elixir', slug: 'anagram', archived: false, auth: true, viewed: -1},
       {user: bob, language: 'elixir', slug: 'word-count', archived: false, auth: true, viewed: +1},
+      {user: bob, language: 'go', slug: 'hello-world', archived: false, auth: true, viewed: -1},
       {user: bob, language: 'go', slug: 'leap', archived: false, auth: true, viewed: +1},
       {user: bob, language: 'go', slug: 'clock', archived: false, auth: false, viewed: -1},
       {user: alice, language: 'go', slug: 'leap', archived: true, auth: true, viewed: +1},

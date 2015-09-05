@@ -92,6 +92,7 @@ class Inbox
         AND views.last_viewed_at > ex.last_activity_at
         AND ex.archived='f'
         AND ex.language='#{track_id}'
+        AND ex.slug != 'hello-world'
         AND ex.id IN ('#{ids.join("','")}')
     SQL
   end
@@ -116,6 +117,7 @@ class Inbox
       WHERE acls.user_id=#{user.id}
         AND ex.language='#{track_id}'
         AND ex.archived='f'
+        AND ex.slug != 'hello-world'
       ORDER BY ex.last_activity_at DESC
       LIMIT #{per_page} OFFSET #{offset}
     SQL

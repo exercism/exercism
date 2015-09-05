@@ -21,6 +21,7 @@ class UserTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'clock', archived: false, auth: false, viewed: -1},
       {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1},
       {user: bob, language: 'elixir', slug: 'triangle', archived: false, auth: true, viewed: -1},
+      {user: bob, language: 'go', slug: 'hello-world', archived: false, auth: true, viewed: -1},
     ].each do |exercise|
       ts = Time.now.utc
       auth = exercise.delete(:auth)
