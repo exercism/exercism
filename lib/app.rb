@@ -52,6 +52,7 @@ module ExercismWeb
     use Routes::Comments
     use Routes::Nits
     use Routes::Teams
+    use Routes::Tracks
     use Routes::Sessions
     use Routes::Styleguide
     use Routes::CommentThreads

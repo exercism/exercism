@@ -21,6 +21,7 @@ module ExercismWeb
       Submissions: 'submissions',
       Metadata: 'metadata',
       Teams: 'teams',
+      Tracks: 'tracks',
       Styleguide: 'styleguide',
       CommentThreads: 'comment_threads',
       Errors: 'errors',
