@@ -119,6 +119,27 @@ namespace :data do
       ActiveRecord::Base.connection.execute(sql)
     end
 
+    desc "migrate last activity timestamps"
+    task :last_activity do
+      require 'active_record'
+      require 'db/connection'
+
+      DB::Connection.establish
+
+      sql = <<-SQL
+      UPDATE user_exercises ex SET last_activity_at=GREATEST(last_iteration_at, t.ts)
+      FROM (
+        SELECT MAX(comments.created_at) AS ts, submissions.user_exercise_id AS id
+        FROM comments
+        INNER JOIN submissions
+        ON comments.submission_id=submissions.id
+        GROUP BY submissions.user_exercise_id
+      ) AS t
+      WHERE t.id=ex.id
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     desc "migrate acls"
     task :acls do
       require 'active_record'
