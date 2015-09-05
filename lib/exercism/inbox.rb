@@ -9,13 +9,34 @@ class Inbox
     end
   end
 
-  attr_reader :user, :page, :track_id
+  attr_reader :user, :page, :track_id, :language
   attr_accessor :per_page
   def initialize(user, track_id, page=1)
     @user = user
     @track_id = track_id
-    @page = page
+    @language = Language.of(track_id)
+    @page = page.to_i
     @per_page = 50
+  end
+
+  def total_pages
+    @total_pages ||= (tracks.find {|track| track.id == track_id}.total/per_page.to_f).ceil
+  end
+
+  def previous_page
+    if page == 1
+      1
+    else
+      page - 1
+    end
+  end
+
+  def next_page
+    if page == total_pages
+      total_pages
+    else
+      page + 1
+    end
   end
 
   def exercises
