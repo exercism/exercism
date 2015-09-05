@@ -100,6 +100,25 @@ namespace :data do
       ActiveRecord::Base.connection.execute(sql)
     end
 
+    desc "migrate last iteration timestamps"
+    task :last_iteration do
+      require 'active_record'
+      require 'db/connection'
+
+      DB::Connection.establish
+
+      sql = <<-SQL
+      UPDATE user_exercises ex SET last_iteration_at=t.ts
+      FROM (
+        SELECT MAX(created_at) AS ts, user_exercise_id AS id
+        FROM submissions
+        GROUP BY user_exercise_id
+      ) AS t
+      WHERE t.id=ex.id
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     desc "migrate acls"
     task :acls do
       require 'active_record'
