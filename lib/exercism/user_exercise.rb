@@ -20,6 +20,12 @@ class UserExercise < ActiveRecord::Base
     language
   end
 
+  def update_last_activity(thing)
+    if last_activity_at.nil? || (thing.created_at > last_activity_at)
+      self.last_activity_at = thing.created_at
+    end
+  end
+
   def closed?
     state == 'done'
   end

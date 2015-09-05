@@ -22,6 +22,7 @@ module Hack
       exercise.iteration_count = submissions.count
       exercise.archived = exercise.state == 'done'
       exercise.last_iteration_at = latest.created_at
+      exercise.update_last_activity(latest)
       exercise.save
 
       submissions.each do |s|

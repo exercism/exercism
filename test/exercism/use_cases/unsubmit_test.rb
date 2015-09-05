@@ -27,7 +27,8 @@ class UnsubmitTest < Minitest::Test
 
   def test_fails_when_already_nitpicked
     alice = User.create(username: 'alice')
-    submission = bob.submissions.create
+    submission = bob.submissions.create(language: 'ruby', slug: 'one')
+    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'one').update
     CreatesComment.create(submission.id, alice, "foobar")
 
     assert_raises Unsubmit::SubmissionHasNits do
