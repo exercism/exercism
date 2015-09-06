@@ -47,6 +47,7 @@ class Attempt
     user.submissions << submission
     user.save
     Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
+    submission.reload.viewed_by(user)
     self
   end
 
