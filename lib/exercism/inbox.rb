@@ -1,3 +1,5 @@
+require 'will_paginate/array'
+
 class Inbox
   class Exercise < Struct.new(:uuid, :problem, :last_activity_at, :username, :avatar_url)
     def viewed!
@@ -45,6 +47,10 @@ class Inbox
 
   def tracks
     @tracks ||= UserTrack.all_for(user)
+  end
+
+  def pagination
+    (1..current_track.total).to_a.paginate(page: page, per_page: per_page)
   end
 
   private

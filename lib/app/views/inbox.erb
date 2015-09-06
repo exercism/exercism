@@ -38,23 +38,7 @@
       <% end %>
 
       <div class="pagination">
-        <ul class="pagination">
-          <li class="prev <%= 'disabled' if inbox.page == 1 %>">
-            <a href="/tracks/<%= inbox.track_id %>/exercises?page=<%= inbox.previous_page %>">&larr; Previous</a>
-          </li>
-          <% (1..inbox.total_pages).each do |page| %>
-            <li class="<%= 'active' if inbox.page == page  %>">
-              <a href="/tracks/<%= inbox.track_id %>/exercises?page=<%= page %>">
-                <%= page %>
-              </a>
-            </li>
-          <% end %>
-          <li class="next <%= 'disabled' if inbox.page == inbox.total_pages %>">
-            <a href="/tracks/<%= inbox.track_id %>/exercises?page=<%= inbox.next_page %>">
-              Next &rarr;
-            </a>
-          </li>
-        </ul>
+        <%= will_paginate inbox.pagination %>
       </div>
     </main>
   </div>
