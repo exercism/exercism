@@ -50,6 +50,10 @@ class Inbox
     @tracks ||= UserTrack.all_for(user)
   end
 
+  def problems
+    @problems ||= UserTrack.problems_for(user, track_id)
+  end
+
   def pagination
     (1..current_track.total).to_a.paginate(page: page, per_page: per_page)
   end

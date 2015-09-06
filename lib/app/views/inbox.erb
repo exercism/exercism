@@ -13,8 +13,21 @@
           </li>
           <% end %>
         </ul>
+        <br>
+        <h3><%= inbox.language %></h3>
+        <ul class="nav nav-stacked nav-bordered">
+          <% inbox.problems.each do |problem|%>
+          <li class="<%= 'active' if problem.slug==inbox.slug %>">
+            <a href="/tracks/<%= inbox.track_id %>/exercises/<%= problem.slug %>">
+              <%= problem.name %>
+              (<%= "%d %s" % [problem.total, "exercise".pluralize(problem.total)] %> | <b><%= problem.unread %></b> unread)
+            </a>
+          </li>
+          <% end %>
+        </ul>
+
       </nav>
-      </br>
+      <br>
     </aside>
 
     <main id="track-exercises" class="col-md-8">
