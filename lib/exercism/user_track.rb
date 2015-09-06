@@ -17,7 +17,7 @@ class UserTrack
   def initialize(id, total, viewed)
     @id = id
     @total = total
-    @unread = total-viewed
+    @unread = total.to_i-viewed.to_i
     @name = Language.of(id)
   end
 end
