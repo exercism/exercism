@@ -15,14 +15,16 @@ class UserTrackTest < Minitest::Test
     bob = User.create(username: 'bob')
 
     [
-      {user: alice, language: 'go', slug: 'leap', archived: true, auth: true, viewed: +1},
+      {user: alice, language: 'go', slug: 'leap', archived: true, auth: true, viewed: +1}, # No (archived)
       {user: alice, language: 'go', slug: 'hamming', archived: false, auth: true, viewed: +1},
       {user: bob, language: 'go', slug: 'leap', archived: false, auth: true, viewed: +1},
-      {user: bob, language: 'go', slug: 'clock', archived: false, auth: false, viewed: -1},
-      {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1},
+      {user: bob, language: 'go', slug: 'clock', archived: false, auth: false, viewed: -1}, # No (acl)
+      {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1}, # No (archived)
       {user: bob, language: 'elixir', slug: 'triangle', archived: false, auth: true, viewed: -1},
-      {user: bob, language: 'go', slug: 'hello-world', archived: false, auth: true, viewed: -1},
-      {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0},
+      {user: alice, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: +1},
+      {user: bob, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: -1},
+      {user: bob, language: 'go', slug: 'hello-world', archived: false, auth: true, viewed: -1}, # No (hello)
+      {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0}, # No (zero iterations)
     ].each do |exercise|
       ts = Time.now.utc
       auth = exercise.delete(:auth)
@@ -39,12 +41,18 @@ class UserTrackTest < Minitest::Test
 
     # Intermediary steps - make it easier to debug.
     counts = UserTrack.exercise_counts_per_track(alice.id)
-    assert_equal({"elixir" => 1, "go" => 2}, counts)
+    assert_equal({"elixir" => 1, "go" => 4}, counts)
 
     counts = UserTrack.viewed_counts_per_track(alice.id)
-    assert_equal({"go" => 2}, counts)
+    assert_equal({"go" => 3}, counts)
 
-    # This is all we really care about
+    counts = UserTrack.problem_counts_in_track(alice.id, 'go')
+    assert_equal({"hamming" => 1, "leap" => 1, "word-count" => 2}, counts)
+
+    counts = UserTrack.viewed_counts_in_track(alice.id, 'go')
+    assert_equal({"hamming" => 1, "leap" => 1, "word-count" => 1}, counts)
+
+    # This is what we really care about
     tracks = UserTrack.all_for(alice)
 
     assert_equal 2, tracks.size
@@ -58,8 +66,26 @@ class UserTrackTest < Minitest::Test
 
     assert_equal 'go', t2.id
     assert_equal 'Go', t2.name
-    assert_equal 2, t2.total
-    assert_equal 0, t2.unread
+    assert_equal 4, t2.total
+    assert_equal 1, t2.unread
+
+    problems = UserTrack.problems_for(alice, 'go')
+
+    assert_equal 3, problems.size
+
+    p1, p2, p3 = problems.sort_by(&:slug)
+
+    assert_equal 'Hamming', p1.name
+    assert_equal 1, p1.total
+    assert_equal 0, p1.unread
+
+    assert_equal 'Leap', p2.name
+    assert_equal 1, p2.total
+    assert_equal 0, p2.unread
+
+    assert_equal 'Word Count', p3.name
+    assert_equal 2, p3.total
+    assert_equal 1, p3.unread
   end
 end
 
