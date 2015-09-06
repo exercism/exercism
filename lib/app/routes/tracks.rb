@@ -6,7 +6,7 @@ module ExercismWeb
         id = id.downcase
 
         page = params[:page] || 1
-        inbox = Inbox.new(current_user, id, page)
+        inbox = Inbox.new(current_user, id, nil, page)
 
         erb :"inbox", locals: {inbox: inbox}
       end

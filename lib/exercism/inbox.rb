@@ -11,11 +11,12 @@ class Inbox
     end
   end
 
-  attr_reader :user, :page, :track_id, :language
+  attr_reader :user, :page, :track_id, :slug, :language
   attr_accessor :per_page
-  def initialize(user, track_id, page=1)
+  def initialize(user, track_id, slug=nil, page=1)
     @user = user
     @track_id = track_id
+    @slug = slug
     @language = Language.of(track_id)
     @page = page.to_i
     @per_page = 50
@@ -127,12 +128,21 @@ class Inbox
         AND ex.slug=acls.slug
       WHERE acls.user_id=#{user.id}
         AND ex.language='#{track_id}'
+        AND ex.slug=#{slug_param}
         AND ex.archived='f'
         AND ex.slug != 'hello-world'
         AND ex.iteration_count > 0
       ORDER BY ex.last_activity_at DESC
       LIMIT #{per_page} OFFSET #{offset}
     SQL
+  end
+
+  def slug_param
+    if slug.nil?
+      'ex.slug'
+    else
+      "'#{slug}'"
+    end
   end
 
   def offset

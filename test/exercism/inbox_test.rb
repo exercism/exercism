@@ -23,6 +23,8 @@ class InboxTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1},
       {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0},
       {user: alice, language: 'go', slug: 'hamming', archived: false, auth: true, viewed: +1},
+      {user: alice, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: +1},
+      {user: bob, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: -1},
     ].each.with_index do |exercise, i|
       ts = i.days.ago
       auth = exercise.delete(:auth)
@@ -39,46 +41,38 @@ class InboxTrackTest < Minitest::Test
 
     elixir1 = Inbox.new(alice, 'elixir')
     elixir1.per_page = 2
-    elixir2 = Inbox.new(alice, 'elixir', 2)
+    elixir2 = Inbox.new(alice, 'elixir', nil, 2)
     elixir2.per_page = 2
     go = Inbox.new(alice, 'go')
+    wc = Inbox.new(alice, 'go', 'word-count')
 
     assert_equal 2, elixir1.exercises.size
     assert_equal 1, elixir2.exercises.size
-    assert_equal 2, go.exercises.size
+    assert_equal 4, go.exercises.size
+    assert_equal 2, wc.exercises.size
 
     ex1, ex2 = elixir1.exercises
     ex3 = elixir2.exercises.first
-    ex4, ex5 = go.exercises
+    ex4, ex5, ex6, ex7 = go.exercises
+    ex8, ex9 = wc.exercises
 
-    assert_equal 'bob', ex1.username
-    assert_equal 'bob.jpg', ex1.avatar_url
-    assert_equal 'Triangle', ex1.problem.name
-    assert_equal 'elixir', ex1.problem.track_id
-    assert ex1.unread
-
-    assert_equal 'bob', ex2.username
-    assert_equal 'bob.jpg', ex2.avatar_url
-    assert_equal 'Anagram', ex2.problem.name
-    assert_equal 'elixir', ex2.problem.track_id
-    assert ex2.unread
-
-    assert_equal 'bob', ex3.username
-    assert_equal 'bob.jpg', ex3.avatar_url
-    assert_equal 'Word Count', ex3.problem.name
-    assert_equal 'elixir', ex3.problem.track_id
-    refute ex3.unread
-
-    assert_equal 'bob', ex4.username
-    assert_equal 'bob.jpg', ex4.avatar_url
-    assert_equal 'Leap', ex4.problem.name
-    assert_equal 'go', ex4.problem.track_id
-    refute ex4.unread
-
-    assert_equal 'alice', ex5.username
-    assert_equal 'alice.jpg', ex5.avatar_url
-    assert_equal 'Hamming', ex5.problem.name
-    assert_equal 'go', ex5.problem.track_id
-    refute ex5.unread
+    [
+      [ex1, bob, 'Triangle', 'elixir', :unread],
+      [ex2, bob, 'Anagram', 'elixir', :unread],
+      [ex3, bob, 'Word Count', 'elixir', :read],
+      [ex4, bob, 'Leap', 'go', :read],
+      [ex5, alice, 'Hamming', 'go', :read],
+      [ex6, alice, 'Word Count', 'go', :read],
+      [ex7, bob, 'Word Count', 'go', :unread],
+      [ex8, alice, 'Word Count', 'go', :read],
+      [ex9, bob, 'Word Count', 'go', :unread],
+    ].each do |ex, u, name, track_id, status|
+      test_case = [u.username, track_id, name].join(" ")
+      assert_equal u.username, ex.username, test_case
+      assert_equal u.avatar_url, ex.avatar_url, test_case
+      assert_equal name, ex.problem.name, test_case
+      assert_equal track_id, ex.problem.track_id, test_case
+      assert_equal status==:unread, ex.unread, test_case
+    end
   end
 end
