@@ -48,12 +48,14 @@
         <ul class="active-exercises">
           <% inbox.exercises.each do |exercise| %>
           <li class="<%= 'unread' if exercise.unread %>">
-            <img src="<%= exercise.avatar_url%>" width="20" height="20" alt="">
-            <a href="/exercises/<%= exercise.uuid %>" style="color: #000; <%= 'font-weight: bold' if exercise.unread %>">
-              <%= exercise.problem.name %>
-            </a> by
-            <a href="/<%= exercise.username %>">
-              <%= exercise.username %>
+            <img src="<%= exercise.avatar_url%>" width="40" height="40" alt="" class="avatar">
+
+            <a href="/exercises/<%= exercise.uuid %>" class="exercise">
+              <h4>
+                <%= exercise.problem.name %>
+                <span class="profile"> <%= exercise.username %> </span>
+              </h4>
+              <p>Last activity <%= ago(exercise.at) %></p>
             </a>
           </li>
           <% end %>

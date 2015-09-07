@@ -1,0 +1,40 @@
+main#track-exercises {
+  ul.active-exercises {
+    list-style-type: none;
+    padding: 0;
+
+    li {
+      position: relative;
+      padding: 0;
+      clear: both;
+
+      a.exercise {
+        position: relative;
+        display: block;
+        padding: 10px;
+        color: #333;
+
+        h4 {
+          position: absolute;
+          top: -10px;
+          left: 50px;
+          span.profile {
+            font-size: 0.8em;
+            font-style: italic;
+            font-family: $font-family-sans-serif;
+          }
+        }
+
+        p {
+          padding-top: 10px;
+        }
+      }
+      .avatar {
+        float: left;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
+    }
+  }
+}

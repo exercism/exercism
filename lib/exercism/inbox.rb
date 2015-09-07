@@ -2,6 +2,11 @@ require 'will_paginate/array'
 
 class Inbox
   class Exercise < Struct.new(:uuid, :problem, :last_activity_at, :username, :avatar_url)
+
+    def at
+      @at ||= last_activity_at.to_datetime
+    end
+
     def viewed!
       @viewed = true
     end
