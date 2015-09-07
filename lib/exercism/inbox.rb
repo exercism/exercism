@@ -22,6 +22,17 @@ class Inbox
     @per_page = 50
   end
 
+  def title
+    if slug.nil?
+      language
+    else
+      [language, Problem.new(track_id, slug).name].join(" ")
+    end
+  end
+
+  def current_problem
+  end
+
   def total_pages
     @total_pages ||= (current_track.total/per_page.to_f).ceil
   end

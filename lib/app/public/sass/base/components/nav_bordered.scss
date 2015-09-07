@@ -24,4 +24,8 @@ Styleguide Components - Bordered Navbar.
       border-bottom: 0px;
     }
   }
+  .active {
+    font-weight: bold;
+    background-color: $exercism-light-gray;
+  }
 }

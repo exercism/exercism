@@ -2,14 +2,19 @@
   <div class="row">
     <br>
     <aside class="col-md-4">
-      <nav>
+      <nav class="inbox">
         <ul class="nav nav-stacked nav-bordered">
           <% inbox.tracks.each do |track|%>
           <li class="<%= 'active' if track.id==inbox.track_id %>">
             <a href="/tracks/<%= track.id %>/exercises">
               <%= track.name %>
-              (<%= "%d %s" % [track.total, "exercise".pluralize(track.total)] %> | <b><%= track.unread %></b> unread)
+              <span class="total-count">
+                <%= track.total %>
+              </span>
             </a>
+            <span class="badge unread-count">
+              <%= track.unread %>
+            </span>
           </li>
           <% end %>
         </ul>
@@ -20,8 +25,13 @@
           <li class="<%= 'active' if problem.slug==inbox.slug %>">
             <a href="/tracks/<%= inbox.track_id %>/exercises/<%= problem.slug %>">
               <%= problem.name %>
-              (<%= "%d %s" % [problem.total, "exercise".pluralize(problem.total)] %> | <b><%= problem.unread %></b> unread)
+              <span class="total-count">
+                <%= problem.total %>
+              </span>
             </a>
+            <span class="badge unread-count">
+              <%= problem.unread %>
+            </span>
           </li>
           <% end %>
         </ul>
@@ -32,7 +42,7 @@
 
     <main id="track-exercises" class="col-md-8">
 
-      <h2>Solutions in <%= inbox.language %></h2>
+      <h2><%= inbox.title %></h2>
 
       <% if inbox.exercises.any? %>
         <ul class="active-exercises">

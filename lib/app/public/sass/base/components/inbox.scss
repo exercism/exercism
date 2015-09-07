@@ -1,0 +1,16 @@
+nav.inbox {
+  li {
+    padding-left: 50px;
+    a {
+      .total-count {
+        color: #777;
+        float: right;
+      }
+    }
+    .badge {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+}
