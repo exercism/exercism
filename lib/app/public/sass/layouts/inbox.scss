@@ -3,6 +3,13 @@ main#track-exercises {
     list-style-type: none;
     padding: 0;
 
+    li.unread a {
+      font-weight: bold;
+      h4 {
+        font-weight: bold;
+      }
+    }
+
     li {
       position: relative;
       padding: 0;
