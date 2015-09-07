@@ -61,7 +61,7 @@
       <% end %>
 
       <div class="pagination">
-        <%= will_paginate inbox.pagination %>
+        <%= will_paginate inbox.pagination, renderer: BootstrapPagination::Sinatra %>
       </div>
     </main>
   </div>
