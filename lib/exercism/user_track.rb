@@ -28,10 +28,14 @@ class UserTrack
     totals = problem_counts_in_track(user.id, track_id)
     views = viewed_counts_in_track(user.id, track_id)
     slugs = (totals.keys + views.keys).uniq
-    problems = slugs.each_with_object([]) do |slug, user_problems|
-      user_problems << UserProblem.new(slug, totals[slug], views[slug])
+    problems = slugs.each_with_object({}) do |slug, user_problems|
+      user_problems[slug] = UserProblem.new(slug, totals[slug], views[slug])
     end
-    problems
+    ordered_slugs(track_id).map {|slug| problems[slug] }.compact
+  end
+
+  def self.ordered_slugs(track_id)
+    LanguageTrack.new(track_id).ordered_exercises
   end
 
   attr_reader :id, :total, :unread, :name

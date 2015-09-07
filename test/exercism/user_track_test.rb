@@ -1,5 +1,12 @@
 require_relative '../integration_helper'
 
+# override the slug order so it doesn't look it up from the x-api
+class UserTrack
+  def self.ordered_slugs(_)
+    ['leap', 'hamming', 'word-count']
+  end
+end
+
 class UserTrackTest < Minitest::Test
   include DBCleaner
 
@@ -73,13 +80,13 @@ class UserTrackTest < Minitest::Test
 
     assert_equal 3, problems.size
 
-    p1, p2, p3 = problems.sort_by(&:slug)
+    p1, p2, p3 = problems
 
-    assert_equal 'Hamming', p1.name
+    assert_equal 'Leap', p1.name
     assert_equal 1, p1.total
     assert_equal 0, p1.unread
 
-    assert_equal 'Leap', p2.name
+    assert_equal 'Hamming', p2.name
     assert_equal 1, p2.total
     assert_equal 0, p2.unread
 
