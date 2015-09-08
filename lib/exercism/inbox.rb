@@ -1,7 +1,7 @@
 require 'will_paginate/array'
 
 class Inbox
-  class Exercise < Struct.new(:uuid, :problem, :last_activity_at, :username, :avatar_url)
+  class Exercise < Struct.new(:uuid, :problem, :last_activity_at, :iteration_count, :username, :avatar_url)
 
     def at
       @at ||= last_activity_at.to_datetime
@@ -94,7 +94,7 @@ class Inbox
     ids = []
     exx_by_id = execute(exercises_sql).each_with_object({}) do |row, by_id|
       problem = Problem.new(row["language"], row["slug"])
-      ex = Exercise.new(row["uuid"], problem, row["last_activity_at"], row["username"], row["avatar_url"])
+      ex = Exercise.new(row["uuid"], problem, row["last_activity_at"], row["iteration_count"].to_i, row["username"], row["avatar_url"])
       exx << ex
 
       ids << row["id"]
@@ -143,6 +143,7 @@ class Inbox
         ex.slug,
         ex.user_id,
         ex.last_activity_at,
+        ex.iteration_count,
         u.username,
         u.avatar_url
       FROM user_exercises ex
