@@ -12,14 +12,16 @@
                 <%= track.total %>
               </span>
             </a>
+            <% if track.unread > 0 %>
             <span class="badge unread-count">
               <%= track.unread %>
             </span>
+            <% end %>
           </li>
           <% end %>
         </ul>
         <br>
-        <h3><%= inbox.language %></h3>
+
         <ul class="nav nav-stacked nav-bordered">
           <% inbox.problems.each do |problem|%>
           <li class="<%= 'active' if problem.slug==inbox.slug %>">
@@ -29,9 +31,11 @@
                 <%= problem.total %>
               </span>
             </a>
+            <% if problem.unread > 0 %>
             <span class="badge unread-count">
               <%= problem.unread %>
             </span>
+            <% end %>
           </li>
           <% end %>
         </ul>
@@ -42,14 +46,17 @@
 
     <main id="track-exercises" class="col-md-8">
 
+      <form action="/tracks/<%= inbox.track_id %>/views/<%= inbox.slug %>" method="POST" class="mark-all">
+        <button type="submit" class="btn btn-link discrete">mark all as read</button>
+      </form>
       <h2><%= inbox.title %></h2>
 
       <% if inbox.exercises.any? %>
         <ul class="active-exercises">
           <% inbox.exercises.each do |exercise| %>
           <li class="<%= 'unread' if exercise.unread %>">
-            <div class="col-md-10">
-              <img src="<%= exercise.avatar_url%>" width="40" height="40" alt="" class="avatar">
+            <span class="col-md-10">
+              <img src="<%= exercise.avatar_url%>" width="60" height="60" alt="" class="avatar">
 
               <a href="/exercises/<%= exercise.uuid %>" class="exercise">
                 <h4>
@@ -58,14 +65,14 @@
                 </h4>
                 <p>Last activity <%= ago(exercise.at) %></p>
               </a>
-            </div>
-            <div class="col-md-2">
+            </span>
+            <span class="col-md-2">
               <% if exercise.unread %>
               <form action="/exercises/<%= exercise.uuid %>/views" method="POST">
-                <button type="submit" class="btn btn-link">mark as read</button>
+                <button type="submit" class="btn btn-link discrete">mark as read</button>
               </form>
               <% end %>
-            </div>
+            </span>
           </li>
           <% end %>
         </ul>

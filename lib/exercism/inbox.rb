@@ -27,6 +27,11 @@ class Inbox
     @per_page = 50
   end
 
+  def mark_as_read
+    execute(mark_as_read_insert_sql)
+    execute(mark_as_read_update_sql)
+  end
+
   def title
     if slug.nil?
       language
@@ -154,6 +159,44 @@ class Inbox
         AND ex.iteration_count > 0
       ORDER BY ex.last_activity_at DESC
       LIMIT #{per_page} OFFSET #{offset}
+    SQL
+  end
+
+  def mark_as_read_update_sql
+    <<-SQL
+      UPDATE views
+      SET last_viewed_at=NOW()
+      FROM user_exercises ex
+      INNER JOIN acls
+        ON ex.language=acls.language
+        AND ex.slug=acls.slug
+      WHERE views.exercise_id=ex.id
+        AND views.user_id=#{user.id}
+        AND ex.language='#{track_id}'
+        AND ex.slug=#{slug_param}
+        AND acls.user_id=#{user.id}
+    SQL
+  end
+
+  def mark_as_read_insert_sql
+    <<-SQL
+      INSERT INTO views (
+        user_id, exercise_id, last_viewed_at, created_at, updated_at
+      ) (
+        SELECT #{user.id}, ex.id, NOW(), NOW(), NOW()
+        FROM user_exercises ex
+        INNER JOIN acls
+          ON ex.language=acls.language
+          AND ex.slug=acls.slug
+        WHERE ex.language='#{track_id}'
+          AND ex.slug=#{slug_param}
+          AND acls.user_id=#{user.id}
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{user.id}
+        )
+      )
     SQL
   end
 

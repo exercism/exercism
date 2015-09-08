@@ -75,4 +75,76 @@ class InboxTrackTest < Minitest::Test
       assert_equal status==:unread, ex.unread, test_case
     end
   end
+
+  def test_mark_as_read
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+    charlie = User.create(username: 'charlie')
+
+    exercises = []
+
+    yesterday = 1.day.ago
+    [
+      {user: alice, language: 'python', slug: 'leap', auth: true, viewed: false},
+      {user: bob, language: 'python', slug: 'leap', auth: true, viewed: false},
+      {user: charlie, language: 'python', slug: 'leap', auth: true, viewed: false},
+      {user: bob, language: 'python', slug: 'hamming', auth: true, viewed: true}, # timestamp gets updated
+      {user: bob, language: 'python', slug: 'anagram', auth: true, viewed: false},
+      {user: bob, language: 'go', slug: 'clock', auth: true, viewed: false}, # still unread afterwards
+      {user: bob, language: 'go', slug: 'hamming', auth: true, viewed: true}, # does not update timestamp
+      {user: bob, language: 'python', slug: 'word-count', auth: false, viewed: false}, # No ACL - still unread afterwards
+    ].each.with_index do |attributes, i|
+      auth = attributes.delete(:auth)
+      viewed = attributes.delete(:viewed)
+
+      exercise = UserExercise.create(attributes)
+      if auth
+        ACL.authorize(alice, exercise.problem)
+      end
+
+      if viewed
+        View.create(user_id: alice.id, exercise_id: exercise.id, last_viewed_at: yesterday)
+      end
+
+      exercises << exercise
+    end
+
+    # add a random view for bob, that should not get updated
+    View.create(user_id: bob.id, exercise_id: exercises[0].id, last_viewed_at: yesterday)
+    # add an auth for bob
+    ACL.authorize(bob, exercises.last.problem)
+
+    assert_equal 3, View.count
+
+    leap = Inbox.new(alice, 'python', 'leap')
+    python = Inbox.new(alice, 'python')
+
+    now = Time.now.utc
+    leap.mark_as_read
+
+    assert_equal 6, View.count
+
+    views = View.where('last_viewed_at > ?', now-2)
+    assert_equal 3, views.size
+
+    assert_equal exercises[0...3].map(&:id).sort, views.map(&:exercise_id).sort
+
+    views.each do |view|
+      assert_equal alice.id, view.user_id
+      assert_in_delta 1, view.last_viewed_at.to_i, now.to_i
+    end
+
+    now = Time.now.utc
+    python.mark_as_read
+
+    assert_equal 7, View.count
+
+    views = View.where('last_viewed_at > ?', now-2)
+    assert_equal 5, views.size
+    assert_equal exercises[0...5].map(&:id).sort, views.map(&:exercise_id).sort
+    views.each do |view|
+      assert_equal alice.id, view.user_id
+      assert_in_delta 1, view.last_viewed_at.to_i, now.to_i
+    end
+  end
 end
