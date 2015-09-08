@@ -63,7 +63,11 @@
                   <%= exercise.problem.name %>
                   <span class="profile"> <%= exercise.username %> </span>
                 </h4>
-                <p><%= exercise.iteration_count %> <%= "iteration".pluralize(exercise.iteration_count) %></p>
+                <p>
+                  <%= exercise.iteration_count %> <%= "iteration".pluralize(exercise.iteration_count) %>
+                  &middot;
+                  <%= exercise.comment_count %> <%= "comments".pluralize(exercise.comment_count) %>
+                </p>
                 <p>Last activity <%= ago(exercise.at) %></p>
               </a>
             </span>

@@ -25,13 +25,20 @@ class InboxTrackTest < Minitest::Test
       {user: alice, language: 'go', slug: 'hamming', archived: false, auth: true, viewed: +1},
       {user: alice, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: +1},
       {user: bob, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: -1},
-    ].each.with_index do |exercise, i|
+    ].each.with_index do |attributes, i|
       ts = i.days.ago
-      auth = exercise.delete(:auth)
-      viewed_diff_in_seconds = exercise.delete(:viewed)
+      auth = attributes.delete(:auth)
+      viewed_diff_in_seconds = attributes.delete(:viewed)
 
-      exercise[:iteration_count] ||= 1
-      exercise = UserExercise.create(exercise.merge(last_activity_at: ts))
+      attributes[:iteration_count] ||= 1
+      exercise = UserExercise.create!(attributes.merge(last_activity_at: ts))
+
+      submission = Submission.create!(user_id: exercise.user_id, user_exercise_id: exercise.id, language: exercise.language, slug: exercise.slug)
+      i.times do
+        # it doesn't matter who comments, we're going to count it anyway
+        Comment.create!(submission_id: submission.id, user_id: [alice.id, bob.id].sample, body: "OHAI")
+      end
+
       if auth
         ACL.authorize(alice, exercise.problem)
       end
@@ -57,21 +64,22 @@ class InboxTrackTest < Minitest::Test
     ex8, ex9 = wc.exercises
 
     [
-      [ex1, bob, 'Triangle', 'elixir', :unread],
-      [ex2, bob, 'Anagram', 'elixir', :unread],
-      [ex3, bob, 'Word Count', 'elixir', :read],
-      [ex4, bob, 'Leap', 'go', :read],
-      [ex5, alice, 'Hamming', 'go', :read],
-      [ex6, alice, 'Word Count', 'go', :read],
-      [ex7, bob, 'Word Count', 'go', :unread],
-      [ex8, alice, 'Word Count', 'go', :read],
-      [ex9, bob, 'Word Count', 'go', :unread],
-    ].each do |ex, u, name, track_id, status|
+      [ex1, bob, 'Triangle', 'elixir', :unread, 0],
+      [ex2, bob, 'Anagram', 'elixir', :unread, 1],
+      [ex3, bob, 'Word Count', 'elixir', :read, 2],
+      [ex4, bob, 'Leap', 'go', :read, 4],
+      [ex5, alice, 'Hamming', 'go', :read, 9],
+      [ex6, alice, 'Word Count', 'go', :read, 10],
+      [ex7, bob, 'Word Count', 'go', :unread, 11],
+      [ex8, alice, 'Word Count', 'go', :read, 10],
+      [ex9, bob, 'Word Count', 'go', :unread, 11],
+    ].each do |ex, u, name, track_id, status, comment_count|
       test_case = [u.username, track_id, name].join(" ")
       assert_equal u.username, ex.username, test_case
       assert_equal u.avatar_url, ex.avatar_url, test_case
       assert_equal name, ex.problem.name, test_case
       assert_equal track_id, ex.problem.track_id, test_case
+      assert_equal comment_count, ex.comment_count, test_case
       assert_equal status==:unread, ex.unread, test_case
     end
   end

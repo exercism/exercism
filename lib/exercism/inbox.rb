@@ -2,6 +2,11 @@ require 'will_paginate/array'
 
 class Inbox
   class Exercise < Struct.new(:uuid, :problem, :last_activity_at, :iteration_count, :username, :avatar_url)
+    attr_writer :comment_count
+
+    def comment_count
+      @comment_count || 0
+    end
 
     def at
       @at ||= last_activity_at.to_datetime
@@ -105,11 +110,21 @@ class Inbox
       exx_by_id[id].viewed!
     end
 
+    comment_counts(ids).each do |id, count|
+      exx_by_id[id].comment_count = count.to_i
+    end
+
     exx
   end
 
   def execute(sql)
     ActiveRecord::Base.connection.execute(sql).to_a
+  end
+
+  def comment_counts(ids)
+    return [] if ids.empty?
+
+    execute(comment_counts_sql(ids)).map {|row| [row["id"], row["total"]]}
   end
 
   def viewed(ids)
@@ -130,7 +145,18 @@ class Inbox
         AND ex.language='#{track_id}'
         AND ex.slug != 'hello-world'
         AND ex.iteration_count > 0
-        AND ex.id IN ('#{ids.join("','")}')
+        AND ex.id IN (#{ids.join(",")})
+    SQL
+  end
+
+  def comment_counts_sql(ids)
+    <<-SQL
+    SELECT s.user_exercise_id AS id, COUNT(c.id) AS total
+    FROM submissions s
+    INNER JOIN comments c
+    ON c.submission_id=s.id
+    WHERE s.user_exercise_id IN (#{ids.join(",")})
+    GROUP BY s.user_exercise_id
     SQL
   end
 
