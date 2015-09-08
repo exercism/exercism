@@ -26,6 +26,10 @@ class UserExercise < ActiveRecord::Base
     end
   end
 
+  def viewed_by(user)
+    Submission.new(user_id: user.id, user_exercise_id: id).viewed_by(user)
+  end
+
   def closed?
     state == 'done'
   end

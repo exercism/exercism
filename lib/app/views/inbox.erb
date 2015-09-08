@@ -48,15 +48,24 @@
         <ul class="active-exercises">
           <% inbox.exercises.each do |exercise| %>
           <li class="<%= 'unread' if exercise.unread %>">
-            <img src="<%= exercise.avatar_url%>" width="40" height="40" alt="" class="avatar">
+            <div class="col-md-10">
+              <img src="<%= exercise.avatar_url%>" width="40" height="40" alt="" class="avatar">
 
-            <a href="/exercises/<%= exercise.uuid %>" class="exercise">
-              <h4>
-                <%= exercise.problem.name %>
-                <span class="profile"> <%= exercise.username %> </span>
-              </h4>
-              <p>Last activity <%= ago(exercise.at) %></p>
-            </a>
+              <a href="/exercises/<%= exercise.uuid %>" class="exercise">
+                <h4>
+                  <%= exercise.problem.name %>
+                  <span class="profile"> <%= exercise.username %> </span>
+                </h4>
+                <p>Last activity <%= ago(exercise.at) %></p>
+              </a>
+            </div>
+            <div class="col-md-2">
+              <% if exercise.unread %>
+              <form action="/exercises/<%= exercise.uuid %>/views" method="POST">
+                <button type="submit" class="btn btn-link">mark as read</button>
+              </form>
+              <% end %>
+            </div>
           </li>
           <% end %>
         </ul>
