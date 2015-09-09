@@ -13,7 +13,7 @@ module ExercismWeb
         disable :show_exceptions
       end
 
-      configure :development do
+      configure :development, :test do
         # Comment out this line if you want
         # to see the gorgeous 500 page
         enable :show_exceptions
