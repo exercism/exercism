@@ -69,13 +69,11 @@ class Inbox
   end
 
   def pagination
-    (1..current_track.total).to_a.paginate(page: page, per_page: per_page)
+    (1..current.total).to_a.paginate(page: page, per_page: per_page)
   end
 
-  private
-
-  def current_track
-    @current_track ||= tracks.find {|track| track.id == track_id} || UserTrack.new(track_id, 0, 0)
+  def current
+    problems.find {|problem| problem.slug == slug } || tracks.find {|track| track.id == track_id } || UserTrack.new(track_id, 0, 0)
   end
 
   # This becomes unbearably slow if we do a left join on views to get the unread value

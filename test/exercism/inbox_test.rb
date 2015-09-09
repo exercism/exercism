@@ -1,5 +1,12 @@
 require_relative '../integration_helper'
 
+# override the slug order so it doesn't look it up from the x-api
+class UserTrack
+  def self.ordered_slugs(_)
+    [ 'anagram', 'clock', 'hamming', 'hello-world', 'leap', 'triangle', 'word-count' ]
+  end
+end
+
 class InboxTrackTest < Minitest::Test
   include DBCleaner
 
@@ -57,6 +64,11 @@ class InboxTrackTest < Minitest::Test
     assert_equal 1, elixir2.exercises.size
     assert_equal 4, go.exercises.size
     assert_equal 2, wc.exercises.size
+
+    # sanity check pagination
+    assert_equal 3, elixir1.current.total
+    assert_equal 4, go.current.total
+    assert_equal 2, wc.current.total
 
     ex1, ex2 = elixir1.exercises
     ex3 = elixir2.exercises.first
