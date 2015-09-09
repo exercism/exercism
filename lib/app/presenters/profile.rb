@@ -10,11 +10,11 @@ class Profile
   end
 
   def exercises
-    @exercises ||= user.exercises.where(archived: false)
+    @exercises ||= user.exercises.where(archived: false).where('iteration_count > 0')
   end
 
   def archived_exercises
-    @archived_exercises ||= user.exercises.where(archived: true)
+    @archived_exercises ||= user.exercises.where(archived: true).where('iteration_count > 0')
   end
 
   def can_access?(exercise)
