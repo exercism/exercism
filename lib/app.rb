@@ -9,7 +9,6 @@ require 'will_paginate/active_record'
 require 'kss'
 
 require_relative './app/presenters'
-require_relative './app/presenters/workload'
 require_relative './app/presenters/profile'
 require_relative './app/presenters/sharing'
 require_relative './exercism/xapi'
