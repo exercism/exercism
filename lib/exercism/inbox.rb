@@ -56,10 +56,6 @@ class Inbox
     end
   end
 
-  def total_pages
-    @total_pages ||= (current_track.total/per_page.to_f).ceil
-  end
-
   def exercises
     @exercises ||= query_exercises
   end
