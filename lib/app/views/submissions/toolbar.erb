@@ -25,16 +25,7 @@
           <i class="fa fa-rocket"></i>
         </a>
       <% end %>
-
     <% end %>
-    <a
-      href="<%= language_path_for_slug(submission.problem.track_id, submission.problem.slug) %>"
-      class="btn btn-default"
-      data-toggle="tooltip"
-      data-placement="bottom"
-      title="View other submissions">
-      <i class="fa fa-binoculars"></i>
-    </a>
 
     <% if last_in_inbox %>
       <a
