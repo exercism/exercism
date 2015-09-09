@@ -58,6 +58,11 @@ Styleguide Components - Comment.
   p, ol, ul, li {
     margin: 10px 0px;
   }
+  blockquote {
+    font-size: 1em;
+    color: gray;
+    font-style: italic;
+  }
   ol, ul {
     padding-left: 20px;
   }
