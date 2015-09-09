@@ -23,6 +23,7 @@ class UserExercise < ActiveRecord::Base
   def update_last_activity(thing)
     if last_activity_at.nil? || (thing.created_at > last_activity_at)
       self.last_activity_at = thing.created_at
+      self.last_activity = thing.activity_description
     end
   end
 

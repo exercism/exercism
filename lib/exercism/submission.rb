@@ -122,6 +122,10 @@ class Submission < ActiveRecord::Base
     @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
 
+  def activity_description
+    "Submitted an iteration"
+  end
+
   def discussion_involves_user?
     nit_count < comments.count
   end

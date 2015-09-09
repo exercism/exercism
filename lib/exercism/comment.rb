@@ -23,6 +23,12 @@ class Comment < ActiveRecord::Base
     user
   end
 
+  def activity_description
+    return "" if user.nil?
+
+    "@#{user.username} commented"
+  end
+
   def submission_user
     submission.user
   end
