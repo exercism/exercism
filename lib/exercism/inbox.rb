@@ -45,27 +45,8 @@ class Inbox
     end
   end
 
-  def current_problem
-  end
-
   def total_pages
     @total_pages ||= (current_track.total/per_page.to_f).ceil
-  end
-
-  def previous_page
-    if page == 1
-      1
-    else
-      page - 1
-    end
-  end
-
-  def next_page
-    if page == total_pages
-      total_pages
-    else
-      page + 1
-    end
   end
 
   def exercises
