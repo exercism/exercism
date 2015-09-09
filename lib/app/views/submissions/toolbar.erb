@@ -36,9 +36,15 @@
       <i class="fa fa-binoculars"></i>
     </a>
 
-    <% if next_submission %>
+    <% if last_in_inbox %>
       <a
-        href="/submissions/<%= next_submission.key %>"
+        href="#"
+        class="btn btn-default next-submission disabled">
+        Next Submission <i class="fa fa-arrow-right"></i>
+      </a>
+    <% else %>
+      <a
+        href="/exercises/next"
         class="btn btn-default next-submission">
         Next Submission <i class="fa fa-arrow-right"></i>
       </a>

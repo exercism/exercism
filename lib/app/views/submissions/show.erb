@@ -1,5 +1,5 @@
 <div class="container" id="submission">
-  <%= erb :"submissions/header", locals: { submission: submission, next_submission: next_submission } %>
+  <%= erb :"submissions/header", locals: { submission: submission, last_in_inbox: last_in_inbox} %>
 
   <%= erb :"submissions/alerts", locals: { submission: submission } %>
 

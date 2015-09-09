@@ -8,20 +8,19 @@ module ExercismWeb
           redirect '/'
         end
 
-        if current_user.guest?
-          workload = NullWorkload.new
-        else
+        unless current_user.guest?
+          session[:inbox_exercise] = submission.user_exercise_id
           submission.viewed_by(current_user) # in support of inbox
           submission.viewed!(current_user) # legacy?
           Look.check!(submission.user_exercise_id, current_user.id) # legacy?
           Notification.viewed!(submission, current_user)
-          workload = Workload.new(current_user, submission.track_id, submission.slug)
         end
-        next_submission = workload.next_submission(submission)
 
         title("%s by %s in %s" % [submission.problem.name, submission.user.username, submission.problem.language])
 
-        erb :"submissions/show", locals: {submission: submission, next_submission: next_submission, sharing: Sharing.new}
+        last = session[:inbox_last] == submission.user_exercise_id
+
+        erb :"submissions/show", locals: {submission: submission, last_in_inbox: last, sharing: Sharing.new}
       end
 
       post '/submissions/:key/like' do |key|

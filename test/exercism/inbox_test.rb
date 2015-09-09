@@ -13,18 +13,18 @@ class InboxTrackTest < Minitest::Test
     bob = User.create(username: 'bob', avatar_url: 'bob.jpg')
 
     [
+      {user: alice, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: +1},
       {user: bob, language: 'elixir', slug: 'triangle', archived: false, auth: true, viewed: -1},
       {user: bob, language: 'elixir', slug: 'anagram', archived: false, auth: true, viewed: -1},
       {user: bob, language: 'elixir', slug: 'word-count', archived: false, auth: true, viewed: +1},
       {user: bob, language: 'go', slug: 'hello-world', archived: false, auth: true, viewed: -1},
       {user: bob, language: 'go', slug: 'leap', archived: false, auth: true, viewed: +1},
       {user: bob, language: 'go', slug: 'clock', archived: false, auth: false, viewed: -1},
+      {user: bob, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: -1},
       {user: alice, language: 'go', slug: 'leap', archived: true, auth: true, viewed: +1},
       {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1},
       {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0},
       {user: alice, language: 'go', slug: 'hamming', archived: false, auth: true, viewed: +1},
-      {user: alice, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: +1},
-      {user: bob, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: -1},
     ].each.with_index do |attributes, i|
       ts = i.days.ago
       auth = attributes.delete(:auth)
@@ -64,15 +64,15 @@ class InboxTrackTest < Minitest::Test
     ex8, ex9 = wc.exercises
 
     [
-      [ex1, bob, 'Triangle', 'elixir', :unread, 0],
-      [ex2, bob, 'Anagram', 'elixir', :unread, 1],
-      [ex3, bob, 'Word Count', 'elixir', :read, 2],
-      [ex4, bob, 'Leap', 'go', :read, 4],
-      [ex5, alice, 'Hamming', 'go', :read, 9],
-      [ex6, alice, 'Word Count', 'go', :read, 10],
-      [ex7, bob, 'Word Count', 'go', :unread, 11],
-      [ex8, alice, 'Word Count', 'go', :read, 10],
-      [ex9, bob, 'Word Count', 'go', :unread, 11],
+      [ex1, bob, 'Triangle', 'elixir', :unread, 1],
+      [ex2, bob, 'Anagram', 'elixir', :unread, 2],
+      [ex3, bob, 'Word Count', 'elixir', :read, 3],
+      [ex4, alice, 'Word Count', 'go', :read, 0],
+      [ex5, bob, 'Leap', 'go', :read, 5],
+      [ex6, bob, 'Word Count', 'go', :unread, 7],
+      [ex7, alice, 'Hamming', 'go', :read, 11],
+      [ex8, alice, 'Word Count', 'go', :read, 0],
+      [ex9, bob, 'Word Count', 'go', :unread, 7],
     ].each do |ex, u, name, track_id, status, comment_count|
       test_case = [u.username, track_id, name].join(" ")
       assert_equal u.username, ex.username, test_case
@@ -82,6 +82,16 @@ class InboxTrackTest < Minitest::Test
       assert_equal comment_count, ex.comment_count, test_case
       assert_equal status==:unread, ex.unread?, test_case
     end
+
+    # next exercise
+    assert_equal ex7.uuid, go.next_uuid(ex6.id)
+    assert_equal ex6.uuid, wc.next_uuid(ex4.id)
+    assert_equal nil, wc.next_uuid(ex7.id)
+
+    # last exercise
+    assert_equal ex7.id, go.last_id
+    assert_equal ex9.id, wc.last_id
+    assert_equal 0, Inbox.new(alice, 'rust').last_id
   end
 
   def test_mark_as_read

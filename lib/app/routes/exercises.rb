@@ -1,12 +1,26 @@
 module ExercismWeb
   module Routes
     class Exercises < Core
+      get '/exercises/next' do
+        if current_user.guest?
+          redirect '/'
+        end
+
+        if session[:inbox].nil?
+          redirect '/inbox'
+        end
+
+        inbox = ::Inbox.new(current_user, session[:inbox], session[:inbox_slug])
+        redirect ['/', 'exercises', inbox.next_uuid(session[:inbox_exercise])].join('/')
+      end
+
       get '/exercises/:key' do |key|
         exercise = UserExercise.find_by_key(key)
         if exercise.nil?
           flash[:notice] = "Couldn't find that exercise."
           redirect '/'
         end
+        session[:inbox_exercise] = exercise.id
 
         if exercise.submissions.empty?
           # We have orphan exercises at the moment.

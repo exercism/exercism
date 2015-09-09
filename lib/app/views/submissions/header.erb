@@ -17,7 +17,7 @@
     </span>
     <%= submission.problem.name %>
   </h1>
-  <%= erb :"submissions/toolbar", locals: { submission: submission, next_submission: next_submission } %>
+  <%= erb :"submissions/toolbar", locals: { submission: submission, last_in_inbox: last_in_inbox } %>
   <div class="clearfix"></div>
   <div class="submission-author text-muted">
     submitted by <%= profile_link(submission.user) %>

@@ -1,7 +1,7 @@
 require 'will_paginate/array'
 
 class Inbox
-  class Exercise < Struct.new(:uuid, :problem, :last_activity, :last_activity_at, :iteration_count, :username, :avatar_url)
+  class Exercise < Struct.new(:id, :uuid, :problem, :last_activity, :last_activity_at, :iteration_count, :username, :avatar_url)
     attr_writer :comment_count
 
     def comment_count
@@ -35,6 +35,17 @@ class Inbox
   def mark_as_read
     execute(mark_as_read_insert_sql)
     execute(mark_as_read_update_sql)
+  end
+
+  def next_uuid(id)
+    row = execute(next_uuid_sql(id)).first
+    row["uuid"] if !!row
+  end
+
+  def last_id
+    row = execute(last_id_sql).first
+    return 0 if !row
+    row["id"].to_i
   end
 
   def title
@@ -80,7 +91,17 @@ class Inbox
     ids = []
     exx_by_id = execute(exercises_sql).each_with_object({}) do |row, by_id|
       problem = Problem.new(row["language"], row["slug"])
-      ex = Exercise.new(row["uuid"], problem, row["last_activity"], row["last_activity_at"], row["iteration_count"].to_i, row["username"], row["avatar_url"])
+      attrs = [
+        row["id"].to_i,
+        row["uuid"],
+        problem,
+        row["last_activity"],
+        row["last_activity_at"],
+        row["iteration_count"].to_i,
+        row["username"],
+        row["avatar_url"],
+      ]
+      ex = Exercise.new(*attrs)
       exx << ex
 
       ids << row["id"]
@@ -138,6 +159,51 @@ class Inbox
     ON c.submission_id=s.id
     WHERE s.user_exercise_id IN (#{ids.join(",")})
     GROUP BY s.user_exercise_id
+    SQL
+  end
+
+  def last_id_sql
+    <<-SQL
+      SELECT
+        ex.id
+      FROM user_exercises ex
+      INNER JOIN users u
+        ON ex.user_id=u.id
+      INNER JOIN acls
+        ON ex.language=acls.language
+        AND ex.slug=acls.slug
+      WHERE acls.user_id=#{user.id}
+        AND ex.language='#{track_id}'
+        AND ex.slug=#{slug_param}
+        AND ex.archived='f'
+        AND ex.slug != 'hello-world'
+        AND ex.iteration_count > 0
+      ORDER BY ex.last_activity_at ASC
+      LIMIT 1
+    SQL
+  end
+
+  def next_uuid_sql(id)
+    <<-SQL
+      SELECT
+        ex.key AS uuid
+      FROM user_exercises ex
+      INNER JOIN users u
+        ON ex.user_id=u.id
+      INNER JOIN acls
+        ON ex.language=acls.language
+        AND ex.slug=acls.slug
+      WHERE acls.user_id=#{user.id}
+        AND ex.language='#{track_id}'
+        AND ex.slug=#{slug_param}
+        AND ex.archived='f'
+        AND ex.slug != 'hello-world'
+        AND ex.iteration_count > 0
+        AND ex.last_activity_at < (
+          SELECT last_activity_at FROM user_exercises WHERE id='#{id}'
+        )
+      ORDER BY ex.last_activity_at DESC
+      LIMIT 1
     SQL
   end
 

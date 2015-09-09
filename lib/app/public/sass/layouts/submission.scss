@@ -26,6 +26,11 @@
   }
   .submission-toolbar {
     margin-top: 10px;
+
+    .btn.disabled {
+      color: #ccc;
+      cursor: not-allowed;
+    }
   }
   .submission-user-actions {
     form {

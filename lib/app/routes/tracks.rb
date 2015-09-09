@@ -3,10 +3,13 @@ module ExercismWeb
     class Tracks < Core
       get '/tracks/:id/exercises/?:slug?' do |id, slug|
         please_login
-        session[:inbox] = id
 
         page = params[:page] || 1
         inbox = ::Inbox.new(current_user, id, slug, page)
+
+        session[:inbox] = id
+        session[:inbox_slug] = slug
+        session[:inbox_last] = inbox.last_id
 
         erb :"inbox", locals: {inbox: inbox}
       end
