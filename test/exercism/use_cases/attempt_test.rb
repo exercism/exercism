@@ -58,45 +58,7 @@ class AttemptTest < Minitest::Test
     submission = Submission.first
     assert_equal 'python', submission.track_id
     assert_equal 'two', submission.slug
-    assert submission.pending?
     assert_equal user, submission.user
-  end
-
-  def test_a_new_attempt_supersedes_the_previous_one
-    Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE 1')).save
-    Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE 2')).save
-    Submission.where(user_id: user.id).each do |submission|
-      case submission.solution.first.last
-      when 'CODE 1'
-        assert_equal 'superseded', submission.state
-      when 'CODE 2'
-        assert_equal 'pending', submission.state
-      else
-        fail 'unknown submission'
-      end
-    end
-  end
-
-  def test_a_new_attempt_supersedes_the_previous_hibernating_one
-    Submission.create(
-      user: user,
-      language: 'ruby',
-      slug: 'two',
-      solution: {'ruby/two/two.rb' => 'CODE 1'},
-      created_at: Time.now,
-      state: 'hibernating',
-    )
-    Attempt.new(user, 'CODE 2', 'ruby/two/two.rb').save
-    Submission.where(user_id: user.id).each do |submission|
-      case submission.solution.first.last
-      when 'CODE 1'
-        assert_equal 'superseded', submission.state
-      when 'CODE 2'
-        assert_equal 'pending', submission.state
-      else
-        fail 'unknown submission'
-      end
-    end
   end
 
   def test_a_new_attempt_unmutes_previous_attempt
@@ -107,16 +69,6 @@ class AttemptTest < Minitest::Test
     submission.mute! jerry
     Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE')).save
     assert_equal [], submission.reload.muted_by
-  end
-
-  def test_an_attempt_does_not_supersede_other_languages
-    Attempt.new(user, Iteration.new('two/two.py' => 'CODE 1')).save
-    Attempt.new(user, Iteration.new('two/two.rb' => 'CODE 2')).save
-    submissions = Submission.where(user_id: user.id)
-    assert_equal 2, submissions.size
-    submissions.each do |submission|
-      assert_equal 'pending', submission.state
-    end
   end
 
   def test_an_attempt_includes_the_code_and_filename_in_the_submissions_solution
@@ -135,7 +87,7 @@ class AttemptTest < Minitest::Test
     assert_equal attempt.previous_submission.track_id, "python"
   end
 
-  def test_previous_submission_after_superseding
+  def test_previous_submission
     Attempt.new(user, Iteration.new('two/two.rb' => 'CODE 1')).save
     one = Submission.first
     attempt = Attempt.new(user, Iteration.new('two/two.rb' => 'CODE 2')).save

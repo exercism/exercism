@@ -25,7 +25,6 @@ class CreatesComment
       if exercise.present? # FIXME: only a problem in tests
         submission.viewed_by(commenter)
         exercise.update_last_activity(@comment)
-        exercise.reopen! if submission.hibernating?
         exercise.save
       end
 

@@ -46,11 +46,11 @@ class LifecycleAppTest < Minitest::Test
     assert_equal 0, LifecycleEvent.count
   end
 
-  def test_tracks_submission_complete
+  def test_tracks_submission_archived
     submission = Submission.create(user: alice, language: 'ruby', slug: 'one')
     Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
 
-    post "/submissions/#{submission.key}/done", {}, login(alice)
+    post "/exercises/#{submission.reload.user_exercise.key}/archive", {}, login(alice)
 
     assert_equal 1, LifecycleEvent.count
     event = LifecycleEvent.first

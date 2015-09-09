@@ -31,33 +31,22 @@ class UserExercise < ActiveRecord::Base
     Submission.new(user_id: user.id, user_exercise_id: id).viewed_by(user)
   end
 
-  def closed?
-    state == 'done'
+  def archived?
+    archived
   end
 
-  def reopen!
+  def archive!
+    update_attributes(state: 'done', archived: true)
+    submissions.last.update_attributes(state: 'done')
+  end
+
+  def unarchive!
     update_attributes(state: 'pending', archived: false)
     submissions.last.update_attributes(state: 'pending')
   end
 
-  def open?
-    state == 'pending'
-  end
-
   def unlock!
     update_attributes(is_nitpicker: true)
-  end
-
-  def completed?
-    state == 'done'
-  end
-
-  def hibernating?
-    state == 'hibernating'
-  end
-
-  def pending?
-    state == 'pending'
   end
 
   def nit_count

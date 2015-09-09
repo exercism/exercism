@@ -1,7 +1,7 @@
 module ExercismWeb
   module Presenters
     class Metric
-      attr_accessor :pending, :superseded, :hibernating, :done, :needs_input, :nits
+      attr_accessor :active, :archived, :comments
 
       attr_reader :slug
       def initialize(slug)
@@ -25,7 +25,7 @@ module ExercismWeb
       def summarize
         data = by_status
         nit_counts.each do |record|
-          data[record["slug"]].nits = record["nits"].to_i
+          data[record["slug"]].comments = record["nits"].to_i
         end
 
         new_data = {}
@@ -40,9 +40,14 @@ module ExercismWeb
 
       def by_status
         summary = {}
-        Submission.where("state != 'deleted'").select('slug, state, count(id)').where(language: track_id).group(:slug, :state).each do |submission|
-          summary[submission.slug] ||= Metric.new(submission.slug)
-          summary[submission.slug].send("#{submission.state}=", submission.count.to_i)
+        UserExercise.select('slug, archived, count(id)').where(language: track_id).group(:slug, :archived).each do |exercise|
+          summary[exercise.slug] ||= Metric.new(exercise.slug)
+
+          if exercise.archived
+            summary[exercise.slug].archived = exercise.count.to_i
+          else
+            summary[exercise.slug].active = exercise.count.to_i
+          end
         end
         summary
       end

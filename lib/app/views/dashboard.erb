@@ -15,7 +15,7 @@
       <h2><a href="/<%= user.username %>">Your exercises in progress</a></h2>
         <div class="well">
           <% if current_user.ongoing.any? %>
-            <p>Keep working on these problems, or mark them as done.</p>
+            <p>Keep working on these problems, or archive them.</p>
             <ul class="nav nav-stacked" id="menu-current" role="menu">
               <% current_user.ongoing.limit(5).each do |submission| %>
                 <li class="looks-list-item">

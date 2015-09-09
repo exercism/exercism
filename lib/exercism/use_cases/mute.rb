@@ -8,9 +8,7 @@ class Mute
   end
 
   def save
-    if submission.pending?
-      submission.muted_by << user
-    end
+    submission.muted_by << user
     submission.save
   end
 end

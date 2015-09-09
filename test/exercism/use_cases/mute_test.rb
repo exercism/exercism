@@ -22,18 +22,11 @@ class MuteTest < Minitest::Test
     @submission ||= Submission.create(user: bob, language: 'ruby', slug: 'bob')
   end
 
-  def test_mute_pending_submission
+  def test_mute_submission
     refute submission.muted_by?(alice), "Unexpectedly muted"
     Mute.new(submission, alice).save
     submission.reload
     assert submission.muted_by?(alice), "Should be muted"
-  end
-
-  def test_do_not_mute_superseded_submission
-    submission.state = 'superseded'
-    Mute.new(submission, alice).save
-    submission.reload
-    refute submission.muted_by?(alice), "Unexpectedly muted"
   end
 end
 

@@ -18,12 +18,9 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Pending Submissions</th>
-        <th>Needs Input Submissions</th>
-        <th>Superseded Submissions</th>
-        <th>Completed Submissions</th>
-        <th>Hibernating Submissions</th>
-        <th>Nitpicks</th>
+        <th>Active Exercises</th>
+        <th>Archived Exercises</th>
+        <th>Comments</th>
       </tr>
     </thead>
     <tbody>
@@ -32,12 +29,9 @@
         <td>
           <%= metric.slug.titleize %>
         </td>
-        <td><%= metric.pending %></td>
-        <td><%= metric.needs_input %></td>
-        <td><%= metric.superseded %></td>
-        <td><%= metric.done %></td>
-        <td><%= metric.hibernating %></td>
-        <td><%= metric.nits %></td>
+        <td><%= metric.active %></td>
+        <td><%= metric.archived %></td>
+        <td><%= metric.comments %></td>
       </tr>
     <% end %>
     </tbody>

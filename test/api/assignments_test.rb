@@ -178,14 +178,4 @@ class AssignmentsApiTest < Minitest::Test
     delete '/user/assignments', {key: alice.key}
     assert_equal 403, last_response.status
   end
-
-  def test_unsubmit_sets_previous_submission_to_pending_if_exists
-    Submission.create(user: @alice, code: 'CODE', state: 'superseded', language: 'ruby', slug: 'one', version: 1)
-    Submission.create(user: @alice, code: 'CODE', state: 'pending', language: 'ruby', slug: 'one', version: 2)
-
-    delete '/user/assignments', { key: @alice.key }
-
-    assert_equal 204, last_response.status
-    assert_equal 'pending', Submission.where({ version: 1 }).first.state
-  end
 end

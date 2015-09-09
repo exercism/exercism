@@ -155,44 +155,6 @@ class SubmissionsTest < Minitest::Test
     post url, {body: "good"}, login(bob)
   end
 
-  def test_must_be_logged_in_to_complete_exercise
-    submission = generate_attempt.submission
-    post "/submissions/#{submission.key}/done"
-    assert_equal 302, last_response.status
-    assert_equal 'pending', submission.reload.state
-  end
-
-  def test_must_be_submission_owner_to_complete_exercise
-    submission = generate_attempt.submission
-    post "/submissions/#{submission.key}/done", {}, login(bob)
-    assert_equal 302, last_response.status
-    assert_equal 'pending', submission.reload.state
-  end
-
-  def test_complete_exercise
-    submission = generate_attempt.submission
-    post "/submissions/#{submission.key}/done", {}, login(alice)
-    assert_equal 'done', submission.reload.state
-  end
-
-  def test_clicking_complete_on_earlier_version_completes_last_exercise
-    data = {
-      user: alice,
-      language: 'ruby',
-      slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
-    }
-    s1 = Submission.create(data.merge(state: 'superseded', created_at: Time.now - 5))
-    s2 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 2))
-
-    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'word-count').update
-
-    post "/submissions/#{s1.key}/done", {}, login(alice)
-
-    assert_equal 'superseded', s1.reload.state
-    assert_equal 'done', s2.reload.state
-  end
-
   def test_edit_comment
     submission = generate_attempt.submission
     comment = Comment.create(user: bob, submission: submission, body: "```ruby\n\t{a: 'a'}\n```")
@@ -221,59 +183,6 @@ class SubmissionsTest < Minitest::Test
     delete "/submissions/#{submission.key}/nits/#{comment.id}", {}, login(submission.user)
     assert_equal 0, Comment.count
     assert_equal 0, submission.reload.nit_count
-  end
-
-  def test_reopen_exercise
-    data = {
-      user: alice,
-      slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
-      state: 'done',
-      created_at: Time.now - 2,
-      done_at: Time.now
-    }
-    _ = Submission.create(data.merge(language: 'python'))
-    s2 = Submission.create(data.merge(language: 'ruby'))
-
-    post "/submissions/#{s2.key}/reopen", {}, login(alice)
-
-    s2.reload
-    assert_equal 'pending', s2.state
-    assert_nil s2.done_at
-  end
-
-  def test_must_be_owner_to_reopen_exercise
-    data = {
-      user: alice,
-      language: 'ruby',
-      slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
-    }
-
-    submission = Submission.create(data.merge(state: 'done', created_at: Time.now - 2, done_at: Time.now))
-
-    post "/submissions/#{submission.key}/reopen", {}, login(bob)
-
-    submission.reload
-    assert_equal 302, last_response.status
-    assert_equal 'done', submission.state
-  end
-
-  def test_reopen_exercise_sets_latest_submission_to_pending
-    data = {
-      user: alice,
-      language: 'ruby',
-      slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
-    }
-
-    s1 = Submission.create(data.merge(state: 'superseded', created_at: Time.now - 10))
-    s2 = Submission.create(data.merge(state: 'done', created_at: Time.now - 2, done_at: Time.now))
-
-    post "/submissions/#{s1.key}/reopen", {}, login(alice)
-
-    assert_equal 'superseded', s1.reload.state
-    assert_equal 'pending', s2.reload.state
   end
 
   def test_deleting_submission
@@ -385,39 +294,6 @@ class SubmissionsTest < Minitest::Test
 
     delete "/submissions/#{sub.key}", {}, login(alice)
     assert_equal nil, Notification.find_by_id(note.id)
-  end
-
-  def test_closing_exercise_for_submission_that_needs_input_changes_state_to_done
-    data = {
-      user: bob,
-      language: 'ruby',
-      slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
-    }
-
-    s1 = Submission.create(data.merge(state: 'needs_input', created_at: Time.now - 5))
-    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
-
-    post "/submissions/#{s1.key}/done", {}, login(bob)
-
-    assert_equal 'done', s1.reload.state
-  end
-
-  def test_posting_a_new_submission_changes_the_state_of_the_previous_submission
-    data = {
-      user: bob,
-      language: 'ruby',
-      slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
-    }
-
-    s1 = Submission.create(data.merge(state: 'needs_input', created_at: Time.now - 5))
-    s2 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 4))
-    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
-
-    post "/submissions/#{s2.key}/done", {}, login(bob)
-
-    assert_equal 'superseded', s1.reload.state
   end
 
   def test_redirects_to_submission_page_when_comment_like_or_mute_with_get

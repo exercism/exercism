@@ -36,4 +36,16 @@ class AppExercisesTest < Minitest::Test
 
     refute alice.reload.nitpicker_on?(Problem.new('ruby', 'bob'))
   end
+
+  def test_archive_and_unarchive
+    alice = User.create(username: 'alice', github_id: 1)
+    exercise = UserExercise.create(user: alice, language: 'go', slug: 'one', state: 'pending')
+    submission = Submission.create(user: alice, language: 'go', slug: 'one', user_exercise: exercise, state: 'pending')
+
+    post "/exercises/#{exercise.key}/archive", {}, login(alice)
+    assert exercise.reload.archived?
+
+    post "/exercises/#{exercise.key}/unarchive", {}, login(alice)
+    refute exercise.reload.archived?
+  end
 end

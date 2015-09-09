@@ -28,10 +28,7 @@ class Submission < ActiveRecord::Base
     true
   end
 
-  scope :done, ->{ where(state: "done") }
   scope :pending, ->{ where(state: %w(needs_input pending)) }
-  scope :hibernating, ->{ where(state: 'hibernating') }
-  scope :needs_input, ->{ where(state: 'needs_input') }
   scope :aging, lambda {
     pending.where('nit_count > 0').older_than(3.weeks.ago)
   }
@@ -148,12 +145,6 @@ class Submission < ActiveRecord::Base
     self.slug = problem.slug
   end
 
-  def supersede!
-    self.state   = 'superseded'
-    self.done_at = nil
-    save
-  end
-
   def like!(user)
     self.is_liked = true
     self.liked_by << user unless liked_by.include?(user)
@@ -170,22 +161,6 @@ class Submission < ActiveRecord::Base
 
   def liked?
     is_liked
-  end
-
-  def done?
-    state == 'done'
-  end
-
-  def pending?
-    state == 'pending'
-  end
-
-  def hibernating?
-    state == 'hibernating'
-  end
-
-  def superseded?
-    state == 'superseded'
   end
 
   def muted_by?(user)
@@ -224,18 +199,6 @@ class Submission < ActiveRecord::Base
 
   def view_count
     viewers.count
-  end
-
-  def exercise_completed?
-    user_exercise.completed?
-  end
-
-  def exercise_hibernating?
-    user_exercise.hibernating?
-  end
-
-  def exercise_pending?
-    user_exercise.pending?
   end
 
   def prior

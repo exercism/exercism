@@ -5,11 +5,7 @@
   <%= erb :"submissions/comment", locals: { submission: submission } %>
 
   <button type="submit" name="nitpick" class="pull-right btn btn-primary btn-lg">
-    <% if current_user.owns?(submission) || submission.exercise_completed? %>
-      Submit Comment
-    <% else %>
-      Nitpick
-    <% end %>
+    Submit Comment
   </button>
 
   <small class="hidden-xs">
