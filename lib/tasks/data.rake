@@ -154,25 +154,59 @@ namespace :data do
       ActiveRecord::Base.connection.execute(sql)
     end
 
-    desc "migrate last activity timestamps"
+    desc "reset last activity timestamps and descriptions"
     task :last_activity do
       require 'active_record'
       require 'db/connection'
       require './lib/exercism'
       DB::Connection.establish
 
-      UserExercise.where('iteration_count > 0').find_each do |exercise|
-        submission = Submission.where(user_exercise_id: exercise.id, version: exercise.iteration_count).order('id DESC').limit(1).first
-        comment = Comment.joins('INNER JOIN submissions ON submissions.id=comments.submission_id').where('submissions.user_exercise_id=?', exercise.id).order('comments.id DESC').limit(1).first
+      # Reset all exercises to have "last activity" be the submission.
+      sql = <<-SQL
+        UPDATE user_exercises
+        SET last_activity='Submitted an iteration', last_activity_at=t.at
+        FROM (
+          SELECT MAX(created_at) AS at, user_exercise_id
+          FROM submissions GROUP BY user_exercise_id
+        ) AS t
+        WHERE t.user_exercise_id=user_exercises.id
+          AND iteration_count>0
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
 
-        latest = [submission, comment].compact.sort_by(&:created_at).last
+      # Override last activity where a comment is more recent.
+      SQL = <<-SQL
+        UPDATE user_exercises SET
+          last_activity=t2.description,
+          last_activity_at=t2.at
+        FROM (
+          SELECT
+            t1.created_at AS at,
+            '@' || u.username || ' commented' AS description,
+            t1.exercise_id
+          FROM users u
+          INNER JOIN (
+            SELECT c.created_at AS created_at, c.user_id, s.user_exercise_id AS exercise_id
+            FROM comments c
+            INNER JOIN submissions s
+            ON c.submission_id=s.id
+          ) AS t1
+          ON t1.user_id=u.id
+          ORDER BY t1.created_at DESC
+          LIMIT 1
+        ) AS t2
+        WHERE user_exercises.id=t2.exercise_id
+          AND user_exercises.iteration_count>0
+          AND (
+            user_exercises.last_activity_at IS NULL
+          OR
+            user_exercises.last_activity_at < t2.at
+          )
+        ;
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
 
-        if latest.present?
-          exercise.last_activity_at = latest.created_at
-          exercise.last_activity = latest.activity_description
-          exercise.save
-        end
-      end
+
     end
 
     desc "migrate acls"
