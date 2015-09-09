@@ -5,7 +5,7 @@ module ExercismWeb
         please_login
 
         session[:inbox] ||= current_user.track_ids.first
-        redirect ['', 'tracks', session[:inbox], 'exercises'].join('/')
+        redirect ['', 'tracks', session[:inbox], 'exercises', session[:inbox_slug]].compact.join('/')
       end
     end
   end
