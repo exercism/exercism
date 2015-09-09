@@ -16,7 +16,7 @@ class Inbox
       @viewed = true
     end
 
-    def unread
+    def unread?
       !@viewed
     end
   end

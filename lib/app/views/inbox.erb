@@ -56,7 +56,7 @@
       <% if inbox.exercises.any? %>
         <ul class="active-exercises">
           <% inbox.exercises.each do |exercise| %>
-          <li class="<%= 'unread' if exercise.unread %>">
+          <li class="<%= 'unread' if exercise.unread? %>">
             <span class="col-md-10">
               <img src="<%= exercise.avatar_url%>" width="60" height="60" alt="" class="avatar">
 
@@ -74,7 +74,7 @@
               </a>
             </span>
             <span class="col-md-2">
-              <% if exercise.unread %>
+              <% if exercise.unread? %>
               <form action="/exercises/<%= exercise.uuid %>/views" method="POST">
                 <button type="submit" class="btn btn-link discrete">mark as read</button>
               </form>

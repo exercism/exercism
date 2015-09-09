@@ -80,7 +80,7 @@ class InboxTrackTest < Minitest::Test
       assert_equal name, ex.problem.name, test_case
       assert_equal track_id, ex.problem.track_id, test_case
       assert_equal comment_count, ex.comment_count, test_case
-      assert_equal status==:unread, ex.unread, test_case
+      assert_equal status==:unread, ex.unread?, test_case
     end
   end
 
