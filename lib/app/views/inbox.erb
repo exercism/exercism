@@ -22,23 +22,25 @@
         </ul>
         <br>
 
-        <ul class="nav nav-stacked nav-bordered">
-          <% inbox.problems.each do |problem|%>
-          <li class="<%= 'active' if problem.slug==inbox.slug %>">
-            <a href="/tracks/<%= inbox.track_id %>/exercises/<%= problem.slug %>">
-              <%= problem.name %>
-              <span class="total-count">
-                <%= problem.total %>
+        <% if inbox.problems.size > 1 %>
+          <ul class="nav nav-stacked nav-bordered">
+            <% inbox.problems.each do |problem|%>
+            <li class="<%= 'active' if problem.slug==inbox.slug %>">
+              <a href="/tracks/<%= inbox.track_id %>/exercises/<%= problem.slug %>">
+                <%= problem.name %>
+                <span class="total-count">
+                  <%= problem.total %>
+                </span>
+              </a>
+              <% if problem.unread > 0 %>
+              <span class="badge unread-count">
+                <%= problem.unread %>
               </span>
-            </a>
-            <% if problem.unread > 0 %>
-            <span class="badge unread-count">
-              <%= problem.unread %>
-            </span>
+              <% end %>
+            </li>
             <% end %>
-          </li>
-          <% end %>
-        </ul>
+          </ul>
+        <% end %>
 
       </nav>
       <br>
