@@ -19,7 +19,10 @@ class UserTrack
     views = viewed_counts_per_track(user.id)
     track_ids = (totals.keys + views.keys).uniq
     tracks = track_ids.each_with_object([]) do |track_id, user_tracks|
-      user_tracks << new(track_id, totals[track_id], views[track_id])
+      total = totals[track_id].to_i
+      next if total == 0
+
+      user_tracks << new(track_id, total, views[track_id])
     end
     tracks.sort_by(&:id)
   end

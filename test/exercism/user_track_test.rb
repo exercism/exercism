@@ -32,6 +32,7 @@ class UserTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: -1},
       {user: bob, language: 'go', slug: 'hello-world', archived: false, auth: true, viewed: -1}, # No (hello)
       {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0}, # No (zero iterations)
+      {user: bob, language: 'haskell', slug: 'etl', archived: false, auth: false, viewed: +1}, # No (acl)... but it was viewed
     ].each do |exercise|
       ts = Time.now.utc
       auth = exercise.delete(:auth)
@@ -51,7 +52,7 @@ class UserTrackTest < Minitest::Test
     assert_equal({"elixir" => 1, "go" => 4}, counts)
 
     counts = UserTrack.viewed_counts_per_track(alice.id)
-    assert_equal({"go" => 3}, counts)
+    assert_equal({"go" => 3, "haskell" => 1}, counts)
 
     counts = UserTrack.problem_counts_in_track(alice.id, 'go')
     assert_equal({"hamming" => 1, "leap" => 1, "word-count" => 2}, counts)
