@@ -123,21 +123,21 @@ namespace :data do
     task :last_activity do
       require 'active_record'
       require 'db/connection'
-
+      require './lib/exercism'
       DB::Connection.establish
 
-      sql = <<-SQL
-      UPDATE user_exercises ex SET last_activity_at=GREATEST(last_iteration_at, t.ts)
-      FROM (
-        SELECT MAX(comments.created_at) AS ts, submissions.user_exercise_id AS id
-        FROM comments
-        INNER JOIN submissions
-        ON comments.submission_id=submissions.id
-        GROUP BY submissions.user_exercise_id
-      ) AS t
-      WHERE t.id=ex.id
-      SQL
-      ActiveRecord::Base.connection.execute(sql)
+      UserExercise.where('iteration_count > 0').find_each do |exercise|
+        submission = Submission.where(user_exercise_id: exercise.id, version: exercise.iteration_count).order('id DESC').limit(1).first
+        comment = Comment.joins('INNER JOIN submissions ON submissions.id=comments.submission_id').where('submissions.user_exercise_id=?', exercise.id).order('comments.id DESC').limit(1).first
+
+        latest = [submission, comment].compact.sort_by(&:created_at).last
+
+        if latest.present?
+          exercise.last_activity_at = latest.created_at
+          exercise.last_activity = latest.activity_description
+          exercise.save
+        end
+      end
     end
 
     desc "migrate acls"
