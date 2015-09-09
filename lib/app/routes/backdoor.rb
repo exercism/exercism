@@ -7,6 +7,7 @@ module ExercismWeb
           redirect root_path
         end
 
+        session.clear
         login(::User.find_by_github_id(params[:id]))
         redirect root_path
       end

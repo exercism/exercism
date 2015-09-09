@@ -7,7 +7,7 @@ module ExercismWeb
       end
 
       def logout
-        session[:github_id] = nil
+        session.clear
         @current_user = nil
       end
 

@@ -25,9 +25,9 @@
 
   <ul class="nav navbar-nav navbar-right">
     <% if !current_user.guest? %>
-      <%= erb :"application/nav/nitpicker_languages" %>
-      <%= erb :"application/nav/teams" %>
+      <li><a href="/inbox">Exercises</a></li>
       <%= erb :"application/nav/notifications" %>
+      <%= erb :"application/nav/teams" %>
       <%= erb :"application/nav/account" %>
     <% else %>
       <li><a href="/login">Log in with GitHub</a></li>

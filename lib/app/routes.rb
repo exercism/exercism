@@ -2,6 +2,7 @@ module ExercismWeb
   module Routes
     {
       Core: 'core',
+      Inbox: 'inbox',
       Languages: 'languages',
       Legacy: 'legacy',
       Main: 'main',

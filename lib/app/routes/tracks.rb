@@ -3,9 +3,10 @@ module ExercismWeb
     class Tracks < Core
       get '/tracks/:id/exercises/?:slug?' do |id, slug|
         please_login
+        session[:inbox] = id
 
         page = params[:page] || 1
-        inbox = Inbox.new(current_user, id, slug, page)
+        inbox = ::Inbox.new(current_user, id, slug, page)
 
         erb :"inbox", locals: {inbox: inbox}
       end
@@ -16,7 +17,7 @@ module ExercismWeb
           redirect '/'
         end
 
-        Inbox.new(current_user, id, slug).mark_as_read
+        ::Inbox.new(current_user, id, slug).mark_as_read
 
         redirect ["", "tracks", id, "exercises", slug].compact.join('/')
       end

@@ -163,6 +163,10 @@ class User < ActiveRecord::Base
     submissions.done.where(language: track_id)
   end
 
+  def track_ids
+    @track_ids ||= ACL.select('DISTINCT language').where(user_id: id).order(:language).map(&:language)
+  end
+
   private
 
   def items_where(table, condition)
