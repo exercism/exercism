@@ -41,9 +41,13 @@ namespace :data do
       SQL
       ActiveRecord::Base.connection.execute(sql)
 
-      # fix iterations where the only submission was deleted
+      # fix iterations with no submissions
       sql = <<-SQL
-        UPDATE user_exercises SET iteration_count=0
+        UPDATE user_exercises SET
+          iteration_count=0,
+          last_activity=NULL,
+          last_activity_at=NULL,
+          last_iteration_at=NULL
         WHERE id IN (
           SELECT ex.id
           FROM user_exercises ex
