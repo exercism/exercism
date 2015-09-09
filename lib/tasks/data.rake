@@ -25,6 +25,37 @@ namespace :data do
   end
 
   namespace :cleanup do
+    desc "fix iteration count"
+    task :iteration_counts do
+      require 'active_record'
+      require 'db/connection'
+      DB::Connection.establish
+
+      # update the count for all exercises with submissions
+      sql = <<-SQL
+        UPDATE user_exercises SET iteration_count=t.total
+        FROM (
+          SELECT COUNT(id) AS total, user_exercise_id FROM submissions GROUP BY user_exercise_id
+        ) AS t
+        WHERE t.user_exercise_id=user_exercises.id;
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+
+      # fix iterations where the only submission was deleted
+      sql = <<-SQL
+        UPDATE user_exercises SET iteration_count=0
+        WHERE id IN (
+          SELECT ex.id
+          FROM user_exercises ex
+          LEFT JOIN submissions s
+          ON ex.id=s.user_exercise_id
+          WHERE s.id IS NULL
+          AND ex.iteration_count > 0
+        )
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     desc "delete orphan comments"
     task :comments do
       require 'active_record'
