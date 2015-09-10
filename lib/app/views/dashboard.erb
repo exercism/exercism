@@ -14,30 +14,30 @@
     <div class="col-md-6">
       <h2><a href="/<%= user.username %>">Your exercises in progress</a></h2>
         <div class="well">
-          <% if current_user.ongoing.any? %>
+          <% if dashboard.current_exercises.any? %>
             <p>Keep working on these problems, or archive them.</p>
             <ul class="nav nav-stacked" id="menu-current" role="menu">
-              <% current_user.ongoing.limit(5).each do |submission| %>
+              <% dashboard.current_exercises.limit(5).each do |exercise| %>
                 <li class="looks-list-item">
-                  <a role="menuitem" tabindex="-1" href="/submissions/<%= submission.key %>">
+                  <a role="menuitem" tabindex="-1" href="/exercises/<%= exercise.key %>">
                     <table width="100%">
                       <tr>
                         <td width="60%">
-                          <%= submission.problem.name + ' (' + submission.problem.language %>)
+                          <%= exercise.problem.name + ' (' + exercise.problem.language %>)
                         </td>
                         <td width="25%">
-                          <%= submission.nit_count.to_s %> nits
+                          <%= exercise.comment_count %> comments
                         </td>
                         <td width="15%">
-                          version <%= submission.version.to_s %>
+                          iterations <%= exercise.iteration_count %>
                         </td>
                       </tr>
                     </table>
                   </a>
                 </li>
               <% end %>
-              <% if current_user.ongoing.length > 5 %>
-                <p>You have <%= current_user.ongoing.length %> active problems - <a href="/<%= user.username %>">see all</a></p>
+              <% if dashboard.current_exercises.length > 5 %>
+                <p>You have <%= dashboard.current_exercises.length %> active problems - <a href="/<%= user.username %>">see all</a></p>
               <% end %>
             </ul>
           <% else %>

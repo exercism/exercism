@@ -99,39 +99,6 @@ class UserTest < Minitest::Test
     assert_equal 42, u1.github_id
   end
 
-  def test_user_no_ongoing_without_exercises
-    user = User.new
-    assert_equal [], user.ongoing
-  end
-
-  def test_user_ongoing_with_submissions
-    user = User.create
-    problem = Problem.new('ruby', 'one')
-
-    user.submissions << create_submission(problem, code: "s1", state: 'superseded')
-    user.submissions << create_submission(problem, code: "s2")
-    user.save
-    user.reload
-
-    assert_equal ["s2"], user.ongoing.map(&:code)
-  end
-
-  def test_user_ongoing_ordered_by_latest_updated
-    user = User.create
-    problem = Problem.new('ruby', 'one')
-
-    first = create_submission(problem, code: "s1", updated_at: Date.yesterday)
-    second = create_submission(problem, code: "s2", updated_at: Date.today)
-
-    user.submissions << second
-    user.submissions << first
-    user.save
-    user.reload
-
-    assert_equal second, user.ongoing.first
-    assert_equal first, user.ongoing.last
-  end
-
   def test_find_user_by_case_insensitive_username
     %w{alice bob}.each do |name| User.create(username: name) end
     assert_equal 'alice', User.find_by_username('ALICE').username

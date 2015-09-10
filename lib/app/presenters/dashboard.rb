@@ -14,6 +14,10 @@ module ExercismWeb
         @suggestion ||= Work.new(user).random
       end
 
+      def current_exercises
+        @current_exercises ||= user.exercises.where(archived: false).order('last_activity_at DESC')
+      end
+
       def trending
         Submission.trending(user, 4.hours)
       end

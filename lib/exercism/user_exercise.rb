@@ -56,4 +56,20 @@ class UserExercise < ActiveRecord::Base
   def problem
     @problem ||= Problem.new(track_id, slug)
   end
+
+  def comment_count
+    @comment_count ||= Hash(ActiveRecord::Base.connection.execute(comment_count_sql).to_a.first)["total"].to_i
+  end
+
+  private
+
+  def comment_count_sql
+    <<-SQL
+    SELECT COUNT(c.id) AS total
+    FROM comments c
+    INNER JOIN submissions s
+    ON c.submission_id=s.id
+    WHERE s.user_exercise_id=#{id}
+    SQL
+  end
 end

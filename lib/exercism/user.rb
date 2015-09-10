@@ -75,10 +75,6 @@ class User < ActiveRecord::Base
     @onboarding_steps ||= lifecycle_events.map(&:key)
   end
 
-  def ongoing
-    @ongoing ||= active_submissions.order('updated_at DESC')
-  end
-
   def onboarded?
     !!onboarded_at
   end

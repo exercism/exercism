@@ -18,10 +18,6 @@ class Guest
     []
   end
 
-  def ongoing
-    []
-  end
-
   def current
     {}
   end
