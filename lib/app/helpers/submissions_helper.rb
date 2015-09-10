@@ -9,11 +9,6 @@ module Sinatra
       "/submissions/#{submission.key}/#{action}"
     end
 
-    def view_count_for(submission)
-      count = submission.view_count
-      "#{count} " + "view".pluralize(count)
-    end
-
     def sentencify(names)
       case names.size
       when 0

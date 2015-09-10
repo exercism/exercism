@@ -48,28 +48,6 @@ class SubmissionsTest < Minitest::Test
     assert_response_status(200)
   end
 
-  def test_submission_view_count
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
-    submission = Submission.first
-
-    assert_equal 0, submission.view_count
-
-    get "/submissions/#{submission.key}", {}, login(bob)
-
-    assert_equal 1, submission.view_count
-  end
-
-  def test_submission_view_count_for_guest
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
-    submission = Submission.first
-
-    assert_equal 0, submission.view_count
-
-    get "/submissions/#{submission.key}"
-
-    assert_equal 0, submission.view_count
-  end
-
   def test_nitpick_assignment
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first

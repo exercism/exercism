@@ -18,21 +18,6 @@ class SubmissionsHelperTest < Minitest::Test
     @helper
   end
 
-  def test_no_views
-    assert_equal "0 views", helper.view_count_for(@submission)
-  end
-
-  def test_1_view
-    @submission.viewed!(@fred)
-    assert_equal "1 view", helper.view_count_for(@submission)
-  end
-
-  def test_many_views
-    @submission.viewed!(@fred)
-    @submission.viewed!(@alice)
-    assert_equal "2 views", helper.view_count_for(@submission)
-  end
-
   def test_user_can_mute_other_submissions
     assert helper.can_mute?(@submission, @fred)
   end

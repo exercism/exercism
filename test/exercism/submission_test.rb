@@ -119,42 +119,6 @@ class SubmissionTest < Minitest::Test
     refute submission.muted_by?(alice)
   end
 
-  def test_submissions_with_no_views
-    assert_empty submission.viewers
-    assert_equal 0, submission.view_count
-  end
-
-  def test_viewed_submission
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
-    charlie = User.create(username: 'charlie')
-    submission.viewed!(alice)
-    submission.viewed!(bob)
-    submission.viewed!(charlie)
-    submission.viewed!(bob)
-    submission.reload
-
-    assert_equal %w(alice bob charlie), submission.viewers.map(&:username)
-    assert_equal 3, submission.view_count
-  end
-
-  def test_viewing_submission_twice_is_fine
-    alice = User.create(username: 'alice')
-    submission.viewed!(alice)
-    submission.viewed!(alice)
-    assert_equal 1, submission.view_count
-    assert_equal %w(alice), submission.viewers.map(&:username)
-  end
-
-  def test_viewing_with_increase_in_viewers
-    alice = User.create(username: 'alice')
-    bob = User.create(username: 'bob')
-    submission.viewed!(alice)
-    assert_equal 1, submission.view_count
-    submission.viewed!(bob)
-    assert_equal 2, submission.view_count
-  end
-
   def test_comments_are_sorted
     submission.comments << Comment.new(body: 'second', created_at: Time.now, user: submission.user)
     submission.comments << Comment.new(body: 'first', created_at: Time.now - 1000, user: submission.user)

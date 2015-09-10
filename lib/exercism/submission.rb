@@ -8,9 +8,6 @@ class Submission < ActiveRecord::Base
   # just the dependent destroy
   has_many :notifications, ->{ where(item_type: 'Submission') }, dependent: :destroy, foreign_key: 'item_id', class_name: 'Notification'
 
-  has_many :submission_viewers, dependent: :destroy
-  has_many :viewers, through: :submission_viewers
-
   has_many :muted_submissions, dependent: :destroy
   has_many :muted_by, through: :muted_submissions, source: :user
 
@@ -188,17 +185,6 @@ class Submission < ActiveRecord::Base
   def unmute_all!
     muted_by.clear
     save
-  end
-
-  def viewed!(user)
-    self.viewers << user unless viewers.include?(user)
-  rescue => e
-    # Temporarily output this to the logs
-    puts "#{e.class}: #{e.message}"
-  end
-
-  def view_count
-    viewers.count
   end
 
   def prior
