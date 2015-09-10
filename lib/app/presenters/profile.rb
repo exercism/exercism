@@ -45,14 +45,6 @@ class Profile
     @track_ids ||= archived_exercises.pluck('language').uniq
   end
 
-  def submission_link(submission)
-    if narcissistic? || manager? || current_user.nitpicker_on?(submission.problem)
-     %{<a href="/submissions/#{submission.key}">#{submission.name}&nbsp;<i class="fa fa-star"></i></a>}
-    else
-     %{<a href="/exercises/#{submission.track_id}/#{submission.slug}">#{submission.name}</a>}
-    end
-  end
-
   def narcissistic?
     current_user.is?(user.username)
   end

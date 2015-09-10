@@ -15,9 +15,10 @@
         <% if profile.can_access?(exercise) %>
           <a href="/exercises/<%= exercise.key %>">
             <%= exercise.problem.name %>
-            &nbsp;<i class="fa fa-star"></i>
           </a>
         <% else %>
+          <i class="fa fa-lock"></i>
+          &nbsp;
           <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
         <% end %>
       </td>
