@@ -1,69 +1,46 @@
 class Work
   attr_reader :user
 
+  class Suggestion < Struct.new(:uuid, :language, :slug, :username)
+  end
+
   def initialize(user)
     @user = user
   end
 
   def random
-    shuffled.reduce(nil) do |acc, (language, slug)|
-      acc || Pick.new(user, language, slug).choice
-    end
+    row = rows.sample
+    return if row.nil?
+
+    Suggestion.new(row["uuid"], row["language"], row["slug"], row["username"])
   end
 
   private
 
-  def shuffled
-    nitpickables.to_a.shuffle.flat_map do |(language, slugs)|
-      slugs = rand < 0.7 ? slugs.reverse : slugs.shuffle
-      slugs.map { |slug| [language, slug] }
-    end
+  def rows
+    ActiveRecord::Base.connection.execute(exercises_sql).to_a
   end
 
-  def mastered_slugs
-    user.mastery.map do |language|
-      [language, slugs_in(language)]
-    end
+  # exercises that the user has access to, which were submitted in the past
+  # month, and which have no comments yet.
+  def exercises_sql
+    <<-SQL
+      SELECT
+        ex.id, ex.key AS uuid, ex.language, ex.slug, u.username
+      FROM user_exercises ex
+      INNER JOIN acls
+        ON ex.language=acls.language AND ex.slug=acls.slug
+      INNER JOIN submissions s
+        ON ex.id=s.user_exercise_id
+        AND ex.iteration_count=s.version
+      INNER JOIN users u
+        ON u.id=ex.user_id
+      WHERE ex.iteration_count > 0
+        AND acls.user_id=6
+        AND ex.last_activity_at > (NOW()-interval '30 days')
+        AND s.id NOT IN (SELECT DISTINCT c.submission_id FROM comments c)
+      LIMIT 100;
+    SQL
   end
 
-  def slugs_in(language)
-    Submission.select('distinct slug').where(language: language).map(&:slug) - ['hello-world']
-  end
-
-  def nitpickables
-    Hash[mastered_slugs].merge(submitted) do |_, a, b|
-      (a + b).uniq
-    end
-  end
-
-  def submitted
-    @submitted ||= user.send(:items_where, "submissions", "slug != 'hello-world'")
-  end
-
-  class Pick
-    def initialize(user, language, slug)
-      @user = user
-      @language = language
-      @slug = slug
-    end
-
-    def choice
-      choices.limit(1).offset(index).first
-    end
-
-    private
-    attr_reader :user, :language, :slug
-
-    def index
-      DecayingRandomizer.new(choices.count).next
-    end
-
-    def choices
-      @choices ||= Submission.
-        where('submissions.language' => language, 'submissions.slug' => slug).
-        not_commented_on_by(user).not_liked_by(user).
-        not_submitted_by(user).unmuted_for(user).
-        order("updated_at DESC")
-    end
-  end
 end

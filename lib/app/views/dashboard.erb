@@ -6,7 +6,7 @@
   <% if dashboard.pay_it_forward? %>
     <div class="col-lg-12">
       <h3>Have a moment?</h3>
-      <span>Help <b>@<%= dashboard.suggestion.user.username %></b> by providing some feedback on their solution to <a href="/submissions/<%= dashboard.suggestion.key %>"><%= dashboard.suggestion.slug %> in <%= dashboard.suggestion.language.capitalize %></a>.</span>
+      <span>Help <b>@<%= dashboard.suggestion.username %></b> by providing some feedback on their solution to <a href="/exercises/<%= dashboard.suggestion.uuid %>"><%= dashboard.suggestion.slug %> in <%= Language.of(dashboard.suggestion.language) %></a>.</span>
     </div>
   <% end %>
 
