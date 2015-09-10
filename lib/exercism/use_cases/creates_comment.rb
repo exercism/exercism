@@ -28,8 +28,6 @@ class CreatesComment
         exercise.save
       end
 
-      submission.unmute_all!
-      submission.mute(commenter)
       unless submission.user == commenter
         submission.nit_count += 1
       end

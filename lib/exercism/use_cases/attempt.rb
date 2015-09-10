@@ -36,9 +36,6 @@ class Attempt
   end
 
   def save
-    user.submissions_on(problem).each do |sub|
-      sub.unmute_all!
-    end
     submission.solution = iteration.solution
     submission.code = code
     submission.filename = filename

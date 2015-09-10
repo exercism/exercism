@@ -18,23 +18,6 @@ class SubmissionsHelperTest < Minitest::Test
     @helper
   end
 
-  def test_user_can_mute_other_submissions
-    assert helper.can_mute?(@submission, @fred)
-  end
-
-  def test_user_cannot_mute_own_submission
-    refute helper.can_mute?(@submission, @alice)
-  end
-
-  def test_user_can_mute_an_unmuted_submission
-    assert_equal "/submissions/#{@submission.key}/mute", helper.mute_button_action_for(@submission, @fred)
-  end
-
-  def test_user_can_unmute_a_muted_submission
-    @submission.muted_by << @fred
-    assert_equal "/submissions/#{@submission.key}/unmute", helper.mute_button_action_for(@submission, @fred)
-  end
-
   def test_sentencify_none
     assert_equal '', helper.sentencify([])
   end

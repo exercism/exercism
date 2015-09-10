@@ -57,16 +57,6 @@ class SubmissionsTest < Minitest::Test
     assert_equal 1, submission.reload.comments.count
   end
 
-  def test_nitpicking_assignment_mutes_it_for_the_nitpicker
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
-    submission = Submission.first
-
-    url = "/submissions/#{submission.key}/nitpick"
-    post url, {body: "good"}, login(bob)
-    assert_equal 1, MutedSubmission.count
-    assert submission.reload.muted_by?(bob.reload)
-  end
-
   def test_nitpick_own_assignment
     Attempt.new(alice, 'CODE', 'word-count/file.rb').save
     submission = Submission.first
@@ -111,26 +101,6 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
     Submission.any_instance.expects(:unlike!).with(bob)
     post "/submissions/#{submission.key}/unlike", {}, login(bob)
-  end
-
-  def test_mute_submission
-    submission = generate_attempt.submission
-    post "/submissions/#{submission.key}/mute", {}, login(alice)
-    assert submission.reload.muted_by?(alice)
-  end
-
-  def test_unmute_submission
-    submission = generate_attempt.submission
-    post "/submissions/#{submission.key}/unmute", {}, login(alice)
-    refute submission.reload.muted_by?(alice)
-  end
-
-  def test_unmute_all_on_new_nitpick
-    submission = generate_attempt.submission
-
-    url = "/submissions/#{submission.key}/nitpick"
-    Submission.any_instance.expects(:unmute_all!)
-    post url, {body: "good"}, login(bob)
   end
 
   def test_edit_comment
@@ -274,7 +244,7 @@ class SubmissionsTest < Minitest::Test
     assert_equal nil, Notification.find_by_id(note.id)
   end
 
-  def test_redirects_to_submission_page_when_comment_like_or_mute_with_get
+  def test_redirects_to_submission_page_when_comment_or_like
     data = {
       user: bob,
       language: 'ruby',
@@ -284,7 +254,7 @@ class SubmissionsTest < Minitest::Test
 
     sub = Submission.create(data.merge(state: 'needs_input', created_at: Time.now - 5))
 
-    %w(nitpick like unlike mute unmute).each do |action|
+    %w(nitpick like unlike).each do |action|
       get "/submissions/#{sub.key}/#{action}", {}, login(bob)
 
       assert_response_status(302)

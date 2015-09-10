@@ -61,16 +61,6 @@ class AttemptTest < Minitest::Test
     assert_equal user, submission.user
   end
 
-  def test_a_new_attempt_unmutes_previous_attempt
-    tom = User.create(username: 'tom')
-    jerry = User.create(username: 'jerry')
-    submission = Submission.create(user: user, language: 'ruby', slug: 'two', created_at: Time.now)
-    submission.mute! tom
-    submission.mute! jerry
-    Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE')).save
-    assert_equal [], submission.reload.muted_by
-  end
-
   def test_an_attempt_includes_the_code_and_filename_in_the_submissions_solution
     Attempt.new(user, Iteration.new('two/two.py' => 'CODE 123')).save
     assert_equal({'two/two.py' => 'CODE 123'}, user.submissions.first.reload.solution)

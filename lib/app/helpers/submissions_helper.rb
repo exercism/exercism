@@ -1,14 +1,5 @@
 module Sinatra
   module SubmissionsHelper
-    def can_mute?(submission, user)
-      submission.user != user
-    end
-
-    def mute_button_action_for(submission, user)
-      action = submission.muted_by?(user) ? 'unmute' : 'mute'
-      "/submissions/#{submission.key}/#{action}"
-    end
-
     def sentencify(names)
       case names.size
       when 0

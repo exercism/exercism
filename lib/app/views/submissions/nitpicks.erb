@@ -1,18 +1,4 @@
 <div class="comments col-md-6">
-  <% if can_mute?(submission, current_user) %>
-    <form accept-charset="UTF-8" action="<%= mute_button_action_for(submission, current_user) %>" method="POST" style="display: inline; float: right;">
-      <% if submission.muted_by?(current_user) %>
-        <button type="submit" class="btn btn-default unmute-btn">
-          <i class="fa fa-microphone"></i> unmute
-        </button>
-      <% else %>
-        <button type="submit" class="btn btn-default mute-btn">
-          <i class="fa fa-microphone-slash"></i> mute
-        </button>
-      <% end %>
-    </form>
-  <% end %>
-
   <h3>
     <% if submission.comments.empty? %>
       <% if current_user.owns?(submission) %>

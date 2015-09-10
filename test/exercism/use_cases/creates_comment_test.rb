@@ -51,22 +51,10 @@ class CreatesCommentTest < Minitest::Test
     assert cc.comment
   end
 
-  def test_nitpicking_a_submission_mutes_it
-    nitpicker = User.new(username: 'alice')
-    CreatesComment.new(submission.id, nitpicker, 'Too many variables').create
-    assert submission.reload.muted_by?(nitpicker), 'should be muted'
-  end
-
   def test_empty_nit_does_not_get_created
     nitpicker = User.new(username: 'alice')
     CreatesComment.new(submission.id, nitpicker, '').create
     assert_equal 0, submission.comments(true).count
-  end
-
-  def test_empty_nit_does_not_mute
-    nitpicker = User.new(username: 'alice')
-    CreatesComment.new(submission.id, nitpicker, '').create
-    refute submission.reload.muted_by?(nitpicker)
   end
 
   def test_nitpicking_archived_exercise_does_not_reactivate_it

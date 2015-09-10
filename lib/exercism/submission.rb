@@ -8,9 +8,6 @@ class Submission < ActiveRecord::Base
   # just the dependent destroy
   has_many :notifications, ->{ where(item_type: 'Submission') }, dependent: :destroy, foreign_key: 'item_id', class_name: 'Notification'
 
-  has_many :muted_submissions, dependent: :destroy
-  has_many :muted_by, through: :muted_submissions, source: :user
-
   has_many :likes, dependent: :destroy
   has_many :liked_by, through: :likes, source: :user
 
@@ -70,10 +67,6 @@ class Submission < ActiveRecord::Base
   scope :related, -> (submission) {
     chronologically
       .where(user_id: submission.user.id, language: submission.track_id, slug: submission.slug)
-  }
-
-  scope :unmuted_for, ->(user) {
-    where("submissions.id NOT IN (#{MutedSubmission.where(user: user).select(:submission_id).to_sql})")
   }
 
   def self.on(problem)
@@ -145,46 +138,17 @@ class Submission < ActiveRecord::Base
   def like!(user)
     self.is_liked = true
     self.liked_by << user unless liked_by.include?(user)
-    mute(user)
     save
   end
 
   def unlike!(user)
     likes.where(user_id: user.id).destroy_all
     self.is_liked = liked_by.length > 0
-    unmute(user)
     save
   end
 
   def liked?
     is_liked
-  end
-
-  def muted_by?(user)
-    muted_submissions.where(user_id: user.id).exists?
-  end
-
-  def mute(user)
-    muted_by << user
-  end
-
-  def mute!(user)
-    mute(user)
-    save
-  end
-
-  def unmute(user)
-    muted_submissions.where(user_id: user.id).destroy_all
-  end
-
-  def unmute!(user)
-    unmute(user)
-    save
-  end
-
-  def unmute_all!
-    muted_by.clear
-    save
   end
 
   def prior

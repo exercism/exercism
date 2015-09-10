@@ -56,12 +56,6 @@ class SubmissionTest < Minitest::Test
     assert_equal [fred], submission.liked_by
   end
 
-  def test_like_calls_mute
-    submission = Submission.create(state: 'pending', user: alice)
-    submission.expects(:mute).with(fred)
-    submission.like!(fred)
-  end
-
   def test_unlike_resets_is_liked_if_liked_by_is_empty
     submission = Submission.create(state: 'pending', user: alice)
     Like.create(submission: submission, user: fred)
@@ -85,12 +79,6 @@ class SubmissionTest < Minitest::Test
     assert_equal [], submission.liked_by
   end
 
-  def test_unlike_calls_unmute
-    submission = Submission.create(state: 'pending', user: alice)
-    submission.expects(:unmute).with(fred)
-    submission.unlike!(fred)
-  end
-
   def test_liked_reflects_positive_is_liked
     submission = Submission.new(is_liked: true)
     assert submission.liked?
@@ -99,24 +87,6 @@ class SubmissionTest < Minitest::Test
   def test_liked_reflects_negative_is_liked
     submission = Submission.new(is_liked: false)
     refute submission.liked?
-  end
-
-  def test_muted_by_when_muted
-    submission = Submission.create(user: fred, state: 'pending')
-    submission.mute! alice
-    assert submission.muted_by?(alice)
-  end
-
-  def test_unmuted_for_when_muted
-    submission.mute(submission.user)
-    submission.save
-    refute(Submission.unmuted_for(submission.user).include?(submission),
-           "unmuted_for should only return submissions that have not been muted")
-  end
-
-  def test_muted_by_when_not_muted
-    submission = Submission.new(state: 'pending')
-    refute submission.muted_by?(alice)
   end
 
   def test_comments_are_sorted
@@ -175,7 +145,7 @@ class SubmissionTest < Minitest::Test
 
   def test_likes_by_submission
     s1 = Submission.create!(user: alice, language: 'ruby', slug: 'bob', state: 'completed', created_at: 22.days.ago, nit_count: 1)
-    like = Like.create!(submission: s1, user: fred)
+    Like.create!(submission: s1, user: fred)
     submissions = Submission.likes_by_submission
     assert_equal submissions.first.total_likes, 1
   end
