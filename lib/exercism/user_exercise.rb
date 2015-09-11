@@ -14,7 +14,7 @@ class UserExercise < ActiveRecord::Base
   scope :recently_viewed_by, lambda {|user|
     includes(:user).
       joins(:views).
-      where('views.user_id': 2).
+      where('views.user_id': user.id).
       where('views.last_viewed_at > ?', 30.days.ago).order('views.last_viewed_at DESC')
   }
 
