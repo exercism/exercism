@@ -36,7 +36,7 @@ class Work
       INNER JOIN users u
         ON u.id=ex.user_id
       WHERE ex.iteration_count > 0
-        AND acls.user_id=6
+        AND acls.user_id=#{user.id}
         AND ex.last_activity_at > (NOW()-interval '30 days')
         AND s.id NOT IN (SELECT DISTINCT c.submission_id FROM comments c)
       LIMIT 100;
