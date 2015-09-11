@@ -1,6 +1,7 @@
 class UserExercise < ActiveRecord::Base
   include Named
   has_many :submissions, ->{ order 'created_at ASC' }
+  has_many :views, foreign_key: 'exercise_id'
 
   # I don't really want the notifications method,
   # just the dependent destroy
@@ -10,6 +11,12 @@ class UserExercise < ActiveRecord::Base
 
   scope :active,    ->{ where(state: ['pending', 'needs_input', 'hibernating']) }
   scope :completed, ->{ where(state: 'done') }
+  scope :recently_viewed_by, lambda {|user|
+    includes(:user).
+      joins(:views).
+      where('views.user_id': 2).
+      where('views.last_viewed_at > ?', 30.days.ago).order('views.last_viewed_at DESC')
+  }
 
   before_create do
     self.key ||= Exercism.uuid

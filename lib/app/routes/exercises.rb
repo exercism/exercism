@@ -14,6 +14,9 @@ module ExercismWeb
         redirect ['/', 'exercises', inbox.next_uuid(session[:inbox_exercise])].join('/')
       end
 
+      get '/exercises/viewed' do
+      end
+
       get '/exercises/:key' do |key|
         exercise = UserExercise.find_by_key(key)
         if exercise.nil?

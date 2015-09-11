@@ -11,7 +11,6 @@ module ExercismWeb
         unless current_user.guest?
           session[:inbox_exercise] = submission.user_exercise_id
           submission.viewed_by(current_user) # in support of inbox
-          Look.check!(submission.user_exercise_id, current_user.id) # legacy?
           Notification.viewed!(submission, current_user)
         end
 

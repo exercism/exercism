@@ -19,7 +19,6 @@ module ExercismAPI
     use Routes::Submissions
     use Routes::Problems
     use Routes::Comments
-    use Routes::Looks
     use Routes::Users
     use Routes::Legacy
   end

@@ -7,7 +7,6 @@ module ExercismAPI
       Submissions: 'submissions',
       Problems: 'problems',
       Comments: 'comments',
-      Looks: 'looks',
       Users: 'users',
       Legacy: 'legacy',
     }.each do |name, file|

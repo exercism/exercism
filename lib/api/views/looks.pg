@@ -1,6 +1,0 @@
-collection looks: looks do |look|
-  node language: look.language
-  node name: look.name
-  node username: look.username
-  node path: look.path
-end

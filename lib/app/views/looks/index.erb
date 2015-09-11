@@ -2,27 +2,27 @@
   <section class="page-header">
     <h1>Recently Viewed</h1>
   </section>
+
   <section>
     <div class="row">
       <div class="col-md-6">
-        <% if looks.empty? %>
+        <% if exercises.empty? %>
           <p>No exercises viewed in the past 30 days.</p>
         <% else %>
-          <h3>Submissions viewed in the past 30 days</h3>
-          <ul ng-controller="PaginationCtrl" ng-show="looks.length" class="nav nav-tabs nav-stacked">
-            <li ng-repeat="look in looks | startFrom:currentPage*pageSize | limitTo:pageSize" class="looks-list-item">
-              <a ng-href="{{look.path}}">{{look.name}} ({{look.language}}) by {{look.username}}</a>
+          <h3>Exercises viewed in the past 30 days</h3>
+
+          <ul class="active-exercises">
+            <% exercises.each do |exercise| %>
+              <li>
+              <a href="/exercises/<%= exercise.key %>" class="exercise">
+                <%= exercise.problem.name %> in <%= exercise.problem.language %>
+              </a>
+              by @<%= exercise.user.username %>
             </li>
-            <div class="pagination-controls" ng-show="looks.length > pageSize">
-              <button ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1" class="btn btn-default">
-                 Previous
-              </button>
-              Page {{currentPage+1}}/{{numberOfPages()}}
-              <button ng-disabled="currentPage >= looks.length/pageSize - 1" ng-click="currentPage=currentPage+1" class="btn btn-default">
-                 Next
-              </button>
-            </div>
+            <% end %>
           </ul>
+
+          <%= will_paginate exercises, renderer: BootstrapPagination::Sinatra %>
         <% end %>
       </div>
     </div>
