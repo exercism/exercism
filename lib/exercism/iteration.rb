@@ -11,7 +11,7 @@ class Iteration
   end
 
   def paths
-    @paths ||= solution.keys.map {|path, _| Code.new(path)}
+    @paths ||= solution.keys.map {|path| Code.new(path)}
   end
 
   def track_id
