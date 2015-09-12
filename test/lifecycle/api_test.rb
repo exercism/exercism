@@ -20,7 +20,7 @@ class LifecycleApiTest < Minitest::Test
   def test_tracks_submit
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'one/code.rb'}.to_json
+        post '/user/assignments', {key: alice.key, solution: {'one/code.rb' => 'THE CODE'}}.to_json
       end
     end
 

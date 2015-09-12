@@ -8,7 +8,7 @@ class NotificationTest < Minitest::Test
     super
     @alice = User.create(username: 'alice')
     @bob = User.create(username: 'bob')
-    @submission = Submission.create(language: 'ruby', slug: 'one', code: 'code1', user: alice)
+    @submission = Submission.create(language: 'ruby', slug: 'one', user: alice)
     Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
     @exercise = @submission.reload.user_exercise
   end
@@ -47,7 +47,7 @@ class NotificationTest < Minitest::Test
 
   def test_create_notifications_on_related_submission
     s1 = submission
-    s2 = Submission.create(language: 'ruby', slug: 'one', code: 'code2', user: alice)
+    s2 = Submission.create(language: 'ruby', slug: 'one', user: alice)
     Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'one').update
 
     Notification.on(s1.reload, to: bob, regarding: 'stuff', creator: alice)

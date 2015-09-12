@@ -1,13 +1,13 @@
 {
   "url": "<url>",
   "track_id": "<id>",
-  "language": "Go",
+  "language": "Ruby",
   "slug": "one",
   "name": "One",
   "iteration": 1,
   "id": "<id>",
   "status": "saved",
-  "track": "go",
+  "track": "ruby",
   "exercise": "one",
   "submission_path": "<submission_path>"
 }

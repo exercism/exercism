@@ -92,7 +92,6 @@ class IterationsApiTest < Minitest::Test
       user: @alice,
       language: 'ruby',
       slug: 'one',
-      code: 'CODE1RB',
       state: 'pending',
       filename: 'one.rb'
     )

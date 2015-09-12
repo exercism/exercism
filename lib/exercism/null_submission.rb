@@ -7,4 +7,8 @@ class NullSubmission < SimpleDelegator
   def code
     ''
   end
+
+  def solution
+    {}
+  end
 end

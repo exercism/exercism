@@ -2,15 +2,16 @@ require 'exercism/xapi'
 
 class Attempt
 
-  attr_reader :user, :code, :track, :slug, :filename, :iteration
+  attr_reader :user, :track, :slug, :filename, :iteration, :submission
   def initialize(user, *stuff)
     @user = user
     @iteration = stuff.last
     @slug = iteration.slug
     @track = iteration.track_id
+    @submission = Submission.on(Problem.new(track, slug))
+    submission.solution = iteration.solution
 
     # hack
-    @code = iteration.solution.values.first
     @filename = iteration.solution.keys.first
   end
 
@@ -18,17 +19,7 @@ class Attempt
     !!slug && Xapi.exists?(track, slug)
   end
 
-  def submission
-    @submission ||= Submission.on(problem)
-  end
-
-  def problem
-    Problem.new(track, slug)
-  end
-
   def save
-    submission.solution = iteration.solution
-    submission.code = code
     submission.filename = filename
     user.submissions << submission
     user.save
@@ -38,15 +29,15 @@ class Attempt
   end
 
   def duplicate?
-    !code.empty? && previous_submission.code == code
+    !submission.solution.empty? && previous_submission.solution == submission.solution
   end
 
   def previous_submissions
-    @previous_submissions ||= user.submissions_on(problem).reject {|s| s == submission}
+    @previous_submissions ||= user.submissions_on(submission.problem).reject {|s| s == submission}
   end
 
   def previous_submission
-    @previous_submission ||= previous_submissions.first || NullSubmission.new(problem)
+    @previous_submission ||= previous_submissions.first || NullSubmission.new(submission.problem)
   end
 
   class InvalidAttemptError < StandardError; end

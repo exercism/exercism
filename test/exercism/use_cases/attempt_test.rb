@@ -93,12 +93,12 @@ class AttemptTest < Minitest::Test
 
   def test_newlines_are_removed_at_the_end_of_the_file
     Attempt.new(user, Iteration.new('two/two.rb' => "CODE1\n\nCODE2\n\n\n")).save
-    assert_equal "CODE1\n\nCODE2", user.submissions.first.code
+    assert_equal "CODE1\n\nCODE2", user.submissions.first.solution.first.last
   end
 
   def test_newlines_are_removed_at_the_beginning_of_the_file
     Attempt.new(user, Iteration.new('ruby/two/two.rb' => "\nCODE1\n\nCODE2")).save
-    assert_equal "CODE1\n\nCODE2", user.submissions.first.code
+    assert_equal "CODE1\n\nCODE2", user.submissions.first.solution.first.last
   end
 
   def test_rejects_duplicates
