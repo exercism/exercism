@@ -71,6 +71,10 @@ class User < ActiveRecord::Base
     find_by(username: username)
   end
 
+  def sees_exercises?
+    ACL.where(user_id: id).count > 0
+  end
+
   def onboarding_steps
     @onboarding_steps ||= lifecycle_events.map(&:key)
   end
