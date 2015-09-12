@@ -102,31 +102,31 @@ class AttemptTest < Minitest::Test
   end
 
   def test_rejects_duplicates
-    Attempt.new(user, "CODE", 'ruby/two/two.rb').save
-    attempt = Attempt.new(user, "CODE", 'ruby/two/two.rb')
+    Attempt.new(user, Iteration.new('ruby/two/two.rb' => "CODE")).save
+    attempt = Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE'))
 
     assert attempt.duplicate?
   end
 
   def test_does_not_reject_empty_first_submission_as_duplicate
-    attempt = Attempt.new(user, "", 'ruby/two/two.rb').save
+    attempt = Attempt.new(user, Iteration.new('ruby/two/two.rb' => '')).save
 
     refute attempt.duplicate?
   end
 
   def test_no_reject_without_previous
-    attempt = Attempt.new(user, "CODE", 'ruby/two/two.rb')
+    attempt = Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE'))
     refute attempt.duplicate?
   end
 
   def test_attempt_sets_exercise_as_current
-    Attempt.new(user, "CODE", 'ruby/two/two.rb').save
+    Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE')).save
     assert user.working_on?(Problem.new('ruby', 'two'))
   end
 
   def test_attempt_sets_completed_exercises_as_current
     refute user.working_on?(Problem.new('ruby', 'one'))
-    Attempt.new(user, "CODE", 'ruby/one/one.rb').save
+    Attempt.new(user, Iteration.new('ruby/one/one.rb' => 'CODE')).save
     assert user.working_on?(Problem.new('ruby', 'one'))
   end
 end

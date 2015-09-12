@@ -43,13 +43,13 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_guests_can_view_submissions
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
+    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
     get "/submissions/#{Submission.first.key}"
     assert_response_status(200)
   end
 
   def test_nitpick_assignment
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
+    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
     submission = Submission.first
 
     url = "/submissions/#{submission.key}/nitpick"
@@ -58,7 +58,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_nitpick_own_assignment
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
+    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
     submission = Submission.first
 
     url = "/submissions/#{submission.key}/nitpick"
@@ -67,7 +67,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_input_sanitation
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
+    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
     submission = Submission.first
     nit = Comment.new(user: bob, body: "ok", created_at: DateTime.now - 1.day)
     submission.comments << nit
@@ -83,7 +83,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_guest_nitpicks
-    Attempt.new(alice, 'CODE', 'word-count/file.rb').save
+    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
     submission = Submission.first
 
     post "/submissions/#{submission.key}/nitpick", {body: "Could be better by ..."}

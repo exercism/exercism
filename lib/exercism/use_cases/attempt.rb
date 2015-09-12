@@ -5,16 +5,7 @@ class Attempt
   attr_reader :user, :code, :track, :slug, :filename, :iteration
   def initialize(user, *stuff)
     @user = user
-    if stuff.last.is_a?(Iteration)
-      @iteration = stuff.last
-    else
-      # TODO:
-      # 1. Change tests to use new iteration style
-      # 2. get rid of *stuff
-      # 3. get rid of code, filename attrs (don't write it on submission)
-      code, path = stuff
-      @iteration = Iteration.new({path => code})
-    end
+    @iteration = stuff.last
     @slug = iteration.slug
     @track = iteration.track_id
 

@@ -116,7 +116,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_rejects_duplicates
-    Attempt.new(alice, 'THE CODE', 'ruby/one/code.rb').save
+    Attempt.new(alice, Iteration.new('ruby/one/code.rb' => 'THE CODE')).save
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
         post '/user/assignments', {key: alice.key, code: 'THE CODE', path: 'ruby/one/code.rb'}.to_json
