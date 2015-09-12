@@ -2,7 +2,7 @@ require 'exercism/xapi'
 
 class Attempt
 
-  attr_reader :user, :track, :slug, :filename, :iteration, :submission
+  attr_reader :user, :track, :slug, :iteration, :submission
   def initialize(user, *stuff)
     @user = user
     @iteration = stuff.last
@@ -10,9 +10,6 @@ class Attempt
     @track = iteration.track_id
     @submission = Submission.on(Problem.new(track, slug))
     submission.solution = iteration.solution
-
-    # hack
-    @filename = iteration.solution.keys.first
   end
 
   def valid?
@@ -20,7 +17,6 @@ class Attempt
   end
 
   def save
-    submission.filename = filename
     user.submissions << submission
     user.save
     Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update

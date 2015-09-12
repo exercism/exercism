@@ -93,7 +93,6 @@ class IterationsApiTest < Minitest::Test
       language: 'ruby',
       slug: 'one',
       state: 'pending',
-      filename: 'one.rb'
     )
 
     args = [submission.user.id, submission.language, submission.slug]
