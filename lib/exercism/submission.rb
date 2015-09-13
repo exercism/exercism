@@ -23,9 +23,6 @@ class Submission < ActiveRecord::Base
   end
 
   scope :pending, ->{ where(state: %w(needs_input pending)) }
-  scope :aging, lambda {
-    pending.where('nit_count > 0').older_than(3.weeks.ago)
-  }
   scope :chronologically, -> { order(created_at: :asc) }
   scope :reversed, -> { order(created_at: :desc) }
   scope :not_commented_on_by, ->(user) {
