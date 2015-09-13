@@ -45,19 +45,19 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_like_sets_is_liked
-    submission = Submission.new(state: 'pending')
+    submission = Submission.new
     submission.like!(alice)
     assert submission.is_liked = true
   end
 
   def test_like_sets_liked_by
-    submission = Submission.create(state: 'pending', user: alice)
+    submission = Submission.create(user: alice)
     submission.like!(fred)
     assert_equal [fred], submission.liked_by
   end
 
   def test_unlike_resets_is_liked_if_liked_by_is_empty
-    submission = Submission.create(state: 'pending', user: alice)
+    submission = Submission.create(user: alice)
     Like.create(submission: submission, user: fred)
     submission.unlike!(fred)
     refute submission.is_liked
@@ -65,7 +65,7 @@ class SubmissionTest < Minitest::Test
 
   def test_unlike_does_not_reset_is_liked_if_liked_by_is_not_empty
     bob = User.create(username: 'bob')
-    submission = Submission.create(state: 'pending', user: alice)
+    submission = Submission.create(user: alice)
     Like.create(submission: submission, user: bob)
     Like.create(submission: submission, user: fred)
     submission.unlike!(bob)
@@ -73,7 +73,7 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_unlike_changes_liked_by
-    submission = Submission.create(state: 'pending', user: alice)
+    submission = Submission.create(user: alice)
     Like.create(submission: submission, user: fred)
     submission.unlike!(fred)
     assert_equal [], submission.liked_by
@@ -126,22 +126,22 @@ class SubmissionTest < Minitest::Test
   end
 
   def test_likes_by_submission
-    s1 = Submission.create!(user: alice, language: 'ruby', slug: 'bob', state: 'completed', created_at: 22.days.ago, nit_count: 1)
+    s1 = Submission.create!(user: alice, language: 'ruby', slug: 'bob', created_at: 22.days.ago, nit_count: 1)
     Like.create!(submission: s1, user: fred)
     submissions = Submission.likes_by_submission
     assert_equal submissions.first.total_likes, 1
   end
 
   def test_comments_by_submission
-    s1 = Submission.create!(user: alice, language: 'ruby', slug: 'bob', state: 'completed', created_at: 22.days.ago, nit_count: 1)
+    s1 = Submission.create!(user: alice, language: 'ruby', slug: 'bob', created_at: 22.days.ago, nit_count: 1)
     Comment.create!(submission: s1, user: fred, body: 'The face of a child can say it all, especially the mouth part of the face.')
     submissions = Submission.comments_by_submission
     assert_equal submissions.first.total_comments, 1
   end
 
   def test_trending_only_returns_recent_activity
-    UserExercise.create(user: alice, language: 'ruby', slug: 'bob', iteration_count: 1, state: 'done', is_nitpicker: true)
-    s1 = Submission.create!(user: alice, language: 'ruby', slug: 'bob', state: 'completed', created_at: 22.days.ago, nit_count: 1)
+    UserExercise.create(user: alice, language: 'ruby', slug: 'bob', iteration_count: 1, is_nitpicker: true)
+    s1 = Submission.create!(user: alice, language: 'ruby', slug: 'bob', created_at: 22.days.ago, nit_count: 1)
     Comment.create!(submission: s1, user: fred, body: ' hope that after I die, people will say of me: "That guy sure owed me a lot of money."')
     Like.create!(submission: s1, user: fred)
     Comment.create!(submission: s1, user: fred, body: 'If you ever drop your keys into a river of molten lava, let em go, because, man, theyre gone.', created_at: Time.now - 12.hours)

@@ -24,26 +24,22 @@ class IterationsApiTest < Minitest::Test
       language: 'go',
       slug: 'one',
       solution: {'oneA.go' => 'CODE1AGO', 'oneB.go' => 'CODE1BGO'},
-      state: 'superseded',
       created_at: 10.minutes.ago,
     }, {
       user: @alice,
       language: 'go',
       slug: 'two',
       solution: {'two.go' => 'CODE2GO'},
-      state: 'superseded',
       created_at: 10.minutes.ago,
     }, {
       user: @alice,
       language: 'ruby',
       slug: 'one',
-      state: 'pending',
       solution: {'one.rb': 'CODE1RUBY'},
     }, {
       user: @alice,
       language: 'ruby',
       slug: 'two',
-      state: 'hibernating',
       solution: {'two.rb': 'CODE2RUBY'},
     }]
 
@@ -73,7 +69,6 @@ class IterationsApiTest < Minitest::Test
     exercise = @alice.exercises.first
     assert_equal 'ruby', exercise.language
     assert_equal 'one', exercise.slug
-    assert_equal 'unstarted', exercise.state
     assert_equal 204, last_response.status
   end
 
@@ -92,7 +87,6 @@ class IterationsApiTest < Minitest::Test
       user: @alice,
       language: 'ruby',
       slug: 'one',
-      state: 'pending',
     )
 
     args = [submission.user.id, submission.language, submission.slug]

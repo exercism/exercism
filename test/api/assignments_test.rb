@@ -89,7 +89,7 @@ class AssignmentsApiTest < Minitest::Test
     eve = User.create username: 'eve', github_id: -5
 
     Submission.create({language: 'ruby', slug: 'one', user: charlie, solution: {'ruby/one/code.rb' => 'THE CODE'}})
-    Submission.create({language: 'ruby', slug: 'one', user: dave, state: 'done', solution: {'ruby/one/code.rb' => 'THE CODE'}})
+    Submission.create({language: 'ruby', slug: 'one', user: dave, solution: {'ruby/one/code.rb' => 'THE CODE'}})
 
     team1 = Team.by(alice).defined_with(slug: 'team1', usernames: "bob, charlie")
     team1.save

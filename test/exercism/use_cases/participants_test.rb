@@ -8,11 +8,11 @@ class ParticipantTest < Minitest::Test
     bob = User.create(username: 'bob')
     charlie = User.create(username: 'charlie')
 
-    s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
+    s1 = Submission.create(user: alice, language: 'ruby', slug: 'one')
     s1.comments << Comment.new(user: bob, body: 'nice')
     s1.save
 
-    s2 = Submission.create(state: 'pending', user: alice, language: 'ruby', slug: 'one')
+    s2 = Submission.create(user: alice, language: 'ruby', slug: 'one')
     s2.comments << Comment.new(user: charlie, body: 'pretty good')
     s2.save
 
@@ -30,11 +30,11 @@ class ParticipantTest < Minitest::Test
     charlie = User.create(username: 'charlie')
     _ = User.create(username: 'mention_user')
 
-    s1 = Submission.create(state: 'superseded', user: alice, language: 'ruby', slug: 'one')
+    s1 = Submission.create(user: alice, language: 'ruby', slug: 'one')
     s1.comments << Comment.new(user: alice, body: 'What about @bob?')
     s1.save
 
-    s2 = Submission.create(state: 'pending', user: alice, language: 'ruby', slug: 'one')
+    s2 = Submission.create(user: alice, language: 'ruby', slug: 'one')
     s2.comments << Comment.new(user: charlie, body: '@mention_user should have bleh')
     s2.save
 

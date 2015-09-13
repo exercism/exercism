@@ -2,21 +2,21 @@
   "go": [
     {
       "slug": "one",
-      "state": "done"
+      "state": "archived"
     },
     {
       "slug": "two",
-      "state": "pending"
+      "state": "active"
     }
   ],
   "ruby": [
     {
       "slug": "one",
-      "state": "hibernating"
+      "state": "active"
     },
     {
       "slug": "two",
-      "state": "pending"
+      "state": "active"
     }
   ]
 }

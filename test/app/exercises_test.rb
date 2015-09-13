@@ -11,7 +11,7 @@ class AppExercisesTest < Minitest::Test
 
   def test_excercises_by_key
     alice = User.create(username: 'alice', github_id: 1)
-    exercise = UserExercise.create(user: alice, language: 'go', slug: 'one', state: 'done')
+    exercise = UserExercise.create(user: alice, language: 'go', slug: 'one')
     submission = Submission.create(user: alice, language: 'go', slug: 'bob', user_exercise: exercise)
 
     get "/exercises/#{exercise.key}", {}, login(alice)
@@ -22,8 +22,8 @@ class AppExercisesTest < Minitest::Test
 
   def test_archive_and_unarchive
     alice = User.create(username: 'alice', github_id: 1)
-    exercise = UserExercise.create(user: alice, language: 'go', slug: 'one', state: 'pending')
-    submission = Submission.create(user: alice, language: 'go', slug: 'one', user_exercise: exercise, state: 'pending')
+    exercise = UserExercise.create(user: alice, language: 'go', slug: 'one')
+    Submission.create(user: alice, language: 'go', slug: 'one', user_exercise: exercise)
 
     post "/exercises/#{exercise.key}/archive", {}, login(alice)
     assert exercise.reload.archived?

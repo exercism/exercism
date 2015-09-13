@@ -41,8 +41,8 @@ class NitstatsTest < Minitest::Test
   def test_correct_numbers_returned
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
-    sub1 = Submission.create(state: 'pending', user: alice, language: 'python', slug: 'one')
-    sub2 = Submission.create(state: 'pending', user: bob, language: 'python', slug: 'two')
+    sub1 = Submission.create(user: alice, language: 'python', slug: 'one')
+    sub2 = Submission.create(user: bob, language: 'python', slug: 'two')
     Comment.create(user: alice, submission: sub1, body: 'something')
     Comment.create(user: alice, submission: sub2, body: 'something')
     Comment.create(user: bob, submission: sub2, body: 'something')

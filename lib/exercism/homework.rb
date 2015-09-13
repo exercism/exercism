@@ -5,7 +5,7 @@ class Homework
   end
 
   def all
-    sql = "SELECT language, slug, state FROM user_exercises WHERE user_id = #{user.id} ORDER BY language, slug ASC"
+    sql = "SELECT language, slug, archived FROM user_exercises WHERE user_id = #{user.id} ORDER BY language, slug ASC"
     extract(sql)
   end
 
@@ -13,7 +13,7 @@ class Homework
 
   def extract(sql)
     UserExercise.connection.execute(sql).each_with_object(empty_hash) do |row, exercises|
-      exercises[row['language']] << { 'slug' => row['slug'], 'state' => row['state'] }
+      exercises[row['language']] << { 'slug' => row['slug'], 'state' => row['archived'] == 't' ? 'archived' : 'active' }
     end
   end
 

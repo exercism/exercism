@@ -5,7 +5,7 @@ class UserExerciseTest < Minitest::Test
 
   def test_archive_and_unarchive
     alice = User.create(username: 'alice')
-    exercise = UserExercise.create(user: alice, state: 'pending', archived: false)
+    exercise = UserExercise.create(user: alice, archived: false)
     exercise.submissions << Submission.create(user: alice) # temporary measure
     refute exercise.archived?
 
@@ -22,7 +22,6 @@ class UserExerciseTest < Minitest::Test
     alice = User.create!(username: 'alice')
     exercise = UserExercise.create!(
         user: alice,
-        state: 'done',
         submissions: [
             Submission.create!(user: alice, nit_count: 5),
             Submission.create!(user: alice, nit_count: 7)

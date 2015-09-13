@@ -8,7 +8,7 @@ class CommentThreadTest < Minitest::Test
   def setup
     super
     @user           = User.create(username: 'alice')
-    sub1            = Submission.create(state: 'pending', user: user, language: 'python', slug: 'one')
+    sub1            = Submission.create(user: user, language: 'python', slug: 'one')
     @comment        = Comment.create(user: user, submission: sub1, body: 'something')
     @body           = "Nice review"
     @comment_thread = CommentThread.create(
