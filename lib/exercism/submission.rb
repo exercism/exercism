@@ -22,7 +22,6 @@ class Submission < ActiveRecord::Base
     true
   end
 
-  scope :pending, ->{ where(state: %w(needs_input pending)) }
   scope :chronologically, -> { order(created_at: :asc) }
   scope :reversed, -> { order(created_at: :desc) }
   scope :not_commented_on_by, ->(user) {

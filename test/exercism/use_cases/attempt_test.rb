@@ -118,16 +118,5 @@ class AttemptTest < Minitest::Test
     attempt = Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE'))
     refute attempt.duplicate?
   end
-
-  def test_attempt_sets_exercise_as_current
-    Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE')).save
-    assert user.working_on?(Problem.new('ruby', 'two'))
-  end
-
-  def test_attempt_sets_completed_exercises_as_current
-    refute user.working_on?(Problem.new('ruby', 'one'))
-    Attempt.new(user, Iteration.new('ruby/one/one.rb' => 'CODE')).save
-    assert user.working_on?(Problem.new('ruby', 'one'))
-  end
 end
 

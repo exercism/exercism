@@ -99,10 +99,6 @@ class User < ActiveRecord::Base
     false
   end
 
-  def working_on?(problem)
-    submissions.where(language: problem.track_id, slug: problem.slug, state: %w(needs_input pending)).count > 0
-  end
-
   def nitpicks_trail?(track_id)
     nitpicker_languages.include?(track_id)
   end
@@ -143,24 +139,8 @@ class User < ActiveRecord::Base
     self == submission.user
   end
 
-  def latest_submission
-    @latest_submission ||= submissions.pending.order(created_at: :desc).first
-  end
-
-  def latest_submission_on(problem)
-    submissions_on(problem).first
-  end
-
-  def active_submissions
-    submissions.pending
-  end
-
   def unlocked_languages
     @unlocked_languages ||= exercises.where('iteration_count > 0').pluck('language').uniq
-  end
-
-  def completed_submissions_in(track_id)
-    submissions.done.where(language: track_id)
   end
 
   def track_ids
