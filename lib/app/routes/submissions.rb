@@ -59,11 +59,6 @@ module ExercismWeb
         end
 
         decrement_version(submission)
-        prior = submission.prior
-        if prior && (submission.state == 'pending')
-          prior.state = 'pending'
-          prior.save
-        end
         submission.destroy
         Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
         redirect "/"

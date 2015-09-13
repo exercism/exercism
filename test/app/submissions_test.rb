@@ -194,40 +194,6 @@ class SubmissionsTest < Minitest::Test
     assert_equal "http://example.org/", last_response.location
   end
 
-  def test_delete_superseeded_submission_does_not_change_state_of_prior_submission
-    data = {
-      user: bob,
-      language: 'ruby',
-      slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
-    }
-
-    sub  = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 10, version: 1))
-    sub2 = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 9, version: 2))
-    _ = Submission.create(data.merge(state: 'pending', created_at: Time.now - 8, version: 3))
-    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
-
-    delete "/submissions/#{sub2.key}", {}, login(bob)
-    assert_equal 'superseeded', sub.reload.state
-  end
-
-  def test_delete_pending_submission_changes_state_of_prior_submission
-    data = {
-      user: bob,
-      language: 'ruby',
-      slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
-    }
-
-    _ = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 10, version: 1))
-    sub2 = Submission.create(data.merge(state: 'superseeded', created_at: Time.now - 9, version: 2))
-    sub3 = Submission.create(data.merge(state: 'pending', created_at: Time.now - 8, version: 3))
-    Hack::UpdatesUserExercise.new(bob.id, 'ruby', 'word-count').update
-
-    delete "/submissions/#{sub3.key}", {}, login(bob)
-    assert_equal 'pending', sub2.reload.state
-  end
-
   def test_dependent_destroy_of_notifications
     data = {
       user: alice,
