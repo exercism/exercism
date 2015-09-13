@@ -52,14 +52,6 @@ class Submission < ActiveRecord::Base
 
   scope :recent, -> { since(7.days.ago) }
 
-  scope :completed_for, -> (problem) {
-    where(language: problem.track_id, slug: problem.slug, state: 'done')
-  }
-
-  scope :random_completed_for, -> (problem) {
-    completed_for(problem).order('RANDOM()').limit(1).first
-  }
-
   scope :related, -> (submission) {
     chronologically
       .where(user_id: submission.user.id, language: submission.track_id, slug: submission.slug)

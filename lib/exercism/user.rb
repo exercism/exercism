@@ -28,8 +28,8 @@ class User < ActiveRecord::Base
     save
   end
 
-  def can_access?(exercise)
-    ACL.where(user_id: id, language: exercise.language, slug: exercise.slug).count > 0
+  def can_access?(problem)
+    ACL.where(user_id: id, language: problem.track_id, slug: problem.slug).count > 0
   end
 
   def self.from_github(id, username, email, avatar_url)

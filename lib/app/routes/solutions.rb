@@ -7,23 +7,19 @@ module ExercismWeb
         language, slug = language.downcase, slug.downcase
 
         problem = Problem.new(language, slug)
-
-        unless current_user.nitpicker_on?(problem)
-          flash[:notice] = "You'll have access to that page when you complete #{slug} in #{language}"
+        unless current_user.can_access?(problem)
+          flash[:notice] = "You'll have access to that when you submit #{problem.name} in #{problem.language}"
           redirect '/'
         end
 
-        submission = Submission.random_completed_for(problem)
-        total = Submission.completed_for(problem).count
-
-        if submission.problem.nil?
-          # Need more info
-          Bugsnag.notify("WARN: unknown problem for submission #{submission.key}")
-          # try again
-          redirect "/code/%s/%s/random" % [language, slug]
+        exercises = UserExercise.archived.for(problem)
+        total = exercises.count
+        if total == 0
+          flash[:notice] = "No archived exercises for #{problem.name} in #{problem.language}"
+          redirect '/'
         end
 
-        erb :"code/random", locals: {submission: submission, total: total}
+        erb :"code/random", locals: {submission: exercises.randomized.first.submissions.last, total: total}
       end
     end
   end
