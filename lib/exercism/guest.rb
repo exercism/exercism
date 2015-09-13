@@ -10,32 +10,8 @@ class Guest
     []
   end
 
-  def nitpicks_trail?(_)
-    false
-  end
-
-  def nitpicker_languages
-    []
-  end
-
-  def current
-    {}
-  end
-
   def guest?
     true
-  end
-
-  def is?(_)
-    false
-  end
-
-  def new?
-    false
-  end
-
-  def nitpicker?
-    false
   end
 
   def owns?(_)

@@ -18,7 +18,7 @@ class Profile
   end
 
   def can_access?(exercise)
-    narcissistic? || manager? || current_user.nitpicker_on?(exercise.problem)
+    current_user.can_access?(exercise)
   end
 
   def has_current_exercises?
@@ -43,14 +43,6 @@ class Profile
 
   def track_ids
     @track_ids ||= archived_exercises.pluck('language').uniq
-  end
-
-  def narcissistic?
-    current_user.is?(user.username)
-  end
-
-  def manager?
-    !(current_user.managed_teams & user.teams).empty?
   end
 
   attr_reader :user, :current_user

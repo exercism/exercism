@@ -20,23 +20,6 @@ class AppExercisesTest < Minitest::Test
     assert_equal location, last_response.location, "Wrong redirect for GET exercises"
   end
 
-  def test_unlock_nitpicking
-    alice = User.create(username: 'alice', github_id: 1)
-    Submission.create(user: alice, language: 'ruby', slug: 'bob')
-    Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'bob').update
-
-    post '/exercises/ruby/bob', {}, login(alice)
-
-    assert alice.reload.nitpicker_on?(Problem.new('ruby', 'bob'))
-  end
-
-  def test_unlock_nitpicking_fails_if_no_submissions
-    alice = User.create(username: 'alice', github_id: 1)
-    post '/exercises/ruby/bob', {}, login(alice)
-
-    refute alice.reload.nitpicker_on?(Problem.new('ruby', 'bob'))
-  end
-
   def test_archive_and_unarchive
     alice = User.create(username: 'alice', github_id: 1)
     exercise = UserExercise.create(user: alice, language: 'go', slug: 'one', state: 'pending')

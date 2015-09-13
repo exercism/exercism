@@ -118,10 +118,6 @@ module ExercismWeb
         </li>}
         end
 
-        def nitpicker_languages
-          tracks.map(&:id) & current_user.nitpicker_languages
-        end
-
         def namify(slug)
           slug.to_s.split('-').map(&:capitalize).join('-')
         end

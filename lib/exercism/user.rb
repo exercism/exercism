@@ -91,60 +91,16 @@ class User < ActiveRecord::Base
     submissions.order('id DESC').where(language: problem.track_id, slug: problem.slug)
   end
 
-  def most_recent_submission
-    submissions.order("created_at ASC").last
-  end
-
   def guest?
     false
-  end
-
-  def nitpicks_trail?(track_id)
-    nitpicker_languages.include?(track_id)
-  end
-
-  def nitpicker_languages
-    unlocked_languages | mastery
   end
 
   def nitpicker
     @nitpicker ||= items_where "user_exercises", "iteration_count > 0"
   end
 
-  def is?(handle)
-    username == handle
-  end
-
-  def nitpicker_on?(problem)
-    mastery.include?(problem.track_id) || submitted?(problem)
-  end
-
-  def submitted?(problem)
-    exercises.where(language: problem.track_id, slug: problem.slug).count > 0
-  end
-
-  def completed?(problem)
-    exercises.where(language: problem.track_id, slug: problem.slug, state: 'done').count > 0
-  end
-
-  def nitpicker?
-    !mastery.empty? || submissions.count > 0
-  end
-
-  def new?
-    mastery.empty? && submissions.count == 0
-  end
-
   def owns?(submission)
     self == submission.user
-  end
-
-  def unlocked_languages
-    @unlocked_languages ||= exercises.where('iteration_count > 0').pluck('language').uniq
-  end
-
-  def track_ids
-    @track_ids ||= ACL.select('DISTINCT language').where(user_id: id).order(:language).map(&:language)
   end
 
   private

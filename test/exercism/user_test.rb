@@ -8,41 +8,9 @@ class UserTest < Minitest::Test
     assert_match %r{\A[a-z0-9]{32}\z}, user.key
   end
 
-  def test_user_is_nitpicker_on_completed_assignment
-    user = User.create
-    Submission.create(user: user, language: 'ruby', slug: 'one', state: 'done')
-    Hack::UpdatesUserExercise.new(user.id, 'ruby', 'one').update
-    one = Problem.new('ruby', 'one')
-    assert user.nitpicker_on?(one)
-  end
-
-  def test_user_is_not_nitpicker_on_current_assignment
-    user = User.create
-    Submission.create(user: user, language: 'ruby', slug: 'one', state: 'pending')
-    one = Problem.new('ruby', 'one')
-    refute user.nitpicker_on?(one)
-  end
-
   def test_user_not_a_guest
     user = User.new
     refute user.guest?
-  end
-
-  def test_user_is?
-    user = User.new(username: 'alice')
-    assert user.is?('alice')
-    refute user.is?('bob')
-  end
-
-  def test_user_without_submissions_is_new
-    user = User.new
-    assert user.new?
-  end
-
-  def test_user_with_submissions_isnt_new
-    user = User.new
-    def user.submissions; [:some]; end
-    refute user.new?
   end
 
   def test_create_user_from_github
