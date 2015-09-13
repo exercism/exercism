@@ -4,8 +4,10 @@ class Team < ActiveRecord::Base
 
   has_many :memberships, ->{ where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
   has_many :unconfirmed_memberships, ->{ where confirmed: false }, class_name: "TeamMembership", dependent: :destroy
+  has_many :confirmed_memberships, ->{ where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
   has_many :members, through: :memberships, source: :user
   has_many :unconfirmed_members, through: :unconfirmed_memberships, source: :user
+  has_many :confirmed_members, through: :confirmed_memberships, source: :user
   has_many :management_contracts, class_name: "TeamManager"
   has_many :managers, through: :management_contracts, source: :user
 

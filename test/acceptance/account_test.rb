@@ -28,8 +28,9 @@ class AccountTest < AcceptanceTestCase
       fill_in 'Usernames', with: 'one_username, two_username'
 
       click_on 'Save'
+      click_on 'Manage'
 
-      assert_equal '/teams/gocowboys', current_path
+      assert_equal '/teams/gocowboys/manage', current_path
       assert_content 'Team Go Cowboys'
       assert_content 'one_username'
       assert_content 'two_username'

@@ -18,6 +18,8 @@ class UserExercise < ActiveRecord::Base
       where('views.last_viewed_at > ?', 30.days.ago).order('views.last_viewed_at DESC')
   }
 
+  scope :by_activity, ->{ order('last_activity_at DESC') }
+
   before_create do
     self.key ||= Exercism.uuid
     true

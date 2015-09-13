@@ -28,6 +28,10 @@ class User < ActiveRecord::Base
     save
   end
 
+  def can_access?(exercise)
+    ACL.where(user_id: id, language: exercise.language, slug: exercise.slug).count > 0
+  end
+
   def self.from_github(id, username, email, avatar_url)
     user = User.where(github_id: id).first
     if user.nil?

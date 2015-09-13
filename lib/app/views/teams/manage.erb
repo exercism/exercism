@@ -93,9 +93,9 @@
     </form>
 
     <br/>
-    
+
     <div class="row">
-      <% members.each do |member| %>
+      <% team.confirmed_members.each do |member| %>
         <div class="col-sm-3">
           <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
           class="btn btn-xs btn-danger member_delete" style="margin: 10px 10px 10px 0">X</a>
@@ -104,5 +104,18 @@
         </div>
       <% end %>
     </div>
+
+    <div class="row">
+      <h4>Unconfirmed members</h4>
+      <% team.unconfirmed_members.each do |member| %>
+        <div class="col-sm-3">
+          <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
+          class="btn btn-xs btn-danger member_delete" style="margin: 10px 10px 10px 0">X</a>
+          <%= gravatar_tag member.avatar_url, size: 20 %>
+          <a href="/<%= member.username %>"><%= member.username %></a>
+        </div>
+      <% end %>
+    </div>
+
   </div>
 </div>
