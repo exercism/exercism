@@ -72,34 +72,6 @@ class IterationsApiTest < Minitest::Test
     assert_equal 204, last_response.status
   end
 
-  def test_skip_skipped_problem
-    Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', { key: @alice.key }
-      post '/iterations/ruby/one/skip', { key: @alice.key }
-    end
-
-    assert_equal 400, last_response.status
-    assert last_response.body.include?('already been skipped')
-  end
-
-  def test_skip_started_problem
-    submission = Submission.create!(
-      user: @alice,
-      language: 'ruby',
-      slug: 'one',
-    )
-
-    args = [submission.user.id, submission.language, submission.slug]
-    Hack::UpdatesUserExercise.new(*args).update
-
-    Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', { key: @alice.key }
-    end
-
-    assert_equal 400, last_response.status
-    assert last_response.body.include?('already been started')
-  end
-
   def test_skip_non_existent_problem
     Xapi.stub(:exists?, false) do
       post '/iterations/ruby/not-found/skip', { key: @alice.key }

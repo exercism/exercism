@@ -14,13 +14,13 @@
         <i class="fa fa-twitter"></i>
       </a>
     <% else %>
-      <% if my_submission = their_submission_to(current_user, submission) %>
+      <% unless own_uuid.empty? %>
         <a
-          href="/submissions/<%= my_submission.key %>"
+          href="/exercises/<%= own_uuid %>"
           class="btn btn-default"
           data-toggle="tooltip"
           data-placement="bottom"
-          title="My submission for this exercise"
+          title="My solution to this exercise"
           target="_blank">
           <i class="fa fa-rocket"></i>
         </a>

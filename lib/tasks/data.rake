@@ -1,29 +1,4 @@
 namespace :data do
-  desc "prevent people from getting hello world problem in tracks they're already doing."
-  task :hello do
-    require 'active_record'
-    require 'db/connection'
-    require './lib/exercism/user_exercise'
-    DB::Connection.establish
-
-    default_attributes = {
-      slug: 'hello-world',
-      state: 'done',
-      completed_at: Time.now,
-      is_nitpicker: false,
-      iteration_count: 0,
-    }
-    sql = "SELECT DISTINCT user_id, language FROM user_exercises"
-    ActiveRecord::Base.connection.execute(sql).to_a.each do |row|
-      attributes = {
-        user_id: row['user_id'],
-        language: row['language'],
-        key: SecureRandom.uuid.tr('-', ''),
-      }.merge(default_attributes)
-      UserExercise.create(attributes)
-    end
-  end
-
   namespace :cleanup do
     desc "fix iteration count"
     task :iteration_counts do
@@ -77,36 +52,6 @@ namespace :data do
       SQL
 
       ActiveRecord::Base.connection.execute(sql)
-    end
-
-    # One-off to fix a data problem that I believe
-    # was caused by a bug that has since been fixed.
-    desc "fix weird state in current submissions"
-    task :submissions do
-      require 'active_record'
-      require 'db/connection'
-      DB::Connection.establish
-      require './lib/exercism/user_exercise'
-      require './lib/exercism/submission'
-      require './lib/exercism/user'
-
-      sql = <<-SQL
-        SELECT * FROM user_exercises WHERE id IN (
-          SELECT user_exercise_id FROM submissions
-          WHERE state IN ('needs_input', 'pending')
-          GROUP BY user_exercise_id
-          HAVING COUNT(id) > 1
-        )
-      SQL
-      # I checked the production database
-      # and there are only a handful of matches, so
-      # we don't risk running out of memory.
-      UserExercise.find_by_sql(sql).each do |exercise|
-        *superseded, _ = exercise.submissions.order('created_at ASC').to_a
-        superseded.each do |submission|
-          submission.update_attribute(:state, 'superseded')
-        end
-      end
     end
   end
 
@@ -247,13 +192,7 @@ namespace :data do
 
     desc "migrate archived flag on exercises"
     task :archived do
-      require 'active_record'
-      require 'db/connection'
-      require './lib/exercism/user_exercise'
-      DB::Connection.establish
-
-      sql = "UPDATE user_exercises SET archived='t' WHERE state='done';"
-      ActiveRecord::Base.connection.execute(sql)
+      # TODO: fix the seed data to have archived flag instead of state
     end
 
     desc "migrate deprecated problems"

@@ -13,13 +13,13 @@
         </a>
 
       <% elsif submission.user != nit.nitpicker %>
-        <% if their_submission = their_submission_to(nit.nitpicker, submission) %>
+        <% unless own_uuid.empty? %>
           <a
-            href="/submissions/<%= their_submission.key %>"
+            href="/exercises/<%= own_uuid %>"
             class="pull-right btn btn-default btn-xs"
             data-toggle="tooltip"
             data-placement="bottom"
-            title="<%= nit.nitpicker.username %>'s submission for this exercise"
+            title="<%= nit.nitpicker.username %>'s solution to this exercise"
             target="_blank">
             <i class="fa fa-rocket"></i>
           </a>

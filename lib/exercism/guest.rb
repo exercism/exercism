@@ -10,6 +10,10 @@ class Guest
     []
   end
 
+  def exercises
+    UserExercise.where('1=2')
+  end
+
   def guest?
     true
   end

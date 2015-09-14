@@ -29,18 +29,12 @@ module ExercismAPI
         }
 
         exercise = UserExercise.where(exercise_attrs)
-          .first_or_initialize(iteration_count: 0, state: 'unstarted')
+          .first_or_initialize(iteration_count: 0)
 
         if exercise.new_record?
           exercise.save!
-
-          halt 204
-        else
-          message = "Exercise '#{slug}' in '#{language}' has already been "
-          message += (exercise.state == "unstarted") ? "skipped." : "started."
-
-          halt 400, {error: message}.to_json
         end
+        halt 204
       end
 
       post '/user/assignments' do

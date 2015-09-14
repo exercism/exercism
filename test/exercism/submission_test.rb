@@ -113,18 +113,6 @@ class SubmissionTest < Minitest::Test
     assert_equal expected, Submission.not_commented_on_by(user).sort
   end
 
-  def test_participant_submissions
-    user = User.create!
-    user_submission = problem_submission_for(user)
-
-    commenter = User.create!
-    commenter_submission = problem_submission_for(commenter)
-    submission.comments << Comment.new(body: 'test', user: commenter)
-
-    expected = [user_submission, commenter_submission].sort
-    assert_equal expected, submission.participant_submissions(user).sort
-  end
-
   def test_likes_by_submission
     s1 = Submission.create!(user: alice, language: 'ruby', slug: 'bob', created_at: 22.days.ago, nit_count: 1)
     Like.create!(submission: s1, user: fred)

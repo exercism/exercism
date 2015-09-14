@@ -18,7 +18,7 @@
   <div class="clearfix"></div>
 
   <% submission.comments.each do |nit| %>
-    <%= erb :"submissions/nit", locals: {nit: nit, submission: submission} %>
+    <%= erb :"submissions/nit", locals: {nit: nit, submission: submission, own_uuid: submission.exercise_uuid_by(nit.user)} %>
   <% end %>
 
   <hr>

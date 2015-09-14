@@ -9,8 +9,6 @@ class UserExercise < ActiveRecord::Base
 
   belongs_to :user
 
-  scope :active,    ->{ where(state: ['pending', 'needs_input', 'hibernating']) }
-  scope :completed, ->{ where(state: 'done') }
   scope :recently_viewed_by, lambda {|user|
     includes(:user).
       joins(:views).
@@ -49,13 +47,11 @@ class UserExercise < ActiveRecord::Base
   end
 
   def archive!
-    update_attributes(state: 'done', archived: true)
-    submissions.last.update_attributes(state: 'done')
+    update_attributes(archived: true)
   end
 
   def unarchive!
-    update_attributes(state: 'pending', archived: false)
-    submissions.last.update_attributes(state: 'pending')
+    update_attributes(archived: false)
   end
 
   def unlock!

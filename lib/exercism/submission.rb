@@ -14,7 +14,6 @@ class Submission < ActiveRecord::Base
   validates_presence_of :user
 
   before_create do
-    self.state          ||= "pending"
     self.nit_count      ||= 0
     self.version        ||= 0
     self.is_liked       ||= false
@@ -147,13 +146,8 @@ class Submission < ActiveRecord::Base
     @related ||= Submission.related(self)
   end
 
-  def participant_submissions(current_user = nil)
-    @participant_submissions ||= begin
-      user_ids = [*comments.map(&:user), current_user].compact.map(&:id)
-      self.class.reversed
-        .where(user_id: user_ids, language: track_id, slug: slug)
-        .where.not(state: 'superseded')
-    end
+  def exercise_uuid_by(user)
+    user.exercises.for(problem).pluck('key').first || ""
   end
 
   # Experiment: Cache the iteration number so that we can display it
