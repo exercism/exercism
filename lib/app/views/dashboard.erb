@@ -43,6 +43,31 @@
           <% else %>
             <p>You are not currently working on any exercises.</p>
           <% end %>
+          <% if dashboard.unsubmitted_exercises.present? %>
+            <p>You've fetched these problems. Now solve them!</p>
+            <ul class="nav nav-stacked" id="menu-current" role="menu">
+              <% dashboard.unsubmitted_exercises.limit(5).each do |exercise| %>
+                <li class="looks-list-item">
+                  <a role="menuitem"
+                     tabindex="-1"
+                     href=<%= "/exercises/#{exercise.language}/#{exercise.slug}/readme" %>>
+                    <table width="100%">
+                      <tr>
+                        <td width="60%">
+                          <%= "#{exercise.problem.name} (#{exercise.problem.language})" %>
+                        </td>
+                      </tr>
+                    </table>
+                  </a>
+                </li>
+              <% end %>
+              <% if dashboard.unsubmitted_exercises.size > 5 %>
+                <p>You have <%= dashboard.unsubmitted_exercises.size %> unsubmitted problems.</p>
+              <% end %>
+            </ul>
+          <% else %>
+            <p>You do not have any unsubmitted problems.</p>
+          <% end %>
         </div>
     </div>
 
