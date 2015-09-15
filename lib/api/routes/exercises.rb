@@ -13,9 +13,7 @@ module ExercismAPI
         end
 
         begin
-          result = Homework.new(current_user).all.to_json
-          LifecycleEvent.track('fetched', current_user.id)
-          result
+          Homework.new(current_user).all.to_json
         rescue Exception => e
           Bugsnag.notify(e)
           halt 500, {error: "Something went wrong, and it's not clear what it was. The error has been sent to our tracker. If you want to get involved, post an issue to GitHub so we can figure it out! https://github.com/exercism/exercism.io/issues"}.to_json

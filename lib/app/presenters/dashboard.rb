@@ -15,7 +15,11 @@ module ExercismWeb
       end
 
       def current_exercises
-        @current_exercises ||= user.exercises.where(archived: false).order('last_activity_at DESC')
+        user.exercises.current
+      end
+
+      def unsubmitted_exercises
+        user.exercises.unsubmitted
       end
 
       def trending
