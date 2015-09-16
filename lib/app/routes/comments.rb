@@ -10,6 +10,9 @@ module ExercismWeb
           redirect "/"
         end
         comment = CreatesComment.create(submission.id, current_user, params[:body])
+
+        comment.increment_five_a_day if comment.qualifying?
+
         unless comment.new_record?
           Notify.everyone(submission, 'nitpick', current_user)
           unless current_user == submission.user
