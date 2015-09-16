@@ -36,4 +36,16 @@ class Comment < ActiveRecord::Base
   def mentions
     ExtractsMentionsFromMarkdown.extract(body)
   end
+
+  def qualifying?
+    submission_user != user
+  end
+
+  def increment_five_a_day
+    if FiveADayCount.exists?(:user_id => user.id)
+      FiveADayCount.where(:user_id => user.id).first.increment!(:total)
+    else
+      FiveADayCount.create(user_id: user.id, total: 1)
+    end
+  end
 end
