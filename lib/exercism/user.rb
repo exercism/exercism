@@ -103,6 +103,14 @@ class User < ActiveRecord::Base
     self == submission.user
   end
 
+  def increment_five_a_day
+    if FiveADayCount.exists?(:user_id => self.id)
+      FiveADayCount.where(:user_id => self.id).first.increment!(:total)
+    else
+      FiveADayCount.create(user_id: self.id, total: 1)
+    end
+  end
+
   private
 
   def items_where(table, condition)

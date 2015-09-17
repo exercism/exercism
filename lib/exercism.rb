@@ -16,6 +16,7 @@ require 'exercism/cohort'
 require 'exercism/comment'
 require 'exercism/comment_thread'
 require 'exercism/converts_markdown_to_html'
+require 'exercism/five_a_day_count'
 require 'exercism/github'
 require 'exercism/guest'
 require 'exercism/inbox'
@@ -42,6 +43,7 @@ require 'exercism/view'
 require 'exercism/work'
 require 'exercism/language_track'
 require 'exercism/user_lookup'
+
 
 require 'db/connection'
 DB::Connection.establish
