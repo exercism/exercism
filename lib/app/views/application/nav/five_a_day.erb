@@ -1,0 +1,16 @@
+<li class="dropdown">
+  <% total = 5 %>
+  <% if total >= 5 %>
+    <a class="dropdown-toggle" data-toggle="tooltip" data-placement="bottom" title="Good job!" style="font-size: 16pt">
+      <i class="fa fa-check"></i>
+    </a>
+  <% else %>
+    <a class="dropdown-toggle" href="#" data-toggle="dropdown" style="font-size: 20pt; font-weight: bold">
+    <%= 5 - total %>
+    <b class="caret"></b>
+    <ul class="dropdown-menu" role="menu">
+      <!-- PROBLEMS GO HERE -->
+    </ul>
+  <% end %>
+  </a>
+</li>
