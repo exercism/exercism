@@ -36,4 +36,8 @@ class Comment < ActiveRecord::Base
   def mentions
     ExtractsMentionsFromMarkdown.extract(body)
   end
+
+  def qualifying?
+    submission_user != user
+  end
 end
