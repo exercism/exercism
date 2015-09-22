@@ -23,7 +23,7 @@ module ExercismWeb
       end
 
       def trending
-        Submission.trending(user, 4.hours)
+        Trending.for(user, 4.hours)
       end
 
       def has_activity?

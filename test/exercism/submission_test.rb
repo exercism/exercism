@@ -113,17 +113,6 @@ class SubmissionTest < Minitest::Test
     assert_equal expected, Submission.not_commented_on_by(user).sort
   end
 
-  def test_trending_only_returns_recent_activity
-    UserExercise.create(user: alice, language: 'ruby', slug: 'bob', iteration_count: 1, is_nitpicker: true)
-    s1 = Submission.create!(user: alice, language: 'ruby', slug: 'bob', created_at: 22.days.ago, nit_count: 1)
-    Comment.create!(submission: s1, user: fred, body: ' hope that after I die, people will say of me: "That guy sure owed me a lot of money."')
-    Like.create!(submission: s1, user: fred)
-    Comment.create!(submission: s1, user: fred, body: 'If you ever drop your keys into a river of molten lava, let em go, because, man, theyre gone.', created_at: Time.now - 12.hours)
-    ACL.authorize(alice, s1.problem)
-    trending = Submission.trending(alice, 4.hours)
-    assert_equal trending.first.total_activity, 2
-  end
-
   def test_exercise_viewed_updates_single_record_per_user_and_exercise
     alice = User.create!(username: 'alice')
     bob = User.create!(username: 'bob')

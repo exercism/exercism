@@ -109,8 +109,8 @@
             <ul class="nav nav-stacked" id="menu-current" role="menu">
               <% dashboard.trending.each do |trending| %>
               <li class="looks-list-item">
-                <p><a role="menuitem" tabindex="-1" href="/submissions/<%= trending.key %>">
-                  <%= trending.problem.name + ' (' + trending.problem.language + ') ' %></a>by <a href="/<%= trending.username %>"><%= trending.username %></a></p>
+                <p><a role="menuitem" tabindex="-1" href="/submissions/<%= trending.uuid %>">
+                  <%= trending.name + ' (' + trending.language + ') ' %></a>by <a href="/<%= trending.username %>"><%= trending.username %></a></p>
               </li>
               <% end %>
             </ul>

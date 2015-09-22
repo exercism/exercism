@@ -63,54 +63,6 @@ class Submission < ActiveRecord::Base
     submission
   end
 
-  def self.trending(user, timeframe)
-    ts = Time.now-timeframe
-    sql = <<-SQL
-      SELECT
-        s.*, u.username,
-        t1.total_comments,
-        t2.total_likes,
-        (COALESCE(total_likes,0) + COALESCE(total_comments,0)) AS total_activity
-
-        FROM submissions s
-
-        INNER JOIN users u ON u.id=s.user_id
-
-        LEFT JOIN (
-          SELECT COUNT(c.id) AS total_comments, sub.id
-          FROM submissions sub
-          INNER JOIN comments c
-          ON c.submission_id=sub.id
-          WHERE c.created_at > '#{ts}'
-          GROUP BY sub.id
-        ) AS t1
-        ON t1.id=s.id
-
-        LEFT JOIN (
-          SELECT COUNT(lk.id) AS total_likes, sub.id
-          FROM submissions sub
-          INNER JOIN likes lk
-          ON lk.submission_id=sub.id
-          WHERE lk.created_at > '#{ts}'
-          GROUP BY sub.id
-        ) AS t2
-        ON t2.id=s.id
-
-        INNER JOIN acls
-        ON acls.language=s.language AND acls.slug=s.slug
-
-        WHERE (
-          COALESCE(total_likes,0) + COALESCE(total_comments,0) > 0
-        )
-        AND acls.user_id=#{user.id}
-
-        ORDER BY COALESCE(total_likes,0) + COALESCE(total_comments,0) DESC
-        LIMIT 10
-      SQL
-
-      find_by_sql(sql)
-  end
-
   def viewed_by(user)
     View.create(user_id: user.id, exercise_id: user_exercise_id, last_viewed_at: Time.now.utc)
   rescue ActiveRecord::RecordNotUnique
