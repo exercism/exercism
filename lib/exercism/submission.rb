@@ -63,27 +63,52 @@ class Submission < ActiveRecord::Base
     submission
   end
 
-  def self.likes_by_submission
-    select('count(*) as total_likes, submissions.id')
-      .joins(:likes)
-      .group(:id)
-  end
-
-  def self.comments_by_submission
-    select('count(*) as total_comments, submissions.id')
-      .joins(:comments)
-      .group(:id)
-  end
-
   def self.trending(user, timeframe)
-    select("submissions.*, username, total_likes, total_comments, (COALESCE(total_likes,0) + COALESCE(total_comments,0)) As total_activity")
-      .joins("LEFT JOIN (#{comments_by_submission.where(comments: { created_at: (Time.now - timeframe)..Time.now }).to_sql}) c on c.id = submissions.id")
-      .joins("LEFT JOIN (#{likes_by_submission.where(likes: { created_at: (Time.now - timeframe)..Time.now }).to_sql}) l on l.id = submissions.id")
-      .joins("INNER JOIN (SELECT language, slug FROM user_exercises WHERE user_id = #{user.id} AND is_nitpicker = TRUE) u on u.language = submissions.language AND u.slug = submissions.slug")
-      .joins(:user)
-      .order("COALESCE(total_likes,0) + COALESCE(total_comments,0) DESC")
-      .where('COALESCE(total_likes,0) + COALESCE(total_comments,0) > 0')
-      .limit(10)
+    ts = Time.now-timeframe
+    sql = <<-SQL
+      SELECT
+        s.*, u.username,
+        t1.total_comments,
+        t2.total_likes,
+        (COALESCE(total_likes,0) + COALESCE(total_comments,0)) AS total_activity
+
+        FROM submissions s
+
+        INNER JOIN users u ON u.id=s.user_id
+
+        LEFT JOIN (
+          SELECT COUNT(c.id) AS total_comments, sub.id
+          FROM submissions sub
+          INNER JOIN comments c
+          ON c.submission_id=sub.id
+          WHERE c.created_at > '#{ts}'
+          GROUP BY sub.id
+        ) AS t1
+        ON t1.id=s.id
+
+        LEFT JOIN (
+          SELECT COUNT(lk.id) AS total_likes, sub.id
+          FROM submissions sub
+          INNER JOIN likes lk
+          ON lk.submission_id=sub.id
+          WHERE lk.created_at > '#{ts}'
+          GROUP BY sub.id
+        ) AS t2
+        ON t2.id=s.id
+
+        INNER JOIN acls
+        ON acls.language=s.language AND acls.slug=s.slug
+
+        WHERE (
+          COALESCE(total_likes,0) + COALESCE(total_comments,0) > 0
+        )
+        AND acls.user_id=#{user.id}
+
+        ORDER BY COALESCE(total_likes,0) + COALESCE(total_comments,0) DESC
+        LIMIT 10
+      SQL
+
+      find_by_sql(sql)
   end
 
   def viewed_by(user)
