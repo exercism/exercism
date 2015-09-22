@@ -58,19 +58,20 @@
           <% inbox.exercises.each do |exercise| %>
           <li class="<%= 'unread' if exercise.unread? %>">
             <span class="col-md-10">
-              <img src="<%= exercise.avatar_url%>" width="60" height="60" alt="" class="avatar">
-
-              <a href="/exercises/<%= exercise.uuid %>" class="exercise">
-                <h4>
-                  <%= exercise.problem.name %>
-                  <span class="profile"> <%= exercise.username %> </span>
-                </h4>
-                <p>
-                  <%= exercise.iteration_count %> <%= "iteration".pluralize(exercise.iteration_count) %>
-                  &middot;
-                  <%= exercise.comment_count %> <%= "comments".pluralize(exercise.comment_count) %>
-                </p>
-                <p><%= [exercise.last_activity, ago(exercise.at)].join(" ") %></p>
+              <a href="/exercises/<%= exercise.uuid %>" class="exercise list-group-item">
+                <img src="<%= exercise.avatar_url%>" width="60" height="60" alt="" class="avatar">
+                <div class="inbox-text">
+                  <h4>
+                    <%= exercise.problem.name %>
+                    <span class="profile"> <%= exercise.username %> </span>
+                  </h4>
+                  <p>
+                    <%= exercise.iteration_count %> <%= "iteration".pluralize(exercise.iteration_count) %>
+                    &middot;
+                    <%= exercise.comment_count %> <%= "comments".pluralize(exercise.comment_count) %>
+                  </p>
+                  <p><%= [exercise.last_activity, ago(exercise.at)].join(" ") %></p>
+                </div>
               </a>
             </span>
             <span class="col-md-2">
