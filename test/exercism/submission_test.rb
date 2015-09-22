@@ -121,7 +121,7 @@ class SubmissionTest < Minitest::Test
     Comment.create!(submission: s1, user: fred, body: 'If you ever drop your keys into a river of molten lava, let em go, because, man, theyre gone.', created_at: Time.now - 12.hours)
     ACL.authorize(alice, s1.problem)
     trending = Submission.trending(alice, 4.hours)
-    assert trending.first.total_activity, 2
+    assert_equal trending.first.total_activity, 2
   end
 
   def test_exercise_viewed_updates_single_record_per_user_and_exercise
