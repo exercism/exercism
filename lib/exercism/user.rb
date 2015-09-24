@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :submissions
   has_many :notifications
   has_many :comments
+  has_many :five_a_day_counts
   has_many :exercises, class_name: "UserExercise"
   has_many :lifecycle_events, ->{ order 'created_at ASC' }, class_name: "LifecycleEvent"
 
@@ -102,12 +103,55 @@ class User < ActiveRecord::Base
     self == submission.user
   end
 
-  private
-
   def items_where(table, condition)
     sql = "SELECT language AS track_id, slug FROM #{table} WHERE user_id = %s AND #{condition} ORDER BY created_at ASC" % id.to_s
     User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, problems|
       problems[result["track_id"]] << result["slug"]
     end
+  end
+
+  def increment_five_a_day
+    if FiveADayCount.exists?(["user_id = ? and day = ?", self.id, Date.today])
+      FiveADayCount.where(["user_id = ? and day = ?", self.id, Date.today]).first.increment!(:total)
+    else
+      FiveADayCount.create(user_id: self.id, total: 1, day: Date.today)
+    end
+  end
+
+  def count_existing_five_a_day
+    sql = "select total
+           from five_a_day_counts
+           where user_id = #{id}
+           and day = '#{Date.today}'"
+    minus_count = ActiveRecord::Base.connection.execute(sql).field_values("total").first
+    if minus_count.nil?
+      minus_count = 0
+    else
+      minus_count
+    end
+  end
+
+  def exercises_list
+    @exercises_list ||= ActiveRecord::Base.connection.execute(exercises_list_sql).to_a
+  end
+
+private
+
+  def exercises_list_sql
+    <<-SQL
+      SELECT * FROM (SELECT DISTINCT ON (s.user_id)
+          a.user_id AS commenter, s.user_id AS author_id, u.username AS ex_author, s.language, s.slug, s.nit_count, s.key, ue.last_activity_at
+          FROM acls a
+          INNER JOIN submissions s ON a.user_id <> s.user_id
+          INNER JOIN user_exercises ue ON s.user_exercise_id = ue.id
+          INNER JOIN users u ON s.user_id = u.id
+          INNER JOIN comments c ON s.id = c.submission_id
+          WHERE a.language = s.language
+          AND a.slug = s.slug
+          AND a.user_id <> c.user_id
+          AND ue.last_activity_at > (NOW()-interval '30 days')) AS exercises
+      ORDER BY nit_count ASC
+      LIMIT (5 - #{count_existing_five_a_day});
+    SQL
   end
 end
