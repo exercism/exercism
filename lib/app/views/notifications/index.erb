@@ -13,10 +13,9 @@
       </form>
       <% end %>
 
-      <% unless inbox.has_stuff? %>
+      <% unless inbox.has_notifications? %>
         <p>Notifications tell you about new comments or iterations in conversations that you are participating in. If you are on a team, you will also get notifications about activity from your team members.</p>
         <p>At the moment this is not configurable.</p>
-        <p>You will also receive system-level alerts here, such as team invitations or notifications about feature changes on the site.</p>
       <% end %>
 
       <p class="well">Are you looking for a discussion you recently viewed? There's a <a href="/looks">list of these</a> available.</p>
@@ -39,22 +38,6 @@
               <input type="hidden" name="_method" value="put" />
               <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger"/>
             </form>
-          </li>
-          <% end %>
-        </ul>
-      <% end %>
-
-      <% if inbox.has_alerts? %>
-        <ul style="list-style-type: none; margin: 0;">
-          <% inbox.alerts.each do |alert| %>
-          <li class="alert-row">
-            <span class="fa fa-bell-o alert-icon"></span>
-            <form action="/notifications/alert-<%= alert.id %>" method='POST' class="delete-alert">
-              <input type="hidden" name="_method" value="delete">
-              <button type="submit" class="btn btn-danger" name="delete"><i class="fa fa-times"></i></button>
-            </form>
-            <%= alert.text %>
-            <a href="<%= alert.url %>"><%= alert.link_text %></a>
           </li>
           <% end %>
         </ul>
