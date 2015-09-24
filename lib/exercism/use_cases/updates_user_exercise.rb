@@ -16,7 +16,6 @@ module Hack
       exercise.slug = latest.slug
       exercise.created_at ||= earliest_submission_at
       exercise.updated_at = most_recent_change_at
-      exercise.is_nitpicker = true
       exercise.iteration_count = submissions.count
       exercise.last_iteration_at = latest.created_at
       exercise.update_last_activity(latest)

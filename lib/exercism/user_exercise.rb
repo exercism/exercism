@@ -54,10 +54,6 @@ class UserExercise < ActiveRecord::Base
     update_attributes(archived: false)
   end
 
-  def unlock!
-    update_attributes(is_nitpicker: true)
-  end
-
   def nit_count
     submissions.pluck(:nit_count).sum
   end
