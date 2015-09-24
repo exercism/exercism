@@ -1,5 +1,9 @@
 <li>
   <a role="menuitem" tabindex="-1" href="/notifications">
-    Notifications <span class="badge"><%= notification_count %></span>
+    <% if notification_count > 0 %>
+      <i class="fa fa-bell"></i> <span class="badge"><%= notification_count %></span>
+    <% else %>
+      <i class="fa fa-bell"></i>
+    <% end %>
   </a>
 </li>

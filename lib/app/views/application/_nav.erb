@@ -28,8 +28,8 @@
       <% if current_user.sees_exercises? %>
         <li><a href="/inbox">Exercises</a></li>
       <% end %>
-      <%= erb :"application/nav/notifications" %>
       <%= erb :"application/nav/teams" %>
+      <%= erb :"application/nav/notifications" %>
       <%= erb :"application/nav/account" %>
     <% else %>
       <li><a href="/login">Log in with GitHub</a></li>
