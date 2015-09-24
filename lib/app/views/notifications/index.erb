@@ -1,24 +1,23 @@
 <div class="container">
   <section class="page-header">
-    <h1>Notifications (<%= inbox.count %>)</h1>
+    <h1>Notifications (<%= inbox.count %>)
+         </h1>
   </section>
+
+  <% if inbox.has_notifications? %>
+    <form action="/notifications/read" method='POST' style="margin: 18px 120px 0 0;">
+      <div>
+        <button type="submit" class="btn btn-danger pull-right" name="mark-all-read">Mark all as read</button>
+      </div>
+    </form>
+  <% end %>
+
   <div class="row">
-    <div class="col-md-12">
-
-      <% if inbox.has_notifications? %>
-      <form action="/notifications/read" method='POST' style="float: right; margin: 18px 120px 0 0;">
-        <div>
-          <button type="submit" class="btn btn-danger" name="mark-all-read">Mark all as read</button>
-        </div>
-      </form>
-      <% end %>
-
+    <div class="col-md-8">
       <% unless inbox.has_notifications? %>
-        <p>Notifications tell you about new comments or iterations in conversations that you are participating in. If you are on a team, you will also get notifications about activity from your team members.</p>
-        <p>At the moment this is not configurable.</p>
+        <p>Notifications tell you about new comments or submissions in conversations that you are participating in, activity from team members, team invitations, and notifications about feature changes on the site.</p>
+        <p>Currently, you cannot configure your notifications.</p>
       <% end %>
-
-      <p class="well">Are you looking for a discussion you recently viewed? There's a <a href="/looks">list of these</a> available.</p>
 
       <% if inbox.has_unconfirmed_team_memberships? %>
         <ul style="list-style-type: none; margin: 0;">
@@ -26,17 +25,18 @@
           <li class="alert-row">
             <span class="fa fa-bell-o alert-icon"></span>
             <% if team_membership.inviter.present? %>
-            <a href="<%= team_membership.inviter.username %>"><%= team_membership.inviter.username.capitalize %></a> would like you to join the team <%= team_membership.team.name %>.
+              <a href="<%= team_membership.inviter.username %>"><%= team_membership.inviter.username %></a> would like you to join the team <%= team_membership.team.name %>.
             <% else %>
-            You are invited to join the team <%= team_membership.team.name %>.
+              You are invited to join the team <%= team_membership.team.name %>. 
             <% end %>
-            <form action="<%= "/teams/#{team_membership.team.slug}/confirm" %>" method="post" class="inline">
-              <input type="hidden" name="_method" value="put"/>
-              <input type="submit" name="update" value="Accept invitation" class="btn btn-xs btn-success"/>
-            </form>
             <form action="<%= "/teams/#{team_membership.team.slug}/leave" %>" method="post" class="inline">
               <input type="hidden" name="_method" value="put" />
-              <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger"/>
+              <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger pull-right"/>
+            </form>
+
+            <form action="<%= "/teams/#{team_membership.team.slug}/confirm" %>" method="post" class="inline">
+              <input type="hidden" name="_method" value="put"/>
+              <input type="submit" name="update" value="Accept" class="btn btn-xs btn-success pull-right" style="margin-right: 5px" />
             </form>
           </li>
           <% end %>
@@ -46,36 +46,34 @@
       <ul style="list-style-type: none; margin: 0;">
         <% inbox.notifications.each do |notification| %>
           <% if notification.item %>
-            <li style="padding: 5px 0;">
-
+            <li class="alert-row">
               <% if notification.regarding == 'code' %>
                 <span style="padding-right: 5px;" class="fa fa-code"></span>
               <% else %>
                 <span style="padding-right: 5px;" class="fa fa-comment-o"></span>
               <% end %>
 
-              <a href="/submissions/<%= notification.item.key %>">
-                <%= notification.language %>:
-                <%= notification.slug %> &middot;
-                <% if notification.item.user %>
-                  <%= notification.item.user.username %>
-                <% end %>
-              </a>
-
-              <br>
-
-              <p style="padding-left: 24px;">
               <% if notification.regarding == 'code' %>
-                New iteration
+                <% if notification.item.user %>
+                  <a href="/<%= notification.item.user.username %>"><%= notification.item.user.username %></a> submitted a
+                <% end %>
+                new iteration of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= notification.language.capitalize %></a>
+              
               <% elsif notification.regarding == 'nitpick' %>
-                <b><%= notification.creator.username %></b> commented
+                <% if notification.item.user.id == inbox.user.id %>
+                  <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> commented on your 
+                <% else %>
+                  <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> commented on <a href="/<%= notification.item.user.username %>"><%= notification.item.user.username %></a>'s
+                <% end %>
+                <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= notification.language.capitalize %></a>
+              
               <% elsif notification.regarding == 'like' %>
-                <b><%= notification.creator.username %></b> liked
+                <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> liked your submission of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= notification.language.capitalize %></a>
               <% end %>
+
               <%= ago(notification.created_at) %>
-              </p>
             </li>
-            <% end %>
+          <% end %>
         <% end %>
       </ul>
     </div>
