@@ -18,7 +18,7 @@ namespace :db do
   end
 
   desc "generate seed data"
-  task :seed do
+  task :seed => ["db:drop", "db:create", "db:migrate"] do
     require 'bundler'
     Bundler.require
     require 'exercism'
