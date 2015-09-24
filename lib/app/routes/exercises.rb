@@ -72,6 +72,10 @@ module ExercismWeb
         flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now reactivated."
         redirect '/'
       end
+
+      get '/five_a_aday/:key' do |key|
+        exercise = FiveADayCount.find_by_key(key)
+        end
     end
   end
 end
