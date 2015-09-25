@@ -3,6 +3,10 @@ require 'app/presenters/problems'
 module ExercismWeb
 	module Routes
 		class Languages < Core
+      get '/languages' do
+        erb :"languages/all"
+      end
+
       get '/languages/:track_id' do |track_id|
         begin
           active = ExercismWeb::Presenters::Tracks.find(track_id.to_s).active?

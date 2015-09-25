@@ -10,6 +10,8 @@
     <li class="dropdown">
       <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">Languages<b class="caret"></b></a>
     <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
+      <li><a role="menuitem" tabindex="-1" href="/languages">All languages</li>
+      <li role="separator" class="divider"></li>
       <% tracks.each do |t| %>
         <% if t.active? %>
           <li>

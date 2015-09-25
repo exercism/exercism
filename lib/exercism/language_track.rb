@@ -10,6 +10,18 @@ class LanguageTrack
     end
   end
 
+  def num_users
+    Submission.where("language = ?", "#{language}").distinct.count(:user_id)
+  end
+
+  def num_iterations
+    Submission.where("language = ?", "#{language}").count
+  end
+
+  def avg_comments
+    Submission.where("language = ?", "#{language}").average(:nit_count).to_i
+  end
+
   private
     def problems
       all_tracks['tracks'].find do |track|
