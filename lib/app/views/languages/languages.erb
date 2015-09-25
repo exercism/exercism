@@ -13,8 +13,15 @@
 				<% end %>
 				<h2 class="header">Available Exercises</h2>
 				<% problems.each do |problem| %>
-					<h5><a href="/exercises/<%= slug %>/<%= problem.slug %>/readme"><%= problem.name %></a></h5>
+					<h5>
+						<a href="/exercises/<%= slug %>/<%= problem.slug %>/readme"><%= problem.name%></a>
+						<b class="caret fuchsia" data-toggle="collapse" data-target="#<%=problem.slug%>" aria-expanded="false" aria-controls="<%=problem.slug%>"></b>
+					</h5>
+					<div class="collapse" id="<%=problem.slug%>">
+					  <div class="well">
 						<p><%= problem.blurb %></p>
+					</div>
+				</div>
 				<% end %>
 			</div>
 		</article>
