@@ -102,6 +102,10 @@ class User < ActiveRecord::Base
     self == submission.user
   end
 
+  def default_language
+    ACL.select('DISTINCT language').where(user_id: id).order(:language).map(&:language).first
+  end
+
   private
 
   def items_where(table, condition)
