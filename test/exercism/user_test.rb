@@ -103,6 +103,22 @@ class UserTest < Minitest::Test
     refute TeamMembership.exists?(team: other_team, user: bob, inviter: alice), 'Unconfirmed TeamMembership was deleted.'
   end
 
+  def test_increment_adds_to_table
+    fred = User.create(username: 'fred')
+    fred.increment_five_a_day
+    count = FiveADayCount.where(user_id: fred.id).first
+    assert_equal 1, count.total
+  end
+
+  def test_increment_updates_single_record_per_user
+    fred = User.create(username: 'fred')
+    5.times {fred.increment_five_a_day}
+
+    count = FiveADayCount.where(user_id: fred.id).first
+    assert_equal 5, count.total
+    assert_equal 1, FiveADayCount.count
+  end
+
   private
 
   def create_submission(problem, attributes={})
@@ -110,6 +126,4 @@ class UserTest < Minitest::Test
     attributes.each { |key, value| submission[key] = value }
     submission
   end
-
 end
-

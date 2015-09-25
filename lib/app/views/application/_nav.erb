@@ -25,6 +25,7 @@
 
   <ul class="nav navbar-nav navbar-right">
     <% if !current_user.guest? %>
+      <%= erb :"application/nav/five_a_day" %>  
       <% if current_user.sees_exercises? %>
         <li><a href="/inbox">Exercises</a></li>
       <% end %>
