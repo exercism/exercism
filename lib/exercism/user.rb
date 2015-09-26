@@ -157,6 +157,7 @@ private
           AND a.user_id <> c.user_id
           AND a.user_id <> s.user_id
           AND a.user_id = #{id}
+          AND s.slug <> 'hello-world'
           AND ue.last_activity_at > (NOW()-INTERVAL '30 days')) AS exercises
       ORDER BY nit_count ASC
       LIMIT (5 - #{count_existing_five_a_day});
