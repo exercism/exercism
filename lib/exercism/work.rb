@@ -1,8 +1,7 @@
 class Work
   attr_reader :user
 
-  class Suggestion < Struct.new(:uuid, :language, :slug, :username)
-  end
+  Suggestion = Struct.new(:uuid, :language, :slug, :username)
 
   def initialize(user)
     @user = user

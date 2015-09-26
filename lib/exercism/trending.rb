@@ -1,5 +1,5 @@
 module Trending
-  class Exercise < Struct.new(:uuid, :track_id, :slug, :username)
+  Exercise = Struct.new(:uuid, :track_id, :slug, :username) do
     include Named
 
     def language

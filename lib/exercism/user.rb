@@ -129,7 +129,7 @@ class User < ActiveRecord::Base
     @exercises_list ||= ActiveRecord::Base.connection.execute(five_a_day_exercises_sql).to_a
   end
 
-private
+  private
 
   def items_where(table, condition)
     sql = "SELECT language AS track_id, slug FROM #{table} WHERE user_id = %s AND #{condition} ORDER BY created_at ASC" % id.to_s

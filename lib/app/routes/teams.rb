@@ -22,7 +22,6 @@ module ExercismWeb
 
       get '/teams/:slug/manage' do |slug|
         please_login
-        team = Team.find_by_slug(slug)
         only_for_team_managers(slug, "You are not allowed to manage this team.") do |team|
           erb :"teams/manage", locals: {team: team, members: team.all_members.sort_by {|m| m.username.downcase}}
         end

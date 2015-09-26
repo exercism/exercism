@@ -1,7 +1,7 @@
 require 'will_paginate/array'
 
 class Inbox
-  class Exercise < Struct.new(:id, :uuid, :problem, :last_activity, :last_activity_at, :iteration_count, :username, :avatar_url)
+  Exercise = Struct.new(:id, :uuid, :problem, :last_activity, :last_activity_at, :iteration_count, :username, :avatar_url) do
     attr_writer :comment_count
 
     def comment_count
@@ -141,7 +141,7 @@ class Inbox
         AND ex.language='#{track_id}'
         AND ex.slug != 'hello-world'
         AND ex.iteration_count > 0
-        AND ex.id IN (#{ids.join(",")})
+        AND ex.id IN (#{ids.join(',')})
     SQL
   end
 
@@ -151,7 +151,7 @@ class Inbox
     FROM submissions s
     INNER JOIN comments c
     ON c.submission_id=s.id
-    WHERE s.user_exercise_id IN (#{ids.join(",")})
+    WHERE s.user_exercise_id IN (#{ids.join(',')})
     GROUP BY s.user_exercise_id
     SQL
   end
