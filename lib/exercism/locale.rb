@@ -1,7 +1,8 @@
 class UnknownLocale
   attr_reader :file, :extension
   def initialize(file, extension)
-    @file, @extension = file, extension
+    @file = file
+    @extension = extension
   end
 
   def language
