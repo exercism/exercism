@@ -7,43 +7,43 @@ require_relative '../../api_helper.rb'
 require_relative '../../app_helper.rb'
 
 class PresentersProblemsTest < Minitest::Test
-	include Rack::Test::Methods
-	include DBCleaner
+  include Rack::Test::Methods
+  include DBCleaner
 
-	def app
-		ExercismWeb::App
-	end
+  def app
+    ExercismWeb::App
+  end
 
-	def test_knows_its_track_id
-		track = ExercismWeb::Presenters::Special::Problems.new("ruby")
-		assert_equal "ruby", track.track_id
-	end
+  def test_knows_its_track_id
+    track = ExercismWeb::Presenters::Special::Problems.new("ruby")
+    assert_equal "ruby", track.track_id
+  end
 
-	def all_problems_json
-		File.read("./test/fixtures/approvals/api_all_problems.approved.json")
-	end
+  def all_problems_json
+    File.read("./test/fixtures/approvals/api_all_problems.approved.json")
+  end
 
-	def test_that_fetch_all_problems_can_get_all_problems
-		Xapi.stub(:get, [200, all_problems_json]) do
-			get '/problems'
-			problems = ExercismWeb::Presenters::Special::Problems.new('ruby')
-			assert_includes problems.fetch_all_problems.to_s, '"slug"=>"zipper"'
-		end
-	end
+  def test_that_fetch_all_problems_can_get_all_problems
+    Xapi.stub(:get, [200, all_problems_json]) do
+      get '/problems'
+      problems = ExercismWeb::Presenters::Special::Problems.new('ruby')
+      assert_includes problems.fetch_all_problems.to_s, '"slug"=>"zipper"'
+    end
+  end
 
-	def test_can_return_problems_for_specific_track
-  	Xapi.stub(:get, [200, all_problems_json]) do
-  		get '/languages/ruby'
-  	  problems = ExercismWeb::Presenters::Special::Problems.new('ruby')
-  	  assert_includes problems.track_problems.to_s, "Write a program that implements a binary search algorithm."
-  	end
+  def test_can_return_problems_for_specific_track
+    Xapi.stub(:get, [200, all_problems_json]) do
+      get '/languages/ruby'
+      problems = ExercismWeb::Presenters::Special::Problems.new('ruby')
+      assert_includes problems.track_problems.to_s, "Write a program that implements a binary search algorithm."
+    end
   end
 
   def test_does_not_return_problems_not_in_specific_track
-  	Xapi.stub(:get, [200, all_problems_json]) do
-  		get '/languages/ruby'
-  	  problems = ExercismWeb::Presenters::Special::Problems.new('ruby')
-			refute_includes problems.track_problems.to_s, "Compute the result for a game of Hex / Polygon"
-		end
+    Xapi.stub(:get, [200, all_problems_json]) do
+      get '/languages/ruby'
+      problems = ExercismWeb::Presenters::Special::Problems.new('ruby')
+      refute_includes problems.track_problems.to_s, "Compute the result for a game of Hex / Polygon"
+    end
   end
 end

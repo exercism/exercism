@@ -32,7 +32,7 @@ namespace :db do
     sql = "SELECT 'user exists' FROM pg_user WHERE usename = '#{user}'"
     out, _, status = Open3.capture3('psql', '-t', '-h', config.host,
                                     '-p', config.port, '-c', sql)
-    if status.success? and not out.include?('user exists')
+    if status.success? && !out.include?('user exists')
       sql = "CREATE USER #{user} PASSWORD '#{pass}' " \
             'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
       system 'psql', '-h', config.host, '-p', config.port, '-c', sql
