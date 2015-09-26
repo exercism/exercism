@@ -4,7 +4,7 @@ module ExercismWeb
       get '/code/:language/:slug/random' do |language, slug|
         please_login
 
-        language, slug = language.downcase, slug.downcase
+        [language, slug].each(&:downcase!)
 
         problem = Problem.new(language, slug)
         unless current_user.can_access?(problem)

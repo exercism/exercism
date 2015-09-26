@@ -10,6 +10,24 @@ end
 class InboxTrackTest < Minitest::Test
   include DBCleaner
 
+  ExerciseTestCase = Struct.new(:user, :problem_name, :problem_track_id, :status, :comment_count) do
+    def avatar_url
+      user.avatar_url
+    end
+
+    def message
+      [user.username, problem_track_id, problem_name].join(' ')
+    end
+
+    def unread?
+      status == :unread
+    end
+
+    def username
+      user.username
+    end
+  end
+
   # This tests the data for Alice's inbox.
   def test_inbox
     # Alice is a mentor in elixir, and is therefore authorized to see everything in that track.
@@ -32,26 +50,7 @@ class InboxTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1},
       {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0},
       {user: alice, language: 'go', slug: 'hamming', archived: false, auth: true, viewed: +1},
-    ].each.with_index do |attributes, i|
-      ts = i.days.ago
-      auth = attributes.delete(:auth)
-      viewed_diff_in_seconds = attributes.delete(:viewed)
-
-      attributes[:iteration_count] ||= 1
-      exercise = UserExercise.create!(attributes.merge(last_activity_at: ts))
-
-      submission = Submission.create!(user_id: exercise.user_id, user_exercise_id: exercise.id, language: exercise.language, slug: exercise.slug)
-      i.times do
-        # it doesn't matter who comments, we're going to count it anyway
-        Comment.create!(submission_id: submission.id, user_id: [alice.id, bob.id].sample, body: "OHAI")
-      end
-
-      if auth
-        ACL.authorize(alice, exercise.problem)
-      end
-
-      View.create(user_id: alice.id, exercise_id: exercise.id, last_viewed_at: ts+viewed_diff_in_seconds)
-    end
+    ].each.with_index { |attributes, i| create_view alice, bob, attributes.merge(age: i) }
 
     elixir1 = Inbox.new(alice, 'elixir')
     elixir1.per_page = 2
@@ -76,24 +75,16 @@ class InboxTrackTest < Minitest::Test
     ex8, ex9 = wc.exercises
 
     [
-      [ex1, bob, 'Triangle', 'elixir', :unread, 1],
-      [ex2, bob, 'Anagram', 'elixir', :unread, 2],
-      [ex3, bob, 'Word Count', 'elixir', :read, 3],
-      [ex4, alice, 'Word Count', 'go', :read, 0],
-      [ex5, bob, 'Leap', 'go', :read, 5],
-      [ex6, bob, 'Word Count', 'go', :unread, 7],
-      [ex7, alice, 'Hamming', 'go', :read, 11],
-      [ex8, alice, 'Word Count', 'go', :read, 0],
-      [ex9, bob, 'Word Count', 'go', :unread, 7],
-    ].each do |ex, u, name, track_id, status, comment_count|
-      test_case = [u.username, track_id, name].join(" ")
-      assert_equal u.username, ex.username, test_case
-      assert_equal u.avatar_url, ex.avatar_url, test_case
-      assert_equal name, ex.problem.name, test_case
-      assert_equal track_id, ex.problem.track_id, test_case
-      assert_equal comment_count, ex.comment_count, test_case
-      assert_equal status==:unread, ex.unread?, test_case
-    end
+      [ex1, ExerciseTestCase.new(bob  , 'Triangle'  , 'elixir', :unread,  1)],
+      [ex2, ExerciseTestCase.new(bob  , 'Anagram'   , 'elixir', :unread,  2)],
+      [ex3, ExerciseTestCase.new(bob  , 'Word Count', 'elixir', :read  ,  3)],
+      [ex4, ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
+      [ex5, ExerciseTestCase.new(bob  , 'Leap'      , 'go'    , :read  ,  5)],
+      [ex6, ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
+      [ex7, ExerciseTestCase.new(alice, 'Hamming'   , 'go'    , :read  , 11)],
+      [ex8, ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
+      [ex9, ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
+    ].each { |actual, expected| assert_exercise expected, actual }
 
     # next exercise
     assert_equal ex7.uuid, go.next_uuid(ex6.id)
@@ -123,7 +114,7 @@ class InboxTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'clock', auth: true, viewed: false}, # still unread afterwards
       {user: bob, language: 'go', slug: 'hamming', auth: true, viewed: true}, # does not update timestamp
       {user: bob, language: 'python', slug: 'word-count', auth: false, viewed: false}, # No ACL - still unread afterwards
-    ].each.with_index do |attributes, i|
+    ].each do |attributes|
       auth = attributes.delete(:auth)
       viewed = attributes.delete(:viewed)
 
@@ -176,5 +167,39 @@ class InboxTrackTest < Minitest::Test
       assert_equal alice.id, view.user_id
       assert_in_delta 1, view.last_viewed_at.to_i, now.to_i
     end
+  end
+
+  private
+
+  def assert_exercise expected, actual
+    message = expected.message
+    assert_equal expected.username        , actual.username        , message
+    assert_equal expected.avatar_url      , actual.avatar_url      , message
+    assert_equal expected.problem_name    , actual.problem.name    , message
+    assert_equal expected.problem_track_id, actual.problem.track_id, message
+    assert_equal expected.comment_count   , actual.comment_count   , message
+    assert_equal expected.unread?         , actual.unread?         , message
+  end
+
+  def create_view user, other_user, message
+    comment_count = age = message.delete(:age)
+    ts = age.days.ago
+    auth = message.delete(:auth)
+    viewed_diff_in_seconds = message.delete(:viewed)
+
+    message[:iteration_count] ||= 1
+    exercise = UserExercise.create!(message.merge(last_activity_at: ts))
+
+    submission = Submission.create!(user_id: exercise.user_id, user_exercise_id: exercise.id, language: exercise.language, slug: exercise.slug)
+    comment_count.times do
+      # it doesn't matter who comments, we're going to count it anyway
+      Comment.create!(submission_id: submission.id, user_id: [user.id, other_user.id].sample, body: "OHAI")
+    end
+
+    if auth
+      ACL.authorize(user, exercise.problem)
+    end
+
+    View.create(user_id: user.id, exercise_id: exercise.id, last_viewed_at: ts+viewed_diff_in_seconds)
   end
 end

@@ -27,8 +27,8 @@ module Explore
 
   class Iteration
     attr_reader :code, :language, :comments, :number
-    def initialize(code, language, comments, number)
-      @code, @language, @comments, @number = code, language, comments, number
+    def initialize(*args)
+      @code, @language, @comments, @number = args
     end
   end
 end

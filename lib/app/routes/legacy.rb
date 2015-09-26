@@ -5,7 +5,7 @@ module ExercismWeb
         redirect '/nits/%s/stats' % username
       end
 
-      get '/nitpick/:language/?' do |language|
+      get '/nitpick/:language/?' do
         redirect '/inbox'
       end
 

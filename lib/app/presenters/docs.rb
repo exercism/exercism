@@ -19,7 +19,7 @@ module ExercismWeb
         if status != 200
           raise "something fishy in x-api: (#{status}) - #{body}"
         end
-        body = JSON.parse(body)
+        JSON.parse(body)
       end
 
       def about
