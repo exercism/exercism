@@ -46,3 +46,12 @@ li.alert-row {
   max-height: 400px;
   overflow-x: scroll;
 }
+
+.fuchsia {
+  color: #d81d4e;
+    &:hover {
+      border-left: 6px solid transparent;
+	    border-right: 6px solid transparent;
+      border-top: 6px solid #686A6C;
+    }
+}
