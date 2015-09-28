@@ -124,10 +124,21 @@ class User < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(count_existing_five_a_day_sql).field_values("total").first.to_i
   end
 
-
   def five_a_day_exercises
     @exercises_list ||= ActiveRecord::Base.connection.execute(five_a_day_exercises_sql).to_a
   end
+
+  def show_five_suggestions?
+    if onboarded? && five_available?
+      true
+    end
+  end
+
+def five_available?
+  if five_a_day_exercises.count + count_existing_five_a_day == 5
+    true
+  end
+end
 
   private
 
@@ -158,7 +169,7 @@ class User < ActiveRecord::Base
           AND a.user_id <> s.user_id
           AND a.user_id = #{id}
           AND s.slug <> 'hello-world'
-          AND ue.last_activity_at > (NOW()-INTERVAL '30 days')) AS exercises
+          AND ue.last_iteration_at > (NOW()-INTERVAL '30 days')) AS exercises
       ORDER BY nit_count ASC
       LIMIT (5 - #{count_existing_five_a_day});
     SQL
