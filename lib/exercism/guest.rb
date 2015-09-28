@@ -21,4 +21,8 @@ class Guest
   def owns?(_)
     false
   end
+
+  def show_five_suggestions?
+    false
+  end
 end
