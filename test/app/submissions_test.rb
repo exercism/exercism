@@ -178,7 +178,7 @@ class SubmissionsTest < Minitest::Test
     assert_equal 2, Submission.find_by_key(sub3.key).version
   end
 
-  def test_redirects_to_index_page_after_deleting
+  def test_redirects_to_dashboard_after_deleting
     data = {
       user: bob,
       language: 'ruby',
@@ -191,7 +191,7 @@ class SubmissionsTest < Minitest::Test
 
     delete "/submissions/#{sub.key}", {}, login(bob)
     assert_equal 302, last_response.status
-    assert_equal "http://example.org/", last_response.location
+    assert_equal "http://example.org/dashboard", last_response.location
   end
 
   def test_dependent_destroy_of_notifications
