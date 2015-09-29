@@ -119,6 +119,27 @@ class UserTest < Minitest::Test
     assert_equal 1, FiveADayCount.count
   end
 
+  def test_five_a_day_exercises
+    fred = User.create(username: 'fred')
+    sarah = User.create(username: 'sarah')
+    jaclyn = User.create(username: 'jaclyn')
+    ACL.authorize(fred, Problem.new('ruby', 'bob'))
+
+    ex1 = UserExercise.create!(
+        user: sarah,
+        last_activity_at: 5.days.ago,
+        submissions: [Submission.create!(user: sarah, language: 'ruby', slug: 'bob', created_at: 22.days.ago)]
+    )
+    Comment.create!(submission: ex1.submissions.first, user: sarah, body: 'I like to comment')
+
+    UserExercise.create!(
+        user: sarah,
+        last_activity_at: 5.days.ago,
+        submissions: [Submission.create!(user: jaclyn, language: 'ruby', slug: 'bob', created_at: 22.days.ago)]
+    )
+    assert_equal fred.five_a_day_exercises.size, 2
+  end
+
   private
 
   def create_submission(problem, attributes={})
