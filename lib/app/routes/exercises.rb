@@ -70,7 +70,7 @@ module ExercismWeb
         end
         exercise.unarchive!
         flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now reactivated."
-        redirect '/'
+        redirect '/dashboard'
       end
     end
   end
