@@ -119,7 +119,7 @@ class UserTest < Minitest::Test
     assert_equal 1, FiveADayCount.count
   end
 
-  def test_five_a_day_exercises
+  def test_five_a_day_exercises_comments
     fred = User.create(username: 'fred')
     sarah = User.create(username: 'sarah')
     jaclyn = User.create(username: 'jaclyn')
