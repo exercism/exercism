@@ -127,16 +127,25 @@ class UserTest < Minitest::Test
 
     ex1 = UserExercise.create!(
         user: sarah,
-        last_activity_at: 5.days.ago,
-        submissions: [Submission.create!(user: sarah, language: 'ruby', slug: 'bob', created_at: 22.days.ago)]
+        last_iteration_at: 5.days.ago,
+        archived: false,
+        iteration_count: 1,
+        language: 'ruby',
+        slug: 'bob',
+        submissions: [Submission.create!(user: sarah, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
     )
     Comment.create!(submission: ex1.submissions.first, user: sarah, body: 'I like to comment')
 
     UserExercise.create!(
-        user: sarah,
-        last_activity_at: 5.days.ago,
-        submissions: [Submission.create!(user: jaclyn, language: 'ruby', slug: 'bob', created_at: 22.days.ago)]
+        user: jaclyn,
+        last_iteration_at: 5.days.ago,
+        archived: false,
+        iteration_count: 1,
+        language: 'ruby',
+        slug: 'bob',
+        submissions: [Submission.create!(user: jaclyn, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
     )
+
     assert_equal fred.five_a_day_exercises.size, 2
   end
 
