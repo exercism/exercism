@@ -80,7 +80,7 @@ module ExercismAPI
             body: log_entry_body
           )
         rescue => e
-          Bugsnag.notify(e)
+          Bugsnag.notify(e, nil, request)
           # ignore failures
         end
 
@@ -111,7 +111,7 @@ module ExercismAPI
           end
 
           error = Attempt::InvalidAttemptError.new("Invalid attempt submitted")
-          Bugsnag.notify(error)
+          Bugsnag.notify(error, nil, request)
 
           error = "unknown problem (track: #{attempt.track}, "
           error << "slug: #{attempt.slug}, path: #{data['path']})"

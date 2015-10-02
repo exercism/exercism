@@ -11,7 +11,7 @@ module ExercismWeb
             user = Authentication.perform(params[:code], github_client_id, github_client_secret)
             login(user)
           rescue StandardError => e
-            Bugsnag.notify(e)
+            Bugsnag.notify(e, nil, request)
             flash[:error] = "We're having trouble with logins right now. Please come back later."
           end
 

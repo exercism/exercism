@@ -7,7 +7,7 @@ class Language
   def self.of(key)
     ExercismWeb::Presenters::Tracks.find(key.to_s).language
   rescue Exception => e
-    Bugsnag.notify(e)
-    "No language for #{key}"
+    Bugsnag.notify(e, {track: key})
+    key
   end
 end

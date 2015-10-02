@@ -12,7 +12,7 @@ module ExercismWeb
           active = ExercismWeb::Presenters::Tracks.find(track_id.to_s).active?
           exists = true
         rescue => e
-          Bugsnag.notify(e)
+          Bugsnag.notify(e, nil, request)
           exists = false
         end
 
