@@ -115,8 +115,9 @@ class User < ActiveRecord::Base
     <<-SQL
       SELECT total
       FROM five_a_day_counts
-      WHERE user_id = #{id}
-      AND day = '#{Date.today}'
+      WHERE user_id=#{id}
+      AND day='#{Date.today}'
+      LIMIT 5
     SQL
   end
 
