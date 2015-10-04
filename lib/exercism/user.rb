@@ -124,9 +124,16 @@ class User < ActiveRecord::Base
     ActiveRecord::Base.connection.execute(count_existing_five_a_day_sql).field_values("total").first.to_i
   end
 
-
   def five_a_day_exercises
     @exercises_list ||= ActiveRecord::Base.connection.execute(five_a_day_exercises_sql).to_a
+  end
+
+  def show_five_suggestions?
+    onboarded? && five_available?
+  end
+
+  def five_available?
+    (five_a_day_exercises.count + count_existing_five_a_day) == 5
   end
 
   private
