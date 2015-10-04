@@ -140,31 +140,36 @@ class User < ActiveRecord::Base
 
   def five_a_day_exercises_sql
     <<-SQL
-      SELECT DISTINCT
-        ON (e.user_id)
-        a.user_id AS commenter,
-        e.user_id AS ex_author_id,
-        u.username AS ex_author,
-        a.language, a.slug, s.key, s.nit_count
+      SELECT
+        e.language,
+        e.slug,
+        e.key,
+        u.username AS username,
+        COALESCE(c.comment_count, 0)
         FROM acls a
         INNER JOIN user_exercises e
-          ON e.language = a.language
-          AND e.slug = a.slug
-        INNER JOIN submissions s
-          ON s.user_exercise_id = e.id
-          AND s.version = e.iteration_count
+          ON a.language=e.language
+          AND a.slug=e.slug
         INNER JOIN users u
           ON u.id = e.user_id
-        LEFT JOIN comments c
-          ON s.id = c.submission_id
-        WHERE (a.user_id <> c.user_id OR c.id IS NULL)
-          AND a.user_id <> e.user_id
-          AND a.user_id = #{id}
-          AND e.archived = false
-          AND e.slug <> 'hello-world'
+        LEFT JOIN (
+          SELECT
+            COUNT(c.id) AS comment_count,
+            s.user_exercise_id AS exercise_id
+          FROM comments c
+          INNER JOIN submissions s
+          ON s.id=c.submission_id
+          WHERE s.user_exercise_id=154269
+          GROUP BY s.user_exercise_id
+        ) as c
+        ON c.exercise_id=e.id
+        WHERE e.user_id<>#{id}
+          AND a.user_id=#{id}
+          AND e.archived='f'
+          AND e.slug<>'hello-world'
           AND e.last_iteration_at > (NOW()-INTERVAL '30 days')
-      ORDER BY e.user_id, s.nit_count ASC
-      LIMIT (5 - #{count_existing_five_a_day});
+      ORDER BY COALESCE(c.comment_count, 0) ASC
+      LIMIT (5-#{count_existing_five_a_day});
     SQL
   end
 end
