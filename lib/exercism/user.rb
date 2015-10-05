@@ -117,12 +117,14 @@ class User < ActiveRecord::Base
       FROM five_a_day_counts
       WHERE user_id=#{id}
       AND day='#{Date.today}'
-      LIMIT 5
     SQL
   end
 
   def count_existing_five_a_day
-    ActiveRecord::Base.connection.execute(count_existing_five_a_day_sql).field_values("total").first.to_i
+    [
+      ActiveRecord::Base.connection.execute(count_existing_five_a_day_sql).field_values("total").first.to_i,
+      5
+    ].min
   end
 
   def five_a_day_exercises
