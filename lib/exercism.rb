@@ -39,7 +39,6 @@ require 'exercism/user'
 require 'exercism/user_exercise'
 require 'exercism/user_track'
 require 'exercism/view'
-require 'exercism/work'
 require 'exercism/language_track'
 require 'exercism/user_lookup'
 

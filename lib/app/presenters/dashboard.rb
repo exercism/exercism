@@ -6,14 +6,6 @@ module ExercismWeb
         @user = user
       end
 
-      def pay_it_forward?
-        !!suggestion
-      end
-
-      def suggestion
-        @suggestion ||= Work.new(user).random
-      end
-
       def current_exercises
         user.exercises.current
       end
