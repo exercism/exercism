@@ -5,7 +5,13 @@ class Homework
   end
 
   def all
-    sql = "SELECT language, slug, archived FROM user_exercises WHERE user_id = #{user.id} ORDER BY language, slug ASC"
+    sql = <<-SQL
+    SELECT language, slug, archived
+    FROM user_exercises
+    WHERE user_id=#{user.id}
+    AND (iteration_count>0 OR skipped_at IS NOT NULL)
+    ORDER BY language, slug ASC
+    SQL
     extract(sql)
   end
 

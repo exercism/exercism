@@ -16,10 +16,11 @@ class ExercisesApiTest < Minitest::Test
   def test_exercises
     alice = User.create(username: 'alice', github_id: 1)
 
-    UserExercise.create(user: alice, language: 'go', slug: 'one', archived: true)
-    UserExercise.create(user: alice, language: 'go', slug: 'two')
-    UserExercise.create(user: alice, language: 'ruby', slug: 'one')
-    UserExercise.create(user: alice, language: 'ruby', slug: 'two')
+    UserExercise.create(user: alice, language: 'go', slug: 'one', iteration_count: 1, archived: true)
+    UserExercise.create(user: alice, language: 'go', slug: 'two', skipped_at: Time.now)
+    UserExercise.create(user: alice, language: 'go', slug: 'three', iteration_count: 1)
+    UserExercise.create(user: alice, language: 'ruby', slug: 'one', iteration_count: 1, fetched_at: Time.now)
+    UserExercise.create(user: alice, language: 'ruby', slug: 'two', fetched_at: Time.now)
 
     get '/exercises', {key: alice.key}
 

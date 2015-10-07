@@ -5,6 +5,10 @@
       "state": "archived"
     },
     {
+      "slug": "three",
+      "state": "active"
+    },
+    {
       "slug": "two",
       "state": "active"
     }
@@ -12,10 +16,6 @@
   "ruby": [
     {
       "slug": "one",
-      "state": "active"
-    },
-    {
-      "slug": "two",
       "state": "active"
     }
   ]
