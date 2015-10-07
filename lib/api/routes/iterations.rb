@@ -34,6 +34,7 @@ module ExercismAPI
         if exercise.new_record?
           exercise.save!
         end
+        exercise.touch(:skipped_at)
         halt 204
       end
 

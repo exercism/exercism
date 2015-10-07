@@ -69,6 +69,7 @@ class IterationsApiTest < Minitest::Test
     exercise = @alice.exercises.first
     assert_equal 'ruby', exercise.language
     assert_equal 'one', exercise.slug
+    refute_equal nil, exercise.skipped_at
     assert_equal 204, last_response.status
   end
 

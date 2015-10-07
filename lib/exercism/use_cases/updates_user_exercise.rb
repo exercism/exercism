@@ -17,6 +17,7 @@ module Hack
       exercise.created_at ||= earliest_submission_at
       exercise.updated_at = most_recent_change_at
       exercise.iteration_count = submissions.count
+      exercise.skipped_at = nil if exercise.iteration_count > 0
       exercise.last_iteration_at = latest.created_at
       exercise.update_last_activity(latest)
       exercise.save
