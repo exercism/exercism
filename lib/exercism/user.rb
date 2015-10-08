@@ -177,7 +177,7 @@ class User < ActiveRecord::Base
           AND e.archived='f'
           AND e.slug<>'hello-world'
           AND e.last_iteration_at > (NOW()-INTERVAL '30 days')
-      ORDER BY COALESCE(c.comment_count, 0) ASC
+      ORDER BY COALESCE(c.comment_count, 0) ASC, e.iteration_count DESC
       LIMIT (5-#{count_existing_five_a_day});
     SQL
   end
