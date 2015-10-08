@@ -165,7 +165,8 @@ class User < ActiveRecord::Base
         LEFT JOIN (
           SELECT
             COUNT(c.id) AS comment_count,
-            s.user_exercise_id AS exercise_id
+            s.user_exercise_id AS exercise_id,
+            EVERY(c.user_id<>#{id}) AS no_comment
           FROM comments c
           INNER JOIN submissions s
           ON s.id=c.submission_id
@@ -176,6 +177,7 @@ class User < ActiveRecord::Base
           AND a.user_id=#{id}
           AND e.archived='f'
           AND e.slug<>'hello-world'
+          AND (c.no_comment='t' OR c.no_comment IS NULL)
           AND e.last_iteration_at > (NOW()-INTERVAL '30 days')
       ORDER BY COALESCE(c.comment_count, 0) ASC, e.iteration_count DESC
       LIMIT (5-#{count_existing_five_a_day});

@@ -124,6 +124,7 @@ class UserTest < Minitest::Test
     sarah = User.create(username: 'sarah')
     jaclyn = User.create(username: 'jaclyn')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
+    ACL.authorize(fred, Problem.new('ruby', 'leap'))
 
     ex1 = UserExercise.create!(
         user: sarah,
@@ -146,7 +147,18 @@ class UserTest < Minitest::Test
         submissions: [Submission.create!(user: jaclyn, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
     )
 
-    assert_equal fred.five_a_day_exercises.size, 2
+    ex3 = UserExercise.create!(
+        user: jaclyn,
+        last_iteration_at: 3.days.ago,
+        archived: false,
+        iteration_count: 1,
+        language: 'ruby',
+        slug: 'leap',
+        submissions: [Submission.create!(user: jaclyn, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
+    )
+    Comment.create!(submission: ex3.submissions.first, user: fred, body: 'nice')
+
+    assert_equal 2, fred.five_a_day_exercises.size
   end
 
   private
