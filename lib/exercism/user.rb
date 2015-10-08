@@ -169,7 +169,6 @@ class User < ActiveRecord::Base
           FROM comments c
           INNER JOIN submissions s
           ON s.id=c.submission_id
-          WHERE s.user_exercise_id=154269
           GROUP BY s.user_exercise_id
         ) as c
         ON c.exercise_id=e.id
