@@ -6,13 +6,7 @@
         data-toggle="tooltip"
         data-placement="bottom"
         title="<%= submission.problem.language %>">
-        <%
-          lang = case submission.language
-          when "go" then "golang"
-          else submission.language
-          end
-          %>
-        <%= language_icon(lang) %>
+        <span class="language circle <%= submission.language %>-icon">&nbsp;</span>
       </a>
     </span>
     <%= submission.problem.name %>
