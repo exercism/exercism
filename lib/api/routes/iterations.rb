@@ -56,7 +56,11 @@ module ExercismAPI
                        language: language,
                        slug: slug }
         exercise = UserExercise.where(attributes).first_or_initialize
-        exercise.fetched_at ||= Time.now.utc
+        # let's not bother tracking fetches for languages that you haven't
+        # explicitly started.
+        if current_user.submissions.where(language: language).count > 0
+          exercise.fetched_at ||= Time.now.utc
+        end
         exercise.iteration_count ||= 0
         exercise.save
         halt 204

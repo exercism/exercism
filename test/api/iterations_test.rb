@@ -97,16 +97,19 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_fetch_problem
+    Submission.create!(user: @alice, language: 'ruby')
+
     Xapi.stub(:exists?, true) do
       post '/iterations/ruby/one/fetch', { key: @alice.key }
     end
 
     exercise = @alice.exercises.first
+
     fetched_events_count = @alice.lifecycle_events.where(key: 'fetched').size
 
     assert_equal 'ruby', exercise.language
     assert_equal 'one', exercise.slug
-    assert_in_delta Time.now.utc.to_f, exercise.fetched_at.to_f, 1.0
+    assert_in_delta Time.now.utc.to_i, exercise.fetched_at.to_i, 1
     assert_equal 0, exercise.iteration_count
     assert_equal 1, fetched_events_count
     assert_equal 204, last_response.status
@@ -147,6 +150,8 @@ class IterationsApiTest < Minitest::Test
 
   def test_fetch_problem_when_user_has_exercise
     @alice.exercises.create language: 'ruby', slug: 'one'
+    @alice.submissions.create language: 'ruby'
+
     Xapi.stub(:exists?, true) do
       post '/iterations/ruby/one/fetch', { key: @alice.key }
     end
@@ -157,7 +162,7 @@ class IterationsApiTest < Minitest::Test
     assert_equal 1, exercise_count
     assert_equal 204, last_response.status # does not raise PG::UniqueViolation
 
-    assert_in_delta Time.now.utc.to_f, exercise.fetched_at.to_f, 1.0
+    assert_in_delta Time.now.utc.to_i, exercise.fetched_at.to_i, 1.0
     assert_equal 0, exercise.iteration_count
   end
 
