@@ -7,7 +7,8 @@ module ExercismWeb
       ROUGUE_LANG = {
         'objective-c' => 'objective_c',
         'elisp' => 'common_lisp',
-        'plsql' => 'sql'
+        'plsql' => 'sql',
+        'ecmascript' => 'javascript',
       }
 
       def md(text, language=nil)
