@@ -38,6 +38,7 @@ class Inbox
   end
 
   def next_uuid(id)
+    id ||= UserExercise.order(last_activity_at: :desc).first.id
     row = execute(next_uuid_sql(id)).first
     row["uuid"] if !!row
   end

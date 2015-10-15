@@ -139,6 +139,10 @@ class User < ActiveRecord::Base
     (five_a_day_exercises.count + count_existing_five_a_day) == 5
   end
 
+  def default_language
+    ACL.select('DISTINCT language').where(user_id: id).order(:language).map(&:language).first
+  end
+
   private
 
   def items_where(table, condition)

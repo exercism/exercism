@@ -6,12 +6,11 @@ module ExercismWeb
           redirect '/'
         end
 
-        if session[:inbox].nil?
-          redirect '/inbox'
-        end
-
-        inbox = ::Inbox.new(current_user, session[:inbox], session[:inbox_slug])
-        redirect ['/', 'exercises', inbox.next_uuid(session[:inbox_exercise])].join('/')
+        inbox = ::Inbox.new(current_user,
+                            session[:inbox] || current_user.default_language,
+                            session[:inbox_slug])
+        next_uuid = inbox.next_uuid(session[:inbox_exercise])
+        redirect "/exercises/#{next_uuid}"
       end
 
       get '/exercises/viewed' do
