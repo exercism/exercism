@@ -25,7 +25,7 @@ class Inbox
   attr_accessor :per_page
   def initialize(user, track_id, slug=nil, page=1)
     @user = user
-    @track_id = track_id.downcase
+    @track_id = track_id.to_s.downcase
     @slug = slug.downcase if !!slug
     @language = Language.of(track_id)
     @page = page.to_i
