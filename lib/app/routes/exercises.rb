@@ -13,9 +13,6 @@ module ExercismWeb
         redirect "/exercises/#{next_uuid}"
       end
 
-      get '/exercises/viewed' do
-      end
-
       get '/exercises/:key' do |key|
         exercise = UserExercise.find_by_key(key)
         if exercise.nil?
