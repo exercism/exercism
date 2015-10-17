@@ -20,14 +20,14 @@ class AppExercisesTest < Minitest::Test
                                     slug: 'one', user_exercise: exercise)
   end
 
-  def test_exercises_next_without_session_values
+  def test_exercises_next
     bob = User.create(username: 'bob', github_id: 1)
     next_exercise = UserExercise.create(user: bob, language: 'go', slug: 'one',
                                         last_activity_at: Date.yesterday,
                                         iteration_count: 1)
     ACL.create(user_id: alice.id, language: 'go', slug: 'one')
 
-    get "/exercises/next", {}, login(alice)
+    get "/exercises/next?language=go", {}, login(alice)
     assert_equal 302, last_response.status
     location = "http://example.org/exercises/#{next_exercise.key}"
     assert_equal location, last_response.location, "Expected to be redirected to the next Go exercise"

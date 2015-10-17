@@ -6,9 +6,7 @@ module ExercismWeb
           redirect '/'
         end
 
-        inbox = ::Inbox.new(current_user,
-                            session[:inbox] || current_user.default_language,
-                            session[:inbox_slug])
+        inbox = ::Inbox.new(current_user, params[:language], params[:slug])
         next_uuid = inbox.next_uuid(session[:inbox_exercise])
         redirect "/exercises/#{next_uuid}"
       end
@@ -26,7 +24,8 @@ module ExercismWeb
           flash[:notice] = "That submission no longer exists."
           redirect '/'
         end
-        redirect "/submissions/%s" % exercise.submissions.last.key
+        q = "?i=1" if params[:i] == '1'
+        redirect "/submissions/%s%s" % [exercise.submissions.last.key, q]
       end
 
       post '/exercises/:key/views' do |key|

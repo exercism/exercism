@@ -18,7 +18,14 @@ module ExercismWeb
 
         last = session[:inbox_last] == submission.user_exercise_id
 
-        erb :"submissions/show", locals: {submission: submission, last_in_inbox: last, sharing: Sharing.new}
+        locals = {
+          submission: submission,
+          last_in_inbox: last,
+          sharing: Sharing.new,
+          successor: Successor.from(session, params, submission.problem),
+        }
+
+        erb :"submissions/show", locals: locals
       end
 
       post '/submissions/:key/like' do |key|
