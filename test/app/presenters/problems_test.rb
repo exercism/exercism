@@ -38,12 +38,4 @@ class PresentersProblemsTest < Minitest::Test
       assert_includes problems.track_problems.to_s, "Write a program that implements a binary search algorithm."
     end
   end
-
-  def test_does_not_return_problems_not_in_specific_track
-    Xapi.stub(:get, [200, all_problems_json]) do
-      get '/languages/ruby'
-      problems = ExercismWeb::Presenters::Special::Problems.new('ruby')
-      refute_includes problems.track_problems.to_s, "Compute the result for a game of Hex / Polygon"
-    end
-  end
 end

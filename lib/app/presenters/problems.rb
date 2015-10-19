@@ -22,7 +22,7 @@ module ExercismWeb
         end
 
         def fetch_all_problems
-          status, body = Xapi.get("problems")
+          status, body = Xapi.get("/tracks/#{track_id}/problems")
           if status != 200
             raise "something fishy in x-api: (#{status}) - #{body}"
           end
@@ -33,13 +33,11 @@ module ExercismWeb
           @track_problems = []
           all_problems.each do |problem|
             slug = problem["slug"]
-            if problem["track_ids"].include?(track_id)
-              @track_problems << {
-                :slug => slug,
-                :blurb => problem["blurb"],
-                :name => slug.split('-').map(&:capitalize).join(' ')
-                }
-            end
+            @track_problems << {
+              :slug => slug,
+              :blurb => problem["blurb"],
+              :name => slug.split('-').map(&:capitalize).join(' ')
+            }
           end
           @track_problems.map {|problem| Problem.new(problem)}
         end
