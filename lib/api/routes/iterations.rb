@@ -153,33 +153,6 @@ module ExercismAPI
         pg :attempt, locals: locals
       end
 
-      delete '/user/assignments' do
-        require_key
-
-        if current_user.guest?
-          halt 401, {error: "Please double-check your exercism API key."}.to_json
-        end
-
-        begin
-          Unsubmit.new(current_user).unsubmit
-        rescue Unsubmit::NothingToUnsubmit
-          message = "Nothing to unsubmit."
-          halt 404, { error: message }.to_json
-        rescue Unsubmit::SubmissionHasNits
-          message = "The submission has nitpicks, so can't be deleted."
-          halt 403, { error: message }.to_json
-        rescue Unsubmit::SubmissionDone
-          message = "The submission has been already completed, "
-          message << "so can't be deleted."
-          halt 403, { error: message }.to_json
-        rescue Unsubmit::SubmissionTooOld
-          message = "The submission is too old to be deleted."
-          halt 403, {error: message }.to_json
-        end
-
-        status 204
-      end
-
       get '/iterations/latest' do
         require_key
 
@@ -193,6 +166,12 @@ module ExercismAPI
         submissions = exercises.map { |e| e.submissions.last }.compact
 
         pg :iterations, locals: {submissions: submissions}
+      end
+
+      delete '/user/assignments' do
+        message = "Unsubmit functionality has been disabled for security reasons.\n" \
+          "You can delete submissions from the web interface."
+        halt 404, {error: message}.to_json
       end
     end
   end
