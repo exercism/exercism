@@ -25,6 +25,7 @@ if ENV['RACK_ENV'].to_sym == :development
 end
 
 use ActiveRecord::ConnectionAdapters::ConnectionManagement
+use Rack::MethodOverride
 run ExercismWeb::App
 
 map '/api/v1/' do

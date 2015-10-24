@@ -32,7 +32,8 @@
 
     <div id="danger_buttons" class="row">
       <div class="col-md-2" style="margin: 0 10px 10px 0">
-        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>" method="delete">
+        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>" method="POST">
+          <input name="_method" type="hidden" value="delete" />
           <button type="submit" class="btn btn-primary btn-danger">Delete Team</button>
         </form>
       </div>
