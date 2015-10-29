@@ -1,0 +1,7 @@
+<div class="highlight plaintext">
+<table style="border-spacing: 0;"><tbody><tr>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
+<td class="code"><pre>x{{current}}y
+</pre></td>
+</tr></tbody></table>
+</div>

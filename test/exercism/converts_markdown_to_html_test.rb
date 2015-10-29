@@ -1,6 +1,7 @@
 require 'bundler'
 Bundler.setup
 require_relative '../test_helper'
+require_relative '../approval_helper'
 require 'exercism/markdown'
 require 'exercism/converts_markdown_to_html'
 require 'mocha/setup'
@@ -52,28 +53,12 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_text_and_double_braces
     input = "```\nx{{current}}y\n```"
-    expected = %q{<div class="highlight plaintext">
-<table style="border-spacing: 0;"><tbody><tr>
-<td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
-<td class="code"><pre>x{{current}}y
-</pre></td>
-</tr></tbody></table>
-</div>}
-
-    check_sanitisation(input, expected)
+    Approvals.verify(ConvertsMarkdownToHTML.new(input).convert, name: 'markdown_text_and_double_braces')
   end
 
   def test_markdown_code_with_double_braces
     input = "```\n{{x: y}}\n```"
-    expected = %q{<div class="highlight json">
-<table style="border-spacing: 0;"><tbody><tr>
-<td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
-<td class="code"><pre><span class="p">{</span><span class="err">{x</span><span class="p">:</span><span class="w"> </span><span class="err">y</span><span class="p">}</span><span class="err">}</span><span class="w">
-</span></pre></td>
-</tr></tbody></table>
-</div>}
-
-    check_sanitisation(input, expected)
+    Approvals.verify(ConvertsMarkdownToHTML.new(input).convert, name: 'markdown_double_braces')
   end
 
   def test_markdown_code_with_javascript_and_double_braces
