@@ -4,21 +4,32 @@ module ExercismWeb
       post '/submissions/:key/nitpick' do |key|
         notice = "You're not logged in right now. Please log in via GitHub to comment."
         please_login(notice)
-        submission = Submission.find_by({key: key})
+
+        submission = Submission.find_by(key: key)
         if submission.nil?
           flash[:notice] = "Cannot comment on this submission anymore, because it has been deleted."
           redirect "/"
         end
+
+        url = "/submissions/#{key}"
+
+        if params[:body].empty?
+          redirect url
+        end
+
         comment = CreatesComment.create(submission.id, current_user, params[:body])
+
+        if comment.new_record?
+          redirect url
+        end
+
         current_user.increment_five_a_day if comment.qualifying?
-        unless comment.new_record?
-          Notify.everyone(submission, 'nitpick', current_user)
-          unless current_user == submission.user
-            LifecycleEvent.track('received_feedback', submission.user_id)
-            LifecycleEvent.track('commented', current_user.id)
-            unless current_user.onboarded?
-              LifecycleEvent.commented(current_user.id)
-            end
+        Notify.everyone(submission, 'nitpick', current_user)
+        unless current_user == submission.user
+          LifecycleEvent.track('received_feedback', submission.user_id)
+          LifecycleEvent.track('commented', current_user.id)
+          unless current_user.onboarded?
+            LifecycleEvent.commented(current_user.id)
           end
         end
         redirect "/submissions/#{key}"
