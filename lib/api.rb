@@ -21,5 +21,6 @@ module ExercismAPI
     use Routes::Comments
     use Routes::Users
     use Routes::Legacy
+    use Routes::Tracks
   end
 end

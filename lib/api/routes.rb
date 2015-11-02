@@ -9,6 +9,7 @@ module ExercismAPI
       Comments: 'comments',
       Users: 'users',
       Legacy: 'legacy',
+      Tracks: 'tracks',
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('lib', 'api', 'routes', file)
     end
