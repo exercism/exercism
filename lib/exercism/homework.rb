@@ -15,6 +15,27 @@ class Homework
     extract(sql)
   end
 
+  def status(language)
+    exercises = user.exercises.where(language: language)
+
+    skipped = exercises.where.not(skipped_at: nil).pluck(:slug)
+    fetched = exercises.where.not(fetched_at: nil).pluck(:slug)
+    recent = exercises.where.not(last_iteration_at: nil)
+             .order(:last_iteration_at).last
+
+    recent = Struct.new(:slug, :last_iteration_at).new("", "") if recent.nil?
+
+    {
+      track_id: language,
+      recent: {
+        problem: recent.slug,
+        submitted_at: recent.last_iteration_at
+      },
+      skipped: skipped,
+      fetched: fetched
+    }
+  end
+
   private
 
   def extract(sql)
