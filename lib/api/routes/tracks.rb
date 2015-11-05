@@ -1,6 +1,8 @@
 module ExercismAPI
   module Routes
     class Tracks < Core
+      # Status on a track for a user.
+      # Called by the CLI.
       get '/tracks/:id/status' do |id|
         require_key
 

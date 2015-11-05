@@ -10,14 +10,12 @@ require 'exercism/homework'
 require 'exercism/xapi'
 
 require 'api/routes'
-require 'api/presenters'
 
 module ExercismAPI
   class App < Sinatra::Base
     use Routes::Exercises
     use Routes::Iterations
     use Routes::Submissions
-    use Routes::Problems
     use Routes::Comments
     use Routes::Users
     use Routes::Legacy

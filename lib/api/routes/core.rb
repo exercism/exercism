@@ -1,6 +1,8 @@
 module ExercismAPI
   module Routes
     class Core < Sinatra::Application
+     ErrPleaseUpgrade = "Please upgrade to the most recent version of the command-line client."
+
       configure do
         set :root, ExercismAPI::ROOT
         enable :raise_errors

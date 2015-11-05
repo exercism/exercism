@@ -5,7 +5,6 @@ module ExercismAPI
       Exercises: 'exercises',
       Iterations: 'iterations',
       Submissions: 'submissions',
-      Problems: 'problems',
       Comments: 'comments',
       Users: 'users',
       Legacy: 'legacy',

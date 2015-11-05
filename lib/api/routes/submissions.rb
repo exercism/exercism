@@ -1,6 +1,8 @@
 module ExercismAPI
   module Routes
     class Submissions < Core
+      # Return the URL of the most recent iteration.
+      # Called by the CLI.
       get '/submissions/:language/:slug' do |language, slug|
         require_key
 
@@ -16,6 +18,8 @@ module ExercismAPI
         {url: "#{request.scheme}://#{request.host_with_port}/submissions/#{key}", track_id: language, slug: slug}.to_json
       end
 
+      # Download a solution, by key.
+      # Called from the CLI.
       get '/submissions/:key' do |key|
         submission = Submission.find_by_key(key)
         if submission.nil?

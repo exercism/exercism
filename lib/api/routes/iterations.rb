@@ -4,10 +4,8 @@ require './lib/jobs/hello'
 module ExercismAPI
   module Routes
     class Iterations < Core
-      get '/iterations/:key/restore' do |key|
-        halt(*Xapi.get("v2", "exercises", "restore", key: key))
-      end
-
+      # Mark exercise as skipped.
+      # Called from the CLI.
       post '/iterations/:language/:slug/skip' do |language, slug|
         require_key
 
@@ -38,6 +36,7 @@ module ExercismAPI
         halt 204
       end
 
+      # Mark exercise as fetched. Called from the X-API.
       post '/iterations/:language/:slug/fetch' do |language, slug|
         require_key
         if current_user.guest?
@@ -66,6 +65,8 @@ module ExercismAPI
         halt 204
       end
 
+      # Submit an iteration.
+      # Called from the CLI.
       post '/user/assignments' do
         request.body.rewind
         data = request.body.read
@@ -153,6 +154,8 @@ module ExercismAPI
         pg :attempt, locals: locals
       end
 
+      # Restore solutions.
+      # Called from XAPI.
       get '/iterations/latest' do
         require_key
 
@@ -166,12 +169,6 @@ module ExercismAPI
         submissions = exercises.map { |e| e.submissions.last }.compact
 
         pg :iterations, locals: {submissions: submissions}
-      end
-
-      delete '/user/assignments' do
-        message = "Unsubmit functionality has been disabled for security reasons.\n" \
-          "You can delete submissions from the web interface."
-        halt 404, {error: message}.to_json
       end
     end
   end

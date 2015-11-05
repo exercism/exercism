@@ -3,6 +3,8 @@ require 'exercism/rikki'
 module ExercismAPI
   module Routes
     class Comments < Core
+      # Submit a rikki- comment.
+      # Only the rikki- daemon uses this endpoint.
       post '/submissions/:key/comments' do |key|
         unless Rikki.validate(params[:shared_key])
           halt 401, {error: "access denied"}

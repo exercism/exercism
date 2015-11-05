@@ -28,22 +28,4 @@ class LifecycleApiTest < Minitest::Test
     assert_tracked LifecycleEvent.first, 'fetched', alice.id
     assert_tracked LifecycleEvent.last, 'submitted', alice.id
   end
-
-  def test_tracks_fetch_when_language
-    Xapi.stub(:get, 200, "{}") do
-      get '/exercises/ruby', key: alice.key
-    end
-
-    assert_equal 1, LifecycleEvent.count
-    assert_tracked LifecycleEvent.first, 'fetched', alice.id
-  end
-
-  def test_tracks_fetch_when_exercise
-    Xapi.stub(:get, 200, "{}") do
-      get '/exercises/ruby/bob', key: alice.key
-    end
-
-    assert_equal 1, LifecycleEvent.count
-    assert_tracked LifecycleEvent.first, 'fetched', alice.id
-  end
 end
