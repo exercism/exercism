@@ -13,7 +13,7 @@ module ExercismAPI
         halt 500, ErrPleaseUpgrade
       end
 
-      get '/iterations/:key/restore' do |key|
+      get '/iterations/:key/restore' do |_|
         halt 500, ErrPleaseUpgrade
       end
 
