@@ -1,9 +1,9 @@
 {
-  "assignments": [
+  "problems": [
     {
       "track_id": "go",
-      "id": "leap",
-      "track": "go",
+      "language": "Go",
+      "name": "Leap",
       "slug": "leap",
       "files": {
         "file1_test.name": "file1_content",

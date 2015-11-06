@@ -26,12 +26,12 @@ module ExercismWeb
       end
 
       def self.from_json_data(data)
-        assignment, * = data.fetch('assignments')
-        track = assignment.fetch('track')
-        slug = assignment.fetch('slug')
-        raw_files = assignment.fetch('files')
+        exercise, * = data.fetch('problems')
+        track_id = exercise.fetch('track_id')
+        slug = exercise.fetch('slug')
+        raw_files = exercise.fetch('files')
 
-        new(track, slug, raw_files)
+        new(track_id, slug, raw_files)
       end
 
       def initialize(track, slug, raw_files)
