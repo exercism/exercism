@@ -1,43 +1,35 @@
 <div class="container getting-started">
-	<section class="page-header">
-		<h1><%= language %></h1>
-	</section>
-	<% if active %>
-		<article class="article-block">
-			<div class="article-contents">
-				<% if !docs.about.empty? %>
-					<h2 class="header">About <%= language %></h2>
-						<p>
-							<%= docs.about %>
-						</p>
-				<% end %>
-        <% if !problems.empty? %>
-          <h2 class="header">Fetch your first exercise</h2>
-          <pre> exercism fetch <%= slug %> <%= problems.first.slug %></pre>
-        <% end %>
-				<h2 class="header">Available Exercises</h2>
-				<% problems.each do |problem| %>
-					<h5>
-						<a href="/exercises/<%= slug %>/<%= problem.slug %>/readme"><%= problem.name%></a>
-						<b class="caret fuchsia" data-toggle="collapse" data-target="#<%=problem.slug%>" aria-expanded="false" aria-controls="<%=problem.slug%>"></b>
-					</h5>
-					<div class="collapse" id="<%=problem.slug%>">
-					  <div class="well">
-						<p><%= problem.blurb %></p>
-					</div>
-				</div>
-				<% end %>
-			</div>
-		</article>
-		<article class="article-block">
-			<div class="article-contents">
-				<h2 class="header">Getting Started</h2>
-				<p>Need help getting started? You can find install documentation and resources for <%= language %> <a href="http://help.exercism.io/getting-started-with-<%= slug %>.html">here</a>.</p>
-			</div>
-		</article>
-	<% elsif exists %>
-		<h3>We're still working on <%= language %>. <a href="https://github.com/exercism/x<%= slug %>">Want to help us out?</a></h3>
-	<% else %>
-		<h3>If you'd like to see exercises in this language, <a href="https://github.com/exercism/exercism.io/issues/new">let us know.</a></h3>
-	<% end %>
+  <%= erb :"languages/_header", locals: { language: language } %>
+  <article class="article-block">
+    <div class="article-contents">
+      <% if !docs.about.empty? %>
+        <h2 class="header">About <%= language %></h2>
+          <p>
+            <%= docs.about %>
+          </p>
+      <% end %>
+      <% if !problems.empty? %>
+        <h2 class="header">Fetch your first exercise</h2>
+        <pre> exercism fetch <%= slug %> <%= problems.first.slug %></pre>
+      <% end %>
+      <h2 class="header">Available Exercises</h2>
+      <% problems.each do |problem| %>
+        <h5>
+          <a href="/exercises/<%= slug %>/<%= problem.slug %>/readme"><%= problem.name%></a>
+          <b class="caret fuchsia" data-toggle="collapse" data-target="#<%=problem.slug%>" aria-expanded="false" aria-controls="<%=problem.slug%>"></b>
+        </h5>
+        <div class="collapse" id="<%=problem.slug%>">
+          <div class="well">
+          <p><%= problem.blurb %></p>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </article>
+  <article class="article-block">
+    <div class="article-contents">
+      <h2 class="header">Getting Started</h2>
+      <p>Need help getting started? You can find install documentation and resources for <%= language %> <a href="http://help.exercism.io/getting-started-with-<%= slug %>.html">here</a>.</p>
+    </div>
+  </article>
 </div>
