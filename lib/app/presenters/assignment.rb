@@ -16,6 +16,7 @@ module ExercismWeb
 
         def testfile?
           filename =~ /test/i ||
+            filename =~ /spec/i ||
             filename =~ /\.t$/ ||
             filename =~ /ut_.*#\.plsql\Z/
         end
