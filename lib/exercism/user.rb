@@ -83,6 +83,10 @@ class User < ActiveRecord::Base
     @onboarding_steps ||= lifecycle_events.map(&:key)
   end
 
+  def fetched?
+    onboarding_steps.include?("fetched")
+  end
+
   def onboarded?
     !!onboarded_at
   end
