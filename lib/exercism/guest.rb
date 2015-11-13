@@ -2,6 +2,10 @@ class Guest
   def id
   end
 
+  def fetched?
+    false
+  end
+
   def onboarded?
     false
   end
