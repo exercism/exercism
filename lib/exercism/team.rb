@@ -63,6 +63,8 @@ class Team < ActiveRecord::Base
 
   def dismiss(username)
     user = User.find_by_username(username)
+    return if user.nil?
+
     TeamMembership.where(team_id: self.id, user_id: user.id).map(&:destroy)
     self.members.delete(user)
     self.unconfirmed_members.delete(user)
