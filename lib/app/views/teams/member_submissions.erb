@@ -5,7 +5,7 @@
   </h5>
   <% if exercises.any? %>
     <ul>
-      <% exercises.by_activity.limit(5).each do |exercise| %>
+      <% exercises.current.limit(5).each do |exercise| %>
         <li>
         <% if current_user.can_access?(exercise) %>
           <a href="/exercises/<%= exercise.key %>">
