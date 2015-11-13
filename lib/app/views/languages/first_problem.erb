@@ -2,7 +2,7 @@
   <%= erb :"languages/_header", locals: { language: language } %>
   <article class="article-block">
     <div class="article-contents">
-      <%= erb :"languages/_docs", locals: { docs: docs } %>
+      <%= erb :"languages/_docs", locals: { docs: docs, language: language } %>
       <% if problem %>
         <h2 class="header">Fetch your first exercise</h2>
         <pre> exercism fetch <%= slug %> <%= problem.slug %></pre>
