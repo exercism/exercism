@@ -9,8 +9,8 @@ class UserTrack
     attr_reader :slug, :total, :unread
     def initialize(slug, total, viewed)
       @slug = slug
-      @total = total
-      @unread = [total.to_i-viewed.to_i, 0].max
+      @total = total.to_i
+      @unread = [total-viewed.to_i, 0].max
     end
   end
 
