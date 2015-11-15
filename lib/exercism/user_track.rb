@@ -10,7 +10,7 @@ class UserTrack
     def initialize(slug, total, viewed)
       @slug = slug
       @total = total.to_i
-      @unread = [total-viewed.to_i, 0].max
+      @unread = [total.to_i-viewed.to_i, 0].max
     end
   end
 
