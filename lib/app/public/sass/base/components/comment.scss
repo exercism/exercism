@@ -107,5 +107,8 @@ Styleguide Components - Comment.
     .comment-body {
       @include default-triangle("right");
     }
+    .comment-body p a{
+      word-wrap: break-word;
+    }
   }
 }
