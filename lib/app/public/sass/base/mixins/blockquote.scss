@@ -1,0 +1,8 @@
+@mixin blockquote_style {
+  blockquote {
+    font-size: 1em;
+    color: gray;
+    font-style: italic;
+  }
+}
+

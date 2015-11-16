@@ -1,5 +1,6 @@
 @import 'bootstrap';
 @import '../base/themes/exercism';
+@import '../base/mixins/blockquote';
 @import '../base/variables';
 @import 'font-awesome';
 
@@ -127,6 +128,7 @@
     .preview {
       margin: 10px 0px;
     }
+    @include blockquote_style;
   }
   .submission-code-actions {
     margin-bottom: -100%;
