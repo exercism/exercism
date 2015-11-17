@@ -21,8 +21,9 @@ module ExercismWeb
 
         problems = Presenters::Special::Problems.new(track_id).track_problems
         docs = Presenters::Docs.new(track_id)
+        repo_url = ExercismWeb::Presenters::Tracks.repo_url(track_id)
 
-        erb :"languages/languages", locals: { problems: problems, docs: docs, language: language, slug: track_id }
+        erb :"languages/languages", locals: { problems: problems, docs: docs, language: language, slug: track_id, repo_url: repo_url }
       end
     end
   end
