@@ -2,6 +2,7 @@
   <%= erb :"languages/_header", locals: { language: language } %>
   <%= erb :"languages/_fetch_problem", locals: { problem: problems.first, slug: slug } %>
   <%= erb :"languages/_getting_started", locals: { language: language, slug: slug } %>
+  <%= erb :"languages/_having_issues", locals: { repo_url: repo_url } %>
   <article class="article-block">
     <div class="article-contents">
       <%= erb :"languages/_docs", locals: { docs: docs } %>
