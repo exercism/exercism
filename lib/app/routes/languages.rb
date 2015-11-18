@@ -22,11 +22,7 @@ module ExercismWeb
         problems = Presenters::Special::Problems.new(track_id).track_problems
         docs = Presenters::Docs.new(track_id)
 
-        if current_user.fetched?
-          erb :"languages/languages", locals: { problems: problems, docs: docs, language: language, slug: track_id }
-        else
-          erb :"languages/first_problem", locals: { problem: problems.first, docs: docs, language: language, slug: track_id }
-        end
+        erb :"languages/languages", locals: { problems: problems, docs: docs, language: language, slug: track_id }
       end
     end
   end
