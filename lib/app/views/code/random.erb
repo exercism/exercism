@@ -18,7 +18,7 @@
     <div style="padding-top: 2px;">
       <% submission.solution.each do |filename, code| %>
       <h3><%= filename %></h3>
-        <%= md(code, submission.track_id) %>
+        <%= syntax(code, submission.track_id) %>
       <% end %>
     </div>
   </div>

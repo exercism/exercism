@@ -17,7 +17,7 @@
       <div class="tab-content">
         <% iterations.each do |iteration| %>
           <div class="<%= (iteration.number == 1 ? "active" : '') %> tab-pane" id="tab<%= iteration.number %>">
-            <%= md(iteration.code, iteration.language) %>
+            <%= syntax(iteration.code, iteration.language) %>
             <div class="comments" style="margin-top: 20px;">
               <% iteration.comments.each do |comment| %>
                 <div class="media">

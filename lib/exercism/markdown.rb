@@ -1,7 +1,6 @@
 require 'redcarpet'
 require 'nokogiri'
-require 'rouge'
-require 'rouge/plugins/redcarpet'
+require 'exercism/syntax_highlighter'
 
 # GitHub usernames can contain alphanumerics and dashes, but must not
 # start with a dash.
@@ -74,19 +73,7 @@ module ExercismLib
     end
 
     def block_code(code, language)
-      lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::PlainText
-
-      # XXX HACK: Redcarpet strips hard tabs out of code blocks,
-      # so we assume you're not using leading spaces that aren't tabs,
-      # and just replace them here.
-      code.gsub!(/^    /, "\t") if lexer.tag == 'make'
-
-      formatter = Rouge::Formatters::HTML.new(
-        css_class: "highlight #{lexer.tag}",
-        line_numbers: true
-      )
-
-      formatter.format(lexer.lex(code))
+      ExercismLib::SyntaxHighlighter.new(code, language).render
     end
   end
 end
