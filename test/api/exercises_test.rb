@@ -8,9 +8,10 @@ class ExercisesApiTest < Minitest::Test
     ExercismAPI::App
   end
 
-  def test_exercises_requires_key
+  def test_exercises_gives_reasonable_empty_state
     get '/exercises'
-    assert_equal 401, last_response.status
+    assert_equal 200, last_response.status
+    assert_equal '{}', last_response.body
   end
 
   def test_exercises

@@ -8,10 +8,8 @@ module ExercismAPI
       # This is the list of the user's solutions, and their current state.
       # Called from the CLI.
       get '/exercises' do
-        require_key
-
         if current_user.guest?
-          halt 400, {error: "Sorry—we can't figure out who you are. Double-check your API key in your exercism.io account page."}.to_json
+          halt 200, {}.to_json
         end
 
         begin
