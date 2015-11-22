@@ -3,7 +3,7 @@
     {
       "type": "file",
       "location": "frontend",
-      "installToPath": "lib/app/public",
+      "installToPath": "public",
       "filesToDeploy" : ["js/*.js", "css/*.css"]
     }
   ]

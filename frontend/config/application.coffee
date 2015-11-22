@@ -34,7 +34,7 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
   copy:
     dev:
       files: [expand: true, cwd: 'generated', src: ['css/**', 'js/**', '!**/spec.js', 
-              '!**/*.less*', '!**/*.coffee*', '!**/*.*.map'], dest: '../lib/app/public' ]
+              '!**/*.less*', '!**/*.coffee*', '!**/*.*.map'], dest: '../public' ]
 
   # configuration for grunt-ngmin, this happens _after_ concat once, which is the ngmin ideal :)
   ngmin: {
