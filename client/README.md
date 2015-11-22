@@ -99,7 +99,7 @@ client/
 ## How it works
 
 Long story short (lots of details ommited):
-Client files are bundled into single js file by Webpack and together with any images moved into `./lib/app/public/js` folder,
+Client files are bundled into single js file by Webpack and together with any images moved into `./public/js` folder,
 and `./lib/app/views/layout.erb` then requires `bundle.js` file, which will load all the needed dependencies. (NOTE: Find a
 way how to make webpack load only needed modules for current view).
 
@@ -113,7 +113,7 @@ run commands:
 
 1. `npm install` - install all npm dependencies
 2. `bower install` - install all bower dependencies
-3. `gulp` - run Gulp's default task (this will bundle all client side files into single file, copy it into `./lib/app/public/js` and start watching the files with enabled live reloading)
+3. `gulp` - run Gulp's default task (this will bundle all client side files into single file, copy it into `./public/js` and start watching the files with enabled live reloading)
 
 In the root application directory:
 
@@ -121,9 +121,9 @@ In the root application directory:
 
 ### Tasks
 * `gulp` - default task, runs `gulp clean`, `gulp build` and `gulp watch`
-* `gulp clean` - delete contents of `./lib/app/public` folder
-* `gulp build` - bundle all the modules together and output `bundle.js` file into `./lib/app/public/js` directory
-* `gulp copy` - copy `bundle.js` and images to `lib/app/public/` directory
+* `gulp clean` - delete contents of `./public` folder
+* `gulp build` - bundle all the modules together and output `bundle.js` file into `./public/js` directory
+* `gulp copy` - copy `bundle.js` and images to `public/` directory
 * `gulp watch` - watch for changes in js/css/html files
 * `gulp test` - run karma tests
 * `gulp e2e` - run protractor end-to-end tests

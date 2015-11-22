@@ -9,7 +9,7 @@ var webpackConfigPath = './webpack.config.js';
 /*
  * Start livereload server and listen to changes in js/css/html files in
  * './app' directory. On change bundle the application into 'bundle.js' file,
- * move it into './lib/app/public/js' directory and reload server.
+ * move it into './public/js' directory and reload server.
  */
 gulp.task('watch', function() {
   livereload.listen();
