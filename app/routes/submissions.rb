@@ -21,7 +21,7 @@ module ExercismWeb
         locals = {
           submission: submission,
           last_in_inbox: last,
-          sharing: Sharing.new,
+          sharing: Presenters::Sharing.new,
           successor: Successor.from(session, params, submission.problem),
         }
 

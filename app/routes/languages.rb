@@ -1,5 +1,3 @@
-require 'app/presenters/problems'
-
 module ExercismWeb
   module Routes
     class Languages < Core

@@ -9,7 +9,7 @@ module ExercismWeb
 
         if user
           title(user.username)
-          erb :"user/show", locals: { profile: Profile.new(user, current_user) }
+          erb :"user/show", locals: { profile: Presenters::Profile.new(user, current_user) }
         else
           status 404
           erb :"errors/not_found"

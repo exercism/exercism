@@ -1,6 +1,6 @@
 require './config/build_id'
 require './config/bugsnag'
-require_relative 'exercism'
+require_relative './lib/exercism'
 
 require 'sinatra/petroglyph'
 require 'sinatra/reloader'
@@ -9,11 +9,7 @@ require 'will_paginate/active_record'
 require 'kss'
 
 require_relative './app/presenters'
-require_relative './app/presenters/profile'
-require_relative './app/presenters/sharing'
-require_relative './exercism/xapi'
-require_relative './app/presenters/problems'
-require_relative './app/presenters/docs'
+require_relative './lib/exercism/xapi'
 
 require_relative './app/helpers'
 require_relative './app/helpers/gravatar_helper'

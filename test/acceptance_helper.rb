@@ -3,7 +3,7 @@ require 'bundler'
 Bundler.require
 require_relative './active_record_helper'
 require 'exercism'
-require 'app'
+require './app'
 require 'capybara'
 require 'minitest-capybara'
 require_relative './tracks_helper'

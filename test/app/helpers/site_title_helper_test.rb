@@ -1,5 +1,5 @@
 require_relative '../../test_helper'
-require 'app/helpers/site_title_helper'
+require_relative '../../../app/helpers/site_title_helper'
 
 class SiteTitleHelperTest < Minitest::Test
   def setup

@@ -100,7 +100,7 @@ client/
 
 Long story short (lots of details ommited):
 Client files are bundled into single js file by Webpack and together with any images moved into `./public/js` folder,
-and `./lib/app/views/layout.erb` then requires `bundle.js` file, which will load all the needed dependencies. (NOTE: Find a
+and `./app/views/layout.erb` then requires `bundle.js` file, which will load all the needed dependencies. (NOTE: Find a
 way how to make webpack load only needed modules for current view).
 
 ## Development

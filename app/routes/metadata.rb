@@ -1,5 +1,3 @@
-require 'app/presenters/assignment'
-
 module ExercismWeb
   module Routes
     class Metadata < Core

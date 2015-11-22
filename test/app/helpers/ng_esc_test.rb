@@ -1,5 +1,5 @@
 require_relative '../../test_helper'
-require 'app/helpers/ng_esc'
+require_relative '../../../app/helpers/ng_esc'
 
 class NgEscHelperTest < Minitest::Test
   def helper

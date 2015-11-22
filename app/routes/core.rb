@@ -3,7 +3,7 @@ module ExercismWeb
     class Core < Sinatra::Application
       configure do
         set :public_folder, Exercism.relative_to_root('public')
-        set :root, Exercism.relative_to_root('lib', 'app')
+        set :root, Exercism.relative_to_root('app')
         set :environment, ENV.fetch('RACK_ENV') { :development }.to_sym
         set :method_override, true
 

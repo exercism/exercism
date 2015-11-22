@@ -1,7 +1,6 @@
 require_relative '../../test_helper'
 require 'exercism/named'
 require 'json'
-require 'app/presenters/assignment'
 
 class PresentersAssignmentTest < Minitest::Test
   def assignments_multiple_files

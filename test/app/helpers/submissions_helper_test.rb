@@ -1,5 +1,5 @@
 require_relative '../../integration_helper'
-require 'app/helpers/submissions_helper'
+require_relative '../../../app/helpers/submissions_helper'
 
 class SubmissionsHelperTest < Minitest::Test
   include DBCleaner

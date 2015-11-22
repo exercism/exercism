@@ -1,5 +1,5 @@
 require_relative '../../test_helper'
-require 'app/helpers/fuzzy_time'
+require_relative '../../../app/helpers/fuzzy_time'
 
 class FuzzyTimeHelperTest < Minitest::Test
 

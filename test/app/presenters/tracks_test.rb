@@ -1,6 +1,6 @@
 require_relative '../../test_helper'
 require_relative '../../tracks_helper'
-require 'app/presenters/tracks'
+require_relative '../../../app/presenters/tracks'
 
 class PresentersTracksTest < Minitest::Test
   def setup

@@ -30,7 +30,7 @@ module ExercismWeb
       User: 'user',
       GithubCallback: 'github_callback'
     }.each do |name, file|
-      autoload name, Exercism.relative_to_root('lib', 'app', 'routes', file)
+      autoload name, Exercism.relative_to_root('app', 'routes', file)
     end
   end
 end

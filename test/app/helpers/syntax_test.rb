@@ -1,5 +1,5 @@
 require_relative '../../test_helper'
-require 'app/helpers/syntax'
+require_relative '../../../app/helpers/syntax'
 
 class SyntaxHelperTest < Minitest::Test
   def helper

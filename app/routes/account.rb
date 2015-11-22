@@ -5,7 +5,7 @@ module ExercismWeb
         please_login
 
         title('account')
-        erb :"account/show", locals: { profile: Profile.new(current_user) }
+        erb :"account/show", locals: { profile: Presenters::Profile.new(current_user) }
       end
 
       put '/account/email' do

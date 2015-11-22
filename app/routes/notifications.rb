@@ -1,5 +1,3 @@
-require 'app/presenters/inbox'
-
 module ExercismWeb
   module Routes
     class Notifications < Core

@@ -2,7 +2,7 @@ require_relative '../../test_helper'
 require_relative '../../app_presenters_helper'
 require_relative '../../api_helper'
 require 'mocha/setup'
-require 'app/presenters/problems'
+require_relative '../../../app/presenters/problems'
 require_relative '../../api_helper.rb'
 require_relative '../../app_helper.rb'
 
