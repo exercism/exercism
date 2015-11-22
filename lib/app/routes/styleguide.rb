@@ -4,7 +4,7 @@ module ExercismWeb
 
       get '/styleguide' do
         # https://github.com/kneath/kss/blob/master/SPEC.md
-        @styleguide = Kss::Parser.new('lib/app/public/sass')
+        @styleguide = Kss::Parser.new('public/sass')
         erb :"styleguide/index", layout: :styleguide
       end
 
