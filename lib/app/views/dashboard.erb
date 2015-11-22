@@ -74,6 +74,34 @@
     </div>
   </div>
 
+  <% if (current_user.teams | current_user.managed_teams).any? %>
+    <div class="row">
+      <div class="col-sm-4">
+        <h2>Your Teams</h2>
+        <div class="well">
+          <ul class="nav nav-stacked">
+            <% (current_user.teams | current_user.managed_teams).each do |team| %>
+              <li>
+                <a role="menuiytem" tabindex="-1" href="/teams/<%= team.slug %>">
+                  <table width="100%">
+                    <tr>
+                      <td width="60%">
+                        <%= team.name %>
+                      </td>
+                      <td width="40%">
+                        <%= team.confirmed_members.size %> members
+                      </td>
+                    </tr>
+                  </table>
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
   <div class="row">
     <div class="col-sm-4">
       <h2>Activity</h2>
@@ -138,7 +166,7 @@
   <div class="row">
     <div class="col-md-6">
       <h2>Need help?</h2>
-      <p>The <a href="http://help.exercism.io">help site</a> should get you going.</p> 
+      <p>The <a href="http://help.exercism.io">help site</a> should get you going.</p>
       <p>If you get stuck, ask in our <a href="https://gitter.im/exercism/support">Gitter support channel</a>.</p>
       <p>Report bugs by <a href="https://github.com/exercism/exercism.io/issues/new">opening a new issue on Github</a>.</p>
     </div>
