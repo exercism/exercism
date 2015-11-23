@@ -35,6 +35,7 @@ module ExercismWeb
       helpers Helpers::FuzzyTime
       helpers Helpers::NgEsc
       helpers Helpers::Markdown
+      helpers Helpers::Syntax
       helpers Helpers::Session
       helpers WillPaginate::Sinatra::Helpers
       helpers Sinatra::SubmissionsHelper

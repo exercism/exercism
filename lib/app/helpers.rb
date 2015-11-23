@@ -5,6 +5,7 @@ module ExercismWeb
       FuzzyTime: 'fuzzy_time',
       NgEsc: 'ng_esc',
       Markdown: 'markdown',
+      Syntax: 'syntax',
       NotificationCount: 'notification_count'
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('lib', 'app', 'helpers', file)

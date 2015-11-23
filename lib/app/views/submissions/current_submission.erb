@@ -28,7 +28,7 @@
 
     <% submission.solution.each do |filename, code| %>
       <h4><%= filename %></h4>
-      <%= md(code, submission.track_id) %>
+      <%= syntax(code, submission.track_id) %>
 
       <div id="submission-code" class="hidden">
         <%= h code %>

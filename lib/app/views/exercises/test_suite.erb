@@ -17,7 +17,7 @@
   <% testfiles.each do |f| %>
     <div>
       <h4><%= f.filename %></h4>
-      <%= md(f.content, f.extension) %>
+      <%= syntax(f.content, f.extension) %>
     </div>
   <% end %>
 </div>
