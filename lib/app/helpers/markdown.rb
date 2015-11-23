@@ -4,7 +4,7 @@ require 'loofah'
 module ExercismWeb
   module Helpers
     module Markdown
-      ROUGUE_LANG = {
+      ROUGE_LANG = {
         'objective-c' => 'objective_c',
         'elisp' => 'common_lisp',
         'plsql' => 'sql',

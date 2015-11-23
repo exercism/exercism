@@ -3,7 +3,7 @@ require 'rouge'
 module ExercismLib
   class SyntaxHighlighter
 
-    ROUGUE_LANG = {
+    ROUGE_LANG = {
       'objective-c' => 'objective_c',
       'elisp'       => 'common_lisp',
       'plsql'       => 'sql',
@@ -37,7 +37,7 @@ module ExercismLib
 
     def normalize_language(language)
       # HACK: Some languages have different names in Rouge
-      ROUGUE_LANG.fetch(language) { language }
+      ROUGE_LANG.fetch(language) { language }
     end
   end
 end
