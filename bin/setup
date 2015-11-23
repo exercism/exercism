@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+
+# Set up Rails app. Run this script immediately after cloning the codebase.
+
+# Exit if any subcommand fails
+set -e
+
+# Set up ruby version file
+if [ ! -f .ruby-version ]; then
+  cp .ruby-version.example .ruby-version
+fi
+
+# Set up configurable environment variables
+if [ ! -f .env ]; then
+  cp config/env .env
+fi
+
+# Set up Ruby dependencies via Bundler
+gem install bundler --conservative
+bundle check || bundle install --path=vendor/bundle
+
+# Set up the database and add seed data
+rake db:from_scratch
+
+# Set up the test database
+RACK_ENV=test rake db:setup db:migrate
+
+# Run the tests
+rake

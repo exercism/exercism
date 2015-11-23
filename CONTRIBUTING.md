@@ -104,32 +104,37 @@ First, you need to get ahold of the code, so you have a copy of it locally that 
 
 ### Configuration
 
-* If you use a Ruby version manager such as RVM, rbenv or chruby, then: `cp .ruby-version.example .ruby-version`
-* Copy the environment config: `cp config/env .env`
+In most cases, it is easiest to run the `bin/setup` script to automatically setup the defaults for the application. The script will:
+
+* setup the `.ruby-version` file for your Ruby version manager such as RVM, rbenv or chruby
+* copy the environment config to `.env`
+* run bundler to install the required gems
+* create the development database using the credentials in `config/database.yml`
+* download and seed the database with a good starting set of data
+* create the test database
+* run the test suite
+
+Then you'll need to:
+
 * Open `.env` and add the **Client ID** and **Client Secret** from the previous GitHub OAuth steps.
 
 All the commented out values in `.env` can be left alone for now.
 
 You don't need to fill in the EXERCISES_API value unless you're going to be working on the x-api codebase.
 
-### Dependencies
-
-Next, make sure all the application dependencies are installed:
-
-* Install gems with: `bundle install`
-
 ### Data
 
-Finally, set up the database. This means both creating the underlying database, and migrating so that it
-has all the correct tables. Also runs a script to add fake data, so there are things to click on and look at while working on the app.
+The script in `bin/setup` will create the development and test databases with the correct table structure. It also runs a script to add fake data to the development database, so there are things to click on and look at while working on the app. Finally, it makes sure the tests pass by running `rake`.
 
-You can now set up the database for development:
+If you only want to set up the development database, you can run `rake db:from_scratch` which will bootstrap a development database without running bundler or any of the additional configuration steps in the `bin/setup` script.
 
-* Do all of it in one go: `rake db:from_scratch`
+Please note that this rake task will call `psql`, and `createdb`. If you need to set PostgreSQL parameters like the user and/or database name to use during setup, set `PGUSER` and/or `PGDATABASE` environment values respectively. Example: `PGUSER=pgsql PGDATABASE=postgres rake db:from_scratch`
 
-Please note that this will call `psql`, and `createdb`. If you need to set PostgreSQL parameters like the user and/or database name to use during setup, set `PGUSER` and/or `PGDATABASE` environment values respectively. Example: `PGUSER=pgsql PGDATABASE=postgres rake db:from_scratch`
+You can easily reset an existing database to its original state and add the fake data in one step:
 
-Alternatively (or to debug if the above blows up), do it one-by-one:
+* `rake db:reseed`
+
+Alternatively (or to debug if the above blows up), do it step-by-step:
 
 * Create the PostgreSQL database: `rake db:setup`
 * Run the database migrations: `rake db:migrate`

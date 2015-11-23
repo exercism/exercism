@@ -17,8 +17,11 @@ namespace :db do
     end
   end
 
+  desc "reset db and reseed data"
+  task :reseed => ["db:drop", "db:create", "db:migrate", "db:seed"]
+
   desc "generate seed data"
-  task :seed => ["db:drop", "db:create", "db:migrate"] do
+  task :seed do
     require 'bundler'
     Bundler.require
     require 'exercism'

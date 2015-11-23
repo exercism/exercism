@@ -59,7 +59,7 @@ namespace :db do
   end
 
   desc 'set the database up from scratch'
-  task from_scratch: %i(setup seeds:fetch seed)
+  task from_scratch: %i(setup migrate seeds:fetch seed)
 
   namespace :generate do
     desc "generate migration"
