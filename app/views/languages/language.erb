@@ -1,0 +1,162 @@
+<div class="container languages">
+
+  <div class="row" style="padding-top: 40px;">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+      <h1><%= track.language %></h1>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 20px;">
+    <div class="col-md-4">
+
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active">
+          <a data-toggle="tab" href="#about">About the <%= track.language %> Track</a>
+        </li>
+
+        <li>
+          <a data-toggle="tab" href="#exercises">Available Exercises</a>
+        </li>
+
+        <li>
+          <a data-toggle="tab" href="#tests">Running the Tests</a>
+        </li>
+
+        <li>
+          <a data-toggle="tab" href="#installing">Installing <%= track.language %></a>
+        </li>
+
+        <li>
+          <a data-toggle="tab" href="#learning">Learning <%= track.language %></a>
+        </li>
+
+        <li>
+          <a data-toggle="tab" href="#resources">Useful <%= track.language %> Resources</a>
+        </li>
+
+        <li>
+          <a data-toggle="tab" href="#help">Getting Help</a>
+        </li>
+
+        <li>
+        <a data-toggle="tab" href="#contribute">Contributing to <%= track.language %> on Exercism</a>
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="col-md-8 tab-content">
+
+      <div class="active tab-pane" id="about">
+        <%= md track.docs.about %>
+
+        <h3>Try It!</h3>
+        <p>
+          If you've downloaded the command-line client and have <%= track.language %> installed
+          on your machine, then go ahead and fetch the first problem.
+        </p>
+        <%= md track.fetch_cmd %>
+
+        <p>
+          When you've written a solution, submit it to the site.
+          You'll have to configure the command-line client with your exercism API key before you can submit.
+        </p>
+
+        <%= md track.submit_cmd %>
+      </div>
+
+      <div class="tab-pane" id="exercises">
+        <p>
+          When you're logged in, you can say <code>exercism fetch <%= track.id %></code> to get
+          the next available exercise on the track.
+        </p>
+
+        <p>
+          Every time you submit a solution to an exercise, you will get the next in line the next time
+          you fetch.
+        </p>
+
+        <p>
+          If you want to try a specific exercise, you can always fetch it directly (commands
+          are listed below).
+        </p>
+
+        <p>
+          The exercises are ordered roughly in order of difficulty, but it's a bit haphazard.
+        </p>
+
+        <h3>Available Exercises</h3>
+
+        <% track.problems.each do |problem| %>
+          <h5>
+            <%= problem.name %>
+            <b class="caret fuchsia" data-toggle="collapse" data-target="#<%= problem.slug %>" aria-expanded="false" aria-controls="<%= problem.slug %>">
+              &nbsp;
+            </b>
+          </h5>
+
+          <div class="collapse" id="<%= problem.slug %>">
+            <p><%= problem.blurb %></p>
+
+            <p>
+              <a href="/exercises/<%= track.id %>/<%= problem.slug %>/readme">README</a>
+              |
+              <a href="/exercises/<%= track.id %>/<%= problem.slug %>">Test Suite</a>
+            </p>
+
+            <h6>Fetch it!</h6>
+            <%= md track.fetch_cmd(problem) %>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="tab-pane" id="tests">
+        <%= md track.docs.tests %>
+      </div>
+
+      <div class="tab-pane" id="installing">
+        <%= md track.docs.installation %>
+      </div>
+
+      <div class="tab-pane" id="learning">
+        <%= md track.docs.learning %>
+      </div>
+
+      <div class="tab-pane" id="resources">
+        <%= md track.docs.resources %>
+      </div>
+
+      <div class="tab-pane" id="help">
+        <p>
+          If you're having trouble <a href="https://gitter.im/exercism/support">jump in the support chat</a>,
+          or submit a <a href="https://github.com/exercism/exercism.io/issues">GitHub issue</a> and
+          explain what's going on. We'll do our best to get you unstuck.
+        </p>
+      </div>
+
+      <div class="tab-pane" id="contribute">
+        <h5>Help Us Improve the <%= track.language %> Track!</h5>
+
+        <p>
+          Did you find a typo in the README? Is the test suite missing an edge case?
+          We want to know about it.
+        </p>
+
+        <p>
+          We always welcome GitHub issues and pull requests. See the
+          <a href="<%= track.repository %>"><%= track.language %> repository</a>
+          for more information.
+        </p>
+
+        <p>
+          Want to help us add more exercises? You can make them up from scratch,
+          or find exercises implemented in other languages that are not yet in
+          <%= track.language %>.
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+</div>

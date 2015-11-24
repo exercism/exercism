@@ -3,7 +3,6 @@
     <% if !current_user.guest? %>
     <li><a href="/dashboard">Dashboard</a></li>
     <% end %>
-    <li><a href="http://help.exercism.io">Help</a></li>
     <% unless current_user.onboarded? %>
       <li><a href="/getting-started">Welcome new users</a></li>
     <% end %>
