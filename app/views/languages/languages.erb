@@ -5,7 +5,7 @@
   <%= erb :"languages/_having_issues", locals: { repo_url: repo_url } %>
   <article class="article-block">
     <div class="article-contents">
-      <%= erb :"languages/_docs", locals: { docs: docs } %>
+      <%= erb :"languages/_docs", locals: { docs: docs, language: language } %>
       <h2 class="header">Available Exercises</h2>
       <% problems.each do |problem| %>
         <h5>
