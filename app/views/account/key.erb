@@ -1,0 +1,20 @@
+<div class="container">
+  <section class="page-header">
+    <h1>
+      API Key: <%= current_user.key %>
+    </h1>
+  </section>
+
+  <h2>Configuration</h2>
+  <p>To configure or reconfigure the exercism command-line client use the following command:</p>
+
+  <%= md("exercism configure --key=#{current_user.key}") %>
+
+  <hr />
+
+  <form action="/account/key/reset" method="post">
+    <input type="hidden" name="_method" value="put">
+    <input type="submit" value="Reset key" class="btn btn-danger">
+  </form>
+
+</div>

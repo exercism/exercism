@@ -18,6 +18,22 @@ module ExercismWeb
         flash[:success] = 'Updated email address.'
         redirect "/account"
       end
+
+      get '/account/key' do
+        please_login
+        erb :"account/key"
+      end
+
+      # Reset exercism API key
+      put '/account/key/reset' do
+        please_login
+
+        # This could fail, but I don't know
+        # what the user should see in that case.
+        # Do we even have a way of showing a message?
+        current_user.reset_key
+        redirect "/account"
+      end
     end
   end
 end
