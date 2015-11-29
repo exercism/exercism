@@ -38,13 +38,5 @@ module X
       ```
       TXT
     end
-
-    def submit_cmd
-      <<-TXT.gsub(/^\s*/, "")
-      ```plain
-      exercism submit PATH_TO_FILE
-      ```
-      TXT
-    end
   end
 end
