@@ -56,21 +56,21 @@
           If you've downloaded the command-line client and have <%= track.language %> installed
           on your machine, then go ahead and fetch the first problem.
         </p>
-        <%= md track.fetch_cmd %>
+        <%= syntax track.fetch_cmd, "plain" %>
 
         <p>
           In order to be able to submit your solution, you'll need to configure the client with your
           <a href="/api-key">Exercism API key</a>.
         </p>
 
-        <%= md("exercism configure --key=YOUR_EXERCISM_KEY") %>
+        <%= syntax "exercism configure --key=YOUR_EXERCISM_KEY", "plain" %>
 
         <p>
           When you've written a solution, submit it to the site.
           You'll have to configure the command-line client with your exercism API key before you can submit.
         </p>
 
-        <%= md("exercism submit PATH_TO_FILE") %>
+        <%= syntax "exercism submit PATH_TO_FILE", "plain" %>
       </div>
 
       <div class="tab-pane" id="exercises">

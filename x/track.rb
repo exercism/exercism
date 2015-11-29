@@ -32,11 +32,7 @@ module X
     end
 
     def fetch_cmd(problem=problems.first)
-      <<-TXT.gsub(/^\s*/, "")
-      ```plain
-      exercism fetch #{id} #{problem}
-      ```
-      TXT
+      "exercism fetch #{id} #{problem}"
     end
   end
 end
