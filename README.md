@@ -3,6 +3,7 @@
 [![Code Climate](https://img.shields.io/codeclimate/github/exercism/exercism.io.svg)](https://codeclimate.com/github/exercism/exercism.io)
 [![Gemnasium](https://img.shields.io/gemnasium/exercism/exercism.io.svg)](https://gemnasium.com/exercism/exercism.io)
 [![Coverage Status](https://img.shields.io/coveralls/exercism/exercism.io.svg)](https://coveralls.io/r/exercism/exercism.io)
+[![Supporting 24 Pull Requests](https://img.shields.io/badge/Supporting-24%20Pull%20Requests-red.svg?style=flat)](http://24pullrequests.com)
 [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
 To get started using exercism.io to practice or provide feedback on other

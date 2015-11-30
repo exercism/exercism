@@ -1,3 +1,5 @@
+require_relative '../../x'
+
 module ExercismWeb
   module Routes
     class Languages < Core
@@ -6,22 +8,12 @@ module ExercismWeb
       end
 
       get '/languages/:track_id' do |track_id|
-        language = Language.of(track_id)
-
-        begin
-          active = ExercismWeb::Presenters::Tracks.find(track_id.to_s).active?
-        rescue => e
-          Bugsnag.notify(e, nil, request)
-          return erb:"languages/not_implemented", locals: { language: language }
+        track = X::Track.find(track_id)
+        if track.implemented?
+          erb :"languages/language", locals: { track: track }
+        else
+          erb :"languages/not_implemented", locals: { track: track }
         end
-
-        return erb :"languages/in_progress", locals: { language: language, slug: track_id } if !active
-
-        problems = Presenters::Special::Problems.new(track_id).track_problems
-        docs = Presenters::Docs.new(track_id)
-        repo_url = ExercismWeb::Presenters::Tracks.repo_url(track_id)
-
-        erb :"languages/languages", locals: { problems: problems, docs: docs, language: language, slug: track_id, repo_url: repo_url }
       end
     end
   end

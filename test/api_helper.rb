@@ -7,6 +7,6 @@ require 'sinatra/base'
 require 'rack/test'
 require 'rack-flash'
 
-require 'api'
+require_relative '../api/v1'
 require_relative './tracks_helper'
 require_relative './app_test_helper'

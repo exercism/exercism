@@ -92,7 +92,7 @@ module ExercismAPI
 
         unless user
           message = "unknown api key '#{data['key']}', "
-          message << "please check your exercism.io account page and reconfigure"
+          message << "please check http://exercism.io/account/key and reconfigure"
           halt 401, { error: message }.to_json
         end
 

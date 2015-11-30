@@ -4,12 +4,7 @@
   </section>
   <article>
     <h2>API key</h2>
-      <strong>Your API key is: </strong><%= current_user.key %> 
-      <p>Use it to configure the exercism CLI.</p>
-      <form action="/me/uuid/reset" method="post">
-        <input type="hidden" name="_method" value="put">
-        <input type="submit" value="Reset key" class="btn btn-danger">
-      </form>
+    <strong>Your API key is: </strong><%= current_user.key %>. <a href="/account/key">Reset it here.</a>
 
     <hr>
 

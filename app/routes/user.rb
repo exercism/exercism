@@ -39,17 +39,6 @@ module ExercismWeb
         end
         redirect "/submissions/%s" % exercise.submissions.last.key
       end
-
-      # Reset exercism API key
-      put '/me/uuid/reset' do
-        please_login
-
-        # This could fail, but I don't know
-        # what the user should see in that case.
-        # Do we even have a way of showing a message?
-        current_user.reset_key
-        redirect "/account"
-      end
     end
   end
 end

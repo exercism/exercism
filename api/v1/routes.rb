@@ -10,7 +10,7 @@ module ExercismAPI
       Legacy: 'legacy',
       Tracks: 'tracks',
     }.each do |name, file|
-      autoload name, Exercism.relative_to_root('lib', 'api', 'routes', file)
+      autoload name, Exercism.relative_to_root('api', 'v1', 'routes', file)
     end
   end
 end

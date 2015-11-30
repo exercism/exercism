@@ -3,13 +3,13 @@ require 'exercism'
 require 'sinatra/petroglyph'
 
 module ExercismAPI
-  ROOT = Exercism.relative_to_root('lib', 'api')
+  ROOT = Exercism.relative_to_root('api', 'v1')
 end
 
 require 'exercism/homework'
 require 'exercism/xapi'
 
-require 'api/routes'
+require_relative 'v1/routes'
 
 module ExercismAPI
   class App < Sinatra::Base

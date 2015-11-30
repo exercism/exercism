@@ -11,7 +11,7 @@ if ENV['RACK_ENV'] != 'production'
 end
 
 require 'app'
-require 'api'
+require 'api/v1'
 
 ENV['RACK_ENV'] ||= 'development'
 

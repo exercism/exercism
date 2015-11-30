@@ -10,7 +10,6 @@
         <th class="center">Problems</th>
         <th class="center">Active users</th>
         <th class="center">Submitted solutions</th>
-        <th class="center">Average comments per submission</th>
       </tr>
         <% tracks.each do |t| %>
           <% if t.active? %>
@@ -20,7 +19,6 @@
               <td class="center"><%= t.problems.count %></td>
               <td class="center"><%= lt.num_users %></td>
               <td class="center"><%= lt.num_iterations %></td>
-              <td class="center"><%= lt.avg_comments %></td>
             </tr>
           <% end %>
         <% end %>

@@ -18,10 +18,6 @@ class LanguageTrack
     Submission.where("language = ?", "#{language}").count
   end
 
-  def avg_comments
-    Submission.where("language = ?", "#{language}").average(:nit_count).to_i
-  end
-
   private
     def problems
       all_tracks['tracks'].find do |track|
