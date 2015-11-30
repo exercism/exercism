@@ -1,7 +1,7 @@
 require_relative '../test_helper'
 require 'exercism/named'
 require 'exercism/problem'
-require 'exercism/language'
+require_relative '../x_helper'
 
 class ExerciseTest < Minitest::Test
   def test_attributes

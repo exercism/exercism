@@ -27,7 +27,7 @@ class Inbox
     @user = user
     @track_id = track_id.to_s.downcase
     @slug = slug.downcase if !!slug
-    @language = Language.of(track_id)
+    @language = X::Language.of(track_id)
     @page = page.to_i
     @per_page = 50
   end
