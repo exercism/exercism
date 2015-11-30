@@ -9,7 +9,8 @@ module Trending
 
   # TODO: select exercises, not submissions
   def self.for(user, timeframe)
-    ts = Time.now-timeframe
+    ts = Time.now.utc-timeframe
+
     sql = <<-SQL
       SELECT
         s.key AS uuid,
