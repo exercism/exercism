@@ -57,7 +57,7 @@
                 <% if notification.item.user %>
                   <a href="/<%= notification.item.user.username %>"><%= notification.item.user.username %></a> submitted a
                 <% end %>
-                new iteration of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= Language.of(notification.language) %></a>
+                new iteration of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= X::Language.of(notification.language) %></a>
               
               <% elsif notification.regarding == 'nitpick' %>
                 <% if notification.item.user.id == inbox.user.id %>
@@ -65,10 +65,10 @@
                 <% else %>
                   <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> commented on <a href="/<%= notification.item.user.username %>"><%= notification.item.user.username %></a>'s
                 <% end %>
-                <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= Language.of(notification.language) %></a>
+                <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= X::Language.of(notification.language) %></a>
               
               <% elsif notification.regarding == 'like' %>
-                <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> liked your submission of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= Language.of(notification.language) %></a>
+                <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> liked your submission of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= X::Language.of(notification.language) %></a>
               <% end %>
 
               <%= ago(notification.created_at) %>

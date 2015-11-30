@@ -6,7 +6,7 @@ Problem = Struct.new(:track_id, :slug) do
   end
 
   def language
-    Language.of(track_id)
+    X::Language.of(track_id)
   end
 
   def in?(other_track_id)

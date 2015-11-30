@@ -13,7 +13,7 @@
     <% else %>
       Take a look at one of the <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random"><%= total %> available implementations</a> of the exercise.
     <% end %>
-    This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.problem.name %> in <%= Language.of(submission.track_id) %>. Interested? Read the <a href="/submissions/<%= submission.key %>">related discussion</a>.
+    This is how <%= profile_link(submission.user, "@#{submission.user.username}") %> solved <%= submission.problem.name %> in <%= X::Language.of(submission.track_id) %>. Interested? Read the <a href="/submissions/<%= submission.key %>">related discussion</a>.
     </p>
     <div style="padding-top: 2px;">
       <% submission.solution.each do |filename, code| %>
