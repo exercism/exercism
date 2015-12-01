@@ -34,5 +34,11 @@ module X
     def fetch_cmd(problem=problems.first)
       "exercism fetch #{id} #{problem}"
     end
+
+    def find(problem_slug)
+      problems.select do |problem|
+        problem.slug == problem_slug
+      end.first
+    end
   end
 end
