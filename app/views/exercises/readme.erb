@@ -1,8 +1,16 @@
 <div class="container">
   <section class="page-header">
     <h1>
-      <%= problem.name %> in <%= problem.language %>
+      <%= problem['name'] %> in <%= problem['language'] %>
     </h1>
+    <h4>
+      <%= problem['blurb']%>
+    </h4>
+  </section>
+  <section>
+    <p>
+      <%= syntax "exercism fetch #{problem['track_id']} #{problem['slug']}", "plain" %>
+    </p>
   </section>
   <nav role="navigation">
     <ul class="nav nav-tabs">
@@ -10,9 +18,9 @@
         <a href="readme">Readme</a>
       </li>
       <li role="presentation">
-        <a href="../<%= problem.slug %>"> Test Suite</a>
+        <a href="tests"> Test Suite</a>
       </li>
     </ul>
   </nav>
-  <%= md(readme_file.content) %>
+  <%= md(problem['readme']) %>
 </div>

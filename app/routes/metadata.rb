@@ -1,28 +1,16 @@
+require_relative '../../x'
+
 module ExercismWeb
   module Routes
     class Metadata < Core
-      get '/exercises/:track_id/:slug' do |track_id, slug|
-        status, response = Xapi.get("v2", "exercises", track_id, slug)
-        data = JSON.parse(response)
-        if status == 404
-          flash[:notice] = data['error']
-          redirect '/'
-        end
-
-        locals = Presenters::Assignment.from_json_data(data).to_locals
-        erb :"exercises/test_suite", locals: locals
+      get '/exercises/:id/:slug/tests' do |track_id, slug|
+        _, response = X::Problem.test_files(track_id, slug)
+        erb :"exercises/test_suite", locals: {problem: response['exercise']}
       end
 
-      get '/exercises/:track_id/:slug/readme' do |track_id, slug|
-        status, response = Xapi.get("v2", "exercises", track_id, slug)
-        data = JSON.parse(response)
-        if status == 404
-          flash[:notice] = data['error']
-          redirect '/'
-        end
-
-        locals = Presenters::Assignment.from_json_data(data).to_locals
-        erb :"exercises/readme", locals: locals
+      get '/exercises/:id/:slug/readme' do |track_id, slug|
+        _, response = X::Problem.readme(track_id, slug)
+        erb :"exercises/readme", locals: {problem: response['exercise']}
       end
     end
   end
