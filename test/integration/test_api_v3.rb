@@ -14,15 +14,17 @@ class SampleClient
   end
 end
 
+# https://github.com/exercism/exercism.io/issues/2631
+
 class ApiV3Examples < Minitest::Test
-  def test_that_it_returns_bob_readme
-    client = SampleClient
+  def test_that_it_returns_a_readme
+    readme = X::Exercise::Readme.find('ruby', 'bob')
 
-    readme = SampleClient.get "tracks/ruby/exercises/bob/readme"
-
-    assert('Bob', readme['exercise']['name'])
+    assert_match /Bob is a lackadaisical teenager/, readme.readme
+    assert "ruby", readme.track
   end
 
-  # TEST: kill logging, or allow switching on/off from stdout
-  # TEST: what happens when resource is not found?
+  # TEST: invalid language (track) returns nothing
+  # TEST: invalid slug (problem name) returns nothing
+  # TEST: case-sensitive?
 end
