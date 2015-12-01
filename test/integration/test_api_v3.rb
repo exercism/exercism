@@ -22,6 +22,7 @@ class ApiV3Examples < Minitest::Test
 
     assert_match /Bob is a lackadaisical teenager/, readme.readme
     assert "ruby", readme.track
+    assert "bob", readme.slug
   end
 
   # TEST: invalid language (track) returns nothing

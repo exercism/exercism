@@ -6,9 +6,7 @@ module X
          new(JSON.parse(body)['exercise'])
       end
 
-      METHODS = [
-        :readme, :track, :id
-      ]
+      METHODS = [:readme, :track, :slug]
       
       attr_reader(*METHODS)
       
