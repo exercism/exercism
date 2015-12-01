@@ -5,7 +5,7 @@ require 'faraday'
 # https://github.com/exercism/exercism.io/issues/2631
 
 class ApiV3Examples < Minitest::Test
-  def test_that_it_returns_a_readme
+  def test_that_you_can_find_a_readme
     readme = X::Exercise::Readme.find('ruby', 'bob')
 
     assert_match /Bob is a lackadaisical teenager/, readme.readme
