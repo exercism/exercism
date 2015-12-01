@@ -2,11 +2,11 @@ module X
   module Exercise
     class Readme
       def self.find(track, slug)
-         _, body = X::Xapi.get('tracks', 'track', 'exercises', slug, 'readme')
+         _, body = X::Xapi.get('tracks', track, 'exercises', slug, 'readme')
          new(JSON.parse(body)['exercise'])
       end
 
-      METHODS = [:readme, :track, :slug]
+      METHODS = [:readme, :language, :slug]
       
       attr_reader(*METHODS)
       

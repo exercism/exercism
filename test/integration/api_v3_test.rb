@@ -9,10 +9,18 @@ class ApiV3Examples < Minitest::Test
     readme = X::Exercise::Readme.find('ruby', 'bob')
 
     assert_match /Bob is a lackadaisical teenager/, readme.readme
-    assert "ruby", readme.track
+    assert "Ruby", readme.language
     assert "bob", readme.slug
   end
 
+  def test_that_an_invalid_track_still_return_the_right_readme_but_language_is_unknown
+    readme = X::Exercise::Readme.find('xxx-not-a-track-xxx', 'bob')
+
+    assert_match /Bob is a lackadaisical teenager/, readme.readme
+    assert "Unknown", readme.language
+    assert "bob", readme.slug
+  end
+  
   # TEST: invalid language (track) returns nothing
   # TEST: invalid slug (problem name) returns nothing
   # TEST: case-sensitive?
