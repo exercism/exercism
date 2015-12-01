@@ -40,6 +40,8 @@ Behind the scenes we also have:
 
 ### Contributing
 
+We curate issues that we think are good for starting out into [exercism/todo](https://github.com/exercism/todo/issues/label://github.com/exercism/todo/labels/start-here).
+
 If you want to work on the exercism.io website codebase, then continue reading this guide.
 
 To contribute to one of the language tracks, check out the [Language Track Guide](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md).
