@@ -27,7 +27,7 @@ module X
     end
 
     def better(key)
-      File.read('./x/docs/BETTER.md').gsub('REPO', repository).gsub('KEY', key)
+      File.read('./x/docs/BETTER.md').gsub('REPO', repository).gsub('KEY', key.upcase)
     end
   end
 
