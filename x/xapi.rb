@@ -7,6 +7,7 @@ module X
     end
 
     def self.conn
+      require 'faraday'
       Faraday.new(url: url) do |c|
         c.use Faraday::Response::Logger
         c.use Faraday::Adapter::NetHttp

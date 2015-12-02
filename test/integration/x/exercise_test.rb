@@ -1,6 +1,5 @@
 require "./test/test_helper"
 require "./test/x_helper"
-require 'faraday'
 
 # https://github.com/exercism/exercism.io/issues/2631
 
