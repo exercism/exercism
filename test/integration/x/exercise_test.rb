@@ -29,7 +29,6 @@ class ExerciseExamples < Minitest::Test
     assert_match /unexpected token at 'Puma caught this error/, err.message
   end
   
-  # TEST: invalid language (track) returns nothing
   # TEST: invalid slug (problem name) returns nothing
   # TEST: case-sensitive?
 end
