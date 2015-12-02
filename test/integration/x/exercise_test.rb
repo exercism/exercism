@@ -24,7 +24,7 @@ class ExerciseExamples < Minitest::Test
     assert "bob", readme.slug
   end
 
-  def test_that_an_invalid_slug_fails_with_error
+  def test_that_an_invalid_slug_returns_nil
     skip "This fails with error outlined below"
     
     err = assert_raises JSON::ParserError do
