@@ -20,14 +20,14 @@ module X
 
     def value(key)
       if data[key].empty?
-        File.read("./x/docs/#{key.upcase}.md").gsub('REPO', repository)
+        File.read("./x/docs/tracks/#{key.upcase}.md").gsub('REPO', repository)
       else
         data[key].strip + better(key)
       end
     end
 
     def better(key)
-      File.read('./x/docs/BETTER.md').gsub('REPO', repository).gsub('KEY', key.upcase)
+      File.read('./x/docs/tracks/BETTER.md').gsub('REPO', repository).gsub('KEY', key.upcase)
     end
   end
 
