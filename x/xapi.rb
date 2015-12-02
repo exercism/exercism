@@ -1,5 +1,8 @@
 module X
   module Xapi
+    require 'faraday'
+    @@log = Faraday::Response::Logger
+    
     VERSION = "v3"
 
     def self.url
@@ -7,9 +10,8 @@ module X
     end
 
     def self.conn
-      require 'faraday'
       Faraday.new(url: url) do |c|
-        c.use Faraday::Response::Logger
+        c.use @@log if @@log
         c.use Faraday::Adapter::NetHttp
       end
     end
@@ -30,6 +32,10 @@ module X
     def self.get(*path_segments)
       req = request(*path_segments)
       [req.status, req.body]
+    end
+
+    def self.no_logging
+      @@log = nil
     end
   end
 end

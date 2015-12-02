@@ -4,6 +4,10 @@ require "./test/x_helper"
 # https://github.com/exercism/exercism.io/issues/2631
 
 class ExerciseExamples < Minitest::Test
+  def setup
+    X::Xapi.no_logging
+  end
+
   def test_that_you_can_find_a_readme
     readme = X::Exercise::Readme.find('ruby', 'bob')
 
