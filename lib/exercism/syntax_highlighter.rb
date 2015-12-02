@@ -14,6 +14,8 @@ module ExercismLib
 
     def initialize(code, track_id)
       language = normalize_language(track_id)
+      code     = normalize_newlines(code)
+
       @lexer = Rouge::Lexer.find_fancy(language, code) || Rouge::Lexers::PlainText
 
       # XXX HACK: Redcarpet strips hard tabs out of code blocks,
@@ -39,6 +41,10 @@ module ExercismLib
     def normalize_language(language)
       # HACK: Some languages have different names in Rouge
       ROUGE_LANG.fetch(language) { language }
+    end
+
+    def normalize_newlines(code)
+      code.gsub(/\r\n?/, "\n")
     end
   end
 end

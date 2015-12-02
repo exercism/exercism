@@ -41,4 +41,20 @@ CODE
     output = helper.syntax("", "ecmascript")
     assert_match('<div class="highlight javascript">', output)
   end
+
+  def test_crlf_scrubbing
+    code = <<CODE
+#\r
+# Python Comment.\r
+#\r
+\r
+def foo(bar):\r
+    bar = bar.strip()\r
+\r
+\r
+CODE
+
+    output = helper.syntax(code, "python")
+    refute_match(/\r/, output)
+  end
 end
