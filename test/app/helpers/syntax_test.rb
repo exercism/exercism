@@ -36,4 +36,9 @@ CODE
     output = helper.syntax(code, "python")
     assert_match('<div class="highlight python">', output)
   end
+
+  def test_normalized_language
+    output = helper.syntax("", "ecmascript")
+    assert_match('<div class="highlight javascript">', output)
+  end
 end
