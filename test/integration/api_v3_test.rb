@@ -4,7 +4,7 @@ require 'faraday'
 
 # https://github.com/exercism/exercism.io/issues/2631
 
-class ApiV3Examples < Minitest::Test
+class ExerciseExamples < Minitest::Test
   def test_that_you_can_find_a_readme
     readme = X::Exercise::Readme.find('ruby', 'bob')
 
