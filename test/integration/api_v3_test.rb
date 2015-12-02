@@ -20,6 +20,14 @@ class ApiV3Examples < Minitest::Test
     assert "Unknown", readme.language
     assert "bob", readme.slug
   end
+
+  def test_that_an_invalid_slug_fails_with_error
+    err = assert_raises JSON::ParserError do
+      X::Exercise::Readme.find('ruby', 'xxx-not-a-slug-xxx')
+    end
+    
+    assert_match /unexpected token at 'Puma caught this error/, err.message
+  end
   
   # TEST: invalid language (track) returns nothing
   # TEST: invalid slug (problem name) returns nothing
