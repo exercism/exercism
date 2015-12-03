@@ -52,7 +52,7 @@ class IterationsApiTest < Minitest::Test
       Hack::UpdatesUserExercise.new(*args).update
     end
 
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       get '/iterations/latest', { key: @alice.key }
     end
 
@@ -62,7 +62,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_skip_problem
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/iterations/ruby/one/skip', { key: @alice.key }
     end
 
@@ -74,7 +74,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_skip_non_existent_problem
-    Xapi.stub(:exists?, false) do
+    X::Exercise.stub(:exists?, false) do
       post '/iterations/ruby/not-found/skip', { key: @alice.key }
     end
 
@@ -86,7 +86,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_skip_problem_as_guest
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/iterations/ruby/one/skip', { key: 'invalid-api-key' }
     end
 
@@ -99,7 +99,7 @@ class IterationsApiTest < Minitest::Test
   def test_fetch_problem
     Submission.create!(user: @alice, language: 'ruby')
 
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/iterations/ruby/one/fetch', { key: @alice.key }
     end
 
@@ -116,7 +116,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_fetch_non_existent_problem
-    Xapi.stub(:exists?, false) do
+    X::Exercise.stub(:exists?, false) do
       post '/iterations/ruby/not-found/fetch', { key: @alice.key }
     end
 
@@ -129,7 +129,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_fetch_problem_as_guest
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/iterations/ruby/one/fetch', { key: 'invalid-api-key' }
     end
 
@@ -141,7 +141,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_fetch_non_existent_problem_as_guest
-    Xapi.stub(:exists?, false) do
+    X::Exercise.stub(:exists?, false) do
       post '/iterations/ruby/not-found/fetch', { key: 'invalid-api-key' }
     end
 
@@ -152,7 +152,7 @@ class IterationsApiTest < Minitest::Test
     @alice.exercises.create language: 'ruby', slug: 'one'
     @alice.submissions.create language: 'ruby'
 
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/iterations/ruby/one/fetch', { key: @alice.key }
     end
 
@@ -171,7 +171,7 @@ class IterationsApiTest < Minitest::Test
     @alice.exercises.create language: 'ruby',
                             slug: 'one',
                             fetched_at: a_time_long_ago
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/iterations/ruby/one/fetch', { key: @alice.key }
     end
 
@@ -181,7 +181,7 @@ class IterationsApiTest < Minitest::Test
 
   def test_fetch_problem_when_user_has_iterations
     @alice.exercises.create language: 'ruby', slug: 'one', iteration_count: 3
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/iterations/ruby/one/fetch', { key: @alice.key }
     end
 
