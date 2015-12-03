@@ -14,14 +14,6 @@ class StaticPageTest < AcceptanceTestCase
     assert_css 'h1', text: 'About'
   end
 
-  def test_getting_started_exists
-    visit '/'
-    click_on 'Welcome'
-
-    assert_css 'h2', text: 'Exercises'
-    assert_css 'h2', text: 'Nitpicking'
-  end
-
   def test_donate_exists
     visit '/'
     click_on 'Donate'

@@ -3,9 +3,6 @@
     <% if !current_user.guest? %>
     <li><a href="/dashboard">Dashboard</a></li>
     <% end %>
-    <% unless current_user.onboarded? %>
-      <li><a href="/getting-started">Welcome new users</a></li>
-    <% end %>
     <li class="dropdown">
       <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">Languages<b class="caret"></b></a>
     <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
