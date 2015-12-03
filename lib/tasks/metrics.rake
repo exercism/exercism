@@ -64,7 +64,8 @@ namespace :metrics do
       SELECT
         u.id,
         s.tally AS iterations,
-        COALESCE(c.tally, 0) AS comments,
+        COALESCE(cg.tally, 0) AS comments_given,
+        COALESCE(cr.tally, 0) AS comments_received,
         COALESCE(x.exercises, 0) AS exercises,
         COALESCE(x.languages, 0) AS languages,
         s.first_iteration_at,
@@ -84,8 +85,18 @@ namespace :metrics do
         SELECT user_id, COUNT(id) AS tally
         FROM comments
         GROUP BY user_id
-      ) AS c
-      ON u.id=c.user_id
+      ) AS cg
+      ON u.id=cg.user_id
+      LEFT JOIN (
+        SELECT
+          submissions.user_id,
+          COUNT(comments.id) AS tally
+        FROM submissions
+        INNER JOIN comments
+        ON submissions.id=comments.submission_id
+        GROUP BY submissions.user_id
+      ) AS cr
+      ON cr.user_id=u.id
       LEFT JOIN (
         SELECT
           user_id,
@@ -100,14 +111,15 @@ namespace :metrics do
     fn = lambda { |row|
       [
         row['id'],
-        row['comments'],
+        row['comments_given'],
+        row['comments_received'],
         row['iterations'],
         row['exercises'],
         row['languages'],
         days(row['first_iteration_at'], row['latest_iteration_at']),
       ].join(",")
     }
-    headers = ["User ID", "Comments", "Iterations", "Exercises", "Languages", "Active For (days)"]
+    headers = ["User ID", "Comments Given", "Comments Received", "Iterations", "Exercises", "Languages", "Active For (days)"]
     Metric.report(sql, headers, fn)
   end
 
