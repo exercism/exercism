@@ -19,6 +19,11 @@ def datify(ts)
   Date.strptime(ts, "%Y-%m-%d")
 end
 
+def days(first, last)
+  return 0 if last.nil?
+  (DateTime.parse(last)-DateTime.parse(first)).to_i + 1
+end
+
 def ttf(signup, submit)
   return "never" if submit.nil?
 
@@ -51,6 +56,59 @@ namespace :metrics do
       fn = lambda { |row| [row['id'], row['user_id'], datify(row['created_at'])].join(",") }
       Metric.report(sql, ["Iteration ID", "User ID", "Submitted On"], fn)
     end
+  end
+
+  desc "lifetime numbers"
+  task :lifetime do
+    sql = <<-SQL
+      SELECT
+        u.id,
+        s.tally AS iterations,
+        COALESCE(c.tally, 0) AS comments,
+        COALESCE(x.exercises, 0) AS exercises,
+        COALESCE(x.languages, 0) AS languages,
+        s.first_iteration_at,
+        s.latest_iteration_at
+      FROM users u
+      INNER JOIN (
+        SELECT
+          user_id,
+          COUNT(id) AS tally,
+          MIN(created_at) AS first_iteration_at,
+          MAX(created_at) AS latest_iteration_at
+        FROM submissions
+        GROUP BY user_id
+      ) AS s
+      ON u.id=s.user_id
+      LEFT JOIN (
+        SELECT user_id, COUNT(id) AS tally
+        FROM comments
+        GROUP BY user_id
+      ) AS c
+      ON u.id=c.user_id
+      LEFT JOIN (
+        SELECT
+          user_id,
+          COUNT(id) AS exercises,
+          COUNT(DISTINCT(language)) AS languages
+        FROM user_exercises
+        WHERE iteration_count>0
+        GROUP BY user_id
+      ) AS x
+      ON u.id=x.user_id
+    SQL
+    fn = lambda { |row|
+      [
+        row['id'],
+        row['comments'],
+        row['iterations'],
+        row['exercises'],
+        row['languages'],
+        days(row['first_iteration_at'], row['latest_iteration_at']),
+      ].join(",")
+    }
+    headers = ["User ID", "Comments", "Iterations", "Exercises", "Languages", "Active For (days)"]
+    Metric.report(sql, headers, fn)
   end
 
   desc "extract funnel metrics"
