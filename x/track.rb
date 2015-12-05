@@ -28,7 +28,7 @@ module X
         instance_variable_set(:"@#{name}", data[name.to_s])
       end
       @problems = data['problems'].map { |row| Problem.new(row) }
-      @docs = Docs.new(data['docs'], repository)
+      @docs = Docs::Track.new(data['docs'], repository)
     end
 
     def fetch_cmd(problem=problems.first)
