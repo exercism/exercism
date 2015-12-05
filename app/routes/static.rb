@@ -9,6 +9,10 @@ module ExercismWeb
         erb :"site/donate"
       end
 
+      get '/help' do
+        erb :"site/help", locals: {docs: X::Docs::Help.new}
+      end
+
       get '/privacy' do
         erb :"site/privacy"
       end
