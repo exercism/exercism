@@ -5,14 +5,9 @@ module X
     end
 
     def self.tracks
-      @@tracks ||= fetch_tracks.inject({}) do |hash, track|
+      @@tracks ||= Track.all.each_with_object({}) do |track, hash|
         hash[track.id] = track.language
-        hash
       end
-    end
-
-    def self.fetch_tracks
-      @@fetched_tracks ||= Track.all
     end
   end
 end
