@@ -1,7 +1,9 @@
 module X
   class Language
     def self.of(id)
-      tracks[id.to_s]
+      tracks.fetch(id.to_s) do
+        @@tracks[id.to_s] = Track.find(id).language
+      end
     end
 
     def self.tracks
