@@ -12,11 +12,6 @@ require_relative './app/presenters'
 require_relative './lib/exercism/xapi'
 
 require_relative './app/helpers'
-require_relative './app/helpers/gravatar_helper'
-require_relative './app/helpers/profile_helper'
-require_relative './app/helpers/site_title_helper'
-require_relative './app/helpers/submissions_helper'
-
 require_relative './app/routes'
 
 module ExercismWeb

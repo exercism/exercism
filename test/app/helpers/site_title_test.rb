@@ -1,10 +1,10 @@
 require_relative '../../test_helper'
-require_relative '../../../app/helpers/site_title_helper'
+require_relative '../../../app/helpers/site_title'
 
-class SiteTitleHelperTest < Minitest::Test
+class AppHelpersSiteTitleTest < Minitest::Test
   def setup
     @helper = Object.new
-    @helper.extend Sinatra::SiteTitleHelper
+    @helper.extend ExercismWeb::Helpers::SiteTitle
   end
 
   def test_default_title

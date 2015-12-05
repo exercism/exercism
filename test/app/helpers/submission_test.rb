@@ -1,7 +1,7 @@
 require_relative '../../integration_helper'
-require_relative '../../../app/helpers/submissions_helper'
+require_relative '../../../app/helpers/submission'
 
-class SubmissionsHelperTest < Minitest::Test
+class AppHelpersSubmissionTest < Minitest::Test
   include DBCleaner
 
   def setup
@@ -14,7 +14,7 @@ class SubmissionsHelperTest < Minitest::Test
   def helper
     return @helper if @helper
     @helper = Object.new
-    @helper.extend(Sinatra::SubmissionsHelper)
+    @helper.extend(ExercismWeb::Helpers::Submission)
     @helper
   end
 

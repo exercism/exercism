@@ -37,11 +37,11 @@ module ExercismWeb
       helpers Helpers::Markdown
       helpers Helpers::Syntax
       helpers Helpers::Session
+      helpers Helpers::Gravatar
+      helpers Helpers::Profile
+      helpers Helpers::Submission
+      helpers Helpers::SiteTitle
       helpers WillPaginate::Sinatra::Helpers
-      helpers Sinatra::SubmissionsHelper
-      helpers Sinatra::SiteTitleHelper
-      helpers Sinatra::GravatarHelper
-      helpers Sinatra::ProfileHelper
 
       helpers do
         def github_client_id
