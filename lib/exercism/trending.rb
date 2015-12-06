@@ -3,7 +3,7 @@ module Trending
     include Named
 
     def language
-      Language.of(track_id)
+      X::Language.of(track_id)
     end
   end
 

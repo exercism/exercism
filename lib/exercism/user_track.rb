@@ -46,6 +46,6 @@ class UserTrack
     @id = id
     @total = total
     @unread = total.to_i-viewed.to_i
-    @name = Language.of(id)
+    @name = X::Language.of(id)
   end
 end

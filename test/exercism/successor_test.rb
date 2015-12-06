@@ -2,7 +2,7 @@ require_relative '../test_helper'
 require 'bugsnag'
 require './config/bugsnag'
 require 'exercism/named'
-require 'exercism/language'
+require_relative '../x_helper'
 require 'exercism/problem'
 require 'exercism/successor'
 

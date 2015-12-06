@@ -43,7 +43,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_guests_can_view_submissions
-    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
+    Attempt.new(alice, Iteration.new('ruby/file.rb' => 'CODE')).save
     get "/submissions/#{Submission.first.key}"
     assert_response_status(200)
   end

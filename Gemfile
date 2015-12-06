@@ -50,4 +50,5 @@ end
 group :test do
   gem 'launchy'
   gem 'minitest-capybara'
+  gem 'vcr'
 end

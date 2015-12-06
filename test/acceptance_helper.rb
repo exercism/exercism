@@ -7,6 +7,7 @@ require './app'
 require 'capybara'
 require 'minitest-capybara'
 require_relative './tracks_helper'
+require_relative './x_helper'
 require_relative './acceptance/acceptance_test_case'
 
 ENV['EXERCISM_GITHUB_CLIENT_ID'] = 'abc123'
