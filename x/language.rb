@@ -1,8 +1,10 @@
 module X
   class Language
+    cattr_writer :tracks
+
     def self.of(id)
       tracks.fetch(id.to_s) do
-        @@tracks[id.to_s] = Track.find(id).language
+        tracks[id.to_s] = Track.find(id).language
       end
     end
 

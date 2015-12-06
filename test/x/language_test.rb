@@ -12,5 +12,14 @@ module X
         assert_equal 'C++', Language.of('cpp')
       end
     end
+
+    def test_caching
+      tracks = { "cpp" => "C++" }
+
+      Language.tracks = tracks
+      Language.of("python")
+
+      assert_equal tracks.merge({ "python" => "Python" }), Language.tracks
+    end
   end
 end
