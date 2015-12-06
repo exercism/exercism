@@ -20,7 +20,7 @@ class IterationTest < Minitest::Test
   def test_multiple_files
     solution = {
       'ruby/one/file1.rb' => 'one = 1',
-      'ruby/one/file2.rb' => 'two = 2',
+      'ruby/one/some/subdirectory/file2.rb' => 'two = 2',
     }
     iteration = Iteration.new(solution)
     assert_equal 'ruby', iteration.track_id
@@ -48,7 +48,7 @@ class IterationTest < Minitest::Test
   def test_highest_frequency_wins
     solution = {
       'ruby/one/file1.rb' => 'one = 1',
-      'ruby/one/file2.rb' => 'two = 2',
+      'ruby/one/some/subdirectory/file2.rb' => 'two = 2',
       'who/knows/README.md' => 'stuff',
     }
     iteration = Iteration.new(solution)
