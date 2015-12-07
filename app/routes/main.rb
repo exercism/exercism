@@ -10,10 +10,8 @@ module ExercismWeb
           status = Onboarding.status(current_user.onboarding_steps)
           dashboard = ExercismWeb::Presenters::Dashboard.new(current_user)
           recently_viewed = UserExercise.recently_viewed_by(current_user)
-          stats = Nitstats.new(current_user)
 
           locals = {
-            stats: stats,
             user: current_user,
             status: status,
             dashboard: dashboard,

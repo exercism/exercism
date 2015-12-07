@@ -65,12 +65,23 @@
     </div>
 
     <div class="col-md-6">
-      <h2><a href="/nits/<%= user.username %>">Nitpicking statistics</a></h2>
-        <ul class="graph-legend">
-          <li class="nits-picked">Nits picked</li>
-          <li class="nits-received">Nits received</li>
-        </ul>
-        <canvas id="nitstat-chart" data-stats='<%= stats.data.to_json %>' width="600" height="300"></canvas>
+      <h2>Activity</h2>
+        <div class="well">
+          <% if dashboard.has_activity? %>
+            <% dashboard.notifications.each do |notification| %>
+              <% if notification.item %>
+                <li style="list-style-type: none; margin: 0;">
+                  <span style="padding-right: 5px;" class="icon-comment-alt"></span>
+                  <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> on <a href="/submissions/<%= notification.item.key %>">
+                    <%= notification.submission.name %> (<%= notification.language.capitalize %>)
+                  </a>
+                </li>
+              <% end %>
+            <% end %>
+          <% else %>
+            <p>No activity to show.</p>
+          <% end %>
+        </div>
     </div>
   </div>
 
@@ -103,26 +114,6 @@
   <% end %>
 
   <div class="row">
-    <div class="col-sm-4">
-      <h2>Activity</h2>
-        <div class="well">
-          <% if dashboard.has_activity? %>
-            <% dashboard.notifications.each do |notification| %>
-              <% if notification.item %>
-                <li style="list-style-type: none; margin: 0;">
-                  <span style="padding-right: 5px;" class="icon-comment-alt"></span>
-                  <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> on <a href="/submissions/<%= notification.item.key %>">
-                    <%= notification.submission.name %> (<%= notification.language.capitalize %>)
-                  </a>
-                </li>
-              <% end %>
-            <% end %>
-          <% else %>
-            <p>No activity to show.</p>
-          <% end %>
-        </div>
-    </div>
-
     <div class="col-sm-4">
       <h2>Trending</h2>
         <div class="well">
@@ -161,10 +152,8 @@
           <% end %>
         </div>
     </div>
-  </div>
 
-  <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <h2>Need help?</h2>
       <p>The <a href="/help">help page</a> should get you going.</p>
     </div>
