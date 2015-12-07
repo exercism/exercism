@@ -65,7 +65,7 @@
     </div>
 
     <div class="col-md-6">
-      <h2>Activity</h2>
+      <h2>Notifications</h2>
         <div class="well">
           <% if dashboard.has_activity? %>
             <% dashboard.notifications.each do |notification| %>
@@ -79,7 +79,7 @@
               <% end %>
             <% end %>
           <% else %>
-            <p>No activity to show.</p>
+            <p>No unread notifications.</p>
           <% end %>
         </div>
     </div>
