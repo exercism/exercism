@@ -111,24 +111,6 @@
 
   <div class="row">
     <div class="col-sm-4">
-      <h2>Trending</h2>
-        <div class="well">
-          <% if dashboard.trending.any? %>
-            <ul class="nav nav-stacked" id="menu-current" role="menu">
-              <% dashboard.trending.each do |trending| %>
-              <li class="looks-list-item">
-                <p><a role="menuitem" tabindex="-1" href="/submissions/<%= trending.uuid %>">
-                  <%= trending.name + ' (' + trending.language + ') ' %></a>by <a href="/<%= trending.username %>"><%= trending.username %></a></p>
-              </li>
-              <% end %>
-            </ul>
-          <% else %>
-            <p>No exercises currently trending.</p>
-          <% end %>
-        </div>
-    </div>
-
-    <div class="col-sm-4">
       <h2>Recently viewed</h2>
         <div class="well">
           <% if recently_viewed_exercises.any? %>
@@ -147,6 +129,14 @@
             <p>No exercises viewed in the past 30 days.</p>
           <% end %>
         </div>
+    </div>
+
+    <div class="col-sm-4">
+      <% if !current_user.guest? && current_user.sees_exercises? %>
+        <h2>View Solutions</h2>
+        <p>Browse <a href="/inbox">other people's solutions</a> to exercises.</p>
+      <% end %>
+      <p></p>
     </div>
 
     <div class="col-md-4">

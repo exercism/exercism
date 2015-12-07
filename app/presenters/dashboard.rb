@@ -14,10 +14,6 @@ module ExercismWeb
         user.exercises.unsubmitted
       end
 
-      def trending
-        Trending.for(user, 4.hours)
-      end
-
       def has_activity?
         notifications.count > 0
       end
