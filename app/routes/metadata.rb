@@ -1,28 +1,30 @@
+require_relative '../../x'
+
 module ExercismWeb
   module Routes
     class Metadata < Core
-      get '/exercises/:track_id/:slug' do |track_id, slug|
-        status, response = Xapi.get("v2", "exercises", track_id, slug)
-        data = JSON.parse(response)
-        if status == 404
-          flash[:notice] = data['error']
+      get '/exercises/:id/:slug/tests' do |id, slug|
+        exercise = X::Exercise::TestFiles.find(id, slug)
+        if exercise.files.empty?
+          flash[:notice] = error_message(exercise)
           redirect '/'
         end
-
-        locals = Presenters::Assignment.from_json_data(data).to_locals
-        erb :"exercises/test_suite", locals: locals
+        erb :"exercises/test_suite", locals: { exercise: exercise }
       end
 
-      get '/exercises/:track_id/:slug/readme' do |track_id, slug|
-        status, response = Xapi.get("v2", "exercises", track_id, slug)
-        data = JSON.parse(response)
-        if status == 404
-          flash[:notice] = data['error']
+      get '/exercises/:id/:slug/readme' do |id, slug|
+        exercise = X::Exercise::Readme.find(id, slug)
+        if exercise.readme.empty?
+          flash[:notice] = error_message(exercise)
           redirect '/'
         end
+        erb :"exercises/readme", locals: { exercise: exercise }
+      end
 
-        locals = Presenters::Assignment.from_json_data(data).to_locals
-        erb :"exercises/readme", locals: locals
+      private
+
+      def error_message(exercise)
+        "No files for #{exercise.name} problem in #{exercise.language} track"
       end
     end
   end

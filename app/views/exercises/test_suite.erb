@@ -1,23 +1,9 @@
 <div class="container">
-  <section class="page-header">
-    <h1>
-      <%= problem.name %> in <%= problem.language %>
-    </h1>
-  </section>
-  <nav role="navigation">
-    <ul class="nav nav-tabs">
-      <li role="presentation">
-        <a href="<%= problem.slug %>/readme">Readme</a>
-      </li>
-      <li role="presentation" class="active">
-        <a href="<%= problem.slug %>">Test Suite</a>
-      </li>
-    </ul>
-  </nav>
-  <% testfiles.each do |f| %>
+  <%= erb :"exercises/_navigation", locals: {exercise: exercise, active: 'tests' } %>
+  <% exercise.files.each do |filename, content| %>
     <div>
-      <h4><%= f.filename %></h4>
-      <%= syntax(f.content, f.extension) %>
+      <h4><%= filename %></h4>
+      <%= syntax(content, exercise.track_id) %>
     </div>
   <% end %>
 </div>
