@@ -28,14 +28,17 @@ namespace :db do
   task :setup do
     user = DB::Connection.escape(config.username)
     pass = DB::Connection.escape(config.password)
+
     # Only create user if it doesn't already exist
     sql = "SELECT 'user exists' FROM pg_user WHERE usename = '#{user}'"
-    out, _, status = Open3.capture3('psql', '-t', '-h', config.host,
-                                    '-p', config.port, '-c', sql)
-    if status.success? && !out.include?('user exists')
+    out, err, status = Open3.capture3('psql', '-t', '-h', config.host,
+                                      '-p', config.port, '-c', sql, '-d', 'postgres')
+    fail "db:setup - Couldn't query users: #{err}" unless status.success?
+
+    if !out.include?('user exists')
       sql = "CREATE USER #{user} PASSWORD '#{pass}' " \
             'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
-      system 'psql', '-h', config.host, '-p', config.port, '-c', sql
+      system 'psql', '-h', config.host, '-p', config.port, '-c', sql, '-d', 'postgres'
     end
 
     system 'createdb', '-h', config.host, '-p', config.port, '-O', config.username, config.database
