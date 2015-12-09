@@ -23,7 +23,7 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_api_accepts_submission_attempt
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
+      X::Exercise.stub(:exists?, true) do
         post '/user/assignments', {key: alice.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
       end
     end
@@ -39,7 +39,7 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_api_accepts_submission_attempt_with_multi_file_solution
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
+      X::Exercise.stub(:exists?, true) do
         solution = {
           'ruby/one/file1.rb' => 'code 1',
           'ruby/one/file2.rb' => 'code 2'
@@ -59,7 +59,7 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_provides_a_useful_error_message_when_key_is_wrong
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
+      X::Exercise.stub(:exists?, true) do
         post '/user/assignments', {key: 'no-such-key', solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
       end
     end
@@ -68,7 +68,7 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_api_accepts_submission_on_completed_exercise
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
+      X::Exercise.stub(:exists?, true) do
         post '/user/assignments', {key: alice.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
       end
     end
@@ -101,7 +101,7 @@ class AssignmentsApiTest < Minitest::Test
     team2.confirm(dave.username)
     team2.confirm(eve.username)
 
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/user/assignments', {key: bob.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
     end
     assert_equal 201, last_response.status
@@ -118,7 +118,7 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_rejects_duplicates
     Attempt.new(alice, Iteration.new('ruby/one/code.rb' => 'THE CODE')).save
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
+      X::Exercise.stub(:exists?, true) do
         post '/user/assignments', {key: alice.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
       end
     end

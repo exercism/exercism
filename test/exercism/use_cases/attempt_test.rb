@@ -14,12 +14,12 @@ class AttemptTest < Minitest::Test
   end
 
   def test_validity
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       refute Attempt.new(user, Iteration.new('two.py' => 'CODE')).valid?
       assert Attempt.new(user, Iteration.new(python_two)).valid?
     end
 
-    Xapi.stub(:exists?, false) do
+    X::Exercise.stub(:exists?, false) do
       refute Attempt.new(user, Iteration.new(python_two)).valid?
     end
   end

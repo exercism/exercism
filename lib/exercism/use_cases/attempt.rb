@@ -13,7 +13,7 @@ class Attempt
   end
 
   def valid?
-    !!slug && Xapi.exists?(track, slug)
+    !!slug && X::Exercise.exists?(track, slug)
   end
 
   def save

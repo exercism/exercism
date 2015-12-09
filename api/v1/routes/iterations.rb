@@ -14,7 +14,7 @@ module ExercismAPI
           halt 401, { error: message }.to_json
         end
 
-        if !Xapi.exists?(language, slug)
+        if !X::Exercise.exists?(language, slug)
           message = "Exercise '#{slug}' in language '#{language}' doesn't exist. "
           message << "Maybe you mispelled it?"
           halt 404, { error: message }.to_json
@@ -43,7 +43,7 @@ module ExercismAPI
           message = 'Please double-check your exercism API key.'
           halt 401, { error: message }.to_json
         end
-        unless Xapi.exists? language, slug
+        unless X::Exercise.exists? language, slug
           message =
             "Exercise '#{slug}' in language '#{language}' doesn't exist. " \
             'Maybe you mispelled it?'

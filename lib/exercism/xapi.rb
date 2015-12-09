@@ -3,10 +3,6 @@ module Xapi
     ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" }
   end
 
-  def self.exists?(language, slug)
-    request('tracks', language, slug).status != 404
-  end
-
   def self.conn
     Faraday.new(url: exercises_api_url) do |c|
       c.use Faraday::Response::Logger
