@@ -30350,7 +30350,7 @@ $(function() {
     var $this = $(this);
     var question_text = "You have unsaved changes on this page";
     var was_submitted = false;
-    $this.parents("form").on('submit',function(){
+    $this.parents("form").on('submit',function(e){
       was_submitted = true;
     });
     window.onbeforeunload = function (e) {
@@ -30366,6 +30366,10 @@ $(function() {
         return question_text;
       }
     };
+  });
+  // Remove the window.onberofereload when deleting comments
+  $("button[type='submit'][name='delete']").on('click', function(e){
+    window.onbeforeunload = null;
   });
 
   // cmd + return submits nitpicks on mac ctrl + return submits on windows
