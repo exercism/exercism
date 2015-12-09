@@ -7,7 +7,8 @@ module DB
     def self.escape(string)
       # escape strings passed to SQL using PG::Connection instance method as per
       # http://deveiate.org/code/pg/PG/Connection.html#method-i-escape_string
-      PG::Connection.new.escape_string(string)
+      conn = PG::Connection.open(dbname: 'postgres')
+      conn.escape_string(string)
     end
 
     def self.establish
