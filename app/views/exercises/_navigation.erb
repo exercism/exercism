@@ -1,0 +1,23 @@
+<section class="page-header">
+  <h1>
+    <%= exercise.name %> in <%= exercise.language %>
+  </h1>
+  <h4>
+    <%= exercise.blurb%>
+  </h4>
+</section>
+<section>
+  <p>
+    <%= syntax "exercism fetch #{exercise.track_id} #{exercise.slug}", "plain" %>
+  </p>
+</section>
+<nav role="navigation">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class= <%= 'active' if active == 'readme' %>>
+      <a href=<%="/exercises/#{exercise.track_id}/#{exercise.slug}/readme" %>>Readme</a>
+    </li>
+    <li role="presentation" class= <%= 'active' if active == 'tests' %>>
+      <a href=<%= "/exercises/#{exercise.track_id}/#{exercise.slug}/tests" %>>Test Suite</a>
+    </li>
+  </ul>
+</nav>
