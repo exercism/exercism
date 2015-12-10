@@ -3,7 +3,7 @@ require_relative '../../x'
 module ExercismWeb
   module Routes
     class Metadata < Core
-      get '/exercises/:id/:slug/tests' do |id, slug|
+      get '/exercises/:track_id/:slug' do |id, slug|
         exercise = X::Exercise::TestFiles.find(id, slug)
         if exercise.files.empty?
           flash[:notice] = error_message(exercise)
@@ -12,7 +12,7 @@ module ExercismWeb
         erb :"exercises/test_suite", locals: { exercise: exercise }
       end
 
-      get '/exercises/:id/:slug/readme' do |id, slug|
+      get '/exercises/:track_id/:slug/readme' do |id, slug|
         exercise = X::Exercise::Readme.find(id, slug)
         if exercise.readme.empty?
           flash[:notice] = error_message(exercise)
