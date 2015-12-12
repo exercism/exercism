@@ -42,6 +42,12 @@ CODE
     assert_match('<div class="highlight javascript">', output)
   end
 
+  def test_ng_non_bindable
+    output = helper.syntax("", "ecmascript")
+    assert_match(/\A<span ng-non-bindable>/, output)
+    assert_match(/<\/span>\Z/, output)
+  end
+
   def test_crlf_scrubbing
     code = <<CODE
 #\r
