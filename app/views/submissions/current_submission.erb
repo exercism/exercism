@@ -30,9 +30,7 @@
       <h4><%= filename %></h4>
       <%= syntax(code, submission.track_id) %>
 
-      <div id="submission-code" class="hidden">
-        <%= h code %>
-      </div>
+      <div id="submission-code" class="hidden" ng-non-bindable><%= h code %></div>
     <% end %>
 
     <div class="submission-likes">
