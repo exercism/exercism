@@ -78,7 +78,7 @@ class SubmissionsTest < Minitest::Test
     post url, {body: "<script type=\"text/javascript\">bad();</script>good"}, login(bob)
 
     nit = submission.reload.comments.last
-    expected = "<p>&lt;script type=\"text/javascript\"&gt;bad();&lt;/script&gt;good</p>"
+    expected = "<span ng-non-bindable><p>&lt;script type=\"text/javascript\"&gt;bad();&lt;/script&gt;good</p>\n</span>"
     assert_equal expected, nit.html_body.strip
   end
 
