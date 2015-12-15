@@ -34,16 +34,16 @@ class UserTest < Minitest::Test
     assert_equal 'alice@example.com', user.email
   end
 
-  def test_sets_avatar_url_unless_present
+  def test_sets_avatar_url
     User.create(github_id: 23)
     user = User.from_github(23, nil, nil, 'new?1234').reload
     assert_equal 'new', user.avatar_url
   end
 
-  def test_does_not_overwrite_avatar_url_if_present
+  def test_overwrites_avatar_url_if_present
     User.create(github_id: 23, avatar_url: 'old')
     user = User.from_github(23, nil, nil, 'new?1234').reload
-    assert_equal 'old', user.avatar_url
+    assert_equal 'new', user.avatar_url
   end
 
   def test_from_github_unsets_old_duplicate_username
