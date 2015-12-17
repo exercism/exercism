@@ -17,5 +17,8 @@
     submitted by <%= gravatar_tag submission.user.avatar_url, size: 20 %>
     <%= profile_link(submission.user) %>
     <%= ago(submission.created_at) %>
+    <% if submission.user_exercise.archived? %>
+      <span class="label label-danger">Archived</span>
+    <% end %>
   </div>
 </div>

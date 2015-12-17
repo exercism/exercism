@@ -88,14 +88,6 @@
         @extend .fa-refresh;
         color: $brand-info;
       }
-      &.completed li:last-child .fa {
-        @extend .fa-check;
-        color: $brand-success;
-      }
-      &.hibernating li:last-child .fa {
-        @extend .fa-check;
-        color: $brand-warning;
-      }
     }
   }
   .submission-iteration {
