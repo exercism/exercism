@@ -38,16 +38,56 @@ namespace :metrics do
   namespace :events do
     desc "extract signup events"
     task :signups do
-      sql = "SELECT id, created_at FROM users ORDER BY created_at ASC"
-      fn = lambda { |row| [row['id'], datify(row['created_at'])].join(",") }
-      Metric.report(sql, ["User ID", "Signed Up On"], fn)
+      sql = <<-SQL
+        SELECT
+          id,
+          created_at,
+          EXTRACT(YEAR FROM created_at) AS year,
+          EXTRACT(MONTH FROM created_at) AS month,
+          EXTRACT(ISOYEAR FROM created_at) AS isoyear,
+          EXTRACT(WEEK FROM created_at) AS isoweek
+        FROM users
+        ORDER BY created_at ASC
+      SQL
+      fn = lambda { |row|
+        [
+          row['id'],
+          datify(row['created_at']),
+          row['year'],
+          row['month'],
+          row['isoyear'],
+          row['isoweek'],
+        ].join(",")
+      }
+      Metric.report(sql, ["User ID", "Signed Up On", "Year", "Month", "ISO Year", "ISO Week"], fn)
     end
 
     desc "extract comment events"
     task :comments do
-      sql = "SELECT id, user_id, created_at FROM comments ORDER BY created_at ASC"
-      fn = lambda { |row| [row['id'], row['user_id'], datify(row['created_at'])].join(",") }
-      Metric.report(sql, ["Comment ID", "User ID", "Submitted On"], fn)
+      sql = <<-SQL
+        SELECT
+          id,
+          user_id,
+          created_at,
+          EXTRACT(YEAR FROM created_at) AS year,
+          EXTRACT(MONTH FROM created_at) AS month,
+          EXTRACT(ISOYEAR FROM created_at) AS isoyear,
+          EXTRACT(WEEK FROM created_at) AS isoweek
+        FROM comments
+        ORDER BY created_at ASC
+      SQL
+      fn = lambda { |row|
+        [
+          row['id'],
+          row['user_id'],
+          datify(row['created_at']),
+          row['year'],
+          row['month'],
+          row['isoyear'],
+          row['isoweek'],
+        ].join(",")
+      }
+      Metric.report(sql, ["Comment ID", "User ID", "Submitted On", "Year", "Month", "ISO Year", "ISO Week"], fn)
     end
 
     desc "extract iteration events"
@@ -55,6 +95,31 @@ namespace :metrics do
       sql = "SELECT id, user_id, created_at FROM submissions ORDER BY created_at ASC"
       fn = lambda { |row| [row['id'], row['user_id'], datify(row['created_at'])].join(",") }
       Metric.report(sql, ["Iteration ID", "User ID", "Submitted On"], fn)
+
+      sql = <<-SQL
+        SELECT
+          id,
+          user_id,
+          created_at,
+          EXTRACT(YEAR FROM created_at) AS year,
+          EXTRACT(MONTH FROM created_at) AS month,
+          EXTRACT(ISOYEAR FROM created_at) AS isoyear,
+          EXTRACT(WEEK FROM created_at) AS isoweek
+        FROM submissions
+        ORDER BY created_at ASC
+      SQL
+      fn = lambda { |row|
+        [
+          row['id'],
+          row['user_id'],
+          datify(row['created_at']),
+          row['year'],
+          row['month'],
+          row['isoyear'],
+          row['isoweek'],
+        ].join(",")
+      }
+      Metric.report(sql, ["Iteration ID", "User ID", "Submitted On", "Year", "Month", "ISO Year", "ISO Week"], fn)
     end
   end
 
