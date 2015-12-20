@@ -4,7 +4,7 @@ module ExercismWeb
   module Routes
     class Languages < Core
       get '/languages' do
-        erb :"languages/all"
+        erb :"languages/index"
       end
 
       get '/languages/:track_id' do |track_id|
