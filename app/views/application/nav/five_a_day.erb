@@ -10,8 +10,8 @@
     <b class="caret"></b></a>
     <ul class="dropdown-menu" role="menu">
       <li class="dropdown-header">Give feedback on these submissions:</li>
-      <% current_user.five_a_day_exercises.each do |exercise| %>
-        <li><a role="menuitem" tabindex="-1" href="/exercises/<%= exercise["key"] %>"><%= nav_text(exercise["slug"]) %> in <%= Language.of(exercise["language"]) %> by <%= exercise["username"] %></a></li>
+      <% current_user.dailies.each do |daily| %>
+        <li><a role="menuitem" tabindex="-1" href="/exercises/<%= daily.key %>"><%= nav_text(daily.slug) %> in <%= Language.of(daily.language) %> by <%= daily.username %></a></li>
       <% end %>
     </ul>
   <% end %>
