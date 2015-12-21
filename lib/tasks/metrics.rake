@@ -1,6 +1,29 @@
 require 'date'
 require 'time'
 
+class Moment
+  def self.to_a
+    ["Year", "Month", "ISO Year", "ISO Week"]
+  end
+
+  attr_reader :ts
+  def initialize(s)
+    @ts = DateTime.strptime(s, "%Y-%m-%d %H:%M:%S")
+  end
+
+  def cohort
+    "#{ts.cwyear}-#{ts.cweek}"
+  end
+
+  def to_a
+    [ts.year, ts.month, ts.cwyear, ts.cweek]
+  end
+
+  def to_s
+    ts.strftime("%Y-%m-%d")
+  end
+end
+
 class Metric
   def self.report(sql, headers, fn)
     require 'active_record'
@@ -13,10 +36,6 @@ class Metric
       puts fn.call(row)
     end
   end
-end
-
-def datify(ts)
-  Date.strptime(ts, "%Y-%m-%d")
 end
 
 def days(first, last)
@@ -39,87 +58,35 @@ namespace :metrics do
     desc "extract signup events"
     task :signups do
       sql = <<-SQL
-        SELECT
-          id,
-          created_at,
-          EXTRACT(YEAR FROM created_at) AS year,
-          EXTRACT(MONTH FROM created_at) AS month,
-          EXTRACT(ISOYEAR FROM created_at) AS isoyear,
-          EXTRACT(WEEK FROM created_at) AS isoweek
-        FROM users
-        ORDER BY created_at ASC
+        SELECT id, created_at FROM users ORDER BY created_at ASC
       SQL
       fn = lambda { |row|
-        [
-          row['id'],
-          datify(row['created_at']),
-          row['year'],
-          row['month'],
-          row['isoyear'],
-          row['isoweek'],
-        ].join(",")
+        at = Moment.new(row['created_at'])
+        ([ row['id'], at.to_s] + at.to_a).join(",")
       }
-      Metric.report(sql, ["User ID", "Signed Up On", "Year", "Month", "ISO Year", "ISO Week"], fn)
+      Metric.report(sql, ["User ID", "Signed Up On"]+Moment.to_a, fn)
     end
 
     desc "extract comment events"
     task :comments do
       sql = <<-SQL
-        SELECT
-          id,
-          user_id,
-          created_at,
-          EXTRACT(YEAR FROM created_at) AS year,
-          EXTRACT(MONTH FROM created_at) AS month,
-          EXTRACT(ISOYEAR FROM created_at) AS isoyear,
-          EXTRACT(WEEK FROM created_at) AS isoweek
-        FROM comments
-        ORDER BY created_at ASC
+        SELECT id, user_id, created_at FROM comments ORDER BY created_at ASC
       SQL
       fn = lambda { |row|
-        [
-          row['id'],
-          row['user_id'],
-          datify(row['created_at']),
-          row['year'],
-          row['month'],
-          row['isoyear'],
-          row['isoweek'],
-        ].join(",")
+        at = Moment.new(row['created_at'])
+        ([ row['id'], row['user_id'], at.to_s] + at.to_a).join(",")
       }
-      Metric.report(sql, ["Comment ID", "User ID", "Submitted On", "Year", "Month", "ISO Year", "ISO Week"], fn)
+      Metric.report(sql, ["Comment ID", "User ID", "Submitted On"]+Moment.to_a, fn)
     end
 
     desc "extract iteration events"
     task :iterations do
       sql = "SELECT id, user_id, created_at FROM submissions ORDER BY created_at ASC"
-      fn = lambda { |row| [row['id'], row['user_id'], datify(row['created_at'])].join(",") }
-      Metric.report(sql, ["Iteration ID", "User ID", "Submitted On"], fn)
-
-      sql = <<-SQL
-        SELECT
-          id,
-          user_id,
-          created_at,
-          EXTRACT(YEAR FROM created_at) AS year,
-          EXTRACT(MONTH FROM created_at) AS month,
-          EXTRACT(ISOYEAR FROM created_at) AS isoyear,
-          EXTRACT(WEEK FROM created_at) AS isoweek
-        FROM submissions
-        ORDER BY created_at ASC
-      SQL
       fn = lambda { |row|
-        [
-          row['id'],
-          row['user_id'],
-          datify(row['created_at']),
-          row['year'],
-          row['month'],
-          row['isoyear'],
-          row['isoweek'],
-        ].join(",")
+        at = Moment.new(row['created_at'])
+        ([ row['id'], row['user_id'], at.to_s] + at.to_a).join(",")
       }
-      Metric.report(sql, ["Iteration ID", "User ID", "Submitted On", "Year", "Month", "ISO Year", "ISO Week"], fn)
+      Metric.report(sql, ["Comment ID", "User ID", "Submitted On"]+Moment.to_a, fn)
     end
   end
 
@@ -194,11 +161,6 @@ namespace :metrics do
       SELECT
         u.id,
         u.created_at AS signed_up_at,
-        (
-          TO_CHAR(EXTRACT(ISOYEAR FROM u.created_at), '9999')
-          ||
-          TO_CHAR(EXTRACT(WEEK FROM u.created_at), '99')
-        ) AS cohort,
         COALESCE(s.yes, 0) AS has_submitted,
         COALESCE(d.yes, 0) AS has_discussed,
         COALESCE(r.yes, 0) AS has_reviewed,
@@ -238,7 +200,7 @@ namespace :metrics do
     fn = lambda { |row|
       [
         row['id'],
-        row['cohort'].gsub(' ', ''),
+        Moment.new(row['signed_up_at']).cohort,
         row['has_submitted'],
         row['has_discussed'],
         row['has_reviewed'],
