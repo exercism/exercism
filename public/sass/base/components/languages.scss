@@ -1,0 +1,9 @@
+#languages{
+  .track_link{
+    text-decoration: none;
+    padding: 10px;
+    &:hover{
+      background: #f4f4f4;
+    }
+  }
+}

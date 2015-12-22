@@ -11,6 +11,7 @@ module ExercismWeb
       Profile: 'profile',
       Submission: 'submission',
       SiteTitle: 'site_title',
+      TrackImage: 'track_image',
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('app', 'helpers', file)
     end

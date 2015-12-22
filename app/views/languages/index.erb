@@ -1,28 +1,25 @@
-<div class="container">
-  <section class="page-header">
-    <h1>Languages</h1>
-  </section>
-  <div class="row">
-    <div class="col-lg-12">
-    <table class="table">
-      <tr>
-        <th></th>
-        <th class="center">Problems</th>
-        <th class="center">Active users</th>
-        <th class="center">Submitted solutions</th>
-      </tr>
+<div id="languages">
+  <div class="container">
+    <section class="page-header">
+      <h1>Languages</h1>
+    </section>
+    <% active.each_slice(6) do |tracks| %>
+      <div class="row">
         <% tracks.each do |t| %>
-          <% if t.active? %>
-            <% lt = LanguageTrack.new(t.slug) %>
-            <tr>
-              <td><a href="/languages/<%= t.slug %>"><%= t.language %></a></td>
-              <td class="center"><%= t.problems.count %></td>
-              <td class="center"><%= lt.num_users %></td>
-              <td class="center"><%= lt.num_iterations %></td>
-            </tr>
-          <% end %>
+          <%= erb :'languages/_block', locals: { track: t } %>
         <% end %>
-      </table>
-    </div>
+      </div>
+    <% end %>
+
+    <section class="page-header">
+      <h3>Upcoming</h3>
+    </section>
+    <% inactive.each_slice(6) do |tracks| %>
+      <div class="row">
+        <% tracks.each do |t| %>
+          <%= erb :'languages/_block', locals: { track: t } %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>
