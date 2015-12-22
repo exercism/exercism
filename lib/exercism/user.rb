@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
   has_many :submissions
   has_many :notifications
   has_many :comments
-  has_many :dailies, -> (user) { limit(5 - user.count_existing_five_a_day) }
+  has_many :dailies, -> (user) { limit(Daily::LIMIT - user.daily_count) }
   has_many :five_a_day_counts
   has_many :exercises, class_name: "UserExercise"
   has_many :lifecycle_events, ->{ order 'created_at ASC' }, class_name: "LifecycleEvent"
@@ -109,39 +109,23 @@ class User < ActiveRecord::Base
   end
 
   def increment_five_a_day
-    if five_a_day_counts.where(day: Date.today).exists?
-      five_a_day_counts.where(day: Date.today).first.increment!(:total)
+    if five_a_day_counts.today
+      five_a_day_counts.today.increment!(:total)
     else
       FiveADayCount.create(user_id: self.id, total: 1, day: Date.today)
     end
   end
 
-  def count_existing_five_a_day_sql
-    <<-SQL
-      SELECT total
-      FROM five_a_day_counts
-      WHERE user_id = #{id}
-      AND day = '#{Date.today}'
-    SQL
-  end
-
-  def count_existing_five_a_day
-    [
-      ActiveRecord::Base.connection.execute(count_existing_five_a_day_sql).field_values("total").first.to_i,
-      5
-    ].min
-  end
-
-  def five_a_day_exercises
-    @exercises_list ||= ActiveRecord::Base.connection.execute(five_a_day_exercises_sql).to_a
-  end
-
   def show_five_suggestions?
-    onboarded? && five_available?
+    onboarded? && dailies_available?
   end
 
-  def five_available?
-    (dailies.size + count_existing_five_a_day) == 5
+  def daily_count
+    five_a_day_counts.today ? five_a_day_counts.today.total : 0
+  end
+
+  def dailies_available?
+    daily_count < Daily::LIMIT
   end
 
   def default_language

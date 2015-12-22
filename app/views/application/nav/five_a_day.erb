@@ -1,5 +1,5 @@
 <li class="dropdown">
-  <% total = current_user.count_existing_five_a_day.to_i || 0 %>
+  <% total = current_user.daily_count %>
   <% if total >= 5 %>
     <a class="dropdown-toggle" data-toggle="tooltip" data-placement="bottom" title="Good job!" style="font-size: 16pt">
       <i class="fa fa-check"></i>
