@@ -12,7 +12,7 @@ class Moment
   end
 
   def cohort
-    "#{ts.cwyear}-#{ts.cweek}"
+    "%d:%02d" % [ts.cwyear, ts.cweek]
   end
 
   def to_a
@@ -44,13 +44,13 @@ def days(first, last)
 end
 
 def ttf(signup, submit)
-  return "never" if submit.nil?
+  return "(4) never" if submit.nil?
 
   diff = Time.parse(submit)-Time.parse(signup)
 
-  return 'day' if diff < 24*60*60
-  return 'week' if diff < 24*60*60*7
-  'more'
+  return '(1) day' if diff < 24*60*60
+  return '(2) week' if diff < 24*60*60*7
+  '(3) more'
 end
 
 namespace :metrics do
@@ -195,7 +195,6 @@ namespace :metrics do
         ON fs.id=fc.submission_id
       ) AS f
       ON f.user_id=u.id
-      WHERE s.first_submission_at IS NOT NULL
     SQL
     fn = lambda { |row|
       [
