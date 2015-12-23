@@ -45,7 +45,7 @@ class AttemptTest < Minitest::Test
     submission = Submission.first
     assert_equal 'python', submission.track_id
     assert_equal 'two', submission.slug
-    assert_equal python_two, submission.solution
+    assert_equal({'two.py' => 'CODE'}, submission.solution)
     assert_equal user, submission.user
   end
 
@@ -63,7 +63,7 @@ class AttemptTest < Minitest::Test
 
   def test_an_attempt_includes_the_code_and_filename_in_the_submissions_solution
     Attempt.new(user, Iteration.new('two/two.py' => 'CODE 123')).save
-    assert_equal({'two/two.py' => 'CODE 123'}, user.submissions.first.reload.solution)
+    assert_equal({'two.py' => 'CODE 123'}, user.submissions.first.reload.solution)
   end
 
   def test_previous_submission_after_first_attempt
@@ -119,4 +119,3 @@ class AttemptTest < Minitest::Test
     refute attempt.duplicate?
   end
 end
-
