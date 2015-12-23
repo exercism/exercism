@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
   has_many :submissions
   has_many :notifications
   has_many :comments
+  has_many :dailies, -> (user) { limit(Daily::LIMIT - user.daily_count) }
   has_many :five_a_day_counts
   has_many :exercises, class_name: "UserExercise"
   has_many :lifecycle_events, ->{ order 'created_at ASC' }, class_name: "LifecycleEvent"
@@ -108,39 +109,23 @@ class User < ActiveRecord::Base
   end
 
   def increment_five_a_day
-    if five_a_day_counts.where(day: Date.today).exists?
-      five_a_day_counts.where(day: Date.today).first.increment!(:total)
+    if five_a_day_counts.today
+      five_a_day_counts.today.increment!(:total)
     else
       FiveADayCount.create(user_id: self.id, total: 1, day: Date.today)
     end
   end
 
-  def count_existing_five_a_day_sql
-    <<-SQL
-      SELECT total
-      FROM five_a_day_counts
-      WHERE user_id=#{id}
-      AND day='#{Date.today}'
-    SQL
+  def show_dailies?
+    onboarded? && dailies_available?
   end
 
-  def count_existing_five_a_day
-    [
-      ActiveRecord::Base.connection.execute(count_existing_five_a_day_sql).field_values("total").first.to_i,
-      5
-    ].min
+  def daily_count
+    five_a_day_counts.today ? five_a_day_counts.today.total : 0
   end
 
-  def five_a_day_exercises
-    @exercises_list ||= ActiveRecord::Base.connection.execute(five_a_day_exercises_sql).to_a
-  end
-
-  def show_five_suggestions?
-    onboarded? && five_available?
-  end
-
-  def five_available?
-    (five_a_day_exercises.count + count_existing_five_a_day) == 5
+  def dailies_available?
+    daily_count < Daily::LIMIT
   end
 
   def default_language
@@ -154,41 +139,5 @@ class User < ActiveRecord::Base
     User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, problems|
       problems[result["track_id"]] << result["slug"]
     end
-  end
-
-  def five_a_day_exercises_sql
-    <<-SQL
-      SELECT
-        e.language,
-        e.slug,
-        e.key,
-        u.username AS username,
-        COALESCE(c.comment_count, 0)
-        FROM acls a
-        INNER JOIN user_exercises e
-          ON a.language=e.language
-          AND a.slug=e.slug
-        INNER JOIN users u
-          ON u.id = e.user_id
-        LEFT JOIN (
-          SELECT
-            COUNT(c.id) AS comment_count,
-            s.user_exercise_id AS exercise_id,
-            EVERY(c.user_id<>#{id}) AS no_comment
-          FROM comments c
-          INNER JOIN submissions s
-          ON s.id=c.submission_id
-          GROUP BY s.user_exercise_id
-        ) as c
-        ON c.exercise_id=e.id
-        WHERE e.user_id<>#{id}
-          AND a.user_id=#{id}
-          AND e.archived='f'
-          AND e.slug<>'hello-world'
-          AND (c.no_comment='t' OR c.no_comment IS NULL)
-          AND e.last_iteration_at > (NOW()-INTERVAL '30 days')
-      ORDER BY COALESCE(c.comment_count, 0) ASC, e.iteration_count DESC
-      LIMIT (5-#{count_existing_five_a_day});
-    SQL
   end
 end
