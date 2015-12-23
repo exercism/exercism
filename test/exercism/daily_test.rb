@@ -3,21 +3,26 @@ require_relative '../integration_helper'
 class DailyTest < Minitest::Test
   include DBCleaner
 
-  def test_returns_exercises_for_authorized_language_and_slug
-    fred = User.create(username: 'fred')
-    sarah = User.create(username: 'sarah')
+  def fred
+    @fred ||= User.create(username: 'fred')
+  end
+
+  def sarah
+    @sarah ||= User.create(username: 'sarah')
+  end
+
+  def test_only_returns_exercises_for_authorized_language_and_slug
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
     ex1 = create_exercise_with_submission(sarah, 'ruby', 'bob')
     Like.create!(submission: ex1.submissions.first, user: sarah)
     Comment.create!(submission: ex1.submissions.first, user: sarah, body: "I hope that when I die, people say about me, 'Boy, that guy sure owed me a lot of money.'")
+    create_exercise_with_submission(sarah, 'ruby', 'leap')
 
     assert_equal [ex1.key], fred.dailies.map(&:key)
   end
 
   def test_orders_dailies_by_comment_count
-    fred = User.create(username: 'fred')
-    sarah = User.create(username: 'sarah')
     jaclyn = User.create(username: 'jaclyn')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
@@ -32,7 +37,6 @@ class DailyTest < Minitest::Test
   end
 
   def test_does_not_return_archived_exercises
-    fred = User.create(username: 'fred')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
     UserExercise.create!(
         user: fred,
@@ -47,7 +51,6 @@ class DailyTest < Minitest::Test
   end
 
   def test_does_not_return_hello_world_slug
-    fred = User.create(username: 'fred')
     ACL.authorize(fred, Problem.new('ruby', 'hello-world'))
     UserExercise.create!(
         user: fred,
@@ -62,8 +65,6 @@ class DailyTest < Minitest::Test
   end
 
   def test_does_not_return_liked_user_exercises
-    fred = User.create(username: 'fred')
-    sarah = User.create(username: 'sarah')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
     ex1 = create_exercise_with_submission(sarah, 'ruby', 'bob')
@@ -73,8 +74,6 @@ class DailyTest < Minitest::Test
   end
 
   def test_does_not_return_commented_user_exercises
-    fred = User.create(username: 'fred')
-    sarah = User.create(username: 'sarah')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
     ex1 = create_exercise_with_submission(sarah, 'ruby', 'bob')

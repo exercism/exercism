@@ -116,7 +116,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def show_five_suggestions?
+  def show_dailies?
     onboarded? && dailies_available?
   end
 
