@@ -90,6 +90,25 @@ namespace :metrics do
     end
   end
 
+  desc "feedback"
+  task :feedback do
+    sql = <<-SQL
+      SELECT
+        user_exercise_id AS id,
+        MIN(created_at) AS created_at,
+        (CASE WHEN SUM(nit_count) > 0 THEN 1 ELSE 0 END) AS received_feedback
+      FROM submissions
+      WHERE slug<>'hello-world'
+      GROUP BY user_exercise_id
+    SQL
+
+    fn = lambda { |row|
+      at = Moment.new(row['created_at'])
+      ([ row['id'], at.to_s, row['received_feedback']] + at.to_a).join(",")
+    }
+    Metric.report(sql, ["Solution ID", "Started On", "Received Feedback"]+Moment.to_a, fn)
+  end
+
   desc "lifetime numbers"
   task :lifetime do
     sql = <<-SQL

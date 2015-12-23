@@ -4,4 +4,5 @@ rake metrics:events:comments    > $EXERCISM_METRICS_PATH/events.comments.csv
 rake metrics:events:iterations  > $EXERCISM_METRICS_PATH/events.iterations.csv
 rake metrics:events:signups     > $EXERCISM_METRICS_PATH/events.signups.csv
 rake metrics:funnel             > $EXERCISM_METRICS_PATH/funnel.csv
+rake metrics:feedback           > $EXERCISM_METRICS_PATH/feedback.csv
 rake metrics:lifetime           > $EXERCISM_METRICS_PATH/lifetime.csv
