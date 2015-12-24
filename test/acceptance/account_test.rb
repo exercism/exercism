@@ -11,7 +11,7 @@ class AccountTest < AcceptanceTestCase
       click_on 'Account'
 
       assert_css 'h1', text: 'Account'
-      assert_content 'Exercises'
+      assert_content 'Settings'
     end
   end
 
