@@ -13,6 +13,14 @@ module ExercismWeb
         erb :"site/help", locals: {docs: X::Docs::Help.new}
       end
 
+      get '/how-it-works' do
+        erb :"site/how_it_works", locals: {docs: X::Docs::Intro.new}
+      end
+
+      get '/cli' do
+        erb :"site/cli", locals: {docs: X::Docs::CLI.new}
+      end
+
       get '/privacy' do
         erb :"site/privacy"
       end

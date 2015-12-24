@@ -1,0 +1,50 @@
+<div class="container languages">
+  <div class="row" style="padding-top: 40px;">
+    <div class="col-md-4"></div>
+    <div class="col-md-8">
+      <h1>Command-Line Interface (CLI)</h1>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 20px;">
+    <div class="col-md-4">
+
+      <ul class="nav nav-pills nav-stacked">
+        <li class="active">
+          <a data-toggle="tab" href="#overview">Overview</a>
+        </li>
+
+        <li>
+          <a data-toggle="tab" href="#mac">Mac OS X</a>
+        </li>
+
+        <li>
+          <a data-toggle="tab" href="#windows">Windows</a>
+        </li>
+
+        <li>
+          <a data-toggle="tab" href="#linux">Linux</a>
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="col-md-8 tab-content">
+      <div class="active tab-pane" id="overview">
+        <%= md docs.overview %>
+      </div>
+
+      <% %w(mac windows linux).each do |os| %>
+        <div class="tab-pane" id="<%= os %>">
+          <%= md docs.send(os)  %>
+        </div>
+      <% end %>
+
+    </div>
+
+    <h2>Want to add more help topics?</h2>
+    <p>Submit a pull request or open an issue with suggestions! The code for this documentation is in <a href="https://github.com/exercism/exercism.io">the exercism.io repository</a> on GitHub.</p>
+    <p>(Check out the <code>./x/docs/cli.rb</code> and <code>./app/views/site/cli.erb</code> files.)</p>
+  </div>
+
+</div>
