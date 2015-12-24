@@ -23,10 +23,6 @@ module ExercismWeb
                                     planned_languages: ExercismWeb::Presenters::Languages.new(tracks.select(&:planned?).map(&:language)).to_s}
       end
 
-      get '/getting-started' do
-        erb :"site/getting-started", locals: {active_languages: ExercismWeb::Presenters::Languages.new(tracks.select(&:active?).map(&:language)).to_s}
-      end
-
       get '/bork' do
         raise RuntimeError.new("Hi Bugsnag, you're awesome!")
       end
