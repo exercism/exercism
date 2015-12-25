@@ -1,4 +1,4 @@
-class DeleteOldSolutionColumnsOnUserExercise < ActiveRecord::Migration
+class DropCompletedAtFieldFromUserExercises < ActiveRecord::Migration
   def up
     remove_column :user_exercises, :completed_at
   end
