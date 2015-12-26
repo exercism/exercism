@@ -86,7 +86,7 @@ namespace :metrics do
         at = Moment.new(row['created_at'])
         ([ row['id'], row['user_id'], at.to_s] + at.to_a).join(",")
       }
-      Metric.report(sql, ["Comment ID", "User ID", "Submitted On"]+Moment.to_a, fn)
+      Metric.report(sql, ["Iteration ID", "User ID", "Submitted On"]+Moment.to_a, fn)
     end
   end
 
