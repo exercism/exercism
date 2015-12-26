@@ -90,6 +90,46 @@ namespace :metrics do
     end
   end
 
+  namespace :unique do
+    desc "extract unique commenter count per week"
+    task :commenters do
+      sql = <<-SQL
+      SELECT
+        extract(isoyear from created_at) AS isoyear,
+        extract(week from created_at) AS isoweek,
+        count(DISTINCT user_id) AS tally
+      FROM comments
+      GROUP BY
+        extract(isoyear from created_at),
+        extract(week from created_at)
+      SQL
+
+      fn = lambda { |row|
+        [row['isoyear'], row['isoweek'], row['tally']].join(",")
+      }
+      Metric.report(sql, ["ISO Year", "ISO Week", "Unique Commenters"], fn)
+    end
+
+    desc "extract unique submitter count per week"
+    task :submitters do
+      sql = <<-SQL
+      SELECT
+        extract(isoyear from created_at) AS isoyear,
+        extract(week from created_at) AS isoweek,
+        count(DISTINCT user_id) AS tally
+      FROM submissions
+      GROUP BY
+        extract(isoyear from created_at),
+        extract(week from created_at)
+      SQL
+
+      fn = lambda { |row|
+        [row['isoyear'], row['isoweek'], row['tally']].join(",")
+      }
+      Metric.report(sql, ["ISO Year", "ISO Week", "Unique Submitters"], fn)
+    end
+  end
+
   desc "feedback"
   task :feedback do
     sql = <<-SQL
