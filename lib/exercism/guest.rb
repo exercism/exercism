@@ -26,7 +26,7 @@ class Guest
     false
   end
 
-  def show_five_suggestions?
+  def show_dailies?
     false
   end
 end

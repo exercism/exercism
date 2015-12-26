@@ -41,6 +41,7 @@ require 'exercism/user_track'
 require 'exercism/view'
 require 'exercism/language_track'
 require 'exercism/user_lookup'
+require 'exercism/daily'
 
 
 require 'db/connection'

@@ -23,7 +23,7 @@
   </ul>
 
   <ul class="nav navbar-nav navbar-right">
-    <% if current_user.show_five_suggestions? %>
+    <% if current_user.show_dailies? %>
       <%= erb :"application/nav/five_a_day" %>
     <% end %>
       <% if !current_user.guest? %>
