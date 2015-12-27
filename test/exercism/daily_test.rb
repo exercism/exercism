@@ -68,7 +68,6 @@ class DailyTest < Minitest::Test
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
     ex1 = create_exercise_with_submission(sarah, 'ruby', 'bob', 31.days.ago)
-    Comment.create!(submission: ex1.submissions.first, user: fred, body: "I hope that when I die, people say about me, 'Boy, that guy sure owed me a lot of money.'")
     ex2 = create_exercise_with_submission(User.create(username: 'jaclyn'), 'ruby', 'bob', 21.days.ago)
 
     assert_equal [ex2.key], fred.dailies.map(&:key)
@@ -94,15 +93,15 @@ class DailyTest < Minitest::Test
 
   private
 
-  def create_exercise_with_submission(user, language, slug, created_at = 1.day.ago)
+  def create_exercise_with_submission(user, language, slug, last_iteration_at = 1.day.ago)
     UserExercise.create!(
         user: user,
-        last_iteration_at: 3.days.ago,
+        last_iteration_at: last_iteration_at,
         archived: false,
         iteration_count: 1,
         language: language,
         slug: slug,
-        submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: created_at, version: 1)]
+        submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: 5.days.ago, version: 1)]
     )
   end
 end
