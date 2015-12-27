@@ -117,15 +117,11 @@ class User < ActiveRecord::Base
   end
 
   def show_dailies?
-    onboarded? && dailies_available?
+    onboarded? && dailies.any?
   end
 
   def daily_count
     five_a_day_counts.today ? five_a_day_counts.today.total : 0
-  end
-
-  def dailies_available?
-    daily_count < Daily::LIMIT
   end
 
   def default_language

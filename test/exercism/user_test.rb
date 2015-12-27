@@ -163,20 +163,6 @@ class UserTest < Minitest::Test
     assert_equal 0, fred.daily_count
   end
 
-  def test_dailies_available_when_less_than_5
-    fred = User.create(username: 'fred')
-
-    fred.increment_five_a_day
-    assert_equal true, fred.dailies_available?
-  end
-
-  def test_dailies_available_when_5
-    fred = User.create(username: 'fred')
-
-    5.times { fred.increment_five_a_day }
-    assert_equal false, fred.dailies_available?
-  end
-
   private
 
   def create_exercise_with_submission(user, language, slug)
