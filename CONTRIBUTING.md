@@ -332,5 +332,5 @@ to make it easy to search for later.
 
 For more resources see:
 
-* [Git Workflow](http://help.exercism.io/git-workflow.html) in the exercism.io documentation
+* [Git Workflow](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#git-basics) in the language track contributor guide
 * [How to Squash Commits in a GitHub Pull Request](http://blog.steveklabnik.com/posts/2012-11-08-how-to-squash-commits-in-a-github-pull-request)

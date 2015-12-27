@@ -14,11 +14,11 @@ module ExercismWeb
       end
 
       get '/help/?*' do
-        redirect "http://help.exercism.io"
+        redirect '/help'
       end
 
       get '/setup/?*' do
-        redirect "http://help.exercism.io"
+        redirect "/help"
       end
 
       get '/nitpick/:language/:slug/?' do
