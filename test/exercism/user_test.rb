@@ -119,49 +119,63 @@ class UserTest < Minitest::Test
     assert_equal 1, FiveADayCount.count
   end
 
-  def test_five_a_day_exercises_comments
+  def test_dailies
     fred = User.create(username: 'fred')
     sarah = User.create(username: 'sarah')
     jaclyn = User.create(username: 'jaclyn')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
     ACL.authorize(fred, Problem.new('ruby', 'leap'))
 
-    ex1 = UserExercise.create!(
-        user: sarah,
-        last_iteration_at: 5.days.ago,
-        archived: false,
-        iteration_count: 1,
-        language: 'ruby',
-        slug: 'bob',
-        submissions: [Submission.create!(user: sarah, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
-    )
+    ex1 = create_exercise_with_submission(sarah, 'ruby', 'bob')
     Comment.create!(submission: ex1.submissions.first, user: sarah, body: 'I like to comment')
 
-    UserExercise.create!(
-        user: jaclyn,
-        last_iteration_at: 5.days.ago,
-        archived: false,
-        iteration_count: 1,
-        language: 'ruby',
-        slug: 'bob',
-        submissions: [Submission.create!(user: jaclyn, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
-    )
+    create_exercise_with_submission(jaclyn, 'ruby', 'bob')
 
-    ex3 = UserExercise.create!(
-        user: jaclyn,
-        last_iteration_at: 3.days.ago,
-        archived: false,
-        iteration_count: 1,
-        language: 'ruby',
-        slug: 'leap',
-        submissions: [Submission.create!(user: jaclyn, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
-    )
+    ex3 = create_exercise_with_submission(jaclyn, 'ruby', 'leap')
     Comment.create!(submission: ex3.submissions.first, user: fred, body: 'nice')
 
-    assert_equal 2, fred.five_a_day_exercises.size
+    assert_equal 2, fred.dailies.size
+  end
+
+  def test_dailies_will_subtract_five_a_day_count
+    fred = User.create(username: 'fred')
+    ACL.authorize(fred, Problem.new('ruby', 'bob'))
+    ['billy' ,'rich', 'jaclyn', 'maddy', 'sarah'].each do |name|
+      create_exercise_with_submission(User.create(username: name), 'ruby', 'bob')
+    end
+
+    assert_equal 5, fred.dailies.size
+    fred.increment_five_a_day
+    fred.reload
+    assert_equal 4, fred.dailies.size
+  end
+
+  def test_user_daily_count
+    fred = User.create(username: 'fred')
+
+    fred.increment_five_a_day
+    assert_equal 1, fred.daily_count
+  end
+
+  def test_user_daily_count_returns_0_if_no_daily
+    fred = User.create(username: 'fred')
+
+    assert_equal 0, fred.daily_count
   end
 
   private
+
+  def create_exercise_with_submission(user, language, slug)
+    UserExercise.create!(
+        user: user,
+        last_iteration_at: 3.days.ago,
+        archived: false,
+        iteration_count: 1,
+        language: language,
+        slug: slug,
+        submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: 22.days.ago, version: 1)]
+    )
+  end
 
   def create_submission(problem, attributes={})
     submission = Submission.on(problem)
