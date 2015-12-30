@@ -12,6 +12,10 @@
         </a>
       </p>
 
+      <% if !profile.progress_hash.empty? %>
+        <h3>Progress:</h3>
+        <%= erb :"user/_exercise_progress", locals: { progress: profile.progress_hash } %>
+      <% end %>
       <h3>Exercises</h3>
       <% if profile.has_current_exercises? %>
         <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.exercises } %>
