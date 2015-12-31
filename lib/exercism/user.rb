@@ -2,6 +2,7 @@ require 'digest/sha1'
 
 class User < ActiveRecord::Base
   serialize :mastery, Array
+  serialize :track_mentor, Array
 
   has_many :submissions
   has_many :notifications
