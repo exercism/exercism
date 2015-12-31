@@ -156,6 +156,12 @@ from their perspective.
 
 You may need to edit the `config/database.yml` file to specify non-default values. If you do, please edit (or create) a `.git/info/exclude` file so that your changes don't get committed. Unfortunately we have to commit the database.yml file, because heroku no longer creates a default one.
 
+Note that if you installed PostgreSQL on OS X with [Postgres.app](http://postgresapp.com/), you'll need to
+[configure your `$PATH`](http://postgresapp.com/documentation/cli-tools.html) in order for
+the database setup to complete successfully. `bin/setup` relies on PostgreSQL command line tools
+and as Postgres.app does not automatically add the application `bin` directory to your `$PATH`,
+you'll need to do this manually.
+
 ### Run The Application
 
 * Start the server with: `foreman s -p 4567`
