@@ -192,5 +192,14 @@ namespace :data do
         end
       end
     end
+
+    desc "migrate info from mastery to track mentor"
+    task :track_mentor do
+      require 'bundler'
+      Bundler.require
+      require_relative '../exercism'
+
+      User.update_all("track_mentor=mastery")
+    end
   end
 end
