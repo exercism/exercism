@@ -22,7 +22,7 @@ class SubmissionsTest < Minitest::Test
     {
       username: 'bob',
       github_id: 2,
-      mastery: ['ruby'],
+      track_mentor: ['ruby'],
       email: "bob@example.com"
     }
   end

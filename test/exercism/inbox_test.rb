@@ -34,7 +34,7 @@ class InboxTrackTest < Minitest::Test
     # In Go she can see only what she has submitted (Leap and Hamming, but not Clock).
     # Her own exercises appear in the inbox.
     # We won't bother with Bob's views and ACLs, since we're not testing his inbox.
-    alice = User.create(username: 'alice', avatar_url: 'alice.jpg', mastery: ['elixir'])
+    alice = User.create(username: 'alice', avatar_url: 'alice.jpg', track_mentor: ['elixir'])
     bob = User.create(username: 'bob', avatar_url: 'bob.jpg')
 
     [
