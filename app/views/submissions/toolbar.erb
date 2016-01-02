@@ -13,18 +13,6 @@
         target="_blank">
         <i class="fa fa-twitter"></i>
       </a>
-    <% else %>
-      <% unless own_uuid.empty? %>
-        <a
-          href="/exercises/<%= own_uuid %>"
-          class="btn btn-default"
-          data-toggle="tooltip"
-          data-placement="bottom"
-          title="My solution to this exercise"
-          target="_blank">
-          <i class="fa fa-rocket"></i>
-        </a>
-      <% end %>
     <% end %>
 
     <% if last_in_inbox %>

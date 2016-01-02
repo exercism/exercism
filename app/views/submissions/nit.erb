@@ -11,8 +11,9 @@
         <a href="/submissions/<%= submission.key %>/nits/<%= nit.id %>/edit" class="pull-right btn btn-default btn-xs edit-text">
           <i class="fa fa-pencil"></i> Edit
         </a>
+      <% end %>
 
-      <% elsif submission.user != nit.nitpicker %>
+      <% if submission.user != nit.nitpicker %>
         <% unless own_uuid.empty? %>
           <a
             href="/exercises/<%= own_uuid %>"
