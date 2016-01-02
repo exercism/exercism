@@ -29,7 +29,7 @@ class AppExercisesTest < Minitest::Test
     assert_equal location, last_response.location, "Expected to be redirected to the next Go exercise"
   end
 
-  def test_excercises_by_key
+  def test_exercises_by_key
     get "/exercises/#{exercise.key}", {}, login(alice)
     assert_equal 302, last_response.status
     location = "http://example.org/submissions/#{submission.key}"
