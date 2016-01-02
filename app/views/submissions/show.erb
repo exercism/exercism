@@ -12,7 +12,39 @@
       </span>
       <%= submission.problem.name %>
     </h1>
-    <%= erb :"submissions/toolbar", locals: { submission: submission, last_in_inbox: last_in_inbox, own_uuid: submission.exercise_uuid_by(current_user), successor: successor } %>
+
+    <div class="pull-right submission-toolbar hidden-xs">
+      <div class="btn-group">
+        <%= erb :"submissions/user_actions", locals: { submission: submission, exercise: submission.user_exercise } %>
+
+        <% if current_user.owns?(submission) %>
+          <a
+            href="https://twitter.com/intent/tweet?text=I just submitted the <%= submission.track_id %> <%= submission.slug %> exercise at @exercism_io - Leave me a nitpick at http://exercism.io/submissions/<%= submission.key %>"
+            class="btn btn-default"
+            data-toggle="tooltip"
+            data-placement="bottom"
+            title="Share with Twitter"
+            target="_blank">
+            <i class="fa fa-twitter"></i>
+          </a>
+        <% end %>
+
+        <% if last_in_inbox %>
+          <a
+            href="#"
+            class="btn btn-default next-submission disabled">
+            Next Submission <i class="fa fa-arrow-right"></i>
+          </a>
+        <% else %>
+          <a
+            href="/exercises/next<%= successor.to_params %>"
+            class="btn btn-default next-submission">
+            Next Submission <i class="fa fa-arrow-right"></i>
+          </a>
+        <% end %>
+      </div>
+    </div>
+
     <div class="clearfix"></div>
     <div class="submission-author text-muted">
       submitted by <%= gravatar_tag submission.user.avatar_url, size: 20 %>
