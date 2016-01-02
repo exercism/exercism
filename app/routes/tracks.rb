@@ -9,7 +9,6 @@ module ExercismWeb
 
         session[:inbox] = id
         session[:inbox_slug] = slug
-        session[:inbox_last] = inbox.last_id
 
         erb :"inbox", locals: {inbox: inbox}
       end

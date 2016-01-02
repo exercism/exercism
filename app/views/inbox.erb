@@ -58,7 +58,7 @@
           <% inbox.exercises.each do |exercise| %>
           <li class="<%= 'unread' if exercise.unread? %>">
             <span class="col-md-10">
-              <a href="/exercises/<%= exercise.uuid %>?i=1" class="exercise list-group-item">
+              <a href="/exercises/<%= exercise.uuid %>" class="exercise list-group-item">
                 <img src="<%= exercise.avatar_url%>" width="60" height="60" alt="" class="avatar">
                 <div class="inbox-text">
                   <h4>

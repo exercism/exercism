@@ -28,20 +28,7 @@
             <i class="fa fa-twitter"></i>
           </a>
         <% end %>
-
-        <% if last_in_inbox %>
-          <a
-            href="#"
-            class="btn btn-default next-submission disabled">
-            Next Submission <i class="fa fa-arrow-right"></i>
-          </a>
-        <% else %>
-          <a
-            href="/exercises/next<%= successor.to_params %>"
-            class="btn btn-default next-submission">
-            Next Submission <i class="fa fa-arrow-right"></i>
-          </a>
-        <% end %>
+	<!-- next exercise -->
       </div>
     </div>
 

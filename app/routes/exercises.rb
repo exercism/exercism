@@ -7,8 +7,7 @@ module ExercismWeb
         end
 
         inbox = ::Inbox.new(current_user, params[:language], params[:slug])
-        next_uuid = inbox.next_uuid(session[:inbox_exercise])
-        redirect "/exercises/#{next_uuid}"
+        redirect "/exercises/#{inbox.first_unread_uuid}"
       end
 
       get '/exercises/:key' do |key|
@@ -17,15 +16,13 @@ module ExercismWeb
           flash[:notice] = "Couldn't find that exercise."
           redirect '/'
         end
-        session[:inbox_exercise] = exercise.id
 
         if exercise.submissions.empty?
           # We have orphan exercises at the moment.
           flash[:notice] = "That submission no longer exists."
           redirect '/'
         end
-        q = "?i=1" if params[:i] == '1'
-        redirect "/submissions/%s%s" % [exercise.submissions.last.key, q]
+        redirect "/submissions/%s" % exercise.submissions.last.key
       end
 
       post '/exercises/:key/views' do |key|

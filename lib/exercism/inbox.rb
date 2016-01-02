@@ -37,9 +37,8 @@ class Inbox
     execute(mark_as_read_update_sql)
   end
 
-  def next_uuid(id)
-    id ||= UserExercise.order(last_activity_at: :desc).first.id
-    row = execute(next_uuid_sql(id)).first
+  def first_unread_uuid
+    row = execute(first_unread_uuid_sql).first
     row["uuid"] if !!row
   end
 
@@ -178,24 +177,27 @@ class Inbox
     SQL
   end
 
-  def next_uuid_sql(id)
+  def first_unread_uuid_sql
     <<-SQL
       SELECT
         ex.key AS uuid
       FROM user_exercises ex
-      INNER JOIN users u
-        ON ex.user_id=u.id
       INNER JOIN acls
         ON ex.language=acls.language
         AND ex.slug=acls.slug
+      LEFT JOIN views
+        ON acls.user_id=views.user_id
+        AND ex.id=views.exercise_id
       WHERE acls.user_id=#{user.id}
         AND ex.language='#{track_id}'
         AND ex.slug=#{slug_param}
         AND ex.archived='f'
         AND ex.slug != 'hello-world'
         AND ex.iteration_count > 0
-        AND ex.last_activity_at < (
-          SELECT last_activity_at FROM user_exercises WHERE id='#{id}'
+        AND (
+          views.id IS NULL
+          OR
+          ex.last_activity_at > views.last_viewed_at
         )
       ORDER BY ex.last_activity_at DESC
       LIMIT 1

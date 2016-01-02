@@ -9,20 +9,15 @@ module ExercismWeb
         end
 
         unless current_user.guest?
-          session[:inbox_exercise] = submission.user_exercise_id
           submission.viewed_by(current_user) # in support of inbox
           Notification.viewed!(submission, current_user)
         end
 
         title("%s by %s in %s" % [submission.problem.name, submission.user.username, submission.problem.language])
 
-        last = session[:inbox_last] == submission.user_exercise_id
-
         locals = {
           submission: submission,
-          last_in_inbox: last,
           sharing: Presenters::Sharing.new,
-          successor: Successor.from(session, params, submission.problem),
         }
 
         erb :"submissions/show", locals: locals

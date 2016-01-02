@@ -50,6 +50,7 @@ class InboxTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1},
       {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0},
       {user: alice, language: 'go', slug: 'hamming', archived: false, auth: true, viewed: +1},
+      {user: bob, language: 'go', slug: 'raindrops', archived: false, auth: true, viewed: 0},
     ].each.with_index { |attributes, i| create_view alice, bob, attributes.merge(age: i) }
 
     elixir1 = Inbox.new(alice, 'elixir')
@@ -61,39 +62,41 @@ class InboxTrackTest < Minitest::Test
 
     assert_equal 2, elixir1.exercises.size
     assert_equal 1, elixir2.exercises.size
-    assert_equal 4, go.exercises.size
+    assert_equal 5, go.exercises.size
     assert_equal 2, wc.exercises.size
 
     # sanity check pagination
     assert_equal 3, elixir1.current.total
-    assert_equal 4, go.current.total
+    assert_equal 5, go.current.total
     assert_equal 2, wc.current.total
 
     ex1, ex2 = elixir1.exercises
     ex3 = elixir2.exercises.first
-    ex4, ex5, ex6, ex7 = go.exercises
-    ex8, ex9 = wc.exercises
+    ex4, ex5, ex6, ex7, ex8 = go.exercises
+    ex9, ex10 = wc.exercises
 
     [
-      [ex1, ExerciseTestCase.new(bob  , 'Triangle'  , 'elixir', :unread,  1)],
-      [ex2, ExerciseTestCase.new(bob  , 'Anagram'   , 'elixir', :unread,  2)],
-      [ex3, ExerciseTestCase.new(bob  , 'Word Count', 'elixir', :read  ,  3)],
-      [ex4, ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
-      [ex5, ExerciseTestCase.new(bob  , 'Leap'      , 'go'    , :read  ,  5)],
-      [ex6, ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
-      [ex7, ExerciseTestCase.new(alice, 'Hamming'   , 'go'    , :read  , 11)],
-      [ex8, ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
-      [ex9, ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
+      [ex1,  ExerciseTestCase.new(bob  , 'Triangle'  , 'elixir', :unread,  1)],
+      [ex2,  ExerciseTestCase.new(bob  , 'Anagram'   , 'elixir', :unread,  2)],
+      [ex3,  ExerciseTestCase.new(bob  , 'Word Count', 'elixir', :read  ,  3)],
+      [ex4,  ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
+      [ex5,  ExerciseTestCase.new(bob  , 'Leap'      , 'go'    , :read  ,  5)],
+      [ex6,  ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
+      [ex7,  ExerciseTestCase.new(alice, 'Hamming'   , 'go'    , :read  , 11)],
+      [ex8,  ExerciseTestCase.new(bob  , 'Raindrops' , 'go'    , :unread, 12)],
+      [ex9,  ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
+      [ex10,  ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
     ].each { |actual, expected| assert_exercise expected, actual }
 
-    # next exercise
-    assert_equal ex7.uuid, go.next_uuid(ex6.id)
-    assert_equal ex6.uuid, wc.next_uuid(ex4.id)
-    assert_equal nil, wc.next_uuid(ex7.id)
+    # most recent unread
+    assert_equal ex6.uuid, go.first_unread_uuid
+    assert_equal ex6.uuid, wc.first_unread_uuid
+    assert_equal nil, Inbox.new(alice, 'go', 'clock').first_unread_uuid # not authorized
+    assert_equal ex8.uuid, Inbox.new(alice, 'go', 'raindrops').first_unread_uuid # no view record
 
     # last exercise
-    assert_equal ex7.id, go.last_id
-    assert_equal ex9.id, wc.last_id
+    assert_equal ex8.id, go.last_id
+    assert_equal ex10.id, wc.last_id
     assert_equal 0, Inbox.new(alice, 'rust').last_id
   end
 
@@ -200,6 +203,8 @@ class InboxTrackTest < Minitest::Test
       ACL.authorize(user, exercise.problem)
     end
 
-    View.create(user_id: user.id, exercise_id: exercise.id, last_viewed_at: ts+viewed_diff_in_seconds)
+    if viewed_diff_in_seconds != 0
+      View.create(user_id: user.id, exercise_id: exercise.id, last_viewed_at: ts+viewed_diff_in_seconds)
+    end
   end
 end
