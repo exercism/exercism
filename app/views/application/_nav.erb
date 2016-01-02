@@ -24,7 +24,7 @@
 
   <ul class="nav navbar-nav navbar-right">
     <% if current_user.show_dailies? %>
-      <%= erb :"application/nav/five_a_day" %>
+      <%= erb :"application/nav/dailies" %>
     <% end %>
       <% if !current_user.guest? %>
         <% if current_user.sees_exercises? %>

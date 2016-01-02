@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
   has_many :notifications
   has_many :comments
   has_many :dailies, -> (user) { limit(Daily::LIMIT - user.daily_count) }
-  has_many :five_a_day_counts
+  has_many :daily_counts
   has_many :exercises, class_name: "UserExercise"
   has_many :lifecycle_events, ->{ order 'created_at ASC' }, class_name: "LifecycleEvent"
 
@@ -109,11 +109,11 @@ class User < ActiveRecord::Base
     self == submission.user
   end
 
-  def increment_five_a_day
-    if five_a_day_counts.today
-      five_a_day_counts.today.increment!(:total)
+  def increment_daily_count
+    if daily_counts.today
+      daily_counts.today.increment!(:total)
     else
-      FiveADayCount.create(user_id: self.id, total: 1, day: Date.today)
+      DailyCount.create(user_id: self.id, total: 1, day: Date.today)
     end
   end
 
@@ -122,7 +122,7 @@ class User < ActiveRecord::Base
   end
 
   def daily_count
-    five_a_day_counts.today ? five_a_day_counts.today.total : 0
+    daily_counts.today ? daily_counts.today.total : 0
   end
 
   def default_language

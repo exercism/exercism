@@ -1,4 +1,4 @@
-class FiveADayCount < ActiveRecord::Base
+class DailyCount < ActiveRecord::Base
   belongs_to :user
 
   def self.today
