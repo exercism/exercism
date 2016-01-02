@@ -1,9 +1,73 @@
 <div class="container" id="submission">
-  <%= erb :"submissions/header", locals: { submission: submission, last_in_inbox: last_in_inbox, successor: successor} %>
+  <div class="submission-header page-header">
+    <h1 class="pull-left">
+      <span class="submission-language">
+        <a
+          href="<%= path_for(submission.problem.track_id) %>"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="<%= submission.problem.language %>">
+          <span class="language circle <%= submission.language %>-icon">&nbsp;</span>
+        </a>
+      </span>
+      <%= submission.problem.name %>
+    </h1>
+    <%= erb :"submissions/toolbar", locals: { submission: submission, last_in_inbox: last_in_inbox, own_uuid: submission.exercise_uuid_by(current_user), successor: successor } %>
+    <div class="clearfix"></div>
+    <div class="submission-author text-muted">
+      submitted by <%= gravatar_tag submission.user.avatar_url, size: 20 %>
+      <%= profile_link(submission.user) %>
+      <%= ago(submission.created_at) %>
+      <% if submission.user_exercise.archived? %>
+        <span class="label label-danger">Archived</span>
+      <% end %>
+    </div>
+  </div>
 
-  <%= erb :"submissions/alerts", locals: { submission: submission } %>
+  <% if current_user.owns?(submission) %>
+    <div class="submission-alerts">
+      <% if submission.user_exercise.archived? && UserExercise.for(submission).archived.count > 0 %>
+        <div class="alert alert-info" role="alert">
+          <p>See <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.</p>
+          <p>View <a href="<%= language_path_for_slug(submission.language, submission.slug) %>">all other solutions</a> to this problem.</p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 
-  <%= erb :"submissions/iterations", locals: { submission: submission } %>
+  <div class="submission-iterations">
+    <ul class="pull-right nav nav-pills hidden-xs">
+      <li>
+        <a href="/exercises/<%= submission.track_id %>/<%= submission.slug %>/readme">Readme</a>
+      </li>
+      <li>
+        <a href="/exercises/<%= submission.track_id %>/<%= submission.slug %>">Test Suite</a>
+      </li>
+    </ul>
+    <ul class="nav nav-tabs iterations-nav">
+      <li class="iteration-label hidden-xs">
+        <span class="label label-default">Iterations</span>
+      </li>
+      <% submission.user_exercise.submissions.each do |s| %>
+        <li class="<%= "active" if s == submission %>">
+          <a href="/submissions/<%= s.key %>">
+            <% unless submission.user_exercise.archived? %>
+              <i class="fa"></i>
+            <% end %>
+            <%= s.version %>
+            <% unless s.comments.empty? %>
+              <span class="badge"><%= s.comments.size %></span>
+            <% end %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
 
-  <%= erb :"submissions/iteration", locals: { submission: submission } %>
+  <div class="submission-iteration">
+    <div class="row">
+      <%= erb :"submissions/current_submission", locals: { submission: submission } %>
+      <%= erb :"submissions/nitpicks", locals: { submission: submission } %>
+    </div>
+  </div>
 </div>
