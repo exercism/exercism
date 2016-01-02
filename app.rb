@@ -41,7 +41,6 @@ module ExercismWeb
     use Routes::Submissions
     use Routes::Solutions
     use Routes::Comments
-    use Routes::Nits
     use Routes::Teams
     use Routes::Tracks
     use Routes::Sessions

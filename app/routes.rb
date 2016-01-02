@@ -17,7 +17,6 @@ module ExercismWeb
       Looks: 'looks',
       Solutions: 'solutions',
       Comments: 'comments',
-      Nits: 'nits',
       Exercises: 'exercises',
       Submissions: 'submissions',
       Metadata: 'metadata',
