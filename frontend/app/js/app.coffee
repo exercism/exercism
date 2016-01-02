@@ -2,15 +2,8 @@ angular.module('exercism', ['ui.bootstrap'])
 
 $ ->
   $("[data-toggle=tooltip]").tooltip();
-  $("#feedback_guide").popover(content: $("#encourage").html(), html: true)
-  $("#feedback_guide_alert .close").click (e) ->
-    e.preventDefault()
-    $.cookie 'feedback_guide_alert', 'closed', { path: '/' }
 
   $("#current_submission").theiaStickySidebar(additionalMarginTop: 70)
-
-  unless $.cookie('feedback_guide_alert') == 'closed'
-    $("#feedback_guide_alert").removeClass("hidden")
 
   $('.manager_delete').on 'click', ->
     username = $(@).data('username')

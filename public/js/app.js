@@ -30435,22 +30435,9 @@ $(function() {
 
   $(function() {
     $("[data-toggle=tooltip]").tooltip();
-    $("#feedback_guide").popover({
-      content: $("#encourage").html(),
-      html: true
-    });
-    $("#feedback_guide_alert .close").click(function(e) {
-      e.preventDefault();
-      return $.cookie('feedback_guide_alert', 'closed', {
-        path: '/'
-      });
-    });
     $("#current_submission").theiaStickySidebar({
       additionalMarginTop: 70
     });
-    if ($.cookie('feedback_guide_alert') !== 'closed') {
-      $("#feedback_guide_alert").removeClass("hidden");
-    }
     $('.manager_delete').on('click', function() {
       var slug, username;
       username = $(this).data('username');

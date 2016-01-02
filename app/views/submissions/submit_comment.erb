@@ -1,7 +1,4 @@
 <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
-
-  <%= erb :"submissions/feedback_guide", locals: { submission: submission } %>
-
   <%= erb :"submissions/comment", locals: { submission: submission } %>
 
   <button type="submit" name="nitpick" class="pull-right btn btn-primary btn-lg">
