@@ -23,7 +23,7 @@ module ExercismWeb
           redirect url
         end
 
-        current_user.increment_five_a_day if comment.qualifying?
+        current_user.increment_daily_count if comment.qualifying?
         Notify.everyone(submission, 'nitpick', current_user)
         unless current_user == submission.user
           LifecycleEvent.track('received_feedback', submission.user_id)

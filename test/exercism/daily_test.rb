@@ -67,7 +67,7 @@ class DailyTest < Minitest::Test
   def test_does_not_return_exercises_with_activity_over_30_days
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
-    ex1 = create_exercise_with_submission(sarah, 'ruby', 'bob', 31.days.ago)
+    create_exercise_with_submission(sarah, 'ruby', 'bob', 31.days.ago)
     ex2 = create_exercise_with_submission(User.create(username: 'jaclyn'), 'ruby', 'bob', 21.days.ago)
 
     assert_equal [ex2.key], fred.dailies.map(&:key)

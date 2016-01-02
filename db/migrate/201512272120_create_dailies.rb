@@ -1,7 +1,7 @@
 class CreateDailies < ActiveRecord::Migration
 
   def up
-    connection.execute (<<-SQL
+    connection.execute <<-SQL
       CREATE OR REPLACE VIEW dailies AS
         SELECT
           acls.user_id,
@@ -49,7 +49,6 @@ class CreateDailies < ActiveRecord::Migration
         ORDER BY
           COALESCE (COUNT(C . ID), 0)
       SQL
-      )
   end
 
   def down

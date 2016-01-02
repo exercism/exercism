@@ -105,39 +105,21 @@ class UserTest < Minitest::Test
 
   def test_increment_adds_to_table
     fred = User.create(username: 'fred')
-    fred.increment_five_a_day
-    count = FiveADayCount.where(user_id: fred.id).first
+    fred.increment_daily_count
+    count = DailyCount.where(user_id: fred.id).first
     assert_equal 1, count.total
   end
 
   def test_increment_updates_single_record_per_user
     fred = User.create(username: 'fred')
-    5.times {fred.increment_five_a_day}
+    5.times { fred.increment_daily_count }
 
-    count = FiveADayCount.where(user_id: fred.id).first
-    assert_equal 5, count.total
-    assert_equal 1, FiveADayCount.count
+    daily_count = DailyCount.where(user_id: fred.id).first
+    assert_equal 5, daily_count.total
+    assert_equal 1, DailyCount.count
   end
 
-  def test_dailies
-    fred = User.create(username: 'fred')
-    sarah = User.create(username: 'sarah')
-    jaclyn = User.create(username: 'jaclyn')
-    ACL.authorize(fred, Problem.new('ruby', 'bob'))
-    ACL.authorize(fred, Problem.new('ruby', 'leap'))
-
-    ex1 = create_exercise_with_submission(sarah, 'ruby', 'bob')
-    Comment.create!(submission: ex1.submissions.first, user: sarah, body: 'I like to comment')
-
-    create_exercise_with_submission(jaclyn, 'ruby', 'bob')
-
-    ex3 = create_exercise_with_submission(jaclyn, 'ruby', 'leap')
-    Comment.create!(submission: ex3.submissions.first, user: fred, body: 'nice')
-
-    assert_equal 2, fred.dailies.size
-  end
-
-  def test_dailies_will_subtract_five_a_day_count
+  def test_dailies_will_subtract_daily_count
     fred = User.create(username: 'fred')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
     ['billy' ,'rich', 'jaclyn', 'maddy', 'sarah'].each do |name|
@@ -145,7 +127,7 @@ class UserTest < Minitest::Test
     end
 
     assert_equal 5, fred.dailies.size
-    fred.increment_five_a_day
+    fred.increment_daily_count
     fred.reload
     assert_equal 4, fred.dailies.size
   end
@@ -153,7 +135,7 @@ class UserTest < Minitest::Test
   def test_user_daily_count
     fred = User.create(username: 'fred')
 
-    fred.increment_five_a_day
+    fred.increment_daily_count
     assert_equal 1, fred.daily_count
   end
 
