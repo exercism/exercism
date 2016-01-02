@@ -97,10 +97,12 @@
 
         <% track.problems.each do |problem| %>
           <h5>
-            <%= problem.name %>
-            <b class="caret fuchsia" data-toggle="collapse" data-target="#<%= problem.slug %>" aria-expanded="false" aria-controls="<%= problem.slug %>">
-              &nbsp;
-            </b>
+            <button class="btn btn-default" data-toggle="collapse" data-target="#<%= problem.slug %>" aria-expanded="false" aria-controls="<%= problem.slug %>">
+              <%= problem.name %>
+              <b class="caret fuchsia">
+                &nbsp;
+              </b>
+            </button>
           </h5>
 
           <div class="collapse" id="<%= problem.slug %>">
