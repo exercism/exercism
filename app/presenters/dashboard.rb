@@ -7,7 +7,7 @@ module ExercismWeb
       end
 
       def current_exercises
-        user.exercises.current
+        user.exercises.current.order(:language)
       end
 
       def unsubmitted_exercises
