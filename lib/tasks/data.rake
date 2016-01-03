@@ -159,7 +159,7 @@ namespace :data do
       require './lib/exercism/user'
       DB::Connection.establish
 
-      User.where('mastery IS NOT NULL').where("mastery != '--- []\n'").find_each do |user|
+      User.where('track_mentor IS NOT NULL').where("mastery != '--- []\n'").find_each do |user|
         Submission.select('DISTINCT language, slug').where(language: user.mastery).each do |submission|
           ACL.authorize(user, submission.problem)
         end

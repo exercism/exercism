@@ -2,6 +2,8 @@ require 'active_support' # Must be required before active_record
 require 'active_record'
 require 'faraday'
 
+require_relative '../x/track'
+
 require 'exercism/explore'
 
 require 'exercism/acl'

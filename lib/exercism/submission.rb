@@ -89,6 +89,10 @@ class Submission < ActiveRecord::Base
     language
   end
 
+  def track
+    @track ||= X::Track.find(track_id)
+  end
+
   def problem
     @problem ||= Problem.new(track_id, slug)
   end

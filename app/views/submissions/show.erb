@@ -1,15 +1,7 @@
 <div class="container" id="submission">
   <div class="submission-header page-header">
     <h1 class="pull-left">
-      <span class="submission-language">
-        <a
-          href="<%= path_for(submission.problem.track_id) %>"
-          data-toggle="tooltip"
-          data-placement="bottom"
-          title="<%= submission.problem.language %>">
-          <span class="language circle <%= submission.language %>-icon">&nbsp;</span>
-        </a>
-      </span>
+      <%= track_image(submission.track, 40) %>
       <%= submission.problem.name %>
     </h1>
 
