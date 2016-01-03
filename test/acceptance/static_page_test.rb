@@ -29,12 +29,4 @@ class StaticPageTest < AcceptanceTestCase
       assert_css 'a', text: 'Styleguide'
     end
   end
-
-  def test_language_page_contains_link_to_cli
-    user = create_user
-    with_login(user) do
-      visit '/languages/ruby'
-      assert_link 'command-line client'
-    end
-  end
 end
