@@ -24,7 +24,7 @@
       </td>
       <td><%= exercise.problem.language %></td>
       <td><%= exercise.iteration_count %></td>
-      <td data-value="<%= exercise.updated_at.to_i %>"><%= exercise.updated_at.strftime("%m-%d-%Y") %></td>
+      <td data-value="<%= exercise.updated_at.to_i %>"><%= exercise.updated_at.strftime("%Y-%m-%d") %></td>
     </tr>
   <% end %>
   </tbody>
