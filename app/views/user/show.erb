@@ -14,7 +14,7 @@
 
       <h3>Exercises</h3>
       <% if profile.has_current_exercises? %>
-        <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.exercises } %>
+        <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.exercises.current } %>
       <% else %>
         <p>No current exercises.</p>
       <% end %>
