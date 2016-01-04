@@ -27,7 +27,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
   end
 
   def test_markdown_paragraphs
-    input = "One\n\nTwo\nThree"
+    input = "One\n\nTwo  \nThree"
     expected = "<p>One</p>\n\n<p>Two<br>\nThree</p>"
     assert_converts_to(input, expected)
   end

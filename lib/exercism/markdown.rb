@@ -37,15 +37,8 @@ module ExercismLib
   class Markdown < Redcarpet::Render::XHTML
 
     def self.render(content)
-      renderer = new(renderer_options)
-      markdown = Redcarpet::Markdown.new(renderer, options)
+      markdown = Redcarpet::Markdown.new(new, options)
       markdown.render(content)
-    end
-
-    def self.renderer_options
-      {
-        hard_wrap: true
-      }
     end
 
     def self.options

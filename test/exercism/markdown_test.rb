@@ -9,6 +9,14 @@ class MarkdownTest < Minitest::Test
     assert_equal expected, ExercismLib::Markdown.render(markdown)
   end
 
+  def test_hard_breaks
+    markdown = "O HAI!\n" +
+      "What is your name?  \n" +
+      "My name is Alice."
+    expected = "<p>O HAI!\nWhat is your name?<br>\nMy name is Alice.</p>\n"
+    assert_equal expected, ExercismLib::Markdown.render(markdown)
+  end
+
   def test_mention_works_multiple_times
     markdown = "u @goose of @doom."
     expected = "<p>u <a class=\"mention\" href=\"/goose\">@goose</a> of " +
@@ -25,12 +33,6 @@ class MarkdownTest < Minitest::Test
   def test_mention_ignores_fenced_code_blocks
     markdown = "```\n@goose\n```"
     assert_match "<pre>@goose", ExercismLib::Markdown.render(markdown)
-  end
-
-  def test_newlines
-    markdown = "Foo\nBar"
-    expected = "<p>Foo<br>\nBar</p>\n"
-    assert_equal expected, ExercismLib::Markdown.render(markdown)
   end
 
   def test_no_newlines_before_and_after_code
