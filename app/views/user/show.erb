@@ -17,11 +17,14 @@
         <%= erb :"user/_exercise_progress", locals: { progress: profile.progress_hash } %>
       <% end %>
       <h3>Exercises</h3>
+      <h4>Current</h4>
       <% if profile.has_current_exercises? %>
         <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.exercises.current } %>
       <% else %>
         <p>No current exercises.</p>
       <% end %>
+
+      <br>
 
       <h4>Archived</h4>
       <% if profile.has_archived_exercises? %>
