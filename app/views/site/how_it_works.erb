@@ -7,6 +7,11 @@
 
     <%= md(docs.getting_started) %>
 
+    <% if current_user.guest? %>
+    <p>
+      <a href="/login" class="btn btn-lg btn-block cta-btn">sign up via GitHub</a>
+    </p>
+    <% end %>
 
     <h2>Want to improve this page?</h2>
     <p>Submit a pull request or open an issue with suggestions! The code for this documentation is in <a href="https://github.com/exercism/exercism.io">the exercism.io repository</a> on GitHub.</p>

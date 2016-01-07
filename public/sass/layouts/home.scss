@@ -35,23 +35,4 @@
       font-style: italic;
     }
   }
-
-  p.cta {
-    float: right;
-  }
-  .cta-btn {
-    background: $exercism-medium-red;
-    font-family: $headings-font-family;
-    color: #ffffff;
-    margin: 0px auto;
-    text-align: center;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    width: 250px;
-    @include border-radius(0);
-    &:hover {
-      color: $link-color;
-      text-decoration: underline;
-    }
-  }
 }
