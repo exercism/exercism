@@ -1,116 +1,152 @@
 <div id="home">
   <section class="main">
-    <section>
-      <div class="home-top">
-        <div class="container">
-          <section class="contain-centered">
-            <img class="logo" src="<%= link_to("/icons/logo.svg") %>"/>
-            <h2 class="home-top-header">The devil is in the details</h2>
-              <% if current_user.guest? %>
-                <a class="btn btn-lg btn-block login-btn" href="/login" style="margin-bottom: 0px;">log in via github</a>
-                <a href="#" title="Don't worry, it's just to log in." class="why_github" data-toggle="tooltip" data-placement="right">Why GitHub?</a>
-              <% else %>
-                 <a class="btn btn-lg btn-block login-btn" href="/dashboard" style="margin-bottom: 0px;">go to your dashboard</a>
-              <% end %>
-          </section>
+  <section>
+  <div class="home-top">
+    <div class="container">
+      <section class="contain-centered">
+      <img class="logo" src="<%= link_to("/icons/logo.svg") %>"/>
+      <h2 class="home-top-header">Level up your programming skills</h2>
+      </section>
+    </div>
+  </div>
+  </section>
+  </section>
+
+  <section>
+  <div class="summary">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <p>
+          <img src="<%= link_to("/icons/badge-iteration.svg") %>" width="80"/>
+          Download and solve practice problems in nearly
+          <a href="/languages">30 different languages</a>.
+          </p>
+          <p>
+          <img src="<%= link_to("/icons/badge-nitpick.svg") %>" width="80"/>
+          Submit the solution to the site and for feedback.
+          </p>
         </div>
       </div>
-    </section>
+    </div>
+  </div>
   </section>
+
   <div class="container">
     <section class="content-primary">
-      <div class="row">
-        <div class="col-md-6">
-          <h2 class="header">Deep Practice</h2>
-          <p>Deliberately focus on improving your skills.</p>
-          <p>Gain a deep understanding of the fundamentals of your craft.</p>
-          <p>Experiment in a place where bugs don't inconvenience anyone.</p>
-        </div>
-        <div class="col-md-6">
-          <h2 class="header">Crowdsourced Mentorship</h2>
-          <p>Practice providing useful critique.</p>
-          <p>Discuss code in both subjective and objective terms.</p>
-          <p>Strengthen your problem-solving skills by guiding others through the process.</p>
-        </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-8">
+        <h2>Are you a code newbie?</h2>
       </div>
-    </section>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4">
+        <p class="feelz">
+        One moment you feel like you're getting it.
+        The next moment you're stuck.
+        </p>
+      </div>
+      <div class="col-md-8">
+        <p>
+        Learning to program is exhilarating and challenging...
+        and also frustrating, exhausting, and overwhelming.
+        </p>
+
+        <p>
+        Exercism provides countless small wins. The exercises are achievable mini-quests: small and well-defined, and with enough complexity to uncover bite-sized knowledge gaps.
+        </p>
+
+        <p>
+        The solutions you write provide reviewers with clues about what you haven't grasped yet.
+        The feedback you receive will guide you to relevant study topics and dramatically increase the ease with which you write code.
+        </p>
+        <p class="cta">
+          <a href="/how-it-works" class="btn btn-lg btn-block cta-btn">get started now</a>
+        </p>
+      </div>
+    </div>
+
     <hr/>
-    <section class="content-primary home">
-      <div class="row">
-        <div class="col-md-4">
-          <img class="medallion" src="<%= link_to("/icons/badge-iteration.svg") %>"/>
-          <h2 class="header">Practice</h2>
-          <p class="contain-centered">
-            <span class="home-third-subheader">
-              Focus on expressive, readable code.
-            </span>
-          </p>
-          <p class="home-p-text">
-            Work in your local development environment using your usual tools
-            <a href="<%= link_to('/about') %>">in multiple languages</a>.
-            We give you a test suite, and you make the tests pass... but that's just the first step.
-          </p>
-        </div>
-        <div class="col-md-4">
-          <img class="medallion" src="<%= link_to("/icons/badge-people.svg") %>"/>
-          <h2 class="header">Communicate</h2>
-          <p class="contain-centered">
-            <span class="home-third-subheader">
-              The code is a conversation starter.
-            </span>
-          </p>
-          <p class="home-p-text">
-            Have a thoughtful discussion with your peers about the choices that you made. Take this opportunity to explore idioms, style, and trade-offs.  There's no right answer, and many good questions.
-          </p>
-        </div>
-        <div class="col-md-4">
-          <img class="medallion" src="<%= link_to("/icons/badge-nitpick.svg") %>"/>
-          <h2 class="header">Pay it Forward</h2>
-          <p class="contain-centered">
-            <span class="home-third-subheader">
-              Explore other people's solutions.
-            </span>
-          </p>
-          <p class="home-p-text">
-            Articulate what you like and dislike in other people's code. Have a thoughtful, nuanced discussion, deepening your own understanding of the design choices that you make every day.
-          </p>
-        </div>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-8">
+        <h2>Are you ramping up in a new language?</h2>
       </div>
-    </section>
-    <section class="content-secondary see-it">
-      <div class="row">
-        <div class="col-md-6">
-          <h2 class="header">Better code through conversations.</h2>
-          <p class="home-p-text">Thousands of conversations are happening on exercism. <a href="/conversations/1">Here's one of them.</a></p>
-          <p class="home-p-text">You start with some code.  Talk about it a little.  Rewrite the code a bit, then post the new version.  Make it better.  After a few cycles you've got improved code, and perhaps even a new friend!</p>
-        </div>
-        <div class="col-md-6">
-          <a href="/conversations/1">
-            <img alt="Exercism code conversation." class="img-responsive" src="<%= link_to("/img/conversation.jpg") %>"/>
-          </a>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <p class="feelz">
+        You know what it’s like to be fluent.
+        Suddenly you’re feeling incompetent and clumsy.
+        </p>
       </div>
-    </section>
-    <section class="content-secondary">
-      <div class="row">
-        <div class="col-md-6">
-          <div class="content-secondary-details">
-            <h2>Browse the Code</h2>
-            <p class="home-p-text">
-              The project is open source, and all the code as well as the exercises are available on <a href="https://github.com/exercism">GitHub</a>.
-            </p>
-            <p class="home-p-text">
-              Browse through the various <a href="https://github.com/exercism/x-api/tree/master/tracks">language tracks</a>, or the code for <a href="https://github.com/exercism/cli">the CLI</a>. If you have a strong stomach, check out the code for <a href="https://github.com/exercism/exercism.io">this prototype</a>.
-            </p>
-            <p class="home-p-text">
-              For a quick-and-dirty overview of which languages and problems are available, we've got a <a href="http://synopsis.exercism.io/">synopsis</a>. You'll notice that some languages have more exercises than others. If you'd like to help remedy that, or if you'd like to contribute exercises in a new language, check out the <a href="https://github.com/exercism/x-api/blob/master/CONTRIBUTING.md">contributing guide</a>.
-            </p>
-            <p class="home-p-text">
-              If you're not into the whole code review thing and just want to work through small programming problems, then you don't need the CLI. Just clone the <a href="https://github.com/exercism/x-api/tree/master/tracks">language track</a> that you're interested in and work through the problems locally.</p>
-            </p>
-          </div>
-        </div>
+      <div class="col-md-8">
+        <p>
+        Learning a new language can be both thrilling and deeply uncomfortable.
+        </p>
+
+        <p>
+        You’re used to being productive.
+        Now you feel hamstrung with one hand tied behind your back and an an unfair suspicion that you should already know this.
+        </p>
+
+        <p>
+        There's a gap when you're past the basics but real-world problems leave you swamped by details and wandering down rabbit holes.
+        Exercism aims to fill that gap with lots of small, self-contained practice problems with just enough complexity to stretch your mind around new concepts.
+        </p>
+
+        <p>
+        Your solutions are the starting point for a conversation centered around style, idioms, and best practices.
+        You can write FORTRAN in any language, as the saying famously goes, but with enough feedback, you’ll quickly find yourself writing the language the way it wants to be written.
+        </p>
+
+        <p class="cta">
+          <a href="/how-it-works" class="btn btn-lg btn-block cta-btn">get started now</a>
+        </p>
       </div>
+    </div>
+
+    <hr/>
+
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-8">
+        <h2>Are you hooked on clean code?</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <p class="feelz">
+        Haphazard, convoluted code is infuriating, not to mention costly.
+        That slapdash explosion of complexity is an expensive yak shave waiting to happen.
+        </p>
+      </div>
+      <div class="col-md-8">
+        <p>
+        There's an art and a science to transforming unmaintainable code into elegant simplicity.
+        It takes practice, experimentation, and deep thought.
+        </p>
+
+        <p>
+        Exercism's tiny toy problems, in the form of automated tests, provide a balance of constraints and freedom.
+        The exercises encourage you to explore trade-offs and best-practices.
+        </p>
+
+        <p>
+        Each solution you write is an occasion to ponder readability and code smells.
+        Each solution you review challenges you to articulate your experiences and gut feelings.
+        Each discussion is an opportunity to strengthen your instincts for clean, well-factored code.
+        </p>
+
+        <p class="cta">
+          <a href="/how-it-works" class="btn btn-lg btn-block cta-btn">get started now</a>
+        </p>
+      </div>
+    </div>
     </section>
   </div>
 </div>

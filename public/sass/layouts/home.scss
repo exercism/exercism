@@ -14,67 +14,44 @@
       letter-spacing: -0.05em;
       margin-bottom: 0px;
     }
-    .home-top-subheader {
-      color: rgba(0,0,0,0.3);
-      letter-spacing: -0.08em;
-      font-family: $headings-font-family;
-      font-size: $font-size-h5;
-    }
-    .login-btn {
-      background: $exercism-medium-red;
-      font-family: $headings-font-family;
-      font-variant: small-caps;
-      margin: 0px auto;
-      text-align: center;
-      margin-bottom: 30px;
-      margin-top: 30px;
-      width: 250px;
-      @include border-radius(0);
-      &:hover {
-        color: $link-color;
-        text-decoration: underline;
-      }
-    }
-    a.why_github {
-      color: #770428;
-      text-align: center;
-      text-decoration: none;
-      font-family: $headings-font-family;
+  }
+  .summary {
+    padding: 20px 10px;
+    box-shadow: 0 5px 0 #f1f1f1;
+    border-bottom: 1px solid #eee;
+    p {
+      font-size: 1.5em;
+      margin: 0.5em;
     }
   }
-
-  .home-third-subheader {
-    background: #eee;
-    color: #575757;
-    display: inline-block;
-    padding: 7px 10px;
-    text-shadow: 0 -1px 0 rgba(255,255,255,0.9);
-  }
-
-  .home-p-text {
-    line-height: 26px;
-  }
-
-  .home img.medallion {
-    display: block;
-    margin: 0 auto;
-    height: 100px;
-  }
-
-  .home h2, .home p {
-    text-align: center;
-  }
-
   .content-primary {
     padding-top: 2em;
     padding-bottom: 3em;
+    p {
+      font-size: 1.3em;
+    }
+    p.feelz {
+      font-size: 1.5em;
+      font-style: italic;
+    }
   }
 
-  .content-secondary {
-    border-top: 1px solid #d8d8d8;
-    padding: 2.5em 0 6em 0; }
-
-  .content-secondary-details pre {
-    background: #eee;
+  p.cta {
+    float: right;
+  }
+  .cta-btn {
+    background: $exercism-medium-red;
+    font-family: $headings-font-family;
+    color: #ffffff;
+    margin: 0px auto;
+    text-align: center;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    width: 250px;
+    @include border-radius(0);
+    &:hover {
+      color: $link-color;
+      text-decoration: underline;
+    }
   }
 }

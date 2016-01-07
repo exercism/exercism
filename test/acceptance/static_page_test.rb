@@ -1,12 +1,6 @@
 require_relative '../acceptance_helper'
 
 class StaticPageTest < AcceptanceTestCase
-  def test_homepage_exists
-    visit '/'
-
-    assert_css 'h2', text: 'The devil is in the details'
-  end
-
   def test_about_exists
     visit '/'
     click_on 'About'
