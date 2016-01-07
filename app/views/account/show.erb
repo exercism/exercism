@@ -5,11 +5,13 @@
   <article>
     <h3>API Key</h3>
     <p>View or reset your Exercism API key <a href="/account/key">here</a>.</p>
+
     <hr>
 
     <h3>Avatar</h3>
     <p>You can update your <%= gravatar_tag current_user.avatar_url %> avatar on
-      <a href="https://github.com/settings/profile">GitHub</a>.</p>
+    <a href="https://github.com/settings/profile">GitHub</a>.</p>
+
     <hr>
 
     <h3>Teams</h3>
@@ -42,7 +44,26 @@
     <% end %>
     <p/><br/>
     <a href="/teams" class="btn btn-primary">Create a new team</a>
-  </div>
+
+    <hr>
+
+    <h3>Track Mentor</h3>
+    <% if profile.is_track_mentor? %>
+    <div>
+      <h4>Mentored Tracks</h4>
+      <% profile.mentored_tracks.each do |track| %>
+        <span class="label label-default"><%= track %></span>
+      <% end %>
+    </div>
+
+    <br/>
+
+    <div>
+      <h4>Track Mentor Invitation</h4>
+      <%= erb :'account/_track_mentor_invite', locals: { profile: profile } %>
+    <% else %>
+      <p>Want to be a Track Mentor? Working on exercises and giving great feedback is the best way to get noticed!</p>
+    <% end %>
     </div>
   </article>
 </div>

@@ -1,0 +1,17 @@
+<div>
+  <form class="form-inline" action="/account/track-mentor/invite" method="POST">
+    <div class="form-group">
+      Username:
+      <input type="text" name="user_to_invite" required>
+    </div>
+    <div class="form-group">
+      Track:
+      <select class="form-control" name="track" required>
+        <% profile.mentored_tracks.each do |track| %>
+          <option value="<%= track %>"><%= track.capitalize %></option>
+        <% end %>
+      </select>
+    </div>
+    <button type="submit" name="invite" class="btn btn-default">Send Invite</button>
+  </form>
+</div>

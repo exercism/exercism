@@ -51,6 +51,14 @@ module ExercismWeb
         @track_ids ||= archived_exercises.pluck('language').uniq
       end
 
+      def is_track_mentor?
+        user.track_mentor.any?
+      end
+
+      def mentored_tracks
+        user.track_mentor
+      end
+
       attr_reader :user, :current_user
     end
   end
