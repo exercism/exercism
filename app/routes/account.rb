@@ -60,7 +60,12 @@ module ExercismWeb
           current_user.track_mentor.include?(track) or raise "you must be mentor for #{track} first"
           !user_to_invite.track_mentor.include?(track) or raise "#{user_to_invite.username} is already a mentor for #{track}"
 
+<<<<<<< HEAD
           user_to_invite.invite_to_track_mentor(track)
+=======
+          user_to_invite.track_mentor << track
+          user_to_invite.save!
+>>>>>>> add track mentor ui, route, presenter and test
 
           flash[:notice] = "Successfully invited #{user_to_invite.username} to mentor #{track.capitalize}"
           redirect "/account"
