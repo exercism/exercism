@@ -6,6 +6,10 @@ module ExercismWeb
       end
 
       get '/dashboard' do
+        if current_user.guest?
+          redirect '/'
+        end
+
         dashboard = ExercismWeb::Presenters::Dashboard.new(current_user)
         recently_viewed = UserExercise.recently_viewed_by(current_user)
 
