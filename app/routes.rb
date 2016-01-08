@@ -6,7 +6,6 @@ module ExercismWeb
       Languages: 'languages',
       Legacy: 'legacy',
       Main: 'main',
-      OnboardingSteps: 'onboarding_steps',
       Stats: 'stats',
       Static: 'static',
       Conversations: 'conversations',
