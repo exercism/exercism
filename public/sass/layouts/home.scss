@@ -22,10 +22,6 @@
     p {
       font-size: 1.5em;
       margin: 0.5em;
-      i.fa {
-        color: #D81D4E;
-        padding: 10px;
-      }
     }
   }
   .content-primary {
@@ -37,26 +33,6 @@
     p.feelz {
       font-size: 1.5em;
       font-style: italic;
-    }
-  }
-
-  p.cta {
-    float: right;
-  }
-  .cta-btn {
-    background-color: #fff;
-    font-family: $headings-font-family;
-    font-weight: bold;
-    color: #212121;
-    margin: 0px auto;
-    text-align: center;
-    margin-bottom: 30px;
-    margin-top: 30px;
-    width: 250px;
-    @include border-radius(0);
-    &:hover {
-      color: $link-color;
-      text-decoration: none;
     }
   }
 }
