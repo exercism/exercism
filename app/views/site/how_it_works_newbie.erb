@@ -1,0 +1,223 @@
+<div class="container">
+  <section class="page-header">
+    <h1>How it Works</h1>
+  </section>
+  <section>
+
+  <div class="row">
+    <div class="col-md-8">
+      <p>
+      For each exercise that you do, you'll go through the same basic steps.
+      </p>
+
+      <ol>
+        <li>Download the exercise.</li>
+        <li>Write code to solve the exercise on your own computer.</li>
+        <li>Submit your solution to the site so that you can get feedback on it.</li>
+        <li>Go look at how other people solved the same problem, and ask questions about what seems interesting or confusing.</li>
+      </ol>
+
+      <p>
+      If you get ideas for how to improve your solution, then change your code, and submit it again.
+      </p>
+
+      <p>
+      As soon as you've submitted a solution to an exercise, the next exercise becomes available via the CLI.
+      </p>
+    </div>
+    <div class="col-md-4">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <p>
+      A lot of websites will let you download by clicking on a link, and submit by copying and pasting into a web form and clicking a button. Exercism doesn't have this type of interface. On Exercism, you download exercises and submit solutions back to the site via the command-line.
+      </p>
+
+      <p>
+      In order to do this, you need to install a small program that we wrote.
+      We call it the <i>Command-Line Client</i> or <i>Command-Line Interface</i> or just <i>CLI</i> for short. That's not a name that we made up, it's a generic name for this sort of tool.
+      </p>
+
+    </div>
+
+    <div class="col-md-4">
+      <p>
+        If the command-line feels foreign and intimidating to you, go work through the excellent
+        <a href="http://www.learnenough.com/command-line-tutorial">Learn Enough&trade; Command-Line to be Dangerous</a>
+        tutorial by Michael Hartl.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Creating an Account</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <p>
+      To use Exercism, you first need an account.
+      </p>
+
+      <p>
+      We use GitHub for signup and login.
+      This is just so we don't have to implement all the password-y stuff ourselves.
+      It also gives us a username and avatar for you.
+      </p>
+
+      <p>
+        We only get public data, and we don't have access to change anything in your GitHub account.
+      </p>
+
+      <% if current_user.guest? %>
+      <p>
+        <a href="/login?return_path=/how-it-works/newbie" class="btn btn-lg btn-block cta-btn">Sign Up via GitHub</a>
+      </p>
+      <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <p style="text-align: center; font-size: 30px;">
+        <i class="fa fa-github fa-lg"></i>
+      </p>
+      <p>
+      <b>GitHub</b> is a professional social network that makes it easy for programmers to collaborate on software projects.
+      It's free to use if you make all your code accessible publicly.
+      </p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Installing the Command-Line Client</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <p>
+      This might be the trickiest part of Exercism.
+      </p>
+
+      <p>
+      How you install the Exercism CLI depends on what kind of computer you have.
+      We've explained all of this in detail on the <a href="/cli">CLI page</a>, but
+      it's pretty confusing.
+      </p>
+
+      <p>
+      We've got a plan to improve this, but it might be a while until everything is sorted.
+      </p>
+    </div>
+
+    <div class="col-md-4">
+      <p>If you end up having to install the CLI manually, make sure to check out the video tutorial for your platform. If you're on Linux, it's similar enough to the Mac one that you could watch that.</p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Configuring the CLI</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <p>
+        Once you have the CLI installed, you need to configure it. There are two reasons for this:
+      </p>
+
+      <ol>
+        <li>When you fetch new exercises, we check which exercises you've already submitted in order to decide what to give you next.</li>
+        <li>When you submit, we need to attach the solution to your account.</li>
+      </ol>
+
+      <% if current_user.guest? %>
+        <p>
+        You'll need to log in and go to <a href="/account/key">your account</a> to get your API key.
+        Then run this command:
+        </p>
+        <%= syntax("exercism configure --key=YOUR_API_KEY", "plain") %>
+      <% else %>
+
+        <p>Since you're logged in you can just copy and paste this command:</p>
+
+        <%= syntax("exercism configure --key=#{current_user.key}", "plain") %>
+
+        <p>You can always find your API key in <a href="/account/key">your account</a> if you need it.
+      <% end %>
+    </div>
+
+    <div class="col-md-4">
+      <p>
+        <b>API</b> stands for <i>Application Programmer's Interface</i>.
+        Exercism has an API, which is kind of like a separate website without any HTML. Instead it returns more structured output making it easier to deal with programmatically.
+      </p>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Working the Exercises</h2>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <p>
+        Each exercise comes in the form of a README, which (as the name suggests) you should read,
+        and an automated test suite, which simulates Test-Driven Development.
+      </p>
+
+      <p>
+      The README explains the basic idea of the exercise, but it doesn't necessarily list all of the details and constraints. It might also have some hints or links or other interesting references.
+      </p>
+
+      <p>
+      The automated test suite is what tells you exactly what your solution needs to do.
+      </p>
+
+      <p>
+      If you've never done TDD before it might take a little bit of getting used to.
+      Each language will do this slightly differently, but the main idea is that the test calls your solution and checks that the result is what it expects.
+      </p>
+
+      <p>
+      Try to make one test pass at a time, without thinking ahead at what the next tests are going to ask for.
+      </p>
+
+      <p>
+      Once you've gotten all of the tests passing, you're good to go. Submit the solution to the site using the CLI.
+      </p>
+    </div>
+
+    <div class="col-md-4">
+      <p>
+      <b>Test-Driven Development</b> (TDD) is a practice that has become mainstream over the past
+      decade or so.
+      </p>
+
+      <p>
+      There are many good reasons to do TDD. Here are a few:
+      <p>
+
+      <ul>
+        <li>It helps you focus on smaller pieces at a time.</li>
+        <li>It protects you against accidentally breaking things later.</li>
+        <li>It makes it a little more likely that you'll write simpler code... because complicated code is ridiculously hard to test.</li>
+      </ul>
+
+      <p>
+      There are great conference talks and blog posts about TDD (how to do it, why to do it, how people do it wrong, etc, etc, etc). Ask around for suggestions.
+      </p>
+    </div>
+  </div>
+  </section>
+</div>
+

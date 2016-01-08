@@ -1,6 +1,6 @@
 class Github
-  def self.login_url(client_id)
-    "https://github.com/login/oauth/authorize?client_id=#{client_id}"
+  def self.login_url(q)
+    "https://github.com/login/oauth/authorize?#{q.map {|k, v| "%s=%s" % [k, v]}.join("&")}"
   end
 
   def self.connect_to(url)

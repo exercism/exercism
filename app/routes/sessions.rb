@@ -8,7 +8,11 @@ module ExercismWeb
       end
 
       get '/login' do
-        redirect Github.login_url(github_client_id)
+        q = {client_id: github_client_id}
+        if params.has_key?("return_path")
+          q[:redirect_uri] = [request.base_url, "github", "callback", params[:return_path]].join("/")
+        end
+        redirect Github.login_url(q)
       end
 
       get '/logout' do

@@ -17,6 +17,10 @@ module ExercismWeb
         erb :"site/how_it_works", locals: {docs: X::Docs::Intro.new}
       end
 
+      get '/how-it-works/newbie' do
+        erb :"site/how_it_works_newbie"
+      end
+
       get '/cli' do
         erb :"site/cli", locals: {docs: X::Docs::CLI.new}
       end
