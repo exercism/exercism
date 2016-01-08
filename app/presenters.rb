@@ -7,7 +7,6 @@ module ExercismWeb
       Tracks: 'tracks',
       Setup: 'setup',
       Dashboard: 'dashboard',
-      Progress: 'progress',
       Profile: 'profile',
       Sharing: 'sharing'
     }.each do |name, file|

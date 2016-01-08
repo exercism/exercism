@@ -1,0 +1,48 @@
+nav.stats {
+  li {
+    padding-left: 50px;
+    a {
+      .total-count {
+        color: #777;
+        float: right;
+      }
+    }
+  }
+}
+
+#track-activity {
+  canvas{
+      width: 100% !important;
+      max-width: 800px;
+      height: auto !important;
+  }
+
+  #track-activity-chart {
+    padding: 0;
+    margin-left: -10px;
+  }
+
+  .graph-legend {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    text-align: center;
+    li {
+      margin: 10px;
+      padding: 5px;
+      border-radius: 5px;
+      list-style: none;
+      display: inline;
+      font-weight: bold;
+      font-size: 0.9em;
+    }
+    .iterations {
+      color: #D81D4e;
+      background-color: rgba(216,29,78,0.5);
+    }
+    .reviews {
+      color: #212121;
+      background-color: rgba(33,33,33,0.5);
+    }
+  }
+}

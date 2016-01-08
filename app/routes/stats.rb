@@ -2,24 +2,21 @@ module ExercismWeb
   module Routes
     class Stats < Core
       get '/stats' do
-        redirect "/stats/#{active_tracks.first.slug}"
+        redirect "/stats/#{tracks.select(&:active?).first.slug}"
       end
 
       get '/stats/:track_id' do |track_id|
-        track = tracks.find {|t| t.id == track_id}
-        if track.nil?
+        track_id = track_id.downcase
+        tracks = X::Track.all.reject {|track| track.problems.empty? }
+        track = tracks.find {|t| t.id == track_id }
+
+        if !!track
+          stats = ExercismLib::Stats.new(track_id, track.problems.map(&:slug))
+          erb :"stats/index", locals: {tracks: tracks.select(&:active?), track: track, stats: stats}
+        else
           status 404
           erb :"errors/not_found"
-        else
-          progress = ExercismWeb::Presenters::Progress.new(track.slug, track.language)
-          erb :"stats/show", locals: {tracks: active_tracks, progress: progress}
         end
-      end
-
-      private
-
-      def active_tracks
-        @active_tracks ||= tracks.select(&:active?)
       end
     end
   end
