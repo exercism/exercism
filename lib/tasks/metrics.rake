@@ -268,4 +268,29 @@ namespace :metrics do
     }
     Metric.report(sql, ["User ID", "Cohort", "Submitted", "Discussed", "Reviewed", "Got Feedback", "Time to First Submission"], fn)
   end
+
+  desc "do a health check per track"
+  task :health do
+    sql = <<-SQL
+    SELECT s.language, s.slug, COUNT(s.id) AS submissions, COUNT(c.id) AS reviews
+    FROM submissions s
+    LEFT JOIN comments c
+    ON s.id=c.submission_id
+    WHERE s.created_at>'#{Date.today-30}'
+    AND (c.user_id IS NULL OR s.user_id<>c.user_id)
+    AND s.slug<>'hello-world'
+    GROUP BY s.language, s.slug
+    ORDER BY s.language ASC
+    SQL
+
+    fn = lambda { |row|
+      [
+        row['language'],
+        row['slug'],
+        row['submissions'],
+        row['reviews']
+      ].join(",")
+    }
+    Metric.report(sql, ["Track ID", "Problem", "Submissions", "Reviews"], fn)
+  end
 end
