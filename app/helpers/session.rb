@@ -16,7 +16,7 @@ module ExercismWeb
       end
 
       def login_url(return_path = nil)
-        url = Github.login_url(github_client_id)
+        url = Github.login_url(client_id: github_client_id)
         url << redirect_uri(return_path) if return_path
         url
       end
