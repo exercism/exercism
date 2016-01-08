@@ -8,7 +8,7 @@ module ExercismWeb
           end
 
           begin
-            user = Authentication.perform(params[:code], github_client_id, github_client_secret)
+            user = Authentication.perform(params[:code], github_client_id, github_client_secret, session[:target_profile])
             login(user)
           rescue StandardError => e
             Bugsnag.notify(e, nil, request)

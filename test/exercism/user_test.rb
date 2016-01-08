@@ -14,12 +14,13 @@ class UserTest < Minitest::Test
   end
 
   def test_create_user_from_github
-    user = User.from_github(23, 'alice', 'alice@example.com', 'avatar_url')
+    user = User.from_github(23, 'alice', 'alice@example.com', 'avatar_url', 'polyglot')
     assert_equal 1, User.count
     assert_equal 23, user.github_id
     assert_equal 'alice', user.username
     assert_equal 'alice@example.com', user.email
     assert_equal 'avatar_url', user.avatar_url
+    assert_equal 'polyglot', user.joined_as
   end
 
   def test_update_username_from_github
@@ -28,10 +29,11 @@ class UserTest < Minitest::Test
     assert_equal 'bob', user.username
   end
 
-  def test_does_not_overwrite_email_if_present
-    User.create(github_id: 23, email: 'alice@example.com')
-    user = User.from_github(23, nil, 'new@example.com', nil).reload
+  def test_does_not_overwrite_email_or_joined_as_if_present
+    User.create(github_id: 23, email: 'alice@example.com', joined_as: 'polyglot')
+    user = User.from_github(23, nil, 'new@example.com', nil, 'artisan').reload
     assert_equal 'alice@example.com', user.email
+    assert_equal 'polyglot', user.joined_as
   end
 
   def test_sets_avatar_url

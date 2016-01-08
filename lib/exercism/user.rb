@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
     ACL.where(user_id: id, language: problem.track_id, slug: problem.slug).count > 0
   end
 
-  def self.from_github(id, username, email, avatar_url)
+  def self.from_github(id, username, email, avatar_url, joined_as=nil)
     user = User.where(github_id: id).first
     if user.nil?
       # try to match an invitation that has been sent.
@@ -43,6 +43,10 @@ class User < ActiveRecord::Base
     end
     if user.nil?
       user = User.new(github_id: id, email: email)
+    end
+
+    if user.joined_as.nil? && !!joined_as
+      user.joined_as = joined_as
     end
 
     user.github_id  = id

@@ -17,7 +17,18 @@ module ExercismWeb
         erb :"site/how_it_works", locals: {docs: X::Docs::Intro.new}
       end
 
+      get '/how-it-works/polyglot' do
+        session[:target_profile] ||= 'polyglot'
+        redirect '/how-it-works'
+      end
+
+      get '/how-it-works/artisan' do
+        session[:target_profile] ||= 'artisan'
+        redirect '/how-it-works'
+      end
+
       get '/how-it-works/newbie' do
+        session[:target_profile] ||= 'newbie'
         erb :"site/how_it_works_newbie"
       end
 
