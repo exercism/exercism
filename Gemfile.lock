@@ -111,8 +111,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
-    puma (2.11.2)
-      rack (>= 1.1, < 2.0)
+    puma (2.15.3)
     rack (1.6.4)
     rack-flash3 (1.0.5)
       rack
@@ -211,7 +210,7 @@ DEPENDENCIES
   petroglyph
   pg
   pry
-  puma
+  puma (~> 2.15.0)
   rack-flash3
   rack-test
   rake
@@ -227,3 +226,6 @@ DEPENDENCIES
   timecop
   will_paginate
   will_paginate-bootstrap
+
+BUNDLED WITH
+   1.11.2

@@ -12,7 +12,7 @@ gem 'newrelic_rpm', '~>3.8' # used both in production and development
 gem 'petroglyph'
 gem 'pg'
 gem 'pry', require: false
-gem 'puma'
+gem 'puma', '~> 2.15.0'
 gem 'rack-flash3', require: 'rack-flash'
 gem 'rake'
 gem 'redcarpet', '~> 3.1'
