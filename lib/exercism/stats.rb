@@ -1,9 +1,70 @@
+require 'date'
+
 module ExercismLib
   class Stats
-    attr_reader :track_id, :slugs
-    def initialize(track_id, slugs)
+    class Month
+      def self.prev(range)
+        d = range.first.prev_month
+        new(d.year, d.month)
+      end
+
+      def self.historical(n)
+        d = Date.today
+        r = new(d.year, d.month)
+        n.times.map {
+          r = prev(r)
+        }
+      end
+
+      attr_reader :year, :month
+      def initialize(year, month)
+        @year, @month = year, month
+      end
+
+      def to_s
+        first.strftime("%B %Y")
+      end
+
+      def first
+        Date.new(year, month, 1)
+      end
+
+      def last
+        first.next_month-1
+      end
+    end
+
+    class LastN
+      attr_reader :today, :n
+      def initialize(n)
+        @n = n
+        @today = Date.today
+      end
+
+      def to_s
+        "Past #{n} days"
+      end
+
+      def first
+        today-n
+      end
+
+      def last
+        today+1
+      end
+    end
+
+    attr_reader :track_id, :slugs, :month
+    def initialize(track_id, slugs, month=LastN.new(30))
       @track_id = track_id
       @slugs = slugs
+      @month = month
+    end
+
+    def historical(n)
+      Month.historical(n).map do |month|
+        self.class.new(track_id, slugs, month)
+      end
     end
 
     def to_chart
@@ -48,10 +109,11 @@ module ExercismLib
         SELECT s.slug, COUNT(s.id) AS iterations, COUNT(c.id) AS reviews
         FROM submissions s
         LEFT JOIN comments c
-        ON s.id=c.submission_id
-        WHERE s.created_at>'#{Date.today-30}'
-        AND (c.user_id IS NULL OR s.user_id<>c.user_id)
-        AND s.language='#{track_id}'
+          ON s.id=c.submission_id
+        WHERE s.created_at>='#{month.first}'
+          AND s.created_at<'#{month.last}'
+          AND (c.user_id IS NULL OR s.user_id<>c.user_id)
+          AND s.language='#{track_id}'
         GROUP BY s.slug
       SQL
     end
