@@ -128,7 +128,7 @@ class Submission < ActiveRecord::Base
   end
 
   def exercise_uuid_by(user)
-    user.exercises.for(problem).pluck('key').first || ""
+    user.exercises.where('iteration_count > 0').for(problem).pluck('key').first || ""
   end
 
   # Experiment: Cache the iteration number so that we can display it
