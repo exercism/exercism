@@ -1,21 +1,37 @@
-<div class="container">
+<div class="container" id="how-it-works">
   <section class="page-header">
     <h1>How it Works: For Experienced Developers</h1>
   </section>
   <section>
-    <%= md(docs.local_remote) %>
 
-    <%= md(docs.getting_started) %>
+  <div class="row">
+    <div class="col-md-8">
+      <%= md(docs.local_remote) %>
+    </div>
+    <div class="col-md-4 hints">
+    </div>
+  </div>
 
-    <% if current_user.guest? %>
-    <p>
-      <a href="/login" class="btn btn-lg btn-block cta-btn">sign up via GitHub</a>
-    </p>
-    <% end %>
+  <div class="row">
+    <div class="col-md-12">
+      <h2>Getting Started</h2>
+    </div>
+  </div>
 
-    <h2>Want to improve this page?</h2>
-    <p>Submit a pull request or open an issue with suggestions! The code for this documentation is in <a href="https://github.com/exercism/exercism.io">the exercism.io repository</a> on GitHub.</p>
-    <p>(Check out the <code>./x/docs/intro.rb</code> and <code>./app/views/site/intro.erb</code> files.)</p>
+  <div class="row">
+    <div class="col-md-8">
+      <%= md(docs.getting_started) %>
+
+      <% if current_user.guest? %>
+      <p>
+        <a href="/login?return_path=/how-it-works" class="btn btn-lg btn-block cta-btn">Sign Up via GitHub</a>
+      </p>
+      <% end %>
+    </div>
+    <div class="col-md-4 hints">
+      <p>All of Exercism, including the CLI, is open source. The <a href="https://github.com/exercism/cli" target="_blank">CLI codebase</a> is in Go, and it's not too big&mdash;pretty easy to read through if you're worried about executing code on your computer.</p>
+    </div>
+  </div>
   </section>
 </div>
 

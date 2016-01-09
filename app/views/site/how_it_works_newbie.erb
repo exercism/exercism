@@ -6,6 +6,16 @@
 
   <div class="row">
     <div class="col-md-8">
+
+      <p>
+      Exercism is spread across two locations:
+      </p>
+
+      <ol>
+        <li><b>Your local programming environment</b>: write a solution to the exercise using your text editor, not a browser.</li>
+        <li><b>The <a href="http://exercism.io">exercism.io</a> website</b>: submit the solution to the site, so that you can get feedback and discuss it with other learners.</li>
+      </ol>
+
       <p>
       For each exercise that you do, you'll go through the same basic steps.
       </p>
@@ -74,7 +84,7 @@
 
       <% if current_user.guest? %>
       <p>
-        <a href="/login?return_path=/how-it-works/newbie" class="btn btn-lg btn-block cta-btn">Sign Up via GitHub</a>
+        <a href="/login?return_path=/how-it-works/newbie" target="_blank" class="btn btn-lg btn-block cta-btn">Sign Up via GitHub</a>
       </p>
       <% end %>
     </div>

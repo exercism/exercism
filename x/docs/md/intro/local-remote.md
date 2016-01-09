@@ -6,4 +6,4 @@ Exercism is spread across two locations:
    Once you've submitted a solution, people can discuss it with you on the site.
    They might ask questions, make suggestions, or simply muse out loud about things that are interesting.
 
-Fetching exercises and submitting solutions is done via the Exercism command-line interface (CLI).
+Fetching exercises and submitting solutions is done via the Exercism command-line client.
