@@ -19,7 +19,7 @@ module ExercismWeb
             ExercismLib::Stats.new(track_id, slugs, ExercismLib::Stats::LastN.new(120))
           ] + stats.historical(6)
 
-          erb :"stats/index", locals: {tracks: tracks.select(&:active?), track: track, datasets: datasets}
+          erb :"stats/index", locals: {tracks: tracks.select(&:active?).sort_by(&:language), track: track, datasets: datasets}
         else
           status 404
           erb :"errors/not_found"
