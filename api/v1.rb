@@ -20,5 +20,6 @@ module ExercismAPI
     use Routes::Users
     use Routes::Legacy
     use Routes::Tracks
+    use Routes::Stats
   end
 end

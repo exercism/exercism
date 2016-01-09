@@ -6,21 +6,32 @@ module ExercismLib
       @slugs = slugs
     end
 
-    def to_h
+    def to_chart
       {
         labels: slugs,
-        iterations: extract('iterations'),
-        reviews: extract('reviews'),
-      }
+        iterations: chartify('iterations'),
+        reviews: chartify('reviews'),
+      }.to_json
     end
 
-    def to_json
-      to_h.to_json
+    def apize
+      data = {}
+
+      slugs.each.with_index do |slug, i|
+        data[slug] = {"iterations" => 0, "reviews" => 0, "index" => i}
+      end
+
+      rows.each do |row|
+        data[row["slug"]]["iterations"] = row["iterations"].to_i
+        data[row["slug"]]["reviews"] = row["reviews"].to_i
+      end
+
+      data
     end
 
     private
 
-    def extract(key)
+    def chartify(key)
       data = Array.new(slugs.length, 0)
       rows.each do |row|
         data[slugs.index(row['slug'])] = row[key].to_i
@@ -44,6 +55,5 @@ module ExercismLib
         GROUP BY s.slug
       SQL
     end
-
   end
 end
