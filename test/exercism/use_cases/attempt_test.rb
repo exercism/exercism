@@ -24,6 +24,35 @@ class AttemptTest < Minitest::Test
     end
   end
 
+  def test_saving_with_comments_creates_a_new_comment
+    iteration = Iteration.new(python_two, comment: "hello world")
+
+    Xapi.stub(:exists?, true) do
+      attempt = Attempt.new(user, iteration).save
+
+      assert_equal 1, Comment.count
+      comment = Comment.first
+      assert_equal "hello world", comment.body
+      assert_equal attempt.user, comment.user
+      assert_equal attempt.submission, comment.submission
+    end
+  end
+
+  def test_saving_without_comments_does_not_create_the_comment
+    save_attempt = ->(i) {
+      Xapi.stub(:exists?, true) do
+        Attempt.new(user, i).save
+      end
+    }
+    iteration = Iteration.new(python_two)
+    save_attempt.call(iteration)
+    assert_equal 0, Comment.count
+
+    iteration = Iteration.new(python_two, comment: "")
+    save_attempt.call(iteration)
+    assert_equal 0, Comment.count
+  end
+
   def test_saving_an_attempt_constructs_a_submission
     assert_equal 0, Submission.count # guard
 
