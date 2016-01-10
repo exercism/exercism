@@ -138,8 +138,7 @@ module ExercismAPI
         LifecycleEvent.track('fetched', user.id)
         LifecycleEvent.track('submitted', user.id)
 
-        # for now, let's just give rikki hamming exercises in Ruby.
-        if attempt.track == 'ruby' && attempt.slug == 'hamming'
+        if (attempt.track == 'ruby' && attempt.slug == 'hamming') || attempt.track == 'go'
           Jobs::Analyze.perform_async(attempt.submission.key)
         end
         if attempt.slug == 'hello-world'
