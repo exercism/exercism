@@ -159,8 +159,8 @@ namespace :data do
       require './lib/exercism/user'
       DB::Connection.establish
 
-      User.where('track_mentor IS NOT NULL').where("mastery != '--- []\n'").find_each do |user|
-        Submission.select('DISTINCT language, slug').where(language: user.mastery).each do |submission|
+      User.where('track_mentor IS NOT NULL').where("track_mentor != '--- []\n'").find_each do |user|
+        Submission.select('DISTINCT language, slug').where(language: user.track_mentor).each do |submission|
           ACL.authorize(user, submission.problem)
         end
       end
@@ -186,15 +186,6 @@ namespace :data do
           end
         end
       end
-    end
-
-    desc "migrate info from mastery to track mentor"
-    task :track_mentor do
-      require 'bundler'
-      Bundler.require
-      require_relative '../exercism'
-
-      User.update_all("track_mentor=mastery")
     end
   end
 end
