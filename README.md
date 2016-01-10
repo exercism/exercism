@@ -48,8 +48,23 @@ the project by:
 * Reviewing pull requests
 * ... and more
 
-If you want to help make Exercism better, check out the
-[Contributing Guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md).
+We're a friendly bunch, and we're happy to help you help us, so don't be scared to ask about anything.
+We've got a chat room and there are usually people around there, or just ask right in the issue you're wondering about.
+
+There is a whole repo made just to hold curated "todo" issues.
+Start looking at the issues labeled "start here":
+https://github.com/exercism/todo/labels/start-here
+and then if you find an issue that seems interesting, follow the links from there.
+
+If you're into Go, check out the repository for the CLI.
+We've labeled a few issues with "good first issue": https://github.com/exercism/cli/labels/good-first-issue
+The bugs are, of course, up for grabs as well!
+
+Lastly, in this repository, there's a bunch of stuff, mostly un-curated.
+Here your best bet is going to be to poke around (see: https://github.com/exercism/exercism.io/labels/bug), and ask some questions.
+Consider it triage (which is sorely needed and much appreciated!).
+
+Also check out the [Contributing Guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md).
 
 This is a project that started by accident and could never have gotten off the
 ground by the efforts of any single person.
