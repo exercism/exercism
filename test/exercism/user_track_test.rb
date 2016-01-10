@@ -18,7 +18,7 @@ class UserTrackTest < Minitest::Test
     # the total count or in the unread count.
     # Her own exercises appear in the inbox, and are included in the counts.
     # We won't bother with Bob's views and ACLs, since we're not testing his inbox.
-    alice = User.create(username: 'alice', mastery: ['elixir'])
+    alice = User.create(username: 'alice', track_mentor: ['elixir'])
     bob = User.create(username: 'bob')
 
     [
@@ -96,4 +96,3 @@ class UserTrackTest < Minitest::Test
     assert_equal 1, p3.unread
   end
 end
-
