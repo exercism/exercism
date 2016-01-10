@@ -166,11 +166,6 @@ namespace :data do
       end
     end
 
-    desc "migrate archived flag on exercises"
-    task :archived do
-      # TODO: fix the seed data to have archived flag instead of state
-    end
-
     desc "migrate deprecated problems"
     task :deprecated_problems do
       require 'bundler'
