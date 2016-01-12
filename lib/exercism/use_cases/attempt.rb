@@ -2,12 +2,13 @@ require 'exercism/xapi'
 
 class Attempt
 
-  attr_reader :user, :track, :slug, :iteration, :submission
+  attr_reader :user, :track, :slug, :iteration, :submission, :comment
   def initialize(user, *stuff)
     @user = user
     @iteration = stuff.last
     @slug = iteration.slug
     @track = iteration.track_id
+    @comment = iteration.comment
     @submission = Submission.on(Problem.new(track, slug))
     submission.solution = iteration.solution
   end
@@ -18,7 +19,10 @@ class Attempt
 
   def save
     user.submissions << submission
-    user.save
+    if comment.present?
+      submission.comments.create(user: user, body: comment)
+    end
+
     Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
     submission.reload.viewed_by(user)
     self

@@ -101,7 +101,12 @@ module ExercismAPI
           solution = { data['path'] => data['code'] }
         end
 
-        iteration = Iteration.new(solution, data['language'], data['problem'])
+        iteration = Iteration.new(
+          solution,
+          data['language'],
+          data['problem'],
+          comment: data['comment']
+        )
         attempt = Attempt.new(user, iteration)
 
         unless attempt.valid?

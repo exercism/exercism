@@ -13,6 +13,32 @@ class IterationsApiTest < Minitest::Test
     @alice = User.create!(username: 'alice', github_id: 1)
   end
 
+  def test_submit_iteration_with_comment
+    submission = {
+      key: @alice.key,
+      solution: { path: '/ruby/one', code: 'CODE1AGO' },
+      language: 'ruby',
+      problem: 'one',
+      comment: '',
+    }
+
+    Xapi.stub(:exists?, true) do
+      post '/user/assignments', submission.to_json
+    end
+
+    assert_equal 0, Comment.count
+
+    submission.merge!(comment: 'Awesome code!', solution: { code: 'CODE2AGO' })
+
+    Xapi.stub(:exists?, true) do
+      post '/user/assignments', submission.to_json
+    end
+
+    assert_equal 1, Comment.count
+    comment = Comment.first
+    assert_equal submission[:comment], comment.body
+  end
+
   def test_latest_iterations_requires_key
     get '/iterations/latest'
     assert_equal 401, last_response.status

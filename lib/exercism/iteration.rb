@@ -1,9 +1,10 @@
 class Iteration
-  attr_reader :solution, :paths
+  attr_reader :solution, :paths, :comment
 
-  def initialize(solution, track_id=nil, slug=nil)
+  def initialize(solution, track_id=nil, slug=nil, comment: nil)
     @track_id = track_id
     @slug = slug
+    @comment = comment
     @paths = solution.keys.map { |path| Code.new(path) }
 
     @solution = {}
