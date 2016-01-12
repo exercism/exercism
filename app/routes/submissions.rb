@@ -62,6 +62,7 @@ module ExercismWeb
         end
 
         decrement_version(submission)
+        submission.user_exercise.decrement_iteration_count!
         submission.destroy
         Hack::UpdatesUserExercise.new(submission.user_id, submission.track_id, submission.slug).update
         redirect "/dashboard"

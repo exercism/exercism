@@ -181,6 +181,13 @@ class SubmissionsTest < Minitest::Test
     assert_equal 2, Submission.find_by_key(sub3.key).version
   end
 
+  def test_delete_submission_decrements_user_exercise_iterations
+    exercise = UserExercise.create(user: bob, iteration_count: 1)
+    sub = Submission.create(user: bob, user_exercise: exercise)
+    delete "/submissions/#{sub.key}", {}, login(bob)
+    assert_equal 0, exercise.reload.iteration_count
+  end
+
   def test_redirects_to_dashboard_after_deleting
     data = {
       user: bob,
