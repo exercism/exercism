@@ -9,6 +9,49 @@
       </button>
       <a class="navbar-brand" href="/" id="brand">Exercism.io</a>
     </div>
-    <%= erb :"application/_nav" %>
+
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <% if !current_user.guest? %>
+        <li><a href="/dashboard">Dashboard</a></li>
+        <% end %>
+        <li class="dropdown">
+          <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">Languages<b class="caret"></b></a>
+        <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
+          <li><a role="menuitem" tabindex="-1" href="/languages">All languages</li>
+          <li role="separator" class="divider"></li>
+          <% tracks.each do |t| %>
+            <% if t.active? %>
+              <li>
+                <a role="menuitem" tabindex="-1" href="/languages/<%= t.slug %>">
+                  <%= t.language %>
+                </a>
+              </li>
+            <% end %>
+          <% end %>
+        </ul>
+        </li>
+        <li><a href="/donate">Donate</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <% if current_user.show_dailies? %>
+          <%= erb :"application/nav/dailies" %>
+        <% end %>
+          <% if !current_user.guest? %>
+            <% if current_user.sees_exercises? %>
+              <li><a href="/inbox">Exercises</a></li>
+            <% end %>
+          <%= erb :"application/nav/notifications" %>
+          <%= erb :"application/nav/account" %>
+        <% else %>
+          <li><a href="/login">Log in with GitHub</a></li>
+        <% end %>
+        <% if settings.development? %>
+          <%= erb :"application/nav/backdoor" %>
+        <% end %>
+      </ul>
+    </div>
+
   </div>
 </nav>
