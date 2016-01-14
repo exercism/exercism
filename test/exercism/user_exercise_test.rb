@@ -41,5 +41,12 @@ class UserExerciseTest < Minitest::Test
     archived_ruby = UserExercise.create(user: alice, archived: true, language: 'ruby', iteration_count: 1)
     assert_equal UserExercise.current, [closure_1, closure_2, ruby_1, ruby_2]
   end
+
+  def test_decrement_iteration_count
+    alex = User.create(username: 'alex')
+    exercise = UserExercise.create(iteration_count: 2, user: alex)
+    exercise.decrement_iteration_count!
+    assert_equal exercise.iteration_count, 1
+  end
 end
 

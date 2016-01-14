@@ -66,6 +66,10 @@ class UserExercise < ActiveRecord::Base
     @comment_count ||= Hash(ActiveRecord::Base.connection.execute(comment_count_sql).to_a.first)["total"].to_i
   end
 
+  def decrement_iteration_count!
+    update_attributes(iteration_count: iteration_count - 1)
+  end
+
   private
 
   def comment_count_sql
