@@ -5,6 +5,15 @@ require 'bundler'
 Bundler.require
 I18n.enforce_available_locales = false
 
+if ENV['RACK_ENV'] == 'development'
+  require 'active_record'
+  require 'db/connection'
+  DB::Connection.establish
+  if defined?(ActiveRecord::Migrator) && ActiveRecord::Migrator.needs_migration?
+    raise 'Migrations are pending run `rake db:migrate` to resolve the issue.'
+  end
+end
+
 if ENV['RACK_ENV'] != 'production'
   require 'dotenv'
   Dotenv.load
