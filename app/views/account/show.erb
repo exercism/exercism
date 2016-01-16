@@ -3,17 +3,16 @@
     <h1>Account Settings</h1>
   </section>
   <article>
-    <p>View or reset your Exercism API key <a href="/account/key">here<a>.</p>
-
+    <h3>API Key</h3>
+    <p>View or reset your Exercism API key <a href="/account/key">here</a>.</p>
     <hr>
 
-    <h2>Avatar</h2>
-      <p>You can update your <%= gravatar_tag current_user.avatar_url %> avatar on
+    <h3>Avatar</h3>
+    <p>You can update your <%= gravatar_tag current_user.avatar_url %> avatar on
       <a href="https://github.com/settings/profile">GitHub</a>.</p>
-
     <hr>
 
-    <h2>Teams</h2>
+    <h3>Teams</h3>
     <% if profile.has_teams? %>
       <ul class="nav nav-stacked nav-bordered" style="max-width: 400px">
         <% profile.teams.each do |team| %>
