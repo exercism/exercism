@@ -125,6 +125,10 @@ module ExercismWeb
           ExercismWeb::Presenters::Tracks.tracks
         end
 
+        def active_tracks
+          @active_tracks ||= X::Track.all.select(&:active)
+        end
+
         def css_url
           @css_url || "/css/application.css?t=#{File.mtime("./public/css/application.css").to_i}"
         end

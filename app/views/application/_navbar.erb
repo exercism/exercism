@@ -20,14 +20,12 @@
         <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
           <li><a role="menuitem" tabindex="-1" href="/languages">All languages</li>
           <li role="separator" class="divider"></li>
-          <% tracks.each do |t| %>
-            <% if t.active? %>
-              <li>
-                <a role="menuitem" tabindex="-1" href="/languages/<%= t.slug %>">
-                  <%= t.language %>
-                </a>
-              </li>
-            <% end %>
+          <% active_tracks.each do |t| %>
+            <li>
+              <a role="menuitem" tabindex="-1" href="/languages/<%= t.slug %>">
+                <%= t.language %>
+              </a>
+            </li>
           <% end %>
         </ul>
         </li>

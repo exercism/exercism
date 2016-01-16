@@ -22,6 +22,7 @@ module X
 
     alias_method :active?, :active
     alias_method :implemented?, :implemented
+    alias_method :slug, :id
 
     def initialize(data)
       METHODS.each do |name|
