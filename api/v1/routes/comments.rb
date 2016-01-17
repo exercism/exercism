@@ -35,7 +35,13 @@ module ExercismAPI
           halt 204
         end
 
-        submission.comments.create(user: user, body: comment)
+        c = submission.comments.create(user: user, body: comment)
+        ex = submission.user_exercise
+        # If we're running rikki- against historical data, we don't want to flood
+        # the inbox with ancient iterations.
+        if ex.last_activity_at > 1.week.ago
+          ex.update_last_activity(c).save
+        end
         Notification.on(submission, to: submission.user, regarding: 'nitpick', creator: user)
         halt 204
       end

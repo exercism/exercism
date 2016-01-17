@@ -36,6 +36,7 @@ class UserExercise < ActiveRecord::Base
       self.last_activity_at = thing.created_at
       self.last_activity = thing.activity_description
     end
+    self
   end
 
   def viewed_by(user)
