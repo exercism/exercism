@@ -5,6 +5,13 @@ require 'exercism'
 
 ENV['RACK_ENV'] ||= 'development'
 
+require 'active_record'
+require 'db/connection'
+DB::Connection.establish
+if defined?(ActiveRecord::Migrator) && ActiveRecord::Migrator.needs_migration?
+  raise 'Migrations are pending run `rake db:migrate` to resolve the issue.'
+end
+
 def user(username)
   User.find_by_username(username)
 end
