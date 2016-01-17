@@ -27,10 +27,6 @@ class CreatesComment
         exercise.update_last_activity(@comment)
         exercise.save
       end
-
-      unless submission.user == commenter
-        submission.nit_count += 1
-      end
       submission.save
     end
   end

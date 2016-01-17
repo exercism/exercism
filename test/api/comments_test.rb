@@ -13,20 +13,6 @@ class CommentsApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
-  def test_saves_comment_without_affecting_nit_count
-    rikki = User.create(username: 'rikki-')
-    user = User.create(username: 'alice')
-    submission = Submission.create(user: user)
-    Rikki.stub(:shared_key, 'ok') do
-      post "/submissions/#{submission.key}/comments?shared_key=ok", {comment: 'a comment'}.to_json
-    end
-
-    comment = Comment.first
-    assert_equal "a comment", comment.body
-    assert_equal rikki.id, comment.user_id
-    assert_equal 0, submission.reload.nit_count
-  end
-
   def test_only_save_comment_if_rikki_has_not_commented
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')

@@ -77,10 +77,6 @@ class Submission < ActiveRecord::Base
     "Submitted an iteration"
   end
 
-  def discussion_involves_user?
-    nit_count < comments.count
-  end
-
   def older_than?(time)
     self.created_at.utc < (Time.now.utc - time)
   end

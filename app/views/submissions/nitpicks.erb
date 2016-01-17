@@ -1,19 +1,5 @@
 <div class="comments col-md-6">
-  <h3>
-    <% if submission.comments.empty? %>
-      <% if current_user.owns?(submission) %>
-        Initial Thoughts
-      <% else %>
-        Provide Feedback
-      <% end %>
-    <% else %>
-      <% if submission.nit_count == 1 %>
-        One Nitpick
-      <% else %>
-        <%= submission.nit_count %> Nitpicks
-      <% end %>
-    <% end %>
-  </h3>
+  <h3>Comments</h3>
 
   <div class="clearfix"></div>
 

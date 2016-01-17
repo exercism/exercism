@@ -54,10 +54,6 @@ class UserExercise < ActiveRecord::Base
     update_attributes(archived: false)
   end
 
-  def nit_count
-    submissions.pluck(:nit_count).sum
-  end
-
   def problem
     @problem ||= Problem.new(track_id, slug)
   end

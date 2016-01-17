@@ -82,7 +82,6 @@ module ExercismWeb
         end
 
         nit.delete
-        submission.nit_count -= 1 unless current_user.owns?(submission)
         submission.save
         redirect "/submissions/#{key}"
       end

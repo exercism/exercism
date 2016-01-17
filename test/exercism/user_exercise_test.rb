@@ -18,20 +18,6 @@ class UserExerciseTest < Minitest::Test
     refute exercise.archived?
   end
 
-  def test_nit_count
-    alice = User.create!(username: 'alice')
-    exercise = UserExercise.create!(
-        user: alice,
-        submissions: [
-            Submission.create!(user: alice, nit_count: 5),
-            Submission.create!(user: alice, nit_count: 7)
-        ]
-    )
-
-    exercise.reload
-    assert_equal 12, exercise.nit_count
-  end
-
   def test_current
     alice = User.create(username: 'alice')
     closure_1 = UserExercise.create(user: alice, archived: false, language: 'closure', iteration_count: 1)
