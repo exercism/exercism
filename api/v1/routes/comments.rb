@@ -30,6 +30,11 @@ module ExercismAPI
           halt 204
         end
 
+        uuid = Submission.where(user_exercise_id: submission.user_exercise_id).order('created_at DESC').limit(1).pluck('key').first
+        if uuid != submission.key
+          halt 204
+        end
+
         submission.comments.create(user: user, body: comment)
         Notification.on(submission, to: submission.user, regarding: 'nitpick', creator: user)
         halt 204
