@@ -53,6 +53,12 @@ The [OCaml](https://ocaml.org) logo is released under the [Attribution-ShareAlik
 The PHP logo is in the public domain. The icon on the site is an adaptation of the logo.
 
 
+**Perl icon** http://exercism.io/img/perl5.png
+The onion is the logo of the Perl Foundation.
+It is trademarked, and we have adapted it--changing the color--with their permission.
+The Perl Foundation does not support or endorse Exercism.
+
+
 **Racket icon** http://exercism.io/img/racket.png
 The Racket logo was created by [Matthias.f at en.wikipedia](https://en.wikipedia.org/wiki/User:Matthias.f) and released under the Creative Commons Attribution-Share Alike 3.0 Unported license.
 We adapted the Racket logo, creating a black/white version of it to use on Exercism.
