@@ -12,6 +12,7 @@ module ExercismWeb
       Submission: 'submission',
       SiteTitle: 'site_title',
       TrackImage: 'track_image',
+      UserProgressBar: 'user_progress_bar',
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('app', 'helpers', file)
     end

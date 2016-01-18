@@ -15,6 +15,10 @@ module ExercismWeb
         @exercises ||= user.exercises.where(archived: false).where('iteration_count > 0')
       end
 
+      def progress_hash
+        UserProgression.user_progress(user)
+      end
+
       def archived_exercises
         @archived_exercises ||= user.exercises.where(archived: true).where('iteration_count > 0')
       end

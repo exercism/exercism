@@ -1,0 +1,9 @@
+<% progress.each do |track, progress_values| %>
+  <div>
+    <span style='z-index:2; position: absolute; text-align: center; width: 100%;color: black;'> <%= progress_ratio track, progress_values %></span>
+    <div class='progress' style='position: relative;'>
+      <div class="progress-bar progress-bar-success progress-bar-striped" role="progressbar" style="position: absolute;width: <%= percent progress_values %>%;">
+      </div>
+    </div>
+  </div>
+<% end %>

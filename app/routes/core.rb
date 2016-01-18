@@ -42,6 +42,7 @@ module ExercismWeb
       helpers Helpers::Submission
       helpers Helpers::SiteTitle
       helpers Helpers::TrackImage
+      helpers Helpers::UserProgressBar
       helpers WillPaginate::Sinatra::Helpers
 
       helpers do
