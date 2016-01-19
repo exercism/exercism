@@ -1,7 +1,3 @@
-class Submission < ActiveRecord::Base
-  serialize :solution, JSON
-end
-
 namespace :rikki do
   desc "dump go stuff for experimentation"
   task :dump do
