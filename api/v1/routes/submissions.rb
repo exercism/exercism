@@ -51,9 +51,12 @@ module ExercismAPI
           language: exercise['language'],
           track_id: submission.track_id,
           slug: submission.slug,
+          uuid: submission.key,
+          solution_uuid: submission.user_exercise.key,
+          user_id: submission.user_id,
           username: submission.user.username,
           problem_files: exercise['files'],
-          solution_files: submission.solution
+          solution_files: submission.solution,
         }.to_json
       end
     end

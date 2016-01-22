@@ -2,6 +2,9 @@
   "language": "Ruby",
   "track_id": "<id>",
   "slug": "leap",
+  "uuid": "<uuid>",
+  "solution_uuid": "<uuid>",
+  "user_id": "<id>",
   "username": "alice",
   "problem_files": {
     "test.rb": "assert true"
