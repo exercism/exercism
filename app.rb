@@ -31,7 +31,6 @@ module ExercismWeb
     use Routes::Legacy
     use Routes::Main
     use Routes::Stats
-    use Routes::Conversations
     use Routes::Account
     use Routes::Metadata
     use Routes::Looks
