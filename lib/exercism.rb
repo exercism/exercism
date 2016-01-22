@@ -8,8 +8,6 @@ require 'exercism/explore'
 
 require 'exercism/acl'
 require 'exercism/assumable_user'
-require 'exercism/onboarding'
-require 'exercism/progress_bar'
 require 'exercism/named'
 require 'exercism/authentication'
 require 'exercism/code'
