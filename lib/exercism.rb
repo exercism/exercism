@@ -4,8 +4,6 @@ require 'faraday'
 
 require_relative '../x/track'
 
-require 'exercism/explore'
-
 require 'exercism/acl'
 require 'exercism/assumable_user'
 require 'exercism/named'
