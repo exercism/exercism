@@ -8,7 +8,6 @@ gem 'activerecord', '~> 4.2.1'
 gem 'bugsnag'
 gem 'faraday'
 gem 'loofah'
-gem 'newrelic_rpm', '~>3.8' # used both in production and development
 gem 'petroglyph'
 gem 'pg'
 gem 'pry', require: false
