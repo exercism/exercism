@@ -28,7 +28,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def generate_attempt(code = 'CODE')
-    Attempt.new(alice, Iteration.new('word-count/file.rb' => code)).save
+    Attempt.new(alice, Iteration.new({'word-count/file.rb' => code}, 'ruby', 'word-count')).save
   end
 
   attr_reader :alice, :bob
@@ -43,8 +43,8 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_guests_can_view_submissions
-    Attempt.new(alice, Iteration.new('fake/hello-world/file.rb' => 'CODE')).save
-    f= './test/fixtures/xapi_v3_track_fake.json'
+    Attempt.new(alice, Iteration.new({'fake/hello-world/file.rb' => 'CODE'}, 'fake', 'hello-world')).save
+    f= './test/fixtures/xapi_v3_fake_track_with_hello_world.json'
     X::Xapi.stub(:get, [200, File.read(f)]) do
       get "/submissions/#{Submission.first.key}"
     end
@@ -52,7 +52,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_nitpick_assignment
-    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
+    Attempt.new(alice, Iteration.new({'word-count/file.rb' => 'CODE'}, 'ruby', 'word-count')).save
     submission = Submission.first
 
     url = "/submissions/#{submission.key}/nitpick"
@@ -61,7 +61,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_nitpick_own_assignment
-    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
+    Attempt.new(alice, Iteration.new({'word-count/file.rb' => 'CODE'}, 'ruby', 'word-count')).save
     submission = Submission.first
 
     url = "/submissions/#{submission.key}/nitpick"
@@ -70,7 +70,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_input_sanitation
-    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
+    Attempt.new(alice, Iteration.new({'word-count/file.rb' => 'CODE'}, 'ruby', 'word-count')).save
     submission = Submission.first
     nit = Comment.new(user: bob, body: "ok", created_at: DateTime.now - 1.day)
     submission.comments << nit
@@ -86,7 +86,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_guest_nitpicks
-    Attempt.new(alice, Iteration.new('word-count/file.rb' => 'CODE')).save
+    Attempt.new(alice, Iteration.new({'word-count/file.rb' => 'CODE'}, 'ruby', 'word-count')).save
     submission = Submission.first
 
     post "/submissions/#{submission.key}/nitpick", {body: "Could be better by ..."}
