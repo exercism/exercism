@@ -1,7 +1,3 @@
-class Exercism
-  class UnknownLanguage < StandardError; end
-end
-
 class Code
   attr_reader :path
   def initialize(path)
