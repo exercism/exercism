@@ -101,6 +101,19 @@ module ExercismAPI
           solution = { data['path'] => data['code'] }
         end
 
+        # old CLI, let's see if we can hack around it.
+        if data['language'].nil?
+          path = data['path'] || solution.first.first
+          segments = path.split(/\\|\//)
+          if segments.length < 3
+            # nothing we can do.
+            halt 400, "please upgrade your exercism command-line client"
+          end
+          data['language'] = segments[0]
+          data['problem'] = segments[1]
+        end
+
+
         iteration = Iteration.new(
           solution,
           data['language'],
@@ -113,8 +126,7 @@ module ExercismAPI
           Bugsnag.before_notify_callbacks << lambda do |notif|
             data = {
               user: user.username,
-              code: data['code'],
-              path: data['path'],
+              code: data['solution'],
               track: attempt.track,
               slug: attempt.slug,
             }
