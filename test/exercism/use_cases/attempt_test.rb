@@ -10,22 +10,21 @@ class AttemptTest < Minitest::Test
   end
 
   def python_two
-    {'python/two/two.py' => 'CODE'}
+    {'two.py' => 'CODE'}
   end
 
   def test_validity
     Xapi.stub(:exists?, true) do
-      refute Attempt.new(user, Iteration.new('two.py' => 'CODE')).valid?
-      assert Attempt.new(user, Iteration.new(python_two)).valid?
+      assert Attempt.new(user, Iteration.new({'two.py' => 'CODE'}, 'python', 'two')).valid?
     end
 
     Xapi.stub(:exists?, false) do
-      refute Attempt.new(user, Iteration.new(python_two)).valid?
+      refute Attempt.new(user, Iteration.new({'two.py' => 'CODE'}, 'python', 'two')).valid?
     end
   end
 
   def test_saving_with_comments_creates_a_new_comment
-    iteration = Iteration.new(python_two, comment: "hello world")
+    iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two', comment: "hello world")
 
     Xapi.stub(:exists?, true) do
       attempt = Attempt.new(user, iteration).save
@@ -44,11 +43,11 @@ class AttemptTest < Minitest::Test
         Attempt.new(user, i).save
       end
     }
-    iteration = Iteration.new(python_two)
+    iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two')
     save_attempt.call(iteration)
     assert_equal 0, Comment.count
 
-    iteration = Iteration.new(python_two, comment: "")
+    iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two', comment: "")
     save_attempt.call(iteration)
     assert_equal 0, Comment.count
   end
@@ -56,7 +55,8 @@ class AttemptTest < Minitest::Test
   def test_saving_an_attempt_constructs_a_submission
     assert_equal 0, Submission.count # guard
 
-    Attempt.new(user, Iteration.new(python_two)).save
+    iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two')
+    Attempt.new(user, iteration).save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -68,7 +68,8 @@ class AttemptTest < Minitest::Test
   def test_saving_a_multi_file_attempt_constructs_a_submission
     assert_equal 0, Submission.count # guard
 
-    Attempt.new(user, Iteration.new(python_two)).save
+    iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two')
+    Attempt.new(user, iteration).save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -81,7 +82,8 @@ class AttemptTest < Minitest::Test
   def test_attempt_is_created_for_current_exercise
     assert_equal 0, Submission.count # guard
 
-    Attempt.new(user, Iteration.new(python_two)).save
+    iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two')
+    Attempt.new(user, iteration).save
 
     assert_equal 1, Submission.count
     submission = Submission.first
@@ -91,60 +93,62 @@ class AttemptTest < Minitest::Test
   end
 
   def test_an_attempt_includes_the_code_and_filename_in_the_submissions_solution
-    Attempt.new(user, Iteration.new('two/two.py' => 'CODE 123')).save
-    assert_equal({'two.py' => 'CODE 123'}, user.submissions.first.reload.solution)
+    iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two')
+    Attempt.new(user, iteration).save
+    assert_equal({'two.py' => 'CODE'}, user.submissions.first.reload.solution)
   end
 
   def test_previous_submission_after_first_attempt
-    attempt = Attempt.new(user, Iteration.new('two/two.rb' => 'CODE')).save
+    iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two')
+    attempt = Attempt.new(user, iteration).save
     assert_equal attempt.previous_submission.class, NullSubmission
   end
 
   def test_previous_submission_after_first_attempt_in_new_language
-    Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE 1')).save
-    attempt = Attempt.new(user, Iteration.new('python/two/two.py' => 'CODE 2')).save
+    Attempt.new(user, Iteration.new({'two.py' => 'CODE 1'}, 'python', 'two')).save
+    attempt = Attempt.new(user, Iteration.new({'two.py' => 'CODE 2'}, 'python', 'two')).save
     assert_equal attempt.previous_submission.track_id, "python"
   end
 
   def test_previous_submission
-    Attempt.new(user, Iteration.new('two/two.rb' => 'CODE 1')).save
-    one = Submission.first
-    attempt = Attempt.new(user, Iteration.new('two/two.rb' => 'CODE 2')).save
-    assert_equal attempt.previous_submission, one
+    Attempt.new(user, Iteration.new({'two.py' => 'CODE 1'}, 'python', 'two')).save
+    attempt = Attempt.new(user, Iteration.new({'two.py' => 'CODE 2'}, 'python', 'two')).save
+    assert_equal attempt.previous_submission, Submission.first
   end
 
   def test_previous_submission_with_new_language_sandwich
-    Attempt.new(user, Iteration.new('two/two.rb' => 'CODE 1')).save
-    Attempt.new(user, Iteration.new('two/two.py' => 'CODE 2')).save
-    attempt = Attempt.new(user, Iteration.new('two/two.rb' => 'CODE 3')).save
-    assert_equal attempt.previous_submission, user.submissions.first
+    Attempt.new(user, Iteration.new({'two.rb' => 'CODE 1'}, 'ruby', 'two')).save
+    Attempt.new(user, Iteration.new({'two.py' => 'CODE 2'}, 'python', 'two')).save
+    attempt = Attempt.new(user, Iteration.new({'two.rb' => 'CODE 3'}, 'ruby', 'two')).save
+
+    assert_equal attempt.previous_submission, Submission.first
   end
 
   def test_newlines_are_removed_at_the_end_of_the_file
-    Attempt.new(user, Iteration.new('two/two.rb' => "CODE1\n\nCODE2\n\n\n")).save
+    Attempt.new(user, Iteration.new({'two.rb' => "CODE1\n\nCODE2\n\n\n"}, 'ruby', 'two')).save
     assert_equal "CODE1\n\nCODE2", user.submissions.first.solution.first.last
   end
 
   def test_newlines_are_removed_at_the_beginning_of_the_file
-    Attempt.new(user, Iteration.new('ruby/two/two.rb' => "\nCODE1\n\nCODE2")).save
+    Attempt.new(user, Iteration.new({'two.rb' => "\nCODE1\n\nCODE2"}, 'ruby', 'two')).save
     assert_equal "CODE1\n\nCODE2", user.submissions.first.solution.first.last
   end
 
   def test_rejects_duplicates
-    Attempt.new(user, Iteration.new('ruby/two/two.rb' => "CODE")).save
-    attempt = Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE'))
+    Attempt.new(user, Iteration.new({'two.py' => 'CODE'}, 'python', 'two')).save
+    attempt = Attempt.new(user, Iteration.new({'two.py' => 'CODE'}, 'python', 'two')).save
 
     assert attempt.duplicate?
   end
 
   def test_does_not_reject_empty_first_submission_as_duplicate
-    attempt = Attempt.new(user, Iteration.new('ruby/two/two.rb' => '')).save
+    attempt = Attempt.new(user, Iteration.new({'two.py' => ''}, 'python', 'two')).save
 
     refute attempt.duplicate?
   end
 
   def test_no_reject_without_previous
-    attempt = Attempt.new(user, Iteration.new('ruby/two/two.rb' => 'CODE'))
+    attempt = Attempt.new(user, Iteration.new({'two.py' => 'CODE'}, 'python', 'two')).save
     refute attempt.duplicate?
   end
 end
