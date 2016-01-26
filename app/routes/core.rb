@@ -127,7 +127,7 @@ module ExercismWeb
         end
 
         def active_tracks
-          @active_tracks ||= X::Track.all.select(&:active)
+          ExercismWeb::Presenters::Languages.active
         end
 
         def css_url

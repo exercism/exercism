@@ -1,26 +1,12 @@
 module ExercismWeb
   module Presenters
     class Languages
-      attr_reader :names
-
-      def initialize(names)
-        @names = names
+      def self.all
+        @all ||= X::Track.all
       end
 
-      def count
-        names.length
-      end
-
-      def to_s
-        case count
-        when 1
-          names.first
-        when 2
-          names.join(' and ')
-        else
-          *most, last = names
-          [most.join(', '), last].join(', and ')
-        end
+      def self.active
+        all.select(&:active)
       end
     end
   end
