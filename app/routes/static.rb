@@ -41,9 +41,7 @@ module ExercismWeb
       end
 
       get '/about' do
-        erb :"site/about", locals: {active_languages: ExercismWeb::Presenters::Languages.new(tracks.select(&:active?).map(&:language)).to_s,
-                                    upcoming_languages: ExercismWeb::Presenters::Languages.new(tracks.select(&:upcoming?).map(&:language)).to_s,
-                                    planned_languages: ExercismWeb::Presenters::Languages.new(tracks.select(&:planned?).map(&:language)).to_s}
+        erb :"site/about"
       end
 
       get '/bork' do
