@@ -33,9 +33,6 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <% if current_user.show_dailies? %>
-          <%= erb :"application/nav/dailies" %>
-        <% end %>
           <% if !current_user.guest? %>
             <% if current_user.sees_exercises? %>
               <li><a href="/inbox">Exercises</a></li>
