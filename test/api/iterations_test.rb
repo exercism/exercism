@@ -16,7 +16,7 @@ class IterationsApiTest < Minitest::Test
   def test_submit_iteration_with_comment
     submission = {
       key: @alice.key,
-      solution: { path: '/ruby/one', code: 'CODE1AGO' },
+      solution: { 'code.rb' => 'CODE1' },
       language: 'ruby',
       problem: 'one',
       comment: '',
@@ -28,7 +28,7 @@ class IterationsApiTest < Minitest::Test
 
     assert_equal 0, Comment.count
 
-    submission.merge!(comment: 'Awesome code!', solution: { code: 'CODE2AGO' })
+    submission.merge!(comment: 'Awesome code!', solution: { 'code.rb' => 'CODE2' })
 
     Xapi.stub(:exists?, true) do
       post '/user/assignments', submission.to_json
