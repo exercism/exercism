@@ -214,4 +214,23 @@ class IterationsApiTest < Minitest::Test
     exercise = @alice.exercises.first
     assert_equal 3, exercise.iteration_count
   end
+
+  def test_submit_problem_with_old_client
+    submission = {
+      "key"=>@alice.key,
+      "path"=>"/go/binary/binary.go",
+      "code"=>"Hello, World!",
+      "dir"=>"/path/to/exercism/dir"
+    }
+
+    Xapi.stub(:exists?, true) do
+      post '/user/assignments', submission.to_json
+    end
+
+    submission = Submission.first
+    assert_equal "go", submission.language
+    assert_equal "binary", submission.slug
+    expected = {"binary.go" => "Hello, World!"}
+    assert_equal expected, submission.solution
+  end
 end
