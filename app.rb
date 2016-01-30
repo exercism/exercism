@@ -25,6 +25,7 @@ module ExercismWeb
       register Sinatra::Reloader
     end
 
+    use Routes::Profile
     use Routes::Inbox
     use Routes::Languages
     use Routes::Static

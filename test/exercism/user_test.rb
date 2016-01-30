@@ -147,6 +147,22 @@ class UserTest < Minitest::Test
     assert_equal 0, fred.daily_count
   end
 
+  def test_user_share_key
+    fred = User.create(username: 'fred')
+    assert_equal nil, fred.share_key
+    fred.set_share_key
+    refute_equal nil, fred.share_key
+    fred.unset_share_key
+    assert_equal nil, fred.share_key
+  end
+
+  def test_user_find_by_username_and_share_key
+    fred = User.create(username: 'fred')
+    assert_equal nil, User.find_by(username: 'fred', share_key: Exercism.uuid)
+    fred.set_share_key
+    assert_equal 'fred', User.find_by(username: 'fred', share_key: fred.share_key).username
+  end
+
   private
 
   def create_exercise_with_submission(user, language, slug)
