@@ -29,6 +29,16 @@ class User < ActiveRecord::Base
     save
   end
 
+  def set_share_key
+    self.share_key = Exercism.uuid
+    save
+  end
+
+  def unset_share_key
+    self.share_key = nil
+    save
+  end
+
   def can_access?(problem)
     ACL.where(user_id: id, language: problem.track_id, slug: problem.slug).count > 0
   end

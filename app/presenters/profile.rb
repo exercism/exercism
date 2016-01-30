@@ -2,13 +2,20 @@ module ExercismWeb
   module Presenters
     class Profile
 
-      def initialize(user, current_user=user)
+      DEFAULTS = { shared: false }
+
+      def initialize(user, current_user=user, options={})
         @user = user
         @current_user = current_user
+        @options = DEFAULTS.merge(options)
       end
 
       def username
         user.username
+      end
+
+      def shared?
+        @options[:shared]
       end
 
       def exercises
@@ -24,7 +31,7 @@ module ExercismWeb
       end
 
       def can_access?(exercise)
-        current_user.can_access?(exercise)
+        shared? || current_user.can_access?(exercise)
       end
 
       def has_current_exercises?
@@ -41,6 +48,10 @@ module ExercismWeb
 
       def has_teams?
         teams.any?
+      end
+
+      def has_share_key?
+        user.share_key
       end
 
       def archived_in(track_id)

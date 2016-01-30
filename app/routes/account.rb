@@ -35,6 +35,18 @@ module ExercismWeb
         redirect "/account"
       end
 
+      put '/account/share-key/set' do
+        please_login
+        current_user.set_share_key
+        redirect "/account"
+      end
+
+      put '/account/share-key/unset' do
+        please_login
+        current_user.unset_share_key
+        redirect "/account"
+      end
+
       post '/account/track-mentor/invite' do
         please_login
 
