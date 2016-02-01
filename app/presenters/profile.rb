@@ -16,7 +16,7 @@ module ExercismWeb
       end
 
       def progress_hash
-        UserProgression.user_progress(user)
+        UserProgression.user_progress(user).sort_by(&:last_updated)
       end
 
       def archived_exercises
