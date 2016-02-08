@@ -163,6 +163,34 @@ class UserTest < Minitest::Test
     assert_equal 'fred', User.find_by(username: 'fred', share_key: fred.share_key).username
   end
 
+  def test_track_mentor_without_previous_exercises_has_track_access
+    bob = User.create(username: 'bob')
+    create_exercise_with_submission_and_acl(bob, 'ruby', 'hamming')
+
+    fred = User.create(username: 'fred')
+    fred.invite_to_track_mentor('ruby')
+
+    total_ruby_exercises_count = Submission.select('DISTINCT language, slug').where(language: 'ruby').size
+    freds_ruby_acls_count = ACL.where(user_id: fred.id, language: 'ruby').count
+
+    assert_equal total_ruby_exercises_count, freds_ruby_acls_count
+  end
+
+  def test_track_mentor_with_previous_exercises_has_track_access
+    bob = User.create(username: 'bob')
+    create_exercise_with_submission_and_acl(bob, 'ruby', 'hamming')
+
+    fred = User.create(username: 'fred')
+    create_exercise_with_submission_and_acl(fred, 'ruby', 'etl')
+
+    fred.invite_to_track_mentor('ruby')
+
+    total_ruby_exercises_count = Submission.select('DISTINCT language, slug').where(language: 'ruby').size
+    freds_ruby_acls_count = ACL.where(user_id: fred.id, language: 'ruby').count
+
+    assert_equal total_ruby_exercises_count, freds_ruby_acls_count
+  end
+
   private
 
   def create_exercise_with_submission(user, language, slug)
@@ -175,6 +203,11 @@ class UserTest < Minitest::Test
         slug: slug,
         submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: 22.days.ago, version: 1)]
     )
+  end
+
+  def create_exercise_with_submission_and_acl(user, language, slug)
+    create_exercise_with_submission(user, language, slug)
+    ACL.create(user_id: user.id, language: language, slug: slug)
   end
 
   def create_submission(problem, attributes={})
