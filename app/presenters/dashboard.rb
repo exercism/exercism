@@ -14,6 +14,10 @@ module ExercismWeb
         user.exercises.unsubmitted
       end
 
+      def unsubmitted_grouped_exercises
+        user.exercises.unsubmitted.group_by { |ex| ex.language }
+      end
+
       def has_activity?
         notifications.count > 0
       end
