@@ -17,6 +17,13 @@ class MarkdownTest < Minitest::Test
     assert_equal expected, ExercismLib::Markdown.render(markdown)
   end
 
+  def test_lists_without_blank_lines
+    skip "bug described in https://github.com/exercism/exercism.io/issues/2759"
+    markdown = "foo\n* one\n* two"
+    expected = "<p>foo</p>\n\n<ul>\n<li>one</li>\n<li>two</li>\n</ul>\n"
+    assert_equal expected, ExercismLib::Markdown.render(markdown)
+  end
+
   def test_mention_works_multiple_times
     markdown = "u @goose of @doom."
     expected = "<p>u <a class=\"mention\" href=\"/goose\">@goose</a> of " +
