@@ -1,0 +1,18 @@
+app:
+  build: .
+  links:
+    - db
+  env_file: .env
+  command: rackup -s puma -p 4567 --host 0.0.0.0
+  volumes:
+    - .:/exercism
+  ports:
+    - "4567:4567"
+  environment:
+    DEV_DATABASE_HOST: db
+db:
+  image: postgres:9.4
+  environment:
+    POSTGRES_DB: exercism_development
+    POSTGRES_USER: exercism
+    POSTGRES_PASSWORD: apples
