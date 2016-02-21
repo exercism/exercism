@@ -3,6 +3,7 @@ app:
   links:
     - db
   env_file: .env
+  entrypoint: ruby docker/entrypoint.rb
   command: rackup -s puma -p 4567 --host 0.0.0.0
   volumes:
     - .:/exercism
