@@ -3,6 +3,10 @@ require 'pg'
 
 require_relative '../lib/db/config'
 
+if ENV.has_key? 'RACK_ENV' and ENV['RACK_ENV'] == ''
+  ENV.delete 'RACK_ENV'
+end
+
 # We want our Docker process to use the same uid as the owner of the
 # exercism repository checkout. This will ensure that any created files
 # have the same owner and can be accessed on the host system, rather than

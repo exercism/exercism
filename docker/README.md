@@ -83,9 +83,34 @@ http://192.168.99.100:4567.
 ## Other Tasks
 
 In general, anything in the developer documentation that runs on the
-command-line should be prefixed with `docker-compose run app`. You can
-even just run `docker-compose run app bash` to launch a shell in the
+command-line should be prefixed with `docker-compose run app`.
+
+### Bash
+
+You can just run `docker-compose run app bash` to launch a shell in the
 app container and run programs directly from there.
+
+The `/exercism` directory is mapped directly to your repository checkout.
+
+### Running Tests
+
+Before running tests, run:
+
+    docker-compose run app rake db:migrate RACK_ENV=test
+
+Then, to run all tests, run:
+
+    docker-compose run app rake
+
+To run a single test suite, you can do so with:
+
+    docker-compose run app ruby path/to/the_test.rb
+
+### Console
+
+The console mentioned in [`CONTRIBUTING.md`][] can be run via:
+
+    docker-compose run app bin/console
 
 ## Uninstalling
 

@@ -8,9 +8,12 @@ app:
   ports:
     - "4567:4567"
   environment:
+    RACK_ENV:
     DEV_DATABASE_HOST: db
 db:
   image: postgres:9.4
+  volumes:
+    - ./docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   environment:
     POSTGRES_DB: exercism_development
     POSTGRES_USER: exercism
