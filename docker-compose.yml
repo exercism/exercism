@@ -11,6 +11,7 @@ app:
     - "4567:4567"
   environment:
     DEV_DATABASE_HOST: db
+    HOST_USER: $USER
 db:
   image: postgres:9.4
   environment:
