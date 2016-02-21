@@ -8,23 +8,26 @@
     </tr>
   </thead>
   <tbody>
-    <% profile.track_ids.each do |track_id| %>
+    <% profile.archived_grouped_exercises.each do |language| %>
       <tr>
         <td>
-          <% profile.archived_in(track_id).each do |exercise| %>
-              <% if profile.can_access?(exercise) %>
-                <a href="/exercises/<%= exercise.key %>">
-                  <%= exercise.problem.name %>
-                </a>
-              <% else %>
-                <i class="fa fa-lock"></i>
-                &nbsp;
-                <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
-              <% end %>
-              <br/>
+          <% exercises = profile.archived_grouped_exercises[language]%>
+          <% exercises.each do |exercise| %>
+            <% if profile.can_access?(exercise) %>
+              <a href="/exercises/<%= exercise.key %>">
+                <%= exercise.problem.name %>
+              </a>
+            <% else %>
+            <i class="fa fa-lock"></i>
+              &nbsp;
+              <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>">
+                <%= exercise.problem.name %>
+              </a>
+            <% end %>
+            <%= ", " unless exercise = exercise.last %>
           <% end %>
         </td>
-        <td><%= Language.of(track_id) %></td>
+        <td><%=  language.capitalize %></td>
       </tr>
     <% end %>
   </tbody>

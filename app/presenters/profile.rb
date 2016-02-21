@@ -30,6 +30,10 @@ module ExercismWeb
         @archived_exercises ||= user.exercises.where(archived: true).where('iteration_count > 0')
       end
 
+      def archived_grouped_exercises
+        @archived_exercises.group_by {|ex| ex.language }
+      end
+
       def can_access?(exercise)
         shared? || current_user.can_access?(exercise)
       end
