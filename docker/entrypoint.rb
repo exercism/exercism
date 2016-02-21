@@ -3,7 +3,14 @@ require 'pg'
 
 require_relative '../lib/db/config'
 
+# We want our Docker process to use the same uid as the owner of the
+# exercism repository checkout. This will ensure that any created files
+# have the same owner and can be accessed on the host system, rather than
+# being owned by root and hard to modify or delete.
 HOST_UID = File::Stat.new('/exercism').uid
+
+# This is just the username for the uid, for cosmetic purposes only really.
+# Might as well make it match the user of the host system.
 HOST_USER = ENV.fetch('HOST_USER', 'code_executor_user')
 
 def does_username_exist(username)
@@ -52,6 +59,10 @@ def is_db_accepting_connections
   result == PG::PQPING_OK
 end
 
+# Because the db container is often started at the same time as its
+# dependents, a race condition exists whereby the dependents may try
+# to access the db before it's ready. This function allows us the dependent
+# to wait until the db is ready before proceeding.
 def wait_for_db
   20.times do |n|
     puts "Waiting for db to accept connections (attempt ##{n+1})..."
