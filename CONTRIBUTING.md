@@ -204,7 +204,7 @@ To run a single test suite, you can do so with:
 ruby path/to/the_test.rb
 ```
 
-If it complains about dependencies, then either we forgot to require the correct dependencies (a distinct possibility), or we are dependening on a particular tag of a gem installed directly from GitHub (this happens on occasion).
+If it complains about dependencies, then either we forgot to require the correct dependencies (a distinct possibility), or we are depending on a particular tag of a gem installed directly from GitHub (this happens on occasion).
 
 If there's a git dependency, you can do this:
 
