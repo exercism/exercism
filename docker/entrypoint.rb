@@ -52,14 +52,19 @@ def is_db_accepting_connections
   result == PG::PQPING_OK
 end
 
-assume_uid
-
-20.times do |n|
-  puts "Waiting for db to accept connections (attempt ##{n+1})..."
-  if is_db_accepting_connections
-    exec *ARGV
+def wait_for_db
+  20.times do |n|
+    puts "Waiting for db to accept connections (attempt ##{n+1})..."
+    if is_db_accepting_connections
+      return
+    end
+    sleep 0.5
   end
-  sleep 0.5
+  Kernel.abort("Unable to connect to db.")
 end
 
-Kernel.abort("Unable to connect to db.")
+assume_uid
+
+wait_for_db if ENV.has_key? 'DEV_DATABASE_HOST'
+
+exec *ARGV

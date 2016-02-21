@@ -1,0 +1,8 @@
+app:
+  build: ..
+  env_file: ../.env
+  entrypoint: ruby /exercism/docker/entrypoint.rb
+  volumes:
+    - ..:/exercism
+  environment:
+    HOST_USER: $USER
