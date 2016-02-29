@@ -17,7 +17,6 @@ module ExercismWeb
       Comments: 'comments',
       Exercises: 'exercises',
       Submissions: 'submissions',
-      Metadata: 'metadata',
       Teams: 'teams',
       Tracks: 'tracks',
       Styleguide: 'styleguide',

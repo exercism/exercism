@@ -64,6 +64,24 @@ module ExercismWeb
         flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now reactivated."
         redirect '/dashboard'
       end
+
+      get '/exercises/:track_id/:slug' do |id, slug|
+        exercise = X::Exercise::TestFiles.find(id, slug)
+        if exercise.files.empty?
+          flash[:notice] = "No files for #{exercise.name} problem in #{exercise.language} track"
+          redirect '/'
+        end
+        erb :"exercises/test_suite", locals: { exercise: exercise }
+      end
+
+      get '/exercises/:track_id/:slug/readme' do |id, slug|
+        exercise = X::Exercise::Readme.find(id, slug)
+        if exercise.readme.empty?
+          flash[:notice] = "No files for #{exercise.name} problem in #{exercise.language} track"
+          redirect '/'
+        end
+        erb :"exercises/readme", locals: { exercise: exercise }
+      end
     end
   end
 end
