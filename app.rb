@@ -33,7 +33,6 @@ module ExercismWeb
     use Routes::Main
     use Routes::Stats
     use Routes::Account
-    use Routes::Metadata
     use Routes::Looks
     use Routes::Notifications
     use Routes::Exercises
