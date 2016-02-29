@@ -165,29 +165,5 @@ namespace :data do
         end
       end
     end
-
-    desc "migrate deprecated problems"
-    task :deprecated_problems do
-      require 'bundler'
-      Bundler.require
-      require_relative '../exercism'
-      {
-        'point-mutations' => 'hamming'
-      }.each do |deprecated, replacement|
-        UserExercise.where(slug: deprecated).each do |exercise|
-          if UserExercise.where(slug: replacement, user_id: exercise.user_id, language: exercise.language).count > 0
-            next
-          end
-
-          exercise.slug = replacement
-          exercise.save
-          exercise.submissions.each do |submission|
-            submission.slug = replacement
-            submission.save
-          end
-          ACL.authorize(exercise.user, exercise.problem)
-        end
-      end
-    end
   end
 end
