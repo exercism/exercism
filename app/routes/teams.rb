@@ -27,7 +27,11 @@ module ExercismWeb
         end
       end
 
-      get '/teams/:slug' do |slug|
+      get '/teams/:slug/?' do |slug|
+        redirect '/teams/%s/directory' % slug
+      end
+
+      get '/teams/:slug/directory' do |slug|
         please_login
         only_with_existing_team(slug) do |team|
 
@@ -36,7 +40,12 @@ module ExercismWeb
             redirect '/'
           end
 
-          erb :"teams/show", locals: {team: team, members: team.all_members.sort_by {|m| m.username.downcase}}
+          locals = {
+            team: team,
+            members: team.all_members.sort_by {|m| m.username.downcase},
+          }
+
+          erb :"teams/directory", locals: locals
         end
       end
 
