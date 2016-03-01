@@ -10,7 +10,7 @@ module ExercismWeb
         session[:inbox] = id
         session[:inbox_slug] = slug
 
-        erb :"inbox", locals: {inbox: inbox}
+        erb :"inbox/index", locals: {inbox: inbox}
       end
 
       post '/tracks/:id/views/?:slug?' do |id, slug|

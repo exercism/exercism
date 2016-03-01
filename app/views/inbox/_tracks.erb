@@ -1,0 +1,17 @@
+<ul class="nav nav-stacked nav-bordered">
+  <% inbox.tracks.each do |track|%>
+  <li class="<%= 'active' if track.id==inbox.track_id %>">
+    <a href="<%= track_url % track.id %>">
+      <%= track.name %>
+      <span class="total-count">
+        <%= track.total %>
+      </span>
+    </a>
+    <% if track.unread > 0 %>
+    <span class="badge unread-count">
+      <%= track.unread %>
+    </span>
+    <% end %>
+  </li>
+  <% end %>
+</ul>

@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="row">
+    <br>
+
+    <aside class="col-md-4">
+      <nav class="inbox">
+        <%=
+          erb :"inbox/_tracks", locals: {
+            inbox: inbox,
+            track_url: "/tracks/%s/exercises",
+          }
+        %>
+
+        <br>
+
+        <% if inbox.problems.size > 1 %>
+          <%=
+            erb :"inbox/_problems", locals: {
+              inbox: inbox,
+              exercise_url: "/tracks/%s/exercises/%s",
+            }
+          %>
+        <% end %>
+      </nav>
+      <br>
+    </aside>
+
+    <%=
+      erb :"inbox/_main", locals: {
+        inbox: inbox,
+        mark_as_read_url: "/tracks/%s/views/%s",
+      }
+    %>
+  </div>
+</div>
