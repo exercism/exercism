@@ -7,13 +7,14 @@ class UserProgression
       bag[exe.problem.language].add_user_exercise exe
     end
     tracks = track_count
-    track_complete_exercises.collect do |lang, language_progress| 
+    track_complete_exercises.collect do |lang, language_progress|
       language_progress.tap{ |lang_prog| lang_prog.language_track = tracks[lang] }
     end
   end
 
   class LanguageProgress
-    attr_reader :language, :user_exercises, :last_updated, :language_track
+    attr_reader :language, :user_exercises, :last_updated
+    attr_accessor :language_track
 
     def initialize language
       @language = language
@@ -22,8 +23,8 @@ class UserProgression
     end
 
     def add_user_exercise exe
-      if @last_updated.present? && @last_updated > exe.updated_at 
-        @last_updated = exe.updated_at 
+      if @last_updated.present? && @last_updated > exe.updated_at
+        @last_updated = exe.updated_at
       end
       @user_exercises.push exe
     end
