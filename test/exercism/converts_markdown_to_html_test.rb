@@ -16,7 +16,13 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_sanitisation
     input = "<script type=\"text/javascript\">bad();</script>good"
-    expected = "<p>&lt;script type=\"text/javascript\"&gt;bad();&lt;/script&gt;good</p>"
+    expected = "<p>good\n</p>"
+    assert_converts_to(input, expected)
+  end
+
+  def test_sanitisation_with_code
+    input = "```<script type=\"text/javascript\">bad();</script>```good"
+    expected = "<p><code>&lt;script type=\"text/javascript\"&gt;bad();&lt;/script&gt;</code>good</p>"
     assert_converts_to(input, expected)
   end
 
@@ -28,7 +34,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_paragraphs
     input = "One\n\nTwo  \nThree"
-    expected = "<p>One</p>\n\n<p>Two<br>\nThree</p>"
+    expected = "<p>One</p>\n<p>Two<br>\nThree</p>"
     assert_converts_to(input, expected)
   end
 
@@ -103,7 +109,6 @@ end
 </pre></td>
 </tr></tbody></table>
 </div>
-
 <p>Post text</p>}
 
     assert_converts_to(input, expected)

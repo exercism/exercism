@@ -1,5 +1,6 @@
-require 'redcarpet'
+require 'commonmarker'
 require 'nokogiri'
+
 require 'exercism/syntax_highlighter'
 
 # GitHub usernames can contain alphanumerics and dashes, but must not
@@ -34,34 +35,16 @@ def hyperlink_mentions!(node)
 end
 
 module ExercismLib
-  class Markdown < Redcarpet::Render::XHTML
+
+  class Markdown
 
     def self.render(content)
-      markdown = Redcarpet::Markdown.new(new, options)
-      markdown.render(content)
+      @myrenderer = MyHtmlRenderer.new
+      doc = CommonMarker.render_doc(content, :default)
+      postprocess(@myrenderer.render(doc))
     end
 
-    def self.options
-      {
-        fenced_code_blocks: true,
-        no_intra_emphasis: true,
-        autolink: true,
-        strikethrough: true,
-        lax_html_blocks: true,
-        superscript: true,
-        tables: true,
-        space_after_headers: true,
-        xhtml: true
-      }
-    end
-
-    def preprocess(text_content)
-      # patch while redcarpet doesn't support lists without newline issue#2759
-      # captures line before list and adds another newline
-      text_content.gsub(/^\w+\n(?=[*|-]\s\w+)/, "\\0\n")
-    end
-
-    def postprocess(html_content)
+    def self.postprocess(html_content)
       dom = Nokogiri::HTML(html_content)
       body = dom.css("body").first
       if body
@@ -71,8 +54,14 @@ module ExercismLib
       ""
     end
 
-    def block_code(code, language)
-      ExercismLib::SyntaxHighlighter.new(code, language).render
+  end
+
+end
+
+class MyHtmlRenderer < CommonMarker::HtmlRenderer
+  def code_block(node)
+    block do
+      out(ExercismLib::SyntaxHighlighter.new(node.string_content, node.fence_info.split(/\s+/)[0]).render)
     end
   end
 end
