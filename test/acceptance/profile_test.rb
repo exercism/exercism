@@ -30,4 +30,5 @@ class ProfileTest < AcceptanceTestCase
       end
     end
   end
+
 end
