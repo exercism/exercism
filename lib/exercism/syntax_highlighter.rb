@@ -8,6 +8,7 @@ module ExercismLib
       'elisp'       => 'common_lisp',
       'plsql'       => 'sql',
       'ecmascript'  => 'javascript',
+      'perl5'       => 'perl',
     }
 
     attr_reader :lexer, :code

@@ -29,6 +29,16 @@ class User < ActiveRecord::Base
     save
   end
 
+  def set_share_key
+    self.share_key = Exercism.uuid
+    save
+  end
+
+  def unset_share_key
+    self.share_key = nil
+    save
+  end
+
   def can_access?(problem)
     ACL.where(user_id: id, language: problem.track_id, slug: problem.slug).count > 0
   end
@@ -132,12 +142,26 @@ class User < ActiveRecord::Base
     ACL.select('DISTINCT language').where(user_id: id).order(:language).map(&:language).first
   end
 
+  def invite_to_track_mentor(language)
+    self.track_mentor << language
+    save
+    update_acls_for_track_mentor(language)
+  end
+
   private
 
   def items_where(table, condition)
     sql = "SELECT language AS track_id, slug FROM #{table} WHERE user_id = %s AND #{condition} ORDER BY created_at ASC" % id.to_s
     User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, problems|
       problems[result["track_id"]] << result["slug"]
+    end
+  end
+
+  def update_acls_for_track_mentor(language)
+    submissions = Submission.select('DISTINCT language, slug').where(language: language)
+
+    submissions.each do |submission|
+      ACL.authorize(self, submission.problem)
     end
   end
 end

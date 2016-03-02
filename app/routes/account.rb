@@ -34,6 +34,41 @@ module ExercismWeb
         current_user.reset_key
         redirect "/account"
       end
+
+      put '/account/share-key/set' do
+        please_login
+        current_user.set_share_key
+        redirect "/account"
+      end
+
+      put '/account/share-key/unset' do
+        please_login
+        current_user.unset_share_key
+        redirect "/account"
+      end
+
+      post '/account/track-mentor/invite' do
+        please_login
+
+        begin
+          user_to_invite = ::User.find_by_username(params[:user_to_invite])
+          track = params[:track]
+
+          user_to_invite.present? or raise "couldn't find user for #{user_to_invite.username}"
+          track.present? or raise "track cannot be blank"
+          !(user_to_invite == current_user) or raise "you cannot invite yourself"
+          current_user.track_mentor.include?(track) or raise "you must be mentor for #{track} first"
+          !user_to_invite.track_mentor.include?(track) or raise "#{user_to_invite.username} is already a mentor for #{track}"
+
+          user_to_invite.invite_to_track_mentor(track)
+
+          flash[:notice] = "Successfully invited #{user_to_invite.username} to mentor #{track.capitalize}"
+          redirect "/account"
+        rescue StandardError => se
+          flash[:notice] = "Error while inviting: #{se}"
+          redirect "/account"
+        end
+      end
     end
   end
 end

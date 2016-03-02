@@ -1,1 +1,1 @@
-NEWRELIC_ENABLE=false pry -r ./scripts/console.rb
+pry -r ./scripts/console.rb

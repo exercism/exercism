@@ -1,4 +1,27 @@
 namespace :rikki do
+  desc "dump go stuff for experimentation"
+  task :dump do
+    class Submission < ActiveRecord::Base
+      serialize :solution, JSON
+    end
+
+    require 'active_record'
+    require 'db/connection'
+    require 'fileutils'
+    DB::Connection.establish
+    Submission.where(language: 'go').find_each do |submission|
+      dir = File.join('.', 'rikki', submission.key)
+      FileUtils.mkdir_p(dir)
+
+      submission.solution.each do |name, code|
+        filename = File.join(dir, File.basename(name))
+        File.open(filename, 'w') do |f|
+          f.write code
+        end
+      end
+    end
+  end
+
   desc "comment on old go issues"
   task :go do
     require 'active_record'

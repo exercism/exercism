@@ -8,7 +8,6 @@ module ExercismWeb
       Main: 'main',
       Stats: 'stats',
       Static: 'static',
-      Conversations: 'conversations',
       Account: 'account',
       Backdoor: 'backdoor',
       Sessions: 'sessions',
@@ -25,7 +24,8 @@ module ExercismWeb
       CommentThreads: 'comment_threads',
       Errors: 'errors',
       User: 'user',
-      GithubCallback: 'github_callback'
+      GithubCallback: 'github_callback',
+      Profile: 'profile'
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('app', 'routes', file)
     end

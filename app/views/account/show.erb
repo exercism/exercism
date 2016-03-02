@@ -5,11 +5,31 @@
   <article>
     <h3>API Key</h3>
     <p>View or reset your Exercism API key <a href="/account/key">here</a>.</p>
+
+    <hr>
+
+    <h3> Private share url </h3>
+    <p>Your profile page on Exercism is only visible to other Exercism users by default, who can only see your solutions if they've done the exercises themselves.</p>
+    <p> By creating a "private share" url, you can share your complete profile with specific people, and they will be able to see all of your solutions, provided you share the link with them. And the good thing is that they don't need to be an Exercism user themselves.</p>
+    <% if profile.has_share_key? %>
+      <p> Currently you have shared your profile. Here's the <a href="<%= "/profiles/#{profile.username}/#{profile.user.share_key}" %>"> url</a>.</p>
+      <% action = "/account/share-key/unset" %>
+      <% value = "Disable private share" %>
+    <% else %>
+      <% action = "/account/share-key/set" %>
+      <% value = "Enable private share" %>
+    <% end %>
+    <form action="<%= action %>" method="post">
+      <input type="hidden" name="_method" value="put">
+      <input type="submit" value="<%= value %>" class="btn btn-danger">
+    </form>
+
     <hr>
 
     <h3>Avatar</h3>
     <p>You can update your <%= gravatar_tag current_user.avatar_url %> avatar on
-      <a href="https://github.com/settings/profile">GitHub</a>.</p>
+    <a href="https://github.com/settings/profile">GitHub</a>.</p>
+
     <hr>
 
     <h3>Teams</h3>
@@ -42,7 +62,26 @@
     <% end %>
     <p/><br/>
     <a href="/teams" class="btn btn-primary">Create a new team</a>
-  </div>
+
+    <hr>
+
+    <h3>Track Mentor</h3>
+    <% if profile.is_track_mentor? %>
+    <div>
+      <h4>Mentored Tracks</h4>
+      <% profile.mentored_tracks.each do |track| %>
+        <span class="label label-default"><%= track %></span>
+      <% end %>
+    </div>
+
+    <br/>
+
+    <div>
+      <h4>Track Mentor Invitation</h4>
+      <%= erb :'account/_track_mentor_invite', locals: { profile: profile } %>
+    <% else %>
+      <p>Want to be a Track Mentor? Working on exercises and giving great feedback is the best way to get noticed!</p>
+    <% end %>
     </div>
   </article>
 </div>

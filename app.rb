@@ -25,13 +25,13 @@ module ExercismWeb
       register Sinatra::Reloader
     end
 
+    use Routes::Profile
     use Routes::Inbox
     use Routes::Languages
     use Routes::Static
     use Routes::Legacy
     use Routes::Main
     use Routes::Stats
-    use Routes::Conversations
     use Routes::Account
     use Routes::Metadata
     use Routes::Looks

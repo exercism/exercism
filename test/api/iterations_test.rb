@@ -16,7 +16,7 @@ class IterationsApiTest < Minitest::Test
   def test_submit_iteration_with_comment
     submission = {
       key: @alice.key,
-      solution: { path: '/ruby/one', code: 'CODE1AGO' },
+      solution: { 'code.rb' => 'CODE1' },
       language: 'ruby',
       problem: 'one',
       comment: '',
@@ -28,7 +28,7 @@ class IterationsApiTest < Minitest::Test
 
     assert_equal 0, Comment.count
 
-    submission.merge!(comment: 'Awesome code!', solution: { code: 'CODE2AGO' })
+    submission.merge!(comment: 'Awesome code!', solution: { 'code.rb' => 'CODE2' })
 
     Xapi.stub(:exists?, true) do
       post '/user/assignments', submission.to_json
@@ -213,5 +213,24 @@ class IterationsApiTest < Minitest::Test
 
     exercise = @alice.exercises.first
     assert_equal 3, exercise.iteration_count
+  end
+
+  def test_submit_problem_with_old_client
+    submission = {
+      "key"=>@alice.key,
+      "path"=>"/go/binary/binary.go",
+      "code"=>"Hello, World!",
+      "dir"=>"/path/to/exercism/dir"
+    }
+
+    Xapi.stub(:exists?, true) do
+      post '/user/assignments', submission.to_json
+    end
+
+    submission = Submission.first
+    assert_equal "go", submission.language
+    assert_equal "binary", submission.slug
+    expected = {"binary.go" => "Hello, World!"}
+    assert_equal expected, submission.solution
   end
 end

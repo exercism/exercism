@@ -95,7 +95,11 @@ module ExercismLib
     def chartify(key)
       data = Array.new(slugs.length, 0)
       rows.each do |row|
-        data[slugs.index(row['slug'])] = row[key].to_i
+        i = slugs.index(row['slug'])
+        if i.nil?
+          next
+        end
+        data[i] = row[key].to_i
       end
       data
     end

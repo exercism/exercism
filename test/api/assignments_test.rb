@@ -69,7 +69,7 @@ class AssignmentsApiTest < Minitest::Test
   def test_api_accepts_submission_on_completed_exercise
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: alice.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
+        post '/user/assignments', {key: alice.key, language: 'ruby', problem: 'one', solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
       end
     end
 
@@ -116,7 +116,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_rejects_duplicates
-    Attempt.new(alice, Iteration.new('ruby/one/code.rb' => 'THE CODE')).save
+    Attempt.new(alice, Iteration.new({'code.rb' => 'THE CODE'}, 'ruby', 'one')).save
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
         post '/user/assignments', {key: alice.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json

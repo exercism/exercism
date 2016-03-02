@@ -2,7 +2,7 @@ require_relative '../../x'
 class UserProgression
 
   def self.user_progress(user)
-    utrack_complete_exercises = user.exercises.each_with_object({}) do |exe, bag|
+    track_complete_exercises = user.exercises.where("language<>''").where('iteration_count > 0').each_with_object({}) do |exe, bag|
       bag[exe.problem.language] ||= LanguageProgress.new exe.problem.language
       bag[exe.problem.language].add_user_exercise exe
     end
