@@ -31,7 +31,7 @@ module ExercismAPI
 
       helpers do
         def require_key
-          unless params[:key]
+          if params[:key].to_s.empty?
             halt 401, {error: "You must be logged in to access this feature. Please double-check your API key."}.to_json
           end
         end
