@@ -3,15 +3,16 @@
   <col width="75%" />
   <thead>
     <tr>
-      <th>Exercises</th>
       <th>Language</th>
+      <th>Exercises</th>
     </tr>
   </thead>
   <tbody>
-    <% profile.archived_grouped_exercises.each do |language| %>
+    <% profile.archived_grouped_exercises.keys.each do |language| %>
       <tr>
+        <td><%= language.capitalize %></td>
         <td>
-          <% exercises = profile.archived_grouped_exercises[language]%>
+          <% exercises = profile.archived_grouped_exercises[language] %>
           <% exercises.each do |exercise| %>
             <% if profile.can_access?(exercise) %>
               <a href="/exercises/<%= exercise.key %>">
@@ -24,10 +25,9 @@
                 <%= exercise.problem.name %>
               </a>
             <% end %>
-            <%= ", " unless exercise = exercise.last %>
+            <%= ", " unless exercise == exercises.last %>
           <% end %>
         </td>
-        <td><%=  language.capitalize %></td>
       </tr>
     <% end %>
   </tbody>
