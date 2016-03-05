@@ -21,6 +21,7 @@ gem 'sinatra-contrib'
 gem 'sidekiq'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
+gem 'commonmarker'
 
 # Frontend Gems
 gem 'sass'
