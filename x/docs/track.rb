@@ -23,7 +23,7 @@ module X
         if data[topic].empty?
           read(topic).gsub('REPO', repository)
         else
-          data[topic].strip + better(topic)
+          [data[topic].strip, better(topic)].join("\n")
         end
       end
 
