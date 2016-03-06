@@ -2,8 +2,8 @@
   <col width="25%" />
   <thead>
     <tr>
-      <th>Exercise</th>
       <th>Language</th>
+      <th>Exercise</th>
       <th>Iterations</th>
       <th data-sorted="true" data-sorted-direction="descending">Latest Iteration</th>
     </tr>
@@ -11,6 +11,7 @@
   <tbody>
   <% exercises.order(updated_at: :desc).each do |exercise| %>
     <tr>
+      <td><%= exercise.problem.language %></td>
       <td>
         <% if profile.can_access?(exercise) %>
           <a href="/exercises/<%= exercise.key %>">
@@ -22,7 +23,6 @@
           <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
         <% end %>
       </td>
-      <td><%= exercise.problem.language %></td>
       <td><%= exercise.iteration_count %></td>
       <td data-value="<%= exercise.updated_at.to_i %>"><%= exercise.updated_at.strftime("%Y-%m-%d") %></td>
     </tr>
