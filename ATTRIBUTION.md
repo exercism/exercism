@@ -45,7 +45,7 @@ The [Lisp logo](http://exercism.io/img/lisp.png) was designed by Xah Lee, and wa
 The Lua icon is inspired by the [Lua logo](http://www.lua.org/images/), which was designed by Alexandre Nakonechnyj.
 
 
-**OCaml Icon** http://exercism.io/img/ocaml.png
+**OCaml icon** http://exercism.io/img/ocaml.png
 The [OCaml](https://ocaml.org) logo is released under the [Attribution-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-sa/4.0/) license.
 
 
@@ -57,6 +57,10 @@ The PHP logo is in the public domain. The icon on the site is an adaptation of t
 The onion is the logo of the Perl Foundation.
 It is trademarked, and we have adapted it--changing the color--with their permission.
 The Perl Foundation does not support or endorse Exercism.
+
+
+**Python icon** http://exercism.io/img/python.png
+The Python logo is an unregistered trademark. We are using a derived logo with the permission of the Python Software Foundation.
 
 
 **Racket icon** http://exercism.io/img/racket.png
