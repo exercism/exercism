@@ -3,26 +3,6 @@ require 'will_paginate/array'
 # TrackStream is an activity stream which has been filtered against the user's access list.
 # Additionally, it can be narrowed down to a single exercise within a track.
 class TrackStream
-  Exercise = Struct.new(:id, :uuid, :problem, :last_activity, :last_activity_at, :iteration_count, :username, :avatar_url) do
-    attr_writer :comment_count
-
-    def comment_count
-      @comment_count || 0
-    end
-
-    def at
-      @at ||= last_activity_at.to_datetime
-    end
-
-    def viewed!
-      @viewed = true
-    end
-
-    def unread?
-      !@viewed
-    end
-  end
-
   attr_reader :user, :page, :track_id, :slug, :language
   attr_accessor :per_page
   def initialize(user, track_id, slug=nil, page=1)
@@ -97,7 +77,7 @@ class TrackStream
         row["username"],
         row["avatar_url"],
       ]
-      ex = Exercise.new(*attrs)
+      ex = Stream::Exercise.new(*attrs)
       exx << ex
 
       ids << row["id"]
