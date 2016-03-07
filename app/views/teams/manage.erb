@@ -9,6 +9,7 @@
   <div id="team_settings">
     <h3>Team Settings</h3>
     <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}" %>" method="post">
+      <input type="hidden" name="_method" value="put" />
       <div class="row">
         <div class="form-group col-sm-4">
           <label for="team_slug">Slug (in URL)</label>
@@ -32,7 +33,7 @@
 
     <div id="danger_buttons" class="row">
       <div class="col-md-2" style="margin: 0 10px 10px 0">
-        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>" method="POST">
+        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>" method="post">
           <input name="_method" type="hidden" value="delete" />
           <button type="submit" class="btn btn-primary btn-danger">Delete Team</button>
         </form>
@@ -65,7 +66,6 @@
 
     <% if team.managers.count > 1 %>
         <% (team.managers - [current_user]).each do |manager| %>
-          
           <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/managers" method="post">
             <input type="hidden" name="_method" value="delete" />
             <input type="hidden" name="username" value="<%= manager.username %>" />
