@@ -1,12 +1,12 @@
 <main id="track-exercises" class="col-md-8">
-  <form action="<%= mark_as_read_url % [inbox.track_id, inbox.slug]%>" method="POST" class="mark-all">
+  <form action="<%= mark_as_read_url % [stream.track_id, stream.slug]%>" method="POST" class="mark-all">
     <button type="submit" class="btn btn-link discrete">mark all as read</button>
   </form>
-  <h2><%= inbox.title %></h2>
+  <h2><%= stream.title %></h2>
 
-  <% if inbox.exercises.any? %>
+  <% if stream.exercises.any? %>
     <ul class="active-exercises">
-      <% inbox.exercises.each do |exercise| %>
+      <% stream.exercises.each do |exercise| %>
       <li class="<%= 'unread' if exercise.unread? %>">
         <span class="col-md-10">
           <a href="/exercises/<%= exercise.uuid %>" class="exercise list-group-item">
@@ -38,6 +38,6 @@
   <% end %>
 
   <div class="pagination">
-    <%= will_paginate inbox.pagination, renderer: BootstrapPagination::Sinatra %>
+    <%= will_paginate stream.pagination, renderer: BootstrapPagination::Sinatra %>
   </div>
 </main>

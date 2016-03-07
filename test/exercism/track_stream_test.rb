@@ -7,7 +7,7 @@ class UserTrack
   end
 end
 
-class InboxTrackTest < Minitest::Test
+class TrackStreamTrackTest < Minitest::Test
   include DBCleaner
 
   ExerciseTestCase = Struct.new(:user, :problem_name, :problem_track_id, :status, :comment_count) do
@@ -53,12 +53,12 @@ class InboxTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'raindrops', archived: false, auth: true, viewed: 0},
     ].each.with_index { |attributes, i| create_view alice, bob, attributes.merge(age: i) }
 
-    elixir1 = Inbox.new(alice, 'elixir')
+    elixir1 = TrackStream.new(alice, 'elixir')
     elixir1.per_page = 2
-    elixir2 = Inbox.new(alice, 'elixir', nil, 2)
+    elixir2 = TrackStream.new(alice, 'elixir', nil, 2)
     elixir2.per_page = 2
-    go = Inbox.new(alice, 'go')
-    wc = Inbox.new(alice, 'go', 'word-count')
+    go = TrackStream.new(alice, 'go')
+    wc = TrackStream.new(alice, 'go', 'word-count')
 
     assert_equal 2, elixir1.exercises.size
     assert_equal 1, elixir2.exercises.size
@@ -91,13 +91,13 @@ class InboxTrackTest < Minitest::Test
     # most recent unread
     assert_equal ex6.uuid, go.first_unread_uuid
     assert_equal ex6.uuid, wc.first_unread_uuid
-    assert_equal nil, Inbox.new(alice, 'go', 'clock').first_unread_uuid # not authorized
-    assert_equal ex8.uuid, Inbox.new(alice, 'go', 'raindrops').first_unread_uuid # no view record
+    assert_equal nil, TrackStream.new(alice, 'go', 'clock').first_unread_uuid # not authorized
+    assert_equal ex8.uuid, TrackStream.new(alice, 'go', 'raindrops').first_unread_uuid # no view record
 
     # last exercise
     assert_equal ex8.id, go.last_id
     assert_equal ex10.id, wc.last_id
-    assert_equal 0, Inbox.new(alice, 'rust').last_id
+    assert_equal 0, TrackStream.new(alice, 'rust').last_id
   end
 
   def test_mark_as_read
@@ -140,8 +140,8 @@ class InboxTrackTest < Minitest::Test
 
     assert_equal 3, View.count
 
-    leap = Inbox.new(alice, 'python', 'leap')
-    python = Inbox.new(alice, 'python')
+    leap = TrackStream.new(alice, 'python', 'leap')
+    python = TrackStream.new(alice, 'python')
 
     now = Time.now.utc
     leap.mark_as_read

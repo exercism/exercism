@@ -1,6 +1,6 @@
 <ul class="nav nav-stacked nav-bordered">
-  <% inbox.tracks.each do |track|%>
-  <li class="<%= 'active' if track.id==inbox.track_id %>">
+  <% stream.tracks.each do |track|%>
+  <li class="<%= 'active' if track.id==stream.track_id %>">
     <a href="<%= track_url % track.id %>">
       <%= track.name %>
       <span class="total-count">

@@ -5,18 +5,18 @@
     <aside class="col-md-4">
       <nav class="inbox">
         <%=
-          erb :"inbox/_tracks", locals: {
-            inbox: inbox,
+          erb :"stream/_tracks", locals: {
+            stream: stream,
             track_url: "/tracks/%s/exercises",
           }
         %>
 
         <br>
 
-        <% if inbox.problems.size > 1 %>
+        <% if stream.problems.size > 1 %>
           <%=
-            erb :"inbox/_problems", locals: {
-              inbox: inbox,
+            erb :"stream/_problems", locals: {
+              stream: stream,
               exercise_url: "/tracks/%s/exercises/%s",
             }
           %>
@@ -26,8 +26,8 @@
     </aside>
 
     <%=
-      erb :"inbox/_main", locals: {
-        inbox: inbox,
+      erb :"stream/_main", locals: {
+        stream: stream,
         mark_as_read_url: "/tracks/%s/views/%s",
       }
     %>

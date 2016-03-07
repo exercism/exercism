@@ -1,7 +1,7 @@
 <ul class="nav nav-stacked nav-bordered">
-  <% inbox.problems.each do |problem|%>
-  <li class="<%= 'active' if problem.slug==inbox.slug %>">
-    <a href="<%= exercise_url % [inbox.track_id, problem.slug] %>">
+  <% stream.problems.each do |problem|%>
+  <li class="<%= 'active' if problem.slug==stream.slug %>">
+    <a href="<%= exercise_url % [stream.track_id, problem.slug] %>">
       <%= problem.name %>
       <span class="total-count">
         <%= problem.total %>

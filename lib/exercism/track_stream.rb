@@ -1,6 +1,8 @@
 require 'will_paginate/array'
 
-class Inbox
+# TrackStream is an activity stream which has been filtered against the user's access list.
+# Additionally, it can be narrowed down to a single exercise within a track.
+class TrackStream
   Exercise = Struct.new(:id, :uuid, :problem, :last_activity, :last_activity_at, :iteration_count, :username, :avatar_url) do
     attr_writer :comment_count
 

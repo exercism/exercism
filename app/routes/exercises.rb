@@ -6,8 +6,8 @@ module ExercismWeb
           redirect '/'
         end
 
-        inbox = ::Inbox.new(current_user, params[:language], params[:slug])
-        redirect "/exercises/#{inbox.first_unread_uuid}"
+        stream = TrackStream.new(current_user, params[:language], params[:slug])
+        redirect "/exercises/#{stream.first_unread_uuid}"
       end
 
       get '/exercises/:key' do |key|
