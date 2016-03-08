@@ -19,17 +19,6 @@ class TrackStream
     execute(mark_as_read_update_sql)
   end
 
-  def first_unread_uuid
-    row = execute(first_unread_uuid_sql).first
-    row["uuid"] if !!row
-  end
-
-  def last_id
-    row = execute(last_id_sql).first
-    return 0 if !row
-    row["id"].to_i
-  end
-
   def title
     if slug.nil?
       language
@@ -135,54 +124,6 @@ class TrackStream
     ON c.submission_id=s.id
     WHERE s.user_exercise_id IN (#{ids.join(',')})
     GROUP BY s.user_exercise_id
-    SQL
-  end
-
-  def last_id_sql
-    <<-SQL
-      SELECT
-        ex.id
-      FROM user_exercises ex
-      INNER JOIN users u
-        ON ex.user_id=u.id
-      INNER JOIN acls
-        ON ex.language=acls.language
-        AND ex.slug=acls.slug
-      WHERE acls.user_id=#{user.id}
-        AND ex.language='#{track_id}'
-        AND ex.slug=#{slug_param}
-        AND ex.archived='f'
-        AND ex.slug != 'hello-world'
-        AND ex.iteration_count > 0
-      ORDER BY ex.last_activity_at ASC
-      LIMIT 1
-    SQL
-  end
-
-  def first_unread_uuid_sql
-    <<-SQL
-      SELECT
-        ex.key AS uuid
-      FROM user_exercises ex
-      INNER JOIN acls
-        ON ex.language=acls.language
-        AND ex.slug=acls.slug
-      LEFT JOIN views
-        ON acls.user_id=views.user_id
-        AND ex.id=views.exercise_id
-      WHERE acls.user_id=#{user.id}
-        AND ex.language='#{track_id}'
-        AND ex.slug=#{slug_param}
-        AND ex.archived='f'
-        AND ex.slug != 'hello-world'
-        AND ex.iteration_count > 0
-        AND (
-          views.id IS NULL
-          OR
-          ex.last_activity_at > views.last_viewed_at
-        )
-      ORDER BY ex.last_activity_at DESC
-      LIMIT 1
     SQL
   end
 

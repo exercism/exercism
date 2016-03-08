@@ -1,15 +1,6 @@
 module ExercismWeb
   module Routes
     class Exercises < Core
-      get '/exercises/next' do
-        if current_user.guest?
-          redirect '/'
-        end
-
-        stream = TrackStream.new(current_user, params[:language], params[:slug])
-        redirect "/exercises/#{stream.first_unread_uuid}"
-      end
-
       get '/exercises/:key' do |key|
         exercise = UserExercise.find_by_key(key)
         if exercise.nil?

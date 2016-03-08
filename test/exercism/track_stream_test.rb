@@ -87,17 +87,6 @@ class TrackStreamTrackTest < Minitest::Test
       [ex9,  ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
       [ex10,  ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
     ].each { |actual, expected| assert_exercise expected, actual }
-
-    # most recent unread
-    assert_equal ex6.uuid, go.first_unread_uuid
-    assert_equal ex6.uuid, wc.first_unread_uuid
-    assert_equal nil, TrackStream.new(alice, 'go', 'clock').first_unread_uuid # not authorized
-    assert_equal ex8.uuid, TrackStream.new(alice, 'go', 'raindrops').first_unread_uuid # no view record
-
-    # last exercise
-    assert_equal ex8.id, go.last_id
-    assert_equal ex10.id, wc.last_id
-    assert_equal 0, TrackStream.new(alice, 'rust').last_id
   end
 
   def test_mark_as_read
