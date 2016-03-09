@@ -19,6 +19,9 @@ class Notification < ActiveRecord::Base
   before_create do
     self.read  ||= false
     self.count ||= 0
+    self.action = regarding
+    self.actor_id = creator_id
+    self.iteration_id = item_id if item_type == 'Submission'
     true
   end
 

@@ -56,6 +56,19 @@ namespace :data do
   end
 
   namespace :migrate do
+    desc "migrate notification data"
+    task :notifications do
+      require 'active_record'
+      require 'db/connection'
+
+      DB::Connection.establish
+
+      sql = <<-SQL
+      UPDATE notifications SET action=regarding, actor_id=user_id, iteration_id=item_id WHERE item_type='Submission'
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     desc "migrate last iteration timestamps"
     task :last_iteration do
       require 'active_record'
