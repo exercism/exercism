@@ -27,7 +27,7 @@
             <% if team_membership.inviter.present? %>
               <a href="<%= team_membership.inviter.username %>"><%= team_membership.inviter.username %></a> would like you to join the team <%= team_membership.team.name %>.
             <% else %>
-              You are invited to join the team <%= team_membership.team.name %>. 
+              You are invited to join the team <%= team_membership.team.name %>.
             <% end %>
             <form action="<%= "/teams/#{team_membership.team.slug}/leave" %>" method="post" class="inline">
               <input type="hidden" name="_method" value="put" />
@@ -45,35 +45,33 @@
 
       <ul style="list-style-type: none; margin: 0;">
         <% inbox.notifications.each do |notification| %>
-          <% if notification.item %>
-            <li class="alert-row">
-              <% if notification.regarding == 'code' %>
-                <span style="padding-right: 5px;" class="fa fa-code"></span>
+          <li class="alert-row">
+            <% if notification.regarding == 'code' %>
+              <span style="padding-right: 5px;" class="fa fa-code"></span>
+            <% else %>
+              <span style="padding-right: 5px;" class="fa fa-comment-o"></span>
+            <% end %>
+
+            <% if notification.regarding == 'code' %>
+              <% if notification.item.user %>
+                <a href="/<%= notification.item.user.username %>"><%= notification.item.user.username %></a> submitted a
+              <% end %>
+              new iteration of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= Language.of(notification.language) %></a>
+
+            <% elsif notification.regarding == 'nitpick' %>
+              <% if notification.item.user.id == inbox.user.id %>
+                <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> commented on your
               <% else %>
-                <span style="padding-right: 5px;" class="fa fa-comment-o"></span>
+                <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> commented on <a href="/<%= notification.item.user.username %>"><%= notification.item.user.username %></a>'s
               <% end %>
+              <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= Language.of(notification.language) %></a>
 
-              <% if notification.regarding == 'code' %>
-                <% if notification.item.user %>
-                  <a href="/<%= notification.item.user.username %>"><%= notification.item.user.username %></a> submitted a
-                <% end %>
-                new iteration of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= Language.of(notification.language) %></a>
-              
-              <% elsif notification.regarding == 'nitpick' %>
-                <% if notification.item.user.id == inbox.user.id %>
-                  <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> commented on your 
-                <% else %>
-                  <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> commented on <a href="/<%= notification.item.user.username %>"><%= notification.item.user.username %></a>'s
-                <% end %>
-                <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= Language.of(notification.language) %></a>
-              
-              <% elsif notification.regarding == 'like' %>
-                <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> liked your submission of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= Language.of(notification.language) %></a>
-              <% end %>
+            <% elsif notification.regarding == 'like' %>
+              <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> liked your submission of <a href="/submissions/<%= notification.item.key %>"><%= notification.item.name %> in <%= Language.of(notification.language) %></a>
+            <% end %>
 
-              <%= ago(notification.created_at) %>
-            </li>
-          <% end %>
+            <%= ago(notification.created_at) %>
+          </li>
         <% end %>
       </ul>
     </div>

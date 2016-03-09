@@ -19,7 +19,7 @@ module ExercismWeb
       end
 
       def notifications
-        @notifications ||= user.notifications.unread.personal
+        @notifications ||= user.notifications.unread.personal.reject {|note| note.item.nil? || note.item.creator.nil?}
       end
     end
   end

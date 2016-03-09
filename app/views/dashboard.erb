@@ -65,14 +65,12 @@
         <div class="well">
           <% if dashboard.has_activity? %>
             <% dashboard.notifications.each do |notification| %>
-              <% if notification.item %>
-                <li style="list-style-type: none; margin: 0;">
-                  <span style="padding-right: 5px;" class="icon-comment-alt"></span>
-                  <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> on <a href="/submissions/<%= notification.item.key %>">
-                    <%= notification.submission.name %> (<%= Language.of(notification.language) %>)
-                  </a>
-                </li>
-              <% end %>
+              <li style="list-style-type: none; margin: 0;">
+                <span style="padding-right: 5px;" class="icon-comment-alt"></span>
+                <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> on <a href="/submissions/<%= notification.item.key %>">
+                  <%= notification.submission.name %> (<%= Language.of(notification.language) %>)
+                </a>
+              </li>
             <% end %>
           <% else %>
             <p>No unread notifications.</p>
