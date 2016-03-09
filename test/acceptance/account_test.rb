@@ -4,6 +4,19 @@ class AccountTest < AcceptanceTestCase
   def setup
     super
     @user = create_user
+
+    # fake load all the languages
+    f= './test/fixtures/xapi_v3_tracks.json'
+    X::Xapi.stub(:get, [200, File.read(f)]) do
+      ExercismWeb::Presenters::Languages.all
+    end
+    Language.instance_variable_set(:"@by_track_id", {'ruby' => 'Ruby'})
+  end
+
+  def teardown
+    super
+    ExercismWeb::Presenters::Languages.instance_variable_set(:"@all", nil)
+    Language.instance_variable_set(:"@by_track_id", nil)
   end
 
   def test_account_page_exists
