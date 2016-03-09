@@ -1,16 +1,19 @@
 <div class="container">
   <br>
-  <% if team.managed_by?(current_user) %>
-    <%= erb :"teams/_tabs", locals: {active: active, team: team} %>
-  <% end %>
+  <%= erb :"teams/_tabs", locals: {active: active, team: team} %>
 
   <h3><%= h(team.name) %> (<%= team.confirmed_members.size %> members)</h3>
-  <p>Click on a team member's name to see their full list of exercises.</p>
+  <p>Click on a team member's name to go to their profile.</p>
 
   <% team.confirmed_members.each_slice(3) do |row| %>
     <div class="row">
       <% row.each do |member| %>
-        <%= erb :"teams/member_submissions", locals: {team: team, member: member, exercises: member.exercises} %>
+        <div class="col-md-4" id="<%= member.username %>">
+          <h5>
+            <%= gravatar_tag member.avatar_url, size: 50 %>
+            <a href="/<%= member.username %>"><%= member.username %></a>
+          </h5>
+        </div>
       <% end %>
     </div>
   <% end %>

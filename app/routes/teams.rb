@@ -2,7 +2,96 @@ module ExercismWeb
   module Routes
     class Teams < Core
       get '/teams/:slug/?' do |slug|
-        redirect '/teams/%s/directory' % slug
+        redirect '/teams/%s/streams' % slug
+      end
+
+      get '/teams/:slug/streams' do |slug|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          locals = {
+            team: team,
+            stream: TeamStream.new(team, current_user.id),
+            active: 'stream',
+          }
+
+          erb :"teams/stream", locals: locals
+        end
+      end
+
+      get '/teams/:slug/streams/tracks/:id' do |slug, track_id|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          stream = TeamStream.new(team, current_user.id)
+          stream.track_id = track_id.downcase
+
+          locals = {
+            team: team,
+            stream: stream,
+            active: 'stream',
+          }
+
+          erb :"teams/stream", locals: locals
+        end
+      end
+
+      get '/teams/:slug/streams/tracks/:id/exercises/:problem' do |slug, track_id, problem_slug|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          stream = TeamStream.new(team, current_user.id)
+          stream.track_id = track_id.downcase
+          stream.slug = problem_slug.downcase
+
+          locals = {
+            team: team,
+            stream: stream,
+            active: 'stream',
+          }
+
+          erb :"teams/stream", locals: locals
+        end
+      end
+
+      get '/teams/:slug/streams/users/:username' do |slug, username|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          user = ::User.find_by_username(username)
+          stream = TeamStream.new(team, current_user.id)
+
+          unless (user.present? && stream.user_ids.include?(user.id))
+            flash[:error] = "You may only view activity for existing team members."
+            redirect '/'
+          end
+
+          stream.user = user
+
+          locals = {
+            team: team,
+            stream: stream,
+            active: 'stream',
+          }
+
+          erb :"teams/stream", locals: locals
+        end
       end
 
       get '/teams/:slug/directory' do |slug|
