@@ -79,7 +79,7 @@ module ExercismWeb
           team.save
           team.recruit(current_user.username, current_user)
           team.confirm(current_user.username)
-          redirect "/teams/#{team.slug}"
+          redirect "/teams/#{team.slug}/directory"
         else
           erb :"teams/new", locals: {team: team}
         end
