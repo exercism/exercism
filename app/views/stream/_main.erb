@@ -1,7 +1,9 @@
 <main id="track-exercises" class="col-md-8">
-  <form action="<%= mark_as_read_url % [stream.track_id, stream.slug]%>" method="POST" class="mark-all">
-    <button type="submit" class="btn btn-link discrete">mark all as read</button>
-  </form>
+  <% unless mark_as_read_url.empty? %>
+    <form action="<%= mark_as_read_url % [stream.track_id, stream.slug]%>" method="POST" class="mark-all">
+      <button type="submit" class="btn btn-link discrete">mark all as read</button>
+    </form>
+  <% end %>
   <h2><%= stream.title %></h2>
 
   <% if stream.exercises.any? %>
