@@ -4,6 +4,14 @@ require 'exercism/problem'
 require 'exercism/language'
 
 class ExerciseTest < Minitest::Test
+  def setup
+    Language.instance_variable_set(:"@by_track_id", {"cpp" => "C++", "go" => "Go"})
+  end
+
+  def teardown
+    Language.instance_variable_set(:"@by_track_id", nil)
+  end
+
   def test_attributes
     problem = Problem.new('go', 'one')
 

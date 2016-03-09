@@ -10,6 +10,16 @@ end
 class UserTrackTest < Minitest::Test
   include DBCleaner
 
+  def setup
+    super
+    Language.instance_variable_set(:"@by_track_id", {"elixir" => "Elixir", "go" => "Go"})
+  end
+
+  def teardown
+    super
+    Language.instance_variable_set(:"@by_track_id", nil)
+  end
+
   # This tests the data for Alice's inbox sidebar.
   def test_user_tracks
     # Alice is a mentor in elixir, and is therefore authorized to see everything in that track.

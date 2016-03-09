@@ -1,13 +1,17 @@
 # rubocop:disable Lint/HandleExceptions, Lint/RescueException
 # Allow all exceptions to be reported to Bugsnag
 
-require_relative '../../app/presenters/tracks'
-
 class Language
-  def self.of(key)
-    ExercismWeb::Presenters::Tracks.find(key.to_s).language
+  def self.of(id)
+    by_track_id[id.to_s.downcase]
   rescue Exception => e
-    Bugsnag.notify(e, {track: key})
-    key
+    Bugsnag.notify(e, {track: id})
+    id
+  end
+
+  def self.by_track_id
+    @by_track_id ||= X::Track.all.each_with_object({}) do |track, languages|
+      languages[track.id] = track.language
+    end
   end
 end
