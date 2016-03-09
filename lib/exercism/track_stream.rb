@@ -43,7 +43,7 @@ class TrackStream
   end
 
   def pagination_menu_item
-    menus.last.items.find(&:active?) || menus.first.items.find(&:active) || Stream::FilterItem.new
+    menus.last.items.find(&:active?) || menus.first.items.find(&:active) || Stream::FilterItem.new(nil,nil,nil,nil,0)
   end
 
   # This becomes unbearably slow if we do a left join on views to get the unread value
