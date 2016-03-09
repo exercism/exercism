@@ -27,7 +27,7 @@
         </span>
         <span class="col-md-2">
           <% if exercise.unread? %>
-          <form action="/exercises/<%= exercise.uuid %>/views" method="POST">
+          <form action="/exercises/<%= exercise.uuid %>/views?redirect=<%= request.path_info %>" method="POST">
             <button type="submit" class="btn btn-link discrete">mark as read</button>
           </form>
           <% end %>

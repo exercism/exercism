@@ -30,7 +30,10 @@ module ExercismWeb
 
         exercise.viewed_by(current_user)
 
-        redirect ["", "tracks", exercise.track_id, "exercises"].join('/')
+        if params[:redirect].to_s.empty?
+          redirect ["", "tracks", exercise.track_id, "exercises"].join('/')
+        end
+        redirect params[:redirect]
       end
 
       post '/exercises/:key/archive' do |key|
