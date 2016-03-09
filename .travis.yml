@@ -1,10 +1,5 @@
-dist: trusty
-sudo: required
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get install -qq --only-upgrade cmake
-  - gem install bundler
 language: ruby
+sudo: false
 rvm:
   - 2.2.2
 script:
