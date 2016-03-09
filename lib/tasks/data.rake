@@ -64,7 +64,7 @@ namespace :data do
       DB::Connection.establish
 
       sql = <<-SQL
-      UPDATE notifications SET action=regarding, actor_id=user_id, iteration_id=item_id WHERE item_type='Submission'
+      UPDATE notifications SET action=regarding, actor_id=creator_id, iteration_id=item_id WHERE item_type='Submission'
       SQL
       ActiveRecord::Base.connection.execute(sql)
     end
