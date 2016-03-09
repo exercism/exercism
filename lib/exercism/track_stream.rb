@@ -31,20 +31,19 @@ class TrackStream
     @exercises ||= query_exercises
   end
 
-  def tracks
-    @tracks ||= UserTrack.all_for(user)
-  end
-
-  def problems
-    @problems ||= UserTrack.problems_for(user, track_id)
+  def menus
+    @menus ||= [
+      TrackStream::TrackFilter.new(user.id, track_id),
+      TrackStream::ProblemFilter.new(user.id, track_id, slug),
+    ]
   end
 
   def pagination
-    (1..current.total).to_a.paginate(page: page, per_page: per_page)
+    (1..pagination_menu_item.total).to_a.paginate(page: page, per_page: per_page)
   end
 
-  def current
-    problems.find {|problem| problem.slug == slug } || tracks.find {|track| track.id == track_id } || UserTrack.new(track_id, 0, 0)
+  def pagination_menu_item
+    menus.last.items.find(&:active?) || menus.first.items.find(&:active) || Stream::FilterItem.new
   end
 
   # This becomes unbearably slow if we do a left join on views to get the unread value

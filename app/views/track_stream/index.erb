@@ -4,25 +4,13 @@
 
     <aside class="col-md-4">
       <nav class="inbox">
+      <% stream.menus.each do |menu| %>
         <%=
-          erb :"stream/_tracks", locals: {
-            stream: stream,
-            track_url: "/tracks/%s/exercises",
-          }
+          erb :"stream/_menu", locals: { menu: menu }
         %>
-
         <br>
-
-        <% if stream.problems.size > 1 %>
-          <%=
-            erb :"stream/_problems", locals: {
-              stream: stream,
-              exercise_url: "/tracks/%s/exercises/%s",
-            }
-          %>
-        <% end %>
+      <% end %>
       </nav>
-      <br>
     </aside>
 
     <%=

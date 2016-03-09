@@ -1,0 +1,17 @@
+<ul class="nav nav-stacked nav-bordered">
+  <% menu.items.each do |item|%>
+  <li class="<%= 'active' if item.active? %>">
+    <a href="<%= item.url %>">
+      <%= item.text %>
+      <span class="total-count">
+        <%= item.total %>
+      </span>
+    </a>
+    <% if item.unread > 0 %>
+    <span class="badge unread-count">
+      <%= item.unread %>
+    </span>
+    <% end %>
+  </li>
+  <% end %>
+</ul>

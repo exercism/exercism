@@ -1,14 +1,20 @@
 require_relative '../integration_helper'
 
-# override the slug order so it doesn't look it up from the x-api
-class UserTrack
-  def self.ordered_slugs(_)
-    [ 'anagram', 'clock', 'hamming', 'hello-world', 'leap', 'triangle', 'word-count' ]
-  end
-end
-
 class TrackStreamTrackTest < Minitest::Test
   include DBCleaner
+
+  def setup
+    super
+    slugs = ['anagram', 'clock', 'hamming', 'hello-world', 'leap', 'triangle', 'word-count']
+    Stream.instance_variable_set(:"@ordered_slugs", {'go' => slugs, 'elixir' => slugs})
+    Language.instance_variable_set(:"@by_track_id", {})
+  end
+
+  def teardown
+    super
+    Stream.instance_variable_set(:"@ordered_slugs", nil)
+    Language.instance_variable_set(:"@by_track_id", nil)
+  end
 
   ExerciseTestCase = Struct.new(:user, :problem_name, :problem_track_id, :status, :comment_count) do
     def avatar_url
@@ -66,9 +72,9 @@ class TrackStreamTrackTest < Minitest::Test
     assert_equal 2, wc.exercises.size
 
     # sanity check pagination
-    assert_equal 3, elixir1.current.total
-    assert_equal 5, go.current.total
-    assert_equal 2, wc.current.total
+    assert_equal 3, elixir1.pagination_menu_item.total
+    assert_equal 5, go.pagination_menu_item.total
+    assert_equal 2, wc.pagination_menu_item.total
 
     ex1, ex2 = elixir1.exercises
     ex3 = elixir2.exercises.first
