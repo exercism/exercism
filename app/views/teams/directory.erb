@@ -1,0 +1,17 @@
+<div class="container">
+  <br>
+  <% if team.managed_by?(current_user) %>
+    <%= erb :"teams/_tabs", locals: {active: active, team: team} %>
+  <% end %>
+
+  <h3><%= h(team.name) %> (<%= team.confirmed_members.size %> members)</h3>
+  <p>Click on a team member's name to see their full list of exercises.</p>
+
+  <% team.confirmed_members.each_slice(3) do |row| %>
+    <div class="row">
+      <% row.each do |member| %>
+        <%= erb :"teams/member_submissions", locals: {team: team, member: member, exercises: member.exercises} %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

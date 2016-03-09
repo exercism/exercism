@@ -31,7 +31,6 @@ class AccountTest < AcceptanceTestCase
       click_on 'Manage'
 
       assert_equal '/teams/gocowboys/manage', current_path
-      assert_content 'Team Go Cowboys'
       assert_content 'one_username'
       assert_content 'two_username'
     end

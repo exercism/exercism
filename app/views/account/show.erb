@@ -54,7 +54,19 @@
                 <li style="padding-left: 0;"><%= team.name %></li>
               </ul>
             <% else %>
-              <a href="/teams/<%= team.slug %>"><%= team.name %></a>
+              <a style="float: left; width: 70%;" href="/teams/<%= team.slug %>"><%= team.name %></a>
+              <% if team.all_members.any? {|member| member.username == current_user.username} %>
+                <form action="<%= "/teams/#{team.slug}/leave" %>" method="post" class="team-leave-form" style="float: right; padding: 10px;">
+                  <input type="hidden" name="_method" value="put" />
+                  <input type="submit" name="update" value="Leave team" class="btn btn-xs btn-danger"
+                  <% if team.managed_by?(current_user) %>
+                    data-toggle="tooltip" data-placement="top"
+                    title="If you leave, you will stay on as manager but your exercises will no longer show up."
+                  <% end %>
+                  />
+                </form>
+              <% end %>
+              <span style="display: block; clear: both;"></span>
             <% end %>
           </li>
         <% end %>

@@ -1,13 +1,9 @@
 <div class="container">
-  <section class="page-header">
-    <h1>
-      Manage Team <%= h(team.name) %>
-      <a href="/teams/<%= team.slug %>" class="btn btn-default">Go back to team</a>
-    </h1>
-  </section>
+  <br>
+  <%= erb :"teams/_tabs", locals: {active: active, team: team} %>
 
   <div id="team_settings">
-    <h3>Team Settings</h3>
+    <h3>Settings</h3>
     <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}" %>" method="post">
       <input type="hidden" name="_method" value="put" />
       <div class="row">
