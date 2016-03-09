@@ -74,7 +74,7 @@ class AccountTest < AcceptanceTestCase
     )
 
     with_login(@user) do
-      visit "/teams/some-team"
+      visit "/teams/some-team/directory"
 
       assert_content 'Leap'
       assert_no_content 'Clock'
