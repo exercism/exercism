@@ -2,8 +2,10 @@ require 'pry'
 require_relative '../acceptance_helper'
 
 class NotificationsTest < AcceptanceTestCase
+
   def setup
     super
+    Language.instance_variable_set(:"@by_track_id", {"ruby" => "Ruby"})
     # Hacked my way toward creating this integration spec
     # Please note: even if submission is not liked, or comment not created.
     # A notification is created.
@@ -27,9 +29,15 @@ class NotificationsTest < AcceptanceTestCase
   def test_dashboard_page
     with_login(@alice) do
       visit "/dashboard"
-      assert_content "Bob on One (Ruby) "
-      assert_content "Bob liked One (Ruby) "
+      assert page.has_css?('span.fa.fa-comment-o')
+      assert page.has_css?('span.fa.fa-thumbs-o-up')
+      assert_content "Bob One (Ruby)"
     end
+  end
+
+  def teardown
+    super
+    Language.instance_variable_set(:"@by_track_id", nil)
   end
 
 end
