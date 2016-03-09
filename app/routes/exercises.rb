@@ -1,15 +1,6 @@
 module ExercismWeb
   module Routes
     class Exercises < Core
-      get '/exercises/next' do
-        if current_user.guest?
-          redirect '/'
-        end
-
-        inbox = ::Inbox.new(current_user, params[:language], params[:slug])
-        redirect "/exercises/#{inbox.first_unread_uuid}"
-      end
-
       get '/exercises/:key' do |key|
         exercise = UserExercise.find_by_key(key)
         if exercise.nil?
@@ -39,7 +30,10 @@ module ExercismWeb
 
         exercise.viewed_by(current_user)
 
-        redirect ["", "tracks", exercise.track_id, "exercises"].join('/')
+        if params[:redirect].to_s.empty?
+          redirect ["", "tracks", exercise.track_id, "exercises"].join('/')
+        end
+        redirect params[:redirect]
       end
 
       post '/exercises/:key/archive' do |key|

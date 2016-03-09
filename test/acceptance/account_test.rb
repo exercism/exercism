@@ -4,6 +4,19 @@ class AccountTest < AcceptanceTestCase
   def setup
     super
     @user = create_user
+
+    # fake load all the languages
+    f= './test/fixtures/xapi_v3_tracks.json'
+    X::Xapi.stub(:get, [200, File.read(f)]) do
+      ExercismWeb::Presenters::Languages.all
+    end
+    Language.instance_variable_set(:"@by_track_id", {'ruby' => 'Ruby'})
+  end
+
+  def teardown
+    super
+    ExercismWeb::Presenters::Languages.instance_variable_set(:"@all", nil)
+    Language.instance_variable_set(:"@by_track_id", nil)
   end
 
   def test_account_page_exists
@@ -33,38 +46,6 @@ class AccountTest < AcceptanceTestCase
       assert_equal '/teams/gocowboys/manage', current_path
       assert_content 'one_username'
       assert_content 'two_username'
-    end
-  end
-
-  def test_team_shows_current_exercises
-    team = Team.by(@user).defined_with({ slug: 'some-team', name: 'Some Name'})
-    team.save!
-
-    membership = TeamMembership.create!(user: @user, team: team)
-    membership.confirm!
-
-    UserExercise.create!(
-      user: @user,
-      last_iteration_at: 5.days.ago,
-      archived: false,
-      iteration_count: 1,
-      language: 'ruby',
-      slug: 'leap',
-      submissions: [Submission.create!(user: @user, language: 'ruby', slug: 'leap', created_at: 22.days.ago, version: 1)]
-    )
-    UserExercise.create!(
-      user: @user,
-      archived: false,
-      iteration_count: 0,
-      language: 'ruby',
-      slug: 'clock',
-    )
-
-    with_login(@user) do
-      visit "/teams/some-team"
-
-      assert_content 'Leap'
-      assert_no_content 'Clock'
     end
   end
 end

@@ -1,14 +1,20 @@
 require_relative '../integration_helper'
 
-# override the slug order so it doesn't look it up from the x-api
-class UserTrack
-  def self.ordered_slugs(_)
-    [ 'anagram', 'clock', 'hamming', 'hello-world', 'leap', 'triangle', 'word-count' ]
-  end
-end
-
-class InboxTrackTest < Minitest::Test
+class TrackStreamTrackTest < Minitest::Test
   include DBCleaner
+
+  def setup
+    super
+    slugs = ['anagram', 'clock', 'hamming', 'hello-world', 'leap', 'triangle', 'word-count']
+    Stream.instance_variable_set(:"@ordered_slugs", {'go' => slugs, 'elixir' => slugs})
+    Language.instance_variable_set(:"@by_track_id", {})
+  end
+
+  def teardown
+    super
+    Stream.instance_variable_set(:"@ordered_slugs", nil)
+    Language.instance_variable_set(:"@by_track_id", nil)
+  end
 
   ExerciseTestCase = Struct.new(:user, :problem_name, :problem_track_id, :status, :comment_count) do
     def avatar_url
@@ -53,12 +59,12 @@ class InboxTrackTest < Minitest::Test
       {user: bob, language: 'go', slug: 'raindrops', archived: false, auth: true, viewed: 0},
     ].each.with_index { |attributes, i| create_view alice, bob, attributes.merge(age: i) }
 
-    elixir1 = Inbox.new(alice, 'elixir')
+    elixir1 = TrackStream.new(alice, 'elixir')
     elixir1.per_page = 2
-    elixir2 = Inbox.new(alice, 'elixir', nil, 2)
+    elixir2 = TrackStream.new(alice, 'elixir', nil, 2)
     elixir2.per_page = 2
-    go = Inbox.new(alice, 'go')
-    wc = Inbox.new(alice, 'go', 'word-count')
+    go = TrackStream.new(alice, 'go')
+    wc = TrackStream.new(alice, 'go', 'word-count')
 
     assert_equal 2, elixir1.exercises.size
     assert_equal 1, elixir2.exercises.size
@@ -66,9 +72,9 @@ class InboxTrackTest < Minitest::Test
     assert_equal 2, wc.exercises.size
 
     # sanity check pagination
-    assert_equal 3, elixir1.current.total
-    assert_equal 5, go.current.total
-    assert_equal 2, wc.current.total
+    assert_equal 3, elixir1.pagination_menu_item.total
+    assert_equal 5, go.pagination_menu_item.total
+    assert_equal 2, wc.pagination_menu_item.total
 
     ex1, ex2 = elixir1.exercises
     ex3 = elixir2.exercises.first
@@ -87,17 +93,6 @@ class InboxTrackTest < Minitest::Test
       [ex9,  ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
       [ex10,  ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
     ].each { |actual, expected| assert_exercise expected, actual }
-
-    # most recent unread
-    assert_equal ex6.uuid, go.first_unread_uuid
-    assert_equal ex6.uuid, wc.first_unread_uuid
-    assert_equal nil, Inbox.new(alice, 'go', 'clock').first_unread_uuid # not authorized
-    assert_equal ex8.uuid, Inbox.new(alice, 'go', 'raindrops').first_unread_uuid # no view record
-
-    # last exercise
-    assert_equal ex8.id, go.last_id
-    assert_equal ex10.id, wc.last_id
-    assert_equal 0, Inbox.new(alice, 'rust').last_id
   end
 
   def test_mark_as_read
@@ -140,8 +135,8 @@ class InboxTrackTest < Minitest::Test
 
     assert_equal 3, View.count
 
-    leap = Inbox.new(alice, 'python', 'leap')
-    python = Inbox.new(alice, 'python')
+    leap = TrackStream.new(alice, 'python', 'leap')
+    python = TrackStream.new(alice, 'python')
 
     now = Time.now.utc
     leap.mark_as_read

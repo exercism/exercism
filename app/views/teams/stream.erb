@@ -1,0 +1,25 @@
+<div class="container">
+  <br>
+  <%= erb :"teams/_tabs", locals: {active: active, team: team} %>
+  <div class="row">
+    <aside class="col-md-4">
+      <br>
+      <br>
+      <nav class="inbox">
+      <% stream.menus.each do |menu| %>
+        <%=
+          erb :"stream/_menu", locals: { menu: menu }
+        %>
+        <br>
+      <% end %>
+      </nav>
+    </aside>
+
+    <%=
+      erb :"stream/_main", locals: {
+        stream: stream,
+        mark_as_read_url: "",
+      }
+    %>
+  </div>
+</div>

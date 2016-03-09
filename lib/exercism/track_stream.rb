@@ -1,26 +1,8 @@
 require 'will_paginate/array'
 
-class Inbox
-  Exercise = Struct.new(:id, :uuid, :problem, :last_activity, :last_activity_at, :iteration_count, :username, :avatar_url) do
-    attr_writer :comment_count
-
-    def comment_count
-      @comment_count || 0
-    end
-
-    def at
-      @at ||= last_activity_at.to_datetime
-    end
-
-    def viewed!
-      @viewed = true
-    end
-
-    def unread?
-      !@viewed
-    end
-  end
-
+# TrackStream is an activity stream which has been filtered against the user's access list.
+# Additionally, it can be narrowed down to a single exercise within a track.
+class TrackStream
   attr_reader :user, :page, :track_id, :slug, :language
   attr_accessor :per_page
   def initialize(user, track_id, slug=nil, page=1)
@@ -37,17 +19,6 @@ class Inbox
     execute(mark_as_read_update_sql)
   end
 
-  def first_unread_uuid
-    row = execute(first_unread_uuid_sql).first
-    row["uuid"] if !!row
-  end
-
-  def last_id
-    row = execute(last_id_sql).first
-    return 0 if !row
-    row["id"].to_i
-  end
-
   def title
     if slug.nil?
       language
@@ -60,20 +31,19 @@ class Inbox
     @exercises ||= query_exercises
   end
 
-  def tracks
-    @tracks ||= UserTrack.all_for(user)
-  end
-
-  def problems
-    @problems ||= UserTrack.problems_for(user, track_id)
+  def menus
+    @menus ||= [
+      TrackStream::TrackFilter.new(user.id, track_id),
+      TrackStream::ProblemFilter.new(user.id, track_id, slug),
+    ]
   end
 
   def pagination
-    (1..current.total).to_a.paginate(page: page, per_page: per_page)
+    (1..pagination_menu_item.total).to_a.paginate(page: page, per_page: per_page)
   end
 
-  def current
-    problems.find {|problem| problem.slug == slug } || tracks.find {|track| track.id == track_id } || UserTrack.new(track_id, 0, 0)
+  def pagination_menu_item
+    menus.last.items.find(&:active?) || menus.first.items.find(&:active) || Stream::FilterItem.new
   end
 
   # This becomes unbearably slow if we do a left join on views to get the unread value
@@ -95,7 +65,7 @@ class Inbox
         row["username"],
         row["avatar_url"],
       ]
-      ex = Exercise.new(*attrs)
+      ex = Stream::Exercise.new(*attrs)
       exx << ex
 
       ids << row["id"]
@@ -153,54 +123,6 @@ class Inbox
     ON c.submission_id=s.id
     WHERE s.user_exercise_id IN (#{ids.join(',')})
     GROUP BY s.user_exercise_id
-    SQL
-  end
-
-  def last_id_sql
-    <<-SQL
-      SELECT
-        ex.id
-      FROM user_exercises ex
-      INNER JOIN users u
-        ON ex.user_id=u.id
-      INNER JOIN acls
-        ON ex.language=acls.language
-        AND ex.slug=acls.slug
-      WHERE acls.user_id=#{user.id}
-        AND ex.language='#{track_id}'
-        AND ex.slug=#{slug_param}
-        AND ex.archived='f'
-        AND ex.slug != 'hello-world'
-        AND ex.iteration_count > 0
-      ORDER BY ex.last_activity_at ASC
-      LIMIT 1
-    SQL
-  end
-
-  def first_unread_uuid_sql
-    <<-SQL
-      SELECT
-        ex.key AS uuid
-      FROM user_exercises ex
-      INNER JOIN acls
-        ON ex.language=acls.language
-        AND ex.slug=acls.slug
-      LEFT JOIN views
-        ON acls.user_id=views.user_id
-        AND ex.id=views.exercise_id
-      WHERE acls.user_id=#{user.id}
-        AND ex.language='#{track_id}'
-        AND ex.slug=#{slug_param}
-        AND ex.archived='f'
-        AND ex.slug != 'hello-world'
-        AND ex.iteration_count > 0
-        AND (
-          views.id IS NULL
-          OR
-          ex.last_activity_at > views.last_viewed_at
-        )
-      ORDER BY ex.last_activity_at DESC
-      LIMIT 1
     SQL
   end
 

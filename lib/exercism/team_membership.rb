@@ -8,7 +8,9 @@ class TeamMembership < ActiveRecord::Base
   scope :for_team,-> (team_id) {where(team_id: team_id)}
 
   before_create do
-    self.confirmed = false
+    if confirmed.nil?
+      self.confirmed = false
+    end
     true
   end
 
