@@ -84,39 +84,6 @@ class AssignmentsApiTest < Minitest::Test
     Approvals.verify(last_response.body, options)
   end
 
-  def test_notify_team_members_about_submission
-    bob = User.create username: 'bob', github_id: -2
-    charlie = User.create username: 'charlie', github_id: -3
-    dave = User.create username: 'dave', github_id: -4
-    eve = User.create username: 'eve', github_id: -5
-
-    Submission.create({language: 'ruby', slug: 'one', user: charlie, solution: {'ruby/one/code.rb' => 'THE CODE'}})
-    Submission.create({language: 'ruby', slug: 'one', user: dave, solution: {'ruby/one/code.rb' => 'THE CODE'}})
-
-    team1 = Team.by(alice).defined_with(slug: 'team1', usernames: "bob, charlie")
-    team1.save
-    team2 = Team.by(alice).defined_with(slug: 'team2', usernames: "bob, dave, eve")
-    team2.save
-
-    team1.confirm(bob.username)
-    team2.confirm(bob.username)
-    team2.confirm(dave.username)
-    team2.confirm(eve.username)
-
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', {key: bob.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
-    end
-    assert_equal 201, last_response.status
-
-    [alice, dave].each do |user|
-      assert_equal 1, user.reload.notifications.on_submissions.count, "Notify #{user.username} failed"
-    end
-
-    [charlie, eve].each do |user|
-      assert_equal 0, user.reload.notifications.on_submissions.count, "#{user.username} was notified, but shouldn't have"
-    end
-  end
-
   def test_api_rejects_duplicates
     Attempt.new(alice, Iteration.new({'code.rb' => 'THE CODE'}, 'ruby', 'one')).save
     Notify.stub(:everyone, nil) do
