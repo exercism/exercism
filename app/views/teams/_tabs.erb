@@ -1,0 +1,10 @@
+<nav role="navigation">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class= <%= 'active' if active == 'directory' %>>
+      <a href="/teams/<%= team.slug %>/directory">Members</a>
+    </li>
+    <li role="presentation" class= <%= 'active' if active == 'manage' %>>
+      <a href="/teams/<%= team.slug %>/manage">Manage</a>
+    </li>
+  </ul>
+</nav>

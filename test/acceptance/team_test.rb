@@ -15,7 +15,7 @@ class TeamAcceptanceTest < AcceptanceTestCase
 
       click_on 'Accept'
 
-      assert_content 'Team Some Name'
+      assert_content 'Some Name'
       assert_content 'joining_user'
     end
   end

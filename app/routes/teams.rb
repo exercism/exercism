@@ -23,7 +23,12 @@ module ExercismWeb
       get '/teams/:slug/manage' do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to manage this team.") do |team|
-          erb :"teams/manage", locals: {team: team, members: team.all_members.sort_by {|m| m.username.downcase}}
+          locals = {
+            team: team,
+            members: team.all_members.sort_by {|m| m.username.downcase},
+            active: 'manage',
+          }
+          erb :"teams/manage", locals: locals
         end
       end
 
@@ -43,6 +48,7 @@ module ExercismWeb
           locals = {
             team: team,
             members: team.all_members.sort_by {|m| m.username.downcase},
+            active: 'directory',
           }
 
           erb :"teams/directory", locals: locals
