@@ -9,11 +9,17 @@ class UserProgressionTest < Minitest::Test
     super
     @user = User.create
     @f= './test/fixtures/xapi_v3_tracks.json'
+    Language.instance_variable_set(:"@by_track_id", {"fake" => "Fake", "animal" => "Animal"})
+  end
+
+  def teardown
+    super
+    Language.instance_variable_set(:"@by_track_id", nil)
   end
 
   def test_user_progress_for_100_percent
     X::Xapi.stub(:get, [200, File.read(@f)]) do
-      UserExercise.create(user: @user, language: 'Animal', iteration_count: 1)
+      UserExercise.create(user: @user, language: 'animal', iteration_count: 1)
       actual = UserProgression.user_progress(@user)
       assert_equal 'Animal', actual.first.language
       assert_equal 1, actual.first.user_exercises.count
@@ -23,7 +29,7 @@ class UserProgressionTest < Minitest::Test
 
   def test_user_progress_for_1_out_of_4
     X::Xapi.stub(:get, [200, File.read(@f)]) do
-      UserExercise.create(user: @user, language: 'Fake', iteration_count: 1)
+      UserExercise.create(user: @user, language: 'fake', iteration_count: 1)
       actual = UserProgression.user_progress(@user)
       assert_equal 'Fake', actual.first.language
       assert_equal 1, actual.first.user_exercises.count

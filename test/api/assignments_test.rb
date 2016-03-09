@@ -14,11 +14,13 @@ class AssignmentsApiTest < Minitest::Test
     super
     @alice = User.create(username: 'alice', github_id: 1)
     Exercism.instance_variable_set(:@trails, nil)
+    Language.instance_variable_set(:"@by_track_id", {"ruby" => "Ruby"})
   end
 
   def teardown
     super
     Exercism.instance_variable_set(:@trails, nil)
+    Language.instance_variable_set(:"@by_track_id", nil)
   end
 
   def test_api_accepts_submission_attempt
