@@ -73,6 +73,10 @@ class Submission < ActiveRecord::Base
     @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
 
+  def uuid
+    key
+  end
+
   def activity_description
     "Submitted an iteration"
   end

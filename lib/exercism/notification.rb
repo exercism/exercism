@@ -1,20 +1,11 @@
 class Notification < ActiveRecord::Base
+  belongs_to :actor, class_name: "User"
+  belongs_to :iteration, class_name: "Submission"
 
-  belongs_to :user
-  belongs_to :submission, foreign_key: 'item_id'
-  belongs_to :item, polymorphic: true
-  belongs_to :creator, class_name: "User"
-
-  scope :on_submissions, -> { where(item_type: 'Submission') }
-  scope :on_exercises, -> { where(item_type: 'UserExercise') }
+  scope :unread, -> { where(read: false) }
+  scope :feedback, -> { joins(:iteration).where('submissions.user_id=notifications.user_id') }
   scope :by_recency, -> { order("created_at DESC") }
   scope :recent, -> { by_recency.limit(400) }
-  scope :unread, -> { where(read: false) }
-  scope :read, -> { where(read: true) }
-  scope :joins_exercises, -> { on_exercises.joins('INNER JOIN user_exercises e ON e.id = notifications.item_id') }
-  scope :joins_submissions , -> { on_submissions.joins('INNER JOIN submissions e ON e.id = notifications.item_id') }
-  scope :personal, -> {joins_submissions.where('e.user_id = notifications.user_id')}
-  scope :general, -> {joins_submissions.where('e.user_id != notifications.user_id')}
 
   before_create do
     self.read  ||= false
@@ -25,92 +16,52 @@ class Notification < ActiveRecord::Base
     true
   end
 
-  def self.viewed!(item, user)
-    type = item.is_a?(Submission) ? 'Submission' : 'UserExercise'
-    where(item_id: item.id, item_type: type, user_id: user.id).update_all(read: true)
+  def self.viewed!(iteration, user)
+    where(iteration_id: iteration.id, user_id: user.id).update_all(read: true)
   end
 
-  def self.on(item, options)
+  def self.on(iteration, options)
     data = {
       user_id: options.fetch(:to).id,
       regarding: options[:regarding],
-      creator_id: options.fetch(:creator).id
+      creator_id: options.fetch(:creator).id,
+      item_id: iteration.id,
+      item_type: 'Submission',
     }
-    # trigger usual notification
-    notification = on_item(item, data)
-    # trigger shadow notification
-    if item.is_a?(Submission)
-      if item.user_exercise
-        on_item(item.user_exercise, data)
-      end
-    else
-      unless item.submissions.empty?
-        on_item(item.submissions.last, data)
-      end
-    end
-    notification
-  end
-
-  # Hack. Please ignore.
-  def self.on_item(item, data)
-    data = data.merge(item_id: item.id, item_type: item.class.to_s)
     notification = where(data.merge(read: false)).first || new(data)
-    notification.increment
+    notification.count += 1
     notification.save
     notification
   end
 
-  def self.mark_read(user, id)
-    where(user: user).and(_id: id).first.tap do |notification|
-      notification.update_attributes(read: true)
-    end
-  end
-
-  def state
-    read ? 'read' : 'unread'
-  end
-
-  def recipient
-    user
-  end
-
-  def increment
-    self.count += 1
-  end
-
-  def read!
-    update_attributes(read: true)
-    related_notifications.each do |notification|
-      notification.update_attributes(read: true)
-    end
-  end
-
-  def related_notifications
-    if item_type == 'Submission'
-      Notification.where(user_id: user.id, item_type: 'UserExercise', item_id: item.user_exercise.id).to_a
+  # Consider implementing a presenter if we get more display-related stuff.
+  def icon
+    case action
+    when 'like'
+      'thumbs-up'
+    when 'mention'
+      'comments'
+    when 'comment', 'nitpick'
+      'comment-o'
+    when 'iteration', 'code'
+      'code'
     else
-      Notification.where(user_id: user.id, item_type: 'Submission', item_id: item.submissions.map(&:id)).to_a
+      'asterisk'
     end
   end
 
-  def username
-    item.user.username
+  def whose
+    case
+    when user_id == iteration.user_id
+      'your'
+    when actor_id == iteration.user_id
+      'their'
+    else
+      "%s's" % iteration.user.username
+    end
   end
 
-  def language
-    item.language
-  end
-
-  def slug
-    item.slug
-  end
-
-  def link
-    # only used in API for old notifications
-    "/submissions/#{item.key}"
-  end
-
-  # TODO: delete when v1.0 goes live
-  def note
+  def url
+    "/submissions/%s" % iteration.uuid
   end
 end
