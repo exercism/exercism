@@ -25,6 +25,11 @@ module ExercismWeb
 
         current_user.increment_daily_count if comment.qualifying?
         Notify.everyone(submission, 'comment', current_user)
+
+        comment.mention_ids.each do |user_id|
+          Notification.on(submission, user_id: user_id, action: 'mention', actor_id: comment.user_id)
+        end
+
         unless current_user == submission.user
           LifecycleEvent.track('received_feedback', submission.user_id)
           LifecycleEvent.track('commented', current_user.id)

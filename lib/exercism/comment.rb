@@ -37,11 +37,24 @@ class Comment < ActiveRecord::Base
     submission.user
   end
 
-  def mentions
-    ExtractsMentionsFromMarkdown.extract(body)
-  end
-
   def qualifying?
     submission_user != user
+  end
+
+  def mention_ids
+    @mention_ids ||= User.where(username: mentions).pluck(:id).map(&:to_i)
+  end
+
+  private
+
+  def mentions
+    # Don't trust that the HTML has been rendered yet.
+    # This will double-render in most cases.
+    dom = Nokogiri::HTML(ExercismLib::Markdown.render(body))
+    dom.css("code").remove
+    dom.css("td[class='code']").remove
+    s = dom.css("body").first
+    s = !!s ? s.content : ""
+    s.scan(/\@(\w+)/).uniq.flatten
   end
 end

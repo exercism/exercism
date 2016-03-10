@@ -10,7 +10,7 @@ class Participants
 
   def users_who_particiated_in_exercise
     list_of_user_ids = ids_of_submitters + exercise_commenter_ids
-    users = get_users_from_db(list_of_user_ids) + at_mentions_on_submission
+    users = get_users_from_db(list_of_user_ids)
     users.uniq do |user|
       user.id
     end
@@ -37,10 +37,4 @@ class Participants
   def ids_of_submitters_and_submissions
     @user_and_submission_ids_of ||= @exercise.submissions.select([:id, :user_id])
   end
-
-  def at_mentions_on_submission
-    bodies_of_comments = @submission.comments.pluck(:body).join(" ")
-    ExtractsMentionsFromMarkdown.extract(bodies_of_comments)
-  end
-
 end
