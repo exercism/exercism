@@ -1,16 +1,5 @@
 namespace :data do
   namespace :cleanup do
-    desc "delete old notification data"
-    task :notifications do
-      require 'active_record'
-      require 'db/connection'
-
-      DB::Connection.establish
-
-      sql = "DELETE FROM notifications WHERE item_type='UserExercise' OR read='t'"
-      ActiveRecord::Base.connection.execute(sql)
-    end
-
     desc "fix iteration count"
     task :iteration_counts do
       require 'active_record'
