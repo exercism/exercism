@@ -30513,37 +30513,6 @@ $(".track-activity-chart").each(function(index, element) {
 }).call(this);
 
 (function() {
-  angular.module('exercism').controller("CommentsCtrl", function($scope, $http) {
-    $scope.commentThread = {};
-    $scope.hideCommentForm = true;
-    $scope.showCommentForm = function() {
-      return $scope.hideCommentForm = false;
-    };
-    $scope.hideCommentFormFn = function() {
-      return $scope.hideCommentForm = true;
-    };
-    return $scope.addComment = function(commentId) {
-      var commentThreadBody;
-      commentThreadBody = $scope.commentThread.body;
-      return $http.post("/comments/" + commentId + "/comment_threads", $.param({
-        "body": commentThreadBody
-      }), {
-        headers: {
-          "Content-Type": 'application/x-www-form-urlencoded'
-        }
-      }).success(function(data, status, headers) {
-        $scope.commentThreads.push(data);
-        $scope.hideCommentForm = true;
-        return $scope.commentThread.body = '';
-      }).error(function(data, status, headers) {
-        return alert(data.body);
-      });
-    };
-  });
-
-}).call(this);
-
-(function() {
   angular.module('exercism').controller("MarkdownCtrl", function($scope, $http) {
     var PATTERN;
     PATTERN = /\B@[a-z0-9_-]+/gi;
