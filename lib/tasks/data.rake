@@ -1,5 +1,24 @@
 namespace :data do
   namespace :cleanup do
+    desc "normalize action names"
+    task :notifications do
+      require 'active_record'
+      require 'db/connection'
+
+      DB::Connection.establish
+
+      sql = <<-SQL
+      UPDATE notifications
+      SET action=(CASE
+        WHEN action='code' THEN 'iteration'
+        WHEN action='nitpick' THEN 'comment'
+        END
+      )
+      WHERE action='code' OR action='nitpick'
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     desc "fix iteration count"
     task :iteration_counts do
       require 'active_record'

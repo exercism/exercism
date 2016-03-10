@@ -24,7 +24,7 @@ module ExercismWeb
         end
 
         current_user.increment_daily_count if comment.qualifying?
-        Notify.everyone(submission, 'nitpick', current_user)
+        Notify.everyone(submission, 'comment', current_user)
         unless current_user == submission.user
           LifecycleEvent.track('received_feedback', submission.user_id)
           LifecycleEvent.track('commented', current_user.id)
