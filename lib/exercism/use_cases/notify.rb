@@ -1,7 +1,8 @@
 class Notify
   def self.everyone(iteration, action, actor)
-    Participants.in(iteration).uniq(&:id).reject { |user| user.id == actor.id }.each do |user|
-      Notification.on(iteration, user_id: user.id, action: action, actor_id: actor.id)
+    ConversationSubscription.subscriber_ids(submission).each do |id|
+      next if id == actor.id
+      Notification.on(iteration, user_id: id, action: action, actor_id: actor.id)
     end
   end
 

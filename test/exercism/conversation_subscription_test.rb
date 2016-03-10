@@ -13,7 +13,7 @@ class ConversationSubscriptionTest < Minitest::Test
 
   def test_join_vs_unsubscribe
     alice = User.create!(username: 'alice')
-    iteration = Submission.create!(user_id: alice.id, user_exercise_id: 1)
+    iteration = Submission.new(user_exercise_id: 1)
 
     [
       [:join, true, "join a conversation"],
@@ -43,5 +43,18 @@ class ConversationSubscriptionTest < Minitest::Test
     charlie = User.create!(username: 'charlie')
     # Unsubscribe explicitly without a subscription. It shouldn't blow up.
     ConversationSubscription.unsubscribe(charlie, iteration)
+  end
+
+  def test_subscriber_ids
+    alice = User.create!(username: 'alice')
+    bob = User.create!(username: 'bob')
+
+    iteration = Submission.new(user_exercise_id: 1)
+
+    ConversationSubscription.subscribe(alice, iteration)
+    ConversationSubscription.subscribe(bob, iteration)
+    ConversationSubscription.unsubscribe(alice, iteration)
+
+    assert_equal [bob.id], ConversationSubscription.subscriber_ids(iteration)
   end
 end
