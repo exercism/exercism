@@ -19,7 +19,7 @@ module ExercismWeb
       end
 
       def notifications
-        user.notifications.unread.recent.reject {|note| note.iteration.nil? || note.iteration.user.nil?}
+        user.notifications.includes(:iteration, :actor).unread.recent.reject {|note| note.iteration.nil? || note.iteration.user.nil?}
       end
 
       def unconfirmed_team_memberships

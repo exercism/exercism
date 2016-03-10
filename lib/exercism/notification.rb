@@ -1,6 +1,6 @@
 class Notification < ActiveRecord::Base
   belongs_to :actor, class_name: "User"
-  belongs_to :iteration, class_name: "Submission"
+  belongs_to :iteration, ->{ includes(:user) }, class_name: "Submission"
 
   scope :unread, -> { where(read: false) }
   scope :feedback, -> { joins(:iteration).where('submissions.user_id=notifications.user_id') }
