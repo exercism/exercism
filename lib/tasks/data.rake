@@ -89,7 +89,7 @@ namespace :data do
       # subscribe solution authors
       sql = <<-SQL
       INSERT INTO conversation_subscriptions
-      (user_id, user_exercise_id, created_at, updated_at)
+      (user_id, solution_id, created_at, updated_at)
       SELECT
         user_id,
         user_exercise_id,
@@ -103,7 +103,7 @@ namespace :data do
       # subscribe commenters (ignoring solution author so we don't get duplicate keys)
       sql = <<-SQL
       INSERT INTO conversation_subscriptions
-      (user_id, user_exercise_id, created_at, updated_at)
+      (user_id, solution_id, created_at, updated_at)
       SELECT
         c.user_id,
         s.user_exercise_id,
