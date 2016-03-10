@@ -44,7 +44,7 @@ module ExercismAPI
         if ex.last_activity_at > 1.week.ago
           ex.update_last_activity(c).save
         end
-        Notification.on(submission, to: submission.user, regarding: 'nitpick', creator: user)
+        Notification.on(submission, user_id: submission.user_id, action: 'comment', actor_id: user.id)
         halt 204
       end
 
@@ -93,7 +93,7 @@ module ExercismAPI
         if ex.last_activity_at > 1.week.ago
           ex.update_last_activity(c).save
         end
-        Notification.on(submission, to: submission.user, regarding: 'nitpick', creator: reviewer)
+        Notification.on(submission, user_id: submission.user, action: 'comment', actor_id: reviewer.id)
         halt 204
       end
     end

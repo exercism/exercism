@@ -6,7 +6,7 @@ class Submission < ActiveRecord::Base
 
   # I don't really want the notifications method,
   # just the dependent destroy
-  has_many :notifications, ->{ where(item_type: 'Submission') }, dependent: :destroy, foreign_key: 'item_id', class_name: 'Notification'
+  has_many :notifications, dependent: :destroy, foreign_key: 'iteration_id', class_name: 'Notification'
 
   has_many :likes, dependent: :destroy
   has_many :liked_by, through: :likes, source: :user

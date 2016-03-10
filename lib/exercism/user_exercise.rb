@@ -3,10 +3,6 @@ class UserExercise < ActiveRecord::Base
   has_many :submissions, ->{ order 'created_at ASC' }
   has_many :views, foreign_key: 'exercise_id'
 
-  # I don't really want the notifications method,
-  # just the dependent destroy
-  has_many :notifications, ->{ where(item_type: 'UserExercise') }, dependent: :destroy, foreign_key: 'item_id', class_name: 'Notification'
-
   belongs_to :user
 
   scope :recently_viewed_by, lambda {|user|

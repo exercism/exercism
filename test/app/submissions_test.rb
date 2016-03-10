@@ -209,7 +209,7 @@ class SubmissionsTest < Minitest::Test
 
     sub = Submission.create(data.merge(created_at: Time.now - 10))
     Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'word-count').update
-    note = Notification.create(user_id: alice.id, item_id: sub.id, item_type: sub.class.to_s, creator_id: bob.id)
+    note = Notification.create(user_id: alice.id, iteration_id: sub.id, actor_id: bob.id)
 
     delete "/submissions/#{sub.key}", {}, login(alice)
     assert_equal nil, Notification.find_by_id(note.id)

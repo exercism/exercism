@@ -1,12 +1,12 @@
 class Notify
-  def self.everyone(submission, regarding, creator)
-    Participants.in(submission).uniq(&:id).reject { |u| u.id == creator.id }.each do |to|
-      Notification.on(submission, to: to, regarding: regarding, creator: creator)
+  def self.everyone(iteration, action, actor)
+    Participants.in(iteration).uniq(&:id).reject { |user| user.id == actor.id }.each do |user|
+      Notification.on(iteration, user_id: user.id, action: action, actor_id: actor.id)
     end
   end
 
-  def self.source(submission, regarding, creator)
-    Notification.on(submission, to: submission.user, regarding: regarding, creator: creator)
+  def self.source(iteration, action, actor)
+    Notification.on(iteration, user_id: iteration.user_id, action: action, actor_id: actor.id)
   end
 end
 

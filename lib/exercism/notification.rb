@@ -8,11 +8,9 @@ class Notification < ActiveRecord::Base
   scope :recent, -> { by_recency.limit(400) }
 
   before_create do
-    self.read  ||= false
-    self.count ||= 0
-    self.action = regarding
-    self.actor_id = creator_id
-    self.iteration_id = item_id if item_type == 'Submission'
+    if read.nil?
+      self.read = false
+    end
     true
   end
 
@@ -20,16 +18,9 @@ class Notification < ActiveRecord::Base
     where(iteration_id: iteration.id, user_id: user.id).update_all(read: true)
   end
 
-  def self.on(iteration, options)
-    data = {
-      user_id: options.fetch(:to).id,
-      regarding: options[:regarding],
-      creator_id: options.fetch(:creator).id,
-      item_id: iteration.id,
-      item_type: 'Submission',
-    }
+  def self.on(iteration, data)
+    data = data.merge(iteration_id: iteration.id, solution_id: iteration.user_exercise_id)
     notification = where(data.merge(read: false)).first || new(data)
-    notification.count += 1
     notification.save
     notification
   end
