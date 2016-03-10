@@ -18,7 +18,7 @@ class LifecycleAppTest < Minitest::Test
   end
 
   def test_tracks_nitpicks
-    submission = Submission.create(user: bob)
+    submission = Submission.create(user: bob, user_exercise_id: 1)
 
     Notify.stub(:everyone, nil) do
       post "/submissions/#{submission.key}/nitpick", {body: "O HAI"}, login(alice)

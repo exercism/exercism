@@ -30,6 +30,8 @@ module ExercismWeb
           Notification.on(submission, user_id: user_id, action: 'mention', actor_id: comment.user_id)
         end
 
+        ConversationSubscription.join(current_user, submission)
+
         unless current_user == submission.user
           LifecycleEvent.track('received_feedback', submission.user_id)
           LifecycleEvent.track('commented', current_user.id)

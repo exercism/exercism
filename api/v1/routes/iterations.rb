@@ -152,6 +152,8 @@ module ExercismAPI
 
         Notify.everyone(attempt.submission.reload, 'iteration', user)
 
+        ConversationSubscription.join(user, attempt.submission)
+
         # if we don't have a 'fetched' event, we want to hack one in.
         LifecycleEvent.track('fetched', user.id)
         LifecycleEvent.track('submitted', user.id)
