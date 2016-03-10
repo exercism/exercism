@@ -43,7 +43,6 @@ module ExercismWeb
     use Routes::Tracks
     use Routes::Sessions
     use Routes::Styleguide
-    use Routes::CommentThreads
     use Routes::User
     use Routes::Errors
   end

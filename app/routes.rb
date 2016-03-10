@@ -20,7 +20,6 @@ module ExercismWeb
       Teams: 'teams',
       Tracks: 'tracks',
       Styleguide: 'styleguide',
-      CommentThreads: 'comment_threads',
       Errors: 'errors',
       User: 'user',
       GithubCallback: 'github_callback',
