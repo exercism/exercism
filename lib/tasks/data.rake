@@ -75,6 +75,48 @@ namespace :data do
   end
 
   namespace :migrate do
+    desc "migrate subscriptions"
+    task :subscriptions do
+      require 'active_record'
+      require 'db/connection'
+
+      DB::Connection.establish
+
+      # CAN ONLY BE USED PRIOR TO EXPOSING SUBSCRIBE/UNSUBSCRIBE IN UI.
+
+      ActiveRecord::Base.connection.execute("truncate table conversation_subscriptions")
+
+      # subscribe solution authors
+      sql = <<-SQL
+      INSERT INTO conversation_subscriptions
+      (user_id, user_exercise_id, created_at, updated_at)
+      SELECT
+        user_id,
+        user_exercise_id,
+        MIN(created_at) AS created_at,
+        MIN(created_at) AS updated_at
+      FROM submissions
+      GROUP BY user_id, user_exercise_id
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+
+      # subscribe commenters (ignoring solution author so we don't get duplicate keys)
+      sql = <<-SQL
+      INSERT INTO conversation_subscriptions
+      (user_id, user_exercise_id, created_at, updated_at)
+      SELECT
+        c.user_id,
+        s.user_exercise_id,
+        MIN(c.created_at) AS created_at,
+        MIN(c.created_at) AS updated_at
+      FROM comments c
+      INNER JOIN submissions s
+        ON c.submission_id=s.id
+      WHERE c.user_id<>s.user_id
+      GROUP BY c.user_id, s.user_exercise_id
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+    end
 
     desc "migrate last iteration timestamps"
     task :last_iteration do
