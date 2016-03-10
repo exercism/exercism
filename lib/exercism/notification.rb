@@ -32,9 +32,9 @@ class Notification < ActiveRecord::Base
       'thumbs-up'
     when 'mention'
       'comments'
-    when 'comment', 'nitpick'
+    when 'comment'
       'comment-o'
-    when 'iteration', 'code'
+    when 'iteration'
       'code'
     else
       'asterisk'

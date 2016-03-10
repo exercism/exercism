@@ -77,7 +77,7 @@
               </a>
             <% end %>
 
-            <% if ['nitpick', 'comment'].include?(notification.action) %>
+            <% if notification.action == 'comment' %>
               <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
               <%= notification.actor.username %>
               commented
@@ -92,7 +92,7 @@
               </a>
             <% end %>
 
-            <% if ['iteration', 'code'].include?(notification.action) %>
+            <% if notification.action == 'iteration' %>
               <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
               <%= notification.actor.username %>
               submitted
