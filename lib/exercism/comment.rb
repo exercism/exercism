@@ -4,7 +4,6 @@ class Comment < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :submission
-  has_many :comment_threads
 
   validates :body, presence: true
 
