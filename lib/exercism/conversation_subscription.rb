@@ -21,4 +21,8 @@ class ConversationSubscription < ActiveRecord::Base
   def self.subscriber_ids(iteration)
     where(solution_id: iteration.user_exercise_id, subscribed: true).pluck(:user_id).map(&:to_i)
   end
+
+  def self.subscribed?(user, iteration)
+    where(user_id: user.id, solution_id: iteration.user_exercise_id, subscribed: true).count == 1
+  end
 end

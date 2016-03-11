@@ -20,6 +20,7 @@ module ExercismWeb
       Teams: 'teams',
       Tracks: 'tracks',
       Styleguide: 'styleguide',
+      Subscriptions: 'subscriptions',
       Errors: 'errors',
       User: 'user',
       GithubCallback: 'github_callback',

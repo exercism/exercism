@@ -90,7 +90,7 @@
   <div class="submission-iteration">
     <div class="row">
       <%= erb :"submissions/current_submission", locals: { submission: submission } %>
-      <%= erb :"submissions/nitpicks", locals: { submission: submission } %>
+      <%= erb :"submissions/nitpicks", locals: { submission: submission, subscribed: ConversationSubscription.subscribed?(current_user, submission) } %>
     </div>
   </div>
 </div>

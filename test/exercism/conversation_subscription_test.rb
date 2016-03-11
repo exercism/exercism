@@ -1,13 +1,6 @@
 require_relative '../integration_helper'
 require 'minitest/pride'
 
-# just for the tests, don't need this method in production
-class ConversationSubscription < ActiveRecord::Base
-  def self.for(user, iteration)
-    where(user_id: user.id, solution_id: iteration.user_exercise_id).first
-  end
-end
-
 class ConversationSubscriptionTest < Minitest::Test
   include DBCleaner
 
@@ -24,7 +17,7 @@ class ConversationSubscriptionTest < Minitest::Test
       ConversationSubscription.send(method, alice, iteration)
 
       assert_equal 1, ConversationSubscription.count, desc
-      assert_equal subscribed, ConversationSubscription.for(alice, iteration).subscribed, desc
+      assert_equal subscribed, ConversationSubscription.subscribed?(alice, iteration), desc
     end
 
     bob = User.create!(username: 'bob')
@@ -37,7 +30,7 @@ class ConversationSubscriptionTest < Minitest::Test
       ConversationSubscription.send(method, bob, iteration)
 
       assert_equal 2, ConversationSubscription.count, desc
-      assert_equal subscribed, ConversationSubscription.for(bob, iteration).subscribed, desc
+      assert_equal subscribed, ConversationSubscription.subscribed?(bob, iteration), desc
     end
 
     charlie = User.create!(username: 'charlie')

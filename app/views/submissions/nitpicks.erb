@@ -1,6 +1,12 @@
 <div class="comments col-md-6">
+  <form accept-charset="UTF-8" action="/subscriptions/iterations/<%= submission.key %>?subscribe=<%= !subscribed %>" method="post">
+     <input name="_method" type="hidden" value="put" />
+    <button type="submit" name="toggle-subscription" class="btn btn-link" style="float: right; color: #555555; text-decoration: none;">
+      <i class="fa fa-bell"></i>
+      <%= subscribed ? "unsubscribe from this conversation" : "subscribe to this conversation" %>
+    </button>
+  </form>
   <h3>Comments</h3>
-
   <div class="clearfix"></div>
 
   <% submission.comments.each do |nit| %>
