@@ -211,7 +211,7 @@ DEPENDENCIES
   puma (~> 2.15.0)
   rack-flash3
   rack-test
-  rake
+  rake (~> 10.5.0)
   redcarpet (~> 3.1)
   rouge (~> 1.3)
   rubocop
@@ -224,6 +224,3 @@ DEPENDENCIES
   timecop
   will_paginate
   will_paginate-bootstrap
-
-BUNDLED WITH
-   1.11.2
