@@ -142,7 +142,7 @@ class TeamStream
     end
 
     def idx(id)
-      Stream.ordered_slugs(current_id).index(id) || Stream.ordered_slugs.size
+      Stream.ordered_slugs(current_id).index(id) || Stream.ordered_slugs(current_id).size
     end
 
     def sql
