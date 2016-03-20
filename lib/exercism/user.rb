@@ -95,6 +95,14 @@ class User < ActiveRecord::Base
     submissions.order('id DESC').where(language: problem.track_id, slug: problem.slug)
   end
 
+  def submissions_per_language
+    submissions_count = Hash.new(0)
+    submissions.pluck(:language).each do |name|
+      submissions_count[name.downcase] += 1
+    end
+    submissions_count
+  end
+
   def guest?
     false
   end

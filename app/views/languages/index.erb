@@ -6,7 +6,7 @@
     <% active.each_slice(6) do |tracks| %>
       <div class="row">
         <% tracks.each do |t| %>
-          <%= erb :'languages/_block', locals: { track: t } %>
+          <%= erb :'languages/_block', locals: { track: t, submissions: submissions_count } %>
         <% end %>
       </div>
     <% end %>
@@ -17,7 +17,7 @@
     <% inactive.each_slice(6) do |tracks| %>
       <div class="row">
         <% tracks.each do |t| %>
-          <%= erb :'languages/_block', locals: { track: t }  if t.problems.any? %>
+          <%= erb :'languages/_block', locals: { track: t, submissions: nil }  if t.problems.any? %>
         <% end %>
       </div>
     <% end %>
