@@ -60,12 +60,10 @@ module ExercismWeb
       end
 
       post '/exercises/delete' do
-        exercises = UserExercise.find(params['exercise_ids'])
+        exercises = current_user.exercises.find(params['exercise_ids'])
         exercises.each do |exercise|
-          if current_user.owns?(exercise)
-            DeletedIterations.store_iterations(exercise, current_user.id)
-            exercise.delete
-          end
+          DeletedIterations.store_iterations(exercise, current_user.id)
+          exercise.delete
         end
         flash[:success] = "Your exercises has been deleted"
         redirect "/#{current_user.username}"
