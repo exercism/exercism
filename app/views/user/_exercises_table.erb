@@ -1,31 +1,36 @@
-<table class="table table-bordered table-striped" data-sortable>
-  <col width="25%" />
-  <thead>
-    <tr>
-      <th>Language</th>
-      <th>Exercise</th>
-      <th>Iterations</th>
-      <th data-sorted="true" data-sorted-direction="descending">Latest Iteration</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% exercises.order(updated_at: :desc).each do |exercise| %>
-    <tr>
-      <td><%= exercise.problem.language %></td>
-      <td>
-        <% if profile.can_access?(exercise) %>
-          <a href="/exercises/<%= exercise.key %>">
-            <%= exercise.problem.name %>
-          </a>
-        <% else %>
-          <i class="fa fa-lock"></i>
-          &nbsp;
-          <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
-        <% end %>
-      </td>
-      <td><%= exercise.iteration_count %></td>
-      <td data-value="<%= exercise.updated_at.to_i %>"><%= exercise.updated_at.strftime("%Y-%m-%d") %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+<form action="/exercises/delete" method="post" onsubmit="return confirm('Are you sure you want to delete this exercises ?');">
+  <table class="table table-bordered table-striped" data-sortable>
+    <col width="25%" />
+    <thead>
+      <tr>
+        <th></th>
+        <th>Language</th>
+        <th>Exercise</th>
+        <th>Iterations</th>
+        <th data-sorted="true" data-sorted-direction="descending">Latest Iteration</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% exercises.order(updated_at: :desc).each do |exercise| %>
+      <tr>
+        <td><input type="checkbox" name="exercise_ids[]" value="<%= exercise.id %>"></td>
+        <td><%= exercise.problem.language %></td>
+        <td>
+          <% if profile.can_access?(exercise) %>
+            <a href="/exercises/<%= exercise.key %>">
+              <%= exercise.problem.name %>
+            </a>
+          <% else %>
+            <i class="fa fa-lock"></i>
+            &nbsp;
+            <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
+          <% end %>
+        </td>
+        <td><%= exercise.iteration_count %></td>
+        <td data-value="<%= exercise.updated_at.to_i %>"><%= exercise.updated_at.strftime("%Y-%m-%d") %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+  <input type="submit" value="Delete" class="btn btn-danger">
+</form>

@@ -59,6 +59,16 @@ module ExercismWeb
         redirect '/dashboard'
       end
 
+      post '/exercises/delete' do
+        exercises = current_user.exercises.find(params['exercise_ids'])
+        exercises.each do |exercise|
+          DeletedIterations.store_iterations(exercise, current_user.id)
+          exercise.delete
+        end
+        flash[:success] = "Your exercises has been deleted"
+        redirect "/#{current_user.username}"
+      end
+
       get '/exercises/:track_id/:slug' do |id, slug|
         exercise = X::Exercise::TestFiles.find(id, slug)
         if exercise.files.empty?
