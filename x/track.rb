@@ -32,10 +32,6 @@ module X
       @docs = Docs::Track.new(data['docs'], repository)
     end
 
-    def image_file?
-      File.exist?("public/img/#{id}.png")
-    end
-
     def fetch_cmd(problem=problems.first)
       "exercism fetch #{id} #{problem}"
     end
