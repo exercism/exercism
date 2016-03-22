@@ -11,7 +11,15 @@
         <%= profile.username %>
       </a>
       </p>
-
+      Teams:
+      <% profile.teams.each do |team| %>
+        <% if team.includes?(profile.current_user) %>
+          <a href=<%= "teams/#{team.name}" %>><%= team.name %></a><%="," unless team == profile.teams.last %>
+        <% else %>
+          <%= team.name %><%="," unless team == profile.teams.last %>
+        <% end %>
+      <% end %>
+      
       <% if !profile.progress_hash.empty? %>
         <h3>Progress:</h3>
         <% if params[:all] == 'true' %>
