@@ -14,7 +14,7 @@
       Teams:
       <% profile.teams.each do |team| %>
         <% if team.includes?(profile.current_user) %>
-          <a href=<%= "teams/#{team.name}" %>><%= team.name %></a><%="," unless team == profile.teams.last %>
+          <a href=<%= "teams/#{team.slug}" %>><%= team.name %></a><%="," unless team == profile.teams.last %>
         <% else %>
           <%= team.name %><%="," unless team == profile.teams.last %>
         <% end %>
