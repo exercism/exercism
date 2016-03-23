@@ -65,7 +65,7 @@ module ExercismWeb
           DeletedIterations.store_iterations(exercise, current_user.id)
           exercise.delete
         end
-        flash[:success] = "Your exercises has been deleted"
+        flash[:success] = "Your exercises have been deleted"
         redirect "/#{current_user.username}"
       end
 

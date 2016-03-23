@@ -14,6 +14,10 @@ module ExercismWeb
         user.username
       end
 
+      def own?
+        user.id == current_user.id
+      end
+
       def shared?
         @options[:shared]
       end

@@ -1,9 +1,22 @@
-<form action="/exercises/delete" method="post" onsubmit="return confirm('Are you sure you want to delete this exercises ?');">
+<% if profile.own? %>
+<form action="/exercises/delete" method="post" onsubmit="return confirm('Are you sure you want to delete these exercises?');">
+<% end %>
+
   <table class="table table-bordered table-striped" data-sortable>
-    <col class="col-md-1"/>
+
+    <% if profile.own? %>
+      <col class="col-md-1" />
+    <% else %>
+      <col width="25%" />
+    <% end %>
+
     <thead>
       <tr>
-        <th></th>
+
+        <% if profile.own? %>
+          <th></th>
+        <% end %>
+
         <th>Language</th>
         <th>Exercise</th>
         <th>Iterations</th>
@@ -13,7 +26,11 @@
     <tbody>
     <% exercises.order(updated_at: :desc).each do |exercise| %>
       <tr>
-        <td><input type="checkbox" name="exercise_ids[]" value="<%= exercise.id %>"></td>
+
+        <% if profile.own? %>
+          <td><input type="checkbox" name="exercise_ids[]" value="<%= exercise.id %>"></td>
+        <% end %>
+
         <td><%= exercise.problem.language %></td>
         <td>
           <% if profile.can_access?(exercise) %>
@@ -32,5 +49,8 @@
     <% end %>
     </tbody>
   </table>
-  <input type="submit" value="Delete" class="btn btn-danger">
-</form>
+
+<% if profile.own? %>
+    <input type="submit" value="Delete" class="btn btn-danger">
+  </form>
+<% end %>
