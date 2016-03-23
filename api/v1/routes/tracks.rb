@@ -6,6 +6,11 @@ module ExercismAPI
       get '/tracks/:id/status' do |id|
         require_key
 
+        if !Xapi.exists?(id)
+          message = "Track #{id} not found."
+          halt 404, { error: message }.to_json
+        end
+
         begin
           Homework.new(User.find_by(key: params[:key])).status(id).to_json
         rescue Exception => e
