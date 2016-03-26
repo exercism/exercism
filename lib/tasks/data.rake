@@ -19,6 +19,53 @@ namespace :data do
       ActiveRecord::Base.connection.execute(sql)
     end
 
+    desc "fix broken iterations with missing language"
+    task :missing_language do
+      require 'active_record'
+      require 'db/connection'
+      require './lib/exercism/submission'
+      require './lib/exercism/user_exercise'
+      require './lib/exercism/user'
+      require './lib/exercism/acl'
+      DB::Connection.establish
+
+      Submission.where(language: '').find_each do |submission|
+        submission.language = submission.slug
+        submission.slug = submission.solution.keys.first[/^[a-z-]*/]
+
+        ex = UserExercise.where(user_id: submission.user_id, language: submission.language, slug: submission.slug).first
+        if !ex
+          ex = submission.user_exercise
+          ex.language = submission.language
+          ex.slug = submission.slug
+        end
+
+        submission.user_exercise_id = ex.id
+        submission.save
+        ex.save
+
+        ex.reload.submissions.order('created_at ASC').each_with_index do |s, i|
+          s.version = i + 1
+          s.save
+        end
+        ex.iteration_count = ex.submissions.count
+        ex.save
+
+        ACL.authorize(submission.user, submission)
+      end
+
+      sql = <<-SQL
+        DELETE FROM user_exercises WHERE id IN (
+          SELECT ex.id
+          FROM user_exercises ex
+          LEFT JOIN submissions s
+          ON s.user_exercise_id=ex.id
+          WHERE s.id IS NULL
+        )
+      SQL
+      ActiveRecord::Base.connection.execute(sql)
+    end
+
     desc "fix iteration count"
     task :iteration_counts do
       require 'active_record'
