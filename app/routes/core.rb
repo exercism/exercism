@@ -21,7 +21,14 @@ module ExercismWeb
       end
 
       error 500 do
-        Bugsnag.auto_notify($!, nil, request)
+        metadata = {
+          user: {
+            id: current_user.id,
+            username: current_user.username,
+          },
+          context: request.path_info
+        }
+        Bugsnag.auto_notify($!, metadata, request)
         erb :"errors/internal"
       end
 
