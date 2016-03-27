@@ -26,7 +26,10 @@ module ExercismWeb
             id: current_user.id,
             username: current_user.username,
           },
-          context: request.path_info
+          context: request.path_info,
+          app: {
+            version: ENV["BUILD_ID"] || "unknown"
+          },
         }
         Bugsnag.auto_notify($!, metadata, request)
         erb :"errors/internal"
