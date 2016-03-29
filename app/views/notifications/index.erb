@@ -3,17 +3,9 @@
     <h1>Notifications (<%= inbox.count %>)</h1>
   </section>
 
-  <% if inbox.has_notifications? %>
-    <form action="/notifications/read" method='POST' style="margin: 18px 120px 0 0;">
-      <div>
-        <button type="submit" class="btn btn-danger pull-right" name="mark-all-read">Mark all as read</button>
-      </div>
-    </form>
-  <% end %>
-
   <% unless inbox.has_notifications? %>
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-xs-8">
         <p>Notifications tell you about new comments or submissions in conversations that you are participating in, activity from team members, team invitations, and notifications about feature changes on the site.</p>
         <p>Currently, you cannot configure your notifications.</p>
       </div>
@@ -21,7 +13,7 @@
   <% end %>
 
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-xs-8">
       <% if inbox.has_unconfirmed_team_memberships? %>
         <ul style="list-style-type: none; margin: 0;">
           <% inbox.unconfirmed_team_memberships.each do |team_membership| %>
@@ -112,5 +104,12 @@
         <% end %>
       </ul>
     </div>
+   <% if inbox.has_notifications? %>
+     <div class="col-xs-4 text-center">
+       <form action="/notifications/read" method='POST'>
+         <button type="submit" class="btn btn-danger" name="mark-all-read">Mark all as read</button>
+       </form>
+     </div>
+    <% end %>
   </div>
 </div>
