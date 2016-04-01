@@ -1,7 +1,7 @@
 module ExercismWeb
   module Routes
     class Subscriptions < Core
-      put '/subscriptions/iterations/:uuid' do |uuid|
+      put '/subscriptions/iterations/:uuid/?' do |uuid|
         url = ["", "submissions", uuid].join("/")
 
         if current_user.guest?

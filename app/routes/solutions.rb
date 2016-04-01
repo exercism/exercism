@@ -1,7 +1,7 @@
 module ExercismWeb
   module Routes
     class Solutions < Core
-      get '/code/:language/:slug/random' do |language, slug|
+      get '/code/:language/:slug/random/?' do |language, slug|
         please_login
 
         [language, slug].each(&:downcase!)

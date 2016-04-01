@@ -5,7 +5,7 @@ module ExercismWeb
         redirect '/teams/%s/streams' % slug
       end
 
-      get '/teams/:slug/streams' do |slug|
+      get '/teams/:slug/streams/?' do |slug|
         please_login
         only_with_existing_team(slug) do |team|
           unless team.includes?(current_user)
@@ -23,7 +23,7 @@ module ExercismWeb
         end
       end
 
-      get '/teams/:slug/streams/tracks/:id' do |slug, track_id|
+      get '/teams/:slug/streams/tracks/:id/?' do |slug, track_id|
         please_login
         only_with_existing_team(slug) do |team|
           unless team.includes?(current_user)
@@ -44,7 +44,7 @@ module ExercismWeb
         end
       end
 
-      get '/teams/:slug/streams/tracks/:id/exercises/:problem' do |slug, track_id, problem_slug|
+      get '/teams/:slug/streams/tracks/:id/exercises/:problem/?' do |slug, track_id, problem_slug|
         please_login
         only_with_existing_team(slug) do |team|
           unless team.includes?(current_user)
@@ -66,7 +66,7 @@ module ExercismWeb
         end
       end
 
-      get '/teams/:slug/streams/users/:username' do |slug, username|
+      get '/teams/:slug/streams/users/:username/?' do |slug, username|
         please_login
         only_with_existing_team(slug) do |team|
           unless team.includes?(current_user)
@@ -94,7 +94,7 @@ module ExercismWeb
         end
       end
 
-      get '/teams/:slug/directory' do |slug|
+      get '/teams/:slug/directory/?' do |slug|
         please_login
         only_with_existing_team(slug) do |team|
 
@@ -114,7 +114,7 @@ module ExercismWeb
       end
 
       # Remove yourself from a team.
-      put '/teams/:slug/leave' do |slug|
+      put '/teams/:slug/leave/?' do |slug|
         please_login
         only_with_existing_team(slug) do |team|
           team.dismiss(current_user.username)
@@ -124,7 +124,7 @@ module ExercismWeb
       end
 
       # Accept an invitation to join a team.
-      put '/teams/:slug/confirm' do |slug|
+      put '/teams/:slug/confirm/?' do |slug|
         please_login
         only_with_existing_team(slug) do |team|
 
@@ -142,7 +142,7 @@ module ExercismWeb
       ## Team Management ##
 
       # Team management dashboard
-      get '/teams/:slug/manage' do |slug|
+      get '/teams/:slug/manage/?' do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to manage this team.") do |team|
           locals = {
@@ -175,7 +175,7 @@ module ExercismWeb
       end
 
       # Delete a team.
-      delete '/teams/:slug' do |slug|
+      delete '/teams/:slug/?' do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to delete the team.") do |team|
           team.destroy_with_memberships!
@@ -186,7 +186,7 @@ module ExercismWeb
       end
 
       # Add team members.
-      post '/teams/:slug/members' do |slug|
+      post '/teams/:slug/members/?' do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
           team.recruit(params[:usernames], current_user)
@@ -197,7 +197,7 @@ module ExercismWeb
       end
 
       # Delete a team member.
-      delete '/teams/:slug/members/:username' do |slug, username|
+      delete '/teams/:slug/members/:username/?' do |slug, username|
         please_login
         only_for_team_managers(slug, "You are not allowed to remove team members.") do |team|
           team.dismiss(username)
@@ -207,7 +207,7 @@ module ExercismWeb
       end
 
       # Update team information.
-      put '/teams/:slug' do |slug|
+      put '/teams/:slug/?' do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to edit the team.") do |team|
           if team.defined_with(params[:team], current_user).save
@@ -220,7 +220,7 @@ module ExercismWeb
       end
 
       # Add managers to a team.
-      post "/teams/:slug/managers" do |slug|
+      post "/teams/:slug/managers/?" do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to add managers to the team.") do |team|
           user = ::User.find_by_username(params[:username])
@@ -236,7 +236,7 @@ module ExercismWeb
       end
 
       # Remove a manager from a team.
-      delete "/teams/:slug/managers" do |slug|
+      delete "/teams/:slug/managers/?" do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to remove managers from the team.") do |team|
           user = ::User.find_by_username(params[:username])
@@ -247,7 +247,7 @@ module ExercismWeb
       end
 
       # Quit managing a team.
-      post "/teams/:slug/disown" do |slug|
+      post "/teams/:slug/disown/?" do |slug|
         please_login
         only_with_existing_team(slug) do |team|
           if team.managers.size == 1

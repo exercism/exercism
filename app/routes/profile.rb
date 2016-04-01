@@ -1,7 +1,7 @@
 module ExercismWeb
   module Routes
     class Profile < Core
-      get '/profiles/:username/:share_key' do |username, key|
+      get '/profiles/:username/:share_key/?' do |username, key|
         user = ::User.find_by(username: username, share_key: key)
         if user
           title(user.username)

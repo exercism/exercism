@@ -6,7 +6,7 @@ module ExercismAPI
     class Comments < Core
       # Submit a rikki- comment.
       # Only the rikki- daemon uses this endpoint.
-      post '/submissions/:key/comments' do |key|
+      post '/submissions/:key/comments/?' do |key|
         unless Rikki.validate(params[:shared_key])
           halt 401, {error: "access denied"}
         end
@@ -54,7 +54,7 @@ module ExercismAPI
       # we don't expose the api key and secret to other users.
       # We may need to change the logic if someone other than rikki- starts
       # using the endpoint.
-      post '/comments' do
+      post '/comments/?' do
         payload = JSON.parse(request.body.read.to_s)
 
         # request must not be expired

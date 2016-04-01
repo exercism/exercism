@@ -3,7 +3,7 @@ module ExercismWeb
     class User < Core
       # User's profile page.
       # This is going to get a serious overhaul.
-      get '/:username' do |username|
+      get '/:username/?' do |username|
         please_login
         user = ::User.find_by_username(username)
 
@@ -17,7 +17,7 @@ module ExercismWeb
       end
 
       # linked to from the /looks page
-      get '/:username/:key' do |username, key|
+      get '/:username/:key/?' do |username, key|
         please_login
 
         user = ::User.find_by_username(username)

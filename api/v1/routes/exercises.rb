@@ -7,7 +7,7 @@ module ExercismAPI
     class Exercises < Core
       # This is the list of the user's solutions, and their current state.
       # Called from the CLI.
-      get '/exercises' do
+      get '/exercises/?' do
         if current_user.guest?
           halt 200, {}.to_json
         end
