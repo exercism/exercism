@@ -39,15 +39,18 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <a data-toggle="collapse" data-parent="#accordion" href='<%= "#collapse#{index}" %>' ><%= language.capitalize %></a>
+                      <%= language.capitalize %>
                     </h4>
+                    <span>
+                      <a data-toggle="collapse" data-parent="#accordion" href='<%= "#collapse#{index}" %>'>X</a>
+                    </span>
                   </div>
                   <div id='<%= "collapse#{index}" %>' class="panel-collapse <%= 'collapse' if index > 4 %>">
                     <div class="panel-body">
                       <% dashboard.unsubmitted_grouped_exercises[language].each do |exercise| %>
                         <a href='<%= "/exercises/#{exercise.language}/#{exercise.slug}/readme" %>'>
                           <%= exercise.slug.capitalize %>
-                        </a><%= ", " unless exercise == dashboard.unsubmitted_grouped_exercises[language].last %>
+                        </a><%= "," unless exercise == dashboard.unsubmitted_grouped_exercises[language].last %>
                       <% end %>
                     </div>
                   </div>
