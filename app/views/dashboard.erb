@@ -128,7 +128,7 @@
               <% recently_viewed_exercises.each do |exercise| %>
               <li class="looks-list-item">
                 <p><a role="menuitem" tabindex="-1" href="/exercises/<%= exercise.key %>">
-                <%= exercise.problem.name %> (<%= exercise.problem.language %>)</a>by <a href="/<%= exercise.user.username %>"><%= exercise.user.username %></a></p>
+                <%= exercise.problem.name %> (<%= exercise.problem.language %>)</a> by <a href="/<%= exercise.user.username %>"><%= exercise.user.username %></a></p>
               </li>
               <% end %>
             </ul>
