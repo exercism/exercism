@@ -19,7 +19,8 @@ class Homework
     exercises = user.exercises.where(language: language)
 
     skipped = exercises.where.not(skipped_at: nil).pluck(:slug)
-    fetched = exercises.where.not(fetched_at: nil).pluck(:slug)
+    fetched = exercises.where('fetched_at IS NOT NUll AND skipped_at IS NULL AND iteration_count = ?', 0).pluck(:slug)
+    submitted = exercises.where('skipped_at IS NULL AND iteration_count > ?', 0).pluck(:slug)
     recent = exercises.where.not(last_iteration_at: nil)
              .order(:last_iteration_at).last
 
@@ -32,6 +33,7 @@ class Homework
         submitted_at: recent.last_iteration_at
       },
       skipped: skipped,
+      submitted: submitted,
       fetched: fetched
     }
   end
