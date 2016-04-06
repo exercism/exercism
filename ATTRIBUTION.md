@@ -20,6 +20,10 @@ The Elixir logo was designed by José Valim Creative Commons Attribution-Share A
 We adapted this logo using only the basic shape.
 
 
+**Elm icon** http://exercism.io/img/tracks/elm.png
+We were unable to find copyright information about the Elm logo, nor information about who designed it. Presumably Evan Czaplicki, creator of the Elm language, also made the logo, and holds copyright. It may also fall within the public domain, since it is a geometric shape. We've adapted the official Elm logo by changing the colors, which we believe falls under "fair use".
+
+
 **Erlang icon** http://exercism.io/img/tracks/erlang.png
 The Erlang logo is in the public domain.
 
