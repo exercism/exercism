@@ -57,4 +57,39 @@ class UsersApiTest < Minitest::Test
 
     assert_equal [], JSON.parse(last_response.body)
   end
+
+  def test_returns_completion_for_specific_user_by_language
+    f= './test/fixtures/xapi_v3_tracks.json'
+    X::Xapi.stub(:get, [200, File.read(f)]) do
+      user = User.create(username: 'alice')
+      submission = Submission.create(user: user, language: 'Animal', slug: 'hello-world', solution: {'hello_world.rb' => 'CODE'})
+      UserExercise.create(user: user, submissions: [submission], language: 'animal', slug: 'hello-world', iteration_count: 1)
+      submission2 = Submission.create(user: user, language: 'Fake', slug: 'apple', solution: {'apple.js' => 'CODE'})
+      UserExercise.create(user: user, submissions: [submission2], language: 'fake', slug: 'apple', iteration_count: 1)
+      submission3 = Submission.create(user: user, language: 'Animal', slug: 'one', solution: {'one.rb' => 'CODE'})
+      UserExercise.create(user: user, submissions: [submission3], language: 'animal', slug: 'one', iteration_count: 1)
+
+      get '/users/alice/statistics'
+
+      response = JSON.parse(last_response.body)
+      assert_equal 200, last_response.status
+      assert_equal 4, response["statistics"].count
+      assert_equal 2, response["statistics"].first["completed"].count
+      assert_equal 1, response["statistics"][1]["completed"].count
+      count = response["statistics"].select do |language|
+        language["completed"].count == 0
+      end.count
+      assert_equal 2, count
+    end
+  end
+
+  def test_returns_error_for_nonexistant_user
+    get '/users/alice/statistics'
+
+    response = JSON.parse(last_response.body)
+    expected = "unknown user alice"
+
+    assert_equal 404, last_response.status
+    assert_equal expected, response["error"]
+  end
 end
