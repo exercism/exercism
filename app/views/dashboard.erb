@@ -39,11 +39,11 @@
                 <div class="panel panel-default">
                   <div class="panel-heading">
                     <h4 class="panel-title">
-                      <%= language.capitalize %>
+                      <a data-toggle="collapse" data-parent="#accordion" href='<%= "#collapse#{index}" %>'>
+                        <%= language.capitalize %>
+                        <b class="caret fuchsia"></b>
+                      </a>
                     </h4>
-                    <span>
-                      <a data-toggle="collapse" data-parent="#accordion" href='<%= "#collapse#{index}" %>'>X</a>
-                    </span>
                   </div>
                   <div id='<%= "collapse#{index}" %>' class="panel-collapse <%= 'collapse' if index > 4 %>">
                     <div class="panel-body">
