@@ -5,7 +5,7 @@ module ExercismWeb
         erb :"site/index"
       end
 
-      get '/dashboard' do
+      get '/dashboard/?' do
         if current_user.guest?
           redirect '/'
         end

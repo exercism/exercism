@@ -1,7 +1,7 @@
 module ExercismWeb
   module Routes
     class Looks < Core
-      get '/looks' do
+      get '/looks/?' do
         please_login
 
         pagination = {

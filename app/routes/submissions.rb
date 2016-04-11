@@ -1,7 +1,7 @@
 module ExercismWeb
   module Routes
     class Submissions < Core
-      get '/submissions/:key' do |key|
+      get '/submissions/:key/?' do |key|
         submission = Submission.includes(:user, comments: :user).find_by_key(key)
         unless submission
           flash[:error] = "We can't find that submission."
@@ -24,7 +24,7 @@ module ExercismWeb
         erb :"submissions/show", locals: locals
       end
 
-      post '/submissions/:key/like' do |key|
+      post '/submissions/:key/like/?' do |key|
         please_login "You have to be logged in to do that."
         submission = Submission.find_by_key(key)
         if submission.nil?
@@ -37,7 +37,7 @@ module ExercismWeb
         redirect "/submissions/#{key}"
       end
 
-      post "/submissions/:key/unlike" do |key|
+      post "/submissions/:key/unlike/?" do |key|
         please_login "You have to be logged in to do that."
         submission = Submission.find_by_key(key)
         submission.unlike!(current_user)
@@ -49,7 +49,7 @@ module ExercismWeb
         redirect "/submissions/#{key}"
       end
 
-      delete '/submissions/:key' do |key|
+      delete '/submissions/:key/?' do |key|
         please_login
         submission = Submission.find_by_key(key)
         if submission.nil?

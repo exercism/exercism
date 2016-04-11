@@ -3,7 +3,7 @@ module ExercismAPI
     class Tracks < Core
       # Status on a track for a user.
       # Called by the CLI.
-      get '/tracks/:id/status' do |id|
+      get '/tracks/:id/status/?' do |id|
         require_key
 
         if !Xapi.exists?(id)

@@ -3,7 +3,7 @@ module ExercismAPI
     class Submissions < Core
       # Return the URL of the most recent iteration.
       # Called by the CLI.
-      get '/submissions/:language/:slug' do |language, slug|
+      get '/submissions/:language/:slug/?' do |language, slug|
         require_key
 
         if current_user.guest?
@@ -20,7 +20,7 @@ module ExercismAPI
 
       # Download a solution, by key.
       # Called from the CLI.
-      get '/submissions/:key' do |key|
+      get '/submissions/:key/?' do |key|
         submission = Submission.find_by_key(key)
         if submission.nil?
           halt 404, {error: "unknown submission #{key}"}.to_json

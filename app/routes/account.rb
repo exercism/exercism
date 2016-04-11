@@ -1,14 +1,14 @@
 module ExercismWeb
   module Routes
     class Account < Core
-      get '/account' do
+      get '/account/?' do
         please_login
 
         title('account')
         erb :"account/show", locals: { profile: Presenters::Profile.new(current_user) }
       end
 
-      put '/account/email' do
+      put '/account/email/?' do
         if current_user.guest?
           halt 403, "You must be logged in to edit your email settings"
         end
@@ -19,13 +19,13 @@ module ExercismWeb
         redirect "/account"
       end
 
-      get '/account/key' do
+      get '/account/key/?' do
         please_login
         erb :"account/key"
       end
 
       # Reset exercism API key
-      put '/account/key/reset' do
+      put '/account/key/reset/?' do
         please_login
 
         # This could fail, but I don't know
@@ -35,19 +35,19 @@ module ExercismWeb
         redirect "/account"
       end
 
-      put '/account/share-key/set' do
+      put '/account/share-key/set/?' do
         please_login
         current_user.set_share_key
         redirect "/account"
       end
 
-      put '/account/share-key/unset' do
+      put '/account/share-key/unset/?' do
         please_login
         current_user.unset_share_key
         redirect "/account"
       end
 
-      post '/account/track-mentor/invite' do
+      post '/account/track-mentor/invite/?' do
         please_login
 
         begin

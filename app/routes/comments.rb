@@ -1,7 +1,7 @@
 module ExercismWeb
   module Routes
     class Comments < Core
-      post '/submissions/:key/nitpick' do |key|
+      post '/submissions/:key/nitpick/?' do |key|
         notice = "You're not logged in right now. Please log in via GitHub to comment."
         please_login(notice)
 
@@ -42,11 +42,11 @@ module ExercismWeb
         redirect "/submissions/#{key}"
       end
 
-      post '/comments/preview' do
+      post '/comments/preview/?' do
         ConvertsMarkdownToHTML.convert(params[:body])
       end
 
-      get '/submissions/:key/nits/:nit_id/edit' do |key, nit_id|
+      get '/submissions/:key/nits/:nit_id/edit/?' do |key, nit_id|
         please_login("You have to be logged in to do that")
         submission = Submission.find_by_key(key)
         if submission.nil?
@@ -64,7 +64,7 @@ module ExercismWeb
         erb :"submissions/edit_nit", locals: {submission: submission, nit: nit}
       end
 
-      post '/submissions/:key/nits/:nit_id' do |key, nit_id|
+      post '/submissions/:key/nits/:nit_id/?' do |key, nit_id|
         nit = Submission.find_by_key(key).comments.where(id: nit_id).first
         if nit.nil?
           redirect "/submissions/#{key}"
@@ -80,7 +80,7 @@ module ExercismWeb
         redirect "/submissions/#{key}"
       end
 
-      delete '/submissions/:key/nits/:nit_id' do |key, nit_id|
+      delete '/submissions/:key/nits/:nit_id/?' do |key, nit_id|
         submission = Submission.find_by_key(key)
         nit = submission.comments.where(id: nit_id).first
         unless current_user == nit.nitpicker

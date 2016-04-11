@@ -5,7 +5,7 @@ module ExercismWeb
         redirect '/inbox'
       end
 
-      get '/user/submissions/:key' do |key|
+      get '/user/submissions/:key/?' do |key|
         redirect "/submissions/#{key}"
       end
 

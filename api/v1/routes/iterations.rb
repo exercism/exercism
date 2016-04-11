@@ -6,7 +6,7 @@ module ExercismAPI
     class Iterations < Core
       # Mark exercise as skipped.
       # Called from the CLI.
-      post '/iterations/:language/:slug/skip' do |language, slug|
+      post '/iterations/:language/:slug/skip/?' do |language, slug|
         require_key
 
         if current_user.guest?
@@ -37,7 +37,7 @@ module ExercismAPI
       end
 
       # Mark exercise as fetched. Called from the X-API.
-      post '/iterations/:language/:slug/fetch' do |language, slug|
+      post '/iterations/:language/:slug/fetch/?' do |language, slug|
         require_key
         if current_user.guest?
           message = 'Please double-check your exercism API key.'
@@ -67,7 +67,7 @@ module ExercismAPI
 
       # Submit an iteration.
       # Called from the CLI.
-      post '/user/assignments' do
+      post '/user/assignments/?' do
         request.body.rewind
         data = request.body.read
 
@@ -165,7 +165,7 @@ module ExercismAPI
 
       # Restore solutions.
       # Called from XAPI.
-      get '/iterations/latest' do
+      get '/iterations/latest/?' do
         require_key
 
         if current_user.guest?
