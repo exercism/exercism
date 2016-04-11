@@ -7,11 +7,15 @@ module ExercismWeb
       end
 
       def current_exercises
-        user.exercises.current
+        @current_exercises ||= user.exercises.current
       end
 
       def unsubmitted_exercises
-        user.exercises.unsubmitted
+        @unsubmitted_exercises ||= user.exercises.unsubmitted
+      end
+
+      def unsubmitted_grouped_exercises
+        @unsubmitted_grouped_exercises ||= user.exercises.unsubmitted.group_by { |ex| ex.language }
       end
 
       def has_activity?

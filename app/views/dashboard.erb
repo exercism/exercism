@@ -33,27 +33,30 @@
             <p>You are not currently working on any exercises.</p>
           <% end %>
           <% if dashboard.unsubmitted_exercises.present? %>
-            <p>You've fetched these problems. Now solve them!</p>
-            <ul class="nav nav-stacked" id="menu-current" role="menu">
-              <% dashboard.unsubmitted_exercises.limit(5).each do |exercise| %>
-                <li class="looks-list-item">
-                  <a role="menuitem"
-                     tabindex="-1"
-                     href=<%= "/exercises/#{exercise.language}/#{exercise.slug}/readme" %>>
-                    <table width="100%">
-                      <tr>
-                        <td width="60%">
-                          <%= "#{exercise.problem.name} (#{exercise.problem.language})" %>
-                        </td>
-                      </tr>
-                    </table>
-                  </a>
-                </li>
-              <% end %>
-              <% if dashboard.unsubmitted_exercises.size > 5 %>
-                <p>You have <%= dashboard.unsubmitted_exercises.size %> unsubmitted problems.</p>
-              <% end %>
-            </ul>
+            <p>You've fetched <%= dashboard.unsubmitted_exercises.count.to_s %> problems. Now solve them!</p>
+            <% dashboard.unsubmitted_grouped_exercises.keys.each_with_index do |language, index| %>
+              <div class="panel-group" id="accordion">
+                <div class="panel panel-default">
+                  <div class="panel-heading">
+                    <h4 class="panel-title">
+                      <a data-toggle="collapse" data-parent="#accordion" href='<%= "#collapse#{index}" %>'>
+                        <%= language.capitalize %>
+                        <b class="caret fuchsia"></b>
+                      </a>
+                    </h4>
+                  </div>
+                  <div id='<%= "collapse#{index}" %>' class="panel-collapse <%= 'collapse' if index > 4 %>">
+                    <div class="panel-body">
+                      <% dashboard.unsubmitted_grouped_exercises[language].each do |exercise| %>
+                        <a href='<%= "/exercises/#{exercise.language}/#{exercise.slug}/readme" %>'>
+                          <%= exercise.slug.capitalize %>
+                        </a><%= "," unless exercise == dashboard.unsubmitted_grouped_exercises[language].last %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
           <% else %>
             <p>You do not have any unsubmitted problems.</p>
           <% end %>
@@ -99,7 +102,7 @@
           <ul class="nav nav-stacked">
             <% (current_user.teams | current_user.managed_teams).each do |team| %>
               <li>
-                <a role="menuiytem" tabindex="-1" href="/teams/<%= team.slug %>">
+                <a role="menuitem" tabindex="-1" href="/teams/<%= team.slug %>">
                   <table width="100%">
                     <tr>
                       <td width="60%">
