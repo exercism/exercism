@@ -7,6 +7,7 @@ require 'sinatra/reloader'
 require 'will_paginate'
 require 'will_paginate/active_record'
 require 'kss'
+require 'tilt/erb'
 
 require_relative './app/presenters'
 require_relative './lib/exercism/xapi'
