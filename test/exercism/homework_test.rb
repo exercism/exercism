@@ -14,7 +14,6 @@ class HomeworkTest < Minitest::Test
 
     UserExercise.create(attributes.merge(slug: 'leap', skipped_at: now))
     UserExercise.create(attributes.merge(slug: 'clock', fetched_at: now, iteration_count: 0))
-    UserExercise.create(attributes.merge(slug: 'submitted_but_then_skipped', skipped_at: now, iteration_count: 1, fetched_at: now))
     UserExercise.create(attributes.merge(slug: 'submssion', fetched_at: now, iteration_count: 1, last_iteration_at: now))
     UserExercise.create(attributes.merge(slug: 'gigasecond', last_iteration_at: now))
 
@@ -24,7 +23,7 @@ class HomeworkTest < Minitest::Test
         problem: 'gigasecond',
         submitted_at: now
       },
-      skipped: ['leap', 'submitted_but_then_skipped'],
+      skipped: ['leap'],
       submitted: ['submssion'],
       fetched: ['clock']
     }.to_json
