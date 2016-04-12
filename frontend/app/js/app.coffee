@@ -1,7 +1,7 @@
 angular.module('exercism', ['ui.bootstrap'])
 
 $ ->
-  if $('h1, h2, h3').length && document.title == 'exercism.io'
+  if location.pathname != '/' && $('h1, h2, h3').length && document.title == 'exercism.io'
     document.title = "#{$($('h1, h2, h3').get(0)).text()} - exercism.io"
 
   $("[data-toggle=tooltip]").tooltip();
