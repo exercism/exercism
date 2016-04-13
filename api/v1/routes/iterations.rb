@@ -50,7 +50,6 @@ module ExercismAPI
           halt 404, { error: message }.to_json
         end
 
-        LifecycleEvent.track 'fetched', current_user.id
         attributes = { user_id: current_user.id,
                        language: language,
                        slug: slug }
@@ -139,10 +138,6 @@ module ExercismAPI
         Notify.everyone(attempt.submission.reload, 'iteration', user)
 
         ConversationSubscription.join(user, attempt.submission)
-
-        # if we don't have a 'fetched' event, we want to hack one in.
-        LifecycleEvent.track('fetched', user.id)
-        LifecycleEvent.track('submitted', user.id)
 
         if (attempt.track == 'ruby' && attempt.slug == 'hamming') || attempt.track == 'go'
           Jobs::Analyze.perform_async(attempt.submission.key)

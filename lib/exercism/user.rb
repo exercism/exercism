@@ -9,7 +9,6 @@ class User < ActiveRecord::Base
   has_many :dailies, -> (user) { limit(Daily::LIMIT - user.daily_count) }
   has_many :daily_counts
   has_many :exercises, class_name: "UserExercise"
-  has_many :lifecycle_events, ->{ order 'created_at ASC' }, class_name: "LifecycleEvent"
 
   has_many :management_contracts, class_name: "TeamManager"
   has_many :managed_teams, through: :management_contracts, source: :team
@@ -70,7 +69,6 @@ class User < ActiveRecord::Base
       conflict.username = ''
       conflict.save
     end
-    LifecycleEvent.track('joined', user.id) if track_event
     user
   end
 
@@ -92,14 +90,6 @@ class User < ActiveRecord::Base
 
   def sees_exercises?
     ACL.where(user_id: id).count > 0
-  end
-
-  def onboarding_steps
-    @onboarding_steps ||= lifecycle_events.map(&:key)
-  end
-
-  def fetched?
-    onboarding_steps.include?("fetched")
   end
 
   def onboarded?
