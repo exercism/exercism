@@ -13,7 +13,8 @@ class HomeworkTest < Minitest::Test
     attributes = { user: alice, language: 'ruby' }
 
     UserExercise.create(attributes.merge(slug: 'leap', skipped_at: now))
-    UserExercise.create(attributes.merge(slug: 'clock', fetched_at: now))
+    UserExercise.create(attributes.merge(slug: 'clock', fetched_at: now, iteration_count: 0))
+    UserExercise.create(attributes.merge(slug: 'submssion', fetched_at: now, iteration_count: 1, last_iteration_at: now))
     UserExercise.create(attributes.merge(slug: 'gigasecond', last_iteration_at: now))
 
     assert_equal homework.status('ruby').to_json, {
@@ -23,6 +24,7 @@ class HomeworkTest < Minitest::Test
         submitted_at: now
       },
       skipped: ['leap'],
+      submitted: ['submssion'],
       fetched: ['clock']
     }.to_json
 
@@ -33,6 +35,7 @@ class HomeworkTest < Minitest::Test
         submitted_at: ''
       },
       skipped: [],
+      submitted: [],
       fetched: []
     }.to_json
   end
