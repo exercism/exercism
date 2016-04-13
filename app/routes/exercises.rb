@@ -43,7 +43,6 @@ module ExercismWeb
           redirect "/exercises/#{key}"
         end
         exercise.archive!
-        LifecycleEvent.track('completed', current_user.id)
         flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now archived."
         redirect '/'
       end

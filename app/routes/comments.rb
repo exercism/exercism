@@ -32,13 +32,6 @@ module ExercismWeb
 
         ConversationSubscription.join(current_user, submission)
 
-        unless current_user == submission.user
-          LifecycleEvent.track('received_feedback', submission.user_id)
-          LifecycleEvent.track('commented', current_user.id)
-          unless current_user.onboarded?
-            LifecycleEvent.commented(current_user.id)
-          end
-        end
         redirect "/submissions/#{key}"
       end
 

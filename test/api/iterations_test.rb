@@ -131,13 +131,10 @@ class IterationsApiTest < Minitest::Test
 
     exercise = @alice.exercises.first
 
-    fetched_events_count = @alice.lifecycle_events.where(key: 'fetched').size
-
     assert_equal 'ruby', exercise.language
     assert_equal 'one', exercise.slug
     assert_in_delta Time.now.utc.to_i, exercise.fetched_at.to_i, 1
     assert_equal 0, exercise.iteration_count
-    assert_equal 1, fetched_events_count
     assert_equal 204, last_response.status
   end
 
