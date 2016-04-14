@@ -63,7 +63,7 @@ class UsersApiTest < Minitest::Test
     X::Xapi.stub(:get, [200, File.read(f)]) do
       user = User.create(username: 'alice')
       submission = Submission.create(user: user, language: 'Animal', slug: 'hello-world', solution: {'hello_world.rb' => 'CODE'})
-      UserExercise.create(user: user, submissions: [submission], language: 'animal', slug: 'hello-world', iteration_count: 1)
+      UserExercise.create(user: user, submissions: [submission], language: 'animal', slug: 'hello-world', iteration_count: 0)
       submission2 = Submission.create(user: user, language: 'Fake', slug: 'apple', solution: {'apple.js' => 'CODE'})
       UserExercise.create(user: user, submissions: [submission2], language: 'fake', slug: 'apple', iteration_count: 1)
       submission3 = Submission.create(user: user, language: 'Animal', slug: 'one', solution: {'one.rb' => 'CODE'})
@@ -74,7 +74,7 @@ class UsersApiTest < Minitest::Test
       response = JSON.parse(last_response.body)
       assert_equal 200, last_response.status
       assert_equal 4, response["statistics"].count
-      assert_equal 2, response["statistics"].first["completed"].count
+      assert_equal 1, response["statistics"].first["completed"].count
       assert_equal 1, response["statistics"][1]["completed"].count
       count = response["statistics"].select do |language|
         language["completed"].count == 0
