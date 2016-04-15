@@ -69,11 +69,13 @@ module ExercismWeb
       end
 
       get '/exercises/:track_id/:slug' do |id, slug|
-        exercise = X::Exercise::TestFiles.find(id, slug)
-        if exercise.files.empty?
-          flash[:notice] = "No files for #{exercise.name} problem in #{exercise.language} track"
+        status, body = X::Xapi.get('tracks', id, 'exercises', slug, 'tests')
+        if status > 299
+          flash[:notice] = JSON.parse(body)["error"]
           redirect '/'
         end
+
+        exercise = X::Exercise.new(JSON.parse(body)['exercise'])
         erb :"exercises/test_suite", locals: { exercise: exercise }
       end
 
