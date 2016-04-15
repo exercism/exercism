@@ -84,7 +84,7 @@ module ExercismWeb
           redirect '/'
         end
 
-        exercise = Exercise.new(JSON.parse(body)['exercise'])
+        exercise = X::Exercise.new(JSON.parse(body)['exercise'])
         erb :"exercises/readme", locals: { exercise: exercise }
       end
     end
