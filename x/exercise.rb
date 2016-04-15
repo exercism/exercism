@@ -1,13 +1,6 @@
 module X
   # Essentially a wrapper around the /exercise resource from the exercises API.
   class Exercise
-    module Readme
-      def self.find(track_id, slug)
-        _, body = X::Xapi.get('tracks', track_id, 'exercises', slug, 'readme')
-        Exercise.new(JSON.parse(body)['exercise'])
-      end
-    end
-
     module TestFiles
       def self.find(track_id, slug)
         _, body = X::Xapi.get('tracks', track_id, 'exercises', slug, 'tests')
