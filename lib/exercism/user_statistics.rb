@@ -11,7 +11,7 @@ class UserStatistics
   end
 
   def self.problem_completion(user, track)
-    user.exercises.current.where(language: track.id).map do |exercise|
+    user.exercises.completed.where(language: track.id).map do |exercise|
       exercise.slug
     end
   end
