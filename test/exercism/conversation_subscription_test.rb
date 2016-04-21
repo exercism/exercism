@@ -4,6 +4,7 @@ require 'minitest/pride'
 class ConversationSubscriptionTest < Minitest::Test
   include DBCleaner
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_join_vs_unsubscribe
     alice = User.create!(username: 'alice')
     iteration = Submission.new(user_exercise_id: 1)
@@ -37,6 +38,7 @@ class ConversationSubscriptionTest < Minitest::Test
     # Unsubscribe explicitly without a subscription. It shouldn't blow up.
     ConversationSubscription.unsubscribe(charlie, iteration)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def test_subscriber_ids
     alice = User.create!(username: 'alice')

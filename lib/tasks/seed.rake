@@ -28,10 +28,12 @@ namespace :db do
     require_relative '../db/config'
 
     config = DB::Config.new
+    # rubocop:disable Style/AlignParameters
     system({ 'PGPASSWORD' => config.password },
            'psql', '-h', config.host, '-p', config.port,
                    '-U', config.username,
                    '-d', config.database, '-f', 'db/seeds.sql')
+    # rubocop:enable Style/AlignParameters
 
     # Trigger generation of html body
     Comment.find_each { |comment| comment.save }

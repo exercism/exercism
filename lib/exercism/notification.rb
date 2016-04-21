@@ -27,18 +27,12 @@ class Notification < ActiveRecord::Base
 
   # Consider implementing a presenter if we get more display-related stuff.
   def icon
-    case action
-    when 'like'
-      'thumbs-up'
-    when 'mention'
-      'comments'
-    when 'comment'
-      'comment-o'
-    when 'iteration'
-      'code'
-    else
-      'asterisk'
-    end
+    icon_choice = {
+      'like': 'thumbs-up', 'mention': 'comments',
+      'comment': 'comment-o', 'iteration': 'code'
+    }
+    icon_choice.default('asterisk')
+    icon_choice[action]
   end
 
   def whose

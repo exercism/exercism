@@ -11,6 +11,7 @@ module Stats
       User.connection.execute(sql).to_a
     end
 
+    # rubocop:disable Metrics/MethodLength
     def sql
       <<-SQL
         SELECT
@@ -27,6 +28,7 @@ module Stats
           s.language, c.created_at::date
           SQL
     end
+    # rubocop:enable Metrics/MethodLength
 
     def start_time
       Time.utc(year, month, 1)

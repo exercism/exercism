@@ -6,10 +6,10 @@ class UserExercise < ActiveRecord::Base
   belongs_to :user
 
   scope :recently_viewed_by, lambda {|user|
-    includes(:user).
-      joins(:views).
-      where('views.user_id': user.id).
-      where('views.last_viewed_at > ?', 30.days.ago).order('views.last_viewed_at DESC')
+    includes(:user)
+      .joins(:views)
+      .where('views.user_id': user.id)
+      .where('views.last_viewed_at > ?', 30.days.ago).order('views.last_viewed_at DESC')
   }
   scope :current, ->{ where(archived: false).where.not(iteration_count: 0).order('language, id ASC') }
   scope :completed, ->{ where.not(iteration_count: 0).order('language, id ASC') }

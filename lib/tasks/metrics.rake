@@ -60,10 +60,10 @@ namespace :metrics do
       sql = <<-SQL
         SELECT id, created_at FROM users ORDER BY created_at ASC
       SQL
-      fn = lambda { |row|
+      fn = lambda do |row|
         at = Moment.new(row['created_at'])
         ([ row['id'], at.to_s] + at.to_a).join(",")
-      }
+      end
       Metric.report(sql, ["User ID", "Signed Up On"]+Moment.to_a, fn)
     end
 
@@ -72,20 +72,20 @@ namespace :metrics do
       sql = <<-SQL
         SELECT id, user_id, created_at FROM comments ORDER BY created_at ASC
       SQL
-      fn = lambda { |row|
+      fn = lambda do |row|
         at = Moment.new(row['created_at'])
         ([ row['id'], row['user_id'], at.to_s] + at.to_a).join(",")
-      }
+      end
       Metric.report(sql, ["Comment ID", "User ID", "Submitted On"]+Moment.to_a, fn)
     end
 
     desc "extract iteration events"
     task :iterations do
       sql = "SELECT id, user_id, created_at FROM submissions ORDER BY created_at ASC"
-      fn = lambda { |row|
+      fn = lambda do |row|
         at = Moment.new(row['created_at'])
         ([ row['id'], row['user_id'], at.to_s] + at.to_a).join(",")
-      }
+      end
       Metric.report(sql, ["Iteration ID", "User ID", "Submitted On"]+Moment.to_a, fn)
     end
   end
@@ -104,9 +104,9 @@ namespace :metrics do
         extract(week from created_at)
       SQL
 
-      fn = lambda { |row|
+      fn = lambda do |row|
         [row['isoyear'], row['isoweek'], row['tally']].join(",")
-      }
+      end
       Metric.report(sql, ["ISO Year", "ISO Week", "Unique Commenters"], fn)
     end
 
@@ -123,9 +123,9 @@ namespace :metrics do
         extract(week from created_at)
       SQL
 
-      fn = lambda { |row|
+      fn = lambda do |row|
         [row['isoyear'], row['isoweek'], row['tally']].join(",")
-      }
+      end
       Metric.report(sql, ["ISO Year", "ISO Week", "Unique Submitters"], fn)
     end
   end
@@ -180,7 +180,7 @@ namespace :metrics do
       ) AS x
       ON u.id=x.user_id
     SQL
-    fn = lambda { |row|
+    fn = lambda do |row|
       [
         row['id'],
         row['comments_given'],
@@ -190,7 +190,7 @@ namespace :metrics do
         row['languages'],
         days(row['first_iteration_at'], row['latest_iteration_at']),
       ].join(",")
-    }
+    end
     headers = ["User ID", "Comments Given", "Comments Received", "Iterations", "Exercises", "Languages", "Active For (days)"]
     Metric.report(sql, headers, fn)
   end
@@ -236,7 +236,7 @@ namespace :metrics do
       ) AS f
       ON f.user_id=u.id
     SQL
-    fn = lambda { |row|
+    fn = lambda do |row|
       [
         row['id'],
         Moment.new(row['signed_up_at']).cohort,
@@ -246,7 +246,7 @@ namespace :metrics do
         row['has_received_feedback'],
         ttf(row['signed_up_at'], row['first_submission_at']),
       ].join(",")
-    }
+    end
     Metric.report(sql, ["User ID", "Cohort", "Submitted", "Discussed", "Reviewed", "Got Feedback", "Time to First Submission"], fn)
   end
 
@@ -264,14 +264,14 @@ namespace :metrics do
     ORDER BY s.language ASC
     SQL
 
-    fn = lambda { |row|
+    fn = lambda do |row|
       [
         row['language'],
         row['slug'],
         row['submissions'],
         row['reviews']
       ].join(",")
-    }
+    end
     Metric.report(sql, ["Track ID", "Problem", "Submissions", "Reviews"], fn)
   end
 end

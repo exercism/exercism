@@ -6,6 +6,7 @@ require_relative '../../lib/exercism/homework'
 class HomeworkTest < Minitest::Test
   include DBCleaner
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_status
     alice = User.create(username: 'alice')
     homework = Homework.new(alice)
@@ -39,4 +40,5 @@ class HomeworkTest < Minitest::Test
       fetched: []
     }.to_json
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end

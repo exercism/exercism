@@ -46,6 +46,7 @@ class Comment < ActiveRecord::Base
 
   private
 
+  # rubocop:disable Metrics/AbcSize
   def mentions
     # Don't trust that the HTML has been rendered yet.
     # This will double-render in most cases.
@@ -56,4 +57,5 @@ class Comment < ActiveRecord::Base
     s = !!s ? s.content : ""
     s.scan(/\@(\w+)/).uniq.flatten
   end
+  # rubocop:enable Metrics/AbcSize
 end

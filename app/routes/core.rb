@@ -1,5 +1,6 @@
 module ExercismWeb
   module Routes
+    # rubocop:disable Metrics/ClassLength
     class Core < Sinatra::Application
       configure do
         set :public_folder, Exercism.relative_to_root('public')

@@ -2,19 +2,19 @@ module ExercismAPI
   module Routes
     class Legacy < Core
       get '/user/assignments/restore' do
-        halt 500, ErrPleaseUpgrade
+        halt 500, ERR_PLEASE_UPGRADE
       end
 
       get '/exercises/:track_id' do |_|
-        halt 500, ErrPleaseUpgrade
+        halt 500, ERR_PLEASE_UPGRADE
       end
 
       get '/exercises/:track_id/:slug' do |_, _|
-        halt 500, ErrPleaseUpgrade
+        halt 500, ERR_PLEASE_UPGRADE
       end
 
       get '/iterations/:key/restore' do |_|
-        halt 500, ErrPleaseUpgrade
+        halt 500, ERR_PLEASE_UPGRADE
       end
 
       delete '/user/assignments' do

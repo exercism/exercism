@@ -1,5 +1,6 @@
 require_relative '../integration_helper'
 
+# rubocop:disable Metrics/ClassLength
 class UserTest < Minitest::Test
   include DBCleaner
 
@@ -70,12 +71,12 @@ class UserTest < Minitest::Test
   end
 
   def test_find_user_by_case_insensitive_username
-    %w{alice bob}.each do |name| User.create(username: name) end
+    %w{alice bob}.each { |name| User.create(username: name) }
     assert_equal 'alice', User.find_by_username('ALICE').username
   end
 
   def test_find_a_bunch_of_users_by_case_insensitive_username
-    %w{alice bob fred}.each do |name| User.create(username: name) end
+    %w{alice bob fred}.each { |name| User.create(username: name) }
     assert_equal ['alice', 'bob'], User.find_in_usernames(['ALICE', 'BOB']).map(&:username)
   end
 
@@ -85,6 +86,7 @@ class UserTest < Minitest::Test
     assert_equal ['alice', 'bob', 'charlie'], User.find_or_create_in_usernames(['alice', 'BOB', 'charlie']).map(&:username).sort
   end
 
+  # rubocop:disable Metrics/AbcSize, MethodLength
   def test_delete_team_memberships_with_user
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
@@ -104,6 +106,7 @@ class UserTest < Minitest::Test
     refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'Confirmed TeamMembership was deleted.'
     refute TeamMembership.exists?(team: other_team, user: bob, inviter: alice), 'Unconfirmed TeamMembership was deleted.'
   end
+  # rubocop:enable Metrics/AbcSize, MethodLength
 
   def test_increment_adds_to_table
     fred = User.create(username: 'fred')

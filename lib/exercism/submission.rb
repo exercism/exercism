@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/ClassLength
 class Submission < ActiveRecord::Base
   serialize :solution, JSON
   belongs_to :user

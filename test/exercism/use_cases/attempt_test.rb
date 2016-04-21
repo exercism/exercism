@@ -1,5 +1,6 @@
 require_relative '../../integration_helper'
 
+# rubocop:disable Metrics/ClassLength
 class AttemptTest < Minitest::Test
   include DBCleaner
 
@@ -23,6 +24,7 @@ class AttemptTest < Minitest::Test
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_saving_with_comments_creates_a_new_comment
     iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two', comment: "hello world")
 
@@ -36,13 +38,15 @@ class AttemptTest < Minitest::Test
       assert_equal attempt.submission, comment.submission
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/MethodLength
   def test_saving_without_comments_does_not_create_the_comment
-    save_attempt = ->(i) {
+    save_attempt = ->(i) do
       Xapi.stub(:exists?, true) do
         Attempt.new(user, i).save
       end
-    }
+    end
     iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two')
     save_attempt.call(iteration)
     assert_equal 0, Comment.count
@@ -51,7 +55,9 @@ class AttemptTest < Minitest::Test
     save_attempt.call(iteration)
     assert_equal 0, Comment.count
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize
   def test_saving_an_attempt_constructs_a_submission
     assert_equal 0, Submission.count # guard
 
@@ -64,7 +70,9 @@ class AttemptTest < Minitest::Test
     assert_equal 'two', submission.slug
     assert_equal user, submission.user
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_saving_a_multi_file_attempt_constructs_a_submission
     assert_equal 0, Submission.count # guard
 
@@ -78,7 +86,9 @@ class AttemptTest < Minitest::Test
     assert_equal({'two.py' => 'CODE'}, submission.solution)
     assert_equal user, submission.user
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_attempt_is_created_for_current_exercise
     assert_equal 0, Submission.count # guard
 
@@ -91,6 +101,7 @@ class AttemptTest < Minitest::Test
     assert_equal 'two', submission.slug
     assert_equal user, submission.user
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_an_attempt_includes_the_code_and_filename_in_the_submissions_solution
     iteration = Iteration.new({'two.py' => 'CODE'}, 'python', 'two')
@@ -116,6 +127,7 @@ class AttemptTest < Minitest::Test
     assert_equal attempt.previous_submission, Submission.first
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_previous_submission_with_new_language_sandwich
     Attempt.new(user, Iteration.new({'two.rb' => 'CODE 1'}, 'ruby', 'two')).save
     Attempt.new(user, Iteration.new({'two.py' => 'CODE 2'}, 'python', 'two')).save
@@ -123,6 +135,7 @@ class AttemptTest < Minitest::Test
 
     assert_equal attempt.previous_submission, Submission.first
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_newlines_are_removed_at_the_end_of_the_file
     Attempt.new(user, Iteration.new({'two.rb' => "CODE1\n\nCODE2\n\n\n"}, 'ruby', 'two')).save
@@ -152,3 +165,4 @@ class AttemptTest < Minitest::Test
     refute attempt.duplicate?
   end
 end
+# rubocop:enable Metrics/ClassLength
