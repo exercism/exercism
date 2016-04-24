@@ -1,4 +1,5 @@
 require 'rouge'
+require 'rouge/formatters/html_exercism'
 
 module ExercismLib
   class SyntaxHighlighter
@@ -36,7 +37,7 @@ module ExercismLib
         line_numbers: true
       }
 
-      Rouge::Formatters::HTML.new(options)
+      Rouge::Formatters::HTMLExercism.new(options)
     end
 
     def normalize_language(language)

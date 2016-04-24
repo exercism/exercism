@@ -38,7 +38,8 @@ class MarkdownTest < Minitest::Test
 
   def test_mention_ignores_fenced_code_blocks
     markdown = "```\n@goose\n```"
-    assert_match "<pre>@goose", ExercismLib::Markdown.render(markdown)
+    assert_match "<pre><span id=\"L1\">@goose\n</span>",
+      ExercismLib::Markdown.render(markdown)
   end
 
   def test_no_newlines_before_and_after_code
