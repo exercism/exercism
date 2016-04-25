@@ -57,32 +57,7 @@
 
       <% if !track.active %>
         <div class="active tab-pane" id="launch">
-          <h5>Help Us Launch the <%= track.language %> Track!</h5>
-
-          <p>
-            Launching a track takes a lot of work and we'd love your help!
-          </p>
-
-          <h5> In order to launch we need: </h5>
-
-          <p>
-            <ul>
-              <li>A submodule in x-api</li>
-              <li>At least 10 problems</li>
-              <li>A "how to get started" topic in the help repo (app/pages/languages/getting-started-with-groovy.md)</li>
-              <li>One to a handful of people willing to check exercism regularly (daily?) for nitpicks to ensure that the track gets off on the right foot</li>
-              <li>Toggle "active" to true in config.json</li>
-            </ul>
-          </p>
-
-          <p>
-          We always welcome help to get a new track up and running.
-          </p>
-
-          <p>
-            See the <a href="<%= track.repository %>/issues/1"><%= track.language %> repository</a>
-            and checkout the "Launch Checklist" issue to what needs to be done.
-          </p>
+          <%= md track.docs.launch %>
         </div>
       <% end %>
 
