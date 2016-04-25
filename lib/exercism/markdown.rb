@@ -6,6 +6,7 @@ require 'exercism/syntax_highlighter'
 # start with a dash.
 USERNAME_REGEX = /(@[0-9a-zA-z][0-9a-zA-Z\-]*)/
 
+# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 def hyperlink_mentions!(node)
   node.children.each do |child|
     if child.node_type == Nokogiri::XML::Node::ELEMENT_NODE &&
@@ -32,6 +33,7 @@ def hyperlink_mentions!(node)
     end
   end
 end
+# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
 module ExercismLib
   class Markdown < Redcarpet::Render::XHTML
@@ -41,6 +43,7 @@ module ExercismLib
       markdown.render(content)
     end
 
+    # rubocop:disable Metrics/MethodLength
     def self.options
       {
         fenced_code_blocks: true,
@@ -54,6 +57,7 @@ module ExercismLib
         xhtml: true
       }
     end
+    # rubocop:enable Metrics/MethodLength
 
     def preprocess(text_content)
       # patch while redcarpet doesn't support lists without newline issue#2759

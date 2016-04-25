@@ -17,6 +17,7 @@ class UserProgressionTest < Minitest::Test
     Language.instance_variable_set(:"@by_track_id", nil)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_user_progress_for_100_percent
     X::Xapi.stub(:get, [200, File.read(@f)]) do
       UserExercise.create(user: @user, language: 'animal', iteration_count: 1)
@@ -26,7 +27,9 @@ class UserProgressionTest < Minitest::Test
       assert_equal 1, actual.first.language_track.count
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_user_progress_for_1_out_of_4
     X::Xapi.stub(:get, [200, File.read(@f)]) do
       UserExercise.create(user: @user, language: 'fake', iteration_count: 1)
@@ -36,6 +39,7 @@ class UserProgressionTest < Minitest::Test
       assert_equal 4, actual.first.language_track.count
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_user_progress_ignores_exercises_without_iterations
     X::Xapi.stub(:get, [200, File.read(@f)]) do

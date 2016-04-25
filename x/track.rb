@@ -20,9 +20,9 @@ module X
     ]
     attr_reader(*METHODS)
 
-    alias_method :active?, :active
-    alias_method :implemented?, :implemented
-    alias_method :slug, :id
+    alias active?      active
+    alias implemented? implemented
+    alias slug         id
 
     def initialize(data)
       METHODS.each do |name|

@@ -1,6 +1,7 @@
 require_relative '../app_helper'
 require 'mocha/setup'
 
+# rubocop:disable Metrics/ClassLength
 class TeamsTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper
@@ -48,6 +49,7 @@ class TeamsTest < Minitest::Test
     assert_equal expected_status, last_response.status
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_user_must_be_logged_in
     [
       [:get, '/teams'],
@@ -70,7 +72,9 @@ class TeamsTest < Minitest::Test
       assert_equal location, last_response.location, "Wrong redirect for #{verb.to_s.upcase} #{endpoint}"
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def test_user_must_be_manager
     team = Team.by(alice).defined_with(slug: 'abc', usernames: bob.username)
     team.save
@@ -90,7 +94,9 @@ class TeamsTest < Minitest::Test
       assert_equal location, last_response.location, "Only a manager may #{action}. (#{verb.to_s.upcase} #{path})"
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def test_user_must_be_on_team_to_view_team_page
     team = Team.by(alice).defined_with(slug: 'abc', usernames: bob.username)
     team.save
@@ -113,6 +119,7 @@ class TeamsTest < Minitest::Test
       assert_equal "http://example.org/", last_response.location
     end
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def test_team_creation_with_name
     post '/teams', {team: {name: 'No Members', slug: 'no_members', usernames: ""}}, login(alice)
@@ -121,6 +128,7 @@ class TeamsTest < Minitest::Test
     assert_equal 'No Members', team.name
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_team_creation_with_no_members
     assert_equal 0, alice.managed_teams.size
 
@@ -132,6 +140,7 @@ class TeamsTest < Minitest::Test
     assert_equal 1, alice.managed_teams.size
     assert_equal [alice.id], team.managers.map(&:id)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_team_creation_with_no_slug
     post '/teams', {team: {usernames: bob.username}}, login(alice)
@@ -139,8 +148,9 @@ class TeamsTest < Minitest::Test
     assert_equal 0, alice.managed_teams.size
   end
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def test_team_creation_with_multiple_members
-    post '/teams', {team: {slug: 'members', usernames: "#{bob.username},#{charlie.username}"}}, login(alice)
+    post '/teams', { team: { slug: 'members', usernames: "#{bob.username},#{charlie.username}"} }, login(alice)
 
     team = Team.first
 
@@ -163,11 +173,11 @@ class TeamsTest < Minitest::Test
     assert_equal 1, bob.teams.size
     assert_equal 1, charlie.teams.size
 
-    [alice, bob, charlie].each do |member|
-      assert team.includes?(member)
-    end
+    [alice, bob, charlie].each { |member| assert team.includes?(member) }
   end
+  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_member_addition
     team = Team.by(alice).defined_with(slug: 'members')
     team.save
@@ -186,7 +196,9 @@ class TeamsTest < Minitest::Test
     assert team.includes?(bob)
     refute team.includes?(charlie)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_only_managers_can_invite_members
     team = Team.by(alice).defined_with(slug: 'members', usernames: bob.username)
     team.save
@@ -198,7 +210,9 @@ class TeamsTest < Minitest::Test
     assert_response_status(302)
     refute team.includes?(charlie)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_member_removal
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: "#{bob.username},#{charlie.username}")
     team.save
@@ -210,7 +224,9 @@ class TeamsTest < Minitest::Test
 
     refute team.includes?(bob)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_leave_team
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: "#{bob.username},#{charlie.username}")
     team.save
@@ -222,7 +238,9 @@ class TeamsTest < Minitest::Test
 
     refute team.includes?(bob)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_only_managers_can_dismiss_other_members
     team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{charlie.username}"})
     team.save
@@ -235,7 +253,9 @@ class TeamsTest < Minitest::Test
     assert_response_status(302)
     assert team.includes?(charlie)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_view_a_team_as_a_member
     team = Team.by(alice).defined_with(slug: 'members', usernames: "#{bob.username},#{charlie.username}")
     team.save
@@ -254,7 +274,9 @@ class TeamsTest < Minitest::Test
 
     assert_response_status(200)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_view_an_escaped_team_name
     team = Team.by(alice).defined_with(slug: 'members', name: "<script>alert('esc_test');</script>", usernames: "#{bob.username},#{charlie.username}")
     team.save
@@ -267,6 +289,7 @@ class TeamsTest < Minitest::Test
     assert_response_status(200)
     assert last_response.body.include?('&lt;script&gt;alert(&#x27;esc_test&#x27;)')
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_view_team_as_a_non_member
     team = Team.by(alice).defined_with(slug: 'members', usernames: "#{bob.username}")
@@ -287,6 +310,7 @@ class TeamsTest < Minitest::Test
     assert Team.exists?(slug: 'delete')
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_delete_team_as_manager
     team = Team.by(alice).defined_with(slug: 'delete', usernames: "#{bob.username}")
     team.save
@@ -297,7 +321,9 @@ class TeamsTest < Minitest::Test
     assert_equal "http://example.org/account", last_response.location
     refute Team.exists?(slug: 'delete')
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_edit_teams_name_and_slug
     team = Team.by(alice).defined_with(slug: 'edit', usernames: "#{bob.username}")
     team.save
@@ -307,7 +333,9 @@ class TeamsTest < Minitest::Test
     assert_response_status(302)
     assert team.reload.name == 'New name'
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_unconfirmed_memberships_after_invitation
     team_name = 'abc'
     post '/teams', {team: {slug: team_name, usernames: bob.username}}, login(alice)
@@ -326,7 +354,9 @@ class TeamsTest < Minitest::Test
     assert_equal 0, charlie.reload.team_memberships.count, "Bob still doesn't have a confirmed membership at the created team."
     assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Charlie has one unconfirmed membership at the created team."
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize
   def test_add_manager
     team = Team.by(alice).defined_with(slug: 'dragon')
     team.save
@@ -341,7 +371,9 @@ class TeamsTest < Minitest::Test
     assert_equal "http://example.org/teams/dragon/manage", last_response.location
     assert_equal [alice.id, bob.id].sort, team.reload.managers.map(&:id).sort
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_remove_manager
     team = Team.by(alice).defined_with(slug: 'salamander')
     team.save
@@ -357,7 +389,9 @@ class TeamsTest < Minitest::Test
     assert_equal "http://example.org/teams/salamander/manage", last_response.location
     assert_equal [alice.id], team.reload.managers.map(&:id)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize
   def test_disown_team_with_multiple_managers
     team = Team.by(alice).defined_with(slug: 'rat')
     team.save
@@ -368,7 +402,9 @@ class TeamsTest < Minitest::Test
     assert_equal "http://example.org/account", last_response.location
     assert_equal [bob.id], team.reload.managers.map(&:id)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_cannot_disown_team_when_sole_manager
     team = Team.by(alice).defined_with(slug: 'condor')
     team.save
@@ -378,4 +414,5 @@ class TeamsTest < Minitest::Test
     assert_equal "http://example.org/teams/condor/manage", last_response.location
     assert_equal [alice.id], team.reload.managers.map(&:id)
   end
+  # rubocop:enable Metrics/AbcSize
 end

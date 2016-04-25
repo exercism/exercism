@@ -11,6 +11,7 @@ class DailyTest < Minitest::Test
     @sarah ||= User.create(username: 'sarah')
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_only_returns_exercises_for_authorized_language_and_slug
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
@@ -21,7 +22,9 @@ class DailyTest < Minitest::Test
 
     assert_equal [ex1.key], fred.dailies.map(&:key)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_orders_dailies_by_comment_count
     jaclyn = User.create(username: 'jaclyn')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
@@ -35,7 +38,9 @@ class DailyTest < Minitest::Test
 
     assert_equal [ex2.key, ex1.key], fred.dailies.map(&:key)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/MethodLength
   def test_does_not_return_archived_exercises
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
     UserExercise.create!(
@@ -49,7 +54,9 @@ class DailyTest < Minitest::Test
     )
     assert_equal([], Daily.all)
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
   def test_does_not_return_hello_world_slug
     ACL.authorize(fred, Problem.new('ruby', 'hello-world'))
     UserExercise.create!(
@@ -63,7 +70,9 @@ class DailyTest < Minitest::Test
     )
     assert_equal([], Daily.all)
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize
   def test_does_not_return_exercises_with_activity_over_30_days
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
@@ -72,6 +81,7 @@ class DailyTest < Minitest::Test
 
     assert_equal [ex2.key], fred.dailies.map(&:key)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_does_not_return_liked_user_exercises
     ACL.authorize(fred, Problem.new('ruby', 'bob'))

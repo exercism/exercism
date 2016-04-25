@@ -3,6 +3,7 @@ require './lib/jobs/hello'
 
 module ExercismAPI
   module Routes
+    # rubocop:disable Metrics/ClassLength
     class Iterations < Core
       # Mark exercise as skipped.
       # Called from the CLI.
@@ -172,4 +173,5 @@ module ExercismAPI
       end
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

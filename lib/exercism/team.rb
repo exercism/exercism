@@ -102,7 +102,7 @@ class Team < ActiveRecord::Base
 
   def normalize_slug
     return unless slug
-    self.slug = slug.gsub('_', '-').parameterize('-')
+    self.slug = slug.tr('_', '-').parameterize('-')
   end
 
   def provide_default_slug

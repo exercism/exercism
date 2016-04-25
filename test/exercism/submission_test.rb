@@ -1,6 +1,7 @@
 require_relative '../integration_helper'
 require "mocha/setup"
 
+# rubocop:disable Metrics/ClassLength
 class SubmissionTest < Minitest::Test
   include DBCleaner
 
@@ -89,6 +90,7 @@ class SubmissionTest < Minitest::Test
     refute submission.liked?
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_comments_are_sorted
     submission.comments << Comment.new(body: 'second', created_at: Time.now, user: submission.user)
     submission.comments << Comment.new(body: 'first', created_at: Time.now - 1000, user: submission.user)
@@ -98,6 +100,7 @@ class SubmissionTest < Minitest::Test
     assert_equal 'first', one.body
     assert_equal 'second', two.body
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_not_commented_on_by
     user = User.create!
@@ -113,6 +116,7 @@ class SubmissionTest < Minitest::Test
     assert_equal expected, Submission.not_commented_on_by(user).sort
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_exercise_viewed_updates_single_record_per_user_and_exercise
     alice = User.create!(username: 'alice')
     bob = User.create!(username: 'bob')
@@ -135,4 +139,6 @@ class SubmissionTest < Minitest::Test
     assert_equal 2, View.count
     assert_in_delta 1, v2.last_viewed_at.to_i, Time.now.utc.to_i
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
+# rubocop:enable Metrics/ClassLength
