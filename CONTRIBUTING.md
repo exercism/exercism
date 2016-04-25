@@ -316,6 +316,10 @@ Help keep us our code clean by following the style guide.
 Run the command `rubocop` to check for any style violations before
 submitting pull requests.
 
+### Style (JS/CSS)
+
+If you have any JS or CSS changes, please run `cd frontend && lineman spec-ci` to check for any style violations before submitting pull requests.
+
 ### Pull Requests
 
 When submitting a pull request, sometimes we'll ask you to make changes before
