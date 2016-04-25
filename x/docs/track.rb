@@ -20,7 +20,7 @@ module X
       attr_reader :repository, :data
 
       def value(topic)
-        if data[topic].empty?
+        if data[topic].blank?
           read(topic).gsub('REPO', repository)
         else
           [data[topic].strip, better(topic)].join("\n")
