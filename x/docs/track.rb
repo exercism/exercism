@@ -4,7 +4,7 @@ module X
     # defaults where missing and embellishments that encourage
     # people to submit improvements.
     class Track
-      TOPICS = [:about, :tests, :installation, :learning, :resources]
+      TOPICS = [:about, :tests, :installation, :learning, :resources, :launch]
 
       attr_reader(*TOPICS)
       def initialize(data, repository)
