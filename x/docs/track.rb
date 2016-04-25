@@ -4,7 +4,7 @@ module X
     # defaults where missing and embellishments that encourage
     # people to submit improvements.
     class Track
-      TOPICS = [:about, :tests, :installation, :learning, :resources, :launch]
+      TOPICS = [:about, :tests, :installation, :learning, :resources]
 
       attr_reader(*TOPICS)
       def initialize(data, repository)
@@ -20,7 +20,7 @@ module X
       attr_reader :repository, :data
 
       def value(topic)
-        if data[topic].blank?
+        if data[topic].empty?
           read(topic).gsub('REPO', repository)
         else
           [data[topic].strip, better(topic)].join("\n")
