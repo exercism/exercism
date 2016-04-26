@@ -6,10 +6,11 @@ module X
     class Track
       TOPICS = [:about, :tests, :installation, :learning, :resources]
 
-      attr_reader(*TOPICS)
+      attr_reader(*TOPICS, :launch)
       def initialize(data, repository)
         @data = data
         @repository = repository
+        @launch = value("launch")
 
         TOPICS.each do |topic|
           instance_variable_set(:"@#{topic}", value(topic.to_s))
@@ -20,7 +21,7 @@ module X
       attr_reader :repository, :data
 
       def value(topic)
-        if data[topic].empty?
+        if data[topic].blank?
           read(topic).gsub('REPO', repository)
         else
           [data[topic].strip, better(topic)].join("\n")
