@@ -28,10 +28,6 @@ module ExercismWeb
         end
       end
 
-      def github_callback?(path_info = nil)
-        path_info.include?("github/callback")
-      end
-
       private
 
       def redirect_uri(return_path)

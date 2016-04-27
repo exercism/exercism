@@ -52,6 +52,12 @@ class SubmissionsTest < Minitest::Test
     assert_response_status(200)
   end
 
+  def test_guests_get_redirected_on_nitpick
+    Attempt.new(alice, Iteration.new({'fake/hello-world/file.rb' => 'CODE'}, 'fake', 'hello-world')).save
+    post "/submissions/#{Submission.first.key}/nitpick", {body: "nice!"}
+    assert_response_status(302)
+  end
+
   def test_nitpick_assignment
     Attempt.new(alice, Iteration.new({'word-count/file.rb' => 'CODE'}, 'ruby', 'word-count')).save
     submission = Submission.first
