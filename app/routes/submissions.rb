@@ -46,7 +46,11 @@ module ExercismWeb
       end
 
       get %r{/submissions/(?<key>\w+)/(nitpick$|(\+?un)?like$)} do |key|
-        redirect "/submissions/#{key}"
+        if github_callback?(request.path_info)
+          redirect login_url("/submissions/#{key}")
+        else
+          redirect "/submissions/#{key}"
+        end
       end
 
       delete '/submissions/:key' do |key|
