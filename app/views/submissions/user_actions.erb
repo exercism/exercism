@@ -33,8 +33,8 @@
             type="submit"
             class="btn btn-default"
             name="delete"
-            onclick="return confirm('Are you sure you want to delete?');">
-            <i class="fa fa-trash"></i> Delete
+            onclick="return confirm('Are you sure you want to delete iteration <%= submission.version %>?');">
+            <i class="fa fa-trash"></i> Delete Iteration <%= submission.version %>
           </button>
         </form>
       </li>
