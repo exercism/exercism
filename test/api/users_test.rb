@@ -58,6 +58,7 @@ class UsersApiTest < Minitest::Test
     assert_equal [], JSON.parse(last_response.body)
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_returns_completion_for_specific_user_by_language
     f= './test/fixtures/xapi_v3_tracks.json'
     X::Xapi.stub(:get, [200, File.read(f)]) do
@@ -82,6 +83,7 @@ class UsersApiTest < Minitest::Test
       assert_equal 2, count
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def test_returns_error_for_nonexistant_user
     get '/users/alice/statistics'

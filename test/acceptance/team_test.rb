@@ -1,6 +1,7 @@
 require_relative '../acceptance_helper'
 
 class TeamAcceptanceTest < AcceptanceTestCase
+  # rubocop:disable Metrics/MethodLength
   def test_joining_a_team
     creating_user = create_user(username: 'creating_user')
     joining_user = create_user(username: 'joining_user', github_id: 123)
@@ -19,4 +20,5 @@ class TeamAcceptanceTest < AcceptanceTestCase
       assert_content 'joining_user'
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end

@@ -13,6 +13,7 @@ class CommentsApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
+  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def test_only_save_comment_if_rikki_has_not_commented
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
@@ -31,4 +32,5 @@ class CommentsApiTest < Minitest::Test
 
     assert_equal 3, Comment.count
   end
+  # rubocop:enable Metrics/MethodLength, MetricsAbcSize
 end

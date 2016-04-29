@@ -41,7 +41,7 @@ class AppHelpersSubmissionTest < Minitest::Test
   def test_like_submission_button_for_nitpicker
     @fred.track_mentor << 'ruby'
     @submission.problem.track_id = 'ruby'
-    expected = %Q{
+    expected = %{
       <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/like" method="POST" class="submission-like-button">
         <button type="submit" name="like" class="btn"><i class="fa"></i> Looks great!</button>
       </form>
@@ -54,7 +54,7 @@ class AppHelpersSubmissionTest < Minitest::Test
     @fred.track_mentor << 'ruby'
     @submission.problem.track_id = 'ruby'
     @submission.liked_by << @fred
-    expected = %Q{
+    expected = %{
       <form accept-charset="UTF-8" action="/submissions/#{@submission.key}/unlike" method="POST" class="submission-like-button">
         <button type="submit" name="unlike" class="btn"><i class="fa"></i> I didn't mean to like this!</button>
       </form>

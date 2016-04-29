@@ -1,4 +1,6 @@
+# rubocop:disable Metrics/ClassLength
 class InitialSchema < ActiveRecord::Migration
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def change
     create_table :comments do |t|
       t.integer  :user_id,       null: false
@@ -130,4 +132,6 @@ class InitialSchema < ActiveRecord::Migration
 
     add_index :alerts, :user_id
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
+# rubocop:enable Metrics/ClassLength

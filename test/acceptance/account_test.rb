@@ -28,6 +28,7 @@ class AccountTest < AcceptanceTestCase
     end
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_creating_a_team
     create_user(username: 'one_username', github_id: 12345)
     create_user(username: 'two_username', github_id: 4567)
@@ -48,4 +49,5 @@ class AccountTest < AcceptanceTestCase
       assert_content 'two_username'
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end
