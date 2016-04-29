@@ -1,0 +1,38 @@
+<div id="contribute">
+  <div class="container-fluid">
+    <section class="page-header">
+      <div class="pull-left" style="margin-right: 10px;">
+        <%= track_icon(track_id) %>
+      </div>
+      <h1>Contribute</h1>
+    </section>
+    <div class="row">
+      <div class="col-md-12">
+        <h2>This is a list of all the missing implementations for this track</h2>
+      </div>
+    </div>
+      <div class="row">
+        <div class="col-md-3">
+          <ul class="nav nav-pills nav-stacked">
+            <% stream.each_with_index do |t, i| %>
+              <% if t.implementations.any? %>
+                <li class="<%= 'active' if i == 0 %>" >
+                  <a data-toggle="tab" href="#<%= t.slug %>"><%= t.slug %></a>
+                </li>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+        <div class="col-md-9 tab-content">
+          <% stream.each_with_index do |t, i| %>
+            <%= erb :'languages/_contribute_exercise', locals: { exercise: t, index: i } %>
+          <% end %>
+        </div>
+      </div>
+      <div class="row text-center">
+        <div class="pagination">
+          <%= will_paginate stream, renderer: BootstrapPagination::Sinatra %>
+        </div>
+      </div>
+  </div>
+</div>

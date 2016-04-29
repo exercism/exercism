@@ -18,6 +18,15 @@ module ExercismWeb
           erb :"languages/not_implemented", locals: { track: track }
         end
       end
+
+      get '/languages/:track_id/contribute?' do |track_id|
+        page = params[:page] || 1
+        stream = TodoStream.new(track_id, page)
+        if stream
+          erb :"languages/contribute", locals: { stream: stream.pagination, track_id: track_id }
+        else
+        end
+      end
     end
   end
 end

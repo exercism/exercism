@@ -1,0 +1,21 @@
+<% if exercise.implementations.any? %>
+  <div class="tab-pane <%= 'active' if index == 0 %>" id="<%= exercise.slug %>">
+    <%= md(exercise.readme) %>
+    <section class="page-header">
+      <h3>Here a list of different implementations for this exercise</h1>
+    </section>
+    <% exercise.implementations.each_slice(6) do |im| %>
+      <div class="row">
+        <% im.each do |i| %>
+          <div class="col-xs-4 col-sm-4 col-md-2 col-lg-2 track_link">
+            <div class="text-center">
+              <%= track_icon(i["track_id"]) %>
+              <p><a href="<%= i["url"] %>" target="_blank"><%= i["track_id"] %></a></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
