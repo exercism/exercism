@@ -20,5 +20,23 @@ class TeamAcceptanceTest < AcceptanceTestCase
       assert_content 'joining_user'
     end
   end
+
+  def test_managing_a_team_as_sole_manager
+    user = create_user(username: 'foobar', github_id: 123)
+
+    attributes = { slug: 'some-team', name: 'Some Team' }
+    Team.by(user).defined_with(attributes, user).save!
+
+    with_login(user) do
+      click_on 'Account'
+      click_on 'Some Team'
+      click_on 'Manage'
+
+      within('#managers') do
+        assert_content 'foobar'
+        assert_selector 'button.manager_delete.disabled'
+      end
+    end
+  end
   # rubocop:enable Metrics/MethodLength
 end
