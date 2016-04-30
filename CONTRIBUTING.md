@@ -76,8 +76,11 @@ On other systems see the [Node.js docs](https://github.com/joyent/node/wiki/Inst
 
 ### GitHub OAuth
 
-To log into the app locally, you will need keys on GitHub
-that the app can talk to.
+If you seed your local database with fake users, then you can use these to "fake login" as
+one of them. There will be a dropdown with identities that you can assume in development mode.
+
+If you want to actually work on the login flow, or if you want to log in as yourself, then
+you will need keys on GitHub that the app can talk to.
 
 Go to https://github.com/settings/applications/new and enter the following:
 
