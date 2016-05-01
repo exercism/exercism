@@ -20,21 +20,23 @@
   function sessionHasKey(key) {
     return localStorage.getItem(key) !== null;
   }
+  // Check if comment is already stored in session
+  if (sessionHasKey(location.pathname)) {
+      // update input with nitpick
+      // had to use setTimeout, I think something is going on with the angular that causes
+      // a race condition
+      setTimeout(function(){
+        $('#submission_comment').val(localStorage.getItem(location.pathname));
+        localStorage.clear();
+      }, 1000);
+
   // if user is not logged in
-  if (!userIsInSession()) {
+  } else if (!userIsInSession()) {
     // bind to the form with the submission key pattern
     $('form[action^="/submissions/"]').on('submit', function(event){
       // save nitpick comment in sessionStorage
       var nitPickText = $(this).find('#submission_comment').val();
       localStorage.setItem(location.pathname, nitPickText);
     });
-  } else if (sessionHasKey(location.pathname)) {
-    // update input with nitpick
-    // had to use setTimeout, I think something is going on with the angular that causes
-    // a race condition
-    setTimeout(function(){
-      $('#submission_comment').val(localStorage.getItem(location.pathname));
-      localStorage.clear();
-    }, 1000);
   }
 </script>

@@ -43,7 +43,7 @@ group :test, :development do
 end
 
 group :development do
-  gem 'rubocop', require: false
+  gem 'rubocop', '0.36.0', require: false
 end
 
 group :test do

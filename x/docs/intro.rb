@@ -2,7 +2,7 @@ module X
   module Docs
     class Intro
       %w(local-remote getting-started).each do |topic|
-        define_method topic.gsub('-', '_') do
+        define_method topic.tr('-', '_') do
           read topic
         end
       end

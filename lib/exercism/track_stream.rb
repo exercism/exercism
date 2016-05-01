@@ -2,6 +2,7 @@ require 'will_paginate/array'
 
 # TrackStream is an activity stream which has been filtered against the user's access list.
 # Additionally, it can be narrowed down to a single exercise within a track.
+# rubocop:disable Metrics/ClassLength
 class TrackStream
   attr_reader :user, :page, :track_id, :slug, :language
   attr_accessor :per_page
@@ -50,6 +51,7 @@ class TrackStream
   # up front.
   # If performance is still a problem, remove the join on user and do a separate lookup
   # for that as well.
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def query_exercises
     exx = []
     ids = []
@@ -82,6 +84,7 @@ class TrackStream
 
     exx
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def execute(sql)
     ActiveRecord::Base.connection.execute(sql).to_a
@@ -99,6 +102,7 @@ class TrackStream
     execute(viewed_sql(ids)).map {|row| row["id"]}
   end
 
+  # rubocop:disable Metrics/MethodLength
   def viewed_sql(ids)
     <<-SQL
       SELECT ex.id
@@ -114,6 +118,7 @@ class TrackStream
         AND ex.id IN (#{ids.join(',')})
     SQL
   end
+  # rubocop:enable Metrics/MethodLength
 
   def comment_counts_sql(ids)
     <<-SQL
@@ -126,6 +131,7 @@ class TrackStream
     SQL
   end
 
+  # rubocop:disable Metrics/MethodLength
   def exercises_sql
     <<-SQL
       SELECT
@@ -155,7 +161,9 @@ class TrackStream
       LIMIT #{per_page} OFFSET #{offset}
     SQL
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
   def mark_as_read_update_sql
     <<-SQL
       UPDATE views
@@ -171,7 +179,9 @@ class TrackStream
         AND acls.user_id=#{user.id}
     SQL
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
   def mark_as_read_insert_sql
     <<-SQL
       INSERT INTO views (
@@ -193,6 +203,7 @@ class TrackStream
       )
     SQL
   end
+  # rubocop:enable Metrics/MethodLength
 
   def slug_param
     if slug.nil?
@@ -206,3 +217,4 @@ class TrackStream
     (page-1)*per_page
   end
 end
+# rubocop:enable Metrics/ClassLength

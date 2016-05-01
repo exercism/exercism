@@ -1,5 +1,6 @@
 module ExercismWeb
   module Routes
+    # rubocop:disable Metrics/ClassLength
     class Teams < Core
       get '/teams/:slug/?' do |slug|
         redirect '/teams/%s/streams' % slug
@@ -284,5 +285,6 @@ module ExercismWeb
         end
       end
     end
+    # rubocop:enable Metrics/ClassLength
   end
 end

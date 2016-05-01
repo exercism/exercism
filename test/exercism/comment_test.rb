@@ -14,6 +14,7 @@ class CommentTest < Minitest::Test
     refute c2.qualifying?, "Should not get credit for commenting on your own submission"
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_mentions
     User.create(username: 'alice')
     User.create(username: 'bob')
@@ -24,9 +25,10 @@ class CommentTest < Minitest::Test
       ["`@alice` and @bob", ["bob"], "mention-like thing within in-line code"],
       ["```\n@alice\n```\n\nand @bob", ["bob"], "mention-like thing within fenced code block"],
       ["Mention @alice and @bob and also @charlie", ["alice", "bob"], "ignore unknown users"]
-    ].each do |body, mentions, desc|
+    ].each do |body, mentions, _desc|
       usernames = User.where(id: Comment.new(body: body).mention_ids).map(&:username)
       assert_equal usernames, mentions
     end
   end
+  # rubocop:enable Metrics/MethodLength
 end

@@ -6,6 +6,7 @@ require 'exercism/markdown'
 require 'exercism/converts_markdown_to_html'
 require 'mocha/setup'
 
+# rubocop:disable Metrics/ClassLength
 class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def assert_converts_to(input, expected)
@@ -54,13 +55,14 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     Approvals.verify(ConvertsMarkdownToHTML.new(input).convert, name: 'markdown_double_braces')
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_markdown_code_with_javascript_and_double_braces
-    input = %Q{```
+    input = %{```
   var refill = 99
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
                  "{{action}}, {{remaining}} of beer on the wall.\n";}
 
-    expected = %Q{<div class="highlight plaintext">
+    expected = %{<div class="highlight plaintext">
 <table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href=\"#L1\">1</a>
 <a href=\"#L2\">2</a>
@@ -80,10 +82,12 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     converter.convert
     assert_equal expected, converter.content.strip
   end
+  # rubocop:enable Metrics/MethodLength
 
 
+  # rubocop:disable Metrics/MethodLength
   def test_complex_markdown_with_code
-    input = %Q{Pre text
+    input = %{Pre text
 
 ```
 class Foobar
@@ -110,7 +114,9 @@ Post text}
 
     assert_converts_to(input, expected)
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
   def test_markdown_with_clojure_code
     input = %q{Check out this code:
 
@@ -134,6 +140,7 @@ Post text}
 </div>}
     assert_converts_to(input, expected)
   end
+  # rubocop:enable Metrics/MethodLength
 
   def test_stubby_lambda
     input = "->"

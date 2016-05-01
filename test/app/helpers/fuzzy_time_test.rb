@@ -7,7 +7,7 @@ class FuzzyTimeHelperTest < Minitest::Test
     return @helper if @helper
     @helper = Object.new
     @helper.extend(ExercismWeb::Helpers::FuzzyTime)
-    def @helper.now
+    def @helper.now # rubocop:disable Lint/NestedMethodDefinition
       Time.utc(2013, 1, 2, 3, 4)
     end
     @helper

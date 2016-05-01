@@ -4,6 +4,7 @@ require 'will_paginate/array'
 # It does not restrict against the usual Access Control Lists.
 # If you are on the team, then you are allowed to see the code.
 # This can be narrowed down by track, track & problem, user, or user & track.
+# rubocop:disable Metrics/ClassLength
 class TeamStream
   attr_reader :team, :viewer_id, :page, :track_id, :user_id, :username, :slug
   attr_accessor :per_page
@@ -32,6 +33,7 @@ class TeamStream
     @user_ids ||= TeamMembership.where(team_id: team.id, confirmed: true).pluck(:user_id).map(&:to_i)
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def title
     problem = Problem.new(track_id, slug)
 
@@ -52,6 +54,7 @@ class TeamStream
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def menus
     @menus ||= [menu1, menu2, menu3]
@@ -69,6 +72,7 @@ class TeamStream
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
   def menu3
     case mode
     when :user
@@ -79,6 +83,7 @@ class TeamStream
       @menu3 ||= TeamStream::UserFilter.new(viewer_id, user_ids, team.slug, username)
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   def exercises
     @exercises ||= query_exercises
@@ -96,6 +101,7 @@ class TeamStream
   # up front.
   # If performance is still a problem, remove the join on user and do a separate lookup
   # for that as well.
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def query_exercises
     exx = []
     ids = []
@@ -128,6 +134,7 @@ class TeamStream
 
     exx
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def execute(sql)
     ActiveRecord::Base.connection.execute(sql).to_a
@@ -145,6 +152,7 @@ class TeamStream
     execute(viewed_sql(ids)).map {|row| row["id"]}
   end
 
+  # rubocop:disable Metrics/MethodLength
   def viewed_sql(ids)
     <<-SQL
       SELECT ex.id
@@ -158,6 +166,7 @@ class TeamStream
         AND ex.id IN (#{ids.join(',')})
     SQL
   end
+  # rubocop:enable Metrics/MethodLength
 
   def comment_counts_sql(ids)
     <<-SQL
@@ -170,6 +179,7 @@ class TeamStream
     SQL
   end
 
+  # rubocop:disable Metrics/MethodLength
   def exercises_sql
     <<-SQL
       SELECT
@@ -195,6 +205,7 @@ class TeamStream
       LIMIT #{per_page} OFFSET #{offset}
     SQL
   end
+  # rubocop:enable Metrics/MethodLength
 
   def track_param
     if track_id.nil?

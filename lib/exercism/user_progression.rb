@@ -1,6 +1,7 @@
 require_relative '../../x'
 class UserProgression
 
+  # rubocop:disable Metrics/AbcSize
   def self.user_progress(user)
     track_complete_exercises = user.exercises.where("language<>''").where('iteration_count > 0').each_with_object({}) do |exe, bag|
       bag[exe.problem.language] ||= LanguageProgress.new exe.problem.language
@@ -11,6 +12,7 @@ class UserProgression
       language_progress.tap{ |lang_prog| lang_prog.language_track = tracks[lang] }
     end
   end
+  # rubocop:enable Metrics/AbcSize
 
   class LanguageProgress
     attr_reader :language, :user_exercises, :last_updated
@@ -31,9 +33,11 @@ class UserProgression
 
   end
 
-  private
-  def self.track_count
-    Hash[X::Track.all.collect{|t| [t.language, t.problems]}]
+  class << self
+    def track_count
+      Hash[X::Track.all.collect{|t| [t.language, t.problems]}]
+    end
   end
+  private_class_method :track_count
 
 end

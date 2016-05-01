@@ -3,6 +3,7 @@ require './lib/jobs/hello'
 
 module ExercismAPI
   module Routes
+    # rubocop:disable Metrics/ClassLength
     class Iterations < Core
       # Mark exercise as skipped.
       # Called from the CLI.
@@ -50,16 +51,11 @@ module ExercismAPI
           halt 404, { error: message }.to_json
         end
 
-        LifecycleEvent.track 'fetched', current_user.id
         attributes = { user_id: current_user.id,
                        language: language,
                        slug: slug }
         exercise = UserExercise.where(attributes).first_or_initialize
-        # let's not bother tracking fetches for languages that you haven't
-        # explicitly started.
-        if current_user.submissions.where(language: language).count > 0
-          exercise.fetched_at ||= Time.now.utc
-        end
+        exercise.fetched_at ||= Time.now.utc
         exercise.iteration_count ||= 0
         exercise.save
         halt 204
@@ -144,10 +140,6 @@ module ExercismAPI
 
         ConversationSubscription.join(user, attempt.submission)
 
-        # if we don't have a 'fetched' event, we want to hack one in.
-        LifecycleEvent.track('fetched', user.id)
-        LifecycleEvent.track('submitted', user.id)
-
         if (attempt.track == 'ruby' && attempt.slug == 'hamming') || attempt.track == 'go'
           Jobs::Analyze.perform_async(attempt.submission.key)
         end
@@ -181,4 +173,5 @@ module ExercismAPI
       end
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

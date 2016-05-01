@@ -1,5 +1,6 @@
 require 'digest/sha1'
 
+# rubocop:disable Metrics/ClassLength
 class User < ActiveRecord::Base
   serialize :track_mentor, Array
 
@@ -9,7 +10,6 @@ class User < ActiveRecord::Base
   has_many :dailies, -> (user) { limit(Daily::LIMIT - user.daily_count) }
   has_many :daily_counts
   has_many :exercises, class_name: "UserExercise"
-  has_many :lifecycle_events, ->{ order 'created_at ASC' }, class_name: "LifecycleEvent"
 
   has_many :management_contracts, class_name: "TeamManager"
   has_many :managed_teams, through: :management_contracts, source: :team
@@ -43,26 +43,19 @@ class User < ActiveRecord::Base
     ACL.where(user_id: id, language: problem.track_id, slug: problem.slug).count > 0
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def self.from_github(id, username, email, avatar_url, joined_as=nil)
     user = User.where(github_id: id).first
-    if user.nil?
-      # try to match an invitation that has been sent.
-      # GitHub ID will only be nil if the user has never logged in.
-      user = User.where(username: username, github_id: nil).first
-    end
-    if user.nil?
-      user = User.new(github_id: id, email: email)
-    end
-
-    if user.joined_as.nil? && !!joined_as
-      user.joined_as = joined_as
-    end
+    # try to match an invitation that has been sent.
+    # GitHub ID will only be nil if the user has never logged in.
+    user = User.where(username: username, github_id: nil).first if user.nil?
+    user = User.new(github_id: id, email: email) if user.nil?
+    user.joined_as = joined_as if user.joined_as.nil? && !!joined_as
 
     user.github_id  = id
     user.email      = email if !user.email
     user.username   = username
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url
-    track_event = user.new_record?
     user.save
 
     conflict = User.where(username: username).first
@@ -70,9 +63,9 @@ class User < ActiveRecord::Base
       conflict.username = ''
       conflict.save
     end
-    LifecycleEvent.track('joined', user.id) if track_event
     user
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def self.find_or_create_in_usernames(usernames)
     members = find_in_usernames(usernames).map(&:username).map(&:downcase)
@@ -92,14 +85,6 @@ class User < ActiveRecord::Base
 
   def sees_exercises?
     ACL.where(user_id: id).count > 0
-  end
-
-  def onboarding_steps
-    @onboarding_steps ||= lifecycle_events.map(&:key)
-  end
-
-  def fetched?
-    onboarding_steps.include?("fetched")
   end
 
   def onboarded?
@@ -173,3 +158,4 @@ class User < ActiveRecord::Base
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

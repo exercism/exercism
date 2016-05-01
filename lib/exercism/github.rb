@@ -10,6 +10,7 @@ class Github
     end
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def self.authenticate(code, client_id, client_secret)
     conn = connect_to('https://github.com')
 
@@ -31,6 +32,7 @@ class Github
     result = JSON.parse(response.body)
     [result['id'], result['login'], result['email'], result['avatar_url']]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def self.user_agent
     'github.com:exercism/exercism.io'
