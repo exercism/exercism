@@ -2,8 +2,8 @@ module X
   class Todo
     class Exercise
       METHODS = [
-        :slug, :readme, :data,
-        :implementations
+        :slug, :readme, :data, :readme_url,
+        :implementations, :blurb
       ]
 
       attr_reader(*METHODS)
