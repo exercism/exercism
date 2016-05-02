@@ -24,7 +24,7 @@
       <ul class="nav navbar-nav navbar-right">
           <% if !current_user.guest? %>
             <% if current_user.sees_exercises? %>
-              <li><a href="/inbox">Exercises</a></li>
+              <li><a href="/inbox">Activity Streams</a></li>
             <% end %>
           <%= erb :"application/nav/notifications" %>
           <%= erb :"application/nav/account" %>
