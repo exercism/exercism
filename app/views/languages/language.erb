@@ -11,7 +11,14 @@
     <div class="col-md-4">
 
       <ul class="nav nav-pills nav-stacked">
-        <li class="active">
+
+        <% if !track.active? %>
+          <li class="active">
+            <a data-toggle="tab" href="#launch">Help Launch the  <%= track.language %> Track</a>
+          </li>
+        <% end %>
+
+        <li class="<%= 'active' if track.active? %>">
           <a data-toggle="tab" href="#about">About the <%= track.language %> Track</a>
         </li>
 
@@ -48,7 +55,13 @@
 
     <div class="col-md-8 tab-content">
 
-      <div class="active tab-pane" id="about">
+      <% if !track.active %>
+        <div class="active tab-pane" id="launch">
+          <%= md docs.launch %>
+        </div>
+      <% end %>
+
+      <div class="tab-pane <%='active' if track.active? %>" id="about">
         <%= md track.docs.about %>
 
         <h3>Try It!</h3>
