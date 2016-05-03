@@ -50,18 +50,6 @@ module ExercismAPI
         data = JSON.parse(data)
         user = User.where(key: data['key']).first
 
-        begin
-          log_entry_body = data.merge(user_agent: request.user_agent).to_json
-          LogEntry.create(
-            user: user,
-            key: data['key'],
-            body: log_entry_body
-          )
-        rescue => e
-          Bugsnag.notify(e, nil, request)
-          # ignore failures
-        end
-
         unless user
           message = "unknown api key '#{data['key']}', "
           message << "please check http://exercism.io/account/key and reconfigure"
