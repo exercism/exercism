@@ -201,10 +201,19 @@ user.submissions
 
 ### Testing
 
-1. Create and migrate a test database: `RACK_ENV=test rake db:setup db:migrate`
-1. Run the test suite: `rake` or `rake test`
+The test suite is comprised of various checks to ensure everything is working and styled as expected.
 
-To run a single test suite, you can do so with:
+Before any tests can be run, create and migrate a test database: `RACK_ENV=test rake db:setup db:migrate`
+
+The entire test suite can then be run with `bundle exec rake test:everything` or just `bundle exec rake` since `test:everthing` is the default Rake task.
+
+The current checks include:
+
+- [MiniTest](https://github.com/seattlerb/minitest) `rake test` or `rake test:minitest` - Ruby unit and feature tests
+- [RuboCop](https://github.com/bbatsov/rubocop) - `rake rubocop` - Ruby style enforcement
+- [Lineman Spec](http://linemanjs.com/) - `rake test:lineman` - Front-end tests
+
+To run a single Ruby test, you can do so with:
 
 ```bash
 ruby path/to/the_test.rb
