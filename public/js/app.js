@@ -30393,6 +30393,12 @@ $(function() {
   });
 });
 
+$(function () {
+  var shiftWindow = function() { scrollBy(0, -100); };
+  if (location.hash) { shiftWindow(); }
+  window.addEventListener("hashchange", shiftWindow);
+});
+
 $(".track-activity-chart").each(function(index, element) {
   var stats = $(element).data('stats');
   var data = {
