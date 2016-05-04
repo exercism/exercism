@@ -1,35 +1,33 @@
-<% if exercise.implementations.any? %>
-    <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 track_link">
-      <div class="row">
-        <div class="col-lg-12 text-center">
-          <p><%= exercise.slug %></p>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-lg-12">
-          <%= md(exercise.blurb) %>
-        </div>
-      </div>
-      <div class="row text-center">
-        <% if exercise.readme_url %>
-          <a href="<%= exercise.readme_url %>" target="_blank" class="col-lg-6">README</a>
-        <% end %>
-        <% if exercise.data %>
-          <a href="<%= exercise.data %>" target="_blank" class="col-lg-6">DATA</a>
-        <% end %>
-      </div>
-      <% exercise.implementations.each_slice(4) do |im| %>
-        <div class="row text-center">
-          <% im.each do |i| %>
-            <div class="col-xs-4 col-sm-4 col-md-3 col-lg-3">
-              <div class="text-center">
-                <%= track_icon(i["track_id"]) %>
-                <p><a href="<%= i["url"] %>" target="_blank"><%= i["track_id"] %></a></p>
-              </div>
-            </div>
-          <% end %>
-        </div>
+<div class="col-xs-6 col-sm-6 col-md-4 col-lg-4 track_link">
+  <div class="row">
+    <div class="col-lg-12 text-center">
+      <h2><%= exercise.name %></h2>
+    </div>
+  </div>
+  <div class="row row-margin-bottom row-eq-height">
+    <div class="col-lg-12">
+      <h5><%= exercise.blurb %></h5>
+    </div>
+  </div>
+  <div class="row text-center row-margin-bottom">
+    <% if exercise.readme_url %>
+      <a href="<%= exercise.readme_url %>" target="_blank" class="col-md-6"><i style="font-size: 20px;" class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Problem description"></i></a>
+    <% end %>
+    <% if exercise.data %>
+      <a href="<%= exercise.data %>" target="_blank" class="col-md-6"><i style="font-size: 20px;" class="fa fa-list" data-toggle="tooltip" data-placement="left" title="Test data"></i></a>
+    <% end %>
+  </div>
+  <% exercise.implementations.each_slice(4) do |im| %>
+    <div class="row text-center"  style="padding: 10px;">
+      <% im.each do |i| %>
+        <a a href="<%= i["url"] %>" target="_blank" class="col-xs-4 col-sm-4 col-md-3 col-lg-3" data-toggle="tooltip" data-placement="top" title="<%= i["track_id"] %>">
+          <div class="text-center">
+            <%= track_icon(i["track_id"], 30) %>
+          </div>
+        </a>
       <% end %>
     </div>
-<% end %>
+  <% end %>
+</div>
+
 

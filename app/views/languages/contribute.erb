@@ -4,7 +4,7 @@
       <div class="pull-left" style="margin-right: 10px;">
         <%= track_icon(track_id) %>
       </div>
-      <h1>Contribute</h1>
+      <h1><%= language %></h1>
     </section>
     <div class="row">
       <div class="col-md-12">
@@ -12,7 +12,7 @@
       </div>
     </div>
     <% todos.each_slice(3) do |todo| %>
-      <div class="row">
+      <div class="row row-eq-height">
         <% todo.each do |t| %>
           <%= erb :'languages/_contribute_exercise', locals: { exercise: t } %>
         <% end %>

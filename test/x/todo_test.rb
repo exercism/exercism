@@ -7,9 +7,15 @@ module X
       f= './test/fixtures/xapi_v3_todos.json'
       Xapi.stub(:get, [200, File.read(f)]) do
         todo_track = Todo.track("java")
-        expected = ['alphametics', 'bank-account']
-        assert_equal todo_track.todos.map(&:slug), expected
+        assert_equal todo_track.language, 'Java'
+        assert_equal todo_track.track_id, 'java'
+        assert_equal get_slugs(todo_track.todos), ['alphametics', 'bank-account', 'without-implementations']
+        assert_equal get_slugs(todo_track.with_implementations), ['alphametics', 'bank-account']
       end
+    end
+
+    def get_slugs(t)
+      t.map { |x| x.slug }
     end
   end
 end
