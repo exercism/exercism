@@ -113,7 +113,6 @@ class TrackStream
         AND views.last_viewed_at > ex.last_activity_at
         AND ex.archived='f'
         AND ex.language='#{track_id}'
-        AND ex.slug != 'hello-world'
         AND ex.iteration_count > 0
         AND ex.id IN (#{ids.join(',')})
     SQL
@@ -155,7 +154,6 @@ class TrackStream
         AND ex.language='#{track_id}'
         AND ex.slug=#{slug_param}
         AND ex.archived='f'
-        AND ex.slug != 'hello-world'
         AND ex.iteration_count > 0
       ORDER BY ex.last_activity_at DESC
       LIMIT #{per_page} OFFSET #{offset}
