@@ -20,18 +20,8 @@ module ExercismWeb
           "about an hour and a half ago"
         when less_than(23.5*hours)
           "about #{(diff/(1*hours)).round} hours ago"
-        when less_than(36*hours)
-          "about a day ago"
-        when less_than(20*days)
-          "about #{(diff/(1*days)).round} days ago"
-        when less_than(11*weeks)
-          "about #{(diff/(1*weeks)).round} weeks ago"
-        when less_than(11.5*months)
-          "about #{(diff/(1*months)).round} months ago"
-        when less_than(18*months)
-          "about a year ago"
         else
-          "ages ago"
+          timestamp.strftime("%e %B %Y at %H:%M %Z")
         end
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
