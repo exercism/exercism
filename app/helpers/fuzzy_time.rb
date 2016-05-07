@@ -9,17 +9,20 @@ module ExercismWeb
       # rubocop:disable Metrics/CyclomaticComplexity
       def ago(timestamp)
         diff = (now - timestamp).to_i.to_f
-        case diff
-        when less_than(2*minutes)
-          "just now"
-        when less_than(55*minutes)
-          "about #{(diff/(1*minutes)).round} minutes ago"
-        when less_than(80*minutes)
-          "about an hour ago"
-        when less_than(105*minutes)
-          "about an hour and a half ago"
-        when less_than(23.5*hours)
-          "about #{(diff/(1*hours)).round} hours ago"
+        if diff < 24*hours
+          response = case diff
+          when less_than(2*minutes)
+            "just now"
+          when less_than(55*minutes)
+            "about #{(diff/(1*minutes)).round} minutes ago"
+          when less_than(80*minutes)
+            "about an hour ago"
+          when less_than(105*minutes)
+            "about an hour and a half ago"
+          when less_than(23.5*hours)
+            "about #{(diff/(1*hours)).round} hours ago"
+          end
+          "<a href='#' data-toggle='tooltip' title='#{timestamp.strftime("%e %B %Y at %H:%M %Z")}'>#{response}</a>"
         else
           timestamp.strftime("%e %B %Y at %H:%M %Z")
         end
