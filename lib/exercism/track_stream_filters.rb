@@ -52,7 +52,6 @@ class TrackStream
           AND ex.slug=acls.slug
         WHERE acls.user_id=#{viewer_id}
           AND ex.archived='f'
-          AND ex.slug != 'hello-world'
           AND ex.iteration_count > 0
         GROUP BY ex.language
       SQL
@@ -71,7 +70,6 @@ class TrackStream
           AND ex.slug=acls.slug
         WHERE acls.user_id=#{viewer_id}
           AND ex.archived='f'
-          AND ex.slug != 'hello-world'
           AND ex.iteration_count > 0
           AND views.user_id=#{viewer_id}
           AND views.last_viewed_at > ex.last_activity_at
@@ -119,7 +117,6 @@ class TrackStream
         WHERE acls.user_id=#{viewer_id}
           AND ex.language='#{track_id}'
           AND ex.archived='f'
-          AND ex.slug != 'hello-world'
           AND ex.iteration_count > 0
         GROUP BY ex.slug
       SQL
@@ -139,7 +136,6 @@ class TrackStream
         WHERE acls.user_id=#{viewer_id}
           AND ex.language='#{track_id}'
           AND ex.archived='f'
-          AND ex.slug != 'hello-world'
           AND ex.iteration_count > 0
           AND views.user_id=#{viewer_id}
           AND views.last_viewed_at > ex.last_activity_at
