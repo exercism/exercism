@@ -48,10 +48,11 @@
 
     <div class="col-md-6">
       <h2>Feedback</h2>
-      <div class="well">
+      <div>
         <% if dashboard.has_activity? %>
             <% dashboard.notifications.each do |notification| %>
-                <li style="list-style-type: none; margin: 5px;">
+              <div class="panel panel-default">
+                <div class="panel-heading">
                   <span style="padding-right: 15px;" class="fa fa-<%= notification.icon %>"></span>
 
                   <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
@@ -68,7 +69,8 @@
                 <span style="float: right;">
                   <%= track_icon(notification.iteration.track_id, 20) %>
                 </span>
-                </li>
+                </div>
+              </div>
             <% end %>
         <% else %>
             <p>No new feedback.</p>
