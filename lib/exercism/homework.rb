@@ -34,7 +34,7 @@ class Homework
       },
       skipped: skipped,
       submitted: submitted,
-      fetched: ["sorry, tracking disabled"]
+      fetched: ["sorry, tracking disabled for fetching"]
     }
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

@@ -26,7 +26,7 @@ class HomeworkTest < Minitest::Test
       },
       skipped: ['leap'],
       submitted: ['submssion'],
-      fetched: ["sorry, tracking disabled"]
+      fetched: ["sorry, tracking disabled for fetching"]
     }.to_json
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
