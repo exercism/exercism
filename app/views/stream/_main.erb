@@ -23,7 +23,7 @@
                 &middot;
                 <%= exercise.comment_count %> <%= "comments".pluralize(exercise.comment_count) %>
               </p>
-              <p><%= [exercise.last_activity, ago(exercise.at)].join(" ") %></p>
+              <p><%= ago(exercise.at.to_time) %></p>
             </div>
           </a>
         </span>

@@ -9,29 +9,22 @@ module ExercismWeb
       # rubocop:disable Metrics/CyclomaticComplexity
       def ago(timestamp)
         diff = (now - timestamp).to_i.to_f
-        case diff
-        when less_than(2*minutes)
-          "just now"
-        when less_than(55*minutes)
-          "about #{(diff/(1*minutes)).round} minutes ago"
-        when less_than(80*minutes)
-          "about an hour ago"
-        when less_than(105*minutes)
-          "about an hour and a half ago"
-        when less_than(23.5*hours)
-          "about #{(diff/(1*hours)).round} hours ago"
-        when less_than(36*hours)
-          "about a day ago"
-        when less_than(20*days)
-          "about #{(diff/(1*days)).round} days ago"
-        when less_than(11*weeks)
-          "about #{(diff/(1*weeks)).round} weeks ago"
-        when less_than(11.5*months)
-          "about #{(diff/(1*months)).round} months ago"
-        when less_than(18*months)
-          "about a year ago"
+        if diff < 24*hours
+          response = case diff
+          when less_than(2*minutes)
+            "just now"
+          when less_than(55*minutes)
+            "about #{(diff/(1*minutes)).round} minutes ago"
+          when less_than(80*minutes)
+            "about an hour ago"
+          when less_than(105*minutes)
+            "about an hour and a half ago"
+          when less_than(23.5*hours)
+            "about #{(diff/(1*hours)).round} hours ago"
+          end
+          "<a href='#' data-toggle='tooltip' title='#{timestamp.strftime("%e %B %Y at %H:%M %Z")}'>#{response}</a>"
         else
-          "ages ago"
+          timestamp.strftime("%e %B %Y at %H:%M %Z")
         end
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
