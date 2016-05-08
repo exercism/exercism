@@ -57,6 +57,13 @@
                 <span style="float: right;">
                   <%= track_icon(notification.iteration.track_id, 20) %>
                 </span>
+
+                <div class="comment">
+                  <% notification.iteration.comments.where(user: notification.actor).each do |comment| %>
+                  <div class='comment-meta'><%= comment.html_body %></div>
+                  <% end %>
+                </div>
+
               </li>
             <% end %>
           <% else %>
