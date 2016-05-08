@@ -11,14 +11,6 @@ module ExercismAPI
           halt 404, { error: message }.to_json
         end
 
-        latest = current_user.exercises
-        .where.not(last_iteration_at: nil)
-        .order(:last_iteration_at).last
-        if latest.nil?
-          message = "You have not yet submitted exercises to track #{id}."
-          halt 404, { error: message }.to_json
-        end
-
         begin
           Homework.new(current_user).status(id).to_json
           # rubocop:disable Lint/RescueException

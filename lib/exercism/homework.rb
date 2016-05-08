@@ -24,7 +24,10 @@ class Homework
     recent = exercises.where.not(last_iteration_at: nil)
              .order(:last_iteration_at).last
 
-    recent = Struct.new(:slug, :last_iteration_at).new("", "") if recent.nil?
+    if recent.nil?
+      msg = "You haven't submitted any solutions yet."
+      recent = Struct.new(:slug, :last_iteration_at).new(msg, Time.now)
+    end
 
     {
       track_id: language,
