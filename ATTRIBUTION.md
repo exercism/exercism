@@ -28,6 +28,10 @@ We were unable to find copyright information about the Elm logo, nor information
 The Erlang logo is in the public domain.
 
 
+**F# icon** http://exercism.io/img/tracks/fsharp.png
+The F# Software Foundation logo for F# is an asset of the F# Software Foundation. We have adapted it --changing the color-- with permission.
+
+
 **Lisp Flavoured Erlang icon** http://exercism.io/img/tracks/lfe.png
 The LFE logo has been released into the public domain by its author, Duncan McGreggor.
 We adapted the this logo to create the icon used on Exercism.
