@@ -18,7 +18,8 @@ class FuzzyTimeHelperTest < Minitest::Test
   end
 
   def link_text date, link_text
-    "<a href='#' data-toggle='tooltip' title='#{date.strftime("%e %B %Y at %H:%M %Z")}'>#{link_text}</a>"
+    link_text
+    # "<a href='#' data-toggle='tooltip' title='#{date.strftime("%e %B %Y at %H:%M %Z")}'>#{link_text}</a>"
   end
 
   def test_less_than_2_minutes_ago
