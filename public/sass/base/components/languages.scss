@@ -9,7 +9,23 @@
 }
 
 #contribute{
+  .icon-red{
+    color: #d81d4e;
+    vertical-align: baseline;
+  }
+  .padding-row{
+    padding: 15px;
+  }
+
   .row-margin-bottom{
     margin-bottom: 10px;
+  }
+
+  .exercise-name{
+    margin: 0px;
+  }
+
+  .icon-column{
+    padding: 9px 0px;
   }
 }

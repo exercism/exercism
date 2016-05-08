@@ -5,7 +5,7 @@ module X
       new(JSON.parse(body))
     end
 
-    METHODS = [ :todos, :language, :track_id ]
+    METHODS = [ :todos, :language, :track_id, :repository ]
 
     attr_reader *METHODS
 

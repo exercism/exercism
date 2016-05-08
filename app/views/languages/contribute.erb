@@ -4,15 +4,28 @@
       <div class="pull-left" style="margin-right: 10px;">
         <%= track_icon(track_id) %>
       </div>
-      <h1><%= language %></h1>
+      <h1>Contribute to <%= language %></h1>
     </section>
     <div class="row">
-      <div class="col-md-12">
-        <h2>This is a list of all the missing implementations for this track</h2>
+      <div class="col-md-12 contributions-explain jumbotron">
+        <p>One of the easiest ways to add new exercises to the <%= language %> track is to translate them from other language tracks on Exercism. This page lists all of the exercises that exist on Exercism, but have not yet been implemented in <%= language %>.</p>
+        <p>
+          <i style="font-size: 20px;" class="fa fa-info-circle icon-red"></i>
+          The generic, language-independent problem description
+        </p>
+        <p>
+          <i style="font-size: 20px;" class="fa fa-list icon-red"></i>
+          Canonical test data (inputs and expectations)
+        </p>
+
+        <p>The language icons link to each existing implementation of the problem.</p>
+        <p>
+        Once you've picked an exercise, follow the instructions in the <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#porting-an-exercise-to-another-language-track" target="_blank">Contributing Guide</a> and submit your pull request to the <a href="<%= repository %>" target="_blank"><%= language %> track repository</a> on GitHub.
+        </p>
       </div>
     </div>
     <% todos.each_slice(3) do |todo| %>
-      <div class="row row-eq-height">
+      <div class="row row-eq-height padding-row">
         <% todo.each do |t| %>
           <%= erb :'languages/_contribute_exercise', locals: { exercise: t } %>
         <% end %>
