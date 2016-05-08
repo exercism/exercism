@@ -70,28 +70,31 @@ class TrackStreamTrackTest < Minitest::Test
 
     assert_equal 2, elixir1.exercises.size
     assert_equal 1, elixir2.exercises.size
-    assert_equal 5, go.exercises.size
+    assert_equal 6, go.exercises.size
     assert_equal 2, wc.exercises.size
 
     # sanity check pagination
     assert_equal 3, elixir1.pagination_menu_item.total
-    assert_equal 5, go.pagination_menu_item.total
+    assert_equal 6, go.pagination_menu_item.total
     assert_equal 2, wc.pagination_menu_item.total
 
     ex1, ex2 = elixir1.exercises
     ex3 = elixir2.exercises.first
-    ex4, ex5, ex6, ex7, ex8 = go.exercises
+    ex4, ex5, ex6, ex7, ex8 , ex11 = go.exercises
     ex9, ex10 = wc.exercises
 
     [
       [ex1,  ExerciseTestCase.new(bob  , 'Triangle'  , 'elixir', :unread,  1)],
       [ex2,  ExerciseTestCase.new(bob  , 'Anagram'   , 'elixir', :unread,  2)],
       [ex3,  ExerciseTestCase.new(bob  , 'Word Count', 'elixir', :read  ,  3)],
+
       [ex4,  ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
-      [ex5,  ExerciseTestCase.new(bob  , 'Leap'      , 'go'    , :read  ,  5)],
-      [ex6,  ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
-      [ex7,  ExerciseTestCase.new(alice, 'Hamming'   , 'go'    , :read  , 11)],
-      [ex8,  ExerciseTestCase.new(bob  , 'Raindrops' , 'go'    , :unread, 12)],
+      [ex5,  ExerciseTestCase.new(bob  , 'Hello World'      , 'go'    , :unread  ,  4)],
+      [ex6,  ExerciseTestCase.new(bob  , 'Leap'      , 'go'    , :read  ,  5)],
+      [ex7,  ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
+      [ex8,  ExerciseTestCase.new(alice, 'Hamming'   , 'go'    , :read  , 11)],
+      [ex11,  ExerciseTestCase.new(bob  , 'Raindrops' , 'go'    , :unread, 12)],
+
       [ex9,  ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
       [ex10,  ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
     ].each { |actual, expected| assert_exercise expected, actual }
