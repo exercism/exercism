@@ -20,12 +20,14 @@ class Homework
     exercises = user.exercises.where(language: language)
 
     skipped = exercises.where.not(skipped_at: nil).pluck(:slug)
-    fetched = exercises.where('fetched_at IS NOT NUll AND skipped_at IS NULL AND iteration_count = ?', 0).pluck(:slug)
     submitted = exercises.where('skipped_at IS NULL AND iteration_count > ?', 0).pluck(:slug)
     recent = exercises.where.not(last_iteration_at: nil)
              .order(:last_iteration_at).last
 
-    recent = Struct.new(:slug, :last_iteration_at).new("", "") if recent.nil?
+    if recent.nil?
+      msg = "You haven't submitted any solutions yet."
+      recent = Struct.new(:slug, :last_iteration_at).new(msg, Time.now)
+    end
 
     {
       track_id: language,
@@ -35,7 +37,7 @@ class Homework
       },
       skipped: skipped,
       submitted: submitted,
-      fetched: fetched
+      fetched: ["sorry, tracking disabled for fetching"]
     }
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

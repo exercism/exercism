@@ -16,7 +16,6 @@ class UserExercise < ActiveRecord::Base
   scope :archived, ->{ where(archived: true).where('iteration_count > 0') }
   scope :for, lambda { |problem| where(language: problem.track_id, slug: problem.slug) }
   scope :randomized, ->{ order('RANDOM()') }
-  scope :unsubmitted, ->{ where(archived: false, iteration_count: 0, skipped_at: nil).where.not(fetched_at: nil) }
   scope :by_activity, ->{ order('last_activity_at DESC') }
 
   before_create do

@@ -96,6 +96,10 @@
       .highlight {
         padding: 5px 0px;
       }
+
+      :target {
+        background: #f8eec7;
+      }
     }
   }
   .submission-like-button {

@@ -76,8 +76,11 @@ On other systems see the [Node.js docs](https://github.com/joyent/node/wiki/Inst
 
 ### GitHub OAuth
 
-To log into the app locally, you will need keys on GitHub
-that the app can talk to.
+If you seed your local database with fake users, then you can use these to "fake login" as
+one of them. There will be a dropdown with identities that you can assume in development mode.
+
+If you want to actually work on the login flow, or if you want to log in as yourself, then
+you will need keys on GitHub that the app can talk to.
 
 Go to https://github.com/settings/applications/new and enter the following:
 
@@ -315,6 +318,10 @@ It is based on the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guid
 Help keep us our code clean by following the style guide.
 Run the command `rubocop` to check for any style violations before
 submitting pull requests.
+
+### Style (JS/CSS)
+
+If you have any JS or CSS changes, please run `cd frontend && lineman spec-ci` to check for any style violations before submitting pull requests.
 
 ### Pull Requests
 

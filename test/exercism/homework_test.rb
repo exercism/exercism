@@ -26,18 +26,7 @@ class HomeworkTest < Minitest::Test
       },
       skipped: ['leap'],
       submitted: ['submssion'],
-      fetched: ['clock']
-    }.to_json
-
-    assert_equal homework.status('go').to_json, {
-      track_id: 'go',
-      recent: {
-        problem: '',
-        submitted_at: ''
-      },
-      skipped: [],
-      submitted: [],
-      fetched: []
+      fetched: ["sorry, tracking disabled for fetching"]
     }.to_json
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

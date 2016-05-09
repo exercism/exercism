@@ -37,30 +37,6 @@ module ExercismAPI
         halt 204
       end
 
-      # Mark exercise as fetched. Called from the X-API.
-      post '/iterations/:language/:slug/fetch' do |language, slug|
-        require_key
-        if current_user.guest?
-          message = 'Please double-check your exercism API key.'
-          halt 401, { error: message }.to_json
-        end
-        unless Xapi.exists? language, slug
-          message =
-            "Exercise '#{slug}' in language '#{language}' doesn't exist. " \
-            'Maybe you mispelled it?'
-          halt 404, { error: message }.to_json
-        end
-
-        attributes = { user_id: current_user.id,
-                       language: language,
-                       slug: slug }
-        exercise = UserExercise.where(attributes).first_or_initialize
-        exercise.fetched_at ||= Time.now.utc
-        exercise.iteration_count ||= 0
-        exercise.save
-        halt 204
-      end
-
       # Submit an iteration.
       # Called from the CLI.
       post '/user/assignments' do
@@ -73,18 +49,6 @@ module ExercismAPI
 
         data = JSON.parse(data)
         user = User.where(key: data['key']).first
-
-        begin
-          log_entry_body = data.merge(user_agent: request.user_agent).to_json
-          LogEntry.create(
-            user: user,
-            key: data['key'],
-            body: log_entry_body
-          )
-        rescue => e
-          Bugsnag.notify(e, nil, request)
-          # ignore failures
-        end
 
         unless user
           message = "unknown api key '#{data['key']}', "
