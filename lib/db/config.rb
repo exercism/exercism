@@ -26,7 +26,7 @@ module DB
 
       unless result
         error = "No environment '#{environment}' configured in #{file}"
-        raise UnconfiguredEnvironment.new(error)
+        fail UnconfiguredEnvironment.new(error)
       end
 
       result

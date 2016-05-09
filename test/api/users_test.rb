@@ -77,9 +77,9 @@ class UsersApiTest < Minitest::Test
       assert_equal 4, response["statistics"].count
       assert_equal 1, response["statistics"].first["completed"].count
       assert_equal 1, response["statistics"][1]["completed"].count
-      count = response["statistics"].select do |language|
+      count = response["statistics"].count do |language|
         language["completed"].count == 0
-      end.count
+      end
       assert_equal 2, count
     end
   end

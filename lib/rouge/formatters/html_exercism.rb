@@ -43,9 +43,10 @@ module Rouge
         end
       end
 
-    private
+      private
+
       def stream_untableized(tokens, &b)
-        yield "<pre#@css_class><code>" if @wrap
+        yield "<pre#{@css_class}><code>" if @wrap
         tokens.each{ |tok, val| span(tok, val, &b) }
         yield "</code></pre>\n" if @wrap
       end
@@ -77,9 +78,9 @@ module Rouge
         end
 
         # generate a string of newline-separated line numbers for the gutter>
-        gutter = %<<pre class="lineno">#{line_numbers.join("\n")}</pre>>
+        gutter = %(<pre class="lineno">#{line_numbers.join("\n")}</pre>)
 
-        yield "<div#@css_class>" if @wrap
+        yield "<div#{@css_class}>" if @wrap
         yield '<table style="border-spacing: 0"><tbody><tr>'
 
         # the "gl" class applies the style for Generic.Lineno
@@ -101,11 +102,11 @@ module Rouge
         '&' => '&amp;',
         '<' => '&lt;',
         '>' => '&gt;',
-      }
+      }.freeze
 
       def span(tok, val)
         val = val.gsub(/[&<>]/, TABLE_FOR_ESCAPE_HTML)
-        shortname = tok.shortname or raise "unknown token: #{tok.inspect} for #{val.inspect}"
+        shortname = tok.shortname or fail "unknown token: #{tok.inspect} for #{val.inspect}"
 
         if shortname.empty?
           yield val

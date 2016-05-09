@@ -76,7 +76,7 @@ class TeamStreamTest < Minitest::Test
     Comment.create!(submission_id: s2.id, user_id: [alice.id, bob.id, charlie.id].sample, body: "OHAI")
 
     stream = TeamStream.new(team, alice.id)
-    exercise = stream.exercises.select {|ex| ex.id == ex2.id}.first
+    exercise = stream.exercises.find {|ex| ex.id == ex2.id}
     assert_equal 3, exercise.comment_count
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

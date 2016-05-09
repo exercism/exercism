@@ -10,6 +10,7 @@ module X
       end
 
       private
+
       attr_reader :repository
 
       def read

@@ -49,7 +49,7 @@ module ExercismWeb
       end
 
       get '/bork' do
-        raise RuntimeError.new("Hi Bugsnag, you're awesome!")
+        fail RuntimeError.new("Hi Bugsnag, you're awesome!")
       end
 
       get '/no-such-page' do

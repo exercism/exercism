@@ -17,7 +17,7 @@ class FuzzyTimeHelperTest < Minitest::Test
     @now ||= Time.utc(2013, 1, 2, 3, 4)
   end
 
-  def link_text date, link_text
+  def link_text _date, link_text
     link_text
     # "<a href='#' data-toggle='tooltip' title='#{date.strftime("%e %B %Y at %H:%M %Z")}'>#{link_text}</a>"
   end
