@@ -51,6 +51,7 @@ module Rouge
         yield "</code></pre>\n" if @wrap
       end
 
+      # rubocop:disable Metrics/AbcSize, MethodLength
       def stream_tableized(tokens)
         num_lines = 0
         last_val = ''
@@ -97,6 +98,7 @@ module Rouge
         yield "</tr></tbody></table>\n"
         yield "</div>\n" if @wrap
       end
+      # rubocop:enable Metrics/AbcSize, MethodLength
 
       TABLE_FOR_ESCAPE_HTML = {
         '&' => '&amp;',
@@ -110,14 +112,12 @@ module Rouge
 
         if shortname.empty?
           yield val
-        else
-          if @inline_theme
-            rules = @inline_theme.style_for(tok).rendered_rules
+        elsif @inline_theme
+          rules = @inline_theme.style_for(tok).rendered_rules
 
-            yield "<span style=\"#{rules.to_a.join(';')}\">#{val}</span>"
-          else
-            yield "<span class=\"#{shortname}\">#{val}</span>"
-          end
+          yield "<span style=\"#{rules.to_a.join(';')}\">#{val}</span>"
+        else
+          yield "<span class=\"#{shortname}\">#{val}</span>"
         end
       end
     end

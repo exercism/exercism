@@ -463,9 +463,3 @@ Style/UnneededPercentQ:
 # SupportedStyles: percent, brackets
 Style/WordArray:
   Enabled: false
-
-# Offense count: 1
-# Cop supports --auto-correct.
-Style/ZeroLengthPredicate:
-  Exclude:
-    - 'lib/exercism/submission.rb'
