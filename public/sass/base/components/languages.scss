@@ -9,9 +9,12 @@
 }
 
 #contribute{
+  .jumbotron{
+    background: white;
+  }
   .icon-red{
     color: #d81d4e;
-    vertical-align: baseline;
+    vertical-align: text-bottom;
   }
   .padding-row{
     padding: 15px;

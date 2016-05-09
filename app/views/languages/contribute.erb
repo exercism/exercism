@@ -10,12 +10,12 @@
       <div class="col-md-12 contributions-explain jumbotron">
         <p>One of the easiest ways to add new exercises to the <%= language %> track is to translate them from other language tracks on Exercism. This page lists all of the exercises that exist on Exercism, but have not yet been implemented in <%= language %>.</p>
         <p>
-          <i style="font-size: 20px;" class="fa fa-info-circle icon-red"></i>
-          The generic, language-independent problem description
+          The <i style="font-size: 20px;" class="fa fa-info-circle icon-red"></i>
+          icon links to the generic, language-independent problem description
         </p>
         <p>
-          <i style="font-size: 20px;" class="fa fa-list icon-red"></i>
-          Canonical test data (inputs and expectations)
+          The <i style="font-size: 20px;" class="fa fa-list icon-red"></i>
+          icon links to the canonical test data
         </p>
 
         <p>The language icons link to each existing implementation of the problem.</p>
@@ -25,7 +25,7 @@
       </div>
     </div>
     <% todos.each_slice(3) do |todo| %>
-      <div class="row row-eq-height padding-row">
+      <div class="row padding-row">
         <% todo.each do |t| %>
           <%= erb :'languages/_contribute_exercise', locals: { exercise: t } %>
         <% end %>
