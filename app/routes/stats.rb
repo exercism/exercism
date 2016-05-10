@@ -2,7 +2,7 @@ module ExercismWeb
   module Routes
     class Stats < Core
       get '/stats' do
-        redirect "/stats/#{tracks.select(&:active?).first.slug}"
+        redirect "/stats/#{tracks.find(&:active?).slug}"
       end
 
       get '/stats/:track_id' do |track_id|

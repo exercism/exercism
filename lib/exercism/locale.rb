@@ -6,7 +6,7 @@ class UnknownLocale
   end
 
   def language
-    raise Exercism::UnknownLanguage.new(error_message)
+    fail Exercism::UnknownLanguage.new(error_message)
   end
 
   private

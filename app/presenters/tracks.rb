@@ -44,7 +44,7 @@ module ExercismWeb
       def self.fetch_tracks
         status, body = Xapi.get("tracks")
         if status != 200
-          raise "something fishy in x-api: (#{status}) - #{body}"
+          fail "something fishy in x-api: (#{status}) - #{body}"
         end
         tracks = JSON.parse(body)["tracks"]
         tracks.map {|track| Track.new(track)}
