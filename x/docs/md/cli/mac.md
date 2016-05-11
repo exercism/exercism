@@ -1,3 +1,31 @@
+### Methods of Installing Exercism CLI
+
+  - Via [Homebrew](#title link)
+  - Via [Without Homebrew](#title Link2)
+
+Homebrew is a package manager for OS X which installs the stuff that apple
+didn't.
+
+Find out if you have homebrew installed via the terminal.
+
+You can open a terminal using Spotlight by pressing <command><spacebar> and
+then type 'terminal' in the space provided.
+
+Now by typing in the command:
+
+`which brew`
+
+If homebrew is installed you may see output like the following:
+
+```
+/usr/local/bin/brew
+```
+
+Install the CLI via homebrew in the following section.  Otherwise see
+"Installign Without Hombrew".
+
+### Installing With Homebrew
+
 Install the CLI via [homebrew](http://brew.sh/) with the following command:
 
 ```
