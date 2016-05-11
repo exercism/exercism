@@ -44,7 +44,7 @@
           <% end %>
         </td>
         <td><%= exercise.iteration_count %></td>
-        <td data-value="<%= exercise.updated_at.to_i %>"><%= exercise.updated_at.strftime("%Y-%m-%d") %></td>
+        <td data-value="<%= exercise.last_iteration_at.to_i %>"><%= exercise.last_iteration_at.strftime("%Y-%m-%d") %></td>
       </tr>
     <% end %>
     </tbody>
