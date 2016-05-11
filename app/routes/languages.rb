@@ -12,14 +12,10 @@ module ExercismWeb
 
       get '/languages/:track_id' do |track_id|
         track = X::Track.find(track_id)
-        if track.implemented?
-          erb :"languages/language", locals: {
-            track: track,
-            docs: X::Docs::Launch.new(track.repository),
-          }
-        else
-          erb :"languages/not_implemented", locals: { track: track }
-        end
+        erb :"languages/language", locals: {
+          track: track,
+          docs: X::Docs::Launch.new(track.repository),
+        }
       end
     end
   end
