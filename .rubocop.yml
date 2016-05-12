@@ -2,6 +2,8 @@ inherit_from: .rubocop_todo.yml
 
 AllCops:
   TargetRubyVersion: 2.2
+  Exclude:
+    - 'frontend/**/*'
 Style/DoubleNegation:
   Enabled: false
 Style/StringLiterals:
