@@ -41,16 +41,19 @@
       submitted by <%= gravatar_tag submission.user.avatar_url, size: 20 %>
       <%= profile_link(submission.user) %>
       <%= ago(submission.created_at) %>
-      <br/>
-      see other implementations of
-      <a href="<%= "/tracks/#{submission.problem.track_id}/exercises/#{submission.problem.slug}" %>">
-      <%= submission.problem.name %>
-      in
-      <%= submission.language.capitalize %>
-      </a>
+
       <% if submission.user_exercise.archived? %>
         <span class="label label-danger">Archived</span>
       <% end %>
+
+      <div class="pull-right">
+        See other implementations of
+        <a href="<%= "/tracks/#{submission.track_id}/exercises/#{submission.slug}" %>">
+        <%= submission.problem.name %>
+        in
+        <%= submission.problem.language %>
+        </a>
+      </div>
     </div>
   </div>
 
