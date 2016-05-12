@@ -1,5 +1,4 @@
 class CreateDailies < ActiveRecord::Migration
-
   # rubocop:disable Metrics/MethodLength
   def up
     connection.execute <<-SQL

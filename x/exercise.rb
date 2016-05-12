@@ -4,7 +4,7 @@ module X
     METHODS = [
       :language, :track_id, :name,
       :slug, :readme, :files, :blurb
-    ]
+    ].freeze
 
     attr_reader(*METHODS)
     def initialize(attrs={})

@@ -47,7 +47,7 @@ module Rouge
 
       def stream_untableized(tokens, &b)
         yield "<pre#{@css_class}><code>" if @wrap
-        tokens.each{ |tok, val| span(tok, val, &b) }
+        tokens.each { |tok, val| span(tok, val, &b) }
         yield "</code></pre>\n" if @wrap
       end
 
@@ -74,7 +74,7 @@ module Rouge
         end
 
         # wrap line numbers with <a> tags
-        line_numbers = (@start_line..num_lines+@start_line-1).map do |number|
+        line_numbers = (@start_line..num_lines + @start_line - 1).map do |number|
           "<a href=\"#L#{number}\">#{number}</a>"
         end
 

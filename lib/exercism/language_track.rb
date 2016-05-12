@@ -11,22 +11,23 @@ class LanguageTrack
   end
 
   def num_users
-    Submission.where("language = ?", "#{language}").distinct.count(:user_id)
+    Submission.where("language = ?", language.to_s).distinct.count(:user_id)
   end
 
   def num_iterations
-    Submission.where("language = ?", "#{language}").count
+    Submission.where("language = ?", language.to_s).count
   end
 
   private
-    def problems
-      all_tracks['tracks'].find do |track|
-        track['slug'] == language
-      end['problems']
-    end
 
-    def all_tracks
-      _, body = Xapi.get('tracks')
-      JSON.parse body
-    end
+  def problems
+    all_tracks['tracks'].find do |track|
+      track['slug'] == language
+    end['problems']
+  end
+
+  def all_tracks
+    _, body = Xapi.get('tracks')
+    JSON.parse body
+  end
 end

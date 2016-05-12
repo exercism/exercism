@@ -49,7 +49,7 @@ class CreatesCommentTest < Minitest::Test
     exercise = UserExercise.create(
       user: nitpicker,
       archived: true,
-      submissions: [ submission ]
+      submissions: [submission]
     )
 
     CreatesComment.new(submission.id, nitpicker, 'a comment').create

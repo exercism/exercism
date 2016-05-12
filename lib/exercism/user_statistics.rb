@@ -6,14 +6,12 @@ class UserStatistics
   def self.by_username(user)
     {
       user: user.public_user_attributes,
-      statistics: user_problem_statistcs(user)
+      statistics: user_problem_statistcs(user),
     }
   end
 
   def self.problem_completion(user, track)
-    user.exercises.completed.where(language: track.id).map do |exercise|
-      exercise.slug
-    end
+    user.exercises.completed.where(language: track.id).map(&:slug)
   end
 
   def self.user_problem_statistcs(user)
@@ -24,5 +22,4 @@ class UserStatistics
         completed: problem_completion(user, track) }
     end
   end
-
 end

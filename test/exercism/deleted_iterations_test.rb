@@ -18,4 +18,3 @@ class DeletedIterationsTest < Minitest::Test
   end
   # rubocop:enable Metrics/AbcSize
 end
-

@@ -15,7 +15,7 @@ class SubmissionsTest < Minitest::Test
     {
       username: 'alice',
       github_id: 1,
-      email: "alice@example.com"
+      email: "alice@example.com",
     }
   end
 
@@ -24,12 +24,12 @@ class SubmissionsTest < Minitest::Test
       username: 'bob',
       github_id: 2,
       track_mentor: ['ruby'],
-      email: "bob@example.com"
+      email: "bob@example.com",
     }
   end
 
-  def generate_attempt(code = 'CODE')
-    Attempt.new(alice, Iteration.new({'word-count/file.rb' => code}, 'ruby', 'word-count')).save
+  def generate_attempt(code='CODE')
+    Attempt.new(alice, Iteration.new({ 'word-count/file.rb' => code }, 'ruby', 'word-count')).save
   end
 
   attr_reader :alice, :bob
@@ -44,8 +44,8 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_guests_can_view_submissions
-    Attempt.new(alice, Iteration.new({'fake/hello-world/file.rb' => 'CODE'}, 'fake', 'hello-world')).save
-    f= './test/fixtures/xapi_v3_fake_track_with_hello_world.json'
+    Attempt.new(alice, Iteration.new({ 'fake/hello-world/file.rb' => 'CODE' }, 'fake', 'hello-world')).save
+    f = './test/fixtures/xapi_v3_fake_track_with_hello_world.json'
     X::Xapi.stub(:get, [200, File.read(f)]) do
       get "/submissions/#{Submission.first.key}"
     end
@@ -53,26 +53,26 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_nitpick_assignment
-    Attempt.new(alice, Iteration.new({'word-count/file.rb' => 'CODE'}, 'ruby', 'word-count')).save
+    Attempt.new(alice, Iteration.new({ 'word-count/file.rb' => 'CODE' }, 'ruby', 'word-count')).save
     submission = Submission.first
 
     url = "/submissions/#{submission.key}/nitpick"
-    post url, {body: "good"}, login(bob)
+    post url, { body: "good" }, login(bob)
     assert_equal 1, submission.reload.comments.count
   end
 
   def test_nitpick_own_assignment
-    Attempt.new(alice, Iteration.new({'word-count/file.rb' => 'CODE'}, 'ruby', 'word-count')).save
+    Attempt.new(alice, Iteration.new({ 'word-count/file.rb' => 'CODE' }, 'ruby', 'word-count')).save
     submission = Submission.first
 
     url = "/submissions/#{submission.key}/nitpick"
-    post url, {body: "good"}, login(alice)
+    post url, { body: "good" }, login(alice)
     assert_equal 1, submission.reload.comments.count
   end
 
   # rubocop:disable Metrics/AbcSize
   def test_input_sanitation
-    Attempt.new(alice, Iteration.new({'word-count/file.rb' => 'CODE'}, 'ruby', 'word-count')).save
+    Attempt.new(alice, Iteration.new({ 'word-count/file.rb' => 'CODE' }, 'ruby', 'word-count')).save
     submission = Submission.first
     nit = Comment.new(user: bob, body: "ok", created_at: DateTime.now - 1.day)
     submission.comments << nit
@@ -80,7 +80,7 @@ class SubmissionsTest < Minitest::Test
 
     # sanitizes response
     url = "/submissions/#{submission.key}/nitpick"
-    post url, {body: "<script type=\"text/javascript\">bad();</script>good"}, login(bob)
+    post url, { body: "<script type=\"text/javascript\">bad();</script>good" }, login(bob)
 
     nit = submission.reload.comments.last
     expected = "<span ng-non-bindable><p>&lt;script type=\"text/javascript\"&gt;bad();&lt;/script&gt;good</p>\n</span>"
@@ -89,10 +89,10 @@ class SubmissionsTest < Minitest::Test
   # rubocop:enable Metrics/AbcSize
 
   def test_guest_nitpicks
-    Attempt.new(alice, Iteration.new({'word-count/file.rb' => 'CODE'}, 'ruby', 'word-count')).save
+    Attempt.new(alice, Iteration.new({ 'word-count/file.rb' => 'CODE' }, 'ruby', 'word-count')).save
     submission = Submission.first
 
-    post "/submissions/#{submission.key}/nitpick", {body: "Could be better by ..."}
+    post "/submissions/#{submission.key}/nitpick", body: "Could be better by ..."
 
     assert_response_status(302)
   end
@@ -113,7 +113,7 @@ class SubmissionsTest < Minitest::Test
     submission = generate_attempt.submission
     comment = Comment.create(user: bob, submission: submission, body: "```ruby\n\t{a: 'a'}\n```")
 
-    post "/submissions/#{submission.key}/nits/#{comment.id}", {body: "OK"}, login(bob)
+    post "/submissions/#{submission.key}/nits/#{comment.id}", { body: "OK" }, login(bob)
 
     assert_equal "OK", comment.reload.body
   end
@@ -142,7 +142,7 @@ class SubmissionsTest < Minitest::Test
       user: alice,
       language: 'ruby',
       slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
+      solution: { 'word-count.rb' => 'code' },
     }
 
     sub = Submission.create(data.merge(created_at: Time.now - 10))
@@ -158,7 +158,7 @@ class SubmissionsTest < Minitest::Test
       user: bob,
       language: 'ruby',
       slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
+      solution: { 'word-count.rb' => 'code' },
     }
 
     sub = Submission.create(data.merge(created_at: Time.now - 10))
@@ -172,7 +172,7 @@ class SubmissionsTest < Minitest::Test
       user: bob,
       language: 'ruby',
       slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
+      solution: { 'word-count.rb' => 'code' },
     }
 
     _ = Submission.create(data.merge(created_at: Time.now - 10, version: 1))
@@ -198,7 +198,7 @@ class SubmissionsTest < Minitest::Test
       user: bob,
       language: 'ruby',
       slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
+      solution: { 'word-count.rb' => 'code' },
     }
 
     sub = Submission.create(data.merge(created_at: Time.now - 10))
@@ -216,7 +216,7 @@ class SubmissionsTest < Minitest::Test
       user: alice,
       language: 'ruby',
       slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
+      solution: { 'word-count.rb' => 'code' },
     }
 
     sub = Submission.create(data.merge(created_at: Time.now - 10))
@@ -234,7 +234,7 @@ class SubmissionsTest < Minitest::Test
       user: bob,
       language: 'ruby',
       slug: 'word-count',
-      solution: {'word-count.rb' => 'code'},
+      solution: { 'word-count.rb' => 'code' },
     }
 
     sub = Submission.create(data.merge(created_at: Time.now - 5))

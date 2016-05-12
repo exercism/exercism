@@ -16,7 +16,8 @@ module ExercismLib
 
       attr_reader :year, :month
       def initialize(year, month)
-        @year, @month = year, month
+        @year = year
+        @month = month
       end
 
       def to_s
@@ -28,7 +29,7 @@ module ExercismLib
       end
 
       def last
-        first.next_month-1
+        first.next_month - 1
       end
     end
 
@@ -44,11 +45,11 @@ module ExercismLib
       end
 
       def first
-        today-n
+        today - n
       end
 
       def last
-        today+1
+        today + 1
       end
     end
 
@@ -77,7 +78,7 @@ module ExercismLib
       data = {}
 
       slugs.each.with_index do |slug, i|
-        data[slug] = {"iterations" => 0, "reviews" => 0, "index" => i}
+        data[slug] = { "iterations" => 0, "reviews" => 0, "index" => i }
       end
 
       rows.each do |row|
@@ -94,9 +95,7 @@ module ExercismLib
       data = Array.new(slugs.length, 0)
       rows.each do |row|
         i = slugs.index(row['slug'])
-        if i.nil?
-          next
-        end
+        next if i.nil?
         data[i] = row[key].to_i
       end
       data

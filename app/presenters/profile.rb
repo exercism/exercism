@@ -1,8 +1,7 @@
 module ExercismWeb
   module Presenters
     class Profile
-
-      DEFAULTS = { shared: false }
+      DEFAULTS = { shared: false }.freeze
 
       def initialize(user, current_user=user, options={})
         @user = user
@@ -35,7 +34,7 @@ module ExercismWeb
       end
 
       def archived_grouped_exercises
-        @archived_exercises.group_by {|ex| ex.language }
+        @archived_exercises.group_by(&:language)
       end
 
       def can_access?(exercise)

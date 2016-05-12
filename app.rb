@@ -18,7 +18,7 @@ require_relative './app/routes'
 module ExercismWeb
   class App < Sinatra::Base
     configure do
-      use Rack::Session::Cookie, :secret => ENV.fetch('SESSION_SECRET') { "Need to know only." }
+      use Rack::Session::Cookie, secret: ENV.fetch('SESSION_SECRET') { "Need to know only." }
     end
 
     if settings.development?

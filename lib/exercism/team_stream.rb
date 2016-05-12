@@ -16,11 +16,11 @@ class TeamStream
   end
 
   def track_id=(track_id)
-    @track_id = track_id.downcase if !!track_id
+    @track_id = track_id.downcase if track_id
   end
 
   def slug=(slug)
-    @slug = slug.downcase if !!slug
+    @slug = slug.downcase if slug
   end
 
   def user=(user)
@@ -65,23 +65,23 @@ class TeamStream
   end
 
   def menu2
-    if mode == :user
-      @menu2 ||= TeamStream::UserFilter.new(viewer_id, user_ids, team.slug, username)
-    else
-      @menu2 ||= TeamStream::TrackFilter.new(viewer_id, user_ids, team.slug, track_id)
-    end
+    @menu2 ||= if mode == :user
+                 TeamStream::UserFilter.new(viewer_id, user_ids, team.slug, username)
+               else
+                 TeamStream::TrackFilter.new(viewer_id, user_ids, team.slug, track_id)
+               end
   end
 
   # rubocop:disable Metrics/AbcSize
   def menu3
-    case mode
-    when :user
-      @menu3 ||= TeamStream::UserTrackFilter.new(viewer_id, [user_id], team.slug, username, track_id)
-    when :track
-      @menu3 ||= TeamStream::ProblemFilter.new(viewer_id, user_ids, team.slug, track_id, slug)
-    else
-      @menu3 ||= TeamStream::UserFilter.new(viewer_id, user_ids, team.slug, username)
-    end
+    @menu3 ||= case mode
+               when :user
+                 TeamStream::UserTrackFilter.new(viewer_id, [user_id], team.slug, username, track_id)
+               when :track
+                 TeamStream::ProblemFilter.new(viewer_id, user_ids, team.slug, track_id, slug)
+               else
+                 TeamStream::UserFilter.new(viewer_id, user_ids, team.slug, username)
+               end
   end
   # rubocop:enable Metrics/AbcSize
 
@@ -143,13 +143,13 @@ class TeamStream
   def comment_counts(ids)
     return [] if ids.empty?
 
-    execute(comment_counts_sql(ids)).map {|row| [row["id"], row["total"]]}
+    execute(comment_counts_sql(ids)).map { |row| [row["id"], row["total"]] }
   end
 
   def viewed(ids)
     return [] if ids.empty?
 
-    execute(viewed_sql(ids)).map {|row| row["id"]}
+    execute(viewed_sql(ids)).map { |row| row["id"] }
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -235,7 +235,7 @@ class TeamStream
   end
 
   def offset
-    (page-1)*per_page
+    (page - 1) * per_page
   end
 
   def mode

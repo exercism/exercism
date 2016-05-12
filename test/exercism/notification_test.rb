@@ -46,4 +46,3 @@ class NotificationTest < Minitest::Test
   end
   # rubocop:enable Metrics/AbcSize
 end
-

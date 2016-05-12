@@ -1,5 +1,4 @@
 class CreatesComment
-
   attr_reader :id, :commenter, :body, :comment
 
   def self.create(*args)
@@ -8,7 +7,7 @@ class CreatesComment
     obj.comment
   end
 
-  def initialize(submission_id, commenter, body, _ = {})
+  def initialize(submission_id, commenter, body, _={})
     @id = submission_id
     @commenter = commenter
     @body = body.to_s

@@ -27,7 +27,7 @@ class CommentsApiTest < Minitest::Test
     assert_equal 3, Comment.count
 
     Rikki.stub(:shared_key, 'ok') do
-      post "/submissions/#{submission.key}/comments?shared_key=ok", {comment: 'a comment'}.to_json
+      post "/submissions/#{submission.key}/comments?shared_key=ok", { comment: 'a comment' }.to_json
     end
 
     assert_equal 3, Comment.count

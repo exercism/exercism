@@ -4,6 +4,7 @@ AllCops:
   TargetRubyVersion: 2.2
   Exclude:
     - 'frontend/**/*'
+    - 'vendor/**/*'
 Style/DoubleNegation:
   Enabled: false
 Style/StringLiterals:

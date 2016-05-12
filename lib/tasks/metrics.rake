@@ -40,16 +40,16 @@ end
 
 def days(first, last)
   return 0 if last.nil?
-  (DateTime.parse(last)-DateTime.parse(first)).to_i + 1
+  (DateTime.parse(last) - DateTime.parse(first)).to_i + 1
 end
 
 def ttf(signup, submit)
   return "(4) never" if submit.nil?
 
-  diff = Time.parse(submit)-Time.parse(signup)
+  diff = Time.parse(submit) - Time.parse(signup)
 
-  return '(1) day' if diff < 24*60*60
-  return '(2) week' if diff < 24*60*60*7
+  return '(1) day' if diff < 24 * 60 * 60
+  return '(2) week' if diff < 24 * 60 * 60 * 7
   '(3) more'
 end
 
@@ -62,9 +62,9 @@ namespace :metrics do
       SQL
       fn = lambda do |row|
         at = Moment.new(row['created_at'])
-        ([ row['id'], at.to_s] + at.to_a).join(",")
+        ([row['id'], at.to_s] + at.to_a).join(",")
       end
-      Metric.report(sql, ["User ID", "Signed Up On"]+Moment.to_a, fn)
+      Metric.report(sql, ["User ID", "Signed Up On"] + Moment.to_a, fn)
     end
 
     desc "extract comment events"
@@ -74,9 +74,9 @@ namespace :metrics do
       SQL
       fn = lambda do |row|
         at = Moment.new(row['created_at'])
-        ([ row['id'], row['user_id'], at.to_s] + at.to_a).join(",")
+        ([row['id'], row['user_id'], at.to_s] + at.to_a).join(",")
       end
-      Metric.report(sql, ["Comment ID", "User ID", "Submitted On"]+Moment.to_a, fn)
+      Metric.report(sql, ["Comment ID", "User ID", "Submitted On"] + Moment.to_a, fn)
     end
 
     desc "extract iteration events"
@@ -84,9 +84,9 @@ namespace :metrics do
       sql = "SELECT id, user_id, created_at FROM submissions ORDER BY created_at ASC"
       fn = lambda do |row|
         at = Moment.new(row['created_at'])
-        ([ row['id'], row['user_id'], at.to_s] + at.to_a).join(",")
+        ([row['id'], row['user_id'], at.to_s] + at.to_a).join(",")
       end
-      Metric.report(sql, ["Iteration ID", "User ID", "Submitted On"]+Moment.to_a, fn)
+      Metric.report(sql, ["Iteration ID", "User ID", "Submitted On"] + Moment.to_a, fn)
     end
   end
 
@@ -257,7 +257,7 @@ namespace :metrics do
     FROM submissions s
     LEFT JOIN comments c
     ON s.id=c.submission_id
-    WHERE s.created_at>'#{Date.today-30}'
+    WHERE s.created_at>'#{Date.today - 30}'
     AND (c.user_id IS NULL OR s.user_id<>c.user_id)
     AND s.slug<>'hello-world'
     GROUP BY s.language, s.slug
@@ -269,7 +269,7 @@ namespace :metrics do
         row['language'],
         row['slug'],
         row['submissions'],
-        row['reviews']
+        row['reviews'],
       ].join(",")
     end
     Metric.report(sql, ["Track ID", "Problem", "Submissions", "Reviews"], fn)

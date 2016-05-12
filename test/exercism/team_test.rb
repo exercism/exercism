@@ -220,7 +220,7 @@ class TeamTest < Minitest::Test
 
   # rubocop:disable Metrics/AbcSize
   def test_delete_memberships_with_team
-    attributes = { slug: 'delete', usernames: "#{bob.username}" }
+    attributes = { slug: 'delete', usernames: bob.username.to_s }
     team = Team.by(alice).defined_with(attributes, alice)
     team.save
 
@@ -229,7 +229,6 @@ class TeamTest < Minitest::Test
     refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'TeamMembership was deleted.'
   end
   # rubocop:enable Metrics/AbcSize
-
 
   # rubocop:disable Metrics/AbcSize
   def test_invite_user_with_incorrect_case_in_username

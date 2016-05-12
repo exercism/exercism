@@ -42,4 +42,3 @@ class ApiTest < Minitest::Test
     assert_equal "OK", last_response.body
   end
 end
-

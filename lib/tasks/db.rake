@@ -19,7 +19,7 @@ namespace :db do
   namespace :migrate do
     task :down do
       version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
-      raise 'VERSION is required - To go down one migration, run db:rollback' unless version
+      fail 'VERSION is required - To go down one migration, run db:rollback' unless version
       ActiveRecord::Migrator.run(:down, './db/migrate', version)
     end
   end
@@ -35,16 +35,15 @@ namespace :db do
                                       '-p', config.port, '-c', sql, '-d', 'postgres')
     fail "db:setup - Couldn't query users: #{err}" unless status.success?
 
-    if !out.include?('user exists')
+    unless out.include?('user exists')
       sql = "CREATE USER #{user} PASSWORD '#{pass}' " \
             'SUPERUSER CREATEDB CREATEROLE INHERIT LOGIN'
       system 'psql', '-h', config.host, '-p', config.port, '-c', sql, '-d', 'postgres'
     end
 
     system 'createdb', '-h', config.host, '-p', config.port, '-O', config.username, config.database
-    raise "Failed to create database" unless $?.success?
+    fail "Failed to create database" unless $CHILD_STATUS.success?
   end
-
 
   desc "drop and recreate your database"
   task reset: %i(drop create)
@@ -52,13 +51,13 @@ namespace :db do
   desc "drop your database"
   task :drop do
     system 'dropdb', '-h', config.host, config.database
-    raise "Failed to drop database" unless $?.success?
+    fail "Failed to drop database" unless $CHILD_STATUS.success?
   end
 
   desc "create your database"
   task :create do
     system 'createdb', '-h', config.host, '-O', config.username, config.database
-    raise "Failed to create database" unless $?.success?
+    fail "Failed to create database" unless $CHILD_STATUS.success?
   end
 
   desc 'set the database up from scratch'

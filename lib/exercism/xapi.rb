@@ -16,9 +16,7 @@ module Xapi
 
   def self.request(*path_segments)
     options = {}
-    if path_segments.last.is_a?(Hash)
-      options = path_segments.pop
-    end
+    options = path_segments.pop if path_segments.last.is_a?(Hash)
 
     conn.get do |req|
       req.url File.join('/', *path_segments)

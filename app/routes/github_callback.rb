@@ -4,9 +4,7 @@ module ExercismWeb
       # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def self.registered(app)
         app.get '/github/callback/?*' do
-          unless params[:code]
-            halt 400, "Must provide parameter 'code'"
-          end
+          halt 400, "Must provide parameter 'code'" unless params[:code]
 
           begin
             user = Authentication.perform(params[:code], github_client_id, github_client_secret, session[:target_profile])

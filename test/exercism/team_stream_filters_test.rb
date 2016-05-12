@@ -6,8 +6,8 @@ class TeamStreamTest < Minitest::Test
 
   def setup
     super
-    Language.instance_variable_set(:"@by_track_id", {"go" => "Go", "elixir" => "Elixir"})
-    TeamStream.instance_variable_set(:"@ordered_slugs", {"go" => ["clock", "anagram"]})
+    Language.instance_variable_set(:"@by_track_id", "go" => "Go", "elixir" => "Elixir")
+    TeamStream.instance_variable_set(:"@ordered_slugs", "go" => %w(clock anagram))
   end
 
   def teardown

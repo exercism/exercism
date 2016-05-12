@@ -8,7 +8,6 @@ require 'mocha/setup'
 
 # rubocop:disable Metrics/ClassLength
 class ConvertsMarkdownToHTMLTest < Minitest::Test
-
   def assert_converts_to(input, expected)
     converter = ConvertsMarkdownToHTML.new(input)
     converter.convert
@@ -35,13 +34,13 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_ampersands
     input = "```\nbig && strong\n```"
-    expected = %q{<div class="highlight plaintext">
+    expected = '<div class="highlight plaintext">
 <table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a></pre></td>
 <td class="code"><pre><span id="L1">big &amp;&amp; strong
 </span></pre></td>
 </tr></tbody></table>
-</div>}
+</div>'
     assert_converts_to(input, expected)
   end
 
@@ -57,12 +56,12 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   # rubocop:disable Metrics/MethodLength
   def test_markdown_code_with_javascript_and_double_braces
-    input = %{```
+    input = %(```
   var refill = 99
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
-                 "{{action}}, {{remaining}} of beer on the wall.\n";}
+                 "{{action}}, {{remaining}} of beer on the wall.\n";)
 
-    expected = %{<div class="highlight plaintext">
+    expected = %(<div class="highlight plaintext">
 <table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href=\"#L1\">1</a>
 <a href=\"#L2\">2</a>
@@ -76,7 +75,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 </span><span id="L5">";
 </span></pre></td>
 </tr></tbody></table>
-</div>}
+</div>)
 
     converter = ConvertsMarkdownToHTML.new(input)
     converter.convert
@@ -84,10 +83,9 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
   end
   # rubocop:enable Metrics/MethodLength
 
-
   # rubocop:disable Metrics/MethodLength
   def test_complex_markdown_with_code
-    input = %{Pre text
+    input = %(Pre text
 
 ```
 class Foobar
@@ -95,9 +93,9 @@ class Foobar
 end
 ```
 
-Post text}
+Post text)
 
-    expected = %q{<p>Pre text</p>
+    expected = '<p>Pre text</p>
 <div class="highlight plaintext">
 <table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a>
@@ -110,7 +108,7 @@ Post text}
 </tr></tbody></table>
 </div>
 
-<p>Post text</p>}
+<p>Post text</p>'
 
     assert_converts_to(input, expected)
   end
@@ -118,15 +116,15 @@ Post text}
 
   # rubocop:disable Metrics/MethodLength
   def test_markdown_with_clojure_code
-    input = %q{Check out this code:
+    input = 'Check out this code:
 
 ```clj
 (defn to-rna
   [dna-string]
   (clojure.string/replace dna-string \T \U))
-```}
+```'
 
-    expected = %q{<p>Check out this code:</p>
+    expected = '<p>Check out this code:</p>
 <div class="highlight clojure">
 <table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a>
@@ -137,7 +135,7 @@ Post text}
 </span><span id="L3">  </span><span class="p">(</span><span class="nf">clojure.string/replace</span><span class="w"> </span><span class="n">dna-string</span><span class="w"> </span><span class="sc">\T</span><span class="w"> </span><span class="sc">\U</span><span class="p">))</span><span class="w">
 </span><span id="L4"></span></span></pre></td>
 </tr></tbody></table>
-</div>}
+</div>'
     assert_converts_to(input, expected)
   end
   # rubocop:enable Metrics/MethodLength

@@ -44,13 +44,13 @@ class DailyTest < Minitest::Test
   def test_does_not_return_archived_exercises
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
     UserExercise.create!(
-        user: fred,
-        last_iteration_at: 3.days.ago,
-        archived: true,
-        iteration_count: 1,
-        language: 'ruby',
-        slug: 'bob',
-        submissions: [Submission.create!(user: fred, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
+      user: fred,
+      last_iteration_at: 3.days.ago,
+      archived: true,
+      iteration_count: 1,
+      language: 'ruby',
+      slug: 'bob',
+      submissions: [Submission.create!(user: fred, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
     )
     assert_equal([], Daily.all)
   end
@@ -60,13 +60,13 @@ class DailyTest < Minitest::Test
   def test_does_not_return_hello_world_slug
     ACL.authorize(fred, Problem.new('ruby', 'hello-world'))
     UserExercise.create!(
-        user: fred,
-        last_iteration_at: 3.days.ago,
-        archived: true,
-        iteration_count: 1,
-        language: 'ruby',
-        slug: 'hello-world',
-        submissions: [Submission.create!(user: fred, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
+      user: fred,
+      last_iteration_at: 3.days.ago,
+      archived: true,
+      iteration_count: 1,
+      language: 'ruby',
+      slug: 'hello-world',
+      submissions: [Submission.create!(user: fred, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
     )
     assert_equal([], Daily.all)
   end
@@ -103,15 +103,15 @@ class DailyTest < Minitest::Test
 
   private
 
-  def create_exercise_with_submission(user, language, slug, last_iteration_at = 1.day.ago)
+  def create_exercise_with_submission(user, language, slug, last_iteration_at=1.day.ago)
     UserExercise.create!(
-        user: user,
-        last_iteration_at: last_iteration_at,
-        archived: false,
-        iteration_count: 1,
-        language: language,
-        slug: slug,
-        submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: 5.days.ago, version: 1)]
+      user: user,
+      last_iteration_at: last_iteration_at,
+      archived: false,
+      iteration_count: 1,
+      language: language,
+      slug: slug,
+      submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: 5.days.ago, version: 1)]
     )
   end
 end

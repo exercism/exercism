@@ -62,7 +62,7 @@ module ExercismWeb
         {
           problem: problem,
           testfiles: testfiles,
-          readme_file: readme_file
+          readme_file: readme_file,
         }
       end
     end

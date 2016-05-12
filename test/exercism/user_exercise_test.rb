@@ -36,4 +36,3 @@ class UserExerciseTest < Minitest::Test
     assert_equal exercise.iteration_count, 1
   end
 end
-

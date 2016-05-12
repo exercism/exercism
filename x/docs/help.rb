@@ -1,7 +1,6 @@
 module X
   module Docs
     class Help
-
       %w(contact dns executable firewall).each do |topic|
         define_method topic do
           read topic

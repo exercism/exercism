@@ -52,9 +52,7 @@ module ExercismWeb
       delete '/submissions/:key' do |key|
         please_login
         submission = Submission.find_by_key(key)
-        if submission.nil?
-          redirect '/'
-        end
+        redirect '/' if submission.nil?
 
         unless current_user.owns?(submission)
           flash[:notice] = "Only the author may delete the exercise."

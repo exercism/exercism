@@ -19,7 +19,7 @@ module ExercismWeb
           redirect '/'
         end
 
-        erb :"code/random", locals: {submission: exercises.randomized.first.submissions.last, total: total}
+        erb :"code/random", locals: { submission: exercises.randomized.first.submissions.last, total: total }
       end
     end
   end

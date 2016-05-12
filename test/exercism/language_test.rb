@@ -3,7 +3,7 @@ require_relative '../../lib/exercism/language'
 
 class LanguageTest < Minitest::Test
   def setup
-    Language.instance_variable_set(:"@by_track_id", {"cpp" => "C++"})
+    Language.instance_variable_set(:"@by_track_id", "cpp" => "C++")
   end
 
   def teardown

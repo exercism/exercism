@@ -1,6 +1,5 @@
 namespace :dev do
   namespace :seed do
-
     desc "insert a bunch of iterations for the given user"
     task :iterations do
       username = ENV['username'] || ENV['USERNAME']
@@ -33,7 +32,7 @@ namespace :dev do
       tracks.each do |track|
         track.slugs.each do |slug|
           solution = {
-            "%s/file.%s" % [slug, track.extension] => track.code
+            "%s/file.%s" % [slug, track.extension] => track.code,
           }
           Submission.create(user_id: user.id, language: track.id, slug: slug, solution: solution)
           Hack::UpdatesUserExercise.new(user.id, track.id, slug).update

@@ -3,7 +3,7 @@ require 'sidekiq'
 module Jobs
   class Analyze
     include Sidekiq::Worker
-    sidekiq_options :queue => :analyze
+    sidekiq_options queue: :analyze
 
     def perform(_)
       # This exists solely to get the job scheduled.

@@ -22,7 +22,7 @@ class Homework
     skipped = exercises.where.not(skipped_at: nil).pluck(:slug)
     submitted = exercises.where('skipped_at IS NULL AND iteration_count > ?', 0).pluck(:slug)
     recent = exercises.where.not(last_iteration_at: nil)
-             .order(:last_iteration_at).last
+                      .order(:last_iteration_at).last
 
     if recent.nil?
       msg = "You haven't submitted any solutions yet."
@@ -33,11 +33,11 @@ class Homework
       track_id: language,
       recent: {
         problem: recent.slug,
-        submitted_at: recent.last_iteration_at
+        submitted_at: recent.last_iteration_at,
       },
       skipped: skipped,
       submitted: submitted,
-      fetched: ["sorry, tracking disabled for fetching"]
+      fetched: ["sorry, tracking disabled for fetching"],
     }
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

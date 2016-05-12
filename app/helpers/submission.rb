@@ -7,9 +7,9 @@ module ExercismWeb
         when 0
           ""
         when 1
-          "#{names.first}"
+          names.first.to_s
         when 2
-          "#{names.join(' and ')}"
+          names.join(' and ').to_s
         else
           last = names.pop
           "#{names.join(', ')}, and #{last}"
@@ -20,7 +20,7 @@ module ExercismWeb
       def these_people_like_it(liked_by)
         return "" if liked_by.empty?
 
-        everyone = liked_by.map {|user| "<a href='/#{user.username}'>@#{user.username}</a>"}
+        everyone = liked_by.map { |user| "<a href='/#{user.username}'>@#{user.username}</a>" }
         "#{sentencify(everyone)} think#{everyone.one? ? 's' : ''} this looks great"
       end
 
@@ -36,11 +36,11 @@ module ExercismWeb
           text = "Looks great!"
         end
 
-        %{
+        %(
         <form accept-charset="UTF-8" action="/submissions/#{submission.key}/#{action}" method="POST" class="submission-like-button">
           <button type="submit" name="#{action}" class="btn"><i class="fa"></i> #{text}</button>
         </form>
-        }
+        )
       end
       # rubocop:enable Metrics/MethodLength
 

@@ -9,10 +9,10 @@ class TeamStream
     end
 
     def items
-      @items ||= rows.map {|row| item(row["id"], row["total"]) }
-        .sort(&order)
-        .each do |item|
-        item.unread = [item.total-views_by_id[item.id], 0].max
+      @items ||= rows.map { |row| item(row["id"], row["total"]) }
+                     .sort(&order)
+                     .each do |item|
+        item.unread = [item.total - views_by_id[item.id], 0].max
       end
     end
 
@@ -98,7 +98,7 @@ class TeamStream
     private
 
     def order
-      ->(a,b) { a.text <=> b.text }
+      ->(a, b) { a.text <=> b.text }
     end
 
     def sql
@@ -142,7 +142,7 @@ class TeamStream
     private
 
     def order
-      ->(a,b) { idx(a.id) <=> idx(b.id) }
+      ->(a, b) { idx(a.id) <=> idx(b.id) }
     end
 
     def idx(id)
@@ -196,7 +196,7 @@ class TeamStream
     private
 
     def order
-      ->(a,b) { a.id.downcase <=> b.id.downcase }
+      ->(a, b) { a.id.downcase <=> b.id.downcase }
     end
 
     def sql
@@ -244,7 +244,7 @@ class TeamStream
     private
 
     def order
-      ->(a,b) { a.text <=> b.text }
+      ->(a, b) { a.text <=> b.text }
     end
 
     def sql
