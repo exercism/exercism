@@ -29,4 +29,8 @@ class Guest
   def show_dailies?
     false
   end
+
+  def submissions_per_language
+    nil
+  end
 end

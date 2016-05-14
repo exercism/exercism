@@ -194,6 +194,17 @@ class UserTest < Minitest::Test
     assert_equal total_ruby_exercises_count, freds_ruby_acls_count
   end
 
+  def test_user_submissions_per_language
+    julia = User.create(username: 'julia')
+    create_exercise_with_submission(julia, 'ruby', 'hamming')
+    create_exercise_with_submission(julia, 'python', 'hamming')
+    Submission.create!(user: julia, language: 'python', slug: 'hamming')
+
+    assert_equal 1, julia.submissions_per_language['ruby']
+    assert_equal 2, julia.submissions_per_language['python']
+    assert_equal 0, julia.submissions_per_language['javascript']
+  end
+
   private
 
   def create_exercise_with_submission(user, language, slug)
