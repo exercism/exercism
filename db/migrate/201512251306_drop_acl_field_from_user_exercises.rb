@@ -4,6 +4,6 @@ class DropAclFieldFromUserExercises < ActiveRecord::Migration
   end
 
   def down
-    add_column :user_exercises, :is_nitpicker, :boolean, :default => false
+    add_column :user_exercises, :is_nitpicker, :boolean, default: false
   end
 end

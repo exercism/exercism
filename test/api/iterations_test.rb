@@ -54,24 +54,24 @@ class IterationsApiTest < Minitest::Test
       user: @alice,
       language: 'go',
       slug: 'one',
-      solution: {'oneA.go' => 'CODE1AGO', 'oneB.go' => 'CODE1BGO'},
+      solution: { 'oneA.go' => 'CODE1AGO', 'oneB.go' => 'CODE1BGO' },
       created_at: 10.minutes.ago,
     }, {
       user: @alice,
       language: 'go',
       slug: 'two',
-      solution: {'two.go' => 'CODE2GO'},
+      solution: { 'two.go' => 'CODE2GO' },
       created_at: 10.minutes.ago,
     }, {
       user: @alice,
       language: 'ruby',
       slug: 'one',
-      solution: {'one.rb': 'CODE1RUBY'},
+      solution: { 'one.rb': 'CODE1RUBY' },
     }, {
       user: @alice,
       language: 'ruby',
       slug: 'two',
-      solution: {'two.rb': 'CODE2RUBY'},
+      solution: { 'two.rb': 'CODE2RUBY' },
     }]
 
     Submission.create!(submissions)
@@ -84,18 +84,18 @@ class IterationsApiTest < Minitest::Test
     end
 
     Xapi.stub(:exists?, true) do
-      get '/iterations/latest', { key: @alice.key }
+      get '/iterations/latest', key: @alice.key
     end
 
     output = last_response.body
-    options = { format: :json, :name => 'api_iterations' }
+    options = { format: :json, name: 'api_iterations' }
     Approvals.verify(output, options)
   end
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def test_skip_problem
     Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', { key: @alice.key }
+      post '/iterations/ruby/one/skip', key: @alice.key
     end
 
     exercise = @alice.exercises.first
@@ -107,7 +107,7 @@ class IterationsApiTest < Minitest::Test
 
   def test_skip_non_existent_problem
     Xapi.stub(:exists?, false) do
-      post '/iterations/ruby/not-found/skip', { key: @alice.key }
+      post '/iterations/ruby/not-found/skip', key: @alice.key
     end
 
     expected_message = "Exercise 'not-found' in language 'ruby' doesn't exist. "
@@ -119,7 +119,7 @@ class IterationsApiTest < Minitest::Test
 
   def test_skip_problem_as_guest
     Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', { key: 'invalid-api-key' }
+      post '/iterations/ruby/one/skip', key: 'invalid-api-key'
     end
 
     expected_message = "Please double-check your exercism API key."
@@ -131,10 +131,10 @@ class IterationsApiTest < Minitest::Test
   # rubocop:disable Metrics/MethodLength
   def test_submit_problem_with_old_client
     submission = {
-      "key"=>@alice.key,
-      "path"=>"/go/binary/binary.go",
-      "code"=>"Hello, World!",
-      "dir"=>"/path/to/exercism/dir"
+      "key" => @alice.key,
+      "path" => "/go/binary/binary.go",
+      "code" => "Hello, World!",
+      "dir" => "/path/to/exercism/dir",
     }
 
     Xapi.stub(:exists?, true) do
@@ -144,7 +144,7 @@ class IterationsApiTest < Minitest::Test
     submission = Submission.first
     assert_equal "go", submission.language
     assert_equal "binary", submission.slug
-    expected = {"binary.go" => "Hello, World!"}
+    expected = { "binary.go" => "Hello, World!" }
     assert_equal expected, submission.solution
   end
   # rubocop:enable Metrics/MethodLength

@@ -34,7 +34,7 @@ namespace :data do
         submission.slug = submission.solution.keys.first[/^[a-z-]*/]
 
         ex = UserExercise.where(user_id: submission.user_id, language: submission.language, slug: submission.slug).first
-        if !ex
+        unless ex
           ex = submission.user_exercise
           ex.language = submission.language
           ex.slug = submission.slug
@@ -205,7 +205,7 @@ namespace :data do
       ActiveRecord::Base.connection.execute(sql)
 
       # Override last activity where a comment is more recent.
-      SQL = <<-SQL
+      SQL = <<-SQL.freeze
         UPDATE user_exercises SET
           last_activity=t2.description,
           last_activity_at=t2.at
@@ -235,8 +235,6 @@ namespace :data do
         ;
       SQL
       ActiveRecord::Base.connection.execute(sql)
-
-
     end
 
     desc "migrate acls"

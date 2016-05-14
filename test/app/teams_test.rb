@@ -15,7 +15,7 @@ class TeamsTest < Minitest::Test
     {
       username: 'alice',
       github_id: 1,
-      email: "alice@example.com"
+      email: "alice@example.com",
     }
   end
 
@@ -24,7 +24,7 @@ class TeamsTest < Minitest::Test
       username: 'bob',
       github_id: 2,
       track_mentor: ['ruby'],
-      email: "bob@example.com"
+      email: "bob@example.com",
     }
   end
 
@@ -33,7 +33,7 @@ class TeamsTest < Minitest::Test
       username: 'charlie',
       github_id: 3,
       track_mentor: ['ruby'],
-      email: "charlie@example.com"
+      email: "charlie@example.com",
     }
   end
 
@@ -64,7 +64,7 @@ class TeamsTest < Minitest::Test
       [:post, '/teams/abc/managers'],
       [:delete, '/teams/abc/managers'],
       [:post, '/teams/abc/disown'],
-      [:get, '/teams/:slug/manage']
+      [:get, '/teams/:slug/manage'],
     ].each do |verb, endpoint|
       send verb, endpoint
       assert_equal 302, last_response.status
@@ -86,7 +86,7 @@ class TeamsTest < Minitest::Test
       [:post, '/teams/abc/members', "add members"],
       [:delete, '/teams/abc/members/bob', "dismiss members"],
       [:post, '/teams/abc/managers', "add a manager"],
-      [:delete, '/teams/abc/managers', "remove a manager"]
+      [:delete, '/teams/abc/managers', "remove a manager"],
     ].each do |verb, path, action|
       send verb, path, {}, login(bob)
       assert_equal 302, last_response.status, "No redirect for #{verb.to_s.upcase} #{path}"
@@ -101,7 +101,7 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with(slug: 'abc', usernames: bob.username)
     team.save
 
-    f= './test/fixtures/xapi_v3_tracks.json'
+    f = './test/fixtures/xapi_v3_tracks.json'
     X::Xapi.stub(:get, [200, File.read(f)]) do
       get '/teams/abc/directory', {}, login(alice)
       assert_equal 200, last_response.status
@@ -122,7 +122,7 @@ class TeamsTest < Minitest::Test
   # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def test_team_creation_with_name
-    post '/teams', {team: {name: 'No Members', slug: 'no_members', usernames: ""}}, login(alice)
+    post '/teams', { team: { name: 'No Members', slug: 'no_members', usernames: "" } }, login(alice)
     team = Team.first
 
     assert_equal 'No Members', team.name
@@ -132,7 +132,7 @@ class TeamsTest < Minitest::Test
   def test_team_creation_with_no_members
     assert_equal 0, alice.managed_teams.size
 
-    post '/teams', {team: {slug: 'no_members', usernames: ""}}, login(alice)
+    post '/teams', { team: { slug: 'no_members', usernames: "" } }, login(alice)
 
     team = Team.first
 
@@ -143,14 +143,14 @@ class TeamsTest < Minitest::Test
   # rubocop:enable Metrics/AbcSize
 
   def test_team_creation_with_no_slug
-    post '/teams', {team: {usernames: bob.username}}, login(alice)
+    post '/teams', { team: { usernames: bob.username } }, login(alice)
 
     assert_equal 0, alice.managed_teams.size
   end
 
   # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def test_team_creation_with_multiple_members
-    post '/teams', { team: { slug: 'members', usernames: "#{bob.username},#{charlie.username}"} }, login(alice)
+    post '/teams', { team: { slug: 'members', usernames: "#{bob.username},#{charlie.username}" } }, login(alice)
 
     team = Team.first
 
@@ -182,7 +182,7 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with(slug: 'members')
     team.save
 
-    post "/teams/#{team.slug}/members", {usernames: "#{bob.username},#{charlie.username}"}, login(alice)
+    post "/teams/#{team.slug}/members", { usernames: "#{bob.username},#{charlie.username}" }, login(alice)
 
     team.reload
 
@@ -203,7 +203,7 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with(slug: 'members', usernames: bob.username)
     team.save
 
-    post "/teams/#{team.slug}/members", {usernames: charlie.username}, login(bob)
+    post "/teams/#{team.slug}/members", { usernames: charlie.username }, login(bob)
 
     team.reload
 
@@ -242,7 +242,7 @@ class TeamsTest < Minitest::Test
 
   # rubocop:disable Metrics/AbcSize
   def test_only_managers_can_dismiss_other_members
-    team = Team.by(alice).defined_with({slug: 'members', usernames: "#{bob.username},#{charlie.username}"})
+    team = Team.by(alice).defined_with(slug: 'members', usernames: "#{bob.username},#{charlie.username}")
     team.save
 
     put "/teams/#{team.slug}/confirm", {}, login(charlie)
@@ -292,7 +292,7 @@ class TeamsTest < Minitest::Test
   # rubocop:enable Metrics/AbcSize
 
   def test_view_team_as_a_non_member
-    team = Team.by(alice).defined_with(slug: 'members', usernames: "#{bob.username}")
+    team = Team.by(alice).defined_with(slug: 'members', usernames: bob.username.to_s)
     team.save
 
     get "/teams/#{team.slug}/directory", {}, login(charlie)
@@ -301,7 +301,7 @@ class TeamsTest < Minitest::Test
   end
 
   def test_delete_team_without_being_manager
-    team = Team.by(alice).defined_with(slug: 'delete', usernames: "#{bob.username}")
+    team = Team.by(alice).defined_with(slug: 'delete', usernames: bob.username.to_s)
     team.save
 
     delete "/teams/#{team.slug}", {}, login(bob)
@@ -312,7 +312,7 @@ class TeamsTest < Minitest::Test
 
   # rubocop:disable Metrics/AbcSize
   def test_delete_team_as_manager
-    team = Team.by(alice).defined_with(slug: 'delete', usernames: "#{bob.username}")
+    team = Team.by(alice).defined_with(slug: 'delete', usernames: bob.username.to_s)
     team.save
 
     delete "/teams/#{team.slug}", {}, login(alice)
@@ -325,10 +325,10 @@ class TeamsTest < Minitest::Test
 
   # rubocop:disable Metrics/AbcSize
   def test_edit_teams_name_and_slug
-    team = Team.by(alice).defined_with(slug: 'edit', usernames: "#{bob.username}")
+    team = Team.by(alice).defined_with(slug: 'edit', usernames: bob.username.to_s)
     team.save
 
-    put "/teams/#{team.slug}", {team: {name: 'New name', slug: 'new_slug'}}, login(alice)
+    put "/teams/#{team.slug}", { team: { name: 'New name', slug: 'new_slug' } }, login(alice)
 
     assert_response_status(302)
     assert team.reload.name == 'New name'
@@ -338,7 +338,7 @@ class TeamsTest < Minitest::Test
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_unconfirmed_memberships_after_invitation
     team_name = 'abc'
-    post '/teams', {team: {slug: team_name, usernames: bob.username}}, login(alice)
+    post '/teams', { team: { slug: team_name, usernames: bob.username } }, login(alice)
 
     assert_equal 0, alice.unconfirmed_team_memberships.count, "Managers don't have unconfirmed memberships at the created team."
     assert_equal 1, bob.unconfirmed_team_memberships.count, "Bob has one unconfirmed membership at the created team."
@@ -346,7 +346,7 @@ class TeamsTest < Minitest::Test
     assert_equal 1, alice.team_memberships.count, "Managers have a confirmed membership at the created team."
     assert_equal 0, bob.team_memberships.count, "Bob doesn't have a confirmed membership at the created team."
 
-    post "/teams/abc/members", {usernames: charlie.username}, login(alice)
+    post "/teams/abc/members", { usernames: charlie.username }, login(alice)
 
     assert_equal 1, bob.reload.unconfirmed_team_memberships.count, "Bob should not have gotten an unconfirmed membership again."
     assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Notify charlie failed"
@@ -361,12 +361,12 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with(slug: 'dragon')
     team.save
 
-    post '/teams/dragon/managers', {username: bob.username}, login(alice)
+    post '/teams/dragon/managers', { username: bob.username }, login(alice)
     assert_response_status(302)
     assert_equal "http://example.org/teams/dragon/manage", last_response.location
     assert_equal [alice.id, bob.id].sort, team.reload.managers.map(&:id).sort
 
-    post '/teams/dragon/managers', {username: 'no-such-user'}, login(alice)
+    post '/teams/dragon/managers', { username: 'no-such-user' }, login(alice)
     assert_response_status(302)
     assert_equal "http://example.org/teams/dragon/manage", last_response.location
     assert_equal [alice.id, bob.id].sort, team.reload.managers.map(&:id).sort
@@ -379,12 +379,12 @@ class TeamsTest < Minitest::Test
     team.save
     team.managed_by(bob)
 
-    delete '/teams/salamander/managers', {username: bob.username}, login(alice)
+    delete '/teams/salamander/managers', { username: bob.username }, login(alice)
     assert_response_status 302
     assert_equal "http://example.org/teams/salamander/manage", last_response.location
     assert_equal [alice.id], team.reload.managers.map(&:id)
 
-    delete '/teams/salamander/managers', {username: 'no-such-user'}, login(alice)
+    delete '/teams/salamander/managers', { username: 'no-such-user' }, login(alice)
     assert_response_status 302
     assert_equal "http://example.org/teams/salamander/manage", last_response.location
     assert_equal [alice.id], team.reload.managers.map(&:id)

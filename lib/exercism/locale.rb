@@ -17,7 +17,6 @@ class UnknownLocale
 end
 
 Locale = Struct.new(:language, :code_extension, :test_extension) do
-
   def name
     language.to_s.capitalize
   end

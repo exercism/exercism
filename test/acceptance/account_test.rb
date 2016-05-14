@@ -6,11 +6,11 @@ class AccountTest < AcceptanceTestCase
     @user = create_user
 
     # fake load all the languages
-    f= './test/fixtures/xapi_v3_tracks.json'
+    f = './test/fixtures/xapi_v3_tracks.json'
     X::Xapi.stub(:get, [200, File.read(f)]) do
       ExercismWeb::Presenters::Languages.all
     end
-    Language.instance_variable_set(:"@by_track_id", {'ruby' => 'Ruby'})
+    Language.instance_variable_set(:"@by_track_id", 'ruby' => 'Ruby')
   end
 
   def teardown
@@ -30,7 +30,7 @@ class AccountTest < AcceptanceTestCase
 
   # rubocop:disable Metrics/MethodLength
   def test_creating_a_team
-    create_user(username: 'one_username', github_id: 12345)
+    create_user(username: 'one_username', github_id: 12_345)
     create_user(username: 'two_username', github_id: 4567)
 
     with_login(@user) do

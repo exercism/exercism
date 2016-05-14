@@ -11,4 +11,3 @@ Approvals.configure do |c|
   }
   c.approvals_path = Exercism.relative_to_root('test', 'fixtures', 'approvals') + '/'
 end
-

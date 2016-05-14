@@ -5,7 +5,7 @@ require 'exercism/language'
 
 class ExerciseTest < Minitest::Test
   def setup
-    Language.instance_variable_set(:"@by_track_id", {"cpp" => "C++", "go" => "Go"})
+    Language.instance_variable_set(:"@by_track_id", "cpp" => "C++", "go" => "Go")
   end
 
   def teardown
@@ -45,4 +45,3 @@ class ExerciseTest < Minitest::Test
     refute problem.in?('clojure')
   end
 end
-

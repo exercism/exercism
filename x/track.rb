@@ -17,7 +17,7 @@ module X
       :id, :language, :repository,
       :todo, :problems, :docs,
       :active, :implemented
-    ]
+    ].freeze
     attr_reader(*METHODS)
 
     alias active?      active

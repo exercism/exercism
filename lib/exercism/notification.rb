@@ -1,6 +1,6 @@
 class Notification < ActiveRecord::Base
   belongs_to :actor, class_name: "User"
-  belongs_to :iteration, ->{ includes(:user) }, class_name: "Submission"
+  belongs_to :iteration, -> { includes(:user) }, class_name: "Submission"
 
   scope :unread, -> { where(read: false) }
   scope :feedback, -> { joins(:iteration).where('submissions.user_id=notifications.user_id') }
@@ -8,9 +8,7 @@ class Notification < ActiveRecord::Base
   scope :recent, -> { by_recency.limit(400) }
 
   before_create do
-    if read.nil?
-      self.read = false
-    end
+    self.read = false if read.nil?
     true
   end
 

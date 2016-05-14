@@ -21,10 +21,10 @@ class CommentTest < Minitest::Test
     [
       ["", [], "empty comment"],
       ["Mention @alice", ["alice"], "basic mention"],
-      ["Mention @alice and @bob", ["alice", "bob"], "mention multiple users"],
+      ["Mention @alice and @bob", %w(alice bob), "mention multiple users"],
       ["`@alice` and @bob", ["bob"], "mention-like thing within in-line code"],
       ["```\n@alice\n```\n\nand @bob", ["bob"], "mention-like thing within fenced code block"],
-      ["Mention @alice and @bob and also @charlie", ["alice", "bob"], "ignore unknown users"]
+      ["Mention @alice and @bob and also @charlie", %w(alice bob), "ignore unknown users"],
     ].each do |body, mentions, _desc|
       usernames = User.where(id: Comment.new(body: body).mention_ids).map(&:username)
       assert_equal usernames, mentions

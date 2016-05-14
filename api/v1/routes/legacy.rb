@@ -20,7 +20,7 @@ module ExercismAPI
       delete '/user/assignments' do
         message = "Unsubmit functionality has been disabled for security reasons.\n" \
           "You can delete submissions from the web interface."
-        halt 404, {error: message}.to_json
+        halt 404, { error: message }.to_json
       end
     end
   end

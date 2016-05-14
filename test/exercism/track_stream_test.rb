@@ -7,7 +7,7 @@ class TrackStreamTrackTest < Minitest::Test
   def setup
     super
     slugs = ['anagram', 'clock', 'hamming', 'hello-world', 'leap', 'triangle', 'word-count']
-    Stream.instance_variable_set(:"@ordered_slugs", {'go' => slugs, 'elixir' => slugs})
+    Stream.instance_variable_set(:"@ordered_slugs", 'go' => slugs, 'elixir' => slugs)
     Language.instance_variable_set(:"@by_track_id", {})
   end
 
@@ -46,19 +46,19 @@ class TrackStreamTrackTest < Minitest::Test
     bob = User.create(username: 'bob', avatar_url: 'bob.jpg')
 
     [
-      {user: alice, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: +1},
-      {user: bob, language: 'elixir', slug: 'triangle', archived: false, auth: true, viewed: -1},
-      {user: bob, language: 'elixir', slug: 'anagram', archived: false, auth: true, viewed: -1},
-      {user: bob, language: 'elixir', slug: 'word-count', archived: false, auth: true, viewed: +1},
-      {user: bob, language: 'go', slug: 'hello-world', archived: false, auth: true, viewed: -1},
-      {user: bob, language: 'go', slug: 'leap', archived: false, auth: true, viewed: +1},
-      {user: bob, language: 'go', slug: 'clock', archived: false, auth: false, viewed: -1},
-      {user: bob, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: -1},
-      {user: alice, language: 'go', slug: 'leap', archived: true, auth: true, viewed: +1},
-      {user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1},
-      {user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0},
-      {user: alice, language: 'go', slug: 'hamming', archived: false, auth: true, viewed: +1},
-      {user: bob, language: 'go', slug: 'raindrops', archived: false, auth: true, viewed: 0},
+      { user: alice, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: +1 },
+      { user: bob, language: 'elixir', slug: 'triangle', archived: false, auth: true, viewed: -1 },
+      { user: bob, language: 'elixir', slug: 'anagram', archived: false, auth: true, viewed: -1 },
+      { user: bob, language: 'elixir', slug: 'word-count', archived: false, auth: true, viewed: +1 },
+      { user: bob, language: 'go', slug: 'hello-world', archived: false, auth: true, viewed: -1 },
+      { user: bob, language: 'go', slug: 'leap', archived: false, auth: true, viewed: +1 },
+      { user: bob, language: 'go', slug: 'clock', archived: false, auth: false, viewed: -1 },
+      { user: bob, language: 'go', slug: 'word-count', archived: false, auth: true, viewed: -1 },
+      { user: alice, language: 'go', slug: 'leap', archived: true, auth: true, viewed: +1 },
+      { user: bob, language: 'go', slug: 'hamming', archived: true, auth: true, viewed: -1 },
+      { user: bob, language: 'go', slug: 'anagram', archived: false, auth: true, viewed: -1, iteration_count: 0 },
+      { user: alice, language: 'go', slug: 'hamming', archived: false, auth: true, viewed: +1 },
+      { user: bob, language: 'go', slug: 'raindrops', archived: false, auth: true, viewed: 0 },
     ].each.with_index { |attributes, i| create_view alice, bob, attributes.merge(age: i) }
 
     elixir1 = TrackStream.new(alice, 'elixir')
@@ -80,23 +80,23 @@ class TrackStreamTrackTest < Minitest::Test
 
     ex1, ex2 = elixir1.exercises
     ex3 = elixir2.exercises.first
-    ex4, ex5, ex6, ex7, ex8 , ex11 = go.exercises
+    ex4, ex5, ex6, ex7, ex8, ex11 = go.exercises
     ex9, ex10 = wc.exercises
 
     [
-      [ex1,  ExerciseTestCase.new(bob  , 'Triangle'  , 'elixir', :unread,  1)],
-      [ex2,  ExerciseTestCase.new(bob  , 'Anagram'   , 'elixir', :unread,  2)],
-      [ex3,  ExerciseTestCase.new(bob  , 'Word Count', 'elixir', :read  ,  3)],
+      [ex1,  ExerciseTestCase.new(bob, 'Triangle', 'elixir', :unread, 1)],
+      [ex2,  ExerciseTestCase.new(bob, 'Anagram', 'elixir', :unread, 2)],
+      [ex3,  ExerciseTestCase.new(bob, 'Word Count', 'elixir', :read, 3)],
 
-      [ex4,  ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
-      [ex5,  ExerciseTestCase.new(bob  , 'Hello World'      , 'go'    , :unread  ,  4)],
-      [ex6,  ExerciseTestCase.new(bob  , 'Leap'      , 'go'    , :read  ,  5)],
-      [ex7,  ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
-      [ex8,  ExerciseTestCase.new(alice, 'Hamming'   , 'go'    , :read  , 11)],
-      [ex11,  ExerciseTestCase.new(bob  , 'Raindrops' , 'go'    , :unread, 12)],
+      [ex4,  ExerciseTestCase.new(alice, 'Word Count', 'go', :read,  0)],
+      [ex5,  ExerciseTestCase.new(bob, 'Hello World', 'go', :unread, 4)],
+      [ex6,  ExerciseTestCase.new(bob, 'Leap', 'go', :read, 5)],
+      [ex7,  ExerciseTestCase.new(bob, 'Word Count', 'go', :unread, 7)],
+      [ex8,  ExerciseTestCase.new(alice, 'Hamming', 'go', :read, 11)],
+      [ex11, ExerciseTestCase.new(bob, 'Raindrops', 'go', :unread, 12)],
 
-      [ex9,  ExerciseTestCase.new(alice, 'Word Count', 'go'    , :read  ,  0)],
-      [ex10,  ExerciseTestCase.new(bob  , 'Word Count', 'go'    , :unread,  7)],
+      [ex9, ExerciseTestCase.new(alice, 'Word Count', 'go', :read,  0)],
+      [ex10, ExerciseTestCase.new(bob, 'Word Count', 'go', :unread, 7)],
     ].each { |actual, expected| assert_exercise expected, actual }
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
@@ -111,22 +111,20 @@ class TrackStreamTrackTest < Minitest::Test
 
     yesterday = 1.day.ago
     [
-      {user: alice, language: 'python', slug: 'leap', auth: true, viewed: false},
-      {user: bob, language: 'python', slug: 'leap', auth: true, viewed: false},
-      {user: charlie, language: 'python', slug: 'leap', auth: true, viewed: false},
-      {user: bob, language: 'python', slug: 'hamming', auth: true, viewed: true}, # timestamp gets updated
-      {user: bob, language: 'python', slug: 'anagram', auth: true, viewed: false},
-      {user: bob, language: 'go', slug: 'clock', auth: true, viewed: false}, # still unread afterwards
-      {user: bob, language: 'go', slug: 'hamming', auth: true, viewed: true}, # does not update timestamp
-      {user: bob, language: 'python', slug: 'word-count', auth: false, viewed: false}, # No ACL - still unread afterwards
+      { user: alice, language: 'python', slug: 'leap', auth: true, viewed: false },
+      { user: bob, language: 'python', slug: 'leap', auth: true, viewed: false },
+      { user: charlie, language: 'python', slug: 'leap', auth: true, viewed: false },
+      { user: bob, language: 'python', slug: 'hamming', auth: true, viewed: true }, # timestamp gets updated
+      { user: bob, language: 'python', slug: 'anagram', auth: true, viewed: false },
+      { user: bob, language: 'go', slug: 'clock', auth: true, viewed: false }, # still unread afterwards
+      { user: bob, language: 'go', slug: 'hamming', auth: true, viewed: true }, # does not update timestamp
+      { user: bob, language: 'python', slug: 'word-count', auth: false, viewed: false }, # No ACL - still unread afterwards
     ].each do |attributes|
       auth = attributes.delete(:auth)
       viewed = attributes.delete(:viewed)
 
       exercise = UserExercise.create(attributes)
-      if auth
-        ACL.authorize(alice, exercise.problem)
-      end
+      ACL.authorize(alice, exercise.problem) if auth
 
       if viewed
         View.create(user_id: alice.id, exercise_id: exercise.id, last_viewed_at: yesterday)
@@ -150,7 +148,7 @@ class TrackStreamTrackTest < Minitest::Test
 
     assert_equal 6, View.count
 
-    views = View.where('last_viewed_at > ?', now-2)
+    views = View.where('last_viewed_at > ?', now - 2)
     assert_equal 3, views.size
 
     assert_equal exercises[0...3].map(&:id).sort, views.map(&:exercise_id).sort
@@ -165,7 +163,7 @@ class TrackStreamTrackTest < Minitest::Test
 
     assert_equal 7, View.count
 
-    views = View.where('last_viewed_at > ?', now-2)
+    views = View.where('last_viewed_at > ?', now - 2)
     assert_equal 5, views.size
     assert_equal exercises[0...5].map(&:id).sort, views.map(&:exercise_id).sort
     views.each do |view|
@@ -178,19 +176,19 @@ class TrackStreamTrackTest < Minitest::Test
   private
 
   # rubocop:disable Metrics/AbcSize
-  def assert_exercise expected, actual
+  def assert_exercise(expected, actual)
     message = expected.message
-    assert_equal expected.username        , actual.username        , message
-    assert_equal expected.avatar_url      , actual.avatar_url      , message
-    assert_equal expected.problem_name    , actual.problem.name    , message
+    assert_equal expected.username, actual.username, message
+    assert_equal expected.avatar_url, actual.avatar_url, message
+    assert_equal expected.problem_name, actual.problem.name, message
     assert_equal expected.problem_track_id, actual.problem.track_id, message
-    assert_equal expected.comment_count   , actual.comment_count   , message
-    assert_equal expected.unread?         , actual.unread?         , message
+    assert_equal expected.comment_count, actual.comment_count, message
+    assert_equal expected.unread?, actual.unread?, message
   end
   # rubocop:enable Metrics/AbcSize
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-  def create_view user, other_user, message
+  def create_view(user, other_user, message)
     comment_count = age = message.delete(:age)
     ts = age.days.ago
     auth = message.delete(:auth)
@@ -205,12 +203,10 @@ class TrackStreamTrackTest < Minitest::Test
       Comment.create!(submission_id: submission.id, user_id: [user.id, other_user.id].sample, body: "OHAI")
     end
 
-    if auth
-      ACL.authorize(user, exercise.problem)
-    end
+    ACL.authorize(user, exercise.problem) if auth
 
     if viewed_diff_in_seconds != 0
-      View.create(user_id: user.id, exercise_id: exercise.id, last_viewed_at: ts+viewed_diff_in_seconds)
+      View.create(user_id: user.id, exercise_id: exercise.id, last_viewed_at: ts + viewed_diff_in_seconds)
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

@@ -7,7 +7,7 @@ class TrackStream
       @items ||= execute(items_sql).map do |row|
         item(row["id"], row["total"])
       end.sort(&order).each do |item|
-        item.unread = [item.total-views_by_id[item.id], 0].max
+        item.unread = [item.total - views_by_id[item.id], 0].max
       end
     end
     # rubocop:enable Metrics/AbcSize
@@ -39,7 +39,7 @@ class TrackStream
     private
 
     def order
-      ->(a,b) { a.text <=> b.text }
+      ->(a, b) { a.text <=> b.text }
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -98,7 +98,7 @@ class TrackStream
     private
 
     def order
-      ->(a,b) { idx(a.id) <=> idx(b.id) }
+      ->(a, b) { idx(a.id) <=> idx(b.id) }
     end
 
     # Put deprecated stuff (and weirdo accidental submissions) at the very end.

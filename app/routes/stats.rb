@@ -7,8 +7,8 @@ module ExercismWeb
 
       get '/stats/:track_id' do |track_id|
         track_id = track_id.downcase
-        tracks = X::Track.all.reject {|track| track.problems.empty? }
-        track = tracks.find {|t| t.id == track_id }
+        tracks = X::Track.all.reject { |track| track.problems.empty? }
+        track = tracks.find { |t| t.id == track_id }
 
         if !!track
           slugs = track.problems.map(&:slug)
@@ -16,10 +16,10 @@ module ExercismWeb
           datasets = [
             stats,
             ExercismLib::Stats.new(track_id, slugs, ExercismLib::Stats::LastN.new(90)),
-            ExercismLib::Stats.new(track_id, slugs, ExercismLib::Stats::LastN.new(120))
+            ExercismLib::Stats.new(track_id, slugs, ExercismLib::Stats::LastN.new(120)),
           ] + stats.historical(6)
 
-          erb :"stats/index", locals: {tracks: tracks.select(&:active?).sort_by(&:language), track: track, datasets: datasets}
+          erb :"stats/index", locals: { tracks: tracks.select(&:active?).sort_by(&:language), track: track, datasets: datasets }
         else
           status 404
           erb :"errors/not_found"

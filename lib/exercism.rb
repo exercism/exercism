@@ -45,7 +45,6 @@ require 'exercism/language_track'
 require 'exercism/user_lookup'
 require 'exercism/daily'
 
-
 require 'db/connection'
 DB::Connection.establish
 

@@ -10,7 +10,7 @@ USERNAME_REGEX = /(@[0-9a-zA-z][0-9a-zA-Z\-]*)/
 def hyperlink_mentions!(node)
   node.children.each do |child|
     if child.node_type == Nokogiri::XML::Node::ELEMENT_NODE &&
-        !child.matches?('code,td[class=code]')
+       !child.matches?('code,td[class=code]')
       hyperlink_mentions! child
     elsif child.node_type == Nokogiri::XML::Node::TEXT_NODE
       set = []
@@ -18,13 +18,12 @@ def hyperlink_mentions!(node)
       until remaining.empty?
         head, match, remaining = remaining.partition(USERNAME_REGEX)
         set << child.document.create_text_node(head)
-        unless match.empty?
-          link = child.document.create_element("a")
-          link.set_attribute('class', 'mention')
-          link.set_attribute('href', '/' + match[1..-1])
-          link.content = match
-          set << link
-        end
+        next if match.empty?
+        link = child.document.create_element("a")
+        link.set_attribute('class', 'mention')
+        link.set_attribute('href', '/' + match[1..-1])
+        link.content = match
+        set << link
       end
       if set.length > 1
         set = Nokogiri::XML::NodeSet.new(child.document, set)
@@ -37,7 +36,6 @@ end
 
 module ExercismLib
   class Markdown < Redcarpet::Render::XHTML
-
     def self.render(content)
       markdown = Redcarpet::Markdown.new(new, options)
       markdown.render(content)
@@ -54,7 +52,7 @@ module ExercismLib
         superscript: true,
         tables: true,
         space_after_headers: true,
-        xhtml: true
+        xhtml: true,
       }
     end
     # rubocop:enable Metrics/MethodLength

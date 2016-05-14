@@ -10,4 +10,3 @@ class Notify
     Notification.on(iteration, user_id: iteration.user_id, action: action, actor_id: actor.id)
   end
 end
-

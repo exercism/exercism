@@ -11,8 +11,8 @@ module DB
 
     attr_reader :file, :environment
 
-    def initialize(environment = default_environment,
-                   file = default_database_config)
+    def initialize(environment=default_environment,
+                   file=default_database_config)
       @environment = environment
       @file = file
     end

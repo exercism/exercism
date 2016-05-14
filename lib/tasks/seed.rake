@@ -18,7 +18,7 @@ namespace :db do
   end
 
   desc "reset db and reseed data"
-  task :reseed => ["db:drop", "db:create", "db:migrate", "db:seed"]
+  task reseed: ["db:drop", "db:create", "db:migrate", "db:seed"]
 
   desc "generate seed data"
   task :seed do
@@ -36,6 +36,6 @@ namespace :db do
     # rubocop:enable Style/AlignParameters
 
     # Trigger generation of html body
-    Comment.find_each { |comment| comment.save }
+    Comment.find_each(&:save)
   end
 end

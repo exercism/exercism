@@ -3,7 +3,7 @@ class AcceptanceTestCase < Minitest::Test
   include Capybara::Assertions
   include DBCleaner
 
-  def create_user(args = {github_id: 123, username: 'some_username'})
+  def create_user(args={ github_id: 123, username: 'some_username' })
     User.create!(args)
   end
 

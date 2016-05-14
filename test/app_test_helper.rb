@@ -1,6 +1,6 @@
 module AppTestHelper
   def login(user)
-    {'rack.session' => { github_id: user.github_id }}
+    { 'rack.session' => { github_id: user.github_id } }
   end
 
   def language_tracks_json

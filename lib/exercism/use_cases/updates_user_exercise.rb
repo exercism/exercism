@@ -45,7 +45,7 @@ module Hack
     end
 
     def options
-      {user_id: user_id, language: language, slug: slug}
+      { user_id: user_id, language: language, slug: slug }
     end
 
     def submissions

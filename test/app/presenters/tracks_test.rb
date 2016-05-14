@@ -18,7 +18,7 @@ class PresentersTracksTest < Minitest::Test
   end
 
   def test_repository
-    languages = @tracks.load_tracks.map { |track| track.slug}
+    languages = @tracks.load_tracks.map(&:slug)
     languages.each do |l|
       assert_equal "https://github.com/exercism/x#{l}", @tracks.repo_url(l)
     end

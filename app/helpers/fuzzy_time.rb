@@ -9,19 +9,19 @@ module ExercismWeb
       # rubocop:disable Metrics/CyclomaticComplexity
       def ago(timestamp)
         diff = (now - timestamp).to_i.to_f
-        if diff < 24*hours
+        if diff < 24 * hours
           # response = case diff
           case diff
-          when less_than(2*minutes)
+          when less_than(2 * minutes)
             "just now"
-          when less_than(55*minutes)
-            "about #{(diff/(1*minutes)).round} minutes ago"
-          when less_than(80*minutes)
+          when less_than(55 * minutes)
+            "about #{(diff / (1 * minutes)).round} minutes ago"
+          when less_than(80 * minutes)
             "about an hour ago"
-          when less_than(105*minutes)
+          when less_than(105 * minutes)
             "about an hour and a half ago"
-          when less_than(23.5*hours)
-            "about #{(diff/(1*hours)).round} hours ago"
+          when less_than(23.5 * hours)
+            "about #{(diff / (1 * hours)).round} hours ago"
           end
           # "<a href='#' data-toggle='tooltip' title='#{timestamp.strftime("%e %B %Y at %H:%M %Z")}'>#{response}</a>"
         else
@@ -33,7 +33,7 @@ module ExercismWeb
 
       private
 
-      def less_than timespan
+      def less_than(timespan)
         ->(actual_timespan) { actual_timespan < timespan }
       end
 
@@ -46,19 +46,19 @@ module ExercismWeb
       end
 
       def hours
-        60*minutes
+        60 * minutes
       end
 
       def days
-        24*hours
+        24 * hours
       end
 
       def weeks
-        7*days
+        7 * days
       end
 
       def months
-        30*days
+        30 * days
       end
     end
   end

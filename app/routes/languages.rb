@@ -5,7 +5,7 @@ module ExercismWeb
     class Languages < Core
       get '/languages' do
         tracks = X::Track.all
-        active, inactive = tracks.partition { |t| t.active? }
+        active, inactive = tracks.partition(&:active?)
         inactive.sort! { |a, b| b.problems.count <=> a.problems.count }
         erb :"languages/index", locals: { active: active, inactive: inactive }
       end

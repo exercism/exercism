@@ -10,8 +10,8 @@ class MarkdownTest < Minitest::Test
   end
 
   def test_hard_breaks
-    markdown = "O HAI!\n" +
-      "What is your name?  \n" +
+    markdown = "O HAI!\n" \
+      "What is your name?  \n" \
       "My name is Alice."
     expected = "<p>O HAI!\nWhat is your name?<br>\nMy name is Alice.</p>\n"
     assert_equal expected, ExercismLib::Markdown.render(markdown)
@@ -25,7 +25,7 @@ class MarkdownTest < Minitest::Test
 
   def test_mention_works_multiple_times
     markdown = "u @goose of @doom."
-    expected = "<p>u <a class=\"mention\" href=\"/goose\">@goose</a> of " +
+    expected = "<p>u <a class=\"mention\" href=\"/goose\">@goose</a> of " \
                "<a class=\"mention\" href=\"/doom\">@doom</a>.</p>\n"
     assert_equal expected, ExercismLib::Markdown.render(markdown)
   end

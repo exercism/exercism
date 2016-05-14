@@ -5,8 +5,8 @@ class TeamStreamTest < Minitest::Test
 
   def setup
     super
-    Stream.instance_variable_set(:"@ordered_slugs", {'go' => ['clock', 'anagram']})
-    Language.instance_variable_set(:"@by_track_id", {"go" => "Go", "elixir" => "Elixir"})
+    Stream.instance_variable_set(:"@ordered_slugs", 'go' => %w(clock anagram))
+    Language.instance_variable_set(:"@by_track_id", "go" => "Go", "elixir" => "Elixir")
   end
 
   def teardown
@@ -76,7 +76,7 @@ class TeamStreamTest < Minitest::Test
     Comment.create!(submission_id: s2.id, user_id: [alice.id, bob.id, charlie.id].sample, body: "OHAI")
 
     stream = TeamStream.new(team, alice.id)
-    exercise = stream.exercises.find {|ex| ex.id == ex2.id}
+    exercise = stream.exercises.find { |ex| ex.id == ex2.id }
     assert_equal 3, exercise.comment_count
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

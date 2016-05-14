@@ -9,7 +9,7 @@ class TrackStream
   def initialize(user, track_id, slug=nil, page=1)
     @user = user
     @track_id = track_id.to_s.downcase
-    @slug = slug.downcase if !!slug
+    @slug = slug.downcase if slug
     @language = Language.of(track_id)
     @page = page.to_i
     @per_page = 50
@@ -44,7 +44,7 @@ class TrackStream
   end
 
   def pagination_menu_item
-    menus.last.items.find(&:active?) || menus.first.items.find(&:active) || Stream::FilterItem.new(nil,nil,nil,nil,0)
+    menus.last.items.find(&:active?) || menus.first.items.find(&:active) || Stream::FilterItem.new(nil, nil, nil, nil, 0)
   end
 
   # This becomes unbearably slow if we do a left join on views to get the unread value
@@ -93,13 +93,13 @@ class TrackStream
   def comment_counts(ids)
     return [] if ids.empty?
 
-    execute(comment_counts_sql(ids)).map {|row| [row["id"], row["total"]]}
+    execute(comment_counts_sql(ids)).map { |row| [row["id"], row["total"]] }
   end
 
   def viewed(ids)
     return [] if ids.empty?
 
-    execute(viewed_sql(ids)).map {|row| row["id"]}
+    execute(viewed_sql(ids)).map { |row| row["id"] }
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -212,7 +212,7 @@ class TrackStream
   end
 
   def offset
-    (page-1)*per_page
+    (page - 1) * per_page
   end
 end
 # rubocop:enable Metrics/ClassLength

@@ -78,7 +78,7 @@ module ExercismWeb
           user = ::User.find_by_username(username)
           stream = TeamStream.new(team, current_user.id)
 
-          unless (user.present? && stream.user_ids.include?(user.id))
+          unless user.present? && stream.user_ids.include?(user.id)
             flash[:error] = "You may only view activity for existing team members."
             redirect '/'
           end
@@ -98,7 +98,6 @@ module ExercismWeb
       get '/teams/:slug/directory' do |slug|
         please_login
         only_with_existing_team(slug) do |team|
-
           unless team.includes?(current_user)
             flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
             redirect '/'
@@ -106,7 +105,7 @@ module ExercismWeb
 
           locals = {
             team: team,
-            members: team.all_members.sort_by {|m| m.username.downcase},
+            members: team.all_members.sort_by { |m| m.username.downcase },
             active: 'directory',
           }
 
@@ -128,7 +127,6 @@ module ExercismWeb
       put '/teams/:slug/confirm' do |slug|
         please_login
         only_with_existing_team(slug) do |team|
-
           unless team.unconfirmed_members.include?(current_user)
             flash[:error] = "You don't have a pending invitation to this team."
             redirect "/"
@@ -148,7 +146,7 @@ module ExercismWeb
         only_for_team_managers(slug, "You are not allowed to manage this team.") do |team|
           locals = {
             team: team,
-            members: team.all_members.sort_by {|m| m.username.downcase},
+            members: team.all_members.sort_by { |m| m.username.downcase },
             active: 'manage',
           }
           erb :"teams/manage", locals: locals
@@ -158,7 +156,7 @@ module ExercismWeb
       # Form to create a new team.
       get '/teams/?' do
         please_login
-        erb :"teams/new", locals: {team: Team.new}
+        erb :"teams/new", locals: { team: Team.new }
       end
 
       # Create a new team.
@@ -171,7 +169,7 @@ module ExercismWeb
           team.confirm(current_user.username)
           redirect "/teams/#{team.slug}/directory"
         else
-          erb :"teams/new", locals: {team: team}
+          erb :"teams/new", locals: { team: team }
         end
       end
 

@@ -1,7 +1,6 @@
 require 'exercism/markdown'
 
 class Comment < ActiveRecord::Base
-
   belongs_to :user
   belongs_to :submission
 
@@ -16,7 +15,7 @@ class Comment < ActiveRecord::Base
     "<span ng-non-bindable>#{super}</span>"
   end
 
-  scope :reversed, ->{ order(created_at: :desc) }
+  scope :reversed, -> { order(created_at: :desc) }
   scope :received_by, ->(user) { where(submission_id: user.submissions.pluck(:id)) }
   scope :paginate_by_params, ->(params) { paginate(page: params[:page], per_page: params[:per_page] || 10) }
 

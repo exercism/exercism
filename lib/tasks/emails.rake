@@ -9,4 +9,3 @@ namespace :emails do
     ActiveRecord::Base.connection.execute(sql)
   end
 end
-

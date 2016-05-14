@@ -5,7 +5,7 @@ class Language
   def self.of(id)
     by_track_id[id.to_s.downcase]
   rescue Exception => e
-    Bugsnag.notify(e, {track: id})
+    Bugsnag.notify(e, track: id)
     id
   end
 

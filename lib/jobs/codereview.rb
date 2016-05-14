@@ -3,7 +3,7 @@ require 'sidekiq'
 module Jobs
   class CodeReview
     include Sidekiq::Worker
-    sidekiq_options :queue => :codereview
+    sidekiq_options queue: :codereview
 
     def perform(_)
       # This exists solely to get the job scheduled.

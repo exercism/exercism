@@ -15,13 +15,13 @@ module ExercismWeb
         @current_user ||= logged_in_user || Guest.new
       end
 
-      def login_url(return_path = nil)
+      def login_url(return_path=nil)
         url = Github.login_url(client_id: github_client_id)
         url << redirect_uri(return_path) if return_path
         url
       end
 
-      def please_login(notice = nil)
+      def please_login(notice=nil)
         if current_user.guest?
           flash[:notice] = notice if notice
           redirect link_to("/please-login?return_path=#{request.path_info}")
@@ -35,9 +35,7 @@ module ExercismWeb
       end
 
       def logged_in_user
-        if session[:github_id]
-          User.find_by(github_id: session[:github_id])
-        end
+        User.find_by(github_id: session[:github_id]) if session[:github_id]
       end
     end
   end

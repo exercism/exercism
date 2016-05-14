@@ -10,7 +10,7 @@ module ExercismWeb
         session[:inbox] = id
         session[:inbox_slug] = slug
 
-        erb :"track_stream/index", locals: {stream: stream}
+        erb :"track_stream/index", locals: { stream: stream }
       end
 
       post '/tracks/:id/views/?:slug?' do |id, slug|

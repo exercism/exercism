@@ -1,6 +1,6 @@
 class UserExercise < ActiveRecord::Base
   include Named
-  has_many :submissions, ->{ order 'created_at ASC' }
+  has_many :submissions, -> { order 'created_at ASC' }
   has_many :views, foreign_key: 'exercise_id'
 
   belongs_to :user
@@ -11,12 +11,12 @@ class UserExercise < ActiveRecord::Base
       .where('views.user_id': user.id)
       .where('views.last_viewed_at > ?', 30.days.ago).order('views.last_viewed_at DESC')
   }
-  scope :current, ->{ where(archived: false).where.not(iteration_count: 0).order('language, id ASC') }
-  scope :completed, ->{ where.not(iteration_count: 0).order('language, id ASC') }
-  scope :archived, ->{ where(archived: true).where('iteration_count > 0') }
-  scope :for, lambda { |problem| where(language: problem.track_id, slug: problem.slug) }
-  scope :randomized, ->{ order('RANDOM()') }
-  scope :by_activity, ->{ order('last_activity_at DESC') }
+  scope :current, -> { where(archived: false).where.not(iteration_count: 0).order('language, id ASC') }
+  scope :completed, -> { where.not(iteration_count: 0).order('language, id ASC') }
+  scope :archived, -> { where(archived: true).where('iteration_count > 0') }
+  scope :for, ->(problem) { where(language: problem.track_id, slug: problem.slug) }
+  scope :randomized, -> { order('RANDOM()') }
+  scope :by_activity, -> { order('last_activity_at DESC') }
 
   before_create do
     self.key ||= Exercism.uuid

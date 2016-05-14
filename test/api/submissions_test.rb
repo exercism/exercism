@@ -11,16 +11,16 @@ class SubmissionsApiTest < Minitest::Test
   # rubocop:disable Metrics/MethodLength
   def test_returns_submission_code
     user = User.create(username: 'alice')
-    submission = Submission.create(user: user, language: 'ruby', slug: 'leap', solution: {'leap.rb': 'CODE'})
+    submission = Submission.create(user: user, language: 'ruby', slug: 'leap', solution: { 'leap.rb': 'CODE' })
     UserExercise.create(user: user, submissions: [submission], language: 'ruby', slug: 'leap')
 
     response = {
       "problems" => [
         {
           "language" => "Ruby",
-          "files" => {"test.rb" => "assert true"}
-        }
-      ]
+          "files" => { "test.rb" => "assert true" },
+        },
+      ],
     }.to_json
     Xapi.stub(:get, [200, response]) do
       get "/submissions/#{submission.key}"

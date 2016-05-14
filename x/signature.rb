@@ -5,7 +5,7 @@ module X
     end
 
     def self.presort(payload)
-      payload.sort_by {|k, _v| k}.reject{|k, _v| k == "sig"}.map {|k, v| "%s=%s" % [k, v]}.join
+      payload.sort_by { |k, _v| k }.reject { |k, _v| k == "sig" }.map { |k, v| "%s=%s" % [k, v] }.join
     end
 
     def self.ok(secret, payload)

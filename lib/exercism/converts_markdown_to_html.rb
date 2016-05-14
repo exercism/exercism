@@ -2,7 +2,6 @@ require 'loofah'
 require 'exercism/markdown'
 
 class ConvertsMarkdownToHTML
-
   attr_reader :content
 
   def self.convert(input)

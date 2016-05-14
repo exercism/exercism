@@ -8,8 +8,8 @@ class UserProgressionTest < Minitest::Test
   def setup
     super
     @user = User.create
-    @f= './test/fixtures/xapi_v3_tracks.json'
-    Language.instance_variable_set(:"@by_track_id", {"fake" => "Fake", "animal" => "Animal"})
+    @f = './test/fixtures/xapi_v3_tracks.json'
+    Language.instance_variable_set(:"@by_track_id", "fake" => "Fake", "animal" => "Animal")
   end
 
   def teardown
@@ -48,7 +48,6 @@ class UserProgressionTest < Minitest::Test
       assert_equal [], actual
     end
   end
-
 
   def test_user_progress_for_0_percent
     X::Xapi.stub(:get, [200, File.read(@f)]) do

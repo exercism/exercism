@@ -14,7 +14,7 @@ module ExercismAPI
           halt 401, { error: message }.to_json
         end
 
-        if !Xapi.exists?(language, slug)
+        unless Xapi.exists?(language, slug)
           message = "Exercise '#{slug}' in language '#{language}' doesn't exist. "
           message << "Maybe you mispelled it?"
           halt 404, { error: message }.to_json
@@ -23,15 +23,13 @@ module ExercismAPI
         exercise_attrs = {
           user_id: current_user.id,
           language: language,
-          slug: slug
+          slug: slug,
         }
 
         exercise = UserExercise.where(exercise_attrs)
-          .first_or_initialize(iteration_count: 0)
+                               .first_or_initialize(iteration_count: 0)
 
-        if exercise.new_record?
-          exercise.save!
-        end
+        exercise.save! if exercise.new_record?
         exercise.touch(:skipped_at)
         halt 204
       end
@@ -56,9 +54,7 @@ module ExercismAPI
         end
 
         solution = data['solution']
-        if solution.nil?
-          solution = { data['path'] => data['code'] }
-        end
+        solution = { data['path'] => data['code'] } if solution.nil?
 
         # old CLI, let's see if we can hack around it.
         if data['language'].nil?
@@ -113,7 +109,7 @@ module ExercismAPI
         status 201
         locals = {
           submission: attempt.submission,
-          domain: request.url.gsub(/#{request.path}$/, "")
+          domain: request.url.gsub(/#{request.path}$/, ""),
         }
         pg :attempt, locals: locals
       end
@@ -132,7 +128,7 @@ module ExercismAPI
 
         submissions = exercises.map { |e| e.submissions.last }.compact
 
-        pg :iterations, locals: {submissions: submissions}
+        pg :iterations, locals: { submissions: submissions }
       end
     end
   end

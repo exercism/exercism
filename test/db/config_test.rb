@@ -45,7 +45,7 @@ module DB
       config = DB::Config.new('fake', file)
       options = {
         'adapter' => 'postgresql',
-        'database' => 'exercism_fake'
+        'database' => 'exercism_fake',
       }
       assert_equal options, config.options
     end
