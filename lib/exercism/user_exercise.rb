@@ -63,6 +63,10 @@ class UserExercise < ActiveRecord::Base
     update_attributes(iteration_count: iteration_count - 1)
   end
 
+  def last_iteration_at
+    @last_iteration ||= self[:last_iteration_at] || NilIteration.new
+  end
+
   private
 
   def comment_count_sql
@@ -74,4 +78,15 @@ class UserExercise < ActiveRecord::Base
     WHERE s.user_exercise_id=#{id}
     SQL
   end
+
+  class NilIteration
+    def to_i
+      -1
+    end
+
+    def strftime(_)
+      "N/A"
+    end
+  end
+
 end
