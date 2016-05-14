@@ -203,7 +203,7 @@ user.submissions
 
 The test suite is comprised of various checks to ensure everything is working and styled as expected.
 
-Before any tests can be run, create and migrate a test database: `RACK_ENV=test rake db:setup db:migrate`
+Before any tests can be run, create and migrate a test database: `RACK_ENV=test bundle exec rake db:setup db:migrate`
 
 The entire test suite can then be run with `bundle exec rake test:everything` or just `bundle exec rake` since `test:everthing` is the default Rake task.
 
