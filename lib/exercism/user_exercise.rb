@@ -88,5 +88,4 @@ class UserExercise < ActiveRecord::Base
       "N/A"
     end
   end
-
 end
