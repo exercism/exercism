@@ -170,13 +170,18 @@
           <a href="<%= track.repository %>"><%= track.language %> repository</a>
           for more information.
         </p>
-        <h5>Want to help us</h5>
-        <p><strong>Make up new exercise from scratch</strong></p>
-        <p>You can follow this <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#implementing-a-completely-new-exercise">guide</a>.</p>
-        <p><strong>Port existing exercise to <%= track.language %></strong></p>
-        <p>There are many already implemented exercises in other tracks, take a look to the complete list of <a href="<%= track.id %>/contribute">exercises</a>.</p>
-      </div>
 
+        <h5>Help Add More <%= track.language %> Exercises</h5>
+        <p>
+        The easiest way to add new exercises is to translate existing exercises from other language tracks on Exercism.
+        Here's the <a href="/languages/<%= track.id %>/contribute">full list of unimplemented exercises in <%= track.language %></a>,
+        along with links to all the existing implementations.
+        </p>
+
+        <p>
+        If you have an idea for a completely new exercise, you can follow <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#implementing-a-completely-new-exercise">this guide</a> to add it to the site.
+        </p>
+      </div>
     </div>
   </div>
 
