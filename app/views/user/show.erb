@@ -25,11 +25,11 @@
         <h3>Progress:</h3>
         <% if params[:all] == 'true' %>
           <%= erb :"user/_exercise_progress", locals: { progress: profile.progress_hash } %>
-          <a class="btn btn-success" href="/<%= profile.username %>?all=false"> Fewer Languages </a>
+          <a class="btn btn-success" href="?all=false"> Fewer Languages </a>
         <% else %>
           <%= erb :"user/_exercise_progress", locals: { progress: [profile.progress_hash.first] } %>
           <% if profile.progress_hash.count > 1 %>
-            <a class="btn btn-success" href="/<%= profile.username %>?all=true"> More Languages </a>
+            <a class="btn btn-success" href="?all=true"> More Languages </a>
           <% end %>
         <% end %>
       <% end %>
