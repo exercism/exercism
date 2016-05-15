@@ -35,5 +35,9 @@ module X
     def fetch_cmd(problem=problems.first)
       "exercism fetch #{id} #{problem}"
     end
+
+    def planned?
+      !implemented
+    end
   end
 end
