@@ -11,11 +11,11 @@ Find out if you have homebrew installed via the terminal.
 You can open a terminal using Spotlight by pressing <command><spacebar> and
 then type 'terminal' in the space provided.
 
-Type in the command:
+On the command prompt, type in the command:
 
 `\brew --version`
 
-If homebrew is installed you may see output like the following:
+If homebrew is installed you may see output like the following (version numbers may vary):
 
 ```
 Homebrew 0.9.9 (git revision a5586; last commit 2016-05-09)
