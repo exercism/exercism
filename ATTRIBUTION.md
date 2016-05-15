@@ -45,6 +45,10 @@ The Go logo was designed by Renée French, and has been released under the Creat
 The Haskell icon was designed by Darrin Thompson and Jeff Wheeler. It was released under the [HaskellWiki license](https://wiki.haskell.org/HaskellWiki:Copyrights).
 
 
+**Kotlin icon** http://exercism.io/img/tracks/kotlin.png
+The Kotlin icon was designed by JetBrains and may be used in its original form.
+
+
 **Lisp icon** http://exercism.io/img/tracks/lisp.png
 The [Lisp logo](http://exercism.io/img/tracks/lisp.png) was designed by Xah Lee, and was released into the public domain.
 
