@@ -11,7 +11,7 @@ Find out if you have homebrew installed via the terminal.
 You can open a terminal using Spotlight by pressing <command><spacebar> and
 then type 'terminal' in the space provided.
 
-Now by typing in the command:
+Type in the command:
 
 `\brew --version`
 
@@ -23,7 +23,7 @@ Homebrew/homebrew-core (git revision 3b4c; last commit 2016-05-09)
 ```
 
 Install the CLI via homebrew in the following section.  Otherwise see
-"Installing Without Homebrew".
+"[Installing Without Homebrew](#installing-without-homebrew)".
 
 ### Installing With Homebrew
 
