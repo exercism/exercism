@@ -23,6 +23,16 @@ module ExercismWeb
           }
         end
       end
+
+      get '/languages/:track_id/contribute' do |track_id|
+        track = X::Todo.track(track_id)
+        if track.any?
+          erb :"languages/contribute", locals: { todos: track.with_implementations,
+                                                 language: track.language,
+                                                 repository: track.repository,
+                                                 track_id: track_id }
+        end
+      end
     end
   end
 end
