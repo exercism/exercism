@@ -6,6 +6,9 @@
 @import 'vendor/jquery.atwho';
 @import 'vendor/sortable';
 
+@import "font-awesome-sprockets";
+@import "font-awesome";
+
 .nit-links.nav-pills {
   margin-top: $line-height-computed;
   margin-bottom: ($line-height-computed / 2);
@@ -74,3 +77,11 @@ p.cta {
     text-decoration: none;
   }
 }
+
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
+

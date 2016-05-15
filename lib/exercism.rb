@@ -44,6 +44,7 @@ require 'exercism/view'
 require 'exercism/language_track'
 require 'exercism/user_lookup'
 require 'exercism/daily'
+require 'exercism/todo_stream'
 
 require 'db/connection'
 DB::Connection.establish
