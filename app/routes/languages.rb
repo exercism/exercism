@@ -19,7 +19,7 @@ module ExercismWeb
           track = X::Track.new(parsed_body['track'])
           erb :"languages/language", locals: {
             track: track,
-            docs: X::Docs::Launch.new(track.repository),
+            docs: X::Docs::Launch.new(track.repository, track.checklist_issue),
           }
         end
       end
