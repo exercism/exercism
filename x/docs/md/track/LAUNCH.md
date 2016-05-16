@@ -14,4 +14,4 @@ Launching a track takes a lot of work and we'd love your help!
 
 We always welcome help to get a new track up and running.
 
-Check out the [Launch Checklist](REPO/search?q=launch+checklist&type=Issues&utf8=%E2%9C%93) to see what still needs to be done.
+Check out the [Launch Checklist](REPO/issues/CHECKLIST_ISSUE) to see what still needs to be done.
