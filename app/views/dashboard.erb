@@ -50,30 +50,36 @@
       <h2>Feedback</h2>
       <div>
         <% if dashboard.has_activity? %>
-            <% dashboard.notifications.each do |notification| %>
-              <div class="panel panel-default">
-                <div class="panel-heading">
-                  <span style="padding-right: 15px;" class="fa fa-<%= notification.icon %>"></span>
+          <% dashboard.notifications.each do |notification| %>
 
-                  <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
-                  <a href="/<%= notification.actor.username %>">
-                    <%= notification.actor.username %>
-                  </a>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
+                <a href="/<%= notification.actor.username %>">
+                  <%= notification.actor.username %>
+                </a>
 
-                  &mdash;
+                &mdash;
 
-                  <a href="/submissions/<%= notification.iteration.uuid %>">
-                    <%= notification.iteration.name %> &middot; <%= Language.of(notification.iteration.track_id) %>
-                  </a>
+                <a href="/submissions/<%= notification.iteration.uuid %>">
+                  <%= notification.iteration.name %> &middot; <%= Language.of(notification.iteration.track_id) %>
+                </a>
 
-                <span style="float: right;">
+                <span class="pull-right">
                   <%= track_icon(notification.iteration.track_id, 20) %>
                 </span>
-                </div>
               </div>
-            <% end %>
+
+              <div class="list-group">
+                <% notification.iteration.comments.where(user: notification.actor).each do |comment| %>
+                  <div class="list-group-item"><%= comment.excerpt(160) %></div>
+                <% end %>
+              </div>
+
+            </div>
+          <% end %>
         <% else %>
-            <p>No new feedback.</p>
+          <p>No new feedback.</p>
         <% end %>
       </div>
     </div>

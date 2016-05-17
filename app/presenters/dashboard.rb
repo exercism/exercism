@@ -16,9 +16,9 @@ module ExercismWeb
 
       def notifications
         @notifications ||= user.notifications
-          .includes(:actor, iteration:[:comments])
-          .unread.feedback
-          .reject { |note| note.iteration.nil? || note.iteration.user.nil? }
+                               .includes(:actor, iteration: [:comments])
+                               .unread.feedback
+                               .reject { |note| note.iteration.nil? || note.iteration.user.nil? }
       end
     end
   end
