@@ -185,4 +185,15 @@
     </div>
   </div>
 
+  <% if track.language == 'Ruby' %>
+
+    <script>
+      ((window.gitter = {}).chat = {}).options = {
+        room: 'exercism/xruby'
+      };
+    </script>
+    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer>
+    </script>
+  <% end %>
+
 </div>
