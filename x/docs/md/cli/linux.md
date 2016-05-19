@@ -21,6 +21,7 @@ shell is `bash`, you could run:
 
 ```
 echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
+source ~/.bashrc
 ```
 
 To check which shell you have, run `echo $SHELL`.
