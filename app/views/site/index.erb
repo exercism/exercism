@@ -164,15 +164,15 @@
       </div>
       <div class="col-md-4">
 
-        <form method="post" action="https://tinyletter.com/exercism">
+        <form action="https://tinyletter.com/exercism" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/exercism', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
           <fieldset class="form-group">
-            <label for="email"> Email </label>
-            <input type="email" class="form-control" placeholder=" email@example.com ">
+            <label for="tlemail"> Email </label>
+            <input type="text" class="form-control" name="email" id="tlemail" placeholder=" email@example.com " />
+            <input type="hidden" value="1" name="embed"/>
             <small class="text-muted">We'll never share your email with anyone else.</small>
           </fieldset>
-          <button class="btn btn-secondary btn-lg" type="submit"> Subscribe </button>
+          <input class="btn btn-secondary btn-lg" type="submit" value=" Subscribe " />
         </form>
-
       </div>
       <div class="col-md-4"></div>
     </section>
