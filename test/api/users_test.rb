@@ -74,13 +74,65 @@ class UsersApiTest < Minitest::Test
 
       response = JSON.parse(last_response.body)
       assert_equal 200, last_response.status
-      assert_equal 4, response["statistics"].count
-      assert_equal 1, response["statistics"].first["completed"].count
-      assert_equal 1, response["statistics"][1]["completed"].count
-      count = response["statistics"].count do |language|
+      assert_equal 4, response["submission_statistics"].count
+      assert_equal 1, response["submission_statistics"].first["completed"].count
+      assert_equal 1, response["submission_statistics"][1]["completed"].count
+      count = response["submission_statistics"].count do |language|
         language["completed"].count == 0
       end
       assert_equal 2, count
+    end
+  end
+
+  def test_returns_complete_comment_statistics_given
+    f = './test/fixtures/xapi_v3_tracks.json'
+    X::Xapi.stub(:get, [200, File.read(f)]) do
+      user = User.create(username: 'adam')
+      user2 = User.create(username: 'nick')
+
+      submission = Submission.create(user: user, language: 'Animal', slug: 'hello-world', solution: { 'hello_world.rb' => 'CODE' })
+      UserExercise.create(user: user, submissions: [submission], language: 'animal', slug: 'hello-world', iteration_count: 0)
+      submission2 = Submission.create(user: user2, language: 'Fake', slug: 'apple', solution: { 'apple.js' => 'CODE' })
+      UserExercise.create(user: user2, submissions: [submission2], language: 'fake', slug: 'apple', iteration_count: 1)
+
+      user.comments.create(body: "comment one", submission_id: submission.id)
+      user.comments.create(body: "comment two", submission_id: submission2.id)
+      user2.comments.create(body: "comment three", submission_id: submission.id)
+      user2.comments.create(body: "comment four", submission_id: submission2.id)
+
+      get '/users/adam/statistics'
+
+      response = JSON.parse(last_response.body)
+      assert_equal 200, last_response.status
+
+      assert_equal 2, response["comment_statistics"]["total_comments_received"]
+      assert_equal 1, response["comment_statistics"]["comments_received_from_others"]
+      assert_equal 2, response["comment_statistics"]["total_comments_given"]
+      assert_equal 1, response["comment_statistics"]["comments_given_to_others"]
+    end
+  end
+
+  def test_returns_correct_comment_date_stats
+    f = './test/fixtures/xapi_v3_tracks.json'
+    X::Xapi.stub(:get, [200, File.read(f)]) do
+      user = User.create(username: 'adam')
+      user2 = User.create(username: 'nick')
+
+      submission = Submission.create(user: user, language: 'Animal', slug: 'hello-world', solution: { 'hello_world.rb' => 'CODE' })
+      UserExercise.create(user: user, submissions: [submission], language: 'animal', slug: 'hello-world', iteration_count: 0)
+
+      comment1 = user.comments.create(body: "comment one", submission_id: submission.id)
+      comment3 = user2.comments.create(body: "comment three", submission_id: submission.id)
+
+      comment1.update(created_at: comment1.created_at.to_date - 5)
+      comment3.update(created_at: comment3.created_at.to_date - 3)
+
+      get '/users/adam/statistics'
+
+      response = JSON.parse(last_response.body)
+      assert_equal 200, last_response.status
+      assert_equal 5, response["comment_statistics"]["days_since_last_comment_given"]
+      assert_equal 3, response["comment_statistics"]["days_since_last_comment_received"]
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
