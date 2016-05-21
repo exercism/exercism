@@ -14,7 +14,7 @@
         <td>
           <% exercises = profile.archived_grouped_exercises[language] %>
           <% exercises.each do |exercise| %>
-            <% if profile.can_access?(exercise) %>
+            <% if profile.access?(exercise) %>
               <a href="/exercises/<%= exercise.key %>">
                 <%= exercise.problem.name %>
               </a>

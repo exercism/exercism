@@ -37,8 +37,8 @@ module ExercismWeb
         @archived_exercises.group_by(&:language)
       end
 
-      def can_access?(exercise)
-        shared? || current_user.can_access?(exercise)
+      def access?(exercise)
+        shared? || current_user.access?(exercise)
       end
 
       def has_current_exercises?

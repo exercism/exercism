@@ -29,4 +29,8 @@ class Guest
   def show_dailies?
     false
   end
+
+  def access?(_)
+    false
+  end
 end

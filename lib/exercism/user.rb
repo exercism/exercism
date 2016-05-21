@@ -39,7 +39,7 @@ class User < ActiveRecord::Base
     save
   end
 
-  def can_access?(problem)
+  def access?(problem)
     ACL.where(user_id: id, language: problem.track_id, slug: problem.slug).count > 0
   end
 
