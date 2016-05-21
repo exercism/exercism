@@ -75,12 +75,11 @@ class UsersApiTest < Minitest::Test
       response = JSON.parse(last_response.body)
       assert_equal 200, last_response.status
       assert_equal 4, response["submission_statistics"].count
-      assert_equal 1, response["submission_statistics"].first["completed"].count
-      assert_equal 1, response["submission_statistics"][1]["completed"].count
-      count = response["submission_statistics"].count do |language|
-        language["completed"].count == 0
-      end
-      assert_equal 2, count
+
+      assert_equal submission.language, response["submission_statistics"]["animal"]["language"]
+      assert_equal 1, response["submission_statistics"]["animal"]["total"]
+
+      assert_equal [submission3.slug], response["submission_statistics"]["animal"]["completed"]
     end
   end
 
@@ -106,9 +105,9 @@ class UsersApiTest < Minitest::Test
       assert_equal 200, last_response.status
 
       assert_equal 2, response["comment_statistics"]["total_comments_received"]
-      assert_equal 1, response["comment_statistics"]["comments_received_from_others"]
-      assert_equal 2, response["comment_statistics"]["total_comments_given"]
-      assert_equal 1, response["comment_statistics"]["comments_given_to_others"]
+      assert_equal 1, response["comment_statistics"]["total_comments_received_from_others"]
+      assert_equal 2, response["comment_statistics"]["total_comments_created"]
+      assert_equal 1, response["comment_statistics"]["total_comments_given_to_others"]
     end
   end
 
@@ -118,21 +117,19 @@ class UsersApiTest < Minitest::Test
       user = User.create(username: 'adam')
       user2 = User.create(username: 'nick')
 
-      submission = Submission.create(user: user, language: 'Animal', slug: 'hello-world', solution: { 'hello_world.rb' => 'CODE' })
-      UserExercise.create(user: user, submissions: [submission], language: 'animal', slug: 'hello-world', iteration_count: 0)
+      submission = user.submissions.create
 
-      comment1 = user.comments.create(body: "comment one", submission_id: submission.id)
-      comment3 = user2.comments.create(body: "comment three", submission_id: submission.id)
+      user.comments.create(body: "comment", submission_id: submission.id, created_at: Time.utc(2000,"jan",1,20,15,1))
+      user.comments.create(body: "comment", submission_id: submission.id, created_at: Time.utc(2001,"jan",1,20,15,1))
 
-      comment1.update(created_at: comment1.created_at.to_date - 5)
-      comment3.update(created_at: comment3.created_at.to_date - 3)
+      user2.comments.create(body: "comment", submission_id: submission.id, created_at: Time.utc(2002,"jan",1,20,15,1))
+      user2.comments.create(body: "comment", submission_id: submission.id, created_at: Time.utc(2003,"jan",1,20,15,1))
 
       get '/users/adam/statistics'
-
       response = JSON.parse(last_response.body)
       assert_equal 200, last_response.status
-      assert_equal 5, response["comment_statistics"]["days_since_last_comment_given"]
-      assert_equal 3, response["comment_statistics"]["days_since_last_comment_received"]
+      assert_equal 5618, response["comment_statistics"]["days_since_last_comment_given"]
+      assert_equal 4888, response["comment_statistics"]["days_since_last_comment_received"]
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
