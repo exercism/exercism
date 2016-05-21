@@ -1,6 +1,7 @@
 namespace :db do
   require 'open3'
   require 'bundler'
+  require 'English'
   Bundler.require
   require_relative '../db/config'
   require_relative '../db/connection'
