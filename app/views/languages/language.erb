@@ -184,19 +184,5 @@
       </div>
     </div>
   </div>
-
-  <% if track.language == 'Ruby' %>
-    <div class="gitter-chat-button">
-      Open Chat: Enjoy the conversation!
-    </div>
-
-    <script>
-      ((window.gitter = {}).chat = {}).options = {
-        room: 'exercism/xruby',
-        activationElement: '.gitter-chat-button'
-      };
-    </script>
-    <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
-  <% end %>
-
+  <%= erb :"gitter/chat_button", locals: { control: track } %>
 </div>

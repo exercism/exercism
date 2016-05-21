@@ -1,0 +1,17 @@
+<% if control.language.downcase == 'ruby' %>
+  <div class="gitter-chat-button-frame">
+    <div class="gitter-chat-button">
+      Open Chat: Enjoy the <%= control.language.capitalize %> conversation!
+    </div>
+  </div>
+
+  <script>
+    ((window.gitter = {}).chat = {}).options = {
+      room: 'exercism/xruby',
+      activationElement: '.gitter-chat-button-frame'
+    };
+  </script>
+  <script src="https://sidecar.gitter.im/dist/sidecar.v1.js" async defer></script>
+<% end %>
+
+
