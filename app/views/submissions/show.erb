@@ -45,15 +45,8 @@
       <% if submission.user_exercise.archived? %>
         <span class="label label-danger">Archived</span>
       <% end %>
-
-      <div class="pull-right">
-        See other implementations of
-        <a href="<%= "/tracks/#{submission.track_id}/exercises/#{submission.slug}" %>">
-        <%= submission.problem.name %>
-        in
-        <%= submission.problem.language %>
-        </a>
-      </div>
+      
+      <%= erb :'submissions/see_other_implementations', locals: { submission: submission } if current_user.access?(submission.problem) %>
     </div>
   </div>
 
