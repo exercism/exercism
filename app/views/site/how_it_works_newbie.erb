@@ -8,12 +8,13 @@
     <div class="col-md-8">
 
       <p>
-      Exercism is spread across two locations:
+        Using Exercism requires three tools:
       </p>
 
       <ol>
-        <li><b>Your local programming environment</b>: write a solution to the exercise using your text editor, not a browser.</li>
-        <li><b>The <a href="http://exercism.io">exercism.io</a> website</b>: submit the solution to the site, so that you can get feedback and discuss it with other learners.</li>
+        <li><strong>Your text editor</strong>: Write a solution to an exercise using your favorite text editor.</li>
+        <li><strong>Your command line interface</strong>: Fetch problems and submit solutions via the command line (or terminal).</li>
+        <li><strong>The <a href="http://exercism.io">exercism.io</a> website</strong>: Review feedback on your solution and discuss it with other learners on the website.</li>
       </ol>
 
       <p>
@@ -21,42 +22,37 @@
       </p>
 
       <ol>
-        <li>Download the exercise.</li>
-        <li>Write code to solve the exercise on your own computer.</li>
-        <li>Submit your solution to the site so that you can get feedback on it.</li>
-        <li>Go look at how other people solved the same problem, and ask questions about what seems interesting or confusing.</li>
+        <li><strong>Fetch the exercise</strong> using the command line.</li>
+        <li><strong>Write code</strong> to solve the exercise on your own computer, satisfying each of the tests.</li>
+        <li><strong>Submit your solution</strong> using the command line.</li>
+        <li><strong>Review feedback</strong> and look at how other people solved the same problem on the website. Ask questions about what seems interesting or confusing!</li>
+        <li><strong>Improve your solution</strong> and resubmit as many times as desired.</li>
       </ol>
 
-      <p>
-      If you get ideas for how to improve your solution, then change your code, and submit it again.
-      </p>
-
     </div>
-    <div class="col-md-4 hints">
+    <div class="col-md-4 hints text-muted">
+      <p>
+        You'll see many references to <strong>Command-Line Client</strong>, <strong>Command-Line Interface</strong> and <strong>CLI</strong>. These all mean the same thing. They are generic terms for programs/tools that are meant to be used on the command-line.
+      </p>
+      <p>
+        If the command-line feels foreign and intimidating to you, go work through the excellent
+        <a href="http://www.learnenough.com/command-line-tutorial">Learn Enough&trade; Command-Line to be Dangerous</a>
+        tutorial by Michael Hartl.
+      </p>
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-8">
       <p>
-      As soon as you've submitted a solution to an exercise, the next exercise becomes available via the command-Line client.
+        As soon as you've submitted your first solution to an exercise, the next exercise becomes available via the command-line client.
       </p>
       <p>
-      A lot of websites will let you download by clicking on a link, and submit by copying and pasting into a web form and clicking a button. Exercism doesn't have this type of interface. On Exercism, you download exercises and submit solutions back to the site via the command-line.
-      </p>
-
-      <p>
-      In order to do this, you need to install the CLI.
+        <strong>Ready to get started?</strong> The following sections will detail how to get set up, including how to install the CLI, or Command Line Interface.
       </p>
     </div>
 
     <div class="col-md-4 hints">
-      <p>You'll see references to <b>Command-Line Client</b>, <b>Command-Line Interface</b> and <b>CLI</b>. These all mean the same thing. They are generic terms for programs/tools that are meant to be used on the command-line.</p>
-      <p>
-        If the command-line feels foreign and intimidating to you, go work through the excellent
-        <a href="http://www.learnenough.com/command-line-tutorial">Learn Enough&trade; Command-Line to be Dangerous</a>
-        tutorial by Michael Hartl.
-      </p>
     </div>
   </div>
 
@@ -89,12 +85,12 @@
       <% end %>
     </div>
 
-    <div class="col-md-4 hints">
+    <div class="col-md-4 hints text-muted">
       <p style="text-align: center; font-size: 30px;">
         <i class="fa fa-github fa-lg"></i>
       </p>
       <p>
-      <b>GitHub</b> is a professional social network that makes it easy for programmers to collaborate on software projects.
+      <strong>GitHub</strong> is a professional social network that makes it easy for programmers to collaborate on software projects.
       It's free to use if you make all your code accessible publicly.
       </p>
     </div>
@@ -124,7 +120,7 @@
       </p>
     </div>
 
-    <div class="col-md-4 hints">
+    <div class="col-md-4 hints text-muted">
       <p>If you end up having to install the CLI manually, make sure to check out the video tutorial for your platform. If you're on Linux, it's similar enough to the Mac one that you could watch that.</p>
     </div>
   </div>
@@ -150,7 +146,7 @@
       <% if current_user.guest? %>
         <p>
         You'll need to log in and go to <a href="/account/key">your account</a> to get your API key.
-        Then run this command:
+        Then run this command, but replace YOUR_API_KEY with your actual API key listed in your account settings:
         </p>
         <%= syntax("exercism configure --key=YOUR_API_KEY", "plain") %>
       <% else %>
@@ -163,9 +159,9 @@
       <% end %>
     </div>
 
-    <div class="col-md-4 hints">
+    <div class="col-md-4 hints text-muted">
       <p>
-        <b>API</b> stands for <i>Application Programmer's Interface</i>.
+        <strong>API</strong> stands for <i>Application Programmer's Interface</i>.
         Exercism has an API, which is kind of like a separate website without any HTML. Instead it returns more structured output making it easier to deal with programmatically.
       </p>
     </div>
@@ -180,7 +176,7 @@
   <div class="row">
     <div class="col-md-8">
       <p>
-      Choose one of the available <a href="/languages">languages</a>, then give exercism the fetch command.
+      Choose one of the available <a href="/languages">languages</a>, then give exercism the <strong>fetch</strong> command.
       </p>
 
       <p>
@@ -190,7 +186,7 @@
       <%= syntax("exercism fetch python", "plain") %>
     </div>
 
-    <div class="col-md-4 hints">
+    <div class="col-md-4 hints text-muted">
       <p>
       Some common "starter" languages are:
       </p>
@@ -213,35 +209,35 @@
   <div class="row">
     <div class="col-md-8">
       <p>
-        Each exercise comes in the form of a README, which (as the name suggests) you should read,
-        and an automated test suite, which simulates Test-Driven Development.
+        Each exercise comes in the form of a <strong>README</strong>, which (as the name suggests) you should read,
+        and an <strong>automated test suite</strong>, which simulates Test-Driven Development.
       </p>
 
       <p>
-      The README explains the basic idea of the exercise, but it doesn't necessarily list all of the details and constraints. It might also have some hints or links or other interesting references.
+        The <strong>README</strong> explains the basic idea of the exercise, but it doesn't necessarily list all of the details and constraints. It might also have some hints or links or other interesting references.
       </p>
 
       <p>
-      The automated test suite is what tells you exactly what your solution needs to do.
+        The <strong>automated test suite</strong> is what tells you exactly what your solution needs to do.
       </p>
 
       <p>
-      If you've never done TDD before it might take a little bit of getting used to.
-      Each language will do this slightly differently, but the main idea is that the test calls your solution and checks that the result is what it expects.
+        If you've never done TDD before it might take a little bit of getting used to.
+        Each language will do this slightly differently, but the main idea is that the test calls your solution and checks that the result is what it expects.
       </p>
 
       <p>
-      Try to make one test pass at a time, without thinking ahead at what the next tests are going to ask for.
+        Try to make one test pass at a time, without thinking ahead at what the next tests are going to ask for.
       </p>
 
       <p>
-      Once you've gotten all of the tests passing, you're good to go. Submit the solution to the site using the CLI.
+        Once you've gotten all of the tests passing, you're good to go. <strong>Submit</strong> the solution to the site using the CLI. Then check out other people's solutions and iterate/improve on your own. Re-submit a new iteration at any time.
       </p>
     </div>
 
-    <div class="col-md-4 hints">
+    <div class="col-md-4 hints text-muted">
       <p>
-      <b>Test-Driven Development</b> (TDD) is a practice that has become mainstream over the past
+      <strong>Test-Driven Development</strong> (TDD) is a practice that has become mainstream over the past
       decade or so.
       </p>
 
