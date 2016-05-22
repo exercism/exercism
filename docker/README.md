@@ -4,9 +4,13 @@ Optionally, one can develop (and even deploy) exercism.io using a tool
 called Docker. The primary advantage of using it is that you don't have to
 install a ton of dependencies--like a ruby version manager, ruby, postgres,
 nodejs, and a bunch of Ruby gems--on your own system. The disadvantage,
-however, is that you may need to acquaint yourself with Docker.
+however, is that you may need to acquaint yourself with Docker, and you
+need a 64-bit machine.
 
 For a basic overview, see [What is Docker?][] on the Docker website.
+
+**Note:** At the present time, developing the front-end via Docker
+isn't working, but this will hopefully be remedied soon.
 
 ## Installing Docker
 
