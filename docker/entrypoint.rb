@@ -3,9 +3,7 @@ require 'pg'
 
 require_relative '../lib/db/config'
 
-if (ENV.key? 'RACK_ENV') && ENV['RACK_ENV'] == ''
-  ENV.delete 'RACK_ENV'
-end
+ENV.delete 'RACK_ENV' if (ENV.key? 'RACK_ENV') && ENV['RACK_ENV'] == ''
 
 # We want our Docker process to use the same uid as the owner of the
 # exercism repository checkout. This will ensure that any created files
@@ -33,7 +31,7 @@ end
 
 def assume_uid
   if Process.euid != HOST_UID
-    if !does_uid_exist(HOST_UID)
+    unless does_uid_exist(HOST_UID)
       username = HOST_USER
       username += '0' while does_username_exist(username)
       home_dir = '/home/' + username
@@ -44,15 +42,15 @@ def assume_uid
   end
 end
 
-def is_db_accepting_connections
+def db_accepting_connections?
   config = DB::Config.new.options
   result = PG::Connection.ping(
-    :host => config['host'],
-    :port => config['port'],
-    :user => config['username'],
-    :password => config['password'],
-    :dbname => 'postgres',
-    :connect_timeout => 1
+    host: config['host'],
+    port: config['port'],
+    user: config['username'],
+    password: config['password'],
+    dbname: 'postgres',
+    connect_timeout: 1
   )
   result == PG::PQPING_OK
 end
@@ -63,11 +61,11 @@ end
 # to wait until the db is ready before proceeding.
 def wait_for_db
   20.times do |n|
-    puts "Waiting for db to accept connections (attempt ##{n+1})..."
-    break if is_db_accepting_connections
+    puts "Waiting for db to accept connections (attempt ##{n + 1})..."
+    break if db_accepting_connections?
     sleep 0.5
   end
-  Kernel.abort("Unable to connect to db.") unless is_db_accepting_connections
+  Kernel.abort("Unable to connect to db.") unless db_accepting_connections?
 end
 
 assume_uid
