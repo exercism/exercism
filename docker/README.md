@@ -90,6 +90,11 @@ http://192.168.99.100:4567.
 By default, the app will be exposed at port 4567, but you can change this
 by altering the value of `EXTERNAL_PORT` in your `.env` file.
 
+## Updating Dependencies
+
+Whenever the project's dependencies change (e.g., when a new gem is added
+to the `Gemfile`), you will need to re-run `docker-compose build`.
+
 ## Other Tasks
 
 In general, anything in the developer documentation that runs on the
