@@ -53,6 +53,7 @@ First, you'll want to set up GitHub OAuth as per the instructions in
 repository with your GitHub OAuth credentials:
 
 ```
+EXTERNAL_PORT=4567
 EXERCISM_GITHUB_CLIENT_ID=your_git_client_id
 EXERCISM_GITHUB_CLIENT_SECRET=your_git_client_secret
 ```
@@ -83,6 +84,11 @@ go to the IP address you get from running the following command:
 Suppose this command tells you that your Docker Machine VM is at
 192.168.99.100. Then your development instance of exercism.io will be at
 http://192.168.99.100:4567.
+
+## Changing The Port
+
+By default, the app will be exposed at port 4567, but you can change this
+by altering the value of `EXTERNAL_PORT` in your `.env` file.
 
 ## Other Tasks
 

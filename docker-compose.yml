@@ -6,7 +6,7 @@ app:
     - db
   command: rackup -s puma -p 4567 --host 0.0.0.0
   ports:
-    - "4567:4567"
+    - "${EXTERNAL_PORT}:4567"
   environment:
     RACK_ENV:
     DEV_DATABASE_HOST: db
