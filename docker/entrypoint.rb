@@ -3,7 +3,7 @@ require 'pg'
 
 require_relative '../lib/db/config'
 
-if ENV.has_key? 'RACK_ENV' and ENV['RACK_ENV'] == ''
+if (ENV.key? 'RACK_ENV') && ENV['RACK_ENV'] == ''
   ENV.delete 'RACK_ENV'
 end
 
@@ -18,30 +18,24 @@ HOST_UID = File::Stat.new('/exercism').uid
 HOST_USER = ENV.fetch('HOST_USER', 'code_executor_user')
 
 def does_username_exist(username)
-  begin
-    Etc.getpwnam(username)
-    true
-  rescue ArgumentError
-    false
-  end
+  Etc.getpwnam(username)
+  true
+rescue ArgumentError
+  false
 end
 
 def does_uid_exist(uid)
-  begin
-    Etc.getpwuid(uid)
-    true
-  rescue ArgumentError
-    false
-  end
+  Etc.getpwuid(uid)
+  true
+rescue ArgumentError
+  false
 end
 
 def assume_uid
   if Process.euid != HOST_UID
-    if not does_uid_exist(HOST_UID)
+    if !does_uid_exist(HOST_UID)
       username = HOST_USER
-      while does_username_exist(username)
-        username += '0'
-      end
+      username += '0' while does_username_exist(username)
       home_dir = '/home/' + username
       system("useradd -d #{home_dir} -m #{username} -u #{HOST_UID}")
     end
@@ -70,16 +64,14 @@ end
 def wait_for_db
   20.times do |n|
     puts "Waiting for db to accept connections (attempt ##{n+1})..."
-    if is_db_accepting_connections
-      return
-    end
+    break if is_db_accepting_connections
     sleep 0.5
   end
-  Kernel.abort("Unable to connect to db.")
+  Kernel.abort("Unable to connect to db.") unless is_db_accepting_connections
 end
 
 assume_uid
 
-wait_for_db if ENV.has_key? 'DEV_DATABASE_HOST'
+wait_for_db if ENV.key? 'DEV_DATABASE_HOST'
 
-exec *ARGV
+exec(*ARGV)
