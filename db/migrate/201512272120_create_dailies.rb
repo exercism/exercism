@@ -1,5 +1,5 @@
 class CreateDailies < ActiveRecord::Migration
-
+  # rubocop:disable Metrics/MethodLength
   def up
     connection.execute <<-SQL
       CREATE OR REPLACE VIEW dailies AS
@@ -50,6 +50,7 @@ class CreateDailies < ActiveRecord::Migration
           COALESCE (COUNT(C . ID), 0)
       SQL
   end
+  # rubocop:enable Metrics/MethodLength
 
   def down
     connection.execute "DROP VIEW IF EXISTS dailies;"

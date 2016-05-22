@@ -8,7 +8,7 @@ module ExercismWeb
       Setup: 'setup',
       Dashboard: 'dashboard',
       Profile: 'profile',
-      Sharing: 'sharing'
+      Sharing: 'sharing',
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('app', 'presenters', file)
     end

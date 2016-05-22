@@ -1,7 +1,7 @@
 module ExercismAPI
   module Routes
     class Core < Sinatra::Application
-     ErrPleaseUpgrade = "Please upgrade to the most recent version of the command-line client."
+      ERR_PLEASE_UPGRADE = "Please upgrade to the most recent version of the command-line client.".freeze
 
       configure do
         set :root, ExercismAPI::ROOT
@@ -17,8 +17,8 @@ module ExercismAPI
       end
 
       error 500 do
-        Bugsnag.auto_notify($!)
-        {error: "Sorry, something went wrong. We've been notified and will look into it."}.to_json
+        Bugsnag.auto_notify($ERROR_INFO)
+        { error: "Sorry, something went wrong. We've been notified and will look into it." }.to_json
       end
 
       before do
@@ -31,8 +31,8 @@ module ExercismAPI
 
       helpers do
         def require_key
-          unless params[:key]
-            halt 401, {error: "You must be logged in to access this feature. Please double-check your API key."}.to_json
+          if params[:key].to_s.empty?
+            halt 401, { error: "You must be logged in to access this feature. Please double-check your API key." }.to_json
           end
         end
 
@@ -41,9 +41,7 @@ module ExercismAPI
         end
 
         def find_user
-          if params[:key]
-            User.where(key: params[:key]).first
-          end
+          User.where(key: params[:key]).first if params[:key]
         end
       end
     end

@@ -1,31 +1,56 @@
-<table class="table table-bordered table-striped" data-sortable>
-  <col width="25%" />
-  <thead>
-    <tr>
-      <th>Exercise</th>
-      <th>Language</th>
-      <th>Iterations</th>
-      <th data-sorted="true" data-sorted-direction="descending">Latest Iteration</th>
-    </tr>
-  </thead>
-  <tbody>
-  <% exercises.order(updated_at: :desc).each do |exercise| %>
-    <tr>
-      <td>
-        <% if profile.can_access?(exercise) %>
-          <a href="/exercises/<%= exercise.key %>">
-            <%= exercise.problem.name %>
-          </a>
-        <% else %>
-          <i class="fa fa-lock"></i>
-          &nbsp;
-          <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
+<% if profile.own? %>
+<form action="/exercises/delete" method="post" onsubmit="return confirm('Are you sure you want to delete these exercises?');">
+<% end %>
+
+  <table class="table table-bordered table-striped" data-sortable>
+
+    <% if profile.own? %>
+      <col class="col-md-1" />
+    <% else %>
+      <col width="25%" />
+    <% end %>
+
+    <thead>
+      <tr>
+
+        <% if profile.own? %>
+          <th></th>
         <% end %>
-      </td>
-      <td><%= exercise.problem.language %></td>
-      <td><%= exercise.iteration_count %></td>
-      <td data-value="<%= exercise.updated_at.to_i %>"><%= exercise.updated_at.strftime("%Y-%m-%d") %></td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
+
+        <th data-sorted="true"  data-sorted-direction="ascending">Language</th>
+        <th>Exercise</th>
+        <th>Iterations</th>
+        <th>Latest Iteration</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% exercises.each do |exercise| %>
+      <tr>
+
+        <% if profile.own? %>
+          <td><input type="checkbox" name="exercise_ids[]" value="<%= exercise.id %>"></td>
+        <% end %>
+
+        <td><%= exercise.problem.language %></td>
+        <td>
+          <% if profile.access?(exercise) %>
+            <a href="/exercises/<%= exercise.key %>">
+              <%= exercise.problem.name %>
+            </a>
+          <% else %>
+            <i class="fa fa-lock"></i>
+            &nbsp;
+            <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
+          <% end %>
+        </td>
+        <td><%= exercise.iteration_count %></td>
+        <td data-value="<%= exercise.last_iteration_at.to_i %>"><%= exercise.last_iteration_at.strftime("%Y-%m-%d") %></td>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+
+<% if profile.own? %>
+    <input type="submit" value="Delete" class="btn btn-danger">
+  </form>
+<% end %>

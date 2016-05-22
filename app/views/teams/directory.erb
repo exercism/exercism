@@ -1,0 +1,20 @@
+<div class="container">
+  <br>
+  <%= erb :"teams/_tabs", locals: {active: active, team: team} %>
+
+  <h3><%= h(team.name) %> (<%= team.confirmed_members.size %> members)</h3>
+  <p>Click on a team member's name to go to their profile.</p>
+
+  <% team.confirmed_members.each_slice(3) do |row| %>
+    <div class="row">
+      <% row.each do |member| %>
+        <div class="col-md-4" id="<%= member.username %>">
+          <h5>
+            <%= gravatar_tag member.avatar_url, size: 50 %>
+            <a href="/<%= member.username %>"><%= member.username %></a>
+          </h5>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

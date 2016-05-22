@@ -7,6 +7,7 @@ require 'sinatra/reloader'
 require 'will_paginate'
 require 'will_paginate/active_record'
 require 'kss'
+require 'tilt/erb'
 
 require_relative './app/presenters'
 require_relative './lib/exercism/xapi'
@@ -17,7 +18,7 @@ require_relative './app/routes'
 module ExercismWeb
   class App < Sinatra::Base
     configure do
-      use Rack::Session::Cookie, :secret => ENV.fetch('SESSION_SECRET') { "Need to know only." }
+      use Rack::Session::Cookie, secret: ENV.fetch('SESSION_SECRET') { "Need to know only." }
     end
 
     if settings.development?
@@ -33,7 +34,6 @@ module ExercismWeb
     use Routes::Main
     use Routes::Stats
     use Routes::Account
-    use Routes::Metadata
     use Routes::Looks
     use Routes::Notifications
     use Routes::Exercises
@@ -44,7 +44,7 @@ module ExercismWeb
     use Routes::Tracks
     use Routes::Sessions
     use Routes::Styleguide
-    use Routes::CommentThreads
+    use Routes::Subscriptions
     use Routes::User
     use Routes::Errors
   end

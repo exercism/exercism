@@ -4,6 +4,7 @@ require_relative '../../lib/exercism/acl'
 class ACLTest < Minitest::Test
   include DBCleaner
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_authorize_user_for_problem
     alice = User.create!(username: 'alice')
     grains = Problem.new("go", "grains")
@@ -38,4 +39,5 @@ class ACLTest < Minitest::Test
     assert_equal 2, ACL.count
     assert_in_delta 1, acl2.updated_at.to_i, Time.now.utc.to_i
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end

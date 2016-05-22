@@ -16,13 +16,13 @@ module X
     METHODS = [
       :id, :language, :repository,
       :todo, :problems, :docs,
-      :active, :implemented
-    ]
+      :active, :implemented, :checklist_issue
+    ].freeze
     attr_reader(*METHODS)
 
-    alias_method :active?, :active
-    alias_method :implemented?, :implemented
-    alias_method :slug, :id
+    alias active?      active
+    alias implemented? implemented
+    alias slug         id
 
     def initialize(data)
       METHODS.each do |name|
@@ -32,12 +32,12 @@ module X
       @docs = Docs::Track.new(data['docs'], repository)
     end
 
-    def image_file?
-      File.exist?("public/img/#{id}.png")
-    end
-
     def fetch_cmd(problem=problems.first)
       "exercism fetch #{id} #{problem}"
+    end
+
+    def planned?
+      !implemented
     end
   end
 end

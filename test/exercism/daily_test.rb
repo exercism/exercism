@@ -11,6 +11,7 @@ class DailyTest < Minitest::Test
     @sarah ||= User.create(username: 'sarah')
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_only_returns_exercises_for_authorized_language_and_slug
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
@@ -21,7 +22,9 @@ class DailyTest < Minitest::Test
 
     assert_equal [ex1.key], fred.dailies.map(&:key)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/AbcSize
   def test_orders_dailies_by_comment_count
     jaclyn = User.create(username: 'jaclyn')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
@@ -35,35 +38,41 @@ class DailyTest < Minitest::Test
 
     assert_equal [ex2.key, ex1.key], fred.dailies.map(&:key)
   end
+  # rubocop:enable Metrics/AbcSize
 
+  # rubocop:disable Metrics/MethodLength
   def test_does_not_return_archived_exercises
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
     UserExercise.create!(
-        user: fred,
-        last_iteration_at: 3.days.ago,
-        archived: true,
-        iteration_count: 1,
-        language: 'ruby',
-        slug: 'bob',
-        submissions: [Submission.create!(user: fred, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
+      user: fred,
+      last_iteration_at: 3.days.ago,
+      archived: true,
+      iteration_count: 1,
+      language: 'ruby',
+      slug: 'bob',
+      submissions: [Submission.create!(user: fred, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
     )
     assert_equal([], Daily.all)
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
   def test_does_not_return_hello_world_slug
     ACL.authorize(fred, Problem.new('ruby', 'hello-world'))
     UserExercise.create!(
-        user: fred,
-        last_iteration_at: 3.days.ago,
-        archived: true,
-        iteration_count: 1,
-        language: 'ruby',
-        slug: 'hello-world',
-        submissions: [Submission.create!(user: fred, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
+      user: fred,
+      last_iteration_at: 3.days.ago,
+      archived: true,
+      iteration_count: 1,
+      language: 'ruby',
+      slug: 'hello-world',
+      submissions: [Submission.create!(user: fred, language: 'ruby', slug: 'bob', created_at: 22.days.ago, version: 1)]
     )
     assert_equal([], Daily.all)
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize
   def test_does_not_return_exercises_with_activity_over_30_days
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
 
@@ -72,6 +81,7 @@ class DailyTest < Minitest::Test
 
     assert_equal [ex2.key], fred.dailies.map(&:key)
   end
+  # rubocop:enable Metrics/AbcSize
 
   def test_does_not_return_liked_user_exercises
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
@@ -93,15 +103,15 @@ class DailyTest < Minitest::Test
 
   private
 
-  def create_exercise_with_submission(user, language, slug, last_iteration_at = 1.day.ago)
+  def create_exercise_with_submission(user, language, slug, last_iteration_at=1.day.ago)
     UserExercise.create!(
-        user: user,
-        last_iteration_at: last_iteration_at,
-        archived: false,
-        iteration_count: 1,
-        language: language,
-        slug: slug,
-        submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: 5.days.ago, version: 1)]
+      user: user,
+      last_iteration_at: last_iteration_at,
+      archived: false,
+      iteration_count: 1,
+      language: language,
+      slug: slug,
+      submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: 5.days.ago, version: 1)]
     )
   end
 end

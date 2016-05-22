@@ -15,19 +15,8 @@
         <% if !current_user.guest? %>
         <li><a href="/dashboard">Dashboard</a></li>
         <% end %>
-        <li class="dropdown">
-          <a class="dropdown-toggle" id="drop-current" href="#" data-toggle="dropdown">Languages<b class="caret"></b></a>
-        <ul class="dropdown-menu" id="menu-current" role="menu" area-labelledby="drop-current">
-          <li><a role="menuitem" tabindex="-1" href="/languages">All languages</li>
-          <li role="separator" class="divider"></li>
-          <% active_tracks.each do |t| %>
-            <li>
-              <a role="menuitem" tabindex="-1" href="/languages/<%= t.slug %>">
-                <%= t.language %>
-              </a>
-            </li>
-          <% end %>
-        </ul>
+        <li>
+          <a href="/languages">Languages</a>
         </li>
         <li><a href="/donate">Donate</a></li>
       </ul>
@@ -35,7 +24,7 @@
       <ul class="nav navbar-nav navbar-right">
           <% if !current_user.guest? %>
             <% if current_user.sees_exercises? %>
-              <li><a href="/inbox">Exercises</a></li>
+              <li><a href="/inbox">Activity Streams</a></li>
             <% end %>
           <%= erb :"application/nav/notifications" %>
           <%= erb :"application/nav/account" %>

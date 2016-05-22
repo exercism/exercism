@@ -20,15 +20,6 @@ class AppExercisesTest < Minitest::Test
                                     slug: 'one', user_exercise: exercise)
   end
 
-  def test_exercises_next
-    ACL.create(user_id: alice.id, language: 'go', slug: 'one')
-
-    get "/exercises/next?language=go", {}, login(alice)
-    assert_equal 302, last_response.status
-    location = "http://example.org/exercises/#{exercise.key}"
-    assert_equal location, last_response.location, "Expected to be redirected to the next Go exercise"
-  end
-
   def test_exercises_by_key
     get "/exercises/#{exercise.key}", {}, login(alice)
     assert_equal 302, last_response.status
@@ -36,6 +27,7 @@ class AppExercisesTest < Minitest::Test
     assert_equal location, last_response.location, "Wrong redirect for GET exercises"
   end
 
+  # rubocop:disable Metrics/AbcSize
   def test_archive_and_unarchive
     post "/exercises/#{exercise.key}/archive", {}, login(alice)
     assert exercise.reload.archived?
@@ -43,4 +35,5 @@ class AppExercisesTest < Minitest::Test
     post "/exercises/#{exercise.key}/unarchive", {}, login(alice)
     refute exercise.reload.archived?
   end
+  # rubocop:enable Metrics/AbcSize
 end

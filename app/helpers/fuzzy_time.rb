@@ -5,26 +5,34 @@
 module ExercismWeb
   module Helpers
     module FuzzyTime
+      # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:disable Metrics/CyclomaticComplexity
       def ago(timestamp)
         diff = (now - timestamp).to_i.to_f
-        case diff
-        when less_than(2*minutes)   then "just now"
-        when less_than(55*minutes)  then "about #{(diff/(1*minutes)).round} minutes ago"
-        when less_than(80*minutes)  then "about an hour ago"
-        when less_than(105*minutes) then "about an hour and a half ago"
-        when less_than(23.5*hours)  then "about #{(diff/(1*hours)).round} hours ago"
-        when less_than(36*hours)    then "about a day ago"
-        when less_than(20*days)     then "about #{(diff/(1*days)).round} days ago"
-        when less_than(11*weeks)    then "about #{(diff/(1*weeks)).round} weeks ago"
-        when less_than(11.5*months) then "about #{(diff/(1*months)).round} months ago"
-        when less_than(18*months)   then "about a year ago"
-        else                             "ages ago"
+        if diff < 24 * hours
+          response = case diff
+                     when less_than(2 * minutes)
+                       "just now"
+                     when less_than(55 * minutes)
+                       "about #{(diff / (1 * minutes)).round} minutes ago"
+                     when less_than(80 * minutes)
+                       "about an hour ago"
+                     when less_than(105 * minutes)
+                       "about an hour and a half ago"
+                     when less_than(23.5 * hours)
+                       "about #{(diff / (1 * hours)).round} hours ago"
+                     end
+          "<span data-toggle='tooltip' title='#{timestamp.strftime('%e %B %Y at %H:%M %Z')}'>#{response}</span>"
+        else
+          timestamp.strftime("%e %B %Y at %H:%M %Z")
         end
       end
+      # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
+      # rubocop:enable Metrics/CyclomaticComplexity
 
       private
 
-      def less_than timespan
+      def less_than(timespan)
         ->(actual_timespan) { actual_timespan < timespan }
       end
 
@@ -37,19 +45,19 @@ module ExercismWeb
       end
 
       def hours
-        60*minutes
+        60 * minutes
       end
 
       def days
-        24*hours
+        24 * hours
       end
 
       def weeks
-        7*days
+        7 * days
       end
 
       def months
-        30*days
+        30 * days
       end
     end
   end

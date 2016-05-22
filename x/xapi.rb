@@ -1,6 +1,6 @@
 module X
   module Xapi
-    VERSION = "v3"
+    VERSION = "v3".freeze
 
     def self.url
       ENV.fetch('EXERCISES_API_URL') { "http://x.exercism.io" }
@@ -15,9 +15,7 @@ module X
 
     def self.request(*path_segments)
       options = {}
-      if path_segments.last.is_a?(Hash)
-        options = path_segments.pop
-      end
+      options = path_segments.pop if path_segments.last.is_a?(Hash)
 
       conn.get do |req|
         req.url File.join('/', VERSION, *path_segments)

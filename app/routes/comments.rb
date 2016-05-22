@@ -13,25 +13,21 @@ module ExercismWeb
 
         url = "/submissions/#{key}"
 
-        if params[:body].empty?
-          redirect url
-        end
+        redirect url if params[:body].empty?
 
         comment = CreatesComment.create(submission.id, current_user, params[:body])
 
-        if comment.new_record?
-          redirect url
-        end
+        redirect url if comment.new_record?
 
         current_user.increment_daily_count if comment.qualifying?
-        Notify.everyone(submission, 'nitpick', current_user)
-        unless current_user == submission.user
-          LifecycleEvent.track('received_feedback', submission.user_id)
-          LifecycleEvent.track('commented', current_user.id)
-          unless current_user.onboarded?
-            LifecycleEvent.commented(current_user.id)
-          end
+        Notify.everyone(submission, 'comment', current_user)
+
+        comment.mention_ids.each do |user_id|
+          Notification.on(submission, user_id: user_id, action: 'mention', actor_id: comment.user_id)
         end
+
+        ConversationSubscription.join(current_user, submission)
+
         redirect "/submissions/#{key}"
       end
 
@@ -42,9 +38,7 @@ module ExercismWeb
       get '/submissions/:key/nits/:nit_id/edit' do |key, nit_id|
         please_login("You have to be logged in to do that")
         submission = Submission.find_by_key(key)
-        if submission.nil?
-          redirect '/'
-        end
+        redirect '/' if submission.nil?
         nit = submission.comments.where(id: nit_id).first
         if nit.nil?
           flash[:notice] = "no such comment"
@@ -54,14 +48,12 @@ module ExercismWeb
           flash[:notice] = "Only the author may edit the text."
           redirect "/submissions/#{key}"
         end
-        erb :"submissions/edit_nit", locals: {submission: submission, nit: nit}
+        erb :"submissions/edit_nit", locals: { submission: submission, nit: nit }
       end
 
       post '/submissions/:key/nits/:nit_id' do |key, nit_id|
         nit = Submission.find_by_key(key).comments.where(id: nit_id).first
-        if nit.nil?
-          redirect "/submissions/#{key}"
-        end
+        redirect "/submissions/#{key}" if nit.nil?
 
         unless current_user == nit.nitpicker
           flash[:notice] = "Only the author may edit the text."

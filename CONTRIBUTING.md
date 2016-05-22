@@ -17,6 +17,9 @@ We are working to improve this document, and if you find any part of it confusin
     - [Good First Patch](#good-first-patch)
     - [Style](#style-rubyrails)
     - [Pull Requests](#pull-requests)
+* [Exercism.io Web Structure](#exercism-web-structure)
+    - [Core Directories](#core-directories)
+    - [Additional Directories](#additional-directories)
 * [Roadmap](#future-roadmap)
 
 ## Code of Conduct
@@ -73,8 +76,11 @@ On other systems see the [Node.js docs](https://github.com/joyent/node/wiki/Inst
 
 ### GitHub OAuth
 
-To log into the app locally, you will need keys on GitHub
-that the app can talk to.
+If you seed your local database with fake users, then you can use these to "fake login" as
+one of them. There will be a dropdown with identities that you can assume in development mode.
+
+If you want to actually work on the login flow, or if you want to log in as yourself, then
+you will need keys on GitHub that the app can talk to.
 
 Go to https://github.com/settings/applications/new and enter the following:
 
@@ -195,16 +201,25 @@ user.submissions
 
 ### Testing
 
-1. Create and migrate a test database: `RACK_ENV=test rake db:setup db:migrate`
-1. Run the test suite: `rake` or `rake test`
+The test suite is comprised of various checks to ensure everything is working and styled as expected.
 
-To run a single test suite, you can do so with:
+Before any tests can be run, create and migrate a test database: `RACK_ENV=test bundle exec rake db:setup db:migrate`
+
+The entire test suite can then be run with `bundle exec rake test:everything` or just `bundle exec rake` since `test:everthing` is the default Rake task.
+
+The current checks include:
+
+- [MiniTest](https://github.com/seattlerb/minitest) `rake test` or `rake test:minitest` - Ruby unit and feature tests
+- [RuboCop](https://github.com/bbatsov/rubocop) - `rake rubocop` - Ruby style enforcement
+- [Lineman Spec](http://linemanjs.com/) - `rake test:lineman` - Front-end tests
+
+To run a single Ruby test, you can do so with:
 
 ```bash
 ruby path/to/the_test.rb
 ```
 
-If it complains about dependencies, then either we forgot to require the correct dependencies (a distinct possibility), or we are dependening on a particular tag of a gem installed directly from GitHub (this happens on occasion).
+If it complains about dependencies, then either we forgot to require the correct dependencies (a distinct possibility), or we are depending on a particular tag of a gem installed directly from GitHub (this happens on occasion).
 
 If there's a git dependency, you can do this:
 
@@ -293,7 +308,7 @@ repository.
 
 ### Issues
 
-We keep track of everything around the repository using Github [issues](https://github.com/exercism/exercism.io/issues).
+We keep track of everything around the repository using GitHub [issues](https://github.com/exercism/exercism.io/issues).
 
 ### Good First Patch
 
@@ -313,6 +328,10 @@ Help keep us our code clean by following the style guide.
 Run the command `rubocop` to check for any style violations before
 submitting pull requests.
 
+### Style (JS/CSS)
+
+If you have any JS or CSS changes, please run `cd frontend && lineman spec-ci` to check for any style violations before submitting pull requests.
+
 ### Pull Requests
 
 When submitting a pull request, sometimes we'll ask you to make changes before
@@ -324,6 +343,112 @@ request for, it automatically updates the pull request. This is also the case
 if you change the history (rebase, squash, amend), and use git push --force to
 update the branch on your fork. The pull request points to that branch, not to
 specific commits.
+
+## Exercism Web Structure
+
+### Intro
+
+Exercism is built with the [Sinatra](https://github.com/sinatra/sinatra) web framework.
+If you haven't heard of it, definitely check it out. It's a lightweight web framework for Ruby.
+
+Exercism seems to follow what some may call an MVP (Model-View-Presenter) architecture.
+Read more about that [here](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter).
+
+### Core Directories
+
+#### API
+
+API contains routes which are used by the JavaScript frontend and the [CLI](https://github.com/exercism/cli).
+The routes here are similar to the one's in `app/` in that they're individual Sinatra apps that inherit from the Core API route (`api/v1/routes/core.rb`).
+If you add a route, it needs to be added to `api/v1/routes.rb` and `api/v1/v1.rb`.
+
+#### App (Routes, Presenters, Helpers and Views)
+
+App is the user facing side of Exercism.
+It handles logging in (and other functions), making calls out to the database to store or get information,
+structuring HTML (that can later be styled), etc.
+
+**Helpers** can be anything that *helps* presentation of data. For Exercism, these are things like:
+wrappers for Markdown and Syntax Highlighting parsers, session handling, etc.
+Helpers are defined in individual modules under `app/helpers/*`.
+The full list of helpers is in `app/helpers.rb`, and if you add a new helper, this file needs to be edited.
+The convention is `ClassName: 'filename'`.
+
+**Presenters** are for showing information that would be beneficial to users or the views but maybe not the best way to store data.
+For example, in Exercism, most times are stored in UTC (generally most servers store time this way) but... users might want to see times in their own timezone.
+Presenters can take relevant information (like showing comment notifications on the dashboard) and transform it to be more personal.
+This convention hasn't been strictly enforced so that description varies between presenters.
+Presenters are defined in individual classes/modules under `app/presenters/*`.
+The presenters are loaded into the app in the `app/presenters.rb` file, and if you add a presenter, it needs to be added to that file.
+The convention is `ClassName: 'filename'`.
+
+**Routes** in Sinatra are kind of like a combination of routes and controllers in Rails.
+Each route file contains an individual Sinatra app that inherits some behavior from `Core` (found in `app/routes/core.rb`).
+In a route file, you can specify endpoints (like `exercism.io/login`) and define how the app should respond (i.e. accept some credentials and log the user in or handle errors accordingly).
+Routes are defined in individual modules under `app/routes/*`.
+The route files are loaded into the app with the `app/routes.rb` file, and if you add a route file, it needs to be added to that file.
+The convention is `ClassName: 'filename'`.
+Routes are unique in that you'll also have to update the main `app.rb` with the new app info.
+The convention is `Routes::ClassName`.
+
+**Views** are a collection of templates that create html.
+Templates are a way to embed Ruby in your views so that you can serve up information,
+iterate over items without repeating yourself (like creating tables of data), etc.
+The templating engine that Exercism uses is [ERB](https://en.wikipedia.org/wiki/ERuby).
+
+#### Frontend (JavaScript, Custom Directives, Bootstrap, etc)
+
+The client side is mostly written in CoffeeScript and uses frameworks like angular and bootstrap.
+
+**Frontend** is where Exercism stores all of it's production client side code.
+Exercism doesn't have much JS (outside of bootstrap) but `frontend/` does handle comment threads on submissions, markdown preview on comments, submission code (expanding and contracting), etc. If you suspect that there is frontend wizardry happening and you haven't seen it in bootstrap, most likely it's in here.
+
+#### DB (Migrations)
+
+To create a migration you can use `rake db:generate:migration name=the_name_of_your_migration`.
+That will create a new migration in `db/migrate`.
+For help, look at the other migrations or at docs for ActiveRecord migrations.
+If you add, remove or rename database columns, you may have to update the seeds as well.
+Exercism pulls seed data from another repo found [here](https://github.com/exercism/seeds).
+The seed data provides placeholder information (like users, exercise submissions, comments, etc) to help with development.
+
+#### Lib (DB Configurations, Application Logic, Models, Rake Tasks)
+
+**Application Logic** can be anything that is used for the backend application (and, possibly, shared with the frontend as well) can live here.
+Maybe a library for GitHub OAuth, configurations for a Markdown parser and a syntax highlighter, etc.
+
+**Models** are for connecting classes (e.g. `User`) and their attributes to database tables with ActiveRecord (ones that you set up with migrations), relating them to other tables (e.g. `User` `has_many :posts`) and adding other type functionality (e.g. validations).
+
+#### Test
+
+Tests follow the organization of the app. For instance, if you're writing a new route, it would go in `test/app`. You could write a test post or get and assert that you get back data that you expect. Read more about tests [here](#test-order).
+
+### Additional Directories
+
+#### Bin (Tools)
+
+**Console** provides a REPL (Read-Eval-Print-Loop) with the Exercism application logic pre-loaded.
+Want to see what it would look like to be a user that has done every exercise? Console.
+Want to test out a new feature but you haven't written the frontend for it? Console.
+A bit more info can be found [here](#console).
+
+**Setup** is a script that you can run in order to create the development and test databases, makes sure all the apps dependencies (gems) are installed, etc.
+
+#### Config
+
+Database connection, bugsnag config and local development GitHub OAuth credentials.
+
+#### Docs (Static Files for GitHub Docs)
+
+Static files and pictures for hosting in the GitHub docs.
+
+#### Public (Static Files for the Site)
+
+Static files for the Exercism web app. Fonts, jQuery (`public/js/app.js`), icons, language images, and sass (styling).
+
+#### X
+
+X is a collection of scripts to organize and compile documentation for the many parts of exercism (cli, general help, product introduction, track info).
 
 ## Future Roadmap
 

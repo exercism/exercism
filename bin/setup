@@ -23,7 +23,7 @@ bundle check || bundle install --path=vendor/bundle
 rake db:from_scratch
 
 # Set up the test database
-RACK_ENV=test rake db:setup db:migrate
+RACK_ENV=test bundle exec rake db:setup db:migrate
 
 # Run the tests
 rake

@@ -1,5 +1,6 @@
 module ExercismWeb
   module Routes
+    # rubocop:disable Metrics/ClassLength
     class Core < Sinatra::Application
       configure do
         set :public_folder, Exercism.relative_to_root('public')
@@ -21,7 +22,17 @@ module ExercismWeb
       end
 
       error 500 do
-        Bugsnag.auto_notify($!, nil, request)
+        metadata = {
+          user: {
+            id: current_user.id,
+            username: current_user.username,
+          },
+          context: request.path_info,
+          app: {
+            version: ENV["BUILD_ID"] || "unknown",
+          },
+        }
+        Bugsnag.auto_notify($ERROR_INFO, metadata, request)
         erb :"errors/internal"
       end
 
@@ -104,9 +115,9 @@ module ExercismWeb
 
         def dashboard_assignment_section_nav(language, slug)
           path = language_path_for_slug(language, slug)
-          %{<li class="#{active_nav(path)}">
+          %(<li class="#{active_nav(path)}">
           <a href="#{path}">#{nav_text(slug)}</a>
-        </li>}
+        </li>)
         end
 
         def dashboard_assignment_nav(language, slug=nil, counts=nil)
@@ -131,7 +142,7 @@ module ExercismWeb
         end
 
         def css_url
-          @css_url || "/css/application.css?t=#{File.mtime("./public/css/application.css").to_i}"
+          @css_url || "/css/application.css?t=#{File.mtime('./public/css/application.css').to_i}"
         end
       end
     end

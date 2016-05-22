@@ -14,17 +14,20 @@ class AssignmentsApiTest < Minitest::Test
     super
     @alice = User.create(username: 'alice', github_id: 1)
     Exercism.instance_variable_set(:@trails, nil)
+    Language.instance_variable_set(:"@by_track_id", "ruby" => "Ruby")
   end
 
   def teardown
     super
     Exercism.instance_variable_set(:@trails, nil)
+    Language.instance_variable_set(:"@by_track_id", nil)
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_api_accepts_submission_attempt
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: alice.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
+        post '/user/assignments', { key: alice.key, solution: { 'ruby/one/code.rb' => 'THE CODE' } }.to_json
       end
     end
 
@@ -33,18 +36,20 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal problem, submission.problem
     assert_equal 201, last_response.status
 
-    options = {format: :json, name: 'api_submission_accepted'}
+    options = { format: :json, name: 'api_submission_accepted' }
     Approvals.verify(last_response.body, options)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_api_accepts_submission_attempt_with_multi_file_solution
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
         solution = {
           'ruby/one/file1.rb' => 'code 1',
-          'ruby/one/file2.rb' => 'code 2'
+          'ruby/one/file2.rb' => 'code 2',
         }
-        post '/user/assignments', {key: alice.key, solution: solution}.to_json
+        post '/user/assignments', { key: alice.key, solution: solution }.to_json
       end
     end
 
@@ -53,23 +58,25 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal problem, submission.problem
     assert_equal 201, last_response.status
 
-    options = {format: :json, name: 'api_multifile_submission_accepted'}
+    options = { format: :json, name: 'api_multifile_submission_accepted' }
     Approvals.verify(last_response.body, options)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def test_provides_a_useful_error_message_when_key_is_wrong
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: 'no-such-key', solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
+        post '/user/assignments', { key: 'no-such-key', solution: { 'ruby/one/code.rb' => 'THE CODE' } }.to_json
       end
     end
     assert_equal 401, last_response.status
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_api_accepts_submission_on_completed_exercise
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: alice.key, language: 'ruby', problem: 'one', solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
+        post '/user/assignments', { key: alice.key, language: 'ruby', problem: 'one', solution: { 'ruby/one/code.rb' => 'THE CODE' } }.to_json
       end
     end
 
@@ -78,48 +85,17 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal problem, submission.problem
     assert_equal 201, last_response.status
 
-    options = {format: :json, name: 'api_submission_accepted_on_completed'}
+    options = { format: :json, name: 'api_submission_accepted_on_completed' }
     Approvals.verify(last_response.body, options)
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  def test_notify_team_members_about_submission
-    bob = User.create username: 'bob', github_id: -2
-    charlie = User.create username: 'charlie', github_id: -3
-    dave = User.create username: 'dave', github_id: -4
-    eve = User.create username: 'eve', github_id: -5
-
-    Submission.create({language: 'ruby', slug: 'one', user: charlie, solution: {'ruby/one/code.rb' => 'THE CODE'}})
-    Submission.create({language: 'ruby', slug: 'one', user: dave, solution: {'ruby/one/code.rb' => 'THE CODE'}})
-
-    team1 = Team.by(alice).defined_with(slug: 'team1', usernames: "bob, charlie")
-    team1.save
-    team2 = Team.by(alice).defined_with(slug: 'team2', usernames: "bob, dave, eve")
-    team2.save
-
-    team1.confirm(bob.username)
-    team2.confirm(bob.username)
-    team2.confirm(dave.username)
-    team2.confirm(eve.username)
-
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', {key: bob.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
-    end
-    assert_equal 201, last_response.status
-
-    [alice, dave].each do |user|
-      assert_equal 1, user.reload.notifications.on_submissions.count, "Notify #{user.username} failed"
-    end
-
-    [charlie, eve].each do |user|
-      assert_equal 0, user.reload.notifications.on_submissions.count, "#{user.username} was notified, but shouldn't have"
-    end
-  end
-
+  # rubocop:disable Metrics/AbcSize
   def test_api_rejects_duplicates
-    Attempt.new(alice, Iteration.new({'code.rb' => 'THE CODE'}, 'ruby', 'one')).save
+    Attempt.new(alice, Iteration.new({ 'code.rb' => 'THE CODE' }, 'ruby', 'one')).save
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
-        post '/user/assignments', {key: alice.key, solution: {'ruby/one/code.rb' => 'THE CODE'}}.to_json
+        post '/user/assignments', { key: alice.key, solution: { 'ruby/one/code.rb' => 'THE CODE' } }.to_json
       end
     end
 
@@ -128,4 +104,5 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal 400, last_response.status
     assert_equal "duplicate of previous iteration", response_error
   end
+  # rubocop:enable Metrics/AbcSize
 end

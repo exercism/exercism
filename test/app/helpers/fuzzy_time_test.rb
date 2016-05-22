@@ -2,12 +2,11 @@ require_relative '../../test_helper'
 require_relative '../../../app/helpers/fuzzy_time'
 
 class FuzzyTimeHelperTest < Minitest::Test
-
   def helper
     return @helper if @helper
     @helper = Object.new
     @helper.extend(ExercismWeb::Helpers::FuzzyTime)
-    def @helper.now
+    def @helper.now # rubocop:disable Lint/NestedMethodDefinition
       Time.utc(2013, 1, 2, 3, 4)
     end
     @helper
@@ -17,68 +16,48 @@ class FuzzyTimeHelperTest < Minitest::Test
     @now ||= Time.utc(2013, 1, 2, 3, 4)
   end
 
+  def link_text(date, link_text)
+    "<span data-toggle='tooltip' title='#{date.strftime('%e %B %Y at %H:%M %Z')}'>#{link_text}</span>"
+  end
+
   def test_less_than_2_minutes_ago
-    ago = helper.ago(now-119)
-    assert_equal "just now", ago
+    ago = helper.ago(now - 119)
+    assert_equal link_text(now - 119, "just now"), ago
   end
 
   def test_less_than_55_minutes_ago
-    ago = helper.ago(now-(54*60))
-    assert_equal "about 54 minutes ago", ago
+    ago = helper.ago(now - (54 * 60))
+    assert_equal link_text(now - (54 * 60), "about 54 minutes ago"), ago
   end
 
   def test_less_than_80_minutes_ago
-    ago = helper.ago(now-(79*60))
-    assert_equal "about an hour ago", ago
+    ago = helper.ago(now - (79 * 60))
+    assert_equal link_text(now - (79 * 60), "about an hour ago"), ago
   end
 
   def test_less_than_105_minutes_ago
-    ago = helper.ago(now-(104*60))
-    assert_equal "about an hour and a half ago", ago
+    ago = helper.ago(now - (104 * 60))
+    assert_equal link_text(now - (104 * 60), "about an hour and a half ago"), ago
   end
 
   def test_less_than_23_hours_ago
-    ago = helper.ago(now-(23*60*60)+1)
-    assert_equal "about 23 hours ago", ago
+    ago = helper.ago(now - (23 * 60 * 60) + 1)
+    assert_equal link_text(now - (23 * 60 * 60) + 1, "about 23 hours ago"), ago
   end
 
   def test_a_bit_more_than_23_hours_ago
-    ago = helper.ago(now-(23*60*60 + 29*60))
-    assert_equal "about 23 hours ago", ago
+    more_than_23_hours = (23 * 60 * 60 + 29 * 60)
+    ago = helper.ago(now - more_than_23_hours)
+    assert_equal link_text(now - more_than_23_hours, "about 23 hours ago"), ago
   end
 
-  def test_about_a_day_ago
-    ago = helper.ago(now-(36*60*60)+1)
-    assert_equal "about a day ago", ago
-  end
-
-  def test_days_ago
-    ago = helper.ago(now-(20*24*60*60)+1)
-    assert_equal "about 20 days ago", ago
-  end
-
-  def test_weeks_ago
-    ago = helper.ago(now-(10*7*24*60*60))
-    assert_equal "about 10 weeks ago", ago
-  end
-
-  def test_months_ago
-    ago = helper.ago(now-(12*7*24*60*60))
-    assert_equal "about 3 months ago", ago
-  end
-
-  def test_not_quite_a_year_ago
-    ago = helper.ago(now-(340*24*60*60))
-    assert_equal "about 11 months ago", ago
-  end
-
-  def test_about_a_year_ago
-    ago = helper.ago(now-(15*30*24*60*60))
-    assert_equal "about a year ago", ago
+  def test_bit_more_than_a_day
+    ago = helper.ago(now - (24 * 60 * 60 + 29 * 60))
+    assert_equal " 1 January 2013 at 02:35 UTC", ago
   end
 
   def test_ages_ago
-    ago = helper.ago(now-(20*30*24*60*60))
-    assert_equal "ages ago", ago
+    ago = helper.ago(now - (20 * 30 * 24 * 60 * 60))
+    assert_equal "13 May 2011 at 03:04 UTC", ago
   end
 end

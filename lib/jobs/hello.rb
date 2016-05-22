@@ -3,7 +3,7 @@ require 'sidekiq'
 module Jobs
   class Hello
     include Sidekiq::Worker
-    sidekiq_options :queue => :hello
+    sidekiq_options queue: :hello
 
     def perform(_)
       # This exists solely to get the job scheduled.

@@ -1,8 +1,7 @@
 module ExercismWeb
   module Presenters
     class Profile
-
-      DEFAULTS = { shared: false }
+      DEFAULTS = { shared: false }.freeze
 
       def initialize(user, current_user=user, options={})
         @user = user
@@ -14,6 +13,10 @@ module ExercismWeb
         user.username
       end
 
+      def own?
+        user.id == current_user.id
+      end
+
       def shared?
         @options[:shared]
       end
@@ -23,15 +26,19 @@ module ExercismWeb
       end
 
       def progress_hash
-        UserProgression.user_progress(user)
+        UserProgression.user_progress(user).sort_by(&:last_updated)
       end
 
       def archived_exercises
         @archived_exercises ||= user.exercises.where(archived: true).where('iteration_count > 0')
       end
 
-      def can_access?(exercise)
-        shared? || current_user.can_access?(exercise)
+      def archived_grouped_exercises
+        @archived_exercises.group_by(&:language)
+      end
+
+      def access?(exercise)
+        shared? || current_user.access?(exercise)
       end
 
       def has_current_exercises?

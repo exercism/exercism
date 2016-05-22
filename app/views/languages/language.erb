@@ -3,7 +3,7 @@
   <div class="row" style="padding-top: 40px;">
     <div class="col-md-4"></div>
     <div class="col-md-8">
-      <h1><%= track.language %></h1>
+      <h1><%= "#{track_icon(track.id, 30)} #{track.language}"%></h1>
     </div>
   </div>
 
@@ -11,7 +11,14 @@
     <div class="col-md-4">
 
       <ul class="nav nav-pills nav-stacked">
-        <li class="active">
+
+        <% if !track.active? %>
+          <li class="active">
+            <a data-toggle="tab" href="#launch">Help Launch the  <%= track.language %> Track</a>
+          </li>
+        <% end %>
+
+        <li class="<%= 'active' if track.active? %>">
           <a data-toggle="tab" href="#about">About the <%= track.language %> Track</a>
         </li>
 
@@ -48,7 +55,13 @@
 
     <div class="col-md-8 tab-content">
 
-      <div class="active tab-pane" id="about">
+      <% if !track.active %>
+        <div class="active tab-pane" id="launch">
+          <%= md docs.launch %>
+        </div>
+      <% end %>
+
+      <div class="tab-pane <%='active' if track.active? %>" id="about">
         <%= md track.docs.about %>
 
         <h3>Try It!</h3>
@@ -158,13 +171,17 @@
           for more information.
         </p>
 
+        <h5>Help Add More <%= track.language %> Exercises</h5>
         <p>
-          Want to help us add more exercises? You can make them up from scratch,
-          or find exercises implemented in other languages that are not yet in
-          <%= track.language %>.
+        The easiest way to add new exercises is to translate existing exercises from other language tracks on Exercism.
+        Here's the <a href="/languages/<%= track.id %>/contribute">full list of unimplemented exercises in <%= track.language %></a>,
+        along with links to all the existing implementations.
+        </p>
+
+        <p>
+        If you have an idea for a completely new exercise, you can follow <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#implementing-a-completely-new-exercise">this guide</a> to add it to the site.
         </p>
       </div>
-
     </div>
   </div>
 

@@ -9,7 +9,7 @@ module ExercismWeb
           per_page: params[:per_page] || 50,
         }
         exercises = UserExercise.recently_viewed_by(current_user).paginate(pagination)
-        erb :"looks/index", locals: {exercises: exercises}
+        erb :"looks/index", locals: { exercises: exercises }
       end
     end
   end

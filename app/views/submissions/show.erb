@@ -1,7 +1,7 @@
 <div class="container" id="submission">
   <div class="submission-header page-header">
     <h1 class="pull-left">
-      <%= track_image(submission.track, 40) %>
+      <%= track_icon(submission.track_id, 40) %>
       <%= submission.problem.name %>
     </h1>
 
@@ -41,22 +41,14 @@
       submitted by <%= gravatar_tag submission.user.avatar_url, size: 20 %>
       <%= profile_link(submission.user) %>
       <%= ago(submission.created_at) %>
+
       <% if submission.user_exercise.archived? %>
         <span class="label label-danger">Archived</span>
       <% end %>
+      
+      <%= erb :'submissions/see_other_implementations', locals: { submission: submission } if current_user.access?(submission.problem) %>
     </div>
   </div>
-
-  <% if current_user.owns?(submission) %>
-    <div class="submission-alerts">
-      <% if submission.user_exercise.archived? && UserExercise.for(submission).archived.count > 0 %>
-        <div class="alert alert-info" role="alert">
-          <p>See <a href="/code/<%= submission.track_id %>/<%= submission.slug %>/random">someone else's solution</a> to this exercise.</p>
-          <p>View <a href="<%= language_path_for_slug(submission.language, submission.slug) %>">all other solutions</a> to this problem.</p>
-        </div>
-      <% end %>
-    </div>
-  <% end %>
 
   <div class="submission-iterations">
     <ul class="pull-right nav nav-pills hidden-xs">
@@ -90,7 +82,7 @@
   <div class="submission-iteration">
     <div class="row">
       <%= erb :"submissions/current_submission", locals: { submission: submission } %>
-      <%= erb :"submissions/nitpicks", locals: { submission: submission } %>
+      <%= erb :"submissions/nitpicks", locals: { submission: submission, subscribed: ConversationSubscription.subscribed?(current_user, submission) } %>
     </div>
   </div>
 </div>

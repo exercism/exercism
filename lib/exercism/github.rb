@@ -1,6 +1,6 @@
 class Github
   def self.login_url(q)
-    "https://github.com/login/oauth/authorize?#{q.map {|k, v| "%s=%s" % [k, v]}.join("&")}"
+    "https://github.com/login/oauth/authorize?#{q.map { |k, v| '%s=%s' % [k, v] }.join('&')}"
   end
 
   def self.connect_to(url)
@@ -10,6 +10,7 @@ class Github
     end
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def self.authenticate(code, client_id, client_secret)
     conn = connect_to('https://github.com')
 
@@ -18,7 +19,7 @@ class Github
       req.headers['Content-Type'] = 'application/json'
       req.headers['Accept'] = 'application/json'
       req.headers['User-Agent'] = user_agent
-      req.body = {client_id: client_id, client_secret: client_secret, code: code}.to_json
+      req.body = { client_id: client_id, client_secret: client_secret, code: code }.to_json
     end
     access_token = JSON.parse(response.body)['access_token']
 
@@ -31,6 +32,7 @@ class Github
     result = JSON.parse(response.body)
     [result['id'], result['login'], result['email'], result['avatar_url']]
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def self.user_agent
     'github.com:exercism/exercism.io'

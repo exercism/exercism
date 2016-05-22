@@ -1,4 +1,6 @@
+# rubocop:disable Metrics/ClassLength
 class InitialSchema < ActiveRecord::Migration
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def change
     create_table :comments do |t|
       t.integer  :user_id,       null: false
@@ -23,7 +25,7 @@ class InitialSchema < ActiveRecord::Migration
     end
 
     create_table :submissions do |t|
-      t.integer  :user_id,        null: false
+      t.integer  :user_id, null: false
       t.string   :key
 
       t.string   :state
@@ -32,12 +34,12 @@ class InitialSchema < ActiveRecord::Migration
       t.text     :code
       t.datetime :done_at
       t.boolean  :is_liked
-      t.integer  :nit_count,      null: false
+      t.integer  :nit_count, null: false
       t.integer  :version
       t.integer  :user_exercise_id
       t.string   :filename
 
-      t.timestamps                null: false
+      t.timestamps null: false
     end
     add_index :submissions, :key
     add_index :submissions, :user_exercise_id
@@ -60,7 +62,7 @@ class InitialSchema < ActiveRecord::Migration
       t.string  :slug,       null: false
       t.string  :name
 
-      t.timestamps           null: false
+      t.timestamps null: false
     end
 
     add_index :teams, :slug, unique: true
@@ -103,7 +105,7 @@ class InitialSchema < ActiveRecord::Migration
     end
 
     create_table :user_exercises do |t|
-      t.integer   :user_id,       null: false
+      t.integer   :user_id, null: false
       t.string    :language
       t.string    :slug
       t.integer   :iteration_count
@@ -125,9 +127,11 @@ class InitialSchema < ActiveRecord::Migration
       t.string    :url
       t.string    :link_text
       t.boolean   :read
-      t.timestamps                null: false
+      t.timestamps null: false
     end
 
     add_index :alerts, :user_id
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
+# rubocop:enable Metrics/ClassLength

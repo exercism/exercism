@@ -1,15 +1,15 @@
 require 'rouge'
+require 'rouge/formatters/html_exercism'
 
 module ExercismLib
   class SyntaxHighlighter
-
     ROUGE_LANG = {
       'objective-c' => 'objective_c',
       'elisp'       => 'common_lisp',
       'plsql'       => 'sql',
       'ecmascript'  => 'javascript',
       'perl5'       => 'perl',
-    }
+    }.freeze
 
     attr_reader :lexer, :code
 
@@ -33,10 +33,10 @@ module ExercismLib
     def formatter
       options = {
         css_class:    "highlight #{lexer.tag}",
-        line_numbers: true
+        line_numbers: true,
       }
 
-      Rouge::Formatters::HTML.new(options)
+      Rouge::Formatters::HTMLExercism.new(options)
     end
 
     def normalize_language(language)

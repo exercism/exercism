@@ -1,9 +1,34 @@
-#languages{
+#languages, #contribute{
   .track_link{
     text-decoration: none;
     padding: 10px;
     &:hover{
       background: #f4f4f4;
     }
+  }
+}
+
+#contribute{
+  .jumbotron{
+    background: white;
+  }
+  .icon-red{
+    color: #d81d4e;
+    vertical-align: text-bottom;
+  }
+  .padding-row{
+    padding: 15px;
+  }
+
+  .row-margin-bottom{
+    margin-bottom: 10px;
+  }
+
+  .exercise-name{
+    margin: 0px;
+  }
+
+  .icon-column{
+    padding: 9px 0px;
   }
 }

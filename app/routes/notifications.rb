@@ -5,7 +5,7 @@ module ExercismWeb
         please_login
 
         inbox = ExercismWeb::Presenters::Inbox.new(current_user)
-        erb :"notifications/index", locals: {inbox: inbox}
+        erb :"notifications/index", locals: { inbox: inbox }
       end
 
       post '/notifications/read' do

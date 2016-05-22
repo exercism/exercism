@@ -13,15 +13,15 @@ namespace :xapi do
       user: user,
       language: 'go',
       slug: 'leap',
-      solution: {'leap.go' =>'// iteration 1'},
-      created_at: 10.minutes.ago,
+      solution: { 'leap.go' => '// iteration 1' },
+      created_at: 10.minutes.ago
     )
     s2 = Submission.create(
       user: user,
       language: 'go',
       slug: 'leap',
-      solution: {'leap.go' => '// iteration 2'},
-      created_at: 5.minutes.ago,
+      solution: { 'leap.go' => '// iteration 2' },
+      created_at: 5.minutes.ago
     )
     UserExercise.create!(user: user, language: 'go', slug: 'leap', submissions: [s1, s2], archived: true)
 
@@ -29,7 +29,7 @@ namespace :xapi do
       user: user,
       language: 'haskell',
       slug: 'list-ops',
-      solution: {'ListOps.hs' =>'// iteration 1'},
+      solution: { 'ListOps.hs' => '// iteration 1' }
     )
     UserExercise.create!(user: user, language: 'haskell', slug: 'list-ops', submissions: [s3])
 
@@ -37,9 +37,8 @@ namespace :xapi do
       user: user,
       language: 'haskell',
       slug: 'word-count',
-      solution: {'WordCount.hs' => '// iteration 1'},
+      solution: { 'WordCount.hs' => '// iteration 1' }
     )
     UserExercise.create!(user: user, language: 'haskell', slug: 'word-count', submissions: [s4])
   end
 end
-

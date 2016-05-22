@@ -1,19 +1,12 @@
 class Notify
-  def self.everyone(submission, regarding, creator)
-    cohort = Cohort.for(submission.user)
-    users = cohort.sees(submission.problem) + participants_in(submission)
-    users = users.uniq(&:id).reject { |u| u.id == creator.id }
-    users.each do |to|
-      Notification.on(submission, to: to, regarding: regarding, creator: creator)
+  def self.everyone(iteration, action, actor)
+    ConversationSubscription.subscriber_ids(iteration).each do |id|
+      next if id == actor.id
+      Notification.on(iteration, user_id: id, action: action, actor_id: actor.id)
     end
   end
 
-  def self.participants_in(submission)
-    Participants.in(submission)
-  end
-
-  def self.source(submission, regarding, creator)
-    Notification.on(submission, to: submission.user, regarding: regarding, creator: creator)
+  def self.source(iteration, action, actor)
+    Notification.on(iteration, user_id: iteration.user_id, action: action, actor_id: actor.id)
   end
 end
-

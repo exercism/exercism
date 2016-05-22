@@ -1,0 +1,17 @@
+<nav role="navigation">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class= <%= 'active' if active == 'stream' %>>
+      <a href="/teams/<%= team.slug %>/streams">Activity</a>
+    </li>
+
+    <li role="presentation" class= <%= 'active' if active == 'directory' %>>
+      <a href="/teams/<%= team.slug %>/directory">Members</a>
+    </li>
+
+    <% if team.managed_by?(current_user) %>
+      <li role="presentation" class= <%= 'active' if active == 'manage' %>>
+        <a href="/teams/<%= team.slug %>/manage">Manage</a>
+      </li>
+    <% end %>
+  </ul>
+</nav>

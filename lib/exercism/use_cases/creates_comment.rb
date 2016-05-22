@@ -1,5 +1,4 @@
 class CreatesComment
-
   attr_reader :id, :commenter, :body, :comment
 
   def self.create(*args)
@@ -8,7 +7,7 @@ class CreatesComment
     obj.comment
   end
 
-  def initialize(submission_id, commenter, body, _ = {})
+  def initialize(submission_id, commenter, body, _={})
     @id = submission_id
     @commenter = commenter
     @body = body.to_s
@@ -18,6 +17,7 @@ class CreatesComment
     @submission ||= Submission.find(id)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def create
     @comment = submission.comments.create(user: commenter, body: body)
     unless @comment.new_record?
@@ -30,4 +30,5 @@ class CreatesComment
       submission.save
     end
   end
+  # rubocop:enable Metrics/AbcSize
 end

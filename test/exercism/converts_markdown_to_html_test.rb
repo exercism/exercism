@@ -6,8 +6,8 @@ require 'exercism/markdown'
 require 'exercism/converts_markdown_to_html'
 require 'mocha/setup'
 
+# rubocop:disable Metrics/ClassLength
 class ConvertsMarkdownToHTMLTest < Minitest::Test
-
   def assert_converts_to(input, expected)
     converter = ConvertsMarkdownToHTML.new(input)
     converter.convert
@@ -34,13 +34,13 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
 
   def test_markdown_code_with_ampersands
     input = "```\nbig && strong\n```"
-    expected = %q{<div class="highlight plaintext">
+    expected = '<div class="highlight plaintext">
 <table style="border-spacing: 0;"><tbody><tr>
-<td class="gutter gl" style="text-align: right;"><pre class="lineno">1</pre></td>
-<td class="code"><pre>big &amp;&amp; strong
-</pre></td>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a></pre></td>
+<td class="code"><pre><span id="L1">big &amp;&amp; strong
+</span></pre></td>
 </tr></tbody></table>
-</div>}
+</div>'
     assert_converts_to(input, expected)
   end
 
@@ -54,34 +54,38 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
     Approvals.verify(ConvertsMarkdownToHTML.new(input).convert, name: 'markdown_double_braces')
   end
 
+  # rubocop:disable Metrics/MethodLength
   def test_markdown_code_with_javascript_and_double_braces
-    input = %Q{```
+    input = %(```
   var refill = 99
     , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
-                 "{{action}}, {{remaining}} of beer on the wall.\n";}
+                 "{{action}}, {{remaining}} of beer on the wall.\n";)
 
-    expected = %Q{<div class="highlight plaintext">
+    expected = %(<div class="highlight plaintext">
 <table style="border-spacing: 0;"><tbody><tr>
-<td class="gutter gl" style="text-align: right;"><pre class="lineno">1
-2
-3
-4
-5</pre></td>
-<td class="code"><pre>  var refill = 99
-    , template = "{{current}} of beer on the wall, {{current}} of beer.\n" +
-                 "{{action}}, {{remaining}} of beer on the wall.\n";
-</pre></td>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href=\"#L1\">1</a>
+<a href=\"#L2\">2</a>
+<a href=\"#L3\">3</a>
+<a href=\"#L4\">4</a>
+<a href=\"#L5\">5</a></pre></td>
+<td class="code"><pre><span id="L1">  var refill = 99
+</span><span id="L2">    , template = \"{{current}} of beer on the wall, {{current}} of beer.
+</span><span id="L3">" +
+</span><span id="L4">                 \"{{action}}, {{remaining}} of beer on the wall.
+</span><span id="L5">";
+</span></pre></td>
 </tr></tbody></table>
-</div>}
+</div>)
 
     converter = ConvertsMarkdownToHTML.new(input)
     converter.convert
     assert_equal expected, converter.content.strip
   end
+  # rubocop:enable Metrics/MethodLength
 
-
+  # rubocop:disable Metrics/MethodLength
   def test_complex_markdown_with_code
-    input = %Q{Pre text
+    input = %(Pre text
 
 ```
 class Foobar
@@ -89,49 +93,52 @@ class Foobar
 end
 ```
 
-Post text}
+Post text)
 
-    expected = %q{<p>Pre text</p>
+    expected = '<p>Pre text</p>
 <div class="highlight plaintext">
 <table style="border-spacing: 0;"><tbody><tr>
-<td class="gutter gl" style="text-align: right;"><pre class="lineno">1
-2
-3</pre></td>
-<td class="code"><pre>class Foobar
-  foos.each { |foo| foo.bar &gt; 10 }
-end
-</pre></td>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a>
+<a href="#L2">2</a>
+<a href="#L3">3</a></pre></td>
+<td class="code"><pre><span id="L1">class Foobar
+</span><span id="L2">  foos.each { |foo| foo.bar &gt; 10 }
+</span><span id="L3">end
+</span></pre></td>
 </tr></tbody></table>
 </div>
 
-<p>Post text</p>}
+<p>Post text</p>'
 
     assert_converts_to(input, expected)
   end
+  # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
   def test_markdown_with_clojure_code
-    input = %q{Check out this code:
+    input = 'Check out this code:
 
 ```clj
 (defn to-rna
   [dna-string]
   (clojure.string/replace dna-string \T \U))
-```}
+```'
 
-    expected = %q{<p>Check out this code:</p>
+    expected = '<p>Check out this code:</p>
 <div class="highlight clojure">
 <table style="border-spacing: 0;"><tbody><tr>
-<td class="gutter gl" style="text-align: right;"><pre class="lineno">1
-2
-3</pre></td>
-<td class="code"><pre><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">to-rna</span><span class="w">
-  </span><span class="p">[</span><span class="n">dna-string</span><span class="p">]</span><span class="w">
-  </span><span class="p">(</span><span class="nf">clojure.string/replace</span><span class="w"> </span><span class="n">dna-string</span><span class="w"> </span><span class="sc">\T</span><span class="w"> </span><span class="sc">\U</span><span class="p">))</span><span class="w">
-</span></pre></td>
+<td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a>
+<a href="#L2">2</a>
+<a href="#L3">3</a></pre></td>
+<td class="code"><pre><span id="L1"><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">to-rna</span><span class="w">
+</span><span id="L2">  </span><span class="p">[</span><span class="n">dna-string</span><span class="p">]</span><span class="w">
+</span><span id="L3">  </span><span class="p">(</span><span class="nf">clojure.string/replace</span><span class="w"> </span><span class="n">dna-string</span><span class="w"> </span><span class="sc">\T</span><span class="w"> </span><span class="sc">\U</span><span class="p">))</span><span class="w">
+</span><span id="L4"></span></span></pre></td>
 </tr></tbody></table>
-</div>}
+</div>'
     assert_converts_to(input, expected)
   end
+  # rubocop:enable Metrics/MethodLength
 
   def test_stubby_lambda
     input = "->"

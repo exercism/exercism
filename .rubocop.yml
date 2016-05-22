@@ -1,10 +1,17 @@
 inherit_from: .rubocop_todo.yml
 
+AllCops:
+  TargetRubyVersion: 2.2
+  Exclude:
+    - 'frontend/**/*'
+    - 'vendor/**/*'
+Style/DoubleNegation:
+  Enabled: false
 Style/StringLiterals:
   Enabled: false
 Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
-Style/TrailingComma:
+Style/TrailingCommaInLiteral:
   EnforcedStyleForMultiline: comma
 Style/RaiseArgs:
   Enabled: true
@@ -22,3 +29,9 @@ Metrics/LineLength:
   URISchemes:
     - http
     - https
+Style/DotPosition:
+  Enabled: true
+  EnforcedStyle: leading
+  SupportedStyles:
+    - leading
+    - trailing

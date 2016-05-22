@@ -1,15 +1,6 @@
 module ExercismWeb
   module Routes
     class Exercises < Core
-      get '/exercises/next' do
-        if current_user.guest?
-          redirect '/'
-        end
-
-        inbox = ::Inbox.new(current_user, params[:language], params[:slug])
-        redirect "/exercises/#{inbox.first_unread_uuid}"
-      end
-
       get '/exercises/:key' do |key|
         exercise = UserExercise.find_by_key(key)
         if exercise.nil?
@@ -39,7 +30,10 @@ module ExercismWeb
 
         exercise.viewed_by(current_user)
 
-        redirect ["", "tracks", exercise.track_id, "exercises"].join('/')
+        if params[:redirect].to_s.empty?
+          redirect ["", "tracks", exercise.track_id, "exercises"].join('/')
+        end
+        redirect params[:redirect]
       end
 
       post '/exercises/:key/archive' do |key|
@@ -49,7 +43,6 @@ module ExercismWeb
           redirect "/exercises/#{key}"
         end
         exercise.archive!
-        LifecycleEvent.track('completed', current_user.id)
         flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now archived."
         redirect '/'
       end
@@ -63,6 +56,38 @@ module ExercismWeb
         exercise.unarchive!
         flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now reactivated."
         redirect '/dashboard'
+      end
+
+      post '/exercises/delete' do
+        exercises = current_user.exercises.find(params['exercise_ids'])
+        exercises.each do |exercise|
+          DeletedIterations.store_iterations(exercise, current_user.id)
+          exercise.delete
+        end
+        flash[:success] = "Your exercises have been deleted"
+        redirect "/#{current_user.username}"
+      end
+
+      get '/exercises/:track_id/:slug' do |id, slug|
+        status, body = X::Xapi.get('tracks', id, 'exercises', slug, 'tests')
+        if status > 299
+          flash[:notice] = JSON.parse(body)["error"]
+          redirect '/'
+        end
+
+        exercise = X::Exercise.new(JSON.parse(body)['exercise'])
+        erb :"exercises/test_suite", locals: { exercise: exercise }
+      end
+
+      get '/exercises/:track_id/:slug/readme' do |id, slug|
+        status, body = X::Xapi.get('tracks', id, 'exercises', slug, 'readme')
+        if status > 299
+          flash[:notice] = JSON.parse(body)["error"]
+          redirect '/'
+        end
+
+        exercise = X::Exercise.new(JSON.parse(body)['exercise'])
+        erb :"exercises/readme", locals: { exercise: exercise }
       end
     end
   end

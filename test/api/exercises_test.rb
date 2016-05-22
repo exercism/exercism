@@ -23,10 +23,10 @@ class ExercisesApiTest < Minitest::Test
     UserExercise.create(user: alice, language: 'ruby', slug: 'one', iteration_count: 1, fetched_at: Time.now)
     UserExercise.create(user: alice, language: 'ruby', slug: 'two', fetched_at: Time.now)
 
-    get '/exercises', {key: alice.key}
+    get '/exercises', key: alice.key
 
     output = last_response.body
-    options = {format: :json, :name => 'api_exercises'}
+    options = { format: :json, name: 'api_exercises' }
     Approvals.verify(output, options)
   end
 end

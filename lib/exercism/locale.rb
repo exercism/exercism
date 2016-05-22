@@ -6,7 +6,7 @@ class UnknownLocale
   end
 
   def language
-    raise Exercism::UnknownLanguage.new(error_message)
+    fail Exercism::UnknownLanguage.new(error_message)
   end
 
   private
@@ -17,7 +17,6 @@ class UnknownLocale
 end
 
 Locale = Struct.new(:language, :code_extension, :test_extension) do
-
   def name
     language.to_s.capitalize
   end

@@ -2,139 +2,135 @@
   <div class="row">
     <div class="col-md-6">
       <h2>Your exercises in progress</h2>
-        <div class="well">
-          <% if dashboard.current_exercises.any? %>
+      <div class="well">
+        <% if dashboard.current_exercises.any? %>
             <p>Keep working on these problems, or archive them.</p>
             <ul class="nav nav-stacked" id="menu-current" role="menu">
               <% dashboard.current_exercises.limit(5).each do |exercise| %>
-                <li class="looks-list-item">
-                  <a role="menuitem" tabindex="-1" href="/exercises/<%= exercise.key %>">
-                    <table width="100%">
-                      <tr>
-                        <td width="60%">
-                          <%= exercise.problem.name + ' (' + exercise.problem.language %>)
-                        </td>
-                        <td width="25%">
-                          <%= exercise.comment_count %> comments
-                        </td>
-                        <td width="15%">
-                          iterations <%= exercise.iteration_count %>
-                        </td>
-                      </tr>
-                    </table>
-                  </a>
-                </li>
+                  <li class="looks-list-item">
+                    <a role="menuitem" tabindex="-1" href="/exercises/<%= exercise.key %>">
+                      <table width="100%">
+                        <tr>
+                          <td width="60%">
+                            <%= exercise.problem.name %> (<%= exercise.problem.language %>)
+                          </td>
+                          <td width="25%">
+                            <%= exercise.comment_count %> comments
+                          </td>
+                          <td width="15%">
+                            <%= exercise.iteration_count %> iterations
+                          </td>
+                        </tr>
+                      </table>
+                    </a>
+                  </li>
               <% end %>
               <% if dashboard.current_exercises.length > 5 %>
-                <p>You have <%= dashboard.current_exercises.length %> active problems - <a href="/<%= user.username %>">see all</a></p>
+                  <p>You have <%= dashboard.current_exercises.length %> active problems - <a href="/<%= user.username %>">see all</a></p>
               <% end %>
             </ul>
-          <% else %>
-            <p>You are not currently working on any exercises.</p>
-          <% end %>
-          <% if dashboard.unsubmitted_exercises.present? %>
-            <p>You've fetched these problems. Now solve them!</p>
-            <ul class="nav nav-stacked" id="menu-current" role="menu">
-              <% dashboard.unsubmitted_exercises.limit(5).each do |exercise| %>
-                <li class="looks-list-item">
-                  <a role="menuitem"
-                     tabindex="-1"
-                     href=<%= "/exercises/#{exercise.language}/#{exercise.slug}/readme" %>>
-                    <table width="100%">
-                      <tr>
-                        <td width="60%">
-                          <%= "#{exercise.problem.name} (#{exercise.problem.language})" %>
-                        </td>
-                      </tr>
-                    </table>
-                  </a>
-                </li>
-              <% end %>
-              <% if dashboard.unsubmitted_exercises.size > 5 %>
-                <p>You have <%= dashboard.unsubmitted_exercises.size %> unsubmitted problems.</p>
-              <% end %>
+        <% else %>
+            <p>Welcome to Exercism!  You are not currently working on any exercises.</p>
+            <p><a href="/languages">Select a language</a>
+              and follow the instructions. Each link provides information on installing any specific dependencies.
+            </p>
+            <ul class="nav nav-pills nav-stacked">
+              <li>
+                <a href="/how-it-works/newbie">How it Works (Start here if you are a new developer.)</a>
+              </li>
+              <li>
+                <a href="/how-it-works">How it Works (Experienced Devs)</a>
+              </li>
             </ul>
-          <% else %>
-            <p>You do not have any unsubmitted problems.</p>
-          <% end %>
-        </div>
+        <% end %>
+      </div>
     </div>
 
     <div class="col-md-6">
-      <h2>Notifications</h2>
-        <div class="well">
-          <% if dashboard.has_activity? %>
+      <h2>Feedback</h2>
+      <div class="well">
+        <% if dashboard.has_activity? %>
             <% dashboard.notifications.each do |notification| %>
-              <% if notification.item %>
-                <li style="list-style-type: none; margin: 0;">
-                  <span style="padding-right: 5px;" class="icon-comment-alt"></span>
-                  <a href="/<%= notification.creator.username %>"><%= notification.creator.username %></a> on <a href="/submissions/<%= notification.item.key %>">
-                    <%= notification.submission.name %> (<%= Language.of(notification.language) %>)
+                <li style="list-style-type: none; margin: 5px;">
+                  <span style="padding-right: 15px;" class="fa fa-<%= notification.icon %>"></span>
+
+                  <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
+                  <a href="/<%= notification.actor.username %>">
+                    <%= notification.actor.username %>
                   </a>
+
+                  &mdash;
+
+                  <a href="/submissions/<%= notification.iteration.uuid %>">
+                    <%= notification.iteration.name %> &middot; <%= Language.of(notification.iteration.track_id) %>
+                  </a>
+
+                <span style="float: right;">
+                  <%= track_icon(notification.iteration.track_id, 20) %>
+                </span>
                 </li>
-              <% end %>
             <% end %>
-          <% else %>
-            <p>No unread notifications.</p>
-          <% end %>
-        </div>
+        <% else %>
+            <p>No new feedback.</p>
+        <% end %>
+      </div>
     </div>
   </div>
 
   <% if (current_user.teams | current_user.managed_teams).any? %>
-    <div class="row">
-      <div class="col-sm-4">
-        <h2>Your Teams</h2>
-        <div class="well">
-          <ul class="nav nav-stacked">
-            <% (current_user.teams | current_user.managed_teams).each do |team| %>
-              <li>
-                <a role="menuiytem" tabindex="-1" href="/teams/<%= team.slug %>">
-                  <table width="100%">
-                    <tr>
-                      <td width="60%">
-                        <%= team.name %>
-                      </td>
-                      <td width="40%">
-                        <%= team.confirmed_members.size %> members
-                      </td>
-                    </tr>
-                  </table>
-                </a>
-              </li>
-            <% end %>
-          </ul>
+      <div class="row">
+        <div class="col-sm-4">
+          <h2>Your Teams</h2>
+          <div class="well">
+            <ul class="nav nav-stacked">
+              <% (current_user.teams | current_user.managed_teams).each do |team| %>
+                  <li>
+                    <a role="menuitem" tabindex="-1" href="/teams/<%= team.slug %>">
+                      <table width="100%">
+                        <tr>
+                          <td width="60%">
+                            <%= team.name %>
+                          </td>
+                          <td width="40%">
+                            <%= team.confirmed_members.size %> members
+                          </td>
+                        </tr>
+                      </table>
+                    </a>
+                  </li>
+              <% end %>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
   <% end %>
 
   <div class="row">
     <div class="col-sm-4">
       <h2>Recently viewed</h2>
-        <div class="well">
-          <% if recently_viewed_exercises.any? %>
+      <div class="well">
+        <% if recently_viewed_exercises.any? %>
             <ul class="nav nav-stacked" id="menu-current" role="menu">
               <% recently_viewed_exercises.each do |exercise| %>
-              <li class="looks-list-item">
-                <p><a role="menuitem" tabindex="-1" href="/exercises/<%= exercise.key %>">
-                  <%= exercise.problem.name + ' (' + exercise.problem.language + ') ' %></a>by <a href="/<%= exercise.user.username %>"><%= exercise.user.username %></a></p>
-              </li>
+                  <li class="looks-list-item">
+                    <p><a role="menuitem" tabindex="-1" href="/exercises/<%= exercise.key %>">
+                      <%= exercise.problem.name %> (<%= exercise.problem.language %>)</a> by <a href="/<%= exercise.user.username %>"><%= exercise.user.username %></a></p>
+                  </li>
               <% end %>
             </ul>
             <% if recently_viewed_more %>
-              <p>... <a href="/looks">see all</a></p>
+                <p>... <a href="/looks">see all</a></p>
             <% end %>
-          <% else %>
+        <% else %>
             <p>No exercises viewed in the past 30 days.</p>
-          <% end %>
-        </div>
+        <% end %>
+      </div>
     </div>
 
     <div class="col-sm-4">
       <% if !current_user.guest? && current_user.sees_exercises? %>
-        <h2>View Solutions</h2>
-        <p>Browse <a href="/inbox">other people's solutions</a> to exercises.</p>
+          <h2>View Solutions</h2>
+          <p>Browse <a href="/inbox">other people's solutions</a> to exercises.</p>
       <% end %>
       <p></p>
     </div>

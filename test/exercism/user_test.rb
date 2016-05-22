@@ -1,11 +1,12 @@
 require_relative '../integration_helper'
 
+# rubocop:disable Metrics/ClassLength
 class UserTest < Minitest::Test
   include DBCleaner
 
   def test_user_create_key
     user = User.create
-    assert_match %r{\A[a-z0-9]{32}\z}, user.key
+    assert_match /\A[a-z0-9]{32}\z/, user.key
   end
 
   def test_user_not_a_guest
@@ -70,21 +71,22 @@ class UserTest < Minitest::Test
   end
 
   def test_find_user_by_case_insensitive_username
-    %w{alice bob}.each do |name| User.create(username: name) end
+    %w(alice bob).each { |name| User.create(username: name) }
     assert_equal 'alice', User.find_by_username('ALICE').username
   end
 
   def test_find_a_bunch_of_users_by_case_insensitive_username
-    %w{alice bob fred}.each do |name| User.create(username: name) end
-    assert_equal ['alice', 'bob'], User.find_in_usernames(['ALICE', 'BOB']).map(&:username)
+    %w(alice bob fred).each { |name| User.create(username: name) }
+    assert_equal %w(alice bob), User.find_in_usernames(%w(ALICE BOB)).map(&:username)
   end
 
   def test_create_users_unless_present
     User.create(username: 'alice')
     User.create(username: 'bob')
-    assert_equal ['alice', 'bob', 'charlie'], User.find_or_create_in_usernames(['alice', 'BOB', 'charlie']).map(&:username).sort
+    assert_equal %w(alice bob charlie), User.find_or_create_in_usernames(%w(alice BOB charlie)).map(&:username).sort
   end
 
+  # rubocop:disable Metrics/AbcSize, MethodLength
   def test_delete_team_memberships_with_user
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
@@ -104,6 +106,7 @@ class UserTest < Minitest::Test
     refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'Confirmed TeamMembership was deleted.'
     refute TeamMembership.exists?(team: other_team, user: bob, inviter: alice), 'Unconfirmed TeamMembership was deleted.'
   end
+  # rubocop:enable Metrics/AbcSize, MethodLength
 
   def test_increment_adds_to_table
     fred = User.create(username: 'fred')
@@ -124,7 +127,7 @@ class UserTest < Minitest::Test
   def test_dailies_will_subtract_daily_count
     fred = User.create(username: 'fred')
     ACL.authorize(fred, Problem.new('ruby', 'bob'))
-    ['billy' ,'rich', 'jaclyn', 'maddy', 'sarah'].each do |name|
+    %w(billy rich jaclyn maddy sarah).each do |name|
       create_exercise_with_submission(User.create(username: name), 'ruby', 'bob')
     end
 
@@ -195,13 +198,13 @@ class UserTest < Minitest::Test
 
   def create_exercise_with_submission(user, language, slug)
     UserExercise.create!(
-        user: user,
-        last_iteration_at: 3.days.ago,
-        archived: false,
-        iteration_count: 1,
-        language: language,
-        slug: slug,
-        submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: 22.days.ago, version: 1)]
+      user: user,
+      last_iteration_at: 3.days.ago,
+      archived: false,
+      iteration_count: 1,
+      language: language,
+      slug: slug,
+      submissions: [Submission.create!(user: user, language: language, slug: slug, created_at: 22.days.ago, version: 1)]
     )
   end
 

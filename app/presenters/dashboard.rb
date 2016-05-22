@@ -7,11 +7,7 @@ module ExercismWeb
       end
 
       def current_exercises
-        user.exercises.current
-      end
-
-      def unsubmitted_exercises
-        user.exercises.unsubmitted
+        @current_exercises ||= user.exercises.current
       end
 
       def has_activity?
@@ -19,7 +15,7 @@ module ExercismWeb
       end
 
       def notifications
-        @notifications ||= user.notifications.unread.personal
+        @notifications ||= user.notifications.includes(:iteration, :actor).unread.feedback.reject { |note| note.iteration.nil? || note.iteration.user.nil? }
       end
     end
   end

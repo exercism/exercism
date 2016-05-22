@@ -4,7 +4,7 @@ module X
     # defaults where missing and embellishments that encourage
     # people to submit improvements.
     class Track
-      TOPICS = [:about, :tests, :installation, :learning, :resources]
+      TOPICS = [:about, :tests, :installation, :learning, :resources].freeze
 
       attr_reader(*TOPICS)
       def initialize(data, repository)
@@ -17,13 +17,14 @@ module X
       end
 
       private
+
       attr_reader :repository, :data
 
       def value(topic)
         if data[topic].empty?
           read(topic).gsub('REPO', repository)
         else
-          data[topic].strip + better(topic)
+          [data[topic].strip, better(topic)].join("\n")
         end
       end
 

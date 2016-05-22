@@ -8,6 +8,7 @@ module Hack
       @slug = slug
     end
 
+    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
       return unless latest
 
@@ -27,6 +28,7 @@ module Hack
         s.save
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     private
 
@@ -43,7 +45,7 @@ module Hack
     end
 
     def options
-      {user_id: user_id, language: language, slug: slug}
+      { user_id: user_id, language: language, slug: slug }
     end
 
     def submissions

@@ -5,12 +5,12 @@ module ExercismWeb
         please_login
 
         page = params[:page] || 1
-        inbox = ::Inbox.new(current_user, id, slug, page)
+        stream = TrackStream.new(current_user, id, slug, page)
 
         session[:inbox] = id
         session[:inbox_slug] = slug
 
-        erb :"inbox", locals: {inbox: inbox}
+        erb :"track_stream/index", locals: { stream: stream }
       end
 
       post '/tracks/:id/views/?:slug?' do |id, slug|
@@ -19,7 +19,7 @@ module ExercismWeb
           redirect '/'
         end
 
-        ::Inbox.new(current_user, id, slug).mark_as_read
+        TrackStream.new(current_user, id, slug).mark_as_read
 
         redirect ["", "tracks", id, "exercises", slug].compact.join('/')
       end

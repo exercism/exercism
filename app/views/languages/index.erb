@@ -21,5 +21,16 @@
         <% end %>
       </div>
     <% end %>
+
+    <section class="page-header">
+      <h3>Planned</h3>
+    </section>
+    <% inactive.each_slice(6) do |tracks| %>
+      <div class="row">
+        <% tracks.each do |t| %>
+          <%= erb :'languages/_block', locals: { track: t } if t.planned? %>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

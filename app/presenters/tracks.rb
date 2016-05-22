@@ -22,7 +22,7 @@ module ExercismWeb
       end
 
       def self.find(id)
-        tracks.find {|track| track.id == id}
+        tracks.find { |track| track.id == id }
       end
 
       def self.repo_url(id)
@@ -43,11 +43,9 @@ module ExercismWeb
 
       def self.fetch_tracks
         status, body = Xapi.get("tracks")
-        if status != 200
-          raise "something fishy in x-api: (#{status}) - #{body}"
-        end
+        fail "something fishy in x-api: (#{status}) - #{body}" if status != 200
         tracks = JSON.parse(body)["tracks"]
-        tracks.map {|track| Track.new(track)}
+        tracks.map { |track| Track.new(track) }
       end
     end
   end

@@ -1,14 +1,11 @@
 <div class="container">
-  <section class="page-header">
-    <h1>
-      Manage Team <%= h(team.name) %>
-      <a href="/teams/<%= team.slug %>" class="btn btn-default">Go back to team</a>
-    </h1>
-  </section>
+  <br>
+  <%= erb :"teams/_tabs", locals: {active: active, team: team} %>
 
   <div id="team_settings">
-    <h3>Team Settings</h3>
+    <h3>Settings</h3>
     <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}" %>" method="post">
+      <input type="hidden" name="_method" value="put" />
       <div class="row">
         <div class="form-group col-sm-4">
           <label for="team_slug">Slug (in URL)</label>
@@ -32,7 +29,7 @@
 
     <div id="danger_buttons" class="row">
       <div class="col-md-2" style="margin: 0 10px 10px 0">
-        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>" method="POST">
+        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>" method="post">
           <input name="_method" type="hidden" value="delete" />
           <button type="submit" class="btn btn-primary btn-danger">Delete Team</button>
         </form>
@@ -63,17 +60,19 @@
       <button type="submit" class="btn btn-primary">Add manager</button>
     </form>
 
-    <% if team.managers.count > 1 %>
-        <% (team.managers - [current_user]).each do |manager| %>
-          
-          <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/managers" method="post">
-            <input type="hidden" name="_method" value="delete" />
-            <input type="hidden" name="username" value="<%= manager.username %>" />
-            <button type="submit" class="btn btn-xs btn-danger manager_delete" data-username="<%= manager.username %>" style="margin: 10px 10px 10px 0">Remove</button>
-            <%= gravatar_tag manager.avatar_url, size: 20 %>
-            <a href="/<%= manager.username %>"><%= manager.username %></a>
-          </form>
-        <% end %>
+    <% team.managers.each do |manager| %>
+      <% if team.managers.count == 1 && team.managers.first == current_user %>
+        <button type="button" class="disabled btn btn-xs btn-danger manager_delete" data-toggle="tooltip" data-placement="bottom" title="You must add another manager before you can remove yourself as the last manager." style="margin: 10px 10px 10px 0">Remove</button>
+      <% else %>
+        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/managers" method="post">
+          <input type="hidden" name="_method" value="delete" />
+          <input type="hidden" name="username" value="<%= manager.username %>" />
+          <button type="submit" class="btn btn-xs btn-danger manager_delete" data-username="<%= manager.username %>" style="margin: 10px 10px 10px 0">Remove</button>
+        </form>
+      <% end %>
+
+      <%= gravatar_tag manager.avatar_url, size: 20 %>
+      <a href="/<%= manager.username %>"><%= manager.username %></a>
     <% end %>
   </div>
 

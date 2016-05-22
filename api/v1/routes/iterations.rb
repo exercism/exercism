@@ -14,7 +14,7 @@ module ExercismAPI
           halt 401, { error: message }.to_json
         end
 
-        if !Xapi.exists?(language, slug)
+        unless Xapi.exists?(language, slug)
           message = "Exercise '#{slug}' in language '#{language}' doesn't exist. "
           message << "Maybe you mispelled it?"
           halt 404, { error: message }.to_json
@@ -23,45 +23,14 @@ module ExercismAPI
         exercise_attrs = {
           user_id: current_user.id,
           language: language,
-          slug: slug
+          slug: slug,
         }
 
         exercise = UserExercise.where(exercise_attrs)
-          .first_or_initialize(iteration_count: 0)
+                               .first_or_initialize(iteration_count: 0)
 
-        if exercise.new_record?
-          exercise.save!
-        end
+        exercise.save! if exercise.new_record?
         exercise.touch(:skipped_at)
-        halt 204
-      end
-
-      # Mark exercise as fetched. Called from the X-API.
-      post '/iterations/:language/:slug/fetch' do |language, slug|
-        require_key
-        if current_user.guest?
-          message = 'Please double-check your exercism API key.'
-          halt 401, { error: message }.to_json
-        end
-        unless Xapi.exists? language, slug
-          message =
-            "Exercise '#{slug}' in language '#{language}' doesn't exist. " \
-            'Maybe you mispelled it?'
-          halt 404, { error: message }.to_json
-        end
-
-        LifecycleEvent.track 'fetched', current_user.id
-        attributes = { user_id: current_user.id,
-                       language: language,
-                       slug: slug }
-        exercise = UserExercise.where(attributes).first_or_initialize
-        # let's not bother tracking fetches for languages that you haven't
-        # explicitly started.
-        if current_user.submissions.where(language: language).count > 0
-          exercise.fetched_at ||= Time.now.utc
-        end
-        exercise.iteration_count ||= 0
-        exercise.save
         halt 204
       end
 
@@ -78,18 +47,6 @@ module ExercismAPI
         data = JSON.parse(data)
         user = User.where(key: data['key']).first
 
-        begin
-          log_entry_body = data.merge(user_agent: request.user_agent).to_json
-          LogEntry.create(
-            user: user,
-            key: data['key'],
-            body: log_entry_body
-          )
-        rescue => e
-          Bugsnag.notify(e, nil, request)
-          # ignore failures
-        end
-
         unless user
           message = "unknown api key '#{data['key']}', "
           message << "please check http://exercism.io/account/key and reconfigure"
@@ -97,9 +54,7 @@ module ExercismAPI
         end
 
         solution = data['solution']
-        if solution.nil?
-          solution = { data['path'] => data['code'] }
-        end
+        solution = { data['path'] => data['code'] } if solution.nil?
 
         # old CLI, let's see if we can hack around it.
         if data['language'].nil?
@@ -124,21 +79,11 @@ module ExercismAPI
         attempt = Attempt.new(user, iteration)
 
         unless attempt.valid?
-          Bugsnag.before_notify_callbacks << lambda do |notif|
-            data = {
-              user: user.username,
-              code: data['solution'],
-              track: attempt.track,
-              slug: attempt.slug,
-            }
-            notif.add_tab(:data, data)
-          end
-
-          error = Attempt::InvalidAttemptError.new("Invalid attempt submitted")
-          Bugsnag.notify(error, nil, request)
-
-          error = "unknown problem (track: #{attempt.track}, "
-          error << "slug: #{attempt.slug}, path: #{data['path']})"
+          error = "unknown problem (track: %s, slug: %s, path: %s)" % [
+            attempt.track,
+            attempt.slug,
+            data['path'],
+          ]
           halt 400, { error: error }.to_json
         end
 
@@ -150,11 +95,9 @@ module ExercismAPI
 
         ACL.authorize(user, attempt.submission.problem)
 
-        Notify.everyone(attempt.submission.reload, 'code', user)
+        Notify.everyone(attempt.submission.reload, 'iteration', user)
 
-        # if we don't have a 'fetched' event, we want to hack one in.
-        LifecycleEvent.track('fetched', user.id)
-        LifecycleEvent.track('submitted', user.id)
+        ConversationSubscription.join(user, attempt.submission)
 
         if (attempt.track == 'ruby' && attempt.slug == 'hamming') || attempt.track == 'go'
           Jobs::Analyze.perform_async(attempt.submission.key)
@@ -166,7 +109,7 @@ module ExercismAPI
         status 201
         locals = {
           submission: attempt.submission,
-          domain: request.url.gsub(/#{request.path}$/, "")
+          domain: request.url.gsub(/#{request.path}$/, ""),
         }
         pg :attempt, locals: locals
       end
@@ -185,7 +128,7 @@ module ExercismAPI
 
         submissions = exercises.map { |e| e.submissions.last }.compact
 
-        pg :iterations, locals: {submissions: submissions}
+        pg :iterations, locals: { submissions: submissions }
       end
     end
   end

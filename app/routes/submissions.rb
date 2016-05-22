@@ -45,16 +45,14 @@ module ExercismWeb
         redirect "/submissions/#{key}"
       end
 
-      get %r{/submissions/(?<key>\w+)/(nitpick$|(\+?un)?like$)} do |key|
+      get %r{^/submissions/(?<key>\w+)/(nitpick$|(\+?un)?like$)} do |key|
         redirect "/submissions/#{key}"
       end
 
       delete '/submissions/:key' do |key|
         please_login
         submission = Submission.find_by_key(key)
-        if submission.nil?
-          redirect '/'
-        end
+        redirect '/' if submission.nil?
 
         unless current_user.owns?(submission)
           flash[:notice] = "Only the author may delete the exercise."

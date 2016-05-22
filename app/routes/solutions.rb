@@ -7,7 +7,7 @@ module ExercismWeb
         [language, slug].each(&:downcase!)
 
         problem = Problem.new(language, slug)
-        unless current_user.can_access?(problem)
+        unless current_user.access?(problem)
           flash[:notice] = "You'll have access to that when you submit #{problem.name} in #{problem.language}"
           redirect '/'
         end
@@ -19,7 +19,7 @@ module ExercismWeb
           redirect '/'
         end
 
-        erb :"code/random", locals: {submission: exercises.randomized.first.submissions.last, total: total}
+        erb :"code/random", locals: { submission: exercises.randomized.first.submissions.last, total: total }
       end
     end
   end

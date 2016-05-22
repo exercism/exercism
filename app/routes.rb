@@ -17,15 +17,14 @@ module ExercismWeb
       Comments: 'comments',
       Exercises: 'exercises',
       Submissions: 'submissions',
-      Metadata: 'metadata',
       Teams: 'teams',
       Tracks: 'tracks',
       Styleguide: 'styleguide',
-      CommentThreads: 'comment_threads',
+      Subscriptions: 'subscriptions',
       Errors: 'errors',
       User: 'user',
       GithubCallback: 'github_callback',
-      Profile: 'profile'
+      Profile: 'profile',
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('app', 'routes', file)
     end

@@ -26,4 +26,3 @@ class Code
     @path_segments ||= path.split(/\/|\\/).reject(&:empty?)
   end
 end
-

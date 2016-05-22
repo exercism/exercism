@@ -1,10 +1,8 @@
 require 'exercism/markdown'
 
 class Comment < ActiveRecord::Base
-
   belongs_to :user
   belongs_to :submission
-  has_many :comment_threads
 
   validates :body, presence: true
 
@@ -17,7 +15,7 @@ class Comment < ActiveRecord::Base
     "<span ng-non-bindable>#{super}</span>"
   end
 
-  scope :reversed, ->{ order(created_at: :desc) }
+  scope :reversed, -> { order(created_at: :desc) }
   scope :received_by, ->(user) { where(submission_id: user.submissions.pluck(:id)) }
   scope :paginate_by_params, ->(params) { paginate(page: params[:page], per_page: params[:per_page] || 10) }
 
@@ -37,11 +35,26 @@ class Comment < ActiveRecord::Base
     submission.user
   end
 
-  def mentions
-    ExtractsMentionsFromMarkdown.extract(body)
-  end
-
   def qualifying?
     submission_user != user
   end
+
+  def mention_ids
+    @mention_ids ||= User.where(username: mentions).pluck(:id).map(&:to_i)
+  end
+
+  private
+
+  # rubocop:disable Metrics/AbcSize
+  def mentions
+    # Don't trust that the HTML has been rendered yet.
+    # This will double-render in most cases.
+    dom = Nokogiri::HTML(ExercismLib::Markdown.render(body))
+    dom.css("code").remove
+    dom.css("td[class='code']").remove
+    s = dom.css("body").first
+    s = !!s ? s.content : ""
+    s.scan(/\@(\w+)/).uniq.flatten
+  end
+  # rubocop:enable Metrics/AbcSize
 end

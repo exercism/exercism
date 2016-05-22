@@ -1,8 +1,8 @@
 require_relative '../test_helper'
 require_relative '../../lib/exercism'
 
-C_EXERCISES = %w(hamming raindrops)
-JAVA_EXERCISES = %w(etl nucleotide-count word-count anagram hamming bob robot-name meetup phone-number grade-school)
+C_EXERCISES = %w(hamming raindrops).freeze
+JAVA_EXERCISES = %w(etl nucleotide-count word-count anagram hamming bob robot-name meetup phone-number grade-school).freeze
 
 class LanguageTrackTest < Minitest::Test
   include AppTestHelper
@@ -15,6 +15,5 @@ class LanguageTrackTest < Minitest::Test
       lt = LanguageTrack.new('c')
       assert_equal lt.ordered_exercises, C_EXERCISES
     end
-
   end
 end

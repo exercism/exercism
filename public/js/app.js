@@ -30393,6 +30393,12 @@ $(function() {
   });
 });
 
+$(function () {
+  var shiftWindow = function() { scrollBy(0, -100); };
+  if (location.hash) { shiftWindow(); }
+  window.addEventListener("hashchange", shiftWindow);
+});
+
 $(".track-activity-chart").each(function(index, element) {
   var stats = $(element).data('stats');
   var data = {
@@ -30509,37 +30515,6 @@ $(".track-activity-chart").each(function(index, element) {
   ga("create", "UA-47528450-1", "exercism.io");
 
   ga("send", "pageview");
-
-}).call(this);
-
-(function() {
-  angular.module('exercism').controller("CommentsCtrl", function($scope, $http) {
-    $scope.commentThread = {};
-    $scope.hideCommentForm = true;
-    $scope.showCommentForm = function() {
-      return $scope.hideCommentForm = false;
-    };
-    $scope.hideCommentFormFn = function() {
-      return $scope.hideCommentForm = true;
-    };
-    return $scope.addComment = function(commentId) {
-      var commentThreadBody;
-      commentThreadBody = $scope.commentThread.body;
-      return $http.post("/comments/" + commentId + "/comment_threads", $.param({
-        "body": commentThreadBody
-      }), {
-        headers: {
-          "Content-Type": 'application/x-www-form-urlencoded'
-        }
-      }).success(function(data, status, headers) {
-        $scope.commentThreads.push(data);
-        $scope.hideCommentForm = true;
-        return $scope.commentThread.body = '';
-      }).error(function(data, status, headers) {
-        return alert(data.body);
-      });
-    };
-  });
 
 }).call(this);
 

@@ -1,12 +1,165 @@
 module ExercismWeb
   module Routes
+    # rubocop:disable Metrics/ClassLength
     class Teams < Core
-
-      get '/teams/?' do
-        please_login
-        erb :"teams/new", locals: {team: Team.new}
+      get '/teams/:slug/?' do |slug|
+        redirect '/teams/%s/streams' % slug
       end
 
+      get '/teams/:slug/streams' do |slug|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          locals = {
+            team: team,
+            stream: TeamStream.new(team, current_user.id),
+            active: 'stream',
+          }
+
+          erb :"teams/stream", locals: locals
+        end
+      end
+
+      get '/teams/:slug/streams/tracks/:id' do |slug, track_id|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          stream = TeamStream.new(team, current_user.id)
+          stream.track_id = track_id.downcase
+
+          locals = {
+            team: team,
+            stream: stream,
+            active: 'stream',
+          }
+
+          erb :"teams/stream", locals: locals
+        end
+      end
+
+      get '/teams/:slug/streams/tracks/:id/exercises/:problem' do |slug, track_id, problem_slug|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          stream = TeamStream.new(team, current_user.id)
+          stream.track_id = track_id.downcase
+          stream.slug = problem_slug.downcase
+
+          locals = {
+            team: team,
+            stream: stream,
+            active: 'stream',
+          }
+
+          erb :"teams/stream", locals: locals
+        end
+      end
+
+      get '/teams/:slug/streams/users/:username' do |slug, username|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          user = ::User.find_by_username(username)
+          stream = TeamStream.new(team, current_user.id)
+
+          unless user.present? && stream.user_ids.include?(user.id)
+            flash[:error] = "You may only view activity for existing team members."
+            redirect '/'
+          end
+
+          stream.user = user
+
+          locals = {
+            team: team,
+            stream: stream,
+            active: 'stream',
+          }
+
+          erb :"teams/stream", locals: locals
+        end
+      end
+
+      get '/teams/:slug/directory' do |slug|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          locals = {
+            team: team,
+            members: team.all_members.sort_by { |m| m.username.downcase },
+            active: 'directory',
+          }
+
+          erb :"teams/directory", locals: locals
+        end
+      end
+
+      # Remove yourself from a team.
+      put '/teams/:slug/leave' do |slug|
+        please_login
+        only_with_existing_team(slug) do |team|
+          team.dismiss(current_user.username)
+
+          redirect "/#{current_user.username}"
+        end
+      end
+
+      # Accept an invitation to join a team.
+      put '/teams/:slug/confirm' do |slug|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.unconfirmed_members.include?(current_user)
+            flash[:error] = "You don't have a pending invitation to this team."
+            redirect "/"
+          end
+
+          team.confirm(current_user.username)
+
+          redirect "/teams/#{slug}"
+        end
+      end
+
+      ## Team Management ##
+
+      # Team management dashboard
+      get '/teams/:slug/manage' do |slug|
+        please_login
+        only_for_team_managers(slug, "You are not allowed to manage this team.") do |team|
+          locals = {
+            team: team,
+            members: team.all_members.sort_by { |m| m.username.downcase },
+            active: 'manage',
+          }
+          erb :"teams/manage", locals: locals
+        end
+      end
+
+      # Form to create a new team.
+      get '/teams/?' do
+        please_login
+        erb :"teams/new", locals: { team: Team.new }
+      end
+
+      # Create a new team.
       post '/teams/?' do
         please_login
         team = Team.by(current_user).defined_with(params[:team], current_user)
@@ -14,32 +167,13 @@ module ExercismWeb
           team.save
           team.recruit(current_user.username, current_user)
           team.confirm(current_user.username)
-          redirect "/teams/#{team.slug}"
+          redirect "/teams/#{team.slug}/directory"
         else
-          erb :"teams/new", locals: {team: team}
+          erb :"teams/new", locals: { team: team }
         end
       end
 
-      get '/teams/:slug/manage' do |slug|
-        please_login
-        only_for_team_managers(slug, "You are not allowed to manage this team.") do |team|
-          erb :"teams/manage", locals: {team: team, members: team.all_members.sort_by {|m| m.username.downcase}}
-        end
-      end
-
-      get '/teams/:slug' do |slug|
-        please_login
-        only_with_existing_team(slug) do |team|
-
-          unless team.includes?(current_user)
-            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
-            redirect '/'
-          end
-
-          erb :"teams/show", locals: {team: team, members: team.all_members.sort_by {|m| m.username.downcase}}
-        end
-      end
-
+      # Delete a team.
       delete '/teams/:slug' do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to delete the team.") do |team|
@@ -50,6 +184,7 @@ module ExercismWeb
         end
       end
 
+      # Add team members.
       post '/teams/:slug/members' do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
@@ -60,15 +195,7 @@ module ExercismWeb
         end
       end
 
-      put '/teams/:slug/leave' do |slug|
-        please_login
-        only_with_existing_team(slug) do |team|
-          team.dismiss(current_user.username)
-
-          redirect "/#{current_user.username}"
-        end
-      end
-
+      # Delete a team member.
       delete '/teams/:slug/members/:username' do |slug, username|
         please_login
         only_for_team_managers(slug, "You are not allowed to remove team members.") do |team|
@@ -78,6 +205,7 @@ module ExercismWeb
         end
       end
 
+      # Update team information.
       put '/teams/:slug' do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to edit the team.") do |team|
@@ -90,21 +218,7 @@ module ExercismWeb
         end
       end
 
-      put '/teams/:slug/confirm' do |slug|
-        please_login
-        only_with_existing_team(slug) do |team|
-
-          unless team.unconfirmed_members.include?(current_user)
-            flash[:error] = "You don't have a pending invitation to this team."
-            redirect "/"
-          end
-
-          team.confirm(current_user.username)
-
-          redirect "/teams/#{slug}"
-        end
-      end
-
+      # Add managers to a team.
       post "/teams/:slug/managers" do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to add managers to the team.") do |team|
@@ -120,6 +234,7 @@ module ExercismWeb
         end
       end
 
+      # Remove a manager from a team.
       delete "/teams/:slug/managers" do |slug|
         please_login
         only_for_team_managers(slug, "You are not allowed to remove managers from the team.") do |team|
@@ -130,6 +245,7 @@ module ExercismWeb
         end
       end
 
+      # Quit managing a team.
       post "/teams/:slug/disown" do |slug|
         please_login
         only_with_existing_team(slug) do |team|
@@ -167,5 +283,6 @@ module ExercismWeb
         end
       end
     end
+    # rubocop:enable Metrics/ClassLength
   end
 end

@@ -1,12 +1,13 @@
+# rubocop:disable Metrics/ClassLength
 class Submission < ActiveRecord::Base
   serialize :solution, JSON
   belongs_to :user
   belongs_to :user_exercise
-  has_many :comments, ->{ order(created_at: :asc) }, dependent: :destroy
+  has_many :comments, -> { order(created_at: :asc) }, dependent: :destroy
 
   # I don't really want the notifications method,
   # just the dependent destroy
-  has_many :notifications, ->{ where(item_type: 'Submission') }, dependent: :destroy, foreign_key: 'item_id', class_name: 'Notification'
+  has_many :notifications, dependent: :destroy, foreign_key: 'iteration_id', class_name: 'Notification'
 
   has_many :likes, dependent: :destroy
   has_many :liked_by, through: :likes, source: :user
@@ -23,35 +24,34 @@ class Submission < ActiveRecord::Base
 
   scope :chronologically, -> { order(created_at: :asc) }
   scope :reversed, -> { order(created_at: :desc) }
-  scope :not_commented_on_by, ->(user) {
+  scope :not_commented_on_by, lambda { |user|
     where("submissions.id NOT IN (#{Comment.where(user: user).select(:submission_id).to_sql})")
   }
-  scope :not_liked_by, ->(user) {
+  scope :not_liked_by, lambda { |user|
     where("submissions.id NOT IN (#{Like.where(user: user).select(:submission_id).to_sql})")
   }
-  scope :excluding_hello, ->{ where("slug != 'hello-world'") }
 
   scope :not_submitted_by, ->(user) { where.not(user: user) }
 
-  scope :between, ->(upper_bound, lower_bound) {
+  scope :between, lambda { |upper_bound, lower_bound|
     where(created_at: upper_bound..lower_bound)
   }
 
-  scope :older_than, ->(timestamp) {
+  scope :older_than, lambda { |timestamp|
     where('submissions.created_at < ?', timestamp)
   }
 
-  scope :since, ->(timestamp) {
+  scope :since, lambda { |timestamp|
     where('submissions.created_at > ?', timestamp)
   }
 
-  scope :for_language, ->(language) {
+  scope :for_language, lambda { |language|
     where(language: language)
   }
 
   scope :recent, -> { since(7.days.ago) }
 
-  scope :related, -> (submission) {
+  scope :related, lambda { |submission|
     chronologically
       .where(user_id: submission.user.id, language: submission.track_id, slug: submission.slug)
   }
@@ -73,12 +73,16 @@ class Submission < ActiveRecord::Base
     @name ||= slug.split('-').map(&:capitalize).join(' ')
   end
 
+  def uuid
+    key
+  end
+
   def activity_description
     "Submitted an iteration"
   end
 
   def older_than?(time)
-    self.created_at.utc < (Time.now.utc - time)
+    created_at.utc < (Time.now.utc - time)
   end
 
   def track_id
@@ -101,7 +105,7 @@ class Submission < ActiveRecord::Base
 
   def like!(user)
     self.is_liked = true
-    self.liked_by << user unless liked_by.include?(user)
+    liked_by << user unless liked_by.include?(user)
     save
   end
 
@@ -116,7 +120,7 @@ class Submission < ActiveRecord::Base
   end
 
   def prior
-    @prior ||= related.where(version: version-1).first
+    @prior ||= related.where(version: version - 1).first
   end
 
   def related

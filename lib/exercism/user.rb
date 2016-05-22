@@ -1,5 +1,6 @@
 require 'digest/sha1'
 
+# rubocop:disable Metrics/ClassLength
 class User < ActiveRecord::Base
   serialize :track_mentor, Array
 
@@ -9,14 +10,13 @@ class User < ActiveRecord::Base
   has_many :dailies, -> (user) { limit(Daily::LIMIT - user.daily_count) }
   has_many :daily_counts
   has_many :exercises, class_name: "UserExercise"
-  has_many :lifecycle_events, ->{ order 'created_at ASC' }, class_name: "LifecycleEvent"
 
   has_many :management_contracts, class_name: "TeamManager"
   has_many :managed_teams, through: :management_contracts, source: :team
-  has_many :team_memberships, ->{ where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
+  has_many :team_memberships, -> { where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
   has_many :teams, through: :team_memberships
   has_many :inviters, through: :team_memberships, class_name: "User", foreign_key: :inviter_id
-  has_many :unconfirmed_team_memberships, ->{ where confirmed: false }, class_name: "TeamMembership", dependent: :destroy
+  has_many :unconfirmed_team_memberships, -> { where confirmed: false }, class_name: "TeamMembership", dependent: :destroy
   has_many :unconfirmed_teams, through: :unconfirmed_team_memberships, source: :team
 
   before_save do
@@ -39,30 +39,23 @@ class User < ActiveRecord::Base
     save
   end
 
-  def can_access?(problem)
+  def access?(problem)
     ACL.where(user_id: id, language: problem.track_id, slug: problem.slug).count > 0
   end
 
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def self.from_github(id, username, email, avatar_url, joined_as=nil)
     user = User.where(github_id: id).first
-    if user.nil?
-      # try to match an invitation that has been sent.
-      # GitHub ID will only be nil if the user has never logged in.
-      user = User.where(username: username, github_id: nil).first
-    end
-    if user.nil?
-      user = User.new(github_id: id, email: email)
-    end
-
-    if user.joined_as.nil? && !!joined_as
-      user.joined_as = joined_as
-    end
+    # try to match an invitation that has been sent.
+    # GitHub ID will only be nil if the user has never logged in.
+    user = User.where(username: username, github_id: nil).first if user.nil?
+    user = User.new(github_id: id, email: email) if user.nil?
+    user.joined_as = joined_as if user.joined_as.nil? && !!joined_as
 
     user.github_id  = id
-    user.email      = email if !user.email
+    user.email      = email unless user.email
     user.username   = username
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url
-    track_event = user.new_record?
     user.save
 
     conflict = User.where(username: username).first
@@ -70,13 +63,13 @@ class User < ActiveRecord::Base
       conflict.username = ''
       conflict.save
     end
-    LifecycleEvent.track('joined', user.id) if track_event
     user
   end
+  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def self.find_or_create_in_usernames(usernames)
     members = find_in_usernames(usernames).map(&:username).map(&:downcase)
-    usernames.reject {|username| members.include?(username.downcase)}.each do |username|
+    usernames.reject { |username| members.include?(username.downcase) }.each do |username|
       User.create(username: username)
     end
     find_in_usernames(usernames)
@@ -92,14 +85,6 @@ class User < ActiveRecord::Base
 
   def sees_exercises?
     ACL.where(user_id: id).count > 0
-  end
-
-  def onboarding_steps
-    @onboarding_steps ||= lifecycle_events.map(&:key)
-  end
-
-  def fetched?
-    onboarding_steps.include?("fetched")
   end
 
   def onboarded?
@@ -126,7 +111,7 @@ class User < ActiveRecord::Base
     if daily_counts.today
       daily_counts.today.increment!(:total)
     else
-      DailyCount.create(user_id: self.id, total: 1, day: Date.today)
+      DailyCount.create(user_id: id, total: 1, day: Date.today)
     end
   end
 
@@ -143,16 +128,24 @@ class User < ActiveRecord::Base
   end
 
   def invite_to_track_mentor(language)
-    self.track_mentor << language
+    track_mentor << language
     save
     update_acls_for_track_mentor(language)
+  end
+
+  def public_user_attributes
+    {
+      username: username,
+      avatar_url: avatar_url,
+      github_id: github_id,
+    }
   end
 
   private
 
   def items_where(table, condition)
     sql = "SELECT language AS track_id, slug FROM #{table} WHERE user_id = %s AND #{condition} ORDER BY created_at ASC" % id.to_s
-    User.connection.execute(sql).to_a.each_with_object(Hash.new {|h, k| h[k] = []}) do |result, problems|
+    User.connection.execute(sql).to_a.each_with_object(Hash.new { |h, k| h[k] = [] }) do |result, problems|
       problems[result["track_id"]] << result["slug"]
     end
   end
@@ -165,3 +158,4 @@ class User < ActiveRecord::Base
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

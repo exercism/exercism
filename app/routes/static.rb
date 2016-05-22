@@ -1,6 +1,10 @@
 module ExercismWeb
   module Routes
     class Static < Core
+      get '/rikki-' do
+        redirect '/rikki'
+      end
+
       get '/rikki' do
         erb :"site/rikki"
       end
@@ -10,11 +14,11 @@ module ExercismWeb
       end
 
       get '/help' do
-        erb :"site/help", locals: {docs: X::Docs::Help.new}
+        erb :"site/help", locals: { docs: X::Docs::Help.new }
       end
 
       get '/how-it-works' do
-        erb :"site/how_it_works", locals: {docs: X::Docs::Intro.new}
+        erb :"site/how_it_works", locals: { docs: X::Docs::Intro.new }
       end
 
       get '/how-it-works/polyglot' do
@@ -33,7 +37,7 @@ module ExercismWeb
       end
 
       get '/cli' do
-        erb :"site/cli", locals: {docs: X::Docs::CLI.new}
+        erb :"site/cli", locals: { docs: X::Docs::CLI.new }
       end
 
       get '/privacy' do
@@ -45,7 +49,7 @@ module ExercismWeb
       end
 
       get '/bork' do
-        raise RuntimeError.new("Hi Bugsnag, you're awesome!")
+        fail RuntimeError.new("Hi Bugsnag, you're awesome!")
       end
 
       get '/no-such-page' do
