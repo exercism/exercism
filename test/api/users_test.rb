@@ -1,5 +1,5 @@
 require_relative '../api_helper'
-
+# rubocop:disable Metrics/ClassLength
 class UsersApiTest < Minitest::Test
   include Rack::Test::Methods
   include DBCleaner
@@ -57,8 +57,8 @@ class UsersApiTest < Minitest::Test
 
     assert_equal [], JSON.parse(last_response.body)
   end
-
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+
   def test_returns_completion_for_specific_user_by_language
     f = './test/fixtures/xapi_v3_tracks.json'
     X::Xapi.stub(:get, [200, File.read(f)]) do
@@ -74,13 +74,62 @@ class UsersApiTest < Minitest::Test
 
       response = JSON.parse(last_response.body)
       assert_equal 200, last_response.status
-      assert_equal 4, response["statistics"].count
-      assert_equal 1, response["statistics"].first["completed"].count
-      assert_equal 1, response["statistics"][1]["completed"].count
-      count = response["statistics"].count do |language|
-        language["completed"].count == 0
-      end
-      assert_equal 2, count
+      assert_equal 4, response["submission_statistics"].count
+
+      assert_equal submission.language, response["submission_statistics"]["animal"]["language"]
+      assert_equal 1, response["submission_statistics"]["animal"]["total"]
+
+      assert_equal [submission3.slug], response["submission_statistics"]["animal"]["completed"]
+    end
+  end
+
+  def test_returns_complete_comment_statistics_given
+    f = './test/fixtures/xapi_v3_tracks.json'
+    X::Xapi.stub(:get, [200, File.read(f)]) do
+      user = User.create(username: 'adam')
+      user2 = User.create(username: 'nick')
+
+      submission = Submission.create(user: user, language: 'Animal', slug: 'hello-world', solution: { 'hello_world.rb' => 'CODE' })
+      UserExercise.create(user: user, submissions: [submission], language: 'animal', slug: 'hello-world', iteration_count: 0)
+      submission2 = Submission.create(user: user2, language: 'Fake', slug: 'apple', solution: { 'apple.js' => 'CODE' })
+      UserExercise.create(user: user2, submissions: [submission2], language: 'fake', slug: 'apple', iteration_count: 1)
+
+      user.comments.create(body: "comment one", submission_id: submission.id)
+      user.comments.create(body: "comment two", submission_id: submission2.id)
+      user2.comments.create(body: "comment three", submission_id: submission.id)
+      user2.comments.create(body: "comment four", submission_id: submission2.id)
+
+      get '/users/adam/statistics'
+
+      response = JSON.parse(last_response.body)
+      assert_equal 200, last_response.status
+
+      assert_equal 2, response["comment_statistics"]["total_comments_received"]
+      assert_equal 1, response["comment_statistics"]["total_comments_received_from_others"]
+      assert_equal 2, response["comment_statistics"]["total_comments_created"]
+      assert_equal 1, response["comment_statistics"]["total_comments_given_to_others"]
+    end
+  end
+
+  def test_returns_correct_comment_date_stats
+    f = './test/fixtures/xapi_v3_tracks.json'
+    X::Xapi.stub(:get, [200, File.read(f)]) do
+      user = User.create(username: 'adam')
+      user2 = User.create(username: 'nick')
+
+      submission = user.submissions.create
+
+      user.comments.create(body: "comment", submission_id: submission.id, created_at: Time.utc(2000, "jan", 1, 20, 15, 1))
+      comment_given = user.comments.create(body: "comment", submission_id: submission.id, created_at: Time.utc(2001, "jan", 1, 20, 15, 1))
+
+      user2.comments.create(body: "comment", submission_id: submission.id, created_at: Time.utc(2002, "jan", 1, 20, 15, 1))
+      comment_received = user2.comments.create(body: "comment", submission_id: submission.id, created_at: Time.utc(2003, "jan", 1, 20, 15, 1))
+
+      get '/users/adam/statistics'
+      response = JSON.parse(last_response.body)
+      assert_equal 200, last_response.status
+      assert_equal (Date.today - comment_given.created_at.to_date).to_i, response["comment_statistics"]["days_since_last_comment_given"]
+      assert_equal (Date.today - comment_received.created_at.to_date).to_i, response["comment_statistics"]["days_since_last_comment_received"]
     end
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
