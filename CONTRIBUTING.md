@@ -138,6 +138,8 @@ If you need to set PostgreSQL parameters like the user and/or database name to u
 
 #### Troubleshooting
 
+Note that you make have trouble running commands like `rake` or `pry` if your system has a different version of those gems than the Gemfile. In that case, you will need to prepend those commands with `bundle exec` so that bundler will execute that command in the context of the project's gems rather than your system's gems. If you would like to learn more about this topic and how to alias `bundle exec` (if you don't like typing it out each time), see [this article by Thoughtbot](https://robots.thoughtbot.com/but-i-dont-want-to-bundle-exec).
+
 To debug the database setup, do it step-by-step:
 
 * Create the PostgreSQL database: `rake db:setup`
@@ -171,7 +173,7 @@ you'll need to do this manually.
 ### Run The Application
 
 * Start the server with: `foreman s -p 4567`
-* Sometimes you need to: `bundle exec foreman s -p 4567`
+* Sometimes you need to: `bundle exec foreman s -p 4567` (see [Troubleshooting](#troubleshooting) above)
 * Then you can access the local server at [localhost:4567](http://localhost:4567).
 * You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
 
@@ -190,7 +192,7 @@ _Again this is assuming you are forwarding port 3000 to 3030 in your Vagrantfile
 
 ### Console
 
-There's a script in `bin/console` that will load pry with the exercism environment loaded.
+There's a script in `bin/console` that will load pry with the exercism environment loaded. You may need to run this file as `bundle exec bin/console` (see [Troubleshooting](#troubleshooting) above).
 This will let you poke around at the objects in the system, such as finding users and changing
 things about submissions or comments, making it easier to test specific things.
 
