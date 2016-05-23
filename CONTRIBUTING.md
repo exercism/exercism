@@ -106,7 +106,7 @@ First, you need to get ahold of the code, so you have a copy of it locally that 
 
 ### Configuration
 
-In most cases, it is easiest to run the `bin/setup` script to automatically setup the defaults for the application.
+In most cases, it is easiest to run the `bin/setup` script via `bundle exec bin/setup` to automatically setup the defaults for the application.
 
 The script will:
 
@@ -128,7 +128,7 @@ You don't need to fill in the EXERCISES_API value unless you're going to be work
 
 ### Data
 
-If you ran `bin/setup` you should be all set.
+If you ran `bundle exec bin/setup` you should be all set.
 
 You can easily reset an existing database to its original state and add the fake data in one step:
 
