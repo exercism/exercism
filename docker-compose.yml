@@ -8,6 +8,14 @@ app:
   ports:
     - "${EXTERNAL_PORT}:4567"
   environment:
+    # These will ensure that certain development commands which
+    # use 'psql' will also include our custom user and password.
+    #
+    # For more information, see:
+    # http://www.postgresql.org/docs/8.4/static/libpq-envars.html
+    PGUSER: exercism
+    PGPASSWORD: apples
+
     RACK_ENV:
     DEV_DATABASE_HOST: db
 db:
