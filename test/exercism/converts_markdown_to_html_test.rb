@@ -6,7 +6,6 @@ require 'exercism/markdown'
 require 'exercism/converts_markdown_to_html'
 require 'mocha/setup'
 
-# rubocop:disable Metrics/ClassLength
 class ConvertsMarkdownToHTMLTest < Minitest::Test
   def assert_converts_to(input, expected)
     converter = ConvertsMarkdownToHTML.new(input)

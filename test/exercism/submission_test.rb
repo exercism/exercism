@@ -1,7 +1,6 @@
 require_relative '../integration_helper'
 require "mocha/setup"
 
-# rubocop:disable Metrics/ClassLength
 class SubmissionTest < Minitest::Test
   include DBCleaner
 
@@ -141,4 +140,3 @@ class SubmissionTest < Minitest::Test
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
-# rubocop:enable Metrics/ClassLength

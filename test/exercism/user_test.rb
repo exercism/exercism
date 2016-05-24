@@ -1,6 +1,5 @@
 require_relative '../integration_helper'
 
-# rubocop:disable Metrics/ClassLength
 class UserTest < Minitest::Test
   include DBCleaner
 

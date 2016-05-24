@@ -1,6 +1,5 @@
 require_relative '../integration_helper'
 
-# rubocop:disable Metrics/ClassLength
 class TrackStreamTrackTest < Minitest::Test
   include DBCleaner
 
@@ -211,4 +210,3 @@ class TrackStreamTrackTest < Minitest::Test
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
-# rubocop:enable Metrics/ClassLength

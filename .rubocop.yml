@@ -22,6 +22,12 @@ Style/AndOr:
 Style/FormatString:
   Enabled: true
   EnforcedStyle: percent
+Style/DotPosition:
+  Enabled: true
+  EnforcedStyle: leading
+  SupportedStyles:
+    - leading
+    - trailing
 Metrics/LineLength:
   Enabled: false # TODO: Remove this after all linelength offenses are worked out
   Max: 80
@@ -29,9 +35,7 @@ Metrics/LineLength:
   URISchemes:
     - http
     - https
-Style/DotPosition:
-  Enabled: true
-  EnforcedStyle: leading
-  SupportedStyles:
-    - leading
-    - trailing
+Metrics/ClassLength:
+  Enabled: true # Enable explicitely in test files if wanted
+  Exclude:
+    - '**/*test.rb'
