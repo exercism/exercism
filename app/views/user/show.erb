@@ -33,6 +33,15 @@
           <% end %>
         <% end %>
       <% end %>
+      <% if profile.finished_tracks.any? %>
+        <h3>Contribute:</h3>
+        <h4>You've completed the following tracks. Want to help add more exercises?</h4>
+        <ul>
+          <% profile.finished_tracks.each do |track| %>
+            <li><a href="/languages/<%= track.id %>/contribute" target='_blank'><%= track.language %></a></li>
+          <% end %>
+        </ul>
+      <% end %>
       <h3>Exercises</h3>
       <h4>Current</h4>
       <% if profile.has_current_exercises? %>

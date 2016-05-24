@@ -77,6 +77,10 @@ module ExercismWeb
         user.track_mentor
       end
 
+      def finished_tracks
+        @finished_tracks ||= UserFinishedTracks.tracks(user)
+      end
+
       attr_reader :user, :current_user
     end
   end
