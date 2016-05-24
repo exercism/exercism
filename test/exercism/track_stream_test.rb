@@ -1,6 +1,5 @@
 require_relative '../integration_helper'
 
-# rubocop:disable Metrics/ClassLength
 class TrackStreamTrackTest < Minitest::Test
   include DBCleaner
 
@@ -36,7 +35,6 @@ class TrackStreamTrackTest < Minitest::Test
   end
 
   # This tests the data for Alice's inbox.
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_inbox
     # Alice is a mentor in elixir, and is therefore authorized to see everything in that track.
     # In Go she can see only what she has submitted (Leap and Hamming, but not Clock).
@@ -99,9 +97,7 @@ class TrackStreamTrackTest < Minitest::Test
       [ex10, ExerciseTestCase.new(bob, 'Word Count', 'go', :unread, 7)],
     ].each { |actual, expected| assert_exercise expected, actual }
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_mark_as_read
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
@@ -171,11 +167,9 @@ class TrackStreamTrackTest < Minitest::Test
       assert_in_delta 1, view.last_viewed_at.to_i, now.to_i
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
-  # rubocop:disable Metrics/AbcSize
   def assert_exercise(expected, actual)
     message = expected.message
     assert_equal expected.username, actual.username, message
@@ -185,9 +179,7 @@ class TrackStreamTrackTest < Minitest::Test
     assert_equal expected.comment_count, actual.comment_count, message
     assert_equal expected.unread?, actual.unread?, message
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def create_view(user, other_user, message)
     comment_count = age = message.delete(:age)
     ts = age.days.ago
@@ -209,6 +201,4 @@ class TrackStreamTrackTest < Minitest::Test
       View.create(user_id: user.id, exercise_id: exercise.id, last_viewed_at: ts + viewed_diff_in_seconds)
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 end
-# rubocop:enable Metrics/ClassLength

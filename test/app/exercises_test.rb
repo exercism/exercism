@@ -27,7 +27,6 @@ class AppExercisesTest < Minitest::Test
     assert_equal location, last_response.location, "Wrong redirect for GET exercises"
   end
 
-  # rubocop:disable Metrics/AbcSize
   def test_archive_and_unarchive
     post "/exercises/#{exercise.key}/archive", {}, login(alice)
     assert exercise.reload.archived?
@@ -35,5 +34,4 @@ class AppExercisesTest < Minitest::Test
     post "/exercises/#{exercise.key}/unarchive", {}, login(alice)
     refute exercise.reload.archived?
   end
-  # rubocop:enable Metrics/AbcSize
 end

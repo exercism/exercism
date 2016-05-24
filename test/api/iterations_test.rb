@@ -1,6 +1,5 @@
 require_relative '../api_helper'
 
-# rubocop:disable Metrics/ClassLength :nodoc:
 class IterationsApiTest < Minitest::Test
   include Rack::Test::Methods
   include DBCleaner
@@ -14,7 +13,6 @@ class IterationsApiTest < Minitest::Test
     @alice = User.create!(username: 'alice', github_id: 1)
   end
 
-  # rubocop:disable Metrics/AbcSize, MethodLength
   def test_submit_iteration_with_comment
     submission = {
       key: @alice.key,
@@ -41,14 +39,12 @@ class IterationsApiTest < Minitest::Test
     comment = Comment.first
     assert_equal submission[:comment], comment.body
   end
-  # rubocop:enable Metrics/AbcSize, MethodLength
 
   def test_latest_iterations_requires_key
     get '/iterations/latest'
     assert_equal 401, last_response.status
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def test_latest_iterations
     submissions = [{
       user: @alice,
@@ -91,7 +87,6 @@ class IterationsApiTest < Minitest::Test
     options = { format: :json, name: 'api_iterations' }
     Approvals.verify(output, options)
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   def test_skip_problem
     Xapi.stub(:exists?, true) do
@@ -128,7 +123,6 @@ class IterationsApiTest < Minitest::Test
     assert last_response.body.include?(expected_message)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def test_submit_problem_with_old_client
     submission = {
       "key" => @alice.key,
@@ -147,5 +141,4 @@ class IterationsApiTest < Minitest::Test
     expected = { "binary.go" => "Hello, World!" }
     assert_equal expected, submission.solution
   end
-  # rubocop:enable Metrics/MethodLength
 end

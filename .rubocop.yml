@@ -5,6 +5,7 @@ AllCops:
   Exclude:
     - 'frontend/**/*'
     - 'vendor/**/*'
+    - 'test/**/*'
 Style/DoubleNegation:
   Enabled: false
 Style/StringLiterals:

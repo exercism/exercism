@@ -3,7 +3,6 @@ require_relative '../integration_helper'
 class DeletedIterationsTest < Minitest::Test
   include DBCleaner
 
-  # rubocop:disable Metrics/AbcSize
   def test_store_iterations
     alice = User.create(username: 'alice')
     exercise = UserExercise.create(user: alice, archived: false)
@@ -16,5 +15,4 @@ class DeletedIterationsTest < Minitest::Test
     assert_equal actual.submission, submission
     assert_equal actual.user, alice
   end
-  # rubocop:enable Metrics/AbcSize
 end

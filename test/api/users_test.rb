@@ -1,5 +1,4 @@
 require_relative '../api_helper'
-# rubocop:disable Metrics/ClassLength
 class UsersApiTest < Minitest::Test
   include Rack::Test::Methods
   include DBCleaner
@@ -57,7 +56,6 @@ class UsersApiTest < Minitest::Test
 
     assert_equal [], JSON.parse(last_response.body)
   end
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
 
   def test_returns_completion_for_specific_user_by_language
     f = './test/fixtures/xapi_v3_tracks.json'
@@ -132,7 +130,6 @@ class UsersApiTest < Minitest::Test
       assert_equal (Date.today - comment_received.created_at.to_date).to_i, response["comment_statistics"]["days_since_last_comment_received"]
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def test_returns_error_for_nonexistant_user
     get '/users/alice/statistics'

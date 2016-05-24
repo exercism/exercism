@@ -14,7 +14,6 @@ class CommentTest < Minitest::Test
     refute c2.qualifying?, "Should not get credit for commenting on your own submission"
   end
 
-  # rubocop:disable Metrics/MethodLength
   def test_mentions
     User.create(username: 'alice')
     User.create(username: 'bob')
@@ -30,5 +29,4 @@ class CommentTest < Minitest::Test
       assert_equal usernames, mentions
     end
   end
-  # rubocop:enable Metrics/MethodLength
 end

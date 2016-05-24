@@ -8,7 +8,6 @@ class SubmissionsApiTest < Minitest::Test
     ExercismAPI::App
   end
 
-  # rubocop:disable Metrics/MethodLength
   def test_returns_submission_code
     user = User.create(username: 'alice')
     submission = Submission.create(user: user, language: 'ruby', slug: 'leap', solution: { 'leap.rb': 'CODE' })
@@ -28,5 +27,4 @@ class SubmissionsApiTest < Minitest::Test
 
     Approvals.verify(last_response.body, format: :json, name: 'problem_and_submission')
   end
-  # rubocop:enable Metrics/MethodLength
 end
