@@ -71,7 +71,7 @@ Then run:
 This will take a little while as a few Docker containers are built for
 you. Once it's finished, run:
 
-    docker-compose run app rake db:seeds:fetch db:reseed
+    docker-compose run app bin/setup
 
 Now your database is set up. To get the site up and running, run:
 

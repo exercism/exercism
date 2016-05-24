@@ -9,10 +9,11 @@ app:
     - "${EXTERNAL_PORT}:4567"
   environment:
     # These will ensure that certain development commands which
-    # use 'psql' will also include our custom user and password.
+    # use 'psql' will also include our custom database config.
     #
     # For more information, see:
     # http://www.postgresql.org/docs/8.4/static/libpq-envars.html
+    PGHOST: db
     PGUSER: exercism
     PGPASSWORD: apples
 
@@ -20,10 +21,7 @@ app:
     DEV_DATABASE_HOST: db
 db:
   image: postgres:9.4
-  volumes:
-    - ./docker/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
   environment:
-    POSTGRES_DB: exercism_development
     POSTGRES_USER: exercism
     POSTGRES_PASSWORD: apples
 compass:
