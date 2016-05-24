@@ -1,6 +1,5 @@
 require_relative '../integration_helper'
 
-# rubocop:disable Metrics/ClassLength
 class TeamStreamTest < Minitest::Test
   include DBCleaner
 
@@ -16,7 +15,6 @@ class TeamStreamTest < Minitest::Test
     TeamStream.instance_variable_set(:"@ordered_slugs", nil)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_filters
     alice = User.create!(username: 'alice', avatar_url: 'alice.jpg')
     bob = User.create!(username: 'bob', avatar_url: 'bob.jpg')
@@ -175,7 +173,6 @@ class TeamStreamTest < Minitest::Test
     assert_equal 'Go', item.text
     assert item.active?
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 
@@ -189,4 +186,3 @@ class TeamStreamTest < Minitest::Test
     exercise
   end
 end
-# rubocop:enable Metrics/ClassLength

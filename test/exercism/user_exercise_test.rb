@@ -3,7 +3,6 @@ require_relative '../integration_helper'
 class UserExerciseTest < Minitest::Test
   include DBCleaner
 
-  # rubocop:disable Metrics/AbcSize
   def test_archive_and_unarchive
     alice = User.create(username: 'alice')
     exercise = UserExercise.create(user: alice, archived: false)
@@ -18,7 +17,6 @@ class UserExerciseTest < Minitest::Test
     exercise.reload
     refute exercise.archived?
   end
-  # rubocop:enable Metrics/AbcSize
 
   def test_current
     alice = User.create(username: 'alice')

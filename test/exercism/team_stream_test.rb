@@ -15,7 +15,6 @@ class TeamStreamTest < Minitest::Test
     Language.instance_variable_set(:"@by_track_id", nil)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_stream
     alice = User.create!(username: 'alice', avatar_url: 'alice.jpg')
     bob = User.create!(username: 'bob', avatar_url: 'bob.jpg')
@@ -79,7 +78,6 @@ class TeamStreamTest < Minitest::Test
     exercise = stream.exercises.find { |ex| ex.id == ex2.id }
     assert_equal 3, exercise.comment_count
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 

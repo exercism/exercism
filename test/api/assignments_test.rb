@@ -23,7 +23,6 @@ class AssignmentsApiTest < Minitest::Test
     Language.instance_variable_set(:"@by_track_id", nil)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_api_accepts_submission_attempt
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
@@ -39,9 +38,7 @@ class AssignmentsApiTest < Minitest::Test
     options = { format: :json, name: 'api_submission_accepted' }
     Approvals.verify(last_response.body, options)
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_api_accepts_submission_attempt_with_multi_file_solution
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
@@ -61,7 +58,6 @@ class AssignmentsApiTest < Minitest::Test
     options = { format: :json, name: 'api_multifile_submission_accepted' }
     Approvals.verify(last_response.body, options)
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def test_provides_a_useful_error_message_when_key_is_wrong
     Notify.stub(:everyone, nil) do
@@ -72,7 +68,6 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal 401, last_response.status
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_api_accepts_submission_on_completed_exercise
     Notify.stub(:everyone, nil) do
       Xapi.stub(:exists?, true) do
@@ -88,9 +83,7 @@ class AssignmentsApiTest < Minitest::Test
     options = { format: :json, name: 'api_submission_accepted_on_completed' }
     Approvals.verify(last_response.body, options)
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
   def test_api_rejects_duplicates
     Attempt.new(alice, Iteration.new({ 'code.rb' => 'THE CODE' }, 'ruby', 'one')).save
     Notify.stub(:everyone, nil) do
@@ -104,5 +97,4 @@ class AssignmentsApiTest < Minitest::Test
     assert_equal 400, last_response.status
     assert_equal "duplicate of previous iteration", response_error
   end
-  # rubocop:enable Metrics/AbcSize
 end

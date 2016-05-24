@@ -20,7 +20,6 @@ class TeamStreamTest < Minitest::Test
     Stream.instance_variable_set(:"@ordered_slugs", nil)
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
   def test_filters
     alice = User.create!(username: 'alice', avatar_url: 'alice.jpg')
     bob = User.create!(username: 'bob', avatar_url: 'bob.jpg')
@@ -88,7 +87,6 @@ class TeamStreamTest < Minitest::Test
     assert_equal 1, item3.unread
     refute item3.active?
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 

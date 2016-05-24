@@ -1,6 +1,5 @@
 require_relative '../integration_helper'
 
-# rubocop:disable Metrics/ClassLength
 class UserTest < Minitest::Test
   include DBCleaner
 
@@ -86,7 +85,6 @@ class UserTest < Minitest::Test
     assert_equal %w(alice bob charlie), User.find_or_create_in_usernames(%w(alice BOB charlie)).map(&:username).sort
   end
 
-  # rubocop:disable Metrics/AbcSize, MethodLength
   def test_delete_team_memberships_with_user
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
@@ -106,7 +104,6 @@ class UserTest < Minitest::Test
     refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'Confirmed TeamMembership was deleted.'
     refute TeamMembership.exists?(team: other_team, user: bob, inviter: alice), 'Unconfirmed TeamMembership was deleted.'
   end
-  # rubocop:enable Metrics/AbcSize, MethodLength
 
   def test_increment_adds_to_table
     fred = User.create(username: 'fred')

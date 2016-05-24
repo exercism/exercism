@@ -9,7 +9,6 @@ class SyntaxHelperTest < Minitest::Test
     @helper
   end
 
-  # rubocop:disable Metrics/MethodLength
   def test_inline_markdown
     code = <<CODE
 """
@@ -27,7 +26,6 @@ CODE
     refute_match('<p>', output)
     assert_match('<div class="highlight python">', output)
   end
-  # rubocop:enable Metrics/MethodLength
 
   def test_language_option
     code = <<CODE

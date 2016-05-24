@@ -13,7 +13,6 @@ class NotificationTest < Minitest::Test
     @exercise = @submission.reload.user_exercise
   end
 
-  # rubocop:disable Metrics/AbcSize
   def test_create_notification_on_submission
     assert_equal 0, Notification.count
     Notification.on(submission, user_id: bob.id, action: 'comment', actor_id: alice.id)
@@ -25,7 +24,6 @@ class NotificationTest < Minitest::Test
     assert_equal bob.id, n.user_id
     assert_equal 'comment', n.action
   end
-  # rubocop:enable Metrics/AbcSize
 
   def test_dont_create_new_notification_if_old_is_unread
     Notification.on(submission, user_id: bob.id, action: 'comment', actor_id: alice.id)
@@ -34,7 +32,6 @@ class NotificationTest < Minitest::Test
     assert_equal 1, Notification.count
   end
 
-  # rubocop:disable Metrics/AbcSize
   def test_create_new_notification_if_old_one_is_read
     Notification.on(submission, user_id: bob.id, action: 'comment', actor_id: alice.id)
     assert_equal 1, Notification.count
@@ -44,5 +41,4 @@ class NotificationTest < Minitest::Test
     Notification.on(submission, user_id: bob.id, action: 'comment', actor_id: alice.id)
     assert_equal 2, Notification.count
   end
-  # rubocop:enable Metrics/AbcSize
 end

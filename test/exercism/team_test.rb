@@ -1,6 +1,5 @@
 require_relative '../integration_helper'
 
-# rubocop:disable Metrics/ClassLength
 class TeamTest < Minitest::Test
   include DBCleaner
 
@@ -47,7 +46,6 @@ class TeamTest < Minitest::Test
     assert_equal "zombie-showdown", team.slug
   end
 
-  # rubocop:disable Metrics/AbcSize
   def test_name_defaults_to_nonnormalized_slug
     team = Team.by(alice).defined_with(slug: 'I <3 Exercism')
     team.save
@@ -63,7 +61,6 @@ class TeamTest < Minitest::Test
     assert_equal 'Jazz ~.~ Hands', team.name
     assert_equal 'jazz-hands', team.slug
   end
-  # rubocop:enable Metrics/AbcSize
 
   def test_team_has_explicit_name
     team = Team.by(alice).defined_with(slug: 'harold', name: 'Purple Crayon')
@@ -80,7 +77,6 @@ class TeamTest < Minitest::Test
     assert_equal 'o-hai', team.slug
   end
 
-  # rubocop:disable Metrics/AbcSize
   def test_has_members
     team = Team.by(bob).defined_with(slug: 'purple', usernames: '  alice    , charlie-brown ')
     team.save
@@ -95,9 +91,7 @@ class TeamTest < Minitest::Test
     assert_equal [alice], team.members
     assert alice.teams.include?(team)
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def test_team_inclusion
     team = Team.by(alice).defined_with(slug: 'sparkle', usernames: 'bob')
     team.save
@@ -108,9 +102,7 @@ class TeamTest < Minitest::Test
     team.confirm(bob.username)
     assert team.includes?(bob)
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def test_team_recruit
     charlie = User.create(username: 'charlie')
     david = User.create(username: 'david')
@@ -138,9 +130,7 @@ class TeamTest < Minitest::Test
       assert user.inviters.include? inviter
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
-  # rubocop:disable Metrics/AbcSize
   def test_team_does_not_recruit_duplicates
     inviter = User.create(username: 'inviter')
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
@@ -151,9 +141,7 @@ class TeamTest < Minitest::Test
 
     assert_equal member_count, team.all_members.count
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def test_team_member_dismiss
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
     team.save
@@ -165,9 +153,7 @@ class TeamTest < Minitest::Test
     refute team.includes?(bob)
     assert_equal 0, team.members.size
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def test_team_memberships_dismissed
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
     team.save
@@ -178,7 +164,6 @@ class TeamTest < Minitest::Test
 
     assert_equal [], TeamMembership.where(team_id: team.id, user_id: bob.id)
   end
-  # rubocop:enable Metrics/AbcSize
 
   def test_destroy_doesnt_leave_orphan_team_memberships
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
@@ -189,7 +174,6 @@ class TeamTest < Minitest::Test
     team.destroy!
   end
 
-  # rubocop:disable Metrics/AbcSize
   def test_team_member_dismiss_invalid_member
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: bob.username)
     team.save
@@ -200,9 +184,7 @@ class TeamTest < Minitest::Test
 
     assert_equal 1, team.members.size
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def test_management
     team = Team.by(alice).defined_with(slug: 'the-a-team')
     team.managed_by(bob)
@@ -216,9 +198,7 @@ class TeamTest < Minitest::Test
     bob.reload
     assert_equal [team.id], bob.managed_teams.map(&:id)
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def test_delete_memberships_with_team
     attributes = { slug: 'delete', usernames: bob.username.to_s }
     team = Team.by(alice).defined_with(attributes, alice)
@@ -228,9 +208,7 @@ class TeamTest < Minitest::Test
     team.destroy
     refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'TeamMembership was deleted.'
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def test_invite_user_with_incorrect_case_in_username
     team = Team.by(alice).defined_with(slug: 'bizard')
     team.save
@@ -244,6 +222,4 @@ class TeamTest < Minitest::Test
     team.confirm(bob.username)
     assert team.includes?(bob), "bob should now be a member"
   end
-  # rubocop:enable Metrics/AbcSize
 end
-# rubocop:enable Metrics/ClassLength
