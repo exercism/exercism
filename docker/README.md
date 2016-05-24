@@ -48,14 +48,20 @@ welcome to give it a shot!
 
 ## Setting up exercism.io
 
-First, you'll want to set up GitHub OAuth as per the instructions in
-[`CONTRIBUTING.md`][]. Create an `.env` file in the root of your
-repository with your GitHub OAuth credentials:
+First, create an `.env` file in the root of your repository with
+the following in it:
 
 ```
 EXTERNAL_PORT=4567
-EXERCISM_GITHUB_CLIENT_ID=your_git_client_id
-EXERCISM_GITHUB_CLIENT_SECRET=your_git_client_secret
+```
+
+You may also want to set up GitHub OAuth as per the instructions in
+[`CONTRIBUTING.md`][], in which case you can add your GitHub OAuth
+credentials, too:
+
+```
+EXERCISM_GITHUB_CLIENT_ID=your_github_oauth_client_id
+EXERCISM_GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
 ```
 
 Then run:
