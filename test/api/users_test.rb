@@ -1,5 +1,5 @@
 require_relative '../api_helper'
-# rubocop:disable Metrics/ClassLength
+
 class UsersApiTest < Minitest::Test
   include Rack::Test::Methods
   include DBCleaner

@@ -1,7 +1,6 @@
 require_relative '../app_helper'
 require 'mocha/setup'
 
-# rubocop:disable Metrics/ClassLength
 class TeamsTest < Minitest::Test
   include Rack::Test::Methods
   include AppTestHelper

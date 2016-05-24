@@ -1,6 +1,5 @@
 require_relative '../integration_helper'
 
-# rubocop:disable Metrics/ClassLength
 class TeamTest < Minitest::Test
   include DBCleaner
 
@@ -246,4 +245,3 @@ class TeamTest < Minitest::Test
   end
   # rubocop:enable Metrics/AbcSize
 end
-# rubocop:enable Metrics/ClassLength

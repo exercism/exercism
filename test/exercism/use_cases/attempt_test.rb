@@ -1,6 +1,5 @@
 require_relative '../../integration_helper'
 
-# rubocop:disable Metrics/ClassLength
 class AttemptTest < Minitest::Test
   include DBCleaner
 
@@ -165,4 +164,3 @@ class AttemptTest < Minitest::Test
     refute attempt.duplicate?
   end
 end
-# rubocop:enable Metrics/ClassLength
