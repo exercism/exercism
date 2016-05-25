@@ -15,7 +15,7 @@ module X
       attr_reader :repository, :checklist_issue
 
       def read
-        File.read("./x/docs/md/track/LAUNCH.md").gsub('REPO', repository).gsub('CHECKLIST_ISSUE', checklist_issue)
+        File.read("./x/docs/md/track/LAUNCH.md").gsub('REPO', repository).gsub('CHECKLIST_ISSUE', checklist_issue.to_s)
       end
     end
   end
