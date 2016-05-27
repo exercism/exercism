@@ -11,7 +11,7 @@ module ExercismLib
       def self.historical(n)
         d = Date.today
         r = new(d.year, d.month)
-        n.map { r = prev(r) }
+        n.times.map { r = prev(r) }
       end
 
       attr_reader :year, :month

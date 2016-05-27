@@ -36,3 +36,5 @@ Style/DotPosition:
   SupportedStyles:
     - leading
     - trailing
+Performance/TimesMap:
+  Enabled: false
