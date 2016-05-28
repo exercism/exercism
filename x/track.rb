@@ -15,7 +15,7 @@ module X
 
     METHODS = [
       :id, :language, :repository,
-      :todo, :problems, :docs,
+      :todo, :problems, :docs, :doc_format,
       :active, :implemented, :checklist_issue
     ].freeze
     attr_reader(*METHODS)
@@ -29,7 +29,7 @@ module X
         instance_variable_set(:"@#{name}", data[name.to_s])
       end
       @problems = data['problems'].map { |row| Problem.new(row) }
-      @docs = Docs::Track.new(data['docs'], repository)
+      @docs = Docs::Track.new(data['docs'], repository, doc_format)
     end
 
     def fetch_cmd(problem=problems.first)
