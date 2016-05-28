@@ -6,7 +6,7 @@ module X
     def test_tracks
       f = './test/fixtures/xapi_v3_tracks.json'
       Xapi.stub(:get, [200, File.read(f)]) do
-        expected = %w(animal fake fruit jewels)
+        expected = %w(animal fake fruit jewels shoes)
         assert_equal expected, Track.all.map(&:id).sort
       end
     end

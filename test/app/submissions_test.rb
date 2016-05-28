@@ -44,7 +44,7 @@ class SubmissionsTest < Minitest::Test
 
   def test_guests_can_view_submissions
     Attempt.new(alice, Iteration.new({ 'fake/hello-world/file.rb' => 'CODE' }, 'fake', 'hello-world')).save
-    f = './test/fixtures/xapi_v3_fake_track_with_hello_world.json'
+    f = './test/fixtures/xapi_v3_track_fake.json'
     X::Xapi.stub(:get, [200, File.read(f)]) do
       get "/submissions/#{Submission.first.key}"
     end

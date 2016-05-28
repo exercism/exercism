@@ -6,6 +6,8 @@ AllCops:
     - 'frontend/**/*'
     - 'vendor/**/*'
     - 'test/**/*'
+Style/IfUnlessModifier:
+  Enabled: false
 Style/DoubleNegation:
   Enabled: false
 Style/StringLiterals:

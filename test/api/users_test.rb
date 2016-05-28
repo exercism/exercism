@@ -72,7 +72,7 @@ class UsersApiTest < Minitest::Test
 
       response = JSON.parse(last_response.body)
       assert_equal 200, last_response.status
-      assert_equal 4, response["submission_statistics"].count
+      assert_equal 5, response["submission_statistics"].count
 
       assert_equal submission.language, response["submission_statistics"]["animal"]["language"]
       assert_equal 1, response["submission_statistics"]["animal"]["total"]
