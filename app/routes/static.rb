@@ -48,6 +48,10 @@ module ExercismWeb
         erb :"site/about"
       end
 
+      get '/contribute' do
+        erb :"site/contribute"
+      end
+
       get '/bork' do
         fail RuntimeError.new("Hi Bugsnag, you're awesome!")
       end
