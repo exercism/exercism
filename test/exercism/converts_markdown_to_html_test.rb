@@ -150,4 +150,40 @@ Post text)
     expected = "<p>&lt;3 This is lovely!</p>"
     assert_converts_to(input, expected)
   end
+
+  def test_no_newlines_before_and_after_code_in_backticks
+    input = "foo\n```ruby\nputs hi\n```\nbar"
+    expected = "<p>foo</p>\n<div class=\"highlight ruby\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\"><span class=\"nb\">puts</span> <span class=\"n\">hi</span>\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
+    assert_converts_to(input, expected)
+  end
+
+  def test_with_newlines_before_and_after_code_in_backticks
+    input = "foo\n\n```ruby\nputs hi\n```\n\nbar"
+    expected = "<p>foo</p>\n<div class=\"highlight ruby\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\"><span class=\"nb\">puts</span> <span class=\"n\">hi</span>\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
+    assert_converts_to(input, expected)
+  end
+
+  def test_no_newlines_before_and_after_code_in_backticks_without_language
+    input = "foo\n```\nputs hi\n```\nbar"
+    expected = "<p>foo</p>\n<div class=\"highlight plaintext\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\">puts hi\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
+    assert_converts_to(input, expected)
+  end
+
+  def test_code_in_backticks_with_carriage_returns_in_line_endings
+    input = "foo\r\n```ruby\r\nputs hi\r\n```\r\nbar"
+    expected = "<p>foo</p>\n<div class=\"highlight ruby\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\"><span class=\"nb\">puts</span> <span class=\"n\">hi</span>\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
+    assert_converts_to(input, expected)
+  end
+
+  def test_code_in_too_many_backticks
+    input = "too\r\n````\r\nmany\r\n`````\r\nbackticks"
+    expected = "<p>too</p>\n<div class=\"highlight plaintext\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\">many\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>backticks</p>"
+    assert_converts_to(input, expected)
+  end
+
+  def test_class_convert_method
+    input = "<3 This is lovely!"
+    expected = "<p>&lt;3 This is lovely!</p>\n"
+    assert_equal expected, ConvertsMarkdownToHTML.convert(input)
+  end
 end
