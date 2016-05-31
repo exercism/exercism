@@ -1,6 +1,5 @@
 require_relative '../test_helper'
 require 'exercism/markdown'
-require 'exercism/converts_markdown_to_html'
 
 class MarkdownTest < Minitest::Test
   def test_mention
@@ -50,13 +49,4 @@ class MarkdownTest < Minitest::Test
                  ExercismLib::Markdown.render(markdown)
   end
 
-  def test_no_newlines_before_and_after_code
-    markdown = "foo\n```ruby\nputs hi\n```\nbar"
-    assert_match "<div class=\"highlight", ConvertsMarkdownToHTML.convert(markdown)
-  end
-
-  def test_no_newlines_before_and_after_code_without_language
-    markdown = "foo\n```\nputs hi\n```\nbar"
-    assert_match "<div class=\"highlight", ConvertsMarkdownToHTML.convert(markdown)
-  end
 end
