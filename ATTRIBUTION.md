@@ -71,6 +71,9 @@ It is trademarked, and we have adapted it--changing the color--with their permis
 The Perl Foundation does not support or endorse Exercism.
 
 
+**Perl 6 icon** <http://exercism.io/img/tracks/perl6.png> The Perl 6 "Camelia" logo is owned by Larry Wall and is released under version 2.0 of the Artistic License. We are using it to identify the Perl 6 language itself, not any part of Exercism, which we believe to be admissible under fair use. The version of the logo that we are using is a pink, black and white adaptation of the logo found on <http://en.wikipedia.org/wiki/Perl_6>.
+
+
 **Python icon** http://exercism.io/img/tracks/python.png
 The Python logo is an unregistered trademark. We are using a derived logo with the permission of the Python Software Foundation.
 
