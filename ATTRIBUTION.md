@@ -1,3 +1,7 @@
+**Bash icon** http://exercism.io/img/tracks/bash.png
+We are using an unofficial logo of the GNU Bash project created by Justin Dorfman. It's not clear under which terms it's released. We believe that our adaptation, changing the colours, falls under fair use.
+
+
 **Clojure icon** http://exercism.io/img/tracks/clojure.png
 The Clojure logo is owned by Rich Hickey.
 We are using it to identify the Clojure language itself, not any part of Exercism, which we believe to be admissible under fair use.
@@ -8,6 +12,11 @@ The version of the logo that we are using is a black/white adaptation of the log
 We were unable to find a license for the CoffeeScript logo, however we believe that it is owned by Jeremy Ashkenas, who holds the copyright on the CoffeeScript language.
 We are using the logo to identify the CoffeeScript language itself, not any part of Exercism, which we believe to be admissible under fair use.
 The version of the logo that we are using is a black/white adaptation of the logo found on coffeescript.org.
+
+
+**Crystal icon** http://exercism.io/img/tracks/crystal.png
+The Crystal logo is assumed to be owned by Manas SA. It appears to be released under version 2.0 of the Apache license, along with the Crystal codebase. It may also fall within the public domain, since the version we are using is a geometric shape. We have cropped it for use on Exercism.
+
 
 **D icon** http://exercism.io/img/tracks/d.png
 The D "Digital Mars" logo is owned by Digital Mars, Inc. Digital Mars, Inc. allows anyone to use, modify and redistribute the logo provided that the copyright holder is properly attributed. The original image is part of the D programming language "dlang.org" source repository, released under version 1.0 of the Boost Software License. We have modified the image, changing the colour scheme, to create the D icon for Exercism.
@@ -34,8 +43,10 @@ The Erlang logo is in the public domain.
 **F# icon** http://exercism.io/img/tracks/fsharp.png
 The F# Software Foundation logo for F# is an asset of the F# Software Foundation. We have adapted it --changing the color-- with permission.
 
+
 **Factor icon** http://exercism.io/img/tracks/factor.png
 The Factor "Tyrannosaurus Rex" logo is owned by John Benediktsson. We have adapted it, changing the colour scheme, with his permission.
+
 
 **Lisp Flavoured Erlang icon** http://exercism.io/img/tracks/lfe.png
 The LFE logo has been released into the public domain by its author, Duncan McGreggor.
@@ -46,8 +57,16 @@ We adapted the this logo to create the icon used on Exercism.
 The Go logo was designed by Renée French, and has been released under the Creative Commons 3.0 Attributions license.
 
 
+**Groovy icon** http://exercism.io/img/tracks/groovy.png
+The version of the Groovy logo adapted for use on Exercism was created by Stefan Becker (Zorak1103) and is released under verison 3.0 of the Creative Commons Attribution-Share Alike license. We have changed the colour palette for Exercism.
+
+
 **Haskell icon** http://exercism.io/img/tracks/haskell.png
 The Haskell icon was designed by Darrin Thompson and Jeff Wheeler. It was released under the [HaskellWiki license](https://wiki.haskell.org/HaskellWiki:Copyrights).
+
+
+**Haxe icon** http://exercism.io/img/tracks/haxe.png
+The Haxe logo is assumed to be owned by the Haxe Foundation, but this is not made explicit. We have adapted it, changing the colours, for use on Exercism, which we believe to fall under fair use.
 
 
 **Kotlin icon** http://exercism.io/img/tracks/kotlin.png
@@ -60,6 +79,14 @@ The [Lisp logo](http://exercism.io/img/tracks/lisp.png) was designed by Xah Lee,
 
 **Lua icon** http://exercism.io/img/tracks/lua.png
 The Lua icon is inspired by the [Lua logo](http://www.lua.org/images/), which was designed by Alexandre Nakonechnyj.
+
+
+**NASM icon** http://exercism.io/img/tracks/nasm.png
+The NASM logo is Copyright 2012 H. Peter Anvin. We have adapted it, tweaking the colours, for use on Exercism. We are using it to identify the NASM language and platform itself, not any part of Exercism, which we believe to be admissible under fair use.
+
+
+**Nim icon** http://exercism.io/img/tracks/nim.png
+The Nim logo is assumed to be owned by Andreas Rumpf. It appears to be released under the MIT license, along with the Nim codebase. We've adapted the official Nim logo by changing the colors, which we believe falls under fair use.
 
 
 **OCaml icon** http://exercism.io/img/tracks/ocaml.png
@@ -82,6 +109,10 @@ The Perl 6 "Camelia" logo is owned by Larry Wall and is released under version 2
 
 **Python icon** http://exercism.io/img/tracks/python.png
 The Python logo is an unregistered trademark. We are using a derived logo with the permission of the Python Software Foundation.
+
+
+**R icon** http://exercism.io/img/tracks/r.png
+The R logo was created by Hadley Wickham and others at RStudio. The original file is licensed under version 4.0 of the Creative Commons Attribution-Share Alike license. We have adapted it, changing the colour scheme, for use on Exercism.
 
 
 **Racket icon** http://exercism.io/img/tracks/racket.png
