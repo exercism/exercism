@@ -9,9 +9,12 @@ We were unable to find a license for the CoffeeScript logo, however we believe t
 We are using the logo to identify the CoffeeScript language itself, not any part of Exercism, which we believe to be admissible under fair use.
 The version of the logo that we are using is a black/white adaptation of the logo found on coffeescript.org.
 
+**D icon** http://exercism.io/img/tracks/d.png
+The D "Digital Mars" logo is owned by Digital Mars, Inc. Digital Mars, Inc. allows anyone to use, modify and redistribute the logo provided that the copyright holder is properly attributed. The original image is part of the D programming language "dlang.org" source repository, released under version 1.0 of the Boost Software License. We have modified the image, changing the colour scheme, to create the D icon for Exercism.
+
 
 **Emacs Lisp icon** http://exercism.io/img/tracks/elisp.png
-The GNU Emacs icon designed by Andrew Zhilin and is licensed under the Creative Commons Attribution-ShareAlike 3.0 License.
+The GNU Emacs icon was designed by Andrew Zhilin and is licensed under the Creative Commons Attribution-ShareAlike 3.0 License.
 We have modified the GNU Emacs icon to create the Emacs Lisp icon for Exercism.
 
 
@@ -31,7 +34,7 @@ The Erlang logo is in the public domain.
 **F# icon** http://exercism.io/img/tracks/fsharp.png
 The F# Software Foundation logo for F# is an asset of the F# Software Foundation. We have adapted it --changing the color-- with permission.
 
-**Factor icon** <http://exercism.io/img/tracks/factor.png>
+**Factor icon** http://exercism.io/img/tracks/factor.png
 The Factor "Tyrannosaurus Rex" logo is owned by John Benediktsson. We have adapted it, changing the colour scheme, with his permission.
 
 **Lisp Flavoured Erlang icon** http://exercism.io/img/tracks/lfe.png
@@ -73,7 +76,7 @@ It is trademarked, and we have adapted it--changing the color--with their permis
 The Perl Foundation does not support or endorse Exercism.
 
 
-**Perl 6 icon** <http://exercism.io/img/tracks/perl6.png>
+**Perl 6 icon** http://exercism.io/img/tracks/perl6.png
 The Perl 6 "Camelia" logo is owned by Larry Wall and is released under version 2.0 of the Artistic License. We are using it to identify the Perl 6 language itself, not any part of Exercism, which we believe to be admissible under fair use. The version of the logo that we are using is a pink, black and white adaptation of the logo found on <http://en.wikipedia.org/wiki/Perl_6>.
 
 
