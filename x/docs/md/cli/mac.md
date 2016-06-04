@@ -3,7 +3,7 @@
   - [With Homebrew](#installing-with-homebrew)
   - [Without Homebrew](#installing-without-homebrew)
 
-Homebrew is a package manager for OS X which installs the stuff that apple
+Homebrew is a package manager for OS X which installs the stuff that Apple
 didn't.
 
 Find out if you have homebrew installed via the terminal.
