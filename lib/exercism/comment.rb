@@ -1,4 +1,5 @@
 require 'exercism/markdown'
+require 'exercism/excerpt'
 
 class Comment < ActiveRecord::Base
   belongs_to :user
@@ -41,6 +42,10 @@ class Comment < ActiveRecord::Base
 
   def mention_ids
     @mention_ids ||= User.where(username: mentions).pluck(:id).map(&:to_i)
+  end
+
+  def excerpt(length)
+    Excerpt.new(html_body).limit(length)
   end
 
   private
