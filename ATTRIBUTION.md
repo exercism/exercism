@@ -57,10 +57,6 @@ We adapted the this logo to create the icon used on Exercism.
 The Go logo was designed by Renée French, and has been released under the Creative Commons 3.0 Attributions license.
 
 
-**Groovy icon** http://exercism.io/img/tracks/groovy.png
-The version of the Groovy logo adapted for use on Exercism was created by Stefan Becker (Zorak1103) and is released under verison 3.0 of the Creative Commons Attribution-Share Alike license. We have changed the colour palette for Exercism.
-
-
 **Haskell icon** http://exercism.io/img/tracks/haskell.png
 The Haskell icon was designed by Darrin Thompson and Jeff Wheeler. It was released under the [HaskellWiki license](https://wiki.haskell.org/HaskellWiki:Copyrights).
 
