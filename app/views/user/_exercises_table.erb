@@ -31,7 +31,11 @@
           <td><input type="checkbox" name="exercise_ids[]" value="<%= exercise.id %>"></td>
         <% end %>
 
-        <td><%= exercise.problem.language %></td>
+        <td>
+          <a href="/languages/<%= exercise.problem.track_id %>">
+            <%= exercise.problem.language %>
+          </a>
+        </td>
         <td>
           <% if profile.access?(exercise) %>
             <a href="/exercises/<%= exercise.key %>">
