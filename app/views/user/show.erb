@@ -33,7 +33,7 @@
           <% end %>
         <% end %>
       <% end %>
-      <% if profile.finished_tracks.any? %>
+      <% if profile.finished_tracks.any? && profile.own? %>
         <h3>Contribute:</h3>
         <h4>You've completed the following tracks. Want to help add more exercises?</h4>
         <ul>
