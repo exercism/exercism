@@ -1,0 +1,44 @@
+app:
+  extends:
+    file: docker/common.yml
+    service: app
+  links:
+    - db
+  command: rackup -s puma -p 4567 --host 0.0.0.0
+  ports:
+    - "${EXTERNAL_PORT}:4567"
+  environment:
+    # These will ensure that certain development commands which
+    # use 'psql' will also include our custom database config.
+    #
+    # For more information, see:
+    # http://www.postgresql.org/docs/8.4/static/libpq-envars.html
+    PGHOST: db
+    PGUSER: exercism
+    PGPASSWORD: apples
+
+    RACK_ENV:
+    DEV_DATABASE_HOST: db
+db:
+  image: postgres:9.4
+  environment:
+    POSTGRES_USER: exercism
+    POSTGRES_PASSWORD: apples
+compass:
+  extends:
+    file: docker/common.yml
+    service: app
+  command: compass watch
+
+# Lineman runs, but it's putting all its compiled code into
+# /frontend/generated, which the Ruby app isn't looking at. On
+# top of that, it doesn't deal with Docker's SIGTERM in a graceful
+# way, which slows down stopping the container, so we'll just leave
+# this whole thing disabled for now.
+
+#lineman:
+#  extends:
+#    file: docker/common.yml
+#    service: app
+#  command: lineman run
+#  working_dir: /exercism/frontend
