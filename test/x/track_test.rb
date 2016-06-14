@@ -19,6 +19,7 @@ module X
         assert_equal "Fake", track.language
         assert_equal "Language Information", track.docs.about.split("\n").first
         assert_equal "Hello World", track.problems.first.name
+        assert_equal "https://github.com/exercism/xfake/img/icon.png", track.image
       end
     end
   end

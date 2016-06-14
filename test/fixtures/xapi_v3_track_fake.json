@@ -9,6 +9,7 @@
     "active": true,
     "implemented": true,
     "doc_format": "org",
+    "image": "https://github.com/exercism/xfake/img/icon.png",
     "docs": {
       "about": "Language Information\n",
       "installation": "Installing\n",
