@@ -53,15 +53,10 @@ module ExercismLib
         tables: true,
         space_after_headers: true,
         xhtml: true,
+        lax_spacing: true,
       }
     end
     # rubocop:enable Metrics/MethodLength
-
-    def preprocess(text_content)
-      # patch while redcarpet doesn't support lists without newline issue#2759
-      # captures line before list and adds another newline
-      text_content.gsub(/^\w+\n(?=[*|-]\s\w+)/, "\\0\n")
-    end
 
     def postprocess(html_content)
       dom = Nokogiri::HTML(html_content)

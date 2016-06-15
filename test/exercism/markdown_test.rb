@@ -18,8 +18,16 @@ class MarkdownTest < Minitest::Test
   end
 
   def test_lists_without_blank_lines
-    markdown = "foo\n* one\n* two"
-    expected = "<p>foo</p>\n\n<ul>\n<li>one</li>\n<li>two</li>\n</ul>\n"
+    markdown = "foo bar baz\n* one two three\n* cats dogs and frogs"
+    expected = "<p>foo bar baz</p>\n\n<ul>\n<li>one two three</li>\n" \
+               "<li>cats dogs and frogs</li>\n</ul>\n"
+    assert_equal expected, ExercismLib::Markdown.render(markdown)
+  end
+
+  def test_lists_without_blank_lines
+    markdown = "foo bar baz\n* one two three\n* cats dogs and frogs"
+    expected = "<p>foo bar baz</p>\n\n<ul>\n<li>one two three</li>\n" \
+               "<li>cats dogs and frogs</li>\n</ul>\n"
     assert_equal expected, ExercismLib::Markdown.render(markdown)
   end
 
