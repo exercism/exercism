@@ -8,12 +8,7 @@ module ExercismWeb
       private
 
       def track_image(track_id)
-        track = ::X::Track.find(track_id)
-        if track.image
-          track.image
-        else
-          "/img/e_red.png"
-        end
+        ::X::Track.find(track_id).image
       end
     end
   end
