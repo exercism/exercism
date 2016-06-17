@@ -1,6 +1,5 @@
 module ExercismWeb
   module Routes
-    # rubocop:disable Metrics/ClassLength
     class Core < Sinatra::Application
       configure do
         set :public_folder, Exercism.relative_to_root('public')
@@ -85,48 +84,12 @@ module ExercismWeb
           File.join(root_path, path)
         end
 
-        def path_for(language=nil, section='nitpick')
-          if language
-            "/#{section}/#{language.downcase}"
-          else
-            "/"
-          end
-        end
-
-        def language_path_for_slug(language, slug)
-          path_for(language) + "/#{slug}"
-        end
-
         def assumable_users
           AssumableUser.all
         end
 
-        def active_nav(path)
-          if path == request.path_info
-            "active"
-          else
-            ""
-          end
-        end
-
         def nav_text(slug)
           slug.split("-").map(&:capitalize).join(" ")
-        end
-
-        def dashboard_assignment_section_nav(language, slug)
-          path = language_path_for_slug(language, slug)
-          %(<li class="#{active_nav(path)}">
-          <a href="#{path}">#{nav_text(slug)}</a>
-        </li>)
-        end
-
-        def dashboard_assignment_nav(language, slug=nil, counts=nil)
-          return if !counts || counts.zero?
-
-          path = language_path_for_slug(language, slug)
-          %{<li class="#{active_nav(path)}">
-          <a href="#{path}">#{nav_text(slug)} (#{counts})</a>
-        </li>}
         end
 
         def namify(slug)
