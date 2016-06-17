@@ -9,10 +9,6 @@ class AttemptTest < Minitest::Test
     @user = User.create
   end
 
-  def python_two
-    { 'two.py' => 'CODE' }
-  end
-
   def test_validity
     Xapi.stub(:exists?, true) do
       assert Attempt.new(user, Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two')).valid?
