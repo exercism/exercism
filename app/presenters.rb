@@ -1,7 +1,6 @@
 module ExercismWeb
   module Presenters
     {
-      Assignment: 'assignment',
       Languages: 'languages',
       Inbox: 'inbox',
       Tracks: 'tracks',
