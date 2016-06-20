@@ -72,7 +72,7 @@ class TeamStream
     # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
-      SELECT 1 AS id, COUNT(views.id) AS total
+      SELECT 'team_stream' AS id, COUNT(1) AS total
       FROM views
       INNER JOIN user_exercises ex
         ON ex.id=views.exercise_id
@@ -86,7 +86,7 @@ class TeamStream
     # rubocop:enable Metrics/MethodLength
 
     def item(_, total)
-      Stream::FilterItem.new(team_slug, 'All', url, true, total.to_i)
+      Stream::FilterItem.new('team_stream', 'All', url, true, total.to_i)
     end
 
     def url
