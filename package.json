@@ -1,0 +1,21 @@
+{
+  "name": "exercism-nodejs-build",
+  "title": "package.json for triggering heroku buildpack",
+  "version": "0.0.1",
+  "private": true,
+  "author": {
+    "name": "Tejas Bubane"
+  },
+  "dependencies": {
+    "grunt": "~0.4.1",
+    "grunt-ngmin": "~0.0.2",
+    "lineman": ">=0.11.1"
+  },
+  "engines": {
+    "node": "~>0.10.5",
+    "npm": "~>1.2.18"
+  },
+  "scripts": {
+    "postinstall": "compass compile && cd frontend && lineman build"
+  }
+}
