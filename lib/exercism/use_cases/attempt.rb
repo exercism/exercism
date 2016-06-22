@@ -40,6 +40,4 @@ class Attempt
   def previous_submission
     @previous_submission ||= previous_submissions.first || NullSubmission.new(submission.problem)
   end
-
-  class InvalidAttemptError < StandardError; end
 end

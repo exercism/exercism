@@ -25,10 +25,6 @@ module ExercismWeb
         tracks.find { |track| track.id == id }
       end
 
-      def self.repo_url(id)
-        find(id)["repository"]
-      end
-
       def self.active
         @@active ||= tracks.select(&:active?)
       end

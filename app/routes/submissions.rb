@@ -17,7 +17,6 @@ module ExercismWeb
 
         locals = {
           submission: submission,
-          sharing: Presenters::Sharing.new,
           own_uuid: submission.exercise_uuid_by(current_user),
         }
 

@@ -47,18 +47,6 @@ module ExercismWeb
       def hours
         60 * minutes
       end
-
-      def days
-        24 * hours
-      end
-
-      def weeks
-        7 * days
-      end
-
-      def months
-        30 * days
-      end
     end
   end
 end
