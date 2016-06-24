@@ -20,13 +20,15 @@ namespace :db do
   desc "reset db and reseed data"
   task reseed: ["db:drop", "db:create", "db:migrate", "db:seed"]
 
-  desc "generate seed data"
-  task :seed do
+  task :connection do
     require 'bundler'
     Bundler.require
     require 'exercism'
     require_relative '../db/config'
+  end
 
+  desc "generate seed data"
+  task seed: [:connection] do
     config = DB::Config.new
     # rubocop:disable Style/AlignParameters
     system({ 'PGPASSWORD' => config.password },
@@ -37,5 +39,17 @@ namespace :db do
 
     # Trigger generation of html body
     Comment.find_each(&:save)
+  end
+
+  desc "generate seed data on Heroku"
+  task heroku_seed: [:connection] do
+    if ENV['DATABASE_URL']
+      system('psql', ENV['DATABASE_URL'], '-f', 'db/seeds.sql')
+      # Trigger generation of html body
+      Comment.find_each(&:save)
+    else
+      puts "No DATABASE_URL environment variable found. Did you add postgresql addon?"
+      puts "If you're trying to run this task on your local machine, prefer the `db:seed` task instead"
+    end
   end
 end
