@@ -23,6 +23,15 @@
       </div>
 
       <div class="row">
+        <div class="form-group col-sm-8">
+          <label for="team_slug">Description</label>
+          <div class="controls">
+            <textarea name="team[description]" id="team_description" class="form-control" placeholder="e.g., People interested in learning new programming languages"><%= team.description %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <button type="submit" class="btn btn-primary" style="margin-left: 15px">Update</button>
       </div>
     </form><br/>
