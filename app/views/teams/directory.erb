@@ -3,6 +3,11 @@
   <%= erb :"teams/_tabs", locals: {active: active, team: team} %>
 
   <h3><%= h(team.name) %> (<%= team.confirmed_members.size %> <%= 'member'.pluralize(team.confirmed_members.size) %>)</h3>
+
+  <% if team.description.present? %>
+    <h4><%= team.description %></h4>
+  <% end %>
+
   <p>Click on a team member's name to go to their profile.</p>
 
   <% team.confirmed_members.each_slice(3) do |row| %>
