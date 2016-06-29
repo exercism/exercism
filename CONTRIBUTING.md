@@ -177,6 +177,23 @@ you'll need to do this manually.
 * Then you can access the local server at [localhost:4567](http://localhost:4567).
 * You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
 
+To setup seed data to test out the application locally, use the rake
+tasks provided. You can get a list of all the rake tasks by running:
+
+    bundle exec rake -T
+
+To setup the seed data locally, run:
+
+    bundle exec rake db:seeds:fetch`
+    bundle exec rake db:seed
+
+The first command fetches the seed file and places it under the `db/`
+folder as `seeds.sql`. Note that if you're deploying the application to
+Heroku, `db:seed` task might fail since the database config file won't
+contain the necessary details to access the database. To work around the
+problem, there's a task `db:heroku_seed` that can be used.
+
+
 ### Running The Application In A Vagrant Environment
 _The following assumes your Vagrantfile is configured to forward port 3000 to 3030, adjust the port number to suit your environment_
 

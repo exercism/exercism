@@ -16,11 +16,4 @@ class PresentersTracksTest < Minitest::Test
     assert_equal upcoming, @tracks.upcoming.map(&:language)
     assert_equal planned, @tracks.planned.map(&:language)
   end
-
-  def test_repository
-    languages = @tracks.load_tracks.map(&:slug)
-    languages.each do |l|
-      assert_equal "https://github.com/exercism/x#{l}", @tracks.repo_url(l)
-    end
-  end
 end
