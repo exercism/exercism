@@ -7,6 +7,15 @@
     <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}" %>" method="post">
       <input type="hidden" name="_method" value="put" />
       <div class="row">
+        <div class="form-group col-sm-8">
+          <label for="team_public">Public (should people be able to find your team?)</label>
+          <div class="controls">
+            <input type="checkbox" id="team_public" name="team[public]" value="1" <%= 'checked' if team.public %>/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="form-group col-sm-4">
           <label for="team_slug">Slug (in URL)</label>
           <div class="controls">
