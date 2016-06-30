@@ -16,6 +16,6 @@
     "npm": "~>1.2.18"
   },
   "scripts": {
-    "postinstall": "compass compile -e production --force && cd frontend && lineman build"
+    "postinstall": "bundle exec compass compile -e production --force && cd frontend && lineman build"
   }
 }
