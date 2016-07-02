@@ -13,7 +13,8 @@ test:
   database: exercism_test
 
 development:
-  url: <%= ENV["DATABASE_URL"] %>
+  <<: *postgres
+  database: exercism_development
 
 production:
   url: <%= ENV["DATABASE_URL"] %>
