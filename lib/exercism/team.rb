@@ -37,9 +37,11 @@ class Team < ActiveRecord::Base
     managers << user unless managed_by?(user)
   end
 
+  # rubocop:disable Metrics/MethodLength
   def defined_with(options, inviter=nil)
     self.slug = options[:slug]
     self.name = options[:name]
+    self.description = options[:description]
     recruits = User.find_or_create_in_usernames(potential_recruits(options[:usernames])) if options[:usernames]
     recruits = options[:users] if options[:users]
 

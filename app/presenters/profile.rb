@@ -61,14 +61,6 @@ module ExercismWeb
         user.share_key
       end
 
-      def archived_in(track_id)
-        archived_exercises.where(language: track_id).reverse
-      end
-
-      def track_ids
-        @track_ids ||= archived_exercises.pluck('language').uniq
-      end
-
       def is_track_mentor?
         user.track_mentor.any?
       end

@@ -10,10 +10,6 @@ class Guest
     false
   end
 
-  def onboarding_steps
-    []
-  end
-
   def exercises
     UserExercise.where('1=2')
   end

@@ -1,4 +1,3 @@
-# rubocop:disable Metrics/ClassLength
 class Submission < ActiveRecord::Base
   serialize :solution, JSON
   belongs_to :user
@@ -35,10 +34,6 @@ class Submission < ActiveRecord::Base
 
   scope :between, lambda { |upper_bound, lower_bound|
     where(created_at: upper_bound..lower_bound)
-  }
-
-  scope :older_than, lambda { |timestamp|
-    where('submissions.created_at < ?', timestamp)
   }
 
   scope :since, lambda { |timestamp|
@@ -79,10 +74,6 @@ class Submission < ActiveRecord::Base
 
   def activity_description
     "Submitted an iteration"
-  end
-
-  def older_than?(time)
-    created_at.utc < (Time.now.utc - time)
   end
 
   def track_id
