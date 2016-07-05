@@ -10,6 +10,14 @@ module ExercismWeb
         erb :"languages/index", locals: { active: active, inactive: inactive }
       end
 
+      get '/repositories' do
+        active, inactive = X::Track.all.partition(&:active?)
+        inactive.sort! { |a, b| b.problems.count <=> a.problems.count }
+        planned, upcoming = inactive.partition(&:planned?)
+        erb :"languages/repositories", locals: { active: active, inactive: inactive,
+                                                 planned: planned, upcoming: upcoming }
+      end
+
       get '/languages/:track_id' do |track_id|
         _, body = X::Xapi.get('tracks', track_id)
         parsed_body = JSON.parse(body)

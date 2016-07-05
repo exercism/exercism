@@ -1,0 +1,14 @@
+<div class="track_link col-xs-4 col-sm-4 col-md-2 col-lg-2 text-center">
+  <a href="<%= track.repository%>">
+    <p>
+      <%= track_icon(track.id) %>
+    </p>
+    <p>
+      <%= track.language %>
+    </p>
+  </a>
+  <% unless track.active %>
+    <p><a href="https://github.com/exercism/x<%= track.id %>/issues/<%= track.checklist_issue %>">Launch checklist</a>
+    </p>
+  <% end %>
+</div>
