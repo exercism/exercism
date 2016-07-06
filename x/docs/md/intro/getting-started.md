@@ -19,10 +19,10 @@ Once you have submitted your first exercise, there are several other things you 
 
 You can submit multiple files as part of your solution:
 
-``
-cd path/to/folder    
-exercism submit file1 file2
-``
+```
+$ cd path/to/solution/
+$ exercism submit file1 file2
+```
 
 Another way to submit a header file along with your implementation file:  
 `exercism submit path/to/file{.headerExtension,.ImplementationExtension}`   
