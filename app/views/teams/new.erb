@@ -14,6 +14,13 @@
             </div>
           <% end %>
           <div class="form-group">
+            <label class="control-label col-sm-3" for="team_public">Public</label>
+            <div class="col-sm-9">
+              <input type="checkbox" id="team_public" name="team[public]" value="1" <%= 'checked' if team.public %>/>
+              <span><em>(should people be able to find your team?)</em></span>
+            </div>
+          </div>
+          <div class="form-group">
             <label class="control-label col-sm-3" for="team_slug">Slug</label>
             <div class="col-sm-9">
               <input type="text" name="team[slug]" id="team_slug" placeholder="e.g.,  gocowboys" value="<%= team.slug %>" class="form-control">
