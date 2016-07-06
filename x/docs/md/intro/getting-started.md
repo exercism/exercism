@@ -17,8 +17,14 @@ Once you have submitted your first exercise, there are several other things you 
 
 ## Command Line Tips 
 
-You can submit a header file along with your implementation using:  
-`exercism submit path/to/file{.headerExtension,.ImplementationExtension}`   
-This works with shells like bash using language tracks like C `file{.h,.m}` or C++ `file{.h,.cpp}` etc.  
+You can submit multiple files as part of your solution:
 
+``
+cd path/to/folder
+exercism submit file1 file2
+``
+
+Another way to submit a header file along with your implementation file:  
+`exercism submit path/to/file{.headerExtension,.ImplementationExtension}`   
+This works with shells like `bash` on the language tracks like C `file{.h,.m}` or C++ `file{.h,.cpp}` etc.  
 
