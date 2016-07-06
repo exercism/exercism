@@ -20,7 +20,7 @@ Once you have submitted your first exercise, there are several other things you 
 You can submit multiple files as part of your solution:
 
 ``
-cd path/to/folder
+cd path/to/folder    
 exercism submit file1 file2
 ``
 
