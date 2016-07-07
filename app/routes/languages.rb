@@ -14,7 +14,9 @@ module ExercismWeb
         tracks = X::Track.all
         active, inactive = tracks.partition(&:active?)
         inactive.sort! { |a, b| b.problems.count <=> a.problems.count }
-        erb :"languages/repository", locals: { active: active, inactive: inactive }
+        planned, upcoming = inactive.partition(&:planned?)
+        erb :"languages/repository", locals: { active: active, inactive: inactive, 
+                                                planned: planned, upcoming: upcoming}
       end
 
       get '/languages/:track_id' do |track_id|
