@@ -44,6 +44,24 @@ You can configure a different directory by passing the `--dir` option:
 exercism configure --dir=~/some/other/place
 ```
 
+## Submitting Solutions
+
+Use the submit command with the file you want to submit:
+
+```
+exercism submit path/to/file
+```
+
+To add a comment to your solution, use the `--comment` flag:
+
+```
+exercism submit path/to/file --comment 'Implementing it this way because...'
+```
+
+This is a great place to say what you were thinking, what was interesting about
+the exercise, what you got stuck on, what surprised you, what trade-offs you
+made, etc.
+
 ## Getting Comfortable on the Command-Line
 
 If the command-line feels foreign and intimidating to you, go work through the excellent tutorial
