@@ -1,32 +1,34 @@
-  <div class="container">
-    <section class="contributing-intro jumbotron">
-      <h1>Exercism Repositories</h1>
+<div class="container">
+  <section class="contributing-intro jumbotron">
+    <h1>Exercism Repositories</h1>
 
-      <p class="lead">
-        <strong>What are the repositories you can contribute to?</strong><br />
-      </p>
+    <p class="lead">
+      <strong>What are the repositories you can contribute to?</strong><br />
+    </p>
 
-      <p> Exercism is a project comprised of several repositories and these can be divided basically into:</p>
-      <h2> Basic components </h2>
-      <ul>
-          <li><strong><a href="https://github.com/exercism/exercism.io">The website</a></strong>: Holds the code that people submit. Browse and review solutions, and have conversations.</li>
-          <li><strong><a href="https://github.com/exercism/cli">Command line interface</a></strong>: Used to fetch exercises and submit solutions.</li>
-           <li><strong><a href="https://github.com/exercism/x-api">Problems API</a></strong>: Delivers exercises. Consumed by the Exercism command-line client, as well as the Exercism website.</li>
-        </ul>
+    <p> Exercism is a project comprised of several repositories and these can be divided basically into:</p>
 
-         <h2> Interesting Tools </h2>
+    <h2> Basic components </h2>
+
+     <ul>
+      <li><strong><a href="https://github.com/exercism/exercism.io">The website</a></strong>: Holds the code that people submit. Browse and review solutions, and have conversations.</li>
+      <li><strong><a href="https://github.com/exercism/cli">Command line interface</a></strong>: Used to fetch exercises and submit solutions.</li>
+      <li><strong><a href="https://github.com/exercism/x-api">Problems API</a></strong>: Delivers exercises. Consumed by the Exercism command-line client, as well as the Exercism website.</li>
+     </ul>
+
+     <h2> Interesting Tools </h2>
 
         <ul>
           <li><strong><a href="https://github.com/exercism/rikki">Rikki- the robot</a></strong>: Provides helpful, friendly, automated feedback on certain exercises.</li>
           <li><strong><a href="https://github.com/exercism/blazon">Blazon</a></strong>: Helps us manage cross-track issues.</li>
         </ul>
-        </p>
-    </section>
-     
+
+  </section>
+
       <section class="page-header">
         <h3>Languages you can contribute to!</h3>
       </section>
-     
+
       <% active.each_slice(6) do |tracks| %>
         <div class="row">
           <% tracks.each do |t| %>
@@ -56,7 +58,4 @@
           <% end %>
         </div>
       <% end %>
-    
-
-
-   
+</div>
