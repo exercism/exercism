@@ -21,6 +21,7 @@
         <th>Exercise</th>
         <th>Iterations</th>
         <th>Latest Iteration</th>
+        <th>Comments</th>
       </tr>
     </thead>
     <tbody>
@@ -49,6 +50,7 @@
         </td>
         <td><%= exercise.iteration_count %></td>
         <td data-value="<%= exercise.last_iteration_at.to_i %>"><%= exercise.last_iteration_at.strftime("%Y-%m-%d") %></td>
+        <td><%= exercise.comment_count %></td>
       </tr>
     <% end %>
     </tbody>
