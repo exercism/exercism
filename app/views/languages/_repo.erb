@@ -1,18 +1,16 @@
-<% if !track.active %>
 <div class="track_link col-xs-4 col-sm-4 col-md-2 col-lg-2 text-center" >
-<a href="<%= track.repository%>">
- <p> <%= track_icon(track.id) %> </p>
- <p><%= track.language %></p>
-</a>
-<p><a href="https://github.com/exercism/x<%= track.id %>/issues/<%= track.checklist_issue %>">Launch checklist</a> </p>
+  <% if !track.active %>
+  <a href="<%= track.repository%>">
+    <p> <%= track_icon(track.id) %> </p>
+    <p><%= track.language %></p>
+  </a>
+  <p><a href="https://github.com/exercism/x<%= track.id %>/issues/<%= track.checklist_issue %>">Launch checklist</a> </p>
+  <% end %>
+  <% if track.active %>
+  <a href="<%= track.repository%>">
+    <p> <%= track_icon(track.id) %> </p>
+    <p><%= track.language %></p>
+  </a>
+  <% end %>
 </div>
-<% end %>
 
-<% if track.active %>
-<a href="<%= track.repository%>" class="track_link col-xs-4 col-sm-4 col-md-2 col-lg-2">
-  <div class="text-center">
-   <p> <%= track_icon(track.id) %> </p>
-   <p><%= track.language %></p>
-  </div>
-</a>
-<% end %>
