@@ -141,6 +141,17 @@ class TeamsTest < Minitest::Test
     assert team.public?
   end
 
+  def test_team_creation_with_tags
+    post '/teams', {
+      team: { slug: 'no_members', usernames: '' , tags: 'team, with, tags' }
+    }, login(alice)
+
+    team = Team.first
+
+    assert_equal 3, team.tags.size
+    assert_equal 'team, with, tags', team.all_tags
+  end
+
   def test_team_creation_with_no_members
     assert_equal 0, alice.managed_teams.size
 
@@ -321,13 +332,18 @@ class TeamsTest < Minitest::Test
     team.save
 
     refute team.public?
+    assert team.tags.empty?
 
-    put "/teams/#{team.slug}", { team: { name: 'New name', slug: 'new_slug', description: 'With name', public: '1'} }, login(alice)
+    put "/teams/#{team.slug}", {
+      team: { name: 'New name', slug: 'new_slug', description: 'With name', public: '1', tags: 'new, tag' }
+    }, login(alice)
 
     assert_response_status(302)
     assert team.reload.name == 'New name'
     assert team.reload.description == 'With name'
     assert team.reload.public?
+    assert team.reload.all_tags == 'new, tag'
+    assert 2, team.tags.size
   end
 
   def test_unconfirmed_memberships_after_invitation

@@ -37,12 +37,13 @@ class Team < ActiveRecord::Base
     managers << user unless managed_by?(user)
   end
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def defined_with(options, inviter=nil)
     self.slug = options[:slug]
     self.name = options[:name]
     self.description = options[:description]
     self.public = options[:public].present?
+    self.tags = Tag.create_from_text(options[:tags])
 
     recruits = User.find_or_create_in_usernames(potential_recruits(options[:usernames])) if options[:usernames]
     recruits = options[:users] if options[:users]
@@ -95,6 +96,10 @@ class Team < ActiveRecord::Base
 
   def all_members
     members + unconfirmed_members
+  end
+
+  def all_tags
+    Tag.where(id: tags).pluck(:name).join(', ')
   end
 
   private
