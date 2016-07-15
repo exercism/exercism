@@ -1,0 +1,19 @@
+.gitter-chat-embed {
+  z-index: 2000;
+}
+
+.gitter-chat-button-frame {
+  margin-right: 30px;
+  background-color: yellow;
+
+  .gitter-chat-button {
+    background-color: green;
+    border-radius: 20px;
+    color: yellow;
+    min-width: 15em;
+    max-width: 25em;
+    cursor: pointer;
+    float: right;
+    padding: 1em;
+  }
+}
