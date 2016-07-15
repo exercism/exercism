@@ -41,6 +41,15 @@
       </div>
 
       <div class="row">
+        <div class="form-group col-sm-8">
+          <label for="team_slug">Tags</label>
+          <div class="controls">
+            <textarea name="team[tags]" id="team_tags" class="form-control" placeholder="Comma separated values, e.g., ruby, exercism, learning"><%= team.all_tags %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <button type="submit" class="btn btn-primary" style="margin-left: 15px">Update</button>
       </div>
     </form><br/>

@@ -222,4 +222,20 @@ class TeamTest < Minitest::Test
     team.confirm(bob.username)
     assert team.includes?(bob), "bob should now be a member"
   end
+
+  def test_all_tags_converts_tag_ids_into_tag_names
+    attributes = { slug: 'tags', tags: 'team, tags' }
+    team = Team.by(alice).defined_with(attributes, alice)
+    team.save
+
+    assert_equal 'team, tags', team.all_tags
+  end
+
+  def test_all_tags_returns_empty_string_when_team_has_no_tags
+    team = Team.by(alice).defined_with(slug: 'no_tags')
+    team.save
+
+    assert_equal 0, team.tags.size
+    assert_equal '', team.all_tags
+  end
 end
