@@ -37,4 +37,24 @@ class TeamAcceptanceTest < AcceptanceTestCase
       end
     end
   end
+
+  def test_search_for_public_teams
+    user = create_user(username: 'foobar', github_id: 123)
+
+    attributes = { slug: 'some-public-team', name: 'Team A', public: true, tags: 'ruby' }
+    Team.by(user).defined_with(attributes, user).save!
+
+    attributes = { slug: 'some-private-team', name: 'Team B', public: false, tags: 'ruby' }
+    Team.by(user).defined_with(attributes, user).save!
+
+    with_login(user) do
+      visit "/teams?q=ruby"
+
+      within('.teams-result-list') do
+        assert_content 'Team A'
+        assert_content 'Tags: some-public-team, team a, ruby'
+        refute_content 'Team B'
+      end
+    end
+  end
 end

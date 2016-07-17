@@ -24,6 +24,15 @@ class Team < ActiveRecord::Base
     where('LOWER(slug) = ?', slug.downcase).first
   end
 
+  def self.search_public
+    where("public = true")
+  end
+
+  def self.search_public_with_tag(tag)
+    return [] if tag.blank?
+    search_public.where("tags @> ARRAY[?]", tag)
+  end
+
   def destroy_with_memberships!
     TeamMembership.destroy_for_team(id)
     destroy
@@ -43,7 +52,9 @@ class Team < ActiveRecord::Base
     self.name = options[:name]
     self.description = options[:description]
     self.public = options[:public].present?
-    self.tags = Tag.create_from_text(options[:tags])
+
+    tags = [options[:slug], options[:name], options[:tags]].join(',')
+    self.tags = Tag.create_from_text(tags)
 
     recruits = User.find_or_create_in_usernames(potential_recruits(options[:usernames])) if options[:usernames]
     recruits = options[:users] if options[:users]
