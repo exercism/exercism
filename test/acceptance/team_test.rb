@@ -28,6 +28,7 @@ class TeamAcceptanceTest < AcceptanceTestCase
 
     with_login(user) do
       click_on 'Account'
+
       click_on 'Some Team'
       click_on 'Manage'
 
@@ -37,4 +38,25 @@ class TeamAcceptanceTest < AcceptanceTestCase
       end
     end
   end
+
+  def test_team_pagination
+
+    100.times do |index|
+      User.create(username: "foobar_#{index}", github_id: index)
+    end
+
+    user = User.first
+
+    attributes = { slug: 'some-team', name: 'Some Team' }
+    Team.by(user).defined_with(attributes, user).save!
+
+    with_login(user) do
+      visit("http://localhost:4567/teams/slate/streams")
+      require 'pry'; binding.pry
+      click_link("2")
+    end
+  end
+
+  #pagination_menu_item.total
 end
+
