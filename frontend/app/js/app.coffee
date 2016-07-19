@@ -14,6 +14,9 @@ $ ->
     onSelect: (e, term, item) ->
       $("[data-search=tags]").closest("form").submit();
 
+  if location.pathname.match(/submissions/)
+    initCommentMemory()
+
   $("#current_submission").theiaStickySidebar(additionalMarginTop: 70)
 
   $('.manager_delete').on 'click', ->
@@ -43,6 +46,26 @@ $ ->
   if _.any($('.comments'))
     emojify.setConfig(emoticons_enabled: false)
     emojify.run(document.getElementsByClassName("comments")[0])
+
+userIsInSession = () ->
+  return $('#navbar a[href="/login"]').length == 0
+
+localStorageHasKey = (key) ->
+  return localStorage.getItem(key) != null
+
+loadCommentFromStorage = () ->
+  $('#submission_comment').val(localStorage.getItem(location.pathname))
+
+recordText = () ->
+  $('#submission_comment').keyup (event) ->
+    nitPickText = $(this).val()
+    localStorage.setItem(location.pathname, nitPickText)
+
+initCommentMemory = () ->
+  # TODO figure out how to remove the comment from localstorate after a successful submission 
+  if localStorageHasKey(location.pathname)
+    loadCommentFromStorage()
+  recordText()
 
 destroyTeam = (slug) ->
   href = "/teams/" + slug
