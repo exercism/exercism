@@ -15,8 +15,8 @@
     </ul>
     <h2> Exercises </h2>
     <ul>
-    <li><strong><a href="https://github.com/exercism/x-common">X-Common repository</a></strong>: Shares language-independent problem descriptions for Exercism exercises.</li>
-     <li>Language-Specific implementations of the exercises are listed below in the respective language track.</li>
+      <li><strong><a href="https://github.com/exercism/x-common">X-Common repository</a></strong>: Shares language-independent problem descriptions for Exercism exercises.</li>
+      <li>Language-Specific implementations of the exercises are listed below in the respective language track.</li>
     </ul>
     <h2> Interesting Tools </h2>
     <ul>
@@ -47,13 +47,13 @@
   <% end %>
   <section class="page-header">
     <h3>Planned</h3>
-      <p> People have requested these languages, but we need exercises before we can launch the track. Check out the launch checklist for an idea of what needs to be done.</p>
+    <p> People have requested these languages, but we need exercises before we can launch the track. Check out the launch checklist for an idea of what needs to be done.</p>
   </section>
   <% planned.each_slice(6) do |tracks| %>
-      <div class="row">
-        <% tracks.each do |t| %>
-          <%= erb :'languages/_repo', locals: { track: t } %>
-        <% end %>
-      </div>
+    <div class="row">
+      <% tracks.each do |t| %>
+        <%= erb :'languages/_repo', locals: { track: t } %>
+      <% end %>
+    </div>
   <% end %>
 </div>
