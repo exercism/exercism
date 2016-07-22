@@ -25,7 +25,7 @@ Homebrew/homebrew-core (git revision 3b4c; last commit 2016-05-09)
 Install the CLI via homebrew in the following section.  Otherwise see
 "[Installing Without Homebrew](#installing-without-homebrew)".
 
-### Installing With Homebrew
+### Installing With Homebrew <a name="installing-with-homebrew"></a>
 
 Install the CLI via [homebrew](http://brew.sh/) with the following command:
 
@@ -44,7 +44,7 @@ If there was a problem you will get an error message saying _command not found_.
 If everything is fine, you're done installing the CLI, and you can move on to the next step,
 which is configuring the CLI.
 
-### Installing Without Homebrew
+### Installing Without Homebrew <a name="installing-without-homebrew"></a>
 
 This is described in detail in [this video tutorial](https://www.youtube.com/watch?v=TCT4eHGwfaE).
 
