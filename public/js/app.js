@@ -30469,8 +30469,15 @@ $(".track-activity-chart").each(function(index, element) {
       emojify.setConfig({
         emoticons_enabled: false
       });
-      return emojify.run(document.getElementsByClassName("comments")[0]);
+      emojify.run(document.getElementsByClassName("comments")[0]);
     }
+    return $('#exercises_form').on('click', 'input[type="button"]', function(event) {
+      var submitType;
+      submitType = $(this).data('type');
+      if (confirm("Are you sure you want to " + submitType + " these exercises?") === true) {
+        return $(this).parent('form').attr('action', "/exercises/" + submitType).submit();
+      }
+    });
   });
 
   destroyTeam = function(slug) {
