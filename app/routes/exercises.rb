@@ -49,9 +49,7 @@ module ExercismWeb
 
       post '/exercises/archive' do
         exercises = current_user.exercises.find(params['exercise_ids'])
-        exercises.each do |exercise|
-          exercise.archive!
-        end
+        exercises.each(&:archive!)
 
         flash[:success] = "Your exercises have been archived."
         redirect "/#{current_user.username}"
