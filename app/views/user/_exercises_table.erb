@@ -1,5 +1,5 @@
 <% if profile.own? %>
-  <form method="post" id="exercises_form">
+  <form method="post" id="exercises_form" action="/exercises/delete">
 <% end %>
 
 <table class="table table-bordered table-striped" data-sortable>
@@ -25,7 +25,6 @@
   <tbody>
   <% exercises.each do |exercise| %>
     <tr>
-
       <% if profile.own? %>
         <td><input type="checkbox" name="exercise_ids[]" value="<%= exercise.id %>"></td>
       <% end %>
@@ -55,7 +54,7 @@
 </table>
 
 <% if profile.own? %>
-    <input type="button" value="Delete" class="btn btn-danger" data-type='delete'>
-    <input type="button" value="Archive" class="btn btn-default" data-type='archive'>
+    <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete these exercises?');">
+    <input type="submit" formaction="/exercises/archive" value="Archive" class="btn btn-default" onclick="return confirm('Are you sure you want to archive these exercises?');">
   </form>
 <% end %>

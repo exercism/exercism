@@ -36,11 +36,6 @@ $ ->
     emojify.setConfig(emoticons_enabled: false)
     emojify.run(document.getElementsByClassName("comments")[0])
 
-  $('#exercises_form').on 'click', 'input[type="button"]', (event) ->
-    submitType = $(this).data('type')
-    if (confirm("Are you sure you want to #{submitType} these exercises?") == true)
-      $(this).parent('form').attr('action', "/exercises/#{submitType}").submit()
-
 destroyTeam = (slug) ->
   href = "/teams/" + slug
   form = $('<form method="post" action="' + href + '"></form>')
