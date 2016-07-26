@@ -28,10 +28,6 @@ For occasional updates, such as new language tracks being launched,
 Exercism.io was started by Katrina. To get in touch with her, send an email to
 [kytrinyx@exercism.io](mailto:kytrinyx@exercism.io).
 
-## Building the App
-
-Build instructions can be found in the [Contributing Guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md#setup).
-
 ## Contribute
 
 Exercism.io is free and open source, and many, many people have contributed to
@@ -74,6 +70,10 @@ This is a project that started by accident and could never have gotten off the
 ground by the efforts of any single person.
 
 **Thank you!**
+
+## Building the App
+
+Build instructions can be found in the [Contributing Guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md#setup).
 
 ## License
 
