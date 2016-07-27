@@ -306,6 +306,22 @@ Let Heroku know that Lineman will be building our assets. From the command line:
 heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-lineman-ruby.git
 ```
 
+#### Live deployment
+
+Live deployment of changes is done periodically by @kytrinyx
+
+To see which version is currently live visit http://exercism.io/version
+
+This will return a json string that looks like this:
+```json
+{"repository":"https://github.com/exercism/exercism.io","contributing":"https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md","build_id":"0ad66d9"} 
+```
+The "build_id" is the git id of the revision that is live, which you can find in the list of commits https://github.com/exercism/exercism.io/commits/master . Any commits above that in the list are still be waiting to be released.   
+You can also go directly to the commit by replacing \[build_id\] in: https://github.com/exercism/exercism.io/commit/[build_id] with the hex value from the json above.
+
+Whenever a new version is released a message will appear in the sidebar of: https://gitter.im/exercism/dev  This is done via a Heroku webhook to a Gitter api endpoint. (You probably don't need to know this.)
+
+
 ## Write Some Code
 
 These instructions should get you closer to getting a commit into the
