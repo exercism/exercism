@@ -1,0 +1,17 @@
+#!/bin/bash
+
+remote="$1"
+
+if [[ $remote =~ heroku ]]
+then
+	hash=$(git log -1 --format="%h")
+	heroku config:set --app exercism BUILD_ID=$hash
+fi
+
+if [[ $remote =~ theory ]]
+then
+	hash=$(git log -1 --format="%h")
+	heroku config:set --app exercism-theory BUILD_ID=$hash
+fi
+
+exit 0
