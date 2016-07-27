@@ -117,7 +117,7 @@ GEM
       ffi (>= 0.5.0)
     redcarpet (3.3.4)
     redis (3.2.2)
-    rouge (1.10.1)
+    rouge (2.0.5)
     rubocop (0.36.0)
       parser (>= 2.3.0.0, < 3.0)
       powerpack (~> 0.1)
@@ -191,7 +191,7 @@ DEPENDENCIES
   rack-test
   rake (~> 10.5.0)
   redcarpet (~> 3.1)
-  rouge (~> 1.3)
+  rouge (~> 2.0.5)
   rubocop (= 0.36.0)
   sass
   sidekiq
