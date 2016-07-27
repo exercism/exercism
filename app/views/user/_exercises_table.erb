@@ -1,60 +1,60 @@
 <% if profile.own? %>
-<form action="/exercises/delete" method="post" onsubmit="return confirm('Are you sure you want to delete these exercises?');">
+  <form action="/exercises/delete" method="post">
 <% end %>
 
-  <table class="table table-bordered table-striped" data-sortable>
+<table class="table table-bordered table-striped" data-sortable>
+  <% if profile.own? %>
+    <col class="col-md-1" />
+  <% else %>
+    <col width="25%" />
+  <% end %>
 
-    <% if profile.own? %>
-      <col class="col-md-1" />
-    <% else %>
-      <col width="25%" />
-    <% end %>
+  <thead>
+    <tr>
+      <% if profile.own? %>
+        <th></th>
+      <% end %>
 
-    <thead>
-      <tr>
+      <th data-sorted="true"  data-sorted-direction="ascending">Language</th>
+      <th>Exercise</th>
+      <th>Iterations</th>
+      <th>Latest Iteration</th>
+      <th>Comments</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% exercises.each do |exercise| %>
+    <tr>
+      <% if profile.own? %>
+        <td><input type="checkbox" name="exercise_ids[]" value="<%= exercise.id %>"></td>
+      <% end %>
 
-        <% if profile.own? %>
-          <th></th>
-        <% end %>
-
-        <th data-sorted="true"  data-sorted-direction="ascending">Language</th>
-        <th>Exercise</th>
-        <th>Iterations</th>
-        <th>Latest Iteration</th>
-      </tr>
-    </thead>
-    <tbody>
-    <% exercises.each do |exercise| %>
-      <tr>
-
-        <% if profile.own? %>
-          <td><input type="checkbox" name="exercise_ids[]" value="<%= exercise.id %>"></td>
-        <% end %>
-
-        <td>
-          <a href="/languages/<%= exercise.problem.track_id %>">
-            <%= exercise.problem.language %>
+      <td>
+        <a href="/languages/<%= exercise.problem.track_id %>">
+          <%= exercise.problem.language %>
+        </a>
+      </td>
+      <td>
+        <% if profile.access?(exercise) %>
+          <a href="/exercises/<%= exercise.key %>">
+            <%= exercise.problem.name %>
           </a>
-        </td>
-        <td>
-          <% if profile.access?(exercise) %>
-            <a href="/exercises/<%= exercise.key %>">
-              <%= exercise.problem.name %>
-            </a>
-          <% else %>
-            <i class="fa fa-lock"></i>
-            &nbsp;
-            <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
-          <% end %>
-        </td>
-        <td><%= exercise.iteration_count %></td>
-        <td data-value="<%= exercise.last_iteration_at.to_i %>"><%= exercise.last_iteration_at.strftime("%Y-%m-%d") %></td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
+        <% else %>
+          <i class="fa fa-lock"></i>
+          &nbsp;
+          <a href="/exercises/<%= exercise.track_id %>/<%= exercise.slug %>"><%= exercise.problem.name %></a>
+        <% end %>
+      </td>
+      <td><%= exercise.iteration_count %></td>
+      <td data-value="<%= exercise.last_iteration_at.to_i %>"><%= exercise.last_iteration_at.strftime("%Y-%m-%d") %></td>
+      <td><%= exercise.comment_count %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
 
 <% if profile.own? %>
-    <input type="submit" value="Delete" class="btn btn-danger">
+    <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete these exercises?');">
+    <input type="submit" formaction="/exercises/archive" value="Archive" class="btn btn-default" onclick="return confirm('Are you sure you want to archive these exercises?');">
   </form>
 <% end %>

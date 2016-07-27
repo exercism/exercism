@@ -7,6 +7,15 @@
     <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}" %>" method="post">
       <input type="hidden" name="_method" value="put" />
       <div class="row">
+        <div class="form-group col-sm-8">
+          <label for="team_public">Public (should people be able to find your team?)</label>
+          <div class="controls">
+            <input type="checkbox" id="team_public" name="team[public]" value="1" <%= 'checked' if team.public %>/>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
         <div class="form-group col-sm-4">
           <label for="team_slug">Slug (in URL)</label>
           <div class="controls">
@@ -27,6 +36,15 @@
           <label for="team_slug">Description</label>
           <div class="controls">
             <textarea name="team[description]" id="team_description" class="form-control" placeholder="e.g., People interested in learning new programming languages"><%= team.description %></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group col-sm-8">
+          <label for="team_slug">Tags</label>
+          <div class="controls">
+            <textarea name="team[tags]" id="team_tags" class="form-control" placeholder="Comma separated values, e.g., ruby, exercism, learning"><%= team.all_tags %></textarea>
           </div>
         </div>
       </div>
