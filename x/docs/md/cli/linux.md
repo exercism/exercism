@@ -1,6 +1,6 @@
 Download the [latest release](http://github.com/exercism/cli/releases/latest).
 
-If you're unsure what archicture your processor has, the command `uname -m` should tell you.
+If you're unsure what architecture your processor has, the command `uname -m` should tell you.
 
 Extract the binary using `tar -xzvf FILENAME`, e.g.
 
