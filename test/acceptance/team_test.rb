@@ -37,4 +37,32 @@ class TeamAcceptanceTest < AcceptanceTestCase
       end
     end
   end
+
+  def test_team_pagination
+
+    100.times do |index|
+      User.create(username: "jane_#{index}", github_id: index)
+    end
+
+    user = User.first
+    all_users = User.all
+    usernames = all_users.collect &:username
+
+    attributes = { slug: 'some-team', name: 'Some Team', confirmed: true }
+
+    team = Team.by(user).defined_with(attributes, user)
+    team.save!
+
+    all_users.each do |user|
+     TeamMembership.create!(team_id: team.id, user_id: user.id, confirmed: true)
+    end
+
+    with_login(user) do
+      visit("/teams/some-team/streams")
+      click_link("2")
+    end
+
+  end
+
+  #pagination_menu_item.total
 end
