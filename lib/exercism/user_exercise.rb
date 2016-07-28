@@ -51,6 +51,18 @@ class UserExercise < ActiveRecord::Base
     update_attributes(archived: false)
   end
 
+  def help_requested?
+    help_requested
+  end
+
+  def request_for_help!(user)
+    update_attributes(help_requested: true) if user == self.user
+  end
+
+  def remove_request_for_help!(user)
+    update_attributes(help_requested: false) if user == self.user
+  end
+
   def problem
     @problem ||= Problem.new(track_id, slug)
   end
