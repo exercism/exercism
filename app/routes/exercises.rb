@@ -47,6 +47,14 @@ module ExercismWeb
         redirect '/'
       end
 
+      post '/exercises/archive' do
+        exercises = current_user.exercises.find(params['exercise_ids'])
+        exercises.each(&:archive!)
+
+        flash[:success] = "Your exercises have been archived."
+        redirect "/#{current_user.username}"
+      end
+
       post '/exercises/:key/unarchive' do |key|
         exercise = UserExercise.find_by_key(key)
         unless current_user.owns?(exercise)
@@ -64,7 +72,7 @@ module ExercismWeb
           DeletedIterations.store_iterations(exercise, current_user.id)
           exercise.delete
         end
-        flash[:success] = "Your exercises have been deleted"
+        flash[:success] = "Your exercises have been deleted."
         redirect "/#{current_user.username}"
       end
 

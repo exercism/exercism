@@ -9,7 +9,7 @@ class AppExercisesTest < Minitest::Test
     ExercismWeb::App
   end
 
-  attr_reader :alice, :exercise, :submission
+  attr_reader :alice, :exercise, :exercise_2, :submission
 
   def setup
     super
@@ -18,6 +18,9 @@ class AppExercisesTest < Minitest::Test
                                     last_activity_at: Date.today, iteration_count: 1)
     @submission = Submission.create(user: alice, language: 'go',
                                     slug: 'one', user_exercise: exercise)
+
+    @exercise_2 = UserExercise.create(user: alice, language: 'ruby', slug: 'two',
+                                    last_activity_at: Date.today, iteration_count: 1)
   end
 
   def test_exercises_by_key
@@ -33,5 +36,16 @@ class AppExercisesTest < Minitest::Test
 
     post "/exercises/#{exercise.key}/unarchive", {}, login(alice)
     refute exercise.reload.archived?
+  end
+
+  def test_bulk_archive
+    post "/exercises/archive", { exercise_ids: [exercise.id, exercise_2.id] }, login(alice)
+    assert exercise.reload.archived?
+    assert exercise_2.reload.archived?
+  end
+
+  def test_bulk_delete
+    post "/exercises/delete", { exercise_ids: [exercise.id, exercise_2.id] }, login(alice)
+    assert_equal 0, UserExercise.count
   end
 end

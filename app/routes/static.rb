@@ -60,6 +60,10 @@ module ExercismWeb
         status 404
         erb :"errors/not_found"
       end
+
+      get '/version' do
+        erb :'site/version.json', layout: false
+      end
     end
   end
 end

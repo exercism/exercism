@@ -9,6 +9,7 @@ module ExercismLib
       'plsql'       => 'sql',
       'ecmascript'  => 'javascript',
       'perl5'       => 'perl',
+      'crystal'     => 'ruby',
     }.freeze
 
     attr_reader :lexer, :code

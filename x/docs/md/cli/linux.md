@@ -1,6 +1,6 @@
 Download the [latest release](http://github.com/exercism/cli/releases/latest).
 
-If you're unsure what archicture your processor has, the command `uname -m` should tell you.
+If you're unsure what architecture your processor has, the command `uname -m` should tell you.
 
 Extract the binary using `tar -xzvf FILENAME`, e.g.
 
@@ -29,4 +29,4 @@ To check which shell you have, run `echo $SHELL`.
 
 These are not officially supported, and sometimes (often) lag behind the latest release.
 
-There's a [freshports build](http://www.freshports.org/misc/exercism), and an [AUR package](https://aur.archlinux.org/packages/exercism-cli).
+There's a [freshports build](http://www.freshports.org/misc/exercism), an [AUR package](https://aur.archlinux.org/packages/exercism-cli), and an [openSUSE package](https://software.opensuse.org/package/golang-github-exercism-cli).

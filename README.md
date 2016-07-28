@@ -71,6 +71,10 @@ ground by the efforts of any single person.
 
 **Thank you!**
 
+## Building the App
+
+Build instructions can be found in the [Contributing Guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md#setup).
+
 ## License
 
 GNU Affero General Public License
