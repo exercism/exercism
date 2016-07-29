@@ -6,6 +6,8 @@ module ExercismLib
     ROUGE_LANG = {
       'objective-c' => 'objective_c',
       'elisp'       => 'common_lisp',
+      'lisp'        => 'common_lisp',
+      'lfe'         => 'common_lisp',
       'plsql'       => 'sql',
       'ecmascript'  => 'javascript',
       'perl5'       => 'perl',
