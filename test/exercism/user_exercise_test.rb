@@ -34,26 +34,18 @@ class UserExerciseTest < Minitest::Test
     assert_equal exercise.iteration_count, 1
   end
 
-  def test_adding_help_for_current_users_exercise
+  def test_submitting_help_for_exercise
     alex = User.create(username: 'alex')
-    exercise = UserExercise.create(user: alex)
-    exercise.request_for_help!(alex)
-    assert_equal exercise.help_requested?, true
+    exercise = UserExercise.create(user: alex, help_requested: false)
+    exercise.request_help!
+    assert exercise.help_requested?
   end
 
-  def test_cannot_add_help_request_for_other_users_exercise
+  def test_cancelling_help_for_exercise
     alex = User.create(username: 'alex')
-    exercise = UserExercise.create(user: alex)
-    alice = User.create(username: 'alice')
-    exercise.request_for_help!(alice)
-    assert_equal exercise.help_requested?, false
-  end
-
-  def test_removing_help_for_current_users_exercise
-    alex = User.create(username: 'alex')
-    exercise = UserExercise.create(user: alex)
-    alice = User.create(username: 'alice')
-    exercise.remove_request_for_help!(alice)
+    exercise = UserExercise.create(user: alex, help_requested: true)
+    exercise.cancel_request_for_help!
     refute exercise.help_requested?
   end
+
 end

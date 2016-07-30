@@ -5,6 +5,27 @@
     </button>
     <ul class="dropdown-menu" role="menu">
       <li>
+        <% if exercise.help_requested? %>
+          <form accept-charset="UTF-8" action="/exercises/<%= exercise.key %>/request-for-help" method="POST">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" name="removerequest" class="btn btn-default">
+            Cancel request for help</button>
+          </form>
+        <% else %>
+          <form accept-charset="UTF-8" action="/exercises/<%= exercise.key %>/request-for-help" method="POST">
+            <button
+              type="submit"
+              name="requesthelp"
+              class="btn btn-default"
+              data-toggle="tooltip"
+              data-placement="bottom"
+              title="Your exercise will be marked on the activity stream as needing help">
+              Request help
+            </button>
+          </form>
+        <% end %>
+      </li>
+      <li>
         <% if exercise.archived? %>
           <form accept-charset="UTF-8" action="/exercises/<%= exercise.key %>/unarchive" method="POST">
             <button type="submit" name="reopen" class="btn btn-default">Reactivate Exercise</button>

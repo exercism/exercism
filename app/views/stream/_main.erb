@@ -33,6 +33,9 @@
             <button type="submit" class="btn btn-link discrete">mark as read</button>
           </form>
           <% end %>
+          <% if exercise.help_requested %>
+            <span class="label label-danger">Requested help</span>
+          <% end %>
         </span>
       </li>
       <% end %>

@@ -66,6 +66,28 @@ module ExercismWeb
         redirect '/dashboard'
       end
 
+      post '/exercises/:key/request-for-help' do |key|
+        exercise = UserExercise.find_by_key(key)
+        unless current_user.owns?(exercise)
+          flash[:notice] = "Only the author may request help."
+          redirect '/'
+        end
+        exercise.request_help!
+        flash[:success] = "You have requested help on this submission."
+        redirect "/submissions/%s" % exercise.submissions.last.key
+      end
+
+      delete '/exercises/:key/request-for-help' do |key|
+        exercise = UserExercise.find_by_key(key)
+        unless current_user.owns?(exercise)
+          flash[:notice] = "Only the author may cancel a request for help."
+          redirect '/'
+        end
+        exercise.cancel_request_for_help!
+        flash[:success] = "Your request for help has been cancelled."
+        redirect "/submissions/%s" % exercise.submissions.last.key
+      end
+
       post '/exercises/delete' do
         exercises = current_user.exercises.find(params['exercise_ids'])
         exercises.each do |exercise|
