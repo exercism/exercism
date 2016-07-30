@@ -1,5 +1,5 @@
 module Stream
-  Exercise = Struct.new(:id, :uuid, :problem, :last_activity, :last_activity_at, :iteration_count, :username, :avatar_url) do
+  Exercise = Struct.new(:id, :uuid, :problem, :last_activity, :last_activity_at, :iteration_count, :help_requested, :username, :avatar_url) do
     attr_writer :comment_count
 
     def comment_count

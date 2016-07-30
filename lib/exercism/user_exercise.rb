@@ -55,12 +55,12 @@ class UserExercise < ActiveRecord::Base
     help_requested
   end
 
-  def request_for_help!(user)
-    update_attributes(help_requested: true) if user == self.user
+  def request_help!
+    update_attributes(help_requested: true)
   end
 
-  def remove_request_for_help!(user)
-    update_attributes(help_requested: false) if user == self.user
+  def cancel_request_for_help!
+    update_attributes(help_requested: false)
   end
 
   def problem
