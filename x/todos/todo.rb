@@ -22,6 +22,8 @@ module X
 
     def with_implementations
       todos.select { |x| x.implementations.any? }
+           .sort_by { |x| x.implementations.count }
+           .reverse
     end
 
     def any?
