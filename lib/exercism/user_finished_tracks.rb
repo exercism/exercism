@@ -13,7 +13,7 @@ class UserFinishedTracks
   def completed_tracks
     @completed_tracks ||= started_tracks.each_with_object([]) do |db_row, arr|
       track = tracks.find { |t| t.id == db_row['track_id'] }
-      arr << track if db_row['completed_count'].to_i == track.problems.count
+      arr << track if db_row['completed_count'].to_i >= track.problems.count
       arr
     end
   end
