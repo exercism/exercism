@@ -8,7 +8,7 @@ module X
 
     def_delegators :@exercises, :each
 
-    PROPERTIES = [:language, :track_id, :repository].freeze
+    PROPERTIES = %w(language track_id repository).freeze
 
     attr_reader(*PROPERTIES, :exercises)
 
@@ -23,8 +23,8 @@ module X
     end
 
     def initialize(data)
-      PROPERTIES.each { |name| instance_variable_set(:"@#{name}", data[name.to_s]) }
-      @exercises = data['todos'].map { |problem| Todo::Exercise.new(problem) }
+      PROPERTIES.each { |name| instance_variable_set(:"@#{name}", data[name]) }
+      @exercises = data['todos'].map { |problem| Exercise.new(problem) }
     end
   end
 end
