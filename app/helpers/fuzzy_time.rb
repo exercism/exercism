@@ -9,6 +9,7 @@ module ExercismWeb
       # rubocop:disable Metrics/CyclomaticComplexity
       def ago(timestamp)
         diff = (now - timestamp).to_i.to_f
+        formatted_date = timestamp.strftime('%e %B %Y at %H:%M %Z')
         if diff < 24 * hours
           response = case diff
                      when less_than(2 * minutes)
@@ -22,9 +23,9 @@ module ExercismWeb
                      when less_than(23.5 * hours)
                        "about #{(diff / (1 * hours)).round} hours ago"
                      end
-          "<span data-toggle='tooltip' title='#{timestamp.strftime('%e %B %Y at %H:%M %Z')}'>#{response}</span>"
+          "<span data-toggle='tooltip' data-title='#{formatted_date}'>#{response}</span>"
         else
-          timestamp.strftime("%e %B %Y at %H:%M %Z")
+          "<span class='localize-time'>#{formatted_date}</span>"
         end
       end
       # rubocop:enable Metrics/AbcSize, Metrics/MethodLength

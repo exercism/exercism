@@ -18,6 +18,8 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('files', {
       "vendor/js/**/*jquery*",
       "vendor/js/**/underscore.js",
       "vendor/js/**/angular.js",
+      "vendor/js/**/moment.min.js",
+      "vendor/js/**/moment-timezone-with-data-2010-2020.min.js",
       "vendor/js/**/*.js",
     ]
     app: [

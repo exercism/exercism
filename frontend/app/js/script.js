@@ -94,4 +94,31 @@ $(function() {
     $(".mute-btn",elem).tooltip({ placement: "bottom", title: "Mute this submission until there is further activity." });
     $(".unmute-btn",elem).tooltip({ placement: "bottom", title: "Unmute this sumission." });
   });
+
+  (function () {
+    function localizeDateAndTime(input) {
+      var date = input.replace(" at", "");
+      var localizedTime = moment.utc(date, "D MMMM YYYY H:mm").local();
+
+      var timeZone = moment.tz.guess();
+      // America/Los_Angeles
+
+      var timeZoneAbbrevation = moment.tz(localizedTime.format("YYYY-MM-DD"), timeZone).format('z');
+      // PST or PDT
+
+      var formattedTime = localizedTime.format("D MMMM YYYY [at] h:mm ");
+      return formattedTime + timeZoneAbbrevation;
+    }
+
+    $.each( $("[data-title]"), function() {
+      var localized = localizeDateAndTime(this.getAttribute("data-title"));
+      this.setAttribute("data-title", localized);
+    });
+
+    $.each( $(".localize-time"), function() {
+      var localized = localizeDateAndTime(this.innerHTML);
+      this.innerHTML = localized;
+    });
+  }());
+
 });
