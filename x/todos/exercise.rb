@@ -1,15 +1,13 @@
 module X
   class Todo
     class Exercise
-      METHODS = [
-        :slug, :data, :readme_url,
-        :implementations, :blurb
-      ].freeze
+      PROPERTIES = [:slug, :data, :readme_url, :implementations, :blurb].freeze
 
-      attr_reader(*METHODS)
+      attr_reader(*PROPERTIES)
+
       def initialize(data)
-        METHODS.each do |name|
-          instance_variable_set(:"@#{name}", data[name.to_s])
+        PROPERTIES.each do |property|
+          instance_variable_set(:"@#{property}", data[property.to_s])
         end
       end
 
