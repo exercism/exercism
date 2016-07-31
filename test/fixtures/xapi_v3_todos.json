@@ -1,6 +1,7 @@
 {
-   "track_id":"java",
-   "language": "Java",
+   "track_id":"language_fixture",
+   "language": "LanguageFixture",
+   "repository": "https://example.com/exercism/xlanguage/",
    "todos":[
       {
          "slug":"alphametics",
@@ -54,7 +55,7 @@
       },
       {
          "slug":"without-implementations",
-         "readme_url":"https://github.com/exercism/x-common/blob/master/bank-account.md",
+         "readme_url":"https://github.com/exercism/x-common/blob/master/without-implementation.md",
          "data":null,
          "implementations":[]
       }
