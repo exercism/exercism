@@ -51,6 +51,18 @@ class UserExercise < ActiveRecord::Base
     update_attributes(archived: false)
   end
 
+  def help_requested?
+    help_requested
+  end
+
+  def request_help!
+    update_attributes(help_requested: true)
+  end
+
+  def cancel_request_for_help!
+    update_attributes(help_requested: false)
+  end
+
   def problem
     @problem ||= Problem.new(track_id, slug)
   end

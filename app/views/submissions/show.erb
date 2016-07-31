@@ -6,6 +6,9 @@
     </h1>
 
     <div class="pull-right submission-toolbar hidden-xs">
+      <% if submission.user_exercise.help_requested? %>
+        <span class="label label-danger">Requested help</span>
+      <% end %>
       <div class="btn-group">
         <%= erb :"submissions/user_actions", locals: { submission: submission, exercise: submission.user_exercise } %>
 
@@ -45,7 +48,7 @@
       <% if submission.user_exercise.archived? %>
         <span class="label label-danger">Archived</span>
       <% end %>
-      
+
       <%= erb :'submissions/see_other_implementations', locals: { submission: submission } if current_user.access?(submission.problem) %>
     </div>
   </div>
