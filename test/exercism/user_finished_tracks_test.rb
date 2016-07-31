@@ -12,12 +12,14 @@ class UserFinishedTracksTest < Minitest::Test
     create_exercise('animal', 'dog')
     create_exercise('fake', 'hello-world')
     create_exercise('fake', 'two')
+    create_exercise('jewels', 'hello-world')
+    create_exercise('jewels', 'gemerald')
   end
 
   def test_user_contributions
     X::Xapi.stub(:get, [200, File.read(@f)]) do
       tracks = UserFinishedTracks.tracks(@user)
-      expected = ["animal"]
+      expected = ['animal', 'jewels']
       assert_equal expected, tracks.map(&:id)
     end
   end
