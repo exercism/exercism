@@ -43,7 +43,6 @@ require 'exercism/deleted_iterations'
 require 'exercism/view'
 require 'exercism/user_lookup'
 require 'exercism/daily'
-require 'exercism/todo_stream'
 require 'exercism/tag'
 
 require 'db/connection'
