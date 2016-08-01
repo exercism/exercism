@@ -67,7 +67,6 @@ class TrackStream
         row["help_requested"] == 't',
         row["username"],
         row["avatar_url"],
-
       ]
       ex = Stream::Exercise.new(*attrs)
       exx << ex

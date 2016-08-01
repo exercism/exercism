@@ -17,5 +17,9 @@ module Stream
     def unread?
       !@viewed
     end
+
+    def help_requested?
+      help_requested
+    end
   end
 end
