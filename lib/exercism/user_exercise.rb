@@ -51,10 +51,6 @@ class UserExercise < ActiveRecord::Base
     update_attributes(archived: false)
   end
 
-  def help_requested?
-    help_requested
-  end
-
   def request_help!
     update_attributes(help_requested: true)
   end
