@@ -1,17 +1,16 @@
 <% if current_user.guest? %>
-  <p> You're not logged in right now.Please login via <a href="/login">GitHub </a> to comment </p>
+  <p> You're not logged in right now. Please login via <a href="/login">GitHub </a> to comment </p>
 <% else %>
   <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
   <%= erb :"submissions/comment", locals: { submission: submission } %>
-
-    <button type="submit" name="nitpick" class="pull-right btn    btn-primary btn-lg">
+    <button type="submit" class="pull-right btn btn-primary btn-lg" name="nitpick">
       Submit Comment
     </button>
-
     <small class="hidden-xs">
       Parsed with <a href="https://help.github.com/articles/github-flavored-markdown" target="_blank">GitHub Flavoured Markdown</a>
     </small>
-  </form>
+</form>
+
 <% end %>
 
 <!-- pulled in jquery here, not sure where to put all this to load properly" -->
