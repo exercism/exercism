@@ -1,5 +1,11 @@
+require 'exercism/user_exercise'
+
 class Guest
   def id
+  end
+
+  def username
+    'guest'
   end
 
   def fetched?
