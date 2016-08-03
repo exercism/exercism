@@ -28,7 +28,7 @@ module ExercismWeb
           },
           context: request.path_info,
           app: {
-            version: ENV["BUILD_ID"] || "unknown",
+            version: BUILD_ID,
           },
         }
         Bugsnag.auto_notify($ERROR_INFO, metadata, request)

@@ -42,7 +42,7 @@ namespace :db do
       system 'psql', '-h', config.host, '-p', config.port, '-c', sql, '-d', 'postgres'
     end
 
-    system 'createdb', '-h', config.host, '-p', config.port, '-O', config.username, config.database
+    system 'createdb', '-h', config.host, '-p', config.port, '-U', config.username, config.database
     fail "Failed to create database" unless $CHILD_STATUS.success?
   end
 
@@ -51,13 +51,13 @@ namespace :db do
 
   desc "drop your database"
   task :drop do
-    system 'dropdb', '-h', config.host, config.database
+    system 'dropdb', '-h', config.host, config.database, '-U', config.username
     fail "Failed to drop database" unless $CHILD_STATUS.success?
   end
 
   desc "create your database"
   task :create do
-    system 'createdb', '-h', config.host, '-O', config.username, config.database
+    system 'createdb', '-h', config.host, config.database, '-U', config.username
     fail "Failed to create database" unless $CHILD_STATUS.success?
   end
 

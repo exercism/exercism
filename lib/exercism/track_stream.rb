@@ -64,6 +64,7 @@ class TrackStream
         row["last_activity"],
         row["last_activity_at"],
         row["iteration_count"].to_i,
+        row["help_requested"] == 't',
         row["username"],
         row["avatar_url"],
       ]
@@ -142,6 +143,7 @@ class TrackStream
         ex.last_activity,
         ex.last_activity_at,
         ex.iteration_count,
+        ex.help_requested,
         u.username,
         u.avatar_url
       FROM user_exercises ex

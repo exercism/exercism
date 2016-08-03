@@ -15,12 +15,12 @@ class AppExercisesTest < Minitest::Test
     super
     @alice = User.create(username: 'alice', github_id: 1)
     @exercise = UserExercise.create(user: alice, language: 'go', slug: 'one',
-                                    last_activity_at: Date.today, iteration_count: 1)
+                                    last_activity_at: Date.today, iteration_count: 1, help_requested: false)
     @submission = Submission.create(user: alice, language: 'go',
                                     slug: 'one', user_exercise: exercise)
 
     @exercise_2 = UserExercise.create(user: alice, language: 'ruby', slug: 'two',
-                                    last_activity_at: Date.today, iteration_count: 1)
+                                    last_activity_at: Date.today, iteration_count: 1, help_requested: true)
   end
 
   def test_exercises_by_key
@@ -47,5 +47,15 @@ class AppExercisesTest < Minitest::Test
   def test_bulk_delete
     post "/exercises/delete", { exercise_ids: [exercise.id, exercise_2.id] }, login(alice)
     assert_equal 0, UserExercise.count
+  end
+
+  def test_request_help_for_exercise
+    post "/exercises/#{exercise.key}/request-for-help", {}, login(alice)
+    assert exercise.reload.help_requested
+  end
+
+  def test_remove_request_for_help
+    delete "/exercises/#{exercise_2.key}/request-for-help", {}, login(alice)
+    refute exercise_2.reload.help_requested
   end
 end

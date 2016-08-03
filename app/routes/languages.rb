@@ -33,13 +33,17 @@ module ExercismWeb
       end
 
       get '/languages/:track_id/contribute' do |track_id|
-        track = X::Todo.track(track_id)
-        if track.any?
-          erb :"languages/contribute", locals: { todos: track.with_implementations,
-                                                 language: track.language,
-                                                 repository: track.repository,
-                                                 track_id: track_id }
+        begin
+          unimplemented_exercises = X::Todo.track(track_id)
+          erb :"languages/contribute", locals: { exercises: unimplemented_exercises }
+        rescue X::LanguageNotFound
+          language_not_found(track_id)
         end
+      end
+
+      def language_not_found(track_id)
+        status 404
+        erb :"languages/not_found", locals: { track_id: track_id }
       end
     end
   end
