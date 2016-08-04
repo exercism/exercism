@@ -106,7 +106,7 @@ First, you need to get ahold of the code, so you have a copy of it locally that 
 
 ### Configuration
 
-In most cases, it is easiest to run the `bin/setup` script to automatically setup the defaults for the application.
+In most cases, it is easiest to run the `bin/setup` script to automatically setup the defaults for the application. Make sure you have PostgreSQL running in the background.
 
 The script will:
 
