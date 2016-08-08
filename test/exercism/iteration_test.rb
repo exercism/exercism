@@ -33,4 +33,13 @@ class IterationTest < Minitest::Test
     }
     assert_equal expected_solution, iteration.solution
   end
+
+  def test_path_filter_is_case_insensitive
+    fixture = { filename: 'somefile.rb', content: 'some ruby code'}
+    solution = { "Ruby/One/#{fixture[:filename]}" => fixture[:content]}
+    iteration = Iteration.new(solution, 'ruby', 'one')
+    expected_solution = { fixture[:filename] => fixture[:content] }
+    assert_equal expected_solution, iteration.solution
+  end
+
 end
