@@ -6,6 +6,7 @@ AllCops:
     - 'frontend/**/*'
     - 'vendor/**/*'
     - 'test/**/*'
+    - 'node_modules/**/*'
 Style/IfUnlessModifier:
   Enabled: false
 Style/DoubleNegation:
