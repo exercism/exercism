@@ -8,7 +8,7 @@ class Iteration
 
     @solution = {}
     solution.each do |path, contents|
-      filename = path.split(/\\|\//).join('/').gsub(/^\/?#{track_id}\/#{slug}\//, "")
+      filename = path.split(/\\|\//).join('/').gsub(/^\/?#{track_id}\/#{slug}\//i, "")
       @solution[filename] = contents.strip
     end
   end

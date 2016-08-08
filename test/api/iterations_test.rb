@@ -141,4 +141,23 @@ class IterationsApiTest < Minitest::Test
     expected = { "binary.go" => "Hello, World!" }
     assert_equal expected, submission.solution
   end
+
+  def test_submit_problem_with_mixed_case_track_and_no_language
+    submission = {
+      "key" => @alice.key,
+      "path" => "/Go/binary/binary.go",
+      "code" => "Hello, World!",
+      "dir" => "/path/to/exercism/dir",
+    }
+
+    Xapi.stub(:exists?, true) do
+      post '/user/assignments', submission.to_json
+    end
+
+    submission = Submission.first
+    assert_equal "binary", submission.slug
+    expected = { "binary.go" => "Hello, World!" }
+    assert_equal expected, submission.solution
+    assert_equal "go", submission.language
+  end
 end
