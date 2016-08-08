@@ -24,7 +24,7 @@ db/seeds.sql
 db/schema.sql
 db/migrations.sql
 Procfile_Vagrant
-vendor
+/vendor
 
 # JavaScript
 node_modules
