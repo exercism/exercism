@@ -65,7 +65,7 @@ module ExercismAPI
             # nothing we can do.
             halt 400, "please upgrade your exercism command-line client"
           end
-          data['language'] = segments[0]
+          data['language'] = segments[0].downcase
           data['problem'] = segments[1]
           data['path'] = segments[2..-1].join("/")
         end
