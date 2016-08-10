@@ -65,7 +65,6 @@ class TeamAcceptanceTest < AcceptanceTestCase
 
     with_login(user) do
       visit("/teams/some-team/streams")
-      require 'pry'; binding.pry
       click_link("2")
     end
 
@@ -75,3 +74,4 @@ class TeamAcceptanceTest < AcceptanceTestCase
 end
 # from: Post.paginate(:page => params[:page], :per_page => 30)
 # Post.paginate(:page => params[:page], :per_page => 30)
+
