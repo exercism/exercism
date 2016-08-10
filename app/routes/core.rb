@@ -31,8 +31,8 @@ module ExercismWeb
             version: BUILD_ID,
           },
         }
-        Bugsnag.auto_notify($ERROR_INFO, metadata, request)
-        erb :"errors/internal"
+        notification = Bugsnag.auto_notify($ERROR_INFO, metadata, request)
+        erb :"errors/internal", locals: { bugsnag_notification: notification }
       end
 
       before do
