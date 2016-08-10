@@ -40,37 +40,32 @@ class TeamAcceptanceTest < AcceptanceTestCase
 
   def test_team_pagination
 
-    100.times do |index|
-      User.create(username: "jane_#{index}", github_id: index)
-    end
-
-    user = User.first
-    user2 = User.second
-    all_users = User.all
-    usernames = all_users.collect &:username
+    user = User.create(username: "foobar", github_id: 123)
 
     attributes = { slug: 'some-team', name: 'Some Team', confirmed: true }
-
     team = Team.by(user).defined_with(attributes, user)
     team.save!
 
-    all_users.each do |user|
-     TeamMembership.create!(team_id: team.id, user_id: user.id, confirmed: true)
-    end
+    TeamMembership.create!(team_id: team.id, user_id: user.id, confirmed: true)
+
+    WillPaginate.per_page = 2
 
     submission = Submission.create(user: user,
                                    language: 'ruby',
                                    slug: 'leap',
                                    solution: { 'leap.rb': 'CODE' })
 
-    UserExercise.create(user: user,
-                        submissions: [submission],
-                        language: 'fake',
-                        slug: 'apple',
-                        iteration_count: 1)
+    3.times do |index|
+      UserExercise.create(user: user,
+                          submissions: [submission],
+                          language: 'fake',
+                          slug: "apple#{index}",
+                          iteration_count: 1)
+    end
 
     with_login(user) do
       visit("/teams/some-team/streams")
+      require 'pry'; binding.pry
       click_link("2")
     end
 
@@ -78,3 +73,5 @@ class TeamAcceptanceTest < AcceptanceTestCase
 
   #pagination_menu_item.total
 end
+# from: Post.paginate(:page => params[:page], :per_page => 30)
+# Post.paginate(:page => params[:page], :per_page => 30)
