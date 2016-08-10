@@ -65,6 +65,7 @@ class TeamAcceptanceTest < AcceptanceTestCase
     end
 
     user = User.first
+    user2 = User.second
     all_users = User.all
     usernames = all_users.collect &:username
 
@@ -76,6 +77,17 @@ class TeamAcceptanceTest < AcceptanceTestCase
     all_users.each do |user|
      TeamMembership.create!(team_id: team.id, user_id: user.id, confirmed: true)
     end
+
+    submission = Submission.create(user: user,
+                                   language: 'ruby',
+                                   slug: 'leap',
+                                   solution: { 'leap.rb': 'CODE' })
+
+    UserExercise.create(user: user,
+                        submissions: [submission],
+                        language: 'fake',
+                        slug: 'apple',
+                        iteration_count: 1)
 
     with_login(user) do
       visit("/teams/some-team/streams")
