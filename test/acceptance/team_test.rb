@@ -37,4 +37,41 @@ class TeamAcceptanceTest < AcceptanceTestCase
       end
     end
   end
+
+  def test_team_pagination
+
+    user = User.create(username: "foobar", github_id: 123)
+
+    attributes = { slug: 'some-team', name: 'Some Team', confirmed: true }
+    team = Team.by(user).defined_with(attributes, user)
+    team.save!
+
+    TeamMembership.create!(team_id: team.id, user_id: user.id, confirmed: true)
+
+    WillPaginate.per_page = 2
+
+    submission = Submission.create(user: user,
+                                   language: 'ruby',
+                                   slug: 'leap',
+                                   solution: { 'leap.rb': 'CODE' })
+
+    3.times do |index|
+      UserExercise.create(user: user,
+                          submissions: [submission],
+                          language: 'fake',
+                          slug: "apple#{index}",
+                          iteration_count: 1)
+    end
+
+    with_login(user) do
+      visit("/teams/some-team/streams")
+      click_link("2")
+    end
+
+  end
+
+  #pagination_menu_item.total
 end
+# from: Post.paginate(:page => params[:page], :per_page => 30)
+# Post.paginate(:page => params[:page], :per_page => 30)
+

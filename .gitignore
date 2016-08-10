@@ -25,6 +25,7 @@ db/schema.sql
 db/migrations.sql
 Procfile_Vagrant
 /vendor
+Vagrantfile
 
 # JavaScript
 node_modules
