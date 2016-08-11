@@ -98,7 +98,7 @@ module ExercismWeb
         redirect "/#{current_user.username}"
       end
 
-      get '/exercises/:track_id/:slug' do |id, slug|
+      get '/exercises/:track_id/:slug/test-suite' do |id, slug|
         status, body = X::Xapi.get('tracks', id, 'exercises', slug, 'tests')
         if status > 299
           flash[:notice] = JSON.parse(body)["error"]
@@ -109,7 +109,7 @@ module ExercismWeb
         erb :"exercises/test_suite", locals: { exercise: exercise }
       end
 
-      get '/exercises/:track_id/:slug/readme' do |id, slug|
+      get '/exercises/:track_id/:slug' do |id, slug|
         status, body = X::Xapi.get('tracks', id, 'exercises', slug, 'readme')
         if status > 299
           flash[:notice] = JSON.parse(body)["error"]

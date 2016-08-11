@@ -14,10 +14,10 @@
 <nav role="navigation">
   <ul class="nav nav-tabs">
     <li role="presentation" class= <%= 'active' if active == 'readme' %>>
-      <a href=<%="/exercises/#{exercise.track_id}/#{exercise.slug}/readme" %>>Readme</a>
+      <a href=<%="/exercises/#{exercise.track_id}/#{exercise.slug}" %>>Readme</a>
     </li>
     <li role="presentation" class= <%= 'active' if active == 'tests' %>>
-      <a href=<%= "/exercises/#{exercise.track_id}/#{exercise.slug}" %>>Test Suite</a>
+      <a href=<%= "/exercises/#{exercise.track_id}/#{exercise.slug}/test-suite" %>>Test Suite</a>
     </li>
   </ul>
 </nav>
