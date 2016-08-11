@@ -59,8 +59,16 @@ module Rouge
 
         tokens.each do |tok, val|
           last_val = val
-          num_lines += val.scan(/\n/).size
-          span(tok, val) { |str| formatted << str }
+          lines = val.scan(/\n/).size
+          if lines > 1
+            val.split(/\n/).each do |line|
+              span(tok, line) { |str| formatted << str }
+              formatted << "\n"
+            end
+          else
+            span(tok, val) { |str| formatted << str }
+          end
+          num_lines += lines
         end
 
         formatted = formatted.lines.map.with_index(1) do |line, index|
