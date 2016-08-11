@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-require 'byebug'
 require 'rouge'
 require 'loofah'
 require_relative '../../lib/rouge/formatters/html_exercism'
