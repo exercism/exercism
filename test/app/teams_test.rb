@@ -51,7 +51,8 @@ class TeamsTest < Minitest::Test
   def test_user_must_be_logged_in
     [
       [:get, '/teams'],
-      [:post, '/teams'],
+      [:get, '/teams/new'],
+      [:post, '/teams/new'],
       [:get, '/teams/abc/directory'],
       [:delete, '/teams/abc'],
       [:post, '/teams/abc/members'],
@@ -115,14 +116,14 @@ class TeamsTest < Minitest::Test
   end
 
   def test_team_creation_with_name
-    post '/teams', { team: { name: 'No Members', slug: 'no_members', usernames: '', description: '' } }, login(alice)
+    post '/teams/new', { team: { name: 'No Members', slug: 'no_members', usernames: '', description: '' } }, login(alice)
     team = Team.first
 
     assert_equal 'No Members', team.name
   end
 
   def test_team_creation_with_description
-    post '/teams', {
+    post '/teams/new', {
       team: { slug: 'no_members', usernames: '' , description: 'Team without members' }
     }, login(alice)
 
@@ -132,7 +133,7 @@ class TeamsTest < Minitest::Test
   end
 
   def test_public_team_creation
-    post '/teams', {
+    post '/teams/new', {
       team: { slug: 'no_members', usernames: '' , description: 'Team without members', public: '1' }
     }, login(alice)
 
@@ -142,20 +143,20 @@ class TeamsTest < Minitest::Test
   end
 
   def test_team_creation_with_tags
-    post '/teams', {
-      team: { slug: 'no_members', usernames: '' , tags: 'team, with, tags' }
+    post '/teams/new', {
+      team: { slug: 'with_tags', name: 'team A', usernames: '' , tags: 'rust, ruby' }
     }, login(alice)
 
     team = Team.first
 
-    assert_equal 3, team.tags.size
-    assert_equal 'team, with, tags', team.all_tags
+    assert_equal 4, team.tags.size
+    assert_equal 'with_tags, team a, rust, ruby', team.all_tags
   end
 
   def test_team_creation_with_no_members
     assert_equal 0, alice.managed_teams.size
 
-    post '/teams', { team: { slug: 'no_members', usernames: '' } }, login(alice)
+    post '/teams/new', { team: { slug: 'no_members', usernames: '' } }, login(alice)
 
     team = Team.first
 
@@ -165,13 +166,13 @@ class TeamsTest < Minitest::Test
   end
 
   def test_team_creation_with_no_slug
-    post '/teams', { team: { usernames: bob.username } }, login(alice)
+    post '/teams/new', { team: { usernames: bob.username } }, login(alice)
 
     assert_equal 0, alice.managed_teams.size
   end
 
   def test_team_creation_with_multiple_members
-    post '/teams', { team: { slug: 'members', usernames: "#{bob.username},#{charlie.username}" } }, login(alice)
+    post '/teams/new', { team: { slug: 'members', usernames: "#{bob.username},#{charlie.username}" } }, login(alice)
 
     team = Team.first
 
@@ -332,23 +333,23 @@ class TeamsTest < Minitest::Test
     team.save
 
     refute team.public?
-    assert team.tags.empty?
+    assert team.all_tags == 'edit'
 
     put "/teams/#{team.slug}", {
-      team: { name: 'New name', slug: 'new_slug', description: 'With name', public: '1', tags: 'new, tag' }
+      team: { name: 'New name', slug: 'new_slug', description: 'With name', public: '1', tags: 'tag' }
     }, login(alice)
 
     assert_response_status(302)
     assert team.reload.name == 'New name'
     assert team.reload.description == 'With name'
     assert team.reload.public?
-    assert team.reload.all_tags == 'new, tag'
+    assert team.reload.all_tags == 'new_slug, new name, tag'
     assert 2, team.tags.size
   end
 
   def test_unconfirmed_memberships_after_invitation
     team_name = 'abc'
-    post '/teams', { team: { slug: team_name, usernames: bob.username } }, login(alice)
+    post '/teams/new', { team: { slug: team_name, usernames: bob.username } }, login(alice)
 
     assert_equal 0, alice.unconfirmed_team_memberships.count, "Managers don't have unconfirmed memberships at the created team."
     assert_equal 1, bob.unconfirmed_team_memberships.count, "Bob has one unconfirmed membership at the created team."

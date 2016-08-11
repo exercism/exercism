@@ -1,0 +1,55 @@
+<div class="container">
+  <h3>Search for public teams</h3>
+
+  <div class="teams-search">
+    <form accept-charset="UTF-8" action="<%= "/teams" %>" method="get">
+      <div class="row">
+        <div class="input-group col-md-12">
+          <input type="text" name="q" value="<%= tag %>" class="form-control input-lg" placeholder="Search tags" data-search="tags"/>
+
+          <span class="input-group-btn">
+            <button class="btn btn-info btn-lg" type="submit">
+              <i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <div>
+    <ul class="teams-result-list">
+      <% if tag.present? && teams.empty?%>
+        <li class="team-info">
+          <div class="row">
+            <h3>No teams could be found!</h3>
+          </div>
+        </li>
+      <% end %>
+
+      <% teams.each do |team| %>
+        <li class="team-info">
+          <div class="row">
+            <a href="/teams/<%= team.slug %>" class="list-group-item">
+              <h3><%= h(team.name) %> (<%= team.confirmed_members.size %> <%= 'member'.pluralize(team.confirmed_members.size) %>)</h3>
+
+              <% if team.description.present? %>
+                <h4><%= team.description %></h4>
+              <% end %>
+
+              <p>
+                Tags: <%= team.all_tags %>
+              </p>
+            </a>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+  <% if teams.present? %>
+    <div class="pagination">
+      <%= will_paginate teams, renderer: BootstrapPagination::Sinatra %>
+    </div>
+  <% end %>
+</div>
