@@ -1,4 +1,3 @@
-require 'byebug'
 require_relative '../test_helper'
 require 'rouge'
 require 'loofah'
