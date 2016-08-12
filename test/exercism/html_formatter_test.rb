@@ -11,7 +11,7 @@ class HTMLFormatterTest < MiniTest::Test
   def test_ocaml_comment
     load_sample 'ocaml', 'ocaml'
 
-    assert_equal 7, @doc.css('span[id^=L]').size, "Formatting should preserve linecount"
+    assert_equal 6, @doc.css('span[id^=L]').size, "Formatting should preserve linecount"
     assert_equal 3, @doc.css('span.c').size, "Multiline comment should be split into individual lines with proper style"
 
     (1..3).each do |lineno|
@@ -24,7 +24,7 @@ class HTMLFormatterTest < MiniTest::Test
   def test_python_docstring
     load_sample 'python', 'python'
 
-    assert_equal 13, @doc.css('span[id^=L]').size, "Formatting should preserve linecount but add terminating line"
+    assert_equal 12, @doc.css('span[id^=L]').size, "Formatting should preserve linecount"
     assert_equal 3, @doc.css('span.s').size, "There should be exactly 3 string tokens in the code"
     assert_equal '', @doc.css('span#L4').text.rstrip, "Line 4 should be blank"
     assert_equal '', @doc.css('span#L5').text.rstrip, "Line 5 should be blank"
@@ -41,8 +41,8 @@ class HTMLFormatterTest < MiniTest::Test
     @raw_lines = code.lines
     lexer = get_lexer language
 
-    lexemes = lexer.lex(code)
-    @output = @formatter.format(lexemes)
+    @lexemes = lexer.lex(code)
+    @output = @formatter.format(@lexemes)
 
     @doc = Loofah::HTML::DocumentFragment.parse(@output)
   end
