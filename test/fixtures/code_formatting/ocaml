@@ -1,0 +1,6 @@
+(* reverse the first list, then prepend it to the second list. (In
+   other words, one by one, move the head of the first list onto the head
+   of the second.) *)
+let rec backward_prepend = function
+| ([], lst) -> ([], lst)
+| (hd::tl, lst) -> backward_prepend (tl, hd::lst)
