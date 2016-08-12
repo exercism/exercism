@@ -128,7 +128,7 @@ module Rouge
             formatted << end_line << start_line(line_counter)
           end
         end
-        formatted << end_line
+        formatted.gsub(start_line(line_counter), '')
       end
 
       def count_newlines(tokens)
