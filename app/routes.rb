@@ -16,6 +16,7 @@ module ExercismWeb
       Solutions: 'solutions',
       Comments: 'comments',
       Exercises: 'exercises',
+      UserExercises: 'user_exercises',
       Submissions: 'submissions',
       Teams: 'teams',
       Tracks: 'tracks',
