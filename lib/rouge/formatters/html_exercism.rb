@@ -75,7 +75,7 @@ module Rouge
       }.freeze
 
       def span(tok, val)
-        val = val.gsub(/[&<>]/, TABLE_FOR_ESCAPE_HTML)
+        val = html_escaped(val)
         shortname = tok.shortname or fail "unknown token: #{tok.inspect} for #{val.inspect}"
         if shortname.empty?
           yield val
@@ -118,7 +118,7 @@ module Rouge
         tokens.each do |tok, val|
           # Some tokens span multiple lines, such as Python triplequoted strings, or
           # delimited comments in other languages.
-          html_escaped(val).lines.each do |line|
+          val.lines.each do |line|
             # Wrap each line of this token in the same class
             span(tok, line) { |str| formatted << str }
 
