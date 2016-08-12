@@ -58,4 +58,53 @@ class AppExercisesTest < Minitest::Test
     delete "/exercises/#{exercise_2.key}/request-for-help", {}, login(alice)
     refute exercise_2.reload.help_requested
   end
+
+  def test_redirect_to_readme
+    get "/exercises/#{exercise_2.language}/#{exercise_2.slug}"
+
+    assert_equal "http://example.org/exercises/#{exercise_2.language}/#{exercise_2.slug}/readme", last_response.location, "Toplevel exercise url should redirect to README"
+  end
+
+  def test_exercise_readme
+    exercise_data = File.read File.expand_path('../../fixtures/xapi_v3_exercise_readme.json', __FILE__)
+    X::Xapi.stub :get, [200, exercise_data] do
+      get "/exercises/foo/bar/readme"
+
+      assert_equal 200, last_response.status
+      output = last_response.body
+
+      assert_match "This is three", output
+    end
+  end
+
+  def test_exercise_testsuite
+    exercise_data = File.read File.expand_path('../../fixtures/xapi_v3_exercise_test_files.json', __FILE__)
+    X::Xapi.stub :get, [200, exercise_data] do
+      get "/exercises/foo/bar/test-suite"
+
+      assert_equal 200, last_response.status
+      output = last_response.body
+
+      assert_match "<h4>a_dog.animal</h4>", output
+      assert_match 'woof woof', output
+      assert_match "<h4>a_dog_2.animal</h4>", output
+      assert_match 'Miaowww', output
+    end
+  end
+
+  def test_exercise_api_error
+    X::Xapi.stub :get, [500, {error: 'Whoops'}.to_json] do
+      get "/exercises/foo/bar/readme"
+
+      assert_equal 302, last_response.status
+      assert_equal 'http://example.org/', last_response.location
+      # require 'byebug'; byebug
+
+      get "/exercises/foo/bar/test-suite"
+
+      assert_equal 302, last_response.status
+      assert_equal 'http://example.org/', last_response.location
+
+    end
+  end
 end
