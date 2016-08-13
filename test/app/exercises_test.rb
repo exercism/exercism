@@ -98,7 +98,6 @@ class AppExercisesTest < Minitest::Test
 
       assert_equal 302, last_response.status
       assert_equal 'http://example.org/', last_response.location
-      # require 'byebug'; byebug
 
       get "/exercises/foo/bar/test-suite"
 
