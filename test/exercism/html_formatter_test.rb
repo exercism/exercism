@@ -19,6 +19,7 @@ class HTMLFormatterTest < MiniTest::Test
       original_line = @raw_lines[lineno - 1].rstrip
       assert_equal original_line, line,  "Comment text in line #{lineno} should be preserved"
     end
+
   end
 
   def test_python_docstring
@@ -28,6 +29,16 @@ class HTMLFormatterTest < MiniTest::Test
     assert_equal 3, @doc.css('span.s').size, "There should be exactly 3 string tokens in the code"
     assert_equal '', @doc.css('span#L4').text.rstrip, "Line 4 should be blank"
     assert_equal '', @doc.css('span#L5').text.rstrip, "Line 5 should be blank"
+
+  end
+
+  def test_swift
+    load_sample 'swift', 'swift'
+
+    assert_equal 121, @doc.css('span[id^=L]').size, "Formatting should preserve linecount"
+    assert_equal "}", @doc.css('span#L121').text.rstrip, "Line 121 should have only a closing brace"
+    assert_equal "    }", @doc.css('span#L120').text.rstrip, "Line 120 should have a four space indent and closing brace"
+
   end
 
   private
@@ -37,11 +48,11 @@ class HTMLFormatterTest < MiniTest::Test
   end
 
   def load_sample(name, language)
-    code = load_example name
-    @raw_lines = code.lines
+    @code = load_example name
+    @raw_lines = @code.lines
     lexer = get_lexer language
 
-    @lexemes = lexer.lex(code)
+    @lexemes = lexer.lex(@code)
     @output = @formatter.format(@lexemes)
 
     @doc = Loofah::HTML::DocumentFragment.parse(@output)
