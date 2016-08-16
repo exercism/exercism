@@ -51,22 +51,54 @@ module Rouge
         yield "</code></pre>\n" if @wrap
       end
 
+      # rubocop:disable Metrics/AbcSize, MethodLength
       def stream_tableized(tokens)
-        num_lines = count_newlines(tokens)
+        num_lines = 0
+        last_val = ''
+        formatted = ''
+
+        tokens.each do |tok, val|
+          last_val = val
+          num_lines += val.scan(/\n/).size
+          span(tok, val) { |str| formatted << str }
+        end
+
+        formatted = formatted.lines.map.with_index(1) do |line, index|
+          "<span id='#{@line_numbers_id}#{index}'>#{line}</span>"
+        end.join
+
+        # add an extra line for non-newline-terminated strings
+        if last_val[-1] != "\n"
+          num_lines += 1
+          span(Token::Tokens::Text::Whitespace, "\n") { |str| formatted << str }
+        end
+
+        # wrap line numbers with <a> tags
+        line_numbers = (@start_line..num_lines + @start_line - 1).map do |number|
+          "<a href=\"#L#{number}\">#{number}</a>"
+        end
+
+        # generate a string of newline-separated line numbers for the gutter>
+        gutter = %(<pre class="lineno">#{line_numbers.join("\n")}</pre>)
 
         yield "<div#{@css_class}>" if @wrap
         yield '<table style="border-spacing: 0"><tbody><tr>'
 
         # the "gl" class applies the style for Generic.Lineno
-        yield '<td class="gutter gl" style="text-align: right">' << gutter(num_lines) << '</td>'
+        yield '<td class="gutter gl" style="text-align: right">'
+        yield gutter
+        yield '</td>'
 
         yield '<td class="code">'
-        yield '<pre>' << formatted_code(tokens, @start_line) << '</pre>'
+        yield '<pre>'
+        yield formatted
+        yield '</pre>'
         yield '</td>'
 
         yield "</tr></tbody></table>\n"
         yield "</div>\n" if @wrap
       end
+      # rubocop:enable Metrics/AbcSize, MethodLength
 
       TABLE_FOR_ESCAPE_HTML = {
         '&' => '&amp;',
@@ -75,64 +107,18 @@ module Rouge
       }.freeze
 
       def span(tok, val)
-        val = html_escaped(val)
+        val = val.gsub(/[&<>]/, TABLE_FOR_ESCAPE_HTML)
         shortname = tok.shortname or fail "unknown token: #{tok.inspect} for #{val.inspect}"
+
         if shortname.empty?
           yield val
         elsif @inline_theme
           rules = @inline_theme.style_for(tok).rendered_rules
+
           yield "<span style=\"#{rules.to_a.join(';')}\">#{val}</span>"
         else
           yield "<span class=\"#{shortname}\">#{val}</span>"
         end
-      end
-
-      def start_line(num)
-        %(<span id="L#{num}">)
-      end
-
-      def end_line
-        "</span>"
-      end
-
-      def line_numbers(num_lines)
-        # wrap line numbers with <a> tags
-        (@start_line..num_lines + @start_line - 1).map do |number|
-          "<a href=\"#L#{number}\">#{number}</a>"
-        end
-      end
-
-      def gutter(num_lines)
-        # generate a string of newline-separated line numbers for the gutter>
-        %(<pre class="lineno">#{line_numbers(num_lines).join("\n")}</pre>)
-      end
-
-      def html_escaped(text)
-        text.gsub(/[&<>]/, TABLE_FOR_ESCAPE_HTML)
-      end
-
-      def formatted_code(tokens, line_counter)
-        # Reuse argument as line counter
-        formatted = start_line(line_counter)
-
-        tokens.each do |tok, val|
-          # Some tokens span multiple lines, such as Python triplequoted strings, or
-          # delimited comments in other languages.
-          val.lines.each do |line|
-            # Wrap each line of this token in the same class
-            span(tok, line) { |str| formatted << str }
-
-            # Increase line number only when the actual token text contained a newline
-            next unless line.include? "\n"
-            line_counter += 1
-            formatted << end_line << start_line(line_counter)
-          end
-        end
-        formatted.gsub(start_line(line_counter), '')
-      end
-
-      def count_newlines(tokens)
-        tokens.inject(0) { |acc, (_, val)| acc + val.scan("\n").size }
       end
     end
   end

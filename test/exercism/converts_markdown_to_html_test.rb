@@ -125,12 +125,12 @@ Post text)
 <a href="#L2">2</a>
 <a href="#L3">3</a></pre></td>
 <td class="code"><pre><span id="L1"><span class="p">(</span><span class="k">defn</span><span class="w"> </span><span class="n">to-rna</span><span class="w">
-</span></span><span id="L2"><span class="w">  </span><span class="p">[</span><span class="n">dna-string</span><span class="p">]</span><span class="w">
-</span></span><span id="L3"><span class="w">  </span><span class="p">(</span><span class="nf">clojure.string/replace</span><span class="w"> </span><span class="n">dna-string</span><span class="w"> </span><span class="sc">\T</span><span class="w"> </span><span class="sc">\U</span><span class="p">))</span><span class="w">
-</span></span></pre></td>
+</span><span id="L2">  </span><span class="p">[</span><span class="n">dna-string</span><span class="p">]</span><span class="w">
+</span><span id="L3">  </span><span class="p">(</span><span class="nf">clojure.string/replace</span><span class="w"> </span><span class="n">dna-string</span><span class="w"> </span><span class="sc">\T</span><span class="w"> </span><span class="sc">\U</span><span class="p">))</span><span class="w">
+</span><span id="L4"></span></span></pre></td>
 </tr></tbody></table>
 </div>'
-    assert_converts_to(input.strip, expected)
+    assert_converts_to(input, expected)
   end
 
   def test_stubby_lambda
