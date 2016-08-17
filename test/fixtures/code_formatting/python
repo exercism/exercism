@@ -1,0 +1,12 @@
+"""
+Implementation of the "word-count" exercise.
+"""
+
+
+def word_count(phrase):
+    book = {}
+    for word in phrase.split():
+        if word not in book:
+            book[word] = 0
+        book[word] += 1
+    return book
