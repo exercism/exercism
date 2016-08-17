@@ -184,7 +184,7 @@ tasks provided. You can get a list of all the rake tasks by running:
 
 To setup the seed data locally, run:
 
-    bundle exec rake db:seeds:fetch`
+    bundle exec rake db:seeds:fetch
     bundle exec rake db:seed
 
 The first command fetches the seed file and places it under the `db/`
