@@ -28,7 +28,19 @@ If the API key is incorrect, then re-run the `configure` command:
 exercism configure --key=YOUR_API_KEY
 ```
 
-Next look at the `Exercises Directory`. This should be the absolute path to the root directory for all the exercism problems. On a Mac, this might look like this:
+Next look at the `Exercises Directory`. The current directory which is being used to fetch exercises can be viewed using the following command:
+
+```bash
+exercism configure --dir
+```
+
+To change the directory where exercises are downloaded, use the following command (Be sure to enclose the directory path inside double quotes):
+
+```bash
+exercism configure --dir="DIRECTORY PATH"
+```
+
+This should be the absolute path to the root directory for all the exercism problems. On a Mac, this might look like this:
 
 ```plain
 Exercises Directory: /Users/you/exercism
