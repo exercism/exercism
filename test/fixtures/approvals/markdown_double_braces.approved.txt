@@ -1,7 +1,7 @@
 <div class="highlight json">
 <table style="border-spacing: 0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a></pre></td>
-<td class="code"><pre><span id="L1"><span class="p">{</span><span class="err">{x:</span><span class="w"> </span><span class="err">y</span><span class="p">}</span><span class="err">}</span><span class="w">
-</span><span id="L2"></span></span></pre></td>
+<td class="code"><pre><span id="L1"><span class="p">{</span><span class="err">{x:</span><span class="w"> </span><span class="err">y</span><span class="p">}</span><span class="err">}</span>
+</span></pre></td>
 </tr></tbody></table>
 </div>
