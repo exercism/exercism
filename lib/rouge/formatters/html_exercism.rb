@@ -128,11 +128,20 @@ module Rouge
             formatted << end_line << start_line(line_counter)
           end
         end
-        formatted.gsub(start_line(line_counter), '')
+        adjust_final_lines formatted, line_counter
+      end
+
+      def adjust_final_lines(formatted, line_counter)
+        formatted << end_line
+        formatted.gsub final_blank_line(line_counter), ''
       end
 
       def count_newlines(tokens)
         tokens.inject(0) { |acc, (_, val)| acc + val.scan("\n").size }
+      end
+
+      def final_blank_line(counter)
+        start_line(counter) + end_line
       end
     end
   end
