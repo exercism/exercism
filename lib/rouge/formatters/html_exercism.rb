@@ -7,32 +7,22 @@ module Rouge
       tag 'html'
 
       attr_reader :num_lines
+      LINE_NUMBERS_ID = 'L'.freeze
 
       # @option opts [String] :css_class ('highlight')
-      # @option opts [true/false] :line_numbers (false)
-      # @option opts [String] :line_numbers_id ('L')
-      # @option opts [Rouge::CSSTheme] :inline_theme (nil)
       # @option opts [true/false] :wrap (true)
+      # @option opts [Number] :start_line
       #
       # Initialize with options.
       #
-      # If `:inline_theme` is given, then instead of rendering the
-      # tokens as <span> tags with CSS classes, the styles according to
-      # the given theme will be inlined in "style" attributes.  This is
-      # useful for formats in which stylesheets are not available.
-      #
-      # Content will be wrapped in a tag (`div` if tableized, `pre` if
-      # not) with the given `:css_class` unless `:wrap` is set to `false`.
+      # Content will be wrapped in a `div` tag with the given `:css_class`
+      # unless `:wrap` is set to `false`. If `:start_line` is given,
+      # line numbering will start at that number instead of 1.
       def initialize(opts={})
         @css_class = opts.fetch(:css_class, 'highlight')
         @css_class = " class=#{@css_class.inspect}" if @css_class
 
-        @line_numbers = opts.fetch(:line_numbers, false)
-        @line_numbers_id = opts.fetch(:line_numbers_id, 'L')
         @start_line = opts.fetch(:start_line, 1)
-        @inline_theme = opts.fetch(:inline_theme, nil)
-        @inline_theme = Theme.find(@inline_theme).new if @inline_theme.is_a? String
-
         @wrap = opts.fetch(:wrap, true)
 
         @html_formatter = Rouge::Formatters::HTML.new
@@ -41,21 +31,12 @@ module Rouge
       def stream(tokens, &b)
         @num_lines = token_lines(tokens).count
 
-        if @line_numbers
-          stream_tableized(tokens, &b)
-        else
-          stream_untableized(tokens, &b)
-        end
-      end
-
-      def stream_untableized(tokens, &b)
-        yield "<pre#{@css_class}><code>" if @wrap
-        tokens.each { |tok, val| span(tok, val, &b) }
-        yield "</code></pre>\n" if @wrap
-      end
-
-      def stream_tableized(tokens, &b)
         yield "<div#{@css_class}>" if @wrap
+        stream_code(tokens, &b)
+        yield "</div>\n" if @wrap
+      end
+
+      def stream_code(tokens, &b)
         yield '<table style="border-spacing: 0"><tbody><tr>'
 
         # the "gl" class applies the style for Generic.Lineno
@@ -68,7 +49,6 @@ module Rouge
         yield '</td>'
 
         yield "</tr></tbody></table>\n"
-        yield "</div>\n" if @wrap
       end
 
       private
@@ -76,7 +56,7 @@ module Rouge
       def format_code(tokens)
         # Very similar to Rouge::Formatters::HTMLLinewise#stream, which is not customizable enough
         token_lines(tokens) do |line|
-          yield next_line
+          yield start_line
           line.each do |tok, val|
             yield @html_formatter.span(tok, val)
           end
@@ -84,9 +64,9 @@ module Rouge
         end
       end
 
-      def next_line
+      def start_line
         @lineno ||= @start_line - 1
-        %(<span id="#{@line_numbers_id}#{@lineno += 1}">)
+        %(<span id="#{LINE_NUMBERS_ID}#{@lineno += 1}">)
       end
 
       def end_line
@@ -101,7 +81,7 @@ module Rouge
 
       def line_numbers
         (@start_line..num_lines + @start_line - 1).map do |number|
-          "<a href=\"##{@line_numbers_id}#{number}\">#{number}</a>"
+          "<a href=\"##{LINE_NUMBERS_ID}#{number}\">#{number}</a>"
         end
       end
     end
