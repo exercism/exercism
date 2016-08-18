@@ -38,9 +38,9 @@ class HTMLFormatterTest < MiniTest::Test
     tokens = load_sample 'swift', 'swift'
     doc = parse @formatter.format(tokens)
 
-    assert_equal 121, doc.css('span[id^=L]').size, "Formatting should preserve linecount"
-    assert_equal "}", doc.css('span#L121').text.rstrip, "Line 121 should have only a closing brace"
-    assert_equal "    }", doc.css('span#L120').text.rstrip, "Line 120 should have a four space indent and closing brace"
+    assert_equal 15, doc.css('span[id^=L]').size, "Formatting should preserve linecount"
+    assert_equal "}", doc.css('span#L15').text.rstrip, "Line 15 should have only a closing brace"
+    assert_equal "    }", doc.css('span#L14').text.rstrip, "Line 14 should have a four space indent and closing brace"
   end
 
   private

@@ -1,121 +1,15 @@
-//
-//  PhoneNumber.swift
-//  PhoneNumber
-//
-//  Created by Tom Holland on 8/13/16.
-//  Copyright © 2016 Tom Holland. All rights reserved.
-//
-import Foundation
-
-///
-/// Represents a United States Phone Number
-///
-struct PhoneNumber: CustomStringConvertible
+struct BlahBlah: YaddaYadda
 {
-    private let phoneNumber: PhoneNumberComponents?
-
-    init(_ _phoneNumber: String)
+    /// Comment
+    init(_)
     {
-        let trimmedNumber = _phoneNumber
-            .components(separatedBy: CharacterSet(charactersIn: "0123456789").inverted)
-            .joined(separator: "")
 
-        if let components = PhoneNumberComponents(withString: trimmedNumber)
-        {
-            self.phoneNumber = components
-
-        } else {
-
-            self.phoneNumber = PhoneNumberComponents(withString: "0000000000")
-        }
     }
 
-    ///
-    /// The Phone Number's digits without formatting
-    ///
-    var number: String
+    /* Multiline
+    comment */
+    var foo: String
     {
-        return "\(self.phoneNumber!.areaCode)\(self.phoneNumber!.prefix)\(self.phoneNumber!.line)"
-    }
-
-    ///
-    /// The Phone Number's Area Code digits without formatting
-    ///
-    var areaCode: String
-    {
-        return "\(self.phoneNumber!.areaCode)"
-    }
-
-    ///
-    /// The Phone Number digits formatted in standard U.S. format
-    ///
-    /// This is a custom string value for this type
-    ///
-    var description: String
-    {
-        return "(\(self.phoneNumber!.areaCode)) \(self.phoneNumber!.prefix)-\(self.phoneNumber!.line)"
-    }
-}
-
-///
-/// Represents the components of a U.S. Phone Number - area code, prefix and line
-///
-struct PhoneNumberComponents {
-
-    private let number: String
-
-    ///
-    /// Optional initializer will only instantiate with valid input string
-    ///
-    init?(withString _number: String) {
-
-        // The number must be 10 or 11 digits long
-        guard 10...11 ~= _number.characters.count else
-        {
-            return nil
-        }
-
-        if _number.characters.count == 11
-        {
-            // Make sure that the first 2 digits are "11"
-            guard "11" == _number.substring(to: _number.index(_number.startIndex, offsetBy: 2)) else
-            {
-                return nil
-            }
-
-            // First 2 digits are "11" so we need to trim the first "1"
-            self.number = _number.substring(from: _number.index(_number.startIndex, offsetBy: 1))
-
-        } else {
-
-            // Good to go!
-            self.number = _number
-        }
-    }
-
-    ///
-    /// The Phone Number's Area Code component
-    ///
-    var areaCode: String
-    {
-        return self.number.substring(to: self.number.index(self.number.startIndex, offsetBy: 3))
-    }
-
-    ///
-    /// The Phone Number's Prefix component
-    ///
-    var prefix: String
-    {
-        let prefixRange = self.number.index(self.number.startIndex, offsetBy: 3)..<self.number.index(self.number.startIndex, offsetBy: 6)
-
-        return self.number.substring(with: prefixRange)
-    }
-
-    ///
-    /// The Phone Number's Line Number component
-    ///
-    var line: String
-    {
-        return self.number.substring(from: self.number.index(self.number.endIndex, offsetBy: -4))
+        return "FooBar"
     }
 }
