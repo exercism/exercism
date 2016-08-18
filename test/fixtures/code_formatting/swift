@@ -6,10 +6,14 @@ struct BlahBlah: YaddaYadda
 
     }
 
-    /* Multiline
-    comment */
+    /* 
+		Multi
+		line
+   		comment 
+	*/
     var foo: String
     {
         return "FooBar"
     }
+// This file should NOT have a newline at the end of it.
 }

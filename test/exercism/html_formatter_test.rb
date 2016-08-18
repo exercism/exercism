@@ -1,15 +1,16 @@
 require_relative '../test_helper'
 require 'rouge'
 require 'loofah'
-require_relative '../../lib/rouge/formatters/html_exercism'
+require 'rouge/formatters/html_exercism'
 
 class HTMLFormatterTest < MiniTest::Test
   def setup
-    @formatter = Rouge::Formatters::HTMLExercism.new line_numbers: true
+    @formatter = Rouge::Formatters::HTMLExercism.new
   end
 
-  def test_ocaml_comment
-    tokens = load_sample 'ocaml', 'ocaml'
+  def test_ocaml
+    code = load_example 'ocaml'
+    tokens = lex_sample code, 'ocaml'
     html = @formatter.format(tokens)
     doc = parse html
     raw_lines = load_example('ocaml').lines
@@ -24,9 +25,11 @@ class HTMLFormatterTest < MiniTest::Test
     end
   end
 
-  def test_python_docstring
-    tokens = load_sample 'python', 'python'
-    doc = parse @formatter.format(tokens)
+  def test_python
+    code = load_example 'python'
+    tokens = lex_sample code, 'python'
+    html = @formatter.format(tokens)
+    doc = parse html
 
     assert_equal 12, doc.css('span[id^=L]').size, "Formatting should preserve linecount"
     assert_equal 3, doc.css('span.s').size, "There should be exactly 3 string tokens in the code"
@@ -35,38 +38,37 @@ class HTMLFormatterTest < MiniTest::Test
   end
 
   def test_swift
-    tokens = load_sample 'swift', 'swift'
-    doc = parse @formatter.format(tokens)
+    code = load_example 'swift'
+    tokens = lex_sample code, 'swift'
+    html = @formatter.format(tokens)
+    doc = parse html
 
-    assert_equal 15, doc.css('span[id^=L]').size, "Formatting should preserve linecount"
+    assert_equal '}', code[-1], 'Last character should be brace, not newline'
+    assert_equal 18, code.count("\n")
+
+    assert_equal 19, doc.css('span[id^=L]').size, "Formatting should preserve linecount"
 
     # Swift, has separate single- and multi-line comments
     assert doc.css('span#L3 span.c1').size == 1, "Line 3 should contain a single-line comment"
     assert doc.css('span#L9 span.cm').size == 1, "Line 9 should contain a multiline comment"
     assert doc.css('span#L10 span.cm').size == 1, "Line 10 should contain a multiline comment"
-    assert_equal "}", doc.css('span#L15').text.rstrip, "Line 15 should have only a closing brace"
-    assert_equal "    }", doc.css('span#L14').text.rstrip, "Line 14 should have a four space indent and closing brace"
+    assert_equal "    }", doc.css('span#L17').text.rstrip, "Line 17 should have a four space indent and closing brace"
+    assert_equal "}", doc.css('span#L19').text.rstrip, "Line 19 should have only a closing brace"
   end
 
   private
 
-  def get_lexer(language)
-    Rouge::Lexer.find_fancy language
+  def load_example(name)
+    path = File.join(File.expand_path('../../fixtures/code_formatting', __FILE__), name)
+    File.read path
   end
 
-  def load_sample(name, language)
-    code = load_example name
-    lexer = get_lexer language
-
+  def lex_sample(code, language)
+    lexer = Rouge::Lexer.find_fancy language
     lexer.lex(code)
   end
 
   def parse(output)
     Loofah::HTML::DocumentFragment.parse(output)
-  end
-
-  def load_example(name)
-    path = File.join(File.expand_path('../../fixtures/code_formatting', __FILE__), name)
-    File.read path
   end
 end
