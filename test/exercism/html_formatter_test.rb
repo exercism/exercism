@@ -39,6 +39,11 @@ class HTMLFormatterTest < MiniTest::Test
     doc = parse @formatter.format(tokens)
 
     assert_equal 15, doc.css('span[id^=L]').size, "Formatting should preserve linecount"
+
+    # Swift, has separate single- and multi-line comments
+    assert doc.css('span#L3 span.c1').size == 1, "Line 3 should contain a single-line comment"
+    assert doc.css('span#L9 span.cm').size == 1, "Line 9 should contain a multiline comment"
+    assert doc.css('span#L10 span.cm').size == 1, "Line 10 should contain a multiline comment"
     assert_equal "}", doc.css('span#L15').text.rstrip, "Line 15 should have only a closing brace"
     assert_equal "    }", doc.css('span#L14').text.rstrip, "Line 14 should have a four space indent and closing brace"
   end

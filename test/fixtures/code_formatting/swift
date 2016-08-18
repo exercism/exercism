@@ -1,6 +1,6 @@
 struct BlahBlah: YaddaYadda
 {
-    /// Comment
+    // Comment
     init(_)
     {
 
