@@ -6,45 +6,30 @@ module Rouge
     class HTMLExercism < Formatter
       tag 'html'
 
-      attr_reader :num_lines
-      LINE_NUMBERS_ID = 'L'.freeze
-
       # @option opts [String] :css_class ('highlight')
-      # @option opts [true/false] :wrap (true)
-      # @option opts [Number] :start_line
-      #
-      # Initialize with options.
       #
       # Content will be wrapped in a `div` tag with the given `:css_class`
-      # unless `:wrap` is set to `false`. If `:start_line` is given,
-      # line numbering will start at that number instead of 1.
       def initialize(opts={})
-        @css_class = opts.fetch(:css_class, 'highlight')
-        @css_class = " class=#{@css_class.inspect}" if @css_class
-
-        @start_line = opts.fetch(:start_line, 1)
-        @wrap = opts.fetch(:wrap, true)
-
+        @css_class = %( class="#{opts.fetch(:css_class, 'highlight')}")
         @html_formatter = Rouge::Formatters::HTML.new
       end
 
       def stream(tokens, &b)
-        @num_lines = token_lines(tokens).count
-
-        yield "<div#{@css_class}>" if @wrap
+        yield "<div#{@css_class}>"
         stream_code(tokens, &b)
-        yield "</div>\n" if @wrap
+        yield "</div>\n"
       end
 
       def stream_code(tokens, &b)
+        code_lines = token_lines(tokens)
+
         yield '<table style="border-spacing: 0"><tbody><tr>'
 
-        # the "gl" class applies the style for Generic.Lineno
-        yield '<td class="gutter gl" style="text-align: right">' << gutter << '</td>'
+        yield numbered_gutter(1..code_lines.count)
 
         yield '<td class="code">'
         yield '<pre>'
-        format_code(tokens, &b)
+        format_code(code_lines, &b)
         yield '</pre>'
         yield '</td>'
 
@@ -53,36 +38,31 @@ module Rouge
 
       private
 
-      def format_code(tokens)
-        # Very similar to Rouge::Formatters::HTMLLinewise#stream, which is not customizable enough
-        token_lines(tokens) do |line|
-          yield start_line
+      def format_code(code_lines)
+        code_lines.each.with_index do |line, index|
+          yield %(<span id="#{css_line_id(index + 1)}">)
           line.each do |tok, val|
             yield @html_formatter.span(tok, val)
           end
-          yield end_line
+          yield %(\n</span>)
         end
       end
 
-      def start_line
-        @lineno ||= @start_line - 1
-        %(<span id="#{LINE_NUMBERS_ID}#{@lineno += 1}">)
+      def numbered_gutter(number_range)
+        # the "gl" class applies the style for Generic.Lineno
+        '<td class="gutter gl" style="text-align: right">' <<
+          '<pre class="lineno">%s</pre>' % line_number_links(number_range).join("\n") <<
+          '</td>'
       end
 
-      def end_line
-        # NOTE: the newline is for test compatibility.
-        # It's unnecessary for presentation if we use divs instead (and display: block for lines)
-        "\n</span>"
-      end
-
-      def gutter
-        %(<pre class="lineno">#{line_numbers.join("\n")}</pre>)
-      end
-
-      def line_numbers
-        (@start_line..num_lines + @start_line - 1).map do |number|
-          "<a href=\"##{LINE_NUMBERS_ID}#{number}\">#{number}</a>"
+      def line_number_links(number_range)
+        number_range.map do |number|
+          %(<a href="##{css_line_id(number)}">#{number}</a>)
         end
+      end
+
+      def css_line_id(number)
+        "L#{number}"
       end
     end
   end
