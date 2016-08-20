@@ -34,12 +34,7 @@ module ExercismLib
     end
 
     def formatter
-      options = {
-        css_class:    "highlight #{lexer.tag}",
-        line_numbers: true,
-      }
-
-      Rouge::Formatters::HTMLExercism.new(options)
+      Rouge::Formatters::HTMLExercism.new(css_class: "highlight #{lexer.tag}")
     end
 
     def normalize_language(language)

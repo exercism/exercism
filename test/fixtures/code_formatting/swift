@@ -1,0 +1,19 @@
+struct BlahBlah: YaddaYadda
+{
+    // Comment
+    init(_)
+    {
+
+    }
+
+    /* 
+		Multi
+		line
+   		comment 
+	*/
+    var foo: String
+    {
+        return "FooBar"
+    }
+// This file should NOT have a newline at the end of it.
+}
