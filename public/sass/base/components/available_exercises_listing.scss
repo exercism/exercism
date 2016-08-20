@@ -1,0 +1,53 @@
+@import '../variables';
+@import '../themes/exercism';
+/***************
+
+  Component Name: Available Exercises Listing
+  Descrption: This component is used to provide styling for available exercises list.
+
+***************/
+.available_exercises_listing {
+  margin: 0;
+  padding: 0;
+  li {
+    height: 1%;
+    overflow: hidden;
+    list-style: none;
+    padding: 0 5px;
+    min-height: 35px;
+    &:not(:last-child) {
+      border-bottom: 1px solid $exercism-light-gray;
+    }
+    a {
+      color: $exercism-red;
+      font-size: $font-size-large;
+      margin-right: 20px;
+      padding: 5px 0;
+      display: block;
+      width: 200px;
+      float: left;
+      word-wrap: break-word;
+    }
+  }
+}
+.tagline {
+  line-height: 20px;
+  display: block;
+  padding-left: 200px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+@media screen and (max-width: 640px) {
+  .available_exercises_listing {
+    li {
+      a {
+         float: none;
+         width: 100%;
+      }
+    }
+  }
+  .tagline {
+    padding-top: 0;
+    padding-left: 0;
+  }
+}
