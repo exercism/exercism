@@ -20,6 +20,7 @@ module ExercismWeb
       Submissions: 'submissions',
       Tags: 'tags',
       Teams: 'teams',
+      Invitations: 'invitations',
       Tracks: 'tracks',
       Styleguide: 'styleguide',
       Subscriptions: 'subscriptions',

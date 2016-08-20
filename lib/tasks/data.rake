@@ -272,5 +272,21 @@ namespace :data do
         end
       end
     end
+
+    desc "migrate unconfirmed memberships to membership_invites"
+    task :migrate_unconfirmed_memberships do
+      require 'active_record'
+      require 'db/connection'
+      DB::Connection.establish
+
+      sql = <<-SQL
+        INSERT INTO team_membership_invites(team_id, user_id, inviter_id, created_at, updated_at)
+        SELECT team_id, user_id, inviter_id, created_at, updated_at
+        FROM team_memberships
+        WHERE confirmed is FALSE
+      SQL
+
+      ActiveRecord::Base.connection.execute(sql)
+    end
   end
 end

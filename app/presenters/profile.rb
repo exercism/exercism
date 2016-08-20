@@ -50,7 +50,7 @@ module ExercismWeb
       end
 
       def teams
-        user.unconfirmed_teams | user.teams | user.managed_teams
+        user.team_invites | user.teams | user.managed_teams
       end
 
       def has_teams?

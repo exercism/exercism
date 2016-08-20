@@ -43,6 +43,7 @@ module ExercismWeb
     use Routes::Comments
     use Routes::Tags
     use Routes::Teams
+    use Routes::Invitations
     use Routes::Tracks
     use Routes::Sessions
     use Routes::Styleguide

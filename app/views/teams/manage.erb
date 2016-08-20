@@ -107,7 +107,7 @@
 
   <div id="members">
     <h3>Members</h3>
-    <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/members" %>" method="post">
+    <form accept-charset="UTF-8" action="<%= "/teams/#{team.slug}/invitations" %>" method="post">
       <div class="row">
         <div class="control-group col-md-8">
           <label  class="control-label" for="usernames">Usernames (comma-separated list)</label>
@@ -122,7 +122,7 @@
     <br/>
 
     <div class="row">
-      <% team.confirmed_members.each do |member| %>
+      <% team.members.each do |member| %>
         <div class="col-sm-3">
           <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
           class="btn btn-xs btn-danger member_delete" style="margin: 10px 10px 10px 0">X</a>
@@ -132,17 +132,19 @@
       <% end %>
     </div>
 
-    <div class="row">
-      <h4>Unconfirmed members</h4>
-      <% team.unconfirmed_members.each do |member| %>
-        <div class="col-sm-3">
-          <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
-          class="btn btn-xs btn-danger member_delete" style="margin: 10px 10px 10px 0">X</a>
-          <%= gravatar_tag member.avatar_url, size: 20 %>
-          <a href="/<%= member.username %>"><%= member.username %></a>
-        </div>
-      <% end %>
-    </div>
+    <% if team.member_invites.exists? %>
+      <div class="row">
+        <h4>Invited members</h4>
+        <% team.member_invites.each do |member| %>
+          <div class="col-sm-3">
+            <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
+            class="btn btn-xs btn-danger member_delete" style="margin: 10px 10px 10px 0">X</a>
+            <%= gravatar_tag member.avatar_url, size: 20 %>
+            <a href="/<%= member.username %>"><%= member.username %></a>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
 
   </div>
 </div>

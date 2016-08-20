@@ -55,11 +55,9 @@ class TeamsTest < Minitest::Test
       [:post, '/teams/new'],
       [:get, '/teams/abc/directory'],
       [:delete, '/teams/abc'],
-      [:post, '/teams/abc/members'],
       [:put, '/teams/abc/leave'],
       [:delete, '/teams/abc/members/alice'],
       [:put, '/teams/abc'],
-      [:put, '/teams/abc/confirm'],
       [:post, '/teams/abc/managers'],
       [:delete, '/teams/abc/managers'],
       [:post, '/teams/abc/disown'],
@@ -75,12 +73,12 @@ class TeamsTest < Minitest::Test
   def test_user_must_be_manager
     team = Team.by(alice).defined_with(slug: 'abc', usernames: bob.username)
     team.save
-    team.confirm(bob.username)
+
+    TeamMembershipInvite.pending.find_by(user: bob, team: team).accept!
 
     [
       [:delete, '/teams/abc', "delete a team"],
       [:put, '/teams/abc', "edit a team"],
-      [:post, '/teams/abc/members', "add members"],
       [:delete, '/teams/abc/members/bob', "dismiss members"],
       [:post, '/teams/abc/managers', "add a manager"],
       [:delete, '/teams/abc/managers', "remove a manager"],
@@ -105,7 +103,7 @@ class TeamsTest < Minitest::Test
       assert_equal 302, last_response.status
       assert_equal "http://example.org/", last_response.location
 
-      team.confirm(bob.username)
+      TeamMembershipInvite.pending.find_by(user: bob, team: team).accept!
       get '/teams/abc/directory', {}, login(bob)
       assert_equal 200, last_response.status
 
@@ -186,8 +184,8 @@ class TeamsTest < Minitest::Test
     refute team.includes?(bob)
     refute team.includes?(charlie)
 
-    put "/teams/#{team.slug}/confirm", {}, login(bob)
-    put "/teams/#{team.slug}/confirm", {}, login(charlie)
+    post "/teams/#{team.slug}/invitation/accept", {}, login(bob)
+    post "/teams/#{team.slug}/invitation/accept", {}, login(charlie)
 
     bob.reload
     charlie.reload
@@ -198,42 +196,11 @@ class TeamsTest < Minitest::Test
     [alice, bob, charlie].each { |member| assert team.includes?(member) }
   end
 
-  def test_member_addition
-    team = Team.by(alice).defined_with(slug: 'members')
-    team.save
-
-    post "/teams/#{team.slug}/members", { usernames: "#{bob.username},#{charlie.username}" }, login(alice)
-
-    team.reload
-
-    refute team.includes?(bob)
-    refute team.includes?(charlie)
-
-    put "/teams/#{team.slug}/confirm", {}, login(bob)
-
-    team.reload
-
-    assert team.includes?(bob)
-    refute team.includes?(charlie)
-  end
-
-  def test_only_managers_can_invite_members
-    team = Team.by(alice).defined_with(slug: 'members', usernames: bob.username)
-    team.save
-
-    post "/teams/#{team.slug}/members", { usernames: charlie.username }, login(bob)
-
-    team.reload
-
-    assert_response_status(302)
-    refute team.includes?(charlie)
-  end
-
   def test_member_removal
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: "#{bob.username},#{charlie.username}")
     team.save
 
-    put "/teams/#{team.slug}/confirm", {}, login(bob)
+    put "/teams/#{team.slug}/accept_invite", {}, login(bob)
     delete "/teams/#{team.slug}/members/#{bob.username}", {}, login(alice)
 
     team.reload
@@ -245,7 +212,7 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: "#{bob.username},#{charlie.username}")
     team.save
 
-    put "/teams/#{team.slug}/confirm", {}, login(bob)
+    put "/teams/#{team.slug}/accept_invite", {}, login(bob)
     put "/teams/#{team.slug}/leave", {}, login(bob)
 
     team.reload
@@ -257,7 +224,7 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with(slug: 'members', usernames: "#{bob.username},#{charlie.username}")
     team.save
 
-    put "/teams/#{team.slug}/confirm", {}, login(charlie)
+    post "/teams/#{team.slug}/invitation/accept", {}, login(charlie)
     delete "/teams/#{team.slug}/members/#{charlie.username}", {}, login(bob)
 
     team.reload
@@ -275,7 +242,7 @@ class TeamsTest < Minitest::Test
 
     assert_response_status(302)
 
-    put "/teams/#{team.slug}/confirm", {}, login(bob)
+    post "/teams/#{team.slug}/invitation/accept", {}, login(bob)
 
     f = './test/fixtures/xapi_v3_tracks.json'
     X::Xapi.stub(:get, [200, File.read(f)]) do
@@ -345,25 +312,6 @@ class TeamsTest < Minitest::Test
     assert team.reload.public?
     assert team.reload.all_tags == 'new_slug, new name, tag'
     assert 2, team.tags.size
-  end
-
-  def test_unconfirmed_memberships_after_invitation
-    team_name = 'abc'
-    post '/teams/new', { team: { slug: team_name, usernames: bob.username } }, login(alice)
-
-    assert_equal 0, alice.unconfirmed_team_memberships.count, "Managers don't have unconfirmed memberships at the created team."
-    assert_equal 1, bob.unconfirmed_team_memberships.count, "Bob has one unconfirmed membership at the created team."
-
-    assert_equal 1, alice.team_memberships.count, "Managers have a confirmed membership at the created team."
-    assert_equal 0, bob.team_memberships.count, "Bob doesn't have a confirmed membership at the created team."
-
-    post "/teams/abc/members", { usernames: charlie.username }, login(alice)
-
-    assert_equal 1, bob.reload.unconfirmed_team_memberships.count, "Bob should not have gotten an unconfirmed membership again."
-    assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Notify charlie failed"
-
-    assert_equal 0, charlie.reload.team_memberships.count, "Bob still doesn't have a confirmed membership at the created team."
-    assert_equal 1, charlie.reload.unconfirmed_team_memberships.count, "Charlie has one unconfirmed membership at the created team."
   end
 
   def test_add_manager

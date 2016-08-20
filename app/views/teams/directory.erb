@@ -2,7 +2,7 @@
   <br>
   <%= erb :"teams/_tabs", locals: {active: active, team: team} %>
 
-  <h3><%= h(team.name) %> (<%= team.confirmed_members.size %> <%= 'member'.pluralize(team.confirmed_members.size) %>)</h3>
+  <h3><%= h(team.name) %> (<%= team.members.size %> <%= 'member'.pluralize(team.members.size) %>)</h3>
 
   <% if team.description.present? %>
     <h4><%= team.description %></h4>
@@ -10,7 +10,7 @@
 
   <p>Click on a team member's name to go to their profile.</p>
 
-  <% team.confirmed_members.each_slice(3) do |row| %>
+  <% team.members.each_slice(3) do |row| %>
     <div class="row">
       <% row.each do |member| %>
         <div class="col-md-4" id="<%= member.username %>">

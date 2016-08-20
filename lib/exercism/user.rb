@@ -13,11 +13,11 @@ class User < ActiveRecord::Base
 
   has_many :management_contracts, class_name: "TeamManager"
   has_many :managed_teams, through: :management_contracts, source: :team
-  has_many :team_memberships, -> { where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
+  has_many :team_memberships, -> { where confirmed: true }, dependent: :destroy
+  has_many :team_membership_invites, -> { where refused: false }, dependent: :destroy
   has_many :teams, through: :team_memberships
-  has_many :inviters, through: :team_memberships, class_name: "User", foreign_key: :inviter_id
-  has_many :unconfirmed_team_memberships, -> { where confirmed: false }, class_name: "TeamMembership", dependent: :destroy
-  has_many :unconfirmed_teams, through: :unconfirmed_team_memberships, source: :team
+  has_many :team_invites, through: :team_membership_invites, source: :team
+  has_many :inviters, through: :team_membership_invites, class_name: "User", foreign_key: :inviter_id
 
   before_save do
     self.key ||= Exercism.uuid
@@ -139,6 +139,10 @@ class User < ActiveRecord::Base
       avatar_url: avatar_url,
       github_id: github_id,
     }
+  end
+
+  def team_membership_invites_for(team)
+    team_membership_invites.find_by(team_id: team)
   end
 
   private

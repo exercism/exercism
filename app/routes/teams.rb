@@ -34,8 +34,7 @@ module ExercismWeb
         team = Team.by(current_user).defined_with(params[:team], current_user)
         if team.valid?
           team.save
-          team.recruit(current_user.username, current_user)
-          team.confirm(current_user.username)
+          TeamMembership.create(team: team, user: current_user, inviter: current_user, confirmed: true)
           redirect "/teams/#{team.slug}/directory"
         else
           erb :"teams/new", locals: { team: team }
@@ -162,21 +161,6 @@ module ExercismWeb
         end
       end
 
-      # Accept an invitation to join a team.
-      put '/teams/:slug/confirm' do |slug|
-        please_login
-        only_with_existing_team(slug) do |team|
-          unless team.unconfirmed_members.include?(current_user)
-            flash[:error] = "You don't have a pending invitation to this team."
-            redirect "/"
-          end
-
-          team.confirm(current_user.username)
-
-          redirect "/teams/#{slug}"
-        end
-      end
-
       ## Team Management ##
 
       # Team management dashboard
@@ -203,23 +187,13 @@ module ExercismWeb
         end
       end
 
-      # Add team members.
-      post '/teams/:slug/members' do |slug|
-        please_login
-        only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
-          team.recruit(params[:usernames], current_user)
-          team.save
-
-          redirect "/teams/#{slug}/manage"
-        end
-      end
-
       # Delete a team member.
       delete '/teams/:slug/members/:username' do |slug, username|
         please_login
         only_for_team_managers(slug, "You are not allowed to remove team members.") do |team|
           team.dismiss(username)
 
+          flash[:success] = "#{username} removed from team #{slug}"
           redirect "/teams/#{slug}/manage"
         end
       end

@@ -94,15 +94,15 @@ class UserTest < Minitest::Test
 
     team.save
     other_team.save
-    TeamMembership.where(user: bob).first.confirm!
+    TeamMembershipInvite.where(user: bob).first.accept!
 
     assert TeamMembership.exists?(team: team, user: bob, inviter: alice), 'Confirmed TeamMembership for bob was created.'
-    assert TeamMembership.exists?(team: other_team, user: bob, inviter: alice), 'Unconfirmed TeamMembership for charlie was created.'
+    assert TeamMembershipInvite.exists?(team: other_team, user: bob, inviter: alice), 'TeamMembershipInvite for bob was created.'
 
     bob.destroy
 
     refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'Confirmed TeamMembership was deleted.'
-    refute TeamMembership.exists?(team: other_team, user: bob, inviter: alice), 'Unconfirmed TeamMembership was deleted.'
+    refute TeamMembershipInvite.exists?(team: other_team, user: bob, inviter: alice), 'TeamMembershipInvite was deleted.'
   end
 
   def test_increment_adds_to_table

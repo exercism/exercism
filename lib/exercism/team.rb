@@ -1,12 +1,11 @@
 require './lib/exercism/team_membership'
+require './lib/exercism/team_membership_invite'
 
 class Team < ActiveRecord::Base
   has_many :memberships, -> { where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
-  has_many :unconfirmed_memberships, -> { where confirmed: false }, class_name: "TeamMembership", dependent: :destroy
-  has_many :confirmed_memberships, -> { where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
+  has_many :membership_invites, -> { where refused: false }, class_name: "TeamMembershipInvite", dependent: :destroy
   has_many :members, through: :memberships, source: :user
-  has_many :unconfirmed_members, through: :unconfirmed_memberships, source: :user
-  has_many :confirmed_members, through: :confirmed_memberships, source: :user
+  has_many :member_invites, through: :membership_invites, source: :user
   has_many :management_contracts, class_name: "TeamManager"
   has_many :managers, through: :management_contracts, source: :user
 
@@ -46,7 +45,7 @@ class Team < ActiveRecord::Base
     managers << user unless managed_by?(user)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
+  # rubocop:disable Metrics/AbcSize
   def defined_with(options, inviter=nil)
     self.slug = options[:slug]
     self.name = options[:name]
@@ -56,23 +55,27 @@ class Team < ActiveRecord::Base
     tags = [options[:slug], options[:name], options[:tags]].join(',')
     self.tags = Tag.create_from_text(tags)
 
-    recruits = User.find_or_create_in_usernames(potential_recruits(options[:usernames])) if options[:usernames]
-    recruits = options[:users] if options[:users]
-
-    if recruits
-      recruits.each do |recruit|
-        TeamMembership.create(user: recruit, team: self, inviter: inviter)
-      end
-    end
+    users = User.find_or_create_in_usernames(potential_members(options[:usernames])) if options[:usernames]
+    users = options[:users] if options[:users]
+    invite(users, inviter)
 
     self
   end
 
-  def recruit(usernames, inviter)
-    recruits = User.find_or_create_in_usernames(potential_recruits(usernames.to_s)) - all_members
+  def invite_with_usernames(usernames, inviter)
+    invite(
+      User.find_or_create_in_usernames(potential_members(usernames)),
+      inviter
+    )
+  end
 
-    recruits.each do |recruit|
-      TeamMembership.create(user: recruit, team: self, inviter: inviter)
+  def invite(users, inviter)
+    return unless users.present?
+
+    users = Array(users) - all_members
+
+    users.each do |user|
+      TeamMembershipInvite.create(user: user, team: self, inviter: inviter, refused: false)
     end
   end
 
@@ -82,19 +85,6 @@ class Team < ActiveRecord::Base
 
     TeamMembership.where(team_id: id, user_id: user.id).map(&:destroy)
     members.delete(user)
-    unconfirmed_members.delete(user)
-  end
-
-  # TODO: let's confirm on user, not username, since
-  # we can't report errors if we don't find the user or they're already a member.
-  def confirm(username)
-    user = User.find_by_username(username)
-    member = unconfirmed_memberships.where(user_id: user.id).first
-    if member
-      member.confirm!
-      unconfirmed_members.reload
-      members.reload
-    end
   end
 
   def usernames
@@ -106,7 +96,7 @@ class Team < ActiveRecord::Base
   end
 
   def all_members
-    members + unconfirmed_members
+    members + member_invites
   end
 
   def all_tags
@@ -115,7 +105,7 @@ class Team < ActiveRecord::Base
 
   private
 
-  def potential_recruits(comma_delimited_names)
+  def potential_members(comma_delimited_names)
     comma_delimited_names.to_s.split(/\s*,\s*/).map(&:strip)
   end
 

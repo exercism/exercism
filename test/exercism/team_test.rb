@@ -80,109 +80,90 @@ class TeamTest < Minitest::Test
   def test_has_members
     team = Team.by(bob).defined_with(slug: 'purple', usernames: '  alice    , charlie-brown ')
     team.save
+    team.reload
 
-    assert_equal [alice, charlie], team.unconfirmed_members
-    assert_equal [], team.members
+    assert_equal [alice, charlie], team.member_invites
+    assert team.members.empty?
     refute alice.teams.include?(team)
 
-    team.confirm(alice.username)
+    alice.team_membership_invites_for(team).accept!
+    team.reload
 
-    assert_equal [charlie], team.unconfirmed_members
+    assert_equal [charlie], team.member_invites
     assert_equal [alice], team.members
     assert alice.teams.include?(team)
   end
 
-  def test_team_inclusion
-    team = Team.by(alice).defined_with(slug: 'sparkle', usernames: 'bob')
-    team.save
-
-    assert team.includes?(alice)
-    refute team.includes?(bob)
-
-    team.confirm(bob.username)
-    assert team.includes?(bob)
-  end
-
-  def test_team_recruit
-    charlie = User.create(username: 'charlie')
-    david = User.create(username: 'david')
+  def test_team_invite
     inviter = User.create(username: 'inviter')
 
     team = Team.by(alice).defined_with(slug: 'blurple')
     team.save
 
-    team.recruit(bob.username, inviter)
-    team.recruit("#{david.username},#{charlie.username}", inviter)
+    team.invite(bob, inviter)
+    team.reload
 
     refute team.includes?(bob)
-    refute team.includes?(charlie)
-    refute team.includes?(david)
-
-    team.confirm(bob.username)
-    team.confirm(charlie.username)
-    team.confirm(david.username)
-
-    assert team.includes?(bob)
-    assert team.includes?(charlie)
-    assert team.includes?(david)
-
-    team.members.each do |user|
-      assert user.inviters.include? inviter
-    end
+    assert team.member_invites.include?(bob)
   end
 
-  def test_team_does_not_recruit_duplicates
+  def test_team_does_not_invite_more_than_once
     inviter = User.create(username: 'inviter')
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
     team.save
-    member_count = team.all_members.count
-    team.confirm(bob.username)
-    team.recruit(bob.username, inviter)
+    team.reload
 
-    assert_equal member_count, team.all_members.count
+    assert_equal 1, bob.team_membership_invites.where(team_id: team).count
+    team.invite(bob, inviter)
+    assert_equal 1, bob.team_membership_invites.where(team_id: team).count
   end
 
   def test_team_member_dismiss
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
     team.save
 
-    team.confirm(bob.username)
+    bob.team_membership_invites_for(team).accept!
+    team.reload
+    assert team.includes?(bob)
+
     team.dismiss(bob.username)
     team.reload
-
     refute team.includes?(bob)
-    assert_equal 0, team.members.size
   end
 
-  def test_team_memberships_dismissed
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
-    team.save
-
-    team.confirm(bob.username)
-    team.dismiss(bob.username)
-    team.reload
-
-    assert_equal [], TeamMembership.where(team_id: team.id, user_id: bob.id)
-  end
-
-  def test_destroy_doesnt_leave_orphan_team_memberships
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
-    team.save
-
-    team.confirm(bob.username)
-    assert_equal 1, TeamMembership.all.size
-    team.destroy!
-  end
-
-  def test_team_member_dismiss_invalid_member
+  def test_team_member_dismiss_ignores_invalid_member
     team = Team.by(alice).defined_with(slug: 'awesome', usernames: bob.username)
     team.save
 
-    team.confirm(bob.username)
-    team.dismiss(alice.username)
+    bob.team_membership_invites_for(team).accept!
     team.reload
-
     assert_equal 1, team.members.size
+
+    team.dismiss('invalid-member')
+    assert_equal 1, team.members.size
+  end
+
+  def test_team_member_dismiss_removes_membership
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
+    team.save
+
+    bob.team_membership_invites_for(team).accept!
+    assert TeamMembership.exists?(team_id: team, user_id: bob)
+
+    team.dismiss(bob.username)
+    refute TeamMembership.exists?(team_id: team, user_id: bob)
+  end
+
+  def test_destroy_doesnt_leave_orphan_team_memberships
+    attributes = { slug: 'delete', usernames: bob.username.to_s }
+    team = Team.by(alice).defined_with(attributes, alice)
+    team.save
+
+    bob.team_membership_invites_for(team).accept!
+
+    assert TeamMembership.exists?(team: team, user: bob, inviter: alice)
+    team.destroy
+    refute TeamMembership.exists?(team: team, user: bob, inviter: alice)
   end
 
   def test_management
@@ -197,30 +178,6 @@ class TeamTest < Minitest::Test
 
     bob.reload
     assert_equal [team.id], bob.managed_teams.map(&:id)
-  end
-
-  def test_delete_memberships_with_team
-    attributes = { slug: 'delete', usernames: bob.username.to_s }
-    team = Team.by(alice).defined_with(attributes, alice)
-    team.save
-
-    assert TeamMembership.exists?(team: team, user: bob, inviter: alice), 'TeamMembership was created.'
-    team.destroy
-    refute TeamMembership.exists?(team: team, user: bob, inviter: alice), 'TeamMembership was deleted.'
-  end
-
-  def test_invite_user_with_incorrect_case_in_username
-    team = Team.by(alice).defined_with(slug: 'bizard')
-    team.save
-
-    team.recruit('BOB', alice)
-
-    assert_equal 1, User.where(username: 'bob').count
-
-    refute team.includes?(bob), "bob should not be a member (yet)"
-
-    team.confirm(bob.username)
-    assert team.includes?(bob), "bob should now be a member"
   end
 
   def test_all_tags_converts_tag_ids_into_tag_names

@@ -31,7 +31,7 @@
         <li class="team-info">
           <div class="row">
             <a href="/teams/<%= team.slug %>" class="list-group-item">
-              <h3><%= h(team.name) %> (<%= team.confirmed_members.size %> <%= 'member'.pluralize(team.confirmed_members.size) %>)</h3>
+              <h3><%= h(team.name) %> (<%= team.members.size %> <%= 'member'.pluralize(team.members.size) %>)</h3>
 
               <% if team.description.present? %>
                 <h4><%= team.description %></h4>
