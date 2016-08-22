@@ -286,10 +286,27 @@ required to be running for the server to run though.
 * Install Lineman with: `npm install -g lineman`
 * To run: `cd frontend` and start Lineman with `lineman run`
 
+Lineman will compile your javascripts when you run `lineman run`, but before
+committing your code, make sure everything is compiled using:
+
+```bash
+cd frontend && lineman build
+```
+
 #### SCSS
 
-* Start Compass with: `compass watch`
-* To compile: `compass compile`
+We use [Compass](http://compass-style.org/) for compiling Sass files.
+During development, you can run the compass watcher to keep your compiled CSS files up to date as changes are made.
+
+```bash
+bundle exec compass watch
+```
+
+Before committing, tell `compass` to compile the stylesheets for production use.
+
+```bash
+bundle exec compass compile --production
+```
 
 For CSS we are using Sass (with `.scss`). Feel free to use [Bootstrap 3](http://getbootstrap.com) components and mixins. Or if you want to use even more mixins you can use [Compass](http://compass-style.org/reference/compass/). Structurewise we try to separate components, mixins and layouts. Where layouts should be a single page (using an HTML id as a selector) and components should be reusable partials, which can look different by layout.
 
