@@ -30815,16 +30815,22 @@ $(function() {
 
   $(".code a[data-action='enlarge']").on("click",function() {
     var codeDiv = $(this).parents(".code");
+    var commentsDiv = codeDiv.siblings('.comments');
     codeDiv.removeClass($(this).data("old-class"));
     codeDiv.addClass($(this).data("new-class"));
+    commentsDiv.removeClass($(this).data("old-class"));
+    commentsDiv.addClass($(this).data("new-class"));
     $(this).hide();
     $("a[data-action='shrink']",codeDiv).show();
   });
 
   $(".code a[data-action='shrink']").on("click",function() {
     var codeDiv = $(this).parents(".code");
+    var commentsDiv = codeDiv.siblings('.comments');
     codeDiv.removeClass($(this).data("old-class"));
     codeDiv.addClass($(this).data("new-class"));
+    commentsDiv.removeClass($(this).data("old-class"));
+    commentsDiv.addClass($(this).data("new-class"));
     $(this).hide();
     $("a[data-action='enlarge']",codeDiv).show();
   });
