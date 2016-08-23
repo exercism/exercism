@@ -109,3 +109,23 @@ Styleguide Components - Comment.
     }
   }
 }
+.comments {
+  &.col-md-12 {
+    .comment {
+      .comment-author {
+        @include make-md-column(1);
+        padding-left: 0px;
+      }
+      .comment-body {
+        @include make-md-column(11);
+      }
+      &.comment-submitter {
+        .comment-author {
+          float: right;
+          padding-right: 0px;
+          padding-left: ($grid-gutter-width / 2);
+        }
+      }
+    }
+  }
+}
