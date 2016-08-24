@@ -1,0 +1,24 @@
+<div class="tab-pane <%='active' if track.active? %>" id="about">
+  <%= md track.docs.about %>
+
+  <h3>Try It!</h3>
+  <p>
+    If you've downloaded the <a href='/cli'>command-line client</a> and have <%= track.language %> installed
+    on your machine, then go ahead and fetch the first problem.
+  </p>
+  <%= syntax track.fetch_cmd, "plain" %>
+
+  <p>
+    In order to be able to submit your solution, you'll need to configure the client with your
+    <a href="/account/key">Exercism API key</a>.
+  </p>
+
+  <%= syntax "exercism configure --key=YOUR_EXERCISM_KEY", "plain" %>
+
+  <p>
+    When you've written a solution, submit it to the site.
+    You'll have to configure the command-line client with your exercism API key before you can submit.
+  </p>
+
+  <%= syntax "exercism submit PATH_TO_FILE", "plain" %>
+</div>
