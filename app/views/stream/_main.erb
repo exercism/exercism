@@ -17,6 +17,7 @@
               <h4>
                 <%= exercise.problem.name %>
                 <span class="profile"> <%= exercise.username %> </span>
+                <span class="track-icon"><%= track_icon(exercise.problem.track_id, 20) %></span>
               </h4>
               <p>
                 <%= exercise.iteration_count %> <%= "iteration".pluralize(exercise.iteration_count) %>
