@@ -73,7 +73,8 @@ class TeamAcceptanceTest < AcceptanceTestCase
     submission = Submission.create(user: user,
                                    language: 'ruby',
                                    slug: 'leap',
-                                   solution: { 'leap.rb': 'CODE' })
+                                   solution: { 'leap.rb': 'CODE' },
+                                   created_at: Time.now - 10)
 
     3.times do |index|
       UserExercise.create(user: user,

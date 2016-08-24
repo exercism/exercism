@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang='en' ng-app="exercism">
+  <head>
+    <meta charset='utf-8'>
+    <title>exercism.io</title>
+    <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+    <meta content='' name='description'>
+    <meta content='' name='author'>
+    <!-- Open Graph protocol http://ogp.me/ -->
+    <meta property='og:title' content='exercism.io' />
+    <meta property='og:image' content='/icons/apple-touch-icon.png' />
+    <link href='/icons/favicon.ico?v=4' rel='shortcut icon'>
+    <link href='/icons/apple-touch-icon.png' rel='apple-touch-icon'>
+    <link href='/css/application.css?t=1470795529' rel='stylesheet'>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+	    setTimeout(function(){var a=document.createElement("script");
+			    var b=document.getElementsByTagName("script")[0];
+			    a.src=document.location.protocol+"//script.crazyegg.com/pages/scripts/0044/0216.js?"+Math.floor(new Date().getTime()/3600000);
+			    a.async=true;a.type="text/javascript";b.parentNode.insertBefore(a,b)}, 1);
+	    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-default navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/" id="brand">Exercism.io</a>
+    </div>
+
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+        <li><a href="/dashboard">Dashboard</a></li>
+        
+        <li>
+          <a href="/languages">Languages</a>
+        </li>
+        <li><a href="/donate">Donate</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+          
+            
+          <li>
+  <a role="menuitem" tabindex="-1" href="/notifications">
+    
+      <i class="fa fa-bell"></i>
+    
+  </a>
+</li>
+
+          <li class="dropdown">
+  <a class="dropdown-toggle" id="drop-account" href="#" data-toggle="dropdown">
+    <img alt="" src="https://secure.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?s=20" width="20" height="20">
+    foobar <b class="caret"></b>
+  </a>
+
+  <ul class="dropdown-menu" role="menu">
+    <li><a role="menuitem" tabindex="-1" href="/foobar">Profile</a></li>
+    <li><a role="menuitem" tabindex="-1" href="/account">Account</a></li>
+    <li><a role="menuitem" tabindex="-1" href="/account/key">API Key</a></li>
+    <li><a role="menuitem" tabindex="-1" href="/looks">Recently Viewed</a></li>
+    <li><a role="menuitem" tabindex="-1" href="/logout">Log Out</a></li>
+  </ul>
+</li>
+
+        
+        
+      </ul>
+    </div>
+
+  </div>
+</nav>
+
+      
+  
+  
+  
+
+    <div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h2>Your exercises in progress</h2>
+      <div class="well">
+        
+            <p>Keep working on these problems, or archive them.</p>
+            <ul class="nav nav-stacked" id="menu-current" role="menu">
+              
+                  <li class="looks-list-item">
+                    <a role="menuitem" tabindex="-1" href="/exercises/bfca6d4230724f13ab0928d26dfd5929">
+                      <table width="100%">
+                        <tr>
+                          <td width="60%">
+                            Apple0 ()
+                          </td>
+                          <td width="25%">
+                            0 comments
+                          </td>
+                          <td width="15%">
+                            1 iteration
+                          </td>
+                        </tr>
+                      </table>
+                    </a>
+                  </li>
+              
+                  <li class="looks-list-item">
+                    <a role="menuitem" tabindex="-1" href="/exercises/885bc158b1d94fa99afe7c2a27744927">
+                      <table width="100%">
+                        <tr>
+                          <td width="60%">
+                            Apple1 ()
+                          </td>
+                          <td width="25%">
+                            0 comments
+                          </td>
+                          <td width="15%">
+                            1 iteration
+                          </td>
+                        </tr>
+                      </table>
+                    </a>
+                  </li>
+              
+                  <li class="looks-list-item">
+                    <a role="menuitem" tabindex="-1" href="/exercises/0074de65ff2e4030ab4bbd75b518b15d">
+                      <table width="100%">
+                        <tr>
+                          <td width="60%">
+                            Apple2 ()
+                          </td>
+                          <td width="25%">
+                            0 comments
+                          </td>
+                          <td width="15%">
+                            1 iteration
+                          </td>
+                        </tr>
+                      </table>
+                    </a>
+                  </li>
+              
+              
+            </ul>
+        
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      <h2>Feedback</h2>
+      <div>
+        
+          <p>No new feedback.</p>
+        
+      </div>
+    </div>
+  </div>
+
+  
+      <div class="row">
+        <div class="col-sm-4">
+          <h2>Your Teams</h2>
+          <div class="well">
+            <ul class="nav nav-stacked">
+              
+                  <li>
+                    <a role="menuitem" tabindex="-1" href="/teams/some-team">
+                      <table width="100%">
+                        <tr>
+                          <td width="60%">
+                            Some Team
+                          </td>
+                          <td width="40%">
+                            1 member
+                          </td>
+                        </tr>
+                      </table>
+                    </a>
+                  </li>
+              
+            </ul>
+          </div>
+        </div>
+      </div>
+  
+
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>Recently viewed</h2>
+      <div class="well">
+        
+            <p>No exercises viewed in the past 30 days.</p>
+        
+      </div>
+    </div>
+
+    <div class="col-sm-4">
+      
+      <p></p>
+    </div>
+
+    <div class="col-md-4">
+      <h2>Need help?</h2>
+      <p>The <a href="/help">help page</a> should get you going.</p>
+    </div>
+  </div>
+</div>
+
+    <footer id="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-6 col-sm-3 col-md-2 footer-logo">
+        <a href="/"><img class="img-responsive" src="/img/logo.png" /></a>
+        <p>
+          Beta
+        </p>
+        <hr />
+        <p>
+          <a href="/about">About</a>
+        </p>
+        <p>
+          <a href="/contribute">Contribute to Exercism</a>
+        </p>
+      </div>
+      <div class="clearfix visible-xs"></div>
+      <div class="col-sm-3 col-md-offset-1 col-md-3 hidden-xs">
+        <ul class="nav nav-pills nav-stacked">
+  <li>
+    <a href="/help">
+      Help
+    </a>
+  </li>
+  <li>
+    <a href="/how-it-works/newbie">
+      How it Works (New Devs)
+    </a>
+  </li>
+  <li>
+    <a href="/how-it-works">
+      How it Works (Experienced Devs)
+    </a>
+  </li>
+  <li>
+    <a href="/cli">
+      The Command-Line Client
+    </a>
+  </li>
+</ul>
+
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-6 text-right footer-social">
+        <ul class="list-inline">
+  <li>
+    <a href="https://github.com/exercism/exercism.io">
+      <i class="fa fa-github fa-lg"></i>
+      GitHub
+    </a>
+  </li>
+  <li>
+    <a href="https://twitter.com/exercism_io">
+      <i class="fa fa-twitter fa-lg"></i>
+      Twitter
+    </a>
+  </li>
+  <li>
+    <a href="https://tinyletter.com/exercism">
+      <i class="fa fa-envelope"></i>
+      Newsletter
+    </a>
+  </li>
+</ul>
+
+        <div class="footer-sponsors">
+  <span class="h6">Sponsors</span>
+  <ul class="list-inline">
+    <li>
+      <a href="https://heroku.com" class="btn btn-default">
+        <img src="/img/heroku.png" />
+        <span class="hidden-xs hidden-sm">Heroku</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="https://bugsnag.com/blog/bugsnag-loves-open-source" class="btn btn-default">
+        <img src="/img/bugsnag.png" />
+        <span class="hidden-xs hidden-sm">Bugsnag</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="http://www.rackspace.com/" class="btn btn-default">
+        <img src="/img/rackspace.png" />
+        <span class="hidden-xs hidden-sm">Rackspace</span>
+      </a>
+    </li>
+
+    <li>
+      <a href="http://www.fastly.com/" class="btn btn-default">
+        <img src="/img/fastly.png" />
+      </a>
+    </li>
+
+    <li>
+      <a href="http://www.shopify.com/" class="btn btn-default">
+        <img src="/img/shopify.svg" />
+        <span class="hidden-xs hidden-sm">Shopify</span>
+      </a>
+    </li>
+  </ul>
+</div>
+
+        <br>
+        <p class=" text-muted small">
+          &copy; 2016 Katrina Owen
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<div id="list-notifications"></div>
+
+ <script src="/js/app.js"></script>
+<!--<script src="/js/bundle.js"></script>-->
+
+  </body>
+</html>
