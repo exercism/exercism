@@ -4,6 +4,7 @@
 @import 'layouts/import';
 
 @import 'vendor/jquery.atwho';
+@import 'vendor/jquery.auto-complete';
 @import 'vendor/sortable';
 
 @import "font-awesome-sprockets";
@@ -85,3 +86,6 @@ p.cta {
   display:         flex;
 }
 
+.highlight {
+  margin-bottom: 20px;
+}

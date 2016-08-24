@@ -224,18 +224,26 @@ class TeamTest < Minitest::Test
   end
 
   def test_all_tags_converts_tag_ids_into_tag_names
-    attributes = { slug: 'tags', tags: 'team, tags' }
+    attributes = { slug: 'team', tags: 'team, tags' }
     team = Team.by(alice).defined_with(attributes, alice)
     team.save
 
     assert_equal 'team, tags', team.all_tags
   end
 
-  def test_all_tags_returns_empty_string_when_team_has_no_tags
-    team = Team.by(alice).defined_with(slug: 'no_tags')
-    team.save
+  def test_search_public_with_tag
+    attributes = { slug: 'public team', tags: 'exercism', public: true }
+    public_team = Team.by(alice).defined_with(attributes, alice)
+    attributes = { slug: 'private team', tags: 'exercism', public: false }
+    private_team = Team.by(alice).defined_with(attributes, alice)
 
-    assert_equal 0, team.tags.size
-    assert_equal '', team.all_tags
+    exercism_tag = Tag.find_by(name: 'exercism')
+
+    public_team.save
+    private_team.save
+
+    teams = Team.search_public_with_tag(exercism_tag.id)
+    assert_equal 1, teams.size
+    assert_equal 'public team', teams.first.name
   end
 end

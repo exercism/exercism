@@ -7,118 +7,62 @@ module Rouge
       tag 'html'
 
       # @option opts [String] :css_class ('highlight')
-      # @option opts [true/false] :line_numbers (false)
-      # @option opts [String] :line_numbers_id ('L')
-      # @option opts [Rouge::CSSTheme] :inline_theme (nil)
-      # @option opts [true/false] :wrap (true)
       #
-      # Initialize with options.
-      #
-      # If `:inline_theme` is given, then instead of rendering the
-      # tokens as <span> tags with CSS classes, the styles according to
-      # the given theme will be inlined in "style" attributes.  This is
-      # useful for formats in which stylesheets are not available.
-      #
-      # Content will be wrapped in a tag (`div` if tableized, `pre` if
-      # not) with the given `:css_class` unless `:wrap` is set to `false`.
+      # Content will be wrapped in a `div` tag with the given `:css_class`
       def initialize(opts={})
-        @css_class = opts.fetch(:css_class, 'highlight')
-        @css_class = " class=#{@css_class.inspect}" if @css_class
-
-        @line_numbers = opts.fetch(:line_numbers, false)
-        @line_numbers_id = opts.fetch(:line_numbers_id, 'L')
-        @start_line = opts.fetch(:start_line, 1)
-        @inline_theme = opts.fetch(:inline_theme, nil)
-        @inline_theme = Theme.find(@inline_theme).new if @inline_theme.is_a? String
-
-        @wrap = opts.fetch(:wrap, true)
+        @css_class = %( class="#{opts.fetch(:css_class, 'highlight')}")
+        @html_formatter = Rouge::Formatters::HTML.new
       end
 
-      # @yield the html output.
       def stream(tokens, &b)
-        if @line_numbers
-          stream_tableized(tokens, &b)
-        else
-          stream_untableized(tokens, &b)
-        end
+        yield "<div#{@css_class}>"
+        stream_code(tokens, &b)
+        yield "</div>\n"
       end
 
-      private
+      def stream_code(tokens, &b)
+        code_lines = token_lines(tokens)
 
-      def stream_untableized(tokens, &b)
-        yield "<pre#{@css_class}><code>" if @wrap
-        tokens.each { |tok, val| span(tok, val, &b) }
-        yield "</code></pre>\n" if @wrap
-      end
-
-      # rubocop:disable Metrics/AbcSize, MethodLength
-      def stream_tableized(tokens)
-        num_lines = 0
-        last_val = ''
-        formatted = ''
-
-        tokens.each do |tok, val|
-          last_val = val
-          num_lines += val.scan(/\n/).size
-          span(tok, val) { |str| formatted << str }
-        end
-
-        formatted = formatted.lines.map.with_index(1) do |line, index|
-          "<span id='#{@line_numbers_id}#{index}'>#{line}</span>"
-        end.join
-
-        # add an extra line for non-newline-terminated strings
-        if last_val[-1] != "\n"
-          num_lines += 1
-          span(Token::Tokens::Text::Whitespace, "\n") { |str| formatted << str }
-        end
-
-        # wrap line numbers with <a> tags
-        line_numbers = (@start_line..num_lines + @start_line - 1).map do |number|
-          "<a href=\"#L#{number}\">#{number}</a>"
-        end
-
-        # generate a string of newline-separated line numbers for the gutter>
-        gutter = %(<pre class="lineno">#{line_numbers.join("\n")}</pre>)
-
-        yield "<div#{@css_class}>" if @wrap
         yield '<table style="border-spacing: 0"><tbody><tr>'
 
-        # the "gl" class applies the style for Generic.Lineno
-        yield '<td class="gutter gl" style="text-align: right">'
-        yield gutter
-        yield '</td>'
+        yield numbered_gutter(1..code_lines.count)
 
         yield '<td class="code">'
         yield '<pre>'
-        yield formatted
+        format_code(code_lines, &b)
         yield '</pre>'
         yield '</td>'
 
         yield "</tr></tbody></table>\n"
-        yield "</div>\n" if @wrap
       end
-      # rubocop:enable Metrics/AbcSize, MethodLength
 
-      TABLE_FOR_ESCAPE_HTML = {
-        '&' => '&amp;',
-        '<' => '&lt;',
-        '>' => '&gt;',
-      }.freeze
+      private
 
-      def span(tok, val)
-        val = val.gsub(/[&<>]/, TABLE_FOR_ESCAPE_HTML)
-        shortname = tok.shortname or fail "unknown token: #{tok.inspect} for #{val.inspect}"
-
-        if shortname.empty?
-          yield val
-        elsif @inline_theme
-          rules = @inline_theme.style_for(tok).rendered_rules
-
-          yield "<span style=\"#{rules.to_a.join(';')}\">#{val}</span>"
-        else
-          yield "<span class=\"#{shortname}\">#{val}</span>"
+      def format_code(code_lines)
+        code_lines.each.with_index do |line, index|
+          yield %(<span id="#{css_line_id(index + 1)}">)
+          line.each do |tok, val|
+            yield @html_formatter.span(tok, val)
+          end
+          yield %(\n</span>)
         end
+      end
+
+      def numbered_gutter(number_range)
+        # the "gl" class applies the style for Generic.Lineno
+        '<td class="gutter gl" style="text-align: right">' <<
+          '<pre class="lineno">%s</pre>' % line_number_links(number_range).join("\n") <<
+          '</td>'
+      end
+
+      def line_number_links(number_range)
+        number_range.map do |number|
+          %(<a href="##{css_line_id(number)}">#{number}</a>)
+        end
+      end
+
+      def css_line_id(number)
+        "L#{number}"
       end
     end
   end

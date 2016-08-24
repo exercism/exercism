@@ -2,6 +2,46 @@ module ExercismWeb
   module Routes
     # rubocop:disable Metrics/ClassLength
     class Teams < Core
+      get '/teams' do
+        please_login
+
+        page = params[:page] || 1
+
+        if params["q"].present?
+          tag = Tag.find_by(name: params["q"])
+          teams = Team.search_public_with_tag(tag)
+        else
+          teams = Team.search_public
+        end
+
+        locals = {
+          tag: params["q"],
+          teams: teams.paginate(page: page, per_page: 10),
+        }
+
+        erb :"teams/list", locals: locals
+      end
+
+      # Form to create a new team.
+      get '/teams/new' do
+        please_login
+        erb :"teams/new", locals: { team: Team.new }
+      end
+
+      # Create a new team.
+      post '/teams/new' do
+        please_login
+        team = Team.by(current_user).defined_with(params[:team], current_user)
+        if team.valid?
+          team.save
+          team.recruit(current_user.username, current_user)
+          team.confirm(current_user.username)
+          redirect "/teams/#{team.slug}/directory"
+        else
+          erb :"teams/new", locals: { team: team }
+        end
+      end
+
       get '/teams/:slug/?' do |slug|
         redirect '/teams/%s/streams' % slug
       end
@@ -149,26 +189,6 @@ module ExercismWeb
             active: 'manage',
           }
           erb :"teams/manage", locals: locals
-        end
-      end
-
-      # Form to create a new team.
-      get '/teams/?' do
-        please_login
-        erb :"teams/new", locals: { team: Team.new }
-      end
-
-      # Create a new team.
-      post '/teams/?' do
-        please_login
-        team = Team.by(current_user).defined_with(params[:team], current_user)
-        if team.valid?
-          team.save
-          team.recruit(current_user.username, current_user)
-          team.confirm(current_user.username)
-          redirect "/teams/#{team.slug}/directory"
-        else
-          erb :"teams/new", locals: { team: team }
         end
       end
 

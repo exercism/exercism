@@ -25,4 +25,20 @@ class TagTest < Minitest::Test
     assert_equal 3, Tag.count
     assert_equal 2, values.size
   end
+
+  def test_find_by_similarity
+    Tag.create_from_text('ruby, python, elixir, elixirscript')
+
+    tags = Tag.find_by_similarity('elix')
+    assert_equal 2, tags.size
+    assert_includes tags, 'elixir'
+    assert_includes tags, 'elixirscript'
+  end
+
+  def test_find_by_similarity_sort_tags_by_relevance
+    Tag.create_from_text('ruby, rubinius, random')
+
+    tags = Tag.find_by_similarity('rub')
+    assert tags == ['ruby', 'rubinius']
+  end
 end

@@ -37,9 +37,11 @@ module ExercismWeb
     use Routes::Looks
     use Routes::Notifications
     use Routes::Exercises
+    use Routes::UserExercises
     use Routes::Submissions
     use Routes::Solutions
     use Routes::Comments
+    use Routes::Tags
     use Routes::Teams
     use Routes::Tracks
     use Routes::Sessions

@@ -6,6 +6,14 @@ $ ->
 
   $("[data-toggle=tooltip]").tooltip()
 
+  $("[data-search=tags]").autoComplete
+    minChars: 2,
+    source: (term, response) ->
+      $.getJSON '/tags', { q: term }, (data) ->
+        response data
+    onSelect: (e, term, item) ->
+      $("[data-search=tags]").closest("form").submit();
+
   $("#current_submission").theiaStickySidebar(additionalMarginTop: 70)
 
   $('.manager_delete').on 'click', ->
