@@ -45,12 +45,12 @@ module ExercismWeb
       end
 
       get '/languages/:track_id/:topic' do |track_id, topic|
+        return language_not_found(topic) unless TOPICS.include?(topic.to_sym)
+
         _, body = X::Xapi.get('tracks', track_id)
         parsed_body = JSON.parse(body)
         if parsed_body['error'] == "No track '#{track_id}'"
-          erb :"languages/not_found", locals: { track_id: track_id }
-        elsif !TOPICS.include?(topic.to_sym)
-          erb :"languages/not_found", locals: { track_id: topic }
+          language_not_found(track_id)
         else
           track = X::Track.new(parsed_body['track'])
           erb :"languages/language", locals: {
