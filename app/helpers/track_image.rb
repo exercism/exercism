@@ -2,7 +2,7 @@ module ExercismWeb
   module Helpers
     module TrackImage
       def track_icon(track_id, size=40)
-        '<img src="%s" width="%d" height="%d">' % [track_png(track_id), size, size]
+        '<img src="%s" width="%d" height="%d" alt="">' % [track_png(track_id), size, size]
       end
 
       private

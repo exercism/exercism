@@ -38,7 +38,9 @@
   <body>
     <%= erb :"application/_navbar" %>
     <%= erb :"application/_flash_messages" %>
-    <%= yield %>
+    <main role="main">
+      <%= yield %>
+    </main>
     <%= erb :"application/_footer" %>
   </body>
 </html>
