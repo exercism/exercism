@@ -1,7 +1,12 @@
 #languages, #contribute{
+  .row{
+    display: flex;
+    flex-wrap: wrap;
+  }
   .track_link{
     text-decoration: none;
     padding: 10px;
+    align-self: stretch;
     &:hover{
       background: #f4f4f4;
     }
