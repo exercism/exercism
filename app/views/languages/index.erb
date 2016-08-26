@@ -17,7 +17,7 @@
     <% inactive.each_slice(6) do |tracks| %>
       <div class="row">
         <% tracks.each do |t| %>
-          <%= erb :'languages/_block', locals: { track: t }  if t.problems.any? %>
+          <%= erb :'languages/_block', locals: { track: t } %>
         <% end %>
       </div>
     <% end %>
@@ -25,10 +25,10 @@
     <section class="page-header">
       <h3>Planned</h3>
     </section>
-    <% inactive.each_slice(6) do |tracks| %>
+    <% planned.each_slice(6) do |tracks| %>
       <div class="row">
         <% tracks.each do |t| %>
-          <%= erb :'languages/_block', locals: { track: t } if t.planned? %>
+          <%= erb :'languages/_block', locals: { track: t } %>
         <% end %>
       </div>
     <% end %>
