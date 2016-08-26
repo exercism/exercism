@@ -3,7 +3,8 @@ There are two options for installing the Exercism CLI on Windows.
 1. [Manual Installation](#manual)
 1. [Using the Chocolatey Package Manager for Windows](#chocolatey)
 
-## Manual Installation <a name="manual"></a>
+<a name="manual"></a>
+## Manual Installation 
 What follows are instructions that work for installing exercism on Windows 7 or Windows 8.
 Instructions for other versions of Windows may differ slightly, but the principle will be the same.
 
@@ -72,7 +73,8 @@ The following instructions will append the location of the exercism.exe file to 
 1. In the resulting window type in "exercism" and press Enter
 1. If all is well you should be shown information on how to use exercism
 
-## Using the Chocolatey Package Manager for Windows <a name="chocolatey"></a>
+<a name="chocolatey"></a>
+## Using the Chocolatey Package Manager for Windows 
 **NOTE:** You can find more information about using Chocolatey at the [Chocolatey site](https://chocolatey.org/).
 
 ### Using PowerShell

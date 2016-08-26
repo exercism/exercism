@@ -6,7 +6,7 @@
 Homebrew is a package manager for OS X which installs the stuff that Apple
 didn't.
 
-Find out if you have homebrew installed via the terminal.
+Find out if you have homebrew via the terminal.
 
 You can open a terminal using Spotlight by pressing <command><spacebar> and
 then type 'terminal' in the space provided.
@@ -25,7 +25,9 @@ Homebrew/homebrew-core (git revision 3b4c; last commit 2016-05-09)
 Install the CLI via homebrew in the following section.  Otherwise see
 "[Installing Without Homebrew](#installing-without-homebrew)".
 
-### Installing With Homebrew <a name="installing-with-homebrew"></a>
+
+<a name="installing-with-homebrew"></a>
+### Installing With Homebrew 
 
 Install the CLI via [homebrew](http://brew.sh/) with the following command:
 
@@ -44,7 +46,9 @@ If there was a problem you will get an error message saying _command not found_.
 If everything is fine, you're done installing the CLI, and you can move on to the next step,
 which is configuring the CLI.
 
-### Installing Without Homebrew <a name="installing-without-homebrew"></a>
+
+<a name="installing-without-homebrew"></a>
+### Installing Without Homebrew 
 
 This is described in detail in [this video tutorial](https://www.youtube.com/watch?v=TCT4eHGwfaE).
 
