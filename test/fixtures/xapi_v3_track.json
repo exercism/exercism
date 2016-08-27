@@ -1,0 +1,26 @@
+{
+  "error": "",
+  "track": {
+    "id": "animal",
+    "language": "Animal",
+    "repository": "https://github.com/exercism/xanimal",
+    "checklist_issue": 1,
+    "gitter": null,
+    "todo": ["apple", "banana", "cherry", "one", "three", "two"],
+    "active": true,
+    "implemented": true,
+    "doc_format": "md",
+    "docs": {
+      "about": "",
+      "installation": "",
+      "tests": "",
+      "learning": "",
+      "resources": ""
+    },
+    "problems": [{
+      "slug": "dog",
+      "name": "Dog",
+      "blurb": "This is dog."
+    }]
+  }
+}

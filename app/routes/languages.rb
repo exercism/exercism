@@ -3,6 +3,8 @@ require_relative '../../x'
 module ExercismWeb
   module Routes
     class Languages < Core
+      TOPICS = [:about, :exercises, :installing, :tests, :learning, :resources, :help].freeze
+
       get '/languages' do
         tracks = X::Track.all
         active, inactive = tracks.partition(&:active?)
@@ -28,6 +30,7 @@ module ExercismWeb
           track = X::Track.new(parsed_body['track'])
           erb :"languages/language", locals: {
             track: track,
+            topic: "about",
             docs: X::Docs::Launch.new(track.repository, track.checklist_issue),
           }
         end
@@ -42,9 +45,35 @@ module ExercismWeb
         end
       end
 
+      get '/languages/:track_id/:topic' do |track_id, topic|
+        return topic_not_found(topic) unless TOPICS.include?(topic.to_sym)
+
+        _, body = X::Xapi.get('tracks', track_id)
+        parsed_body = JSON.parse(body)
+        if parsed_body['error'] == "No track '#{track_id}'"
+          language_not_found(track_id)
+        else
+          track = X::Track.new(parsed_body['track'])
+          erb :"languages/language", locals: {
+            track: track,
+            topic: topic,
+            docs: X::Docs::Launch.new(track.repository, track.checklist_issue),
+          }
+        end
+      end
+
       def language_not_found(track_id)
         status 404
         erb :"languages/not_found", locals: { track_id: track_id }
+      end
+
+      def topic_not_found(topic)
+        status 404
+        erb :"languages/not_found", locals: { track_id: topic }
+      end
+
+      def active(topic, selected_topic)
+        'active' if topic == selected_topic
       end
     end
   end
