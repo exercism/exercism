@@ -18,43 +18,43 @@
           </li>
         <% end %>
 
-        <li class="<%= 'active' if topic == "about" %>">
+        <li class="<%= active(topic, 'about') %>">
           <a href="<%="/languages/#{track.id}/about"%>">
             About the <%= track.language %> Track
           </a>
         </li>
 
-        <li class="<%= 'active' if topic == "exercises" %>">
+        <li class="<%= active(topic, 'exercises') %>">
           <a href="<%="/languages/#{track.id}/exercises"%>">
             Available Exercises
           </a>
         </li>
 
-        <li class="<%= 'active' if topic == "installing" %>">
+        <li class="<%= active(topic, 'installing') %>">
           <a href="<%="/languages/#{track.id}/installing"%>">
             Installing <%= track.language %>
           </a>
         </li>
 
-        <li class="<%= 'active' if topic == "tests" %>">
+        <li class="<%= active(topic, 'tests') %>">
           <a href="<%="/languages/#{track.id}/tests"%>">
             Running the Tests
           </a>
         </li>
 
-        <li class="<%= 'active' if topic == "learning" %>">
+        <li class="<%= active(topic, 'learning') %>">
           <a href="<%="/languages/#{track.id}/learning"%>">
             Learning <%= track.language %>
           </a>
         </li>
 
-        <li class="<%= 'active' if topic == "resources" %>">
+        <li class="<%= active(topic, 'resources') %>">
           <a href="<%="/languages/#{track.id}/resources"%>">
             Useful <%= track.language %> Resources
           </a>
         </li>
 
-        <li class="<%= 'active' if topic == "help" %>">
+        <li class="<%= active(topic, 'help') %>">
           <a href="<%="/languages/#{track.id}/help"%>">
             Getting Help
           </a>

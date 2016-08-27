@@ -70,6 +70,10 @@ module ExercismWeb
         status 404
         erb :"languages/not_found", locals: { track_id: topic }
       end
+
+      def active(topic, selected_topic)
+        'active' if topic == selected_topic
+      end
     end
   end
 end
