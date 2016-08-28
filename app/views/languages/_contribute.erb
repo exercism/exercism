@@ -1,0 +1,25 @@
+<div class="tab-pane <%='active' if track.active? %>" id="contribute">
+  <h5>Help Us Improve the <%= track.language %> Track!</h5>
+
+  <p>
+    Did you find a typo in the README? Is the test suite missing an edge case?
+    We want to know about it.
+  </p>
+
+  <p>
+    We always welcome GitHub issues and pull requests. See the
+    <a href="<%= track.repository %>"><%= track.language %> repository</a>
+    for more information.
+  </p>
+
+  <h5>Help Add More <%= track.language %> Exercises</h5>
+  <p>
+  The easiest way to add new exercises is to translate existing exercises from other language tracks on Exercism.
+  Here's the <a href="/languages/<%= track.id %>/contribute">full list of unimplemented exercises in <%= track.language %></a>,
+  along with links to all the existing implementations.
+  </p>
+
+  <p>
+  If you have an idea for a completely new exercise, you can follow <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#implementing-a-completely-new-exercise">this guide</a> to add it to the site.
+  </p>
+</div>

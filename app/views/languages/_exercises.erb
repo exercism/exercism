@@ -1,0 +1,44 @@
+<div class="tab-pane <%='active' if track.active? %>" id="exercises">
+  <p>
+    When you're logged in, you can say <code>exercism fetch <%= track.id %></code> to get
+    the next available exercise on the track.
+  </p>
+
+  <p>
+    Every time you submit a solution to an exercise, you will get the next in line the next time
+    you fetch.
+  </p>
+
+  <p>
+    If you want to try a specific exercise, you can always fetch it directly (commands
+    are listed below).
+  </p>
+
+  <p>
+    The exercises are ordered roughly in order of difficulty, but it's a bit haphazard.
+  </p>
+
+  <h3>Available Exercises</h3>
+
+  <% track.problems.each do |problem| %>
+    <h5>
+      <button class="btn btn-default" data-toggle="collapse" data-target="#<%= problem.slug %>" aria-expanded="false" aria-controls="<%= problem.slug %>">
+        <%= problem.name %>
+        <b class="caret fuchsia"></b>
+      </button>
+    </h5>
+
+    <div class="collapse" id="<%= problem.slug %>">
+      <p><%= problem.blurb %></p>
+
+      <p>
+        <a href="/exercises/<%= track.id %>/<%= problem.slug %>/readme">README</a>
+        |
+        <a href="/exercises/<%= track.id %>/<%= problem.slug %>/test-suite">Test Suite</a>
+      </p>
+
+      <h6>Fetch it!</h6>
+      <%= syntax track.fetch_cmd(problem), 'shell' %>
+    </div>
+  <% end %>
+</div>
