@@ -1,48 +1,37 @@
 <div class="container languages">
   <div class="row" style="padding-top: 40px;">
-    <div class="col-md-4"></div>
-    <div class="col-md-8">
-      <h1>Command-Line Interface (CLI)</h1>
-    </div>
+    <h1>Command-Line Interface (CLI)</h1>
   </div>
 
+  
   <div class="row" style="padding-top: 20px;">
-    <div class="col-md-4">
 
-      <ul class="nav nav-pills nav-stacked">
-        <li class="active">
-          <a data-toggle="tab" href="#overview">Overview</a>
-        </li>
+    <ul class="nav nav-tabs">
+      <li class="active">
+        <a data-toggle="tab" href="#mac">Mac OS X</a>
+      </li>
+      <li>
+        <a data-toggle="tab" href="#windows">Windows</a>
+      </li>
 
-        <li>
-          <a data-toggle="tab" href="#mac">Mac OS X</a>
-        </li>
-
-        <li>
-          <a data-toggle="tab" href="#windows">Windows</a>
-        </li>
-
-        <li>
-          <a data-toggle="tab" href="#linux">Linux</a>
-        </li>
-      </ul>
-
+      <li>
+        <a data-toggle="tab" href="#linux">Linux</a>
+      </li>
+      <li>
+        <a data-toggle="tab" href="#troubleshooting">Troubleshooting</a>
+      </li>
+    </ul>
+    <div class="tab-content">
+     <div class="active tab-pane" id="mac">
+      <%= md docs.mac %>
+    </div> 
+    <% %w(mac windows linux troubleshooting).each do |page| %>
+    <div class="tab-pane" id="<%= page %>">
+      <%= md docs.send(page)  %>
     </div>
+    <% end %>
 
-    <div class="col-md-8 tab-content">
-      <div class="active tab-pane" id="overview">
-        <%= md docs.overview %>
-      </div>
-
-      <% %w(mac windows linux).each do |os| %>
-        <div class="tab-pane" id="<%= os %>">
-          <%= md docs.send(os)  %>
-        </div>
-      <% end %>
-
-      <%= erb :"site/_add_more", locals: { page: "cli" } %>
-    </div>
-
+    <%= erb :"site/_add_more", locals: { page: "cli" } %>
   </div>
-
+</div>
 </div>

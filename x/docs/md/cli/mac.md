@@ -1,122 +1,80 @@
-### Methods of Installing Exercism CLI
+## Mac OSX 
 
-  - [With Homebrew](#installing-with-homebrew)
-  - [Without Homebrew](#installing-without-homebrew)
+Below are instructions for install using the most common method - using Homebrew. For further help and instructions, see:
 
-Homebrew is a package manager for OS X which installs the stuff that Apple
-didn't.
+1. <a href="#troubleshooting">troubleshooting for instructions on installing without Homebrew</a>
+2. [exercism.io general help](http://exercism.io/help)
+3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
+### Installing With Homebrew   
+
+#### 1: Check For Homebrew
+
+Homebrew is a package manager for OS X which installs the stuff that Apple didn't.
 Find out if you have homebrew installed via the terminal.
-
-You can open a terminal using Spotlight by pressing <command><spacebar> and
-then type 'terminal' in the space provided.
-
+You can open a terminal using Spotlight by pressing <spacebar> and then type 'terminal' in the space provided.
 On the command prompt, type in the command:
 
 `\brew --version`
 
 If homebrew is installed you may see output like the following (version numbers may vary):
-
 ```
 Homebrew 0.9.9 (git revision a5586; last commit 2016-05-09)
 Homebrew/homebrew-core (git revision 3b4c; last commit 2016-05-09)
 ```
+If homebrew isn't installed, you can: 
+1. install via [homebrew's brew.sh site](http://brew.sh/)
+2. see [troubleshooting for instructions on installing without homebrew](#troubleshooting)
 
-Install the CLI via homebrew in the following section.  Otherwise see
-"[Installing Without Homebrew](#installing-without-homebrew)".
-
-### Installing With Homebrew <a name="installing-with-homebrew"></a>
-
-Install the CLI via [homebrew](http://brew.sh/) with the following command:
+#### 2: Homebrew Install 
+Install the CLI via homebrew with the following command:
 
 ```
-brew update && brew install exercism
+brew update && brew install exercism 
 ```
 
 Verify that it was installed properly by running:
 
-```bash
+```
+exercism --version 
+```
+
+If there was a problem you will get an error message saying command not found.
+
+#### 3: Verifying Your Installation 
+Verify that the binary was installed properly by running:
+
+```
+bash
 exercism --version
 ```
 
-If there was a problem you will get an error message saying _command not found_.
+To see all the commands available to you, run `exercism` without any options:
 
-If everything is fine, you're done installing the CLI, and you can move on to the next step,
-which is configuring the CLI.
-
-### Installing Without Homebrew <a name="installing-without-homebrew"></a>
-
-This is described in detail in [this video tutorial](https://www.youtube.com/watch?v=TCT4eHGwfaE).
-
-First you need to know which processor architecture your computer has. If
-you're not sure, you can use Terminal.app to find out:
-
-Open Terminal.app and type in the following command:
-
-```bash
-uname -m
+```
+bash
+exercism
 ```
 
-Common values are `i386` (32-bit) and `x86_64` (64-bit). If you have something
-different, you'll need to ask Google about the details.
+#### 4: Configuring the CLI 
 
-If you don't have a directory in your home directory called `bin`, make one now:
+Configure the exercism client so that it knows which account to post your solutions to:
 
-```bash
-mkdir ~/bin
+```
+exercism configure --key=YOUR_API_KEY
 ```
 
-Next, [get the latest
-release](https://github.com/exercism/cli/releases/latest) from GitHub, making
-sure to get the one that is both for Mac and for your architecture:
+Your exercism API key can be found in [your account](/account/key).
 
-Unzip the downloaded archive:
+By default the CLI will fetch exercises to `~/exercism`.
+You can configure a different directory by passing the `--dir` option:
 
-```bash
-cd ~/Downloads
-tar -xzvf exercism-mac-64bit.tgz
 ```
-
-Move the exercism binary to the bin directory:
-
-```bash
-mv exercism ~/bin/
+exercism configure --dir=~/some/other/place
 ```
+### Continue 
+You can now continue by [choosing a language](http://exercism.io/languages).
+Stuck? See [CLI Troubleshooting](#troubleshooting), and you can [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
-Check if `~/bin` is on your path:
 
-```bash
-echo $PATH
-```
 
-Look for a section between two colons that looks like
-`/Users/<your-username>/bin` or `~/bin`.
-
-If it's not there, you need to add it. In order to do so, you'll need to
-know which shell you use, so that you can add it to the correct config.
-
-Find out, by running:
-
-```bash
-echo $SHELL
-```
-
-If it says `/bin/bash`, then you're using the default that ships with the Mac.
-If not, you'll need to replace `.bash_profile` with the name of the correct
-config file.
-
-```bash
-echo 'export PATH=~/bin:$PATH' >> ~/.bash_profile
-```
-
-Finally, source your shell config:
-
-```bash
-source ~/.bash_profile
-```
-
-You should now have access to the exercism command:
-
-```bash
-exercism --version
-```
