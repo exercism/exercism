@@ -19,7 +19,7 @@ class NitsTest < AcceptanceTestCase
 
     with_login(@user) do
       visit "/submissions/#{submission.key}/nits/#{nit.id}/edit"
-      assert_content "Edit Nitpick"
+      assert_content "Edit Comment"
     end
   end
 end
