@@ -45,15 +45,13 @@ If there was a problem you will get an error message saying command not found.
 #### 3: Verifying Your Installation 
 Verify that the binary was installed properly by running:
 
-```
-bash
+```bash
 exercism --version
 ```
 
 To see all the commands available to you, run `exercism` without any options:
 
-```
-bash
+```bash
 exercism
 ```
 

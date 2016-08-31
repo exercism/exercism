@@ -23,8 +23,7 @@ Open Terminal.app and type in the following command:
 <<<<<<< Updated upstream
 ```bash
 =======
-```
-bash
+```bash
 >>>>>>> Stashed changes
 uname -m
 ```
@@ -37,8 +36,7 @@ If you don't have a directory in your home directory called `bin`, make one now:
 <<<<<<< Updated upstream
 ```bash
 =======
-```
-bash
+```bash
 >>>>>>> Stashed changes
 mkdir ~/bin
 ```
@@ -52,8 +50,7 @@ Unzip the downloaded archive:
 <<<<<<< Updated upstream
 ```bash
 =======
-```
-bash
+```bash
 >>>>>>> Stashed changes
 cd ~/Downloads
 tar -xzvf exercism-mac-64bit.tgz
@@ -64,8 +61,7 @@ Move the exercism binary to the bin directory:
 <<<<<<< Updated upstream
 ```bash
 =======
-```
-bash
+```bash
 >>>>>>> Stashed changes
 mv exercism ~/bin/
 ```
@@ -75,8 +71,7 @@ Check if `~/bin` is on your path:
 <<<<<<< Updated upstream
 ```bash
 =======
-```
-bash
+```bash
 >>>>>>> Stashed changes
 echo $PATH
 ```
@@ -92,8 +87,7 @@ Find out, by running:
 <<<<<<< Updated upstream
 ```bash
 =======
-```
-bash
+```bash
 >>>>>>> Stashed changes
 echo $SHELL
 ```
@@ -105,8 +99,7 @@ config file.
 <<<<<<< Updated upstream
 ```bash
 =======
-```
-bash
+```bash
 >>>>>>> Stashed changes
 echo 'export PATH=~/bin:$PATH' >> ~/.bash_profile
 ```
@@ -116,8 +109,7 @@ Finally, source your shell config:
 <<<<<<< Updated upstream
 ```bash
 =======
-```
-bash
+```bash
 >>>>>>> Stashed changes
 source ~/.bash_profile
 ```
@@ -127,8 +119,7 @@ You should now have access to the exercism command:
 <<<<<<< Updated upstream
 ```bash
 =======
-```
-bash
+```bash
 >>>>>>> Stashed changes
 exercism --version
 ```
