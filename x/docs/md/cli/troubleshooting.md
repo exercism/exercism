@@ -20,7 +20,12 @@ you're not sure, you can use Terminal.app to find out:
 
 Open Terminal.app and type in the following command:
 
+<<<<<<< Updated upstream
 ```bash
+=======
+```
+bash
+>>>>>>> Stashed changes
 uname -m
 ```
 
@@ -29,7 +34,12 @@ different, you'll need to ask Google about the details.
 
 If you don't have a directory in your home directory called `bin`, make one now:
 
+<<<<<<< Updated upstream
 ```bash
+=======
+```
+bash
+>>>>>>> Stashed changes
 mkdir ~/bin
 ```
 
@@ -39,20 +49,35 @@ sure to get the one that is both for Mac and for your architecture:
 
 Unzip the downloaded archive:
 
+<<<<<<< Updated upstream
 ```bash
+=======
+```
+bash
+>>>>>>> Stashed changes
 cd ~/Downloads
 tar -xzvf exercism-mac-64bit.tgz
 ```
 
 Move the exercism binary to the bin directory:
 
+<<<<<<< Updated upstream
 ```bash
+=======
+```
+bash
+>>>>>>> Stashed changes
 mv exercism ~/bin/
 ```
 
 Check if `~/bin` is on your path:
 
+<<<<<<< Updated upstream
 ```bash
+=======
+```
+bash
+>>>>>>> Stashed changes
 echo $PATH
 ```
 
@@ -64,7 +89,12 @@ know which shell you use, so that you can add it to the correct config.
 
 Find out, by running:
 
+<<<<<<< Updated upstream
 ```bash
+=======
+```
+bash
+>>>>>>> Stashed changes
 echo $SHELL
 ```
 
@@ -72,19 +102,34 @@ If it says `/bin/bash`, then you're using the default that ships with the Mac.
 If not, you'll need to replace `.bash_profile` with the name of the correct
 config file.
 
+<<<<<<< Updated upstream
 ```bash
+=======
+```
+bash
+>>>>>>> Stashed changes
 echo 'export PATH=~/bin:$PATH' >> ~/.bash_profile
 ```
 
 Finally, source your shell config:
 
+<<<<<<< Updated upstream
 ```bash
+=======
+```
+bash
+>>>>>>> Stashed changes
 source ~/.bash_profile
 ```
 
 You should now have access to the exercism command:
 
+<<<<<<< Updated upstream
 ```bash
+=======
+```
+bash
+>>>>>>> Stashed changes
 exercism --version
 ```
 ### Continue 

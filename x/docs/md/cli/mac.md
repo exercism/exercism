@@ -12,6 +12,7 @@ Below are instructions for install using the most common method - using Homebrew
 
 Homebrew is a package manager for OS X which installs the stuff that Apple didn't.
 Find out if you have homebrew installed via the terminal.
+
 You can open a terminal using Spotlight by pressing <spacebar> and then type 'terminal' in the space provided.
 On the command prompt, type in the command:
 
