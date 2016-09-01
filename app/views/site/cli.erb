@@ -7,31 +7,24 @@
   <div class="row" style="padding-top: 20px;">
 
     <ul class="nav nav-tabs">
-      <li class="active">
-        <a data-toggle="tab" href="#mac">Mac OS X</a>
+        <li <%= 'class="active"' if page == :overview %>>
+        <a href="/cli">Overview</a>
       </li>
-      <li>
-        <a data-toggle="tab" href="#windows">Windows</a>
+      <li <%= 'class="active"' if page == :mac %>>
+        <a href="/cli/mac">Mac OS X</a>
+      </li>
+      <li <%= 'class="active"' if page == :windows %>>
+        <a href="/cli/windows">Windows</a>
       </li>
 
-      <li>
-        <a data-toggle="tab" href="#linux">Linux</a>
+      <li <%= 'class="active"' if page == :linux %>>
+        <a href="/cli/linux">Linux</a>
       </li>
-      <li>
-        <a data-toggle="tab" href="#troubleshooting">Troubleshooting</a>
+     <li <%= 'class="active"' if page == :troubleshooting %>>
+        <a href="/cli/troubleshooting">Troubleshooting</a>
       </li>
     </ul>
-    <div class="tab-content">
-     <div class="active tab-pane" id="mac">
-      <%= md docs.mac %>
-    </div> 
-    <% %w(mac windows linux troubleshooting).each do |page| %>
-    <div class="tab-pane" id="<%= page %>">
-      <%= md docs.send(page)  %>
-    </div>
-    <% end %>
-
+    <%= md docs.send(page)  %>
     <%= erb :"site/_add_more", locals: { page: "cli" } %>
   </div>
-</div>
 </div>

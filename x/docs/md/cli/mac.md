@@ -2,7 +2,7 @@
 
 Below are instructions for install using the most common method - using Homebrew. For further help and instructions, see:
 
-1. <a href="#troubleshooting">troubleshooting for instructions on installing without Homebrew</a>
+1. [troubleshooting for instructions on installing without Homebrew](/cli/troubleshooting)
 2. [exercism.io general help](http://exercism.io/help)
 3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
@@ -25,7 +25,7 @@ Homebrew/homebrew-core (git revision 3b4c; last commit 2016-05-09)
 ```
 If homebrew isn't installed, you can: 
 1. install via [homebrew's brew.sh site](http://brew.sh/)
-2. see [troubleshooting for instructions on installing without homebrew](#troubleshooting)
+2. see [troubleshooting for instructions on installing without homebrew](/cli/troubleshooting)
 
 #### 2: Homebrew Install 
 Install the CLI via homebrew with the following command:
@@ -73,7 +73,7 @@ exercism configure --dir=~/some/other/place
 ```
 ### Continue 
 You can now continue by [choosing a language](http://exercism.io/languages).
-Stuck? See [CLI Troubleshooting](#troubleshooting), and you can [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
+Stuck? See [CLI Troubleshooting](/cli/troubleshooting), and you can [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
 
 

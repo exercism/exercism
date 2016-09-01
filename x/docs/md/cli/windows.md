@@ -2,7 +2,7 @@
 ## Windows 
 
 Below are instructions for install using the most common methods - using Powershell & Chocolately Package Manager. For further help and instructions, see:
-1. [troubleshooting for instructions on installing manually on windows](#troubleshooting)
+1. [troubleshooting for instructions on installing manually on windows](/cli/troubleshooting)
 2. [exercism.io general help](http://exercism.io/help)
 3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
@@ -46,6 +46,12 @@ choco install exercism-io-cli
 ```
 choco update exercism-io-cli
 ```
+
+### Running exercism <a name="run-exercism"></a>
+1. Open a command line interface (CLI) by clicking on "Start", typing "cmd" into the search bar and pressing enter
+1. In the resulting window type in "exercism" and press Enter
+1. If all is well you should be shown information on how to use exercism
+
 
 #### Verifying Your Installation 
 Verify that the binary was installed properly by running:
