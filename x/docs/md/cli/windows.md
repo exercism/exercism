@@ -84,3 +84,5 @@ exercism configure --dir=~/some/other/place
 ```
 ### Continue 
 You can now continue by [choosing a language](http://exercism.io/languages).
+
+Stuck? See [CLI Troubleshooting](/cli/troubleshooting), and you can [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
