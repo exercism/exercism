@@ -14,24 +14,22 @@
 
   <div class="row">
     <div class="col-xs-8">
-      <% if inbox.has_unconfirmed_team_memberships? %>
+      <% if inbox.has_team_membership_invites? %>
         <ul style="list-style-type: none; margin: 0;">
-          <% inbox.unconfirmed_team_memberships.each do |team_membership| %>
+          <% inbox.team_membership_invites.each do |invite| %>
           <li class="alert-row">
             <span style="padding-right: 15px;" class="fa fa-bell-o alert-icon"></span>
-            <% if team_membership.inviter.present? %>
-              <%= gravatar_tag team_membership.inviter.avatar_url, size: 20 %>
-              <a href="<%= team_membership.inviter.username %>"><%= team_membership.inviter.username %></a> would like you to join the team <%= team_membership.team.name %>.
+            <% if invite.inviter.present? %>
+              <%= gravatar_tag invite.inviter.avatar_url, size: 20 %>
+              <a href="<%= invite.inviter.username %>"><%= invite.inviter.username %></a> would like you to join the team <%= invite.team.name %>.
             <% else %>
-              You are invited to join the team <%= team_membership.team.name %>.
+              You are invited to join the team <%= invite.team.name %>.
             <% end %>
-            <form action="<%= "/teams/#{team_membership.team.slug}/leave" %>" method="post" class="inline">
-              <input type="hidden" name="_method" value="put" />
+            <form action="<%= "/teams/#{invite.team.slug}/invitation/refuse" %>" method="post" class="inline">
               <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger pull-right"/>
             </form>
 
-            <form action="<%= "/teams/#{team_membership.team.slug}/confirm" %>" method="post" class="inline">
-              <input type="hidden" name="_method" value="put"/>
+            <form action="<%= "/teams/#{invite.team.slug}/invitation/accept" %>" method="post" class="inline">
               <input type="submit" name="update" value="Accept" class="btn btn-xs btn-success pull-right" style="margin-right: 5px" />
             </form>
           </li>

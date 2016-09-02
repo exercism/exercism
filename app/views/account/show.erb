@@ -37,17 +37,15 @@
       <ul class="nav nav-stacked nav-bordered" style="max-width: 400px">
         <% profile.teams.each do |team| %>
           <li>
-            <% if team.unconfirmed_members.include?(profile.user) %>
+            <% if team.member_invites.include?(profile.user) %>
               <ul class="list-inline" style="padding:10px 20px;">
                 <li>
-                  <form action="<%= "/teams/#{team.slug}/confirm" %>" method="post">
-                    <input type="hidden" name="_method" value="put" />
+                  <form action="<%= "/teams/#{team.slug}/invitation/accept" %>" method="post">
                     <input type="submit" name="update" value="Accept" class="btn btn-xs btn-success"/>
                   </form>
                 </li>
                 <li>
-                  <form action="<%= "/teams/#{team.slug}/leave" %>" method="post">
-                    <input type="hidden" name="_method" value="put" />
+                  <form action="<%= "/teams/#{team.slug}/invitation/refuse" %>" method="post">
                     <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger"/>
                   </form>
                 </li>
