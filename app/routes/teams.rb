@@ -17,6 +17,10 @@ module ExercismWeb
         locals = {
           tag: params["q"],
           teams: teams.paginate(page: page, per_page: 10),
+          member_of: current_user.teams.ids + current_user.managed_teams.ids,
+          team_invites: current_user.team_invites.ids,
+          team_requests: current_user.team_requests.ids,
+          team_requests_denied: current_user.team_requests_denied.ids,
         }
 
         erb :"teams/list", locals: locals

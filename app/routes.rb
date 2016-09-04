@@ -21,6 +21,7 @@ module ExercismWeb
       Tags: 'tags',
       Teams: 'teams',
       Invitations: 'invitations',
+      Requests: 'requests',
       Tracks: 'tracks',
       Styleguide: 'styleguide',
       Subscriptions: 'subscriptions',

@@ -30,17 +30,31 @@
       <% teams.each do |team| %>
         <li class="team-info">
           <div class="row">
-            <a href="/teams/<%= team.slug %>" class="list-group-item">
-              <h3><%= h(team.name) %> (<%= team.members.size %> <%= 'member'.pluralize(team.members.size) %>)</h3>
+            <div class="list-group-item" data-team-slug="<%= team.slug %>">
+              <% if member_of.include?(team.id) %>
+                <a href="/teams/<%= team.slug %>" class="btn btn-xs btn-primary">Already a member</a>
+              <% elsif team_invites.include?(team.id) %>
+                <form action="<%= "/teams/#{team.slug}/invitation/accept" %>" method="post">
+                  <input type="submit" name="update" value="Accept invite" class="btn btn-xs btn-success"/>
+                </form>
+              <% elsif team_requests.include?(team.id) %>
+                <span class="btn btn-xs btn-warning">Request pending</span>
+              <% elsif team_requests_denied.include?(team.id) %>
+                <span class="btn btn-xs btn-danger">Request denied</span>
+              <% else %>
+                <form action="<%= "/teams/#{team.slug}/requests" %>" method="post">
+                  <input type="submit" name="update" value="Request membership" class="btn btn-xs btn-success"/>
+                </form>
+              <% end %>
+
+              <h3><%= h(team.name) %> (<%= team.members_size %> <%= 'member'.pluralize(team.members_size) %>)</h3>
 
               <% if team.description.present? %>
                 <h4><%= team.description %></h4>
               <% end %>
 
-              <p>
-                Tags: <%= team.all_tags %>
-              </p>
-            </a>
+              <p> Tags: <%= team.all_tags %> </p>
+            </div>
           </div>
         </li>
       <% end %>
