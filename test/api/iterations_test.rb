@@ -22,7 +22,7 @@ class IterationsApiTest < Minitest::Test
       comment: '',
     }
 
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/user/assignments', submission.to_json
     end
 
@@ -31,7 +31,7 @@ class IterationsApiTest < Minitest::Test
     submission[:comment] = 'Awesome code!'
     submission[:solution] = { 'code.rb' => 'CODE2' }
 
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/user/assignments', submission.to_json
     end
 
@@ -79,7 +79,7 @@ class IterationsApiTest < Minitest::Test
       Hack::UpdatesUserExercise.new(*args).update
     end
 
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       get '/iterations/latest', key: @alice.key
     end
 
@@ -89,7 +89,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_skip_problem
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/iterations/ruby/one/skip', key: @alice.key
     end
 
@@ -101,7 +101,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_skip_non_existent_problem
-    Xapi.stub(:exists?, false) do
+    X::Exercise.stub(:exists?, false) do
       post '/iterations/ruby/not-found/skip', key: @alice.key
     end
 
@@ -113,7 +113,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_skip_problem_as_guest
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/iterations/ruby/one/skip', key: 'invalid-api-key'
     end
 
@@ -131,12 +131,12 @@ class IterationsApiTest < Minitest::Test
       "dir" => "/path/to/exercism/dir",
     }
 
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/user/assignments', submission.to_json
     end
 
     submission = Submission.first
-    assert_equal "go", submission.language
+    assert_equal "go", submission.track_id
     assert_equal "binary", submission.slug
     expected = { "binary.go" => "Hello, World!" }
     assert_equal expected, submission.solution
@@ -150,7 +150,7 @@ class IterationsApiTest < Minitest::Test
       "dir" => "/path/to/exercism/dir",
     }
 
-    Xapi.stub(:exists?, true) do
+    X::Exercise.stub(:exists?, true) do
       post '/user/assignments', submission.to_json
     end
 
@@ -158,6 +158,6 @@ class IterationsApiTest < Minitest::Test
     assert_equal "binary", submission.slug
     expected = { "binary.go" => "Hello, World!" }
     assert_equal expected, submission.solution
-    assert_equal "go", submission.language
+    assert_equal "go", submission.track_id
   end
 end
