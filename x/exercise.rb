@@ -14,7 +14,7 @@ module X
     end
 
     def self.exists?(track_id, slug=nil)
-      request(*['tracks', track_id, slug].compact).status != 404
+      X::Xapi.request(*['tracks', track_id, slug].compact).status != 404
     end
   end
 end
