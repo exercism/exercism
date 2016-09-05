@@ -79,8 +79,13 @@ $headings-line-height:    1.1 !default;
 $headings-color:          inherit !default;
 
 
-h2 {
-  margin-top: 1.5em;
+h2, h3, h4 {
+  margin-top: $line-height-base + em;
+  margin-bottom: ($line-height-base/2) + em;
+}
+
+h4 {
+  font-weight: 400;
 }
 
 //== Iconography
