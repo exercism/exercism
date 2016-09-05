@@ -37,7 +37,24 @@ module ExercismWeb
       end
 
       get '/cli' do
-        erb :"site/cli", locals: { docs: X::Docs::CLI.new }
+        # Add OS detection logic & redirect here
+        erb :"site/cli", locals: { docs: X::Docs::CLI.new, page: :overview }
+      end
+
+      get '/cli/mac' do
+        erb :"site/cli", locals: { docs: X::Docs::CLI.new, page: :mac }
+      end
+
+      get '/cli/windows' do
+        erb :"site/cli", locals: { docs: X::Docs::CLI.new, page: :windows }
+      end
+
+      get '/cli/linux' do
+        erb :"site/cli", locals: { docs: X::Docs::CLI.new, page: :linux }
+      end
+
+      get '/cli/troubleshooting' do
+        erb :"site/cli", locals: { docs: X::Docs::CLI.new, page: :troubleshooting }
       end
 
       get '/privacy' do

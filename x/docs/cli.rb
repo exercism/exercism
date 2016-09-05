@@ -1,7 +1,7 @@
 module X
   module Docs
     class CLI
-      %w(overview linux mac windows).each do |topic|
+      %w(overview troubleshooting linux mac windows).each do |topic|
         define_method topic do
           read topic
         end
