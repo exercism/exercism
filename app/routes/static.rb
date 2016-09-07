@@ -53,8 +53,8 @@ module ExercismWeb
         erb :"site/cli", locals: { docs: X::Docs::CLI.new, page: :linux }
       end
 
-      get '/cli/troubleshooting' do
-        erb :"site/cli", locals: { docs: X::Docs::CLI.new, page: :troubleshooting }
+      get '/cli/install' do
+        erb :"site/cli", locals: { docs: X::Docs::CLI.new, page: :install }
       end
 
       get '/privacy' do

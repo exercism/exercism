@@ -1,4 +1,4 @@
-<div class="container languages">
+<div class="container cli">
   <div class="row" style="padding-top: 40px;">
     <h1>Command-Line Interface (CLI)</h1>
   </div>
@@ -20,8 +20,8 @@
       <li <%= 'class="active"' if page == :linux %>>
         <a href="/cli/linux">Linux</a>
       </li>
-     <li <%= 'class="active"' if page == :troubleshooting %>>
-        <a href="/cli/troubleshooting">Troubleshooting</a>
+     <li <%= 'class="active"' if page == :install %>>
+        <a href="/cli/install">Install Alternatives</a>
       </li>
     </ul>
     <%= md docs.send(page)  %>

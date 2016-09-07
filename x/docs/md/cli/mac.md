@@ -2,7 +2,7 @@
 
 Below are instructions for install using the most common method - using Homebrew. For further help and instructions, see:
 
-1. [troubleshooting for instructions on installing without Homebrew](/cli/troubleshooting)
+1. [Install Alternatives for instructions on installing without Homebrew](/cli/install)
 2. [exercism.io general help](http://exercism.io/help)
 3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
@@ -13,7 +13,7 @@ Below are instructions for install using the most common method - using Homebrew
 Homebrew is a package manager for OS X which installs the stuff that Apple didn't.
 Find out if you have homebrew installed via the terminal.
 
-You can open a terminal using Spotlight by pressing <spacebar> and then type 'terminal' in the space provided.
+You can open a terminal using Spotlight with the keys: 'command + space', and then type 'terminal' in the space provided.
 On the command prompt, type in the command:
 
 `\brew --version`
@@ -25,9 +25,9 @@ Homebrew/homebrew-core (git revision 3b4c; last commit 2016-05-09)
 ```
 If homebrew isn't installed, you can: 
 1. install via [homebrew's brew.sh site](http://brew.sh/)
-2. see [troubleshooting for instructions on installing without homebrew](/cli/troubleshooting)
+2. see [Install Alternatives for instructions on installing without homebrew](/cli/install)
 
-#### 2: Homebrew Install 
+#### 2: Install Homebrew
 Install the CLI via homebrew with the following command:
 
 ```
@@ -42,7 +42,7 @@ exercism --version
 
 If there was a problem you will get an error message saying command not found.
 
-#### 3: Verifying Your Installation 
+#### 3: Verify Installation 
 Verify that the binary was installed properly by running:
 
 ```bash
@@ -55,7 +55,7 @@ To see all the commands available to you, run `exercism` without any options:
 exercism
 ```
 
-#### 4: Configuring the CLI 
+#### 4: Configure the CLI 
 
 Configure the exercism client so that it knows which account to post your solutions to:
 
@@ -71,10 +71,10 @@ You can configure a different directory by passing the `--dir` option:
 ```
 exercism configure --dir=~/some/other/place
 ```
-### Continue 
+#### 5: Continue 
 You can now continue by [choosing a language](http://exercism.io/languages).
 
-Stuck? See [CLI Troubleshooting](/cli/troubleshooting), and you can [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
+
 
 
 

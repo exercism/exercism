@@ -1,13 +1,13 @@
 
-## Troubleshooting The CLI <a name="troubleshooting"></a>
+## Install Alternatives <a name="install"></a>
 
 ## Contents 
 - [mac osx: installing without homebrew](#installing-without-homebrew)
 - [windows: installing manually](#installing-manually)
 
-If you need further help: 
+If you need help: 
 - [view the general help](http://exercism.io/help) 
-- [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
+- [join the exercism.io chat on gitter](https://gitter.im/exercism/support)
 
 
 <a name="installing-without-homebrew"></a>
@@ -166,4 +166,4 @@ You can now continue by [choosing a language](http://exercism.io/languages).
 
 If you need further help: 
 - [view the general help](http://exercism.io/help) 
-- [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
+- [join the exercism.io chat on gitter](https://gitter.im/exercism/support)
