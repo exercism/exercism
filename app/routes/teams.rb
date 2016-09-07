@@ -55,7 +55,7 @@ module ExercismWeb
 
           locals = {
             team: team,
-            stream: TeamStream.new(team, current_user.id, params['page'] || 1),
+            stream: TeamStream.new(team, current_user.id, params['page'] || 1, params['per_page']),
             active: 'stream',
           }
           erb :"teams/stream", locals: locals
