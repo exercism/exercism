@@ -5,6 +5,10 @@ module ExercismWeb
         erb :"site/index"
       end
 
+      get '/contact' do
+        erb :'contact/contact'
+      end
+
       get '/dashboard' do
         redirect '/' if current_user.guest?
 

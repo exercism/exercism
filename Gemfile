@@ -1,11 +1,12 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.3.1'
 
 gem 'activesupport', '~> 4.2.1'
 gem 'activerecord', '~> 4.2.1'
 
 gem 'bugsnag'
+gem 'shotgun'
 gem 'faraday'
 gem 'loofah'
 gem 'petroglyph'
