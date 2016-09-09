@@ -3,7 +3,7 @@ require_relative '../../x'
 module ExercismWeb
   module Routes
     class Languages < Core
-      TOPICS = [:about, :exercises, :installing, :tests, :learning, :resources, :help].freeze
+      TOPICS = [:about, :exercises, :installing, :tests, :learning, :resources, :help, :launch].freeze
 
       get '/languages' do
         tracks = X::Track.all
