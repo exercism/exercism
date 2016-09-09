@@ -30836,6 +30836,7 @@ $(function() {
   });
 
   $('form').on('submit', function() {
+    localStorage.clear(location.pathname);
     var $this = $(this).find(':submit');
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
@@ -30962,7 +30963,7 @@ $(".track-activity-chart").each(function(index, element) {
 
 
 (function() {
-  var destroyTeam, dismissTeamManager, dismissTeamMember;
+  var destroyTeam, dismissTeamManager, dismissTeamMember, initCommentMemory, loadCommentFromStorage, localStorageHasKey, recordText;
 
   angular.module('exercism', ['ui.bootstrap']);
 
@@ -30984,6 +30985,9 @@ $(".track-activity-chart").each(function(index, element) {
         return $("[data-search=tags]").closest("form").submit();
       }
     });
+    if (location.pathname.match(/submissions/)) {
+      initCommentMemory();
+    }
     $("#current_submission").theiaStickySidebar({
       additionalMarginTop: 70
     });
@@ -31021,6 +31025,29 @@ $(".track-activity-chart").each(function(index, element) {
       return emojify.run(document.getElementsByClassName("comments")[0]);
     }
   });
+
+  localStorageHasKey = function(key) {
+    return localStorage.getItem(key) !== null;
+  };
+
+  loadCommentFromStorage = function() {
+    return $('#submission_comment').val(localStorage.getItem(location.pathname));
+  };
+
+  recordText = function() {
+    return $('#submission_comment').keyup(function(event) {
+      var nitPickText;
+      nitPickText = $(this).val();
+      return localStorage.setItem(location.pathname, nitPickText);
+    });
+  };
+
+  initCommentMemory = function() {
+    if (localStorageHasKey(location.pathname)) {
+      loadCommentFromStorage();
+    }
+    return recordText();
+  };
 
   destroyTeam = function(slug) {
     var form, href, method_input;

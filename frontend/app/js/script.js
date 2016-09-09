@@ -36,6 +36,7 @@ $(function() {
   });
 
   $('form').on('submit', function() {
+    localStorage.clear(location.pathname);
     var $this = $(this).find(':submit');
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });

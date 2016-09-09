@@ -14,6 +14,9 @@ $ ->
     onSelect: (e, term, item) ->
       $("[data-search=tags]").closest("form").submit();
 
+  if location.pathname.match(/submissions/)
+    initCommentMemory()
+
   $("#current_submission").theiaStickySidebar(additionalMarginTop: 70)
 
   $('.manager_delete').on 'click', ->
@@ -43,6 +46,22 @@ $ ->
   if _.any($('.comments'))
     emojify.setConfig(emoticons_enabled: false)
     emojify.run(document.getElementsByClassName("comments")[0])
+
+localStorageHasKey = (key) ->
+  return localStorage.getItem(key) != null
+
+loadCommentFromStorage = () ->
+  $('#submission_comment').val(localStorage.getItem(location.pathname))
+
+recordText = () ->
+  $('#submission_comment').keyup (event) ->
+    text = $(this).val()
+    localStorage.setItem(location.pathname, text)
+
+initCommentMemory = () ->
+  if localStorageHasKey(location.pathname)
+    loadCommentFromStorage()
+  recordText()
 
 destroyTeam = (slug) ->
   href = "/teams/" + slug
