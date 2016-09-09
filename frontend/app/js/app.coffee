@@ -47,9 +47,6 @@ $ ->
     emojify.setConfig(emoticons_enabled: false)
     emojify.run(document.getElementsByClassName("comments")[0])
 
-userIsInSession = () ->
-  return $('#navbar a[href="/login"]').length == 0
-
 localStorageHasKey = (key) ->
   return localStorage.getItem(key) != null
 
@@ -62,7 +59,6 @@ recordText = () ->
     localStorage.setItem(location.pathname, nitPickText)
 
 initCommentMemory = () ->
-  # TODO figure out how to remove the comment from localstorate after a successful submission 
   if localStorageHasKey(location.pathname)
     loadCommentFromStorage()
   recordText()

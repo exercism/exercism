@@ -30836,6 +30836,7 @@ $(function() {
   });
 
   $('form').on('submit', function() {
+    localStorage.clear(location.pathname);
     var $this = $(this).find(':submit');
     window.setTimeout(function() { $this.attr('disabled', true); }, 1);
   });
@@ -30962,16 +30963,13 @@ $(".track-activity-chart").each(function(index, element) {
 
 
 (function() {
-  var destroyTeam, dismissTeamManager, dismissTeamMember, initCommentMemory, loadCommentFromStorage, localStorageHasKey, recordText, userIsInSession;
+  var destroyTeam, dismissTeamManager, dismissTeamMember, initCommentMemory, loadCommentFromStorage, localStorageHasKey, recordText;
 
   angular.module('exercism', ['ui.bootstrap']);
 
   $(function() {
     if (location.pathname !== '/' && $('h1, h2, h3').length && document.title === 'exercism.io') {
       document.title = "" + ($($('h1, h2, h3').get(0)).text()) + " - exercism.io";
-    }
-    if (location.pathname.match(/submissions/)) {
-      initCommentMemory();
     }
     $("[data-toggle=tooltip]").tooltip();
     $("[data-search=tags]").autoComplete({
@@ -30987,6 +30985,9 @@ $(".track-activity-chart").each(function(index, element) {
         return $("[data-search=tags]").closest("form").submit();
       }
     });
+    if (location.pathname.match(/submissions/)) {
+      initCommentMemory();
+    }
     $("#current_submission").theiaStickySidebar({
       additionalMarginTop: 70
     });
@@ -31024,10 +31025,6 @@ $(".track-activity-chart").each(function(index, element) {
       return emojify.run(document.getElementsByClassName("comments")[0]);
     }
   });
-
-  userIsInSession = function() {
-    return $('#navbar a[href="/login"]').length === 0;
-  };
 
   localStorageHasKey = function(key) {
     return localStorage.getItem(key) !== null;
