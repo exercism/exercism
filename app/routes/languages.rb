@@ -3,7 +3,7 @@ require_relative '../../x'
 module ExercismWeb
   module Routes
     class Languages < Core
-      TOPICS = [:about, :exercises, :installing, :tests, :learning, :resources, :help].freeze
+      TOPICS = [:about, :exercises, :installing, :tests, :learning, :resources, :help, :launch].freeze
 
       get '/languages' do
         tracks = X::Track.all
@@ -28,9 +28,10 @@ module ExercismWeb
           erb :"languages/not_found", locals: { track_id: track_id }
         else
           track = X::Track.new(parsed_body['track'])
+          topic = !track.active? ? "launch" : "about"
           erb :"languages/language", locals: {
             track: track,
-            topic: "about",
+            topic: topic.to_s,
             docs: X::Docs::Launch.new(track.repository, track.checklist_issue),
           }
         end
