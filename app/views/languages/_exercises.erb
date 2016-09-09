@@ -18,27 +18,14 @@
     The exercises are ordered roughly in order of difficulty, but it's a bit haphazard.
   </p>
 
+
   <h3>Available Exercises</h3>
-
-  <% track.problems.each do |problem| %>
-    <h5>
-      <button class="btn btn-default" data-toggle="collapse" data-target="#<%= problem.slug %>" aria-expanded="false" aria-controls="<%= problem.slug %>">
-        <%= problem.name %>
-        <b class="caret fuchsia"></b>
-      </button>
-    </h5>
-
-    <div class="collapse" id="<%= problem.slug %>">
-      <p><%= problem.blurb %></p>
-
-      <p>
-        <a href="/exercises/<%= track.id %>/<%= problem.slug %>/readme">README</a>
-        |
-        <a href="/exercises/<%= track.id %>/<%= problem.slug %>/test-suite">Test Suite</a>
-      </p>
-
-      <h6>Fetch it!</h6>
-      <%= syntax track.fetch_cmd(problem), 'shell' %>
-    </div>
-  <% end %>
+  <ul class="available_exercises_listing">
+    <% track.problems.each do |problem| %>
+      <li>
+      <a href="/exercises/<%= track.id %>/<%= problem.slug %>"><%= problem.name %></a>
+      <span class="tagline"><%= problem.blurb %></span>
+      </li>
+    <% end %>
+  </ul>
 </div>
