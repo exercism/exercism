@@ -55,8 +55,8 @@ loadCommentFromStorage = () ->
 
 recordText = () ->
   $('#submission_comment').keyup (event) ->
-    nitPickText = $(this).val()
-    localStorage.setItem(location.pathname, nitPickText)
+    text = $(this).val()
+    localStorage.setItem(location.pathname, text)
 
 initCommentMemory = () ->
   if localStorageHasKey(location.pathname)
