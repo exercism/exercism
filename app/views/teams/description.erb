@@ -1,0 +1,20 @@
+<div class="container">
+  <h3><%= h(team.name) %> (<%= team.members.size %> <%= 'member'.pluralize(team.members.size) %>)</h3>
+
+  <p>
+    <%= erb :"teams/_membership_status", locals: {
+        team: team,
+        member_of: member_of,
+        team_invites: team_invites,
+        team_requests: team_requests,
+        team_requests_denied: team_requests_denied
+      }
+    %>
+  </p>
+
+  <% if team.description.present? %>
+    <h4><%= team.description %></h4>
+  <% else %>
+    <h4>This team currently has no description.</h4>
+  <% end %>
+</div>

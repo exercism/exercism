@@ -17,11 +17,7 @@ module ExercismWeb
         locals = {
           tag: params["q"],
           teams: teams.paginate(page: page, per_page: 10),
-          member_of: current_user.teams.ids + current_user.managed_teams.ids,
-          team_invites: current_user.team_invites.ids,
-          team_requests: current_user.team_requests.ids,
-          team_requests_denied: current_user.team_requests_denied.ids,
-        }
+        }.merge(teams_summary_for(current_user))
 
         erb :"teams/list", locals: locals
       end
@@ -46,7 +42,30 @@ module ExercismWeb
       end
 
       get '/teams/:slug/?' do |slug|
-        redirect '/teams/%s/streams' % slug
+        please_login
+        only_with_existing_team(slug) do |team|
+          if team.includes?(current_user)
+            redirect '/teams/%s/streams' % slug
+          else
+            redirect '/teams/%s/description' % slug
+          end
+        end
+      end
+
+      get '/teams/:slug/description' do |slug|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.public? || team.includes?(current_user)
+            flash[:error] = "You may only view information of public teams."
+            redirect '/'
+          end
+
+          locals = {
+            team: team
+          }.merge(teams_summary_for(current_user))
+
+          erb :"teams/description", locals: locals
+        end
       end
 
       get '/teams/:slug/streams' do |slug|
@@ -254,6 +273,17 @@ module ExercismWeb
             redirect "/account"
           end
         end
+      end
+
+      private
+
+      def teams_summary_for(user)
+        {
+          member_of: user.teams.ids + current_user.managed_teams.ids,
+          team_invites: user.team_invites.ids,
+          team_requests: user.team_requests.ids,
+          team_requests_denied: user.team_requests_denied.ids,
+        }
       end
     end
   end
