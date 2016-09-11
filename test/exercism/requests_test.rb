@@ -51,7 +51,7 @@ class RequestsTest < Minitest::Test
     end
   end
 
-  def test_user_must_be_manager
+  def test_user_must_be_manager_to_respond_to_a_request
     team = Team.by(alice).defined_with(slug: 'abc')
     team.save
 
