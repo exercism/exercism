@@ -61,7 +61,7 @@ module ExercismWeb
           end
 
           locals = {
-            team: team
+            team: team,
           }.merge(teams_summary_for(current_user))
 
           erb :"teams/description", locals: locals

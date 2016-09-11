@@ -1,6 +1,7 @@
 module ExercismWeb
   module Helpers
     module NotificationCount
+      # rubocop:disable Metrics/AbcSize
       def notification_count
         sql = "SELECT COUNT(note.id) FROM notifications note INNER JOIN submissions sub ON note.iteration_id=sub.id WHERE note.user_id=#{current_user.id} AND note.read='f'"
 
