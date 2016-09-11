@@ -54,28 +54,6 @@ module ExercismWeb
 
       private
 
-      def only_for_team_managers(slug, message)
-        only_with_existing_team(slug) do |team|
-          if team.managed_by?(current_user)
-            yield team
-          else
-            flash[:error] = message
-            redirect "/teams/#{slug}"
-          end
-        end
-      end
-
-      def only_with_existing_team(slug)
-        team = Team.find_by_slug(slug)
-
-        if team
-          yield team
-        else
-          flash[:error] = "We don't know anything about team '#{slug}'"
-          redirect '/'
-        end
-      end
-
       def request_for_user_and_team(user, team)
         TeamMembershipRequest.find_by(user: user, team: team)
       end
