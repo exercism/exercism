@@ -45,7 +45,7 @@ cinst exercism-io-cli
 5. Proceed to [Running exercism](#run-exercism) to test the exercism install
 6. If at anytime you need to update the exercism CLI to a newer version you can open up a command line (step 1) and type in the following:
 
-        choco update exercism-io-cli
+        choco upgrade exercism-io-cli
 
 ### Running exercism <a name="run-exercism"></a>
 1. Open a command line interface (CLI) by clicking on "Start", typing "cmd" into the search bar and pressing enter
