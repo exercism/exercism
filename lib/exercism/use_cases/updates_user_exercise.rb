@@ -8,7 +8,6 @@ module Hack
       @slug = slug
     end
 
-    # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
     def update
       return unless latest
 
@@ -28,7 +27,6 @@ module Hack
         s.save
       end
     end
-    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     private
 

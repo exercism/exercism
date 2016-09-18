@@ -2,7 +2,6 @@ class TrackStream
   class Filter
     attr_reader :viewer_id, :track_id
 
-    # rubocop:disable Metrics/AbcSize
     def items
       @items ||= execute(items_sql).map do |row|
         item(row["id"], row["total"])
@@ -10,7 +9,6 @@ class TrackStream
         item.unread = [item.total - views_by_id[item.id], 0].max
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 
@@ -42,7 +40,6 @@ class TrackStream
       ->(a, b) { a.text <=> b.text }
     end
 
-    # rubocop:disable Metrics/MethodLength
     def items_sql
       <<-SQL
         SELECT ex.language AS id, COUNT(ex.id) AS total
@@ -56,9 +53,7 @@ class TrackStream
         GROUP BY ex.language
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
-    # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
         SELECT ex.language AS id, COUNT(views.id) AS total
@@ -76,7 +71,6 @@ class TrackStream
         GROUP BY ex.language
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(id, total)
       Stream::FilterItem.new(id, Language.of(id), url(id), id == track_id, total.to_i)
@@ -106,7 +100,6 @@ class TrackStream
       Stream.ordered_slugs(track_id).index(id) || Stream.ordered_slugs(track_id).size
     end
 
-    # rubocop:disable Metrics/MethodLength
     def items_sql
       <<-SQL
         SELECT ex.slug AS id, COUNT(ex.id) AS total
@@ -121,9 +114,7 @@ class TrackStream
         GROUP BY ex.slug
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
-    # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
         SELECT ex.slug AS id, COUNT(views.id) AS total
@@ -142,7 +133,6 @@ class TrackStream
         GROUP BY ex.slug
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(id, total)
       Stream::FilterItem.new(id, namify(id), url(id), id == slug, total.to_i)
