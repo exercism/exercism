@@ -1,0 +1,10 @@
+@mixin track_link {
+  .track_link{
+    text-decoration: none;
+    padding: 10px;
+    align-self: stretch;
+    &:hover{
+      background: #f4f4f4;
+    }
+  }
+}

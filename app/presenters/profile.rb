@@ -29,6 +29,10 @@ module ExercismWeb
         UserProgression.user_progress(user).sort_by(&:last_updated)
       end
 
+      def user_tracks_summary
+        @user_tracks_summary ||= UserTracksSummary.call(user)
+      end
+
       def archived_exercises
         @archived_exercises ||= user.exercises.where(archived: true).where('iteration_count > 0')
       end

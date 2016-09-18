@@ -54,6 +54,7 @@ module ExercismWeb
       helpers Helpers::TrackImage
       helpers Helpers::UserProgressBar
       helpers WillPaginate::Sinatra::Helpers
+      helpers Helpers::ExPluralizer
 
       helpers do
         def github_client_id

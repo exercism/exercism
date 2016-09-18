@@ -13,6 +13,7 @@ module ExercismWeb
       SiteTitle: 'site_title',
       TrackImage: 'track_image',
       UserProgressBar: 'user_progress_bar',
+      ExPluralizer: 'ex_pluralizer',
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('app', 'helpers', file)
     end
