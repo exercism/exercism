@@ -90,7 +90,7 @@ Go to https://github.com/settings/applications/new and enter the following:
 
 Click _Register application_, and you'll see something like this:
 
-![](/docs/oauth-client-secret.png)
+![](/docs/img/oauth-client-secret.png)
 
 Hang on to those. You'll need to add the **Client ID** and **Client Secret** to a
 configuration file in just a moment.

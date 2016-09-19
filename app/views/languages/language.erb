@@ -12,6 +12,12 @@
 
       <ul class="nav nav-pills nav-stacked">
 
+        <% if !track.active? %>
+          <li class="<%= "active" if topic == "launch" %>">
+            <a href="<%="/languages/#{track.id}/launch"%>">Help Launch the  <%= track.language %> Track</a>
+          </li>
+        <% end %>
+
         <li class="<%= "active" if topic == "about" %>">
           <a href="<%="/languages/#{track.id}/about"%>">
             About the <%= track.language %> Track
@@ -54,23 +60,18 @@
           </a>
         </li>
 
-        <% if !track.active? %>
-          <li class="<%= "active" if topic == "launch" %>">
-            <a href="<%="/languages/#{track.id}/launch"%>">Help Launch the  <%= track.language %> Track</a>
-          </li>
-        <% end %>
-
         <li>
           <a href="<%="/languages/#{track.id}/contribute"%>">
             Contributing to <%= track.language %> on Exercism
           </a>
         </li>
       </ul>
+
     </div>
 
     <div class="col-md-8 tab-content">
-      <div>
-        <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs} %>
+      <div class="active tab-pane" id="launch">
+        <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
       </div>
     </div>
   </div>
