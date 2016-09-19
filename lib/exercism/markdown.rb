@@ -37,12 +37,18 @@ end
 module ExercismLib
   class Markdown < Redcarpet::Render::XHTML
     def self.render(content)
-      markdown = Redcarpet::Markdown.new(new, options)
+      markdown = Redcarpet::Markdown.new(new(options), extensions)
       markdown.render(content)
     end
 
-    # rubocop:disable Metrics/MethodLength
     def self.options
+      {
+        with_toc_data: true,
+      }
+    end
+
+    # rubocop:disable Metrics/MethodLength
+    def self.extensions
       {
         fenced_code_blocks: true,
         no_intra_emphasis: true,

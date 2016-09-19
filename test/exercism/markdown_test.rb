@@ -23,11 +23,10 @@ class MarkdownTest < Minitest::Test
     assert_equal expected, ExercismLib::Markdown.render(markdown)
   end
 
-  def test_lists_without_blank_lines
-    markdown = "foo bar baz\n* one two three\n* cats dogs and frogs"
-    expected = "<p>foo bar baz</p>\n\n<ul>\n<li>one two three</li>\n" \
-               "<li>cats dogs and frogs</li>\n</ul>\n"
-    assert_equal expected, ExercismLib::Markdown.render(markdown)
+  def test_includes_ids_with_headers_so_they_are_linkable
+     markdown = "toc: [Header](#header)\n# Header\n"
+     expected = "<p>toc: <a href=\"#header\">Header</a></p>\n\n<h1 id=\"header\">Header</h1>\n"
+     assert_equal expected, ExercismLib::Markdown.render(markdown)
   end
 
   def test_mention_works_multiple_times
