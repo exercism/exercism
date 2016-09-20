@@ -305,7 +305,7 @@ bundle exec compass watch
 Before committing, tell `compass` to compile the stylesheets for production use.
 
 ```bash
-bundle exec compass compile --production
+bundle exec compass compile -e production --force
 ```
 
 For CSS we are using Sass (with `.scss`). Feel free to use [Bootstrap 3](http://getbootstrap.com) components and mixins. Or if you want to use even more mixins you can use [Compass](http://compass-style.org/reference/compass/). Structurewise we try to separate components, mixins and layouts. Where layouts should be a single page (using an HTML id as a selector) and components should be reusable partials, which can look different by layout.
