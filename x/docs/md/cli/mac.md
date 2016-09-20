@@ -1,4 +1,4 @@
-## Mac OSX 
+## Mac OSX
 
 Below are instructions for install using the most common method - using Homebrew. For further help and instructions, see:
 
@@ -6,7 +6,7 @@ Below are instructions for install using the most common method - using Homebrew
 2. [exercism.io general help](http://exercism.io/help)
 3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
-### Installing With Homebrew   
+### Installing With Homebrew
 
 #### 1: Check For Homebrew
 
@@ -23,7 +23,7 @@ If homebrew is installed you may see output like the following (version numbers 
 Homebrew 0.9.9 (git revision a5586; last commit 2016-05-09)
 Homebrew/homebrew-core (git revision 3b4c; last commit 2016-05-09)
 ```
-If homebrew isn't installed, you can: 
+If homebrew isn't installed, you can:
 1. install via [homebrew's brew.sh site](http://brew.sh/)
 2. see [Install Alternatives for instructions on installing without homebrew](/cli/install)
 
@@ -31,18 +31,18 @@ If homebrew isn't installed, you can:
 Install the CLI via homebrew with the following command:
 
 ```
-brew update && brew install exercism 
+brew update && brew install exercism
 ```
 
 Verify that it was installed properly by running:
 
 ```
-exercism --version 
+exercism --version
 ```
 
 If there was a problem you will get an error message saying command not found.
 
-#### 3: Verify Installation 
+#### 3: Verify Installation
 Verify that the binary was installed properly by running:
 
 ```bash
@@ -55,7 +55,7 @@ To see all the commands available to you, run `exercism` without any options:
 exercism
 ```
 
-#### 4: Configure the CLI 
+#### 4: Configure the CLI
 
 Configure the exercism client so that it knows which account to post your solutions to:
 
@@ -71,10 +71,32 @@ You can configure a different directory by passing the `--dir` option:
 ```
 exercism configure --dir=~/some/other/place
 ```
-#### 5: Continue 
+#### 5: Continue
 You can now continue by [choosing a language](http://exercism.io/languages).
 
+### Removing Exercism CLI
 
+With Homebrew
 
+If you wish to remove your exercism config file, you will need to
+locate it before uninstalling the cli
+
+You can locate it by running
+
+```bash
+exercism debug
+```
+
+Then go ahead and remove this file with
+
+```bash
+rm /path/to/config/file
+```
+
+You can remove the exercism cli with:
+
+```bash
+brew uninstall exercism
+```
 
 
