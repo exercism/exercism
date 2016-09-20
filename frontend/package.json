@@ -7,9 +7,6 @@
     "name": "John Doe",
     "company": "ACME, Inc."
   },
-  "scripts": {
-    "watch": "lineman run && compass watch"
-  },
   "dependencies": {
     "grunt": "~0.4.1",
     "grunt-ngmin": "~0.0.2",
