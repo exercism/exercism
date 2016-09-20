@@ -86,6 +86,18 @@ class TeamStreamTest < Minitest::Test
     assert_equal 1, item3.total
     assert_equal 1, item3.unread
     refute item3.active?
+
+    filter = TrackStream::ViewerFilter.new(bob.id, 'go', true)
+    assert_equal 1, filter.items.size
+
+
+    item = filter.items.first
+
+
+    assert_equal 'My Solutions', item.text
+    assert_equal '/tracks/go/my_solutions', item.url
+    assert_equal 2, item.total
+    assert item.active?
   end
 
   private

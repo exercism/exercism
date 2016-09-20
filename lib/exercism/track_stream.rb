@@ -4,15 +4,16 @@ require 'will_paginate/array'
 # Additionally, it can be narrowed down to a single exercise within a track.
 # rubocop:disable Metrics/ClassLength
 class TrackStream
-  attr_reader :user, :page, :track_id, :slug, :language
+  attr_reader :user, :page, :track_id, :slug, :language, :only_mine
   attr_accessor :per_page
-  def initialize(user, track_id, slug=nil, page=1)
+  def initialize(user, track_id, slug=nil, page=1, only_mine=false)
     @user = user
     @track_id = track_id.to_s.downcase
     @slug = slug.downcase if slug
     @language = Language.of(track_id)
     @page = page.to_i
     @per_page = 50
+    @only_mine = only_mine
   end
 
   def mark_as_read
@@ -35,6 +36,7 @@ class TrackStream
   def menus
     @menus ||= [
       TrackStream::TrackFilter.new(user.id, track_id),
+      TrackStream::ViewerFilter.new(user.id, track_id, only_mine),
       TrackStream::ProblemFilter.new(user.id, track_id, slug),
     ]
   end
@@ -157,6 +159,7 @@ class TrackStream
         AND ex.slug=#{slug_param}
         AND ex.archived='f'
         AND ex.iteration_count > 0
+        #{'AND ex.user_id =' + user.id.to_s if only_mine}
       ORDER BY ex.last_activity_at DESC
       LIMIT #{per_page} OFFSET #{offset}
     SQL

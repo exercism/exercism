@@ -2,17 +2,20 @@ class TrackStream
   class Filter
     attr_reader :viewer_id, :track_id
 
-    # rubocop:disable Metrics/AbcSize
     def items
       @items ||= execute(items_sql).map do |row|
         item(row["id"], row["total"])
       end.sort(&order).each do |item|
-        item.unread = [item.total - views_by_id[item.id], 0].max
+        item.unread = unread(item)
       end
     end
     # rubocop:enable Metrics/AbcSize
 
     private
+
+    def unread(item)
+      [item.total - views_by_id[item.id], 0].max
+    end
 
     # By default, don't bother changing the order.
     def order
@@ -30,6 +33,45 @@ class TrackStream
     end
   end
 
+  class ViewerFilter < Filter
+    private
+
+    attr_reader :track_id, :viewer_id, :only_mine
+    def initialize(viewer_id, track_id, only_mine)
+      @viewer_id = viewer_id
+      @track_id = track_id
+      @only_mine = only_mine
+    end
+
+    # rubocop:disable Metrics/MethodLength
+    def items_sql
+      <<-SQL
+      SELECT u.username AS id, COUNT(ex.id) AS total
+      FROM users u
+      INNER JOIN user_exercises ex
+        ON u.id=ex.user_id
+      WHERE ex.archived='f'
+        AND ex.iteration_count > 0
+        AND ex.user_id = #{viewer_id}
+        AND ex.language='#{track_id}'
+      GROUP BY u.username
+      SQL
+    end
+
+    def unread(_item)
+      0
+    end
+
+    def item(username, total)
+      Stream::FilterItem.new(username, 'My Solutions', url, only_mine, total.to_i)
+    end
+
+    # come up with the url
+    def url
+      "/tracks/%s/my_solutions" % [track_id]
+    end
+  end
+
   class TrackFilter < Filter
     def initialize(viewer_id, track_id)
       @viewer_id = viewer_id
@@ -42,7 +84,6 @@ class TrackStream
       ->(a, b) { a.text <=> b.text }
     end
 
-    # rubocop:disable Metrics/MethodLength
     def items_sql
       <<-SQL
         SELECT ex.language AS id, COUNT(ex.id) AS total
