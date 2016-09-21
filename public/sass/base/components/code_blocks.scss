@@ -1,0 +1,40 @@
+.highlight {
+  background-color:#f8f8f8;
+  border-radius:3px;
+  border:1px solid #ccc;
+
+  font-family: 'Bitstream Vera Sans Mono','Courier', monospace;
+  font-size:14px;
+
+  margin-bottom: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  line-height:26px;
+
+  td.gutter {
+    border-right: 1px solid #ddd;
+    padding: 5px 10px 5px 0px;
+    white-space: nowrap;
+  }
+
+  .lineno a {
+    color: #999;
+  }
+
+  td.code pre {
+    border-left: 1px solid #efefef;
+    padding: 5px 0px 5px 10px;
+  }
+}
+
+.highlight pre, .bs-docs-section .highlight pre {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0 0 0 9.5px;
+  white-space: pre;
+}
+
+blockquote .highlight {
+  margin-bottom: 10px;
+}
