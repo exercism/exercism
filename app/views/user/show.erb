@@ -16,53 +16,52 @@
       <% profile.teams.each do |team| %>
         <% if team.includes?(profile.current_user) %>
           <a href=<%= "teams/#{team.slug}" %>><%= team.name %></a><%="," unless team == profile.teams.last %>
-        <% else %>
-          <%= team.name %><%="," unless team == profile.teams.last %>
-        <% end %>
-      <% end %>
-
-      <% if !profile.progress_hash.empty? %>
-        <h3>Progress:</h3>
-        <% if params[:all] == 'true' %>
-          <%= erb :"user/_exercise_progress", locals: { progress: profile.progress_hash } %>
-          <a class="btn btn-success" href="?all=false"> Fewer Languages </a>
-        <% else %>
-          <%= erb :"user/_exercise_progress", locals: { progress: [profile.progress_hash.first] } %>
-          <% if profile.progress_hash.count > 1 %>
-            <a class="btn btn-success" href="?all=true"> More Languages </a>
-          <% end %>
-        <% end %>
-      <% end %>
-      <% if profile.finished_tracks.any? && profile.own? %>
-        <h3>Contribute:</h3>
-        <h4>You've completed the following tracks. Want to help add more exercises?</h4>
-        <ul>
-          <% profile.finished_tracks.each do |track| %>
-            <li><a href="/languages/<%= track.id %>/contribute" target='_blank'><%= track.language %></a></li>
-          <% end %>
-        </ul>
-      <% end %>
-      <h3>Exercises</h3>
-      <h4>Current</h4>
-      <% if profile.has_current_exercises? %>
-        <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.exercises.current } %>
       <% else %>
-        <p>No current exercises.</p>
+        <%= team.name %><%="," unless team == profile.teams.last %>
       <% end %>
+    <% end %>
 
-      <br>
-
-      <h4>Archived</h4>
-      <% if profile.has_archived_exercises? %>
-        <%= erb :"user/_archived_exercises_table", locals: { profile: profile } %>
-      <% else %>
-        <p>No archived exercises.</p>
+    <% if profile.user_tracks_summary.any? %>
+      <h3> Progess </h3>
+      <% profile.user_tracks_summary.each_slice(3) do |batch| %>
+        <div class="row bottom-margin">
+          <% batch.each do |track_info| %>
+            <%= erb :"user/_track_progress", locals: { track_info: track_info } %>
+          <% end %>
+        </div>
       <% end %>
+    <% end %>
 
-      <hr>
+    <% if profile.finished_tracks.any? && profile.own? %>
+      <h3>Contribute:</h3>
+      <h4>You've completed the following tracks. Want to help add more exercises?</h4>
+      <ul>
+        <% profile.finished_tracks.each do |track| %>
+          <li><a href="/languages/<%= track.id %>/contribute" target='_blank'><%= track.language %></a></li>
+        <% end %>
+      </ul>
+    <% end %>
+    <h3>Exercises</h3>
+    <h4>Current</h4>
+    <% if profile.has_current_exercises? %>
+      <%= erb :"user/_exercises_table", locals: { profile: profile, exercises: profile.exercises.current } %>
+    <% else %>
+      <p>No current exercises.</p>
+    <% end %>
 
-      <p><i class="fa fa-lock"></i> Exercises that you do not yet have access to are marked with a lock. These will show the README/test suite for the exercise.</p>
-      <p>You can gain access to a problem by fetching it (e.g. <code>exercism fetch python etl</code>) and submitting a solution.</p>
+    <br>
+
+    <h4>Archived</h4>
+    <% if profile.has_archived_exercises? %>
+      <%= erb :"user/_archived_exercises_table", locals: { profile: profile } %>
+    <% else %>
+      <p>No archived exercises.</p>
+    <% end %>
+
+    <hr>
+
+    <p><i class="fa fa-lock"></i> Exercises that you do not yet have access to are marked with a lock. These will show the README/test suite for the exercise.</p>
+    <p>You can gain access to a problem by fetching it (e.g. <code>exercism fetch python etl</code>) and submitting a solution.</p>
 
     </div>
   </div>

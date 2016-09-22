@@ -31036,9 +31036,9 @@ $(".track-activity-chart").each(function(index, element) {
 
   recordText = function() {
     return $('#submission_comment').keyup(function(event) {
-      var nitPickText;
-      nitPickText = $(this).val();
-      return localStorage.setItem(location.pathname, nitPickText);
+      var text;
+      text = $(this).val();
+      return localStorage.setItem(location.pathname, text);
     });
   };
 
