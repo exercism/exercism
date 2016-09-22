@@ -20,7 +20,7 @@ class UserTracksSummary
   private
 
   def languages_contributed
-    @languages_contributed ||= completed_exercises_hash.keys.concat(reviewed_exercises_hash.keys).uniq
+    completed_exercises_hash.keys.concat(reviewed_exercises_hash.keys).uniq
   end
 
   def total_contribution_by_language(language)
@@ -30,25 +30,23 @@ class UserTracksSummary
   end
 
   def completed_exercises_hash
-    @completed_exercises_hash ||= Hash[completed_exercises_by_language.map do |lan, exercises|
-      [lan, { completed: exercises.size }]
+    @completed_exercises_hash ||= completed_exercises_by_language.each_with_object({}) do |(lan, exercises), hash|
+      hash[lan] = { completed: exercises.size }
     end
-    ]
   end
 
   def reviewed_exercises_hash
-    @reviewed_exercises_hash = Hash[reviewed_exercises_by_language.map do |lan, reviewed|
-      [lan, { reviewed: reviewed.size }]
+    @reviewed_exercises_hash = reviewed_exercises_by_language.each_with_object({}) do |(lan, reviewed), hash|
+      hash[lan] = { reviewed: reviewed.size }
     end
-    ]
   end
 
   def completed_exercises_by_language
-    @completed_exercises_by_language ||= user.exercises.completed.group_by(&:language)
+    user.exercises.completed.group_by(&:language)
   end
 
   def reviewed_exercises_by_language
-    @reviewed_exercises_by_language ||= user.comments.group_by { |c| c.submission.language }
+    user.comments.group_by { |c| c.submission.language }
   end
 
   class TrackSummary
@@ -59,7 +57,7 @@ class UserTracksSummary
     end
 
     def completed?
-      completed.present? ? true : false
+      completed.present?
     end
 
     def completed
@@ -67,7 +65,7 @@ class UserTracksSummary
     end
 
     def reviewed?
-      reviewed.present? ? true : false
+      reviewed.present?
     end
 
     def reviewed
