@@ -8,11 +8,12 @@ require 'will_paginate/array'
 class TeamStream
   attr_reader :team, :viewer_id, :page, :track_id, :user_id, :username, :slug
   attr_accessor :per_page
-  def initialize(team, viewer_id, page=1)
+
+  def initialize(team, viewer_id, page=1, per_page=50)
     @team = team
     @viewer_id = viewer_id
     @page = page.to_i
-    @per_page = 50
+    @per_page = per_page.to_i
   end
 
   def track_id=(track_id)

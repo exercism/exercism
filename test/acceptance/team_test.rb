@@ -57,4 +57,38 @@ class TeamAcceptanceTest < AcceptanceTestCase
       end
     end
   end
+
+  def test_team_pagination
+    user = User.create(username: "foobar", github_id: 123)
+
+    attributes = { slug: 'some-team', name: 'Some Team', confirmed: true }
+    team = Team.by(user).defined_with(attributes, user)
+    team.save!
+
+    TeamMembership.create!(team_id: team.id, user_id: user.id, confirmed: true)
+
+    submission = Submission.create(user: user,
+                                   language: 'ruby',
+                                   slug: 'leap',
+                                   solution: { 'leap.rb': 'CODE' },
+                                   created_at: Time.now - 10)
+
+    3.times do |index|
+      UserExercise.create(user: user,
+                          submissions: [submission],
+                          language: 'fake',
+                          slug: "apple#{index}",
+                          iteration_count: 1,
+                          last_activity_at: Time.now - 10,
+                          last_iteration_at: Time.now - 10,
+                          fetched_at: Time.now - 10,
+                          skipped_at: Time.now - 10)
+    end
+
+    with_login(user) do
+      visit "/teams/some-team/streams?per_page=2"
+      click_link '2'
+      assert_content 'Apple0 foobar'
+    end
+  end
 end
