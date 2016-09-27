@@ -15,7 +15,7 @@
   <div class="row">
     <div class="col-xs-8">
       <% if inbox.has_team_membership_invites? %>
-        <ul style="list-style-type: none; margin: 0;">
+        <ul style="list-style-type: none; margin: 0;" class="invite-notifications">
           <% inbox.team_membership_invites.each do |invite| %>
           <li class="alert-row">
             <span style="padding-right: 15px;" class="fa fa-bell-o alert-icon"></span>
@@ -30,7 +30,27 @@
             </form>
 
             <form action="<%= "/teams/#{invite.team.slug}/invitation/accept" %>" method="post" class="inline">
-              <input type="submit" name="update" value="Accept" class="btn btn-xs btn-success pull-right" style="margin-right: 5px" />
+              <input type="submit" name="update" value="Accept" class="btn btn-xs btn-success pull-right" style="margin-right: 5px"/>
+            </form>
+          </li>
+          <% end %>
+        </ul>
+      <% end %>
+
+      <% if inbox.has_team_membership_requests_to_review? %>
+        <ul style="list-style-type: none; margin: 0;" class="request-notifications">
+          <% inbox.team_membership_requests_to_review.each do |request| %>
+          <li class="alert-row">
+            <span style="padding-right: 15px;" class="fa fa-bell-o alert-icon"></span>
+            <%= gravatar_tag request.user.avatar_url, size: 20 %>
+            <a href="<%= request.user.username %>"><%= request.user.username %></a> wants to join team <%= request.team.name %>.
+
+            <form action="<%= "/teams/#{request.team.slug}/request/#{request.user.username}/refuse" %>" method="post" class="inline">
+              <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger pull-right"/>
+            </form>
+
+            <form action="<%= "/teams/#{request.team.slug}/request/#{request.user.username}/accept" %>" method="post" class="inline">
+              <input type="submit" name="update" value="Accept" class="btn btn-xs btn-success pull-right" style="margin-right: 5px;"/>
             </form>
           </li>
           <% end %>

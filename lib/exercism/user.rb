@@ -15,8 +15,12 @@ class User < ActiveRecord::Base
   has_many :managed_teams, through: :management_contracts, source: :team
   has_many :team_memberships, -> { where confirmed: true }, dependent: :destroy
   has_many :team_membership_invites, -> { where refused: false }, dependent: :destroy
+  has_many :team_membership_requests, -> { where refused: false }, dependent: :destroy
+  has_many :team_membership_requests_denied, -> { where refused: true }, class_name: "TeamMembershipRequest", dependent: :destroy
   has_many :teams, through: :team_memberships
   has_many :team_invites, through: :team_membership_invites, source: :team
+  has_many :team_requests, through: :team_membership_requests, source: :team
+  has_many :team_requests_denied, through: :team_membership_requests_denied, source: :team
   has_many :inviters, through: :team_membership_invites, class_name: "User", foreign_key: :inviter_id
 
   before_save do

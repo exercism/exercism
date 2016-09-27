@@ -4,6 +4,7 @@ require './lib/exercism/team_membership_invite'
 class Team < ActiveRecord::Base
   has_many :memberships, -> { where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
   has_many :membership_invites, -> { where refused: false }, class_name: "TeamMembershipInvite", dependent: :destroy
+  has_many :membership_requests, -> { where refused: false }, class_name: "TeamMembershipRequest", dependent: :destroy
   has_many :members, through: :memberships, source: :user
   has_many :member_invites, through: :membership_invites, source: :user
   has_many :management_contracts, class_name: "TeamManager"
@@ -101,6 +102,10 @@ class Team < ActiveRecord::Base
 
   def all_tags
     Tag.where(id: tags).pluck(:name).join(', ')
+  end
+
+  def members_size
+    members.size + 1 # manager
   end
 
   private

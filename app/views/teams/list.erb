@@ -30,17 +30,24 @@
       <% teams.each do |team| %>
         <li class="team-info">
           <div class="row">
-            <a href="/teams/<%= team.slug %>" class="list-group-item">
-              <h3><%= h(team.name) %> (<%= team.members.size %> <%= 'member'.pluralize(team.members.size) %>)</h3>
+            <div class="list-group-item" data-team-slug="<%= team.slug %>">
+              <%= erb :"teams/_membership_status", locals: {
+                  team: team,
+                  member_of: member_of,
+                  team_invites: team_invites,
+                  team_requests: team_requests,
+                  team_requests_denied: team_requests_denied
+                }
+              %>
+
+              <h3><%= h(team.name) %> (<%= team.members_size %> <%= 'member'.pluralize(team.members_size) %>)</h3>
 
               <% if team.description.present? %>
                 <h4><%= team.description %></h4>
               <% end %>
 
-              <p>
-                Tags: <%= team.all_tags %>
-              </p>
-            </a>
+              <p> Tags: <%= team.all_tags %> </p>
+            </div>
           </div>
         </li>
       <% end %>

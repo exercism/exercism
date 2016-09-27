@@ -57,4 +57,46 @@ class TeamAcceptanceTest < AcceptanceTestCase
       end
     end
   end
+
+  def test_request_and_accept_membership_during_search
+    alice = create_user(username: 'alice', github_id: 123)
+    bob = create_user(username: 'bob', github_id: 456)
+
+    attributes = { slug: 'abc', name: 'ABC', public: true, tags: 'ruby' }
+    Team.by(alice).defined_with(attributes, alice).save!
+
+    with_login(bob) do
+      visit "/teams?q=ruby"
+
+      within('div[data-team-slug="abc"]') do
+        assert_content 'ABC'
+        click_on 'Request membership'
+      end
+
+      visit "/teams?q=ruby"
+
+      within('div[data-team-slug="abc"]') do
+        assert_content 'Request pending'
+        assert_content 'ABC'
+      end
+    end
+
+    with_login(alice) do
+      visit "/notifications"
+
+      within('.request-notifications') do
+        assert_content 'bob wants to join team ABC.'
+        click_on 'Accept'
+      end
+    end
+
+    with_login(bob) do
+      visit "/teams?q=ruby"
+
+      within('div[data-team-slug="abc"]') do
+        assert_content 'Already a member'
+        assert_content 'ABC'
+      end
+    end
+  end
 end

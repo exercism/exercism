@@ -146,5 +146,24 @@
       </div>
     <% end %>
 
+    <% if team.membership_requests.exists? %>
+      <div class="row">
+        <h4>Membership requests</h4>
+        <% team.membership_requests.each do |req| %>
+          <div class="col-sm-4">
+            <form action="<%= "/teams/#{team.slug}/request/#{req.user.username}/accept" %>" method="post" class="inline">
+              <input type="submit" name="update" value="Accept" class="btn btn-xs btn-success"/>
+            </form>
+
+            <form action="<%= "/teams/#{team.slug}/request/#{req.user.username}/refuse" %>" method="post" class="inline">
+              <input type="submit" name="update" value="Decline" class="btn btn-xs btn-danger" style="margin-right: 10px;"/>
+            </form>
+
+            <%= gravatar_tag req.user.avatar_url, size: 20 %>
+            <a href="/<%= req.user.username %>"><%= req.user.username %></a>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

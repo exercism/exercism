@@ -1,0 +1,15 @@
+<% if member_of.include?(team.id) %>
+  <a href="/teams/<%= team.slug %>" class="btn btn-xs btn-primary">Already a member</a>
+<% elsif team_invites.include?(team.id) %>
+  <form action="<%= "/teams/#{team.slug}/invitation/accept" %>" method="post">
+    <input type="submit" name="update" value="Accept invite" class="btn btn-xs btn-success"/>
+  </form>
+<% elsif team_requests.include?(team.id) %>
+  <span class="btn btn-xs btn-warning">Request pending</span>
+<% elsif team_requests_denied.include?(team.id) %>
+  <span class="btn btn-xs btn-danger">Request denied</span>
+<% else %>
+  <form action="<%= "/teams/#{team.slug}/requests" %>" method="post">
+    <input type="submit" name="update" value="Request membership" class="btn btn-xs btn-success"/>
+  </form>
+<% end %>
