@@ -1,12 +1,18 @@
 module ExercismWeb
   module Routes
     class Tracks < Core
+      get '/tracks/:id/my_solutions' do |id|
+        please_login
+        page = params[:page] || 1
+        stream = TrackStream.new(current_user, id, nil, page, true)
+        session[:inbox] = id
+        erb :"track_stream/index", locals: { stream: stream }
+      end
+
       get '/tracks/:id/exercises/?:slug?' do |id, slug|
         please_login
-
         page = params[:page] || 1
         stream = TrackStream.new(current_user, id, slug, page)
-
         session[:inbox] = id
         session[:inbox_slug] = slug
 
