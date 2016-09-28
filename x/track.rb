@@ -16,7 +16,7 @@ module X
     METHODS = [
       :id, :language, :repository,
       :todo, :problems, :docs, :doc_format,
-      :active, :implemented, :checklist_issue
+      :active, :implemented, :checklist_issue, :image
     ].freeze
     attr_reader(*METHODS)
 
