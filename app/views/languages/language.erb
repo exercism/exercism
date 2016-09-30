@@ -1,7 +1,8 @@
 <div class="container languages">
 
   <div class="row" style="padding-top: 40px;">
-    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <a href="/"> HOME </a> <i class="fa fa-caret-right"></i> <a href="/languages">Languages</a> <i class="fa fa-caret-right"></i> <a href="/languages/<%= track.id %>"><%= track.language %> </a></div>
     <div class="col-md-8">
       <h1><%= "#{track_icon(track.id, 30)} #{track.language}"%></h1>
     </div>
@@ -11,7 +12,6 @@
     <div class="col-md-4">
 
       <ul class="nav nav-pills nav-stacked">
-
         <% if !track.active? %>
           <li class="<%= "active" if topic == "launch" %>">
             <a href="<%="/languages/#{track.id}/launch"%>">Help Launch the  <%= track.language %> Track</a>
