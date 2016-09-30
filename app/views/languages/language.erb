@@ -8,71 +8,73 @@
   </div>
 
   <div class="row" style="padding-top: 20px;">
-    <div class="col-md-4">
+    <aside role="complementary">
+      <div class="col-md-4">
+        <ul class="nav nav-pills nav-stacked">
+          <% if !track.active? %>
+            <li class="active">
+              <a data-toggle="tab" href="#launch">Help Launch the  <%= track.language %> Track</a>
+            </li>
+          <% end %>
 
-      <ul class="nav nav-pills nav-stacked">
-
-        <% if !track.active? %>
-          <li class="<%= "active" if topic == "launch" %>">
-            <a href="<%="/languages/#{track.id}/launch"%>">Help Launch the  <%= track.language %> Track</a>
+          <li class="<%= "active" if topic == "about" %>">
+            <a href="<%="/languages/#{track.id}/about"%>">
+              About the <%= track.language %> Track
+            </a>
           </li>
-        <% end %>
 
-        <li class="<%= "active" if topic == "about" %>">
-          <a href="<%="/languages/#{track.id}/about"%>">
-            About the <%= track.language %> Track
-          </a>
-        </li>
+          <li class="<%= "active" if topic == "exercises" %>">
+            <a href="<%="/languages/#{track.id}/exercises"%>">
+              Available Exercises
+            </a>
+          </li>
 
-        <li class="<%= "active" if topic == "exercises" %>">
-          <a href="<%="/languages/#{track.id}/exercises"%>">
-            Available Exercises
-          </a>
-        </li>
+          <li class="<%= "active" if topic == "installing" %>">
+            <a href="<%="/languages/#{track.id}/installing"%>">
+              Installing <%= track.language %>
+            </a>
+          </li>
 
-        <li class="<%= "active" if topic == "installing" %>">
-          <a href="<%="/languages/#{track.id}/installing"%>">
-            Installing <%= track.language %>
-          </a>
-        </li>
+          <li class="<%= "active" if topic == "tests" %>">
+            <a href="<%="/languages/#{track.id}/tests"%>">
+              Running the Tests
+            </a>
+          </li>
 
-        <li class="<%= "active" if topic == "tests" %>">
-          <a href="<%="/languages/#{track.id}/tests"%>">
-            Running the Tests
-          </a>
-        </li>
+          <li class="<%= "active" if topic == "learning" %>">
+            <a href="<%="/languages/#{track.id}/learning"%>">
+              Learning <%= track.language %>
+            </a>
+          </li>
 
-        <li class="<%= "active" if topic == "learning" %>">
-          <a href="<%="/languages/#{track.id}/learning"%>">
-            Learning <%= track.language %>
-          </a>
-        </li>
+          <li class="<%= "active" if topic == "resources" %>">
+            <a href="<%="/languages/#{track.id}/resources"%>">
+              Useful <%= track.language %> Resources
+            </a>
+          </li>
 
-        <li class="<%= "active" if topic == "resources" %>">
-          <a href="<%="/languages/#{track.id}/resources"%>">
-            Useful <%= track.language %> Resources
-          </a>
-        </li>
+          <li class="<%= "active" if topic == "help" %>">
+            <a href="<%="/languages/#{track.id}/help"%>">
+              Getting Help
+            </a>
+          </li>
 
-        <li class="<%= "active" if topic == "help" %>">
-          <a href="<%="/languages/#{track.id}/help"%>">
-            Getting Help
-          </a>
-        </li>
-
-        <li>
-          <a href="<%="/languages/#{track.id}/contribute"%>">
-            Contributing to <%= track.language %> on Exercism
-          </a>
-        </li>
-      </ul>
-
-    </div>
+          <li>
+            <a href="<%="/languages/#{track.id}/contribute"%>">
+              Contributing to <%= track.language %> on Exercism
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
 
     <div class="col-md-8 tab-content">
-      <div class="active tab-pane" id="launch">
-        <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
-      </div>
+      <% if !track.active %>
+        <div class="active tab-pane" id="launch">
+          <%= md docs.launch %>
+        </div>
+      <% end %>
+      <%= erb :"languages/_#{topic}", locals: { track: track } %>
     </div>
   </div>
 </div>
