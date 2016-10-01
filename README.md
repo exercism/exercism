@@ -13,9 +13,9 @@ and a place where you can get feedback on your solutions.
 
 Exercism is especially well-suited for three types of practice:
 
-- gaining fluency in your first programming language.
-- ramping up in a new programming language.
-- developing the skills to be a great lead developer: code review, refactoring, and mentoring.
+- gaining fluency in your first programming language
+- ramping up in a new programming language
+- developing the skills to be a great lead developer: code review, refactoring, and mentoring
 
 ## Using Exercism
 
