@@ -1,4 +1,4 @@
-# exercism.io
+# Exercism
 [![Build Status](https://img.shields.io/travis/exercism/exercism.io.svg)](https://travis-ci.org/exercism/exercism.io)
 [![Code Climate](https://img.shields.io/codeclimate/github/exercism/exercism.io.svg)](https://codeclimate.com/github/exercism/exercism.io)
 [![Gemnasium](https://img.shields.io/gemnasium/exercism/exercism.io.svg)](https://gemnasium.com/exercism/exercism.io)
@@ -6,77 +6,91 @@
 [![Supporting 24 Pull Requests](https://img.shields.io/badge/Supporting-24%20Pull%20Requests-red.svg?style=flat)](http://24pullrequests.com)
 [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
-Exercism is a place where programmers help each other level up their coding skills.
+Programming is hard. With practice it gets easier.
 
-There are practice exercises in over 30 programming languages. Solve an exercise
-and submit it to the website where you can discuss trade-offs and improvements with
-other programmers. Then refactor and submit a new iteration.
+Exercism gives you hundreds of practice problems in over 30 programming languages,
+and a place where you can get feedback on your solutions.
 
-## Contact Us
+Exercism is especially well-suited for three types of practice:
 
-To report a bug, suggest improvements to exercism.io, or if you're having trouble
-installing or using the CLI, please **[open a GitHub
-issue](https://github.com/exercism/exercism.io/issues)**. You can also visit our
-[support chat](https://gitter.im/exercism/support).
-We'll do our best to help you out!
+- gaining fluency in your first programming language.
+- ramping up in a new programming language.
+- developing the skills to be a great lead developer: code review, refactoring, and mentoring.
 
-Follow us on Twitter [@exercism_io](https://twitter.com/exercism_io).
+## Using Exercism
 
-For occasional updates, such as new language tracks being launched,
-[sign up for the newsletter](https://tinyletter.com/exercism).
+The process happens in two places.
 
-Exercism.io was started by Katrina. To get in touch with her, send an email to
-[kytrinyx@exercism.io](mailto:kytrinyx@exercism.io).
+0. Solve exercises in your local development environment.
+0. Discuss solutions on the [Exercism website](http://exercism.io).
 
-## Contribute
+Once you submit the solution to an exercise you can:
 
-Exercism.io is free and open source, and many, many people have contributed to
-the project by:
+- **learn by listening**: receive feedback on your code.
+- **learn by reading code**: browse all the other solutions to exercises you submitted solutions to.
+- **learn by sharing your experience**: provide feedback on other people's code.
 
-* Reporting, reproducing, or fixing bugs
-* Fixing typos
-* Triaging issues
-* Suggesting, discussing, or implementing features
-* Refactoring
-* Improving the design of the site
-* Adding tests
-* Improving documentation
-* Improving test suites for the language tracks
-* Adding new problems to existing tracks
-* Porting problems to new tracks
-* Providing feedback on people's code
-* Reviewing pull requests
-* ... and more
+Even in the most trivial exercise, there are many important things to discuss. Simplicity, naming,
+readability, idioms, good use of existing libraries, performance, and much, much more.
+
+Get started using exercism on the [exercism.io website](http://exercism.io).
+
+## Getting Help
+
+### Are you stuck trying to solve an exercise?
+
+Submit the unfinished solution and
+describe in a comment on the website what you tried, and where you're stuck.
+
+Or jump into the [support chat](https://gitter.im/exercism/support), and we'll
+try to help you out.
+
+### Did you find a bug?
+
+That's always frustrating. Go ahead and [open a GitHub issue](https://github.com/exercism/exercism.io/issues),
+and we'll help figure out what's going on.
+
+### Is someone being unpleasant?
+
+We have a [Code of Conduct](https://github.com/exercism/exercism.io/blob/master/CODE_OF_CONDUCT.md).
+
+If you need to report something, please email [@kytrinyx](https://github.com/kytrinyx).
+
+## Contributing to Exercism
+
+There are many ways to contribute to Exercism, and only a few of them involve writing code.
+
+**Do you like mentoring people?** Hang out in the [support chat](https://gitter.im/exercism/support), or submit an exercise so you can give [feedback to people who have submitted it, too](http://exercism.io/inbox).
+
+**Are you a language enthusiast?** Help other people fall in love with your language by getting involved with one of the [Exercism language tracks](http://exercism.io/repositories#language-tracks-you-can-contribute-to), or by [giving feedback to people who submit solutions to a track](http://exercism.io/inbox).
+
+**Do you love making enticing user experiences?** Help us [rethink the profile and account pages](https://github.com/exercism/discussions/issues/33). Or the dashboard. Or maybe [redesign the homepage](https://github.com/exercism/discussions/issues/31). Or the [solutions page](https://github.com/exercism/discussions/issues/32).
+
+**Do you know how to organize information?** Help us [improve the onboarding experience](https://github.com/exercism/discussions/issues/18) for people who are new to Exercism, and figure out how to make our [contributing docs](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md) understandable, or how to better organize our [language track documentation](http://exercism.io/languages).
+
+**Do you want to improve your skills in a particular programming language?** Help [add more exercises](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#porting-an-exercise-to-another-language-track), or watch the [repository for the language track](http://exercism.io/repositories#language-tracks-you-can-contribute-to) so that you can help review pull requests and respond to issues.
+
+**Do you want to get started contributing to open source?** Check out [issues with the "good first patch"](https://github.com/search?utf8=%E2%9C%93&q=org%3Aexercism+label%3A%22good+first+patch%22+is%3Aissue+is%3Aopen&type=Repositories&ref=searchresults) label.
 
 We're a friendly bunch, and we're happy to help you help us, so don't be scared to ask about anything.
 We've got a chat room and there are usually people around there, or just ask right in the issue you're wondering about.
 
-There is a whole repo made just to hold curated "todo" issues.
-Start looking at the issues labeled "start here":
-https://github.com/exercism/todo/labels/start-here
-and then if you find an issue that seems interesting, follow the links from there.
+### Setting up your development environment
 
-If you're into Go, check out the repository for the CLI.
-We've labeled a few issues with "good first issue": https://github.com/exercism/cli/labels/good-first-issue
-The bugs are, of course, up for grabs as well!
+If you want to work on a language track, you don't need to run the exercism.io website locally. Just clone down the [repository of the language you're interested](http://exercism.io/repositories#language-tracks-you-can-contribute-to) and follow the instructions in the README and Contributing Guide there.
 
-Lastly, in this repository, there's a bunch of stuff, mostly un-curated.
-Here your best bet is going to be to poke around (see: https://github.com/exercism/exercism.io/labels/bug), and ask some questions.
-Consider it triage (which is sorely needed and much appreciated!).
+If you want to work on the Exercism website, check out the installation instructions in the [Contributing Guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md) in this repository.
 
-Also check out the [Contributing Guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md).
+## What's Going On at Exercism?
 
-This is a project that started by accident and could never have gotten off the
-ground by the efforts of any single person.
+We send out a weekly "behind the scenes" update about new language tracks, bugs that crop up, features that people are working on, and other Exercism-related tidbits. You can [sign up for the newsletter here](https://tinyletter.com/exercism).
 
-**Thank you!**
+## Thank you
 
-## Building the App
+Exercism.io is free and open source, and many, many people have contributed to the project. This is a project that started by accident and could never have gotten off the ground by the efforts of any single person.
 
-Build instructions can be found in the [Contributing Guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md#setup).
+**Thank you!** :heart:
 
 ## License
 
-GNU Affero General Public License
-
-Copyright (C) 2015 Katrina Owen, _@kytrinyx.com
+See the [LICENSE](https://github.com/exercism/exercism.io/blob/master/LICENSE) file.
