@@ -81,6 +81,11 @@ module ExercismWeb
       get '/version' do
         erb :'site/version.json', layout: false
       end
+
+      get '/contact' do
+        erb :'site/contact'
+      end
+
     end
   end
 end
