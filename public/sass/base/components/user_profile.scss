@@ -1,3 +1,5 @@
+@import '../mixins/track_link';
+
 .main-profile-img {
   img {
     border-radius: 50%;
@@ -6,4 +8,25 @@
 
 .main-profile-name {
   padding-left: 40px !important;
+}
+
+.bottom-margin{
+  margin-bottom: 15px;
+}
+
+.track-info{
+  img{
+    float: left;
+    margin-right: 10px;
+  }
+  .track-text {
+    padding: 5px 0 0 0;
+    h5{
+      margin: 0;
+    }
+    p{
+      margin: 0;
+      color: #777;
+    }
+  }
 }
