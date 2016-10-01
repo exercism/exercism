@@ -28,6 +28,8 @@ Doing the right thing is not always the thing that pleases the most people.
 
 Even if you do not have an answer immediately, respond quickly. This lets the person on the other end know that they've been heard. If it takes a long time to figure out what to do, be honest about what's going on.
 
+When responding to someone, `@`-mention them. This will ensure that they'll get a notification, even if they're not watching the issue or pull request.
+
 ### Empower New Contributors
 
 As a maintainer, your most important task is to make it as easy as possible for people to successfully contribute. The exact details will vary, but often this means things like:
