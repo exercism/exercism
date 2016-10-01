@@ -10,11 +10,11 @@ class AttemptTest < Minitest::Test
   end
 
   def test_validity
-    X::Exercise.stub(:exists?, true) do
+    Xapi.stub(:exists?, true) do
       assert Attempt.new(user, Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two')).valid?
     end
 
-    X::Exercise.stub(:exists?, false) do
+    Xapi.stub(:exists?, false) do
       refute Attempt.new(user, Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two')).valid?
     end
   end
@@ -22,7 +22,7 @@ class AttemptTest < Minitest::Test
   def test_saving_with_comments_creates_a_new_comment
     iteration = Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two', comment: "hello world")
 
-    X::Exercise.stub(:exists?, true) do
+    Xapi.stub(:exists?, true) do
       attempt = Attempt.new(user, iteration).save
 
       assert_equal 1, Comment.count
@@ -35,7 +35,7 @@ class AttemptTest < Minitest::Test
 
   def test_saving_without_comments_does_not_create_the_comment
     save_attempt = lambda do |i|
-      X::Exercise.stub(:exists?, true) do
+      Xapi.stub(:exists?, true) do
         Attempt.new(user, i).save
       end
     end

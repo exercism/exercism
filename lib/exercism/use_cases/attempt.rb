@@ -15,7 +15,7 @@ class Attempt
   # rubocop:enable Metrics/AbcSize
 
   def valid?
-    !!slug && X::Exercise.exists?(track, slug)
+    !!slug && Xapi.exists?(track, slug)
   end
 
   # rubocop:disable Metrics/AbcSize

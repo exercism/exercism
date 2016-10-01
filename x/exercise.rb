@@ -12,9 +12,5 @@ module X
         instance_variable_set(:"@#{name}", attrs[name.to_s])
       end
     end
-
-    def self.exists?(track_id, slug=nil)
-      X::Xapi.request(*['tracks', track_id, slug].compact).status != 404
-    end
   end
 end
