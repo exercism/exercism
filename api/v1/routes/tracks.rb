@@ -6,7 +6,7 @@ module ExercismAPI
       get '/tracks/:id/status' do |id|
         require_key
 
-        unless Xapi.exists?(id)
+        unless X::Exercise.exists?(id)
           message = "Track #{id} not found."
           halt 404, { error: message }.to_json
         end
