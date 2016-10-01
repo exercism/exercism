@@ -1,14 +1,32 @@
-<div class="track_link col-xs-4 col-sm-4 col-md-2 col-lg-2 text-center">
-  <a href="<%= track.repository%>">
-    <p>
-      <%= track_icon(track.id) %>
-    </p>
-    <p>
-      <%= track.language %>
-    </p>
-  </a>
-  <% unless track.active %>
-    <p><a href="https://github.com/exercism/x<%= track.id %>/issues/<%= track.checklist_issue %>">Launch checklist</a>
-    </p>
+<table class="table table-bordered table-striped">
+  <col width="5%" />
+  <col width="20%" />
+  <% if active %>
+    <col width="75%" />
+  <% else %>
+    <col width="55%" />
+    <col width="20%" />
   <% end %>
-</div>
+  <thead>
+    <tr>
+      <th>Icon</th>
+      <th>Language</th>
+      <th>Repository</th>
+      <% unless active %>
+        <th>Checklist</th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <% tracks.each do |track| %>
+      <tr>
+        <td><%= track_icon(track.id) %></td>
+        <td><a href="http://exercism.io/languages/<%= track.id %>" target='_blank'><%= track.language %></a></td>
+        <td><a href="<%= track.repository%>" target='_blank'><%= track.repository%></a></td>
+        <% unless active %>
+          <td><a href="https://github.com/exercism/x<%= track.id %>/issues/<%= track.checklist_issue %>" target='_blank'>Launch checklist</a></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

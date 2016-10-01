@@ -27,33 +27,15 @@
   <section class="page-header">
     <h3>Language tracks you can contribute to</h3>
   </section>
-  <% active.each_slice(6) do |tracks| %>
-    <div class="row">
-      <% tracks.each do |t| %>
-        <%= erb :'languages/_repo', locals: { track: t } %>
-      <% end %>
-    </div>
-  <% end %>
+  <%= erb :'languages/_repo', locals: { tracks: active, active: true } %>
   <section class="page-header">
     <h3>In Progress</h3>
     <p>Help contribute to inactive languages by adding more exercises, and helping to review code. To see what still needs to be done, view the launch checklist.</p>
   </section>
-  <% upcoming.each_slice(6) do |tracks| %>
-    <div class="row">
-      <% tracks.each do |t| %>
-        <%= erb :'languages/_repo', locals: { track: t } %>
-      <% end %>
-    </div>
-  <% end %>
+  <%= erb :'languages/_repo', locals: { tracks: upcoming, active: false } %>
   <section class="page-header">
     <h3>Planned</h3>
     <p> People have requested these languages, but we need exercises before we can launch the track. Check out the launch checklist for an idea of what needs to be done.</p>
   </section>
-  <% planned.each_slice(6) do |tracks| %>
-    <div class="row">
-      <% tracks.each do |t| %>
-        <%= erb :'languages/_repo', locals: { track: t } %>
-      <% end %>
-    </div>
-  <% end %>
+  <%= erb :'languages/_repo', locals: { tracks: planned, active: false } %>
 </div>
