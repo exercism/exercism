@@ -15,7 +15,12 @@ body {
 }
 
 .screen-reader-text {
-  @include hide-text;
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 // TODO clean up (Jalyna)
