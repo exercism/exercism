@@ -1,35 +1,3 @@
-.highlight  {
-  background-color:#f8f8f8;
-  border-radius:3px;
-  border:1px solid #ccc;
-
-  font: 'Bitstream Vera Sans Mono','Courier', monospace;
-  font-size:14px;
-
-  overflow-x: auto;
-  overflow-y: hidden;
-  line-height:26px;
-  padding: 20px 0;
-}
-
-.highlight pre, .bs-docs-section .highlight pre {
-  background: none;
-  border: none;
-  margin: 0;
-  padding: 0 0 0 9.5px;
-  white-space: pre;
-}
-
-blockquote .highlight {
-  margin-bottom: 10px;
-}
-
-td.gutter {
-    white-space: nowrap;
-}
-
-.highlight .lineno { color: #999; }
-
 /* Pygments coloring */
 .highlight .c{color:#998;font-style:italic;}
 .highlight .err{color:#a61717;background-color:#e3d2d2;}

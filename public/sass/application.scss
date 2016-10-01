@@ -85,21 +85,3 @@ p.cta {
   display: -ms-flexbox;
   display:         flex;
 }
-
-.highlight {
-  margin-bottom: 20px;
-
-  td.gutter {
-    border-right: 1px solid #ddd;
-    padding: 5px 10px 5px 0px;
-  }
-
-  .lineno a {
-    color: #999;
-  }
-
-  td.code pre {
-    border-left: 1px solid #efefef;
-    padding: 5px 0px 5px 10px;
-  }
-}
