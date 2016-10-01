@@ -64,8 +64,7 @@ db/*sqlite
 
 # compiled css
 public/css
-!.application.css
-!.styleguide.css
+public/js
 /.project
 
 # client
