@@ -3,10 +3,10 @@
   <div class="track-text">
     <h5><%= track_info.track.language %></h5>
     <% if track_info.completed? %>
-      <p>Completed: <%= 'Problem'.pluralize(track_info.completed) %></p>
+      <p>Completed: <%= track_info.completed %> <%= 'Problem'.pluralize(track_info.completed) %></p>
     <% end %>
     <% if track_info.reviewed? %>
-      <p>Reviewed: <%= 'Iteration'.pluralize(track_info.reviewed) %></p>
+      <p>Reviewed: <%= track_info.reviewed %> <%= 'Iteration'.pluralize(track_info.reviewed) %></p>
     <% end %>
   </div>
 </div>
