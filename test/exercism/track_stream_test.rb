@@ -1,6 +1,6 @@
 require_relative '../integration_helper'
 
-class TrackStreamTrackTest < Minitest::Test
+class TrackStreamTest < Minitest::Test
   include DBCleaner
 
   def setup
