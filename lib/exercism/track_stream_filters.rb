@@ -13,7 +13,11 @@ class TrackStream
     private
 
     def unread(item)
-      [item.total - views_by_id[item.id], 0].max
+      [item.total - read(item.id), 0].max
+    end
+
+    def read(id)
+      views_by_id[id] + watermarked_by_id[id]
     end
 
     # By default, don't bother changing the order.
@@ -25,6 +29,16 @@ class TrackStream
       @views_by_id ||= execute(views_sql).each_with_object(Hash.new(0)) do |row, views|
         views[row["id"]] = row["total"].to_i
       end
+    end
+
+    def watermarked_by_id
+      @watermarked_by_id ||= execute(watermarks_sql).each_with_object(Hash.new(0)) do |row, watermarked|
+        watermarked[row["id"]] = row["total"].to_i
+      end
+    end
+
+    def watermarks_sql
+      ""
     end
 
     def execute(query)
@@ -73,6 +87,28 @@ class TrackStream
           AND ex.archived='f'
           AND ex.iteration_count > 0
           AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY ex.language
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT ex.language AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN acls
+          ON ex.language=acls.language
+          AND ex.slug=acls.slug
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+          AND acls.user_id=mark.user_id
+        WHERE acls.user_id=#{viewer_id}
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
         GROUP BY ex.language
       SQL
     end
@@ -140,6 +176,31 @@ class TrackStream
         GROUP BY ex.slug
       SQL
     end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT ex.slug AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN acls
+          ON ex.language=acls.language
+          AND ex.slug=acls.slug
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+          AND acls.user_id=mark.user_id
+        WHERE acls.user_id=#{viewer_id}
+          AND ex.language='#{track_id}'
+          AND ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
+        GROUP BY ex.slug
+      SQL
+    end
     # rubocop:enable Metrics/MethodLength
 
     def item(id, total)
@@ -194,6 +255,30 @@ class TrackStream
           AND ex.user_id=#{viewer_id}
           AND ex.language='#{track_id}'
           AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY u.username
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT u.username AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN users u
+          ON u.id=ex.user_id
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+          AND ex.user_id=mark.user_id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id=#{viewer_id}
+          AND ex.language='#{track_id}'
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
         GROUP BY u.username
       SQL
     end

@@ -26,7 +26,7 @@ class TrackStreamFiltersTest < Minitest::Test
     charlie = User.create!(username: 'charlie', avatar_url: 'charlie.jpg')
     nobody = nil
 
-    mon, tue, wed = (4..6).map {|day| DateTime.new(2016, 1, day)}
+    mon, tue, wed, thu = (4..7).map {|day| DateTime.new(2016, 1, day)}
 
     # We will use Alice as the viewer for all the filters.
     #
@@ -57,16 +57,16 @@ class TrackStreamFiltersTest < Minitest::Test
 
     # Go
     create_exercise(alice, 'go', 'leap', alice.id, mon)
-    create_exercise(alice, 'go', 'clock', bob.id, tue)
+    create_exercise(alice, 'go', 'clock', bob.id, mon)
     create_exercise(alice, 'go', 'anagram', nobody, mon)
 
     create_exercise(bob, 'go', 'leap', nobody, mon)
-    create_exercise(bob, 'go', 'clock', alice.id, mon)
+    create_exercise(bob, 'go', 'clock', alice.id, tue)
     create_exercise(bob, 'go', 'anagram', bob.id, mon)
     create_exercise(bob, 'go', 'triangle', nobody, mon)
 
     create_exercise(charlie, 'go', 'leap', nobody, mon)
-    create_exercise(charlie, 'go', 'clock', bob.id, tue)
+    create_exercise(charlie, 'go', 'clock', bob.id, thu)
     create_exercise(charlie, 'go', 'triangle', alice.id, mon) # viewed (directly) without ACL
 
     # Elixir
@@ -89,6 +89,8 @@ class TrackStreamFiltersTest < Minitest::Test
       ACL.authorize(alice, problem)
     end
 
+    Watermark.create!(user_id: alice.id, track_id: 'go', slug: 'clock', at: wed)
+
     filter = TrackStream::TrackFilter.new(alice.id, 'go')
     assert_equal 2, filter.items.size
 
@@ -103,7 +105,7 @@ class TrackStreamFiltersTest < Minitest::Test
     assert_equal 'Go', item2.text
     assert_equal '/tracks/go/exercises', item2.url
     assert_equal 8, item2.total
-    assert_equal 6, item2.unread
+    assert_equal 5, item2.unread
     assert item2.active?
 
     filter = TrackStream::ProblemFilter.new(alice.id, 'go', 'clock')
@@ -120,7 +122,7 @@ class TrackStreamFiltersTest < Minitest::Test
     assert_equal 'Clock', item2.text
     assert_equal '/tracks/go/exercises/clock', item2.url
     assert_equal 3, item2.total
-    assert_equal 2, item2.unread
+    assert_equal 1, item2.unread
     assert item2.active?, "clock should be active"
 
     assert_equal 'Anagram', item3.text
@@ -138,7 +140,7 @@ class TrackStreamFiltersTest < Minitest::Test
     assert_equal 'My Solutions', item.text
     assert_equal '/tracks/go/my_solutions', item.url
     assert_equal 3, item.total
-    assert_equal 2, item.unread
+    assert_equal 1, item.unread
     assert item.active?
   end
 

@@ -47,6 +47,7 @@ require 'exercism/view'
 require 'exercism/user_lookup'
 require 'exercism/daily'
 require 'exercism/tag'
+require 'exercism/watermark'
 
 require 'db/connection'
 DB::Connection.establish

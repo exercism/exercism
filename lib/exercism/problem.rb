@@ -12,4 +12,8 @@ Problem = Struct.new(:track_id, :slug) do
   def in?(other_track_id)
     track_id == other_track_id
   end
+
+  def id
+    "%s:%s" % [track_id, slug]
+  end
 end

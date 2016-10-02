@@ -98,6 +98,47 @@ class TrackStreamTest < Minitest::Test
     ].each { |actual, expected| assert_exercise expected, actual }
   end
 
+  def test_read_unread_status
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+
+    mon, tue, wed, thu, fri = (4..8).map {|day| DateTime.new(2016, 1, day)}
+
+    # Alice has submitted three exercises, and Bob is authorized to see them all.
+    hello, leap, clock = {
+      'hello-world' => mon, 'leap' => wed, 'clock' => fri
+    }.map do |slug, ts|
+      exercise = UserExercise.create!(user_id: alice.id, language: 'go', slug: slug, iteration_count: 1, last_activity_at: ts)
+
+      attributes = {
+        user_id: exercise.user_id,
+        user_exercise_id: exercise.id,
+        language: exercise.language,
+        slug: exercise.slug,
+        created_at: ts,
+        updated_at: ts,
+      }
+      Submission.create!(attributes)
+
+      ACL.authorize(bob, exercise.problem)
+
+      exercise
+    end
+
+    # Bob viewed hello-world.
+    View.create(user_id: bob.id, exercise_id: hello.id, last_viewed_at: tue)
+
+    # He also has a watermark on 'leap' in Go set to Thursday.
+    Watermark.create!(user_id: bob.id, track_id: 'go', slug: 'leap', at: thu)
+
+    go = TrackStream.new(bob, 'go')
+    assert_equal 3, go.exercises.size
+    clock, leap, hello = go.exercises
+    refute hello.unread?, "hello-world should be viewed (explicitly)"
+    refute leap.unread?, "leap should be viewed (because of the watermark)"
+    assert clock.unread?, "clock should be unread"
+  end
+
   def test_mark_as_read
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
