@@ -11,7 +11,7 @@ class TrackStreamFiltersTest < Minitest::Test
       "elixir" => "Elixir",
       "rust" => "Rust"
     )
-    Stream.instance_variable_set(:"@ordered_slugs", "go" => %w(clock anagram triangle))
+    Stream.instance_variable_set(:"@ordered_slugs", "go" => %w(leap clock anagram triangle))
   end
 
   def teardown
@@ -26,28 +26,65 @@ class TrackStreamFiltersTest < Minitest::Test
     charlie = User.create!(username: 'charlie', avatar_url: 'charlie.jpg')
     nobody = nil
 
-    mon, tue, wed, thu, fri = (4..8).map {|day| DateTime.new(2016, 1, day)}
+    mon, tue, wed = (4..6).map {|day| DateTime.new(2016, 1, day)}
 
-    create_exercise(alice, 'go', 'anagram', nobody, thu)
-    create_exercise(alice, 'go', 'clock', alice.id, fri)
+    # We will use Alice as the viewer for all the filters.
+    #
+    # We need to ensure that each filter counts only views
+    # on tracks and problems that will show up in the sidebar.
+    # In other words: exercises that Alice has access to via
+    # the acls table.
+    #
+    # Note: it's common to view exercises that you don't have
+    # access to via the ACL table, because people share links.
+    # These views should not be counted.
+    #
+    # To do this we want to make sure that we always have:
+    # - at least one exercise that is unread
+    # - at least one acl exercise that has been viewed
+    # - at least one non-acl exercise that has been viewed
+    #
+    # We also need to make sure that the counts are correct in
+    # the non-active category.
+    # - When Alice is looking at the Go track, then Elixir will be
+    #   present (and have a count) but Rust should not show up.
+    # - When Alice is looking at Clock in Go, then Leap and
+    #   Anagram should show up, but Triangle should not.
+    #
+    # Also:
+    # - at least one equivalent exercise that _someone else_ has viewed
+    # - at least one exercise in an equivalent category that is viewed
+
+    # Go
+    create_exercise(alice, 'go', 'leap', alice.id, mon)
+    create_exercise(alice, 'go', 'clock', bob.id, tue)
+    create_exercise(alice, 'go', 'anagram', nobody, mon)
+
+    create_exercise(bob, 'go', 'leap', nobody, mon)
     create_exercise(bob, 'go', 'clock', alice.id, mon)
-    create_exercise(bob, 'go', 'anagram', nobody, mon)
-    create_exercise(bob, 'go', 'triangle', bob.id, wed)
-    create_exercise(charlie, 'go', 'clock', nobody, mon)
-    create_exercise(charlie, 'go', 'triangle', nobody, tue)
+    create_exercise(bob, 'go', 'anagram', bob.id, mon)
+    create_exercise(bob, 'go', 'triangle', nobody, mon)
 
-    create_exercise(bob, 'elixir', 'triangle', alice.id, wed) # viewed (directly) without ACL
-    create_exercise(charlie, 'elixir', 'bob', nobody, wed)
-    create_exercise(charlie, 'elixir', 'leap', nobody, thu)
+    create_exercise(charlie, 'go', 'leap', nobody, mon)
+    create_exercise(charlie, 'go', 'clock', bob.id, tue)
+    create_exercise(charlie, 'go', 'triangle', alice.id, mon) # viewed (directly) without ACL
 
-    create_exercise(charlie, 'rust', 'leap', nobody, fri)
+    # Elixir
+    create_exercise(charlie, 'elixir', 'leap', nobody, mon)
+    create_exercise(charlie, 'elixir', 'clock', alice.id, wed)
+
+    create_exercise(bob, 'elixir', 'triangle', alice.id, mon) # viewed (directly) without ACL
+
+    # Rust
+    create_exercise(charlie, 'rust', 'leap', nobody, mon)
+    create_exercise(charlie, 'rust', 'clock', alice.id, mon) # viewed w/o ACL
 
     [
+      Problem.new('go', 'leap'),
       Problem.new('go', 'clock'),
       Problem.new('go', 'anagram'),
-      Problem.new('go', 'triangle'),
       Problem.new('elixir', 'leap'),
-      Problem.new('elixir', 'bob'),
+      Problem.new('elixir', 'clock'),
     ].each do |problem|
       ACL.authorize(alice, problem)
     end
@@ -60,13 +97,13 @@ class TrackStreamFiltersTest < Minitest::Test
     assert_equal 'Elixir', item1.text
     assert_equal '/tracks/elixir/exercises', item1.url
     assert_equal 2, item1.total
-    assert_equal 2, item1.unread
+    assert_equal 1, item1.unread
     refute item1.active?
 
     assert_equal 'Go', item2.text
     assert_equal '/tracks/go/exercises', item2.url
-    assert_equal 7, item2.total
-    assert_equal 5, item2.unread
+    assert_equal 8, item2.total
+    assert_equal 6, item2.unread
     assert item2.active?
 
     filter = TrackStream::ProblemFilter.new(alice.id, 'go', 'clock')
@@ -74,26 +111,26 @@ class TrackStreamFiltersTest < Minitest::Test
 
     item1, item2, item3 = filter.items
 
-    assert_equal 'Clock', item1.text
-    assert_equal '/tracks/go/exercises/clock', item1.url
+    assert_equal 'Leap', item1.text
+    assert_equal '/tracks/go/exercises/leap', item1.url
     assert_equal 3, item1.total
-    assert_equal 1, item1.unread
-    assert item1.active?
+    assert_equal 2, item1.unread
+    refute item1.active?, "leap should not be active"
 
-    assert_equal 'Anagram', item2.text
-    assert_equal '/tracks/go/exercises/anagram', item2.url
-    assert_equal 2, item2.total
+    assert_equal 'Clock', item2.text
+    assert_equal '/tracks/go/exercises/clock', item2.url
+    assert_equal 3, item2.total
     assert_equal 2, item2.unread
-    refute item2.active?
+    assert item2.active?, "clock should be active"
 
-    assert_equal 'Triangle', item3.text
-    assert_equal '/tracks/go/exercises/triangle', item3.url
+    assert_equal 'Anagram', item3.text
+    assert_equal '/tracks/go/exercises/anagram', item3.url
     assert_equal 2, item3.total
     assert_equal 2, item3.unread
-    refute item3.active?
+    refute item3.active?, "anagram should not be active"
 
     only_mine = true
-    filter = TrackStream::ViewerFilter.new(bob.id, 'go', only_mine)
+    filter = TrackStream::ViewerFilter.new(alice.id, 'go', only_mine)
     assert_equal 1, filter.items.size
 
     item = filter.items.first
