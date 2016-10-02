@@ -1,18 +1,18 @@
 require_relative '../integration_helper'
 
-class TeamStreamTest < Minitest::Test
+class TeamStreamFiltersTest < Minitest::Test
   include DBCleaner
 
   def setup
     super
     Language.instance_variable_set(:"@by_track_id", "go" => "Go", "elixir" => "Elixir")
-    TeamStream.instance_variable_set(:"@ordered_slugs", "go" => %w(clock anagram))
+    Stream.instance_variable_set(:"@ordered_slugs", "go" => %w(clock anagram))
   end
 
   def teardown
     super
     Language.instance_variable_set(:"@by_track_id", nil)
-    TeamStream.instance_variable_set(:"@ordered_slugs", nil)
+    Stream.instance_variable_set(:"@ordered_slugs", nil)
   end
 
   def test_filters
