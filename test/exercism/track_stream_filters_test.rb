@@ -24,18 +24,23 @@ class TrackStreamFiltersTest < Minitest::Test
     alice = User.create!(username: 'alice', avatar_url: 'alice.jpg')
     bob = User.create!(username: 'bob', avatar_url: 'bob.jpg')
     charlie = User.create!(username: 'charlie', avatar_url: 'charlie.jpg')
+    nobody = nil
 
-    create_exercise(alice, 'go', 'clock', alice.id)
-    create_exercise(bob, 'go', 'clock', alice.id)
-    create_exercise(bob, 'go', 'anagram')
-    create_exercise(charlie, 'go', 'clock')
-    create_exercise(charlie, 'go', 'triangle')
+    mon, tue, wed, thu, fri = (4..8).map {|day| DateTime.new(2016, 1, day)}
 
-    create_exercise(bob, 'elixir', 'triangle', alice.id) # viewed (directly) without ACL
-    create_exercise(charlie, 'elixir', 'bob')
-    create_exercise(charlie, 'elixir', 'leap')
+    create_exercise(alice, 'go', 'anagram', nobody, thu)
+    create_exercise(alice, 'go', 'clock', alice.id, fri)
+    create_exercise(bob, 'go', 'clock', alice.id, mon)
+    create_exercise(bob, 'go', 'anagram', nobody, mon)
+    create_exercise(bob, 'go', 'triangle', bob.id, wed)
+    create_exercise(charlie, 'go', 'clock', nobody, mon)
+    create_exercise(charlie, 'go', 'triangle', nobody, tue)
 
-    create_exercise(charlie, 'rust', 'leap')
+    create_exercise(bob, 'elixir', 'triangle', alice.id, wed) # viewed (directly) without ACL
+    create_exercise(charlie, 'elixir', 'bob', nobody, wed)
+    create_exercise(charlie, 'elixir', 'leap', nobody, thu)
+
+    create_exercise(charlie, 'rust', 'leap', nobody, fri)
 
     [
       Problem.new('go', 'clock'),
@@ -60,8 +65,8 @@ class TrackStreamFiltersTest < Minitest::Test
 
     assert_equal 'Go', item2.text
     assert_equal '/tracks/go/exercises', item2.url
-    assert_equal 5, item2.total
-    assert_equal 3, item2.unread
+    assert_equal 7, item2.total
+    assert_equal 5, item2.unread
     assert item2.active?
 
     filter = TrackStream::ProblemFilter.new(alice.id, 'go', 'clock')
@@ -77,37 +82,36 @@ class TrackStreamFiltersTest < Minitest::Test
 
     assert_equal 'Anagram', item2.text
     assert_equal '/tracks/go/exercises/anagram', item2.url
-    assert_equal 1, item2.total
-    assert_equal 1, item2.unread
+    assert_equal 2, item2.total
+    assert_equal 2, item2.unread
     refute item2.active?
 
     assert_equal 'Triangle', item3.text
     assert_equal '/tracks/go/exercises/triangle', item3.url
-    assert_equal 1, item3.total
-    assert_equal 1, item3.unread
+    assert_equal 2, item3.total
+    assert_equal 2, item3.unread
     refute item3.active?
 
-    filter = TrackStream::ViewerFilter.new(bob.id, 'go', true)
+    only_mine = true
+    filter = TrackStream::ViewerFilter.new(bob.id, 'go', only_mine)
     assert_equal 1, filter.items.size
-
 
     item = filter.items.first
 
-
     assert_equal 'My Solutions', item.text
     assert_equal '/tracks/go/my_solutions', item.url
-    assert_equal 2, item.total
+    assert_equal 3, item.total
+    assert_equal 2, item.unread
     assert item.active?
   end
 
   private
 
-  def create_exercise(user, track_id, slug, viewed_by=nil)
-    now = Time.now
-    exercise = UserExercise.create!(user_id: user.id, language: track_id, slug: slug, iteration_count: 1, last_activity_at: now - 10)
+  def create_exercise(user, track_id, slug, viewed_by, timestamp)
+    exercise = UserExercise.create!(user_id: user.id, language: track_id, slug: slug, iteration_count: 1, last_activity_at: timestamp)
     Submission.create!(user_id: user.id, user_exercise_id: exercise.id, language: track_id, slug: slug)
     unless viewed_by.nil?
-      View.create(user_id: viewed_by, exercise_id: exercise.id, last_viewed_at: now + 10)
+      View.create(user_id: viewed_by, exercise_id: exercise.id, last_viewed_at: timestamp + 10)
     end
     exercise
   end

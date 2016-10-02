@@ -58,15 +58,29 @@ class TrackStream
       SQL
     end
 
-    def unread(_item)
-      0
+    def views_sql
+      <<-SQL
+        SELECT u.username AS id, COUNT(views.id) AS total
+        FROM users u
+        INNER JOIN user_exercises ex
+          ON u.id=ex.user_id
+        INNER JOIN views
+          ON views.user_id=u.id
+          AND views.exercise_id=ex.id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id=#{viewer_id}
+          AND ex.language='#{track_id}'
+          AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY u.username
+      SQL
     end
+    # rubocop:enable Metrics/MethodLength
 
     def item(username, total)
       Stream::FilterItem.new(username, 'My Solutions', url, only_mine, total.to_i)
     end
 
-    # come up with the url
     def url
       "/tracks/%s/my_solutions" % [track_id]
     end
@@ -84,6 +98,7 @@ class TrackStream
       ->(a, b) { a.text <=> b.text }
     end
 
+    # rubocop:disable Metrics/MethodLength
     def items_sql
       <<-SQL
         SELECT ex.language AS id, COUNT(ex.id) AS total
@@ -97,9 +112,7 @@ class TrackStream
         GROUP BY ex.language
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
-    # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
         SELECT ex.language AS id, COUNT(views.id) AS total
