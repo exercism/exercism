@@ -125,6 +125,8 @@ GEM
       ruby-progressbar (~> 1.7)
     ruby-progressbar (1.8.0)
     sass (3.4.21)
+    shotgun (0.9.1)
+      rack (>= 1.0)
     sidekiq (4.1.1)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -194,6 +196,7 @@ DEPENDENCIES
   rouge (~> 2.0.5)
   rubocop (= 0.36.0)
   sass
+  shotgun
   sidekiq
   simplecov
   sinatra (~> 1.4.4)
@@ -203,5 +206,8 @@ DEPENDENCIES
   will_paginate
   will_paginate-bootstrap
 
+RUBY VERSION
+   ruby 2.3.1p112
+
 BUNDLED WITH
-   1.11.2
+   1.12.5
