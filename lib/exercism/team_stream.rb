@@ -105,6 +105,7 @@ class TeamStream
   def query_exercises
     exx = []
     ids = []
+    by_problem_id = Hash.new { |h, k| h[k] = [] }
     exx_by_id = execute(exercises_sql).each_with_object({}) do |row, by_id|
       problem = Problem.new(row["language"], row["slug"])
       attrs = [
@@ -122,7 +123,16 @@ class TeamStream
       exx << ex
 
       ids << row["id"]
+      by_problem_id[ex.problem.id] << ex
       by_id[row["id"]] = ex
+    end
+
+    watermarks(by_problem_id.keys).each do |watermark|
+      by_problem_id[watermark.problem_id].each do |ex|
+        if DateTime.parse(ex.last_activity_at) <= watermark.at
+          ex.viewed!
+        end
+      end
     end
 
     viewed(ids).each do |id|
@@ -151,6 +161,12 @@ class TeamStream
     return [] if ids.empty?
 
     execute(viewed_sql(ids)).map { |row| row["id"] }
+  end
+
+  def watermarks(problem_ids)
+    return [] if problem_ids.empty?
+
+    Watermark.where(user_id: viewer_id).where("track_id || ':' || slug IN (?)", problem_ids)
   end
 
   # rubocop:disable Metrics/MethodLength

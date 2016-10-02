@@ -32,10 +32,11 @@ Style/IdenticalConditionalBranches:
 Style/MethodName:
   Enabled: false
 
-# Offense count: 1
+# Offense count: 2
 Style/MultilineBlockChain:
   Exclude:
     - 'lib/exercism/track_stream_filters.rb'
+    - 'lib/exercism/team_stream_filters.rb'
 
 # Offense count: 8
 # Configuration parameters: NamePrefix, NamePrefixBlacklist, NameWhitelist.
