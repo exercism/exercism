@@ -6,6 +6,7 @@ script:
   - 'createuser exercism --superuser && createdb -O exercism exercism_test'
   - 'npm install -g lineman'
   - 'npm install'
+  - 'bundle exec compass compile -e production --force'
   - 'RACK_ENV=test CI=1 bundle exec rake db:migrate test:everything'
   - "! git grep ' $' -- \\*.rb"
 cache:
