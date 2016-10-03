@@ -16,7 +16,9 @@ Find out if you have homebrew installed via the terminal.
 You can open a terminal using Spotlight with the keys: 'command + space', and then type 'terminal' in the space provided.
 On the command prompt, type in the command:
 
-`\brew --version`
+```bash
+brew --version
+```
 
 If homebrew is installed you may see output like the following (version numbers may vary):
 ```
@@ -30,13 +32,13 @@ If homebrew isn't installed, you can:
 #### 2: Install Homebrew
 Install the CLI via homebrew with the following command:
 
-```
+```bash
 brew update && brew install exercism
 ```
 
 Verify that it was installed properly by running:
 
-```
+```bash
 exercism --version
 ```
 
@@ -59,7 +61,7 @@ exercism
 
 Configure the exercism client so that it knows which account to post your solutions to:
 
-```
+```bash
 exercism configure --key=YOUR_API_KEY
 ```
 
@@ -68,7 +70,7 @@ Your exercism API key can be found in [your account](/account/key).
 By default the CLI will fetch exercises to `~/exercism`.
 You can configure a different directory by passing the `--dir` option:
 
-```
+```bash
 exercism configure --dir=~/some/other/place
 ```
 #### 5: Continue
