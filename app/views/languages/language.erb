@@ -75,7 +75,7 @@
           <%= md docs.launch %>
         </div>
       <% end %>
-      <%= erb :"languages/_#{topic}", locals: { track: track } %>
+      <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
     </div>
   </div>
 </div>
