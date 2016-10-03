@@ -142,71 +142,66 @@ class TrackStreamTest < Minitest::Test
   def test_mark_as_read
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
-    charlie = User.create(username: 'charlie')
 
     exercises = []
-
-    yesterday = 1.day.ago
     [
-      { user: alice, language: 'python', slug: 'leap', auth: true, viewed: false },
-      { user: bob, language: 'python', slug: 'leap', auth: true, viewed: false },
-      { user: charlie, language: 'python', slug: 'leap', auth: true, viewed: false },
-      { user: bob, language: 'python', slug: 'hamming', auth: true, viewed: true }, # timestamp gets updated
-      { user: bob, language: 'python', slug: 'anagram', auth: true, viewed: false },
-      { user: bob, language: 'go', slug: 'clock', auth: true, viewed: false }, # still unread afterwards
-      { user: bob, language: 'go', slug: 'hamming', auth: true, viewed: true }, # does not update timestamp
-      { user: bob, language: 'python', slug: 'word-count', auth: false, viewed: false }, # No ACL - still unread afterwards
+      { user: alice, language: 'python', slug: 'leap', auth: true },
+      { user: bob, language: 'python', slug: 'leap', auth: true },
+      { user: bob, language: 'python', slug: 'hamming', auth: true },
+      { user: bob, language: 'python', slug: 'clock', auth: true },
+      { user: bob, language: 'python', slug: 'word-count', auth: false}, # No ACL - still unread afterwards
+      { user: bob, language: 'go', slug: 'leap', auth: true }, # not in stream - no watermark created
     ].each do |attributes|
       auth = attributes.delete(:auth)
-      viewed = attributes.delete(:viewed)
 
       exercise = UserExercise.create(attributes)
       ACL.authorize(alice, exercise.problem) if auth
 
-      if viewed
-        View.create(user_id: alice.id, exercise_id: exercise.id, last_viewed_at: yesterday)
-      end
-
       exercises << exercise
     end
 
-    # add a random view for bob, that should not get updated
-    View.create(user_id: bob.id, exercise_id: exercises[0].id, last_viewed_at: yesterday)
-    # add an auth for bob
+    # add an auth for bob—no watermark should be created for him
     ACL.authorize(bob, exercises.last.problem)
-
-    assert_equal 3, View.count
+    # add an old watermark for alice
+    before = Time.now - 1.day
+    Watermark.create!(user_id: alice.id, track_id: 'python', slug: 'hamming', at: before)
 
     leap = TrackStream.new(alice, 'python', 'leap')
-    python = TrackStream.new(alice, 'python')
 
     now = Time.now.utc
     leap.mark_as_read
 
-    assert_equal 6, View.count
+    # creates a watermark
+    assert_equal 2, Watermark.count
+    mark1, mark2 = Watermark.order('at ASC')
 
-    views = View.where('last_viewed_at > ?', now - 2)
-    assert_equal 3, views.size
+    assert_equal 'python', mark1.track_id
+    assert_equal 'hamming', mark1.slug
+    assert_in_delta 1, mark1.at.to_i, before.to_i
 
-    assert_equal exercises[0...3].map(&:id).sort, views.map(&:exercise_id).sort
+    assert_equal 'python', mark2.track_id
+    assert_equal 'leap', mark2.slug
+    assert_in_delta 1, mark2.at.to_i, now.to_i
 
-    views.each do |view|
-      assert_equal alice.id, view.user_id
-      assert_in_delta 1, view.last_viewed_at.to_i, now.to_i
-    end
-
+    python = TrackStream.new(alice, 'python')
     now = Time.now.utc
     python.mark_as_read
 
-    assert_equal 7, View.count
+    # creates one more watermark
+    assert_equal 3, Watermark.count
 
-    views = View.where('last_viewed_at > ?', now - 2)
-    assert_equal 5, views.size
-    assert_equal exercises[0...5].map(&:id).sort, views.map(&:exercise_id).sort
-    views.each do |view|
-      assert_equal alice.id, view.user_id
-      assert_in_delta 1, view.last_viewed_at.to_i, now.to_i
+    # updates all of them
+    marks = Watermark.where(user_id: alice.id)
+    marks.map(&:at).each do |ts|
+      assert_in_delta 1, ts.to_i, now.to_i
     end
+    expected = [
+      "python:clock",
+      "python:hamming",
+      "python:leap",
+    ]
+    actual = marks.map { |mark| Problem.new(mark.track_id, mark.slug).id }.sort
+    assert_equal expected, actual
   end
 
   private

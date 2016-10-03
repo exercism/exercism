@@ -185,17 +185,18 @@ class TrackStream
   # rubocop:disable Metrics/MethodLength
   def mark_as_read_update_sql
     <<-SQL
-      UPDATE views
-      SET last_viewed_at=NOW()
+      UPDATE watermarks
+      SET at=NOW()
       FROM user_exercises ex
       INNER JOIN acls
         ON ex.language=acls.language
         AND ex.slug=acls.slug
-      WHERE views.exercise_id=ex.id
-        AND views.user_id=#{user.id}
-        AND ex.language='#{track_id}'
+      WHERE ex.language='#{track_id}'
         AND ex.slug=#{slug_param}
         AND acls.user_id=#{user.id}
+        AND watermarks.track_id=ex.language
+        AND watermarks.slug=ex.slug
+        AND watermarks.user_id=#{user.id}
     SQL
   end
   # rubocop:enable Metrics/MethodLength
@@ -203,10 +204,10 @@ class TrackStream
   # rubocop:disable Metrics/MethodLength
   def mark_as_read_insert_sql
     <<-SQL
-      INSERT INTO views (
-        user_id, exercise_id, last_viewed_at, created_at, updated_at
+      INSERT INTO watermarks (
+        user_id, track_id, slug, at
       ) (
-        SELECT #{user.id}, ex.id, NOW(), NOW(), NOW()
+        SELECT DISTINCT #{user.id}, ex.language, ex.slug, NOW()
         FROM user_exercises ex
         INNER JOIN acls
           ON ex.language=acls.language
@@ -214,11 +215,11 @@ class TrackStream
         WHERE ex.language='#{track_id}'
           AND ex.slug=#{slug_param}
           AND acls.user_id=#{user.id}
-          AND ex.id NOT IN (
-            SELECT exercise_id
-            FROM views
+          AND ex.language || ex.slug NOT IN (
+            SELECT track_id || slug
+            FROM watermarks
             WHERE user_id=#{user.id}
-        )
+          )
       )
     SQL
   end
