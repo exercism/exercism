@@ -19,6 +19,7 @@ gem 'rouge', '~> 2.0.5'
 gem 'sinatra', '~> 1.4.4', require: 'sinatra/base'
 gem 'sinatra-contrib'
 gem 'sidekiq'
+gem 'trackler', '~> 1.0.0'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
