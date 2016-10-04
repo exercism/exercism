@@ -29,6 +29,15 @@ module ExercismWeb
 
         redirect ["", "tracks", id, "exercises", slug].compact.join('/')
       end
+
+      get '/tracks/:id/icon' do |id|
+        icon = Trackler.tracks[id].icon
+        if icon.exists?
+          send_file icon.path, type: icon.type
+        else
+          send_file File.absolute_path("../../../public/img/e_red.png", __FILE__), type: :png
+        end
+      end
     end
   end
 end
