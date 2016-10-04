@@ -1,5 +1,5 @@
 <% if user_tracks_summary.any? %>
-  <h3> Progess </h3>
+  <h3> Progress </h3>
   <% if params[:all] == 'true' %>
     <% user_tracks_summary.each_slice(3) do |batch| %>
       <div class="row bottom-margin">
@@ -11,11 +11,11 @@
     <a href="?all=false"> Fewer Languages </a>
   <% else %>
     <div class="row bottom-margin">
-      <% user_tracks_summary.each_slice(3).first.each do |track_info| %>
+      <% user_tracks_summary.first(3).each do |track_info| %>
         <%= erb :"user/_track_progress", locals: { track_info: track_info } %>
       <% end %>
     </div>
-    <% if user_tracks_summary.size > 1 %>
+    <% if user_tracks_summary.size > 3 %>
       <a href="?all=true"> More Languages </a>
     <% end %>
   <% end %>
