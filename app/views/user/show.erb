@@ -21,16 +21,7 @@
       <% end %>
     <% end %>
 
-    <% if profile.user_tracks_summary.any? %>
-      <h3> Progess </h3>
-      <% profile.user_tracks_summary.each_slice(3) do |batch| %>
-        <div class="row bottom-margin">
-          <% batch.each do |track_info| %>
-            <%= erb :"user/_track_progress", locals: { track_info: track_info } %>
-          <% end %>
-        </div>
-      <% end %>
-    <% end %>
+    <%= erb :"user/_tracks_progress", locals: { user_tracks_summary: profile.user_tracks_summary } %>
 
     <% if profile.finished_tracks.any? && profile.own? %>
       <h3>Contribute:</h3>
