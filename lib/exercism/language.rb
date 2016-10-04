@@ -1,4 +1,3 @@
-# rubocop:disable Lint/RescueException
 # Allow all exceptions to be reported to Bugsnag
 
 class Language

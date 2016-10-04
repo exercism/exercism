@@ -1,18 +1,11 @@
-inherit_from: .rubocop_todo.yml
-
 AllCops:
+  DisabledByDefault: true
   TargetRubyVersion: 2.2
   Exclude:
     - 'frontend/**/*'
     - 'vendor/**/*'
     - 'test/**/*'
     - 'node_modules/**/*'
-Style/IfUnlessModifier:
-  Enabled: false
-Style/DoubleNegation:
-  Enabled: false
-Style/StringLiterals:
-  Enabled: false
 Style/SpaceAroundEqualsInParameterDefault:
   EnforcedStyle: no_space
 Style/TrailingCommaInLiteral:
@@ -26,18 +19,9 @@ Style/AndOr:
 Style/FormatString:
   Enabled: true
   EnforcedStyle: percent
-Metrics/LineLength:
-  Enabled: false # TODO: Remove this after all linelength offenses are worked out
-  Max: 80
-  AllowURI: true
-  URISchemes:
-    - http
-    - https
 Style/DotPosition:
   Enabled: true
   EnforcedStyle: leading
   SupportedStyles:
     - leading
     - trailing
-Performance/TimesMap:
-  Enabled: false

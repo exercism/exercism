@@ -1,7 +1,6 @@
 module ExercismWeb
   module Helpers
     module Submission
-      # rubocop:disable Metrics/MethodLength
       def sentencify(names)
         case names.size
         when 0
@@ -15,7 +14,6 @@ module ExercismWeb
           "#{names.join(', ')}, and #{last}"
         end
       end
-      # rubocop:enable Metrics/MethodLength
 
       def these_people_like_it(liked_by)
         return "" if liked_by.empty?
@@ -24,7 +22,6 @@ module ExercismWeb
         "#{sentencify(everyone)} think#{everyone.one? ? 's' : ''} this looks great"
       end
 
-      # rubocop:disable Metrics/MethodLength
       def like_submission_button(submission, user)
         return if user.owns?(submission)
 
@@ -42,7 +39,6 @@ module ExercismWeb
         </form>
         )
       end
-      # rubocop:enable Metrics/MethodLength
 
       def decrement_version(deleted_submission)
         submission_collection = deleted_submission.user_exercise.submissions

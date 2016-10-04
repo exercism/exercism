@@ -6,7 +6,6 @@ require 'exercism/syntax_highlighter'
 # start with a dash.
 USERNAME_REGEX = /(@[0-9a-zA-z][0-9a-zA-Z\-]*)/
 
-# rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 def hyperlink_mentions!(node)
   node.children.each do |child|
     if child.node_type == Nokogiri::XML::Node::ELEMENT_NODE &&
@@ -32,7 +31,6 @@ def hyperlink_mentions!(node)
     end
   end
 end
-# rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity, Metrics/MethodLength, Metrics/PerceivedComplexity
 
 module ExercismLib
   class Markdown < Redcarpet::Render::XHTML
@@ -62,7 +60,6 @@ module ExercismLib
         lax_spacing: true,
       }
     end
-    # rubocop:enable Metrics/MethodLength
 
     def postprocess(html_content)
       dom = Nokogiri::HTML(html_content)

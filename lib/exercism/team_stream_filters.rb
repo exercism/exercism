@@ -69,7 +69,6 @@ class TeamStream
       SQL
     end
 
-    # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
       SELECT 'team_stream' AS id, COUNT(1) AS total
@@ -83,7 +82,6 @@ class TeamStream
         AND views.last_viewed_at > ex.last_activity_at
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(_, total)
       Stream::FilterItem.new('team_stream', 'All', url, true, total.to_i)
@@ -112,7 +110,6 @@ class TeamStream
       SQL
     end
 
-    # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
       SELECT ex.language AS id, COUNT(views.id) AS total
@@ -127,7 +124,6 @@ class TeamStream
       GROUP BY ex.language
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(track_id, total)
       Stream::FilterItem.new(track_id, Language.of(track_id), url(track_id), track_id == current_id, total.to_i)
@@ -161,7 +157,6 @@ class TeamStream
       SQL
     end
 
-    # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
       SELECT ex.slug AS id, COUNT(views.id) AS total
@@ -177,7 +172,6 @@ class TeamStream
       GROUP BY ex.slug
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(slug, total)
       Stream::FilterItem.new(slug, namify(slug), url(slug), slug == current_sub_id, total.to_i)
@@ -212,7 +206,6 @@ class TeamStream
       SQL
     end
 
-    # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
       SELECT u.username AS id, COUNT(views.id) AS total
@@ -229,7 +222,6 @@ class TeamStream
       GROUP BY u.username
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(username, total)
       Stream::FilterItem.new(username, username, url(username), username == current_id, total.to_i)
@@ -258,7 +250,6 @@ class TeamStream
       SQL
     end
 
-    # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
       SELECT ex.language AS id, COUNT(views.id) AS total
@@ -273,7 +264,6 @@ class TeamStream
       GROUP BY ex.language
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(track_id, total)
       Stream::FilterItem.new(track_id, Language.of(track_id), url(track_id), track_id == current_sub_id, total.to_i)

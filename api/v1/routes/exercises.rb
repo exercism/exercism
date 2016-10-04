@@ -1,5 +1,4 @@
 # coding: utf-8
-# rubocop:disable Lint/RescueException
 # Allow all exceptions to be reported to Bugsnag
 
 module ExercismAPI

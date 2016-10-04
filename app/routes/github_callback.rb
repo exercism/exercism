@@ -1,7 +1,6 @@
 module ExercismWeb
   module Routes
     module GithubCallback
-      # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def self.registered(app)
         app.get '/github/callback/?*' do
           halt 400, "Must provide parameter 'code'" unless params[:code]
@@ -26,7 +25,6 @@ module ExercismWeb
           end
         end
       end
-      # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
     end
   end
 end

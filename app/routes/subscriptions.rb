@@ -20,10 +20,9 @@ module ExercismWeb
           ConversationSubscription.subscribe(current_user, iteration)
         when "0", "false", "no", "n"
           ConversationSubscription.unsubscribe(current_user, iteration)
-        # rubocop:disable Style/EmptyElse
         else
           # inconclusive, don't change anything
-        end # rubocop:enable Style/EmptyElse
+        end
         redirect url
       end
     end

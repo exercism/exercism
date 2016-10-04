@@ -46,7 +46,6 @@ class Team < ActiveRecord::Base
     managers << user unless managed_by?(user)
   end
 
-  # rubocop:disable Metrics/AbcSize
   def defined_with(options, inviter=nil)
     self.slug = options[:slug]
     self.name = options[:name]
