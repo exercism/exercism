@@ -6,7 +6,7 @@ class TeamStreamFiltersTest < Minitest::Test
   def setup
     super
     Language.instance_variable_set(:"@by_track_id", "go" => "Go", "elixir" => "Elixir")
-    Stream.instance_variable_set(:"@ordered_slugs", "go" => %w(clock anagram))
+    Stream.instance_variable_set(:"@ordered_slugs", "go" => %w(leap clock anagram))
   end
 
   def teardown
@@ -16,19 +16,36 @@ class TeamStreamFiltersTest < Minitest::Test
   end
 
   def test_filters
-    alice = User.create!(username: 'alice', avatar_url: 'alice.jpg')
-    bob = User.create!(username: 'bob', avatar_url: 'bob.jpg')
-    charlie = User.create!(username: 'charlie', avatar_url: 'charlie.jpg')
+    alice = User.create!(username: 'alice')
+    bob = User.create!(username: 'bob')
+    charlie = User.create!(username: 'charlie')
+    nobody = nil
 
-    create_exercise(alice, 'go', 'clock', alice.id)
-    create_exercise(bob, 'go', 'clock', alice.id)
-    create_exercise(bob, 'go', 'anagram')
-    create_exercise(bob, 'elixir', 'triangle')
-    create_exercise(charlie, 'go', 'clock')
+    mon, tue, wed, thu = (4..7).map {|day| DateTime.new(2016, 1, day)}
+
+    # Go
+    create_exercise(alice, 'go', 'leap', nobody, mon)
+    create_exercise(alice, 'go', 'clock', alice.id, mon)
+
+    create_exercise(bob, 'go', 'leap', nobody, mon)
+    create_exercise(bob, 'go', 'clock', bob.id, tue)
+    create_exercise(bob, 'go', 'anagram', alice.id, mon)
+
+    create_exercise(charlie, 'go', 'leap', nobody, mon)
+    create_exercise(charlie, 'go', 'clock', nobody, thu)
+
+    # Elixir
+    create_exercise(bob, 'elixir', 'leap', nobody, mon)
+    create_exercise(charlie, 'elixir', 'clock', alice.id, mon)
 
     user_ids = [alice.id, bob.id, charlie.id]
 
+    Watermark.create!(user_id: alice.id, track_id: 'go', slug: 'clock', at: wed)
+
+    # Team filters ignore ACLs.
+
     # Team filter
+    # This should include the count of everything in the track.
     filter = TeamStream::TeamFilter.new(alice.id, user_ids, 'teamster')
     assert_equal 1, filter.items.size
 
@@ -36,8 +53,8 @@ class TeamStreamFiltersTest < Minitest::Test
 
     assert_equal 'All', item.text
     assert_equal '/teams/teamster/streams', item.url
-    assert_equal 5, item.total
-    assert_equal 3, item.unread
+    assert_equal 9, item.total
+    assert_equal 5, item.unread
 
     # Track filter, no track currently selected.
     filter = TeamStream::TrackFilter.new(alice.id, user_ids, 'teamster', nil)
@@ -47,14 +64,14 @@ class TeamStreamFiltersTest < Minitest::Test
 
     assert_equal 'Elixir', item1.text
     assert_equal '/teams/teamster/streams/tracks/elixir', item1.url
-    assert_equal 1, item1.total
+    assert_equal 2, item1.total
     assert_equal 1, item1.unread
     refute item1.active?
 
     assert_equal 'Go', item2.text
     assert_equal '/teams/teamster/streams/tracks/go', item2.url
-    assert_equal 4, item2.total
-    assert_equal 2, item2.unread
+    assert_equal 7, item2.total
+    assert_equal 4, item2.unread
     refute item2.active?
 
     # Track filter, Elixir selected.
@@ -70,32 +87,42 @@ class TeamStreamFiltersTest < Minitest::Test
 
     # Problems in Go, none currently selected.
     filter = TeamStream::ProblemFilter.new(alice.id, user_ids, 'teamster', 'go', nil)
-    assert_equal 2, filter.items.size
+    assert_equal 3, filter.items.size
 
-    item1, item2 = filter.items
+    item1, item2, item3 = filter.items
 
-    assert_equal 'Clock', item1.text
-    assert_equal '/teams/teamster/streams/tracks/go/exercises/clock', item1.url
+    assert_equal 'Leap', item1.text
+    assert_equal '/teams/teamster/streams/tracks/go/exercises/leap', item1.url
     assert_equal 3, item1.total
-    assert_equal 1, item1.unread
+    assert_equal 3, item1.unread
     refute item1.active?
 
-    assert_equal 'Anagram', item2.text
-    assert_equal '/teams/teamster/streams/tracks/go/exercises/anagram', item2.url
-    assert_equal 1, item2.total
-    assert_equal 1, item1.unread
+    assert_equal 'Clock', item2.text
+    assert_equal '/teams/teamster/streams/tracks/go/exercises/clock', item2.url
+    assert_equal 3, item2.total
+    assert_equal 1, item2.unread
     refute item2.active?
+
+    assert_equal 'Anagram', item3.text
+    assert_equal '/teams/teamster/streams/tracks/go/exercises/anagram', item3.url
+    assert_equal 1, item3.total
+    assert_equal 0, item3.unread
+    refute item3.active?
 
     # Problems in Go, Anagram selected.
     filter = TeamStream::ProblemFilter.new(alice.id, user_ids, 'teamster', 'go', 'anagram')
-    assert_equal 2, filter.items.size
+    assert_equal 3, filter.items.size
 
-    item1, item2 = filter.items
-    assert_equal 'Clock', item1.text
+    item1, item2, item3 = filter.items
+
+    assert_equal 'Leap', item1.text
     refute item1.active?
 
-    assert_equal 'Anagram', item2.text
-    assert item2.active?
+    assert_equal 'Clock', item2.text
+    refute item2.active?
+
+    assert_equal 'Anagram', item3.text
+    assert item3.active?
 
     # Users, none currently selected
     filter = TeamStream::UserFilter.new(alice.id, user_ids, 'teamster', nil)
@@ -104,20 +131,20 @@ class TeamStreamFiltersTest < Minitest::Test
     item1, item2, item3 = filter.items
     assert_equal 'alice', item1.text
     assert_equal '/teams/teamster/streams/users/alice', item1.url
-    assert_equal 1, item1.total
-    assert_equal 0, item1.unread
+    assert_equal 2, item1.total
+    assert_equal 1, item1.unread
     refute item1.active?
 
     assert_equal 'bob', item2.text
     assert_equal '/teams/teamster/streams/users/bob', item2.url
-    assert_equal 3, item2.total
+    assert_equal 4, item2.total
     assert_equal 2, item2.unread
     refute item2.active?
 
     assert_equal 'charlie', item3.text
     assert_equal '/teams/teamster/streams/users/charlie', item3.url
-    assert_equal 1, item3.total
-    assert_equal 1, item3.unread
+    assert_equal 3, item3.total
+    assert_equal 2, item3.unread
     refute item3.active?
 
     # Users, bob selected
@@ -148,40 +175,30 @@ class TeamStreamFiltersTest < Minitest::Test
 
     assert_equal 'Go', item2.text
     assert_equal '/teams/teamster/streams/users/bob/tracks/go', item2.url
-    assert_equal 2, item2.total
+    assert_equal 3, item2.total
     assert_equal 1, item2.unread
     refute item2.active?
 
-    # Tracks for charlie, no track selected
-    filter = TeamStream::UserTrackFilter.new(alice.id, [charlie.id], 'teamster', 'charlie', nil)
-    assert_equal 1, filter.items.size
+    # Tracks for bob, Go selected
+    filter = TeamStream::UserTrackFilter.new(alice.id, [bob.id], 'teamster', 'bob', 'go')
+    assert_equal 2, filter.items.size
 
-    item = filter.items.first
+    item1, item2 = filter.items
 
-    assert_equal 'Go', item.text
-    assert_equal '/teams/teamster/streams/users/charlie/tracks/go', item.url
-    assert_equal 1, item.total
-    assert_equal 1, item.unread
-    refute item.active?
+    assert_equal 'Elixir', item1.text
+    refute item1.active?
 
-    # Tracks for charlie, Go selected
-    filter = TeamStream::UserTrackFilter.new(alice.id, [charlie.id], 'teamster', 'charlie', 'go')
-    assert_equal 1, filter.items.size
-
-    item = filter.items.first
-
-    assert_equal 'Go', item.text
-    assert item.active?
+    assert_equal 'Go', item2.text
+    assert item2.active?
   end
 
   private
 
-  def create_exercise(user, track_id, slug, viewed_by=nil)
-    now = Time.now
-    exercise = UserExercise.create!(user_id: user.id, language: track_id, slug: slug, iteration_count: 1, last_activity_at: now - 10)
+  def create_exercise(user, track_id, slug, viewed_by, timestamp)
+    exercise = UserExercise.create!(user_id: user.id, language: track_id, slug: slug, iteration_count: 1, last_activity_at: timestamp)
     Submission.create!(user_id: user.id, user_exercise_id: exercise.id, language: track_id, slug: slug)
     unless viewed_by.nil?
-      View.create(user_id: viewed_by, exercise_id: exercise.id, last_viewed_at: now + 10)
+      View.create(user_id: viewed_by, exercise_id: exercise.id, last_viewed_at: timestamp + 10)
     end
     exercise
   end

@@ -9,12 +9,15 @@ class TrackStream
         item.unread = unread(item)
       end
     end
-    # rubocop:enable Metrics/AbcSize
 
     private
 
     def unread(item)
-      [item.total - views_by_id[item.id], 0].max
+      [item.total - read(item.id), 0].max
+    end
+
+    def read(id)
+      views_by_id[id] + watermarked_by_id[id]
     end
 
     # By default, don't bother changing the order.
@@ -28,61 +31,18 @@ class TrackStream
       end
     end
 
+    def watermarked_by_id
+      @watermarked_by_id ||= execute(watermarks_sql).each_with_object(Hash.new(0)) do |row, watermarked|
+        watermarked[row["id"]] = row["total"].to_i
+      end
+    end
+
+    def watermarks_sql
+      ""
+    end
+
     def execute(query)
       ActiveRecord::Base.connection.execute(query).to_a
-    end
-  end
-
-  class ViewerFilter < Filter
-    private
-
-    attr_reader :track_id, :viewer_id, :only_mine
-    def initialize(viewer_id, track_id, only_mine)
-      @viewer_id = viewer_id
-      @track_id = track_id
-      @only_mine = only_mine
-    end
-
-    # rubocop:disable Metrics/MethodLength
-    def items_sql
-      <<-SQL
-      SELECT u.username AS id, COUNT(ex.id) AS total
-      FROM users u
-      INNER JOIN user_exercises ex
-        ON u.id=ex.user_id
-      WHERE ex.archived='f'
-        AND ex.iteration_count > 0
-        AND ex.user_id = #{viewer_id}
-        AND ex.language='#{track_id}'
-      GROUP BY u.username
-      SQL
-    end
-
-    def views_sql
-      <<-SQL
-        SELECT u.username AS id, COUNT(views.id) AS total
-        FROM users u
-        INNER JOIN user_exercises ex
-          ON u.id=ex.user_id
-        INNER JOIN views
-          ON views.user_id=u.id
-          AND views.exercise_id=ex.id
-        WHERE ex.archived='f'
-          AND ex.iteration_count > 0
-          AND ex.user_id=#{viewer_id}
-          AND ex.language='#{track_id}'
-          AND views.last_viewed_at > ex.last_activity_at
-        GROUP BY u.username
-      SQL
-    end
-    # rubocop:enable Metrics/MethodLength
-
-    def item(username, total)
-      Stream::FilterItem.new(username, 'My Solutions', url, only_mine, total.to_i)
-    end
-
-    def url
-      "/tracks/%s/my_solutions" % [track_id]
     end
   end
 
@@ -115,18 +75,40 @@ class TrackStream
 
     def views_sql
       <<-SQL
-        SELECT ex.language AS id, COUNT(views.id) AS total
-        FROM views
-        INNER JOIN user_exercises ex
-          ON ex.id=views.exercise_id
+        SELECT ex.language AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
         INNER JOIN acls
           ON ex.language=acls.language
           AND ex.slug=acls.slug
+        INNER JOIN views
+          ON ex.id=views.exercise_id
+          AND acls.user_id=views.user_id
         WHERE acls.user_id=#{viewer_id}
           AND ex.archived='f'
           AND ex.iteration_count > 0
-          AND views.user_id=#{viewer_id}
           AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY ex.language
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT ex.language AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN acls
+          ON ex.language=acls.language
+          AND ex.slug=acls.slug
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+          AND acls.user_id=mark.user_id
+        WHERE acls.user_id=#{viewer_id}
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
         GROUP BY ex.language
       SQL
     end
@@ -175,24 +157,47 @@ class TrackStream
         GROUP BY ex.slug
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
-    # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
-        SELECT ex.slug AS id, COUNT(views.id) AS total
-        FROM views
-        INNER JOIN user_exercises ex
-          ON ex.id=views.exercise_id
+        SELECT ex.slug AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
         INNER JOIN acls
           ON ex.language=acls.language
           AND ex.slug=acls.slug
+        INNER JOIN views
+          ON ex.id=views.exercise_id
+          AND acls.user_id=views.user_id
         WHERE acls.user_id=#{viewer_id}
           AND ex.language='#{track_id}'
           AND ex.archived='f'
           AND ex.iteration_count > 0
-          AND views.user_id=#{viewer_id}
           AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY ex.slug
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT ex.slug AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN acls
+          ON ex.language=acls.language
+          AND ex.slug=acls.slug
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+          AND acls.user_id=mark.user_id
+        WHERE acls.user_id=#{viewer_id}
+          AND ex.language='#{track_id}'
+          AND ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
         GROUP BY ex.slug
       SQL
     end
@@ -208,6 +213,83 @@ class TrackStream
 
     def url(id)
       "/tracks/%s/exercises/%s" % [track_id, id]
+    end
+  end
+
+  class ViewerFilter < Filter
+    private
+
+    attr_reader :track_id, :viewer_id, :only_mine
+    def initialize(viewer_id, track_id, only_mine)
+      @viewer_id = viewer_id
+      @track_id = track_id
+      @only_mine = only_mine
+    end
+
+    # rubocop:disable Metrics/MethodLength
+    def items_sql
+      <<-SQL
+        SELECT u.username AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN users u
+          ON u.id=ex.user_id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id = #{viewer_id}
+          AND ex.language='#{track_id}'
+        GROUP BY u.username
+      SQL
+    end
+
+    def views_sql
+      <<-SQL
+        SELECT u.username AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN users u
+          ON u.id=ex.user_id
+        INNER JOIN views
+          ON views.user_id=u.id
+          AND views.exercise_id=ex.id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id=#{viewer_id}
+          AND ex.language='#{track_id}'
+          AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY u.username
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT u.username AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN users u
+          ON u.id=ex.user_id
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+          AND ex.user_id=mark.user_id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id=#{viewer_id}
+          AND ex.language='#{track_id}'
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
+        GROUP BY u.username
+      SQL
+    end
+    # rubocop:enable Metrics/MethodLength
+
+    def item(username, total)
+      Stream::FilterItem.new(username, 'My Solutions', url, only_mine, total.to_i)
+    end
+
+    def url
+      "/tracks/%s/my_solutions" % [track_id]
     end
   end
 end

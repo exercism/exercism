@@ -79,6 +79,51 @@ class TeamStreamTest < Minitest::Test
     assert_equal 3, exercise.comment_count
   end
 
+  def test_read_unread_status
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+
+    team = Team.create!(slug: 'the-team', name: 'The Team')
+    [alice, bob].each do |user|
+      TeamMembership.create!(team_id: team.id, user_id: user.id, confirmed: true)
+    end
+
+    mon, tue, wed, thu, fri = (4..8).map {|day| DateTime.new(2016, 1, day)}
+
+    # Alice has submitted three exercises.
+    hello, leap, clock = {
+      'hello-world' => mon, 'leap' => wed, 'clock' => fri
+    }.map do |slug, ts|
+      exercise = UserExercise.create!(user_id: alice.id, language: 'go', slug: slug, iteration_count: 1, last_activity_at: ts)
+
+      attributes = {
+        user_id: exercise.user_id,
+        user_exercise_id: exercise.id,
+        language: exercise.language,
+        slug: exercise.slug,
+        created_at: ts,
+        updated_at: ts,
+      }
+      Submission.create!(attributes)
+
+      exercise
+    end
+
+    # Bob viewed hello-world.
+    View.create(user_id: bob.id, exercise_id: hello.id, last_viewed_at: tue)
+
+    # He also has a watermark on 'leap' in Go set to Thursday.
+    Watermark.create!(user_id: bob.id, track_id: 'go', slug: 'leap', at: thu)
+
+    stream = TeamStream.new(team, bob.id)
+    assert_equal 3, stream.exercises.size
+
+    clock, leap, hello = stream.exercises
+    refute hello.unread?, "hello-world should be viewed (explicitly)"
+    refute leap.unread?, "leap should be viewed (because of the watermark)"
+    assert clock.unread?, "clock should be unread"
+  end
+
   private
 
   def create_exercise(user, track_id, slug, viewed_by=nil)

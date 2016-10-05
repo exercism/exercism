@@ -9,14 +9,22 @@ class TeamStream
     end
 
     def items
-      @items ||= rows.map { |row| item(row["id"], row["total"]) }
-                     .sort(&order)
-                     .each do |item|
-        item.unread = [item.total - views_by_id[item.id], 0].max
+      @items ||= execute(sql).map do |row|
+        item(row["id"], row["total"])
+      end.sort(&order).each do |item|
+        item.unread = unread(item)
       end
     end
 
     private
+
+    def unread(item)
+      [item.total - read(item.id), 0].max
+    end
+
+    def read(id)
+      views_by_id[id] + watermarked_by_id[id]
+    end
 
     def order
       proc { 0 }
@@ -28,8 +36,14 @@ class TeamStream
       end
     end
 
-    def rows
-      execute(sql)
+    def watermarked_by_id
+      @watermarked_by_id ||= execute(watermarks_sql).each_with_object(Hash.new(0)) do |row, watermarked|
+        watermarked[row["id"]] = row["total"].to_i
+      end
+    end
+
+    def watermarks_sql
+      ""
     end
 
     def execute(query)
@@ -72,15 +86,35 @@ class TeamStream
     # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
-      SELECT 'team_stream' AS id, COUNT(1) AS total
-      FROM views
-      INNER JOIN user_exercises ex
-        ON ex.id=views.exercise_id
-      WHERE ex.archived='f'
-        AND ex.iteration_count > 0
-        AND ex.user_id IN (#{user_ids_param})
-        AND views.user_id=#{viewer_id}
-        AND views.last_viewed_at > ex.last_activity_at
+        SELECT 'team_stream' AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN views
+          ON ex.id=views.exercise_id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND views.user_id=#{viewer_id}
+          AND views.last_viewed_at > ex.last_activity_at
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT 'team_stream' AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND mark.user_id=#{viewer_id}
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
       SQL
     end
     # rubocop:enable Metrics/MethodLength
@@ -103,28 +137,49 @@ class TeamStream
 
     def sql
       <<-SQL
-      SELECT language AS id, COUNT(id) AS total
-      FROM user_exercises
-      WHERE archived='f'
-        AND iteration_count > 0
-        AND user_id IN (#{user_ids_param})
-      GROUP BY language
+        SELECT ex.language AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+        GROUP BY ex.language
       SQL
     end
 
     # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
-      SELECT ex.language AS id, COUNT(views.id) AS total
-      FROM views
-      INNER JOIN user_exercises ex
-        ON ex.id=views.exercise_id
-      WHERE ex.archived='f'
-        AND ex.iteration_count > 0
-        AND ex.user_id IN (#{user_ids_param})
-        AND views.user_id=#{viewer_id}
-        AND views.last_viewed_at > ex.last_activity_at
-      GROUP BY ex.language
+        SELECT ex.language AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN views
+          ON ex.id=views.exercise_id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND views.user_id=#{viewer_id}
+          AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY ex.language
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT ex.language AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND mark.user_id=#{viewer_id}
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
+        GROUP BY ex.language
       SQL
     end
     # rubocop:enable Metrics/MethodLength
@@ -151,30 +206,52 @@ class TeamStream
 
     def sql
       <<-SQL
-      SELECT slug AS id, COUNT(id) AS total
-      FROM user_exercises
-      WHERE archived='f'
-        AND iteration_count > 0
-        AND user_id IN (#{user_ids_param})
-        AND language='#{current_id}'
-      GROUP BY slug
+        SELECT ex.slug AS id, COUNT(id) AS total
+        FROM user_exercises ex
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND ex.language='#{current_id}'
+        GROUP BY ex.slug
       SQL
     end
 
     # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
-      SELECT ex.slug AS id, COUNT(views.id) AS total
-      FROM views
-      INNER JOIN user_exercises ex
-        ON ex.id=views.exercise_id
-      WHERE ex.archived='f'
-        AND ex.iteration_count > 0
-        AND ex.user_id IN (#{user_ids_param})
-        AND ex.language='#{current_id}'
-        AND views.user_id=#{viewer_id}
-        AND views.last_viewed_at > ex.last_activity_at
-      GROUP BY ex.slug
+        SELECT ex.slug AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN views
+          ON ex.id=views.exercise_id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND ex.language='#{current_id}'
+          AND views.user_id=#{viewer_id}
+          AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY ex.slug
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT ex.slug AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND ex.language='#{current_id}'
+          AND mark.user_id=#{viewer_id}
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
+        GROUP BY ex.slug
       SQL
     end
     # rubocop:enable Metrics/MethodLength
@@ -201,32 +278,55 @@ class TeamStream
 
     def sql
       <<-SQL
-      SELECT u.username AS id, COUNT(ex.id) AS total
-      FROM users u
-      INNER JOIN user_exercises ex
-        ON u.id=ex.user_id
-      WHERE ex.archived='f'
-        AND ex.iteration_count > 0
-        AND ex.user_id IN (#{user_ids_param})
-      GROUP BY u.username
+        SELECT u.username AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN users u
+          ON u.id=ex.user_id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+        GROUP BY u.username
       SQL
     end
 
     # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
-      SELECT u.username AS id, COUNT(views.id) AS total
-      FROM views
-      INNER JOIN user_exercises ex
-        ON ex.id=views.exercise_id
-      INNER JOIN users u
-        ON u.id=ex.user_id
-      WHERE ex.archived='f'
-        AND ex.iteration_count > 0
-        AND ex.user_id IN (#{user_ids_param})
-        AND views.user_id=#{viewer_id}
-        AND views.last_viewed_at > ex.last_activity_at
-      GROUP BY u.username
+        SELECT u.username AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN users u
+          ON u.id=ex.user_id
+        INNER JOIN views
+          ON ex.id=views.exercise_id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND views.user_id=#{viewer_id}
+          AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY u.username
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT u.username AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN users u
+          ON u.id=ex.user_id
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND mark.user_id=#{viewer_id}
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
+        GROUP BY u.username
       SQL
     end
     # rubocop:enable Metrics/MethodLength
@@ -249,28 +349,49 @@ class TeamStream
 
     def sql
       <<-SQL
-        SELECT language AS id, COUNT(id) AS total
-        FROM user_exercises
-        WHERE archived='f'
-          AND iteration_count > 0
-          AND user_id IN (#{user_ids_param})
-        GROUP BY language
+        SELECT ex.language AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+        GROUP BY ex.language
       SQL
     end
 
     # rubocop:disable Metrics/MethodLength
     def views_sql
       <<-SQL
-      SELECT ex.language AS id, COUNT(views.id) AS total
-      FROM views
-      INNER JOIN user_exercises ex
-        ON ex.id=views.exercise_id
-      WHERE ex.archived='f'
-        AND ex.iteration_count > 0
-        AND ex.user_id IN (#{user_ids_param})
-        AND views.user_id=#{viewer_id}
-        AND views.last_viewed_at > ex.last_activity_at
-      GROUP BY ex.language
+        SELECT ex.language AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN views
+          ON ex.id=views.exercise_id
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND views.user_id=#{viewer_id}
+          AND views.last_viewed_at > ex.last_activity_at
+        GROUP BY ex.language
+      SQL
+    end
+
+    def watermarks_sql
+      <<-SQL
+        SELECT ex.language AS id, COUNT(ex.id) AS total
+        FROM user_exercises ex
+        INNER JOIN watermarks mark
+          ON ex.language=mark.track_id
+          AND ex.slug=mark.slug
+        WHERE ex.archived='f'
+          AND ex.iteration_count > 0
+          AND ex.user_id IN (#{user_ids_param})
+          AND mark.user_id=#{viewer_id}
+          AND ex.id NOT IN (
+            SELECT exercise_id
+            FROM views
+            WHERE user_id=#{viewer_id}
+          )
+          AND mark.at > ex.last_activity_at
+        GROUP BY ex.language
       SQL
     end
     # rubocop:enable Metrics/MethodLength
