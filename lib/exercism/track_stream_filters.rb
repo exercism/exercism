@@ -37,10 +37,6 @@ class TrackStream
       end
     end
 
-    def watermarks_sql
-      ""
-    end
-
     def execute(query)
       ActiveRecord::Base.connection.execute(query).to_a
     end
