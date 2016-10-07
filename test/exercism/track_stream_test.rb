@@ -139,6 +139,53 @@ class TrackStreamTest < Minitest::Test
     assert clock.unread?, "clock should be unread"
   end
 
+  def test_watermark_is_read_when_greater_than_a_view
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+
+    mon, tue, wed, thu, fri = (4..8).map {|day| DateTime.new(2016, 1, day)}
+
+    # Alice has a new exercise called hello-world in the Go track.
+    alice_hello = UserExercise.create!(user_id: alice.id, language: 'go', slug: 'hello-world', iteration_count: 1, last_activity_at: tue)
+
+    # Alice submits a version of hello-world on Tuesday
+    Submission.create!(
+      user_id: alice_hello.user_id,
+      user_exercise_id: alice_hello.id,
+      language: alice_hello.language,
+      slug: alice_hello.slug,
+      created_at: tue,
+      updated_at: tue,
+    )
+
+    go = TrackStream.new(bob, 'go')
+    ACL.authorize(bob, alice_hello.problem)
+
+    assert_equal 1, go.exercises.size
+
+    # Alice's exercise is new for bob.
+    hello = go.exercises.first
+    assert hello.unread?
+
+    # Bob viewed hello-world on Wednesday.
+    View.create(user_id: bob.id, exercise_id: hello.id, last_viewed_at: wed)
+    hello = TrackStream.new(bob, 'go').exercises.first
+    refute hello.unread?, "hello-world should be viewed (because of the view)"
+
+    # Alice updates hello-world exercise on Thursday.
+    alice_hello.last_activity_at = thu
+    alice_hello.save!
+
+    # Bob viewed hello-world, but before alice's new submission.
+    hello = TrackStream.new(bob, 'go').exercises.first
+    assert hello.unread?
+
+    # It is Friday and Bob marks every hello-world exercise as read so watermark is set.
+    Watermark.create!(user_id: bob.id, track_id: 'go', slug: 'hello-world', at: fri)
+    hello = TrackStream.new(bob, 'go').exercises.first
+    refute hello.unread?, "hello-world should be viewed (because of the watermark)"
+  end
+
   def test_mark_as_read
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
