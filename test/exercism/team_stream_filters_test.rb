@@ -6,7 +6,7 @@ class TeamStreamFiltersTest < Minitest::Test
   def setup
     super
     Language.instance_variable_set(:"@by_track_id", "go" => "Go", "elixir" => "Elixir")
-    Stream.instance_variable_set(:"@ordered_slugs", "go" => %w(leap clock anagram))
+    Stream.instance_variable_set(:"@ordered_slugs", "go" => %w(leap clock anagram gigasecond))
   end
 
   def teardown
@@ -26,10 +26,12 @@ class TeamStreamFiltersTest < Minitest::Test
     # Go
     create_exercise(alice, 'go', 'leap', nobody, mon)
     create_exercise(alice, 'go', 'clock', alice.id, mon)
+    create_exercise(alice, 'go', 'gigasecond', alice.id, mon, -10)
 
     create_exercise(bob, 'go', 'leap', nobody, mon)
     create_exercise(bob, 'go', 'clock', bob.id, tue)
     create_exercise(bob, 'go', 'anagram', alice.id, mon)
+    create_exercise(bob, 'go', 'gigasecond', alice.id, mon, -10)
 
     create_exercise(charlie, 'go', 'leap', nobody, mon)
     create_exercise(charlie, 'go', 'clock', nobody, thu)
@@ -41,6 +43,7 @@ class TeamStreamFiltersTest < Minitest::Test
     user_ids = [alice.id, bob.id, charlie.id]
 
     Watermark.create!(user_id: alice.id, track_id: 'go', slug: 'clock', at: wed)
+    Watermark.create!(user_id: alice.id, track_id: 'go', slug: 'gigasecond', at: wed)
 
     # Team filters ignore ACLs.
 
@@ -53,7 +56,7 @@ class TeamStreamFiltersTest < Minitest::Test
 
     assert_equal 'All', item.text
     assert_equal '/teams/teamster/streams', item.url
-    assert_equal 9, item.total
+    assert_equal 11, item.total
     assert_equal 5, item.unread
 
     # Track filter, no track currently selected.
@@ -70,7 +73,7 @@ class TeamStreamFiltersTest < Minitest::Test
 
     assert_equal 'Go', item2.text
     assert_equal '/teams/teamster/streams/tracks/go', item2.url
-    assert_equal 7, item2.total
+    assert_equal 9, item2.total
     assert_equal 4, item2.unread
     refute item2.active?
 
@@ -87,7 +90,7 @@ class TeamStreamFiltersTest < Minitest::Test
 
     # Problems in Go, none currently selected.
     filter = TeamStream::ProblemFilter.new(alice.id, user_ids, 'teamster', 'go', nil)
-    assert_equal 3, filter.items.size
+    assert_equal 4, filter.items.size
 
     item1, item2, item3 = filter.items
 
@@ -111,9 +114,9 @@ class TeamStreamFiltersTest < Minitest::Test
 
     # Problems in Go, Anagram selected.
     filter = TeamStream::ProblemFilter.new(alice.id, user_ids, 'teamster', 'go', 'anagram')
-    assert_equal 3, filter.items.size
+    assert_equal 4, filter.items.size
 
-    item1, item2, item3 = filter.items
+    item1, item2, item3, item4 = filter.items
 
     assert_equal 'Leap', item1.text
     refute item1.active?
@@ -124,6 +127,9 @@ class TeamStreamFiltersTest < Minitest::Test
     assert_equal 'Anagram', item3.text
     assert item3.active?
 
+    assert_equal 'Gigasecond', item4.text
+    refute item4.active?
+
     # Users, none currently selected
     filter = TeamStream::UserFilter.new(alice.id, user_ids, 'teamster', nil)
     assert_equal 3, filter.items.size
@@ -131,13 +137,13 @@ class TeamStreamFiltersTest < Minitest::Test
     item1, item2, item3 = filter.items
     assert_equal 'alice', item1.text
     assert_equal '/teams/teamster/streams/users/alice', item1.url
-    assert_equal 2, item1.total
+    assert_equal 3, item1.total
     assert_equal 1, item1.unread
     refute item1.active?
 
     assert_equal 'bob', item2.text
     assert_equal '/teams/teamster/streams/users/bob', item2.url
-    assert_equal 4, item2.total
+    assert_equal 5, item2.total
     assert_equal 2, item2.unread
     refute item2.active?
 
@@ -175,7 +181,7 @@ class TeamStreamFiltersTest < Minitest::Test
 
     assert_equal 'Go', item2.text
     assert_equal '/teams/teamster/streams/users/bob/tracks/go', item2.url
-    assert_equal 3, item2.total
+    assert_equal 4, item2.total
     assert_equal 1, item2.unread
     refute item2.active?
 
@@ -194,11 +200,11 @@ class TeamStreamFiltersTest < Minitest::Test
 
   private
 
-  def create_exercise(user, track_id, slug, viewed_by, timestamp)
+  def create_exercise(user, track_id, slug, viewed_by, timestamp, diff = 10)
     exercise = UserExercise.create!(user_id: user.id, language: track_id, slug: slug, iteration_count: 1, last_activity_at: timestamp)
     Submission.create!(user_id: user.id, user_exercise_id: exercise.id, language: track_id, slug: slug)
     unless viewed_by.nil?
-      View.create(user_id: viewed_by, exercise_id: exercise.id, last_viewed_at: timestamp + 10)
+      View.create(user_id: viewed_by, exercise_id: exercise.id, last_viewed_at: timestamp + diff)
     end
     exercise
   end
