@@ -51,6 +51,12 @@ class FuzzyTimeHelperTest < Minitest::Test
     assert_equal link_text(now - more_than_23_hours, "about 23 hours ago"), ago
   end
 
+  def test_a_bit_more_than_23_hours_and_a_half_ago
+    more_than_23_hours_and_a_half = (23 * 60 * 60 + 45 * 60)
+    ago = helper.ago(now - more_than_23_hours_and_a_half)
+    assert_equal link_text(now - more_than_23_hours_and_a_half, "about 23.5 to 24 hours ago"), ago
+  end
+
   def test_bit_more_than_a_day
     ago = helper.ago(now - (24 * 60 * 60 + 29 * 60))
     assert_equal "<span class='localize-time'> 1 January 2013 at 02:35 UTC</span>", ago
