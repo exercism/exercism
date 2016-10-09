@@ -20,7 +20,7 @@ module ExercismWeb
                        "about an hour ago"
                      when less_than(105 * minutes)
                        "about an hour and a half ago"
-                     else less_than(24 * hours)
+                     else
                        "about #{(diff / (1 * hours)).round} hours ago"
                      end
           "<span data-toggle='tooltip' data-title='#{formatted_date}'>#{response}</span>"
