@@ -6,7 +6,6 @@ module ExercismWeb
   module Helpers
     module FuzzyTime
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity
       def ago(timestamp)
         diff = (now - timestamp).to_i.to_f
         formatted_date = timestamp.strftime('%e %B %Y at %H:%M %Z')
