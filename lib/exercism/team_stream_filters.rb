@@ -113,6 +113,7 @@ class TeamStream
             SELECT exercise_id
             FROM views
             WHERE user_id=#{viewer_id}
+            AND last_viewed_at > ex.last_activity_at
           )
           AND mark.at > ex.last_activity_at
       SQL
@@ -177,6 +178,7 @@ class TeamStream
             SELECT exercise_id
             FROM views
             WHERE user_id=#{viewer_id}
+            AND last_viewed_at > ex.last_activity_at
           )
           AND mark.at > ex.last_activity_at
         GROUP BY ex.language
@@ -249,6 +251,7 @@ class TeamStream
             SELECT exercise_id
             FROM views
             WHERE user_id=#{viewer_id}
+            AND last_viewed_at > ex.last_activity_at
           )
           AND mark.at > ex.last_activity_at
         GROUP BY ex.slug
@@ -324,6 +327,7 @@ class TeamStream
             SELECT exercise_id
             FROM views
             WHERE user_id=#{viewer_id}
+            AND last_viewed_at > ex.last_activity_at
           )
           AND mark.at > ex.last_activity_at
         GROUP BY u.username
@@ -389,6 +393,7 @@ class TeamStream
             SELECT exercise_id
             FROM views
             WHERE user_id=#{viewer_id}
+            AND last_viewed_at > ex.last_activity_at
           )
           AND mark.at > ex.last_activity_at
         GROUP BY ex.language

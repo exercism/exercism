@@ -39,10 +39,17 @@ class TrackStreamFiltersTest < Minitest::Test
     # access to via the ACL table, because people share links.
     # These views should not be counted.
     #
-    # To do this we want to make sure that we always have:
+    # We also use watermarks to mark a bunch of exercises in the
+    # same track/problem as 'read' with a single database row.
+    #
+    # To do this we want to make sure that for each filter we have:
     # - at least one exercise that is unread
     # - at least one acl exercise that has been viewed
     # - at least one non-acl exercise that has been viewed
+    # - at least one exercise that is unread but under the watermark
+    # - at least one exercise that has a view timestamp that is older
+    #   than the last activity on the exercise, and which has a
+    #   watermark that is newer.
     #
     # We also need to make sure that the counts are correct in
     # the non-active category.
@@ -56,17 +63,19 @@ class TrackStreamFiltersTest < Minitest::Test
     # - at least one exercise in an equivalent category that is viewed
 
     # Go
-    create_exercise(alice, 'go', 'leap', alice.id, mon)
-    create_exercise(alice, 'go', 'clock', bob.id, mon)
-    create_exercise(alice, 'go', 'anagram', nobody, mon)
+    create_exercise(alice, 'go', 'leap', alice.id, mon) # read (directly)
+    create_exercise(alice, 'go', 'clock', bob.id, mon) # read (watermark)
+    create_exercise(alice, 'go', 'anagram', nobody, mon) # unread
+    create_exercise(alice, 'go', 'gigasecond', alice.id, tue, -10) # read (earlier, then watermark)
 
-    create_exercise(bob, 'go', 'leap', nobody, mon)
-    create_exercise(bob, 'go', 'clock', alice.id, tue)
-    create_exercise(bob, 'go', 'anagram', bob.id, mon)
-    create_exercise(bob, 'go', 'triangle', nobody, mon)
+    create_exercise(bob, 'go', 'leap', nobody, mon) # unread
+    create_exercise(bob, 'go', 'clock', alice.id, tue) # read (watermark)
+    create_exercise(bob, 'go', 'anagram', bob.id, mon) # unread
+    create_exercise(bob, 'go', 'triangle', nobody, mon) # NO ACL
+    create_exercise(bob, 'go', 'gigasecond', alice.id, mon, -10) # read (earlier, then watermark)
 
-    create_exercise(charlie, 'go', 'leap', nobody, mon)
-    create_exercise(charlie, 'go', 'clock', bob.id, thu)
+    create_exercise(charlie, 'go', 'leap', nobody, mon) # unread
+    create_exercise(charlie, 'go', 'clock', bob.id, thu) # unroad
     create_exercise(charlie, 'go', 'triangle', alice.id, mon) # viewed (directly) without ACL
 
     # Elixir
@@ -83,6 +92,7 @@ class TrackStreamFiltersTest < Minitest::Test
       Problem.new('go', 'leap'),
       Problem.new('go', 'clock'),
       Problem.new('go', 'anagram'),
+      Problem.new('go', 'gigasecond'),
       Problem.new('elixir', 'leap'),
       Problem.new('elixir', 'clock'),
     ].each do |problem|
@@ -90,6 +100,7 @@ class TrackStreamFiltersTest < Minitest::Test
     end
 
     Watermark.create!(user_id: alice.id, track_id: 'go', slug: 'clock', at: wed)
+    Watermark.create!(user_id: alice.id, track_id: 'go', slug: 'gigasecond', at: wed)
 
     filter = TrackStream::TrackFilter.new(alice.id, 'go')
     assert_equal 2, filter.items.size
@@ -104,14 +115,14 @@ class TrackStreamFiltersTest < Minitest::Test
 
     assert_equal 'Go', item2.text
     assert_equal '/tracks/go/exercises', item2.url
-    assert_equal 8, item2.total
+    assert_equal 10, item2.total
     assert_equal 5, item2.unread
     assert item2.active?
 
     filter = TrackStream::ProblemFilter.new(alice.id, 'go', 'clock')
-    assert_equal 3, filter.items.size
+    assert_equal 4, filter.items.size
 
-    item1, item2, item3 = filter.items
+    item1, item2, item3, item4 = filter.items
 
     assert_equal 'Leap', item1.text
     assert_equal '/tracks/go/exercises/leap', item1.url
@@ -131,6 +142,12 @@ class TrackStreamFiltersTest < Minitest::Test
     assert_equal 2, item3.unread
     refute item3.active?, "anagram should not be active"
 
+    assert_equal 'Gigasecond', item4.text
+    assert_equal '/tracks/go/exercises/gigasecond', item4.url
+    assert_equal 2, item4.total
+    assert_equal 0, item4.unread
+    refute item4.active?, "gigasecond should not be active"
+
     only_mine = true
     filter = TrackStream::ViewerFilter.new(alice.id, 'go', only_mine)
     assert_equal 1, filter.items.size
@@ -139,18 +156,18 @@ class TrackStreamFiltersTest < Minitest::Test
 
     assert_equal 'My Solutions', item.text
     assert_equal '/tracks/go/my_solutions', item.url
-    assert_equal 3, item.total
+    assert_equal 4, item.total
     assert_equal 1, item.unread
     assert item.active?
   end
 
   private
 
-  def create_exercise(user, track_id, slug, viewed_by, timestamp)
+  def create_exercise(user, track_id, slug, viewed_by, timestamp, diff = 10)
     exercise = UserExercise.create!(user_id: user.id, language: track_id, slug: slug, iteration_count: 1, last_activity_at: timestamp)
     Submission.create!(user_id: user.id, user_exercise_id: exercise.id, language: track_id, slug: slug)
     unless viewed_by.nil?
-      View.create(user_id: viewed_by, exercise_id: exercise.id, last_viewed_at: timestamp + 10)
+      View.create(user_id: viewed_by, exercise_id: exercise.id, last_viewed_at: timestamp + diff)
     end
     exercise
   end
