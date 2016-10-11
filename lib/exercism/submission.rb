@@ -103,6 +103,7 @@ class Submission < ActiveRecord::Base
   def unlike!(user)
     likes.where(user_id: user.id).destroy_all
     self.is_liked = liked_by.length > 0
+    notifications.unread.where(action: 'like', actor_id: user.id).destroy_all
     save
   end
 
