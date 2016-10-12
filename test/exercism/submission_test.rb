@@ -84,22 +84,6 @@ class SubmissionTest < Minitest::Test
     assert submission.liked?
   end
 
-  def test_unlike_removes_unread_likes
-    bob = User.create(username: 'bob')
-    submission = Submission.create(user: alice)
-
-    [fred, bob].each do |user|
-      submission.like!(user)
-      Notify.source(submission, 'like', user)
-    end
-
-    assert_equal 2, submission.notifications.unread.count
-
-    submission.unlike!(fred)
-
-    assert_equal 1, submission.notifications.unread.count
-  end
-
   def test_liked_reflects_negative_is_liked
     submission = Submission.new(is_liked: false)
     refute submission.liked?
