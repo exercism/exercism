@@ -25,5 +25,13 @@ bundle exec rake db:from_scratch
 # Set up the test database
 RACK_ENV=test bundle exec rake db:setup db:migrate
 
+# Check if lineman is installed or install
+if ! ( which lineman ); then
+  npm install -g lineman
+fi
+
+# Install npm dependencies, and run lineman build and compass compile
+npm install
+
 # Run the tests
 bundle exec rake
