@@ -15,14 +15,24 @@ class UserFinishedTracks
   def completed_tracks
     advanced_tracks = {}
     started_tracks.group_by{|e| e["track_id"]}
-                  .map{|key, value|
-                    advanced_tracks[key] = value.map{|e| e["problem_slug"]
-                      }
-                    }
-    
+                  .map do |key, value|
+                    advanced_tracks[key] = value.map{|e| e["problem_slug"]}
+                  end
+    started_tracks = []
+    advanced_tracks.map do |key, value|
+                     track = tracks.find { |t| t.id == key }
+                     count = 0
+                     value.each do |user_exercised_slug|
+                       if track.problems.map(&:slug).include?(user_exercised_slug)
+                         count = count + 1
+                       end
+                     end
+                     temp = {'track_id' => key, 'completed_count' => count}
+                     started_tracks << temp
+                    end
     @completed_tracks ||= started_tracks.each_with_object([]) do |db_row, arr|
       track = tracks.find { |t| t.id == db_row['track_id'] }
-      arr << track if db_row['problem_slug'].to_i >= track.problems.count
+      arr << track if db_row['completed_count'].to_i >= track.problems.count
       arr
     end
   end
