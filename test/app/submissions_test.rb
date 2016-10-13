@@ -107,7 +107,7 @@ class SubmissionsTest < Minitest::Test
   end
 
   def test_unlike_removes_unread_likes
-    fred = User.create({username: 'bob', github_id: 3, email: "bob@example.com"})
+    fred = User.create({username: 'fred', github_id: 3, email: "fred@example.com"})
     submission = generate_attempt.submission
 
     [bob, fred].each do |user|
