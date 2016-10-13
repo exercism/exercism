@@ -26,11 +26,11 @@ class UserFinishedTracks
 
   def completed_count_sql
     <<-SQL
-    SELECT language AS track_id, CAST (COUNT(id) AS INTEGER) AS completed_count
+    SELECT language AS track_id, slug AS problem_slug
     FROM user_exercises
     WHERE user_id=#{user.id}
     AND (iteration_count > 0 OR skipped_at IS NOT NULL)
-    GROUP BY language
+    ORDER BY language
     SQL
   end
 
