@@ -10,7 +10,6 @@ class UserFinishedTracks
     @user = user
   end
 
-  # Resource : http://stackoverflow.com/questions/5490952/merge-array-of-hashes-to-get-hash-of-arrays-of-values
 
   def completed_tracks
     advanced_tracks = {}
