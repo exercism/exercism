@@ -25,5 +25,8 @@ bundle exec rake db:from_scratch
 # Set up the test database
 RACK_ENV=test bundle exec rake db:setup db:migrate
 
+# Precompile Compass CSS assets
+bundle exec compass compile -e production --force
+
 # Run the tests
 bundle exec rake
