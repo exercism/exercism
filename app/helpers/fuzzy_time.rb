@@ -6,7 +6,6 @@ module ExercismWeb
   module Helpers
     module FuzzyTime
       # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
-      # rubocop:disable Metrics/CyclomaticComplexity
       def ago(timestamp)
         diff = (now - timestamp).to_i.to_f
         formatted_date = timestamp.strftime('%e %B %Y at %H:%M %Z')
@@ -20,7 +19,7 @@ module ExercismWeb
                        "about an hour ago"
                      when less_than(105 * minutes)
                        "about an hour and a half ago"
-                     when less_than(23.5 * hours)
+                     else
                        "about #{(diff / (1 * hours)).round} hours ago"
                      end
           "<span data-toggle='tooltip' data-title='#{formatted_date}'>#{response}</span>"
