@@ -21,9 +21,19 @@
     padding: 20px 10px;
     box-shadow: 0 5px 0 #f1f1f1;
     border-bottom: 1px solid #eee;
-    p {
-      font-size: 1.5em;
-      margin: 0.5em;
+    li {
+      font-size: 1.6em;
+      margin: 1em 0;
+    }
+
+    i {
+      margin-right: .3em;
+    }
+
+    .features {
+      list-style: none;
+      width: 42em;
+      margin: 0 auto;
     }
   }
   .content-primary {
