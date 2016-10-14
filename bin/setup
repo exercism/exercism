@@ -27,7 +27,8 @@ RACK_ENV=test bundle exec rake db:setup db:migrate
 
 # Check if lineman is installed or install
 if ! ( which lineman ); then
-  npm install -g lineman
+  echo "looks like lineman isn't installed; you can fix this with npm install -g lineman"
+  exit 1
 fi
 
 # Install npm dependencies, and run lineman build and compass compile
