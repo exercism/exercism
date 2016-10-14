@@ -26,8 +26,8 @@ module ExercismAPI
           halt 404, { error: "unknown submission #{key}" }.to_json
         end
 
-        exercise = Trackler.tracks[submission.language].implementations[submission.slug]
-        if exercise.nil?
+        implementation = Trackler.tracks[submission.language].implementations[submission.slug]
+        if implementation.nil?
           halt 404, { error: "#{submission.slug} in #{submission.track_id} not found" }.to_json
         end
 
@@ -39,7 +39,7 @@ module ExercismAPI
           solution_uuid: submission.user_exercise.key,
           user_id: submission.user_id,
           username: submission.user.username,
-          problem_files: exercise.files,
+          problem_files: implementation.files,
           solution_files: submission.solution,
         }.to_json
       end
