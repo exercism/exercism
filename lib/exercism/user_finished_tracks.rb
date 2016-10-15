@@ -10,7 +10,6 @@ class UserFinishedTracks
     @user = user
   end
 
-
   def completed_tracks
     advanced_tracks = {}
     started_tracks.group_by{|e| e["track_id"]}
