@@ -13,7 +13,7 @@ class UserFinishedTracks
   def completed_tracks
     @completed_tracks ||= started_tracks.each_with_object([]) do |db_row, arr|
       track = tracks.find { |t| t.id == db_row['track_id'] }
-      arr << track if (db_row['completed_problems'].split(',') & track.problems.map(&:slug)).size >= track.problems.count
+      arr << track if db_row['completed_problems_count'] >= track.problems.count
       arr
     end
   end
@@ -21,7 +21,10 @@ class UserFinishedTracks
   private
 
   def started_tracks
-    ActiveRecord::Base.connection.execute(completed_count_sql).to_a
+    ActiveRecord::Base.connection.execute(completed_count_sql).to_a.each do |db_row|
+      track = tracks.find { |t| t.id == db_row['track_id'] }
+      db_row['completed_problems_count'] = (db_row['completed_problems'].split(',') & track.problems.map(&:slug)).size
+    end
   end
 
   def completed_count_sql
