@@ -28,9 +28,9 @@ class UserFinishedTracks
     <<-SQL
     SELECT language AS track_id, string_agg(slug, ',') AS completed_problems
     FROM user_exercises
-    WHERE user_id=7
+    WHERE user_id=#{user.id}
     AND (iteration_count > 0 OR skipped_at IS NOT NULL)
-    GROUP BY language;
+    GROUP BY language
     SQLs
   end
 
