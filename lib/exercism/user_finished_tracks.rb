@@ -23,8 +23,12 @@ class UserFinishedTracks
   def started_tracks
     ActiveRecord::Base.connection.execute(completed_count_sql).to_a.each do |db_row|
       track = tracks.find { |t| t.id == db_row['track_id'] }
-      db_row['completed_problems_count'] = (db_row['completed_problems'].split(',') & track.problems.map(&:slug)).size
+      db_row['completed_problems_count'] = count_finished_problems(db_row['completed_problems'].split(','), track)
     end
+  end
+
+  def count_finished_problems(user_finished_exercises, track)
+    (user_finished_exercises & track.problems.map(&:slug)).size
   end
 
   def completed_count_sql
