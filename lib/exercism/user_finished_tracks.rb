@@ -31,7 +31,7 @@ class UserFinishedTracks
     WHERE user_id=#{user.id}
     AND (iteration_count > 0 OR skipped_at IS NOT NULL)
     GROUP BY language
-    SQLs
+    SQL
   end
 
   def tracks
