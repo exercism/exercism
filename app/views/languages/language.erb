@@ -13,7 +13,11 @@
       <div class="col-md-4">
         <ul class="nav nav-pills nav-stacked">
           <% if !track.active? %>
-            <li class="active">
+            <% if topic == "launch" %>
+              <li class="active">
+            <% else %>
+              <li class>
+            <% end %>
               <a data-toggle="tab" href="#launch">Help Launch the  <%= track.language %> Track</a>
             </li>
           <% end %>
