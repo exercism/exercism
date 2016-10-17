@@ -204,6 +204,33 @@ class TrackStreamTest < Minitest::Test
     assert_equal expected, actual
   end
 
+  def test_pagination_menu_item
+    alice = User.create(username: 'alice')
+    bob = User.create(username: 'bob')
+
+    [
+      { user: alice, language: 'go', slug: 'leap', iteration_count: 1 },
+      { user: bob, language: 'go', slug: 'leap', iteration_count: 1 },
+      { user: bob, language: 'go', slug: 'hamming', iteration_count: 1 },
+      { user: bob, language: 'go', slug: 'clock', iteration_count: 1 },
+    ].each do |attributes|
+      exercise = UserExercise.create!(attributes)
+      ACL.authorize(alice, exercise.problem)
+    end
+
+    by_track = TrackStream.new(alice, 'go').pagination_menu_item
+    assert_equal 'go', by_track.id
+    assert_equal 4, by_track.total
+
+    by_problem = TrackStream.new(alice, 'go', 'leap').pagination_menu_item
+    assert_equal 'leap', by_problem.id
+    assert_equal 2, by_problem.total
+
+    mine = TrackStream.new(alice, 'go', nil, nil, true).pagination_menu_item
+    assert_equal 'alice', mine.id
+    assert_equal 1, mine.total
+  end
+
   private
 
   def assert_exercise(expected, actual)
