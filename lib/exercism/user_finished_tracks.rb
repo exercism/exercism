@@ -12,8 +12,8 @@ class UserFinishedTracks
 
   def completed_tracks
     @completed_tracks ||= started_tracks.each_with_object([]) do |db_row, arr|
-      track = completed?(db_row)
-      arr << track if track
+      track = tracks.find { |t| t.id == db_row['track_id'] }
+      arr << track if completed?(db_row, track)
       arr
     end
   end
@@ -28,10 +28,9 @@ class UserFinishedTracks
     (user_finished_exercises & track.problems.map(&:slug)).size
   end
 
-  def completed?(track_attributes)
-    track = tracks.find { |t| t.id == track_attributes['track_id'] }
-    problems_solved = count_finished_problems(track_attributes['completed_problems'].split(','), track)
-    track if problems_solved >= track.problems.count
+  def completed?(user_track, full_track)
+    problems_solved = count_finished_problems(user_track['completed_problems'].split(','), full_track)
+    problems_solved >= full_track.problems.size
   end
 
   def completed_count_sql
