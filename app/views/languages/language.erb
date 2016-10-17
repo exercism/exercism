@@ -70,7 +70,13 @@
     </aside>
 
     <div class="col-md-8 tab-content">
-      <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
+      <% if !track.active %>
+        <div class="active tab-pane" id="launch">
+          <%= md docs.launch %>
+        </div>
+      <% else %>
+        <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
+      <% end %>
     </div>
   </div>
 </div>
