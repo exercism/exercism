@@ -71,9 +71,11 @@
 
     <div class="col-md-8 tab-content">
       <% if !track.active %>
-        <div class="active tab-pane" id="launch">
-          <%= md docs.launch %>
-        </div>
+        <% if topic == "launch" %>
+          <div class="active tab-pane" id="launch">
+            <%= md docs.launch %>
+          </div>
+        <% end %>
       <% else %>
         <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
       <% end %>
