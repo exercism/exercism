@@ -13,11 +13,7 @@
       <div class="col-md-4">
         <ul class="nav nav-pills nav-stacked">
           <% if !track.active? %>
-            <% if topic == "launch" %>
-              <li class="active">
-            <% else %>
-              <li class>
-            <% end %>
+            <li class="<%= "active" if topic == "launch" %>">
               <a data-toggle="tab" href="#launch">Help Launch the  <%= track.language %> Track</a>
             </li>
           <% end %>
@@ -74,11 +70,14 @@
     </aside>
 
     <div class="col-md-8 tab-content">
+
       <% if !track.active %>
         <% if topic == "launch" %>
           <div class="active tab-pane" id="launch">
             <%= md docs.launch %>
           </div>
+        <% else %>
+          <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
         <% end %>
       <% else %>
         <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
