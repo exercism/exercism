@@ -10,16 +10,13 @@ class LanguagesRoutesTest < Minitest::Test
   end
 
   def test_route_languages
-    fixture = './test/fixtures/xapi_v3_tracks.json'
-    X::Xapi.stub(:get, [200, File.read(fixture)]) do
-      get '/languages'
-      assert_equal 200, last_response.status
-      assert_match 'Animal', last_response.body
-      assert_match 'Fake', last_response.body
-      assert_match 'Fancy Stones', last_response.body
-      assert_match 'Fruit', last_response.body
-      assert_match 'Shoes & Boots', last_response.body
-    end
+    get '/languages'
+    assert_equal 200, last_response.status
+    assert_match 'Animal', last_response.body
+    assert_match 'Fake', last_response.body
+    assert_match 'Fancy Stones', last_response.body
+    assert_match 'Fruit', last_response.body
+    assert_match 'Shoes & Boots', last_response.body
   end
 
   def test_route_repositories

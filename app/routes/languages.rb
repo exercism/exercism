@@ -6,9 +6,11 @@ module ExercismWeb
       TOPICS = %w(about exercises installing tests learning resources help launch contribute todo).freeze
 
       get '/languages' do
-        tracks = X::Track.all
-        active, inactive = tracks.partition(&:active?)
-        planned, inactive = inactive.partition(&:planned?)
+        tracks = Trackler.tracks
+        active, inactive = tracks.partition { |t| t.active? }
+        planned = []
+
+        # planned, inactive = inactive.partition(&:planned?)
         inactive.sort! { |a, b| b.problems.count <=> a.problems.count }
         erb :"languages/index", locals: { active: active, inactive: inactive, planned: planned }
       end
