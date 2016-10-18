@@ -14,6 +14,7 @@ class UserFinishedTracksTest < Minitest::Test
     create_exercise('fake', 'two')
     create_exercise('jewels', 'hello-world')
     create_exercise('jewels', 'gemerald')
+    create_exercise('shoes','deprecated-problem')
   end
 
   def test_user_contributions
