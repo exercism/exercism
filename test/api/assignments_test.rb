@@ -13,25 +13,21 @@ class AssignmentsApiTest < Minitest::Test
   def setup
     super
     @alice = User.create(username: 'alice', github_id: 1)
-    Exercism.instance_variable_set(:@trails, nil)
-    Language.instance_variable_set(:"@by_track_id", "ruby" => "Ruby")
+    Language.instance_variable_set(:"@by_track_id", "fake" => "Fake")
   end
 
   def teardown
     super
-    Exercism.instance_variable_set(:@trails, nil)
     Language.instance_variable_set(:"@by_track_id", nil)
   end
 
   def test_api_accepts_submission_attempt
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
-        post '/user/assignments', { key: alice.key, solution: { 'ruby/one/code.rb' => 'THE CODE' } }.to_json
-      end
+      post '/user/assignments', { key: alice.key, solution: { 'fake/one/code.ext' => 'THE CODE' } }.to_json
     end
 
     submission = Submission.first
-    problem = Problem.new('ruby', 'one')
+    problem = Problem.new('fake', 'one')
     assert_equal problem, submission.problem
     assert_equal 201, last_response.status
 
@@ -41,17 +37,15 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_api_accepts_submission_attempt_with_multi_file_solution
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
-        solution = {
-          'ruby/one/file1.rb' => 'code 1',
-          'ruby/one/file2.rb' => 'code 2',
-        }
-        post '/user/assignments', { key: alice.key, solution: solution }.to_json
-      end
+      solution = {
+        'fake/one/file1.ext' => 'code 1',
+        'fake/one/file2.ext' => 'code 2',
+      }
+      post '/user/assignments', { key: alice.key, solution: solution }.to_json
     end
 
     submission = Submission.first
-    problem = Problem.new('ruby', 'one')
+    problem = Problem.new('fake', 'one')
     assert_equal problem, submission.problem
     assert_equal 201, last_response.status
 
@@ -61,22 +55,18 @@ class AssignmentsApiTest < Minitest::Test
 
   def test_provides_a_useful_error_message_when_key_is_wrong
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
-        post '/user/assignments', { key: 'no-such-key', solution: { 'ruby/one/code.rb' => 'THE CODE' } }.to_json
-      end
+      post '/user/assignments', { key: 'no-such-key', solution: { 'fake/one/code.ext' => 'THE CODE' } }.to_json
     end
     assert_equal 401, last_response.status
   end
 
   def test_api_accepts_submission_on_completed_exercise
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
-        post '/user/assignments', { key: alice.key, language: 'ruby', problem: 'one', solution: { 'ruby/one/code.rb' => 'THE CODE' } }.to_json
-      end
+      post '/user/assignments', { key: alice.key, language: 'fake', problem: 'one', solution: { 'fake/one/code.ext' => 'THE CODE' } }.to_json
     end
 
     submission = Submission.first
-    problem = Problem.new('ruby', 'one')
+    problem = Problem.new('fake', 'one')
     assert_equal problem, submission.problem
     assert_equal 201, last_response.status
 
@@ -85,11 +75,9 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def test_api_rejects_duplicates
-    Attempt.new(alice, Iteration.new({ 'code.rb' => 'THE CODE' }, 'ruby', 'one')).save
+    Attempt.new(alice, Iteration.new({ 'code.ext' => 'THE CODE' }, 'fake', 'one')).save
     Notify.stub(:everyone, nil) do
-      Xapi.stub(:exists?, true) do
-        post '/user/assignments', { key: alice.key, solution: { 'ruby/one/code.rb' => 'THE CODE' } }.to_json
-      end
+      post '/user/assignments', { key: alice.key, solution: { 'fake/one/code.ext' => 'THE CODE' } }.to_json
     end
 
     response_error = JSON.parse(last_response.body)['error']

@@ -6,7 +6,7 @@ module ExercismAPI
     class Iterations < Core
       # Mark exercise as skipped.
       # Called from the CLI.
-      post '/iterations/:language/:slug/skip' do |language, slug|
+      post '/iterations/:track_id/:slug/skip' do |track_id, slug|
         require_key
 
         if current_user.guest?
@@ -14,20 +14,23 @@ module ExercismAPI
           halt 401, { error: message }.to_json
         end
 
-        unless Xapi.exists?(language, slug)
-          message = "Exercise '#{slug}' in language '#{language}' doesn't exist. "
-          message << "Maybe you mispelled it?"
-          halt 404, { error: message }.to_json
+        track = Trackler.tracks[track_id]
+
+        unless track.exists?
+          halt 400, { error: "Unknown language track %s" % track_id }.to_json
         end
 
-        exercise_attrs = {
+        unless track.implementations[slug.to_s].exists?
+          halt 400, { error: "Unknown problem '%s' in %s track" % [slug, track.language] }.to_json
+        end
+
+        attrs = {
           user_id: current_user.id,
-          language: language,
+          language: track_id,
           slug: slug,
         }
 
-        exercise = UserExercise.where(exercise_attrs)
-                               .first_or_initialize(iteration_count: 0)
+        exercise = UserExercise.where(attrs).first_or_initialize(iteration_count: 0)
 
         exercise.save! if exercise.new_record?
         exercise.touch(:skipped_at)
@@ -70,22 +73,24 @@ module ExercismAPI
           data['path'] = segments[2..-1].join("/")
         end
 
+        track = Trackler.tracks[data['language']]
+
+        unless track.exists?
+          halt 400, { error: "Unknown language track %s" % data['language'] }.to_json
+        end
+
+        unless track.implementations[data['problem'].to_s].exists?
+          halt 400, { error: "Unknown problem '%s' in %s track" % [data['problem'], track.language] }.to_json
+        end
+
         iteration = Iteration.new(
           solution,
           data['language'],
           data['problem'],
           comment: data['comment']
         )
-        attempt = Attempt.new(user, iteration)
 
-        unless attempt.valid?
-          error = "unknown problem (track: %s, slug: %s, path: %s)" % [
-            attempt.track,
-            attempt.slug,
-            data['path'],
-          ]
-          halt 400, { error: error }.to_json
-        end
+        attempt = Attempt.new(user, iteration)
 
         if attempt.duplicate?
           halt 400, { error: "duplicate of previous iteration" }.to_json

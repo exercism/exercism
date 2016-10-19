@@ -14,10 +14,6 @@ class Attempt
   end
   # rubocop:enable Metrics/AbcSize
 
-  def valid?
-    !!slug && Xapi.exists?(track, slug)
-  end
-
   # rubocop:disable Metrics/AbcSize
   def save
     user.submissions << submission

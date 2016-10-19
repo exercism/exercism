@@ -9,16 +9,6 @@ class AttemptTest < Minitest::Test
     @user = User.create
   end
 
-  def test_validity
-    Xapi.stub(:exists?, true) do
-      assert Attempt.new(user, Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two')).valid?
-    end
-
-    Xapi.stub(:exists?, false) do
-      refute Attempt.new(user, Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two')).valid?
-    end
-  end
-
   def test_saving_with_comments_creates_a_new_comment
     iteration = Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two', comment: "hello world")
 
