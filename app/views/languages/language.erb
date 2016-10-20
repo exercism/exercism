@@ -14,7 +14,9 @@
         <ul class="nav nav-pills nav-stacked">
           <% if !track.active? %>
             <li class="<%= "active" if topic == "launch" %>">
-              <a data-toggle="tab" href="#launch">Help Launch the  <%= track.language %> Track</a>
+              <a href="<%="/languages/#{track.id}/launch"%>">
+                Help Launch the  <%= track.language %> Track
+              </a>
             </li>
           <% end %>
 
