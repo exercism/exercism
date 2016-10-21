@@ -41,7 +41,10 @@ class LanguagesRoutesTest < Minitest::Test
     fixture = './test/fixtures/xapi_v3_tracks_error.json'
     X::Xapi.stub(:get, [200, File.read(fixture)]) do
       get '/languages/invalid_track'
-      assert_equal 200, last_response.status
+      assert_equal 404, last_response.status
+
+      get '/languages/invalid_track/about'
+      assert_equal 404, last_response.status
       assert_match "It doesn't look like we have <b>invalid_track</b> yet", last_response.body
     end
   end
@@ -50,6 +53,9 @@ class LanguagesRoutesTest < Minitest::Test
     fixture = './test/fixtures/xapi_v3_track.json'
     X::Xapi.stub(:get, [200, File.read(fixture)]) do
       get '/languages/animal'
+      assert_equal 302, last_response.status
+
+      get '/languages/animal/about'
       assert_equal 200, last_response.status
       assert_match "About the Animal Track", last_response.body
       assert_match "Available Exercises", last_response.body
