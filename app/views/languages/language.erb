@@ -72,7 +72,9 @@
     </aside>
 
     <div class="col-md-8 tab-content">
-      <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
+      <div class="tab-pane active" id="<%= topic %>">
+        <%= erb :"languages/_#{topic}", locals: { track: track, docs: docs } %>
+      </div>
     </div>
   </div>
 </div>
