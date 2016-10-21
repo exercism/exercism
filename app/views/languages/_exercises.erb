@@ -1,31 +1,29 @@
-<div class="tab-pane <%='active' if track.active? %>" id="exercises">
-  <p>
-    When you're logged in, you can say <code>exercism fetch <%= track.id %></code> to get
-    the next available exercise on the track.
-  </p>
+<p>
+  When you're logged in, you can say <code>exercism fetch <%= track.id %></code> to get
+  the next available exercise on the track.
+</p>
 
-  <p>
-    Every time you submit a solution to an exercise, you will get the next in line the next time
-    you fetch.
-  </p>
+<p>
+  Every time you submit a solution to an exercise, you will get the next in line the next time
+  you fetch.
+</p>
 
-  <p>
-    If you want to try a specific exercise, you can always fetch it directly (commands
-    are listed below).
-  </p>
+<p>
+  If you want to try a specific exercise, you can always fetch it directly (commands
+  are listed below).
+</p>
 
-  <p>
-    The exercises are ordered roughly in order of difficulty, but it's a bit haphazard.
-  </p>
+<p>
+  The exercises are ordered roughly in order of difficulty, but it's a bit haphazard.
+</p>
 
 
-  <h3>Available Exercises</h3>
-  <ul class="available_exercises_listing">
-    <% track.problems.each do |problem| %>
-      <li>
-      <a href="/exercises/<%= track.id %>/<%= problem.slug %>"><%= problem.name %></a>
-      <span class="tagline"><%= problem.blurb %></span>
-      </li>
-    <% end %>
-  </ul>
-</div>
+<h3>Available Exercises</h3>
+<ul class="available_exercises_listing">
+  <% track.problems.each do |problem| %>
+    <li>
+    <a href="/exercises/<%= track.id %>/<%= problem.slug %>"><%= problem.name %></a>
+    <span class="tagline"><%= problem.blurb %></span>
+    </li>
+  <% end %>
+</ul>
