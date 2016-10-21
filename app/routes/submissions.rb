@@ -40,6 +40,7 @@ module ExercismWeb
         please_login "You have to be logged in to do that."
         submission = Submission.find_by_key(key)
         submission.unlike!(current_user)
+        submission.notifications.unread.where(action: 'like', actor_id: current_user.id).destroy_all
         flash[:notice] = "The submission has been unliked."
         redirect "/submissions/#{key}"
       end

@@ -83,6 +83,12 @@ class TrackStream
           AND ex.archived='f'
           AND ex.iteration_count > 0
           AND views.last_viewed_at > ex.last_activity_at
+          AND ex.language || ex.slug NOT IN (
+            SELECT track_id || slug
+            FROM watermarks
+            WHERE user_id=#{viewer_id}
+            AND at > ex.last_activity_at
+          )
         GROUP BY ex.language
       SQL
     end
@@ -99,11 +105,6 @@ class TrackStream
           AND ex.slug=mark.slug
           AND acls.user_id=mark.user_id
         WHERE acls.user_id=#{viewer_id}
-          AND ex.id NOT IN (
-            SELECT exercise_id
-            FROM views
-            WHERE user_id=#{viewer_id}
-          )
           AND mark.at > ex.last_activity_at
         GROUP BY ex.language
       SQL
@@ -169,6 +170,12 @@ class TrackStream
           AND ex.archived='f'
           AND ex.iteration_count > 0
           AND views.last_viewed_at > ex.last_activity_at
+          AND ex.language || ex.slug NOT IN (
+            SELECT track_id || slug
+            FROM watermarks
+            WHERE user_id=#{viewer_id}
+            AND at > ex.last_activity_at
+          )
         GROUP BY ex.slug
       SQL
     end
@@ -188,11 +195,6 @@ class TrackStream
           AND ex.language='#{track_id}'
           AND ex.archived='f'
           AND ex.iteration_count > 0
-          AND ex.id NOT IN (
-            SELECT exercise_id
-            FROM views
-            WHERE user_id=#{viewer_id}
-          )
           AND mark.at > ex.last_activity_at
         GROUP BY ex.slug
       SQL
@@ -251,6 +253,12 @@ class TrackStream
           AND ex.user_id=#{viewer_id}
           AND ex.language='#{track_id}'
           AND views.last_viewed_at > ex.last_activity_at
+          AND ex.language || ex.slug NOT IN (
+            SELECT track_id || slug
+            FROM watermarks
+            WHERE user_id=#{viewer_id}
+            AND at > ex.last_activity_at
+          )
         GROUP BY u.username
       SQL
     end
@@ -269,11 +277,6 @@ class TrackStream
           AND ex.iteration_count > 0
           AND ex.user_id=#{viewer_id}
           AND ex.language='#{track_id}'
-          AND ex.id NOT IN (
-            SELECT exercise_id
-            FROM views
-            WHERE user_id=#{viewer_id}
-          )
           AND mark.at > ex.last_activity_at
         GROUP BY u.username
       SQL

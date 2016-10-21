@@ -47,7 +47,7 @@ If there is no automated checking, then you should also verify:
 
 ### Consider Future Maintainers
 
-- Does the commit message contain the exercise slug?
+- Does the commit message contain the [exercise slug](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#updating-a-generic-problem-description)?
 - Does the commit message explain _why_ the change was made?
 
 ### Consider the User Experience

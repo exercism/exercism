@@ -106,6 +106,23 @@ class SubmissionsTest < Minitest::Test
     post "/submissions/#{submission.key}/unlike", {}, login(bob)
   end
 
+  def test_unlike_removes_unread_likes
+    fred = User.create({username: 'fred', github_id: 3, email: "fred@example.com"})
+    submission = generate_attempt.submission
+
+    [bob, fred].each do |user|
+      post "/submissions/#{submission.key}/like", {}, login(user)
+    end
+
+    post "/submissions/#{submission.key}/unlike", {}, login(fred)
+
+    submission.reload
+
+    assert_equal 1, submission.likes.count
+    assert_equal 1, submission.notifications.unread.count
+    assert_equal bob.id, submission.notifications.unread.first.actor_id
+  end
+
   def test_edit_comment
     submission = generate_attempt.submission
     comment = Comment.create(user: bob, submission: submission, body: "```ruby\n\t{a: 'a'}\n```")

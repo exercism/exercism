@@ -7,5 +7,6 @@ namespace :views do
     DB::Connection.establish
 
     View.delete_below_watermarks
+    View.delete_obsolete
   end
 end

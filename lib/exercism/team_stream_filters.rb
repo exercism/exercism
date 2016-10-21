@@ -95,6 +95,12 @@ class TeamStream
           AND ex.user_id IN (#{user_ids_param})
           AND views.user_id=#{viewer_id}
           AND views.last_viewed_at > ex.last_activity_at
+          AND ex.language || ex.slug NOT IN (
+            SELECT track_id || slug
+            FROM watermarks
+            WHERE user_id=#{viewer_id}
+            AND at > ex.last_activity_at
+          )
       SQL
     end
 
@@ -109,11 +115,6 @@ class TeamStream
           AND ex.iteration_count > 0
           AND ex.user_id IN (#{user_ids_param})
           AND mark.user_id=#{viewer_id}
-          AND ex.id NOT IN (
-            SELECT exercise_id
-            FROM views
-            WHERE user_id=#{viewer_id}
-          )
           AND mark.at > ex.last_activity_at
       SQL
     end
@@ -158,6 +159,12 @@ class TeamStream
           AND ex.user_id IN (#{user_ids_param})
           AND views.user_id=#{viewer_id}
           AND views.last_viewed_at > ex.last_activity_at
+          AND ex.language || ex.slug NOT IN (
+            SELECT track_id || slug
+            FROM watermarks
+            WHERE user_id=#{viewer_id}
+            AND at > ex.last_activity_at
+          )
         GROUP BY ex.language
       SQL
     end
@@ -173,11 +180,6 @@ class TeamStream
           AND ex.iteration_count > 0
           AND ex.user_id IN (#{user_ids_param})
           AND mark.user_id=#{viewer_id}
-          AND ex.id NOT IN (
-            SELECT exercise_id
-            FROM views
-            WHERE user_id=#{viewer_id}
-          )
           AND mark.at > ex.last_activity_at
         GROUP BY ex.language
       SQL
@@ -229,6 +231,12 @@ class TeamStream
           AND ex.language='#{current_id}'
           AND views.user_id=#{viewer_id}
           AND views.last_viewed_at > ex.last_activity_at
+          AND ex.language || ex.slug NOT IN (
+            SELECT track_id || slug
+            FROM watermarks
+            WHERE user_id=#{viewer_id}
+            AND at > ex.last_activity_at
+          )
         GROUP BY ex.slug
       SQL
     end
@@ -245,11 +253,6 @@ class TeamStream
           AND ex.user_id IN (#{user_ids_param})
           AND ex.language='#{current_id}'
           AND mark.user_id=#{viewer_id}
-          AND ex.id NOT IN (
-            SELECT exercise_id
-            FROM views
-            WHERE user_id=#{viewer_id}
-          )
           AND mark.at > ex.last_activity_at
         GROUP BY ex.slug
       SQL
@@ -303,6 +306,12 @@ class TeamStream
           AND ex.user_id IN (#{user_ids_param})
           AND views.user_id=#{viewer_id}
           AND views.last_viewed_at > ex.last_activity_at
+          AND ex.language || ex.slug NOT IN (
+            SELECT track_id || slug
+            FROM watermarks
+            WHERE user_id=#{viewer_id}
+            AND at > ex.last_activity_at
+          )
         GROUP BY u.username
       SQL
     end
@@ -320,11 +329,6 @@ class TeamStream
           AND ex.iteration_count > 0
           AND ex.user_id IN (#{user_ids_param})
           AND mark.user_id=#{viewer_id}
-          AND ex.id NOT IN (
-            SELECT exercise_id
-            FROM views
-            WHERE user_id=#{viewer_id}
-          )
           AND mark.at > ex.last_activity_at
         GROUP BY u.username
       SQL
@@ -370,6 +374,12 @@ class TeamStream
           AND ex.user_id IN (#{user_ids_param})
           AND views.user_id=#{viewer_id}
           AND views.last_viewed_at > ex.last_activity_at
+          AND ex.language || ex.slug NOT IN (
+            SELECT track_id || slug
+            FROM watermarks
+            WHERE user_id=#{viewer_id}
+            AND at > ex.last_activity_at
+          )
         GROUP BY ex.language
       SQL
     end
@@ -385,11 +395,6 @@ class TeamStream
           AND ex.iteration_count > 0
           AND ex.user_id IN (#{user_ids_param})
           AND mark.user_id=#{viewer_id}
-          AND ex.id NOT IN (
-            SELECT exercise_id
-            FROM views
-            WHERE user_id=#{viewer_id}
-          )
           AND mark.at > ex.last_activity_at
         GROUP BY ex.language
       SQL
