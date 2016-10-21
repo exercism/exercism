@@ -1,0 +1,33 @@
+<h3>Add new exercises to <%= track.language %></h3>
+<p>
+  One of the easiest ways to add new exercises to the <%= track.language %> track is to translate them from other language tracks on Exercism. This page lists all of the exercises that exist on Exercism, but have not yet been implemented in <%= track.language %>.
+</p>
+<p>
+  The <i style="font-size: 20px;" class="fa fa-info-circle icon-red"></i>
+  icon links to the generic, language-independent problem description
+</p>
+<p>
+  The <i style="font-size: 20px;" class="fa fa-list icon-red"></i>
+  icon links to the canonical test data
+</p>
+
+<p>The language icons link to each existing implementation of the problem.</p>
+<p>
+Once you've picked an exercise, follow the instructions in the <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#porting-an-exercise-to-another-language-track" target="_blank">Contributing Guide</a> and submit your pull request to the <a href="<%= track.repository %>" target="_blank"><%= track.language %> track repository</a> on GitHub.
+</p>
+
+<% if track.unimplemented_problems.count.zero? %>
+  <div class="col-md-12 jumbotron">
+    <p>All exercises are implemented in <%= track.language %>, you will need to <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#implementing-a-completely-new-exercise">invent a new exercise.</a></p>
+  </div>
+<% else %>
+
+  <% track.unimplemented_problems.each_slice(3) do |todos| %>
+    <div class="row padding-row">
+      <% todos.each do |todo| %>
+        <%= erb :'languages/_contribute_exercise', locals: { exercise: todo} %>
+      <% end %>
+    </div>
+  <% end %>
+
+<% end %>

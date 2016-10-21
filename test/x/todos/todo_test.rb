@@ -31,8 +31,8 @@ module X
 
       assert_equal 3, exercises.exercises.size
 
-      expected_slugs = %w(alphametics bank-account without-implementations)
-      assert_equal expected_slugs, exercises.exercises.map(&:slug)
+      expected_slugs = %w(alphametics bank-account without-implementations).sort
+      assert_equal expected_slugs, exercises.exercises.map(&:slug).sort
     end
 
     def test_enumerable

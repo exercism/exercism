@@ -62,9 +62,15 @@
             </a>
           </li>
 
-          <li>
+          <li class="<%= "active" if topic == "contribute" %>">
             <a href="<%="/languages/#{track.id}/contribute"%>">
               Contributing to <%= track.language %> on Exercism
+            </a>
+          </li>
+
+          <li class="<%= "active" if topic == "todo" %>">
+            <a href="<%="/languages/#{track.id}/todo"%>">
+              Unimplemented Exercises
             </a>
           </li>
         </ul>

@@ -32,6 +32,10 @@ module X
       @docs = Docs::Track.new(data['docs'], repository, doc_format)
     end
 
+    def unimplemented_problems
+      X::Todo.track(id)
+    end
+
     def fetch_cmd(problem=problems.first)
       "exercism fetch #{id} #{problem}"
     end
