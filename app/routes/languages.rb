@@ -25,15 +25,12 @@ module ExercismWeb
         _, body = X::Xapi.get('tracks', track_id)
         parsed_body = JSON.parse(body)
         if parsed_body['error'] == "No track '#{track_id}'"
+          status 404
           erb :"languages/not_found", locals: { track_id: track_id }
         else
           track = X::Track.new(parsed_body['track'])
-          topic = !track.active? ? "launch" : "about"
-          erb :"languages/language", locals: {
-            track: track,
-            topic: topic.to_s,
-            docs: X::Docs::Launch.new(track.repository, track.checklist_issue),
-          }
+          topic = track.active? ? "about" : "launch"
+          redirect "/languages/%s/%s" % [track_id, topic]
         end
       end
 
