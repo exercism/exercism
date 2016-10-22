@@ -85,6 +85,10 @@ module ExercismWeb
       get '/contact' do
         erb :'site/contact'
       end
+      
+      get '/teams/about' do
+        erb :'site/teams'
+      end
     end
   end
 end
