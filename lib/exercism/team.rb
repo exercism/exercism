@@ -88,7 +88,7 @@ class Team < ActiveRecord::Base
     members.delete(user)
   end
 
-  def dismissInvitation(username)
+  def dismiss_invitation(username)
     user = User.find_by_username(username)
     return if user.nil?
 
