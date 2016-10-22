@@ -85,32 +85,52 @@
     </div>
   </div>
 
-  <% if (current_user.teams | current_user.managed_teams).any? %>
-      <div class="row">
-        <div class="col-sm-4">
-          <h2>Your Teams</h2>
-          <div class="well">
-            <ul class="nav nav-stacked">
-              <% (current_user.teams | current_user.managed_teams).each do |team| %>
-                  <li>
-                    <a role="menuitem" tabindex="-1" href="/teams/<%= team.slug %>">
-                      <table width="100%">
-                        <tr>
-                          <td width="60%">
-                            <%= team.name %>
-                          </td>
-                          <td width="40%">
-                            <%= team.members.size %> <%= 'member'.pluralize(team.members.size) %>
-                          </td>
-                        </tr>
-                      </table>
-                    </a>
-                  </li>
-              <% end %>
-            </ul>
-          </div>
+  <% if !(current_user.teams | current_user.managed_teams).any? %>
+    <div class="row">
+      <div class="col-md-6">
+        <h2>Teams</h2>
+        <div class="well">
+          <section class="main">
+            <article class="article-block">
+              <div class="article-contents">
+                <p>To create a team in Exercism, navigate to your
+                    <a href="/account">Account settings page</a>.</p>
+                <p>Scroll down to the Teams section and click "Create a new team".</p>
+                <p>By becoming members of the same team,
+                    you can view all the submissions of your fellow team members.
+                    For more info, see the <a href="/teams/about">Teams</a> page.</p>
+              </div>
+            </article>
+          </section>
         </div>
       </div>
+    </div>
+  <% else %>
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>Your Teams</h2>
+      <div class="well">
+        <ul class="nav nav-stacked">
+          <% (current_user.teams | current_user.managed_teams).each do |team| %>
+            <li>
+              <a role="menuitem" tabindex="-1" href="/teams/<%= team.slug %>">
+                <table width="100%">
+                  <tr>
+                    <td width="60%">
+                      <%= team.name %>
+                    </td>
+                    <td width="40%">
+                      <%= team.members.size %> <%= 'member'.pluralize(team.members.size) %>
+                    </td>
+                  </tr>
+                </table>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
   <% end %>
 
   <div class="row">
