@@ -92,7 +92,7 @@ class Team < ActiveRecord::Base
     user = User.find_by_username(username)
     return if user.nil?
 
-    TeamMembershipInvite.where(user: user, team: self).map(&:destroy)
+    TeamMembershipInvite.where(user: user, team: self).destroy_all
   end
 
   def usernames
