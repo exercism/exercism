@@ -85,6 +85,16 @@
     </div>
   </div>
 
+  <% if !(current_user.teams | current_user.managed_teams).any? %>
+      <div class="row">
+        <div class="col-md-6">
+          <h2>Teams</h2>
+          <div class="well">
+            <%= erb :"site/teams_small" %> 
+          </div>
+        </div>
+      </div>
+  <% end %>
   <% if (current_user.teams | current_user.managed_teams).any? %>
       <div class="row">
         <div class="col-sm-4">
@@ -112,7 +122,7 @@
         </div>
       </div>
   <% end %>
-
+  
   <div class="row">
     <div class="col-sm-4">
       <h2>Recently viewed</h2>
