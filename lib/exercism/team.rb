@@ -88,6 +88,13 @@ class Team < ActiveRecord::Base
     members.delete(user)
   end
 
+  def dismissInvitation(username)
+    user = User.find_by_username(username)
+    return if user.nil?
+
+    TeamMembershipInvite.where(user: user, team: self).map(&:destroy)
+  end
+
   def usernames
     members.map(&:username)
   end
