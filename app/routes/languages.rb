@@ -3,7 +3,7 @@ require_relative '../../x'
 module ExercismWeb
   module Routes
     class Languages < Core
-      TOPICS = %w(about exercises installing tests learning resources help launch).freeze
+      TOPICS = %w(about exercises installing tests learning resources help launch contribute todo).freeze
 
       get '/languages' do
         tracks = X::Track.all
@@ -31,15 +31,6 @@ module ExercismWeb
           track = X::Track.new(parsed_body['track'])
           topic = track.active? ? "about" : "launch"
           redirect "/languages/%s/%s" % [track_id, topic]
-        end
-      end
-
-      get '/languages/:track_id/contribute' do |track_id|
-        begin
-          unimplemented_exercises = X::Todo.track(track_id)
-          erb :"languages/contribute", locals: { exercises: unimplemented_exercises }
-        rescue X::LanguageNotFound
-          language_not_found(track_id)
         end
       end
 
