@@ -2,7 +2,6 @@ module ExercismWeb
   module Presenters
     {
       Inbox: 'inbox',
-      Tracks: 'tracks',
       Setup: 'setup',
       Dashboard: 'dashboard',
       Profile: 'profile',

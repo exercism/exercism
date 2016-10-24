@@ -98,10 +98,9 @@ module ExercismWeb
           slug.to_s.split('-').map(&:capitalize).join('-')
         end
 
-        def tracks
-          ExercismWeb::Presenters::Tracks.tracks
+        def css_url
+          @css_url || "/css/application.css?t=#{File.mtime('./public/css/application.css').to_i}"
         end
-
       end
     end
   end
