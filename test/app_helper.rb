@@ -7,5 +7,4 @@ require 'rack/test'
 require 'rack-flash'
 
 require_relative '../app'
-require_relative './tracks_helper'
 require_relative './app_test_helper'
