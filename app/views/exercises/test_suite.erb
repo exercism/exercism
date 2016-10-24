@@ -1,9 +1,10 @@
 <div class="container">
-  <%= erb :"exercises/_navigation", locals: {exercise: exercise, active: 'tests' } %>
-  <% exercise.files.each do |filename, content| %>
+  <%= erb :"exercises/_nav", locals: {track: track, problem: implementation.problem, active: 'tests' } %>
+
+  <% implementation.files.select { |f, _| f =~ track.test_pattern }.each do |filename, content| %>
     <div>
       <h4><%= filename %></h4>
-      <%= syntax(content, exercise.track_id) %>
+      <%= syntax(content, track.id) %>
     </div>
   <% end %>
 </div>
