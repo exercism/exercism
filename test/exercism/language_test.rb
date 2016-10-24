@@ -1,4 +1,5 @@
 require_relative '../test_helper'
+require 'trackler'
 require_relative '../../lib/exercism/language'
 
 class LanguageTest < Minitest::Test
