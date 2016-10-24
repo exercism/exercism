@@ -66,44 +66,18 @@ class AppExercisesTest < Minitest::Test
   end
 
   def test_exercise_readme
-    exercise_data = File.read File.expand_path('../../fixtures/xapi_v3_exercise_readme.json', __FILE__)
-    X::Xapi.stub :get, [200, exercise_data] do
-      get "/exercises/foo/bar/readme"
+    get "/exercises/fake/hello-world/readme"
 
-      assert_equal 200, last_response.status
-      output = last_response.body
-
-      assert_match "This is three", output
-    end
+    assert_equal 200, last_response.status
+    assert_match "Hello World in Fake", last_response.body
+    assert_match "Oh, hello", last_response.body
   end
 
   def test_exercise_testsuite
-    exercise_data = File.read File.expand_path('../../fixtures/xapi_v3_exercise_test_files.json', __FILE__)
-    X::Xapi.stub :get, [200, exercise_data] do
-      get "/exercises/foo/bar/test-suite"
+    get "/exercises/fake/hello-world/test-suite"
 
-      assert_equal 200, last_response.status
-      output = last_response.body
-
-      assert_match "<h4>a_dog.animal</h4>", output
-      assert_match 'woof woof', output
-      assert_match "<h4>a_dog_2.animal</h4>", output
-      assert_match 'Miaowww', output
-    end
-  end
-
-  def test_exercise_api_error
-    X::Xapi.stub :get, [500, {error: 'Whoops'}.to_json] do
-      get "/exercises/foo/bar/readme"
-
-      assert_equal 302, last_response.status
-      assert_equal 'http://example.org/', last_response.location
-
-      get "/exercises/foo/bar/test-suite"
-
-      assert_equal 302, last_response.status
-      assert_equal 'http://example.org/', last_response.location
-
-    end
+    assert_equal 200, last_response.status
+    assert_match "Hello World in Fake", last_response.body
+    assert_match "assert 'hello'", last_response.body
   end
 end
