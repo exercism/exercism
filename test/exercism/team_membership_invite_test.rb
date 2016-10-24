@@ -46,10 +46,12 @@ class TeamMembershipInviteTest < Minitest::Test
     membership_invite.save
 
     assert_equal 1, TeamMembershipInvite.count
+    assert_equal 1, bob.team_membership_invites.count
 
     team.dismiss_invitation('bob')
 
     assert_equal 0, TeamMembershipInvite.count
+    assert_equal 0, bob.team_membership_invites.count
 
   end
 end
