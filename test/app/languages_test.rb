@@ -40,7 +40,7 @@ class LanguagesRoutesTest < Minitest::Test
   def test_route_languages_invalid_track
     fixture = './test/fixtures/xapi_v3_tracks_error.json'
     X::Xapi.stub(:get, [200, File.read(fixture)]) do
-      get '/languages/invalid_track'
+      get '/languages/invalid_track/about'
       assert_equal 404, last_response.status
       assert_match "It doesn't look like we have <b>invalid_track</b> yet", last_response.body
     end
@@ -62,25 +62,6 @@ class LanguagesRoutesTest < Minitest::Test
     end
   end
 
-  def test_route_contribute
-    fixture = './test/fixtures/xapi_v3_todos.json'
-    X::Xapi.stub(:get, [200, File.read(fixture)]) do
-      get '/languages/testlanguage/contribute'
-      assert_equal 200, last_response.status
-      assert_match 'Alphametics', last_response.body
-      assert_match 'Bank Account', last_response.body
-    end
-  end
-
-  def test_route_contribute_complete
-    fixture = './test/fixtures/xapi_v3_todos_none.json'
-    X::Xapi.stub(:get, [200, File.read(fixture)]) do
-      get '/languages/complete/contribute'
-      assert_equal 200, last_response.status
-      assert_match 'All exercises are implemented in Complete', last_response.body
-    end
-  end
-
   def test_route_contribute_invalid_language
     X::Xapi.stub(:get, [404, "{\"error\":\"No track 'nonexistant'\"}"]) do
       get '/languages/nonexistant/contribute'
@@ -90,9 +71,12 @@ class LanguagesRoutesTest < Minitest::Test
   end
 
   def test_route_valid_track_with_invalid_topic
-    get '/languages/valid_track/invalid_topic'
-    assert_equal 404, last_response.status
-    assert_match "It doesn't look like we have <b>invalid_topic</b> yet", last_response.body
+    fixture = './test/fixtures/xapi_v3_track.json'
+    X::Xapi.stub(:get, [200, File.read(fixture)]) do
+      get '/languages/animal/invalid-topic'
+      assert_equal 404, last_response.status
+    end
+    assert_match "We don't know anything about", last_response.body
   end
 
   def test_route_invalid_track_with_valid_topic

@@ -24,7 +24,9 @@ module X
 
     def initialize(data)
       PROPERTIES.each { |name| instance_variable_set(:"@#{name}", data[name]) }
-      @exercises = data['todos'].map { |problem| Exercise.new(problem) }
+      @exercises = data['todos'].map { |problem|
+        Exercise.new(problem)
+      }.sort_by { |e| [-e.implementations.count, e.name] }
     end
   end
 end

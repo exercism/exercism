@@ -30,23 +30,23 @@ class UserTracksSummary
   end
 
   def completed_exercises_hash
-    @completed_exercises_hash ||= completed_exercises_by_language.each_with_object({}) do |(lan, exercises), hash|
-      hash[lan] = { completed: exercises.size }
+    @completed_exercises_hash ||= completed_exercises_by_language.each_with_object({}) do |(lan, exercise_count), hash|
+      hash[lan] = { completed: exercise_count }
     end
   end
 
   def reviewed_exercises_hash
-    @reviewed_exercises_hash = reviewed_exercises_by_language.each_with_object({}) do |(lan, reviewed), hash|
-      hash[lan] = { reviewed: reviewed.size }
+    @reviewed_exercises_hash = reviewed_exercises_by_language.each_with_object({}) do |(lan, reviewed_count), hash|
+      hash[lan] = { reviewed: reviewed_count }
     end
   end
 
   def completed_exercises_by_language
-    user.exercises.completed.group_by(&:language)
+    user.exercises.where('iteration_count > 0').group(:language).count(:id)
   end
 
   def reviewed_exercises_by_language
-    user.comments.group_by { |c| c.submission.language }
+    user.comments.joins(:submission).group(:language).count('comments.id')
   end
 
   class TrackSummary

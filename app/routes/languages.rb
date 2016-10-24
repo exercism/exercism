@@ -3,7 +3,7 @@ require_relative '../../x'
 module ExercismWeb
   module Routes
     class Languages < Core
-      TOPICS = [:about, :exercises, :installing, :tests, :learning, :resources, :help, :launch].freeze
+      TOPICS = %w(about exercises installing tests learning resources help launch contribute todo).freeze
 
       get '/languages' do
         tracks = X::Track.all
@@ -34,17 +34,12 @@ module ExercismWeb
         end
       end
 
-      get '/languages/:track_id/contribute' do |track_id|
-        begin
-          unimplemented_exercises = X::Todo.track(track_id)
-          erb :"languages/contribute", locals: { exercises: unimplemented_exercises }
-        rescue X::LanguageNotFound
-          language_not_found(track_id)
-        end
-      end
-
       get '/languages/:track_id/:topic' do |track_id, topic|
-        return topic_not_found(topic) unless TOPICS.include?(topic.to_sym)
+        template = topic
+        unless TOPICS.include?(topic)
+          status 404
+          template = "topic_not_found"
+        end
 
         _, body = X::Xapi.get('tracks', track_id)
         parsed_body = JSON.parse(body)
@@ -55,6 +50,7 @@ module ExercismWeb
           erb :"languages/language", locals: {
             track: track,
             topic: topic,
+            template: template,
             docs: X::Docs::Launch.new(track.repository, track.checklist_issue),
           }
         end
@@ -63,11 +59,6 @@ module ExercismWeb
       def language_not_found(track_id)
         status 404
         erb :"languages/not_found", locals: { track_id: track_id }
-      end
-
-      def topic_not_found(topic)
-        status 404
-        erb :"languages/not_found", locals: { track_id: topic }
       end
     end
   end
