@@ -40,8 +40,6 @@ class LanguagesRoutesTest < Minitest::Test
   def test_route_languages_invalid_track
     fixture = './test/fixtures/xapi_v3_tracks_error.json'
     X::Xapi.stub(:get, [200, File.read(fixture)]) do
-      get '/languages/invalid_track'
-      assert_equal 404, last_response.status
 
       get '/languages/invalid_track/about'
       assert_equal 404, last_response.status
