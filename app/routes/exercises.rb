@@ -20,15 +20,23 @@ module ExercismWeb
         }
       end
 
-      get '/exercises/:track_id/:slug/readme' do |id, slug|
-        status, body = X::Xapi.get('tracks', id, 'exercises', slug, 'readme')
-        if status > 299
-          flash[:notice] = JSON.parse(body)["error"]
-          redirect '/'
+      get '/exercises/:track_id/:slug/readme' do |track_id, slug|
+        track = Trackler.tracks[track_id]
+        unless track.exists?
+          status 404
+          erb :"errors/not_found"
         end
 
-        exercise = X::Exercise.new(JSON.parse(body)['exercise'])
-        erb :"exercises/readme", locals: { exercise: exercise }
+        implementation = track.implementations[slug]
+        unless implementation.exists?
+          status 404
+          erb :"errors/not_found"
+        end
+
+        erb :"exercises/readme", locals: {
+          track: track,
+          implementation: implementation,
+        }
       end
 
       get '/exercises/:track_id/:slug' do |id, slug|
