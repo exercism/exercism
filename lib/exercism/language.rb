@@ -1,7 +1,6 @@
 class Language
   def self.of(track_id)
-    track = Trackler.tracks[track_id.to_s.downcase]
-    track.exists? ? track.language : track_id
+    by_track_id[track_id.to_s.downcase] || track_id.to_s.downcase
   end
 
   def self.by_track_id
