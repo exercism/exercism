@@ -21,13 +21,22 @@ Once you've picked an exercise, follow the instructions in the <a href="https://
     <p>All exercises are implemented in <%= track.language %>, you will need to <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#implementing-a-completely-new-exercise">invent a new exercise.</a></p>
   </div>
 <% else %>
+  <div class="row padding-row todo-heading">
+    <div class="col-lg-4">
+      <h4>Exercises</h4>
+    </div>
+    <div class="col-lg-4">
+      <h4>About</h4>
+    </div>
+    <div class="col-lg-4">
+      <h4>Examples</h4>
+    </div>
+  </div>
 
-  <% track.unimplemented_problems.each_slice(3) do |todos| %>
-    <div class="row padding-row">
-      <% todos.each do |todo| %>
-        <%= erb :'languages/_contribute_exercise', locals: { exercise: todo} %>
-      <% end %>
+  <% track.unimplemented_problems.each do |todo| %>
+    <div class="row padding-row exercise-todo">
+      <%= erb :'languages/_contribute_exercise', locals: { exercise: todo} %>
     </div>
   <% end %>
-
+  </div>
 <% end %>
