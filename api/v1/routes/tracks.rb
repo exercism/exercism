@@ -3,17 +3,17 @@ module ExercismAPI
     class Tracks < Core
       # Status on a track for a user.
       # Called by the CLI.
-      get '/tracks/:language/status' do |language|
+      get '/tracks/:track_id/status' do |track_id|
         require_key
 
-        track = Trackler.tracks[language]
+        track = Trackler.tracks[track_id]
         unless track.exists?
-          message = "Track #{language} not found."
+          message = "Track #{track_id} not found."
           halt 404, { error: message }.to_json
         end
 
         begin
-          Homework.new(current_user).status(language).to_json
+          Homework.new(current_user).status(track_id).to_json
           # rubocop:disable Lint/RescueException
         rescue Exception => e
           Bugsnag.notify(e, nil, request)
