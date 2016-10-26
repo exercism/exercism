@@ -308,7 +308,7 @@ Before committing, tell `compass` to compile the stylesheets for production use.
 bundle exec compass compile -e production --force
 ```
 
-For CSS we are using Sass (with `.scss`). Feel free to use [Bootstrap 3](http://getbootstrap.com) components and mixins. Or if you want to use even more mixins you can use [Compass](http://compass-style.org/reference/compass/). Structurewise we try to separate components, mixins and layouts. Where layouts should be a single page (using an HTML id as a selector) and components should be reusable partials, which can look different by layout.
+For CSS we are using Sass (with `.scss`). Feel free to use [Bootstrap 3](http://getbootstrap.com) components and mixins. Or if you want to use even more mixins you can use [Compass](http://compass-style.org/reference/compass/). Structure wise we try to separate components, mixins and layouts. Where layouts should be a single page (using an HTML id as a selector) and components should be reusable partials, which can look different by layout.
 
 You can find the Compass configuration in `config.rb` in the project's root directory.
 
@@ -331,9 +331,9 @@ To see which version is currently live visit http://exercism.io/version
 
 This will return a json string that looks like this:
 ```json
-{"repository":"https://github.com/exercism/exercism.io","contributing":"https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md","build_id":"0ad66d9"} 
+{"repository":"https://github.com/exercism/exercism.io","contributing":"https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md","build_id":"0ad66d9"}
 ```
-The "build_id" is the git id of the revision that is live, which you can find in the list of commits https://github.com/exercism/exercism.io/commits/master . Any commits above that in the list are still be waiting to be released.   
+The "build_id" is the git id of the revision that is live, which you can find in the list of commits https://github.com/exercism/exercism.io/commits/master . Any commits above that in the list are still waiting to be released.
 You can also go directly to the commit by replacing \[build_id\] in: https://github.com/exercism/exercism.io/commit/[build_id] with the hex value from the json above.
 
 Whenever a new version is released a message will appear in the sidebar of: https://gitter.im/exercism/dev  This is done via a Heroku webhook to a Gitter api endpoint. (You probably don't need to know this.)
