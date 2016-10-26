@@ -35,7 +35,7 @@
 
 #todo{
   .todo-heading{
-    border-bottom: 1px solid $exercism-light-gray;
+    border-bottom: 1px solid #eee;
 
     div{
       padding-left: 5px;
@@ -43,7 +43,7 @@
   }
 
   .exercise-todo{
-    border-bottom: 1px solid $exercism-light-gray;
+    border-bottom: 1px solid #eee;
     padding: 20px 0px;
 
     div{
@@ -65,7 +65,7 @@
     }
 
     i, a {
-      color: $exercism-charcoal;
+      color: #333;
     }
   }
 }
