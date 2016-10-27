@@ -1,18 +1,19 @@
 namespace :db do
-  require 'open3'
+
   require 'bundler'
   require 'English'
-  Bundler.require
-  require_relative '../db/config'
-  require_relative '../db/connection'
-  DB::Connection.establish
+  Bundler.setup
+
+  require 'db/connection'
 
   desc "migrate your database"
   task :migrate do
+    connect
     ActiveRecord::Migrator.migrate('./db/migrate')
   end
 
   task :rollback do
+    connect
     step = ENV['STEP'] ? ENV['STEP'].to_i : 1
     ActiveRecord::Migrator.rollback('./db/migrate', step)
   end
@@ -21,12 +22,15 @@ namespace :db do
     task :down do
       version = ENV['VERSION'] ? ENV['VERSION'].to_i : nil
       fail 'VERSION is required - To go down one migration, run db:rollback' unless version
+      connect
       ActiveRecord::Migrator.run(:down, './db/migrate', version)
     end
   end
 
   desc "set up your database"
   task :setup do
+    require 'open3'
+
     user = DB::Connection.escape(config.username)
     pass = DB::Connection.escape(config.password)
 
@@ -90,5 +94,9 @@ end
 
   def config
     DB::Config.new
+  end
+
+  def connect
+    DB::Connection.establish
   end
 end
