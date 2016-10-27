@@ -1,5 +1,5 @@
 
-## Windows 
+## Windows
 
 Below are instructions for install using the most common methods - using Powershell & Chocolately Package Manager. For further help and instructions, see:
 1. [Install Alternatives for instructions on installing manually on windows](/cli/install)
@@ -7,10 +7,10 @@ Below are instructions for install using the most common methods - using Powersh
 3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
 
-### Using Powershell and the Chocolatey Package Manager for Windows <a name="chocolatey"></a>  
+### Using Powershell and the Chocolatey Package Manager for Windows <a name="chocolatey"></a>
 **NOTE:** You can find more information about using Chocolatey at the [Chocolatey site](https://chocolatey.org/).
 
-#### Using PowerShell 
+#### Using PowerShell
 Windows ships with a powerful scripting language called [PowerShell](https://en.wikipedia.org/wiki/Windows_PowerShell).
 
 Type in `powershell` in the search or run window in Windows. You may see two options - `PowerShell` and `PowerShell ISE`. The first is the regular PowerShell command prompt window. The second is the Interactive Scripting Environment. Feel free to choose either one. Here's [more](http://www.powershellpro.com/powershell-tutorial-introduction/tutorial-windows-powershell-console/) on getting started with PowerShell. Paste and run the following script and you're ready to go. This downloads Chocolatey, sets the environment path variable, and installs the exercism CLI.
@@ -26,7 +26,7 @@ if ((which cinst) -eq $null) {
 cinst exercism-io-cli
 ```
 
-#### Using the Command Prompt 
+#### Using the Command Prompt
 1. Open a command line interface (CLI) by clicking on "Start", typing "cmd" into the search bar and pressing enter
 2. Next copy and paste the following command into the command window:
 
@@ -53,7 +53,7 @@ cinst exercism-io-cli
 1. If all is well you should be shown information on how to use exercism
 
 
-#### Verify Install 
+#### Verify Install
 1. Verify that the binary was installed properly by running:
 
         exercism --version
@@ -64,7 +64,7 @@ cinst exercism-io-cli
         exercism
 
 
-#### Configure The CLI 
+#### Configure The CLI
 
 1. Configure the exercism client so that it knows which account to post your solutions to:
 
@@ -76,6 +76,6 @@ cinst exercism-io-cli
 
         exercism configure --dir=~/some/other/place
 
-### Continue 
+### Continue
 You can now continue by [choosing a language](http://exercism.io/languages).
 
