@@ -74,9 +74,13 @@ class Team < ActiveRecord::Base
     return unless users.present?
 
     users = Array(users) - all_members
-
-    users.each do |user|
-      TeamMembershipInvite.create(user: user, team: self, inviter: inviter, refused: false)
+    self.transaction do
+      users.map do |user|
+        TeamMembershipInvite.create(user: user,
+                                    team: self,
+                                    inviter: inviter,
+                                    refused: false)
+      end
     end
   end
 
