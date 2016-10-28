@@ -40,7 +40,7 @@ to communicate between your OS and the VM is called [Docker Machine][].
 This indirection can sometimes cause confusion and difficulties, but
 this document will try to address potential issues when they may arise.
 
-**Note to Windows Users:** Due to various Windows issues, it's 
+**Note to Windows Users:** Due to various Windows issues, it's
 probably easiest to develop by setting up a Linux virtual machine
 using a tool like [VirtualBox][], and following the Docker instructions
 for Linux, rather than using Docker Toolbox on Windows. However, you're

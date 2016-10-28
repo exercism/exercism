@@ -1,17 +1,17 @@
 
 ## Install Alternatives <a name="install"></a>
 
-## Contents 
+## Contents
 - [mac osx: installing without homebrew](#installing-without-homebrew)
 - [windows: installing manually](#installing-manually)
 
-If you need help: 
-- [view the general help](http://exercism.io/help) 
+If you need help:
+- [view the general help](http://exercism.io/help)
 - [join the exercism.io chat on gitter](https://gitter.im/exercism/support)
 
 
 <a name="installing-without-homebrew"></a>
-### Installing Without Homebrew 
+### Installing Without Homebrew
 
 This is described in detail in [this video tutorial](https://www.youtube.com/watch?v=TCT4eHGwfaE).
 
@@ -88,7 +88,7 @@ You should now have access to the exercism command:
 ```bash
 exercism --version
 ```
-### Continue 
+### Continue
 You can now continue by [choosing a language](http://exercism.io/languages).
 
 ## Windows - Manual Installation <a name="installing-manually"></a>
@@ -164,6 +164,6 @@ The following instructions will append the location of the exercism.exe file to 
 ### Continue ###
 You can now continue by [choosing a language](http://exercism.io/languages).
 
-If you need further help: 
-- [view the general help](http://exercism.io/help) 
+If you need further help:
+- [view the general help](http://exercism.io/help)
 - [join the exercism.io chat on gitter](https://gitter.im/exercism/support)
