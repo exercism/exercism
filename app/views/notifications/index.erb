@@ -56,15 +56,7 @@
           <% end %>
         </ul>
       <% end %>
-      <% notification_hash = Hash.new([]) %>
-      <% inbox.notifications.each do |notification| %>
-        <% if notification_hash[notification.iteration.problem.language].empty? %>
-          <% notification_hash[notification.iteration.problem.language] = [notification] %>
-        <% else %>
-          <% notification_hash[notification.iteration.problem.language] << notification %>
-        <% end %>
-      <% end %>
-      <% notification_hash.each do | lang, notifications | %>
+      <% notification_by_language(inbox.notifications).each do | lang, notifications | %>
         <h3><%= lang %></h3>
         <ul style="list-style-type: none; margin: 0;">
           <% notifications.each do | notification | %>
