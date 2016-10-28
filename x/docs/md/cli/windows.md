@@ -1,10 +1,10 @@
-
 ## Windows
 
-Below are instructions for install using the most common methods - using Powershell & Chocolately Package Manager. For further help and instructions, see:
+Below are instructions for install using the most common methods - using Powershell & Chocolately Package Manager. For further help and instructions, see the following:
+
 1. [Install Alternatives for instructions on installing manually on windows](/cli/install)
-2. [exercism.io general help](http://exercism.io/help)
-3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
+1. [exercism.io general help](http://exercism.io/help)
+1. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
 
 ### Using Powershell and the Chocolatey Package Manager for Windows <a name="chocolatey"></a>
@@ -28,15 +28,15 @@ cinst exercism-io-cli
 
 #### Using the Command Prompt
 1. Open a command line interface (CLI) by clicking on "Start", typing "cmd" into the search bar and pressing enter
-2. Next copy and paste the following command into the command window:
+1. Next copy and paste the following command into the command window:
 
         @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
 
-3. Once the installation finishes, Chocolatey should be installed. To test the installation you can open a new command window (step 1) and enter the following command:
+1. Once the installation finishes, Chocolatey should be installed. To test the installation you can open a new command window (step 1) and enter the following command:
 
         choco /?
 
-	You should see the help documentation for the "choco" command if all is well
+        You should see the help documentation for the "choco" command if all is well
 
 4. Next we need to install the Exercism CLI.  Open up a new command window (step 1) and type in the following:
 
@@ -71,11 +71,10 @@ cinst exercism-io-cli
         exercism configure --key=YOUR_API_KEY
 
 2. Your exercism API key can be found in [your account](/account/key).
-	By default the CLI will fetch exercises to `~/exercism`.
-	You can configure a different directory by passing the `--dir` option:
+        By default the CLI will fetch exercises to `~/exercism`.
+        You can configure a different directory by passing the `--dir` option:
 
         exercism configure --dir=~/some/other/place
 
 ### Continue
 You can now continue by [choosing a language](http://exercism.io/languages).
-
