@@ -1,10 +1,11 @@
 
 ## Windows
 
-Below are instructions for install using the most common methods - using Powershell & Chocolately Package Manager. For further help and instructions, see:
+Below are instructions for install using the most common methods - using Powershell & Chocolately Package Manager. For further help and instructions, see the following:
+
 1. [Install Alternatives for instructions on installing manually on windows](/cli/install)
-2. [exercism.io general help](http://exercism.io/help)
-3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
+1. [exercism.io general help](http://exercism.io/help)
+1. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
 
 ### Using Powershell and the Chocolatey Package Manager for Windows <a name="chocolatey"></a>
