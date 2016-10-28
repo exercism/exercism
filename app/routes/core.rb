@@ -42,6 +42,7 @@ module ExercismWeb
       use Rack::Flash
 
       helpers Helpers::NotificationCount # total hack
+      helpers Helpers::NotificationByLanguage
       helpers Helpers::FuzzyTime
       helpers Helpers::NgEsc
       helpers Helpers::Markdown
