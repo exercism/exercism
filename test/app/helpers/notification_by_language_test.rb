@@ -6,9 +6,9 @@ class AppHelpersNotificationByLanguageTest < Minitest::Test
 
   def setup
     super
-    @alice      = User.create(username: 'alice', email: 'alice@example.com')
-    @fred       = User.create(username: 'fred', email: 'fred@example.com')
-    @submission = Submission.create(user: @alice)
+    @kara      = User.create(username: 'kara', email: 'kara@example.com')
+    @oliver       = User.create(username: 'oliver', email: 'oliver@example.com')
+    @submission = Submission.create(user: @kara)
   end
 
   def helper
@@ -24,13 +24,9 @@ class AppHelpersNotificationByLanguageTest < Minitest::Test
   end
 
   def test_notification_by_language_many
-    langs = ['ruby', 'clojure', 'javascript']
-    actions = ['comment', 'iteration', 'mention', 'like']
-    10.times do |i|
-      submission = Submission.create(language: langs[i%3], slug: "Test #{i}", user: @alice)
-      Notification.on(submission, user_id: @fred.id, action: actions[i%4], actor_id: @alice.id)
-    end
-    assert_equal 4, helper.notification_by_language(@fred.notifications)['Ruby'].count
+    submission = Submission.create(language: 'animal', slug: "rainbow", user: @kara)
+    Notification.on(submission, user_id: @oliver.id, action: 'iteration', actor_id: @kara.id)
+    assert_equal 1, helper.notification_by_language(@oliver.notifications)['Animal'].count
   end
 
 end
