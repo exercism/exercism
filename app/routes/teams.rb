@@ -31,6 +31,9 @@ module ExercismWeb
       # Create a new team.
       post '/teams/new' do
         please_login
+        temp_usernames = params[:team]["usernames"].split(",")
+        temp_usernames.delete(current_user.username)
+        params[:team]["usernames"] = temp_usernames.join(",")
         team = Team.by(current_user).defined_with(params[:team], current_user)
         if team.valid?
           team.save
