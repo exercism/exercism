@@ -3,13 +3,15 @@ module ExercismWeb
     class Invitations < Core
       post '/teams/:slug/invitations' do |slug|
         please_login
+        # TODO:  TeamManager member invitation list
         temp_usernames =  params[:usernames].split(",")
-        temp_usernames.delete(current_user.username)
-        valid_invitee = temp_usernames.join(",")
+        team = Team.find_by(slug: params[:slug])
+        valid_invitee = temp_usernames - team.members.map(&:username)
+        valid_invitee = valid_invitee.join(",")
         only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
           team.invite_with_usernames(valid_invitee, current_user)
           team.save
-          
+
           flash[:success] = "Invitation sent to team #{slug}" if valid_invitee.size > 0
           redirect "/teams/#{slug}/manage"
         end
