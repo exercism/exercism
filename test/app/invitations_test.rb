@@ -69,7 +69,7 @@ class InvitationsTest < Minitest::Test
     verb, path, action = [:post, '/teams/abc/invitations', "invite members"]
     location = "http://example.org/teams/abc"
 
-    send verb, path, {}, login(bob)
+    send verb, path, { usernames: "#{charlie.username}" }, login(bob)
     assert_equal 302, last_response.status, "No redirect for #{verb.to_s.upcase} #{path}"
     assert_equal location, last_response.location, "Only a manager may #{action}. (#{verb.to_s.upcase} #{path})"
   end
