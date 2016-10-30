@@ -5,8 +5,6 @@ module ExercismWeb
         please_login
         team = Team.find_by(slug: params[:slug])
         valid_invitee = (params[:usernames].split(",") - team.members.map(&:username)).join(",")
-        # valid_invitee = temp_usernames - team.members.map(&:username)
-        # valid_invitee = valid_invitee.join(",")
         only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
           team.invite_with_usernames(valid_invitee, current_user)
           team.save
