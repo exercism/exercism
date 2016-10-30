@@ -3,7 +3,9 @@ module ExercismWeb
     class Invitations < Core
       post '/teams/:slug/invitations' do |slug|
         please_login
-        valid_invitee = params[:usernames].delete(current_user.username)
+        temp_usernames =  params[:usernames].split(",")
+        temp_usernames.delete(current_user.username)
+        valid_invitee = temp_usernames.join(",")
         only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
           team.invite_with_usernames(valid_invitee, current_user)
           team.save
