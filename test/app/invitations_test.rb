@@ -89,6 +89,14 @@ class InvitationsTest < Minitest::Test
     refute team.includes?(charlie)
   end
 
+  def test_team_creator_receive_no_notification
+    team = Team.by(alice).defined_with(slug: 'members', usernames: bob.username)
+    team.save
+
+    assert_equal 1, bob.reload.team_membership_invites.count
+    assert_equal 0, alice.reload.team_membership_invites.count
+  end
+
   def test_only_managers_can_invite_members
     team = Team.by(alice).defined_with(slug: 'members', usernames: bob.username)
     team.save
