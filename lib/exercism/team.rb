@@ -1,6 +1,9 @@
 require './lib/exercism/team_membership'
 require './lib/exercism/team_membership_invite'
 
+require "sinatra"
+require "pry"
+
 class Team < ActiveRecord::Base
   has_many :memberships, -> { where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
   has_many :membership_invites, -> { where refused: false }, class_name: "TeamMembershipInvite", dependent: :destroy
@@ -57,9 +60,8 @@ class Team < ActiveRecord::Base
     self.tags = Tag.create_from_text(tags)
 
     users = User.find_or_create_in_usernames(potential_members(options[:usernames])) if options[:usernames]
-    users = options[:users] - inviter.username if options[:users]
+    users = users - Array(inviter) if users
     invite(users, inviter)
-
     self
   end
 
