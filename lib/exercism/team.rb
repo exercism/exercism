@@ -1,8 +1,6 @@
 require './lib/exercism/team_membership'
 require './lib/exercism/team_membership_invite'
 
-require "sinatra"
-require "pry"
 
 class Team < ActiveRecord::Base
   has_many :memberships, -> { where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
@@ -74,9 +72,7 @@ class Team < ActiveRecord::Base
 
   def invite(users, inviter)
     return unless users.present?
-
     users = Array(users) - all_members
-
     users.each do |user|
       TeamMembershipInvite.create(user: user, team: self, inviter: inviter, refused: false)
     end

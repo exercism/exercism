@@ -90,16 +90,20 @@ class InvitationsTest < Minitest::Test
   end
 
   def test_team_creator_receive_no_notification
-    team = Team.by(alice).defined_with({"slug"=>"members", "usernames"=>"#{alice.username}"}, alice)
+    options = {slug: 'creatortest', usernames: "#{charlie.username}, #{alice.username}"}
+    inviter = alice
+    team = Team.by(alice).defined_with(options, alice)
     team.save
 
+    assert_equal 1, charlie.reload.team_membership_invites.count
     assert_equal 0, alice.reload.team_membership_invites.count
 
     verb, path, action = [:post, '/teams/members/invitations', "invite members"]
     location = "http://example.org/teams/abc"
 
-    send verb, path, { usernames: "#{alice.username}" }, login(alice)
+    send verb, path, { usernames: "#{alice.username}, #{charlie.username}" }, login(alice)
 
+    assert_equal 1, charlie.reload.team_membership_invites.count
     assert_equal 0, alice.reload.team_membership_invites.count
   end
 
