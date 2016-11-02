@@ -91,7 +91,6 @@ class InvitationsTest < Minitest::Test
 
   def test_team_creator_receive_no_notification
     options = {slug: 'creatortest', usernames: "#{charlie.username}, #{alice.username}"}
-    inviter = alice
     team = Team.by(alice).defined_with(options, alice)
     team.save
 

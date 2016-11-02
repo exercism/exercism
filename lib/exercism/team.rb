@@ -1,7 +1,6 @@
 require './lib/exercism/team_membership'
 require './lib/exercism/team_membership_invite'
 
-
 class Team < ActiveRecord::Base
   has_many :memberships, -> { where confirmed: true }, class_name: "TeamMembership", dependent: :destroy
   has_many :membership_invites, -> { where refused: false }, class_name: "TeamMembershipInvite", dependent: :destroy
