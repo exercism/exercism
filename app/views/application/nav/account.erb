@@ -7,7 +7,7 @@
   <ul class="dropdown-menu" role="menu">
     <li><a role="menuitem" tabindex="-1" href="/<%= current_user.username %>">Profile</a></li>
     <li><a role="menuitem" tabindex="-1" href="/account">Account</a></li>
-    <% if current_user.teams && current_user.teams.any? %>
+    <% if current_user.teams.any? %>
       <li role="separator" class="divider"></li>
       <% current_user.teams.each do |team| %>
         <li><a role="menuitem" tabindex="-1" href=<%= "/teams/#{team.slug}" %>><%= team.name %></a></li>
