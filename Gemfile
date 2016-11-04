@@ -41,6 +41,7 @@ group :test, :development do
   gem 'simplecov', require: false
   gem 'sqlite3'
   gem 'timecop', require: false
+  gem 'rb-readline'
 end
 
 group :development do
