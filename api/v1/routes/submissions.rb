@@ -26,34 +26,20 @@ module ExercismAPI
           halt 404, { error: "unknown submission #{key}" }.to_json
         end
 
-        status, payload = Xapi.get("v2", "exercises", submission.track_id, submission.slug)
-        halt status, payload if status != 200
-
-        begin
-          data = JSON.parse(payload)
-        rescue
-          halt 500, { error: "cannot get problem #{submission.slug} in #{submission.track_id}" }.to_json
-        end
-
-        problems = data['problems']
-        if problems.nil?
-          halt 404, { error: "#{submission.slug} in #{submission.track_id} not found" }.to_json
-        end
-
-        exercise = problems.first
-        if exercise.nil?
+        implementation = Trackler.tracks[submission.language].implementations[submission.slug]
+        if implementation.nil?
           halt 404, { error: "#{submission.slug} in #{submission.track_id} not found" }.to_json
         end
 
         {
-          language: exercise['language'],
+          language: submission.language,
           track_id: submission.track_id,
           slug: submission.slug,
           uuid: submission.key,
           solution_uuid: submission.user_exercise.key,
           user_id: submission.user_id,
           username: submission.user.username,
-          problem_files: exercise['files'],
+          problem_files: implementation.files,
           solution_files: submission.solution,
         }.to_json
       end

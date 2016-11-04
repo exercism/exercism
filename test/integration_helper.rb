@@ -3,4 +3,5 @@ require 'bundler'
 Bundler.require
 require_relative './active_record_helper'
 require 'exercism'
-require_relative './tracks_helper'
+
+Trackler.use_fixture_data
