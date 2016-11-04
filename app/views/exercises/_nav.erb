@@ -1,0 +1,25 @@
+<section class="page-header">
+  <a href="/"> HOME </a> <i class="fa fa-caret-right"></i> <a href="/languages"> Languages</a> <i class="fa fa-caret-right"></i> <a href="/languages/<%= track.id %>"><%= track.language %></a>
+  <i class="fa fa-caret-right"></i> <a href="/exercises/<%= track.id %>/<%= problem.slug %>"><%= problem.name %></a>
+  <h1>
+    <%= problem.name %> in <%= track.language %>
+  </h1>
+  <h4>
+    <%= problem.blurb%>
+  </h4>
+</section>
+<section>
+  <p>
+    <%= syntax "exercism fetch #{track.id} #{problem.slug}", "plain" %>
+  </p>
+</section>
+<nav role="navigation">
+  <ul class="nav nav-tabs">
+    <li role="presentation" class= <%= 'active' if active == 'readme' %>>
+      <a href=<%="/exercises/#{track.id}/#{problem.slug}/readme" %>>Readme</a>
+    </li>
+    <li role="presentation" class= <%= 'active' if active == 'tests' %>>
+      <a href=<%= "/exercises/#{track.id}/#{problem.slug}/test-suite" %>>Test Suite</a>
+    </li>
+  </ul>
+</nav>
