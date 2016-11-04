@@ -159,7 +159,7 @@ GEM
     tilt (2.0.2)
     timecop (0.8.0)
     tins (1.6.0)
-    trackler (1.0.3.0)
+    trackler (2.0.0.2)
       org-ruby (~> 0.9.0)
       rubyzip (~> 1.1)
     tzinfo (1.2.2)
@@ -209,7 +209,7 @@ DEPENDENCIES
   sinatra-contrib
   sqlite3
   timecop
-  trackler (~> 1.0.0)
+  trackler (~> 2.0.0)
   will_paginate
   will_paginate-bootstrap
 
