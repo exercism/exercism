@@ -32,3 +32,41 @@
     padding: 9px 0px;
   }
 }
+
+#todo{
+  .todo-heading{
+    border-bottom: 1px solid #eee;
+
+    div{
+      padding-left: 5px;
+    }
+  }
+
+  .exercise-todo{
+    border-bottom: 1px solid #eee;
+    padding: 20px 0px;
+
+    div{
+      padding: 5px;
+      text-align: left;
+
+      h3, h5{
+        margin: 5px 0;
+      }
+    }
+  }
+
+  .link-icons{
+    display: inline-block;
+    margin: 5px auto;
+
+    i{
+      margin-right: 5px;
+    }
+
+    i, a {
+      color: #333;
+    }
+  }
+}
+
