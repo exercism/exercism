@@ -1,0 +1,11 @@
+<li class="dropdown">
+  <a class="dropdown-toggle" id="drop-teams" href="#" data-toggle="dropdown">
+    Teams <b class="caret"></b>
+  </a>
+
+  <ul class="dropdown-menu" role="menu">
+    <% current_user.teams.each do |team| %>
+      <li><a role="menuitem" tabindex="-1" href=<%= "/teams/#{team.slug}" %>><%= team.name %></a></li>
+    <% end %>
+  </ul>
+</li>

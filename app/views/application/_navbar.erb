@@ -26,6 +26,9 @@
             <% if current_user.sees_exercises? %>
               <li><a href="/inbox">Activity Streams</a></li>
             <% end %>
+            <% if current_user.teams.any? %>
+              <%= erb :"application/nav/teams" %>
+            <% end %>
           <%= erb :"application/nav/notifications" %>
           <%= erb :"application/nav/account" %>
         <% else %>
