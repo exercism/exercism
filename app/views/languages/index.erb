@@ -14,7 +14,7 @@
     <section class="page-header">
       <h3>Upcoming</h3>
     </section>
-    <% inactive.each_slice(6) do |tracks| %>
+    <% upcoming.each_slice(6) do |tracks| %>
       <div class="row">
         <% tracks.each do |t| %>
           <%= erb :'languages/_block', locals: { track: t } %>
