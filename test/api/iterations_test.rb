@@ -22,18 +22,14 @@ class IterationsApiTest < Minitest::Test
       comment: '',
     }
 
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', submission.to_json
-    end
+    post '/user/assignments', submission.to_json
 
     assert_equal 0, Comment.count
 
     submission[:comment] = 'Awesome code!'
     submission[:solution] = { 'code.rb' => 'CODE2' }
 
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', submission.to_json
-    end
+    post '/user/assignments', submission.to_json
 
     assert_equal 1, Comment.count
     comment = Comment.first
@@ -79,9 +75,7 @@ class IterationsApiTest < Minitest::Test
       Hack::UpdatesUserExercise.new(*args).update
     end
 
-    Xapi.stub(:exists?, true) do
-      get '/iterations/latest', key: @alice.key
-    end
+    get '/iterations/latest', key: @alice.key
 
     output = last_response.body
     options = { format: :json, name: 'api_iterations' }
@@ -89,23 +83,18 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_skip_problem
-    Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', key: @alice.key
-    end
-
+    post "/iterations/animal/dog/skip", key: @alice.key
     exercise = @alice.exercises.first
-    assert_equal 'ruby', exercise.language
-    assert_equal 'one', exercise.slug
+    assert_equal 'animal', exercise.language
+    assert_equal 'dog', exercise.slug
     refute_equal nil, exercise.skipped_at
     assert_equal 204, last_response.status
   end
 
   def test_skip_non_existent_problem
-    Xapi.stub(:exists?, false) do
-      post '/iterations/ruby/not-found/skip', key: @alice.key
-    end
+    post '/iterations/animal/not-found/skip', key: @alice.key
 
-    expected_message = "Exercise 'not-found' in language 'ruby' doesn't exist. "
+    expected_message = "Exercise 'not-found' in language 'animal' doesn't exist. "
     expected_message << "Maybe you mispelled it?"
 
     assert_equal 404, last_response.status
@@ -113,9 +102,7 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_skip_problem_as_guest
-    Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', key: 'invalid-api-key'
-    end
+    post '/iterations/ruby/one/skip', key: 'invalid-api-key'
 
     expected_message = "Please double-check your exercism API key."
 
@@ -131,9 +118,7 @@ class IterationsApiTest < Minitest::Test
       "dir" => "/path/to/exercism/dir",
     }
 
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', submission.to_json
-    end
+    post '/user/assignments', submission.to_json
 
     submission = Submission.first
     assert_equal "go", submission.language
@@ -150,9 +135,7 @@ class IterationsApiTest < Minitest::Test
       "dir" => "/path/to/exercism/dir",
     }
 
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', submission.to_json
-    end
+    post '/user/assignments', submission.to_json
 
     submission = Submission.first
     assert_equal "binary", submission.slug

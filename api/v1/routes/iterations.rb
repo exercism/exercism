@@ -14,7 +14,9 @@ module ExercismAPI
           halt 401, { error: message }.to_json
         end
 
-        unless Xapi.exists?(language, slug)
+        track = Trackler.tracks[language]
+        problems = track.problems
+        unless problems.include? slug
           message = "Exercise '#{slug}' in language '#{language}' doesn't exist. "
           message << "Maybe you mispelled it?"
           halt 404, { error: message }.to_json
