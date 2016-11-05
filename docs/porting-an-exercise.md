@@ -1,13 +1,13 @@
 # Porting an Exercise to Another Language Track
 
-[xcommon]: http://github.com/exercism/x-common/tree/master/exercises
+[x-common]: http://github.com/exercism/x-common/tree/master/exercises
 [support-chat]: https://gitter.im/exercism/support
 [topics]: https://github.com/exercism/x-common/blob/master/TOPICS.txt
 [configlet]: https://github.com/exercism/configlet#configlet
 
 Exercism has a lot of exercises in a lot of languages.
 
-Each exercise is defined in a language-agnostic way in the [x-common][xcommon]
+Each exercise is defined in a language-agnostic way in the [x-common][]
 repository, and then each individual language track can create an implementation
 of that exercise.
 
@@ -66,7 +66,7 @@ master, which will make the WIP commit go away.
 You'll need to find the `slug` for the exercise. That's the URL-friendly identifier
 for an exercise that is used throughout all of Exercism.
 
-**The name of the exercise directory in the [x-common][xcommon] repository is the slug.**
+**The name of the exercise directory in the [x-common][] repository is the slug.**
 
 Create a new directory named after the slug in the `exercises` directory of the language
 track repository.

@@ -1,8 +1,7 @@
 # Improving Consistency Across Tracks
 
 [blazon]: https://github.com/exercism/blazon
-[xcommon]: https://github.com/exercism/x-common/tree/master/exercises
-[xcommon-issue]: http://github.com/exercism/x-common/issues
+[x-common]: https://github.com/exercism/x-common/tree/master/exercises
 
 ## Canonical Data
 
@@ -18,7 +17,7 @@ We want to avoid
 
 Once we've found a good set of tests, we formalize the inputs and outputs and
 store it in a file called `canonical-data.json` alongside the language-agnostic
-problem description in the [x-common][xcommon] repository.
+problem description in the [x-common][] repository.
 
 Some things vary from language to language, so don't feel constrained to
 implementing exactly what is in the `canonical-data.json` file.

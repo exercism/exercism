@@ -4,8 +4,10 @@
 [triaging-issues]: /docs/triaging-issues-in-a-track.md
 [reviewing-prs]: /docs/reviewing-a-pull-request.md
 [porting]: /docs/porting-an-exercise.md
-[xcommon]: http://github.com/exercism/x-common
-[blazon]: /docs/improving-consistency-across-tracks.md
+[x-common]: https://github.com/exercism/x-common
+[blazon]: https://github.com/exercism/blazon
+[blazon-process]: /docs/improving-consistency-across-tracks.md
+[fixing-readmes]: /docs/fixing-exercise-readmes.md
 
 The Exercism language tracks are a great way to get involved in:
 
@@ -62,20 +64,6 @@ track, and port it over to your target language.
 We've got [a guide][porting] that walks you through how to find an exercise to port, and the things to
 keep in mind when implementing it.
 
-### Reordering Exercises
-
-We don't really have a formal process for deciding what order exercises should be in. The order is decided by the
-order of the `exercises` array in the `config.json` file in the track repository.
-
-As you do the exercises in a track, keep an eye on how you feel about an exercise.
-
-* If it's **too easy**, move it higher up in the array.
-* If it's **too hard**, move it further down in the array.
-* If two exercises are **too similar** then move one of them so that there are some different exercises between them.
-
-We can also deprecate an exercise by removing it from the `exercises` array and adding the slug to the `deprecated` key,
-which is also in the `config.json` file.
-
 ### Improving the Contributing Documentation
 
 It's not always obvious how to get started contributing to a language track. As you get involved, help improve the
@@ -87,14 +75,75 @@ README in the track repository.
 * Is there any tooling that we're using? Linters?
 * Is there continuous integration? Are there any gotchas?
 
-### Improving the Curriculum
+## Improving the Curriculum
 
-Sometimes people run into edge cases. If you're considering adding a new test, open a discussion in the [x-common][xcommon]
-repository and get other track implementors' feedback on whether this makes sense. It might make sense only for this track,
-or perhaps it would be an improvement to all the various language tracks that have this exercise. If so then we'll want to
+As you solve exercises on the site, pay attention to what you like and dislike
+about the exercises.
+
+### Improving Exercise READMEs
+
+If the README is ambiguous or confusing, then there's almost certainly
+something we can do to clarify.
+
+Or maybe you found a typo (you wouldn't be the first).
+
+The READMEs are generated, and all the details are explained [here][fixing-readmes].
+
+### Changing Exercise Test Suites
+
+* Did the test suite force you towards a certain solution? (It shouldn't.)
+* Did you come across a solution that passed the tests, but that had a bug?
+  (Maybe we're missing a test case.)
+
+The test suite is straight forward to find: look in the `exercises`
+directory in the language track repository for the directory named after the
+slug of the exercise. The test file will be right there.
+
+That said, some test suites are generated based on the `canonical-data.json`
+file found in [x-common][]. The README for the language track repository
+should tell you what you need to know.
+
+For every change that you make to the test suite, ask yourself: **Should this
+change also affect other language tracks that implement the same exercise?**
+
+If you think it might, open a discussion in the [x-common][] repository and get
+other track implementors' feedback on the subject.
+
+If this change should affect the broader Exercism curriculum, then use the
+issue in x-common to
 
 - hash out all the details together
-- add it to the canonical data for the exercise (if it exists)
-- submit an issue to all the tracks that implement the exercise
+- figure out the necessary changes to the `canonical-data.json` for the
+  exercise (if it exists)
+- draft an issue that can be submitted to all the tracks that implement the
+  exercise using the [blazon][] tool (which automates the tedious parts).
+  More about that [here][blazon-process].
 
-We have a [tool and a process][blazon] for doing that.
+### Reordering Exercises
+
+We don't have a formal process for deciding how the exercises should be
+ordered, and often as we add more exercises, we get some less-than-optimal
+sequences of exercises.
+
+As you work through the exercises in the track, notice whether an exercise
+seems vastly more difficult than the previous one, or much easier, or boring.
+
+The order is decided by the `exercises` array in `config.json`.
+
+* If it's **too easy**, move it higher up in the array.
+* If it's **too hard**, move it further down in the array.
+* If two exercises are **too similar** then move one of them so that there are
+  some different exercises between them.
+
+We can also deprecate an exercise by removing it from the `exercises` array
+and adding the slug to the `deprecated` key, which is also in the
+`config.json` file.
+
+### Adding Hints
+
+Sometimes an exercise is in the right place in the sequence, but it's really
+hard to figure out how to solve it anyway.
+
+In this case consider whether there's a blog post or some documentation that
+you could point people to, and add it to `HINTS.md` in the exercise directory
+in the language track. If the file doesn't exist, create a new one.
