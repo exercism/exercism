@@ -43,7 +43,14 @@ namespace :db do
     end
 
     system 'createdb', '-h', config.host, '-p', config.port, '-U', config.username, config.database
-    fail "Failed to create database" unless $CHILD_STATUS.success?
+
+    unless $CHILD_STATUS.success?
+      if system "psql -lqtA | grep -q #{config.database}"
+        $stdout.puts "#{config.database} already exists"
+      else
+        fail "Failed to create database"
+      end
+    end
   end
 
   desc "drop and recreate your database"
