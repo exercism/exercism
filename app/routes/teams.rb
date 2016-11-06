@@ -221,6 +221,17 @@ module ExercismWeb
         end
       end
 
+      # Delete team invitations
+      delete '/teams/:slug/invitations/:username' do |slug, username|
+        please_login
+        only_for_team_managers(slug, "You are not allowed to retract invitations.") do |team|
+          team.dismiss_invitation(username)
+
+          flash[:success] = "#{username} removed from team #{slug} invitations"
+          redirect "/teams/#{slug}/manage"
+        end
+      end
+
       # Update team information.
       put '/teams/:slug' do |slug|
         please_login
