@@ -37,4 +37,21 @@ class TeamMembershipInviteTest < Minitest::Test
     membership_invite.refuse!
     assert membership_invite.refused?
   end
+
+  def test_retract_invitation
+    team = Team.by(alice).defined_with(slug: 'retract')
+    team.save
+
+    membership_invite = TeamMembershipInvite.new(team: team, user: bob, inviter: alice)
+    membership_invite.save
+
+    assert_equal 1, TeamMembershipInvite.count
+    assert_equal 1, bob.team_membership_invites.count
+
+    team.dismiss_invitation('bob')
+
+    assert_equal 0, TeamMembershipInvite.count
+    assert_equal 0, bob.team_membership_invites.count
+
+  end
 end
