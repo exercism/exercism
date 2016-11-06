@@ -46,12 +46,11 @@ namespace :db do
       system 'psql', '-h', config.host, '-p', config.port, '-c', sql, '-d', 'postgres'
     end
 
-    system 'createdb', '-h', config.host, '-p', config.port, '-U', config.username, config.database
-
-    unless $CHILD_STATUS.success?
-      if system "psql -lqtA | grep -q #{config.database}"
-        $stdout.puts "#{config.database} already exists"
-      else
+    if system "psql -lqtA | grep -q #{config.database}"
+      $stdout.puts "#{config.database} already exists"
+    else
+      system 'createdb', '-h', config.host, '-p', config.port, '-U', config.username, config.database
+      unless $CHILD_STATUS.success?
         fail "Failed to create database"
       end
     end
