@@ -11,9 +11,9 @@
 
 The Exercism language tracks are a great way to get involved in:
 
-- a programming language you love
-- a programming language you're curious about
-- open source (in general)
+- A programming language you love.
+- A programming language you're curious about.
+- Open source (in general).
 
 Each language track lives in its own repository, which means that you can contribute
 to a track without having to know anything about the rest of the Exercism ecosystem.
@@ -23,7 +23,7 @@ to make development easier, so there's no big codebase to get acquainted with.
 
 ## Submit a Couple of Solutions
 
-If you haven't used Exercism before, then we recommend submitting solutions to a couple of
+If you haven't used Exercism before, then we recommend first submitting solutions to a couple of
 exercises. It doesn't matter which language track you submit to, it's just to get a feel
 for what a language track consists of.
 
@@ -110,12 +110,12 @@ If you think it might, open a discussion in the [x-common][] repository and get
 other track implementors' feedback on the subject.
 
 If this change should affect the broader Exercism curriculum, then use the
-issue in x-common to
+issue in [x-common][] to:
 
-- hash out all the details together
-- figure out the necessary changes to the `canonical-data.json` for the
-  exercise (if it exists)
-- draft an issue that can be submitted to all the tracks that implement the
+- Hash out all the details together.
+- Figure out the necessary changes to the `canonical-data.json` for the
+  exercise (if it exists).
+- Draft an issue that can be submitted to all the tracks that implement the
   exercise using the [blazon][] tool (which automates the tedious parts).
   More about that [here][blazon-process].
 
