@@ -30,7 +30,7 @@ to create a test suite in your target language.
 
 ## Finding an Exercise to Port
 
-Navigate to the language track on Exercism via the [http://exercism.io/languages][] page.
+Navigate to the language track on Exercism via the [http://exercism.io/languages](http://exercism.io/languages) page.
 
 The last item in the sidebar will be about contributing. Go to that.
 
