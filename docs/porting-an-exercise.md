@@ -32,16 +32,16 @@ to create a test suite in your target language.
 
 Navigate to the language track on Exercism via the [http://exercism.io/languages](http://exercism.io/languages) page.
 
-The last item in the sidebar will be about contributing. Go to that.
+The last item in the sidebar will be about contributing. Go to that section.
 
 This is a full list of every exercise that exists, but has not yet been implemented
 in that language track.
 
 For every exercise it will link to:
 
-- the generic README
-- the canonical data (if it exists)
-- all the individual language implementations
+- The generic README.
+- The canonical data (if it exists).
+- All the individual language implementations.
 
 ## Avoiding Duplicate Work
 
@@ -52,8 +52,8 @@ Then open a "work in progress" (WIP) pull request, so others will see that you'r
 
 The way to open a WIP pull request even if you haven't done any work yet is:
 
-* Fork and clone the repository
-* Check out a branch for your the exercise
+* Fork and clone the repository.
+* Check out a branch for the exercise.
 * Add an empty commit `git commit --allow-empty -m "Implement exercise <slug>"`
   (replace <slug> with the actual name of the exercise).
 * Push the new branch to your repository, and open a pull request against that branch.
@@ -73,18 +73,18 @@ track repository.
 
 The exercise should consist of, at minimum:
 
-* A test suite
-* A reference solution that passes the tests
+* A test suite.
+* A reference solution that passes the tests.
 
 Each language track might have additional requirements; check the README in
 the repository for the track.
 
 ### The Test Suite
 
-Look at the other exercises in the track to get an idea of
+Look at the other exercises in the track to get an idea of:
 
-* the conventions used
-* how to name the test file
+* The conventions used.
+* How to name the test file.
 
 ### The Reference Solution
 
@@ -132,5 +132,5 @@ You can fetch the problem using the CLI:
 $ exercism fetch <track_id> <slug>
 ```
 
-Go ahead submit the reference solution that you wrote when creating the problem.
+Go ahead and submit the reference solution that you wrote when creating the problem.
 Remember to archive it if you don't want other people to comment on it.
