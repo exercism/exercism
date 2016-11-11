@@ -1,14 +1,14 @@
 # Triaging Issues in an Exercism Language Track
 
 Issues need to be unambiguous and actionable. If it's hard to figure out what
-an issue is about, or what to do about it, then the issue probably won't get
+an issue is about, or what needs to be done, then the issue probably won't get
 fixed.
 
 ## Making Issues Great
 
 The goal of triaging issues is to make sure that each issue is actionable.
 
-I great issue also has enough context that it could be tackled by someone who has never contributed
+A great issue also has enough context that it could be tackled by someone who has never contributed
 to Exercism before.
 
 When reading an issue you should be able to answer questions like...
