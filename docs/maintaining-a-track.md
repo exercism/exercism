@@ -87,4 +87,4 @@ In addition to the language track repository itself, you may also want to watch:
 ### Perform Common Tasks
 
 - Triage issues [TODO: link to documentation]
-- Review pull requests [TODO: link to documentation]
+- [Review pull requests](/docs/reviewing-a-pull-request.md)
