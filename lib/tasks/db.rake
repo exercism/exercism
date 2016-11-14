@@ -2,7 +2,7 @@ namespace :db do
 
   require 'bundler'
   require 'English'
-  Bundler.setup
+  Bundler.require
 
   require 'db/connection'
 
