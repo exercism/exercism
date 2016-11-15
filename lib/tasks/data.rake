@@ -16,10 +16,8 @@ namespace :data do
 
     desc "fix broken iterations with missing language"
     task missing_language: [:connection] do
-      require 'exercism/submission'
-      require 'exercism/user_exercise'
-      require 'exercism/user'
-      require 'exercism/acl'
+      # Submission#before_create requires Exercism.uuid
+      require 'exercism'
 
       Submission.where(language: '').find_each do |submission|
         submission.language = submission.slug
