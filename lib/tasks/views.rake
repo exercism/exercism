@@ -1,10 +1,7 @@
 namespace :views do
   desc "delete all the views below the watermarks"
-  task :sweep do
-    require 'active_record'
-    require 'db/connection'
-    require './lib/exercism/view'
-    DB::Connection.establish
+  task sweep: [:connection] do
+    require 'exercism/view'
 
     View.delete_below_watermarks
     View.delete_obsolete

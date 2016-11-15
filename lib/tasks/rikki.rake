@@ -1,14 +1,11 @@
 namespace :rikki do
   desc "dump go stuff for experimentation"
-  task :dump do
+  task dump: [:connection] do
     class Submission < ActiveRecord::Base
       serialize :solution, JSON
     end
-
-    require 'active_record'
-    require 'db/connection'
     require 'fileutils'
-    DB::Connection.establish
+
     Submission.where(language: 'go').find_each do |submission|
       dir = File.join('.', 'rikki', submission.key)
       FileUtils.mkdir_p(dir)
@@ -23,12 +20,8 @@ namespace :rikki do
   end
 
   desc "comment on old go issues"
-  task :go do
-    require 'active_record'
-    require 'db/connection'
-    require './lib/jobs/analyze'
-    require './lib/exercism'
-    DB::Connection.establish
+  task go: [:connection] do
+    require 'jobs/analyze'
 
     # Select only:
     # - the most recent submission
