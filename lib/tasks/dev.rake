@@ -1,7 +1,7 @@
 namespace :dev do
   namespace :seed do
     desc "insert a bunch of iterations for the given user"
-    task :iterations do
+    task iterations: [:connection] do
       username = ENV['username'] || ENV['USERNAME']
       if username.nil?
         $stderr.puts "Usage: rake dev:seed:iterations username=$USERNAME"
@@ -21,11 +21,7 @@ namespace :dev do
         FakeTrack.new("haskell", "hs", haskell, "-- code"),
       ]
 
-      require 'bundler'
-      Bundler.require
-      require './lib/exercism'
-      require './lib/db/connection'
-      DB::Connection.establish
+      require 'exercism'
 
       user = User.find_by_username(username)
 
@@ -42,19 +38,15 @@ namespace :dev do
     end
 
     desc "create a bunch of notifications"
-    task :notifications do
+    task notifications: [:connection] do
       username = ENV['username'] || ENV['USERNAME']
       if username.nil?
         $stderr.puts "Usage: rake dev:seed:notifications username=$USERNAME"
         exit 1
       end
-
-      require 'active_record'
-      require './lib/db/connection'
-      require './lib/exercism/notification'
-      require './lib/exercism/user'
-      require './lib/exercism/submission'
-      DB::Connection.establish
+      require 'exercism/notification'
+      require 'exercism/user'
+      require 'exercism/submission'
 
       user = User.find_by_username(username)
       actor_id = User.where("username <> '%s'" % user.username).limit(100).pluck(:id).sample.to_i
