@@ -6,7 +6,7 @@
         <% if dashboard.current_exercises.any? %>
             <p>Keep working on these problems, or archive them.</p>
             <ul class="nav nav-stacked" id="menu-current" role="menu">
-              <% dashboard.current_exercises.limit(5).each do |exercise| %>
+              <% dashboard.current_exercises.reverse.limit(5).each do |exercise| %>
                   <li class="looks-list-item">
                     <a role="menuitem" tabindex="-1" href="/exercises/<%= exercise.key %>">
                       <table width="100%">
