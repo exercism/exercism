@@ -82,4 +82,4 @@ Changes to tooling are not user-facing, but anything that is weird or complicate
 
 ---------
 
-Inspired by the ["reviewing a pull request"](https://github.com/jekyll/jekyll/blob/master/docs/reviewing-a-pull-request.md) documentation in the Jekyll project.
+Inspired by the ["reviewing a pull request"](https://github.com/jekyll/jekyll/blob/master/docs/_docs/maintaining/reviewing-a-pull-request.md) documentation in the Jekyll project.
