@@ -102,8 +102,26 @@ module ExercismWeb
         end
 
         def css_url
-          @css_url || "/css/application.css?t=#{File.mtime('./public/css/application.css').to_i}"
+          @css_url ||= css_url_generate('/css/application.css')
         end
+
+        def css_url_generate(resource)
+          css_filename = File.join(settings.public_folder, resource)
+          raise css_url_generate_error(css_filename) unless File.exists?(css_filename)
+          "#{resource}?t=#{File.mtime(css_filename).to_i}"
+        end
+
+        def css_url_generate_error(css_filename)
+          command = "bundle exec compass compile"
+          url = 'https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md#scss'
+
+          IOError.new <<-MESSAGE.gsub(/^ */,'')
+            '#{css_filename}' not found.
+            Try running '#{command}' to generate it.
+            For more information: #{url}
+          MESSAGE
+        end
+
       end
     end
   end
