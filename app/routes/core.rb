@@ -20,9 +20,10 @@ module ExercismWeb
         enable :show_exceptions
       end
 
-      error 500 do
-        metadata = {
-          user: {
+      unless settings.test?
+        error 500 do
+          metadata = {
+            user: {
             id: current_user.id,
             username: current_user.username,
           },
@@ -30,9 +31,10 @@ module ExercismWeb
           app: {
             version: BUILD_ID,
           },
-        }
-        notification = Bugsnag.auto_notify($ERROR_INFO, metadata, request)
-        erb :"errors/internal", locals: { bugsnag_notification: notification }
+          }
+          notification = Bugsnag.auto_notify($ERROR_INFO, metadata, request)
+          erb :"errors/internal", locals: { bugsnag_notification: notification }
+        end
       end
 
       before do
