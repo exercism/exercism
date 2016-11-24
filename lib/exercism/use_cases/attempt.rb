@@ -1,5 +1,3 @@
-require 'exercism/xapi'
-
 class Attempt
   attr_reader :user, :track, :slug, :iteration, :submission, :comment
   # rubocop:disable Metrics/AbcSize

@@ -7,7 +7,6 @@ module ExercismAPI
 end
 
 require 'exercism/homework'
-require 'exercism/xapi'
 
 require_relative 'v1/routes'
 
