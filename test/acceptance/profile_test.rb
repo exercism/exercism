@@ -17,16 +17,13 @@ class ProfileTest < AcceptanceTestCase
   end
 
   def test_profile_shows_progress
-    @f = './test/fixtures/xapi_v3_tracks.json'
-    X::Xapi.stub(:get, [200, File.read(@f)]) do
-      UserExercise.create(user: @user, language: 'Fake', iteration_count: 1)
-      with_login(@user) do
-        visit '/'
-        click_on 'Profile'
+    UserExercise.create(user: @user, language: 'Fake', iteration_count: 1)
+    with_login(@user) do
+      visit '/'
+      click_on 'Profile'
 
-        assert_content "Progress:"
-        assert_content 'Fake: 1/4 (25%)'
-      end
+      assert_content "Progress:"
+      assert_content 'Fake: 1/4 (25%)'
     end
   end
 end

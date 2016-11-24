@@ -94,23 +94,20 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with(slug: 'abc', usernames: bob.username)
     team.save
 
-    f = './test/fixtures/xapi_v3_tracks.json'
-    X::Xapi.stub(:get, [200, File.read(f)]) do
-      get '/teams/abc/directory', {}, login(alice)
-      assert_equal 200, last_response.status
+    get '/teams/abc/directory', {}, login(alice)
+    assert_equal 200, last_response.status
 
-      get '/teams/abc/directory', {}, login(bob)
-      assert_equal 302, last_response.status
-      assert_equal "http://example.org/", last_response.location
+    get '/teams/abc/directory', {}, login(bob)
+    assert_equal 302, last_response.status
+    assert_equal "http://example.org/", last_response.location
 
-      TeamMembershipInvite.pending.find_by(user: bob, team: team).accept!
-      get '/teams/abc/directory', {}, login(bob)
-      assert_equal 200, last_response.status
+    TeamMembershipInvite.pending.find_by(user: bob, team: team).accept!
+    get '/teams/abc/directory', {}, login(bob)
+    assert_equal 200, last_response.status
 
-      get '/teams/abc/directory', {}, login(charlie)
-      assert_equal 302, last_response.status
-      assert_equal "http://example.org/", last_response.location
-    end
+    get '/teams/abc/directory', {}, login(charlie)
+    assert_equal 302, last_response.status
+    assert_equal "http://example.org/", last_response.location
   end
 
   def test_team_creation_with_name
@@ -244,10 +241,7 @@ class TeamsTest < Minitest::Test
 
     post "/teams/#{team.slug}/invitation/accept", {}, login(bob)
 
-    f = './test/fixtures/xapi_v3_tracks.json'
-    X::Xapi.stub(:get, [200, File.read(f)]) do
-      get "/teams/#{team.slug}/directory", {}, login(bob)
-    end
+    get "/teams/#{team.slug}/directory", {}, login(bob)
 
     assert_response_status(200)
   end
@@ -256,10 +250,7 @@ class TeamsTest < Minitest::Test
     team = Team.by(alice).defined_with(slug: 'members', name: "<script>alert('esc_test');</script>", usernames: "#{bob.username},#{charlie.username}")
     team.save
 
-    f = './test/fixtures/xapi_v3_tracks.json'
-    X::Xapi.stub(:get, [200, File.read(f)]) do
-      get "/teams/#{team.slug}/directory", {}, login(alice)
-    end
+    get "/teams/#{team.slug}/directory", {}, login(alice)
 
     assert_response_status(200)
     assert last_response.body.include?('&lt;script&gt;alert(&#x27;esc_test&#x27;)')
