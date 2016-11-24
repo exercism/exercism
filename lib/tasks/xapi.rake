@@ -1,8 +1,7 @@
 namespace :xapi do
   desc "seed database with test data for x-api acceptance tests"
-  task :seed do
-    require 'bundler'
-    Bundler.require
+  task seed: [:connection] do
+    # User, Submission and UserExercise require Exercism.uuid
     require 'exercism'
 
     user = User.find_by_key('abc123') || User.create(github_id: -1, key: 'abc123', username: 'xapi-test-user')
