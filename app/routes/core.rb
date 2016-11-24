@@ -55,6 +55,7 @@ module ExercismWeb
       helpers Helpers::UserProgressBar
       helpers Helpers::TeamAccess
       helpers WillPaginate::Sinatra::Helpers
+      helpers Helpers::CssUrl
 
       helpers do
         def github_client_id
@@ -101,9 +102,6 @@ module ExercismWeb
           ExercismWeb::Presenters::Tracks.tracks
         end
 
-        def css_url
-          @css_url || "/css/application.css?t=#{File.mtime('./public/css/application.css').to_i}"
-        end
       end
     end
   end
