@@ -16,24 +16,20 @@ class IterationsApiTest < Minitest::Test
   def test_submit_iteration_with_comment
     submission = {
       key: @alice.key,
-      solution: { 'code.rb' => 'CODE1' },
-      language: 'ruby',
+      solution: { 'code.ext' => 'CODE1' },
+      language: 'fake',
       problem: 'one',
       comment: '',
     }
 
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', submission.to_json
-    end
+    post '/user/assignments', submission.to_json
 
     assert_equal 0, Comment.count
 
     submission[:comment] = 'Awesome code!'
-    submission[:solution] = { 'code.rb' => 'CODE2' }
+    submission[:solution] = { 'code.ext' => 'CODE2' }
 
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', submission.to_json
-    end
+    post '/user/assignments', submission.to_json
 
     assert_equal 1, Comment.count
     comment = Comment.first
@@ -79,9 +75,7 @@ class IterationsApiTest < Minitest::Test
       Hack::UpdatesUserExercise.new(*args).update
     end
 
-    Xapi.stub(:exists?, true) do
-      get '/iterations/latest', key: @alice.key
-    end
+    get '/iterations/latest', key: @alice.key
 
     output = last_response.body
     options = { format: :json, name: 'api_iterations' }
@@ -89,33 +83,23 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_skip_problem
-    Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', key: @alice.key
-    end
-
+    post "/iterations/animal/dog/skip", key: @alice.key
     exercise = @alice.exercises.first
-    assert_equal 'ruby', exercise.language
-    assert_equal 'one', exercise.slug
+    assert_equal 'animal', exercise.language
+    assert_equal 'dog', exercise.slug
     refute_equal nil, exercise.skipped_at
     assert_equal 204, last_response.status
   end
 
   def test_skip_non_existent_problem
-    Xapi.stub(:exists?, false) do
-      post '/iterations/ruby/not-found/skip', key: @alice.key
-    end
+    post '/iterations/animal/not-found/skip', key: @alice.key
 
-    expected_message = "Exercise 'not-found' in language 'ruby' doesn't exist. "
-    expected_message << "Maybe you mispelled it?"
-
-    assert_equal 404, last_response.status
-    assert last_response.body.include?(expected_message)
+    assert_equal 400, last_response.status
+    assert_match /Unknown\ problem/, last_response.body
   end
 
   def test_skip_problem_as_guest
-    Xapi.stub(:exists?, true) do
-      post '/iterations/ruby/one/skip', key: 'invalid-api-key'
-    end
+    post '/iterations/ruby/one/skip', key: 'invalid-api-key'
 
     expected_message = "Please double-check your exercism API key."
 
@@ -124,40 +108,37 @@ class IterationsApiTest < Minitest::Test
   end
 
   def test_submit_problem_with_old_client
-    submission = {
+    data = {
       "key" => @alice.key,
-      "path" => "/go/binary/binary.go",
+      "path" => "/fake/one/one.ext",
       "code" => "Hello, World!",
       "dir" => "/path/to/exercism/dir",
     }
 
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', submission.to_json
-    end
+    post '/user/assignments', data.to_json
+    assert_equal 201, last_response.status, last_response.body
 
     submission = Submission.first
-    assert_equal "go", submission.language
-    assert_equal "binary", submission.slug
-    expected = { "binary.go" => "Hello, World!" }
+    assert_equal "fake", submission.language
+    assert_equal "one", submission.slug
+    expected = { "one.ext" => "Hello, World!" }
     assert_equal expected, submission.solution
   end
 
   def test_submit_problem_with_mixed_case_track_and_no_language
     submission = {
       "key" => @alice.key,
-      "path" => "/Go/binary/binary.go",
+      "path" => "/Fake/one/one.ext",
       "code" => "Hello, World!",
       "dir" => "/path/to/exercism/dir",
     }
 
-    Xapi.stub(:exists?, true) do
-      post '/user/assignments', submission.to_json
-    end
+    post '/user/assignments', submission.to_json
 
     submission = Submission.first
-    assert_equal "binary", submission.slug
-    expected = { "binary.go" => "Hello, World!" }
+    assert_equal "one", submission.slug
+    expected = { "one.ext" => "Hello, World!" }
     assert_equal expected, submission.solution
-    assert_equal "go", submission.language
+    assert_equal "fake", submission.language
   end
 end

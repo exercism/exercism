@@ -10,7 +10,6 @@ require 'kss'
 require 'tilt/erb'
 
 require_relative './app/presenters'
-require_relative './lib/exercism/xapi'
 
 require_relative './app/helpers'
 require_relative './app/routes'

@@ -1,15 +1,17 @@
 {
-  "language": "Ruby",
+  "language": "fake",
   "track_id": "<id>",
-  "slug": "leap",
+  "slug": "hello-world",
   "uuid": "<uuid>",
   "solution_uuid": "<uuid>",
   "user_id": "<id>",
   "username": "alice",
   "problem_files": {
-    "test.rb": "assert true"
+    "hello_test.ext": "assert 'hello'\n",
+    "world_test.ext": "assert 'World'\n",
+    "README.md": "# Hello World\n\nOh, hello.\n\n* hello\n* hello again\n\n## Source\n\nThe internet. [http://example.com](http://example.com)\n\n## Submitting Incomplete Problems\nIt's possible to submit an incomplete solution so you can see how others have completed the exercise.\n\n"
   },
   "solution_files": {
-    "leap.rb": "CODE"
+    "hello-world.ext": "CODE"
   }
 }

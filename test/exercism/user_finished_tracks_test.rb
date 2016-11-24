@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-require_relative '../x_helper'
 require_relative '../integration_helper'
 
 class UserFinishedTracksTest < Minitest::Test
@@ -8,7 +7,6 @@ class UserFinishedTracksTest < Minitest::Test
   def setup
     super
     @user = User.create
-    @f = './test/fixtures/xapi_v3_tracks.json'
     create_exercise('animal', 'dog')
     create_exercise('fake', 'hello-world')
     create_exercise('fake', 'two')
@@ -18,11 +16,9 @@ class UserFinishedTracksTest < Minitest::Test
   end
 
   def test_user_contributions
-    X::Xapi.stub(:get, [200, File.read(@f)]) do
-      tracks = UserFinishedTracks.tracks(@user)
-      expected = ['animal', 'jewels']
-      assert_equal expected, tracks.map(&:id)
-    end
+    tracks = UserFinishedTracks.tracks(@user)
+    expected = ['animal', 'jewels']
+    assert_equal expected, tracks.map(&:id)
   end
 
   def create_exercise(language, slug)

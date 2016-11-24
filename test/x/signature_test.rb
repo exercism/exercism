@@ -1,5 +1,4 @@
 require_relative '../test_helper'
-require_relative '../x_helper'
 require_relative '../../x/signature'
 
 module X

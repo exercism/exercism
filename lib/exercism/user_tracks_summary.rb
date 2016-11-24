@@ -50,9 +50,9 @@ class UserTracksSummary
   end
 
   class TrackSummary
-    attr_reader :language, :track_info
-    def initialize(language, track_info)
-      @language = language
+    attr_reader :track, :track_info
+    def initialize(track_id, track_info)
+      @track = Trackler.tracks[track_id]
       @track_info = track_info
     end
 
@@ -70,10 +70,6 @@ class UserTracksSummary
 
     def reviewed
       @reviewed ||= track_info[:reviewed]
-    end
-
-    def track
-      @track ||= X::Track.find(language)
     end
   end
 end

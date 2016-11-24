@@ -1,1 +1,0 @@
-{"exercise":{"track_id":"animal","slug":"dog","name":"Dog","language":"Animal","blurb":"This is dog.","files":{"a_dog.animal":"assert 'woof woof'\n","a_dog_2.animal":"assert \"Miaowww\"\n"}}}

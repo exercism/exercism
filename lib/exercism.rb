@@ -2,8 +2,6 @@ require 'active_support' # Must be required before active_record
 require 'active_record'
 require 'faraday'
 
-require_relative '../x/track'
-
 require 'exercism/acl'
 require 'exercism/assumable_user'
 require 'exercism/named'
@@ -39,7 +37,6 @@ require 'exercism/use_cases'
 require 'exercism/user'
 require 'exercism/user_exercise'
 require 'exercism/user_finished_tracks'
-require 'exercism/user_progression'
 require 'exercism/user_tracks_summary'
 require 'exercism/deleted_iterations'
 require 'exercism/view'

@@ -16,9 +16,11 @@ module ExercismAPI
         enable :show_exceptions
       end
 
-      error 500 do
-        Bugsnag.auto_notify($ERROR_INFO)
-        { error: "Sorry, something went wrong. We've been notified and will look into it." }.to_json
+      unless settings.test?
+        error 500 do
+          Bugsnag.auto_notify($ERROR_INFO)
+          { error: "Sorry, something went wrong. We've been notified and will look into it." }.to_json
+        end
       end
 
       before do

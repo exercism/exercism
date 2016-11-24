@@ -9,41 +9,27 @@ class AttemptTest < Minitest::Test
     @user = User.create
   end
 
-  def test_validity
-    Xapi.stub(:exists?, true) do
-      assert Attempt.new(user, Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two')).valid?
-    end
-
-    Xapi.stub(:exists?, false) do
-      refute Attempt.new(user, Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two')).valid?
-    end
-  end
-
   def test_saving_with_comments_creates_a_new_comment
-    iteration = Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two', comment: "hello world")
+    iteration = Iteration.new({ 'hello-world.ext' => 'CODE' }, 'fake', 'hello-world', comment: "hello world")
 
-    Xapi.stub(:exists?, true) do
-      attempt = Attempt.new(user, iteration).save
+    attempt = Attempt.new(user, iteration).save
 
-      assert_equal 1, Comment.count
-      comment = Comment.first
-      assert_equal "hello world", comment.body
-      assert_equal attempt.user, comment.user
-      assert_equal attempt.submission, comment.submission
-    end
+    assert_equal 1, Comment.count
+    comment = Comment.first
+    assert_equal "hello world", comment.body
+    assert_equal attempt.user, comment.user
+    assert_equal attempt.submission, comment.submission
   end
 
   def test_saving_without_comments_does_not_create_the_comment
     save_attempt = lambda do |i|
-      Xapi.stub(:exists?, true) do
-        Attempt.new(user, i).save
-      end
+      Attempt.new(user, i).save
     end
-    iteration = Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two')
+    iteration = Iteration.new({ 'one.ext' => 'CODE' }, 'fake', 'one')
     save_attempt.call(iteration)
     assert_equal 0, Comment.count
 
-    iteration = Iteration.new({ 'two.py' => 'CODE' }, 'python', 'two', comment: "")
+    iteration = Iteration.new({ 'one.ext' => 'CODE' }, 'fake', 'one', comment: "")
     save_attempt.call(iteration)
     assert_equal 0, Comment.count
   end

@@ -10,20 +10,10 @@ class SubmissionsApiTest < Minitest::Test
 
   def test_returns_submission_code
     user = User.create(username: 'alice')
-    submission = Submission.create(user: user, language: 'ruby', slug: 'leap', solution: { 'leap.rb': 'CODE' })
-    UserExercise.create(user: user, submissions: [submission], language: 'ruby', slug: 'leap')
+    submission = Submission.create(user: user, language: 'fake', slug: 'hello-world', solution: { 'hello-world.ext': 'CODE' })
+    UserExercise.create(user: user, submissions: [submission], language: 'hello-world', slug: 'hello-world')
 
-    response = {
-      "problems" => [
-        {
-          "language" => "Ruby",
-          "files" => { "test.rb" => "assert true" },
-        },
-      ],
-    }.to_json
-    Xapi.stub(:get, [200, response]) do
-      get "/submissions/#{submission.key}"
-    end
+    get "/submissions/#{submission.key}"
 
     Approvals.verify(last_response.body, format: :json, name: 'problem_and_submission')
   end

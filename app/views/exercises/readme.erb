@@ -1,4 +1,4 @@
 <div class="container">
-  <%= erb :"exercises/_navigation", locals: {exercise: exercise, active: 'readme' } %>
-  <%= md(exercise.files["README.md"]) %>
+  <%= erb :"exercises/_nav", locals: {track: track, problem: implementation.problem, active: 'readme' } %>
+  <%= md(implementation.files["README.md"]) %>
 </div>
