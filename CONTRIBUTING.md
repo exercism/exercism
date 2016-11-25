@@ -194,7 +194,7 @@ You may also find these helpful:
 
 ### I would like to help; I know / want to get better at Ruby
 
-Do you have/want to have chops in Ruby and want to add to the website?
+Do you have/want to have chops in Ruby or Sinatra and want to add to the website?
   
 1. [Setup your local development environment](docs/setting-up-local-development.md).
 -  Locate an feature/bug to work on:
