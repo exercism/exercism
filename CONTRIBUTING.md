@@ -144,9 +144,9 @@ Thank you!
 
 You have (or want to improve your) skills in
 
-| [technical writing and organization](#i-would-like-to-help-i-can--want-to-get-better-at-technical-writing-and-organization) | [fluency in a particular programming language](#i-would-like-to-help-i-am-fluent-in--want-to-get-better-at-a-particular-programming-language) | [web programming](#i-would-like-to-help-i-know--want-to-get-better-at-web-programming) | [Ruby on Rails](#i-would-like-to-help-i-know--want-to-get-better-at-ruby-on-rails) | [Go](#i-would-like-to-help-i-know--want-to-get-better-at-go) | [web design](#i-would-like-to-help-i-know--want-to-get-better-at-web-design) | [mentoring others](#i-would-like-to-help-i-know--want-to-get-better-at-mentoring-others)
+| [technical writing and organization](#i-would-like-to-help-i-can--want-to-get-better-at-technical-writing-and-organization) | [fluency in a particular programming language](#i-would-like-to-help-i-am-fluent-in--want-to-get-better-at-a-particular-programming-language) | [web programming](#i-would-like-to-help-i-know--want-to-get-better-at-web-programming) | [Ruby](#i-would-like-to-help-i-know--want-to-get-better-at-ruby) | [Go](#i-would-like-to-help-i-know--want-to-get-better-at-go) | [web design](#i-would-like-to-help-i-know--want-to-get-better-at-web-design) | [mentoring others](#i-would-like-to-help-i-know--want-to-get-better-at-mentoring-others)
 |:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| [![organizing stuff](docs/img/clipboard-and-gear.png)](#i-would-like-to-help-i-can--want-to-get-better-at-technical-writing-and-organization) | [![fluency in a particular programming language](docs/img/mortarboard.jpg)](#i-would-like-to-help-i-am-fluent-in--want-to-get-better-at-a-particular-programming-language) | [![web programming](docs/img/globe.png)](#i-would-like-to-help-i-know--want-to-get-better-at-web-programming) | [![Ruby on Rails](docs/img/ruby.png)](#i-would-like-to-help-i-know--want-to-get-better-at-ruby-on-rails) | [![Go](docs/img/gopher.png)](#i-would-like-to-help-i-know--want-to-get-better-at-go) | [![web design](docs/img/screen-art.jpg)](#i-would-like-to-help-i-know--want-to-get-better-at-web-design) | [![mentoring others](docs/img/mentoring.jpg)](#i-would-like-to-help-i-know--want-to-get-better-at-mentoring-others)
+| [![organizing stuff](docs/img/clipboard-and-gear.png)](#i-would-like-to-help-i-can--want-to-get-better-at-technical-writing-and-organization) | [![fluency in a particular programming language](docs/img/mortarboard.jpg)](#i-would-like-to-help-i-am-fluent-in--want-to-get-better-at-a-particular-programming-language) | [![web programming](docs/img/globe.png)](#i-would-like-to-help-i-know--want-to-get-better-at-web-programming) | [![Ruby](docs/img/ruby.png)](#i-would-like-to-help-i-know--want-to-get-better-at-ruby) | [![Go](docs/img/gopher.png)](#i-would-like-to-help-i-know--want-to-get-better-at-go) | [![web design](docs/img/screen-art.jpg)](#i-would-like-to-help-i-know--want-to-get-better-at-web-design) | [![mentoring others](docs/img/mentoring.jpg)](#i-would-like-to-help-i-know--want-to-get-better-at-mentoring-others)
 
 ### I would like to help; I can / want to get better at technical writing and organization
 
@@ -192,9 +192,9 @@ You may also find these helpful:
 
 -
 
-### I would like to help; I know / want to get better at Ruby on Rails
+### I would like to help; I know / want to get better at Ruby
 
-Do you have/want to have chops in Ruby and Sinatra or Ruby on Rails and want to add to the website?
+Do you have/want to have chops in Ruby or Sinatra and want to add to the website?
   
 1. [Setup your local development environment](docs/setting-up-local-development.md).
 -  Locate an feature/bug to work on:
@@ -259,7 +259,7 @@ Do you like mentoring people?
     - [Workflow](#workflow)
     - [Issues](#issues)
     - [Good First Patch](#good-first-patch)
-    - [Style](#style-rubyrails)
+    - [Style](#style-ruby)
     - [Pull Requests](#pull-requests)
 * [Exercism.io Web Structure](#exercism-web-structure)
     - [Core Directories](#core-directories)
@@ -616,7 +616,7 @@ can do an [organization-wide search](https://github.com/search?utf8=%E2%9C%93&q=
 
 [TODO: explain the various labels as we settle on useful ones]
 
-### Style (Ruby/Rails)
+### Style (Ruby)
 
 We have [Rubocop](https://github.com/bbatsov/rubocop) integrated.
 It is based on the [Ruby Style Guide](https://github.com/bbatsov/ruby-style-guide).
