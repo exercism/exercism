@@ -32,7 +32,7 @@
       <% exercises.sort_by { |e| [-e.implementations.count,e.name] }.each_slice(3) do |todo| %>
         <div class="row padding-row">
           <% todo.each do |problem| %>
-            <%= erb :'languages/_contribute_exercise', locals: { exercise: problem } %>
+            <%= erb :'languages/_contribute_exercise', locals: { problem: problem } %>
           <% end %>
         </div>
       <% end %>
