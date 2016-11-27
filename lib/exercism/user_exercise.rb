@@ -11,7 +11,7 @@ class UserExercise < ActiveRecord::Base
       .where('views.user_id': user.id)
       .where('views.last_viewed_at > ?', 30.days.ago).order('views.last_viewed_at DESC')
   }
-  scope :current, -> { where(archived: false).where.not(iteration_count: 0).order('language, id ASC') }
+  scope :current, -> { where(archived: false).where.not(iteration_count: 0).order('last_iteration_at DESC') }
   scope :completed, -> { where.not(iteration_count: 0).order('language, id ASC') }
   scope :archived, -> { where(archived: true).where('iteration_count > 0') }
   scope :for, ->(problem) { where(language: problem.track_id, slug: problem.slug) }
