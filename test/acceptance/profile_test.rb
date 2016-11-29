@@ -26,4 +26,20 @@ class ProfileTest < AcceptanceTestCase
       assert_content 'Fake: 1/4 (25%)'
     end
   end
+
+  def test_display_team_invites_only_in_users_own_profile
+    new_user = create_user(username: 'new_user', github_id: 456)
+    attributes = { slug: 'some-team', name: 'Some Name', usernames: 'new_user' }
+    Team.by(@user).defined_with(attributes, @user).save!
+
+    with_login(@user) do
+      visit "/#{new_user.username}"
+      refute_content 'Some Name'
+    end
+
+    with_login(new_user) do
+      visit "/#{new_user.username}"
+      assert_content 'Some Name'
+    end
+  end
 end

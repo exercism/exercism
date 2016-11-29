@@ -50,7 +50,11 @@ module ExercismWeb
       end
 
       def teams
-        user.team_invites | user.teams | user.managed_teams
+        user.teams | user.managed_teams | team_invites
+      end
+
+      def team_invites
+        own? ? user.team_invites : []
       end
 
       def has_teams?
