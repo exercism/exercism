@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+git checkout master
+git fetch origin master
+git reset --hard origin/master
+bundle update trackler
+git add Gemfile.lock
+bundle exec rake && git commit -m "Update trackler" && git push origin master
