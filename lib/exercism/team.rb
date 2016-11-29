@@ -105,7 +105,7 @@ class Team < ActiveRecord::Base
   end
 
   def members_size
-    members.size + 1 # manager
+    members.size
   end
 
   private
