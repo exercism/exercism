@@ -41,7 +41,7 @@ namespace :accounts do
         target.save
       end
 
-      src_exercise.includes(:submissions).submissions.each do |submission|
+      src_exercise.submissions.each do |submission|
         # transfer old iterations to the new solution, without checking for duplicates
         submission.user_exercise_id = target.id
         submission.user_id = dst.id
