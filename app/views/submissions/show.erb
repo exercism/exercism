@@ -13,8 +13,24 @@
         <%= erb :"submissions/user_actions", locals: { submission: submission, exercise: submission.user_exercise } %>
 
         <% if current_user.owns?(submission) %>
+          <%
+            twitt_params =
+              { text: Rack::Utils.escape_path(<<-TEXT.chomp.gsub(/^\s+/, '')),
+                  I just submitted the #{submission.problem.language} 
+                  #{submission.slug} exercise at @exercism_io - 
+                  Leave me a nitpick at 
+                TEXT
+                url: Rack::Utils.escape_path(
+                       URI.join('http://exercism.io/submissions/',
+                                submission.key))
+              }
+            url = <<-URL.chomp.gsub(/^\s+/, '')
+              https://twitter.com/intent/tweet?
+              #{Rack::Utils.build_query(twitt_params)}
+            URL
+          %>
           <a
-            href="https://twitter.com/intent/tweet?text=I just submitted the #<%= submission.problem.language %> <%= submission.slug %> exercise at @exercism_io - Leave me a nitpick at http://exercism.io/submissions/<%= submission.key %>"
+            href="<%= url %>"
             class="btn btn-default"
             data-toggle="tooltip"
             data-placement="bottom"
