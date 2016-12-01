@@ -20,7 +20,7 @@ $(function() {
     codeDiv.addClass($(this).data("new-class"));
     commentsDiv.removeClass($(this).data("old-class"));
     commentsDiv.addClass($(this).data("new-class"));
-    $(this).hide();
+    $("a[data-action='enlarge']",codeDiv).hide();
     $("a[data-action='shrink']",codeDiv).show();
   });
 
@@ -31,7 +31,7 @@ $(function() {
     codeDiv.addClass($(this).data("new-class"));
     commentsDiv.removeClass($(this).data("old-class"));
     commentsDiv.addClass($(this).data("new-class"));
-    $(this).hide();
+    $("a[data-action='shrink']",codeDiv).hide();
     $("a[data-action='enlarge']",codeDiv).show();
   });
 

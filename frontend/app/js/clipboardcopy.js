@@ -13,13 +13,13 @@ function fallbackMessage(action) {
 }
 
 $(document).ready(function() {
-  $('a#copy-code').on('click', function(e) {
+  $('a.copy-code').on('click', function(e) {
     e.preventDefault();
   });
 
-  var clipboard = new Clipboard('#copy-code', {
+  var clipboard = new Clipboard('.copy-code', {
     text: function(trigger) {
-      return $('#submission-code').text();
+      return $(trigger.getAttribute('data-target')).text();
     }
   });
 
@@ -39,7 +39,7 @@ $(document).ready(function() {
     }).popover('show');
   });
 
-  $('#copy-code').on('mouseleave', function(e) {
+  $('.copy-code').on('mouseleave', function(e) {
     $(this).popover('destroy');
   });
 });

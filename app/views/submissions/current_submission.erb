@@ -1,5 +1,10 @@
 <div id="current_submission" class="code col-md-6">
   <div class="theiaStickySidebar">
+    <% submission.solution.each_with_index do |(filename, code), idx| %>
+    <div class="btn-toolbar submission-code-header">
+      <div class="submission-code-filename">
+        <h4><%= filename %></h4>
+      </div>
     <div class="submission-code-actions btn-group pull-right">
       <a
         class="btn btn-default hidden-xs"
@@ -17,20 +22,19 @@
         <i class="fa fa-compress"></i>
       </a>
       <a
-        class="btn btn-default"
+        class="btn btn-default copy-code"
         href="#"
-        id="copy-code">
+        data-target="#submission-code-<%= idx %>">
         <i class="fa fa-clipboard"></i>
       </a>
     </div>
 
     <div class="clearfix"></div>
+    </div>
 
-    <% submission.solution.each do |filename, code| %>
-      <h4><%= filename %></h4>
       <%= syntax(code, submission.track_id) %>
 
-      <div id="submission-code" class="hidden" ng-non-bindable><%= h code %></div>
+      <div id="submission-code-<%= idx %>" class="hidden" ng-non-bindable><%= h code %></div>
     <% end %>
 
     <div class="submission-likes">
