@@ -126,8 +126,16 @@
     }
     @include blockquote_style;
   }
+  .submission-code-header {
+    position: relative;
+  }
+  .submission-code-filename {
+    display: block;
+  }
   .submission-code-actions {
-    margin-bottom: -100%;
+    position: absolute;
+    right: 0;
+    bottom: -1.25px;
     .btn {
       border-radius: 0px;
     }
