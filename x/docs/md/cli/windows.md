@@ -1,80 +1,110 @@
 ## Windows
 
-Below are instructions for install using the most common methods - using Powershell & Chocolately Package Manager. For further help and instructions, see the following:
+Below are installation instructions, using the most common method, the Chocolately Package Manager. For further help and instructions, see the following:
 
 1. [Install Alternatives for instructions on installing manually on windows](/cli/install)
-1. [exercism.io general help](http://exercism.io/help)
-1. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
+2. [exercism.io general help](http://exercism.io/help)
+3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
 
-### Using Powershell and the Chocolatey Package Manager for Windows <a name="chocolatey"></a>
-**NOTE:** You can find more information about using Chocolatey at the [Chocolatey site](https://chocolatey.org/).
+### Installing the Chocolatey Package Manager for Windows <a name="chocolatey"></a>
 
-#### Using PowerShell
-Windows ships with a powerful scripting language called [PowerShell](https://en.wikipedia.org/wiki/Windows_PowerShell).
+If you already have the Chocolatey Package Manager installed, feel free to skip to the [Exercism CLI installation](#install-exercism-cli).
 
-Type in `powershell` in the search or run window in Windows. You may see two options - `PowerShell` and `PowerShell ISE`. The first is the regular PowerShell command prompt window. The second is the Interactive Scripting Environment. Feel free to choose either one. Here's [more](http://www.powershellpro.com/powershell-tutorial-introduction/tutorial-windows-powershell-console/) on getting started with PowerShell. Paste and run the following script and you're ready to go. This downloads Chocolatey, sets the environment path variable, and installs the exercism CLI.
+Chocolately lets you install Windows applications quickly and easily. To install Chocolatey please refer to the [installation instructions on the Chocolatey website](https://chocolatey.org/install).
 
-```powershell
-function which($name) { Get-Command $name -ErrorAction SilentlyContinue | Select-Object Definition }
+> **NOTE**
+> Please ensure that when you open up your Windows shell, whether it's the Command Prompt or Powershell, you open it with **Administrator privileges**, otherwise the Chocolatey installation will fail. If you are unsure how to do this, please refer to the [help below](#open-win-cmd).
 
-if ((which cinst) -eq $null) {
-    iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))
-    $env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User")
-}
+If you want to check if your Chocolatey installation has been successful, please refer to the [help below](#test-choco-install).
 
-cinst exercism-io-cli
+### Installing the Exercism CLI <a name="install-exercism-cli"></a>
+
+With Chocolatey installed, you can now install the Exercism CLI. In your Windows shell, either the Command Prompt or Powershell, type in the following:
+
+```
+choco install exercism-io-cli
+```
+> **NOTE**
+>  You don't need to open your Windows shell with Administrator privileges to use the `choco` command.
+
+Type 'Y' to accept any prompts during the installation. If the installation was successful you should have output similar to the following:
+
+![Exercism CLI installation](/img/cli/win-exercism-installation.png "Exercism CLI installation")
+
+You now have access to the `exercism` command. You can type in `exercism --version` to get the current version of the Exercism CLI, or `exercism --help` to show the help menu.
+
+![Exercism command](/img/cli/win-exercism-command.png "Exercism command")
+
+### Upgrading the Exercism CLI
+
+If at any time you need to upgrade the exercism CLI to a newer version you can open up your Windows shell and type in the following:
+
+```
+choco upgrade exercism-io-cli
 ```
 
-#### Using the Command Prompt
-1. Open a command line interface (CLI) by clicking on "Start", typing "cmd" into the search bar and pressing enter
-1. Next copy and paste the following command into the command window:
+### Configuring the Exercism CLI
 
-        @powershell -NoProfile -ExecutionPolicy unrestricted -Command "iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))" && SET PATH=%PATH%;%ALLUSERSPROFILE%\chocolatey\bin
+Finally, you need to configure the Exercism CLI so that it knows which account to post your solutions to. You'll need your Exercism API key, which can be found in [your account](http://exercism.io/account/key). In your Windows shell type in the following command:
 
-1. Once the installation finishes, Chocolatey should be installed. To test the installation you can open a new command window (step 1) and enter the following command:
+```
+exercism configure --key=YOUR_API_KEY
+```
 
-        choco /?
+Replace `YOUR_API_KEY` with your own [personal API key](http://exercism.io/account/key).
 
-        You should see the help documentation for the "choco" command if all is well
+By default the CLI will fetch exercises to a directory called `exercism` within your home directory, `C:\Users\your-user-name\exercism`. You can configure a different directory by passing the `--dir` option:
 
-4. Next we need to install the Exercism CLI.  Open up a new command window (step 1) and type in the following:
+```
+exercism configure --dir=\my-exercism-exercises
+```
 
-        choco install exercism-io-cli
+This will fetch your exercises to `C:\Users\your-user-name\my-exercism-exercises`. You could also fetch the exercises to a directory outside of your home directory:
 
-5. Proceed to [Running exercism](#run-exercism) to test the exercism install
-6. If at anytime you need to update the exercism CLI to a newer version you can open up a command line (step 1) and type in the following:
-
-        choco upgrade exercism-io-cli
-
-### Running exercism <a name="run-exercism"></a>
-1. Open a command line interface (CLI) by clicking on "Start", typing "cmd" into the search bar and pressing enter
-1. In the resulting window type in "exercism" and press Enter
-1. If all is well you should be shown information on how to use exercism
-
-
-#### Verify Install
-1. Verify that the binary was installed properly by running:
-
-        exercism --version
-
-
-2. To see all the commands available to you, run `exercism` without any options:
-
-        exercism
-
-
-#### Configure The CLI
-
-1. Configure the exercism client so that it knows which account to post your solutions to:
-
-        exercism configure --key=YOUR_API_KEY
-
-2. Your exercism API key can be found in [your account](/account/key).
-        By default the CLI will fetch exercises to `~/exercism`.
-        You can configure a different directory by passing the `--dir` option:
-
-        exercism configure --dir=~/some/other/place
+```
+exercism configure --dir=C:\exercism
+```
 
 ### Continue
 You can now continue by [choosing a language](http://exercism.io/languages).
+
+### Help
+
+#### Opening the Windows Command Prompt with Administrator Privileges <a name="open-win-cmd"></a>
+
+To open the Windows Command Prompt; access the Windows menu, by either clicking on the Windows logo in the Taskbar, or pressing the Windows key on the keyboard. In the search bar that comes up, type in `cmd`, which will bring up the `cmd.exe` program.
+
+![cmd.exe in the Windows menu](/img/cli/win-menu-cmd.png "The cmd program in the windows menu")
+
+To install Chocolately we need to use Administrator privileges. This is important, if you don't use Administrator privileges our computer won't let you install Chocolatey. To do this *right-click* on `cmd.exe` and in the menu that appears choose `Run as administrator`.
+
+![Run cmd.exe as Administrator](/img/cli/win-run-cmd-as-admin.png "Run the cmd program as Administrator")
+
+You will be asked if you want to allow the program to make changes to your computer. You can safely click *Yes* here. The Command Prompt program should then start, and look something similar to this:
+
+![cmd.exe](/img/cli/win-cmd.png "The Windows command Prompt")
+
+You can now continue to the [Chocolatey installation](#chocolatey)
+
+#### Testing the Chocolatey Installation <a name="test-choco-install"></a>
+
+If your installation of Chocolatey has gone well, you should see output in your Windows shell similar to the following:
+
+![Successful Chocolatey installation](/img/cli/win-successful-choco-install.png "Successful Chocolatey installation")
+
+You should now be able to use the `choco` command. Type in `choco`, this should return the version of Chocolatey you have installed.
+
+![Chocolatey version](/img/cli/win-choco-version.png "Chocolatey version")
+
+If this command fails, you may need to restart your Windows Command Prompt. Close it down, and reopen it. Please note that you now don't need to open it with Administrator privileges, so instead of right-clicking on the `cmd.exe` program, you can just click on it.
+
+If Chocolatey has been installed correctly you can now continue to [install the Exercism CLI](#install-exercism-cli)
+
+#### Further Assistance
+
+If you experience any problems installing the Exercism CLI, please don't hesitate to reach out for further help and assistance. Chances are, someone else has had the same problem.
+
+1. [Install Alternatives for instructions on installing manually on windows](/cli/install)
+2. [exercism.io general help](http://exercism.io/help)
+3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
