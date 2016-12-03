@@ -250,12 +250,7 @@ Do you like mentoring people?
 
 * [Code of Conduct](#code-of-conduct)
 * [The Ecosystem](#the-ecosystem)
-* [Get Set Up](#setup)
-    - [Console](#console)
-    - [Testing](#testing)
-    - [Frontend Development Setup](#frontend-development-setup)
-    - [Deployment](#deployment)
-* [Write Some Code](#write-some-code)
+* [Submitting Code Changes](#submitting-code-changes)
     - [Workflow](#workflow)
     - [Issues](#issues)
     - [Good First Patch](#good-first-patch)
@@ -296,12 +291,14 @@ To contribute to one of the language tracks, check out the [Language Track Guide
 For details about working with the problems API, check out the [Problems API Guide](https://github.com/exercism/x-api/blob/master/CONTRIBUTING.md).
 
 
-## Write Some Code
+## Submitting Code Changes
 
 These instructions should get you closer to getting a commit into the
 repository.
 
-### Workflow
+See the [Setting up Local Development guide](docs/setting-up-local-development) for more information about how to run exercism.io locally.
+
+### Git Workflow
 
 1. Fork and clone.
 1. Add the upstream exercism.io repository as a new remote to your clone.

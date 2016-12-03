@@ -1,4 +1,4 @@
-# Setting up local development
+# Setting up Local Development
 
 This section walks you through getting the exercism.io app running locally.
 
