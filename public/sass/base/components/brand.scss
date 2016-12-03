@@ -1,4 +1,5 @@
 @import "compass/typography/text/replacement";
+@import "../themes/exercism";
 
 #brand {
   @include hide-text;
