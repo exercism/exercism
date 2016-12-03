@@ -4,6 +4,8 @@ This section walks you through getting the exercism.io app running locally.
 
 ## Prerequisites
 
+### To run the application locally
+
 Backend:
 
 - Ruby
@@ -21,26 +23,19 @@ If you're on a Linux system with apt-get then run: `apt-get install postgresql p
 Install Node.js and npm on Mac OS X with Homebrew:  `brew install node`
 On other systems see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
-## GitHub OAuth
+### To run the application inside a Vagrant virtual machine
 
-If you seed your local database with fake users, then you can use these to "fake login" as
-one of them. There will be a dropdown with identities that you can assume in development mode.
+_Skip this step if you are not using Vagrant. The following assumes your Vagrantfile is configured to forward port 3000 to 3030, adjust the port number to suit your environment._
 
-If you want to actually work on the login flow, or if you want to log in as yourself, then
-you will need keys on GitHub that the app can talk to.
+If you are using a different port than 3000 to forward outside of your Vagrant environment you will need to go into `Procfile_Vagrant` and adjust the port number that applies to your needs.
 
-Go to https://github.com/settings/applications/new and enter the following:
+* Copy the Vagrant Procfile example `cp Procfile_Vagrant.example Procfile_Vagrant`
+* Start the server with: `foreman s -f Procfile_Vagrant` (the `-f` explicitly states which Procfile to use and we don't want to use the original Procfile in our vagrant environments)
+* Sometimes you need to: `bundle exec foreman s -f Procfile_Vagrant`
+* Then you can access the local server at [localhost:3030](http://localhost:3030).
+* You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
 
-* Application name: You can name it whatever you want, e.g. _Exercism (Dev)_.
-* Homepage URL: http://localhost:4567
-* Authorization callback URL: http://localhost:4567/github/callback
-
-Click _Register application_, and you'll see something like this:
-
-![](/docs/img/oauth-client-secret.png)
-
-Hang on to those. You'll need to add the **Client ID** and **Client Secret** to a
-configuration file in just a moment.
+_Again this is assuming you are forwarding port 3000 to 3030 in your Vagrantfile, adjust accordingly to your environment_
 
 ## The Code
 
@@ -51,7 +46,7 @@ First, you need to get ahold of the code, so you have a copy of it locally that 
 * [Fork](https://github.com/exercism/exercism.io/fork) this codebase to your own GitHub account.
 * Clone your fork, and change directory into the root of the exercism.io project.
 
-## Configuration
+## Setup
 
 In most cases, it is easiest to run the `bin/setup` script to automatically setup the defaults for the application. Make sure you have PostgreSQL running in the background.
 
@@ -64,24 +59,6 @@ The script will:
 * download and seed the database with a good starting set of data
 * create the test database
 * run the test suite
-
-Then you'll need to:
-
-* Open `.env` and add the **Client ID** and **Client Secret** from the previous GitHub OAuth steps.
-
-All the commented out values in `.env` can be left alone for now.
-
-You don't need to fill in the EXERCISES_API value unless you're going to be working on the x-api codebase.
-
-## Data
-
-If you ran `bin/setup` you should be all set.
-
-You can easily reset an existing database to its original state and add the fake data in one step:
-
-* `rake db:reseed`
-
-If you need to set PostgreSQL parameters like the user and/or database name to use during setup, set `PGUSER` and/or `PGDATABASE` environment values respectively. Example: `PGUSER=pgsql PGDATABASE=postgres rake db:reseed`
 
 ### Troubleshooting
 
@@ -141,18 +118,41 @@ contain the necessary details to access the database. To work around the
 problem, there's a task `db:heroku_seed` that can be used.
 
 
-## Running The Application In A Vagrant Environment
-_The following assumes your Vagrantfile is configured to forward port 3000 to 3030, adjust the port number to suit your environment_
+## Configuration
+### GitHub OAuth
 
-If you are using a different port than 3000 to forward outside of your Vagrant environment you will need to go into `Procfile_Vagrant` and adjust the port number that applies to your needs.
+If you seed your local database with fake users, then you can use these to "fake login" as
+one of them. There will be a dropdown with identities that you can assume in development mode.
 
-* Copy the Vagrant Procfile example `cp Procfile_Vagrant.example Procfile_Vagrant`
-* Start the server with: `foreman s -f Procfile_Vagrant` (the `-f` explicitly states which Procfile to use and we don't want to use the original Procfile in our vagrant environments)
-* Sometimes you need to: `bundle exec foreman s -f Procfile_Vagrant`
-* Then you can access the local server at [localhost:3030](http://localhost:3030).
-* You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
+If you want to actually work on the login flow, or if you want to log in as yourself, then
+you will need keys on GitHub that the app can talk to.
 
-_Again this is assuming you are forwarding port 3000 to 3030 in your Vagrantfile, adjust accordingly to your environment_
+Go to https://github.com/settings/applications/new and enter the following:
+
+* Application name: You can name it whatever you want, e.g. _Exercism (Dev)_.
+* Homepage URL: http://localhost:4567
+* Authorization callback URL: http://localhost:4567/github/callback
+
+Click _Register application_, and you'll see something like this:
+
+![](/docs/img/oauth-client-secret.png)
+
+Now you can open `.env` and add the **Client ID** and **Client Secret** values.
+
+All the commented out values in `.env` can be left alone for now.
+
+You don't need to fill in the EXERCISES_API value unless you're going to be working on the x-api codebase.
+
+## Data
+
+If you ran `bin/setup` you should be all set.
+
+You can easily reset an existing database to its original state and add the fake data in one step:
+
+* `rake db:reseed`
+
+If you need to set PostgreSQL parameters like the user and/or database name to use during setup, set `PGUSER` and/or `PGDATABASE` environment values respectively. Example: `PGUSER=pgsql PGDATABASE=postgres rake db:reseed`
+
 
 ## Console
 
