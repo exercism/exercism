@@ -11,3 +11,10 @@
     background-size: 32px 32px;
   }
 }
+
+a.wordmark {
+  font-family: $headings-font-family;
+  &:hover {
+    color: $exercism-red !important;
+  }
+}
