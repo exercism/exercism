@@ -97,7 +97,7 @@ you'll need to do this manually.
 ## Run The Application
 
 * Start the server with: `foreman s -p 4567`
-* Sometimes you need to: `bundle exec foreman s -p 4567` (see [Troubleshooting](#troubleshooting) above)
+* Sometimes you need to run `bundle exec foreman s -p 4567` instead (see [Troubleshooting](#troubleshooting) above)
 * Then you can access the local server at [localhost:4567](http://localhost:4567).
 * You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
 
@@ -121,7 +121,7 @@ problem, there's a task `db:heroku_seed` that can be used.
 ## Configuration
 ### GitHub OAuth
 
-If you seed your local database with fake users, then you can use these to "fake login" as
+Providing you seeded your local database with fake users, then you can use these to "fake login" as
 one of them. There will be a dropdown with identities that you can assume in development mode.
 
 If you want to actually work on the login flow, or if you want to log in as yourself, then
@@ -171,7 +171,7 @@ The test suite is comprised of various checks to ensure everything is working an
 
 Before any tests can be run, create and migrate a test database: `RACK_ENV=test bundle exec rake db:setup db:migrate`
 
-The entire test suite can then be run with `bundle exec rake test:everything` or just `bundle exec rake` since `test:everthing` is the default Rake task.
+The entire test suite can then be run with `bundle exec rake test:everything` or just `bundle exec rake` since `test:everything` is the default Rake task.
 
 The current checks include:
 
