@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.2'
+ruby '2.3.3'
 
 gem 'activesupport', '~> 4.2.1'
 gem 'activerecord', '~> 4.2.1'
@@ -16,8 +16,8 @@ gem 'rack-flash3', require: 'rack-flash'
 gem 'rake', '~> 10.5.0'
 gem 'redcarpet', '~> 3.1'
 gem 'rouge', '~> 2.0.5'
-gem 'sinatra', '~> 1.4.4', require: 'sinatra/base'
-gem 'sinatra-contrib'
+gem 'sinatra', '~> 1.4.7', require: 'sinatra/base'
+gem 'sinatra-contrib', '~> 1.4.7'
 gem 'sidekiq'
 gem 'trackler', '~> 2.0.0'
 gem 'will_paginate'

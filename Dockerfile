@@ -1,4 +1,4 @@
-FROM ruby:2.2.2
+FROM ruby:2.3.3
 
 RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
   apt-get install -y nodejs postgresql-client && \
