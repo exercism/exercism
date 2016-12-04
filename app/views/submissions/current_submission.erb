@@ -32,7 +32,9 @@
     <div class="clearfix"></div>
     </div>
 
+    <div class="submission-code-body">
       <%= syntax(code, submission.track_id) %>
+    </div>
 
       <div id="submission-code-<%= idx %>" class="hidden" ng-non-bindable><%= h code %></div>
     <% end %>

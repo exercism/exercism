@@ -94,6 +94,7 @@
     margin-top: 10px;
     .code {
       .highlight {
+        border-top-right-radius: 0;
         padding: 0px;
       }
 
@@ -127,17 +128,18 @@
     @include blockquote_style;
   }
   .submission-code-header {
-    position: relative;
+    margin-top: 25px;
   }
   .submission-code-filename {
-    display: block;
+    display: inline;
+    h4 {
+      display: inline;
+    }
   }
   .submission-code-actions {
-    position: absolute;
-    right: 0;
-    bottom: -1.25px;
     .btn {
       border-radius: 0px;
+      border-bottom-width: 0;
     }
   }
   .comments {
