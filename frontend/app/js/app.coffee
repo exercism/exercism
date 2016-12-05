@@ -54,9 +54,12 @@ loadCommentFromStorage = () ->
   $('#submission_comment').val(localStorage.getItem(location.pathname))
 
 recordText = () ->
+  comment = localStorage.getItem(location.pathname)
   $('#submission_comment').keyup (event) ->
     text = $(this).val()
-    localStorage.setItem(location.pathname, text)
+    unless comment == text
+      comment = text
+      localStorage.setItem(location.pathname, text)
 
 initCommentMemory = () ->
   if localStorageHasKey(location.pathname)
