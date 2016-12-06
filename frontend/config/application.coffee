@@ -8,8 +8,8 @@
 
 module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application', {
   removeTasks:
-    common: ["copy:dev", "webfonts:dev", "images:dev", "concat_sourcemap", "pages:dev"]
-    dist: ["images:dist", "webfonts:dist", "pages:dist", "cssmin"]
+    common: ['copy:dev', 'webfonts:dev', 'images:dev', 'concat_sourcemap', 'pages:dev']
+    dist: ['images:dist', 'webfonts:dist', 'pages:dist', 'cssmin']
 
   server:
     apiProxy:
@@ -20,19 +20,19 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
   # enableSass: true
 
   # configure lineman to load additional angular related npm tasks
-  loadNpmTasks: [ "grunt-ngmin"]
+  loadNpmTasks: ['grunt-ngmin']
 
   # task override configuration
   prependTasks:
-    dev: ["copy:dev"]
-    dist: ["ngmin"]         # ngmin should run in dist only
+    dev: ['copy:dev']
+    dist: ['ngmin']         # ngmin should run in dist only
 
   appendTasks:
-    common: ["concat_sourcemap:js", "concat_sourcemap:spec"],
+    common: ['concat_sourcemap:js', 'concat_sourcemap:spec'],
 
   watch:
     scripts:
-      files: ["generated/**"],
+      files: ['generated/**'],
       tasks: ['copy:dev']
 
   copy:
@@ -45,8 +45,8 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
   # configuration for grunt-ngmin, this happens _after_ concat once, which is the ngmin ideal :)
   ngmin: {
     js: {
-      src: "<%= files.js.concatenated %>",
-      dest: "<%= files.js.concatenated %>"
+      src: '<%= files.js.concatenated %>',
+      dest: '<%= files.js.concatenated %>'
     }
   },
 })
