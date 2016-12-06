@@ -8,7 +8,7 @@
 
 module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application', {
   removeTasks:
-    common: [ "webfonts:dev", "images:dev"]
+    common: ["copy:dev", "webfonts:dev", "images:dev"]
     dist: ["images:dist", "webfonts:dist", "pages:dist"]
 
   server:
@@ -24,6 +24,7 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
 
   # task override configuration
   prependTasks:
+    dev: ["copy:dev"]
     dist: ["ngmin"]         # ngmin should run in dist only
 
   watch:
