@@ -32,21 +32,28 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
 
   watch:
     scripts:
-      files: ['generated/**'],
+      files: ['generated/**']
       tasks: ['copy:dev']
 
   copy:
     dev:
-      files: [expand: true, cwd: 'generated', src: ['js/**', '!**/spec.js',
-              '!**/*.coffee*', '!**/spec.js.map'], dest: '../public' ]
+      files: [
+        expand: true
+        cwd: 'generated'
+        src: ['js/**', '!**/spec.js', '!**/*.coffee*', '!**/spec.js.map']
+        dest: '../public'
+      ]
     dist:
-      files: [expand: true, cwd: 'dist', src: ['js/**'], dest: '../public']
+      files: [
+        expand: true
+        cwd: 'dist'
+        src: ['js/**']
+        dest: '../public'
+      ]
 
   # configuration for grunt-ngmin, this happens _after_ concat once, which is the ngmin ideal :)
-  ngmin: {
-    js: {
-      src: '<%= files.js.concatenated %>',
+  ngmin:
+    js:
+      src: '<%= files.js.concatenated %>'
       dest: '<%= files.js.concatenated %>'
-    }
-  },
 })
