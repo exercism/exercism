@@ -8,8 +8,8 @@
 
 module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application', {
   removeTasks:
-    common: ["copy:dev", "webfonts:dev", "images:dev"]
-    dist: ["images:dist", "webfonts:dist", "pages:dist"]
+    common: ["copy:dev", "webfonts:dev", "images:dev", "concat_sourcemap", "pages:dev"]
+    dist: ["images:dist", "webfonts:dist", "pages:dist", "cssmin"]
 
   server:
     apiProxy:
@@ -27,6 +27,9 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
     dev: ["copy:dev"]
     dist: ["ngmin"]         # ngmin should run in dist only
 
+  appendTasks:
+    common: ["concat_sourcemap:js", "concat_sourcemap:spec"],
+
   watch:
     scripts:
       files: ["generated/**"],
@@ -34,8 +37,8 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
 
   copy:
     dev:
-      files: [expand: true, cwd: 'generated', src: ['css/**', 'js/**', '!**/spec.js',
-              '!**/*.less*', '!**/*.coffee*', '!**/spec.js.map'], dest: '../public' ]
+      files: [expand: true, cwd: 'generated', src: ['js/**', '!**/spec.js',
+              '!**/*.coffee*', '!**/spec.js.map'], dest: '../public' ]
     dist:
       files: [expand: true, cwd: 'dist', src: ['js/**'], dest: '../public']
 
