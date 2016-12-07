@@ -56,4 +56,12 @@ module.exports = require(process.env['LINEMAN_MAIN']).config.extend('application
     js:
       src: '<%= files.js.concatenated %>'
       dest: '<%= files.js.concatenated %>'
+
+  uglify:
+    options:
+      banner: "<%= meta.banner %>"
+      sourceMap: "<%= files.js.minified %>.map"
+      sourceMapIn: "<%= files.js.concatenated %>.map"
+      sourceMappingURL: "<%= files.js.sourceMapUrl %>"
+
 })
