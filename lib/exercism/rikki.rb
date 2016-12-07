@@ -20,8 +20,8 @@ module Rikki
   end
 
   def supported_attempt?(attempt)
-    (attempt.track == 'ruby' && attempt.slug == 'hamming') ||
-    attempt.track == 'go' ||
-    attempt.track == 'crystal'
+    ((attempt.track == 'ruby' && attempt.slug == 'hamming') ||
+     attempt.track == 'go' ||
+     attempt.track == 'crystal')
   end
 end

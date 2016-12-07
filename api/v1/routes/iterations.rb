@@ -1,5 +1,6 @@
 require './lib/jobs/analyze'
 require './lib/jobs/hello'
+require './lib/exercism/rikki'
 
 module ExercismAPI
   module Routes
@@ -107,7 +108,7 @@ module ExercismAPI
         if Rikki.supported_attempt?(attempt)
           Jobs::Analyze.perform_async(attempt.submission.key)
         end
-        
+
         if attempt.slug == 'hello-world'
           Jobs::Hello.perform_async(attempt.submission.key, attempt.submission.version)
         end
