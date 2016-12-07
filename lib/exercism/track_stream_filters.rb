@@ -105,6 +105,8 @@ class TrackStream
           AND ex.slug=mark.slug
           AND acls.user_id=mark.user_id
         WHERE acls.user_id=#{viewer_id}
+          AND ex.archived='f'
+          AND ex.iteration_count > 0
           AND mark.at > ex.last_activity_at
         GROUP BY ex.language
       SQL
