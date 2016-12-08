@@ -2,7 +2,7 @@
  #  all of the paths & globs that the project
  #  is concerned with.
  #
- # The "configure" task will require this file and
+ # The 'configure' task will require this file and
  #  then re-initialize the grunt config such that
  #  directives like <config:files.js.app> will work
  #  regardless of the point you're at in the build
@@ -15,28 +15,29 @@
 module.exports = require(process.env['LINEMAN_MAIN']).config.extend('files', {
   js:
     vendor: [
-      "vendor/js/**/*jquery*",
-      "vendor/js/**/underscore.js",
-      "vendor/js/**/angular.js",
-      "vendor/js/**/moment.min.js",
-      "vendor/js/**/moment-timezone-with-data-2010-2020.min.js",
-      "vendor/js/**/*.js",
+      'vendor/js/**/*jquery*',
+      'vendor/js/**/underscore.js',
+      'vendor/js/**/angular.js',
+      'vendor/js/**/moment.min.js',
+      'vendor/js/**/moment-timezone-with-data-2010-2020.min.js',
+      'vendor/js/**/*.js',
     ]
     app: [
-      "app/js/namespace.js",
-      "app/js/**/*.js"
+      'app/js/namespace.js',
+      'app/js/**/*.js'
     ]
+    sourceMapUrl: "/js/app.js.map"
 
   coffee:
     app: [
-      "app/js/**/namespace.coffee",
-      "app/js/**/*.coffee"
+      'app/js/**/namespace.coffee',
+      'app/js/**/*.coffee'
     ]
 
   css:
     vendor: [
-      "vendor/css/bootstrap.css",
-      "vendor/css/bootstrap-responsive.css",
-      "vendor/css/**/*.css",
+      'vendor/css/bootstrap.css',
+      'vendor/css/bootstrap-responsive.css',
+      'vendor/css/**/*.css',
     ]
 })
