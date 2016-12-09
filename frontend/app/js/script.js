@@ -22,6 +22,8 @@ $(function() {
     commentsDiv.addClass($(this).data("new-class"));
     $("a[data-action='enlarge']",codeDiv).hide();
     $("a[data-action='shrink']",codeDiv).show();
+    window.scrollBy(0, $('.code').offset().top -
+                       $('.theiaStickySidebar').offset().top);
   });
 
   $(".code a[data-action='shrink']").on("click",function() {
