@@ -33,6 +33,13 @@ $ ->
     if confirm("Are you sure you want to remove #{username} as a member?")
       dismissTeamMember(username, slug)
 
+  $('.invite_dismiss').on 'click', ->
+    username = $(@).data('username')
+    slug = $(@).data('team')
+
+    if confirm("Are you sure you want to dismiss invitation to #{username}?")
+      dismissInvitation(username, slug)
+
   $('#destroy_team').on 'click', ->
     slug = $(@).data('team')
 
@@ -74,9 +81,16 @@ destroyTeam = (slug) ->
   form.hide().append(method_input).appendTo('body')
   form.submit()
 
-
 dismissTeamMember = (username, slug) ->
   href = "/teams/#{slug}/members/#{username}"
+  form = $('<form method="post" action="' + href + '"></form>')
+  method_input = '<input name="_method" value="delete" type="hidden"/>'
+
+  form.hide().append(method_input).appendTo('body')
+  form.submit()
+
+dismissInvitation = (username, slug) ->
+  href = "/teams/#{slug}/invitation/#{username}"
   form = $('<form method="post" action="' + href + '"></form>')
   method_input = '<input name="_method" value="delete" type="hidden"/>'
 
