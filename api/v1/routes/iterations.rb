@@ -107,10 +107,8 @@ module ExercismAPI
 
         if attempt.slug == 'hello-world'
           Jobs::Hello.perform_async(attempt.submission.key, attempt.submission.version)
-        else
-          if Rikki.supported_attempt?(attempt)
-            Jobs::Analyze.perform_async(attempt.submission.key)
-          end
+        elsif Rikki.supported_attempt?(attempt)
+          Jobs::Analyze.perform_async(attempt.submission.key)
         end
 
         status 201
