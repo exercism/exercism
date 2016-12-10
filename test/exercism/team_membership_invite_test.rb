@@ -52,6 +52,5 @@ class TeamMembershipInviteTest < Minitest::Test
 
     assert_equal 0, TeamMembershipInvite.count
     assert_equal 0, bob.team_membership_invites.count
-
   end
 end
