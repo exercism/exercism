@@ -1,5 +1,6 @@
 require './lib/jobs/analyze'
 require './lib/jobs/hello'
+require './lib/exercism/rikki'
 
 module ExercismAPI
   module Routes
@@ -104,11 +105,10 @@ module ExercismAPI
 
         ConversationSubscription.join(user, attempt.submission)
 
-        if (attempt.track == 'ruby' && attempt.slug == 'hamming') || attempt.track == 'go'
-          Jobs::Analyze.perform_async(attempt.submission.key)
-        end
         if attempt.slug == 'hello-world'
           Jobs::Hello.perform_async(attempt.submission.key, attempt.submission.version)
+        elsif Rikki.supported_attempt?(attempt)
+          Jobs::Analyze.perform_async(attempt.submission.key)
         end
 
         status 201

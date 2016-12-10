@@ -1,6 +1,6 @@
 require 'digest/sha1'
 
-class Rikki
+module Rikki
   def self.validate(key)
     key == shared_key
   end
@@ -15,5 +15,10 @@ class Rikki
 
   def self.default
     "I wish a robot would get elected president. That way, when he came to town, we could all take a shot at him and not feel too bad."
+  end
+
+  def self.supported_attempt?(attempt)
+    supported_tracks = ["ruby", "go", "crystal"]
+    supported_tracks.include?(attempt.track)
   end
 end
