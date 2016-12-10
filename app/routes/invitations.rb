@@ -12,6 +12,16 @@ module ExercismWeb
         end
       end
 
+      delete '/teams/:slug/invitation/:username' do |slug, username|
+        please_login
+        only_for_team_managers(slug, "You are not allowed to add team members.") do |team|
+          team.dismiss_invitation(username)
+
+          flash[:success] = "#{username} removed from team #{slug} invitations"
+          redirect "/teams/#{slug}/manage"
+        end
+      end
+
       post '/teams/:slug/invitation/accept' do |slug|
         please_login
         only_with_existing_team(slug) do |team|

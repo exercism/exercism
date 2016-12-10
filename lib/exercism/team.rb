@@ -80,6 +80,13 @@ class Team < ActiveRecord::Base
     end
   end
 
+  def dismiss_invitation(username)
+    user = User.find_by(username: username)
+    return if user.nil?
+
+    TeamMembershipInvite.where(user: user, team: self).destroy_all
+  end
+
   def dismiss(username)
     user = User.find_by_username(username)
     return if user.nil?
