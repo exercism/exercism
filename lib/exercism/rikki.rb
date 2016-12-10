@@ -18,8 +18,7 @@ module Rikki
   end
 
   def self.supported_attempt?(attempt)
-    ((attempt.track == 'ruby' && attempt.slug == 'hamming') ||
-     attempt.track == 'go' ||
-     attempt.track == 'crystal')
+    supported_tracks = ["ruby", "go", "crystal"]
+    supported_tracks.include?(attempt.track)
   end
 end

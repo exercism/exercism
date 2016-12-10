@@ -105,11 +105,12 @@ module ExercismAPI
 
         ConversationSubscription.join(user, attempt.submission)
 
-        if Rikki.supported_attempt?(attempt)
-          Jobs::Analyze.perform_async(attempt.submission.key)
-        end
         if attempt.slug == 'hello-world'
           Jobs::Hello.perform_async(attempt.submission.key, attempt.submission.version)
+        else
+          if Rikki.supported_attempt?(attempt)
+            Jobs::Analyze.perform_async(attempt.submission.key)
+          end
         end
 
         status 201
