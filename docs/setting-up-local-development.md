@@ -65,18 +65,13 @@ The script will:
 
 ### Troubleshooting
 
-Note that you may have trouble running commands like `rake` or `pry` if your system has a different version of those gems than the Gemfile. In that case, you will need to prepend those commands with `bundle exec` so that bundler will execute that command in the context of the project's gems rather than your system's gems. If you would like to learn more about this topic and how to alias `bundle exec` (if you don't like typing it out each time), see [this article by Thoughtbot](https://robots.thoughtbot.com/but-i-dont-want-to-bundle-exec).
+#### Command not found errors
+You may have trouble running commands like `rake` or `pry` if your system has a different version of those gems than the Gemfile. In that case, you will need to prepend those commands with `bundle exec` so that bundler will execute that command in the context of the project's gems rather than your system's gems. If you would like to learn more about this topic and how to alias `bundle exec` (if you don't like typing it out each time), see [this article by Thoughtbot](https://robots.thoughtbot.com/but-i-dont-want-to-bundle-exec).
 
+#### Database errors
 To debug the database setup, do it step-by-step:
 
-* Create the PostgreSQL database: `rake db:setup`
-* Run the database migrations: `rake db:migrate`
-* Fetch the seed data: `rake db:seeds:fetch`
-* Seed the database: `rake db:seed`
-
-If you are having 'PG::Connection ...' or 'Peer authentication failed for user ...' issues you can follow these steps (this is assuming that you modified the database.yml file and your changes are not being accessed properly. Anywhere that it is stated "PGUSER=postgres" replace "postgres" with your specified username that you use for your postgresql databases):
-
-* Create the PostgreSQL database (this will prompt you to input a password allowing you to authenticate and create your databases that are specified in your database.yml file): `PGUSER=postgres rake db:create`
+* Create the PostgreSQL database and user: `rake db:setup`
 * Run the database migrations: `rake db:migrate`
 * Fetch the seed data: `rake db:seeds:fetch`
 * Seed the database: `rake db:seed`
@@ -89,13 +84,21 @@ as fake comments. In development mode there is an "Assume" menu item to the far 
 nav bar. This will let you easily assume different fake identities to see the site
 from their perspective.
 
-You may need to edit the `config/database.yml` file to specify non-default values. If you do, please edit (or create) a `.git/info/exclude` file so that your changes don't get committed. Unfortunately we have to commit the database.yml file, because heroku no longer creates a default one.
-
 Note that if you installed PostgreSQL on OS X with [Postgres.app](http://postgresapp.com/), you'll need to
 [configure your `$PATH`](http://postgresapp.com/documentation/cli-tools.html) in order for
 the database setup to complete successfully. `bin/setup` relies on PostgreSQL command line tools
 and as Postgres.app does not automatically add the application `bin` directory to your `$PATH`,
 you'll need to do this manually.
+
+You need to edit the `config/database.yml` file to specify non-default values. If you do, please edit (or create) a `.git/info/exclude` file so that your changes don't get committed. Unfortunately we have to commit the `config/database.yml` file, because heroku no longer creates a default one.
+
+##### Changing the default database user
+If you have created a user and are having `PG::Connection ...` or `Peer authentication failed for user ...` issues, you can follow these steps (anywhere that it is stated `PGUSER=postgres` replace `postgres` with your specified username that you use for your postgresql databases):
+
+* Create the PostgreSQL database (this will prompt you to input the password): `PGUSER=postgres rake db:create`
+* Run the database migrations: `rake db:migrate`
+* Fetch the seed data: `rake db:seeds:fetch`
+* Seed the database: `rake db:seed`
 
 ## Run The Application
 
