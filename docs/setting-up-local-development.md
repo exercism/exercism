@@ -17,11 +17,14 @@ Frontend:
 
 To install Ruby, check out [RVM](https://rvm.io), [rbenv](https://github.com/sstephenson/rbenv) or [ruby-install](https://github.com/postmodern/ruby-install).
 
-PostgreSQL can be installed with [Homebrew](http://brew.sh) on Mac OS X: `brew install postgresql`
-If you're on a Linux system with apt-get then run: `apt-get install postgresql postgresql-contrib`
+To install PostgreSQL:
+- For Mac OS X with [Homebrew](http://brew.sh), run: `brew install postgresql`
+- For Linux systems with apt-get, run: `apt-get install postgresql postgresql-contrib`
+- For Windows, download an installer from the [PostgreSQL website](https://www.postgresql.org/download/windows/)
 
-Install Node.js and npm on Mac OS X with Homebrew:  `brew install node`
-On other systems see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
+To install Node.js and npm:
+- For Mac OS X with Homebrew, run: `brew install node`
+- For other systems, see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
 ### To run the application inside a Vagrant virtual machine
 
