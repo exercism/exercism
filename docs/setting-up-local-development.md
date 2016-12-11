@@ -15,7 +15,7 @@ Frontend:
 
 - Node.js
 
-To install Ruby, check out [RVM](https://rvm.io), [rbenv](https://github.com/sstephenson/rbenv) or [ruby-install](https://github.com/postmodern/ruby-install).
+To install Ruby, check out [RVM](https://rvm.io/rvm/install), [rbenv](https://github.com/rbenv/rbenv#installation) or [ruby-install](https://github.com/postmodern/ruby-install#install).
 
 To install PostgreSQL:
 - For Mac OS X with [Homebrew](http://brew.sh), run: `brew install postgresql`
