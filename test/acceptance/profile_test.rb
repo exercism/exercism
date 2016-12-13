@@ -29,8 +29,10 @@ class ProfileTest < AcceptanceTestCase
 
   def test_display_team_invites_only_in_users_own_profile
     new_user = create_user(username: 'new_user', github_id: 456)
-    attributes = { slug: 'some-team', name: 'Some Name', usernames: 'new_user' }
-    Team.by(@user).defined_with(attributes, @user).save!
+
+    team = Team.by(@user).defined_with({ slug: 'some-team', name: 'Some Name' }, @user)
+    team.save!
+    team.invite_with_usernames(new_user.username, @user)
 
     with_login(@user) do
       visit "/#{new_user.username}"

@@ -31,10 +31,14 @@ module ExercismWeb
       # Create a new team.
       post '/teams/new' do
         please_login
+
         team = Team.by(current_user).defined_with(params[:team], current_user)
+        usernames_invited = params[:team].fetch('usernames', '')
+
         if team.valid?
-          team.save
+          team.save!
           TeamMembership.create(team: team, user: current_user, inviter: current_user, confirmed: true)
+          team.invite_with_usernames(usernames_invited, current_user)
           redirect "/teams/#{team.slug}/directory"
         else
           erb :"teams/new", locals: { team: team }

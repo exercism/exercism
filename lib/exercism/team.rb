@@ -56,10 +56,6 @@ class Team < ActiveRecord::Base
     tags = [options[:slug], options[:name], options[:tags]].join(',')
     self.tags = Tag.create_from_text(tags)
 
-    users = User.find_or_create_in_usernames(potential_members(options[:usernames])) if options[:usernames]
-    users = options[:users] if options[:users]
-    invite(users, inviter)
-
     self
   end
 
