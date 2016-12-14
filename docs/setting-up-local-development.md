@@ -4,23 +4,41 @@ This section walks you through getting the exercism.io app running locally.
 
 ## Prerequisites
 
-### To run the application locally
+Exercism.io depends on the following being installed:
 
-Backend:
+- Ruby (see [`Gemfile`](https://github.com/exercism/exercism.io/blob/master/Gemfile#L3) for exact version).
+- PostgreSQL (8.4 or later)
+- Node.js (0.10 or later)
 
-- Ruby
-- PostgreSQL
+These instructions assume you're using a package manager for your OS:
 
-Frontend:
+- Mac OS X — [Homebrew](http://brew.sh)
+- Windows — [Chocolatey](https://chocolatey.org/install)
+- Linux — (whichever comes with your distro, we'll refer to `apt-get`)
 
-- Node.js
+### Installing Ruby
 
-To install Ruby, check out [RVM](https://rvm.io/rvm/install), [rbenv](https://github.com/rbenv/rbenv#installation) or [ruby-install](https://github.com/postmodern/ruby-install#install).
+(see [`Gemfile`](https://github.com/exercism/exercism.io/blob/master/Gemfile#L3) for exact version of Ruby to install).
 
-To install PostgreSQL:
-- For Mac OS X with [Homebrew](http://brew.sh), run: `brew install postgresql`
-- For Linux systems with apt-get, run: `apt-get install postgresql postgresql-contrib`
-- For Windows, download an installer from the [PostgreSQL website](https://www.postgresql.org/download/windows/)
+- Mac OS X:
+
+  ```
+  $ brew install rbenv
+  $ rbenv install X.Y.Z
+  ```
+- Windows:
+
+  ```
+  $ choco install ruby --version X.Y.Z
+  ```
+- Linux:
+   
+
+### Installing PostgreSQL
+
+- Mac OS X: `brew install postgresql`
+- Linux: `apt-get install postgresql postgresql-contrib`
+- Windows: `choco install postgresql`
 
 To install Node.js and npm:
 - For Mac OS X with Homebrew, run: `brew install node`
