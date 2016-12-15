@@ -44,6 +44,7 @@ These instructions assume you're using a package manager for your OS:
   $ rbenv install X.Y.Z
   ```
 - Linux
+
   ```
   $ sudo apt-get update
   $ sudo apt-get rbenv ruby-build
@@ -60,11 +61,13 @@ These instructions assume you're using a package manager for your OS:
 - Mac OS X
 
   ```
+  $ brew update
   $ brew install postgresql
   ```
 - Linux
   
   ```
+  $ sudo apt-get update  
   $ apt-get install postgresql postgresql-contrib
   ```
 
