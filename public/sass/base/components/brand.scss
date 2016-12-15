@@ -25,6 +25,13 @@
   width: 32px;
 }
 
+@media (max-width: $screen-sm-max) { 
+  .exercism-brand object {
+    margin-left: 1em;
+  }
+}
+
+
 .wordmark {
   font-family: $font-family-sans-serif;
   font-size: $font-size-small;
