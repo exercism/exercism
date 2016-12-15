@@ -1,21 +1,36 @@
 @import "compass/typography/text/replacement";
 @import "../themes/exercism";
 
-#brand {
-  @include hide-text;
-  background: url('/img/e_small.png') center no-repeat;
-  background-size: 32px 32px;
-  min-width: 32px;
-  padding-left: 50px;
+.exercism-brand {
+  align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  min-height: 50px;
+  margin-right: 2em;
+  text-decoration: none;
+  transition: color 300ms ease-in-out;
   &:hover {
-    background: url('/img/e_red_small.png') center no-repeat;
-    background-size: 32px 32px;
+    color: $exercism-red !important;
+    text-decoration: none;
   }
 }
 
-a.wordmark {
-  font-family: $headings-font-family;
+.exercism-brand object {
+  height: 32px;
+  width: 32px;
+}
+
+.wordmark {
+  color: $exercism-silver;
+  font-family: $font-family-sans-serif;
+  font-size: $font-size-small;
+  line-height: 50px;
+  letter-spacing: 1.2px;
+  padding-left: 10px;
+  text-transform: uppercase;
+  transition: color 300ms ease-in-out;
   &:hover {
     color: $exercism-red !important;
+    text-decoration: none;
   }
 }
