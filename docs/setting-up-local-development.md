@@ -2,6 +2,17 @@
 
 This section walks you through getting the exercism.io app running locally.
 
+- [Prerequisites](#prerequisites)
+- [The Code](#the-code)
+- [Setup](#setup)
+- [Run The Application](#run-the-application)
+- [Configuration](#configuration)
+- [Console](#console)
+- [Testing](#testing)
+- [Frontend Development Setup](#frontend-development-setup)
+
+----
+
 ## Prerequisites
 
 Exercism.io depends on the following being installed:
@@ -12,36 +23,69 @@ Exercism.io depends on the following being installed:
 
 These instructions assume you're using a package manager for your OS:
 
-- Mac OS X — [Homebrew](http://brew.sh)
 - Windows — [Chocolatey](https://chocolatey.org/install)
+- Mac OS X — [Homebrew](http://brew.sh)
 - Linux — (whichever comes with your distro, we'll refer to `apt-get`)
 
 ### Installing Ruby
 
 (see [`Gemfile`](https://github.com/exercism/exercism.io/blob/master/Gemfile#L3) for exact version of Ruby to install).
 
-- Mac OS X:
+- Windows
 
   ```
+  C:> choco install ruby --version X.Y.Z
+  ```
+- Mac OS X
+
+  ```
+  $ brew update
   $ brew install rbenv
   $ rbenv install X.Y.Z
   ```
-- Windows:
-
+- Linux
   ```
-  $ choco install ruby --version X.Y.Z
+  $ sudo apt-get update
+  $ sudo apt-get rbenv ruby-build
+  $ rbenv install X.Y.Z
   ```
-- Linux:
-   
 
 ### Installing PostgreSQL
 
-- Mac OS X: `brew install postgresql`
-- Linux: `apt-get install postgresql postgresql-contrib`
-- Windows: `choco install postgresql`
+- Windows:
 
-To install Node.js and npm:
-- For Mac OS X with Homebrew, run: `brew install node`
+  ```
+  C:> choco install postgresql
+  ```
+- Mac OS X
+
+  ```
+  $ brew install postgresql
+  ```
+- Linux
+  
+  ```
+  $ apt-get install postgresql postgresql-contrib
+  ```
+
+### Installing Node.js (and npm)
+
+- Windows
+
+  ```
+  C:> choco install node
+  ```
+- Mac OS X
+
+  ```
+  $ brew install node
+  ```
+- Linux
+  
+  *(see also [installing Node via package manager](https://nodejs.org/en/download/package-manager/).)*
+  ```
+  $ 
+  ```
 - For other systems, see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
 ### To run the application inside a Vagrant virtual machine
