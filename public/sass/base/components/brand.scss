@@ -1,6 +1,15 @@
 @import "compass/typography/text/replacement";
 @import "../themes/exercism";
 
+.exercism-brand,
+.wordmark {
+  transition: color 300ms ease-in-out;
+  &:hover {
+    color: $exercism-red !important;
+    text-decoration: none !important;
+  }
+}
+
 .exercism-brand {
   align-items: center;
   display: flex;
@@ -8,29 +17,24 @@
   min-height: 50px;
   margin-right: 2em;
   text-decoration: none;
-  transition: color 300ms ease-in-out;
-  &:hover {
-    color: $exercism-red !important;
-    text-decoration: none;
-  }
 }
 
 .exercism-brand object {
   height: 32px;
+  margin-right: 10px;
   width: 32px;
 }
 
 .wordmark {
-  color: $exercism-silver;
   font-family: $font-family-sans-serif;
   font-size: $font-size-small;
   line-height: 50px;
-  letter-spacing: 1.2px;
-  padding-left: 10px;
+  letter-spacing: 1.6px;
   text-transform: uppercase;
-  transition: color 300ms ease-in-out;
-  &:hover {
-    color: $exercism-red !important;
-    text-decoration: none;
-  }
+}
+nav .wordmark {  
+  color: $exercism-silver;
+}
+footer .wordmark {
+  color: $exercism-charcoal;
 }
