@@ -20,6 +20,15 @@ module ExercismAPI
           halt 500, { error: "Something went wrong, and it's not clear what it was. The error has been sent to our tracker. If you want to get involved, post an issue to GitHub so we can figure it out! https://github.com/exercism/exercism.io/issues" }.to_json
         end
       end
+
+      get '/tracks/:id/images/*' do |id, path|
+        image = Trackler.tracks[id].img(path)
+        if image.exists?
+          send_file image.path, type: image.type
+        else
+          halt 404
+        end
+      end
     end
   end
 end
