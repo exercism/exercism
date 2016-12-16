@@ -47,7 +47,7 @@ module ExercismWeb
             track: track,
             topic: topic,
             template: template,
-            docs: track.docs
+            docs: track.docs("/api/v1/tracks/%s/images/docs/img" % track_id)
           }
         else
           language_not_found(track_id)
