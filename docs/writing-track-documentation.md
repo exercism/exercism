@@ -50,9 +50,9 @@ Use the relative path to this directory when referring to the images in the mark
 
 ```
 ![](/docs/img/dropdown.png)
+```
 
 There are a number of variations on markdown image syntax. [This guide](https://daringfireball.net/projects/markdown/syntax#img) has more details.
-```
 
 This will show up correctly when you browse the documentation within the repository on GitHub, and also when it is included on the Exercism website, where we rewrite the paths to refer to the correct API endpoint that serves the images.
 
