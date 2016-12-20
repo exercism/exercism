@@ -296,7 +296,7 @@ For details about working with the problems API, check out the [Problems API Gui
 These instructions should get you closer to getting a commit into the
 repository.
 
-See the [Setting up Local Development guide](docs/setting-up-local-development) for more information about how to run exercism.io locally.
+See the [Setting up Local Development guide](docs/setting-up-local-development.md) for more information about how to run exercism.io locally.
 
 ### Git Workflow
 
