@@ -1,3 +1,5 @@
+require 'octicons'
+
 module ExercismWeb
   module Helpers
     module Submission
@@ -52,6 +54,10 @@ module ExercismWeb
           submission.version -= 1
           submission.save!
         end
+      end
+
+      def diff_button_svg
+        Octicons::Octicon.new("diff", height: 14).to_svg
       end
     end
   end
