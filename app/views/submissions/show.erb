@@ -68,7 +68,8 @@
         <span class="label label-default">Iterations</span>
       </li>
       <% submission.user_exercise.submissions.each do |s| %>
-        <li class="<%= "active" if s == submission %>">
+        <li class="iterations-nav-item <%= "active" if s == submission %>"
+            data-solution="<%= h s.solution.to_a.to_json %>">
           <a href="/submissions/<%= s.key %>">
             <% unless submission.user_exercise.archived? %>
               <i class="fa"></i>

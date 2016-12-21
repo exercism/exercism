@@ -142,6 +142,16 @@
       border-bottom-width: 0;
     }
   }
+  .highlight {
+    td.gutter, td.code {
+      vertical-align: top;
+    }
+    &.preview {
+      $preview-color: scale-color($exercism-red, $lightness: 50%);
+      border-color: $preview-color;
+      border-style: dashed;
+    }
+  }
   .comments {
     h3 {
       margin-top: 0px;
