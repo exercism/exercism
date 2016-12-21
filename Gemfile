@@ -29,6 +29,7 @@ gem 'compass'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 gem 'kss'
+gem 'octicons'
 
 group :test, :development do
   gem 'approvals', require: false
