@@ -158,3 +158,44 @@
     }
   }
 }
+#submission.diff-view {
+  .iterations-nav-item {
+    &.active {
+      a {
+        border-bottom-color: $body-bg;
+        background: linear-gradient(to top, $body-bg, $nav-tabs-diff-new-bg);
+        background: moz-linear-gradient(bottom, $body-bg, $nav-tabs-diff-new-bg);
+        background: webkit-linear-gradient(bottom, $body-bg, $nav-tabs-diff-new-bg);
+        background: o-linear-gradient(bottom, $body-bg, $nav-tabs-diff-new-bg);
+      }
+    }
+    &.diff-view-old {
+      a {
+        border-bottom: transparent;
+        background: linear-gradient(to top, $body-bg, $nav-tabs-diff-old-bg);
+        background: moz-linear-gradient(bottom, $body-bg, $nav-tabs-diff-old-bg);
+        background: webkit-linear-gradient(bottom, $body-bg, $nav-tabs-diff-old-bg);
+        background: o-linear-gradient(bottom, $body-bg, $nav-tabs-diff-old-bg);
+      }
+      :hover {
+        border: 1px solid $nav-tabs-link-hover-border-color;
+      }
+    }
+  }
+  .submission-code-body {
+    td.code pre {
+      span.diff-added {
+        background: $diff-added-bg;
+      }
+      span.diff-removed {
+        background: $diff-removed-bg;
+      }
+    }
+    pre.lineno a {
+    color: lighten($brand-warning, 15%);
+    }
+  }
+  .btn-show-diff {
+    @extend .active;
+  }
+}

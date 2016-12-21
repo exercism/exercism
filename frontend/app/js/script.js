@@ -1,4 +1,6 @@
 //TODO move all variable declaration to the tops of functions.
+var submissionViewLayout;
+
 $(function() {
   $(".pending-submission, .work").each(function(index,element) {
     var elem = $(element);
@@ -24,6 +26,7 @@ $(function() {
     $("a[data-action='shrink']",codeDiv).show();
     window.scrollBy(0, $('.code').offset().top -
                        $('.theiaStickySidebar').offset().top);
+    submissionViewLayout = 1; // One full-width column of code and comments
   });
 
   $(".code a[data-action='shrink']").on("click",function() {
@@ -35,6 +38,7 @@ $(function() {
     commentsDiv.addClass($(this).data("new-class"));
     $("a[data-action='shrink']",codeDiv).hide();
     $("a[data-action='enlarge']",codeDiv).show();
+    submissionViewLayout = 2; // Two columns for code/comments
   });
 
   $('form').on('submit', function() {
