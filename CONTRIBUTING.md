@@ -25,7 +25,7 @@ We are working to improve this document, and if you find any part of it confusin
 
 * If you're having trouble figuring out how to do something on the website, jump in the [online support chat](https://gitter.im/exercism/support) and ask there.
 - Check [`exercism/exercism.io`](https://github.com/exercism/exercism.io/issues?q=is%3Aissue+is%3Aopen+label%3Abug)'s repo for bugs; and while we might know there's an issue, any additional details sometimes can help.
-- If the website has a bug, you can help by [filing a bug report](docs/filing-a-bug-report.md) in the [`exercism/exercism.io` repository](https://github.com/exercism/exercism.io/issues/new).
+- If the website has a bug, you can help by [filing a bug report](docs/filing-a-bug-report.md) in the [`exercism/exercism.io`](https://github.com/exercism/exercism.io/issues/new) repository.
   - if you have the time and the desire, you can help *even more* by [fixing it](#i-would-like-to-help-i-know--want-to-get-better-at-web-programming).
 
 -
@@ -34,7 +34,7 @@ We are working to improve this document, and if you find any part of it confusin
 
 * If you're having trouble installing or working with the CLI, ask for help in our [online support chat](https://gitter.im/exercism/support).
 - It may be a reported/known bug; check [`exercism/cli`](https://github.com/exercism/cli/issues?q=is%3Aissue+is%3Aopen+label%3Abug)'s repo for bugs.
-- If the CLI has a bug, you can help by [filing a bug report](docs/filing-a-bug-report.md) in the [`exercism/cli` repository](https://github.com/exercism/cli/issues/new).
+- If the CLI has a bug, you can help by [filing a bug report](docs/filing-a-bug-report.md) in the [`exercism/cli`](https://github.com/exercism/cli/issues/new) repository.
   - if you have the time and the desire, you can help *even more* by [fixing it](#i-would-like-to-help-i-know--want-to-get-better-at-go).
 
 -
@@ -51,7 +51,7 @@ We are working to improve this document, and if you find any part of it confusin
 
 * If a particular exercise is giving you grief, ask for help in our [online support chat](https://gitter.im/exercism/support).
 - If there's a defect in the...
-  - **instructions** of the exercise, you can make a difference by [filing a bug report](docs/filing-a-bug-report.md) in the [`exercism/x-common` repository](https://github.com/exercism/x-common/issues/new).
+  - **instructions** of the exercise, you can make a difference by [filing a bug report](docs/filing-a-bug-report.md) in the [`exercism/x-common`](https://github.com/exercism/x-common/issues/new) repository.
     - if you have the time and the desire, you can help *even more* by [fixing it](#i-would-like-to-help-i-can--want-to-get-better-at-organizing-stuff).
   - **tests** or **starter code** of the exercise, you can help by [filing a bug report](docs/filing-a-bug-report.md) in the "Issues" section of the [corresponding language repository](http://exercism.io/repositories).
     - if you have the time and the desire, you can help *even more* by [fixing it](#i-would-like-to-help-i-am-fluent-in--want-to-get-better-at-a-particular-programming-language).
