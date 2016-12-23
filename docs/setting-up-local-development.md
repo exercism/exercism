@@ -2,24 +2,50 @@
 
 This section walks you through getting the exercism.io app running locally.
 
-- [Prerequisites](#prerequisites)
-- [The Code](#the-code)
-- [Setup](#setup)
-- [Run The Application](#run-the-application)
+- [Get the source code](#get-the-source-code)
+- [Install the prerequisites](#install-the-prerequisites)
+  - [Running exercism.io directly on your computer](#running-exercism-io-directly-on-your-computer)
+  - [Running exercism.io in a Docker container via Vagrant](#running-exercism-io-in-a-docker-container-via-vagrant)
+- [Initialize exercism.io](#initialize-exercism-io)
+- [Run exercism.io locally](#run-exercism-io-locally)
+- [Run the REPL](#run-the-repl)
+- [Troubleshoot](#troubleshoot)
 - [Configuration](#configuration)
-- [Console](#console)
 - [Testing](#testing)
 - [Frontend Development Setup](#frontend-development-setup)
 
 ----
 
-## Prerequisites
+## Get the source code
 
-Exercism.io depends on the following being installed:
+Step one is to get a copy of the source for `exercism.io` to which you can make changes.  For this, you need to do some work in GitHub and use git.
+
+If at any time you need help:
+
+* [GitHub guides](https://guides.github.com) do a good job explaining the basics of using GitHub and git;
+* our friendly volunteers in [our support chat](https://gitter.im/exercism/support) will do their best to help you.
+
+Get the code:
+
+1. [Fork](https://github.com/exercism/exercism.io/fork) (i.e. [make a linked copy](https://help.github.com/articles/fork-a-repo/)) of this codebase from `exercism/exercism.io` to your own GitHub account.
+2. [Clone](https://help.github.com/articles/cloning-a-repository/) that fork to your local computer.
+
+You now have the source code.  Before you fire-up exercism.io, locally, you need a few more pieces of software...
+
+## Install the prerequisites
+
+Exercism.io depends on the following:
 
 - Ruby (see [`Gemfile`](https://github.com/exercism/exercism.io/blob/master/Gemfile#L3) for exact version).
 - PostgreSQL (8.4 or later)
 - Node.js (0.10 or later)
+
+These instructions present two options:
+
+1. Run exercism.io on your computer directly by [installing the required software](#running-exercism-io-directly-on-your-computer).
+2. Run exercism.io [in a Docker container via Vagrant](#running-exercism-io-in-a-docker-container-via-vagrant).
+
+### Running exercism.io directly on your computer
 
 These instructions assume you're using a package manager for your OS:
 
@@ -27,7 +53,7 @@ These instructions assume you're using a package manager for your OS:
 - Mac OS X — [Homebrew](http://brew.sh)
 - Linux — (whichever comes with your distro, we'll refer to `apt-get`)
 
-### Installing Ruby
+#### Installing Ruby
 
 (see [`Gemfile`](https://github.com/exercism/exercism.io/blob/master/Gemfile#L3) for exact version of Ruby to install).
 
@@ -51,7 +77,7 @@ These instructions assume you're using a package manager for your OS:
   $ rbenv install X.Y.Z
   ```
 
-### Installing PostgreSQL
+#### Installing PostgreSQL
 
 - Windows:
 
@@ -71,12 +97,12 @@ These instructions assume you're using a package manager for your OS:
   $ apt-get install postgresql postgresql-contrib
   ```
 
-### Installing Node.js (and npm)
+#### Installing Node.js (and npm)
 
 - Windows
 
   ```
-  C:> choco install node
+  C:> choco install nodejs
   ```
 - Mac OS X
 
@@ -87,53 +113,76 @@ These instructions assume you're using a package manager for your OS:
   
   *(see also [installing Node via package manager](https://nodejs.org/en/download/package-manager/).)*
   ```
-  $ 
+  $ sudo apt-get install nodejs
   ```
 - For other systems, see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
-### To run the application inside a Vagrant virtual machine
+With this, we're ready to download, build and run exercism.io locally (skip down to [The Code](#get-the-source-code))...
 
-_Skip this step if you are not using Vagrant. The following assumes your Vagrantfile is configured to forward port 3000 to 3030, adjust the port number to suit your environment._
+### Running exercism.io in a Docker container via Vagrant
 
-If you are using a different port than 3000 to forward outside of your Vagrant environment you will need to go into `Procfile_Vagrant` and adjust the port number that applies to your needs.
+As an alternative to installing exercism.io's dependencies on your host OS, you can do so in a Linux container (i.e. Docker).  See [Docker and exercism.io](https://github.com/exercism/exercism.io/tree/master/docker) for more information on this kind of setup.
 
-* Copy the Vagrant Procfile example `cp Procfile_Vagrant.example Procfile_Vagrant`
-* Start the server with: `foreman s -f Procfile_Vagrant` (the `-f` explicitly states which Procfile to use and we don't want to use the original Procfile in our vagrant environments)
-* Sometimes you need to: `bundle exec foreman s -f Procfile_Vagrant`
-* Then you can access the local server at [localhost:3030](http://localhost:3030).
-* You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
+----
 
-_Again this is assuming you are forwarding port 3000 to 3030 in your Vagrantfile, adjust accordingly to your environment_
+## Initialize exercism.io
 
-## The Code
+At this point, you have a local [copy of the source code](#get-the-source-code) and [installed the prerequisite software](#install-the-prerequisites).
 
-If you're unfamiliar with git and GitHub, don't worry. We'll gladly help you out if you get stuck. GitHub also has some [helpful guides](https://guides.github.com) for getting started.
+To initialize your local copy of exercism.io, run the setup script:
 
-First, you need to get ahold of the code, so you have a copy of it locally that you can make changes to.
+NOTE: If you are running exercism.io in a Docker container, prepend the command below with `docker-compose run app` (as described in [Docker and exercism.io: Other Tasks](https://github.com/exercism/exercism.io/tree/master/docker#other-tasks)).
 
-* [Fork](https://github.com/exercism/exercism.io/fork) this codebase to your own GitHub account.
-* Clone your fork, and change directory into the root of the exercism.io project.
-
-## Setup
-
-In most cases, it is easiest to run the `bin/setup` script to automatically setup the defaults for the application. Make sure you have PostgreSQL running in the background.
+```
+$ bin/setup
+```
 
 The script will:
 
-* setup the `.ruby-version` file for your Ruby version manager such as RVM, rbenv or chruby
-* copy the environment config to `.env`
-* run bundler to install the required gems
-* create the development database using the credentials in `config/database.yml`
-* download and seed the database with a good starting set of data
-* create the test database
-* run the test suite
+1. configure the environment;
+2. create and seed the development and test databases;
+3. run the test suite.
 
-### Troubleshooting
+## Run exercism.io locally
 
-#### Command not found errors
+NOTE: If you are running exercism.io in a Docker container, prepend all commands below with `docker-compose run app` (as described in [Docker and exercism.io: Other Tasks](https://github.com/exercism/exercism.io/tree/master/docker#other-tasks)).
+
+After you have [initialized exercism.io](#initialize-exercism-io) successfully, you're ready to fire it up: 
+
+1. Start the server:
+
+   ```bash
+   $ bundle exec foreman -s -p 4567
+   ```
+2. Launch a browser and navigate to the homepage: http://localhost:4567.
+3. Login as a test user using the `assume` dropdown menu on the top right of the page.
+
+## Run the REPL
+
+When exploring our debugging, you may find it useful to have a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) that loads the exercism environment.  This is accomplished in Ruby environments through [`pry`](http://pryrepl.org/).
+
+After you have [initialized exercism.io](#initialize-exercism-io) successfully, you can start the REPL:
+
+```bash
+$ bundle exec bin/console
+```
+
+From there, you are in a Ruby prompt.  Anything you can do in the app, you can do on the command-line...
+
+```ruby
+user = User.find_by_username 'whatever'
+user.submissions
+```
+
+
+## Troubleshoot
+
+### Command not found errors
+
 You may have trouble running commands like `rake` or `pry` if your system has a different version of those gems than the Gemfile. In that case, you will need to prepend those commands with `bundle exec` so that bundler will execute that command in the context of the project's gems rather than your system's gems. If you would like to learn more about this topic and how to alias `bundle exec` (if you don't like typing it out each time), see [this article by Thoughtbot](https://robots.thoughtbot.com/but-i-dont-want-to-bundle-exec).
 
-#### Database errors
+### Database errors
+
 To debug the database setup, do it step-by-step:
 
 * Create the PostgreSQL database and user: `rake db:setup`
@@ -157,7 +206,8 @@ you'll need to do this manually.
 
 You need to edit the `config/database.yml` file to specify non-default values. If you do, please edit (or create) a `.git/info/exclude` file so that your changes don't get committed. Unfortunately we have to commit the `config/database.yml` file, because heroku no longer creates a default one.
 
-##### Changing the default database user
+### Changing the default database user
+
 If you have created a user and are having `PG::Connection ...` or `Peer authentication failed for user ...` issues, you can follow these steps (anywhere that it is stated `PGUSER=postgres` replace `postgres` with your specified username that you use for your postgresql databases):
 
 * Create the PostgreSQL database (this will prompt you to input the password): `PGUSER=postgres rake db:create`
@@ -165,31 +215,8 @@ If you have created a user and are having `PG::Connection ...` or `Peer authenti
 * Fetch the seed data: `rake db:seeds:fetch`
 * Seed the database: `rake db:seed`
 
-## Run The Application
-
-* Start the server with: `foreman s -p 4567`
-* Sometimes you need to run `bundle exec foreman s -p 4567` instead (see [Troubleshooting](#troubleshooting) above)
-* Then you can access the local server at [localhost:4567](http://localhost:4567).
-* You can log in as a test user using the `assume` dropdown menu on the top right of the page without creating any new user for the app.
-
-To setup seed data to test out the application locally, use the rake
-tasks provided. You can get a list of all the rake tasks by running:
-
-    bundle exec rake -T
-
-To setup the seed data locally, run:
-
-    bundle exec rake db:seeds:fetch
-    bundle exec rake db:seed
-
-The first command fetches the seed file and places it under the `db/`
-folder as `seeds.sql`. Note that if you're deploying the application to
-Heroku, `db:seed` task might fail since the database config file won't
-contain the necessary details to access the database. To work around the
-problem, there's a task `db:heroku_seed` that can be used.
-
-
 ## Configuration
+
 ### GitHub OAuth
 
 Providing you seeded your local database with fake users, then you can use these to "fake login" as
@@ -225,16 +252,6 @@ You can easily reset an existing database to its original state and add the fake
 If you need to set PostgreSQL parameters like the user and/or database name to use during setup, set `PGUSER` and/or `PGDATABASE` environment values respectively. Example: `PGUSER=pgsql PGDATABASE=postgres rake db:reseed`
 
 
-## Console
-
-There's a script in `bin/console` that will load pry with the exercism environment loaded. You may need to run this file as `bundle exec bin/console` (see [Troubleshooting](#troubleshooting) above).
-This will let you poke around at the objects in the system, such as finding users and changing
-things about submissions or comments, making it easier to test specific things.
-
-```ruby
-user = User.find_by_username 'whatever'
-user.submissions
-```
 
 ## Testing
 
@@ -340,6 +357,18 @@ Let Heroku know that Lineman will be building our assets. From the command line:
 ```bash
 heroku config:set BUILDPACK_URL=https://github.com/testdouble/heroku-buildpack-lineman-ruby.git
 ```
+
+To setup the seed data locally, run:
+
+    bundle exec rake db:seeds:fetch
+    bundle exec rake db:seed
+
+The first command fetches the seed file and places it under the `db/`
+folder as `seeds.sql`. Note that if you're deploying the application to
+Heroku, `db:seed` task might fail since the database config file won't
+contain the necessary details to access the database. To work around the
+problem, there's a task `db:heroku_seed` that can be used.
+
 
 ### Live deployment
 
