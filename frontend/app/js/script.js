@@ -136,7 +136,7 @@ $(function() {
     var nitpicker = commentBodyDiv.data('nitpicker');
 
     // construct reply
-    var nitQuoted = "@" + nitpicker + " had commented:\n";
+    var nitQuoted = "@" + nitpicker + " commented:\n";
     nitQuoted += nitRaw.split('\n').map(function(x) { return "> " + x; }).join('\n');
     nitQuoted += '\n';
 
