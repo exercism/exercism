@@ -1,15 +1,19 @@
 @import "compass/typography/text/replacement";
 @import "../themes/exercism";
 
-.exercism-brand,
-.wordmark {
-  transition: color 300ms ease-in-out;
-  &:hover {
-    color: $exercism-red !important;
-    text-decoration: none !important;
+.navbar .exercism-brand {
+  color: $exercism-silver !important;
+  cursor: pointer;
+}
+@media (max-width: $screen-sm-max) {
+  .navbar .exercism-brand  {
+    margin-left: 1em;
   }
 }
-
+.exercism-brand,
+.logo-type {
+  transition: all 200ms ease-in-out;
+}
 .exercism-brand {
   align-items: center;
   display: flex;
@@ -18,30 +22,28 @@
   margin-right: 2em;
   text-decoration: none;
 }
+a.exercism-brand:hover,
+a.exercism-brand:focus {
+  text-decoration: none !important;
+  & .logo-type {
+    color: $exercism-red !important;
+  }
+}
 
 .exercism-brand object {
   height: 32px;
   margin-right: 10px;
+  pointer-events: none;
   width: 32px;
 }
 
-@media (max-width: $screen-sm-max) { 
-  .exercism-brand object {
-    margin-left: 1em;
-  }
-}
-
-
-.wordmark {
+.logo-type {
+  color: $exercism-charcoal;
   font-family: $font-family-sans-serif;
   font-size: $font-size-small;
-  line-height: 50px;
   letter-spacing: 1.6px;
   text-transform: uppercase;
 }
-nav .wordmark {  
+.navbar .logo-type {
   color: $exercism-silver;
-}
-footer .wordmark {
-  color: $exercism-charcoal;
 }

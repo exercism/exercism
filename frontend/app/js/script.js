@@ -131,3 +131,20 @@ $(function() {
   }());
 
 });
+
+// color change on hover for SVG logo in navbar
+var hoverSVG = function(fill) {
+  var svg = document.getElementById("logo-mark");
+  var svgDoc = svg.contentDocument;
+  var e = svgDoc.getElementById("shape");
+  e.style.transition = "all 200ms ease-in-out"
+  e.setAttribute("fill",fill);
+};
+var mouseoverSVG = function() {
+  hoverSVG('#d81d4e')
+};
+var mouseoutSVG = function() {
+  hoverSVG('#bbb')
+};
+$("#nav-brand").on('mouseover', mouseoverSVG);
+$("#nav-brand").on('mouseout', mouseoutSVG);
