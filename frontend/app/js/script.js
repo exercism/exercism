@@ -141,7 +141,7 @@ $(function() {
     nitQuoted += '\n';
 
     // switch to 'Write' tab incase 'Preview' tab was selected
-    $("tabset a:contains('Write')").trigger('click');
+    $("#write_tab").find('a').trigger('click');
 
     // set reply
     var submissionCommentTextArea = $('#submission_comment');
