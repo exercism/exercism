@@ -91,8 +91,8 @@ Here are some helpful starter searches in the two repositories that contain idea
 
 If the idea doesn't fit in one of those discussions, then if it relates to:
 
-* a specific part of the site, start a new conversation in the [`exercism/exercism.io`](https://github.com/exercism/exercism.io/issues/new) repository.
-- multiple aspects of the site, kick it off in the [`exercism/discussions`](https://github.com/exercism/discussions/issues/new) repository.
+* a specific part of the site, start a new conversation in the [`exercism/exercism.io` repository](https://github.com/exercism/exercism.io/issues/new).
+- multiple aspects of the site, kick it off in the [`exercism/discussions` repository](https://github.com/exercism/discussions/issues/new).
 
 -
 
@@ -107,7 +107,7 @@ Here are some helpful starter searches in the two repositories that contain idea
 * [`exercism/cli?`](https://github.com/exercism/cli/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc)
 - [`exercism/discussions?cli`](https://github.com/exercism/discussions/issues?q=is%3Aissue+is%3Aopen+cli+sort%3Aupdated-desc)
 
-If the idea isn't being discussed yet, kick it off in the [`exercism/cli`](https://github.com/exercism/cli/issues/new) repository.
+If the idea isn't being discussed yet, kick it off in the [`exercism/cli` repository](https://github.com/exercism/cli/issues/new).
 
 -
 
@@ -129,7 +129,7 @@ New exercise ideas are definitely welcome!  Here's how to ensure the idea lands 
 ### I have an idea about improving an existing exercise
 
 - If the idea is to improve the...
-  - **instructions** of the exercise, you can make a difference by making the suggestion in the [`exercism/x-common`](https://github.com/exercism/x-common/issues/new) repository.
+  - **instructions** of the exercise, you can make a difference by making the suggestion in the [`exercism/x-common` repository](https://github.com/exercism/x-common/issues/new).
     - if you have the time and the desire, you can help *even more* by [fixing it](#i-would-like-to-help-i-can--want-to-get-better-at-organizing-stuff).
   - **tests** or **starter code** of the exercise, you can help by making the suggestion in the "Issues" section of the [corresponding language repository](http://exercism.io/repositories).
     -  if you have the time and the desire, you can help *even more* by [fixing it](#i-would-like-to-help-i-am-fluent-in--want-to-get-better-at-a-particular-programming-language).
