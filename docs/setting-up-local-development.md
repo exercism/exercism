@@ -10,7 +10,7 @@ This section walks you through getting the exercism.io app running locally.
 - [Run exercism.io locally](#run-exercism-io-locally)
 - [Run the REPL](#run-the-repl)
 - [Troubleshoot](#troubleshoot)
-- [Configuration](#configuration)
+- [Configure](#configure)
 - [Testing](#testing)
 - [Frontend Development Setup](#frontend-development-setup)
 
@@ -215,31 +215,37 @@ If you have created a user and are having `PG::Connection ...` or `Peer authenti
 * Fetch the seed data: `rake db:seeds:fetch`
 * Seed the database: `rake db:seed`
 
-## Configuration
+## Configure Your Local Copy of exercism.io
 
-### GitHub OAuth
+### Authenticate with GitHub
 
-Providing you seeded your local database with fake users, then you can use these to "fake login" as
-one of them. There will be a dropdown with identities that you can assume in development mode.
+When you [initialized your local copy of exercism.io](#initialize-exercism-io), it created a set of fake users.  You can log in as one of these faked users by selecting the from the dropdown in the header.  This skips the need to do the OAuth flow with GitHub.
 
-If you want to actually work on the login flow, or if you want to log in as yourself, then
-you will need keys on GitHub that the app can talk to.
+However, if you want to work on the login flow, itself, or for some reason want to log in as yourself, then you will need to setup client authentication OAuth with GitHub.
 
-Go to https://github.com/settings/applications/new and enter the following:
+1. Register your development instance of exercism as an application in GitHub.
 
-* Application name: You can name it whatever you want, e.g. _Exercism (Dev)_.
-* Homepage URL: http://localhost:4567
-* Authorization callback URL: http://localhost:4567/github/callback
+    Go to https://github.com/settings/applications/new and enter the following:
 
-Click _Register application_, and you'll see something like this:
+    * Application name: `Exercism (Dev)` (this can be whatever you want)
+    * Homepage URL: `http://localhost:4567`
+    * Authorization callback URL: `http://localhost:4567/github/callback`
 
-![](/docs/img/oauth-client-secret.png)
+    Click _Register application_.
 
-Now you can open `.env` and add the **Client ID** and **Client Secret** values.
+2. Configure your copy of exercism.io to use the OAuth client credentials GitHub generated.
 
-All the commented out values in `.env` can be left alone for now.
+    Viewing the details of your registration, find the client credentials:
+    
+    ![](/docs/img/oauth-client-secret.png)
 
-You don't need to fill in the EXERCISES_API value unless you're going to be working on the x-api codebase.
+    Edit `.env`, copying the `Client ID` and `Client Secret`.
+    ```
+    export PORT=4567
+    export EXERCISM_GITHUB_CLIENT_ID=abc123
+    export EXERCISM_GITHUB_CLIENT_SECRET=abcdef123456
+    ```
+
 
 ## Data
 
