@@ -4,7 +4,7 @@
       <img src="<%= nit.nitpicker.avatar_url %>" class="img-responsive img-rounded" />
     </a>
   </div>
-  <div class="comment-body">
+  <div class="comment-body" data-nit-raw="<%= h(nit.body) %>" data-nitpicker="<%= nit.nitpicker.username %>" >
     <%= nit.html_body %>
     <div class="comment-meta">
       <% if current_user == nit.nitpicker %>
@@ -25,6 +25,18 @@
             <i class="fa fa-code"></i>
           </a>
         <% end %>
+      <% end %>
+
+      <% unless current_user.guest? %>
+        <a
+          data-action="reply"
+          class="pull-right btn btn-default btn-xs"
+          data-toggle="tooltip"
+          data-placement="bottom"
+          title="Reply to <%= nit.nitpicker.username %>'s comments"
+          href="">
+          <i class="fa fa-reply"></i>
+        </a>
       <% end %>
 
       <%= profile_link(nit.nitpicker) %>
