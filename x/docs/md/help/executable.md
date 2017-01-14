@@ -28,10 +28,10 @@ If the API key is incorrect, then re-run the `configure` command:
 exercism configure --key=YOUR_API_KEY
 ```
 
-Next look at the `Exercises Directory`. The current directory which is being used to fetch exercises can be viewed using the following command:
+Next look at the Exercises Directory. It will look something like this:
 
-```bash
-exercism configure --dir
+```plain
+Exercises Directory: /home/you/exercism
 ```
 
 To change the directory where exercises are downloaded, use the following command (Be sure to enclose the directory path inside double quotes):
