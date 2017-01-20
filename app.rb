@@ -8,6 +8,7 @@ require 'will_paginate'
 require 'will_paginate/active_record'
 require 'kss'
 require 'tilt/erb'
+require 'i18n'
 
 require_relative './app/presenters'
 
@@ -18,6 +19,7 @@ module ExercismWeb
   class App < Sinatra::Base
     configure do
       use Rack::Session::Cookie, secret: ENV.fetch('SESSION_SECRET') { "Need to know only." }
+      I18n.load_path = Dir[File.join(settings.root, 'locales', '*.yml')]
     end
 
     if settings.development?
