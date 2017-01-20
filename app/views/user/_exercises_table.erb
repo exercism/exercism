@@ -55,6 +55,6 @@
 
 <% if profile.own? %>
     <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete these exercises?');">
-    <input type="submit" formaction="/exercises/archive" value="Archive" class="btn btn-default" title="<%= I18n.t(:archive_exercise_tooltip) %>" data-toggle="tooltip" data-placement="bottom" onclick="return confirm('Are you sure you want to archive these exercises?');">
+    <input type="submit" formaction="/exercises/archive" value="Archive" class="btn btn-default" title="Archive exercises if you don't need any more feedback" data-toggle="tooltip" data-placement="bottom" onclick="return confirm('Are you sure you want to archive these exercises?');">
   </form>
 <% end %>

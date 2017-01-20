@@ -42,7 +42,7 @@
 
     <br>
 
-    <h4>Archived <i style="font-size: 20px;" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="<%= I18n.t(:archive_exercise_tooltip) %>"></i></h4>
+    <h4>Archived <i style="font-size: 20px;" class="fa fa-question-circle" data-toggle="tooltip" data-placement="top" title="Archive exercises if you don't need any more feedback"></i></h4>
     <% if profile.has_archived_exercises? %>
       <%= erb :"user/_archived_exercises_table", locals: { profile: profile } %>
     <% else %>
