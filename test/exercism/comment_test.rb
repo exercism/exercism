@@ -26,7 +26,7 @@ class CommentTest < Minitest::Test
       ["Mention @alice and @bob and also @charlie", %w(alice bob), "ignore unknown users"],
     ].each do |body, mentions, _desc|
       usernames = User.where(id: Comment.new(body: body).mention_ids).map(&:username)
-      assert_equal usernames, mentions
+      assert_equal mentions, usernames.sort
     end
   end
 end
