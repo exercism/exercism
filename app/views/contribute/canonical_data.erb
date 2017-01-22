@@ -1,0 +1,99 @@
+<div class="container contribute">
+  <div class="row" style="padding-top: 40px;">
+    <div class="col-md-4">
+      <a href="/"> HOME </a>
+
+      <i class="fa fa-caret-right"></i>
+      <a href="/contribute">Contribute</a>
+
+      <i class="fa fa-caret-right"></i>
+      <a href="/contribute/canonical-data">Canonical Data</a>
+
+      <% if current_problem.exists? %>
+        <i class="fa fa-caret-right"></i>
+        <a href="/contribute/canonical-data/<%= current_problem.slug %>"><%= current_problem.name %></a>
+      <% end %>
+    </div>
+
+    <div class="col-md-8">
+      <% if current_problem.exists? %>
+        <h1><%= current_problem.name %></h1>
+      <% else %>
+        <h1>Canonical Data</h1>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 20px;">
+    <aside role="complementary">
+      <div class="col-md-4">
+        <ul class="nav nav-pills nav-stacked">
+
+          <% problems.each do |problem| %>
+            <li class="<%= "active" if problem.slug == current_problem.slug %>">
+              <a href="/contribute/canonical-data/<%= problem.slug %>">
+                <%= problem.name %>
+              </a>
+            </li>
+          <% end %>
+
+        </ul>
+      </div>
+    </aside>
+
+    <div class="col-md-8 tab-content">
+      <div class="tab-pane active" id="problem-<%= current_problem.slug %>">
+        <% if current_problem.exists? %>
+
+          <% if !!current_problem.canonical_data_url %>
+            <p>This problem already has a <code>canonical-data.json</code> file. You can view it <a href="https://github.com/exercism/x-common/blob/master/exercises/<%= current_problem.slug %>/canonical-data.json">here</a>.</p>
+
+          <% else %>
+
+            <p>
+              The process for extracting canonical data is described in the <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#improving-consistency-by-extracting-shared-test-data">Contributing Guide</a>.
+            </p>
+
+            <p>
+              View the problem description <a href="https://github.com/exercism/x-common/blob/master/exercises/accumulate/description.md">here</a>.
+            </p>
+
+            <h2>Implementations</h2>
+
+            <p>
+            <%= current_problem.name %> has been implemented in <%= implementations.count %> <%= "track".pluralize(implementations.count) %>:
+            </p>
+
+            <% implementations.each do |implementation| %>
+              <ul>
+                <li>
+                <a href="<%= [implementation.repo, implementation.exercise_dir].join("/") %>">
+                    <%= Trackler.tracks[implementation.track_id].language %>
+                  </a>
+                </li>
+
+              </ul>
+            <% end %>
+
+          <% end %>
+
+        <% else %>
+
+          <% active_problems = Trackler.problems.reject(&:deprecated?) %>
+
+          <p>We have a total of <%= active_problems.count %> problems on Exercism. Some are implemented in many language tracks, others are implemented in just a few.</p>
+
+          <p>
+          To make it easier to port exercises to new language tracks, we're in the process of creating canonical test data for each problem.
+          This gets implemented into a file called <code>canonical-data.json</code>. The file lives in <a href="https://github.com/exercism/x-common">exercism/x-common</a> repository, alongside the other common data for the problem.</p>
+
+          <p>So far we've extracted canonical data for <%= active_problems.select(&:canonical_data_url).count %> of the <%= active_problems.count %> problems. Just <%= problems.count %> more to go!</p>
+
+          <p>Want to help out? Pick an exercise from the list in the sidebar, and check out the documentation in <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#improving-consistency-by-extracting-shared-test-data">the contributing guide</a>.</p>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>

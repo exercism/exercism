@@ -8,6 +8,7 @@ module ExercismWeb
       Main: 'main',
       Stats: 'stats',
       Static: 'static',
+      Contribute: 'contribute',
       Account: 'account',
       Backdoor: 'backdoor',
       Sessions: 'sessions',
