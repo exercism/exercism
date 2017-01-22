@@ -15,6 +15,7 @@ module ExercismWeb
       UserProgressBar: 'user_progress_bar',
       TeamAccess: 'team_access',
       CssUrl: 'css_url',
+      URIHelper: 'uri_helper'
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('app', 'helpers', file)
     end

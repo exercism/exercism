@@ -58,6 +58,7 @@ module ExercismWeb
       helpers Helpers::TeamAccess
       helpers WillPaginate::Sinatra::Helpers
       helpers Helpers::CssUrl
+      helpers Helpers::URIHelper
 
       helpers do
         def github_client_id
