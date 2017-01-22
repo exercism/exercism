@@ -29,6 +29,7 @@ module ExercismWeb
     use Routes::Inbox
     use Routes::Languages
     use Routes::Static
+    use Routes::Contribute
     use Routes::Legacy
     use Routes::Main
     use Routes::Stats
