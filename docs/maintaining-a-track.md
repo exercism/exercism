@@ -71,7 +71,7 @@ Over time we try to:
 Maintaining a track is so much more fun and interesting when there are several people actively involved in the process.
 
 Even with full push access, **create pull requests**. This notifies the other maintainers about the change.
-As a general rule, don't merge your own pull requests, unless they are utterly trivial.
+As a general rule, ensure a fellow maintainer reviews your pull request, unless it is utterly trivial.
 
 ## Day-to-Day Tactics
 
