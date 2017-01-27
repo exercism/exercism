@@ -159,7 +159,7 @@ GEM
     tilt (2.0.5)
     timecop (0.8.0)
     tins (1.6.0)
-    trackler (2.0.6.21)
+    trackler (2.0.6.22)
       org-ruby (~> 0.9.0)
       rubyzip (~> 1.1)
     tzinfo (1.2.2)
@@ -217,4 +217,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.13.6
+   1.14.3
