@@ -1,6 +1,5 @@
 require_relative '../../integration_helper'
 require_relative '../../../app/helpers/submission'
-require_relative '../../../app/helpers/uri_helper'
 
 class AppHelpersSubmissionTest < Minitest::Test
   include DBCleaner
@@ -17,10 +16,6 @@ class AppHelpersSubmissionTest < Minitest::Test
     @helper = Object.new
     @helper.extend(ExercismWeb::Helpers::Submission)
     @helper
-  end
-
-  def uri_helper
-    @uri_helper.extend(ExercismWeb::Helpers::URIHelper)
   end
 
   def test_sentencify_none
@@ -66,11 +61,5 @@ class AppHelpersSubmissionTest < Minitest::Test
     ).strip.squeeze(" ")
     actual = helper.like_submission_button(@submission, @fred).strip.squeeze(" ")
     assert_equal expected, actual
-  end
-
-  def test_submission_twitter_link_encoding
-    encoded_tweet = "I%20am%20a%20tweet%20with%20a%20%23hashtag"
-    tweet = "I am a tweet with a #hashtag"
-    assert_equal uri_helper.encode_uri(tweet), encoded_tweet
   end
 end
