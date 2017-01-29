@@ -14,7 +14,7 @@
 
         <% if current_user.owns?(submission) %>
           <a
-          href="<%= encode_uri("https://twitter.com/intent/tweet?text=I just submitted the ##{submission.problem.language} #{submission.slug} exercise at @exercism_io - Leave me a nitpick at http://exercism.io/submissions/#{submission.key}") %>"
+            href="https://twitter.com/intent/tweet?text=I just submitted the #<%= submission.problem.language %> <%= submission.slug %> exercise at @exercism_io - Leave me a nitpick at http://exercism.io/submissions/<%= submission.key %>"
             class="btn btn-default"
             data-toggle="tooltip"
             data-placement="bottom"
