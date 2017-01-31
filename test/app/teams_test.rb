@@ -369,7 +369,6 @@ class TeamsTest < Minitest::Test
     assert_response_status 302
     assert_equal "http://example.org/", last_response.location
 
-
     get '/teams/awesome/streams/tracks/ruby', {}, login(bob)
     assert_response_status 302
     assert_equal "http://example.org/", last_response.location
@@ -412,6 +411,8 @@ class TeamsTest < Minitest::Test
     assert_response_status 200
   end
 
+  private
+
   def create_exercise_with_submission(user, language, slug, ts=1.day.ago)
     exercise = UserExercise.create!(user_id: user.id, language: language, slug: slug, iteration_count: 1, last_activity_at: ts)
     attributes = {
@@ -425,4 +426,3 @@ class TeamsTest < Minitest::Test
     Submission.create!(attributes)
   end
 end
-
