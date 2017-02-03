@@ -85,6 +85,10 @@ module ExercismWeb
       get '/teams/about' do
         erb :'site/teams'
       end
+
+      get '/.well-known/acme-challenge/D533vaLocBelpPqZczM6EUq2subn5jarX1B_-a66AyM' do
+        "D533vaLocBelpPqZczM6EUq2subn5jarX1B_-a66AyM.Q0_BNqHpf4NmKK5vvJwbO4KBimS1tdy9FH6TtJd91io"
+      end
     end
   end
 end
