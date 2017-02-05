@@ -69,7 +69,7 @@ class InvitationsTest < Minitest::Test
     verb, path, action = [:post, '/teams/abc/invitations', "invite members"]
     location = "http://example.org/teams/abc"
 
-    send verb, path, {}, login(bob)
+    send verb, path, { usernames: "#{charlie.username}" }, login(bob)
     assert_equal 302, last_response.status, "No redirect for #{verb.to_s.upcase} #{path}"
     assert_equal location, last_response.location, "Only a manager may #{action}. (#{verb.to_s.upcase} #{path})"
   end
@@ -87,6 +87,23 @@ class InvitationsTest < Minitest::Test
 
     refute team.includes?(bob)
     refute team.includes?(charlie)
+  end
+
+  def test_team_creator_receive_no_notification
+    options = {slug: 'creatortest', usernames: "#{charlie.username}, #{alice.username}"}
+    team = Team.by(alice).defined_with(options, alice)
+    team.save
+
+    assert_equal 1, charlie.reload.team_membership_invites.count
+    assert_equal 0, alice.reload.team_membership_invites.count
+
+    verb, path, action = [:post, '/teams/members/invitations', "invite members"]
+    location = "http://example.org/teams/abc"
+
+    send verb, path, { usernames: "#{alice.username}, #{charlie.username}" }, login(alice)
+
+    assert_equal 1, charlie.reload.team_membership_invites.count
+    assert_equal 0, alice.reload.team_membership_invites.count
   end
 
   def test_only_managers_can_invite_members

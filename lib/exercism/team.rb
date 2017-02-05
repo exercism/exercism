@@ -57,9 +57,8 @@ class Team < ActiveRecord::Base
     self.tags = Tag.create_from_text(tags)
 
     users = User.find_or_create_in_usernames(potential_members(options[:usernames])) if options[:usernames]
-    users = options[:users] if options[:users]
+    users = users - Array(inviter) if users
     invite(users, inviter)
-
     self
   end
 
@@ -72,9 +71,7 @@ class Team < ActiveRecord::Base
 
   def invite(users, inviter)
     return unless users.present?
-
     users = Array(users) - all_members
-
     users.each do |user|
       TeamMembershipInvite.create(user: user, team: self, inviter: inviter, refused: false)
     end
