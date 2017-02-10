@@ -117,7 +117,7 @@ These instructions assume you're using a package manager for your OS:
   ```
 - For other systems, see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
-With this, we're ready to download, build and run exercism.io locally (skip down to [The Code](#get-the-source-code))...
+With this, we're ready to configure, build and run exercism.io locally (skip down to [Initialize exercism.io](#initialize-exercismio))...
 
 ### Running exercism.io in a Docker container via Vagrant
 
