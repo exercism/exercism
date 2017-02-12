@@ -60,20 +60,10 @@ If you need to report something, please email [@kytrinyx](https://github.com/kyt
 
 There are many ways to contribute to Exercism, and only a few of them involve writing code.
 
-**Do you like mentoring people?** Hang out in the [support chat](https://gitter.im/exercism/support), or submit an exercise so you can give [feedback to people who have submitted it, too](http://exercism.io/inbox).
+Use our guide to help you find the right spot to start: 
 
-**Are you a language enthusiast?** Help other people fall in love with your language by getting involved with one of the [Exercism language tracks](http://exercism.io/repositories#language-tracks-you-can-contribute-to), or by [giving feedback to people who submit solutions to a track](http://exercism.io/inbox).
+https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md
 
-**Do you love making enticing user experiences?** Help us [rethink the profile and account pages](https://github.com/exercism/discussions/issues/33). Or the dashboard. Or maybe [redesign the homepage](https://github.com/exercism/discussions/issues/31). Or the [solutions page](https://github.com/exercism/discussions/issues/32).
-
-**Do you know how to organize information?** Help us [improve the onboarding experience](https://github.com/exercism/discussions/issues/18) for people who are new to Exercism, and figure out how to make our [contributing docs](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md) understandable, or how to better organize our [language track documentation](http://exercism.io/languages).
-
-**Do you want to improve your skills in a particular programming language?** Help [add more exercises](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#porting-an-exercise-to-another-language-track), or watch the [repository for the language track](http://exercism.io/repositories#language-tracks-you-can-contribute-to) so that you can help review pull requests and respond to issues.
-
-**Do you want to get started contributing to open source?** Check out [issues with the "good first patch"](https://github.com/search?utf8=%E2%9C%93&q=org%3Aexercism+label%3A%22good+first+patch%22+is%3Aissue+is%3Aopen&type=Repositories&ref=searchresults) label.
-
-We're a friendly bunch, and we're happy to help you help us, so don't be scared to ask about anything.
-We've got a chat room and there are usually people around there, or just ask right in the issue you're wondering about.
 
 ### Setting up your development environment
 
