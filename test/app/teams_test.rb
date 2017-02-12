@@ -356,4 +356,73 @@ class TeamsTest < Minitest::Test
     assert_equal "http://example.org/teams/condor/manage", last_response.location
     assert_equal [alice.id], team.reload.managers.map(&:id)
   end
+
+  def test_view_streams_as_non_member
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: charlie.username)
+    team.save
+    TeamMembershipInvite.pending.find_by(user: charlie, team: team).accept!
+
+    # Charlie has submitted one exercise, but Bob is not the same team.
+    create_exercise_with_submission(charlie, 'fake', 'hello-world')
+
+    get '/teams/awesome/streams', {}, login(bob)
+    assert_response_status 302
+    assert_equal "http://example.org/", last_response.location
+
+    get '/teams/awesome/streams/tracks/ruby', {}, login(bob)
+    assert_response_status 302
+    assert_equal "http://example.org/", last_response.location
+
+    get '/teams/awesome/streams/tracks/ruby/exercises/bob', {}, login(bob)
+    assert_response_status 302
+    assert_equal "http://example.org/", last_response.location
+
+    get '/teams/awesome/streams/users/charlie', {}, login(bob)
+    assert_response_status 302
+    assert_equal "http://example.org/", last_response.location
+
+    get '/teams/awesome/streams/users/charlie/tracks/ruby', {}, login(bob)
+    assert_response_status 302
+    assert_equal "http://example.org/", last_response.location
+  end
+
+  def test_view_streams_as_member
+    team = Team.by(alice).defined_with(slug: 'awesome', usernames: "#{bob.username},#{charlie.username}")
+    team.save
+    TeamMembershipInvite.pending.find_by(user: bob, team: team).accept!
+    TeamMembershipInvite.pending.find_by(user: charlie, team: team).accept!
+
+    # Charlie has submitted one exercise, and Bob is in the same team.
+    create_exercise_with_submission(charlie, 'fake', 'hello-world')
+
+    get '/teams/awesome/streams', {}, login(bob)
+    assert_response_status 200
+
+    get '/teams/awesome/streams/tracks/fake', {}, login(bob)
+    assert_response_status 200
+
+    get '/teams/awesome/streams/tracks/fake/exercises/charlie', {}, login(bob)
+    assert_response_status 200
+
+    get '/teams/awesome/streams/users/charlie', {}, login(bob)
+    assert_response_status 200
+
+    get '/teams/awesome/streams/users/charlie/tracks/fake', {}, login(bob)
+    assert_response_status 200
+  end
+
+  private
+
+  def create_exercise_with_submission(user, language, slug, ts=1.day.ago)
+    exercise = UserExercise.create!(user_id: user.id, language: language, slug: slug, iteration_count: 1, last_activity_at: ts)
+    attributes = {
+      user_id: exercise.user_id,
+      user_exercise_id: exercise.id,
+      language: exercise.language,
+      slug: exercise.slug,
+      created_at: ts,
+      updated_at: ts,
+    }
+    Submission.create!(attributes)
+  end
 end

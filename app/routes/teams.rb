@@ -156,6 +156,35 @@ module ExercismWeb
         end
       end
 
+      get '/teams/:slug/streams/users/:username/tracks/:id' do |slug, username, track_id|
+        please_login
+        only_with_existing_team(slug) do |team|
+          unless team.includes?(current_user)
+            flash[:error] = "You may only view team pages for teams that you are a member of, or that you manage."
+            redirect '/'
+          end
+
+          user = ::User.find_by(username: username)
+          stream = TeamStream.new(team, current_user.id, params['page'] || 1)
+          stream.track_id = track_id
+
+          unless user.present? && stream.user_ids.include?(user.id)
+            flash[:error] = "You may only view activity for existing team members."
+            redirect '/'
+          end
+
+          stream.user = user
+
+          locals = {
+            team: team,
+            stream: stream,
+            active: 'stream',
+          }
+
+          erb :"teams/stream", locals: locals
+        end
+      end
+
       get '/teams/:slug/directory' do |slug|
         please_login
         only_with_existing_team(slug) do |team|
