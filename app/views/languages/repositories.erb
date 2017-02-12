@@ -1,41 +1,19 @@
 <div class="container">
-  <section class="contributing-intro jumbotron">
-    <h1>Exercism Repositories</h1>
-    <p class="lead">
-      <strong>What are the repositories you can contribute to?</strong>
-      <br />
-    </p>
-    <p> Exercism is a project comprised of several repositories and these can be divided basically into:
-    </p>
-    <h2> Basic Components </h2>
-    <ul>
-      <li><strong><a href="https://github.com/exercism/exercism.io">The website</a></strong>: Holds the code that people submit. Browse and review solutions, and have conversations.</li>
-      <li><strong><a href="https://github.com/exercism/cli">Command line interface</a></strong>: Use to fetch exercises and submit solutions.</li>
-      <li><strong><a href="https://github.com/exercism/x-api">Problems API</a></strong>: Delivers exercises. It is used by the Exercism command-line client, as well as the Exercism website.</li>
-    </ul>
-    <h2> Exercises </h2>
-    <ul>
-      <li><strong><a href="https://github.com/exercism/x-common">X-Common repository</a></strong>: Shares language-independent problem descriptions for Exercism exercises.</li>
-      <li>Language-Specific implementations of the exercises are listed below in the respective language track.</li>
-    </ul>
-    <h2> Interesting Tools </h2>
-    <ul>
-      <li><strong><a href="https://github.com/exercism/rikki">Rikki- the robot</a></strong>: Provides helpful, friendly, automated feedback on certain exercises.</li>
-      <li><strong><a href="https://github.com/exercism/blazon">Blazon</a></strong>: Helps us manage cross-track issues.</li>
-    </ul>
-  </section>
-  <section class="page-header">
-    <h3>Language tracks you can contribute to</h3>
-  </section>
-  <%= erb :'languages/_repo', locals: { tracks: active, active: true } %>
-  <section class="page-header">
+  <section>
+    <h1>Exercism Language Track Repositories</h1>
+
+    <p class="lead">For a high-level overview of Exercism and its repositories, see <a href="https://github.com/exercism/exercism.io/blob/master/docs/overview-of-exercism.md">this documentation</a>.</p>
+
+    <p>We have <%= active.count %> language tracks, and <%= upcoming.count + planned.count %> more that are being worked on.</p>
+
+    <%= erb :'languages/_repo', locals: { tracks: active, active: true } %>
+
     <h3>In Progress</h3>
     <p>Help contribute to inactive languages by adding more exercises, and helping to review code. To see what still needs to be done, view the launch checklist.</p>
-  </section>
-  <%= erb :'languages/_repo', locals: { tracks: upcoming, active: false } %>
-  <section class="page-header">
-    <h3>Planned</h3>
+
+    <%= erb :'languages/_repo', locals: { tracks: upcoming, active: false } %>
+
+    <h3>Requested</h3>
     <p> People have requested these languages, but we need exercises before we can launch the track. Check out the launch checklist for an idea of what needs to be done.</p>
-  </section>
   <%= erb :'languages/_repo', locals: { tracks: planned, active: false } %>
 </div>
