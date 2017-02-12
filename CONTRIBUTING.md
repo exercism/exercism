@@ -180,7 +180,7 @@ This means helping maintain the code of the exercises and supporting tooling for
 Do you have/want to have chops in HTML+CSS+JavaScript/CoffeeScript and want to improve the feel and function of the Exercism website?
 
 1. [Setup your local development environment](docs/setting-up-local-development.md).
--  Locate an feature/bug to work on:
+-  Locate a feature/bug to work on:
    - [`exercism/exercism.io?label:good first patch`](https://github.com/exercism/exercism.io/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+patch%22)
    - [`exercism/exercism.io?label:bug`](https://github.com/exercism/exercism.io/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 -  Work the issue: [the contribution workflow](docs/the-contribution-workflow.md).
@@ -197,7 +197,7 @@ You may also find these helpful:
 Do you have/want to have chops in Ruby or Sinatra and want to add to the website?
 
 1. [Setup your local development environment](docs/setting-up-local-development.md).
--  Locate an feature/bug to work on:
+-  Locate a feature/bug to work on:
    - [`exercism/exercism.io?label:good first patch`](https://github.com/exercism/exercism.io/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+patch%22)
    - [`exercism/exercism.io?label:bug`](https://github.com/exercism/exercism.io/issues?q=is%3Aissue+is%3Aopen+label%3Abug)
 -  Work the issue: [the contribution workflow](docs/the-contribution-workflow.md).
@@ -215,7 +215,7 @@ You may also find these helpful:
 One of the more subtle but important parts of the Exercism experience is our CLI; it's written in Go.
 
 1. Setup your local development environment for the CLI: [`exercism/cli`](https://github.com/exercism/cli).
--  Locate an feature/bug to work on: [`exercism/cli?`](https://github.com/exercism/cli/issues)
+-  Locate a feature/bug to work on: [`exercism/cli?`](https://github.com/exercism/cli/issues)
 -  Work the issue: [the contribution workflow](docs/the-contribution-workflow.md).
 
 You may also find these helpful:
