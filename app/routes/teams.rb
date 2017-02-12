@@ -93,7 +93,7 @@ module ExercismWeb
             redirect '/'
           end
 
-          stream = TeamStream.new(team, current_user.id)
+          stream = TeamStream.new(team, current_user.id, params['page'] || 1)
           stream.track_id = track_id.downcase
 
           locals = {
@@ -114,7 +114,7 @@ module ExercismWeb
             redirect '/'
           end
 
-          stream = TeamStream.new(team, current_user.id)
+          stream = TeamStream.new(team, current_user.id, params['page'] || 1)
           stream.track_id = track_id.downcase
           stream.slug = problem_slug.downcase
 
@@ -137,7 +137,7 @@ module ExercismWeb
           end
 
           user = ::User.find_by_username(username)
-          stream = TeamStream.new(team, current_user.id)
+          stream = TeamStream.new(team, current_user.id, params['page'] || 1)
 
           unless user.present? && stream.user_ids.include?(user.id)
             flash[:error] = "You may only view activity for existing team members."
