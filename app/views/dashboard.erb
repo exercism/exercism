@@ -4,7 +4,7 @@
       <h2>Your exercises in progress</h2>
       <div class="well">
         <% if dashboard.current_exercises.any? %>
-            <p>Keep working on these problems, or archive them.</p>
+            <p>Keep working on these problems, or archive them if you're finished and don't need any more feedback at the moment.</p>
             <ul class="nav nav-stacked" id="menu-current" role="menu">
               <% dashboard.current_exercises.limit(5).each do |exercise| %>
                   <li class="looks-list-item">

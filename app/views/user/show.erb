@@ -43,6 +43,8 @@
     <br>
 
     <h4>Archived</h4>
+    <p>Archive exercises if you're finished and don't want any more feedback at the moment.</p>
+    <p>You can re-activate an exercise from the submission page.</p>
     <% if profile.has_archived_exercises? %>
       <%= erb :"user/_archived_exercises_table", locals: { profile: profile } %>
     <% else %>
