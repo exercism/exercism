@@ -89,11 +89,15 @@ class UserTest < Minitest::Test
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
 
-    team = Team.by(alice).defined_with({ slug: 'team a', usernames: bob.username }, alice)
-    other_team = Team.by(alice).defined_with({ slug: 'team b', usernames: bob.username }, alice)
+    team = Team.by(alice).defined_with({ slug: 'team a' }, alice)
+    other_team = Team.by(alice).defined_with({ slug: 'team b' }, alice)
 
     team.save
     other_team.save
+
+    team.invite_with_usernames(bob.username, alice)
+    other_team.invite_with_usernames(bob.username, alice)
+
     TeamMembershipInvite.where(user: bob).first.accept!
 
     assert TeamMembership.exists?(team: team, user: bob, inviter: alice), 'Confirmed TeamMembership for bob was created.'

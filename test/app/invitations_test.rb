@@ -62,8 +62,10 @@ class InvitationsTest < Minitest::Test
   end
 
   def test_user_must_be_manager
-    team = Team.by(alice).defined_with(slug: 'abc', usernames: bob.username)
+    team = Team.by(alice).defined_with(slug: 'abc')
     team.save
+
+    team.invite_with_usernames(bob.username, alice)
     TeamMembershipInvite.pending.find_by(user: bob, team: team).accept!
 
     verb, path, action = [:post, '/teams/abc/invitations', "invite members"]
@@ -90,9 +92,10 @@ class InvitationsTest < Minitest::Test
   end
 
   def test_only_managers_can_invite_members
-    team = Team.by(alice).defined_with(slug: 'members', usernames: bob.username)
+    team = Team.by(alice).defined_with(slug: 'members')
     team.save
 
+    team.invite_with_usernames(bob.username, alice)
     post "/teams/#{team.slug}/invitations", { usernames: charlie.username }, login(bob)
 
     team.reload

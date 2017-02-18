@@ -78,8 +78,10 @@ class TeamTest < Minitest::Test
   end
 
   def test_has_members
-    team = Team.by(bob).defined_with(slug: 'purple', usernames: '  alice    , charlie-brown ')
+    team = Team.by(bob).defined_with(slug: 'purple')
     team.save
+
+    team.invite_with_usernames('  alice    , charlie-brown ', bob)
     team.reload
 
     assert_equal [alice, charlie], team.member_invites
@@ -109,8 +111,10 @@ class TeamTest < Minitest::Test
 
   def test_team_does_not_invite_more_than_once
     inviter = User.create(username: 'inviter')
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
+    team = Team.by(alice).defined_with(slug: 'awesome')
     team.save
+
+    team.invite_with_usernames('bob', alice)
     team.reload
 
     assert_equal 1, bob.team_membership_invites.where(team_id: team).count
@@ -119,10 +123,12 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_member_dismiss
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
+    team = Team.by(alice).defined_with(slug: 'awesome')
     team.save
 
+    team.invite_with_usernames(bob.username, alice)
     bob.team_membership_invites_for(team).accept!
+
     team.reload
     assert team.includes?(bob)
 
@@ -132,10 +138,12 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_member_dismiss_ignores_invalid_member
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: bob.username)
+    team = Team.by(alice).defined_with(slug: 'awesome')
     team.save
 
+    team.invite_with_usernames(bob.username, alice)
     bob.team_membership_invites_for(team).accept!
+
     team.reload
     assert_equal 1, team.members.size
 
@@ -144,9 +152,10 @@ class TeamTest < Minitest::Test
   end
 
   def test_team_member_dismiss_removes_membership
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: 'bob')
+    team = Team.by(alice).defined_with(slug: 'awesome')
     team.save
 
+    team.invite_with_usernames(bob.username, alice)
     bob.team_membership_invites_for(team).accept!
     assert TeamMembership.exists?(team_id: team, user_id: bob)
 
@@ -155,10 +164,10 @@ class TeamTest < Minitest::Test
   end
 
   def test_destroy_doesnt_leave_orphan_team_memberships
-    attributes = { slug: 'delete', usernames: bob.username.to_s }
-    team = Team.by(alice).defined_with(attributes, alice)
+    team = Team.by(alice).defined_with({ slug: 'delete' }, alice)
     team.save
 
+    team.invite_with_usernames(bob.username, alice)
     bob.team_membership_invites_for(team).accept!
 
     assert TeamMembership.exists?(team: team, user: bob, inviter: alice)
