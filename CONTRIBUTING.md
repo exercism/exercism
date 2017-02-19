@@ -187,7 +187,7 @@ Do you have/want to have chops in HTML+CSS+JavaScript/CoffeeScript and want to i
 
 You may also find these helpful:
 
-- [Architecture Overview of Exercism](docs/overview-of-exercism.md)
+- [Architecture Overview of Exercism](docs/overview-architecture.md)
 
 
 -
@@ -204,7 +204,7 @@ Do you have/want to have chops in Ruby or Sinatra and want to add to the website
 
 You may also find these helpful:
 
-- [Architecture Overview of Exercism](docs/overview-of-exercism.md)
+- [Architecture Overview of Exercism](docs/overview-architecture.md)
 
 
 -
@@ -220,7 +220,7 @@ One of the more subtle but important parts of the Exercism experience is our CLI
 
 You may also find these helpful:
 
-- [Architecture Overview of Exercism](docs/overview-of-exercism.md)
+- [Architecture Overview of Exercism](docs/overview-architecture.md)
 
 
 -

@@ -22,13 +22,7 @@ class LanguagesRoutesTest < Minitest::Test
   def test_route_repositories
     get '/repositories'
     assert_equal 200, last_response.status
-    assert_match 'Exercism Repositories', last_response.body
-    assert_match 'Basic Components', last_response.body
-    assert_match 'Exercises', last_response.body
-    assert_match 'Interesting Tools', last_response.body
-    assert_match 'Language tracks you can contribute to', last_response.body
-    assert_match 'In Progress', last_response.body
-    assert_match 'Planned', last_response.body
+    assert_match 'Language Track Repositories', last_response.body
   end
 
   def test_route_languages_redirects_to_about_page
