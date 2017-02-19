@@ -384,8 +384,9 @@ class TeamsTest < Minitest::Test
   end
 
   def test_view_streams_as_non_member
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: charlie.username)
-    team.save
+    team = Team.by(alice).defined_with(slug: 'awesome')
+    team.save!
+    team.invite_with_usernames(charlie.username, alice)
     TeamMembershipInvite.pending.find_by(user: charlie, team: team).accept!
 
     # Charlie has submitted one exercise, but Bob is not the same team.
@@ -413,8 +414,9 @@ class TeamsTest < Minitest::Test
   end
 
   def test_view_streams_as_member
-    team = Team.by(alice).defined_with(slug: 'awesome', usernames: "#{bob.username},#{charlie.username}")
-    team.save
+    team = Team.by(alice).defined_with(slug: 'awesome')
+    team.save!
+    team.invite_with_usernames("#{bob.username},#{charlie.username}", alice)
     TeamMembershipInvite.pending.find_by(user: bob, team: team).accept!
     TeamMembershipInvite.pending.find_by(user: charlie, team: team).accept!
 
