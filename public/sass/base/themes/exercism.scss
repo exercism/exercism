@@ -445,6 +445,9 @@ $nav-tabs-active-link-hover-border-color:   #ddd !default;
 $nav-tabs-justified-link-border-color:            #ddd !default;
 $nav-tabs-justified-active-link-border-color:     $body-bg !default;
 
+$nav-tabs-diff-new-bg:                      #cfc;
+$nav-tabs-diff-old-bg:                      #fcc;
+
 //== Pills
 $nav-pills-active-bg:       				        $gray-lighter !default;
 $nav-pills-border-radius:                   $border-radius-base !default;
@@ -848,6 +851,8 @@ $pre-color:                   $gray-dark !default;
 $pre-border-color:            #ccc !default;
 $pre-scrollable-max-height:   340px !default;
 
+$diff-added-bg:               #a6f3a6;
+$diff-removed-bg:             #f8cbcb;
 
 //== Type
 //
