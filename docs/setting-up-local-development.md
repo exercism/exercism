@@ -5,7 +5,7 @@ This section walks you through getting the exercism.io app running locally.
 - [Get the source code](#get-the-source-code)
 - [Install the prerequisites](#install-the-prerequisites)
   - [Running exercism.io directly on your computer](#running-exercismio-directly-on-your-computer)
-  - [Running exercism.io in a Docker container via Vagrant](#running-exercismio-in-a-docker-container-via-vagrant)
+  - [Running exercism.io with Docker](#running-exercismio-with-docker)
 - [Initialize exercism.io](#initialize-exercismio)
 - [Run exercism.io locally](#run-exercismio-locally)
 - [Run the REPL](#run-the-repl)
@@ -43,7 +43,7 @@ Exercism.io depends on the following:
 These instructions present two options:
 
 1. Run exercism.io on your computer directly by [installing the required software](#running-exercism-io-directly-on-your-computer).
-2. Run exercism.io [in a Docker container via Vagrant](#running-exercism-io-in-a-docker-container-via-vagrant).
+2. Run exercism.io [with Docker](#running-exercism-io-with-docker).
 
 ### Running exercism.io directly on your computer
 
@@ -91,9 +91,9 @@ These instructions assume you're using a package manager for your OS:
   $ brew install postgresql
   ```
 - Linux
-  
+
   ```
-  $ sudo apt-get update  
+  $ sudo apt-get update
   $ apt-get install postgresql postgresql-contrib
   ```
 
@@ -110,7 +110,7 @@ These instructions assume you're using a package manager for your OS:
   $ brew install node
   ```
 - Linux
-  
+
   *(see also [installing Node via package manager](https://nodejs.org/en/download/package-manager/).)*
   ```
   $ sudo apt-get install nodejs
@@ -119,7 +119,7 @@ These instructions assume you're using a package manager for your OS:
 
 With this, we're ready to configure, build and run exercism.io locally (skip down to [Initialize exercism.io](#initialize-exercismio))...
 
-### Running exercism.io in a Docker container via Vagrant
+### Running exercism.io with Docker
 
 As an alternative to installing exercism.io's dependencies on your host OS, you can do so in a Linux container (i.e. Docker).  See [Docker and exercism.io](https://github.com/exercism/exercism.io/tree/master/docker) for more information on this kind of setup.
 
@@ -147,7 +147,7 @@ The script will:
 
 NOTE: If you are running exercism.io in a Docker container, prepend all commands below with `docker-compose run app` (as described in [Docker and exercism.io: Other Tasks](https://github.com/exercism/exercism.io/tree/master/docker#other-tasks)).
 
-After you have [initialized exercism.io](#initialize-exercism-io) successfully, you're ready to fire it up: 
+After you have [initialized exercism.io](#initialize-exercism-io) successfully, you're ready to fire it up:
 
 1. Start the server:
 
@@ -236,7 +236,7 @@ However, if you want to work on the login flow, itself, or for some reason want 
 2. Configure your copy of exercism.io to use the OAuth client credentials GitHub generated.
 
     Viewing the details of your registration, find the client credentials:
-    
+
     ![](/docs/img/oauth-client-secret.png)
 
     Edit `.env`, copying the `Client ID` and `Client Secret`.
