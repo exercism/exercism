@@ -152,7 +152,7 @@ After you have [initialized exercism.io](#initialize-exercism-io) successfully, 
 1. Start the server:
 
    ```bash
-   $ bundle exec foreman -s -p 4567
+   $ bundle exec foreman s -p 4567
    ```
 2. Launch a browser and navigate to the homepage: http://localhost:4567.
 3. Login as a test user using the `assume` dropdown menu on the top right of the page.
