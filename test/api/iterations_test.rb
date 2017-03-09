@@ -141,4 +141,21 @@ class IterationsApiTest < Minitest::Test
     assert_equal expected, submission.solution
     assert_equal "fake", submission.language
   end
+
+  def test_language_and_track_id_case_insensitive
+    submission = {
+      key: @alice.key,
+      "path" => "/FAKE/TwO/two.ext",
+      "code" => "Hello, World!",
+      "dir" => "/path/to/exercism/dir",
+    }
+
+    post '/user/assignments', submission.to_json
+
+    submission = Submission.first
+    assert_equal "fake", submission.language
+    assert_equal "two", submission.slug
+    expected = { "two.ext" => "Hello, World!" }
+    assert_equal expected, submission.solution
+  end
 end

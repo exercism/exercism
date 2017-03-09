@@ -74,13 +74,13 @@ module ExercismAPI
           data['path'] = segments[2..-1].join("/")
         end
 
-        track = Trackler.tracks[data['language']]
+        track = Trackler.tracks[data['language'].downcase]
 
         unless track.exists?
           halt 400, { error: "Unknown language track %s" % data['language'] }.to_json
         end
 
-        unless track.implementations[data['problem'].to_s].exists?
+        unless track.implementations[data['problem'].to_s.downcase].exists?
           halt 400, { error: "Unknown problem '%s' in %s track" % [data['problem'], track.language] }.to_json
         end
 
