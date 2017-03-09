@@ -7,9 +7,11 @@
 
 Exercism has a lot of exercises in a lot of languages.
 
-Each exercise is defined in a language-agnostic way in the [x-common][]
-repository, and then each individual language track can create an implementation
-of that exercise.
+There is a common pool of problem definitions, which can be implemented in any
+of the language tracks.
+
+The language-agnostic definition lives in the [x-common][] repository, within
+the `exercises/` directory:
 
     /exercises/$SLUG/
     ├── canonical-data.json (OPTIONAL)
