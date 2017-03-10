@@ -153,7 +153,7 @@ class IterationsApiTest < Minitest::Test
 	post '/user/assignments', data.to_json
 	
 	submission = Submission.first
-	#assert_equal "go", submission.language
-	#assert_equal "clock", submission.slug
+	assert_equal "go", submission.language
+	assert_equal "clock", submission.slug
   end
 end
