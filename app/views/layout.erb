@@ -6,6 +6,9 @@
     <meta content='width=device-width, initial-scale=1.0' name='viewport'>
     <meta content='Practice having thoughtful conversations about code.' name='description'>
     <meta content='Exercism.io' name='author'>
+  <% if url.include?('/submissions/') %>
+    <meta content="noindex,nofollow" name="robots">
+  <% end %>
     <!-- Open Graph protocol http://ogp.me/ -->
     <meta property='og:site_name'   content='Exercism.io'/>
     <meta property='og:type'     content='website'/>
