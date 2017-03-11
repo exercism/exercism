@@ -8,11 +8,11 @@
     </tr>
   </thead>
   <tbody>
-    <% profile.archived_grouped_exercises.keys.each do |language| %>
+    <% profile.archived_grouped_exercises.keys.each do |track_id| %>
       <tr>
-        <td><%= language.capitalize %></td>
+        <td><%= Language.of(track_id) %></td>
         <td>
-          <% exercises = profile.archived_grouped_exercises[language] %>
+          <% exercises = profile.archived_grouped_exercises[track_id] %>
           <% exercises.each do |exercise| %>
             <% if profile.access?(exercise) %>
               <a href="/exercises/<%= exercise.key %>">
