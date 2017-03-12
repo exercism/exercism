@@ -94,7 +94,7 @@ These instructions assume you're using a package manager for your OS:
 
   ```
   $ sudo apt-get update
-  $ apt-get install postgresql postgresql-contrib
+  $ sudo apt-get install postgresql postgresql-contrib
   ```
 
 #### Installing Node.js (and npm)
