@@ -23,7 +23,17 @@ Then install Docker Compose:
     curl -L https://github.com/docker/compose/releases/download/1.5.2/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
     chmod +x /usr/local/bin/docker-compose
 
-### Other Platforms
+### Mac (Yosemite [10.10.3] and Up)
+
+Please install [Docker for Mac][]. The fastest and easiest way to get started
+with Docker on Mac.
+
+### Windows (Windows 10 Professional or Enterprise 64-bit)
+
+Please install [Docker for Windows][]. The fastest and easiest way to get
+started with Docker on Windows PC.
+
+### Other Platform Versions
 
 Please install [Docker Toolbox][]. This will ensure that you have
 Docker, Docker Machine, and Docker Compose on your system.
@@ -150,5 +160,7 @@ docker rmi exercismio_compass
   [Docker Engine]: https://docs.docker.com/engine/installation/
   [Docker Machine]: https://docs.docker.com/machine/
   [Docker Toolbox]: https://www.docker.com/toolbox
+  [Docker for Mac]: https://www.docker.com/docker-mac
+  [Docker for Windows]: https://www.docker.com/docker-windows
   [VirtualBox]: https://www.virtualbox.org/
   [`CONTRIBUTING.md`]: https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md
