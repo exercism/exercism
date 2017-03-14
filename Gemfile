@@ -7,6 +7,8 @@ gem 'activerecord', '~> 4.2.1'
 
 gem 'bugsnag'
 gem 'faraday'
+gem 'flipper-active_record'
+gem 'flipper-ui'
 gem 'loofah'
 gem 'petroglyph'
 gem 'pg'

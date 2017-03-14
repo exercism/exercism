@@ -60,10 +60,20 @@ GEM
     database_cleaner (1.5.1)
     docile (1.1.5)
     dotenv (2.1.1)
+    erubis (2.7.0)
     execjs (2.6.0)
     faraday (0.9.2)
       multipart-post (>= 1.2, < 3)
     ffi (1.9.10)
+    flipper (0.10.2)
+    flipper-active_record (0.10.2)
+      activerecord (>= 3.2, < 6)
+      flipper (~> 0.10.2)
+    flipper-ui (0.10.2)
+      erubis (~> 2.7.0)
+      flipper (~> 0.10.2)
+      rack (>= 1.4, < 3)
+      rack-protection (>= 1.5.3, < 2.1.0)
     font-awesome-sass (4.5.0)
       sass (>= 3.2)
     foreman (0.78.0)
@@ -186,6 +196,8 @@ DEPENDENCIES
   database_cleaner
   dotenv
   faraday
+  flipper-active_record
+  flipper-ui
   font-awesome-sass
   foreman
   kss
@@ -220,4 +232,4 @@ RUBY VERSION
    ruby 2.3.3p222
 
 BUNDLED WITH
-   1.14.3
+   1.14.6
