@@ -10,6 +10,9 @@ module ExercismAPI
       post '/iterations/:track_id/:slug/skip' do |track_id, slug|
         require_key
 
+		track_id.downcase!
+		slug.downcase!
+		
         if current_user.guest?
           message = "Please double-check your exercism API key."
           halt 401, { error: message }.to_json
@@ -59,7 +62,7 @@ module ExercismAPI
 
         solution = data['solution']
         solution = { data['path'] => data['code'] } if solution.nil?
-
+		
         # old CLI, let's see if we can hack around it.
         if data['language'].nil?
           path = data['path'] || solution.first.first
@@ -70,17 +73,20 @@ module ExercismAPI
             halt 400, "please upgrade your exercism command-line client"
           end
           data['language'] = segments[0].downcase
-          data['problem'] = segments[1]
+          data['problem'] = segments[1].downcase
           data['path'] = segments[2..-1].join("/")
         end
-
+		data['language'].downcase!
+		data['problem'].downcase!
+		
+		
         track = Trackler.tracks[data['language']]
 
         unless track.exists?
           halt 400, { error: "Unknown language track %s" % data['language'] }.to_json
         end
 
-        unless track.implementations[data['problem'].to_s].exists?
+        unless track.implementations[data['problem'].to_s.downcase].exists?
           halt 400, { error: "Unknown problem '%s' in %s track" % [data['problem'], track.language] }.to_json
         end
 

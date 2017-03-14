@@ -141,4 +141,19 @@ class IterationsApiTest < Minitest::Test
     assert_equal expected, submission.solution
     assert_equal "fake", submission.language
   end
+  
+  def test_mixed_cases_in_path
+	data = {
+		"key" => @alice.key,
+		"path" => "/GO/CLoCK/clock.go",
+		"code" => "Hello World!",
+		"language" => "GO",
+		"problem" => "CLoCK"
+	}
+	post '/user/assignments', data.to_json
+	
+	submission = Submission.first
+	assert_equal "go", submission.language
+	assert_equal "clock", submission.slug
+  end
 end
