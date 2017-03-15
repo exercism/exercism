@@ -3,35 +3,36 @@ require 'mocha/setup'
 require 'flipper_app/authorize'
 
 class AssignmentsApiTest < Minitest::Test
-  def setup
-    User.stubs(:where).returns(authorized_users)
-  end
-
   def test_unauthenticated_users_rejected
+    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => {}}
     response = middleware_response(env)
     assert_forbidden(response)
   end
 
   def test_nil_session_rejected
+    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => nil}
     response = middleware_response(env)
     assert_forbidden(response)
   end
 
   def test_unauthorized_users_rejected
+    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => {'github_id' => normal_user_github_id}}
     response = middleware_response(env)
     assert_forbidden(response)
   end
 
   def test_authorized_user_allowed
+    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => {'github_id' => admin_github_id}}
     response = middleware_response(env)
     assert_allowed(response)
   end
 
   def test_development_env_allowed
+    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => nil}
     response = force_development_env { middleware_response(env) }
     assert_allowed(response)
