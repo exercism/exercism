@@ -1,6 +1,8 @@
 
 ## Linux
 
+### Installing the Exercism CLI
+
 View the latest CLI release to [choose and download the appropriate package for your operating system](https://github.com/exercism/cli/releases/latest).
 
 If you're unsure what architecture your processor has, the command `uname -m` should tell you.
@@ -69,6 +71,21 @@ COMPLETION_SECTION
 
 ### Continue
 You can now continue by [choosing a language](http://exercism.io/languages).
+
+### Uninstalling the Exercism CLI
+
+Remove the files from the `~/bin` directory with the following command
+
+```bash
+rm -rf ~/bin/exercism
+```
+
+You can also remove the `~/bin` directory from your `PATH` only if you have NOT
+installed anything else in that directory. You can do that by opening up your
+`~/.bashrc` file with your favorite editor and remove the `bin` directory that you
+exported during the install step.
+
+### Help
 
 If you need help, view the [help on exercism.io](http://exercism.io/help), [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
