@@ -2,7 +2,7 @@ Feature Flags
 =============
 
 Feature flags allow specific features to be turned on and off at runtime for a
-percentage of users or the enitire site. Feature flags enable:
+percentage of users or the entire site. Feature flags enable:
 
 - Testing out new features on a limited portion of our users
 - Quick rollback when we discover a problem in production
