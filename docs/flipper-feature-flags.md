@@ -7,6 +7,9 @@ percentage of users or the entire site. Feature flags enable:
 - Testing out new features on a limited portion of our users
 - Quick rollback when we discover a problem in production
 
+We use the [Flipper][1] library for feature flags. This document covers its basic
+usage in Exercism, but see its [documentation][1] for more.
+
 Process
 -------
 
@@ -29,3 +32,5 @@ Process
    your feature flag. Leaving enabled feature flags in the code increases complexity
    and is unacceptable. The feature flag admin will delete the feature flag in the UI
    after the PR is merged and deployed successfully.
+
+   [1]: https://github.com/jnunemaker/flipper
