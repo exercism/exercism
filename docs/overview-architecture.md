@@ -1,6 +1,4 @@
-# Exercism Web Structure
-
-### Intro
+# Architecture of Exercism
 
 Exercism is built with the [Sinatra](https://github.com/sinatra/sinatra) web framework.
 If you haven't heard of it, definitely check it out. It's a lightweight web framework for Ruby.
@@ -8,15 +6,15 @@ If you haven't heard of it, definitely check it out. It's a lightweight web fram
 Exercism seems to follow what some may call an MVP (Model-View-Presenter) architecture.
 Read more about that [here](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter).
 
-### Core Directories
+## Core Directories
 
-#### API
+### API
 
 API contains routes which are used by the JavaScript frontend and the [CLI](https://github.com/exercism/cli).
 The routes here are similar to the one's in `app/` in that they're individual Sinatra apps that inherit from the Core API route (`api/v1/routes/core.rb`).
 If you add a route, it needs to be added to `api/v1/routes.rb` and `api/v1/v1.rb`.
 
-#### App (Routes, Presenters, Helpers and Views)
+### App (Routes, Presenters, Helpers and Views)
 
 App is the user facing side of Exercism.
 It handles logging in (and other functions), making calls out to the database to store or get information,
@@ -50,14 +48,14 @@ Templates are a way to embed Ruby in your views so that you can serve up informa
 iterate over items without repeating yourself (like creating tables of data), etc.
 The templating engine that Exercism uses is [ERB](https://en.wikipedia.org/wiki/ERuby).
 
-#### Frontend (JavaScript, Custom Directives, Bootstrap, etc)
+### Frontend (JavaScript, Custom Directives, Bootstrap, etc)
 
 The client side is mostly written in CoffeeScript and uses frameworks like angular and bootstrap.
 
 **Frontend** is where Exercism stores all of it's production client side code.
 Exercism doesn't have much JS (outside of bootstrap) but `frontend/` does handle comment threads on submissions, markdown preview on comments, submission code (expanding and contracting), etc. If you suspect that there is frontend wizardry happening and you haven't seen it in bootstrap, most likely it's in here.
 
-#### DB (Migrations)
+### DB (Migrations)
 
 To create a migration you can use `rake db:generate:migration name=the_name_of_your_migration`.
 That will create a new migration in `db/migrate`.
@@ -66,18 +64,18 @@ If you add, remove or rename database columns, you may have to update the seeds 
 Exercism pulls seed data from another repo found [here](https://github.com/exercism/seeds).
 The seed data provides placeholder information (like users, exercise submissions, comments, etc) to help with development.
 
-#### Lib (DB Configurations, Application Logic, Models, Rake Tasks)
+### Lib (DB Configurations, Application Logic, Models, Rake Tasks)
 
 **Application Logic** can be anything that is used for the backend application (and, possibly, shared with the frontend as well) can live here.
 Maybe a library for GitHub OAuth, configurations for a Markdown parser and a syntax highlighter, etc.
 
 **Models** are for connecting classes (e.g. `User`) and their attributes to database tables with ActiveRecord (ones that you set up with migrations), relating them to other tables (e.g. `User` `has_many :posts`) and adding other type functionality (e.g. validations).
 
-#### Test
+### Test
 
 Tests follow the organization of the app. For instance, if you're writing a new route, it would go in `test/app`. You could write a test post or get and assert that you get back data that you expect. Read more about tests [here](#test-order).
 
-### Additional Directories
+## Additional Directories
 
 #### Bin (Tools)
 
@@ -88,18 +86,18 @@ A bit more info can be found [here](#console).
 
 **Setup** is a script that you can run in order to create the development and test databases, makes sure all the apps dependencies (gems) are installed, etc.
 
-#### Config
+### Config
 
 Database connection, bugsnag config and local development GitHub OAuth credentials.
 
-#### Docs (Static Files for GitHub Docs)
+### Docs (Static Files for GitHub Docs)
 
 Static files and pictures for hosting in the GitHub docs.
 
-#### Public (Static Files for the Site)
+### Public (Static Files for the Site)
 
 Static files for the Exercism web app. Fonts, jQuery (`public/js/app.js`), icons, language images, and sass (styling).
 
-#### X
+### X
 
 X is a collection of scripts to organize and compile documentation for the many parts of exercism (cli, general help, product introduction, track info).
