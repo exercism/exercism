@@ -69,6 +69,13 @@ exercism configure --dir=C:\exercism
 ### Continue
 You can now continue by [choosing a language](http://exercism.io/languages).
 
+### Uninstalling the Exercism CLI
+
+You can use Chocolately to uninstall the package for you.
+```
+choco uninstall exercism-io-cli
+```
+
 ### Help
 
 #### Opening the Windows Command Prompt with Administrator Privileges <a name="open-win-cmd"></a>
