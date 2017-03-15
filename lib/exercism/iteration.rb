@@ -2,8 +2,8 @@ class Iteration
   attr_reader :solution, :comment, :track_id, :slug
 
   def initialize(solution, track_id, slug, comment: nil)
-    @track_id = track_id
-    @slug = slug
+    @track_id = track_id.downcase
+    @slug = slug.downcase
     @comment = comment
 
     @solution = {}
