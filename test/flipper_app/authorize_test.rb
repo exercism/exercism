@@ -3,36 +3,37 @@ require 'mocha/setup'
 require 'flipper_app/authorize'
 
 class FlipperApp::AuthorizeTest < Minitest::Test
+  def setup
+    FlipperApp::Authorize.any_instance.
+      stubs(:authorized_github_ids).
+      returns([admin_github_id])
+  end
+
   def test_refuse_flipper_management_for_unauthenticated_users
-    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => {}}
     response = middleware_response(env)
     assert_forbidden(response)
   end
 
   def test_refuse_flipper_management_for_nil_session
-    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => nil}
     response = middleware_response(env)
     assert_forbidden(response)
   end
 
   def test_refuse_flipper_management_for_unauthorized_users
-    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => {'github_id' => normal_user_github_id}}
     response = middleware_response(env)
     assert_forbidden(response)
   end
 
   def test_allow_flipper_management_for_authorized_user
-    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => {'github_id' => admin_github_id}}
     response = middleware_response(env)
     assert_allowed(response)
   end
 
   def test_allow_flipper_management_in_development_env
-    User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => nil}
     response = force_development_env { middleware_response(env) }
     assert_allowed(response)
@@ -59,10 +60,6 @@ class FlipperApp::AuthorizeTest < Minitest::Test
 
   def normal_user_github_id
     admin_github_id + 1
-  end
-
-  def authorized_users
-    stub('User ActiveRecord::Relation', pluck: [admin_github_id])
   end
 
   def force_development_env
