@@ -62,7 +62,7 @@ class AssignmentsApiTest < Minitest::Test
   end
 
   def authorized_users
-    [OpenStruct.new(github_id: admin_github_id)]
+    stub('User ActiveRecord::Relation', pluck: [admin_github_id])
   end
 
   def force_development_env

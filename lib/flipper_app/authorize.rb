@@ -23,7 +23,7 @@ module FlipperApp
 
     def authorized_github_ids
       @authorized_github_ids ||=
-        User.where(username: authorized_usernames).map(&:github_id)
+        User.where(username: authorized_usernames).pluck(:github_id)
     end
 
     def authorized?(env)
