@@ -3,11 +3,11 @@ require 'exercism/user_exercise'
 class Guest
   def id
   end
-  alias_method :flipper_id, :id
 
   def username
     'guest'
   end
+  alias_method :flipper_id, :username
 
   def fetched?
     false
