@@ -2,36 +2,36 @@ require_relative '../test_helper'
 require 'mocha/setup'
 require 'flipper_app/authorize'
 
-class AssignmentsApiTest < Minitest::Test
-  def test_unauthenticated_users_rejected
+class FlipperApp::AuthorizeTest < Minitest::Test
+  def test_refuse_flipper_management_for_unauthenticated_users
     User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => {}}
     response = middleware_response(env)
     assert_forbidden(response)
   end
 
-  def test_nil_session_rejected
+  def test_refuse_flipper_management_for_nil_session
     User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => nil}
     response = middleware_response(env)
     assert_forbidden(response)
   end
 
-  def test_unauthorized_users_rejected
+  def test_refuse_flipper_management_for_unauthorized_users
     User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => {'github_id' => normal_user_github_id}}
     response = middleware_response(env)
     assert_forbidden(response)
   end
 
-  def test_authorized_user_allowed
+  def test_allow_flipper_management_for_authorized_user
     User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => {'github_id' => admin_github_id}}
     response = middleware_response(env)
     assert_allowed(response)
   end
 
-  def test_development_env_allowed
+  def test_allow_flipper_management_in_development_env
     User.stubs(:where).returns(authorized_users)
     env = {'rack.session' => nil}
     response = force_development_env { middleware_response(env) }
