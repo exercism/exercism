@@ -99,6 +99,11 @@ class User < ActiveRecord::Base
     submissions.order('id DESC').where(language: problem.track_id, slug: problem.slug)
   end
 
+  # Some unique identifier
+  def flipper_id
+    username
+  end
+
   def guest?
     false
   end

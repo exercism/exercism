@@ -20,13 +20,19 @@ if ENV['RACK_ENV'] != 'production'
 end
 
 require 'app'
+require 'flipper_app'
 require 'api/v1'
 
 ENV['RACK_ENV'] ||= 'development'
 
+$flipper = Flipper.new(Flipper::Adapters::ActiveRecord.new)
+
 use ActiveRecord::ConnectionAdapters::ConnectionManagement
 use Rack::MethodOverride
-run ExercismWeb::App
+run Rack::URLMap.new(
+  "/" => ExercismWeb::App,
+  "/flipper" => Flipper::UI.app($flipper, &FlipperApp.generator)
+)
 
 map '/api/v1/' do
   run ExercismAPI::App

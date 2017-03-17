@@ -13,6 +13,11 @@ class UserTest < Minitest::Test
     refute user.guest?
   end
 
+  def test_flipper_id_is_username
+    user = User.new(username: 'spocktocat')
+    assert_equal 'spocktocat', user.flipper_id
+  end
+
   def test_create_user_from_github
     user = User.from_github(23, 'alice', 'alice@example.com', 'avatar_url', 'polyglot')
     assert_equal 1, User.count

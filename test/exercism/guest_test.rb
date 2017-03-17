@@ -18,6 +18,11 @@ class GuestTest < Minitest::Test
     assert_equal 'guest', subject.username
   end
 
+  def test_flipper_id_is_username_for_guests
+    subject = Guest.new
+    assert_equal subject.username, subject.flipper_id
+  end
+
   def test_show_dailies?
     subject = Guest.new
     refute subject.show_dailies?

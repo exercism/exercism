@@ -7,6 +7,7 @@ class Guest
   def username
     'guest'
   end
+  alias_method :flipper_id, :username
 
   def fetched?
     false
