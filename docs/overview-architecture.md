@@ -6,6 +6,16 @@ If you haven't heard of it, definitely check it out. It's a lightweight web fram
 Exercism seems to follow what some may call an MVP (Model-View-Presenter) architecture.
 Read more about that [here](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter).
 
+## Domain knowledge
+
+We have developed some domain concepts in order to communicate effectively. These concepts can help you gain a theoretical and practical understanding of Exercism:
+
+- **Language** is the name of a programming language. E.g. C++ or Objective-C or JavaScript.
+- **Track ID** is a normalized, url-safe identifier for a language track. E.g. cpp or objective-c or JavaScript.
+- **Problem** is an Exercism exercise.
+- **Problem Slug** is a normalized, url-safe identifier for a problem.
+- **Iteration** is a solution that a user has written for a particular problem in a particular language track. A user may have several iterations for the same problem.
+
 ## Core Directories
 
 ### API
