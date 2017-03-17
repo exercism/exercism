@@ -26,9 +26,10 @@ Process
 2. In development, enable the feature in the UI (http://localhost:4567/flipper/)
 3. Get your feature deployed, ensuring you mention the feature flag in the Pull
    Request. Ask a flipper admin (@kytrinyx) to enable your feature.
-4. Ensure everything is tested and working in production for a reasonable amount of
+4. Create an issue for the removal of the feature flag, to ensure it isn't forgotten.
+5. Ensure everything is tested and working in production for a reasonable amount of
    time.
-5. **Important**: Create a new pull request that removes all your feature flipper's
+6. **Important**: Create a new pull request that removes all your feature flipper's
    conditionals, removing any old code the new feature replaced and all references to
    your feature flag. Leaving enabled feature flags in the code increases complexity
    and is unacceptable. The feature flag admin will delete the feature flag in the UI
