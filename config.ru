@@ -25,8 +25,6 @@ require 'api/v1'
 
 ENV['RACK_ENV'] ||= 'development'
 
-$flipper = Flipper.new(Flipper::Adapters::ActiveRecord.new)
-
 use ActiveRecord::ConnectionAdapters::ConnectionManagement
 use Rack::MethodOverride
 run Rack::URLMap.new(
