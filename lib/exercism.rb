@@ -2,6 +2,8 @@ require 'active_support' # Must be required before active_record
 require 'active_record'
 require 'faraday'
 
+require_relative '../config/flipper'
+
 require 'exercism/acl'
 require 'exercism/assumable_user'
 require 'exercism/named'
