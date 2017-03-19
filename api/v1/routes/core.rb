@@ -45,6 +45,10 @@ module ExercismAPI
         def find_user
           User.where(key: params[:key]).first if params[:key]
         end
+
+        def site_root
+          request.host_with_port + '/'
+        end
       end
     end
   end
