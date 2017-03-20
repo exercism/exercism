@@ -20,6 +20,8 @@ We have developed some domain concepts in order to communicate effectively. Thes
 
 The system is broken into smaller components which represent different areas of concern.
 
+![Core flow sequence diagram](docs/img/core_flow_sequence_diagram.png)
+
 The components that make up Exercism are:
 
 - [the website](#the-website)
