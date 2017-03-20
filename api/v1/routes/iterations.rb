@@ -115,6 +115,7 @@ module ExercismAPI
         locals = {
           submission: attempt.submission,
           domain: request.url.gsub(/#{request.path}$/, ""),
+          what_next_instructions: what_next_instructions(attempt)
         }
         pg :attempt, locals: locals
       end
@@ -134,6 +135,28 @@ module ExercismAPI
         submissions = exercises.map { |e| e.submissions.last }.compact
 
         pg :iterations, locals: { submissions: submissions }
+      end
+
+      private
+
+      def what_next_instructions(attempt)
+        return '' unless $flipper['cli-call-to-action'].enabled?(attempt.user)
+
+        track    = attempt.iteration.track_id
+        exercise = attempt.iteration.slug
+        url = File.join('http://', site_root, 'tracks', track, 'exercises', exercise)
+        <<~INSTRUCTIONS
+          Your #{track} solution for #{exercise} has been submitted.
+
+          Programmers generally spend far more time reading code than writing it.
+          To benefit the most from this exercise, find 3 or more submissions that you can
+          learn something from, have questions about, or have suggestions for.
+          Post your thoughts and questions in the comments, and start a discussion.
+          Consider revising your solution to incorporate what you learn.
+
+          Yours and others' solutions to this problem:
+          #{url}
+        INSTRUCTIONS
       end
     end
   end
