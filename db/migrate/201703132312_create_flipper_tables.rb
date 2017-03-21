@@ -1,5 +1,11 @@
 class CreateFlipperTables < ActiveRecord::Migration
   def self.up
+    # Migration may have already run with a different version before it was renamed
+    if table_exists? :flipper_features
+      execute "DELETE FROM schema_migrations WHERE version='20170313231200'"
+      return
+    end
+
     create_table :flipper_features do |t|
       t.string :key, null: false
       t.timestamps null: false
