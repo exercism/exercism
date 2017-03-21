@@ -66,6 +66,8 @@ This will fetch your exercises to `C:\Users\your-user-name\my-exercism-exercises
 exercism configure --dir=C:\exercism
 ```
 
+COMPLETION_SECTION
+
 ### Continue
 You can now continue by [choosing a language](http://exercism.io/languages).
 

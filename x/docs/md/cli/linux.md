@@ -65,6 +65,8 @@ You can configure a different directory by passing the `--dir` option:
 exercism configure --dir=~/some/other/place
 ```
 
+COMPLETION_SECTION
+
 ### Continue
 You can now continue by [choosing a language](http://exercism.io/languages).
 
