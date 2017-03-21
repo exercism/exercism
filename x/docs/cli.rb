@@ -10,7 +10,7 @@ module X
       private
 
       def read(topic)
-        File.read("./x/docs/md/cli/#{topic}.md")
+        File.read("./x/docs/md/cli/#{topic}.md").gsub('COMPLETION_SECTION', File.read('./x/docs/md/cli/completion.md'))
       end
     end
   end
