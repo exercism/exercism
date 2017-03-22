@@ -31,11 +31,15 @@ class AppExercisesTest < Minitest::Test
   end
 
   def test_archive_and_unarchive
+    exercise_location = "http://example.org/exercises/#{exercise.key}"
+
     post "/exercises/#{exercise.key}/archive", {}, login(alice)
     assert exercise.reload.archived?
+    assert_equal exercise_location, last_response.location, "Archiving should redirect to the exercise page"
 
     post "/exercises/#{exercise.key}/unarchive", {}, login(alice)
     refute exercise.reload.archived?
+    assert_equal exercise_location, last_response.location, "Unarchiving should redirect to the exercise page"
   end
 
   def test_bulk_archive

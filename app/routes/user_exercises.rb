@@ -38,13 +38,13 @@ module ExercismWeb
 
       post '/exercises/:key/archive' do |key|
         exercise = UserExercise.find_by_key(key)
-        unless current_user.owns?(exercise)
+        if current_user.owns?(exercise)
+          exercise.archive!
+          flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now archived."
+        else
           flash[:notice] = "Only the author may archive the exercise."
-          redirect "/exercises/#{key}"
         end
-        exercise.archive!
-        flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now archived."
-        redirect '/'
+        redirect "/exercises/#{key}"
       end
 
       post '/exercises/archive' do
@@ -57,13 +57,13 @@ module ExercismWeb
 
       post '/exercises/:key/unarchive' do |key|
         exercise = UserExercise.find_by_key(key)
-        unless current_user.owns?(exercise)
+        if current_user.owns?(exercise)
+          exercise.unarchive!
+          flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now reactivated."
+        else
           flash[:notice] = "Only the author may reactivate the exercise."
-          redirect "/exercises/#{key}"
         end
-        exercise.unarchive!
-        flash[:success] = "#{exercise.problem.name} in #{exercise.problem.track_id} is now reactivated."
-        redirect '/dashboard'
+        redirect "/exercises/#{key}"
       end
 
       post '/exercises/:key/request-for-help' do |key|
