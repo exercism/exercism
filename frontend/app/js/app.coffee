@@ -12,10 +12,20 @@ $ ->
       $.getJSON '/tags', { q: term }, (data) ->
         response data
     onSelect: (e, term, item) ->
-      $("[data-search=tags]").closest("form").submit();
+      $("[data-search=tags]").closest("form").submit()
 
   if location.pathname.match(/submissions/)
     initCommentMemory()
+
+  clientOutdatedNotice = $('.close + .client-outdated')
+  clientOutdatedNotice.prev('.close').click ->
+    username = clientOutdatedNotice.data('username')
+    $.ajax
+      url: "/#{username}/clear_client_version_notice"
+      method: 'post'
+      dataType: 'json'
+      error: (xhr) ->
+        console.log("Failed to mark notice as cleared: #{xhr.responseText}")
 
   $("#current_submission").theiaStickySidebar(additionalMarginTop: 70)
 

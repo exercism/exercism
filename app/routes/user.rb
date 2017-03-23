@@ -16,6 +16,19 @@ module ExercismWeb
         end
       end
 
+      post '/:username/clear_client_version_notice' do |username|
+        please_login
+        user = ::User.find_by_username(username)
+
+        if user == current_user
+          ClientVersion.new(user: current_user).dismiss_notice!
+          json 'result' => 'success'
+        else
+          status 403
+          json 'result' => 'forbidden'
+        end
+      end
+
       # linked to from the /looks page
       get '/:username/:key' do |username, key|
         please_login
