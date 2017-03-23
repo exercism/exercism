@@ -4,7 +4,7 @@ module ExercismWeb
       before do
         if $flipper[:advertise_cli_update].enabled?(current_user) && page_request?
           client_version = ClientVersion.new(user: current_user)
-          flash[:notice] ||= client_version.notice_when_client_outdated
+          flash.now[:notice] ||= client_version.notice_when_client_outdated
         end
       end
 
