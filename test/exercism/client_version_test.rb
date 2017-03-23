@@ -9,7 +9,7 @@ module ExercismWeb
     def test_notice_when_client_outdated_not_dismissed
       dismissed_at = nil
       user = stub(:user)
-      user.stubs(guest?: false, client_version_notification_dismissed_at: dismissed_at)
+      user.stubs(username: 'been', guest?: false, client_version_notification_dismissed_at: dismissed_at)
       client_version = ClientVersion.new(user: user)
       assert client_version.notice_when_client_outdated.present?, "Expected a notice when not dismissed"
     end
@@ -17,7 +17,7 @@ module ExercismWeb
     def test_notice_when_client_outdated_dismissed
       dismissed_at = Time.now
       user = stub(:user)
-      user.stubs(guest?: false, client_version_notification_dismissed_at: dismissed_at)
+      user.stubs(username: 'been', guest?: false, client_version_notification_dismissed_at: dismissed_at)
       client_version = ClientVersion.new(user: user)
       assert client_version.notice_when_client_outdated.blank?, "Expected no notice after dismissed"
     end
