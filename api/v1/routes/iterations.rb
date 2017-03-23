@@ -140,7 +140,7 @@ module ExercismAPI
       private
 
       def what_next_instructions(attempt)
-        return '' unless $flipper['cli-call-to-action'].enabled?(attempt.user)
+        return '' unless $flipper['cli_call_to_action'].enabled?(attempt.user)
 
         track    = attempt.iteration.track_id
         exercise = attempt.iteration.slug

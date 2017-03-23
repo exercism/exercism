@@ -12,7 +12,7 @@ class AssignmentsApiTest < Minitest::Test
   attr_reader :alice
   def setup
     super
-    $flipper['cli-call-to-action'].enable
+    $flipper['cli_call_to_action'].enable
     @alice = User.create(username: 'alice', github_id: 1)
     Language.instance_variable_set(:"@by_track_id", "fake" => "Fake")
   end
