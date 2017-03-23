@@ -18,13 +18,13 @@ module ExercismWeb
     end
 
     def dismiss_notice!
-      user.update_attribute :client_version_notification_dismissed_at, Time.now
+      user.update_attribute :client_version_update_notification_dismissed_at, Time.now
     end
 
     private
 
     def dismissed?
-      user.guest? || user.client_version_notification_dismissed_at.present?
+      user.guest? || user.client_update_version_notification_dismissed_at.present?
     end
   end
 end
