@@ -24,7 +24,7 @@ module ExercismWeb
     private
 
     def dismissed?
-      user.guest? || user.client_update_version_notification_dismissed_at.present?
+      user.guest? || user.client_version_update_notification_dismissed_at.present?
     end
   end
 end
