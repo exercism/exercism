@@ -29,7 +29,7 @@ First download the script [[view source]](http://cli.exercism.io/exercism_comple
 
 ```zsh
 mkdir -p ~/.config/exercism/
-curl http://cli.exercism.io/exercism_completion.bash > ~/.config/exercism/exercism_completion.bash
+curl http://cli.exercism.io/exercism_completion.zsh > ~/.config/exercism/exercism_completion.zsh
 ```
 
 Load up the completion in your `.zshrc`, `.zsh_profile` or `.profile` by adding the following snippet:
