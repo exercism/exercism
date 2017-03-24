@@ -5,35 +5,35 @@
       <div class="submission-code-filename">
         <h4><%= filename %></h4>
       </div>
-    <div class="submission-code-actions btn-group pull-right">
-      <a
-        class="btn btn-default btn-show-diff disabled">
-        <%= diff_button_svg %>
-      </a>
-      <a
-        class="btn btn-default hidden-xs"
-        data-action="enlarge"
-        data-new-class="col-md-12"
-        data-old-class="col-md-6">
-        <i class="fa fa-expand"></i>
-      </a>
-      <a
-        style="display: none;"
-        class="btn btn-default"
-        data-action="shrink"
-        data-new-class="col-md-6"
-        data-old-class="col-md-12">
-        <i class="fa fa-compress"></i>
-      </a>
-      <a
-        class="btn btn-default copy-code"
-        href="#"
-        data-target="#submission-code-<%= idx %>">
-        <i class="fa fa-clipboard"></i>
-      </a>
-    </div>
+      <div class="submission-code-actions btn-group pull-right">
+        <a
+          class="btn btn-default btn-show-diff disabled">
+          <%= diff_button_svg %>
+        </a>
+        <a
+          class="btn btn-default hidden-xs"
+          data-action="enlarge"
+          data-new-class="col-md-12"
+          data-old-class="col-md-6">
+          <i class="fa fa-expand"></i>
+        </a>
+        <a
+          style="display: none;"
+          class="btn btn-default"
+          data-action="shrink"
+          data-new-class="col-md-6"
+          data-old-class="col-md-12">
+          <i class="fa fa-compress"></i>
+        </a>
+        <a
+          class="btn btn-default copy-code"
+          href="#"
+          data-target="#submission-code-<%= idx %>">
+          <i class="fa fa-clipboard"></i>
+        </a>
+      </div>
 
-    <div class="clearfix"></div>
+      <div class="clearfix"></div>
     </div>
 
     <div class="submission-code-body">
