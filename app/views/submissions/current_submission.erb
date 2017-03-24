@@ -49,5 +49,19 @@
         <p><%= these_people_like_it(submission.liked_by) %></p>
       <% end %>
     </div>
+
+    <% if $flipper[:prompts].enabled?(current_user) %>
+      <div class="submission-prompt bs-callout bs-callout-primary">
+        <h4>
+          Food for thought
+          <span class="btn-new-prompt">
+            <i class="fa fa-refresh" aria-label="Give me another idea…" title="Give me another idea…"></i>
+          </span>
+        </h4>
+        <p class="prompt-text">
+          What is the meaning of life?
+        </p>
+      </div>
+    <% end %>
   </div>
 </div>

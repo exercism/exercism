@@ -118,6 +118,11 @@
   .submission-likes {
     margin-top: 15px;
   }
+  .submission-prompt {
+    .btn-new-prompt {
+      cursor: pointer;
+    }
+  }
   .md-markdown-preview {
     a {
       cursor: pointer;
