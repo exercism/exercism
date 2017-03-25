@@ -4,6 +4,9 @@ $ ->
   if location.pathname != '/' && $('h1, h2, h3').length && document.title == 'exercism.io'
     document.title = "#{$($('h1, h2, h3').get(0)).text()} - exercism.io"
 
+  $('.submission-prompt').each (i, promptContainer) ->
+    new SubmissionPrompt(promptContainer)
+
   $("[data-toggle=tooltip]").tooltip()
 
   $("[data-search=tags]").autoComplete
@@ -135,3 +138,29 @@ dismissTeamManager = (username, slug) ->
 ) window, document, "script", "//www.google-analytics.com/analytics.js", "ga"
 ga "create", "UA-47528450-1", "exercism.io"
 ga "send", "pageview"
+
+class SubmissionPrompt
+  constructor: (container) ->
+    @container = $(container)
+    @initializeUI()
+
+  initializeUI: ->
+    @container.find('.btn-answer-prompt').click ->
+      $('#submission_comment').focus()
+    @container.find('.btn-new-prompt').click => @showNewPrompt()
+    @showNewPrompt()
+    @container.removeClass('hidden') # Leave hidden when JS not enabled
+
+  showNewPrompt: ->
+    target = @container.find('.prompt-text')
+    fadeDuration = 50
+    target.fadeOut fadeDuration, =>
+      target.text @randomPrompt()
+      target.fadeIn fadeDuration
+
+  randomPrompt: ->
+    _.sample(@prompts)
+
+  prompts: [
+    'What is the meaning of life?'
+  ]

@@ -51,16 +51,17 @@
     </div>
 
     <% if $flipper[:prompts].enabled?(current_user) %>
-      <div class="submission-prompt bs-callout bs-callout-primary">
+      <div class="submission-prompt bs-callout bs-callout-primary hidden">
         <h4>
           Food for thought
           <span class="btn-new-prompt">
             <i class="fa fa-refresh" aria-label="Give me another idea…" title="Give me another idea…"></i>
           </span>
         </h4>
-        <p class="prompt-text">
-          What is the meaning of life?
-        </p>
+        <p class="prompt-text"></p>
+        <button class="btn-answer-prompt btn btn-xs btn-primary">
+          comment <i class="fa fa-angle-double-right" aria-hidden="true"></i>
+        </button>
       </div>
     <% end %>
   </div>
