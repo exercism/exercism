@@ -3,13 +3,10 @@ module ExercismWeb
     module NotificationByLanguage
       # rubocop:disable Metrics/AbcSize
       def notification_by_language(notifications)
-        notification_hash = Hash.new([])
+        notification_hash = Hash.new { |h,k| h[k] = [] }
+
         notifications.each do |notification|
-          if notification_hash[notification.iteration.problem.language].empty?
-            notification_hash[notification.iteration.problem.language] = [notification]
-          else
-            notification_hash[notification.iteration.problem.language] << notification
-          end
+          notification_hash[notification.iteration.problem.language] << notification
         end
         notification_hash
       end
