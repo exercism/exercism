@@ -196,6 +196,7 @@ DEPENDENCIES
   database_cleaner
   dotenv
   faraday
+  flipper (= 0.10.2)
   flipper-active_record
   flipper-ui
   font-awesome-sass
