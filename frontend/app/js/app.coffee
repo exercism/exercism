@@ -162,5 +162,26 @@ class SubmissionPrompt
     _.sample(@prompts)
 
   prompts: [
-    'What is the meaning of life?'
+    "Are there any complicated bits that deserve to be named/abstracted using a function or variable?"
+    "Are there any edge cases or unexpected inputs that aren't handled?"
+    "Are there any intermediate variables or functions that could be extracted to give a name to some concept, making the code easier to scan and understand its intent?"
+    "Could and should this code be simplified at all? What would you suggest?"
+    "Could this code be reorganized in a way that would increase its testability, beyond what is required for the given tests?"
+    "Did this solution use an appropriate amount of abstraction? What changes might make the code easier to understand?"
+    "Do you have any naming suggestions that could better express intent?"
+    "Do you understand why the author made the design choices that were made? In what situations might you want or not want to use this approach?"
+    "How reusable is this code, such that you could use parts of it in new and unexpected contexts?"
+    "How well might this code withstand future changes in requirements? Will the effort required to change it likely be proportional to the benefit of the change?"
+    "Is there another approach that could yield better results?"
+    "Is there anything in this submission that you don't understand or have questions about?"
+    "Is this code exemplary? Would you want to see more like it? What specifically would you like to see more or less of?"
+    "Is this code well-organized? What might make it better, and why?"
+    "Is this easy for you read and understand? What might make it easier?"
+    "What aspects of this submission do you like and want to incorporate in your own code?"
+    "What could you learn from this submission?"
+    "What principles could the author learn and apply that would improve this solution?"
+    "What trade-offs can you identify being made in this submission? When would this be a good choice, and when would you want to try something different?"
+    "Where does this solution's formatting stray from community style guides? If any, do the variances matter?"
+    "Will this solution be performant at scale? In what cases might efficient performance matter?"
+    "Would you want to want to work in a codebase composed of code similar to this? What do you like and dislike about it?"
   ]
