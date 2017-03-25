@@ -326,6 +326,9 @@ required to be running for the server to run though.
 
 * Install Lineman with: `npm install -g lineman`
 * To run: `cd frontend` and start Lineman with `lineman run`
+* To use: use **port 8000** instead of 4567 (e.g. http://localhost:8000/).
+  Some links redirect back to port 4567, so if JS reloading doesn't work,
+  check for this.
 
 Lineman will compile your javascripts when you run `lineman run`, but before
 committing your code, make sure everything is compiled using:
