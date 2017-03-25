@@ -56,71 +56,73 @@
           <% end %>
         </ul>
       <% end %>
+      <% notification_by_language(inbox.notifications).each do | lang, notifications | %>
+        <h3><%= lang %></h3>
+        <ul style="list-style-type: none; margin: 0;">
+          <% notifications.each do | notification | %>
+            <li class="alert-row">
+              <span style="padding-right: 15px;" class="fa fa-<%= notification.icon %>"></span>
 
-      <ul style="list-style-type: none; margin: 0;">
-        <% inbox.notifications.each do |notification| %>
-          <li class="alert-row">
-            <span style="padding-right: 15px;" class="fa fa-<%= notification.icon %>"></span>
+              <% if notification.action == 'like' %>
+                <a href="/<%= notification.actor.username %>">
+                  <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
+                  <%= notification.actor.username %>
+                </a>
+                liked your
+                <a href="<%= notification.url %>">
+                  <%= notification.iteration.problem.name %> in <%= notification.iteration.problem.language %>
+                </a>
+              <% end %>
 
-            <% if notification.action == 'like' %>
-              <a href="/<%= notification.actor.username %>">
+              <% if notification.action == 'mention' %>
                 <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
                 <%= notification.actor.username %>
-              </a>
-              liked your
-              <a href="<%= notification.url %>">
-                <%= notification.iteration.problem.name %> in <%= notification.iteration.problem.language %>
-              </a>
-            <% end %>
+                mentioned you
+                <%= ago(notification.created_at) %>
 
-            <% if notification.action == 'mention' %>
-              <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
-              <%= notification.actor.username %>
-              mentioned you
-              <%= ago(notification.created_at) %>
+                &middot;
 
-              &middot;
+                <%= notification.whose %>
+                <a href="<%= notification.url %>">
+                  <%= notification.iteration.problem.name %> in <%= notification.iteration.problem.language %>
+                </a>
+              <% end %>
 
-              <%= notification.whose %>
-              <a href="<%= notification.url %>">
-                <%= notification.iteration.problem.name %> in <%= notification.iteration.problem.language %>
-              </a>
-            <% end %>
+              <% if notification.action == 'comment' %>
+                <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
+                <%= notification.actor.username %>
+                commented
+                <%= ago(notification.created_at) %>
 
-            <% if notification.action == 'comment' %>
-              <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
-              <%= notification.actor.username %>
-              commented
-              <%= ago(notification.created_at) %>
+                &middot;
 
-              &middot;
+                <%= notification.whose %>
+                <a href="<%= notification.url %>">
+                  <%= notification.iteration.problem.name %> in <%= notification.iteration.problem.language %>
+                  (#<%= notification.iteration.version %>)
+                </a>
+              <% end %>
 
-              <%= notification.whose %>
-              <a href="<%= notification.url %>">
-                <%= notification.iteration.problem.name %> in <%= notification.iteration.problem.language %>
-                (#<%= notification.iteration.version %>)
-              </a>
-            <% end %>
+              <% if notification.action == 'iteration' %>
+                <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
+                <%= notification.actor.username %>
+                submitted
+                <a href="<%= notification.url %>">
+                  <%= notification.iteration.problem.name %>
+                  in
+                  <%= notification.iteration.problem.language %>
+                  (#<%= notification.iteration.version %>)
+                </a>
+                <%= ago(notification.created_at) %>
+              <% end %>
 
-            <% if notification.action == 'iteration' %>
-              <%= gravatar_tag notification.actor.avatar_url, size: 20 %>
-              <%= notification.actor.username %>
-              submitted
-              <a href="<%= notification.url %>">
-                <%= notification.iteration.problem.name %>
-                in
-                <%= notification.iteration.problem.language %>
-                (#<%= notification.iteration.version %>)
-              </a>
-              <%= ago(notification.created_at) %>
-            <% end %>
-
-            <span style="float: right;">
-              <%= track_icon(notification.iteration.track_id, 20) %>
-            </span>
-          </li>
-        <% end %>
-      </ul>
+              <span style="float: right;">
+                <%= track_icon(notification.iteration.track_id, 20) %>
+              </span>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
     </div>
    <% if inbox.has_notifications? %>
      <div class="col-xs-4 text-center">

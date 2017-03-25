@@ -7,6 +7,7 @@ module ExercismWeb
       Markdown: 'markdown',
       Syntax: 'syntax',
       NotificationCount: 'notification_count',
+      NotificationByLanguage: 'notification_by_language',
       Gravatar: 'gravatar',
       Profile: 'profile',
       Submission: 'submission',
