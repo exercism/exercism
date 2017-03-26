@@ -14,5 +14,5 @@
   <% end %>
 
   <hr>
-  <%= erb :"submissions/submit_comment", locals: {submission: submission} %>
+  <%= erb :"submissions/submit_comment", locals: {submission: submission, comment_history: locals[:comment_history]} %>
 </div>

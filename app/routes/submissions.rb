@@ -15,8 +15,15 @@ module ExercismWeb
 
         title("%s by %s in %s" % [submission.problem.name, submission.user.username, submission.problem.language])
 
+        comment_history = if current_user.guest? || !$flipper[:comment_history].enabled?(current_user)
+          []
+        else
+          current_user.comments.recent(25)
+        end
+
         locals = {
           submission: submission,
+          comment_history: comment_history,
           own_uuid: submission.exercise_uuid_by(current_user),
         }
 

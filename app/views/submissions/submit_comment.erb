@@ -2,7 +2,7 @@
   <p> You're not logged in right now. Please login via <a href="/login">GitHub </a> to comment </p>
 <% else %>
   <form accept-charset="UTF-8" action="/submissions/<%= submission.key %>/nitpick" method="POST">
-  <%= erb :"submissions/comment", locals: { submission: submission } %>
+  <%= erb :"submissions/comment", locals: { submission: submission, comment_history: locals[:comment_history] } %>
     <button type="submit" class="pull-right btn btn-primary btn-lg" name="nitpick">
       Submit Comment
     </button>
