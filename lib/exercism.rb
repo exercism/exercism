@@ -45,6 +45,7 @@ require 'exercism/user_exercise'
 require 'exercism/user_finished_tracks'
 require 'exercism/user_lookup'
 require 'exercism/user_tracks_summary'
+require 'exercism/varied_responses'
 require 'exercism/view'
 require 'exercism/watermark'
 
