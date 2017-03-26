@@ -90,6 +90,11 @@ class UserTest < Minitest::Test
     assert_equal %w(alice bob charlie), User.find_or_create_in_usernames(%w(alice BOB charlie)).map(&:username).sort
   end
 
+  def test_recent_comments
+    user = User.create!(username: 'bob')
+    assert_equal 0, user.comments.recent(10).count
+  end
+
   def test_delete_team_memberships_with_user
     alice = User.create(username: 'alice')
     bob = User.create(username: 'bob')
