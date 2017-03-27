@@ -7,6 +7,9 @@ $ ->
   $('.submission-prompt').each (i, promptContainer) ->
     new SubmissionPrompt(promptContainer)
 
+  $('.history_tab').each (i, historyTab) ->
+    new CommentHistoryTab(historyTab)
+
   $("[data-toggle=tooltip]").tooltip()
 
   $("[data-search=tags]").autoComplete
@@ -185,3 +188,37 @@ class SubmissionPrompt
     "Will this solution be performant at scale? In what cases might efficient performance matter?"
     "Would you want to want to work in a codebase composed of code similar to this? What do you like and dislike about it?"
   ]
+
+class CommentHistoryTab
+  constructor: (historyTabElement) ->
+    @historyTab = $(historyTabElement)
+    @writeTabLink = @historyTab.siblings('.write_tab').find('a')
+    @writeTabTextarea = @historyTab.closest('.tabbable').find('textarea.comment')
+    @historyItems = @historyTab.closest('.tabbable').find('.history_item')
+    @initializeUI()
+
+  initializeUI: ->
+    @historyItems.click @selectItemCallback
+    @historyTab.removeClass('hidden') # Leave hidden when JS not enabled
+
+  selectItemCallback: (event) =>
+    event.preventDefault()
+    historyItem = $(event.target).closest('.history_item')
+    historicalComment = historyItem.text()
+    @appendText(historicalComment)
+    @refreshPreviewContent()
+    @activateWriteTab()
+
+  appendText: (newText) ->
+    existingText = @writeTabTextarea.val().trim()
+    replacementText = ''
+    replacementText += existingText + "\n\n---\n\n" unless _.isEmpty(existingText)
+    replacementText += newText.trim()
+    @writeTabTextarea.val replacementText
+
+  refreshPreviewContent: ->
+    @writeTabTextarea.trigger 'input'
+
+  activateWriteTab: ->
+    @writeTabLink.trigger 'click'
+    @writeTabTextarea.focus()

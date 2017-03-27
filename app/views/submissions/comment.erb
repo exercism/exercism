@@ -1,6 +1,6 @@
 <div ng-controller="MarkdownCtrl" class="md-markdown-preview">
   <tabset>
-    <tab id="write_tab" heading="Write">
+    <tab class="write_tab" heading="Write">
       <textarea
         id="submission_comment"
         name="body"
@@ -15,5 +15,18 @@
       <div class="preview" ng-bind-html-unsafe="data.preview"></div>
       <hr>
     </tab>
+    <% if $flipper[:comment_history].enabled?(current_user) && !locals[:comment_history].blank? %>
+      <tab heading="History" class="hidden history_tab">
+      <h5>Select a comment to insert as a starting point</h5>
+        <div class="list-group">
+          <% locals[:comment_history].each do |comment| %>
+            <button type="button" class="list-group-item history_item">
+              <%= comment.body %>
+            </button>
+          <% end %>
+        </div>
+        <hr>
+      </tab>
+    <% end %>
   </tabset>
 </div>
