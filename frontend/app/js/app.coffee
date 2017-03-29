@@ -158,7 +158,11 @@ class SubmissionPrompt
     target = @container.find('.prompt-text')
     fadeDuration = 50
     target.fadeOut fadeDuration, =>
-      target.text @randomPrompt()
+      existing = target.text()
+      replacement = @randomPrompt()
+      while replacement == existing
+        replacement = @randomPrompt()
+      target.text replacement
       target.fadeIn fadeDuration
 
   randomPrompt: ->
