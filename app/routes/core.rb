@@ -41,6 +41,18 @@ module ExercismWeb
         cache_control :private
       end
 
+      before do
+        if session[:access_token] && current_user.guest?
+          begin
+            user = ::User.from_github(*Github.user_info(session[:access_token]))
+            login(user)
+          rescue Github::UnauthorizedUser => e
+            Bugsnag.notify(e, nil, request)
+            session[:access_token] = nil
+          end
+        end
+      end
+
       use Rack::Flash
 
       helpers Helpers::NotificationCount # total hack
