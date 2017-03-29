@@ -185,7 +185,7 @@ class SubmissionPrompt
     "Is this code well-organized? What might make it better, and why?"
     "Is this easy for you read and understand? What might make it easier?"
     "What aspects of this submission do you like and want to incorporate in your own code?"
-    "What could you learn from this submission?"
+    "What did you learn from this submission?"
     "What principles could the author learn and apply that would improve this solution?"
     "What trade-offs can you identify being made in this submission? When would this be a good choice, and when would you want to try something different?"
     "Where does this solution's formatting stray from community style guides? If any, do the variances matter?"
