@@ -42,13 +42,16 @@ module ExercismWeb
       end
 
       before do
+        puts "SESSION: #{session.inspect}"
         if session[:access_token] && current_user.guest?
           begin
-            user = ::User.from_github(*Github.user_info(session[:access_token]))
+            github_user = Github.user_info(session[:access_token])
+            user = ::User.from_github(github_user.id, github_user.username, github_user.email, github_user.avatar_url)
             login(user)
           rescue Github::UnauthorizedUser => e
-            Bugsnag.notify(e, nil, request)
             session[:access_token] = nil
+          rescue StandardError => e
+            Bugsnag.notify(e, nil, request)
           end
         end
       end

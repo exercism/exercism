@@ -11,8 +11,9 @@ module ExercismWeb
             session[:access_token] = access_token
             login(user)
           rescue Github::UnauthorizedUser => e
-            Bugsnag.notify(e, nil, request)
             session[:access_token] = nil
+          rescue StandardError => e
+            Bugsnag.notify(e, nil, request)
             flash[:error] = "We're having trouble with logins right now. Please come back later."
           end
 
