@@ -42,7 +42,6 @@ module ExercismWeb
       end
 
       before do
-        puts "SESSION: #{session.inspect}"
         if session[:access_token] && current_user.guest?
           begin
             github_user = Github.user_info(session[:access_token])
