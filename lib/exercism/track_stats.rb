@@ -1,7 +1,7 @@
 require 'date'
 
 module ExercismLib
-  class Stats
+  class TrackStats
     class Month
       def self.prev(range)
         d = range.first.prev_month

@@ -13,11 +13,11 @@ module ExercismWeb
         end
 
         slugs = track.problems.map(&:slug)
-        stats = ExercismLib::Stats.new(track.id, slugs)
+        stats = ExercismLib::TrackStats.new(track.id, slugs)
         datasets = [
           stats,
-          ExercismLib::Stats.new(track_id, slugs, ExercismLib::Stats::LastN.new(90)),
-          ExercismLib::Stats.new(track_id, slugs, ExercismLib::Stats::LastN.new(120)),
+          ExercismLib::TrackStats.new(track_id, slugs, ExercismLib::TrackStats::LastN.new(90)),
+          ExercismLib::TrackStats.new(track_id, slugs, ExercismLib::TrackStats::LastN.new(120)),
         ] + stats.historical(6)
 
         erb :"stats/index", locals: {
