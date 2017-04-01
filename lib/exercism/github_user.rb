@@ -1,10 +1,10 @@
 class GithubUser
   attr_reader :id, :username, :email, :avatar_url
 
-  def initialize(id, username, email, avatar_url)
-    @id = id
-    @username = username
-    @email = email
-    @avatar_url = avatar_url
+  def initialize(attributes)
+    @id         = attributes.fetch('id')
+    @username   = attributes.fetch('login')
+    @email      = attributes.fetch('email')
+    @avatar_url = attributes.fetch('avatar_url')
   end
 end

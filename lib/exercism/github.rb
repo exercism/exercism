@@ -16,7 +16,7 @@ class Github
     end
     raise UnauthorizedUser unless response.success?
     result = JSON.parse(response.body)
-    GithubUser.new(result['id'], result['login'], result['email'], result['avatar_url'])
+    GithubUser.new(result)
   end
 
   def initialize(code, client_id, client_secret)

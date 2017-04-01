@@ -45,7 +45,7 @@ module ExercismWeb
         if session[:access_token] && current_user.guest?
           begin
             github_user = Github.user_info(session[:access_token])
-            user = ::User.from_github(github_user.id, github_user.username, github_user.email, github_user.avatar_url)
+            user = ::User.from_github(github_user)
             login(user)
           rescue Github::UnauthorizedUser => e
             session[:access_token] = nil

@@ -27,7 +27,7 @@ class Authentication
   end
 
   def user
-    User.from_github(github_user.id, github_user.username, github_user.email, github_user.avatar_url, target_profile)
+    User.from_github(github_user, target_profile)
   end
 
   def github_user
