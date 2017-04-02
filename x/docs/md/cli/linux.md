@@ -1,7 +1,7 @@
 
 ## Linux
 
-View the CLI releases to [choose and download the appropriate package for your operating system](https://github.com/exercism/cli/releases).
+View the latest CLI release to [choose and download the appropriate package for your operating system](https://github.com/exercism/cli/releases/latest).
 
 If you're unsure what architecture your processor has, the command `uname -m` should tell you.
 
