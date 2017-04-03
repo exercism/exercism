@@ -105,7 +105,6 @@ module ExercismLib
       @rows ||= ActiveRecord::Base.connection.execute(sql).to_a
     end
 
-    # rubocop:disable Metrics/MethodLength
     def sql
       <<-SQL
         SELECT s.slug, COUNT(s.id) AS iterations, COUNT(c.id) AS reviews
@@ -119,6 +118,5 @@ module ExercismLib
         GROUP BY s.slug
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
   end
 end
