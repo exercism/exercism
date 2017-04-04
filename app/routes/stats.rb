@@ -2,8 +2,20 @@ module ExercismWeb
   module Routes
     class Stats < Core
       get '/stats' do
-        track = Trackler.tracks.sort_by(&:language).find(&:active?)
-        redirect "/stats/%s" % track.id
+        if $flipper[:participation_stats].enabled?(current_user)
+          tracks = Trackler.tracks.reject {|track| track.problems.count.zero? }.sort_by(&:language)
+          start_date = Date.parse(ParticipationStats::GAMIFICATION_START_DATE) - 2.weeks
+          end_date = Date.parse(ParticipationStats::GAMIFICATION_EXPERIMENT_END_DATE)
+          date_range = start_date..end_date
+          stats = {
+            experimental: ParticipationStats.new(date_range, gamification_markers: true, experiment_group: :experimental).results,
+            control:      ParticipationStats.new(date_range, gamification_markers: true, experiment_group: :control).results
+          }
+          erb :"stats/participation", locals: {tracks: tracks, stats: stats}
+        else
+          track = Trackler.tracks.sort_by(&:language).find(&:active?)
+          redirect "/stats/%s" % track.id
+        end
       end
 
       get '/stats/:track_id' do |track_id|

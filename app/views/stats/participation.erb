@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row">
+    <br>
+    <aside class="col-md-4">
+      <nav class="stats">
+        <ul class="nav nav-stacked nav-bordered">
+          <li class="active">
+            <a href="/stats">Participation</a>
+          </li>
+          <% tracks.each do |t|%>
+          <li>
+            <a href="/stats/<%= t.id %>">
+              <%= t.language %>
+              <span class="total-count">
+                <%= t.problems.size %>
+              </span>
+            </a>
+          </li>
+          <% end %>
+        </ul>
+      </nav>
+      <br>
+    </aside>
+
+    <main id="track-activity" class="col-md-8">
+      <h2>Intrinsic Motivation Experiment</h2>
+      <h3>Review Quantity</h3>
+      <div class="review-quantity-chart review-data" data-stats='<%= stats.to_json %>' width="800" height="400"></div>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
