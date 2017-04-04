@@ -12,6 +12,7 @@ module ExercismLib
       'ecmascript'  => 'javascript',
       'perl5'       => 'perl',
       'crystal'     => 'ruby',
+      'delphi'      => 'pascal',
     }.freeze
 
     attr_reader :lexer, :code
