@@ -77,13 +77,8 @@ You can now continue by [choosing a language](http://exercism.io/languages).
 Remove the files from the `~/bin` directory with the following command
 
 ```bash
-rm -rf ~/bin/exercism
+rm ~/bin/exercism
 ```
-
-You can also remove the `~/bin` directory from your `PATH` only if you have NOT
-installed anything else in that directory. You can do that by opening up your
-`~/.bashrc` file with your favorite editor and remove the `bin` directory that you
-exported during the install step.
 
 ### Help
 
