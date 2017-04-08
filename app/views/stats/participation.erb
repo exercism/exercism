@@ -28,7 +28,7 @@
 
       <% unless current_user.guest? %>
         <h2>Intrinsic Motivation Experiment</h2>
-        <% if current_user.motivation_experiment_opt_out %>
+        <% if experiment_completed || current_user.motivation_experiment_opt_out %>
           <div class="motivation-experiment-content">
             <h3>Review Quantity</h3>
             <div class="review-quantity-chart review-data" data-stats='<%= stats.to_json %>' width="800" height="400"></div>
@@ -36,6 +36,10 @@
             <div class="review-length-chart" width="800" height="400"></div>
           </div>
         <% else %>
+          <p>
+            Statistics will be viewable when the experiment is complete, on
+            <%= experiment_complete_date %>.
+          </p>
           <form action="/stats/motivation-experiment-opt-out" method="post">
             <input type="hidden" name="_method" value="PUT">
             <button class="btn btn-default">Opt out of participation tracking</button>

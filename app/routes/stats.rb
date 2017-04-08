@@ -11,7 +11,12 @@ module ExercismWeb
             experimental: ParticipationStats.new(date_range, gamification_markers: true, experiment_group: :experimental).results,
             control:      ParticipationStats.new(date_range, gamification_markers: true, experiment_group: :control).results
           }
-          erb :"stats/participation", locals: {tracks: tracks, stats: stats}
+          erb :"stats/participation", locals: {
+            tracks: tracks,
+            stats: stats,
+            experiment_complete_date: (end_date + 1.day).strftime('%A, %b %e, %Y'),
+            experiment_completed: ParticipationStats.experiment_complete?,
+          }
         else
           track = Trackler.tracks.sort_by(&:language).find(&:active?)
           redirect "/stats/%s" % track.id

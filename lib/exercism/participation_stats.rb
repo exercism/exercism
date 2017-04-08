@@ -8,6 +8,10 @@ class ParticipationStats
 
   attr_reader :date_range, :gamification_markers, :experiment_group
 
+  def self.experiment_complete?
+    Time.now > Date.parse(GAMIFICATION_EXPERIMENT_END_DATE) + 1.day
+  end
+
   def initialize(date_range, gamification_markers: false, experiment_group: nil)
     @date_range = date_range
     @gamification_markers = gamification_markers

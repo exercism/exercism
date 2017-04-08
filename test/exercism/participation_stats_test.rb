@@ -17,6 +17,10 @@ class ParticipationStatsTest < MiniTest::Test
     newcomer.comments.create!(created_at: Time.now, submission_id: 1, body: 'not counted in expermiental group since user just joined')
   end
 
+  def test_experiment_complete?
+    assert_includes [true, false], ParticipationStats.experiment_complete?
+  end
+
   def test_counts
     today_date_string = Time.now.utc.strftime('%F')
 
