@@ -16,6 +16,7 @@ module ExercismWeb
             stats: stats,
             experiment_complete_date: (end_date + 1.day).strftime('%A, %b %e, %Y'),
             experiment_completed: ParticipationStats.experiment_complete?,
+            user_may_see_early: !current_user.guest? && current_user.motivation_experiment_opt_out?,
           }
         else
           track = Trackler.tracks.sort_by(&:language).find(&:active?)
