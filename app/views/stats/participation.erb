@@ -23,11 +23,25 @@
     </aside>
 
     <main id="track-activity" class="col-md-8">
-      <h2>Intrinsic Motivation Experiment</h2>
-      <h3>Review Quantity</h3>
-      <div class="review-quantity-chart review-data" data-stats='<%= stats.to_json %>' width="800" height="400"></div>
-      <h3>Review Length</h3>
-      <div class="review-length-chart" width="800" height="400"></div>
+      <h2>Track Stats</h2>
+      Select a track to view its statistics.
+
+      <% unless current_user.guest? %>
+        <h2>Intrinsic Motivation Experiment</h2>
+        <% if current_user.motivation_experiment_opt_out %>
+          <div class="motivation-experiment-content">
+            <h3>Review Quantity</h3>
+            <div class="review-quantity-chart review-data" data-stats='<%= stats.to_json %>' width="800" height="400"></div>
+            <h3>Review Length</h3>
+            <div class="review-length-chart" width="800" height="400"></div>
+          </div>
+        <% else %>
+          <form action="/stats/motivation-experiment-opt-out" method="post">
+            <input type="hidden" name="_method" value="PUT">
+            <button class="btn btn-default">Opt out of participation tracking</button>
+          </form>
+        <% end %>
+      <% end %>
     </main>
   </div>
 </div>

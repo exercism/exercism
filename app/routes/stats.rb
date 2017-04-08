@@ -18,6 +18,13 @@ module ExercismWeb
         end
       end
 
+      put '/stats/motivation-experiment-opt-out' do
+        unless current_user.guest?
+          current_user.update_attribute :motivation_experiment_opt_out, true
+        end
+        redirect '/stats'
+      end
+
       get '/stats/:track_id' do |track_id|
         track = Trackler.tracks[track_id]
         unless track.exists?
