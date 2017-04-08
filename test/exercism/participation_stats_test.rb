@@ -5,12 +5,16 @@ class ParticipationStatsTest < MiniTest::Test
 
   def setup
     super
-    experimental = User.create!(username: 'experimental')
+    experimental = User.create!(username: 'experimental', created_at: '2015-01-01')
     experimental.comments.create!(created_at: Time.now, submission_id: 1, body: 'hi')
     experimental.comments.create!(created_at: Time.now, submission_id: 1, body: 'not bad')
-    control = User.create!(username: 'control_grp')
+    control = User.create!(username: 'control_grp', created_at: '2015-01-01')
     control.comments.create!(created_at: 1.year.ago, submission_id: 1, body: 'old')
     control.comments.create!(created_at: Time.now, submission_id: 1, body: 'nice')
+    opted_out = User.create!(username: 'opted_out', created_at: '2015-01-01', motivation_experiment_opt_out: true)
+    opted_out.comments.create!(created_at: Time.now, submission_id: 1, body: 'not counted in control group since user opted out')
+    newcomer = User.create!(username: 'newcomer')
+    newcomer.comments.create!(created_at: Time.now, submission_id: 1, body: 'not counted in expermiental group since user just joined')
   end
 
   def test_counts
@@ -21,8 +25,8 @@ class ParticipationStatsTest < MiniTest::Test
     assert_equal 1, stats.dates.size
     assert_equal today_date_string, stats.dates.first
     assert_equal 1, stats.daily_review_count.size
-    assert_equal 3, stats.daily_review_count.first
-    assert_equal [2, 4, 7], stats.daily_review_lengths.first.sort
+    assert_equal 5, stats.daily_review_count.first
+    assert_equal [2, 4, 7, 49, 56], stats.daily_review_lengths.first.sort
   end
 
   def test_to_json

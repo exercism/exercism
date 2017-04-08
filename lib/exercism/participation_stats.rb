@@ -1,6 +1,7 @@
 require 'date'
 
 class ParticipationStats
+  PRE_GAMIFICATION_COMPARISON_DATE = '2017-03-20'
   GAMIFICATION_START_DATE          = '2017-03-27'
   GAMIFICATION_WITHDRAWAL_DATE     = '2017-04-10'
   GAMIFICATION_EXPERIMENT_END_DATE = '2017-04-24'
@@ -61,20 +62,29 @@ class ParticipationStats
       where('comments.created_at <  ?', date_range.last).
       group('created_date').
       order('created_date')
-    relation = filter_for_experiment(relation, experiment_group)
+    relation = filter_experiment_group(relation, experiment_group)
     relation.to_sql
   end
 
-  def filter_for_experiment(relation, experiment_group)
+  def filter_experiment_group(relation, experiment_group)
+    return relation if experiment_group.nil?
+    relation = filter_opt_out(relation)
+    relation = filter_late_arrivals(relation)
     case experiment_group
     when :control
       relation.where('crc32(users.username) % 100 >= 50')
     when :experimental
       relation.where('crc32(users.username) % 100 < 50')
-    when nil
-      relation
     else
       fail 'experiment_group must be :control, :experimental, or nil'
     end
+  end
+
+  def filter_opt_out(relation)
+    relation.where('users.motivation_experiment_opt_out' => false)
+  end
+
+  def filter_late_arrivals(relation)
+    relation.where('users.created_at < ?', PRE_GAMIFICATION_COMPARISON_DATE)
   end
 end

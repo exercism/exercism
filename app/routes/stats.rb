@@ -4,7 +4,7 @@ module ExercismWeb
       get '/stats' do
         if $flipper[:participation_stats].enabled?(current_user)
           tracks = Trackler.tracks.reject {|track| track.problems.count.zero? }.sort_by(&:language)
-          start_date = Date.parse(ParticipationStats::GAMIFICATION_START_DATE) - 2.weeks
+          start_date = Date.parse(ParticipationStats::PRE_GAMIFICATION_COMPARISON_DATE)
           end_date = Date.parse(ParticipationStats::GAMIFICATION_EXPERIMENT_END_DATE)
           date_range = start_date..end_date
           stats = {
