@@ -20,6 +20,20 @@ $(".track-activity-chart").each (index, element) ->
   ctx = element.getContext("2d")
   new Chart(ctx).Bar(data)
 
+class ReviewLengthStats
+  constructor: (@stats) ->
+    @setX()
+    @setY()
+
+  setX: ->
+    daily_lengths = @stats.daily_review_lengths
+    expanded_dates = for i, day_lengths of daily_lengths
+      @stats.dates[i] for length in day_lengths
+    @x = _.flatten(expanded_dates)
+
+  setY: ->
+    @y = _.flatten(@stats.daily_review_lengths)
+
 $('.review-quantity-chart').each (index, container) ->
   stats = $('.review-data').data('stats')
   experimental = {
@@ -66,6 +80,54 @@ $('.review-quantity-chart').each (index, container) ->
 
   Plotly.newPlot(
     container,
-    [experimental, control, gamificationBegins, gamificationWithdrawal],
+    [control, experimental, gamificationBegins, gamificationWithdrawal],
     {legend: {orientation: 'h'}}
+  )
+
+$('.review-length-chart').each (index, container) ->
+  stats = $('.review-data').data('stats')
+
+  experimentalReviewLengthStats = new ReviewLengthStats(stats.experimental)
+  experimental = {
+    x: experimentalReviewLengthStats.x
+    y: experimentalReviewLengthStats.y
+    type: 'box'
+    name: 'Experimental Group'
+  }
+
+  controlReviewLengthStats = new ReviewLengthStats(stats.control)
+  control = {
+    x: controlReviewLengthStats.x
+    y: controlReviewLengthStats.y
+    type: 'box'
+    name: 'Control Group'
+  }
+
+  lineHeight = Math.max(
+    Math.max(controlReviewLengthStats.y...),
+    Math.max(experimentalReviewLengthStats.y...)
+  )
+
+  gamificationBeginDate = stats.experimental.gamification_start_date
+  gamificationBegins = {
+    x: [gamificationBeginDate, gamificationBeginDate]
+    y: [0, lineHeight]
+    mode: 'lines'
+    name: 'Gamification Begins'
+    hoverinfo: 'none'
+  }
+
+  gamificationWithdrawalDate = stats.experimental.gamification_withdrawal_date
+  gamificationWithdrawal = {
+    x: [gamificationWithdrawalDate, gamificationWithdrawalDate]
+    y: [0, lineHeight]
+    mode: 'lines'
+    name: 'Gamification Withdrawal'
+    hoverinfo: 'none'
+  }
+
+  Plotly.newPlot(
+    container,
+    [control, experimental, gamificationBegins, gamificationWithdrawal],
+    {legend: {orientation: 'h'}, boxmode: 'group'}
   )
