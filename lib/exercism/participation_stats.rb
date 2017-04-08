@@ -53,6 +53,7 @@ class ParticipationStats
   end
 
   def sql
+    end_date = (Date.today <= date_range.last) ? Date.today : date_range.last
     relation = Comment.
       select(
         <<~SELECT
@@ -63,7 +64,7 @@ class ParticipationStats
       ).
       joins(:user).
       where('comments.created_at >= ?', date_range.first).
-      where('comments.created_at <  ?', date_range.last).
+      where('comments.created_at <  ?', end_date).
       group('created_date').
       order('created_date')
     relation = filter_experiment_group(relation, experiment_group)
