@@ -49,7 +49,7 @@ class ParticipationStats
   private
 
   def query_results
-    @query_results ||= ActiveRecord::Base.connection.execute(sql).to_a
+    @query_results ||= time { ActiveRecord::Base.connection.execute(sql).to_a }
   end
 
   def sql
@@ -91,5 +91,9 @@ class ParticipationStats
 
   def filter_late_arrivals(relation)
     relation.where('users.created_at < ?', PRE_GAMIFICATION_COMPARISON_DATE)
+  end
+
+  def time(&block)
+    Metrics.time 'exercism_io.stats.experiment.query.time', &block
   end
 end
