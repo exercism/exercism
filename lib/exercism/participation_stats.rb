@@ -5,6 +5,11 @@ class ParticipationStats
   GAMIFICATION_START_DATE          = '2017-03-27'
   GAMIFICATION_WITHDRAWAL_DATE     = '2017-04-10'
   GAMIFICATION_EXPERIMENT_END_DATE = '2017-04-24'
+  GAMIFICATION_MARKERS = {
+    gamification_start_date: GAMIFICATION_START_DATE,
+    gamification_withdrawal_date: GAMIFICATION_WITHDRAWAL_DATE,
+    gamification_experiment_end_date: GAMIFICATION_EXPERIMENT_END_DATE,
+  }.freeze
 
   attr_reader :date_range, :gamification_markers, :experiment_group
 
@@ -24,13 +29,7 @@ class ParticipationStats
       daily_review_count: daily_review_count,
       daily_review_lengths: daily_review_lengths,
     }
-    if gamification_markers
-      result.merge!(
-        gamification_start_date: GAMIFICATION_START_DATE,
-        gamification_withdrawal_date: GAMIFICATION_WITHDRAWAL_DATE,
-        gamification_experiment_end_date: GAMIFICATION_EXPERIMENT_END_DATE
-      )
-    end
+    result.merge!(GAMIFICATION_MARKERS) if gamification_markers
     result
   end
 
