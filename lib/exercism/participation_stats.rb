@@ -67,11 +67,11 @@ class ParticipationStats
       where('comments.created_at <  ?', end_date).
       group('created_date').
       order('created_date')
-    relation = filter_experiment_group(relation, experiment_group)
+    relation = filter_experiment_group(relation)
     relation.to_sql
   end
 
-  def filter_experiment_group(relation, experiment_group)
+  def filter_experiment_group(relation)
     return relation if experiment_group.nil?
     relation = filter_opt_out(relation)
     relation = filter_late_arrivals(relation)
