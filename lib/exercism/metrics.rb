@@ -33,13 +33,17 @@ class Metrics
   end
 
   def report(metric_name, value)
-    return unless api_key.present?
     clean_value = value.to_s.each_line.first.strip
     fail ArgumentError, 'Blank value provided' if clean_value.blank?
     fail ArgumentError, "Invalid metric_name: #{metric_name.inspect}" unless metric_name =~ VALID_METRIC_NAME
 
     message = "#{api_key}.#{metric_name} #{clean_value}\n"
-    UDPSocket.new.send message, 0, host, port
-    :sent
+    if api_key.present?
+      UDPSocket.new.send message, 0, host, port
+      :sent
+    else
+      puts "Metric reported: #{message}" unless ENV['RACK_ENV'] == 'test'
+      :printed
+    end
   end
 end
