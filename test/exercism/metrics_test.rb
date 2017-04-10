@@ -7,9 +7,8 @@ require 'mocha/setup'
 class MetricsTest < MiniTest::Test
   def test_reports_without_error
     metrics = Metrics.new(api_key: 'test', host: 'localhost')
-    UDPSocket.any_instance.expects(:send)
+    UDPSocket.any_instance.expects(:send).twice
     metrics.time('test.time') { 1 }
-    UDPSocket.any_instance.expects(:send)
     metrics.increment('test.count')
   end
 
