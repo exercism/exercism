@@ -9,6 +9,9 @@ class CreateFunctionCrc32 < ActiveRecord::Migration
           byte_length int;
           binary_string bytea;
       BEGIN
+          IF text_string IS NULL THEN
+              RETURN null;
+          END IF;
           IF text_string = '' THEN
               RETURN 0;
           END IF;
