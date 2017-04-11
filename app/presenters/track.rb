@@ -7,7 +7,11 @@ module ExercismWeb
       end
 
       def method_missing(method, *args)
-        trackler_track.send(method, *args)
+        if trackler_track.respond_to?(method)
+          trackler_track.send(method, *args)
+        else
+          super
+        end
       end
 
       def docs
@@ -16,10 +20,8 @@ module ExercismWeb
         track_docs.each_pair do |topic_name, topic_content|
           track_docs[topic_name] = if topic_content.present?
                                      topic_content
-                                   elsif default_topic_content(topic_name).present?
-                                     default_topic_content(topic_name)
                                    else
-                                     ''
+                                     default_topic_content(topic_name)
                                    end
         end
 
@@ -30,7 +32,8 @@ module ExercismWeb
 
       def default_topic_content(topic_name)
         filepath = "./x/docs/md/track/#{topic_name.upcase}.md"
-        File.read(filepath) if File.exist?(filepath)
+        return '' unless File.exist?(filepath)
+        File.read(filepath)
       end
 
       def trackler_track
