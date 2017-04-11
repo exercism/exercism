@@ -253,6 +253,22 @@ namespace :data do
   end
 
   namespace :generate do
+    desc "generate N users, typically for performance testing"
+    task users: [:connection] do
+      n = ENV['N'].to_i
+      abort 'specify the number of users to generate: N=<count>' if n.zero?
+      puts "Generating #{n} users"
+      ActiveRecord::Base.connection.execute <<~SQL
+        INSERT INTO users (crc32mod100, created_at, updated_at) (
+          SELECT
+            floor(random() * 100),
+            now() - '4 years'::interval * abs(1 - random() ^ 2) AS created_at,
+            now() AS updated_at
+          FROM generate_series(1, #{n})
+        )
+      SQL
+    end
+
     desc "generate N comments, typically for performance testing"
     task comments: [:connection] do
       n = ENV['N'].to_i
@@ -265,7 +281,7 @@ namespace :data do
             user_id,
             body,
             html_body,
-            now() - '1 year'::interval * random() AS created_at,
+            now() - '4 years'::interval * abs(1 - random() ^ 2) AS created_at,
             now() AS updated_at
           FROM generate_series(1, #{n})
           JOIN (SELECT id submission_id, row_number() OVER (ORDER BY random()) AS submissions_row_number FROM submissions) random_submissions
