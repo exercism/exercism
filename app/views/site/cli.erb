@@ -1,29 +1,34 @@
-<div class="container cli">
-  <div class="row" style="padding-top: 40px;">
+<div class="container">
+  <section class="page-header" style="padding-top: 40px;">
     <h1>Command-Line Interface (CLI)</h1>
-  </div>
-
-  <div class="row" style="padding-top: 20px;">
-
-    <ul class="nav nav-tabs">
-        <li <%= 'class="active"' if page == :overview %>>
-        <a href="/cli">Overview</a>
-      </li>
-      <li <%= 'class="active"' if page == :mac %>>
-        <a href="/cli/mac">Mac OS X</a>
-      </li>
-      <li <%= 'class="active"' if page == :windows %>>
-        <a href="/cli/windows">Windows</a>
-      </li>
-
-      <li <%= 'class="active"' if page == :linux %>>
-        <a href="/cli/linux">Linux</a>
-      </li>
-     <li <%= 'class="active"' if page == :install %>>
-        <a href="/cli/install">Install Alternatives</a>
-      </li>
-    </ul>
-    <%= md docs.send(page)  %>
-    <%= erb :"site/_add_more", locals: { page: "cli" } %>
-  </div>
+  </section>
+  <section>
+    <div class="row" style="padding-top: 20px;">
+      <div class="col-md-8">
+        <ul class="nav nav-tabs">
+          <li <%= 'class="active"' if page == :overview %>>
+            <a href="/cli">Overview</a>
+          </li>
+          <li <%= 'class="active"' if page == :mac %>>
+            <a href="/cli/mac">Mac OS X</a>
+          </li>
+          <li <%= 'class="active"' if page == :windows %>>
+            <a href="/cli/windows">Windows</a>
+          </li>
+          <li <%= 'class="active"' if page == :linux %>>
+            <a href="/cli/linux">Linux</a>
+          </li>
+          <li <%= 'class="active"' if page == :install %>>
+            <a href="/cli/install">Install Alternatives</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-8">  
+        <%= md docs.send(page)  %>
+        <%= erb :"site/_add_more", locals: { page: "cli" } %>
+      </div>
+    </div>
+  </section> 
 </div>
