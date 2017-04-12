@@ -119,7 +119,7 @@ $(function() {
       var timeZoneAbbrevation = moment.tz(localizedTime.format("YYYY-MM-DD"), timeZone).format('z');
       // PST or PDT
 
-      var formattedTime = localizedTime.format("D MMMM YYYY [at] h:mm ");
+      var formattedTime = localizedTime.format("D MMMM YYYY [at] H:mm ");
       return formattedTime + timeZoneAbbrevation;
     }
 
