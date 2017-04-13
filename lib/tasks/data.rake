@@ -251,4 +251,47 @@ namespace :data do
       ActiveRecord::Base.connection.execute(sql)
     end
   end
+
+  namespace :generate do
+    desc "generate N users, typically for performance testing"
+    task users: [:connection] do
+      n = ENV['N'].to_i
+      abort 'specify the number of users to generate: N=<count>' if n.zero?
+      puts "Generating #{n} users"
+      ActiveRecord::Base.connection.execute <<~SQL
+        INSERT INTO users (crc32mod100, created_at, updated_at) (
+          SELECT
+            floor(random() * 100),
+            now() - '4 years'::interval * abs(1 - random() ^ 2) AS created_at,
+            now() AS updated_at
+          FROM generate_series(1, #{n})
+        )
+      SQL
+    end
+
+    desc "generate N comments, typically for performance testing"
+    task comments: [:connection] do
+      n = ENV['N'].to_i
+      abort 'specify the number of comments to generate: N=<count>' if n.zero?
+      puts "Generating #{n} comments"
+      ActiveRecord::Base.connection.execute <<~SQL
+        INSERT INTO comments (submission_id, user_id, body, html_body, created_at, updated_at) (
+          SELECT
+            submission_id,
+            user_id,
+            body,
+            html_body,
+            now() - '4 years'::interval * abs(1 - random() ^ 2) AS created_at,
+            now() AS updated_at
+          FROM generate_series(1, #{n})
+          JOIN (SELECT id submission_id, row_number() OVER (ORDER BY random()) AS submissions_row_number FROM submissions) random_submissions
+            ON submissions_row_number = generate_series % (SELECT count(*) FROM submissions)
+          JOIN (SELECT id user_id,       row_number() OVER (ORDER BY random()) AS users_row_number FROM users) random_users
+            ON users_row_number       = generate_series % (SELECT count(*) FROM users)
+          JOIN (SELECT body, html_body,  row_number() OVER (ORDER BY random()) AS comments_row_number FROM comments) random_comments
+            ON comments_row_number    = generate_series % (SELECT count(*) FROM comments)
+        )
+      SQL
+    end
+  end
 end

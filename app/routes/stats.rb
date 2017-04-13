@@ -2,8 +2,33 @@ module ExercismWeb
   module Routes
     class Stats < Core
       get '/stats' do
-        track = Trackler.tracks.sort_by(&:language).find(&:active?)
-        redirect "/stats/%s" % track.id
+        if $flipper[:participation_stats].enabled?(current_user)
+          tracks = Trackler.tracks.reject {|track| track.problems.count.zero? }.sort_by(&:language)
+          start_date = Date.parse(ParticipationStats::PRE_GAMIFICATION_COMPARISON_DATE)
+          end_date = Date.parse(ParticipationStats::GAMIFICATION_EXPERIMENT_END_DATE)
+          date_range = start_date..end_date
+          stats = {
+            experimental: ParticipationStats.new(date_range, gamification_markers: true, experiment_group: :experimental).results,
+            control:      ParticipationStats.new(date_range, gamification_markers: true, experiment_group: :control).results
+          }
+          erb :"stats/participation", locals: {
+            tracks: tracks,
+            stats: stats,
+            experiment_complete_date: (end_date + 1.day).strftime('%A, %b %e, %Y'),
+            experiment_completed: ParticipationStats.experiment_complete?,
+            user_may_see_early: !current_user.guest? && current_user.motivation_experiment_opt_out?,
+          }
+        else
+          track = Trackler.tracks.sort_by(&:language).find(&:active?)
+          redirect "/stats/%s" % track.id
+        end
+      end
+
+      put '/stats/motivation-experiment-opt-out' do
+        unless current_user.guest?
+          current_user.update_attribute :motivation_experiment_opt_out, true
+        end
+        redirect '/stats'
       end
 
       get '/stats/:track_id' do |track_id|
@@ -13,11 +38,11 @@ module ExercismWeb
         end
 
         slugs = track.problems.map(&:slug)
-        stats = ExercismLib::Stats.new(track.id, slugs)
+        stats = ExercismLib::TrackStats.new(track.id, slugs)
         datasets = [
           stats,
-          ExercismLib::Stats.new(track_id, slugs, ExercismLib::Stats::LastN.new(90)),
-          ExercismLib::Stats.new(track_id, slugs, ExercismLib::Stats::LastN.new(120)),
+          ExercismLib::TrackStats.new(track_id, slugs, ExercismLib::TrackStats::LastN.new(90)),
+          ExercismLib::TrackStats.new(track_id, slugs, ExercismLib::TrackStats::LastN.new(120)),
         ] + stats.historical(6)
 
         erb :"stats/index", locals: {

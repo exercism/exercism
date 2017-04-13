@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <br>
+    <aside class="col-md-4">
+      <nav class="stats">
+        <ul class="nav nav-stacked nav-bordered">
+          <li class="active">
+            <a href="/stats">Participation</a>
+          </li>
+          <% tracks.each do |t|%>
+          <li>
+            <a href="/stats/<%= t.id %>">
+              <%= t.language %>
+              <span class="total-count">
+                <%= t.problems.size %>
+              </span>
+            </a>
+          </li>
+          <% end %>
+        </ul>
+      </nav>
+      <br>
+    </aside>
+
+    <main id="track-activity" class="col-md-8">
+      <h2>Track Stats</h2>
+      Select a track to view its statistics.
+
+      <h2>Intrinsic Motivation Experiment</h2>
+      <% if experiment_completed || user_may_see_early %>
+        <div class="motivation-experiment-content">
+          <h3>Review Quantity</h3>
+          <div class="review-quantity-chart review-data" data-stats='<%= stats.to_json %>' width="800" height="400"></div>
+          <h3>Review Length</h3>
+          <div class="review-length-chart" width="800" height="400"></div>
+        </div>
+      <% else %>
+        <p>
+          Statistics will be viewable when the experiment is complete, on
+          <%= experiment_complete_date %>.
+        </p>
+        <% unless current_user.guest? %>
+          <form action="/stats/motivation-experiment-opt-out" method="post">
+            <input type="hidden" name="_method" value="PUT">
+            <button class="btn btn-default">Opt out of participation tracking</button>
+          </form>
+        <% end %>
+      <% end %>
+    </main>
+  </div>
+</div>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
