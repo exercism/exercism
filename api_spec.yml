@@ -1,0 +1,967 @@
+swagger: '2.0'
+info:
+  title: exercism.io API
+  description: Publicly available features of exercism.io
+  version: "1.0.0"
+# the domain of the service
+host: api.exercism.io
+# array of all schemes that your API supports
+schemes:
+  - http
+# will be prefixed to all paths
+consumes:
+  - application/json
+produces:
+  - application/json
+
+# API endpoint definitions
+paths:
+  /:
+    get:
+      summary: Gets API root path
+      description: |
+        Returns basic information about the API, link to the documentation and
+        links to other available resources.
+      tags:
+        - Root
+      responses:
+        200:
+          description: Root object.
+          schema:
+            $ref: '#/definitions/Root'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /tracks:
+    get:
+      summary: Gets tracks collection
+      description: |
+        Returns paginated collection of available language tracks. You can order,
+        filter and paginate the collection. Default order is ascending by track's
+        title and default pagination is 100 per page. You can chain filters like
+        this: '?filter[title]=title&filter[language]=language'.
+      parameters:
+        - name: sort-by
+          in: query
+          description: An attribute to sort collection by.
+          required: false
+          type: string
+        - name: sort-dir
+          in: query
+          description: Direction to sort collection in.
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: Number of page to fetch.
+          required: false
+          type: integer
+          format: int32
+        - name: per-page
+          in: query
+          description: Number of resources to fetch in one page.
+          required: false
+          type: integer
+          format: int32
+        - name: filter[]
+          in: query
+          description: Attribute(s) to filter collection by.
+          required: false
+          type: string
+      tags:
+        - Language tracks
+      responses:
+        200:
+          description: Tracks collection
+          schema:
+            $ref: '#/definitions/TracksCollection'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /tracks/{slug}:
+    get:
+      summary: Gets track with slug {slug}
+      description: |
+        Returns a track with slug {slug}
+      parameters:
+        - in: path
+          name: slug
+          description: Slug of the language track.
+          required: true
+          type: string
+      tags:
+        - Language tracks
+      responses:
+        200:
+          description: Track object
+          schema:
+            $ref: '#/definitions/Track'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /exercises:
+    get:
+      summary: Gets exercises collection
+      description: |
+        Returns paginated collection of available tracks. You can order,
+        filter and paginate the collection. Default order is ascending by exercise's
+        position and default pagination is 100 per page. You can chain filters like
+        this: '?filter[track]=ruby&filter[title]=Hamming'.
+      parameters:
+        - name: sort-by
+          in: query
+          description: An attribute to sort collection by.
+          required: false
+          type: string
+        - name: sort-dir
+          in: query
+          description: Direction to sort collection in.
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: Number of page to fetch.
+          required: false
+          type: integer
+          format: int32
+        - name: per-page
+          in: query
+          description: Number of resources to fetch in one page.
+          required: false
+          type: integer
+          format: int32
+        - name: filter[]
+          in: query
+          description: Attribute(s) to filter collection by.
+          required: false
+          type: string
+      tags:
+        - Exercises
+      responses:
+        200:
+          description: Exercises collection
+          schema:
+            $ref: '#/definitions/ExercisesCollection'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /exercises/{slug}:
+    get:
+      summary: Gets exercise with slug {slug}
+      description: |
+        Returns an exercise with slug {slug}
+      parameters:
+        - name: slug
+          in: path
+          description: Slug of the exercise.
+          required: true
+          type: string
+      tags:
+        - Exercises
+      responses:
+        200:
+          description: Exercise object
+          schema:
+            $ref: '#/definitions/Exercise'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /submissions:
+    get:
+      summary: Gets submissions collection
+      description: |
+        Returns paginated collection of available submissions. You can order,
+        filter and paginate the collection. Default order is descending by submissions's
+        createdAt attribute and default pagination is 100 per page. You can chain
+        filters like this: '?filter[track]=ruby&filter[user]=jblack'.
+      parameters:
+        - name: sort-by
+          in: query
+          description: An attribute to sort collection by.
+          required: false
+          type: string
+        - name: sort-dir
+          in: query
+          description: Direction to sort collection in.
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: Number of page to fetch.
+          required: false
+          type: integer
+          format: int32
+        - name: per-page
+          in: query
+          description: Number of resources to fetch in one page.
+          required: false
+          type: integer
+          format: int32
+        - name: filter[]
+          in: query
+          description: Attribute(s) to filter collection by.
+          required: false
+          type: string
+      tags:
+        - Submissions
+      responses:
+        200:
+          description: Submissions collection
+          schema:
+            $ref: '#/definitions/SubmissionsCollection'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /submissions/{id}:
+    get:
+      summary: Gets submission with id {id}
+      description: |
+        Returns a submission with id {id}
+      parameters:
+        - name: id
+          in: path
+          description: Id of the submission.
+          required: true
+          type: string
+      tags:
+        - Submissions
+      responses:
+        200:
+          description: Submission object
+          schema:
+            $ref: '#/definitions/Submission'
+        404:
+          description: Not found
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+    patch:
+      summary: Updates a submission
+      description: Updates a submission. User can update only his own submissions.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the submission to delete.
+          required: true
+          type: integer
+          format: int32
+      tags:
+        - Submissions
+      responses:
+        200:
+          description: Updated submission object
+          schema:
+            $ref: '#/definitions/Submission'
+        400:
+          description: |
+            Bad request - error will include object of key - value pairs of attributes
+            and user friendly error messages under the key errors.
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+    delete:
+      summary: Deletes a submission
+      description: |
+        Deletes a submission. User can delete only his own submissions.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the submission to delete.
+          required: true
+          type: integer
+          format: int32
+      tags:
+        - Submissions
+      responses:
+        204:
+          description: On success returns 204 and no body
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /submissions/{id}/comments:
+    post:
+      summary: Creates a comment for the submission
+      description: |
+        Creates a comment for the submission. Only logged in user can add a comment.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the submission.
+          required: true
+          type: integer
+          format: int32
+        - name: rawBody
+          in: body
+          description: Comment body.
+          required: true
+          schema:
+            properties:
+              rawBody:
+                type: string
+                description: Raw comment body.
+      tags:
+        - Comments
+      responses:
+        201:
+          description: Created comment object
+          schema:
+            $ref: '#/definitions/Comment'
+        400:
+          description: |
+            Bad request - error will include object of key - value pairs of attributes
+            and user friendly error messages under the key errors.
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /comments:
+    get:
+      summary: Gets comments collection
+      description: |
+        Returns paginated collection of comments. You can order, filter and
+        paginate the collection. Default order is descending by comments's
+        createdAt attribute and default pagination is 100 per page. You can chain
+        filters like this: '?filter[submission]=erif38234dsi&filter[user]=jblack'.
+      parameters:
+        - name: sort-by
+          in: query
+          description: An attribute to sort collection by.
+          required: false
+          type: string
+        - name: sort-dir
+          in: query
+          description: Direction to sort collection in.
+          required: false
+          type: string
+        - name: page
+          in: query
+          description: Number of page to fetch.
+          required: false
+          type: integer
+          format: int32
+        - name: per-page
+          in: query
+          description: Number of resources to fetch in one page.
+          required: false
+          type: integer
+          format: int32
+        - name: filter[]
+          in: query
+          description: Attribute(s) to filter collection by.
+          required: false
+          type: string
+      tags:
+        - Comments
+      responses:
+        200:
+          description: Comments collection
+          schema:
+            $ref: '#/definitions/CommentsCollection'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+  /comments/preview:
+    post:
+      summary: Returns preview of the comment
+      description: |
+        Comments can be written in Markdown. This method will return comment
+        in HTML
+      parameters:
+        - name: rawBody
+          in: body
+          description: Comment body.
+          required: true
+          schema:
+            properties:
+              rawBody:
+                type: string
+                description: Raw comment body.
+      tags:
+        - Comments
+      responses:
+        200:
+          description: Preview of the comment
+          schema:
+            $ref: '#/definitions/CommentPreview'
+        400:
+          description: |
+            Bad request - error will include object of key - value pairs of attributes
+            and user friendly error messages under the key errors.
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+  /comments/{id}:
+    patch:
+      summary: Updates comment
+      description: Updates comment. User can update only his own comments.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the comment to update.
+          required: true
+          type: integer
+          format: int32
+        - name: rawBody
+          in: body
+          description: Comment body.
+          required: true
+          schema:
+            properties:
+              rawBody:
+                type: string
+                description: Raw comment body.
+      tags:
+        - Comments
+      responses:
+        200:
+          description: Updated comment object
+          schema:
+            $ref: '#/definitions/Comment'
+        400:
+          description: |
+            Bad request - error will include object of key - value pairs of attributes
+            and user friendly error messages under the key errors.
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+    delete:
+      summary: Deletes a comment
+      description: |
+        Deletes a comment. User can delete only his own comments.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the comment to delete.
+          required: true
+          type: integer
+          format: int32
+      tags:
+        - Comments
+      responses:
+        204:
+          description: On success returns 204 and no body
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Server error
+          schema:
+            $ref: '#/definitions/Error'
+
+
+# Definitions of models used in API
+definitions:
+
+  # Root resource - API entry point, providing links to documentation and other
+  # API resources.
+  Root:
+    properties:
+      _type:
+        type: string
+        description: A type of the resource - 'root'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the resource.
+          tracks:
+            type: string
+            description: URL pointing to the language tracks related API resources.
+
+  # Language track model
+  Track:
+    properties:
+      _type:
+        type: string
+        description: A type of the resource - 'track'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the resource.
+          first:
+            type: string
+            description: URL pointing to the first track in the collection.
+          last:
+            type: string
+            description: URL pointing to the last track in the collection.
+          next:
+            type: string
+            description: URL pointing to the next track in the collection.
+          previous:
+            type: string
+            description: URL pointing to the previous track in the collection.
+      language:
+        type: string
+        description: Programming language of the track.
+      title:
+        type: string
+        description: Title of the language track.
+
+  # Language tracks collection model
+  TracksCollection:
+    properties:
+      _type:
+        type: string
+        description: A type of the collection - 'tracksCollection'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the current page of the collection.
+          first:
+            type: string
+            description: URL pointing to the first page of the collection.
+          last:
+            type: string
+            description: URL pointing to the last page of the collection.
+          next:
+            type: string
+            description: URL pointing to the next page of the collection.
+          previous:
+            type: string
+            description: URL pointing to the previous page of the collection.
+      _total:
+        type: integer
+        format: int32
+        description: Total number of resources in the collection.
+      _page:
+        type: integer
+        format: int32
+        description: Number of current page.
+      _perPage:
+        type: integer
+        format: int32
+        description: Number of resources per page.
+      data:
+        type: array
+        description: Tracks in the collection.
+        items:
+          $ref: '#/definitions/Track'
+
+  # Exercise model
+  Exercise:
+    properties:
+      _type:
+        type: string
+        description: A type of the resource - 'exercise'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the resource.
+          first:
+            type: string
+            description: URL pointing to the first exercise in the collection.
+          last:
+            type: string
+            description: URL pointing to the last exercise in the collection.
+          next:
+            type: string
+            description: URL pointing to the next exercise in the collection.
+          previous:
+            type: string
+            description: URL pointing to the previous exercise in the collection.
+          submissions:
+            type: string
+            description: URL pointing to a collection of all submissions for the exercise.
+      title:
+        type: string
+        description: A title of the exercise.
+      readme:
+        type: string
+        description: Contents of readme file for the exercise.
+      track:
+        $ref: '#/definitions/Track'
+      tests:
+        type: array
+        description: Test file for the exercise.
+        items:
+          properties:
+            filename:
+              type: string
+              description: A name of the test file.
+            contents:
+              type: string
+              description: A contents of the test file.
+
+  # Exercise collection model
+  ExercisesCollection:
+    properties:
+      _type:
+        type: string
+        description: A type of the collection - 'exercisesCollection'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the current page of the collection.
+          first:
+            type: string
+            description: URL pointing to the first page of the collection.
+          last:
+            type: string
+            description: URL pointing to the last page of the collection.
+          next:
+            type: string
+            description: URL pointing to the next page of the collection.
+          previous:
+            type: string
+            description: URL pointing to the previous page of the collection.
+      _total:
+        type: integer
+        format: int32
+        description: Total number of resources in the collection.
+      _page:
+        type: integer
+        format: int32
+        description: Number of current page.
+      _perPage:
+        type: integer
+        format: int32
+        description: Number of resources per page.
+      data:
+        type: array
+        description: Exercises in the collection.
+        items:
+          $ref: '#/definitions/Exercise'
+
+  # Submission model
+  Submission:
+    properties:
+      _type:
+        type: string
+        description: A type of the resource - 'submission'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the resource.
+          first:
+            type: string
+            description: URL pointing to the first submission in the collection.
+          last:
+            type: string
+            description: URL pointing to the last submission in the collection.
+          next:
+            type: string
+            description: URL pointing to the next submission in the collection.
+          previous:
+            type: string
+            description: URL pointing to the previous submission in the collection.
+          update:
+            type: string
+            description: URL pointing to the action updating the submission.
+          delete:
+            type: string
+            description: URL pointing to the action deleting the submission.
+          comment:
+            type: string
+            description: URL pointing to the action adding comment to the submission.
+          like:
+            type: string
+            description: URL pointing to the action adding like to the submission.
+          unlike:
+            type: string
+            description: URL pointing to the action deleting the like.
+      views:
+        type: integer
+        format: int32
+        description: A number showing how many users had seen the submission.
+      state:
+        type: string
+        description: Current state of the submission - must be one of pending hibernating done
+      iteration:
+        type: integer
+        format: int32
+        description: A number of iteration.
+      exercise:
+        $ref: '#/definitions/Exercise'
+      user:
+        $ref: '#/definitions/User'
+      likes:
+        type: array
+        description: Array of likes the submission recieved.
+        items:
+          properties:
+            _links:
+              type: object
+              properties:
+                user:
+                  type: string
+                  description: URL pointing to the profile of user who liked the submission.
+            username:
+              type: string
+              description: Username of the user who liked the submission.
+      comments:
+        type: array
+        items:
+          $ref: '#/definitions/Comment'
+
+  # Submissions collection model
+  SubmissionsCollection:
+    properties:
+      _type:
+        type: string
+        description: A type of the collection - 'submissionsCollection'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the current page of the collection.
+          first:
+            type: string
+            description: URL pointing to the first page of the collection.
+          last:
+            type: string
+            description: URL pointing to the last page of the collection.
+          next:
+            type: string
+            description: URL pointing to the next page of the collection.
+          previous:
+            type: string
+            description: URL pointing to the previous page of the collection.
+          delete:
+            type: string
+            description: URL pointing to the action deleting the submission.
+      _total:
+        type: integer
+        format: int32
+        description: Total number of resources in the collection.
+      _page:
+        type: integer
+        format: int32
+        description: Number of current page.
+      _perPage:
+        type: integer
+        format: int32
+        description: Number of resources per page.
+      data:
+        type: array
+        description: Exercises in the collection.
+        items:
+          $ref: '#/definitions/Submission'
+
+  # Comment model
+  Comment:
+    properties:
+      _type:
+        type: string
+        description: A type of the resource - 'comment'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the comment.
+          update:
+            type: string
+            description: URL pointing to the action updating the comment.
+          delete:
+            type: string
+            description: URL pointing to the action deleting the comment.
+      body:
+        type: string
+        description: Text of the comment parsed by Markdown parser.
+      rawBody:
+        type: string
+        description: Raw text of the comment.
+      createdAt:
+        type: string
+        description: A datetime when the comment was created.
+      user:
+        $ref: '#/definitions/User'
+
+  # Comments collection
+  CommentsCollection:
+    properties:
+      _type:
+        type: string
+        description: A type of the collection - 'commentsCollection'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the current page of the collection.
+          first:
+            type: string
+            description: URL pointing to the first page of the collection.
+          last:
+            type: string
+            description: URL pointing to the last page of the collection.
+          next:
+            type: string
+            description: URL pointing to the next page of the collection.
+          previous:
+            type: string
+            description: URL pointing to the previous page of the collection.
+          create:
+            type: string
+            description: URL pointing to the action creating new comment.
+      _total:
+        type: integer
+        format: int32
+        description: Total number of resources in the collection.
+      _page:
+        type: integer
+        format: int32
+        description: Number of current page.
+      _perPage:
+        type: integer
+        format: int32
+        description: Number of resources per page.
+      data:
+        type: array
+        description: Comments in the collection.
+        items:
+          $ref: '#/definitions/Comment'
+
+  # Comment preview model
+  CommentPreview:
+    properties:
+      _type:
+        type: string
+        description: A type of the resource - 'commentPreview'
+      body:
+        type: string
+        description: A HTML body of the comment.
+
+  # User model
+  User:
+    properties:
+      _type:
+        type: string
+        description: A type of the resource - 'user'.
+      _links:
+        type: object
+        properties:
+          self:
+            type: string
+            description: URL pointing to the user.
+          submissions:
+            type: string
+            description: URL pointing to the user's submissions.
+          exercises:
+            type: string
+            description: URL pointing to all exercises user submitted solutions to.
+          tracks:
+            type: string
+            description: URL pointing to all tracks user is in.
+          account:
+            type: string
+            description: URL pointing to the user's account.
+      email:
+        type: string
+        description: User's email.
+      apiKey:
+        type: string
+        description: User's API key.
+      username:
+        type: string
+        description: User's username.
+
+  # Errors model
+  # In case of validation error (400) will also include key 'errors' containing
+  # key - value pairs of attribut - error message
+  Error:
+    properties:
+      _type:
+        type: string
+        description: A type of the resource - 'error'
+      code:
+        type: integer
+        format: int32
+        description: Error code. One of 400 401 403 404 500.
+      message:
+        type: string
+        description: User friendly error message.
+
