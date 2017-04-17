@@ -8,7 +8,7 @@ class PresentersTrackTest < Minitest::Test
     @track = ExercismWeb::Presenters::Track.new("test_track")
     @trackler_track = Object.new
     @track.stubs(:trackler_track).returns(@trackler_track)
-    @track.stubs(:default_topic_content).returns("Default topic content")
+    @track.stubs(:fallback_topic_content).returns("Default topic content")
   end
 
   def test_docs_with_trackler_content

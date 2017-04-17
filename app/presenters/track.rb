@@ -21,7 +21,7 @@ module ExercismWeb
           track_docs[topic_name] = if topic_content.present?
                                      topic_content
                                    else
-                                     default_topic_content(topic_name)
+                                     fallback_topic_content(topic_name)
                                    end
         end
 
@@ -30,7 +30,7 @@ module ExercismWeb
 
       private
 
-      def default_topic_content(topic_name)
+      def fallback_topic_content(topic_name)
         filepath = "./x/docs/md/track/#{topic_name.upcase}.md"
         return '' unless File.exist?(filepath)
         File.read(filepath)
