@@ -58,8 +58,8 @@ class StaticPagesTest < Minitest::Test
     assert_equal 'newbie', session[:target_profile]
   end
 
-  def test_route_cli
-    get '/cli'
+  def test_route_clients_cli
+    get '/clients/cli'
     assert_equal 200, last_response.status
     assert_match(/Command-Line Interface \(CLI\)/, last_response.body)
   end

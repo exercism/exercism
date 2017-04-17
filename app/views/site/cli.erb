@@ -7,20 +7,20 @@
 
     <ul class="nav nav-tabs">
         <li <%= 'class="active"' if page == :overview %>>
-        <a href="/cli">Overview</a>
+        <a href="/clients/cli">Overview</a>
       </li>
       <li <%= 'class="active"' if page == :mac %>>
-        <a href="/cli/mac">Mac OS X</a>
+        <a href="/clients/cli/mac">Mac OS X</a>
       </li>
       <li <%= 'class="active"' if page == :windows %>>
-        <a href="/cli/windows">Windows</a>
+        <a href="/clients/cli/windows">Windows</a>
       </li>
 
       <li <%= 'class="active"' if page == :linux %>>
-        <a href="/cli/linux">Linux</a>
+        <a href="/clients/cli/linux">Linux</a>
       </li>
      <li <%= 'class="active"' if page == :install %>>
-        <a href="/cli/install">Install Alternatives</a>
+        <a href="/clients/cli/install">Install Alternatives</a>
       </li>
     </ul>
     <%= md docs.send(page)  %>
