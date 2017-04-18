@@ -2,7 +2,7 @@
 
 Below are instructions for install using the most common method - using Homebrew. For further help and instructions, see:
 
-1. [Install Alternatives for instructions on installing without Homebrew](/cli/install)
+1. [Install Alternatives for instructions on installing without Homebrew](/clients/cli/install)
 2. [exercism.io general help](http://exercism.io/help)
 3. [join the exercism.io chat on gitter](https://gitter.im/exercism/support): [![Join the chat at https://gitter.im/exercism/support](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/exercism/support)
 
@@ -28,7 +28,7 @@ Homebrew/homebrew-core (git revision 3b4c; last commit 2016-05-09)
 If Homebrew isn't installed, you can:
 
 1. install via [Homebrew's brew.sh site](http://brew.sh/)
-2. see [Install Alternatives for instructions on installing without Homebrew](/cli/install)
+2. see [Install Alternatives for instructions on installing without Homebrew](/clients/cli/install)
 
 ### Installing the Exercism CLI <a name="install-exercism-cli"></a>
 

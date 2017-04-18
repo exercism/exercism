@@ -5,5 +5,5 @@ Exercism takes place in two places: the discussions happen on the website, and y
 
 This is a stand-alone binary, which means that you don't need to install any particular language or environment in order to use it.
 
-Choose your operating system: [mac](/cli/mac) | [windows](/cli/windows) | [linux](/cli/linux)
+Choose your operating system: [mac](/clients/cli/mac) | [windows](/clients/cli/windows) | [linux](/clients/cli/linux)
 
