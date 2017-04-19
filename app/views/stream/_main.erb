@@ -15,6 +15,7 @@
             <img src="<%= exercise.avatar_url%>" width="60" height="60" alt="" class="avatar">
             <div class="inbox-text">
               <h4>
+                <%= track_icon(exercise.problem.track_id, 15) %>
                 <%= exercise.problem.name %>
                 <span class="profile"> <%= exercise.username %> </span>
                 <span class="track-icon"><%= track_icon(exercise.problem.track_id, 20) %></span>
