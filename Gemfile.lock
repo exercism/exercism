@@ -26,7 +26,7 @@ GEM
     bootstrap-sass (3.3.6)
       autoprefixer-rails (>= 5.2.1)
       sass (>= 3.3.4)
-    bugsnag (4.0.0)
+    bugsnag (5.3.1)
     builder (3.2.2)
     capybara (2.6.2)
       addressable
@@ -190,7 +190,7 @@ DEPENDENCIES
   activesupport (~> 4.2.1)
   approvals
   bootstrap-sass
-  bugsnag
+  bugsnag (~> 5.3)
   compass
   coveralls
   database_cleaner
