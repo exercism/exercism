@@ -17,12 +17,12 @@ module ExercismWeb
       def docs
         track_docs = trackler_track.docs(image_path: "/api/v1/tracks/%s/images/docs/img" % @track_id)
 
-        track_docs.each_pair do |topic_name, topic_content|
-          track_docs[topic_name] = if topic_content.present?
-                                     topic_content
-                                   else
-                                     fallback_topic_content(topic_name)
-                                   end
+        track_docs.each_pair do |topic_key, topic_content|
+          track_docs[topic_key] = if topic_content.present?
+                                    [topic_content.strip, better_content(topic_key)].join("\n")
+                                  else
+                                    fallback_topic_content(topic_key)
+                                  end
         end
 
         track_docs
@@ -30,14 +30,22 @@ module ExercismWeb
 
       private
 
-      def fallback_topic_content(topic_name)
-        filepath = "./x/docs/md/track/#{topic_name.upcase}.md"
+      def fallback_topic_content(topic_key)
+        filepath = "./x/docs/md/track/#{topic_key.upcase}.md"
         return '' unless File.exist?(filepath)
         File.read(filepath)
       end
 
       def trackler_track
         Trackler.tracks[@track_id]
+      end
+
+      def better_content(topic_key)
+        File.
+          read("./x/docs/md/track/BETTER.md").
+          gsub('REPO', trackler_track.repository).
+          gsub('TOPIC', topic_key.to_s.upcase).
+          gsub('EXT', trackler_track.doc_format)
       end
 
     end
