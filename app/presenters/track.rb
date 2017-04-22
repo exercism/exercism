@@ -15,29 +15,35 @@ module ExercismWeb
       end
 
       def docs
-        track_docs = trackler_track.docs(image_path: "/api/v1/tracks/%s/images/docs/img" % @track_id)
-
-        track_docs.each_pair do |topic_key, topic_content|
-          track_docs[topic_key] = if topic_content.present?
-                                    [topic_content.strip, contributing_instructions(topic_key)].join("\n")
-                                  else
-                                    fallback_topic_content(topic_key)
-                                  end
+        trackler_topics.each_with_object(OpenStruct.new) do |topic_key, result|
+          result[topic_key] = topic_content(topic_key)
         end
-
-        track_docs
       end
 
       private
 
-      def fallback_topic_content(topic_key)
-        filepath = "./x/docs/md/track/#{topic_key.upcase}.md"
-        return '' unless File.exist?(filepath)
-        File.read(filepath)
-      end
-
       def trackler_track
         Trackler.tracks[@track_id]
+      end
+
+      def trackler_docs
+        trackler_track.docs(image_path: "/api/v1/tracks/%s/images/docs/img" % @track_id)
+      end
+
+      def trackler_topics
+        trackler_docs.to_h.keys
+      end
+
+      def trackler_topic_content(topic_key)
+        trackler_docs[topic_key]
+      end
+
+      def topic_content(topic_key)
+        if trackler_topic_content(topic_key).present?
+          [trackler_topic_content(topic_key).strip, contributing_instructions(topic_key)].join("\n")
+        else
+          fallback_topic_content(topic_key)
+        end
       end
 
       def contributing_instructions(topic_key)
@@ -46,6 +52,12 @@ module ExercismWeb
           gsub('REPO', trackler_track.repository).
           gsub('TOPIC', topic_key.to_s.upcase).
           gsub('EXT', trackler_track.doc_format)
+      end
+
+      def fallback_topic_content(topic_key)
+        filepath = "./x/docs/md/track/#{topic_key.upcase}.md"
+        return '' unless File.exist?(filepath)
+        File.read(filepath)
       end
 
     end
