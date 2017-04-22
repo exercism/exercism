@@ -1,6 +1,6 @@
 1. [Sign up](/login?return_path=/how-it-works) via GitHub.
 1. Select the language you wish to practice. See [language tracks](/languages).
-1. Download and configure the [command-line client](/cli).
+1. Download and configure the [command-line client](/clients/cli).
 1. Fetch the first exercise (`exercism fetch TRACK_ID`).
 1. Write a solution to make the test suite pass.
 1. Submit your solution (`exercism submit path/to/file`).
