@@ -19,7 +19,7 @@ module ExercismWeb
 
         track_docs.each_pair do |topic_key, topic_content|
           track_docs[topic_key] = if topic_content.present?
-                                    [topic_content.strip, better_content(topic_key)].join("\n")
+                                    [topic_content.strip, contributing_instructions(topic_key)].join("\n")
                                   else
                                     fallback_topic_content(topic_key)
                                   end
@@ -40,7 +40,7 @@ module ExercismWeb
         Trackler.tracks[@track_id]
       end
 
-      def better_content(topic_key)
+      def contributing_instructions(topic_key)
         File.
           read("./x/docs/md/track/BETTER.md").
           gsub('REPO', trackler_track.repository).
