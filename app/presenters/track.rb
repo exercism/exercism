@@ -15,7 +15,7 @@ module ExercismWeb
       end
 
       def docs
-        track_docs = trackler_track.docs("/api/v1/tracks/%s/images/docs/img" % @track_id)
+        track_docs = trackler_track.docs(image_path: "/api/v1/tracks/%s/images/docs/img" % @track_id)
 
         track_docs.each_pair do |topic_name, topic_content|
           track_docs[topic_name] = if topic_content.present?
