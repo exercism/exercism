@@ -20,10 +20,10 @@ class PresentersTrackTest < Minitest::Test
     @trackler_track.stubs(:docs).returns(trackler_docs)
     topic_doc = @track.docs["test_topic"]
 
-    assert topic_doc.include?("Track-specific content from Trackler")
-    assert topic_doc.include?("Help us explain this better!")
-    assert topic_doc.include?("File a GitHub issue at https://github.com/exercism/test_track")
-    assert topic_doc.include?("https://github.com/exercism/test_track/blob/master/docs/TEST_TOPIC.md")
+    assert topic_doc.include? "Track-specific content from Trackler"
+    assert topic_doc.include? "Help us explain this better!"
+    assert topic_doc.include? "File a GitHub issue at https://github.com/exercism/test_track"
+    assert topic_doc.include? "https://github.com/exercism/test_track/blob/master/docs/TEST_TOPIC.md"
   end
 
   def test_docs_without_trackler_content
@@ -32,9 +32,9 @@ class PresentersTrackTest < Minitest::Test
     topic_doc = @track.docs["test_topic"]
 
     assert topic_doc.include? "Default topic content"
-    assert !topic_doc.include?("Help us explain this better!")
-    assert !topic_doc.include?("File a GitHub issue at https://github.com/exercism/test_track")
-    assert !topic_doc.include?("https://github.com/exercism/test_track/blob/master/docs/TEST_TOPIC.md")
+    refute topic_doc.include? "Help us explain this better!"
+    refute topic_doc.include? "File a GitHub issue at https://github.com/exercism/test_track"
+    refute topic_doc.include? "https://github.com/exercism/test_track/blob/master/docs/TEST_TOPIC.md"
   end
 
   def test_method_delegated_to_trackler_track
