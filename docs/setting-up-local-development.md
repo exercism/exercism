@@ -73,9 +73,12 @@ These instructions assume you're using a package manager for your OS:
 
   ```
   $ sudo apt-get update
-  $ sudo apt-get install rbenv
-  $ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+  $ sudo apt-get install rbenv ruby-build
   $ rbenv install X.Y.Z
+  ```
+  If you are having trouble getting the version required, clone ruby-build instead of installing it:
+  ```
+  $ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   ```
 
 #### Installing PostgreSQL
