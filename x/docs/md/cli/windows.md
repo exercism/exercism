@@ -1,6 +1,7 @@
 ## Windows
 
 [There is now a installer for Windows available on GitHub](https://github.com/exercism/windows-installer/releases)
+
 [Instructions for using the installer](https://github.com/exercism/windows-installer/blob/master/README.md)
 
 Below are installation instructions for using the Chocolately Package Manager. For further help and instructions, see the following:
