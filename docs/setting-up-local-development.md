@@ -73,7 +73,8 @@ These instructions assume you're using a package manager for your OS:
 
   ```
   $ sudo apt-get update
-  $ sudo apt-get install rbenv ruby-build
+  $ sudo apt-get install rbenv
+  $ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
   $ rbenv install X.Y.Z
   ```
 
