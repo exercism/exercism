@@ -71,7 +71,7 @@
     </div>
   </div>
 
-<hr>
+  <hr>
 
   <div id="managers">
     <h3>Managers</h3>
@@ -87,23 +87,29 @@
       <button type="submit" class="btn btn-primary">Add manager</button>
     </form>
 
-    <% team.managers.each do |manager| %>
-      <% if team.managers.count == 1 && team.managers.first == current_user %>
-        <button type="button" class="disabled btn btn-xs btn-danger manager_delete" data-toggle="tooltip" data-placement="bottom" title="You must add another manager before you can remove yourself as the last manager." style="margin: 10px 10px 10px 0">Remove</button>
-      <% else %>
-        <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/managers" method="post">
-          <input type="hidden" name="_method" value="delete" />
-          <input type="hidden" name="username" value="<%= manager.username %>" />
-          <button type="submit" class="btn btn-xs btn-danger manager_delete" data-username="<%= manager.username %>" style="margin: 10px 10px 10px 0">Remove</button>
-        </form>
-      <% end %>
+    <br/>
 
-      <%= gravatar_tag manager.avatar_url, size: 20 %>
-      <a href="/<%= manager.username %>"><%= manager.username %></a>
-    <% end %>
+    <div class="row">
+      <% team.managers.each do |manager| %>
+        <% if team.managers.count == 1 && team.managers.first == current_user %>
+          <button type="button" class="disabled btn btn-xs btn-danger manager_delete" data-toggle="tooltip" data-placement="bottom" title="You must add another manager before you can remove yourself as the last manager." style="margin: 10px 10px 10px 0">Remove</button>
+        <% else %>
+          <div class="col-sm-3">
+            <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/managers" method="post" style="display: inline">
+              <input type="hidden" name="_method" value="delete" />
+              <input type="hidden" name="username" value="<%= manager.username %>" />
+              <button type="submit" class="btn btn-xs btn-danger manager_delete" data-username="<%= manager.username %>" style="margin: 10px 10px 10px 0">X</button>
+            </form>
+          <% end %>
+
+          <%= gravatar_tag manager.avatar_url, size: 20 %>
+          <a href="/<%= manager.username %>"><%= manager.username %></a>
+          </div>
+        <% end %>
+    </div>
   </div>
 
-<hr>
+  <hr>
 
   <div id="members">
     <h3>Members</h3>
@@ -125,7 +131,7 @@
       <% team.members.each do |member| %>
         <div class="col-sm-3">
           <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
-          class="btn btn-xs btn-danger member_delete" style="margin: 10px 10px 10px 0">X</a>
+            class="btn btn-xs btn-danger member_delete" style="margin: 10px 10px 10px 0">X</a>
           <%= gravatar_tag member.avatar_url, size: 20 %>
           <a href="/<%= member.username %>"><%= member.username %></a>
         </div>
@@ -138,7 +144,7 @@
         <% team.member_invites.each do |member| %>
           <div class="col-sm-3">
             <a href="#" data-username="<%= member.username %>" data-team="<%= team.slug %>"
-            class="btn btn-xs btn-danger invite_dismiss" style="margin: 10px 10px 10px 0">X</a>
+               class="btn btn-xs btn-danger invite_dismiss" style="margin: 10px 10px 10px 0">X</a>
             <%= gravatar_tag member.avatar_url, size: 20 %>
             <a href="/<%= member.username %>"><%= member.username %></a>
           </div>
