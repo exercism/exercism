@@ -77,7 +77,7 @@ These instructions assume you're using a package manager for your OS:
   $ sudo apt-get install rbenv ruby-build
   $ rbenv install X.Y.Z
   ```
-  Windows Subsystem for Linux (if you are having trouble try these)
+  Windows Subsystem for Linux 
   [Source for commands provided](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-16-04)
   ```
   $ git clone https://github.com/rbenv/rbenv.git ~/.rbenv
