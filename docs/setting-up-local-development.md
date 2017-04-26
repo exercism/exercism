@@ -205,7 +205,7 @@ $ vim /path/to/file/mkmf.log
 ```
 (Replace /path/to/file with the path of the log file generated.)
 
-The file will likely indicated a missing header (the file indicated looks like "header.h"), look up the header in your search engine and find the package name for the missing header, and install it using:
+The file will likely indicate a missing header (the file indicated looks like "header.h"), look up the header in your search engine and find the package name for the missing header, and install it using:
 ```
 $ sudo apt-get install pkg-name
 ```
