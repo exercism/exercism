@@ -20,55 +20,62 @@ $(".track-activity-chart").each (index, element) ->
   ctx = element.getContext("2d")
   new Chart(ctx).Bar(data)
 
-$('.review-quantity-chart').each (index, container) ->
-  stats = $('.review-data').data('stats')
-  experimental = {
-    x: stats.experimental.dates
-    y: stats.experimental.daily_review_count
-    mode: 'lines+markers'
-    line: {shape: 'spline'}
-    hoverinfo: 'name+y'
-    name: 'Experimental Group'
-  }
+class ExperimentStatsLinePlot
+  constructor: (@selector, @statsProcessor, @stats = $('.review-data').data('stats')) ->
 
-  control = {
-    x: stats.control.dates
-    y: stats.control.daily_review_count
-    mode: 'lines+markers'
-    line: {shape: 'spline'}
-    hoverinfo: 'name+y'
-    name: 'Control Group'
-  }
+  render: ->
+    $(@selector).each (_, container) => @renderPlot(container)
 
-  lineHeight = Math.max(
-    stats.experimental.daily_review_count.concat(
-      stats.control.daily_review_count
-    )...
-  )
+  renderPlot: (container) ->
+    experimentalReviewLengthStats = new @statsProcessor(@stats.experimental)
+    experimental = {
+      x: experimentalReviewLengthStats.x
+      y: experimentalReviewLengthStats.y
+      mode: 'lines+markers'
+      line: {shape: 'spline'}
+      hoverinfo: 'name+y'
+      name: 'Experimental Group'
+    }
 
-  gamificationBeginDate = stats.experimental.gamification_start_date
-  gamificationBegins = {
-    x: [gamificationBeginDate, gamificationBeginDate]
-    y: [0, lineHeight]
-    mode: 'lines'
-    name: 'Gamification Begins'
-    hoverinfo: 'none'
-  }
+    controlReviewLengthStats = new @statsProcessor(@stats.control)
+    control = {
+      x: controlReviewLengthStats.x
+      y: controlReviewLengthStats.y
+      mode: 'lines+markers'
+      line: {shape: 'spline'}
+      hoverinfo: 'name+y'
+      name: 'Control Group'
+    }
 
-  gamificationWithdrawalDate = stats.experimental.gamification_withdrawal_date
-  gamificationWithdrawal = {
-    x: [gamificationWithdrawalDate, gamificationWithdrawalDate]
-    y: [0, lineHeight]
-    mode: 'lines'
-    name: 'Gamification Withdrawal'
-    hoverinfo: 'none'
-  }
+    lineHeight = Math.max(
+      @stats.experimental.daily_review_count.concat(
+        @stats.control.daily_review_count
+      )...
+    )
 
-  Plotly.newPlot(
-    container,
-    [control, experimental, gamificationBegins, gamificationWithdrawal],
-    {legend: {orientation: 'h'}}
-  )
+    gamificationBeginDate = @stats.experimental.gamification_start_date
+    gamificationBegins = {
+      x: [gamificationBeginDate, gamificationBeginDate]
+      y: [0, lineHeight]
+      mode: 'lines'
+      name: 'Gamification Begins'
+      hoverinfo: 'none'
+    }
+
+    gamificationWithdrawalDate = @stats.experimental.gamification_withdrawal_date
+    gamificationWithdrawal = {
+      x: [gamificationWithdrawalDate, gamificationWithdrawalDate]
+      y: [0, lineHeight]
+      mode: 'lines'
+      name: 'Gamification Withdrawal'
+      hoverinfo: 'none'
+    }
+
+    Plotly.newPlot(
+      container,
+      [control, experimental, gamificationBegins, gamificationWithdrawal],
+      {legend: {orientation: 'h'}}
+    )
 
 class ExperimentStatsBoxPlot
   constructor: (@selector, @statsProcessor, @stats = $('.review-data').data('stats')) ->
@@ -122,6 +129,11 @@ class ExperimentStatsBoxPlot
       {legend: {orientation: 'h'}, boxmode: 'group'}
     )
 
+class ReviewCountStats
+  constructor: (@stats) ->
+    @x = @stats.dates
+    @y = @stats.daily_review_count
+
 class ReviewLengthStats
   constructor: (@stats) ->
     @setX()
@@ -159,5 +171,6 @@ class ReviewCountSummaryStats
   setY: ->
     @y = @stats.daily_review_count
 
+new ExperimentStatsLinePlot('.review-quantity-chart', ReviewCountStats).render()
 new ExperimentStatsBoxPlot('.review-quantity-summary-chart', ReviewCountSummaryStats).render()
 new ExperimentStatsBoxPlot('.review-length-chart', ReviewLengthStats).render()
