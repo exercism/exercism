@@ -52,7 +52,6 @@ These instructions assume you're using a package manager for your OS:
 - Windows — [Chocolatey](https://chocolatey.org/install)
 - Mac OS X — [Homebrew](http://brew.sh)
 - Linux — (whichever comes with your distro, we'll refer to `apt-get`)
-- Windows Subsystem for Linux (Bash on Ubuntu on Windows) — `apt-get`
 
 #### Installing Ruby
 
@@ -77,20 +76,6 @@ These instructions assume you're using a package manager for your OS:
   $ sudo apt-get install rbenv ruby-build
   $ rbenv install X.Y.Z
   ```
-  Windows Subsystem for Linux 
-  [Source for commands provided](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-16-04)
-  ```
-  $ git clone https://github.com/rbenv/rbenv.git ~/.rbenv
-
-  $ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
-  $ echo 'eval "$(rbenv init -)"' >> ~/.bashrc
-
-  $ source ~/.bashrc
-
-  $ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
-
-  $ rbenv install X.Y.Z
-  ```
 
 #### Installing PostgreSQL
 
@@ -105,7 +90,7 @@ These instructions assume you're using a package manager for your OS:
   $ brew update
   $ brew install postgresql
   ```
-- Linux & Windows Subsystem for Linux
+- Linux
 
   ```
   $ sudo apt-get update
@@ -124,11 +109,11 @@ These instructions assume you're using a package manager for your OS:
   ```
   $ brew install node
   ```
-- Linux & Windows Subsystem for Linux
+- Linux
 
   *(see also [installing Node via package manager](https://nodejs.org/en/download/package-manager/).)*
   ```
-  $ sudo apt-get install nodejs npm
+  $ sudo apt-get install nodejs
   ```
 - For other systems, see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
