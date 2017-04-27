@@ -20,20 +20,6 @@ $(".track-activity-chart").each (index, element) ->
   ctx = element.getContext("2d")
   new Chart(ctx).Bar(data)
 
-class ReviewLengthStats
-  constructor: (@stats) ->
-    @setX()
-    @setY()
-
-  setX: ->
-    daily_lengths = @stats.daily_review_lengths
-    expanded_dates = for i, day_lengths of daily_lengths
-      @stats.dates[i] for length in day_lengths
-    @x = _.flatten(expanded_dates)
-
-  setY: ->
-    @y = _.flatten(@stats.daily_review_lengths)
-
 $('.review-quantity-chart').each (index, container) ->
   stats = $('.review-data').data('stats')
   experimental = {
@@ -84,6 +70,20 @@ $('.review-quantity-chart').each (index, container) ->
     {legend: {orientation: 'h'}}
   )
 
+class ReviewLengthStats
+  constructor: (@stats) ->
+    @setX()
+    @setY()
+
+  setX: ->
+    dailyLengths = @stats.daily_review_lengths
+    expandedDates = for i, dayLengths of dailyLengths
+      @stats.dates[i] for length in dayLengths
+    @x = _.flatten(expandedDates)
+
+  setY: ->
+    @y = _.flatten(@stats.daily_review_lengths)
+
 $('.review-length-chart').each (index, container) ->
   stats = $('.review-data').data('stats')
 
@@ -96,6 +96,77 @@ $('.review-length-chart').each (index, container) ->
   }
 
   controlReviewLengthStats = new ReviewLengthStats(stats.control)
+  control = {
+    x: controlReviewLengthStats.x
+    y: controlReviewLengthStats.y
+    type: 'box'
+    name: 'Control Group'
+  }
+
+  lineHeight = Math.max(
+    Math.max(controlReviewLengthStats.y...),
+    Math.max(experimentalReviewLengthStats.y...)
+  )
+
+  gamificationBeginDate = stats.experimental.gamification_start_date
+  gamificationBegins = {
+    x: [gamificationBeginDate, gamificationBeginDate]
+    y: [0, lineHeight]
+    mode: 'lines'
+    name: 'Gamification Begins'
+    hoverinfo: 'none'
+  }
+
+  gamificationWithdrawalDate = stats.experimental.gamification_withdrawal_date
+  gamificationWithdrawal = {
+    x: [gamificationWithdrawalDate, gamificationWithdrawalDate]
+    y: [0, lineHeight]
+    mode: 'lines'
+    name: 'Gamification Withdrawal'
+    hoverinfo: 'none'
+  }
+
+  Plotly.newPlot(
+    container,
+    [control, experimental, gamificationBegins, gamificationWithdrawal],
+    {legend: {orientation: 'h'}, boxmode: 'group'}
+  )
+
+class ReviewCountSummaryStats
+  constructor: (@stats) ->
+    @setX()
+    @setY()
+
+  setX: ->
+    daily_count = @stats.daily_review_count
+    gamificationStartDate = new Date(@stats['gamification_start_date'])
+    gamificationWithdrawalDate = new Date(@stats['gamification_withdrawal_date'])
+    gamificationExperimentEndDate = new Date(@stats['gamification_experiment_end_date'])
+    adjusted_dates = for i, day_count of daily_count
+      datumDate = new Date(@stats.dates[i])
+      if datumDate < gamificationStartDate
+        '2017-03-20'
+      else if datumDate < gamificationWithdrawalDate
+        '2017-04-04'
+      else if datumDate < gamificationExperimentEndDate
+        '2017-04-20'
+    @x = adjusted_dates
+
+  setY: ->
+    @y = @stats.daily_review_count
+
+$('.review-quantity-summary-chart').each (index, container) ->
+  stats = $('.review-data').data('stats')
+
+  experimentalReviewLengthStats = new ReviewCountSummaryStats(stats.experimental)
+  experimental = {
+    x: experimentalReviewLengthStats.x
+    y: experimentalReviewLengthStats.y
+    type: 'box'
+    name: 'Experimental Group'
+  }
+
+  controlReviewLengthStats = new ReviewCountSummaryStats(stats.control)
   control = {
     x: controlReviewLengthStats.x
     y: controlReviewLengthStats.y
