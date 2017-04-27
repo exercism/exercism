@@ -20,114 +20,67 @@ $(".track-activity-chart").each (index, element) ->
   ctx = element.getContext("2d")
   new Chart(ctx).Bar(data)
 
-class ExperimentStatsLinePlot
+class ExperimentStatsPlot
   constructor: (@selector, @statsProcessor, @stats = $('.review-data').data('stats')) ->
 
   render: ->
     $(@selector).each (_, container) => @renderPlot(container)
 
   renderPlot: (container) ->
-    experimentalReviewLengthStats = new @statsProcessor(@stats.experimental)
-    experimental = {
-      x: experimentalReviewLengthStats.x
-      y: experimentalReviewLengthStats.y
-      mode: 'lines+markers'
-      line: {shape: 'spline'}
-      hoverinfo: 'name+y'
-      name: 'Experimental Group'
-    }
+    data = [@datasets()..., @gamificationDateMarkers()...]
+    Plotly.newPlot(container,data, boxmode: 'group', legend: {orientation: 'h'})
 
-    controlReviewLengthStats = new @statsProcessor(@stats.control)
-    control = {
-      x: controlReviewLengthStats.x
-      y: controlReviewLengthStats.y
-      mode: 'lines+markers'
-      line: {shape: 'spline'}
-      hoverinfo: 'name+y'
-      name: 'Control Group'
-    }
+  datasets: ->
+    [] # override
 
-    lineHeight = Math.max(
-      @stats.experimental.daily_review_count.concat(
-        @stats.control.daily_review_count
-      )...
-    )
+  experimentGroups: ->
+    'Control Group':      @stats.control
+    'Experimental Group': @stats.experimental
 
+  lineHeight: ->
+    yValues = _.flatten(dataset.y for dataset in @datasets())
+    Math.max(yValues...)
+
+  gamificationDateMarkers: ->
     gamificationBeginDate = @stats.experimental.gamification_start_date
     gamificationBegins = {
       x: [gamificationBeginDate, gamificationBeginDate]
-      y: [0, lineHeight]
+      y: [0, @lineHeight()]
       mode: 'lines'
       name: 'Gamification Begins'
       hoverinfo: 'none'
     }
-
     gamificationWithdrawalDate = @stats.experimental.gamification_withdrawal_date
     gamificationWithdrawal = {
       x: [gamificationWithdrawalDate, gamificationWithdrawalDate]
-      y: [0, lineHeight]
+      y: [0, @lineHeight()]
       mode: 'lines'
       name: 'Gamification Withdrawal'
       hoverinfo: 'none'
     }
+    [gamificationBegins, gamificationWithdrawal]
 
-    Plotly.newPlot(
-      container,
-      [control, experimental, gamificationBegins, gamificationWithdrawal],
-      {legend: {orientation: 'h'}}
-    )
+class ExperimentStatsLinePlot extends ExperimentStatsPlot
+  datasets: ->
+    for groupLabel, data of @experimentGroups()
+      groupStats = new @statsProcessor(data)
+      plotlyOptions =
+        x: groupStats.x
+        y: groupStats.y
+        mode: 'lines+markers'
+        line: {shape: 'spline'}
+        hoverinfo: 'name+y'
+        name: groupLabel
 
-class ExperimentStatsBoxPlot
-  constructor: (@selector, @statsProcessor, @stats = $('.review-data').data('stats')) ->
-
-  render: ->
-    $(@selector).each (_, container) => @renderPlot(container)
-
-  renderPlot: (container) ->
-    experimentalReviewLengthStats = new @statsProcessor(@stats.experimental)
-    experimental = {
-      x: experimentalReviewLengthStats.x
-      y: experimentalReviewLengthStats.y
-      type: 'box'
-      name: 'Experimental Group'
-    }
-
-    controlReviewLengthStats = new @statsProcessor(@stats.control)
-    control = {
-      x: controlReviewLengthStats.x
-      y: controlReviewLengthStats.y
-      type: 'box'
-      name: 'Control Group'
-    }
-
-    lineHeight = Math.max(
-      Math.max(controlReviewLengthStats.y...),
-      Math.max(experimentalReviewLengthStats.y...)
-    )
-
-    gamificationBeginDate = @stats.experimental.gamification_start_date
-    gamificationBegins = {
-      x: [gamificationBeginDate, gamificationBeginDate]
-      y: [0, lineHeight]
-      mode: 'lines'
-      name: 'Gamification Begins'
-      hoverinfo: 'none'
-    }
-
-    gamificationWithdrawalDate = @stats.experimental.gamification_withdrawal_date
-    gamificationWithdrawal = {
-      x: [gamificationWithdrawalDate, gamificationWithdrawalDate]
-      y: [0, lineHeight]
-      mode: 'lines'
-      name: 'Gamification Withdrawal'
-      hoverinfo: 'none'
-    }
-
-    Plotly.newPlot(
-      container,
-      [control, experimental, gamificationBegins, gamificationWithdrawal],
-      {legend: {orientation: 'h'}, boxmode: 'group'}
-    )
+class ExperimentStatsBoxPlot extends ExperimentStatsPlot
+  datasets: ->
+    for groupLabel, data of @experimentGroups()
+      groupStats = new @statsProcessor(data)
+      plotlyOptions =
+        x: groupStats.x
+        y: groupStats.y
+        type: 'box'
+        name: groupLabel
 
 class ReviewCountStats
   constructor: (@stats) ->
