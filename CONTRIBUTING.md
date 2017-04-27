@@ -12,7 +12,7 @@ We are working to improve this document, and if you find any part of it confusin
 |:---:|:---:|:---:|
 |[![I see a problem](docs/img/a-bug.png)](#i-see-a-problem) | [![I have an idea](docs/img/an-idea.png)](#i-have-an-idea) | [![I would like to help](docs/img/volunteering-hand.png)](#i-would-like-to-help) |
 
---
+----
 
 ## I see a problem
 
@@ -28,7 +28,6 @@ We are working to improve this document, and if you find any part of it confusin
 - If the website has a bug, you can help by [filing a bug report](docs/filing-a-bug-report.md) in the [`exercism/exercism.io` repository](https://github.com/exercism/exercism.io/issues/new).
   - if you have the time and the desire, you can help *even more* by [fixing it](#i-would-like-to-help-i-know--want-to-get-better-at-web-programming).
 
--
 
 ### I see a problem with the command-line client (CLI)
 
@@ -37,7 +36,6 @@ We are working to improve this document, and if you find any part of it confusin
 - If the CLI has a bug, you can help by [filing a bug report](docs/filing-a-bug-report.md) in the [`exercism/cli` repository](https://github.com/exercism/cli/issues/new).
   - if you have the time and the desire, you can help *even more* by [fixing it](#i-would-like-to-help-i-know--want-to-get-better-at-go).
 
--
 
 ### I see a problem getting started with a language
 
@@ -45,7 +43,6 @@ We are working to improve this document, and if you find any part of it confusin
 - If you see a problem with the setup instructions, you can help by [filing a bug report](docs/filing-a-bug-report.md) in the "Issues" section of the [corresponding language repository](http://exercism.io/repositories).
   - if you have the time and the desire, you can help *even more* by [fixing it](#i-would-like-to-help-i-can--want-to-get-better-at-organizing-stuff).
 
--
 
 ### I see a problem with a specific exercise
 
@@ -94,7 +91,6 @@ If the idea doesn't fit in one of those discussions, then if it relates to:
 * a specific part of the site, start a new conversation in the [`exercism/exercism.io` repository](https://github.com/exercism/exercism.io/issues/new).
 - multiple aspects of the site, kick it off in the [`exercism/discussions` repository](https://github.com/exercism/discussions/issues/new).
 
--
 
 ### I have an idea about improving the command-line client (CLI)
 
@@ -109,7 +105,6 @@ Here are some helpful starter searches in the two repositories that contain idea
 
 If the idea isn't being discussed yet, kick it off in the [`exercism/cli` repository](https://github.com/exercism/cli/issues/new).
 
--
 
 ### I have an idea about a brand-new exercise for Exercism
 
@@ -124,7 +119,6 @@ New exercise ideas are definitely welcome!  Here's how to ensure the idea lands 
     - if you have the time and the desire, you can help *even more* by [implementing it](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#implementing-a-completely-new-exercise).
 - If you know of a good source of potential new problems, please share: [`exercism/x-common#107`](https://github.com/exercism/x-common/issues/107).
 
--
 
 ### I have an idea about improving an existing exercise
 
@@ -145,7 +139,7 @@ Thank you!
 You have (or want to improve your) skills in
 
 | [technical writing and organization](#i-would-like-to-help-i-can--want-to-get-better-at-technical-writing-and-organization) | [fluency in a particular programming language](#i-would-like-to-help-i-am-fluent-in--want-to-get-better-at-a-particular-programming-language) | [web programming](#i-would-like-to-help-i-know--want-to-get-better-at-web-programming) | [Ruby](#i-would-like-to-help-i-know--want-to-get-better-at-ruby) | [Go](#i-would-like-to-help-i-know--want-to-get-better-at-go) | [web design](#i-would-like-to-help-i-know--want-to-get-better-at-web-design) | [mentoring others](#i-would-like-to-help-i-know--want-to-get-better-at-mentoring-others)
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
 | [![organizing stuff](docs/img/clipboard-and-gear.png)](#i-would-like-to-help-i-can--want-to-get-better-at-technical-writing-and-organization) | [![fluency in a particular programming language](docs/img/mortarboard.jpg)](#i-would-like-to-help-i-am-fluent-in--want-to-get-better-at-a-particular-programming-language) | [![web programming](docs/img/globe.png)](#i-would-like-to-help-i-know--want-to-get-better-at-web-programming) | [![Ruby](docs/img/ruby.png)](#i-would-like-to-help-i-know--want-to-get-better-at-ruby) | [![Go](docs/img/gopher.png)](#i-would-like-to-help-i-know--want-to-get-better-at-go) | [![web design](docs/img/screen-art.jpg)](#i-would-like-to-help-i-know--want-to-get-better-at-web-design) | [![mentoring others](docs/img/mentoring.jpg)](#i-would-like-to-help-i-know--want-to-get-better-at-mentoring-others)
 
 ### I would like to help; I can / want to get better at technical writing and organization
@@ -154,7 +148,6 @@ You have (or want to improve your) skills in
 - Help make the instructions of an exercise more clear, interesting and/or engaging by locating that exercise in [`exercism/x-common`](https://github.com/exercism/x-common/tree/master/exercises) and [Tweaking its README.md](https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#tweaking-a-readme).
 - Issues across all of Exercism looking for help with documentation: [`exercism?documentation`](https://github.com/search?o=desc&p=1&q=org%3Aexercism+documentation+is%3Aissue&ref=searchresults&s=updated&state=open&type=Issues&utf8=%E2%9C%93)
 
--
 
 ### I would like to help; I am fluent in / want to get better at a particular programming language
 
@@ -173,7 +166,6 @@ This means helping maintain the code of the exercises and supporting tooling for
 - Find a language you love or want to get to know better: http://exercism.io/repositories
 - Orient yourself through our [Getting Involved in a Track] (docs/getting-involved-in-a-track.md) guide.
 
--
 
 ### I would like to help; I know / want to get better at web programming
 
@@ -190,8 +182,6 @@ You may also find these helpful:
 - [Architecture Overview of Exercism](docs/overview-architecture.md)
 
 
--
-
 ### I would like to help; I know / want to get better at Ruby
 
 Do you have/want to have chops in Ruby or Sinatra and want to add to the website?
@@ -207,9 +197,6 @@ You may also find these helpful:
 - [Architecture Overview of Exercism](docs/overview-architecture.md)
 
 
--
-
-
 ### I would like to help; I know / want to get better at Go
 
 One of the more subtle but important parts of the Exercism experience is our CLI; it's written in Go.
@@ -223,8 +210,6 @@ You may also find these helpful:
 - [Architecture Overview of Exercism](docs/overview-architecture.md)
 
 
--
-
 ### I would like to help; I know / want to get better at web design
 
 Do you love making enticing user experiences?  Help us [rethink our user experience](https://github.com/exercism/discussions/issues/34) (UX)!
@@ -234,7 +219,6 @@ Do you love making enticing user experiences?  Help us [rethink our user experie
 - the [homepage](https://github.com/exercism/discussions/search?q=homepage&state=open&type=Issues).
 - the [solutions page](https://github.com/exercism/discussions/issues/32).
 
--
 
 ### I would like to help; I know / want to get better at mentoring others
 
