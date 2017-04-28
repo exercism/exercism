@@ -30,6 +30,7 @@ class PresentersTrackTest < Minitest::Test
     topic_doc = ExercismWeb::Presenters::Track.new("test_track").docs["about"]
 
     assert topic_doc.include? "We're missing a short introduction about the language."
+    assert topic_doc.include? "https://github.com/exercism/test_track"
   end
 
   def test_method_delegated_to_trackler_track
