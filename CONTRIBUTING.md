@@ -263,7 +263,6 @@ Behind the scenes we also have:
 
 ### Contributing
 
-We curate issues that we think are good for starting out into [exercism/todo](https://github.com/exercism/todo/labels/start-here).
 
 If you want to work on the exercism.io website codebase, then continue reading this guide.
 
