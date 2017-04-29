@@ -60,18 +60,6 @@ class ExperimentStatsPlot
     }
     [gamificationBegins, gamificationWithdrawal]
 
-class ExperimentStatsLinePlot extends ExperimentStatsPlot
-  datasets: ->
-    for groupLabel, data of @experimentGroups()
-      groupStats = new @statsProcessor(data)
-      plotlyOptions =
-        x: groupStats.x
-        y: groupStats.y
-        mode: 'lines+markers'
-        line: {shape: 'spline'}
-        hoverinfo: 'name+y'
-        name: groupLabel
-
 class ExperimentStatsBoxPlot extends ExperimentStatsPlot
   datasets: ->
     for groupLabel, data of @experimentGroups()
@@ -81,11 +69,6 @@ class ExperimentStatsBoxPlot extends ExperimentStatsPlot
         y: groupStats.y
         type: 'box'
         name: groupLabel
-
-class ReviewCountStats
-  constructor: (@stats) ->
-    @x = @stats.dates
-    @y = @stats.daily_review_count
 
 class ReviewCountSummaryStats
   constructor: (@stats) ->
@@ -133,6 +116,5 @@ class ReviewLengthSummaryStats
   setY: ->
     @y = _.flatten(@stats.daily_review_lengths)
 
-new ExperimentStatsLinePlot('.review-quantity-chart', ReviewCountStats).render()
 new ExperimentStatsBoxPlot('.review-quantity-summary-chart', ReviewCountSummaryStats).render()
 new ExperimentStatsBoxPlot('.review-length-summary-chart', ReviewLengthSummaryStats).render()

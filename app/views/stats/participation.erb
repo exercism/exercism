@@ -28,9 +28,8 @@
 
       <h2>Intrinsic Motivation Experiment</h2>
       <% if experiment_completed || user_may_see_early %>
-        <div class="motivation-experiment-content">
+        <div class="motivation-experiment-content review-data" data-stats='<%= stats.to_json %>'>
           <h3>Review Quantity</h3>
-          <div class="review-quantity-chart review-data" data-stats='<%= stats.to_json %>' width="800" height="400"></div>
           <div class="review-quantity-summary-chart" width="800" height="400"></div>
           <h3>Review Length</h3>
           <div class="review-length-summary-chart" width="800" height="400"></div>
