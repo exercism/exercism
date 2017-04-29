@@ -47,13 +47,15 @@ module ExercismWeb
       end
 
       def contributing_instructions(topic_key)
-        populate_template_with_trackler_data(File.read("./x/docs/md/track/BETTER.md")).gsub('TOPIC', topic_key.to_s.upcase)
+        template = File.read("./x/docs/md/track/BETTER.md")
+        populate_template_with_trackler_data(template).gsub('TOPIC', topic_key.to_s.upcase)
       end
 
       def fallback_topic_content(topic_key)
-        filepath = "./x/docs/md/track/#{topic_key.upcase}.md"
-        return '' unless File.exist?(filepath)
-        populate_template_with_trackler_data(File.read(filepath))
+        template_filepath = "./x/docs/md/track/#{topic_key.upcase}.md"
+        return '' unless File.exist?(template_filepath)
+        template = File.read(template_filepath)
+        populate_template_with_trackler_data(template)
       end
 
       def populate_template_with_trackler_data(template)
