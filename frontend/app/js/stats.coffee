@@ -123,6 +123,31 @@ class ReviewCountSummaryStats
   setY: ->
     @y = @stats.daily_review_count
 
+class ReviewLengthSummaryStats
+  constructor: (@stats) ->
+    @setX()
+    @setY()
+
+  setX: ->
+    gamificationStartDate = new Date(@stats.gamification_start_date)
+    gamificationWithdrawalDate = new Date(@stats.gamification_withdrawal_date)
+    gamificationExperimentEndDate = new Date(@stats.gamification_experiment_end_date)
+    expandedDates = for i, dayLengths of @stats.daily_review_lengths
+      @stats.dates[i] for length in dayLengths
+    adjusted_dates = for date in _.flatten(expandedDates)
+      datumDate = new Date(date)
+      if datumDate < gamificationStartDate
+        '2017-03-20'
+      else if datumDate < gamificationWithdrawalDate
+        '2017-04-04'
+      else if datumDate < gamificationExperimentEndDate
+        '2017-04-20'
+    @x = adjusted_dates
+
+  setY: ->
+    @y = _.flatten(@stats.daily_review_lengths)
+
 new ExperimentStatsLinePlot('.review-quantity-chart', ReviewCountStats).render()
 new ExperimentStatsBoxPlot('.review-quantity-summary-chart', ReviewCountSummaryStats).render()
 new ExperimentStatsBoxPlot('.review-length-chart', ReviewLengthStats).render()
+new ExperimentStatsBoxPlot('.review-length-summary-chart', ReviewLengthSummaryStats).render()
