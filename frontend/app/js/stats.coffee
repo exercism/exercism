@@ -87,20 +87,6 @@ class ReviewCountStats
     @x = @stats.dates
     @y = @stats.daily_review_count
 
-class ReviewLengthStats
-  constructor: (@stats) ->
-    @setX()
-    @setY()
-
-  setX: ->
-    dailyLengths = @stats.daily_review_lengths
-    expandedDates = for i, dayLengths of dailyLengths
-      @stats.dates[i] for length in dayLengths
-    @x = _.flatten(expandedDates)
-
-  setY: ->
-    @y = _.flatten(@stats.daily_review_lengths)
-
 class ReviewCountSummaryStats
   constructor: (@stats) ->
     @setX()
@@ -149,5 +135,4 @@ class ReviewLengthSummaryStats
 
 new ExperimentStatsLinePlot('.review-quantity-chart', ReviewCountStats).render()
 new ExperimentStatsBoxPlot('.review-quantity-summary-chart', ReviewCountSummaryStats).render()
-new ExperimentStatsBoxPlot('.review-length-chart', ReviewLengthStats).render()
 new ExperimentStatsBoxPlot('.review-length-summary-chart', ReviewLengthSummaryStats).render()
