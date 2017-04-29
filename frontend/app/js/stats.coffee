@@ -107,12 +107,11 @@ class ReviewCountSummaryStats
     @setY()
 
   setX: ->
-    daily_count = @stats.daily_review_count
     gamificationStartDate = new Date(@stats['gamification_start_date'])
     gamificationWithdrawalDate = new Date(@stats['gamification_withdrawal_date'])
     gamificationExperimentEndDate = new Date(@stats['gamification_experiment_end_date'])
-    adjusted_dates = for i, day_count of daily_count
-      datumDate = new Date(@stats.dates[i])
+    adjusted_dates = for date in @stats.dates
+      datumDate = new Date(date)
       if datumDate < gamificationStartDate
         '2017-03-20'
       else if datumDate < gamificationWithdrawalDate
