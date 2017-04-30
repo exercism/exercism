@@ -17,7 +17,7 @@ class ParticipationStats
     Time.now > Date.parse(GAMIFICATION_EXPERIMENT_END_DATE) + 1.day
   end
 
-  def initialize(date_range, gamification_markers: false, experiment_group: nil)
+  def initialize(date_range: experiment_date_range, gamification_markers: false, experiment_group: nil)
     @date_range = date_range
     @gamification_markers = gamification_markers
     @experiment_group = experiment_group
@@ -94,5 +94,11 @@ class ParticipationStats
 
   def time(&block)
     Metrics.time 'exercism_io.stats.experiment.query.time', &block
+  end
+
+  def experiment_date_range
+    start_date = Date.parse(PRE_GAMIFICATION_COMPARISON_DATE)
+    end_date = Date.parse(GAMIFICATION_EXPERIMENT_END_DATE)
+    start_date..end_date
   end
 end
