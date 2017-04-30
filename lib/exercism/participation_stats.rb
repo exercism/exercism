@@ -27,7 +27,9 @@ class ParticipationStats
   # {period_name => [1, 1, 12, ... number of comments per user]}
   def avg_daily_reviews_per_user_by_period
     result = query_results.map do |attrs|
-      [attrs['period'], attrs['user_comment_counts'].split(',').map(&:to_i)]
+      counts = attrs['user_comment_counts'].split(',').map(&:to_i)
+      counts = fill_zeros_for_participating_users_with_no_comments_represented(counts)
+      [attrs['period'], counts]
     end
     Hash[result]
   end
@@ -35,9 +37,26 @@ class ParticipationStats
   # {period_name => [12, 251, 40, ... length of each comment's body]}
   def review_lengths_by_period
     result = query_results.map do |attrs|
-      [attrs['period'], attrs['comment_lengths'].split(',').map(&:to_i)]
+      counts = attrs['comment_lengths'].split(',').map(&:to_i)
+      counts = fill_zeros_for_participating_users_with_no_comments_represented(counts)
+      [attrs['period'], counts]
     end
     Hash[result]
+  end
+
+  def fill_zeros_for_participating_users_with_no_comments_represented(comment_counts)
+    comment_counts.fill(0, comment_counts.size...participating_user_count)
+  end
+
+  def participating_user_count
+    @participating_user_count ||= begin
+      relation = Comment.
+        joins(:user).
+        select('count(DISTINCT users.id) AS participating_user_count')
+      relation = filter_experiment_period(relation)
+      relation = filter_experiment_group(relation)
+      relation.take.participating_user_count
+    end
   end
 
   private
@@ -55,7 +74,6 @@ class ParticipationStats
   # Then condense the results down to one row per period, aggregating all the
   # results using comma-separated lists.
   def sql
-    end_date = (Date.today <= date_range.last) ? Date.today : date_range.last
     select =
       <<~SELECT
         CASE WHEN comments.created_at < '#{GAMIFICATION_START_DATE}'
@@ -70,10 +88,9 @@ class ParticipationStats
     user_comment_counts_and_lengths = Comment.
       select(select).
       joins(:user).
-      where('comments.created_at >= ?', date_range.first).
-      where('comments.created_at <  ?', end_date).
       group('period, users.id').
       order('period')
+    user_comment_counts_and_lengths = filter_experiment_period(user_comment_counts_and_lengths)
     user_comment_counts_and_lengths = filter_experiment_group(user_comment_counts_and_lengths)
     grouped_by_period = Comment.
       from(user_comment_counts_and_lengths).
@@ -84,6 +101,13 @@ class ParticipationStats
         array_to_string(array_agg(comment_lengths), ',') AS comment_lengths
       SELECT
     grouped_by_period.to_sql
+  end
+
+  def filter_experiment_period(relation)
+    end_date = (Date.today <= date_range.last) ? Date.today : date_range.last
+    relation.
+      where('comments.created_at >= ?', date_range.first).
+      where('comments.created_at <  ?', end_date)
   end
 
   def filter_experiment_group(relation)
