@@ -21,13 +21,15 @@ $(".track-activity-chart").each (index, element) ->
   new Chart(ctx).Bar(data)
 
 class ExperimentStatsPlot
-  constructor: (@selector, @statsProcessor, @stats = $('.review-data').data('stats')) ->
+  constructor: (@selector, @statsProcessor, options = {}) ->
+    @stats = options.stats || $('.review-data').data('stats')
+    @title = options.title || ''
 
   render: ->
     $(@selector).each (_, container) => @renderPlot(container)
 
   renderPlot: (container) ->
-    Plotly.newPlot(container, @datasets(), boxmode: 'group', legend: {orientation: 'h'})
+    Plotly.newPlot(container, @datasets(), title: @title, boxmode: 'group', legend: {orientation: 'h'})
 
   datasets: ->
     [] # override
@@ -65,5 +67,5 @@ class ReviewLengthSummaryStats
     @x = _.flatten(periodRepeated)
     @y = [].concat(_.values(@stats.review_lengths_by_period)...)
 
-new ExperimentStatsBoxPlot('.review-quantity-summary-chart', ReviewCountSummaryStats).render()
-new ExperimentStatsBoxPlot('.review-length-summary-chart', ReviewLengthSummaryStats).render()
+new ExperimentStatsBoxPlot('.review-quantity-summary-chart', ReviewCountSummaryStats, title: 'Does withdrawal decrease participation below pre-gamaification?').render()
+new ExperimentStatsBoxPlot('.review-length-summary-chart', ReviewLengthSummaryStats, title: 'Do reviews get shorter during gamification?').render()
