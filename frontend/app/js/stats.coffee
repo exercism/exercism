@@ -48,6 +48,7 @@ class ExperimentStatsBoxPlot extends ExperimentStatsPlot
         x: groupStats.x
         y: groupStats.y
         type: 'box'
+        jitter: 0.4
         name: groupLabel
 
 class ReviewCountSummaryStats
