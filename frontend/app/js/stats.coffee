@@ -27,8 +27,7 @@ class ExperimentStatsPlot
     $(@selector).each (_, container) => @renderPlot(container)
 
   renderPlot: (container) ->
-    data = [@datasets()..., @gamificationDateMarkers()...]
-    Plotly.newPlot(container,data, boxmode: 'group', legend: {orientation: 'h'})
+    Plotly.newPlot(container, @datasets(), boxmode: 'group', legend: {orientation: 'h'})
 
   datasets: ->
     [] # override
@@ -40,25 +39,6 @@ class ExperimentStatsPlot
   lineHeight: ->
     yValues = _.flatten(dataset.y for dataset in @datasets())
     Math.max(yValues...)
-
-  gamificationDateMarkers: ->
-    gamificationBeginDate = @stats.experimental.gamification_start_date
-    gamificationBegins = {
-      x: [gamificationBeginDate, gamificationBeginDate]
-      y: [0, @lineHeight()]
-      mode: 'lines'
-      name: 'Gamification Begins'
-      hoverinfo: 'none'
-    }
-    gamificationWithdrawalDate = @stats.experimental.gamification_withdrawal_date
-    gamificationWithdrawal = {
-      x: [gamificationWithdrawalDate, gamificationWithdrawalDate]
-      y: [0, @lineHeight()]
-      mode: 'lines'
-      name: 'Gamification Withdrawal'
-      hoverinfo: 'none'
-    }
-    [gamificationBegins, gamificationWithdrawal]
 
 class ExperimentStatsBoxPlot extends ExperimentStatsPlot
   datasets: ->

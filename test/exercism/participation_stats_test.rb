@@ -25,7 +25,7 @@ class ParticipationStatsTest < MiniTest::Test
   def test_counts
     yesterday_date_string = Date.yesterday.strftime('%F')
 
-    stats = ParticipationStats.new(1.week.ago..1.week.from_now)
+    stats = ParticipationStats.new(date_range: 1.week.ago..1.week.from_now)
 
     assert_equal 1, stats.dates.size
     assert_equal yesterday_date_string, stats.dates.first
@@ -36,7 +36,7 @@ class ParticipationStatsTest < MiniTest::Test
 
   def test_to_json
     stats = ParticipationStats.new(
-      1.week.ago..1.week.from_now,
+      date_range: 1.week.ago..1.week.from_now,
       gamification_markers: true
     )
 
@@ -49,13 +49,13 @@ class ParticipationStatsTest < MiniTest::Test
 
   def test_experimental_groups
     stats = ParticipationStats.new(
-      1.week.ago..1.week.from_now,
+      date_range: 1.week.ago..1.week.from_now,
       experiment_group: :experimental
     )
     assert_equal 2, stats.daily_review_count.first
 
     stats = ParticipationStats.new(
-      1.week.ago..1.week.from_now,
+      date_range: 1.week.ago..1.week.from_now,
       experiment_group: :control
     )
     assert_equal 1, stats.daily_review_count.first

@@ -5,8 +5,8 @@ module ExercismWeb
         if $flipper[:participation_stats].enabled?(current_user)
           tracks = Trackler.tracks.reject {|track| track.problems.count.zero? }.sort_by(&:language)
           stats = {
-            experimental: ParticipationStats.new(gamification_markers: true, experiment_group: :experimental).results,
-            control:      ParticipationStats.new(gamification_markers: true, experiment_group: :control).results
+            experimental: ParticipationStats.new(experiment_group: :experimental).results,
+            control:      ParticipationStats.new(experiment_group: :control).results
           }
           experiment_past_date = Date.parse(ParticipationStats::GAMIFICATION_EXPERIMENT_END_DATE) + 1.day
           erb :"stats/participation", locals: {

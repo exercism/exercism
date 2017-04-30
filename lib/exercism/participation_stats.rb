@@ -5,32 +5,24 @@ class ParticipationStats
   GAMIFICATION_START_DATE          = '2017-03-27'
   GAMIFICATION_WITHDRAWAL_DATE     = '2017-04-12'
   GAMIFICATION_EXPERIMENT_END_DATE = '2017-04-26'
-  GAMIFICATION_MARKERS = {
-    gamification_start_date: GAMIFICATION_START_DATE,
-    gamification_withdrawal_date: GAMIFICATION_WITHDRAWAL_DATE,
-    gamification_experiment_end_date: GAMIFICATION_EXPERIMENT_END_DATE,
-  }.freeze
 
-  attr_reader :date_range, :gamification_markers, :experiment_group
+  attr_reader :date_range, :experiment_group
 
   def self.experiment_complete?
     Time.now > Date.parse(GAMIFICATION_EXPERIMENT_END_DATE) + 1.day
   end
 
-  def initialize(date_range: experiment_date_range, gamification_markers: false, experiment_group: nil)
+  def initialize(date_range: experiment_date_range, experiment_group: nil)
     @date_range = date_range
-    @gamification_markers = gamification_markers
     @experiment_group = experiment_group
   end
 
   def results
-    result = {
+    {
       dates: dates,
       daily_review_count: daily_review_count,
       daily_review_lengths: daily_review_lengths,
     }
-    result.merge!(GAMIFICATION_MARKERS) if gamification_markers
-    result
   end
 
   def dates
