@@ -19,47 +19,71 @@ class ParticipationStats
 
   def results
     {
-      dates: dates,
-      daily_review_count: daily_review_count,
-      daily_review_lengths: daily_review_lengths,
+      avg_daily_reviews_per_user_by_period: avg_daily_reviews_per_user_by_period,
+      review_lengths_by_period: review_lengths_by_period,
     }
   end
 
-  def dates
-    query_results.map { |result| result['created_date'] }
+  # {period_name => [1, 1, 12, ... number of comments per user]}
+  def avg_daily_reviews_per_user_by_period
+    result = query_results.map do |attrs|
+      [attrs['period'], attrs['user_comment_counts'].split(',').map(&:to_i)]
+    end
+    Hash[result]
   end
 
-  def daily_review_count
-    query_results.map { |result| result['comment_count'].to_i }
-  end
-
-  def daily_review_lengths
-    query_results.map { |result| result['comment_lengths'].split(',').map(&:to_i) }
+  # {period_name => [12, 251, 40, ... length of each comment's body]}
+  def review_lengths_by_period
+    result = query_results.map do |attrs|
+      [attrs['period'], attrs['comment_lengths'].split(',').map(&:to_i)]
+    end
+    Hash[result]
   end
 
   private
 
+  # [{'period' => 'first_period_name',
+  #   'user_comment_counts' => '1,1,12',
+  #   'comment_lengths' => '12,251,40'},
+  #  ...]
   def query_results
     @query_results ||= time { ActiveRecord::Base.connection.execute(sql).to_a }
   end
 
+  # Subselect: For each period, select one row per user with user comment count
+  #            and comment lengths.
+  # Then condense the results down to one row per period, aggregating all the
+  # results using comma-separated lists.
   def sql
     end_date = (Date.today <= date_range.last) ? Date.today : date_range.last
-    relation = Comment.
-      select(
-        <<~SELECT
-          date(date_trunc('day', comments.created_at)) AS created_date,
-          count(comments.created_at) AS comment_count,
-          array_to_string(array_agg(length(body)), ',') AS comment_lengths
-        SELECT
-      ).
+    select =
+      <<~SELECT
+        CASE WHEN comments.created_at < '#{GAMIFICATION_START_DATE}'
+               THEN '1-pre-gamification'
+             WHEN comments.created_at < '#{GAMIFICATION_WITHDRAWAL_DATE}'
+               THEN '2-gamification'
+             ELSE   '3-withdrawal'
+             END AS period,
+        count(comments.id) AS user_comment_count,
+        array_to_string(array_agg(length(comments.body)), ',') AS comment_lengths
+      SELECT
+    user_comment_counts_and_lengths = Comment.
+      select(select).
       joins(:user).
       where('comments.created_at >= ?', date_range.first).
       where('comments.created_at <  ?', end_date).
-      group('created_date').
-      order('created_date')
-    relation = filter_experiment_group(relation)
-    relation.to_sql
+      group('period, users.id').
+      order('period')
+    user_comment_counts_and_lengths = filter_experiment_group(user_comment_counts_and_lengths)
+    grouped_by_period = Comment.
+      from(user_comment_counts_and_lengths).
+      group('period').
+      select(<<~SELECT)
+        period,
+        array_to_string(array_agg(user_comment_count), ',') AS user_comment_counts,
+        array_to_string(array_agg(comment_lengths), ',') AS comment_lengths
+      SELECT
+    grouped_by_period.to_sql
   end
 
   def filter_experiment_group(relation)

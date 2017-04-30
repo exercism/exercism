@@ -27,24 +27,19 @@ class ParticipationStatsTest < MiniTest::Test
 
     stats = ParticipationStats.new(date_range: 1.week.ago..1.week.from_now)
 
-    assert_equal 1, stats.dates.size
-    assert_equal yesterday_date_string, stats.dates.first
-    assert_equal 1, stats.daily_review_count.size
-    assert_equal 5, stats.daily_review_count.first
-    assert_equal [2, 4, 7, 49, 56], stats.daily_review_lengths.first.sort
+    assert_equal 1, stats.avg_daily_reviews_per_user_by_period.size
+    assert_equal [2, 1, 1, 1], stats.avg_daily_reviews_per_user_by_period.first.last
+    assert_equal [2, 4, 7, 49, 56], stats.review_lengths_by_period.first.last.sort
   end
 
   def test_to_json
-    stats = ParticipationStats.new(
-      date_range: 1.week.ago..1.week.from_now,
-      gamification_markers: true
-    )
+    stats = ParticipationStats.new(date_range: 1.week.ago..1.week.from_now)
 
     json = stats.results.to_json
     data = JSON.parse(json)
 
-    assert data.has_key?('dates'), 'data missing key: dates'
-    assert data.has_key?('gamification_start_date'), 'data missing key: gamification_start_date'
+    assert_includes data.keys, 'avg_daily_reviews_per_user_by_period'
+    assert_includes data.keys, 'review_lengths_by_period'
   end
 
   def test_experimental_groups
@@ -52,12 +47,12 @@ class ParticipationStatsTest < MiniTest::Test
       date_range: 1.week.ago..1.week.from_now,
       experiment_group: :experimental
     )
-    assert_equal 2, stats.daily_review_count.first
+    assert_equal 2, stats.avg_daily_reviews_per_user_by_period.first.flatten.last
 
     stats = ParticipationStats.new(
       date_range: 1.week.ago..1.week.from_now,
       experiment_group: :control
     )
-    assert_equal 1, stats.daily_review_count.first
+    assert_equal 1, stats.avg_daily_reviews_per_user_by_period.first.flatten.last
   end
 end
