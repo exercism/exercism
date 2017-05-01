@@ -19,7 +19,7 @@ if [ -f ~/.config/exercism/exercism_completion.bash ]; then
 fi
 ```
 
-After opening a new Bash shell, you should be able to type `exercism s` and Bash completion will give you `exercism submit`.
+After opening a new Bash shell, you should be able to type `exercism s` then press Tab, and Bash completion will give you `exercism submit`.
 
 #### Zsh
 
