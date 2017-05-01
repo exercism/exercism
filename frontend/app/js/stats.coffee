@@ -50,6 +50,7 @@ class ExperimentStatsBoxPlot extends ExperimentStatsPlot
         x: groupStats.x
         y: groupStats.y
         type: 'box'
+        boxmean: 'sd'
         jitter: 0.4
         name: groupLabel
 
