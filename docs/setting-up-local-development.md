@@ -52,6 +52,7 @@ These instructions assume you're using a package manager for your OS:
 - Windows — [Chocolatey](https://chocolatey.org/install)
 - Mac OS X — [Homebrew](http://brew.sh)
 - Linux — (whichever comes with your distro, we'll refer to `apt-get`)
+- Windows Subsystem for Linux (Bash on Ubuntu on Windows) — `apt-get`
 
 #### Installing Ruby
 
@@ -76,6 +77,20 @@ These instructions assume you're using a package manager for your OS:
   $ sudo apt-get install rbenv ruby-build
   $ rbenv install X.Y.Z
   ```
+  Windows Subsystem for Linux (if you are having trouble try these)
+  [Source for commands provided](https://www.digitalocean.com/community/tutorials/how-to-install-ruby-on-rails-with-rbenv-on-ubuntu-16-04)
+  ```
+  $ git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+
+  $ echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc
+  $ echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
+  $ source ~/.bashrc
+
+  $ git clone https://github.com/rbenv/ruby-build.git ~/.rbenv/plugins/ruby-build
+
+  $ rbenv install X.Y.Z
+  ```
 
 #### Installing PostgreSQL
 
@@ -90,7 +105,7 @@ These instructions assume you're using a package manager for your OS:
   $ brew update
   $ brew install postgresql
   ```
-- Linux
+- Linux & Windows Subsystem for Linux
 
   ```
   $ sudo apt-get update
@@ -109,11 +124,11 @@ These instructions assume you're using a package manager for your OS:
   ```
   $ brew install node
   ```
-- Linux
+- Linux & Windows Subsystem for Linux
 
   *(see also [installing Node via package manager](https://nodejs.org/en/download/package-manager/).)*
   ```
-  $ sudo apt-get install nodejs
+  $ sudo apt-get install nodejs npm
   ```
 - For other systems, see the [Node.js docs](https://github.com/joyent/node/wiki/Installing-Node.js-via-package-manager).
 
@@ -132,6 +147,8 @@ At this point, you have a local [copy of the source code](#get-the-source-code) 
 To initialize your local copy of exercism.io, run the setup script:
 
 NOTE: If you are running exercism.io in a Docker container, prepend the command below with `docker-compose run app` (as described in [Docker and exercism.io: Other Tasks](https://github.com/exercism/exercism.io/tree/master/docker#other-tasks)).
+
+If you are using Windows Subsystem for Linux, you may need [additional steps](#windows-subsystem-for-linux)
 
 ```
 $ bin/setup
@@ -176,6 +193,31 @@ user.submissions
 
 
 ## Troubleshoot
+
+### Windows Subsystem for Linux
+
+If ```$ bin/setup``` won't run, and gives you an error similar to ``` set: Illegal option -e ```, open bin/Setup in a text editor and try changing the line feed of the file from CRLF to LF.
+
+Any errors you get while installing the gems is likely because of a missing dependency.
+To find that dependency, take the path of the mkmf.log that was generated and run
+```
+$ vim /path/to/file/mkmf.log
+```
+(Replace /path/to/file with the path of the log file generated.)
+
+The file will likely indicated a missing header (the file indicated looks like "header.h"), look up the header in your search engine and find the package name for the missing header, and install it using:
+```
+$ sudo apt-get install pkg-name
+```
+(Replace pkg-name with the name of the package.)
+
+#### Nokogiri
+If Nokogiri fails to install with a error stating aclocal-1.13 is missing, run these commands:
+```
+$ sudo apt-get update
+$ sudo apt-get install libxml2-dev libxslt-dev
+$ bundle config build.nokogiri --use-system-libraries
+```
 
 ### Command not found errors
 
