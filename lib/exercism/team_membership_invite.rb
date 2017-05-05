@@ -16,7 +16,7 @@ class TeamMembershipInvite < ActiveRecord::Base
         confirmed: true
       )
 
-      destroy
+      destroy!
     end
   end
 
