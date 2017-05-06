@@ -164,7 +164,7 @@ Are you a language enthusiast?  Help other people fall in love with your languag
 This means helping maintain the code of the exercises and supporting tooling for a particular language.
 
 - Find a language you love or want to get to know better: http://exercism.io/repositories
-- Orient yourself through our [Getting Involved in a Track] (docs/getting-involved-in-a-track.md) guide.
+- Orient yourself through our [Getting Involved in a Track](docs/getting-involved-in-a-track.md) guide.
 
 
 ### I would like to help; I know / want to get better at web programming
