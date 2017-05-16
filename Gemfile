@@ -5,7 +5,7 @@ ruby '2.3.3'
 gem 'activesupport', '~> 4.2.1'
 gem 'activerecord', '~> 4.2.1'
 
-gem 'bugsnag'
+gem 'bugsnag', '~> 5.3'
 gem 'faraday'
 gem 'flipper', '0.10.2' # locked due to monkey patch
 gem 'flipper-active_record'
