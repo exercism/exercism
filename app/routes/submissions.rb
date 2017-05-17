@@ -52,7 +52,7 @@ module ExercismWeb
         redirect "/submissions/#{key}"
       end
 
-      get %r{^/submissions/(?<key>\w+)/(nitpick$|(\+?un)?like$)} do |key|
+      get %r{/submissions/(?<key>\w+)/(nitpick|(\+?un)?like)} do |key|
         redirect "/submissions/#{key}"
       end
 
