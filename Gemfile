@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 ruby '2.3.3'
 
-gem 'activesupport', '~> 4.2.1'
-gem 'activerecord', '~> 4.2.1'
+gem 'activesupport', '~> 4.2.8'
+gem 'activerecord', '~> 4.2.8'
 
 gem 'bugsnag', '~> 5.3'
 gem 'faraday'
