@@ -8,20 +8,32 @@
     box-shadow: 0 10px 0 #f1f1f1;
     min-height: 300px;
     min-width: 100%;
-    padding: 40px 0;
+    padding: 1em 0;
+
     .home-top-header {
       color: white;
       letter-spacing: -0.05em;
-      margin-bottom: 0px;
+      margin-bottom: 0;
+      margin-top: 0;
     }
   }
   .summary {
     padding: 20px 10px;
     box-shadow: 0 5px 0 #f1f1f1;
     border-bottom: 1px solid #eee;
-    p {
-      font-size: 1.5em;
-      margin: 0.5em;
+    li {
+      font-size: 1.6em;
+      margin: 1em 0;
+    }
+
+    i {
+      margin-right: .3em;
+    }
+
+    .features {
+      list-style: none;
+      width: 42em;
+      margin: 0 auto;
     }
   }
   .content-primary {
