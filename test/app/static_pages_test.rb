@@ -32,6 +32,12 @@ class StaticPagesTest < Minitest::Test
     assert_match(/Help/, last_response.body)
   end
 
+  def test_route_help_with_trailing_slash
+    get '/help/'
+    assert_equal 200, last_response.status
+    assert_match(/Help/, last_response.body)
+  end
+
   def test_route_how_it_works
     get '/how-it-works'
     assert_equal 200, last_response.status
