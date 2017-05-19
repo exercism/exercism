@@ -187,7 +187,6 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord (~> 5.1.1)
-  activesupport (~> 5.1.1)
   approvals
   bootstrap-sass
   bugsnag (~> 5.3)
