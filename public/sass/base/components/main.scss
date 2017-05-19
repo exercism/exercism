@@ -1,8 +1,16 @@
+@import "compass/css3/flexbox";
 @import "compass/typography/text/replacement";
 
 body {
+  @include display-flex();
+  @include flex-direction(column);
+  min-height: 100vh;
   padding-top: 50px;
   padding-bottom: 0px;
+}
+
+.main {
+  @include flex(1);
 }
 
 .contain-centered {
