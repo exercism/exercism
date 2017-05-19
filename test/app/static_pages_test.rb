@@ -36,7 +36,7 @@ class StaticPagesTest < Minitest::Test
     get '/how-it-works'
     assert_equal 200, last_response.status
     assert_match(/How it Works/, last_response.body)
-    assert_equal nil, session[:target_profile]
+    assert_nil session[:target_profile]
   end
 
   def test_route_how_it_works_polyglot

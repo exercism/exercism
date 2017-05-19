@@ -1,4 +1,4 @@
-class DropTableLooks < ActiveRecord::Migration
+class DropTableLooks < ActiveRecord::Migration[4.2]
   def up
     drop_table :looks
   end

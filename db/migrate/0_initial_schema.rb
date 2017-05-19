@@ -1,5 +1,5 @@
 # rubocop:disable Metrics/ClassLength
-class InitialSchema < ActiveRecord::Migration
+class InitialSchema < ActiveRecord::Migration[4.2]
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def change
     create_table :comments do |t|

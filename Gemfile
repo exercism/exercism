@@ -2,8 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.3.3'
 
-gem 'activesupport', '~> 4.2.1'
-gem 'activerecord', '~> 4.2.1'
+gem 'activerecord', '~> 5.1.1'
 
 gem 'bugsnag', '~> 5.3'
 gem 'faraday'
@@ -21,7 +20,7 @@ gem 'redcarpet', '~> 3.1'
 gem 'rouge', '~> 2.0.5'
 gem 'sinatra', '~> 2.0.0', require: 'sinatra/base'
 gem 'sinatra-contrib', '~> 2.0.0'
-gem 'sidekiq'
+gem 'sidekiq', '~> 4.2.10'
 gem 'trackler', '~> 2.1.0'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'

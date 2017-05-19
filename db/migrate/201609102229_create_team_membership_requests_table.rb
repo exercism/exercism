@@ -1,4 +1,4 @@
-class CreateTeamMembershipRequestsTable < ActiveRecord::Migration
+class CreateTeamMembershipRequestsTable < ActiveRecord::Migration[4.2]
   def up
     create_table :team_membership_requests do |t|
       t.integer :team_id, null: false

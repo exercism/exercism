@@ -1,4 +1,4 @@
-class RenameFiveADayCountsToDailyCounts < ActiveRecord::Migration
+class RenameFiveADayCountsToDailyCounts < ActiveRecord::Migration[4.2]
   def up
     rename_table :five_a_day_counts, :daily_counts
   end
