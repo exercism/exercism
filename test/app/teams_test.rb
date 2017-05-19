@@ -91,6 +91,17 @@ class TeamsTest < Minitest::Test
     end
   end
 
+  def test_logged_in_user_can_search_teams
+    [
+      [:get, '/teams'],
+      [:get, '/teams/']
+    ].each do |verb, endpoint|
+      send verb, endpoint, {}, login(alice)
+      assert_equal 200, last_response.status
+      assert_match(/teams/i, last_response.body)
+    end
+  end
+
   def test_user_must_be_on_team_to_view_team_page
     team = Team.by(alice).defined_with(slug: 'abc')
     team.save

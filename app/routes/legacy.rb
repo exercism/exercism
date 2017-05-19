@@ -9,10 +9,6 @@ module ExercismWeb
         redirect "/submissions/#{key}"
       end
 
-      get '/help/?*' do
-        redirect '/help'
-      end
-
       get '/setup/?*' do
         redirect "/help"
       end
