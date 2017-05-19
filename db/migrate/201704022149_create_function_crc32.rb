@@ -1,4 +1,4 @@
-class CreateFunctionCrc32 < ActiveRecord::Migration
+class CreateFunctionCrc32 < ActiveRecord::Migration[4.2]
   def up
     ActiveRecord::Base.connection.execute <<~SQL
       CREATE FUNCTION crc32(text_string text) RETURNS bigint AS $$

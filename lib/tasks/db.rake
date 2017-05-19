@@ -79,7 +79,7 @@ namespace :db do
       now = Time.now.strftime("%Y%m%d%H%M")
       filename = "./db/migrate/#{now}_#{name.underscore}.rb"
       text = <<-text
-class #{name.camelcase} < ActiveRecord::Migration
+class #{name.camelcase} < ActiveRecord::Migration[5.1]
   def change
   end
 end

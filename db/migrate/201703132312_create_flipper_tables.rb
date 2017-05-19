@@ -1,4 +1,4 @@
-class CreateFlipperTables < ActiveRecord::Migration
+class CreateFlipperTables < ActiveRecord::Migration[4.2]
   def self.up
     # Migration may have already run with a different version before it was renamed
     if table_exists? :flipper_features

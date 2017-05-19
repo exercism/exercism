@@ -1,4 +1,4 @@
-class CreateFiveADayCountsTable < ActiveRecord::Migration
+class CreateFiveADayCountsTable < ActiveRecord::Migration[4.2]
   def change
     create_table :five_a_day_counts do |t|
       t.integer :user_id, null: false

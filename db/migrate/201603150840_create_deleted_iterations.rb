@@ -1,4 +1,4 @@
-class CreateDeletedIterations < ActiveRecord::Migration
+class CreateDeletedIterations < ActiveRecord::Migration[4.2]
   def change
     create_table :deleted_iterations do |t|
       t.integer  :user_id,          null: false

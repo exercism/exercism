@@ -1,4 +1,4 @@
-class CreateLifecycleEvents < ActiveRecord::Migration
+class CreateLifecycleEvents < ActiveRecord::Migration[4.2]
   def change
     create_table :lifecycle_events do |t|
       t.integer   :user_id

@@ -1,4 +1,4 @@
-class DeleteMasteryOnUser < ActiveRecord::Migration
+class DeleteMasteryOnUser < ActiveRecord::Migration[4.2]
   def up
     remove_column :users, :mastery
   end

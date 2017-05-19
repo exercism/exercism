@@ -1,4 +1,4 @@
-class CreateConversationSubscriptions < ActiveRecord::Migration
+class CreateConversationSubscriptions < ActiveRecord::Migration[4.2]
   def change
     create_table :conversation_subscriptions do |t|
       t.integer  :user_id,          null: false

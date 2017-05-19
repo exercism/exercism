@@ -1,4 +1,4 @@
-class AddColumnsToNotification < ActiveRecord::Migration
+class AddColumnsToNotification < ActiveRecord::Migration[4.2]
   def change
     add_column :notifications, :action, :string
     add_column :notifications, :actor_id, :integer
