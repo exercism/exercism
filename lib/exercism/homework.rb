@@ -46,7 +46,10 @@ class Homework
 
   def extract(sql)
     UserExercise.connection.execute(sql).each_with_object(empty_hash) do |row, exercises|
-      exercises[row['language']] << { 'slug' => row['slug'], 'state' => row['archived'] == 't' ? 'archived' : 'active' }
+      exercises[row['language']] << {
+        'slug' => row['slug'],
+        'state' => row['archived'] ? 'archived' : 'active'
+      }
     end
   end
 

@@ -41,7 +41,7 @@ class CreatesCommentTest < Minitest::Test
   def test_empty_nit_does_not_get_created
     nitpicker = User.new(username: 'alice')
     CreatesComment.new(submission.id, nitpicker, '').create
-    assert_equal 0, submission.comments(true).count
+    assert_equal 0, submission.comments.reload.count
   end
 
   def test_nitpicking_archived_exercise_does_not_reactivate_it

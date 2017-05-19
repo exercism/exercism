@@ -25,7 +25,6 @@ require 'api/v1'
 
 ENV['RACK_ENV'] ||= 'development'
 
-use ActiveRecord::ConnectionAdapters::ConnectionManagement
 use Rack::MethodOverride
 run Rack::URLMap.new(
   "/" => ExercismWeb::App,
