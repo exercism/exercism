@@ -3,34 +3,28 @@
     <section class="page-header">
       <h1>Languages</h1>
     </section>
-    <% active.each_slice(6) do |tracks| %>
-      <div class="row">
-        <% tracks.each do |t| %>
-          <%= erb :'languages/_block', locals: { track: t } %>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="languages-list">
+      <% active.each do |t| %>
+        <%= erb :'languages/_block', locals: { track: t } %>
+      <% end %>
+    </div>
 
     <section class="page-header">
       <h3>Upcoming</h3>
     </section>
-    <% upcoming.each_slice(6) do |tracks| %>
-      <div class="row">
-        <% tracks.each do |t| %>
-          <%= erb :'languages/_block', locals: { track: t } %>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="languages-list">
+      <% upcoming.each do |t| %>
+        <%= erb :'languages/_block', locals: { track: t } %>
+      <% end %>
+    </div>
 
     <section class="page-header">
       <h3>Planned</h3>
     </section>
-    <% planned.each_slice(6) do |tracks| %>
-      <div class="row">
-        <% tracks.each do |t| %>
-          <%= erb :'languages/_block', locals: { track: t } %>
-        <% end %>
-      </div>
-    <% end %>
+    <div class="languages-list">
+      <% planned.each do |t| %>
+        <%= erb :'languages/_block', locals: { track: t } %>
+      <% end %>
+    </div>
   </div>
 </div>

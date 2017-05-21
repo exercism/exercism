@@ -1,9 +1,20 @@
+@import "compass/css3/flexbox";
 @import '../mixins/track_link';
 
-#languages, #contribute{
+#contribute{
   .row{
-    display: flex;
-    flex-wrap: wrap;
+    @include display-flex();
+    @include flex-wrap(wrap);
+  }
+  @include track_link;
+}
+
+#languages{
+  .languages-list{
+    @include display-flex();
+    @include flex-wrap(wrap);
+    margin-left: -15px;
+    margin-right: -15px;
   }
   @include track_link;
 }
