@@ -6,6 +6,7 @@ module ExercismWeb
       end
 
       get '/contribute/canonical-data/?:slug?' do |slug|
+        slug ||= ''
         problem = Trackler.problems[slug]
 
         erb :"contribute/canonical_data", locals: {
