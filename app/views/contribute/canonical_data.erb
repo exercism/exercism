@@ -67,7 +67,7 @@
             <% implementations.each do |implementation| %>
               <ul>
                 <li>
-                <a href="<%= [implementation.repo, implementation.exercise_dir].join("/") %>">
+                <a href="<%= [implementation.track.repository, implementation.send(:exercise_dir)].join("/") %>">
                     <%= Trackler.tracks[implementation.track_id].language %>
                   </a>
                 </li>
