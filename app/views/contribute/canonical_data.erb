@@ -50,13 +50,15 @@
 
           <% else %>
 
+            <p><%= current_problem.blurb %></p>
+            <p>
+            View the full problem description <a href="<%= current_problem.description_url %>">here</a>.
+            </p>
+
             <p>
               The process for extracting canonical data is described in the <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#improving-consistency-by-extracting-shared-test-data">Contributing Guide</a>.
             </p>
 
-            <p>
-            View the problem description <a href="<%= current_problem.description_url %>">here</a>.
-            </p>
 
             <h2>Implementations</h2>
 
