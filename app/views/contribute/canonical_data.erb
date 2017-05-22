@@ -46,7 +46,7 @@
         <% if current_problem.exists? %>
 
           <% if !!current_problem.canonical_data_url %>
-            <p>This problem already has a <code>canonical-data.json</code> file. You can view it <a href="https://github.com/exercism/x-common/blob/master/exercises/<%= current_problem.slug %>/canonical-data.json">here</a>.</p>
+            <p>This problem already has a <code>canonical-data.json</code> file. You can view it <a href="<%= current_problem.canonical_data_url %>">here</a>.</p>
 
           <% else %>
 
