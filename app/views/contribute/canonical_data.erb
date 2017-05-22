@@ -81,15 +81,13 @@
 
         <% else %>
 
-          <% active_problems = Trackler.problems.reject(&:deprecated?) %>
-
-          <p>We have a total of <%= active_problems.count %> problems on Exercism. Some are implemented in many language tracks, others are implemented in just a few.</p>
+          <p>We have a total of <%= active_problems_count %> problems on Exercism. Some are implemented in many language tracks, others are implemented in just a few.</p>
 
           <p>
           To make it easier to port exercises to new language tracks, we're in the process of creating canonical test data for each problem.
           This gets implemented into a file called <code>canonical-data.json</code>. The file lives in <a href="https://github.com/exercism/x-common">exercism/x-common</a> repository, alongside the other common data for the problem.</p>
 
-          <p>So far we've extracted canonical data for <%= active_problems.select(&:canonical_data_url).count %> of the <%= active_problems.count %> problems. Just <%= problems.count %> more to go!</p>
+          <p>So far we've extracted canonical data for <%= canonical_problems_count %> of the <%= active_problems_count %> problems. Just <%= problems.count %> more to go!</p>
 
           <p>Want to help out? Pick an exercise from the list in the sidebar, and check out the documentation in <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#improving-consistency-by-extracting-shared-test-data">the contributing guide</a>.</p>
 

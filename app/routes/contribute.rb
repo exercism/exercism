@@ -12,6 +12,8 @@ module ExercismWeb
         erb :"contribute/canonical_data", locals: {
           current_problem: problem,
           problems: Trackler.problems.reject(&:deprecated?).reject(&:canonical_data_url).sort_by(&:name),
+          active_problems_count: Trackler.problems.reject(&:deprecated?).size,
+          canonical_problems_count: Trackler.problems.select(&:canonical_data_url).size,
           implementations: Trackler.implementations[slug],
         }
       end
