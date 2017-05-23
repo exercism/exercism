@@ -6,12 +6,17 @@ module ExercismWeb
       end
 
       get '/contribute/canonical-data/?:slug?' do |slug|
-        problem = Trackler.problems[slug]
+        slug ||= ''
+
+        active_problems = Trackler.problems.reject(&:deprecated?).sort_by(&:name)
+        need_canonical  = active_problems.reject(&:canonical_data_url)
 
         erb :"contribute/canonical_data", locals: {
-          current_problem: problem,
-          problems: Trackler.problems.reject(&:deprecated?).reject(&:canonical_data_url).sort_by(&:name),
+          current_problem: Trackler.problems[slug],
           implementations: Trackler.implementations[slug],
+          problems: need_canonical,
+          active_problems_count: active_problems.size,
+          canonical_problems_count: [active_problems - need_canonical].size
         }
       end
     end
