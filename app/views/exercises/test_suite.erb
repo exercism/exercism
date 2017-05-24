@@ -1,5 +1,5 @@
 <div class="container">
-  <%= erb :"exercises/_nav", locals: {track: track, problem: implementation.problem, active: 'tests' } %>
+  <%= erb :"exercises/_nav", locals: {track: track, problem: implementation, active: 'tests' } %>
 
   <% implementation.files.select { |f, _| f =~ track.test_pattern }.each do |filename, content| %>
     <div>

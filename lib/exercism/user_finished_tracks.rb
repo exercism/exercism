@@ -25,12 +25,12 @@ class UserFinishedTracks
   end
 
   def count_finished_problems(user_finished_exercises, track)
-    (user_finished_exercises & track.problems.map(&:slug)).size
+    (user_finished_exercises & track.implementations.map(&:slug)).size
   end
 
   def completed?(user_track, full_track)
     problems_solved = count_finished_problems(user_track['completed_problems'].split(','), full_track)
-    problems_solved >= full_track.problems.size
+    problems_solved >= full_track.implementations.size
   end
 
   def completed_count_sql

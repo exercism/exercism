@@ -3,7 +3,7 @@ module ExercismWeb
     class Stats < Core
       get '/stats' do
         if $flipper[:participation_stats].enabled?(current_user)
-          tracks = Trackler.tracks.reject {|track| track.problems.count.zero? }.sort_by(&:language)
+          tracks = Trackler.tracks.reject {|track| track.implementations.count.zero? }.sort_by(&:language)
           start_date = Date.parse(ParticipationStats::PRE_GAMIFICATION_COMPARISON_DATE)
           end_date = Date.parse(ParticipationStats::GAMIFICATION_EXPERIMENT_END_DATE)
           date_range = start_date..end_date
@@ -37,7 +37,7 @@ module ExercismWeb
           redirect '/stats'
         end
 
-        slugs = track.problems.map(&:slug)
+        slugs = track.implementations.map(&:slug)
         stats = ExercismLib::TrackStats.new(track.id, slugs)
         datasets = [
           stats,
@@ -46,7 +46,7 @@ module ExercismWeb
         ] + stats.historical(6)
 
         erb :"stats/index", locals: {
-          tracks: Trackler.tracks.reject {|track| track.problems.count.zero? }.sort_by(&:language),
+          tracks: Trackler.tracks.reject {|track| track.implementations.count.zero? }.sort_by(&:language),
           track: track,
           datasets: datasets,
         }
