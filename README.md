@@ -60,14 +60,9 @@ If you need to report something, please email [@kytrinyx](https://github.com/kyt
 
 There are many ways to contribute to Exercism, and only a few of them involve writing code.
 
-Use our guide to help you find the right spot to start: 
-
-https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md
-
+Use our [guide to finding your way][finding-your-way] to help you find the right spot to start.
 
 ### Setting up your development environment
-
-If you want to work on a language track, you don't need to run the exercism.io website locally. Just clone down the [repository of the language you're interested](http://exercism.io/repositories#language-tracks-you-can-contribute-to) and follow the instructions in the README and Contributing Guide there.
 
 If you want to work on the Exercism website, check out the installation instructions in the [Contributing Guide](https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md) in this repository.
 
@@ -80,3 +75,5 @@ We send out a weekly "behind the scenes" update about new language tracks, bugs 
 Exercism.io is free and open source, and many, many people have contributed to the project. This is a project that started by accident and could never have gotten off the ground by the efforts of any single person.
 
 **Thank you!** :heart:
+
+[finding-your-way]: https://github.com/exercism/docs/blob/master/finding-your-way.md
