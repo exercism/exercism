@@ -30,9 +30,9 @@
       <% if experiment_completed || user_may_see_early %>
         <div class="motivation-experiment-content review-data" data-stats='<%= stats.to_json %>'>
           <h3>Review Quantity</h3>
-          <div class="review-quantity-summary-chart" width="800" height="400"></div>
+          <div class="review-quantity-summary-chart" width="800" height="400" data-y-axis-range="[-0.1, 13]"></div>
           <h3>Review Length</h3>
-          <div class="review-length-summary-chart" width="800" height="400"></div>
+          <div class="review-length-summary-chart" width="800" height="400" data-y-axis-range="[0, 1000]"></div>
         </div>
       <% else %>
         <p>

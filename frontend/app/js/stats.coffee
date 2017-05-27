@@ -29,7 +29,12 @@ class ExperimentStatsPlot
     $(@selector).each (_, container) => @renderPlot(container)
 
   renderPlot: (container) ->
-    Plotly.newPlot(container, @datasets(), title: @title, boxmode: 'group', legend: {orientation: 'h'})
+    layout =
+      title: @title
+      boxmode: 'group'
+      legend: {orientation: 'h'}
+      yaxis: {range: $(container).data('y-axis-range')}
+    Plotly.newPlot(container, @datasets(), layout)
 
   datasets: ->
     [] # override
