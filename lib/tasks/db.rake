@@ -48,8 +48,13 @@ namespace :db do
     end
   end
 
-  desc "drop and recreate your database"
-  task reset: %i(drop create)
+  desc "drop and recreate and migrate your database"
+  task reset: %i(drop create migrate) do
+    unless ENV['RACK_ENV'] == 'test'
+      puts "You probably want to seed the database now: bundle exec rake db:seed"
+    end
+  end
+
 
   desc "drop your database"
   task :drop do
