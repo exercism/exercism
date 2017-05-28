@@ -23,6 +23,7 @@ namespace :db do
 
   desc "generate seed data"
   task seed: [:connection] do
+    fail "Seeding the test database would cause many tests to fail." if ENV['RACK_ENV'] == 'test'
     require_comments
     config = DB::Config.new
     # rubocop:disable Style/AlignParameters
