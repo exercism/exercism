@@ -80,7 +80,3 @@ We send out a weekly "behind the scenes" update about new language tracks, bugs 
 Exercism.io is free and open source, and many, many people have contributed to the project. This is a project that started by accident and could never have gotten off the ground by the efforts of any single person.
 
 **Thank you!** :heart:
-
-## License
-
-See the [LICENSE](https://github.com/exercism/exercism.io/blob/master/LICENSE) file.
