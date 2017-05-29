@@ -43,7 +43,8 @@
 
     <div class="clearfix"></div>
     <div class="submission-author text-muted">
-      submitted in <%= Trackler.tracks[submission.language].language %> by <%= gravatar_tag submission.user.avatar_url, size: 20 %>
+      submitted in <%= Trackler.tracks[submission.language].language %>
+      by <%= gravatar_tag submission.user.avatar_url, size: 20 %>
       <%= profile_link(submission.user) %>
       <%= ago(submission.created_at) %>
 
