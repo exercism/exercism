@@ -2,7 +2,7 @@ module ExercismWeb
   module Routes
     class Profile < Core
       before do
-        if $flipper[:advertise_cli_update].enabled?(current_user) && page_request?
+        if page_request? && $flipper[:advertise_cli_update].enabled?(current_user)
           client_version = ClientVersion.new(user: current_user)
           flash.now[:notice] ||= client_version.notice_when_client_outdated
         end
