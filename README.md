@@ -60,10 +60,9 @@ If you need to report something, please email [@kytrinyx](https://github.com/kyt
 
 There are many ways to contribute to Exercism, and only a few of them involve writing code.
 
-Use our guide to help you find the right spot to start: 
+Use our guide to help you find the right spot to start:
 
-https://github.com/exercism/exercism.io/blob/master/CONTRIBUTING.md
-
+https://github.com/exercism/docs/blob/master/finding-your-way.md
 
 ### Setting up your development environment
 
