@@ -21,7 +21,7 @@ module ExercismWeb
         enable :show_exceptions
       end
 
-      unless settings.test?
+      unless settings.test? || settings.development?
         error 500 do
           metadata = {
             user: {
