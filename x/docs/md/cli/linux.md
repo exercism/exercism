@@ -74,7 +74,7 @@ You can now continue by [choosing a language](http://exercism.io/languages).
 
 ### Uninstalling the Exercism CLI
 
-Remove the files from the `~/bin` directory with the following command
+Remove the file from the `~/bin` directory with the following command:
 
 ```bash
 rm ~/bin/exercism
