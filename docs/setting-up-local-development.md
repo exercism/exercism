@@ -42,7 +42,7 @@ Exercism.io depends on the following:
 
 These instructions present two options:
 
-1. Run exercism.io on your computer directly by installing the required software as listed in the following section (Running exercism.io directly on your computer).
+1. Run exercism.io [directly on your computer](#running-exercisimio-directly-on-your-computer).
 2. Run exercism.io [with Docker](#running-exercismio-with-docker).
 
 ### Running exercism.io directly on your computer
