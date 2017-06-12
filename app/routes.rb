@@ -28,7 +28,7 @@ module ExercismWeb
       Subscriptions: 'subscriptions',
       Errors: 'errors',
       User: 'user',
-      GithubCallback: 'github_callback',
+      GitHubCallback: 'github_callback',
       Profile: 'profile',
     }.each do |name, file|
       autoload name, Exercism.relative_to_root('app', 'routes', file)

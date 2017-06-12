@@ -52,21 +52,21 @@ class User < ActiveRecord::Base
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def self.from_github(id, username, email, avatar_url, joined_as=nil)
-    user = User.where(github_id: id).first
+  def self.from_authentication_data(github_user, joined_as=nil)
+    user = User.where(github_id: github_user.id).first
     # try to match an invitation that has been sent.
     # GitHub ID will only be nil if the user has never logged in.
-    user = User.where(username: username, github_id: nil).first if user.nil?
-    user = User.new(github_id: id, email: email) if user.nil?
+    user = User.where(username: github_user.username, github_id: nil).first if user.nil?
+    user = User.new(github_id: github_user.id, email: github_user.email) if user.nil?
     user.joined_as = joined_as if user.joined_as.nil? && !!joined_as
 
-    user.github_id  = id
-    user.email      = email unless user.email
-    user.username   = username
-    user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url
+    user.github_id  = github_user.id
+    user.email      = github_user.email unless user.email
+    user.username   = github_user.username
+    user.avatar_url = github_user.avatar_url.gsub(/\?.+$/, '') if github_user.avatar_url
     user.save
 
-    conflict = User.where(username: username).first
+    conflict = User.where(username: github_user.username).first
     if conflict.present? && conflict.github_id != user.github_id
       conflict.username = ''
       conflict.save

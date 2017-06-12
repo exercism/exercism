@@ -1,6 +1,6 @@
 module ExercismWeb
   module Routes
-    module GithubCallback
+    module GitHubCallback
       # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
       def self.registered(app)
         app.get '/github/callback/?*' do

@@ -1,7 +1,7 @@
 module ExercismWeb
   module Routes
     class Sessions < Core
-      register ExercismWeb::Routes::GithubCallback
+      register ExercismWeb::Routes::GitHubCallback
 
       get '/please-login' do
         erb :"auth/please_login", locals: { return_path: params[:return_path] }
@@ -12,7 +12,7 @@ module ExercismWeb
         if params.key?("return_path")
           q[:redirect_uri] = [request.base_url, "github", "callback", params[:return_path]].join("/")
         end
-        redirect Github.login_url(q)
+        redirect GitHubAuth.login_url(q)
       end
 
       get '/logout' do
