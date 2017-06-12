@@ -7,8 +7,11 @@ module ExercismWeb
           halt 400, "Must provide parameter 'code'" unless params[:code]
 
           begin
-            user = Authentication.perform(params[:code], github_client_id, github_client_secret, session[:target_profile])
+            user, access_token = Authentication.perform(params[:code], github_client_id, github_client_secret, session[:target_profile])
+            session[:access_token] = access_token
             login(user)
+          rescue Github::UnauthorizedUser => e
+            session[:access_token] = nil
           rescue StandardError => e
             Bugsnag.notify(e, nil, request)
             flash[:error] = "We're having trouble with logins right now. Please come back later."
