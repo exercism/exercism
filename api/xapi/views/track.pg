@@ -1,0 +1,22 @@
+node :track => track do
+  attributes :language, :id
+  node :active => track.active?
+  node :slug => track.id
+  node :problems => track.implementations.map {|problem| "%s/%s" % [track.id, problem.slug]}
+  node :repository => track.repository
+  node :todo => todos[track.id].map(&:slug)
+  node :test_pattern => track.test_pattern
+end
+
+collection :problems => track.implementations do |implementation|
+  node track_id: track.id
+  node language: track.language
+
+  node id: implementation.slug
+  node slug: implementation.slug
+  node name: implementation.name
+  node files: implementation.files
+
+  # deprecated
+  node fresh: false
+end

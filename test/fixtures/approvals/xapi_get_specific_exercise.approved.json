@@ -1,0 +1,17 @@
+{
+  "problems": [
+    {
+      "id": "fruit/apple",
+      "track_id": "fruit",
+      "language": "fruit",
+      "slug": "apple",
+      "name": "Apple",
+      "files": {
+        "apple.ext": "an apple a day keeps the doctor away\n",
+        "apple.tst": "assert 'apple'\n",
+        "README.md": "# Apple\n\n* apple\n* apple again\n\n## Source\n\nThe internet.\n\n## Submitting Incomplete Solutions\nIt's possible to submit an incomplete solution so you can see how others have completed the exercise.\n\n"
+      },
+      "fresh": false
+    }
+  ]
+}

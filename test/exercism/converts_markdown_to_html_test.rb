@@ -1,7 +1,7 @@
 require 'bundler'
 Bundler.setup
 require_relative '../test_helper'
-require_relative '../approval_helper'
+require_relative '../approvals_hack'
 require 'exercism/markdown'
 require 'exercism/converts_markdown_to_html'
 require 'mocha/setup'
