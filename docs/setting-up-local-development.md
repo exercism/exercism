@@ -303,18 +303,10 @@ The current checks include:
 To run a single Ruby test, you can do so with:
 
 ```bash
-ruby path/to/the_test.rb
-```
-
-If it complains about dependencies, then either we forgot to require the correct dependencies (a distinct possibility), or we are depending on a particular tag of a gem installed directly from GitHub (this happens on occasion).
-
-If there's a git dependency, you can do this:
-
-```bash
 bundle exec ruby path/to/the_test.rb
 ```
 
-For the require, you'll need to figure out what the missing dependency is. Feel free to [open a GitHub
+If it complains about dependencies, feel free to [open a GitHub
 issue](https://github.com/exercism/exercism.io/issues). It's likely that someone familiar with the codebase will be able to identify the problem immediately.
 
 ### Test Order
