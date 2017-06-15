@@ -27,7 +27,7 @@ Help us keep exercism welcoming. Please read and abide by the [Code of Conduct][
 These instructions should get you closer to getting a commit into the
 repository.
 
-See the [Setting up Local Development guide][local-dev-guide] for more information about how to run exercism.io locally.
+See the [Setting up Local Development guide][local-dev-env] for more information about how to run exercism.io locally.
 
 ### Git Workflow
 
@@ -90,7 +90,7 @@ For details, please see [exercism/discussions#113][roadmap].
 [finding-your-way]: https://github.com/exercism/docs/blob/master/finding-your-way.md
 [docs]: https://github.com/exercism/docs
 [coc]: https://github.com/exercism/exercism.io/blob/master/CODE_OF_CONDUCT.md
-[local-dev-env]: /docs/setting-up-local-development.md
+[local-dev-env]: https://github.com/exercism/exercism.io/blob/master/docs/setting-up-local-development.md
 [issues]: https://github.com/exercism/exercism.io/issues
 [discussions]: https://github.com/exercism/discussions/issues
 [good-first-patch]: https://github.com/exercism/exercism.io/labels/good%20first%20patch
