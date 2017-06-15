@@ -81,6 +81,12 @@ The pull request points to that branch, not to specific commits.
 
 Here's a guide on [how to squash commits in a GitHub pull request][squash-commits].
 
+### Deployment
+
+After your pull request is merged, we [deploy][live-deployment] it. Deploys are
+done periodically, and it is possible that you won't be able to see your changes
+on the website right away.
+
 ## Roadmap
 
 We are currently working on reimagining the Exercism user experience from the ground up.
@@ -97,3 +103,4 @@ For details, please see [exercism/discussions#113][roadmap].
 [rubocop]: https://github.com/bbatsov/rubocop
 [roadmap]: https://github.com/exercism/discussions/issues/113
 [squash-commits]: http://blog.steveklabnik.com/posts/2012-11-08-how-to-squash-commits-in-a-github-pull-request
+[live-deployment]: https://github.com/exercism/exercism.io/blob/master/docs/setting-up-local-development.md#live-deployment
