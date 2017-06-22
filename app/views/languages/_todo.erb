@@ -1,20 +1,4 @@
-<h3>Add new exercises to <%= track.language %></h3>
-<p>
-  One of the easiest ways to add new exercises to the <%= track.language %> track is to translate them from other language tracks on Exercism. This page lists all of the exercises that exist on Exercism, but have not yet been implemented in <%= track.language %>.
-</p>
-<p>
-  The <i style="font-size: 20px;" class="fa fa-info-circle icon-red"></i>
-  icon links to the generic, language-independent problem description
-</p>
-<p>
-  The <i style="font-size: 20px;" class="fa fa-list icon-red"></i>
-  icon links to the canonical test data
-</p>
-
-<p>The language icons link to each existing implementation of the problem.</p>
-<p>
-Once you've picked an exercise, follow the instructions in the <a href="https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/porting-an-exercise.md" target="_blank">Contributing Guide</a> and submit your pull request to the <a href="<%= track.repository %>" target="_blank"><%= track.language %> track repository</a> on GitHub.
-</p>
+<%= md X::Docs::Track.new(track).todo %>
 
 <% todos = Trackler.todos[track.id] %>
 <% if todos.count.zero? %>
