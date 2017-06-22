@@ -3,7 +3,7 @@ require_relative '../../x'
 module ExercismWeb
   module Routes
     class Languages < Core
-      TOPICS = %w(about exercises installing tests learning resources help launch contribute todo).freeze
+      TOPICS = %w(about exercises installation tests learning resources help launch contribute todo).freeze
 
       get '/languages' do
         tracks = Trackler.tracks
