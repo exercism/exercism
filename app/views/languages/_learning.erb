@@ -1,1 +1,6 @@
-<%= md docs.learning %>
+<% if docs.learning.empty? %>
+  <%= md x_docs.learning %>
+<% else %>
+  <%= md docs.learning %>
+  <%= md x_docs.better('learning') %>
+<% end %>

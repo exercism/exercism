@@ -1,1 +1,6 @@
-<%= md docs.tests %>
+<% if docs.tests.empty? %>
+  <%= md x_docs.tests %>
+<% else %>
+  <%= md docs.tests %>
+  <%= md x_docs.better('tests') %>
+<% end %>

@@ -1,2 +1,8 @@
-<%= md docs["about"] %>
-<%= md X::Docs::Track.new(track).try %>
+<% if docs.about.empty? %>
+  <%= md x_docs.about %>
+<% else %>
+  <%= md docs.about %>
+  <%= md x_docs.better('about') %>
+<% end %>
+
+<%= md x_docs.try %>

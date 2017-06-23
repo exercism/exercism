@@ -1,1 +1,6 @@
-<%= md docs.installation %>
+<% if docs.installation.empty? %>
+  <%= md x_docs.installation %>
+<% else %>
+  <%= md docs.installation %>
+  <%= md x_docs.better('installation') %>
+<% end %>
