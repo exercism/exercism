@@ -1,6 +1,8 @@
 ## Windows
 
-Below are installation instructions, using the most common method, the Chocolately Package Manager. For further help and instructions, see the following:
+There is an [installer for Windows](https://github.com/exercism/windows-installer/releases) available on GitHub. The instructions for using the installer can be found [in the README](https://github.com/exercism/windows-installer/blob/master/README.md).
+
+Below are installation instructions for using the Chocolately Package Manager. For further help and instructions, see the following:
 
 1. [Install Alternatives for instructions on installing manually on windows](/clients/cli/install)
 2. [exercism.io general help](http://exercism.io/help)
