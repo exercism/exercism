@@ -20,13 +20,13 @@
 
         <p>The language icons link to each existing implementation of the problem.</p>
         <p>
-        Once you've picked an exercise, follow the instructions in the <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#porting-an-exercise-to-another-language-track" target="_blank">Contributing Guide</a> and submit your pull request to the <a href="<%= exercises.repository %>" target="_blank"><%= exercises.language %> track repository</a> on GitHub.
+        Once you've picked an exercise, follow the instructions in the <a href="https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/porting-an-exercise.md" target="_blank">Contributing Guide</a> and submit your pull request to the <a href="<%= exercises.repository %>" target="_blank"><%= exercises.language %> track repository</a> on GitHub.
         </p>
       </div>
     </div>
     <% if exercises.count.zero? %>
       <div class="col-md-12 jumbotron">
-        <p>All exercises are implemented in <%= exercises.language %>, you will need to <a href="https://github.com/exercism/x-common/blob/master/CONTRIBUTING.md#implementing-a-completely-new-exercise">invent a new exercise.</a></p>
+        <p>All exercises are implemented in <%= exercises.language %>, you will need to <a href="https://github.com/exercism/docs/blob/master/contributing-to-language-tracks/implementing-a-completely-new-exercise.md">invent a new exercise.</a></p>
       </div>
     <% else %>
       <% exercises.sort_by { |e| [-e.implementations.count,e.name] }.each_slice(3) do |todo| %>
