@@ -96,47 +96,19 @@ module Xapi
       end
       track_ids = track_ids & Trackler.tracks.map(&:id)
 
-      implementations = []
-
-      track_ids.each do |track_id|
-        track = Trackler.tracks[track_id]
-        slugs = slugs_by_track_id[track_id]
-        # pretend they already solved hello-world if they've
-        # solved anything at all.
-        slugs << 'hello-world' unless slugs.empty?
-        next_slug = (track.implementations.map(&:slug) - slugs).first
-        if !!next_slug
-          implementation = track.implementations[next_slug]
-          if implementation.exists?
-            implementations << implementation
-          end
-        end
+      implementations = track_ids.map do |track_id|
+        next_implementation_for(track_id)
       end
 
-      pg :implementations, locals: { implementations: implementations }
+      pg :implementations, locals: { implementations: implementations.compact }
     end
 
     get '/v2/exercises/:track_id' do |track_id|
       require_key
 
-      track = find_track(track_id)
+      implementations = [next_implementation_for(track_id)]
 
-      implementations = []
-
-      slugs = slugs_by_track_id[track_id]
-
-      # pretend they already solved hello-world if they've
-      # solved anything at all.
-      slugs << 'hello-world' unless slugs.empty?
-      next_slug = (track.implementations.map(&:slug) - slugs).first
-      if !!next_slug
-        implementation = track.implementations[next_slug]
-        if implementation.exists?
-          implementations << implementation
-        end
-      end
-
-      pg :implementations, locals: { implementations: implementations }
+      pg :implementations, locals: { implementations: implementations.compact }
     end
 
     get '/v2/exercises/:track_id/:slug' do |track_id, slug|
@@ -165,6 +137,22 @@ module Xapi
         problem["slug"]
       }
       end
+    end
+
+    def next_implementation_for(track_id)
+      track = find_track(track_id)
+
+      slugs = slugs_by_track_id[track_id]
+      # pretend they already solved hello-world if they've
+      # solved anything at all.
+      slugs << 'hello-world' unless slugs.empty?
+      next_slug = (track.implementations.map(&:slug) - slugs).first
+      return unless next_slug
+
+      implementation = track.implementations[next_slug]
+      return unless implementation.exists?
+
+      implementation
     end
   end
 end
