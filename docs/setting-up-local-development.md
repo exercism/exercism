@@ -42,8 +42,8 @@ Exercism.io depends on the following:
 
 These instructions present two options:
 
-1. Run exercism.io on your computer directly by installing the required software as listed in the following section (Running exercism.io directly on your computer).
-2. Run exercism.io [with Docker](#running-exercism-io-with-docker).
+1. Run exercism.io [directly on your computer](#running-exercisimio-directly-on-your-computer).
+2. Run exercism.io [with Docker](#running-exercismio-with-docker).
 
 ### Running exercism.io directly on your computer
 
@@ -133,6 +133,8 @@ To initialize your local copy of exercism.io, run the setup script:
 
 NOTE: If you are running exercism.io in a Docker container, prepend the command below with `docker-compose run app` (as described in [Docker and exercism.io: Other Tasks](https://github.com/exercism/exercism.io/tree/master/docker#other-tasks)).
 
+If you are using Windows Subsystem for Linux, you may need [additional steps](#windows-subsystem-for-linux)
+
 ```
 $ bin/setup
 ```
@@ -147,7 +149,7 @@ The script will:
 
 NOTE: If you are running exercism.io in a Docker container, prepend all commands below with `docker-compose run app` (as described in [Docker and exercism.io: Other Tasks](https://github.com/exercism/exercism.io/tree/master/docker#other-tasks)).
 
-After you have [initialized exercism.io](#initialize-exercism-io) successfully, you're ready to fire it up:
+After you have [initialized exercism.io](#initialize-exercismio) successfully, you're ready to fire it up:
 
 1. Start the server:
 
@@ -161,7 +163,7 @@ After you have [initialized exercism.io](#initialize-exercism-io) successfully, 
 
 When exploring our debugging, you may find it useful to have a [REPL](https://en.wikipedia.org/wiki/Read%E2%80%93eval%E2%80%93print_loop) that loads the exercism environment.  This is accomplished in Ruby environments through [`pry`](http://pryrepl.org/).
 
-After you have [initialized exercism.io](#initialize-exercism-io) successfully, you can start the REPL:
+After you have [initialized exercism.io](#initialize-exercismio) successfully, you can start the REPL:
 
 ```bash
 $ bundle exec bin/console
@@ -176,6 +178,31 @@ user.submissions
 
 
 ## Troubleshoot
+
+### Windows Subsystem for Linux
+
+If ```$ bin/setup``` won't run, and gives you an error similar to ``` set: Illegal option -e ```, open bin/Setup in a text editor and try changing the line feed of the file from CRLF to LF.
+
+Any errors you get while installing the gems is likely because of a missing dependency.
+To find that dependency, take the path of the mkmf.log that was generated and run
+```
+$ vim /path/to/file/mkmf.log
+```
+(Replace /path/to/file with the path of the log file generated.)
+
+The file will likely indicate a missing header (the file indicated looks like "header.h"), look up the header in your search engine and find the package name for the missing header, and install it using:
+```
+$ sudo apt-get install pkg-name
+```
+(Replace pkg-name with the name of the package.)
+
+#### Nokogiri
+If Nokogiri fails to install with a error stating aclocal-1.13 is missing, run these commands:
+```
+$ sudo apt-get update
+$ sudo apt-get install libxml2-dev libxslt-dev
+$ bundle config build.nokogiri --use-system-libraries
+```
 
 ### Command not found errors
 
@@ -219,7 +246,7 @@ If you have created a user and are having `PG::Connection ...` or `Peer authenti
 
 ### Authenticate with GitHub
 
-When you [initialized your local copy of exercism.io](#initialize-exercism-io), it created a set of fake users.  You can log in as one of these faked users by selecting the from the dropdown in the header.  This skips the need to do the OAuth flow with GitHub.
+When you [initialized your local copy of exercism.io](#initialize-exercismio), it created a set of fake users.  You can log in as one of these faked users by selecting the from the dropdown in the header.  This skips the need to do the OAuth flow with GitHub.
 
 However, if you want to work on the login flow, itself, or for some reason want to log in as yourself, then you will need to setup client authentication OAuth with GitHub.
 
@@ -276,18 +303,10 @@ The current checks include:
 To run a single Ruby test, you can do so with:
 
 ```bash
-ruby path/to/the_test.rb
-```
-
-If it complains about dependencies, then either we forgot to require the correct dependencies (a distinct possibility), or we are depending on a particular tag of a gem installed directly from GitHub (this happens on occasion).
-
-If there's a git dependency, you can do this:
-
-```bash
 bundle exec ruby path/to/the_test.rb
 ```
 
-For the require, you'll need to figure out what the missing dependency is. Feel free to [open a GitHub
+If it complains about dependencies, feel free to [open a GitHub
 issue](https://github.com/exercism/exercism.io/issues). It's likely that someone familiar with the codebase will be able to identify the problem immediately.
 
 ### Test Order

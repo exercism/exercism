@@ -1,4 +1,4 @@
-class DropLegacyNotificationColumns < ActiveRecord::Migration
+class DropLegacyNotificationColumns < ActiveRecord::Migration[4.2]
   def up
     remove_column :notifications, :item_type
     remove_column :notifications, :item_id

@@ -1,6 +1,6 @@
 require 'exercism/user'
 
-class AddMotivationExperimentOptOutToUsers < ActiveRecord::Migration
+class AddMotivationExperimentOptOutToUsers < ActiveRecord::Migration[4.2]
   def up
     add_column :users, :motivation_experiment_opt_out, :boolean, null: false, default: false
     discussing_users = %w(

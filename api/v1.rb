@@ -12,6 +12,10 @@ require_relative 'v1/routes'
 
 module ExercismAPI
   class App < Sinatra::Base
+    configure do
+      after { ActiveRecord::Base.connection.close }
+    end
+
     use Routes::Exercises
     use Routes::Iterations
     use Routes::Submissions

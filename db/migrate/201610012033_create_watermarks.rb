@@ -1,4 +1,4 @@
-class CreateWatermarks < ActiveRecord::Migration
+class CreateWatermarks < ActiveRecord::Migration[4.2]
   def change
     create_table :watermarks do |t|
       t.integer   :user_id, null: false

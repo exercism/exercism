@@ -1,6 +1,6 @@
 require 'exercism/user'
 
-class OptOutTheBot < ActiveRecord::Migration
+class OptOutTheBot < ActiveRecord::Migration[4.2]
   class User < ActiveRecord::Base; end
 
   def up

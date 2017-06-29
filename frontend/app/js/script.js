@@ -119,7 +119,7 @@ $(function() {
       var timeZoneAbbrevation = moment.tz(localizedTime.format("YYYY-MM-DD"), timeZone).format('z');
       // PST or PDT
 
-      var formattedTime = localizedTime.format("D MMMM YYYY [at] h:mm ");
+      var formattedTime = localizedTime.format("D MMMM YYYY [at] H:mm ");
       return formattedTime + timeZoneAbbrevation;
     }
 
@@ -142,7 +142,7 @@ $(function() {
     // construct reply
     var nitQuoted = "@" + nitpicker + " commented:\n";
     nitQuoted += nitRaw.split('\n').map(function(x) { return "> " + x; }).join('\n');
-    nitQuoted += '\n';
+    nitQuoted += '\n' + '\n';
 
     // switch to 'Write' tab incase 'Preview' tab was selected
     $(".write_tab").find('a').trigger('click');

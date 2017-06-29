@@ -20,6 +20,7 @@ module ExercismWeb
   class App < Sinatra::Base
     configure do
       use Rack::Session::Cookie, secret: ENV.fetch('SESSION_SECRET', DEFAULT_SESSION_KEY)
+      after { ActiveRecord::Base.connection.close }
     end
 
     if settings.development?

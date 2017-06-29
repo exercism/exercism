@@ -6,6 +6,7 @@ module ExercismWeb
         set :root, Exercism.relative_to_root('app')
         set :environment, ENV.fetch('RACK_ENV') { :development }.to_sym
         set :method_override, true
+        set :strict_paths, false
 
         enable :raise_errors
       end

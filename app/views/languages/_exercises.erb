@@ -20,7 +20,7 @@
 
 <h3>Available Exercises</h3>
 <ul class="available_exercises_listing">
-  <% track.problems.each do |problem| %>
+  <% track.implementations.each do |problem| %>
     <li>
     <a href="/exercises/<%= track.id %>/<%= problem.slug %>"><%= problem.name %></a>
     <span class="tagline"><%= problem.blurb %></span>

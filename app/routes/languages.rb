@@ -3,7 +3,7 @@ require_relative '../../x'
 module ExercismWeb
   module Routes
     class Languages < Core
-      TOPICS = %w(about exercises installing tests learning resources help launch contribute todo).freeze
+      TOPICS = %w(about exercises installation tests learning resources help launch contribute todo).freeze
 
       get '/languages' do
         tracks = Trackler.tracks
@@ -41,13 +41,13 @@ module ExercismWeb
           template = "topic_not_found"
         end
 
-        track = Trackler.tracks[track_id]
+        track = Presenters::Track.new(track_id)
         if track.exists?
           erb :"languages/language", locals: {
             track: track,
             topic: topic,
             template: template,
-            docs: track.docs("/api/v1/tracks/%s/images/docs/img" % track_id)
+            docs: track.docs
           }
         else
           language_not_found(track_id)

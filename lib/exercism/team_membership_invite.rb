@@ -9,14 +9,12 @@ class TeamMembershipInvite < ActiveRecord::Base
 
   def accept!
     ActiveRecord::Base.transaction do
-      TeamMembership.create!(
-        team_id: team_id,
-        user_id: user_id,
-        inviter_id: inviter_id,
-        confirmed: true
-      )
+      membership = TeamMembership.find_or_initialize_by(team_id: team_id, user_id: user_id)
+      membership.confirmed = true
+      membership.inviter_id ||= inviter_id
+      membership.save!
 
-      destroy
+      destroy!
     end
   end
 

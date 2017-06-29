@@ -157,7 +157,7 @@ class SubmissionsTest < Minitest::Test
     Hack::UpdatesUserExercise.new(alice.id, 'ruby', 'word-count').update
 
     delete "/submissions/#{sub.key}", {}, login(alice)
-    assert_equal nil, Submission.find_by_key(sub.key)
+    assert_nil Submission.find_by_key(sub.key)
   end
 
   def test_cant_delete_submission_user_doesnt_own
@@ -226,7 +226,7 @@ class SubmissionsTest < Minitest::Test
     note = Notification.create(user_id: alice.id, iteration_id: sub.id, actor_id: bob.id)
 
     delete "/submissions/#{sub.key}", {}, login(alice)
-    assert_equal nil, Notification.find_by_id(note.id)
+    assert_nil Notification.find_by_id(note.id)
   end
 
   def test_redirects_to_submission_page_when_comment_or_like

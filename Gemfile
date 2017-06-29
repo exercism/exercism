@@ -2,10 +2,9 @@ source 'https://rubygems.org'
 
 ruby '2.3.3'
 
-gem 'activesupport', '~> 4.2.1'
-gem 'activerecord', '~> 4.2.1'
+gem 'activerecord', '~> 5.1.1'
 
-gem 'bugsnag'
+gem 'bugsnag', '~> 5.3'
 gem 'faraday'
 gem 'flipper', '0.10.2' # locked due to monkey patch
 gem 'flipper-active_record'
@@ -19,10 +18,10 @@ gem 'rack-flash3', require: 'rack-flash'
 gem 'rake', '~> 10.5.0'
 gem 'redcarpet', '~> 3.1'
 gem 'rouge', '~> 2.0.5'
-gem 'sinatra', '~> 1.4.7', require: 'sinatra/base'
-gem 'sinatra-contrib', '~> 1.4.7'
-gem 'sidekiq'
-gem 'trackler', '~> 2.0.0'
+gem 'sinatra', '~> 2.0.0', require: 'sinatra/base'
+gem 'sinatra-contrib', '~> 2.0.0'
+gem 'sidekiq', '~> 4.2.10'
+gem 'trackler', '~> 2.1.0'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 

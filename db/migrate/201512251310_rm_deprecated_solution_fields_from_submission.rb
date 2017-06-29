@@ -1,4 +1,4 @@
-class RmDeprecatedSolutionFieldsFromSubmission < ActiveRecord::Migration
+class RmDeprecatedSolutionFieldsFromSubmission < ActiveRecord::Migration[4.2]
   def up
     remove_column :submissions, :code
     remove_column :submissions, :filename

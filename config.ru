@@ -1,3 +1,5 @@
+require "English"
+
 $LOAD_PATH.unshift File.expand_path("./..", __FILE__)
 $LOAD_PATH.unshift File.expand_path("./../lib", __FILE__)
 
@@ -25,7 +27,6 @@ require 'api/v1'
 
 ENV['RACK_ENV'] ||= 'development'
 
-use ActiveRecord::ConnectionAdapters::ConnectionManagement
 use Rack::MethodOverride
 run Rack::URLMap.new(
   "/" => ExercismWeb::App,

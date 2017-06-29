@@ -3,18 +3,36 @@
 Exercism is built with the [Sinatra](https://github.com/sinatra/sinatra) web framework.
 If you haven't heard of it, definitely check it out. It's a lightweight web framework for Ruby.
 
-Exercism seems to follow what some may call an MVP (Model-View-Presenter) architecture.
+Exercism kind of follows what some may call an MVP (Model-View-Presenter) architecture.
 Read more about that [here](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93presenter).
 
 ## Domain knowledge
 
-We have developed some domain concepts in order to communicate effectively. These concepts can help you gain a theoretical and practical understanding of Exercism:
+We have developed some domain concepts in order to communicate effectively.
+Check out the [glossary][], as this can help you gain a theoretical and practical understanding of Exercism.
 
-- **Language** is the name of a programming language. E.g. C++ or Objective-C or JavaScript.
-- **Track ID** is a normalized, url-safe identifier for a language track. E.g. cpp or objective-c or JavaScript.
-- **Problem** is an Exercism exercise.
-- **Problem Slug** is a normalized, url-safe identifier for a problem.
-- **Iteration** is a solution that a user has written for a particular problem in a particular language track. A user may have several iterations for the same problem.
+Unfortunately, the exercism.io codebase is a jumble of old hacks and accreted scar tissue from four years of experimentation, so a lot of the
+terms in the codebase do not match those that we've settled on.
+
+E.g.:
+
+- `UserExercise` refers to a _solution_
+- `Submission` refers to an _iteration_
+- `Problem` refers to a _specification_
+
+## An Apology
+
+OK. So, first off: we're sorry. Very, very sorry.
+
+The exercism.io codebase is a disastrous mess. Not kidding.
+
+This is not good code except in the sense that it let us learn important things.
+Most of this codebase happened by accident as we experimented and started figuring out what Exercism was going to be.
+
+Half the time, we don't even know where to look in the code. So if you're confused, rest assured: It's not you.
+
+Now, the good news. There's pretty decent test coverage. That means that for the most part, if the tests still run once you've
+changed things, then the site probably works.
 
 ## Overview
 
@@ -22,37 +40,18 @@ The system is broken into smaller components which represent different areas of 
 
 ![Core flow sequence diagram](img/core_flow_sequence_diagram.png)
 
-The components that make up Exercism are:
+The components that make up the exercism.io codebase are:
 
-- [the website](#the-website)
-- [the CLI](#the-cli)
-- [the API](#the-api)
-- [the Trackler](#the-trackler)
-
-### The Website
-
-The [exercism.io](http://exercism.io/) website is a vital part of the [product](https://github.com/exercism/exercism.io/blob/master/docs/overview-of-exercism.md#the-product). The community uses the site to:
-
-- provide and receive feedback
-- learn by reading code
-- find links to useful learning resources
-- get an overview of the available problems and languages
-
-### The CLI
-
-The Command Line Interface (CLI), provides a way to fetch exercises and submit solutions to the site. It is a stand alone library so you don't need any particular language environment in order to use it.
-
-You can read more about the CLI in the corresponding GitHub [repository](https://github.com/exercism/cli).
-
-### The API
-
-Exercism provides an [API](https://github.com/exercism/x-api) to serve the exercises to people using the command-line client. The API is also consumed by the Exercism website.
-
-### The Trackler
-
-The [Trackler](https://github.com/exercism/trackler) is a Ruby gem that bundles the data for the exercises of all language tracks, providing a unified interface to the entire [curriculum](https://github.com/exercism/exercism.io/blob/master/docs/overview-of-exercism.md#the-curriculum).
-
-## Core Directories
+- the API (`./api`), HTTP endpoints that are used by (mostly) the command-line client
+- the app (`./app`), HTTP endpoints, helpers, presenters, and views that together serve up the pages of the website
+- application logic (`./lib`), mostly models but also some rake tasks in `lib/tasks`
+- database stuff (`./db`), migrations and seed data
+- tests (`./test`), the automated tests that verify the behavior of the app
+- scripts (`./bin`, `./scripts`), various scripts that help us do stuff
+- frontend (`./frontend`), the Sass (CSS) and JavaScript files that the site relies on
+- static assets (`./public`)
+- docs (`./docs`), documentation related to this codebase
+- miscellaneous stuff (`./x`), a kitchen sink of experiments that we didn't want to throw in the `./lib` directory
 
 ### API
 
@@ -147,3 +146,5 @@ Static files for the Exercism web app. Fonts, jQuery (`public/js/app.js`), icons
 ### X
 
 X is a collection of scripts to organize and compile documentation for the many parts of exercism (cli, general help, product introduction, track info).
+
+[glossary]: https://github.com/exercism/docs/blob/master/glossary.md

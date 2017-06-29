@@ -1,4 +1,4 @@
-class DropCommentThreads < ActiveRecord::Migration
+class DropCommentThreads < ActiveRecord::Migration[4.2]
   def up
     drop_table :comment_threads
   end

@@ -32,11 +32,17 @@ class StaticPagesTest < Minitest::Test
     assert_match(/Help/, last_response.body)
   end
 
+  def test_route_help_with_trailing_slash
+    get '/help/'
+    assert_equal 200, last_response.status
+    assert_match(/Help/, last_response.body)
+  end
+
   def test_route_how_it_works
     get '/how-it-works'
     assert_equal 200, last_response.status
     assert_match(/How it Works/, last_response.body)
-    assert_equal nil, session[:target_profile]
+    assert_nil session[:target_profile]
   end
 
   def test_route_how_it_works_polyglot
@@ -58,8 +64,8 @@ class StaticPagesTest < Minitest::Test
     assert_equal 'newbie', session[:target_profile]
   end
 
-  def test_route_cli
-    get '/cli'
+  def test_route_clients_cli
+    get '/clients/cli'
     assert_equal 200, last_response.status
     assert_match(/Command-Line Interface \(CLI\)/, last_response.body)
   end

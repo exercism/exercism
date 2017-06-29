@@ -5,13 +5,13 @@
   <p><%= problem.blurb %></p>
   <p>
   <div class="link-icons">
-    <% if problem.md_url %>
-      <a href="<%= problem.md_url %>" target="_blank"><i style="font-size: 20px;" class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Problem description"></i>Description</a>
+    <% if problem.description_url %>
+      <a href="<%= problem.description_url %>" target="_blank"><i style="font-size: 20px;" class="fa fa-info-circle" data-toggle="tooltip" data-placement="top" title="Problem description"></i>Description</a>
     <% end %>
   </div>
   <div class="link-icons">
-    <% if problem.json_url %>
-      <a href="<%= problem.json_url %>" target="_blank"><i style="font-size: 20px;" class="fa fa-list" data-toggle="tooltip" data-placement="top" title="Test data"></i>Test Data</a>
+    <% if problem.canonical_data_url %>
+      <a href="<%= problem.canonical_data_url %>" target="_blank"><i style="font-size: 20px;" class="fa fa-list" data-toggle="tooltip" data-placement="top" title="Test data"></i>Test Data</a>
     <% end %>
   </div>
   </p>
@@ -19,7 +19,7 @@
 <div class="col-lg-4">
   <% Trackler.implementations[problem.slug].each_slice(4) do |implementations| %>
     <% implementations.each do |implementation| %>
-      <a a href="/exercises/<%= implementation.track_id %>/<%= implementation.problem.slug %>/readme" target="_blank" class="col-xs-3 col-sm-3 col-md-3 col-lg-3" data-toggle="tooltip" data-placement="top" title="<%= implementation.track_id %>">
+      <a a href="/exercises/<%= implementation.track_id %>/<%= implementation.slug %>/readme" target="_blank" class="col-xs-3 col-sm-3 col-md-3 col-lg-3" data-toggle="tooltip" data-placement="top" title="<%= implementation.track_id %>">
         <div class="text-center">
           <%= track_icon(implementation.track_id, 30) %>
         </div>

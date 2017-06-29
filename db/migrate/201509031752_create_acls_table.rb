@@ -1,4 +1,4 @@
-class CreateAclsTable < ActiveRecord::Migration
+class CreateAclsTable < ActiveRecord::Migration[4.2]
   def change
     create_table :acls do |t|
       t.integer :user_id, null: false
