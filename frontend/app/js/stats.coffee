@@ -73,5 +73,5 @@ class ReviewLengthSummaryStats
     @x = _.flatten(periodRepeated)
     @y = [].concat(_.values(@stats.review_lengths_by_period)...)
 
-new ExperimentStatsBoxPlot('.review-quantity-summary-chart', ReviewCountSummaryStats, title: 'Does withdrawal decrease participation below pre-gamaification?').render()
-new ExperimentStatsBoxPlot('.review-length-summary-chart', ReviewLengthSummaryStats, title: 'Do reviews get shorter during gamification?').render()
+new ExperimentStatsBoxPlot('.review-quantity-summary-chart', ReviewCountSummaryStats, title: 'User comment count per period').render()
+new ExperimentStatsBoxPlot('.review-length-summary-chart', ReviewLengthSummaryStats, title: 'Comment lengths per period').render()

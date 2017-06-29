@@ -29,9 +29,37 @@
       <h2>Intrinsic Motivation Experiment</h2>
       <% if experiment_completed || user_may_see_early %>
         <div class="motivation-experiment-content review-data" data-stats='<%= stats.to_json %>'>
+          <p>
+            This experiment tries to answer the question of whether gamification
+            / game design techniques can be applied without harming intrinsic
+            motivation. See
+            <a href="https://github.com/exercism/discussions/issues/123" target="_blank">exercism/discussions#123</a>.
+          </p>
           <h3>Review Quantity</h3>
+          <p>
+            <strong>Question</strong>: Do our gamification features significantly increase participation?
+          </p>
+          <p>
+            <strong>Result</strong>: Participation average increased during the gamification
+            period from 1.2 comments per participating user to 2.0 comments,
+            with significance of p=0.0757 (not quite significant).
+          </p>
+          <p>
+            <strong>Question</strong>: Does withdrawal decrease participation below pre-gamaification levels?
+          </p>
+          <p>
+            <strong>Result</strong>: Participation did not decrease. In fact, the average
+            exceeded the control group slightly during the withdrawal period,
+            from 1.6 to 1.9 (not significant).
+          </p>
           <div class="review-quantity-summary-chart" width="800" height="400" data-y-axis-range="[-0.1, 13]"></div>
           <h3>Review Length</h3>
+          <p>
+            <strong>Question</strong>: Do reviews get shorter during gamification?
+          </p>
+          <p>
+            <strong>Result</strong>: No significant change.
+          </p>
           <div class="review-length-summary-chart" width="800" height="400" data-y-axis-range="[0, 1000]"></div>
         </div>
       <% else %>
