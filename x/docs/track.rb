@@ -1,11 +1,6 @@
 module X
   module Docs
-    class Track
-      attr_reader :track
-      def initialize(track)
-        @track = track
-      end
-
+    class Track < SimpleDelegator
       %w(
         about
         installation
@@ -25,7 +20,7 @@ module X
       end
 
       def better(topic)
-        search_and_replace(read('better')).gsub('TOPIC', topic.upcase).gsub('EXT', track.doc_format)
+        search_and_replace(read('better')).gsub('TOPIC', topic.upcase).gsub('EXT', doc_format)
       end
 
       private
@@ -43,10 +38,10 @@ module X
 
       def substitutions
         {
-          'LANGUAGE' => track.language,
-          'TRACK_ID' => track.id,
-          'REPO' => track.repository,
-          'CHECKLIST_ISSUE' => track.checklist_issue,
+          'LANGUAGE' => language,
+          'TRACK_ID' => id,
+          'REPO' => repository,
+          'CHECKLIST_ISSUE' => checklist_issue,
         }
       end
     end
