@@ -41,13 +41,15 @@ module ExercismWeb
           template = "topic_not_found"
         end
 
-        track = Presenters::Track.new(track_id)
+        track = Trackler.tracks[track_id]
+        image_path = "/api/v1/tracks/%s/images/docs/img" % track.id
         if track.exists?
           erb :"languages/language", locals: {
             track: track,
+            docs: track.docs(image_path: image_path),
+            x_docs: X::Docs::Track.new(track),
             topic: topic,
             template: template,
-            docs: track.docs
           }
         else
           language_not_found(track_id)

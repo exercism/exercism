@@ -63,7 +63,7 @@ class LanguagesRoutesTest < Minitest::Test
     get '/languages/vehicles/launch'
     assert last_response.body.include?("Help Us Launch!"), "Launch header is missing"
     assert last_response.body.include?("https://github.com/exercism/xvehicles/issues/1"), "Checklist issue URL is missing"
-    assert last_response.body.include?("<h3>Help Us Launch!</h3>"), "Rendering markdown, not HTML"
+    assert last_response.body.include?("<h3 id=\"help-us-launch\">Help Us Launch!</h3>"), "Rendering markdown, not HTML"
   end
 
   def test_redirects_active_tracks_to_about
@@ -82,7 +82,7 @@ class LanguagesRoutesTest < Minitest::Test
       "https://github.com/exercism/xfake/blob/master/docs/ABOUT.org" => "Filename is wrong",
       "https://github.com/exercism/xfake/issues" => "Issue URL is wrong",
       "Try It!" => "Call to action is missing",
-      "<h3>Try It!</h3>" => "Call to action is markdown, not HTML",
+      "<h3 id=\"try-it\">Try It!</h3>" => "Call to action is markdown, not HTML",
     }.each do |text, error_message|
       assert last_response.body.include?(text), error_message
     end
@@ -94,7 +94,7 @@ class LanguagesRoutesTest < Minitest::Test
       "We're missing a short introduction about the language." => "Fallback content is missing",
       "<p>We're missing a short introduction about the language." => "Fallback content is markdown, not HTML",
       "Try It!" => "Call to action is missing",
-      "<h3>Try It!</h3>" => "Call to action is markdown, not HTML",
+      "<h3 id=\"try-it\">Try It!</h3>" => "Call to action is markdown, not HTML",
     }.each do |text, error_message|
       assert last_response.body.include?(text), error_message
     end
@@ -221,17 +221,17 @@ class LanguagesRoutesTest < Minitest::Test
     get '/languages/vehicles/help'
     {
       "If you're having trouble" => "Content is missing",
-      "<a href=\"https://gitter.im/exercism/support\">jump in the support chat</a>" => "Content is markdown, not HTML",
+      "<a href=\"https://gitter.im/exercism/support\">jump into the support chat</a>" => "Content is markdown, not HTML",
     }.each do |text, error_message|
       assert last_response.body.include?(text), error_message
     end
   end
 
-  def test_contribute_topic_on
+  def test_contribute_topic
     get '/languages/fake/contribute'
     {
       "Help Us Improve the Fake Track!" => "Content is missing",
-      "<h5>Help Us Improve the Fake Track!</h5>" => "Content is markdown, not HTML",
+      "<h5 id=\"help-us-improve-the-fake-track\">Help Us Improve the Fake Track!</h5>" => "Content is markdown, not HTML",
     }.each do |text, error_message|
       assert last_response.body.include?(text), error_message
     end
@@ -240,8 +240,8 @@ class LanguagesRoutesTest < Minitest::Test
   def test_todo
     get '/languages/fake/todo'
     {
-      "Add new exercises to Fake" => "Content is missing",
-      "<h3>Add new exercises to Fake</h3>" => "Content is markdown, not HTML",
+      "Add new Fake exercises" => "Content is missing",
+      "<h3 id=\"add-new-fake-exercises\">Add new Fake exercises</h3>" => "Content is markdown, not HTML",
     }.each do |text, error_message|
       assert last_response.body.include?(text), error_message
     end

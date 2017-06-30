@@ -1,4 +1,3 @@
 We're missing the documentation about how to run the tests.
 
-Do you know how? Help us by adding a `TESTS.md` file to the `docs/`
-directory in the [repository on GitHub](REPO) explaining how to do this.
+Do you know how? Help us by editing the `docs/TESTS.md file in the [LANGUAGE track repository](REPO) on GitHub.

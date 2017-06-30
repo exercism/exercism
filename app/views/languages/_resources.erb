@@ -1,1 +1,6 @@
-<%= md docs.resources %>
+<% if docs.resources.empty? %>
+  <%= md x_docs.resources %>
+<% else %>
+  <%= md docs.resources %>
+  <%= md x_docs.better('resources') %>
+<% end %>
