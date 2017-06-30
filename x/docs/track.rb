@@ -26,7 +26,7 @@ module X
       private
 
       def read(topic)
-        s = File.read(File.absolute_path(File.join("..", "md", "track", "%s.md" % topic), __FILE__))
+        s = File.read(File.absolute_path(File.join("..", "md", "track", "%s.md" % topic.upcase), __FILE__))
       end
 
       def search_and_replace(s)
