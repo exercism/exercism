@@ -20,114 +20,58 @@ $(".track-activity-chart").each (index, element) ->
   ctx = element.getContext("2d")
   new Chart(ctx).Bar(data)
 
-class ReviewLengthStats
+class ExperimentStatsPlot
+  constructor: (@selector, @statsProcessor, options = {}) ->
+    @stats = options.stats || $('.review-data').data('stats')
+    @title = options.title || ''
+
+  render: ->
+    $(@selector).each (_, container) => @renderPlot(container)
+
+  renderPlot: (container) ->
+    layout =
+      title: @title
+      boxmode: 'group'
+      legend: {orientation: 'h'}
+      yaxis: {range: $(container).data('y-axis-range')}
+    Plotly.newPlot(container, @datasets(), layout)
+
+  datasets: ->
+    [] # override
+
+  experimentGroups: ->
+    'Control Group':      @stats.control
+    'Experimental Group': @stats.experimental
+
+  lineHeight: ->
+    yValues = _.flatten(dataset.y for dataset in @datasets())
+    Math.max(yValues...)
+
+class ExperimentStatsBoxPlot extends ExperimentStatsPlot
+  datasets: ->
+    for groupLabel, data of @experimentGroups()
+      groupStats = new @statsProcessor(data)
+      plotlyOptions =
+        x: groupStats.x
+        y: groupStats.y
+        type: 'box'
+        boxmean: 'sd'
+        jitter: 0.4
+        name: groupLabel
+
+class ReviewCountSummaryStats
   constructor: (@stats) ->
-    @setX()
-    @setY()
+    periodRepeated = for period, reviewCounts of @stats.avg_daily_reviews_per_user_by_period
+      period for reviewCount in reviewCounts
+    @x = _.flatten(periodRepeated)
+    @y = [].concat(_.values(@stats.avg_daily_reviews_per_user_by_period)...)
 
-  setX: ->
-    daily_lengths = @stats.daily_review_lengths
-    expanded_dates = for i, day_lengths of daily_lengths
-      @stats.dates[i] for length in day_lengths
-    @x = _.flatten(expanded_dates)
+class ReviewLengthSummaryStats
+  constructor: (@stats) ->
+    periodRepeated = for period, reviewCounts of @stats.review_lengths_by_period
+      period for reviewCount in reviewCounts
+    @x = _.flatten(periodRepeated)
+    @y = [].concat(_.values(@stats.review_lengths_by_period)...)
 
-  setY: ->
-    @y = _.flatten(@stats.daily_review_lengths)
-
-$('.review-quantity-chart').each (index, container) ->
-  stats = $('.review-data').data('stats')
-  experimental = {
-    x: stats.experimental.dates
-    y: stats.experimental.daily_review_count
-    mode: 'lines+markers'
-    line: {shape: 'spline'}
-    hoverinfo: 'name+y'
-    name: 'Experimental Group'
-  }
-
-  control = {
-    x: stats.control.dates
-    y: stats.control.daily_review_count
-    mode: 'lines+markers'
-    line: {shape: 'spline'}
-    hoverinfo: 'name+y'
-    name: 'Control Group'
-  }
-
-  lineHeight = Math.max(
-    stats.experimental.daily_review_count.concat(
-      stats.control.daily_review_count
-    )...
-  )
-
-  gamificationBeginDate = stats.experimental.gamification_start_date
-  gamificationBegins = {
-    x: [gamificationBeginDate, gamificationBeginDate]
-    y: [0, lineHeight]
-    mode: 'lines'
-    name: 'Gamification Begins'
-    hoverinfo: 'none'
-  }
-
-  gamificationWithdrawalDate = stats.experimental.gamification_withdrawal_date
-  gamificationWithdrawal = {
-    x: [gamificationWithdrawalDate, gamificationWithdrawalDate]
-    y: [0, lineHeight]
-    mode: 'lines'
-    name: 'Gamification Withdrawal'
-    hoverinfo: 'none'
-  }
-
-  Plotly.newPlot(
-    container,
-    [control, experimental, gamificationBegins, gamificationWithdrawal],
-    {legend: {orientation: 'h'}}
-  )
-
-$('.review-length-chart').each (index, container) ->
-  stats = $('.review-data').data('stats')
-
-  experimentalReviewLengthStats = new ReviewLengthStats(stats.experimental)
-  experimental = {
-    x: experimentalReviewLengthStats.x
-    y: experimentalReviewLengthStats.y
-    type: 'box'
-    name: 'Experimental Group'
-  }
-
-  controlReviewLengthStats = new ReviewLengthStats(stats.control)
-  control = {
-    x: controlReviewLengthStats.x
-    y: controlReviewLengthStats.y
-    type: 'box'
-    name: 'Control Group'
-  }
-
-  lineHeight = Math.max(
-    Math.max(controlReviewLengthStats.y...),
-    Math.max(experimentalReviewLengthStats.y...)
-  )
-
-  gamificationBeginDate = stats.experimental.gamification_start_date
-  gamificationBegins = {
-    x: [gamificationBeginDate, gamificationBeginDate]
-    y: [0, lineHeight]
-    mode: 'lines'
-    name: 'Gamification Begins'
-    hoverinfo: 'none'
-  }
-
-  gamificationWithdrawalDate = stats.experimental.gamification_withdrawal_date
-  gamificationWithdrawal = {
-    x: [gamificationWithdrawalDate, gamificationWithdrawalDate]
-    y: [0, lineHeight]
-    mode: 'lines'
-    name: 'Gamification Withdrawal'
-    hoverinfo: 'none'
-  }
-
-  Plotly.newPlot(
-    container,
-    [control, experimental, gamificationBegins, gamificationWithdrawal],
-    {legend: {orientation: 'h'}, boxmode: 'group'}
-  )
+new ExperimentStatsBoxPlot('.review-quantity-summary-chart', ReviewCountSummaryStats, title: 'User comment count per period').render()
+new ExperimentStatsBoxPlot('.review-length-summary-chart', ReviewLengthSummaryStats, title: 'Comment lengths per period').render()
