@@ -1,11 +1,15 @@
-<%= md X::Docs::Track.new(track).exercises %>
+<% if track.planned? %>
+  <p>There are no available exercises in <%= track.language %>. You can <a href="/languages/<%= track.id %>/launch">help launch this track</a>!</p>
+<% else %>
+  <%= md X::Docs::Track.new(track).exercises %>
 
-<h3>Available Exercises</h3>
-<ul class="available_exercises_listing">
-  <% track.implementations.each do |problem| %>
-    <li>
-    <a href="/exercises/<%= track.id %>/<%= problem.slug %>"><%= problem.name %></a>
-    <span class="tagline"><%= problem.blurb %></span>
-    </li>
-  <% end %>
-</ul>
+  <h3>Available Exercises</h3>
+  <ul class="available_exercises_listing">
+    <% track.implementations.each do |problem| %>
+      <li>
+      <a href="/exercises/<%= track.id %>/<%= problem.slug %>"><%= problem.name %></a>
+      <span class="tagline"><%= problem.blurb %></span>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
