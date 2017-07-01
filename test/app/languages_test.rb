@@ -148,11 +148,7 @@ class LanguagesRoutesTest < Minitest::Test
       "Help us explain this better" => "Request for help is missing",
       "<em>Help us explain this better" => "Request for help is markdown, not HTML",
       "https://github.com/exercism/xfake/issues" => "Issue URL is wrong",
-      # Note. The real file name is actually TESTS.md, because the fixture has a mix of
-      # md and org files. This is on purpose, as we're working on handling this
-      # in Trackler, but the fix isn't in master yet.
-      # Once it lands, we'll need to fix this test test.
-      "https://github.com/exercism/xfake/blob/master/docs/TESTS.org" => "Filename is wrong",
+      "https://github.com/exercism/xfake/blob/master/docs/TESTS.md" => "Filename is wrong",
     }.each do |text, error_message|
       assert last_response.body.include?(text), error_message
     end

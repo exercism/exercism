@@ -20,7 +20,7 @@ module X
       end
 
       def better(topic)
-        search_and_replace(read('better')).gsub('TOPIC', topic.upcase).gsub('EXT', doc_format)
+        search_and_replace(read('better')).gsub('FILENAME', Trackler::DocFile.find(basename: topic.upcase, track_dir: dir).name)
       end
 
       private
