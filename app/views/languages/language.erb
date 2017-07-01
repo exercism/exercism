@@ -56,11 +56,13 @@
             </a>
           </li>
 
-          <li class="<%= "active" if topic == "help" %>">
-            <a href="<%="/languages/#{track.id}/help"%>">
-              Getting Help
-            </a>
-          </li>
+          <% unless track.planned? %>
+            <li class="<%= "active" if topic == "help" %>">
+              <a href="<%="/languages/#{track.id}/help"%>">
+                Getting Help
+              </a>
+            </li>
+          <% end %>
 
           <li class="<%= "active" if topic == "contribute" %>">
             <a href="<%="/languages/#{track.id}/contribute"%>">

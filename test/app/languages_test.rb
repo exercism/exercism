@@ -48,9 +48,8 @@ class LanguagesRoutesTest < Minitest::Test
   end
 
   def test_skip_getting_help_topic_for_tracks_without_exercises
-    skip "this is not currently the case. TODO (in a separate PR)"
     get '/languages/vehicles/help'
-    refute last_response.body.include?("Getting Help")
+    refute last_response.body.include?("Getting Help"), "Help page is incorrectly linked"
   end
 
   def test_redirects_inactive_tracks_to_launch
@@ -101,7 +100,6 @@ class LanguagesRoutesTest < Minitest::Test
   end
 
   def test_when_there_are_no_exercises
-    skip "the page doesn't handle this use case, but should (in a different PR)"
     get '/languages/vehicles/exercises'
     # hard coded HTML, no need to check for markdown.
     text = "There are no available exercises in Transportation Services."
@@ -189,15 +187,14 @@ class LanguagesRoutesTest < Minitest::Test
   end
 
   def test_when_resources_doc_present
-    skip "Need to move the RESOURCES with unknown extention to a different fixture and fix the one in Fake."
     get '/languages/fake/resources'
     {
-      "Fake resources for fake." => "Trackler content is missing",
-      "<p>Fake resources for fake.</p>" => "Trackler content is markdown, not HTML",
+      "Fake resources for Fake!" => "Trackler content is missing",
+      "<p>Fake resources for Fake!</p>" => "Trackler content is markdown, not HTML",
       "Help us explain this better" => "Request for help is missing",
       "<em>Help us explain this better" => "Request for help is markdown, not HTML",
       "https://github.com/exercism/xfake/issues" => "Issue URL is wrong",
-      "https://github.com/exercism/xfake/blob/master/docs/RESOURCES.md" => "Filename is wrong",
+      "https://github.com/exercism/xfake/blob/master/docs/RESOURCES.org" => "Filename is wrong",
     }.each do |text, error_message|
       assert last_response.body.include?(text), error_message
     end
