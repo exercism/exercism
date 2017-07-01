@@ -1,6 +1,6 @@
 ### Try It!
 
-If you've downloaded the [command-line client]('/clients/cli') and have LANGUAGE installed
+If you've downloaded the [command-line client](/clients/cli) and have LANGUAGE installed
 on your machine, then go ahead and fetch the first problem.
 
 ```plain
