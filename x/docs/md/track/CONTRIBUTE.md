@@ -6,6 +6,9 @@ We want to know about it.
 We always welcome GitHub issues and pull requests. See the
 [LANGUAGE](REPO) repository for more information.
 
+If you are new to open source, or are looking for an easy way in, 
+feel free to check out the [good first patch](REPO/labels/good%20first%20patch) issues.
+
 #### Help Add More LANGUAGE Exercises
 
 The easiest way to add new exercises is to translate existing exercises from other language tracks on Exercism.
