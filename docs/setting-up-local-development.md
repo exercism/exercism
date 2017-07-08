@@ -71,9 +71,9 @@ These instructions assume you're using a package manager for your OS:
   ```
 - Linux
 
+  - Install `rbenv` using [these instructions](https://github.com/rbenv/rbenv#installation)
+  - Install `rbuild` using [these instructions](https://github.com/rbenv/ruby-build#readme)
   ```
-  $ sudo apt-get update
-  $ sudo apt-get install rbenv ruby-build
   $ rbenv install X.Y.Z
   ```
 
@@ -94,7 +94,7 @@ These instructions assume you're using a package manager for your OS:
 
   ```
   $ sudo apt-get update
-  $ sudo apt-get install postgresql postgresql-contrib
+  $ sudo apt-get install postgresql postgresql-contrib libpq-dev
   ```
 
 #### Installing Node.js (and npm)
