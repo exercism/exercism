@@ -104,7 +104,9 @@
 
           <%= gravatar_tag manager.avatar_url, size: 20 %>
           <a href="/<%= manager.username %>"><%= manager.username %></a>
+          <% if team.managers.count != 1 && team.managers.first == current_user %>
           </div>
+          <% end %>
         <% end %>
     </div>
   </div>
