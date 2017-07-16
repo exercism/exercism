@@ -1,0 +1,4 @@
+FROM exercism/exercism.io
+
+COPY Gemfile Gemfile.lock /exercism/
+RUN bundle check || bundle install

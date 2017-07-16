@@ -1,7 +1,9 @@
 version: '2.1'
 services:
   app:
-    build: ..
+    build:
+      context: ..
+      dockerfile: Dockerfile.dev
     env_file: ../.env
     entrypoint: ruby /exercism/docker/entrypoint.rb
     volumes:
