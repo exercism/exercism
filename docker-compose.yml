@@ -6,7 +6,7 @@ services:
       service: app
     links:
       - db
-    command: rackup -s puma -p 4567 --host 0.0.0.0
+    command: rerun -b --ignore='{**/*.{scss,css,js,coffee,erb},test/**}' 'puma -p 4567'
     ports:
       - "${EXTERNAL_PORT}:4567"
     environment:
