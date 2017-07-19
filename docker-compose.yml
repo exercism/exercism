@@ -8,7 +8,7 @@ services:
       - db
     command: rackup -s puma -p 4567 --host 0.0.0.0
     ports:
-      - "${EXTERNAL_PORT}:4567"
+      - "${EXTERNAL_PORT-4567}:4567"
     environment:
       # These will ensure that certain development commands which
       # use 'psql' will also include our custom database config.
