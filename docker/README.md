@@ -58,7 +58,13 @@ welcome to give it a shot!
 
 ## Setting up exercism.io
 
-Run:
+First, create an empty `.env` file in the root of your repository. This file
+may be used to pass environment variables to the application, as documented
+below. It may be empty but [must exist][required-env-file].
+
+[required-env-file]: https://github.com/docker/compose/issues/3560
+
+Then run:
 
     docker-compose build
 
