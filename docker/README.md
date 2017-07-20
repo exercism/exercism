@@ -9,8 +9,11 @@ need a 64-bit machine.
 
 For a basic overview, see [What is Docker?][] on the Docker website.
 
-**Note:** At the present time, developing the front-end via Docker
-isn't working, but this will hopefully be remedied soon.
+When using docker, code changes on your host should go into effect shortly after
+they are made. Changes to `.erb` files go into effect immediately. Changes to
+`.js`, `.coffee` and `scss` files go into effect after a few seconds. Changes to
+`.rb` and other files require restarting the application and bring down the
+application for a few seconds.
 
 ## Installing Docker
 
