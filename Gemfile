@@ -48,6 +48,7 @@ group :test, :development do
 end
 
 group :development do
+  gem 'rerun', require: false
   gem 'rubocop', '0.36.0', require: false
 end
 
