@@ -9,7 +9,7 @@ services:
       - db
     command: rerun -b --ignore='{**/*.{scss,css,js,coffee,erb},test/**}' 'puma -p 4567'
     ports:
-      - "${EXTERNAL_PORT}:4567"
+      - "${EXTERNAL_PORT-4567}:4567"
     environment:
       # These will ensure that certain development commands which
       # use 'psql' will also include our custom database config.

@@ -61,21 +61,11 @@ welcome to give it a shot!
 
 ## Setting up exercism.io
 
-First, create an `.env` file in the root of your repository with
-the following in it:
+First, create an empty `.env` file in the root of your repository. This file
+may be used to pass environment variables to the application, as documented
+below. It may be empty but [must exist][required-env-file].
 
-```
-EXTERNAL_PORT=4567
-```
-
-You may also want to set up GitHub OAuth as per the instructions in
-[`CONTRIBUTING.md`][], in which case you can add your GitHub OAuth
-credentials, too:
-
-```
-EXERCISM_GITHUB_CLIENT_ID=your_github_oauth_client_id
-EXERCISM_GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
-```
+[required-env-file]: https://github.com/docker/compose/issues/3560
 
 Then run:
 
@@ -90,8 +80,8 @@ Now your database is set up. To get the site up and running, run:
 
     docker-compose up
 
-If you're on Linux, your development instance of exercism.io will be running
-at http://localhost:4567.
+If you're Docker for Mac, or Docker for Windows, or native Linux, your
+development instance of exercism.io will be running at http://localhost:4567.
 
 Otherwise, if you're on a system using Docker Toolbox, your development
 server will actually be running on your Docker Machine VM, *not* on
@@ -103,6 +93,18 @@ go to the IP address you get from running the following command:
 Suppose this command tells you that your Docker Machine VM is at
 192.168.99.100. Then your development instance of exercism.io will be at
 http://192.168.99.100:4567.
+
+## Setting up OAuth
+
+In development mode, the application presents an _Assume_ menu in the
+upper-right-hand corner, allowing you to assume the role of one of several
+preset users.
+
+You may also set up GitHub OAuth as per the instructions in
+[`CONTRIBUTING.md`][], in which case you can add your GitHub OAuth credentials:
+
+    EXERCISM_GITHUB_CLIENT_ID=your_github_oauth_client_id
+    EXERCISM_GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
 
 ## Changing The Port
 
