@@ -1,0 +1,11 @@
+.bundle
+.env
+.git
+.gitignore
+log
+tmp
+vendor
+
+# For development build efficiency.
+# Consider restoring this if needed for a production build.
+node_modules

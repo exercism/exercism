@@ -17,7 +17,7 @@ fi
 
 # Set up Ruby dependencies via Bundler
 gem install bundler --conservative
-bundle check || bundle install --path=vendor/bundle
+bundle check || bundle install
 
 # Set up the database and add seed data
 bundle exec rake db:from_scratch
