@@ -23,6 +23,8 @@ services:
       DEV_DATABASE_HOST: db
   db:
     image: postgres:9.4
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: exercism
       POSTGRES_PASSWORD: apples
@@ -44,3 +46,7 @@ services:
   #    service: app
   #  command: lineman run
   #  working_dir: /exercism/frontend
+
+volumes:
+  pgdata:
+    driver: local
