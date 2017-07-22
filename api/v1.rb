@@ -16,6 +16,7 @@ module ExercismAPI
       after { ActiveRecord::Base.connection.close }
     end
 
+    use Routes::UUIDs
     use Routes::Exercises
     use Routes::Iterations
     use Routes::Submissions
