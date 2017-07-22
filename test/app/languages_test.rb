@@ -61,7 +61,7 @@ class LanguagesRoutesTest < Minitest::Test
   def test_launch_doc
     get '/languages/vehicles/launch'
     assert last_response.body.include?("Help Us Launch!"), "Launch header is missing"
-    assert last_response.body.include?("https://github.com/exercism/xvehicles/issues/1"), "Checklist issue URL is missing"
+    assert last_response.body.include?("https://github.com/exercism/vehicles/issues/1"), "Checklist issue URL is missing"
     assert last_response.body.include?("<h3 id=\"help-us-launch\">Help Us Launch!</h3>"), "Rendering markdown, not HTML"
   end
 
