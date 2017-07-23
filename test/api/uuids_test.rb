@@ -30,5 +30,6 @@ class UUIDsApiTest < Minitest::Test
     uuid = "6bef4a04-2200-4478-a22e-1f3117a2f8f1"
     post '/uuids', { "track_id" =>"fruit", "uuids" => [uuid]}.to_json
     assert_equal 409, last_response.status
+    assert_equal [uuid], JSON.parse(last_response.body)["uuids"]
   end
 end

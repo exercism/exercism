@@ -9,8 +9,12 @@ module ExercismAPI
           body.rewind
         end
 
+        def conflicting
+          track_uuids & payload.uuids
+        end
+
         def unused?
-          (track_uuids & payload.uuids).empty?
+          conflicting.empty?
         end
 
         def tracks
@@ -23,10 +27,11 @@ module ExercismAPI
       end
 
       post '/uuids' do
-        if TrackUUIDs.new(request.body).unused?
+        track_uuids = TrackUUIDs.new(request.body)
+        if track_uuids.unused?
           halt 204
         else
-          halt 409
+          halt 409, {"uuids" => track_uuids.conflicting}.to_json
         end
       end
     end
