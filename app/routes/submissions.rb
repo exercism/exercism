@@ -15,11 +15,7 @@ module ExercismWeb
 
         title("%s by %s in %s" % [submission.problem.name, submission.user.username, submission.problem.language])
 
-        comment_history = if current_user.guest? || !$flipper[:comment_history].enabled?(current_user)
-          []
-        else
-          current_user.comments.recent($flipper[:less_comment_history].enabled?(current_user) ? 25 : 50)
-        end
+        comment_history = current_user.guest? ? [] : current_user.comments.recent(50)
 
         locals = {
           submission: submission,
