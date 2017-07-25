@@ -18,7 +18,7 @@ module ExercismWeb
         comment_history = if current_user.guest? || !$flipper[:comment_history].enabled?(current_user)
           []
         else
-          current_user.comments.recent($flipper[:less_comment_history].enabled?(current_user) ? 25 : 50)
+          current_user.comments.recent(50)
         end
 
         locals = {
