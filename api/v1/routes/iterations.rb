@@ -140,8 +140,6 @@ module ExercismAPI
       private
 
       def what_next_instructions(attempt)
-        return '' unless $flipper['cli_call_to_action'].enabled?(attempt.user)
-
         track    = attempt.iteration.track_id
         exercise = attempt.iteration.slug
         url = File.join('http://', site_root, 'tracks', track, 'exercises', exercise)
