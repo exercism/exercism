@@ -6,7 +6,6 @@
         name="body"
         class="comment form-control"
         rows="8"
-        placeholder="<%= VariedResponses.sentence_starter if $flipper[:sentence_starters].enabled?(current_user) %>"
         data-submission-key="<%= submission.key %>"
         ng-model="data.body"
         <%= "ng-init=\"data.body='#{ng_esc(nit.body)}'\"" if defined? nit %>></textarea>
