@@ -7,4 +7,6 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
 WORKDIR /exercism
 
 COPY Gemfile Gemfile.lock /exercism/
+RUN gem install bundler -v $(grep -A1 'BUNDLED WITH' Gemfile.lock | tail -n 1) \
+    || echo 'Gemfile.lock missing BUNDLED WITH'
 RUN bundle install --jobs=20
