@@ -10,4 +10,4 @@ We also link to all the implementations of each exercise in other languages, whi
 
 Once you've picked an exercise, follow the instructions in [this guide][porting-guide] and submit your pull request to the [LANGUAGE track repository](REPO) on GitHub.
 
-[porting-guide]: https://github.com/exercism/docs/tree/master/contributing-to-language-tracks/porting-an-exercise.md
+[porting-guide]: https://github.com/exercism/docs/blob/master/you-can-help/implement-an-exercise-from-specification.md
