@@ -7,4 +7,4 @@ RUN curl -sL https://deb.nodesource.com/setup_4.x | bash - && \
 WORKDIR /exercism
 
 COPY Gemfile Gemfile.lock /exercism/
-RUN bundle install
+RUN bundle install --jobs=20
