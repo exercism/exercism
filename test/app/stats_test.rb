@@ -34,7 +34,6 @@ class StatsTest < Minitest::Test
     super
     @alice = User.create!(alice_attributes)
     @opted_out = User.create!(opted_out_attributes)
-    $flipper[:participation_stats].enable
   end
 
   def assert_response_status(expected_status)

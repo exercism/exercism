@@ -2,24 +2,19 @@ module ExercismWeb
   module Routes
     class Stats < Core
       get '/stats' do
-        if $flipper[:participation_stats].enabled?(current_user)
-          tracks = Trackler.tracks.reject {|track| track.implementations.count.zero? }.sort_by(&:language)
-          stats = {
-            experimental: ParticipationStats.new(experiment_group: :experimental).results,
-            control:      ParticipationStats.new(experiment_group: :control).results
-          }
-          experiment_past_date = Date.parse(ParticipationStats::GAMIFICATION_EXPERIMENT_END_DATE) + 1.day
-          erb :"stats/participation", locals: {
-            tracks: tracks,
-            stats: stats,
-            experiment_complete_date: (experiment_past_date).strftime('%A, %b %e, %Y'),
-            experiment_completed: ParticipationStats.experiment_complete?,
-            user_may_see_early: !current_user.guest? && current_user.motivation_experiment_opt_out?,
-          }
-        else
-          track = Trackler.tracks.sort_by(&:language).find(&:active?)
-          redirect "/stats/%s" % track.id
-        end
+        tracks = Trackler.tracks.reject {|track| track.implementations.count.zero? }.sort_by(&:language)
+        stats = {
+          experimental: ParticipationStats.new(experiment_group: :experimental).results,
+          control:      ParticipationStats.new(experiment_group: :control).results
+        }
+        experiment_past_date = Date.parse(ParticipationStats::GAMIFICATION_EXPERIMENT_END_DATE) + 1.day
+        erb :"stats/participation", locals: {
+          tracks: tracks,
+          stats: stats,
+          experiment_complete_date: (experiment_past_date).strftime('%A, %b %e, %Y'),
+          experiment_completed: ParticipationStats.experiment_complete?,
+          user_may_see_early: !current_user.guest? && current_user.motivation_experiment_opt_out?,
+        }
       end
 
       put '/stats/motivation-experiment-opt-out' do
