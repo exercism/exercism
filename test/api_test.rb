@@ -3,7 +3,7 @@ require_relative './api_helper'
 module ExercismAPI
   module Routes
     class AuthTest < Core
-      get '/' do
+      get '/authtest' do
         require_key
         "OK"
       end
@@ -31,13 +31,13 @@ class ApiTest < Minitest::Test
   end
 
   def test_require_user_tells_guest_401
-    get '/'
+    get '/authtest'
     assert_equal 401, last_response.status
     assert_equal "You must be logged in to access this feature. Please double-check your API key.", JSON.parse(last_response.body)['error']
   end
 
   def test_require_user_accepts_api_key
-    get '/', key: alice.key
+    get '/authtest', key: alice.key
     assert_equal 200, last_response.status
     assert_equal "OK", last_response.body
   end
