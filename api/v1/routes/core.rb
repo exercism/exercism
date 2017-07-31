@@ -50,6 +50,10 @@ module ExercismAPI
           request.host_with_port + '/'
         end
       end
+
+      get '/' do
+        '{"ping": "ok"}'
+      end
     end
   end
 end
