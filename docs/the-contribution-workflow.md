@@ -60,7 +60,7 @@ You want it to be https://github.com/YOUR-USERNAME-HERE/exercism.io
 
 
 
-![Forking the Repo](https://cl.ly/0u0b1C1n0c1P/Screen%20Recording%202017-08-01%20at%2011.06%20AM.gif)
+![Forking the Repo](/docs/img/beginner_contribution_fork_repo.gif)
 
 Go to https://github.com/exercism/exercism.io, and click "Fork". When it asks "Where should we fork this repository", choose your user account.
 
@@ -78,7 +78,7 @@ git clone <url from github here>
 
 It might look something like this:
 
-![Cloning down the repo](https://cl.ly/0j3f3V1u2611/Screen%20Recording%202017-08-01%20at%2011.08%20AM.gif)
+![Cloning down the repo](/docs/img/beginner_contribution_clone_repo.gif)
 
 Once it finishes downloading, change into the new directory, and congrats! You've got Exercism cloned down to your machine!
 
@@ -137,14 +137,99 @@ You might pick something similarly descriptive of the feature you're working on.
 
 So, with your checked out branch, do your work and make commits as usual. Add files, add descriptive commit messages, etc.
 
-I've added a new file (the guide you're reading) and I'm adding links to this guide in a few other spots in the documentation.
-
 
 
 # Submitting your contribution
 
+Once you've made your changes, you are ready to do one of two things:
+
+1. Submit them.
+2. Publish them for feedback
+
+The good news is the process for both of these steps is the same.
+
+You're going to make a "pull request", against the Exercism repo.
+
+[Here's a quick explanation/guide for pull requests](https://yangsu.github.io/pull-request-tutorial/), if you want some extra reading.
+
+## Making your pull request
+
+#### Add and commit your code
+
+This is the normal `git add <file>`, `git commit -m "your commit message"` bit.
+
+#### Fetch the current version of exercism, merge it into your branch
+
+Remember that Exercism is a huge codebase and changes regularly. So, you need to make sure that the code your working with is as up-to-date as possible.
+
+```shell
+# check out the master branch
+$ git checkout master
+
+# get changes to the exercism repo
+$ git fetch upstream master
+
+# merge your changes into your master branch
+$ git checkout your_working_branch
+$ git rebase -i your_working_branch master
+```
+
+_git rebase_ is a tricky thing if it's your first time. (I'm still not good at it.)
+
+It's an alternative to _merge_, and though it's a few more steps, its worth it in the long run, as rebasing keeps the commit log much cleaner.
+
+Here's some guides that might help you through:
+
+- [Keeping A GitHub Fork Updated](https://robots.thoughtbot.com/keeping-a-github-fork-updated)
+- [Rewriting history](https://www.atlassian.com/git/tutorials/rewriting-history)
+- [Merging vs. Rebasing](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
 
+Often, once you submit your changes, there might be need for additional changes, based on feedback from the project maintainers.
+
+Once you're ready, make the Pull Request
+
+
+# Making the Pull Request
+
+I *just* made the pull request (PR) for this guide. You can see the PR [here](https://github.com/exercism/exercism.io/pull/3604).
+
+To make the pull request, push your branch up to your forked version of Exercism.
+
+```shell
+$ git push origin <branch_name>
+```
+
+Then, navigate to your cloned fork of the Exercism repo, and click the "new pull request" button. (You can change all the details of the pull request after clicking this button)
+
+![Make the Pull Request](/docs/img/beginner_contribution_make_pr.gif)
+
+Make sure to select `exercism/exercism.io`, with `master` as the `base fork`, on the left, and `your_username/exercism.io` as the `head fork` on the right. You can choose to compare whichever branch has your changes on it, either `master` or a different branch you worked on.
+
+If you need to collect feedback on your work, it is convention to label your pull request as a "work in progress", or "wip".
+
+The pull request note is your chance to lay out lots of information about what you're doing, why you did it that way, and all relevant details about the code you're adding/changing.
+
+You can "tie" the pull request to the github issue you claimed above with the syntax outlined [here](https://github.com/blog/1506-closing-issues-via-pull-requests)
+
+This links the PR and issue conversation together.
+
+At this point, you can tag anyone in the project to ask for feedback. Just type `@their_user_name` and they'll be notified.
+
+Based on their feedback, you can go back and forth in discussion, and eventually, remove the "wip" tag and merge your contribution!
+
+There is no need to make a new PR or new branches. New commits will automatically get pushed up to the pull request.
+
+
+
+
+
+
+
+
+### Additional Support
+
+- [A junior developer’s step-by-step guide to contributing to open source for the first time](https://medium.com/@letakeane/contributing-to-open-source-the-sharks-are-photoshopped-47e22db1ab86)
 
 
 
