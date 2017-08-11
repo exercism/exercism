@@ -31,7 +31,7 @@ Then install Docker Compose:
 Please install [Docker for Mac][]. The fastest and easiest way to get started
 with Docker on Mac.
 
-### Windows (Windows 10 Professional or Enterprise 64-bit)
+### Windows (Windows 10 Pro, Enterprise and Education 64-bit)
 
 Please install [Docker for Windows][]. The fastest and easiest way to get
 started with Docker on Windows PC.
