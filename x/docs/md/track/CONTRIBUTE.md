@@ -17,4 +17,4 @@ along with links to all the existing implementations.
 
 If you have an idea for a completely new exercise, you can follow [this guide][new-exercise-guide] to add it to the site.
 
-[new-exercise-guide]: https://github.com/exercism/docs/tree/master/contributing-to-language-tracks/implementing-a-completely-new-exercise.md
+[new-exercise-guide]: https://github.com/exercism/docs/blob/master/you-can-help/make-up-new-exercises.md
