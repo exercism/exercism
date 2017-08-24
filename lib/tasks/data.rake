@@ -19,14 +19,18 @@ namespace :data do
           sleep seconds
         end
 
-        user = client.user(minimal_user.github_id)
-        attributes = {
-          :username => user.login,
-          :email => user.email,
-          :name => user.name || '',
-          :bio => user.bio,
-        }
-        minimal_user.update_attributes(attributes)
+        begin
+          user = client.user(minimal_user.github_id)
+          attributes = {
+            :username => user.login,
+            :email => user.email,
+            :name => user.name || '',
+            :bio => user.bio,
+          }
+          minimal_user.update_attributes(attributes)
+        rescue Octokit::NotFound
+          minimal_user.update_attributes(:username => '')
+        end
       end
     end
   end
