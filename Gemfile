@@ -25,6 +25,9 @@ gem 'trackler', '~> 2.2.0'
 gem 'will_paginate'
 gem 'will_paginate-bootstrap'
 
+# GitHub API
+gem 'octokit'
+
 # Frontend Gems
 gem 'sass'
 gem 'compass'

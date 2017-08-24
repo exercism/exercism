@@ -106,6 +106,8 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     octicons (3.0.1)
       nokogiri (>= 1.6.3.1)
+    octokit (4.7.0)
+      sawyer (~> 0.8.0, >= 0.5.3)
     org-ruby (0.9.12)
       rubypants (~> 0.2)
     parser (2.3.1.0)
@@ -147,6 +149,9 @@ GEM
     rubypants (0.6.0)
     rubyzip (1.2.1)
     sass (3.4.21)
+    sawyer (0.8.1)
+      addressable (>= 2.3.5, < 2.6)
+      faraday (~> 0.8, < 1.0)
     sidekiq (4.2.10)
       concurrent-ruby (~> 1.0)
       connection_pool (~> 2.2, >= 2.2.0)
@@ -213,6 +218,7 @@ DEPENDENCIES
   minitest-capybara
   mocha
   octicons
+  octokit
   petroglyph
   pg
   pry

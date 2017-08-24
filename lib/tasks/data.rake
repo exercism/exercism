@@ -1,4 +1,35 @@
+
 namespace :data do
+  namespace :github do
+    desc "fetch extra GitHub user data for the "
+    task users: [:connection] do
+      class MinimalUser < ActiveRecord::Base
+        self.table_name = 'users'
+      end
+      require 'octokit'
+
+      client = Octokit::Client.new(access_token: ENV['EXERCISM_OAUTH_TOKEN'])
+      client.rate_limit
+
+      MinimalUser.find_each.each do |minimal_user|
+        response = client.last_response
+        if response.headers["x-ratelimit-remaining"].to_i.zero?
+          seconds = response.headers["x-ratelimit-reset"].to_i - Time.now.utc.to_i
+          puts "sleeping for %d seconds" % seconds
+          sleep seconds
+        end
+
+        user = client.user(minimal_user.github_id)
+        attributes = {
+          :username => user.login,
+          :email => user.email,
+          :name => user.name,
+          :bio => user.bio,
+        }
+        minimal_user.update_attributes(attributes)
+      end
+    end
+  end
   namespace :cleanup do
     desc "normalize action names"
     task notifications: [:connection] do
