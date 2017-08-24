@@ -19,54 +19,55 @@ class UserTest < Minitest::Test
   end
 
   def test_create_user_from_github
-    user = User.from_github(23, 'alice', 'alice@example.com', 'avatar_url', 'polyglot')
+    user = User.from_github(23, 'alice', 'alice@example.com', 'avatar_url', 'I am Alice', 'Alice Jones', 'polyglot')
     assert_equal 1, User.count
     assert_equal 23, user.github_id
     assert_equal 'alice', user.username
     assert_equal 'alice@example.com', user.email
     assert_equal 'avatar_url', user.avatar_url
     assert_equal 'polyglot', user.joined_as
+    assert_equal 'I am Alice', user.bio
+    assert_equal 'Alice Jones', user.name
   end
 
   def test_update_username_from_github
     User.create(github_id: 23)
-    user = User.from_github(23, 'bob', nil, nil).reload
+    user = User.from_github(23, 'bob', nil, nil, nil, nil).reload
     assert_equal 'bob', user.username
   end
 
-  def test_does_not_overwrite_email_or_joined_as_if_present
-    User.create(github_id: 23, email: 'alice@example.com', joined_as: 'polyglot')
-    user = User.from_github(23, nil, 'new@example.com', nil, 'artisan').reload
-    assert_equal 'alice@example.com', user.email
+  def test_does_not_overwrite_joined_as_if_present
+    User.create(github_id: 23, joined_as: 'polyglot')
+    user = User.from_github(23, nil, nil, nil, nil, nil, 'artisan').reload
     assert_equal 'polyglot', user.joined_as
   end
 
   def test_sets_avatar_url
     User.create(github_id: 23)
-    user = User.from_github(23, nil, nil, 'new?1234').reload
+    user = User.from_github(23, nil, nil, 'new?1234', nil, nil).reload
     assert_equal 'new', user.avatar_url
   end
 
   def test_overwrites_avatar_url_if_present
     User.create(github_id: 23, avatar_url: 'old')
-    user = User.from_github(23, nil, nil, 'new?1234').reload
+    user = User.from_github(23, nil, nil, 'new?1234', nil, nil).reload
     assert_equal 'new', user.avatar_url
   end
 
   def test_from_github_unsets_old_duplicate_username
     u1 = User.create(github_id: 23, username: 'alice')
-    u2 = User.from_github(31, 'alice', nil, nil).reload
+    u2 = User.from_github(31, 'alice', nil, nil, nil, nil).reload
     assert_equal 'alice', u2.username
     assert_equal '', u1.reload.username
 
     # it doesn't overwrite it's own username next time
-    u3 = User.from_github(31, 'alice', nil, nil).reload
+    u3 = User.from_github(31, 'alice', nil, nil, nil, nil).reload
     assert_equal 'alice', u3.username
   end
 
   def test_from_github_connects_invited_user
     u1 = User.create(username: 'alice')
-    u2 = User.from_github(42, 'alice', 'alice@example.com', 'avatar').reload
+    u2 = User.from_github(42, 'alice', 'alice@example.com', 'avatar', nil, nil).reload
 
     u1.reload
 

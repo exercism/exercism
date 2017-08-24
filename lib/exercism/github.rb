@@ -30,7 +30,7 @@ class Github
       req.params['access_token'] = access_token
     end
     result = JSON.parse(response.body)
-    [result['id'], result['login'], result['email'], result['avatar_url']]
+    [result['id'], result['login'], result['email'], result['avatar_url'], result['bio'], result['name']]
   end
   # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 

@@ -52,7 +52,7 @@ class User < ActiveRecord::Base
   end
 
   # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
-  def self.from_github(id, username, email, avatar_url, joined_as=nil)
+  def self.from_github(id, username, email, avatar_url, bio, name, joined_as=nil)
     user = User.where(github_id: id).first
     # try to match an invitation that has been sent.
     # GitHub ID will only be nil if the user has never logged in.
@@ -61,8 +61,10 @@ class User < ActiveRecord::Base
     user.joined_as = joined_as if user.joined_as.nil? && !!joined_as
 
     user.github_id  = id
-    user.email      = email unless user.email
+    user.email      = email
     user.username   = username
+    user.name       = name
+    user.bio        = bio
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url
     user.save
 
