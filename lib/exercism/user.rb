@@ -63,7 +63,7 @@ class User < ActiveRecord::Base
     user.github_id  = id
     user.email      = email
     user.username   = username
-    user.name       = name
+    user.name       = name || ''
     user.bio        = bio
     user.avatar_url = avatar_url.gsub(/\?.+$/, '') if avatar_url
     user.save

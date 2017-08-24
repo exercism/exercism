@@ -11,7 +11,7 @@ namespace :data do
       client = Octokit::Client.new(access_token: ENV['EXERCISM_OAUTH_TOKEN'])
       client.rate_limit
 
-      MinimalUser.find_each.each do |minimal_user|
+      MinimalUser.where("name IS NULL").find_each.each do |minimal_user|
         response = client.last_response
         if response.headers["x-ratelimit-remaining"].to_i.zero?
           seconds = response.headers["x-ratelimit-reset"].to_i - Time.now.utc.to_i
@@ -23,7 +23,7 @@ namespace :data do
         attributes = {
           :username => user.login,
           :email => user.email,
-          :name => user.name,
+          :name => user.name || '',
           :bio => user.bio,
         }
         minimal_user.update_attributes(attributes)
