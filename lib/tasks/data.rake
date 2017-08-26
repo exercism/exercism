@@ -29,7 +29,11 @@ namespace :data do
           }
           minimal_user.update_attributes(attributes)
         rescue Octokit::NotFound
-          minimal_user.update_attributes(:username => '')
+          username = ""
+          if minimal_user.github_id.present?
+            username = "deleted-github-user-%d" % minimal_user.github_id
+          end
+          minimal_user.update_attributes(:username => username)
         end
       end
     end
