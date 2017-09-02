@@ -17,7 +17,7 @@ module ExercismWeb
 
       def login_url(return_path=nil)
         url = Github.login_url(client_id: github_client_id)
-        url << redirect_uri(return_path) if return_path
+        url << redirect_uri( Rack::Utils.escape_html(return_path) ) if return_path
         url
       end
 

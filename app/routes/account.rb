@@ -52,7 +52,7 @@ module ExercismWeb
 
         begin
           user_to_invite = ::User.find_by_username(params[:user_to_invite])
-          track = params[:track]
+          track = Rack::Utils.escape_html(params[:track])
 
           user_to_invite.present? or fail "couldn't find user for #{user_to_invite.username}"
           track.present? or fail "track cannot be blank"

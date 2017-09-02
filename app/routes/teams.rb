@@ -6,16 +6,17 @@ module ExercismWeb
         please_login
 
         page = params[:page] || 1
+        q = Rack::Utils.escape_html(params["q"])
 
-        if params["q"].present?
-          tag = Tag.find_by(name: params["q"])
+        if q.present?
+          tag = Tag.find_by(name: q)
           teams = Team.search_public_with_tag(tag)
         else
           teams = Team.search_public
         end
 
         locals = {
-          tag: params["q"],
+          tag: q,
           teams: teams.paginate(page: page, per_page: 10),
         }.merge(teams_summary_for(current_user))
 
@@ -273,7 +274,7 @@ module ExercismWeb
         only_for_team_managers(slug, "You are not allowed to add managers to the team.") do |team|
           user = ::User.find_by_username(params[:username])
           unless user.present?
-            flash[:error] = "Unable to find user #{params[:username]}"
+            flash[:error] = "Unable to find user #{Rack::Utils.escape_html(params[:username])}"
             redirect "/teams/#{slug}/manage"
           end
 
