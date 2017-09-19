@@ -138,7 +138,7 @@ GEM
     redis (3.3.3)
     rerun (0.11.0)
       listen (~> 3.0)
-    rouge (2.0.7)
+    rouge (2.1.1)
     rubocop (0.36.0)
       parser (>= 2.3.0.0, < 3.0)
       powerpack (~> 0.1)
@@ -229,7 +229,7 @@ DEPENDENCIES
   rb-readline
   redcarpet (~> 3.1)
   rerun
-  rouge (~> 2.0.5)
+  rouge (~> 2.1.0)
   rubocop (= 0.36.0)
   sass
   sidekiq (~> 4.2.10)
