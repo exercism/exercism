@@ -10,7 +10,8 @@
     "grunt": "~0.4.1",
     "grunt-concat-sourcemap": "^0.4.3",
     "grunt-ngmin": "~0.0.2",
-    "lineman": "~0.37.0"
+    "lineman": "~0.37.0",
+    "testem": "^1.18.4"
   },
   "engines": {
     "node": "~>0.10.5",
