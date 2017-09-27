@@ -21,7 +21,7 @@ Lint/AmbiguousRegexpLiteral:
   Enabled: false
 
 Lint/AssignmentInCondition:
-  Description: Don't use assignment in conditions.
+  Description: Do not use assignment in conditions.
   StyleGuide: https://github.com/bbatsov/ruby-style-guide#safe-assignment-in-condition
   Enabled: false
   AllowSafeAssignment: true
