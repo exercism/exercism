@@ -13,6 +13,7 @@ module ExercismLib
       'perl5'       => 'perl',
       'crystal'     => 'ruby',
       'delphi'      => 'pascal',
+      'cfml'        => 'cfc',
     }.freeze
 
     attr_reader :lexer, :code
