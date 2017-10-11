@@ -1,0 +1,157 @@
+<!DOCTYPE html> 
+<html> 
+	<head>
+    <title> Progress Bar </title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <style>
+		.progress-bar {
+  position: relative;
+  width: 200px;
+  height: 40px;
+  border: 1px solid black;
+ 
+}
+.progress-bar-fill {
+  height: inherit;
+  background-color: #a1e814;
+  border-radius: 15px;
+   transition: 0.4s linear;
+  transition-property: width, background-color;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+  -webkit-animation: progress 2s 1 forwards;
+    -moz-animation: progress 2s 1 forwards;
+    -ms-animation: progress 2s 1 forwards;
+    animation: progress 2s 1 forwards;
+}
+    
+.progress-bar-fill-red {
+  height: inherit;
+  background-color: red;
+  border-radius: 15px;
+   transition: 0.4s linear;
+  transition-property: width, background-color;
+  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+  
+  
+}
+.progress-label {
+  position: relative;
+  top: 3px;
+  left: 5px;
+  color: #000;
+  font-family: arial;
+    font-size: 12px;
+}
+
+.bg {
+   border:1px solid #ccc;
+   margin-bottom: 20px;
+  border-radius: 15px;
+    height: 25px;
+} 
+
+input[type=range] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  /* essentially making range slider invisible */
+  opacity: 0;
+}
+button {
+    * Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e0e0e0+0,ffffff+100 */
+background: #e0e0e0; /* Old browsers */
+background: -moz-linear-gradient(top, #e0e0e0 0%, #ffffff 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top, #e0e0e0 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom, #e0e0e0 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0e0e0', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
+    -webkit-appearance: none;
+    padding: 4px;
+    border-radius: 5px;
+    margin: 0 10px;
+	border: 1px solid #c5c5c5;
+	cursor:pointer;
+}
+select {
+ -webkit-appearance: none;
+    padding: 4px;
+    border-radius: 5px;
+    margin: 0 10px;
+	border: 1px solid #c5c5c5;
+	}
+	
+	
+	</style>
+</head> 
+<body>
+  
+ 
+<div id='container'></div>
+ <script src="https://cdn.jsdelivr.net/npm/ractive"></script>
+<script id="template" type='text/ractive'>
+    
+    <h1> Progress Bar.</h1>
+    
+    {{#each progressbars}}
+        <div class="bg">
+        {{#if value < 100}}
+		
+            <div class="progress-bar-fill" style="width: {{value/1}}%">
+                <span class="progress-label ">{{value}}%</span>
+            </div>
+        {{/if}}
+
+        {{#if value>=100}}
+            <div class="progress-bar-fill-red " style="width: 100%">
+                <span class="progress-label">{{value}}%</span>
+            </div>
+        {{/if}}
+		
+		 
+		
+		</div>
+    {{/each}}
+
+    <select value='{{selectedProgress}}'>
+        <option selected disabled>Choose a Progressbar</option>
+        {{#each progressbars :index}}
+            <option value='{{index}}'>{{name}}</option>
+        {{/each}}
+    </select>
+
+    {{#each bars}}
+	
+	
+        <button disabled='{{selectedProgress != null}}' on-click='adjust(this)'>{{this > 0 ? '+' : ''}}{{this}}</button>
+    {{/each}}
+</script>
+<script type='text/javascript'>
+var ractive = new Ractive({
+    el: document.body,
+    template: '#template',
+    data: {
+        progressbars: [
+            { name: 'first', value: 62 },
+            { name: 'second', value: 45 },
+			{ name: 'third', value: 62 }
+
+           
+        ],
+        bars: [ +10, +38, -13, -18 ]
+    },
+    adjust: function ( d ) {
+        var selected = this.get( 'selectedProgress' );
+        if ( selected == null ) return;
+        
+        var keypath = 'progressbars[' + selected + '].value';
+        this.add( keypath, d );
+    }
+});
+
+</script>
+ 
+</body>
+</html>
