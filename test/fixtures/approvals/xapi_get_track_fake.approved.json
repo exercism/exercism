@@ -1,0 +1,76 @@
+{
+  "track": {
+    "language": "Fake",
+    "id": "fake",
+    "active": true,
+    "slug": "fake",
+    "problems": [
+      "fake/hello-world",
+      "fake/one",
+      "fake/two",
+      "fake/three"
+    ],
+    "repository": "https://github.com/exercism/xfake",
+    "todo": [
+      "banana",
+      "cherry",
+      "imbe",
+      "mango"
+    ],
+    "test_pattern": "(?i-mx:test)"
+  },
+  "problems": [
+    {
+      "track_id": "fake",
+      "language": "Fake",
+      "id": "hello-world",
+      "slug": "hello-world",
+      "name": "Hello World",
+      "files": {
+        "hello_test.ext": "assert 'hello'\n",
+        "world_test.ext": "assert 'World'\n",
+        "README.md": "# Hello World\n\n* hello\n* hello again\n\n## Source\n\nThe internet. [http://example.com](http://example.com)\n\n## Submitting Incomplete Solutions\nIt's possible to submit an incomplete solution so you can see how others have completed the exercise.\n\n"
+      },
+      "fresh": false
+    },
+    {
+      "track_id": "fake",
+      "language": "Fake",
+      "id": "one",
+      "slug": "one",
+      "name": "One",
+      "files": {
+        ".dot": "dot\n",
+        "Fakefile": "Autorun fake code\n",
+        "one_test.ext": "assert 'one'\n",
+        "sub/src/stubfile.ext": "stub\n",
+        "README.md": "# One\n\n* one\n* one again\n\n* one hint\n* one more hint\n\n## Source\n\nThe internet. [http://example.com](http://example.com)\n\n## Submitting Incomplete Solutions\nIt's possible to submit an incomplete solution so you can see how others have completed the exercise.\n\n"
+      },
+      "fresh": false
+    },
+    {
+      "track_id": "fake",
+      "language": "Fake",
+      "id": "two",
+      "slug": "two",
+      "name": "Two",
+      "files": {
+        "two_test.ext": "assert 'one'\n",
+        "README.md": "# Two\n\n* two\n* two again\n\n## Source\n\nThe internet. [http://example.com](http://example.com)\n\n## Submitting Incomplete Solutions\nIt's possible to submit an incomplete solution so you can see how others have completed the exercise.\n\n"
+      },
+      "fresh": false
+    },
+    {
+      "track_id": "fake",
+      "language": "Fake",
+      "id": "three",
+      "slug": "three",
+      "name": "Three",
+      "files": {
+        "three_test.ext": "assert 'one'\n",
+        "README.md": "# Three\n\n* three\n* three again\n\n## Source\n\nThe internet. [http://example.com/3](http://example.com/3)\n\n## Submitting Incomplete Solutions\nIt's possible to submit an incomplete solution so you can see how others have completed the exercise.\n\n"
+      },
+      "fresh": false
+    }
+  ]
+}

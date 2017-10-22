@@ -1,0 +1,9 @@
+collection tracks: tracks do |track|
+  node :slug => track.id
+  node :problems => track.implementations.map(&:slug)
+  node :repository => track.repository
+  attributes :language, :id
+  node active: track.active?
+  node todo: todos[track.id].map(&:slug)
+  node :test_pattern => track.test_pattern
+end

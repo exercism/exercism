@@ -1,0 +1,7 @@
+[0] "dog"
+[1] "hello-world"
+[2] "imbe"
+[3] "mango"
+[4] "one"
+[5] "three"
+[6] "two"

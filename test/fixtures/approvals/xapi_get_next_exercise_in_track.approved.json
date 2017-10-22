@@ -1,0 +1,16 @@
+{
+  "problems": [
+    {
+      "id": "fruit/banana",
+      "track_id": "fruit",
+      "language": "fruit",
+      "slug": "banana",
+      "name": "Banana",
+      "files": {
+        "banana.tst": "assert 'banana'\n",
+        "README.md": "# Banana\n\n* banana\n* banana again\n\n* banana specific hints.\n* a hint\n* another hint\n\n## Source\n\n[http://example.com](http://example.com)\n\n## Submitting Incomplete Solutions\nIt's possible to submit an incomplete solution so you can see how others have completed the exercise.\n\n"
+      },
+      "fresh": false
+    }
+  ]
+}

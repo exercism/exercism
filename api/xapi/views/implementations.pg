@@ -1,0 +1,10 @@
+collection :problems => implementations do |implementation|
+  node id: "%s/%s" % [implementation.track_id, implementation.slug]
+  node track_id: implementation.track_id
+  node language: implementation.track_id
+  node slug: implementation.slug
+  node name: implementation.name
+  node files: implementation.files
+  # deprecated
+  node fresh: false
+end

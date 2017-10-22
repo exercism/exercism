@@ -33,6 +33,12 @@ run Rack::URLMap.new(
   "/flipper" => Flipper::UI.app($flipper, &FlipperApp.generator)
 )
 
+
+require 'api/xapi'
+map '/xapi' do
+  run Xapi::App
+end
+
 map '/api/v1/' do
   run ExercismAPI::App
 end

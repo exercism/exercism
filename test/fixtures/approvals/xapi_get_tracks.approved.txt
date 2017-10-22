@@ -1,0 +1,8 @@
+[0] "coins"
+[1] "animal"
+[2] "fake"
+[3] "jewels"
+[4] "fruit"
+[5] "shoes"
+[6] "snowflake"
+[7] "vehicles"
