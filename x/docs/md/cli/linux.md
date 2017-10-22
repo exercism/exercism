@@ -34,7 +34,7 @@ To check which shell you have, run `echo $SHELL`.
 
 These are not officially supported, and sometimes (often) lag behind the latest release.
 
-There's a [freshports build](http://www.freshports.org/misc/exercism), an [AUR package](https://aur.archlinux.org/packages/exercism-cli), and an [openSUSE package](https://software.opensuse.org/package/golang-github-exercism-cli).
+There's a [freshports build](http://www.freshports.org/misc/exercism), an [AUR package](https://aur.archlinux.org/packages/exercism-cli), an [openSUSE package](https://software.opensuse.org/package/golang-github-exercism-cli) and a [Nix/NixOS package](https://github.com/NixOS/nixpkgs/blob/master/pkgs/applications/misc/exercism/default.nix).
 
 ### Verify
 
