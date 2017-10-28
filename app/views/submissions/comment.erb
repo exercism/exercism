@@ -19,7 +19,7 @@
       <h5>Select a comment to insert as a starting point</h5>
         <div class="list-group">
           <% locals[:comment_history].each do |comment| %>
-            <button type="button" class="list-group-item history_item">
+            <button type="button" class="list-group-item history_item" ng-non-bindable>
               <%= comment.body %>
             </button>
           <% end %>
