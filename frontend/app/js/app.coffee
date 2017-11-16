@@ -190,7 +190,7 @@ class SubmissionPrompt
     "What trade-offs can you identify being made in this submission? When would this be a good choice, and when would you want to try something different?"
     "Where does this solution's formatting stray from community style guides? If any, do the variances matter?"
     "Will this solution be performant at scale? In what cases might efficient performance matter?"
-    "Would you like to work in a codebase composed of code similar to this? What do you like and dislike about it?"
+    "Would you want to work in a codebase composed of code similar to this? What do you like and dislike about it?"
   ]
 
 class CommentHistoryTab
