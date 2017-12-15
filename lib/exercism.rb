@@ -5,6 +5,7 @@ require 'faraday'
 require_relative '../config/flipper'
 
 require 'exercism/acl'
+require 'exercism/activity_stream'
 require 'exercism/assumable_user'
 require 'exercism/authentication'
 require 'exercism/client_version'
