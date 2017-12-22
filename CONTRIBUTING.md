@@ -24,8 +24,8 @@ Help us keep exercism welcoming. Please read and abide by the [Code of Conduct][
 
 ## Submitting Code Changes
 
-These instructions should get you closer to getting a commit into the
-repository.
+If you're new to contributing to open source on GitHub, this next section should help you get started.
+If you get stuck, open an issue to ask us for help and we'll get you sorted out (and improve these instructions).
 
 See the [Setting up Local Development guide][local-dev-env] for more information about how to run exercism.io locally.
 
