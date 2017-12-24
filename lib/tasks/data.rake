@@ -1,4 +1,3 @@
-
 namespace :data do
   namespace :github do
     desc "update missing usernames"
@@ -77,6 +76,32 @@ namespace :data do
   end
 
   namespace :cleanup do
+    desc "migrate nimrod exercises to nim"
+    task nimrod: [:connection] do
+      require 'exercism'
+
+      UserExercise.where(language: 'nimrod').each do |legacy_exercise|
+        begin
+          legacy_exercise.update_attributes(language: 'nim')
+          legacy_exercise.submissions.update_all(language: 'nim')
+        rescue
+          exercise = UserExercise.find_by(user_id: legacy_exercise.user_id, language: 'nim', slug: legacy_exercise.slug)
+          puts "repointing submissions on %d/%s to %d (%s)" % [legacy_exercise.id, legacy_exercise.slug, exercise.id, legacy_exercise.user.username]
+          legacy_exercise.submissions.update_all(user_exercise_id: exercise.id, language: 'nim')
+
+          exercise.reload.submissions.order(:created_at).each.with_index do |submission, i|
+            submission.version = i+1
+            submission.save
+          end
+          if legacy_exercise.reload.submissions.count > 0
+            "we have a problem in %d" % legacy_exercise.id
+          else
+            legacy_exercise.destroy
+          end
+        end
+      end
+    end
+
     desc "normalize action names"
     task notifications: [:connection] do
       sql = <<-SQL
