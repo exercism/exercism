@@ -1,5 +1,6 @@
 class TeamStream
   class Filter
+    include ActivityStream::Filter
     attr_reader :viewer_id, :user_ids, :team_slug, :current_id
     def initialize(viewer_id, user_ids, team_slug, current_id=nil)
       @viewer_id = viewer_id
@@ -8,47 +9,7 @@ class TeamStream
       @current_id = current_id
     end
 
-    def items
-      @items ||= execute(sql).map do |row|
-        item(row["id"], row["total"])
-      end.sort(&order).each do |item|
-        item.unread = unread(item)
-      end
-    end
-
     private
-
-    def unread(item)
-      [item.total - read(item.id), 0].max
-    end
-
-    def read(id)
-      views_by_id[id] + watermarked_by_id[id]
-    end
-
-    def order
-      proc { 0 }
-    end
-
-    def views_by_id
-      @views_by_id ||= execute(views_sql).each_with_object(Hash.new(0)) do |row, views|
-        views[row["id"]] = row["total"].to_i
-      end
-    end
-
-    def watermarked_by_id
-      @watermarked_by_id ||= execute(watermarks_sql).each_with_object(Hash.new(0)) do |row, watermarked|
-        watermarked[row["id"]] = row["total"].to_i
-      end
-    end
-
-    def watermarks_sql
-      ""
-    end
-
-    def execute(query)
-      ActiveRecord::Base.connection.execute(query).to_a
-    end
 
     def user_ids_param
       if user_ids.empty?
