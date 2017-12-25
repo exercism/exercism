@@ -29,4 +29,16 @@ class CommentTest < Minitest::Test
       assert_equal mentions, usernames.sort
     end
   end
+
+  def test_filter_by_submission_language
+    alice = User.create(username: "alice")
+    s1 = Submission.create(user: alice, language: "python", slug: "one")
+    c1 = Comment.create(user: alice, submission: s1, body: "python comment")
+    s2 = Submission.create(user: alice, language: "ruby", slug: "one")
+    c2 = Comment.create(user: alice, submission: s2, body: "ruby comment")
+
+    comments = alice.comments.in_track("ruby")
+    assert_equal 1, comments.size
+    assert_equal "ruby comment", comments.first.body
+  end
 end

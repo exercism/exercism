@@ -19,6 +19,7 @@ class Comment < ActiveRecord::Base
   scope :reversed, -> { order(created_at: :desc) }
   scope :received_by, ->(user) { where(submission_id: user.submissions.pluck(:id)) }
   scope :paginate_by_params, ->(params) { paginate(page: params[:page], per_page: params[:per_page] || 10) }
+  scope :in_track, ->(id) { joins(:submission).where("submissions.language" => id) }
 
   scope :except_on_submissions_by, ->(user) { joins(:submission).merge(Submission.not_submitted_by(user)) }
 
