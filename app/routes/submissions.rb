@@ -15,7 +15,7 @@ module ExercismWeb
 
         title("%s by %s in %s" % [submission.problem.name, submission.user.username, submission.problem.language])
 
-        comment_history = current_user.guest? ? [] : current_user.comments.recent(50)
+        comment_history = current_user.guest? ? [] : current_user.comments.in_track(submission.language).recent(50)
 
         locals = {
           submission: submission,
