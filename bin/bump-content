@@ -6,4 +6,4 @@ git reset --hard origin/master
 bundle update trackler
 git add Gemfile.lock
 RACK_ENV=test bundle exec rake db:migrate
-bundle exec rake && git commit -m "Update trackler" && git push origin master
+bundle exec rake test && git commit -m "Update trackler" && git push origin master
