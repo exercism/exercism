@@ -76,6 +76,35 @@ namespace :data do
   end
 
   namespace :cleanup do
+    desc "delete massive binaries submitted as solutions"
+    task etoobig: [:connection] do
+      require 'exercism'
+
+      Submission.where("octet_length(solution)>65535").each do |submission|
+        exercise = submission.user_exercise
+
+        if submission.solution.count == 1
+          submission.comments.destroy_all
+          submission.destroy
+        else
+          files = submission.solution
+          files = files.reject do |filename, contents|
+            contents.bytesize > 65_535
+          end
+          submission.solution = files
+          submission.save
+        end
+        if exercise.reload.submissions.count == 0
+          exercise.destroy
+        else
+          exercise.iteration_count = exercise.submissions.count
+          exercise.last_activity = "Submitted an iteration"
+          exercise.last_activity_at = exercise.submissions.last.created_at
+          exercise.save
+        end
+      end
+    end
+
     desc "migrate nimrod exercises to nim"
     task nimrod: [:connection] do
       require 'exercism'
