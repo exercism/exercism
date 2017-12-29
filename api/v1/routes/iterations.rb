@@ -60,6 +60,12 @@ module ExercismAPI
         solution = data['solution']
         solution = { data['path'] => data['code'] } if solution.nil?
 
+        if solution.any? {|path, code| code.bytesize > 65_535}
+          halt 422, {
+            error: "File is too large. Please submit the source code, not the compiled binary."
+          }.to_json
+        end
+
         # old CLI, let's see if we can hack around it.
         if data['language'].nil?
           path = data['path'] || solution.first.first
