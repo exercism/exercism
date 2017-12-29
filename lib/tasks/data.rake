@@ -94,6 +94,37 @@ namespace :data do
       Submission.connection.execute(sql)
     end
 
+    desc "delete empty solutions"
+    task eempty: [:connection] do
+      require 'exercism'
+
+      Submission.where("octet_length(solution)<100").each do |submission|
+        exercise = submission.user_exercise
+
+        files = submission.solution
+        files = files.reject do |filename, contents|
+          contents.strip.empty?
+        end
+        if files != submission.solution
+          if files.empty?
+            submission.destroy
+          else
+            submission.solution = files
+            submission.save
+          end
+
+          if exercise.reload.submissions.count == 0
+            exercise.destroy
+          else
+            exercise.iteration_count = exercise.submissions.count
+            exercise.last_activity = "Submitted an iteration"
+            exercise.last_activity_at = exercise.submissions.last.created_at
+            exercise.save
+          end
+        end
+      end
+    end
+
     desc "delete massive binaries submitted as solutions"
     task etoobig: [:connection] do
       require 'exercism'
