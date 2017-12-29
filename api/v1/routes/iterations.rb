@@ -66,6 +66,12 @@ module ExercismAPI
           }.to_json
         end
 
+        if solution.any? {|path, code| code.strip.empty?}
+          halt 422, {
+            error: "Solution cannot contain empty files."
+          }.to_json
+        end
+
         # old CLI, let's see if we can hack around it.
         if data['language'].nil?
           path = data['path'] || solution.first.first
