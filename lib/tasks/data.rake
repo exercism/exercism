@@ -76,6 +76,24 @@ namespace :data do
   end
 
   namespace :cleanup do
+    desc "delete orphan submissions"
+    task submissions: [:connection] do
+      require 'exercism'
+
+      sql = <<-SQL
+      SELECT s.id
+      FROM submissions s
+      LEFT JOIN user_exercises ux
+      ON s.user_exercise_id=ux.id
+      WHERE ux.id IS NULL
+      SQL
+      ids = Submission.connection.execute(sql).map {|row| row["id"]}
+      sql = <<-SQL % ids.join(",")
+      DELETE FROM submissions WHERE id IN (%s)
+      SQL
+      Submission.connection.execute(sql)
+    end
+
     desc "delete massive binaries submitted as solutions"
     task etoobig: [:connection] do
       require 'exercism'
