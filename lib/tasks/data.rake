@@ -76,6 +76,69 @@ namespace :data do
   end
 
   namespace :cleanup do
+    desc "delete rando solutions"
+    task rando: [:connection] do
+      require 'exercism'
+
+      Submission.where(slug: '01_queue').destroy_all
+      UserExercise.where(slug: '01_queue').destroy_all
+
+      Submission.where(slug: 'congratulations').each do |submission|
+        begin
+          submission.user_exercise.update_attributes(slug: 'robot-name')
+        rescue
+          exercise = UserExercise.find_by(slug: 'robot-name', language: submission.language, user_id: submission.user_id)
+          submission.user_exercise_id = exercise.id
+        end
+        submission.slug = 'robot-name'
+        submission.save
+      end
+      UserExercise.where(slug: 'congratulations').destroy_all
+
+
+      Submission.where(slug: 'ballin-octo-batman').each do |submission|
+        begin
+          submission.user_exercise.update_attributes(slug: 'bob')
+        rescue
+          exercise = UserExercise.find_by(slug: 'bob', language: submission.language, user_id: submission.user_id)
+          submission.user_exercise_id = exercise.id
+        end
+        submission.slug = 'bob'
+        submission.save
+      end
+      UserExercise.where(slug: 'ballin-octo-batman').destroy_all
+
+      submission = Submission.find_by(key: '8e877efd33328a0cab506246')
+      exercise = UserExercise.find_by(user_id: submission.user_id, language: submission.language, slug: 'nth-prime')
+      submission.slug = 'nth-prime'
+      submission.user_exercise_id = exercise.id
+      submission.save
+
+      Submission.where(slug: 'lib').each do |submission|
+        begin
+          submission.user_exercise.update_attributes(slug: 'strain')
+        rescue
+          exercise = UserExercise.find_by(slug: 'strain', language: submission.language, user_id: submission.user_id)
+          submission.user_exercise_id = exercise.id
+        end
+        submission.slug = 'strain'
+        submission.save
+      end
+      UserExercise.where(slug: 'lib').destroy_all
+
+      Submission.where(slug: 'scala').each do |submission|
+        begin
+          submission.user_exercise.update_attributes(slug: 'bob')
+        rescue
+          exercise = UserExercise.find_by(slug: 'bob', language: submission.language, user_id: submission.user_id)
+          submission.user_exercise_id = exercise.id
+        end
+        submission.slug = 'bob'
+        submission.save
+      end
+      UserExercise.where(slug: 'scala').destroy_all
+    end
+
     desc "delete orphan submissions"
     task submissions: [:connection] do
       require 'exercism'
