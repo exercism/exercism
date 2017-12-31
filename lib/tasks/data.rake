@@ -81,15 +81,24 @@ namespace :data do
       require 'exercism'
 
       sql = <<-SQL
-      SELECT ux.*
-      FROM user_exercises ux
-      LEFT JOIN users u
-      ON ux.user_id=u.id
-      WHERE u.id IS NULL
+      UPDATE users set email=NULL where username LIKE('deleted-github-user%')
       SQL
-      UserExercise.find_by_sql(sql).each do |exercise|
-        exercise.destroy
-      end
+      User.connection.execute(sql)
+
+      sql = <<-SQL
+        UPDATE users
+        SET email=NULL
+        WHERE id IN (
+          SELECT MAX(id) FROM users WHERE email IN (
+            SELECT email
+            FROM users
+            GROUP BY email
+            HAVING COUNT(id) > 1
+          )
+          GROUP BY email
+        )
+      SQL
+      User.connection.execute(sql)
     end
 
     desc "delete orphan submissions"
