@@ -32,7 +32,7 @@ namespace :data do
           if minimal_user.github_id.present?
             username = "deleted-github-user-%d" % minimal_user.github_id
           end
-          minimal_user.update_attributes(:username => username)
+          minimal_user.update_attributes(:username => username, :email => nil)
         end
       end
     end
@@ -69,7 +69,7 @@ namespace :data do
           if minimal_user.github_id.present?
             username = "deleted-github-user-%d" % minimal_user.github_id
           end
-          minimal_user.update_attributes(:username => username)
+          minimal_user.update_attributes(:username => username, :email => nil)
         end
       end
     end
@@ -80,10 +80,25 @@ namespace :data do
     task random: [:connection] do
       require 'exercism'
 
-      sql = <<-SQL
-      UPDATE users set email=NULL where username LIKE('deleted-github-user%')
-      SQL
-      User.connection.execute(sql)
+      track_ids = %w(bash c groovy)
+      src = 'point-mutations'
+      dst = 'hamming'
+      Submission.where(language: track_ids, slug: src).each do |submission|
+        begin
+          submission.user_exercise.update_attributes(slug: dst)
+        rescue
+          exercise = UserExercise.find_by(slug: dst, language: submission.language, user_id: submission.user_id)
+          submission.user_exercise_id = exercise.id
+        end
+        submission.slug = dst
+        submission.save
+      end
+      UserExercise.where(language: track_ids, slug: src).destroy_all
+    end
+
+    desc "delete duplicate emails"
+    task emails: [:connection] do
+      require 'exercism'
 
       sql = <<-SQL
         UPDATE users
