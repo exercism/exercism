@@ -76,67 +76,45 @@ namespace :data do
   end
 
   namespace :cleanup do
-    desc "delete rando solutions"
-    task rando: [:connection] do
+    desc "clean up random stuff"
+    task random: [:connection] do
       require 'exercism'
 
-      Submission.where(slug: '01_queue').destroy_all
-      UserExercise.where(slug: '01_queue').destroy_all
+      User.where(github_id: -1).destroy_all
 
-      Submission.where(slug: 'congratulations').each do |submission|
+      sql = <<-SQL
+      SELECT DISTINCT ux1.id AS id
+      FROM user_exercises ux1
+      INNER JOIN submissions s
+      ON ux1.id=s.user_exercise_id
+      INNER JOIN user_exercises ux2
+      ON ux2.language=ux1.language AND ux2.slug=s.slug AND ux2.user_id=ux1.user_id
+      WHERE s.slug<>ux1.slug
+      SQL
+
+      ids = UserExercise.connection.execute(sql).map {|row| row["id"]}
+      UserExercise.where(id: ids).destroy_all
+
+      sql = <<-SQL
+      SELECT ux.id, s.slug
+      FROM user_exercises ux
+      INNER JOIN submissions s
+      ON ux.id=s.user_exercise_id
+      WHERE s.slug<>ux.slug
+      SQL
+
+      UserExercise.connection.execute(sql).each do |row|
+        sql = <<-SQL % [row["slug"], row["id"]]
+        UPDATE user_exercises
+        SET slug='%s'
+        WHERE id=%d
+        SQL
         begin
-          submission.user_exercise.update_attributes(slug: 'robot-name')
-        rescue
-          exercise = UserExercise.find_by(slug: 'robot-name', language: submission.language, user_id: submission.user_id)
-          submission.user_exercise_id = exercise.id
+          UserExercise.connection.execute(sql)
+        rescue => e
+          require 'pry'; binding.pry
         end
-        submission.slug = 'robot-name'
-        submission.save
       end
-      UserExercise.where(slug: 'congratulations').destroy_all
-
-
-      Submission.where(slug: 'ballin-octo-batman').each do |submission|
-        begin
-          submission.user_exercise.update_attributes(slug: 'bob')
-        rescue
-          exercise = UserExercise.find_by(slug: 'bob', language: submission.language, user_id: submission.user_id)
-          submission.user_exercise_id = exercise.id
-        end
-        submission.slug = 'bob'
-        submission.save
-      end
-      UserExercise.where(slug: 'ballin-octo-batman').destroy_all
-
-      submission = Submission.find_by(key: '8e877efd33328a0cab506246')
-      exercise = UserExercise.find_by(user_id: submission.user_id, language: submission.language, slug: 'nth-prime')
-      submission.slug = 'nth-prime'
-      submission.user_exercise_id = exercise.id
-      submission.save
-
-      Submission.where(slug: 'lib').each do |submission|
-        begin
-          submission.user_exercise.update_attributes(slug: 'strain')
-        rescue
-          exercise = UserExercise.find_by(slug: 'strain', language: submission.language, user_id: submission.user_id)
-          submission.user_exercise_id = exercise.id
-        end
-        submission.slug = 'strain'
-        submission.save
-      end
-      UserExercise.where(slug: 'lib').destroy_all
-
-      Submission.where(slug: 'scala').each do |submission|
-        begin
-          submission.user_exercise.update_attributes(slug: 'bob')
-        rescue
-          exercise = UserExercise.find_by(slug: 'bob', language: submission.language, user_id: submission.user_id)
-          submission.user_exercise_id = exercise.id
-        end
-        submission.slug = 'bob'
-        submission.save
-      end
-      UserExercise.where(slug: 'scala').destroy_all
     end
 
     desc "delete orphan submissions"
