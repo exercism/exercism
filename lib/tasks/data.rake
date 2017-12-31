@@ -80,40 +80,15 @@ namespace :data do
     task random: [:connection] do
       require 'exercism'
 
-      User.where(github_id: -1).destroy_all
-
       sql = <<-SQL
-      SELECT DISTINCT ux1.id AS id
-      FROM user_exercises ux1
-      INNER JOIN submissions s
-      ON ux1.id=s.user_exercise_id
-      INNER JOIN user_exercises ux2
-      ON ux2.language=ux1.language AND ux2.slug=s.slug AND ux2.user_id=ux1.user_id
-      WHERE s.slug<>ux1.slug
-      SQL
-
-      ids = UserExercise.connection.execute(sql).map {|row| row["id"]}
-      UserExercise.where(id: ids).destroy_all
-
-      sql = <<-SQL
-      SELECT ux.id, s.slug
+      SELECT ux.*
       FROM user_exercises ux
-      INNER JOIN submissions s
-      ON ux.id=s.user_exercise_id
-      WHERE s.slug<>ux.slug
+      LEFT JOIN users u
+      ON ux.user_id=u.id
+      WHERE u.id IS NULL
       SQL
-
-      UserExercise.connection.execute(sql).each do |row|
-        sql = <<-SQL % [row["slug"], row["id"]]
-        UPDATE user_exercises
-        SET slug='%s'
-        WHERE id=%d
-        SQL
-        begin
-          UserExercise.connection.execute(sql)
-        rescue => e
-          require 'pry'; binding.pry
-        end
+      UserExercise.find_by_sql(sql).each do |exercise|
+        exercise.destroy
       end
     end
 
