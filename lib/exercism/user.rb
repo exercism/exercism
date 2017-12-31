@@ -4,18 +4,18 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   serialize :track_mentor, Array
 
-  has_many :submissions
-  has_many :notifications
-  has_many :comments do
+  has_many :submissions, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_many :comments, dependent: :destroy do
     def recent(count)
       order('comments.updated_at DESC').limit(count)
     end
   end
   has_many :dailies, -> (user) { limit(Daily::LIMIT - user.daily_count) }
   has_many :daily_counts
-  has_many :exercises, class_name: "UserExercise"
+  has_many :exercises, class_name: "UserExercise", dependent: :destroy
 
-  has_many :management_contracts, class_name: "TeamManager"
+  has_many :management_contracts, class_name: "TeamManager", dependent: :destroy
   has_many :managed_teams, through: :management_contracts, source: :team
   has_many :team_memberships, -> { where confirmed: true }, dependent: :destroy
   has_many :team_membership_invites, -> { where refused: false }, dependent: :destroy
