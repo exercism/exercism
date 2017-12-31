@@ -183,7 +183,7 @@ class SubmissionPrompt
     "Is there anything in this submission that you don't understand or have questions about?"
     "Is this code exemplary? Would you want to see more like it? What specifically would you like to see more or less of?"
     "Is this code well-organized? What might make it better, and why?"
-    "Is this easy for you read and understand? What might make it easier?"
+    "Is this easy for you to read and understand? What might make it easier?"
     "What aspects of this submission do you like and want to incorporate in your own code?"
     "What did you learn from this submission?"
     "What principles could the author learn and apply that would improve this solution?"
