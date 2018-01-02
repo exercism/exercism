@@ -96,6 +96,42 @@ namespace :data do
       UserExercise.where(language: track_ids, slug: src).destroy_all
     end
 
+    desc "delete empty submission files"
+    task empties: [:connection] do
+      require 'exercism'
+
+      # Brute force is fine.
+      Submission.find_each do |submission|
+        next unless submission.solution.any? {|_, body| body.strip.empty?}
+
+        files    = submission.solution
+        exercise = submission.user_exercise
+
+        submission.solution.each do |filename, body|
+          if body.empty?
+            files.delete(filename)
+          end
+        end
+
+        unless files.empty?
+          submission.solution = files
+          submission.save
+          next
+        end
+
+        submission.destroy
+
+        if exercise.reload.submissions.count == 0
+          exercise.skipped_at = exercise.created_at
+          exercise.last_activity = nil
+          exercise.state = nil
+        else
+          exercise.iteration_count = exercise.submissions.count
+        end
+        exercise.save
+      end
+    end
+
     desc "delete duplicate emails"
     task emails: [:connection] do
       require 'exercism'
