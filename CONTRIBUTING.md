@@ -76,7 +76,7 @@ request for, it automatically updates the pull request.
 When the pull request is ready to be merged, you will probably be asked to [squash your commits][squash-commits].
 
 As with adding more commits, you do not need to close your pull request and open a new one.
-If you change the history (rebase, squash, amend), and use git push --force to update the branch on your fork.
+If you change the history (`rebase`, `squash`, `amend`), use `git push --force` to update the branch on your fork.
 The pull request points to that branch, not to specific commits.
 
 Here's a guide on [how to squash commits in a GitHub pull request][squash-commits].
