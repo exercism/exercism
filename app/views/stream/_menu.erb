@@ -3,12 +3,12 @@
   <li class="<%= 'active' if item.active? %>">
     <a href="<%= item.url %>">
       <%= item.text %>
-      <span class="total-count">
+      <span class="total-count" title="<%= item.total %> solutions">
         <%= item.total %>
       </span>
     </a>
     <% if item.unread > 0 %>
-    <span class="badge unread-count">
+    <span class="badge unread-count" title="<%= item.unread %> unread solutions">
       <%= item.unread %>
     </span>
     <% end %>
