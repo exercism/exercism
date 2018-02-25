@@ -33,7 +33,7 @@ module ExercismWeb
         if params[:redirect].to_s.empty?
           redirect ["", "tracks", exercise.track_id, "exercises"].join('/')
         end
-        redirect Rack::Utils.escape_html(params[:redirect])
+        redirect params[:redirect]
       end
 
       post '/exercises/:key/archive' do |key|
