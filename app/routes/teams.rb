@@ -6,7 +6,7 @@ module ExercismWeb
         please_login
 
         page = params[:page] || 1
-        q = Rack::Utils.escape_html(params["q"])
+        q = Rack::Utils.escape_html(params["q"]).downcase
 
         if q.present?
           tag = Tag.find_by(name: q)
