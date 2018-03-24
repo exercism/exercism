@@ -102,6 +102,18 @@ class TeamsTest < Minitest::Test
     end
   end
 
+  def test_logged_user_can_search_teams_by_case_insensitive_tags
+    Team
+      .by(alice)
+      .defined_with(slug: 'case insensitive team', public: '1', tags: 'insensitive')
+      .save!
+
+    get '/teams', { q: 'INSENSITIVE' }, login(alice)
+
+    assert_equal 200, last_response.status
+    assert_match %r{case insensitive team \(0 members\)}, last_response.body
+  end
+
   def test_user_must_be_on_team_to_view_team_page
     team = Team.by(alice).defined_with(slug: 'abc')
     team.save
