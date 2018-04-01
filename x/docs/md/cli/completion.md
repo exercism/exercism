@@ -4,11 +4,11 @@
 
 If you use a Bash shell, you can use the CLI Bash-completion script.
 
-First download the script [[view source]](http://cli.exercism.io/exercism_completion.bash):
+First download the script [[view source]](http://cli.exercism.io/shell/exercism_completion.bash):
 
 ```bash
 mkdir -p ~/.config/exercism/
-curl http://cli.exercism.io/exercism_completion.bash > ~/.config/exercism/exercism_completion.bash
+curl http://cli.exercism.io/shell/exercism_completion.bash > ~/.config/exercism/exercism_completion.bash
 ```
 
 Load up the completion in your `.bashrc`, `.bash_profile` or `.profile` by adding the following snippet:
@@ -25,11 +25,11 @@ After opening a new Bash shell, you should be able to type `exercism s` then pre
 
 If you use a Zsh shell, you can use the CLI Zsh-completion script.
 
-First download the script [[view source]](http://cli.exercism.io/exercism_completion.zsh):
+First download the script [[view source]](http://cli.exercism.io/shell/exercism_completion.zsh):
 
 ```zsh
 mkdir -p ~/.config/exercism/
-curl http://cli.exercism.io/exercism_completion.zsh > ~/.config/exercism/exercism_completion.zsh
+curl http://cli.exercism.io/shell/exercism_completion.zsh > ~/.config/exercism/exercism_completion.zsh
 ```
 
 Load up the completion in your `.zshrc`, `.zsh_profile` or `.profile` by adding the following snippet:
