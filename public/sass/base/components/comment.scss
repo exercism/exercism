@@ -82,6 +82,10 @@ Styleguide Components - Comment.
     border: 1px solid $gray-lighter;
     border-radius: $border-radius-base;
     @include default-triangle("left");
+
+    p a {
+      word-wrap: break-word;
+    }
   }
   .comment-meta {
     border: 1px solid darken($gray-lighter, 10%);
@@ -103,9 +107,6 @@ Styleguide Components - Comment.
     }
     .comment-body {
       @include default-triangle("right");
-    }
-    .comment-body p a{
-      word-wrap: break-word;
     }
   }
 }
