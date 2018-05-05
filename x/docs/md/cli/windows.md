@@ -16,7 +16,7 @@ If you already have the Chocolatey Package Manager installed, feel free to skip 
 Chocolately lets you install Windows applications quickly and easily. To install Chocolatey please refer to the [installation instructions on the Chocolatey website](https://chocolatey.org/install).
 
 > **NOTE**
-> Please ensure that when you open up your Windows shell, whether it's the Command Prompt or Powershell, you open it with **Administrator privileges**, otherwise the Chocolatey installation will fail. If you are unsure how to do this, please refer to the [help below](#open-win-cmd).
+> Please ensure that when you open up your Windows shell, whether it's the Command Prompt or Powershell, you open it with **Administrator privileges**, otherwise the Chocolatey installation will fail. If you are unsure how to do this, please refer to the [help below](#open-win-cmd). If you are not an Administrator on your PC then it is recommended that you have the Chocolatey install performed by someone that is an Administrator on the PC.  
 
 If you want to check if your Chocolatey installation has been successful, please refer to the [help below](#test-choco-install).
 
