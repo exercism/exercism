@@ -16,7 +16,7 @@ module ExercismWeb
           implementations: Trackler.implementations[slug],
           problems: need_canonical,
           active_problems_count: active_problems.size,
-          canonical_problems_count: [active_problems - need_canonical].size
+          canonical_problems_count: (active_problems - need_canonical).size
         }
       end
     end
