@@ -30,7 +30,7 @@ module ExercismWeb
           end
 
           request.accept!
-          flash[:success] = "#{username} are now a member of team #{slug}."
+          flash[:success] = "#{username} is now a member of team #{slug}."
           redirect "/teams/#{slug}/manage"
         end
       end
