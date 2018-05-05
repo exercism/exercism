@@ -90,24 +90,26 @@
     <br/>
 
     <div class="row">
-      <% team.managers.each do |manager| %>
-        <% if team.managers.count == 1 && team.managers.first == current_user %>
-          <button type="button" class="disabled btn btn-xs btn-danger manager_delete" data-toggle="tooltip" data-placement="bottom" title="You must add another manager before you can remove yourself as the last manager." style="margin: 10px 10px 10px 0">Remove</button>
-        <% else %>
+      <% if team.managers.count == 1 && team.managers.first == current_user %>
+        <div class="col-sm-3">
+          <button type="button" class="disabled btn btn-xs btn-danger manager_delete" data-toggle="tooltip" data-placement="bottom" title="You must add another manager before you can remove yourself as the last manager." style="margin: 10px 10px 10px 0">X</button>
+          <%= gravatar_tag current_user.avatar_url, size: 20 %>
+          <a href="/<%= current_user.username %>"><%= current_user.username %></a>
+        </div>
+      <% else %>
+        <% team.managers.each do |manager| %>
           <div class="col-sm-3">
             <form accept-charset="UTF-8" action="/teams/<%= team.slug %>/managers" method="post" style="display: inline">
               <input type="hidden" name="_method" value="delete" />
               <input type="hidden" name="username" value="<%= manager.username %>" />
               <button type="submit" class="btn btn-xs btn-danger manager_delete" data-username="<%= manager.username %>" style="margin: 10px 10px 10px 0">X</button>
             </form>
-          <% end %>
 
-          <%= gravatar_tag manager.avatar_url, size: 20 %>
-          <a href="/<%= manager.username %>"><%= manager.username %></a>
-          <% if team.managers.count != 1 && team.managers.first == current_user %>
+            <%= gravatar_tag manager.avatar_url, size: 20 %>
+            <a href="/<%= manager.username %>"><%= manager.username %></a>
           </div>
-          <% end %>
         <% end %>
+      <% end %>
     </div>
   </div>
 
