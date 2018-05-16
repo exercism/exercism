@@ -1,6 +1,10 @@
 module ExercismWeb
   module Routes
     class Tracks < Core
+      get '/tracks/:id' do |id|
+        redirect 'http://v2.exercism.io/tracks/%s' % id
+      end
+
       get '/tracks/:id/my_solutions' do |id|
         please_login
         page = params[:page] || 1
