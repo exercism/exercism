@@ -3,9 +3,10 @@
 # rubocop:disable Metrics/ClassLength
 class TrackStream
   include ActivityStream
-  attr_reader :user, :page, :track_id, :slug, :language, :only_mine
+
+  attr_reader :user, :page, :track_id, :slug, :language, :only_mine, :team
   attr_accessor :per_page
-  def initialize(user, track_id, slug=nil, page=1, only_mine=false)
+  def initialize(user, track_id, slug=nil, page=1, only_mine=false, team_slug=nil)
     @user = user
     @track_id = track_id.to_s.downcase
     @slug = slug.downcase if slug
@@ -13,6 +14,7 @@ class TrackStream
     @page = page.to_i
     @per_page = 50
     @only_mine = only_mine
+    @team = Team.find_by_slug(team_slug) if team_slug
   end
 
   def mark_as_read
@@ -23,8 +25,10 @@ class TrackStream
   def title
     if slug.nil?
       language
-    else
+    elsif team.nil?
       [language, Problem.new(track_id, slug).name].join(" ")
+    else
+      [language, Problem.new(track_id, slug).name, "by team", team.name].join(" ")
     end
   end
 
@@ -32,6 +36,7 @@ class TrackStream
     @menus ||= [
       TrackStream::TrackFilter.new(user.id, track_id),
       TrackStream::ViewerFilter.new(user.id, track_id, only_mine),
+      TrackStream::TeamFilter.new(user.id, track_id, slug, team),
       TrackStream::ProblemFilter.new(user.id, track_id, slug),
     ]
   end
@@ -98,6 +103,7 @@ class TrackStream
       INNER JOIN acls
         ON ex.language=acls.language
         AND ex.slug=acls.slug
+      #{filter_by_team if team}
       WHERE acls.user_id=#{user.id}
         AND ex.language='#{track_id}'
         AND ex.slug=#{slug_param}
@@ -109,6 +115,15 @@ class TrackStream
     SQL
   end
   # rubocop:enable Metrics/MethodLength
+
+  def filter_by_team
+    <<-SQL
+      INNER JOIN team_memberships m
+        ON m.user_id=u.id
+        AND m.team_id=#{team.id}
+        AND m.confirmed='t'
+    SQL
+  end
 
   # rubocop:disable Metrics/MethodLength
   def mark_as_read_update_sql

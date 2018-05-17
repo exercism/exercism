@@ -19,6 +19,16 @@ module ExercismWeb
         erb :"track_stream/index", locals: { stream: stream }
       end
 
+      get '/tracks/:id/exercises/:slug/:team' do |id, slug, team_slug|
+        please_login
+        page = params[:page] || 1
+        stream = TrackStream.new(current_user, id, slug, page, false, team_slug)
+        session[:inbox] = id
+        session[:inbox_slug] = slug
+
+        erb :"track_stream/index", locals: { stream: stream }
+      end
+
       post '/tracks/:id/views/?:slug?' do |id, slug|
         if current_user.guest?
           # silently ignore the request

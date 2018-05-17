@@ -255,4 +255,73 @@ class TrackStream
       "/tracks/%s/my_solutions" % [track_id]
     end
   end
+
+  class TeamFilter < Filter
+    attr_reader :viewer_id, :language, :slug, :team
+    def initialize(viewer_id, language, slug, team)
+      @viewer_id = viewer_id
+      @language = language
+      @slug = slug
+      @team = team
+    end
+
+    def sql
+      <<-SQL
+        SELECT t.id AS id, COUNT(e.id) AS total
+        FROM user_exercises e
+        INNER JOIN users u
+          ON  u.id=e.user_id
+        INNER JOIN team_memberships m
+          ON  m.user_id=u.id
+          AND m.confirmed='t'
+        INNER JOIN teams t
+          ON  t.id=m.team_id
+        INNER JOIN team_memberships um
+          ON  um.team_id=t.id
+          AND um.confirmed='t'
+          AND um.user_id=#{viewer_id}
+        WHERE e.slug='#{slug}'
+          AND e.iteration_count > 0
+          AND e.language='#{language}'
+          AND e.archived='f'
+        GROUP BY t.id
+      SQL
+    end
+
+    def views_sql
+      <<-SQL
+        SELECT t.id AS id, COUNT(e.id) AS total
+        FROM views v
+        INNER JOIN user_exercises e
+          ON  e.id=v.exercise_id
+          AND e.slug='#{slug}'
+          AND e.iteration_count > 0
+          AND e.language='#{language}'
+          AND e.archived='f'
+        INNER JOIN users u
+          ON  u.id=e.user_id
+        INNER JOIN team_memberships m
+          ON  m.user_id=u.id
+          AND m.confirmed='t'
+        INNER JOIN teams t
+          ON  t.id=m.team_id
+        INNER JOIN team_memberships um
+          ON  um.team_id=t.id
+          AND um.confirmed='t'
+          AND um.user_id=#{viewer_id}
+        WHERE v.user_id=#{viewer_id}
+          AND v.last_viewed_at > e.last_activity_at
+        GROUP BY t.id
+      SQL
+    end
+
+    def item(id, total)
+      t = Team.find(id)
+      Stream::FilterItem.new(id, t.name, url(t), team && team.id == id, total.to_i)
+    end
+
+    def url(team)
+      "/tracks/%s/exercises/%s/%s" % [language, slug, team.slug]
+    end
+  end
 end
