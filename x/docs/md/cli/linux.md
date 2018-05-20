@@ -7,28 +7,12 @@ View the latest CLI release to [choose and download the appropriate package for 
 
 If you're unsure what architecture your processor has, the command `uname -m` should tell you.
 
-Extract the binary using `tar -xzvf FILENAME`, e.g.
+Extract the binary using `tar -xzvf FILENAME`, and place it in `/usr/local/bin` e.g.
 
 ```
 tar -xzvf exercism-linux-32bit.tgz
+mv exercism /usr/local/bin
 ```
-
-Place the binary in your `PATH`, e.g.:
-
-```
-mkdir ~/bin
-mv exercism ~/bin/
-export PATH=$HOME/bin:$PATH
-```
-
-You will want to stick the `export PATH=$HOME/bin:$PATH` line into your shell configuration. E.g. if your
-shell is `bash`, you could run:
-
-```
-echo 'export PATH=$HOME/bin:$PATH' >> ~/.bashrc
-```
-
-To check which shell you have, run `echo $SHELL`.
 
 ### Package Managers
 
