@@ -1,4 +1,3 @@
-# rubocop:disable Lint/UselessAssignment
 # Config for COMPASS
 
 require 'bootstrap-sass'

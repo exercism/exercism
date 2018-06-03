@@ -55,11 +55,6 @@ We're trying to label issues with "good first patch" if we think that these can 
 without too much context about exercism.io's codebase or functionality. To find them, you
 can do a [search][good-first-patch].
 
-### Style (Ruby)
-
-We use [Rubocop][rubocop] to enforce a few style-related conventions.
-Run the command `rubocop` to check for any style violations before submitting pull requests.
-
 ### Style (JS/CSS)
 
 If you have any JS or CSS changes, please run `cd frontend && lineman spec-ci` to check for any problems before submitting pull requests.
@@ -100,7 +95,6 @@ For details, please see [exercism/discussions#113][roadmap].
 [issues]: https://github.com/exercism/exercism.io/issues
 [discussions]: https://github.com/exercism/discussions/issues
 [good-first-patch]: https://github.com/exercism/exercism.io/labels/good%20first%20patch
-[rubocop]: https://github.com/bbatsov/rubocop
 [roadmap]: https://github.com/exercism/discussions/issues/113
 [squash-commits]: http://blog.steveklabnik.com/posts/2012-11-08-how-to-squash-commits-in-a-github-pull-request
 [live-deployment]: https://github.com/exercism/exercism.io/blob/master/docs/setting-up-local-development.md#live-deployment

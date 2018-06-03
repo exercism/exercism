@@ -1,7 +1,6 @@
 module ExercismWeb
   module Helpers
     module NotificationByLanguage
-      # rubocop:disable Metrics/AbcSize
       def notification_by_language(notifications)
         notification_hash = Hash.new { |h,k| h[k] = [] }
 

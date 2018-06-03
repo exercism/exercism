@@ -13,7 +13,6 @@ module ActivityStream
   # up front.
   # If performance is still a problem, remove the join on user and do a separate lookup
   # for that as well.
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def query_exercises
     exx = []
     ids = []
@@ -57,7 +56,6 @@ module ActivityStream
 
     exx
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def execute(sql)
     ActiveRecord::Base.connection.execute(sql).to_a

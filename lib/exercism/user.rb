@@ -1,6 +1,5 @@
 require 'digest/sha1'
 
-# rubocop:disable Metrics/ClassLength
 class User < ActiveRecord::Base
   serialize :track_mentor, Array
 
@@ -51,7 +50,6 @@ class User < ActiveRecord::Base
     ACL.where(user_id: id, language: problem.track_id, slug: problem.slug).count > 0
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
   def self.from_github(id, username, email, avatar_url, bio, name, joined_as=nil)
     user = User.where(github_id: id).first
     # try to match an invitation that has been sent.
@@ -75,7 +73,6 @@ class User < ActiveRecord::Base
     end
     user
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength, Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
   def self.find_or_create_in_usernames(usernames)
     members = find_in_usernames(usernames).map(&:username).map(&:downcase)
@@ -177,4 +174,3 @@ class User < ActiveRecord::Base
     end
   end
 end
-# rubocop:enable Metrics/ClassLength

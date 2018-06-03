@@ -26,12 +26,10 @@ namespace :db do
     fail "Seeding the test database would cause many tests to fail." if ENV['RACK_ENV'] == 'test'
     require_comments
     config = DB::Config.new
-    # rubocop:disable Style/AlignParameters
     system({ 'PGPASSWORD' => config.password },
            'psql', '-h', config.host, '-p', config.port,
                    '-U', config.username,
                    '-d', config.database, '-f', 'db/seeds.sql')
-    # rubocop:enable Style/AlignParameters
 
     # Trigger generation of html body
     Comment.find_each(&:save)

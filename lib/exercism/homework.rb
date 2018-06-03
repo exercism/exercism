@@ -15,7 +15,6 @@ class Homework
     extract(sql)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def status(language)
     exercises = user.exercises.where(language: language)
 
@@ -40,7 +39,6 @@ class Homework
       fetched: ["sorry, tracking disabled for fetching"],
     }
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   private
 

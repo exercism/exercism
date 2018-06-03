@@ -1,6 +1,5 @@
 # TrackStream is an activity stream which has been filtered against the user's access list.
 # Additionally, it can be narrowed down to a single exercise within a track.
-# rubocop:disable Metrics/ClassLength
 class TrackStream
   include ActivityStream
   attr_reader :user, :page, :track_id, :slug, :language, :only_mine
@@ -60,7 +59,6 @@ class TrackStream
     Watermark.where(user_id: user.id).where("track_id || ':' || slug IN (?)", problem_ids)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def viewed_sql(ids)
     <<-SQL
       SELECT ex.id
@@ -75,9 +73,7 @@ class TrackStream
         AND ex.id IN (#{ids.join(',')})
     SQL
   end
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/MethodLength
   def exercises_sql
     <<-SQL
       SELECT
@@ -108,9 +104,7 @@ class TrackStream
       LIMIT #{per_page} OFFSET #{offset}
     SQL
   end
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/MethodLength
   def mark_as_read_update_sql
     <<-SQL
       UPDATE watermarks
@@ -127,9 +121,7 @@ class TrackStream
         AND watermarks.user_id=#{user.id}
     SQL
   end
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/MethodLength
   def mark_as_read_insert_sql
     <<-SQL
       INSERT INTO watermarks (
@@ -151,7 +143,4 @@ class TrackStream
       )
     SQL
   end
-  # rubocop:enable Metrics/MethodLength
-
 end
-# rubocop:enable Metrics/ClassLength

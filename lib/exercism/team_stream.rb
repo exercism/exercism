@@ -2,7 +2,6 @@
 # It does not restrict against the usual Access Control Lists.
 # If you are on the team, then you are allowed to see the code.
 # This can be narrowed down by track, track & problem, user, or user & track.
-# rubocop:disable Metrics/ClassLength
 class TeamStream
   include ActivityStream
 
@@ -33,7 +32,6 @@ class TeamStream
     @user_ids ||= TeamMembership.where(team_id: team.id, confirmed: true).pluck(:user_id).map(&:to_i)
   end
 
-  # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
   def title
     problem = Problem.new(track_id, slug)
 
@@ -54,7 +52,6 @@ class TeamStream
       end
     end
   end
-  # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
   def menus
     @menus ||= [menu1, menu2, menu3]
@@ -72,7 +69,6 @@ class TeamStream
                end
   end
 
-  # rubocop:disable Metrics/AbcSize
   def menu3
     @menu3 ||= case mode
                when :user
@@ -83,7 +79,6 @@ class TeamStream
                  TeamStream::UserFilter.new(viewer_id, user_ids, team.slug, username)
                end
   end
-  # rubocop:enable Metrics/AbcSize
 
   def pagination_menu_item
     menu3.items.find(&:active?) || menu2.items.find(&:active?) || menu1.items.find(&:active?)
@@ -95,7 +90,6 @@ class TeamStream
     Watermark.where(user_id: viewer_id).where("track_id || ':' || slug IN (?)", problem_ids)
   end
 
-  # rubocop:disable Metrics/MethodLength
   def viewed_sql(ids)
     <<-SQL
       SELECT ex.id
@@ -109,9 +103,7 @@ class TeamStream
         AND ex.id IN (#{ids.join(',')})
     SQL
   end
-  # rubocop:enable Metrics/MethodLength
 
-  # rubocop:disable Metrics/MethodLength
   def exercises_sql
     <<-SQL
       SELECT
@@ -138,7 +130,6 @@ class TeamStream
       LIMIT #{per_page} OFFSET #{offset}
     SQL
   end
-  # rubocop:enable Metrics/MethodLength
 
   def track_param
     if track_id.nil?

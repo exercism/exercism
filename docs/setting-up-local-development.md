@@ -297,7 +297,6 @@ The entire test suite can then be run with `bundle exec rake test:everything` or
 The current checks include:
 
 - [MiniTest](https://github.com/seattlerb/minitest) `rake test` or `rake test:minitest` - Ruby unit and feature tests
-- [RuboCop](https://github.com/bbatsov/rubocop) - `rake rubocop` - Ruby style enforcement
 - [Lineman Spec](http://linemanjs.com/) - `rake test:lineman` - Front-end tests
 
 To run a single Ruby test, you can do so with:

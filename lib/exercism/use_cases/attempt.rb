@@ -1,6 +1,5 @@
 class Attempt
   attr_reader :user, :track, :slug, :iteration, :submission, :comment
-  # rubocop:disable Metrics/AbcSize
   def initialize(user, *stuff)
     @user = user
     @iteration = stuff.last
@@ -10,9 +9,7 @@ class Attempt
     @submission = Submission.on(Problem.new(track, slug))
     submission.solution = iteration.solution
   end
-  # rubocop:enable Metrics/AbcSize
 
-  # rubocop:disable Metrics/AbcSize
   def save
     user.submissions << submission
     submission.comments.create(user: user, body: comment) if comment.present?
@@ -21,7 +18,6 @@ class Attempt
     submission.reload.viewed_by(user)
     self
   end
-  # rubocop:enable Metrics/AbcSize
 
   def duplicate?
     !submission.solution.empty? && previous_submission.solution == submission.solution

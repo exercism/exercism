@@ -16,7 +16,6 @@ class TrackStream
       ->(a, b) { a.text <=> b.text }
     end
 
-    # rubocop:disable Metrics/MethodLength
     def sql
       <<-SQL
         SELECT ex.language AS id, COUNT(ex.id) AS total
@@ -73,7 +72,6 @@ class TrackStream
         GROUP BY ex.language
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(id, total)
       Stream::FilterItem.new(id, Language.of(id), url(id), id == track_id, total.to_i)
@@ -103,7 +101,6 @@ class TrackStream
       Stream.ordered_slugs(track_id).index(id) || Stream.ordered_slugs(track_id).size
     end
 
-    # rubocop:disable Metrics/MethodLength
     def sql
       <<-SQL
         SELECT ex.slug AS id, COUNT(ex.id) AS total
@@ -163,7 +160,6 @@ class TrackStream
         GROUP BY ex.slug
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(id, total)
       Stream::FilterItem.new(id, namify(id), url(id), id == slug, total.to_i)
@@ -188,7 +184,6 @@ class TrackStream
       @only_mine = only_mine
     end
 
-    # rubocop:disable Metrics/MethodLength
     def sql
       <<-SQL
         SELECT u.username AS id, COUNT(ex.id) AS total
@@ -245,7 +240,6 @@ class TrackStream
         GROUP BY u.username
       SQL
     end
-    # rubocop:enable Metrics/MethodLength
 
     def item(username, total)
       Stream::FilterItem.new(username, 'My Solutions', url, only_mine, total.to_i)
