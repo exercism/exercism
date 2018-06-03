@@ -42,7 +42,6 @@ namespace :test do
   desc 'Run all tests, linters, and checks'
   task everything: %w(
     test:minitest
-    rubocop
     test:lineman
   )
 end

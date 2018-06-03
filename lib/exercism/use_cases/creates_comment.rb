@@ -17,7 +17,6 @@ class CreatesComment
     @submission ||= Submission.find(id)
   end
 
-  # rubocop:disable Metrics/AbcSize
   def create
     @comment = submission.comments.create(user: commenter, body: body)
     unless @comment.new_record?
@@ -30,5 +29,4 @@ class CreatesComment
       submission.save
     end
   end
-  # rubocop:enable Metrics/AbcSize
 end

@@ -1,6 +1,5 @@
 module ExercismWeb
   module Routes
-    # rubocop:disable Metrics/ClassLength
     class Teams < Core
       get '/teams' do
         please_login
