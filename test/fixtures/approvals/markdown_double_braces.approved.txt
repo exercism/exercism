@@ -1,5 +1,5 @@
 <div class="highlight plaintext">
-<table style="border-spacing: 0;"><tbody><tr>
+<table style="border-spacing:0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a></pre></td>
 <td class="code"><pre><span id="L1">{{x: y}}
 </span></pre></td>

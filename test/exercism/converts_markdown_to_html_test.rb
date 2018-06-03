@@ -34,7 +34,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
   def test_markdown_code_with_ampersands
     input = "```\nbig && strong\n```"
     expected = '<div class="highlight plaintext">
-<table style="border-spacing: 0;"><tbody><tr>
+<table style="border-spacing:0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a></pre></td>
 <td class="code"><pre><span id="L1">big &amp;&amp; strong
 </span></pre></td>
@@ -60,7 +60,7 @@ class ConvertsMarkdownToHTMLTest < Minitest::Test
                  "{{action}}, {{remaining}} of beer on the wall.\n";)
 
     expected = %(<div class="highlight plaintext">
-<table style="border-spacing: 0;"><tbody><tr>
+<table style="border-spacing:0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href=\"#L1\">1</a>
 <a href=\"#L2\">2</a>
 <a href=\"#L3\">3</a>
@@ -93,7 +93,7 @@ Post text)
 
     expected = '<p>Pre text</p>
 <div class="highlight plaintext">
-<table style="border-spacing: 0;"><tbody><tr>
+<table style="border-spacing:0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a>
 <a href="#L2">2</a>
 <a href="#L3">3</a></pre></td>
@@ -141,31 +141,31 @@ Post text)
 
   def test_no_newlines_before_and_after_code_in_backticks
     input = "foo\n```ruby\nputs hi\n```\nbar"
-    expected = "<p>foo</p>\n<div class=\"highlight ruby\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\"><span class=\"nb\">puts</span> <span class=\"n\">hi</span>\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
+    expected = "<p>foo</p>\n<div class=\"highlight ruby\">\n<table style=\"border-spacing:0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\"><span class=\"nb\">puts</span> <span class=\"n\">hi</span>\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
     assert_converts_to(input, expected)
   end
 
   def test_with_newlines_before_and_after_code_in_backticks
     input = "foo\n\n```ruby\nputs hi\n```\n\nbar"
-    expected = "<p>foo</p>\n<div class=\"highlight ruby\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\"><span class=\"nb\">puts</span> <span class=\"n\">hi</span>\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
+    expected = "<p>foo</p>\n<div class=\"highlight ruby\">\n<table style=\"border-spacing:0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\"><span class=\"nb\">puts</span> <span class=\"n\">hi</span>\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
     assert_converts_to(input, expected)
   end
 
   def test_no_newlines_before_and_after_code_in_backticks_without_language
     input = "foo\n```\nputs hi\n```\nbar"
-    expected = "<p>foo</p>\n<div class=\"highlight plaintext\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\">puts hi\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
+    expected = "<p>foo</p>\n<div class=\"highlight plaintext\">\n<table style=\"border-spacing:0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\">puts hi\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
     assert_converts_to(input, expected)
   end
 
   def test_code_in_backticks_with_carriage_returns_in_line_endings
     input = "foo\r\n```ruby\r\nputs hi\r\n```\r\nbar"
-    expected = "<p>foo</p>\n<div class=\"highlight ruby\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\"><span class=\"nb\">puts</span> <span class=\"n\">hi</span>\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
+    expected = "<p>foo</p>\n<div class=\"highlight ruby\">\n<table style=\"border-spacing:0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\"><span class=\"nb\">puts</span> <span class=\"n\">hi</span>\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>bar</p>"
     assert_converts_to(input, expected)
   end
 
   def test_code_in_too_many_backticks
     input = "too\r\n````\r\nmany\r\n`````\r\nbackticks"
-    expected = "<p>too</p>\n<div class=\"highlight plaintext\">\n<table style=\"border-spacing: 0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\">many\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>backticks</p>"
+    expected = "<p>too</p>\n<div class=\"highlight plaintext\">\n<table style=\"border-spacing:0;\"><tbody><tr>\n<td class=\"gutter gl\" style=\"text-align: right;\"><pre class=\"lineno\"><a href=\"#L1\">1</a></pre></td>\n<td class=\"code\"><pre><span id=\"L1\">many\n</span></pre></td>\n</tr></tbody></table>\n</div>\n\n<p>backticks</p>"
     assert_converts_to(input, expected)
   end
 
