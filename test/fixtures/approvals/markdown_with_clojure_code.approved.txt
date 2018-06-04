@@ -1,6 +1,6 @@
 <p>Check out this code:</p>
 <div class="highlight clojure">
-<table style="border-spacing: 0;"><tbody><tr>
+<table style="border-spacing:0;"><tbody><tr>
 <td class="gutter gl" style="text-align: right;"><pre class="lineno"><a href="#L1">1</a>
 <a href="#L2">2</a>
 <a href="#L3">3</a></pre></td>
