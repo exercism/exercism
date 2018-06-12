@@ -1,0 +1,41 @@
+nav {
+    top:54px !important;
+}
+main {
+    margin-top: 54px;
+}
+
+#mentors-banner {
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    background:#D81D4E;
+    color:#fff;
+    padding:10px 0;
+    text-align:center;
+
+    p, a {
+        display:inline-block;
+        font-size:1.15em;
+        font-weight:200;
+        line-height:1;
+    }
+    p {
+    }
+    a {
+        background:#fff;
+        padding:8px 16px;
+        color:#333;
+        font-weight:500;
+        margin-left:10px;
+        border:1px solid #fff;
+        &:hover {
+            text-decoration:none;
+            border-color:#333;
+
+        }
+    }
+
+}
+
