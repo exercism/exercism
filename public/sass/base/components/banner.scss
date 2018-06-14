@@ -1,8 +1,23 @@
-nav {
-    top:54px !important;
+@import "../themes/exercism";
+
+@media only screen and (max-width: $container-sm) {
+    nav {
+        top:94px !important;
+    }
+
+    main {
+        margin-top: 94px;
+    }
 }
-main {
-    margin-top: 54px;
+
+@media only screen and (min-width: $container-sm) {
+    nav {
+        top:54px !important;
+    }
+
+    main {
+        margin-top: 54px;
+    }
 }
 
 #mentors-banner {
@@ -12,7 +27,7 @@ main {
     right:0;
     background:#D81D4E;
     color:#fff;
-    padding:10px 0;
+    padding:10px 0 25px;
     text-align:center;
     z-index:1030;
 
