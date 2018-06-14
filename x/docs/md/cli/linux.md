@@ -7,11 +7,11 @@ View the latest CLI release to [choose and download the appropriate package for 
 
 If you're unsure what architecture your processor has, the command `uname -m` should tell you.
 
-Extract the binary using `tar -xzvf FILENAME`, and place it in `/usr/local/bin` e.g.
+Extract the binary using `tar -xzvf FILENAME`, and place it in `/usr/local/bin` (requires superuser permission) e.g.
 
 ```
 tar -xzvf exercism-linux-32bit.tgz
-mv exercism /usr/local/bin
+sudo mv exercism /usr/local/bin
 ```
 
 ### Package Managers
@@ -58,10 +58,10 @@ You can now continue by [choosing a language](http://exercism.io/languages).
 
 ### Uninstalling the Exercism CLI
 
-Remove the file from the `/usr/local/bin` directory with the following command:
+Remove the `exercism` file from the `/usr/local/bin` directory with the following command (requires superuser permission):
 
 ```bash
-rm /usr/local/bin/exercism
+sudo rm /usr/local/bin/exercism
 ```
 
 ### Help
