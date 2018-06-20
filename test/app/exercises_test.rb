@@ -48,6 +48,13 @@ class AppExercisesTest < Minitest::Test
     assert exercise_2.reload.archived?
   end
 
+  def test_archive_needs_at_least_one_exercise_selected
+    post "/exercises/archive", { exercise_ids: [] }, login(alice)
+    assert_equal 302, last_response.status
+    refute exercise.reload.archived?
+    refute exercise_2.reload.archived?
+  end
+
   def test_bulk_delete
     post "/exercises/delete", { exercise_ids: [exercise.id, exercise_2.id] }, login(alice)
     assert_equal 0, UserExercise.count

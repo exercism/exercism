@@ -50,11 +50,15 @@ module ExercismWeb
       end
 
       post '/exercises/archive' do
-        exercises = current_user.exercises.find(params['exercise_ids'])
-        exercises.each(&:archive!)
-
-        flash[:success] = "Your exercises have been archived."
-        redirect "/#{current_user.username}"
+        begin
+          exercises = current_user.exercises.find(params['exercise_ids'])
+          exercises.each(&:archive!)
+          flash[:success] = "Your exercises have been archived."
+        rescue ActiveRecord::RecordNotFound => e
+          flash[:error] = "No exercises were selected to be archived!"
+        ensure
+          redirect "/#{current_user.username}"
+        end
       end
 
       post '/exercises/:key/unarchive' do |key|
