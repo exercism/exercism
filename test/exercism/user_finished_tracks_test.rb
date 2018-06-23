@@ -18,7 +18,7 @@ class UserFinishedTracksTest < Minitest::Test
   def test_user_contributions
     tracks = UserFinishedTracks.tracks(@user)
     expected = ['animal', 'jewels']
-    assert_equal expected, tracks.map(&:id)
+    assert_equal expected, tracks.map(&:id).sort
   end
 
   def create_exercise(language, slug)
