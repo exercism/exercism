@@ -25,6 +25,7 @@ exercism submit PATH_TO_YOUR_SOURCE_FILE
 
 If you split your solution into several files or have used additional configuration files, submit them too.
 
-It is fine to submit incomplete solutions. If you are struggling with a problem, submit the solution you currently
-have and then explore other solutions or ask for help from other students in the comments. When you understood the
-problem, rewrite your solution and submit it second time.
+### Are you stuck trying to solve an exercise?
+Submit the unfinished solution and describe in a comment on the website what you tried, and where
+you're stuck. Or jump into the [support chat](https://gitter.im/exercism/support), and we'll try to help you out.
+When you understood the problem, rewrite your solution and submit it second time.
