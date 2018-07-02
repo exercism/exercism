@@ -28,4 +28,4 @@ If you split your solution into several files or have used additional configurat
 ### Are you stuck trying to solve an exercise?
 Submit the unfinished solution and describe in a comment on the website what you tried, and where
 you're stuck. Or jump into the [support chat](https://gitter.im/exercism/support), and we'll try to help you out.
-When you understood the problem, rewrite your solution and submit it second time.
+When you understand the problem, rewrite your solution and submit it second time.
