@@ -174,7 +174,7 @@ GEM
     tilt (2.0.8)
     timecop (0.8.0)
     tins (1.6.0)
-    trackler (2.2.1.179)
+    trackler (2.2.1.180)
       org-ruby (~> 0.9.0)
       rubyzip (~> 1.1)
     tzinfo (1.2.3)
