@@ -27,3 +27,7 @@ If you need to report a code of conduct violation, please email us at team@exerc
 
 The code for the website lives in [exercism/website](http://github.com/exercism/website).
 The code for the old website is in this repository, in the [v1.exercism.io](https://github.com/exercism/exercism.io/tree/v1.exercism.io) branch.
+
+## Who's behind Exercism?
+
+Read about our Team on the site: https://exercism.io/team
