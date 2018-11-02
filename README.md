@@ -7,7 +7,7 @@ This is the central point of contact for Exercism.
 The project is a bit sprawling and has many components.
 
 #### The website or product
-If you have any issues or questions regarding **the website (https://exercism.io)** please [open an issue in this repository](https://github.com/exercism/exercism.io/issues). To report errors in the website copy or submit fixes for typos or other improvements, please see the [exercism/website-copy](https://github.com/exercism/website-copy/issues) repository.
+If you have any issues or questions regarding **the website (https://exercism.io)** please [open an issue in this repository](https://github.com/exercism/exercism/issues). To report errors in the website copy or submit fixes for typos or other improvements, please see the [exercism/website-copy](https://github.com/exercism/website-copy/issues) repository.
 
 #### The Command-Line Client (CLI)
 For problems with the **Command-Line Client (CLI)**, open an issue in [exercism/cli](https://github.com/exercism/cli/issues).
@@ -26,7 +26,7 @@ If you need to report a code of conduct violation, please email us at team@exerc
 ## Where to find the code
 
 The code for the website lives in [exercism/website](http://github.com/exercism/website).
-The code for the old website is in this repository, in the [v1.exercism.io](https://github.com/exercism/exercism.io/tree/v1.exercism.io) branch.
+The code for the old website is in this repository, in the [v1.exercism.io](https://github.com/exercism/exercism/tree/v1.exercism.io) branch.
 
 ## Who's behind Exercism?
 
