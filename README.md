@@ -1,33 +1,36 @@
-# Welcome to Exercism
+# Добро пожаловать в Exercism
 
-This is the central point of contact for Exercism.
+Это основное место связи с Exercism.
 
-## Where to open issues
+## Где задать вопрос
 
-The project is divided across many repositories.
+Проект разделен на множество репозиториев.
 
 #### The website or product
-If you have any issues or questions regarding **the website (https://exercism.io)** please [open an issue in this repository](https://github.com/exercism/exercism/issues). To report errors in the website copy or submit fixes for typos or other improvements, please see the [exercism/website-copy](https://github.com/exercism/website-copy/issues) repository.
 
-#### The Command-Line Client (CLI)
-For problems with the **Command-Line Client (CLI)**, open an issue in [exercism/cli](https://github.com/exercism/cli/issues).
+Если у вас есть какие-либо проблемы или вопросы касательно **веб-сайта (https://exercism.io)**, [задайте их в данном репозитории](https://github.com/exercism/exercism/issues). Чтобы сообщить об ошибках в копии веб-сайта или отправить исправления опечаток или произвести другие улучшения, смотрите репозиторий [exercism/website-copy](https://github.com/exercism/website-copy/issues).
 
-#### Exercises in a particular programming language
-The exercises are all in separate, language-specific repositories. These repositories are tagged with the topic [`#exercism-track`](https://github.com/search?q=topic%3Aexercism-track+org%3Aexercism&type=Repositories). From there, search for the track (programming language) you are participating in.
+#### Клиент командной строки (CLI)
 
-**Unsure? Open your issue here**
+Для вопросов относительно **Клиента командной строки (CLI)**, обратитесь в [exercism/cli](https://github.com/exercism/cli/issues).
 
-If you aren't sure where to open it, then pick this repository. It's as good a starting point as any!
+#### Упражнения для конкретного языка программирования
 
-## Feeling uncomfortable?
+Все упражнения разделены на репозитории по языкам программирования. Эти репозитории помечены темой [`#exercism-track`](https://github.com/search?q=topic%3Aexercism-track+org%3Aexercism&type=Repositories). Оттуда вы найдете изучаемый язык программирования.
 
-If you need to report a code of conduct violation, please email us at team@exercism.io.
+**Неуверены? Задайте свой вопрос здесь**
 
-## Where to find the code
+Если вы не уверены где задать вопрос, выберите этот репозиторий. Это тоже хорошая отправная точка.
 
-The code for the website lives in [exercism/website](http://github.com/exercism/website).
-The code for the old website is in this repository, in the [v1.exercism.io](https://github.com/exercism/exercism/tree/v1.exercism.io) branch.
+## Чувствуешь себя неловко?
 
-## Who's behind Exercism?
+Если вам необходимо сообщить о нарушении моральных норм поведения, пожалуйста уведомите нас team@exercism.io.
 
-Read about our Team on the site: https://exercism.io/team
+## Где найти код
+
+Код веб-сайта находится в [exercism/website](http://github.com/exercism/website).
+Код старой версии находится в этом рпеозитории, в ветке [v1.exercism.io](https://github.com/exercism/exercism/tree/v1.exercism.io).
+
+## Кто стоит за Exercism?
+
+Прочтите о нашей команде на веб-сайте: https://exercism.io/team
