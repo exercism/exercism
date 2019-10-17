@@ -6,6 +6,7 @@ This is the central point of contact for Exercism.
 
 The project is divided across many repositories.
 
+
 #### The website or product
 If you have any issues or questions regarding **the website (https://exercism.io)** please [open an issue in this repository](https://github.com/exercism/exercism/issues). To report errors in the website copy or submit fixes for typos or other improvements, please see the [exercism/website-copy](https://github.com/exercism/website-copy/issues) repository.
 
