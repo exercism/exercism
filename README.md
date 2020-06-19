@@ -9,6 +9,10 @@ The project is divided across many repositories.
 #### The website or product
 If you have any issues or questions regarding **the website (https://exercism.io)** please [open an issue in this repository](https://github.com/exercism/exercism/issues). To report errors in the website copy or submit fixes for typos or other improvements, please see the [exercism/website-copy](https://github.com/exercism/website-copy/issues) repository.
 
+#### Version 3 (v3) of Exercism
+
+We have a seperate monorepo for the V3 content at [exercism/v3](https://github.com/exercism/v3) - we would **love** your help there. The v3 website is in development at [exercism/v3-website](https://github.com/exercism/v3). We are not accepting contributions to the website at this time.
+
 #### The Command-Line Client (CLI)
 For problems with the **Command-Line Client (CLI)**, open an issue in [exercism/cli](https://github.com/exercism/cli/issues).
 
