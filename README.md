@@ -11,7 +11,7 @@ If you have any issues or questions regarding **the website (https://exercism.io
 
 #### Version 3 (v3) of Exercism
 
-We have a seperate monorepo for the V3 content at [exercism/v3](https://github.com/exercism/v3) - we would **love** your help there. The v3 website is in development at [exercism/v3-website](https://github.com/exercism/v3-website). We are not accepting contributions to the website at this time.
+We have a separate monorepo for the V3 content at [exercism/v3](https://github.com/exercism/v3) - we would **love** your help there. The v3 website is in development at [exercism/v3-website](https://github.com/exercism/v3-website). We are not accepting contributions to the website at this time.
 
 #### The Command-Line Client (CLI)
 For problems with the **Command-Line Client (CLI)**, open an issue in [exercism/cli](https://github.com/exercism/cli/issues).
