@@ -1,0 +1,77 @@
+name: Stop Hacktoberfest Spam
+
+on:
+  pull_request_target:
+
+jobs:
+  stop-spam:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if it's a new contributor
+        # Based on https://github.com/actions/github-script#welcome-a-first-time-contributor
+        id: new-contributor
+        uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9 # 3.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            const creator = context.payload.sender.login
+            const opts = github.issues.listForRepo.endpoint.merge({
+              ...context.issue,
+              creator,
+              state: 'all'
+            })
+            const issues = await github.paginate(opts)
+
+            for (const issue of issues) {
+              if (issue.number === context.issue.number) {
+                continue
+              }
+
+              if (issue.pull_request) {
+                return false // Creator is already a contributor.
+              }
+            }
+            
+            return true
+      
+      - name: Post friendly comment
+        if: steps.new-contributor.outputs.result == 'true'
+        uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9 # 3.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Hi and welcome to Exercism! :wave:\n\nPlease be aware that this repo does generally not accept Pull Requests unless they have been pre-agreed as per our [Contributing Guide](https://github.com/exercism/website/blob/master/CONTRIBUTING.md). Therefore this PR will automatically be closed.\n\nIf you want to contribute to Exercism as part of Hacktoberfest, please take a look at our [Hacktoberfest 2020 - start here!](https://github.com/exercism/exercism/issues/5386) guide.'
+            })
+      
+      - name: Label as invalid
+        if: steps.new-contributor.outputs.result == 'true'
+        uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9 # 3.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['invalid']
+            })
+          
+      - name: Close PR
+        if: steps.new-contributor.outputs.result == 'true'
+        uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9 # 3.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.pulls.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+              state: 'closed'
+            })
+            
