@@ -1,0 +1,41 @@
+name: First Time Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  first-time-greeting:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check if it's a new contributor
+        # Based on https://github.com/actions/github-script#welcome-a-first-time-contributor
+        id: new-contributor
+        uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9 # 3.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          result-encoding: string
+          script: |
+            const creator = context.payload.sender.login
+            const opts = github.issues.listForRepo.endpoint.merge({
+              ...context.issue,
+              creator,
+              state: 'all'
+            })
+            const issues = await github.paginate(opts)
+
+            return issues.length === 1
+      
+      - name: Post friendly comment
+        if: steps.new-contributor.outputs.result == 'true'
+        uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9 # 3.0.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: 'Hi and welcome to Exercism! :wave:\n\nThanks for opening an issue :slightly_smiling_face: \n\n- If you are suggesting a new feature or an improvement to Exercism, please take a read of this: https://github.com/exercism/docs/blob/main/contributing/chestertons-fence.md\n- If you're reporting a bug in the website, please note that the current website is now frozen in preparation for the launch of our new website later this year.\n- If you're requesting support, someone will help shortly.\n- For everything else, we will reply or triage you to the right repository soon.'
+            })
