@@ -1,0 +1,21 @@
+name: Tools
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/labels.yml
+      - .github/workflows/sync-labels.yml
+  schedule:
+    - cron: 6 6 6 * *
+  workflow_dispatch:
+
+jobs:
+  sync-labels:
+    name: Sync labels
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@5a4ac9002d0be2fb38bd78e4b4dbde5606d7042f
+      - uses: micnncim/action-label-syncer@3abd5ab72fda571e69fffd97bd4e0033dd5f495c
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
