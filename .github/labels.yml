@@ -7,7 +7,7 @@
 # 1. The Exercism-wide labels: defined in https://github.com/exercism/org-wide-files/blob/main/global-files/.github/labels.yml
 # 2. The repository-specific labels: defined in the `.appends/.github/labels.yml` file within this repository.
 #
-# If any of these two files change, a pull request is automatically containing a re-generated version of this file.
+# If any of these two files change, a pull request is automatically created containing a re-generated version of this file.
 # Consequently, to change repository-specific labels you should update the `.appends/.github/labels.yml` file and _not_ this file.
 #
 # When the pull request has been merged, the GitHub labels will be automatically updated by the "Sync labels" workflow.
@@ -17,7 +17,7 @@
 # These are the Exercism-wide labels which are shared across all repos. #
 # --------------------------------------------------------------------- #
 
-# The following Exercism-wide labels are used to show "tasks" on the website, which will point users to things they can help contribute with.
+# The following Exercism-wide labels are used to show "tasks" on the website, which will point users to things they can contribute to.
 
 # The `x:action/<value>` labels describe what sort of work the contributor will be engaged in when working on the issue
 - name: "x:action/create"
