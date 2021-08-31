@@ -55,16 +55,11 @@
   description: ""
   color: "d73a4a"
 
-
 - name: "area/walkthrough"
   description: ""
   color: "d73a4a"
 
 - name: "area/website"
-  description: ""
-  color: "d73a4a"
-
-- name: "community-pr-welcome"
   description: ""
   color: "d73a4a"
 
@@ -81,26 +76,6 @@
   color: "d73a4a"
 
 - name: "Hacktoberfest"
-  description: ""
-  color: "d73a4a"
-
-- name: "imported-from/bugsnag"
-  description: ""
-  color: "d73a4a"
-
-- name: "imported-from/cli"
-  description: ""
-  color: "d73a4a"
-
-- name: "imported-from/discussions"
-  description: ""
-  color: "d73a4a"
-
-- name: "imported-from/internal"
-  description: ""
-  color: "d73a4a"
-
-- name: "imported-from/v2-feedback"
   description: ""
   color: "d73a4a"
 
@@ -249,21 +224,5 @@
   color: "d73a4a"
 
 - name: "type/wontfix"
-  description: ""
-  color: "d73a4a"
-
-- name: "v3/bug-to-fix"
-  description: ""
-  color: "d73a4a"
-
-- name: "v3/consideration"
-  description: ""
-  color: "d73a4a"
-
-- name: "v3/not-applicable"
-  description: ""
-  color: "d73a4a"
-
-- name: "v3/will-change-or-fix"
   description: ""
   color: "d73a4a"
