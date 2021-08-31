@@ -55,9 +55,6 @@
   description: ""
   color: "d73a4a"
 
-- name: "area/v1_to_v2_migration"
-  description: ""
-  color: "d73a4a"
 
 - name: "area/walkthrough"
   description: ""
