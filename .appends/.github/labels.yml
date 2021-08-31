@@ -63,18 +63,6 @@
   description: ""
   color: "d73a4a"
 
-- name: "difficulty/easy"
-  description: ""
-  color: "d73a4a"
-
-- name: "difficulty/hard"
-  description: ""
-  color: "d73a4a"
-
-- name: "difficulty/medium"
-  description: ""
-  color: "d73a4a"
-
 - name: "Hacktoberfest"
   description: ""
   color: "d73a4a"
