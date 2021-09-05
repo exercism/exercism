@@ -7,7 +7,7 @@ This is the central point of contact for Exercism.
 The project is divided across many repositories.
 
 #### The website or product
-If you have any issues or questions regarding **the website (https://exercism.io)** please [open an issue in this repository](https://github.com/exercism/exercism/issues). To report errors in the website copy or submit fixes for typos or other improvements, please see the [exercism/website-copy](https://github.com/exercism/website-copy/issues) repository.
+If you have any issues or questions regarding **the website (https://exercism.org)** please [open an issue in this repository](https://github.com/exercism/exercism/issues). To report errors in the website copy or submit fixes for typos or other improvements, please see the [exercism/website-copy](https://github.com/exercism/website-copy/issues) repository.
 
 #### Version 3 (v3) of Exercism
 
@@ -25,7 +25,7 @@ If you aren't sure where to open it, then pick this repository. It's as good a s
 
 ## Feeling uncomfortable?
 
-If you need to report a code of conduct violation, please email us at team@exercism.io.
+If you need to report a code of conduct violation, please email us at team@exercism.org.
 
 ## Where to find the code
 
@@ -34,4 +34,4 @@ The code for the old website is in this repository, in the [v1.exercism.io](http
 
 ## Who's behind Exercism?
 
-Read about our Team on the site: https://exercism.io/team
+Read about our Team on the site: https://exercism.org/team
