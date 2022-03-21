@@ -5,220 +5,220 @@
 
 - name: "area/abuse-vector"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/api"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/automation"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/cli"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/copy"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/documentation"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/exercises"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/markdown"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/mentor-tools"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/notifications"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/product"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/teams"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/track-maintenance"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/walkthrough"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/backend"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/visual"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "area/frontend"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "Hacktoberfest"
   description: ""
-  color: "d73a4a"
+  color: "ff7518"
 
 - name: "invalid"
   description: ""
-  color: "d73a4a"
+  color: "cccccc"
 
 - name: "priority/high"
   description: ""
-  color: "d73a4a"
+  color: "4DAA57"
 
 - name: "priority/low"
   description: ""
-  color: "d73a4a"
+  color: "B9DFBD"
 
 - name: "priority/medium"
   description: ""
-  color: "d73a4a"
+  color: "81C588"
 
 - name: "priority/next-up"
   description: ""
-  color: "d73a4a"
+  color: "337039"
 
 - name: "rgsoc-2018"
   description: ""
-  color: "d73a4a"
+  color: "ffffff"
 
 - name: "status/blocked"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/discussion"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/fixed"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/in-progress"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/needs-triaging"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/on-roadmap"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/pr-submitted"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/product-discussion"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/stale"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/triaged-to-repo"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "status/waiting-for-info"
   description: ""
-  color: "d73a4a"
+  color: "F8EBC9"
 
 - name: "todo/define-next-step"
   description: ""
-  color: "d73a4a"
+  color: "B5C8E3"
 
 - name: "todo/elaborate"
   description: ""
-  color: "d73a4a"
+  color: "B5C8E3"
 
 - name: "todo/move-to-correct-repo"
   description: ""
-  color: "d73a4a"
+  color: "B5C8E3"
 
 - name: "todo/please-summarize"
   description: ""
-  color: "d73a4a"
+  color: "B5C8E3"
 
 - name: "todo/rescue-me"
   description: ""
-  color: "d73a4a"
+  color: "B5C8E3"
 
 - name: "type/accessibility"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/announcement"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/bug"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/community-consultation"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/duplicate"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/feature-request"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/improvement"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/janitorial"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/mentoring-support"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/operations"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/policy"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/question"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/spam"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/support"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
 
 - name: "type/wontfix"
   description: ""
-  color: "d73a4a"
+  color: "507DBC"
