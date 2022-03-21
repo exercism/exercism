@@ -59,7 +59,15 @@
   description: ""
   color: "d73a4a"
 
-- name: "area/website"
+- name: "area/backend"
+  description: ""
+  color: "d73a4a"
+
+- name: "area/visual"
+  description: ""
+  color: "d73a4a"
+
+- name: "area/frontend"
   description: ""
   color: "d73a4a"
 
