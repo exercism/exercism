@@ -132,7 +132,7 @@
   color: "F8EBC9"
 
 - name: "status/stale"
-  description: ""
+  description: "If marked as stale, issue will be closed after 7 days unless new information is provided."
   color: "F8EBC9"
 
 - name: "status/triaged-to-repo"
