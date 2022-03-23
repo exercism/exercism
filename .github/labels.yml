@@ -277,7 +277,7 @@
   color: "F8EBC9"
 
 - name: "status/stale"
-  description: ""
+  description: "If marked as stale, issue will be closed after 7 days unless new information is provided."
   color: "F8EBC9"
 
 - name: "status/triaged-to-repo"
@@ -310,60 +310,60 @@
 
 - name: "type/accessibility"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/announcement"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/bug"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/community-consultation"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/duplicate"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/feature-request"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/improvement"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/janitorial"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/mentoring-support"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/operations"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/policy"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/question"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/spam"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/support"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
 
 - name: "type/wontfix"
   description: ""
-  color: "507DBC"
+  color: "1d3155"
