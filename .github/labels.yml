@@ -150,71 +150,71 @@
 
 - name: "area/abuse-vector"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/api"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/automation"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/cli"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/copy"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/documentation"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/exercises"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/markdown"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/mentor-tools"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/notifications"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/product"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/teams"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/track-maintenance"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/walkthrough"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/backend"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/visual"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "area/frontend"
   description: ""
-  color: "507DBC"
+  color: "4371b1"
 
 - name: "Hacktoberfest"
   description: ""
