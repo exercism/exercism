@@ -86,6 +86,30 @@
   description: "Work on Test Runners"
   color: "ffffff"
 
+# The `x:rep/<value>` labels describe the amount of reputation to award
+# 
+# For more information on reputation and how these labels should be used,
+# check out https://exercism.org/docs/using/product/reputation
+- name: "x:rep/tiny"
+  description: "Tiny amount of reputation"
+  color: "ffffff"
+
+- name: "x:rep/small"
+  description: "Small amount of reputation"
+  color: "ffffff"
+
+- name: "x:rep/medium"
+  description: "Medium amount of reputation"
+  color: "ffffff"
+
+- name: "x:rep/large"
+  description: "Large amount of reputation"
+  color: "ffffff"
+
+- name: "x:rep/massive"
+  description: "Massive amount of reputation"
+  color: "ffffff"
+
 # The `x:size/<value>` labels describe the expected amount of work for a contributor
 - name: "x:size/tiny"
   description: "Tiny amount of work"
