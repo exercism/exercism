@@ -21,7 +21,7 @@ If you aren't sure where to open it, then pick this repository. It's as good a s
 
 ## Feeling uncomfortable?
 
-If you need to report a code of conduct violation, please email us at team@exercism.org.
+If you need to report a code of conduct violation, please email us at abuse@exercism.org and include \[CoC\] in the subject line. We will deal with all CoC issues as a priority.
 
 ## Where to find the code
 
