@@ -6,7 +6,7 @@ Exercism is a platform centered around empathetic conversation. We have a low to
 
 ## Seen or experienced something uncomfortable?
 
-If you see or experience abuse, harassment, discrimination, or feel unsafe or upset, please email abuse@exercism.org. We will take your report seriously.
+If you see or experience abuse, harassment, discrimination, or feel unsafe or upset, please email [abuse@exercism.org](mailto:abuse@exercism.org?subject=%5BCoC%5D) and include \[CoC\] in the subject line. We will follow up with you as a priority.
 
 ## Enforcement
 
