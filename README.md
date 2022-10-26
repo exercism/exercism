@@ -1,6 +1,8 @@
-# Welcome to Exercism
+**For support, please post in the new [Exercism forum](https://forum.exercism.org/c/support/8). New posts here will be closed.**
 
-This is the central point of contact for Exercism.
+---
+
+# Welcome to Exercism
 
 ## Where to open issues
 
