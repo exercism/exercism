@@ -26,7 +26,7 @@ jobs:
             const issues = await github.paginate(opts)
 
             return issues.length === 1
-      
+
       - name: Post friendly comment
         if: steps.new-contributor.outputs.result == 'true'
         uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9 # 3.0.0
@@ -37,5 +37,5 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: 'Hi and welcome to Exercism! :wave:\n\nThanks for opening an issue :slightly_smiling_face: \n\n- If you are suggesting a new feature or an improvement to Exercism, please take a read of [this post](https://github.com/exercism/docs/blob/main/community/good-member/chestertons-fence.md), which will likely result in a faster response.\n- If you are reporting a bug in the website, thank you! We are getting a lot of reports at the moment (which is great), but we triage and reply as soon as we can.\n- If you are requesting support, someone will help shortly.\n- For everything else, we will reply or triage your issue to the right repository soon.'
+              body: "Hi and welcome to Exercism! :wave:\n\nWe have a [community forum](https://forum.exercism.org/).\nYou are much more likely to receive a response if you post there.\n\nYou can get help in [Exercism Support](https://forum.exercism.org/c/support/8), report bugs or suggest improvements in [Bugs & Feature Requests](https://forum.exercism.org/c/exercism/bugs-and-features/126)\n\nPlease note that if you are suggesting a new feature or an improvement to Exercism, please take a read of [this post](https://github.com/exercism/docs/blob/main/community/good-member/chestertons-fence.md).\n\nThis issue will in all likelihood be closed without a response unless you are Exercism Staff or are part of the volunteer team working on Exercism.\n"
             })
