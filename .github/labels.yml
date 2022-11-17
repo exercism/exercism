@@ -157,15 +157,15 @@
   description: "Work on Documentation"
   color: "ffffff"
 
-# This label can be added to accept PRs as part of Hacktoberfest
-- name: "hacktoberfest-accepted"
-  description: "Make this PR count for hacktoberfest"
-  color: "ff7518"
-
 # This Exercism-wide label is added to all automatically created pull requests that help migrate/prepare a track for Exercism v3
 - name: "v3-migration 🤖"
   description: "Preparing for Exercism v3"
   color: "e99695"
+
+# This Exercism-wide label can be used to bulk-close issues in preparation for pausing community contributions
+- name: "paused"
+  description: "Work paused until further notice"
+  color: "e4e669"
 
 # ----------------------------------------------------------------------------------------- #
 # These are the repository-specific labels that augment the Exercise-wide labels defined in #
