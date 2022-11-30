@@ -9,48 +9,13 @@ on:
       - opened
   workflow_dispatch:
 
+permissions:
+  issues: write
+  pull-requests: write
+
 jobs:
   pause:
-    name: Pause Community Contributions
-    runs-on: ubuntu-22.04
-    steps:
-      - name: Detect if user is org member
-        uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0
-        id: is-organization-member
-        with:
-          script: |
-            if (context.actor == 'dependabot' || context.actor == 'exercism-bot' || context.actor == 'github-actions[bot]') {
-              return true;
-            }
-
-            return github.rest.orgs.checkMembershipForUser({
-              org: context.repo.owner,
-              username: context.actor,
-            }).then(response => response.status == 204)
-              .catch(err => true);
-      - name: Comment
-        if: steps.is-organization-member.outputs.result == 'false'
-        uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0
-        with:
-          script: |
-            const isIssue = !!context.payload.issue;
-            const subject = context.payload.issue || context.payload.pull_request;
-            const thing = (isIssue ? 'issue' : 'PR');
-            const aThing = (isIssue ? 'an issue' : 'a PR');
-            github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: `Hello. Thanks for opening ${aThing} on Exercism. We are currently in a phase of our journey where we have paused community contributions to allow us to take a breather and redesign our community model. You can learn more in [this blog post](https://exercism.org/blog/freeing-our-maintainers). **As such, all issues and PRs in this repository are being automatically closed.**\n\nThat doesn’t mean we’re not interested in your ideas, or that if you’re stuck on something we don’t want to help. The best place to discuss things is with our community on the Exercism Community Forum. You can use [this link](https://forum.exercism.org/new-topic?title=${encodeURI(subject.title)}&body=${encodeURI(subject.body)}&category=support) to copy this into a new topic there.\n\n---\n\n_Note: If this ${thing} has been pre-approved, please link back to this ${thing} on the forum thread and a maintainer or staff member will reopen it._\n`
-            })
-      - name: Close
-        if: steps.is-organization-member.outputs.result == 'false'
-        uses: actions/github-script@d556feaca394842dc55e4734bf3bb9f685482fa0
-        with:
-          script: |
-            github.rest.issues.update({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              issue_number: context.issue.number,
-              state: 'closed',
-            })
+    if: github.repository_owner == 'exercism' # Stops this job from running on forks
+    uses: exercism/github-actions/.github/workflows/community-contributions.yml@main
+    with:
+      forum_category: support
