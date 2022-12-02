@@ -1,0 +1,21 @@
+name: Pause Community Contributions
+
+on:
+  issues:
+    types:
+      - opened
+  pull_request_target:
+    types:
+      - opened
+  workflow_dispatch:
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  pause:
+    if: github.repository_owner == 'exercism' # Stops this job from running on forks
+    uses: exercism/github-actions/.github/workflows/community-contributions.yml@main
+    with:
+      forum_category: support
