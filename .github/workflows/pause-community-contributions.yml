@@ -7,7 +7,6 @@ on:
   pull_request_target:
     types:
       - opened
-  workflow_dispatch:
 
 permissions:
   issues: write
@@ -19,3 +18,5 @@ jobs:
     uses: exercism/github-actions/.github/workflows/community-contributions.yml@main
     with:
       forum_category: support
+    secrets:
+      github_membership_token: ${{ secrets.COMMUNITY_CONTRIBUTIONS_WORKFLOW_TOKEN }}
