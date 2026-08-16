@@ -6,7 +6,7 @@
 
 ## Where to open issues
 
-For the time being we are triaging all issues [from our forum](https://forum.exercism.org). Please start a new topic there for your issue (presuming there isn't one already). Issues opened here will be automatically closed and you will receive a message redirecting you to the forum.
+For the time being we are triaging all issues [from our forum](https://forum.exercism.org). Please start a new topic there for your issue (presuming there isn't one already). Issues opened here will be redirected to the forum and may be closed.
 
 ## Feeling uncomfortable?
 
@@ -14,7 +14,7 @@ If you need to report a code of conduct violation, please email us at [abuse@exe
 
 ## Where to find the code
 
-The code for the website lives in [exercism/website](http://github.com/exercism/website).
+The code for the website lives in [exercism/website](https://github.com/exercism/website).
 The code for the old website is in this repository, in the [v1.exercism.io](https://github.com/exercism/exercism/tree/v1.exercism.io) branch.
 
 ## Who's behind Exercism?
