@@ -4,7 +4,7 @@ These are all the places that link to Exercism, split by which version of Exerci
 
 ## Updated for V3
 
-_Coming soon!_
+- https://exercism.org — the main Exercism website (V3)
 
 ## Updated for V2
 
