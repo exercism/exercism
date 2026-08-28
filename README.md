@@ -6,7 +6,7 @@
 
 ## Where to open issues
 
-For the time being we are triaging all issues [from our forum](https://forum.exercism.org). Please start a new topic there for your issue (presuming there isn't one already). Issues opened here will be automatically closed and you will receive a message redirecting you to the forum.
+For the time being, we are triaging all issues [from our forum](https://forum.exercism.org). Please start a new topic there for your issue (presuming there isn't one already). Issues opened here will be automatically closed and you will receive a message redirecting you to the forum.
 
 ## Feeling uncomfortable?
 
