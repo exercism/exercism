@@ -12,13 +12,13 @@ jobs:
       - name: Check if it's a new contributor
         # Based on https://github.com/actions/github-script#welcome-a-first-time-contributor
         id: new-contributor
-        uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9 # 3.0.0
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           result-encoding: string
           script: |
             const creator = context.payload.sender.login
-            const opts = github.issues.listForRepo.endpoint.merge({
+            const opts = github.rest.issues.listForRepo.endpoint.merge({
               ...context.issue,
               creator,
               state: 'all'
@@ -29,11 +29,11 @@ jobs:
 
       - name: Post friendly comment
         if: steps.new-contributor.outputs.result == 'true'
-        uses: actions/github-script@626af12fe9a53dc2972b48385e7fe7dec79145c9 # 3.0.0
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
